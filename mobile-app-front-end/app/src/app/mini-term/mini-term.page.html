@@ -1,0 +1,51 @@
+<ion-header>
+
+    <script src="/node_modules/xterm/lib/xterm.js"></script>
+
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title color="primary">
+      Mini Terminal
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<ion-grid *ngFor="let theExecute of theExecuted" >
+    <ion-row>
+      <ion-col>
+        <ion-item>
+            <ion-label
+            color="primary"
+            style="background-color: cornsilk;"
+            class="ion-text-wrap">
+              {{ theExecute }} 
+            </ion-label>
+          </ion-item> 
+      </ion-col> 
+    </ion-row>
+</ion-grid>
+</ion-content>
+
+<ion-footer>
+<ion-toolbar>
+  <ion-row>
+      <ion-col>
+        <ion-input
+        style="background-color: #E0E0E0"
+        type="text"
+        autocapitalize="none"
+        autocorrect="off"
+        placeholder="$command line"
+        [(ngModel)]="toExecute"
+        (keyup.enter) = "getCall()">
+      </ion-input>
+    </ion-col>
+      <button ion-button small full item-end clear 
+        (click)="getCall()" 
+        [disabled] = "!toExecute">Execute</button>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>

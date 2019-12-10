@@ -1,0 +1,62 @@
+<ion-header *ngIf="isCameraOpen==false">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title color="primary">
+      Send funds
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngIf="isCameraOpen==false">
+    <ion-card-header>
+
+      <ion-card-title>Send funds</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <form>
+
+        <ion-item>
+          <ion-label position="floating">Minima / Token</ion-label>
+          <ion-select name="token" [(ngModel)]="data.token" placeholder="Minima / Token">
+            <ion-select-option value="minima">Minima</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Address</ion-label>
+          <ion-input name="address" [(ngModel)]="data.address"></ion-input>
+
+        </ion-item>
+
+        <div class="rightAlign">
+          <ion-button type="button" slot="end" size="small" (click)="scanQR()">
+            <ion-icon name="qr-scanner" slot="start"></ion-icon>QR Code
+          </ion-button>
+          <ion-button type="button" slot="end" size="small" (click)="pasteFromClipboard()">
+            <ion-icon name="clipboard" slot="start"></ion-icon>Paste from clipboard
+          </ion-button>
+        </div>
+        <ion-item>
+          <ion-label position="floating">Amount</ion-label>
+          <ion-input type="number" name="amount" [(ngModel)]="data.amount"></ion-input>
+        </ion-item>
+        
+      </form>
+
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-button expand="block" (click)="stopCamera()"  *ngIf="isCameraOpen==true">
+     Stop scanning
+    </ion-button>    
+
+    <ion-button color="danger" expand="block" (click)="sendFunds()" *ngIf="isCameraOpen==false">
+      <ion-icon name="send" slot="start"></ion-icon> Send
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

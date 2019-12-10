@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title color="primary">
+      Balance
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+    pullingIcon="arrow-dropdown"
+    pullingText="Pull to refresh."
+    refreshingSpinner="circles">
+    </ion-refresher-content>
+
+  </ion-refresher>
+  <!-- Tried adding refreshing but Ionic not recognizing component
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-referesher-content pullingIcon="arrow-dropdown" refreshingSpinner="circles"
+        refreshingText="Refreshing..."></ion-referesher-content>
+    </ion-refresher> -->
+    
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title class="ion-text-center">YOUR BALANCE</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+              <div class="ion-text-center">
+                  <ion-icon 
+                  name="cash" 
+                  slot="start">
+                </ion-icon> {{balance}}
+                </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      
+
+    </ion-card-content>
+  </ion-card>
+</ion-content>

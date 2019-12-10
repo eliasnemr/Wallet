@@ -1,0 +1,35 @@
+<ion-app>
+
+  <ion-menu side="start" contentId="mainMenu">
+    <ion-header>
+      <ion-toolbar class="menuToolbar">
+
+        <div class="logo"></div>
+
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-menu-toggle auto-hide="false">
+        <ion-list lines="none">
+          <ion-item routerLink="/balance" >
+            <ion-icon name="card" slot="start"></ion-icon> Balance
+          </ion-item>
+          <ion-item routerLink="/send-funds" >
+            <ion-icon name="send" slot="start"></ion-icon> Send funds
+          </ion-item>
+          <ion-item routerLink="/my-address">
+            <ion-icon name="information-circle" slot="start"></ion-icon> Minima address
+          </ion-item>
+          <ion-item routerLink="/mini-term">
+            <ion-icon name="analytics" slot="start"></ion-icon> Terminal
+          </ion-item>
+          <ion-item routerLink="/settings">
+            <ion-icon name="build" slot="start"></ion-icon> Settings
+          </ion-item>
+        </ion-list>
+      </ion-menu-toggle>
+    </ion-content>
+  </ion-menu>
+
+  <ion-router-outlet id="mainMenu"></ion-router-outlet>
+</ion-app>
