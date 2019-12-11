@@ -28,9 +28,7 @@ export class BalancePage implements OnInit {
       console.log(res);
       this.balance = Math.round(res.response.confirmed * 100) / 100;
     });
-    setTimeout(() => {
-      event.target.complete();
-    }, 2000);
+    event.target.complete();
   }
 
 }

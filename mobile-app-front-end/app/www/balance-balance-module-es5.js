@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    <ion-title color=\"primary\">\n      Balance\n    </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n    <ion-refresher-content\n    pullingIcon=\"arrow-dropdown\"\n    pullingText=\"Pull to refresh.\"\n    refreshingSpinner=\"circles\">\n    </ion-refresher-content>\n\n  </ion-refresher>\n  <!-- Tried adding refreshing but Ionic not recognizing component\n    <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n        <ion-referesher-content pullingIcon=\"arrow-dropdown\" refreshingSpinner=\"circles\"\n        refreshingText=\"Refreshing...\"></ion-referesher-content>\n    </ion-refresher> -->\n    \n  <ion-card>\n    <ion-card-header>\n      <ion-card-title class=\"ion-text-center\">YOUR BALANCE</ion-card-title>\n    </ion-card-header>\n    <ion-card-content>\n      <ion-grid>\n        <ion-row>\n          <ion-col>\n              <div class=\"ion-text-center\">\n                  <ion-icon \n                  name=\"cash\" \n                  slot=\"start\">\n                </ion-icon> {{balance}}\n                </div>\n          </ion-col>\n        </ion-row>\n      </ion-grid>\n      \n\n    </ion-card-content>\n  </ion-card>\n</ion-content>"
+module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    <ion-title color=\"primary\">\n      Balance\n    </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n    <ion-refresher-content\n    pullingIcon=\"arrow-dropdown\"\n    pullingText=\"Pull to refresh.\"\n    refreshingSpinner=\"circles\">\n    </ion-refresher-content>\n\n  </ion-refresher>\n  \n    \n  <ion-card>\n    <ion-card-header>\n      <ion-card-title class=\"ion-text-center\">YOUR BALANCE</ion-card-title>\n    </ion-card-header>\n    <ion-card-content>\n      <ion-grid>\n        <ion-row>\n          <ion-col>\n              <div class=\"ion-text-center\">\n                  <ion-icon \n                  name=\"cash\" \n                  slot=\"start\">\n                </ion-icon> {{balance}}\n                </div>\n          </ion-col>\n        </ion-row>\n      </ion-grid>\n      \n\n    </ion-card-content>\n  </ion-card>\n</ion-content>"
 
 /***/ }),
 
@@ -111,9 +111,7 @@ var BalancePage = /** @class */ (function () {
             console.log(res);
             _this.balance = Math.round(res.response.confirmed * 100) / 100;
         });
-        setTimeout(function () {
-            event.target.complete();
-        }, 2000);
+        event.target.complete();
     };
     BalancePage.ctorParameters = function () { return [
         { type: _service_minima_api_service__WEBPACK_IMPORTED_MODULE_2__["MinimaApiService"] }

@@ -14,248 +14,12 @@
 		504EC30F1FED79650016851F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 504EC30E1FED79650016851F /* Assets.xcassets */; };
 		504EC3121FED79650016851F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 504EC3101FED79650016851F /* LaunchScreen.storyboard */; };
 		50B271D11FEDC1A000F3C39B /* public in Resources */ = {isa = PBXBuildFile; fileRef = 50B271D01FEDC1A000F3C39B /* public */; };
-		9F5B15B123990C8D001F23B8 /* blank.wav in Resources */ = {isa = PBXBuildFile; fileRef = 9F5B15AF23990C8D001F23B8 /* blank.wav */; };
-		9F5B15B223990C8D001F23B8 /* BackgroundTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5B15B023990C8D001F23B8 /* BackgroundTask.swift */; };
-		9F6597CF239545FC0096E015 /* MinimaBridger.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F6597CE239545FC0096E015 /* MinimaBridger.m */; };
-		9F65A13A239577D00096E015 /* JavaUserDB.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A019239577D00096E015 /* JavaUserDB.java */; };
-		9F65A13B239577D10096E015 /* JavaUserDBRow.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A01A239577D00096E015 /* JavaUserDBRow.java */; };
-		9F65A13C239577D10096E015 /* UserDB.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A01B239577D00096E015 /* UserDB.java */; };
-		9F65A13D239577D10096E015 /* UserDBRow.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A01C239577D00096E015 /* UserDBRow.java */; };
-		9F65A13E239577D10096E015 /* SQLUserDB.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A01E239577D00096E015 /* SQLUserDB.java */; };
-		9F65A13F239577D10096E015 /* BlockTreePrinter.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A020239577D00096E015 /* BlockTreePrinter.java */; };
-		9F65A140239577D10096E015 /* CascadeTree.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A021239577D00096E015 /* CascadeTree.java */; };
-		9F65A141239577D10096E015 /* BlockTreeStore.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A022239577D00096E015 /* BlockTreeStore.java */; };
-		9F65A142239577D10096E015 /* BlockTreeNode.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A023239577D00096E015 /* BlockTreeNode.java */; };
-		9F65A143239577D10096E015 /* BlockTree.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A024239577D00096E015 /* BlockTree.java */; };
-		9F65A144239577D10096E015 /* MinimaDB.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A025239577D00096E015 /* MinimaDB.java */; };
-		9F65A145239577D10096E015 /* MMRPrint.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A027239577D00096E015 /* MMRPrint.java */; };
-		9F65A146239577D10096E015 /* MMRDB.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A028239577D00096E015 /* MMRDB.java */; };
-		9F65A147239577D10096E015 /* MMRProof.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A029239577D00096E015 /* MMRProof.java */; };
-		9F65A148239577D10096E015 /* MMREntry.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A02A239577D00096E015 /* MMREntry.java */; };
-		9F65A149239577D10096E015 /* MMRData.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A02B239577D00096E015 /* MMRData.java */; };
-		9F65A14A239577D10096E015 /* MMRSet.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A02C239577D00096E015 /* MMRSet.java */; };
-		9F65A14B239577D10096E015 /* CoinDBPrinter.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A02E239577D00096E015 /* CoinDBPrinter.java */; };
-		9F65A14C239577D10096E015 /* CoinDBRow.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A02F239577D00096E015 /* CoinDBRow.java */; };
-		9F65A14D239577D10096E015 /* CoinDB.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A030239577D00096E015 /* CoinDB.java */; };
-		9F65A14E239577D10096E015 /* JavaCoinDBRow.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A032239577D00096E015 /* JavaCoinDBRow.java */; };
-		9F65A14F239577D10096E015 /* JavaCoinDB.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A033239577D00096E015 /* JavaCoinDB.java */; };
-		9F65A150239577D10096E015 /* SQLCoinDB.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A035239577D00096E015 /* SQLCoinDB.java */; };
-		9F65A151239577D10096E015 /* TxPOWDBRow.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A037239577D00096E015 /* TxPOWDBRow.java */; };
-		9F65A152239577D10096E015 /* TxPowDBPrinter.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A038239577D00096E015 /* TxPowDBPrinter.java */; };
-		9F65A153239577D10096E015 /* TxPowDB.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A039239577D00096E015 /* TxPowDB.java */; };
-		9F65A154239577D10096E015 /* JavaDBRow.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A03B239577D00096E015 /* JavaDBRow.java */; };
-		9F65A155239577D10096E015 /* JavaDB.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A03C239577D00096E015 /* JavaDB.java */; };
-		9F65A156239577D10096E015 /* SQLTxPoWDB.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A03E239577D00096E015 /* SQLTxPoWDB.java */; };
-		9F65A157239577D10096E015 /* Contract.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A040239577D00096E015 /* Contract.java */; };
-		9F65A158239577D10096E015 /* ScriptValue.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A042239577D00096E015 /* ScriptValue.java */; };
-		9F65A159239577D10096E015 /* BooleanValue.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A043239577D00096E015 /* BooleanValue.java */; };
-		9F65A15A239577D10096E015 /* NumberValue.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A044239577D00096E015 /* NumberValue.java */; };
-		9F65A15B239577D10096E015 /* Value.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A045239577D00096E015 /* Value.java */; };
-		9F65A15C239577D10096E015 /* HEXValue.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A046239577D00096E015 /* HEXValue.java */; };
-		9F65A15D239577D10096E015 /* ExecutionException.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A048239577D00096E015 /* ExecutionException.java */; };
-		9F65A15E239577D10096E015 /* MinimaException.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A049239577D00096E015 /* MinimaException.java */; };
-		9F65A15F239577D10096E015 /* MinimaParseException.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A04A239577D00096E015 /* MinimaParseException.java */; };
-		9F65A160239577D10096E015 /* VariableException.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A04B239577D00096E015 /* VariableException.java */; };
-		9F65A161239577D10096E015 /* Statement.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A04D239577D00096E015 /* Statement.java */; };
-		9F65A162239577D10096E015 /* StatementBlock.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A04E239577D00096E015 /* StatementBlock.java */; };
-		9F65A163239577D10096E015 /* StatementParser.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A04F239577D00096E015 /* StatementParser.java */; };
-		9F65A164239577D10096E015 /* IFstatement.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A051239577D00096E015 /* IFstatement.java */; };
-		9F65A165239577D10096E015 /* WHILEstatement.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A052239577D00096E015 /* WHILEstatement.java */; };
-		9F65A166239577D10096E015 /* EXECstatement.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A053239577D00096E015 /* EXECstatement.java */; };
-		9F65A167239577D10096E015 /* MASTstatement.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A054239577D00096E015 /* MASTstatement.java */; };
-		9F65A168239577D10096E015 /* LETstatement.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A055239577D00096E015 /* LETstatement.java */; };
-		9F65A169239577D10096E015 /* RETURNstatement.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A056239577D00096E015 /* RETURNstatement.java */; };
-		9F65A16A239577D10096E015 /* ExpressionParser.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A058239577D00096E015 /* ExpressionParser.java */; };
-		9F65A16B239577D10096E015 /* ConstantExpression.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A059239577D00096E015 /* ConstantExpression.java */; };
-		9F65A16C239577D10096E015 /* OperatorExpression.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A05A239577D00096E015 /* OperatorExpression.java */; };
-		9F65A16D239577D10096E015 /* VariableExpression.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A05B239577D00096E015 /* VariableExpression.java */; };
-		9F65A16E239577D10096E015 /* FunctionExpression.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A05C239577D00096E015 /* FunctionExpression.java */; };
-		9F65A16F239577D10096E015 /* ParameterExpression.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A05D239577D00096E015 /* ParameterExpression.java */; };
-		9F65A170239577D10096E015 /* Expression.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A05E239577D00096E015 /* Expression.java */; };
-		9F65A171239577D10096E015 /* BooleanExpression.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A05F239577D00096E015 /* BooleanExpression.java */; };
-		9F65A172239577D10096E015 /* GlobalExpression.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A060239577D00096E015 /* GlobalExpression.java */; };
-		9F65A173239577D10096E015 /* SUMOUTTOK.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A063239577D00096E015 /* SUMOUTTOK.java */; };
-		9F65A174239577D10096E015 /* GETINAMT.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A065239577D00096E015 /* GETINAMT.java */; };
-		9F65A175239577D10096E015 /* VERIFYIN.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A066239577D00096E015 /* VERIFYIN.java */; };
-		9F65A176239577D10096E015 /* GETINADDR.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A067239577D00096E015 /* GETINADDR.java */; };
-		9F65A177239577D10096E015 /* GETINTOK.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A068239577D00096E015 /* GETINTOK.java */; };
-		9F65A178239577D10096E015 /* VERIFYOUT.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A06A239577D00096E015 /* VERIFYOUT.java */; };
-		9F65A179239577D10096E015 /* GETOUTTOK.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A06B239577D00096E015 /* GETOUTTOK.java */; };
-		9F65A17A239577D10096E015 /* GETOUTADDR.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A06C239577D00096E015 /* GETOUTADDR.java */; };
-		9F65A17B239577D10096E015 /* GETOUTAMT.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A06D239577D00096E015 /* GETOUTAMT.java */; };
-		9F65A17C239577D10096E015 /* _PREVSTATE.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A06E239577D00096E015 /* _PREVSTATE.java */; };
-		9F65A17D239577D10096E015 /* SUMINTOK.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A06F239577D00096E015 /* SUMINTOK.java */; };
-		9F65A17E239577D10096E015 /* _STATE.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A070239577D00096E015 /* _STATE.java */; };
-		9F65A17F239577D10096E015 /* ASCII.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A072239577D00096E015 /* ASCII.java */; };
-		9F65A180239577D10096E015 /* HEX.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A073239577D00096E015 /* HEX.java */; };
-		9F65A181239577D10096E015 /* NUMBER.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A074239577D00096E015 /* NUMBER.java */; };
-		9F65A182239577D10096E015 /* BOOL.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A075239577D00096E015 /* BOOL.java */; };
-		9F65A183239577D10096E015 /* SCRIPT.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A076239577D00096E015 /* SCRIPT.java */; };
-		9F65A184239577D10096E015 /* BITGET.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A078239577D00096E015 /* BITGET.java */; };
-		9F65A185239577D10096E015 /* BITSET.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A079239577D00096E015 /* BITSET.java */; };
-		9F65A186239577D10096E015 /* DEC.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A07A239577D00096E015 /* DEC.java */; };
-		9F65A187239577D10096E015 /* CEIL.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A07B239577D00096E015 /* CEIL.java */; };
-		9F65A188239577D10096E015 /* INC.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A07C239577D00096E015 /* INC.java */; };
-		9F65A189239577D10096E015 /* MAX.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A07D239577D00096E015 /* MAX.java */; };
-		9F65A18A239577D10096E015 /* MIN.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A07E239577D00096E015 /* MIN.java */; };
-		9F65A18B239577D10096E015 /* ABS.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A07F239577D00096E015 /* ABS.java */; };
-		9F65A18C239577D10096E015 /* FLOOR.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A080239577D00096E015 /* FLOOR.java */; };
-		9F65A18D239577D10096E015 /* SHA2.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A082239577D00096E015 /* SHA2.java */; };
-		9F65A18E239577D10096E015 /* CHAINSHA.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A083239577D00096E015 /* CHAINSHA.java */; };
-		9F65A18F239577D10096E015 /* SHA3.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A084239577D00096E015 /* SHA3.java */; };
-		9F65A190239577D10096E015 /* MinimaFunction.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A085239577D00096E015 /* MinimaFunction.java */; };
-		9F65A191239577D10096E015 /* SUBSET.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A087239577D00096E015 /* SUBSET.java */; };
-		9F65A192239577D10096E015 /* REV.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A088239577D00096E015 /* REV.java */; };
-		9F65A193239577D10096E015 /* LEN.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A089239577D00096E015 /* LEN.java */; };
-		9F65A194239577D10096E015 /* CONCAT.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A08A239577D00096E015 /* CONCAT.java */; };
-		9F65A195239577D10096E015 /* RPLVAR.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A08B239577D00096E015 /* RPLVAR.java */; };
-		9F65A196239577D10096E015 /* SIGNEDBY.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A08D239577D00096E015 /* SIGNEDBY.java */; };
-		9F65A197239577D10096E015 /* MULTISIG.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A08E239577D00096E015 /* MULTISIG.java */; };
-		9F65A198239577D10096E015 /* CHECKSIG.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A08F239577D00096E015 /* CHECKSIG.java */; };
-		9F65A199239577D10096E015 /* QuotedString.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A091239577D00096E015 /* QuotedString.java */; };
-		9F65A19A239577D10096E015 /* LexicalTokenizer.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A092239577D00096E015 /* LexicalTokenizer.java */; };
-		9F65A19B239577D10096E015 /* Token.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A093239577D00096E015 /* Token.java */; };
-		9F65A19C239577D10096E015 /* Coin.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A095239577D00096E015 /* Coin.java */; };
-		9F65A19D239577D10096E015 /* Address.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A096239577D00096E015 /* Address.java */; };
-		9F65A19E239577D10096E015 /* PubPrivKey.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A097239577D00096E015 /* PubPrivKey.java */; };
-		9F65A19F239577D10096E015 /* Difficulty.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A098239577D00096E015 /* Difficulty.java */; };
-		9F65A1A0239577D10096E015 /* Witness.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A099239577D00096E015 /* Witness.java */; };
-		9F65A1A1239577D10096E015 /* TxPOW.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A09A239577D00096E015 /* TxPOW.java */; };
-		9F65A1A2239577D10096E015 /* MiniData.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A09C239577D00096E015 /* MiniData.java */; };
-		9F65A1A3239577D10096E015 /* MiniByte.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A09D239577D00096E015 /* MiniByte.java */; };
-		9F65A1A4239577D10096E015 /* MiniData32.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A09E239577D00096E015 /* MiniData32.java */; };
-		9F65A1A5239577D10096E015 /* MiniNumber.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A09F239577D00096E015 /* MiniNumber.java */; };
-		9F65A1A6239577D10096E015 /* Transaction.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0A0239577D00096E015 /* Transaction.java */; };
-		9F65A1A7239577D10096E015 /* Start.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0A1239577D00096E015 /* Start.java */; };
-		9F65A1A8239577D10096E015 /* Message.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0A4239577D00096E015 /* Message.java */; };
-		9F65A1A9239577D10096E015 /* MessageStack.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0A5239577D00096E015 /* MessageStack.java */; };
-		9F65A1AA239577D10096E015 /* TimerMessage.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0A6239577D00096E015 /* TimerMessage.java */; };
-		9F65A1AB239577D10096E015 /* MessageProcessor.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0A7239577D00096E015 /* MessageProcessor.java */; };
-		9F65A1AC239577D10096E015 /* Precision.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0AA239577D00096E015 /* Precision.java */; };
-		9F65A1AD239577D10096E015 /* SBlocks.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0AB239577D00096E015 /* SBlocks.java */; };
-		9F65A1AE239577D10096E015 /* BigD.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0AC239577D00096E015 /* BigD.java */; };
-		9F65A1AF239577D10096E015 /* POWCascader.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0AE239577D00096E015 /* POWCascader.java */; };
-		9F65A1B0239577D10096E015 /* BlockLevel.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0AF239577D00096E015 /* BlockLevel.java */; };
-		9F65A1B1239577D10096E015 /* CascadingChain.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0B0239577D00096E015 /* CascadingChain.java */; };
-		9F65A1B2239577D10096E015 /* ExactPOWCascader.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0B1239577D00096E015 /* ExactPOWCascader.java */; };
-		9F65A1B3239577D10096E015 /* POWChecker.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0B2239577D00096E015 /* POWChecker.java */; };
-		9F65A1B4239577D10096E015 /* MinPowCascader.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0B3239577D00096E015 /* MinPowCascader.java */; };
-		9F65A1B5239577D10096E015 /* Block.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0B4239577D00096E015 /* Block.java */; };
-		9F65A1B6239577D10096E015 /* CChain.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0B6239577D00096E015 /* CChain.java */; };
-		9F65A1B7239577D10096E015 /* CChainBlock.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0B7239577D00096E015 /* CChainBlock.java */; };
-		9F65A1B8239577D10096E015 /* CChainLevel.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0B8239577D00096E015 /* CChainLevel.java */; };
-		9F65A1B9239577D10096E015 /* Cascader.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0B9239577D00096E015 /* Cascader.java */; };
-		9F65A1BA239577D10096E015 /* CChainSim.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0BA239577D00096E015 /* CChainSim.java */; };
-		9F65A1BB239577D10096E015 /* ChatterClient.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0BC239577D00096E015 /* ChatterClient.java */; };
-		9F65A1BC239577D10096E015 /* ChatterServer.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0BD239577D00096E015 /* ChatterServer.java */; };
-		9F65A1BD239577D10096E015 /* User.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0BF239577D00096E015 /* User.java */; };
-		9F65A1BE239577D10096E015 /* Simulator.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0C0239577D00096E015 /* Simulator.java */; };
-		9F65A1BF239577D10096E015 /* SocketClientExample.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0C2239577D00096E015 /* SocketClientExample.java */; };
-		9F65A1C0239577D10096E015 /* SocketServerExample.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0C3239577D00096E015 /* SocketServerExample.java */; };
-		9F65A1C1239577D10096E015 /* GMSS.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0C5239577D00096E015 /* GMSS.java */; };
-		9F65A1C2239577D10096E015 /* Winternitz.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0C6239577D00096E015 /* Winternitz.java */; };
-		9F65A1C3239577D10096E015 /* ResponseStream.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0C7239577D00096E015 /* ResponseStream.java */; };
-		9F65A1C4239577D10096E015 /* SimpleLogger.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0C8239577D00096E015 /* SimpleLogger.java */; };
-		9F65A1C5239577D10096E015 /* Streamable.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0C9239577D00096E015 /* Streamable.java */; };
-		9F65A1C6239577D10096E015 /* Crypto.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0CA239577D00096E015 /* Crypto.java */; };
-		9F65A1C7239577D10096E015 /* SuperBlockLevels.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0CB239577D00096E015 /* SuperBlockLevels.java */; };
-		9F65A1C8239577D10096E015 /* MiniFormat.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0CC239577D00096E015 /* MiniFormat.java */; };
-		9F65A1C9239577D10096E015 /* PostReqEx.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0CD239577D00096E015 /* PostReqEx.java */; };
-		9F65A1CA239577D10096E015 /* Maths.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0CE239577D00096E015 /* Maths.java */; };
-		9F65A1CB239577D10096E015 /* ConsensusHandler.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0D1239577D00096E015 /* ConsensusHandler.java */; };
-		9F65A1CC239577D10096E015 /* ConsensusNet.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0D2239577D00096E015 /* ConsensusNet.java */; };
-		9F65A1CD239577D10096E015 /* ConsensusUser.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0D3239577D00096E015 /* ConsensusUser.java */; };
-		9F65A1CE239577D10096E015 /* ConsensusBackup.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0D4239577D00096E015 /* ConsensusBackup.java */; };
-		9F65A1CF239577D10096E015 /* TxPOWChecker.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0D5239577D00096E015 /* TxPOWChecker.java */; };
-		9F65A1D0239577D10096E015 /* ConsensusTxn.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0D6239577D00096E015 /* ConsensusTxn.java */; };
-		9F65A1D1239577D10096E015 /* ConsensusPrint.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0D7239577D00096E015 /* ConsensusPrint.java */; };
-		9F65A1D2239577D10096E015 /* GenesisTransaction.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0D9239577D00096E015 /* GenesisTransaction.java */; };
-		9F65A1D3239577D10096E015 /* GenesisTxPOW.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0DA239577D00096E015 /* GenesisTxPOW.java */; };
-		9F65A1D4239577D10096E015 /* UserSimulator.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0DB239577D00096E015 /* UserSimulator.java */; };
-		9F65A1D5239577D10096E015 /* CommandFunction.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0DD239577D00096E015 /* CommandFunction.java */; };
-		9F65A1D6239577D10096E015 /* InputHandler.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0DE239577D00096E015 /* InputHandler.java */; };
-		9F65A1D7239577D10096E015 /* InputMessage.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0DF239577D00096E015 /* InputMessage.java */; };
-		9F65A1D8239577D10096E015 /* status.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0E1239577D00096E015 /* status.java */; };
-		9F65A1D9239577D10096E015 /* tutorial.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0E2239577D00096E015 /* tutorial.java */; };
-		9F65A1DA239577D10096E015 /* help.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0E3239577D00096E015 /* help.java */; };
-		9F65A1DB239577D10096E015 /* tutorial.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9F65A0E4239577D00096E015 /* tutorial.txt */; };
-		9F65A1DC239577D10096E015 /* newscript.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0E5239577D00096E015 /* newscript.java */; };
-		9F65A1DD239577D10096E015 /* quit.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0E6239577D00096E015 /* quit.java */; };
-		9F65A1DE239577D10096E015 /* keys.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0E7239577D00096E015 /* keys.java */; };
-		9F65A1DF239577D10096E015 /* importcoin.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0E9239577D00096E015 /* importcoin.java */; };
-		9F65A1E0239577D10096E015 /* exportkey.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0EA239577D00096E015 /* exportkey.java */; };
-		9F65A1E1239577D10096E015 /* exportcoin.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0EB239577D00096E015 /* exportcoin.java */; };
-		9F65A1E2239577D10096E015 /* importkey.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0EC239577D00096E015 /* importkey.java */; };
-		9F65A1E3239577D10096E015 /* coins.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0ED239577D00096E015 /* coins.java */; };
-		9F65A1E4239577D10096E015 /* gimme50.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0EE239577D00096E015 /* gimme50.java */; };
-		9F65A1E5239577D10096E015 /* txnoutput.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0F0239577D00096E015 /* txnoutput.java */; };
-		9F65A1E6239577D10096E015 /* txnlist.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0F1239577D00096E015 /* txnlist.java */; };
-		9F65A1E7239577D10096E015 /* txnsign.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0F2239577D00096E015 /* txnsign.java */; };
-		9F65A1E8239577D10096E015 /* txnpost.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0F3239577D00096E015 /* txnpost.java */; };
-		9F65A1E9239577D10096E015 /* txndelete.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0F4239577D00096E015 /* txndelete.java */; };
-		9F65A1EA239577D10096E015 /* txnvalidate.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0F5239577D00096E015 /* txnvalidate.java */; };
-		9F65A1EB239577D10096E015 /* txncreate.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0F6239577D00096E015 /* txncreate.java */; };
-		9F65A1EC239577D10096E015 /* txninput.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0F7239577D00096E015 /* txninput.java */; };
-		9F65A1ED239577D10096E015 /* intro.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0F8239577D00096E015 /* intro.java */; };
-		9F65A1EE239577D10096E015 /* send.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0F9239577D00096E015 /* send.java */; };
-		9F65A1EF239577D10096E015 /* printchain.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0FA239577D00096E015 /* printchain.java */; };
-		9F65A1F0239577D10096E015 /* minetrans.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0FB239577D00096E015 /* minetrans.java */; };
-		9F65A1F1239577D10096E015 /* test.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0FC239577D00096E015 /* test.java */; };
-		9F65A1F2239577D10096E015 /* reconnect.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0FD239577D00096E015 /* reconnect.java */; };
-		9F65A1F3239577D10096E015 /* runscript.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0FE239577D00096E015 /* runscript.java */; };
-		9F65A1F4239577D10096E015 /* backup.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A0FF239577D00096E015 /* backup.java */; };
-		9F65A1F5239577D10096E015 /* txpowdrill.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A100239577D00096E015 /* txpowdrill.java */; };
-		9F65A1F6239577D10096E015 /* balance.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A101239577D00096E015 /* balance.java */; };
-		9F65A1F7239577D10096E015 /* disconnect.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A102239577D00096E015 /* disconnect.java */; };
-		9F65A1F8239577D10096E015 /* newaddress.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A103239577D00096E015 /* newaddress.java */; };
-		9F65A1F9239577D10096E015 /* trace.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A104239577D00096E015 /* trace.java */; };
-		9F65A1FA239577D10096E015 /* connect.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A105239577D00096E015 /* connect.java */; };
-		9F65A1FB239577D10096E015 /* createtoken.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A106239577D00096E015 /* createtoken.java */; };
-		9F65A1FC239577D10096E015 /* NetClient.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A108239577D00096E015 /* NetClient.java */; };
-		9F65A1FD239577D10096E015 /* NetClientReader.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A109239577D00096E015 /* NetClientReader.java */; };
-		9F65A1FE239577D10096E015 /* MultiServer.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A10A239577D00096E015 /* MultiServer.java */; };
-		9F65A1FF239577D10096E015 /* NetworkHandler.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A10B239577D00096E015 /* NetworkHandler.java */; };
-		9F65A200239577D10096E015 /* NIOClient.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A10D239577D00096E015 /* NIOClient.java */; };
-		9F65A201239577D10096E015 /* NIONetworkHandler.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A10E239577D00096E015 /* NIONetworkHandler.java */; };
-		9F65A202239577D10096E015 /* NIOMultiServer.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A10F239577D00096E015 /* NIOMultiServer.java */; };
-		9F65A203239577D10096E015 /* RamIntro.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A110239577D00096E015 /* RamIntro.java */; };
-		9F65A204239577D10096E015 /* RPCClient.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A112239577D00096E015 /* RPCClient.java */; };
-		9F65A205239577D10096E015 /* RPCHandler.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A113239577D00096E015 /* RPCHandler.java */; };
-		9F65A206239577D10096E015 /* RPCServer.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A114239577D00096E015 /* RPCServer.java */; };
-		9F65A207239577D10096E015 /* SystemHandler.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A115239577D00096E015 /* SystemHandler.java */; };
-		9F65A208239577D10096E015 /* TXMiner.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A117239577D00096E015 /* TXMiner.java */; };
-		9F65A209239577D10096E015 /* Main.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A118239577D00096E015 /* Main.java */; };
-		9F65A20A239577D10096E015 /* ProcessManager.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A11A239577D00096E015 /* ProcessManager.java */; };
-		9F65A20B239577D10096E015 /* SyncPackage.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A11C239577D00096E015 /* SyncPackage.java */; };
-		9F65A20C239577D10096E015 /* SyncPacket.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A11D239577D00096E015 /* SyncPacket.java */; };
-		9F65A20D239577D10096E015 /* BackupManager.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A11E239577D00096E015 /* BackupManager.java */; };
-		9F65A20E239577D10096E015 /* OffChainManager.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A120239577D00096E015 /* OffChainManager.java */; };
-		9F65A20F239577D10096E015 /* ThePulse.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A121239577D00096E015 /* ThePulse.java */; };
-		9F65A210239577D10096E015 /* GlobalParams.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A122239577D00096E015 /* GlobalParams.java */; };
-		9F65A211239577D10096E015 /* NativeListener.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A123239577D00096E015 /* NativeListener.java */; };
-		9F65A212239577D10096E015 /* JSONArray.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A126239577D00096E015 /* JSONArray.java */; };
-		9F65A213239577D10096E015 /* JSONValue.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A127239577D00096E015 /* JSONValue.java */; };
-		9F65A214239577D10096E015 /* JSONStreamAware.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A128239577D00096E015 /* JSONStreamAware.java */; };
-		9F65A215239577D10096E015 /* JSONAware.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A129239577D00096E015 /* JSONAware.java */; };
-		9F65A216239577D10096E015 /* ParseException.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A12B239577D00096E015 /* ParseException.java */; };
-		9F65A217239577D10096E015 /* Yytoken.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A12C239577D00096E015 /* Yytoken.java */; };
-		9F65A218239577D10096E015 /* ContainerFactory.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A12D239577D00096E015 /* ContainerFactory.java */; };
-		9F65A219239577D10096E015 /* ContentHandler.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A12E239577D00096E015 /* ContentHandler.java */; };
-		9F65A21A239577D10096E015 /* JSONParser.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A12F239577D00096E015 /* JSONParser.java */; };
-		9F65A21B239577D10096E015 /* Yylex.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A130239577D00096E015 /* Yylex.java */; };
-		9F65A21C239577D10096E015 /* JSONObject.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A131239577D00096E015 /* JSONObject.java */; };
-		9F65A21D239577D10096E015 /* ItemList.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A132239577D00096E015 /* ItemList.java */; };
-		9F65A21E239577D10096E015 /* TreePrinter.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A134239577D00096E015 /* TreePrinter.java */; };
-		9F65A21F239577D10096E015 /* PrintableTreeNode.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A135239577D00096E015 /* PrintableTreeNode.java */; };
-		9F65A220239577D10096E015 /* maintree.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A136239577D00096E015 /* maintree.java */; };
-		9F65A221239577D10096E015 /* TreeNode.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A137239577D00096E015 /* TreeNode.java */; };
-		9F65A222239577D10096E015 /* StandardTreeNodeConverters.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A138239577D00096E015 /* StandardTreeNodeConverters.java */; };
-		9F65A223239577D10096E015 /* TreeNodeConverter.java in Sources */ = {isa = PBXBuildFile; fileRef = 9F65A139239577D00096E015 /* TreeNodeConverter.java */; };
+		9F6867FA23A146B200DBD424 /* MinimaBridger.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F6867F923A146B200DBD424 /* MinimaBridger.m */; };
 		A084ECDBA7D38E1E42DFC39D /* Pods_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF277DCFFFF123FFC6DF26C7 /* Pods_App.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
-		9F6595BA239539A90096E015 /* PBXBuildRule */ = {
+		9F6867FC23A1472900DBD424 /* PBXBuildRule */ = {
 			isa = PBXBuildRule;
 			compilerSpec = com.apple.compilers.proxy.script;
 			fileType = sourcecode.java;
@@ -266,259 +30,23 @@
 				"$(DERIVED_FILE_DIR)/${INPUT_FILE_BASE}.h",
 				"$(DERIVED_FILE_DIR)/${INPUT_FILE_BASE}.m",
 			);
-			script = "# Type a script or drag a script file from your workspace to insert its path.\nif [ ! -f \"${J2OBJC_HOME}/j2objc\" ]; then echo \"J2OBJC_HOME not correctly defined in Settings.xcconfig, currently set to '${J2OBJC_HOME}'\"; exit 1; fi;\n\"${J2OBJC_HOME}/j2objc\" -d ${DERIVED_FILE_DIR} -sourcepath \"${PROJECT_DIR}/App\" --no-package-directories -use-arc --prefix Flower=JOE -g ${INPUT_FILE_PATH};\n";
+			script = "# j2objc script to convert Minima java core to objc\nif [ ! -f \"${J2OBJC_HOME}/j2objc\" ]; then echo \"J2OBJC_HOME/j2objc is not found, currently set to '${J2OBJC_HOME}'\"; exit 1; fi;\n\"${J2OBJC_HOME}/j2objc\" -d ${DERIVED_FILE_DIR} -sourcepath \"${PROJECT_DIR}/App\" --no-package-directories -use-arc --prefix Flower=JOE -g ${INPUT_FILE_PATH};\n";
 		};
 /* End PBXBuildRule section */
 
 /* Begin PBXFileReference section */
 		2FAD9762203C412B000D30F8 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = config.xml; sourceTree = "<group>"; };
 		50379B222058CBB4000EE86E /* capacitor.config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = capacitor.config.json; sourceTree = "<group>"; };
-		504EC3041FED79650016851F /* Minima.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Minima.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		504EC3041FED79650016851F /* App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		504EC3071FED79650016851F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		504EC30C1FED79650016851F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		504EC30E1FED79650016851F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		504EC3111FED79650016851F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		504EC3131FED79650016851F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		50B271D01FEDC1A000F3C39B /* public */ = {isa = PBXFileReference; lastKnownFileType = folder; path = public; sourceTree = SOURCE_ROOT; };
-		9F5B15AF23990C8D001F23B8 /* blank.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = blank.wav; sourceTree = "<group>"; };
-		9F5B15B023990C8D001F23B8 /* BackgroundTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundTask.swift; sourceTree = "<group>"; };
-		9F6597CD239545FC0096E015 /* App-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "App-Bridging-Header.h"; sourceTree = "<group>"; };
-		9F6597CE239545FC0096E015 /* MinimaBridger.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MinimaBridger.m; sourceTree = "<group>"; };
-		9F6597D0239546180096E015 /* MinimaBridger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MinimaBridger.h; sourceTree = "<group>"; };
-		9F65A019239577D00096E015 /* JavaUserDB.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = JavaUserDB.java; sourceTree = "<group>"; };
-		9F65A01A239577D00096E015 /* JavaUserDBRow.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = JavaUserDBRow.java; sourceTree = "<group>"; };
-		9F65A01B239577D00096E015 /* UserDB.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = UserDB.java; sourceTree = "<group>"; };
-		9F65A01C239577D00096E015 /* UserDBRow.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = UserDBRow.java; sourceTree = "<group>"; };
-		9F65A01E239577D00096E015 /* SQLUserDB.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = SQLUserDB.java; sourceTree = "<group>"; };
-		9F65A020239577D00096E015 /* BlockTreePrinter.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = BlockTreePrinter.java; sourceTree = "<group>"; };
-		9F65A021239577D00096E015 /* CascadeTree.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = CascadeTree.java; sourceTree = "<group>"; };
-		9F65A022239577D00096E015 /* BlockTreeStore.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = BlockTreeStore.java; sourceTree = "<group>"; };
-		9F65A023239577D00096E015 /* BlockTreeNode.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = BlockTreeNode.java; sourceTree = "<group>"; };
-		9F65A024239577D00096E015 /* BlockTree.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = BlockTree.java; sourceTree = "<group>"; };
-		9F65A025239577D00096E015 /* MinimaDB.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = MinimaDB.java; sourceTree = "<group>"; };
-		9F65A027239577D00096E015 /* MMRPrint.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = MMRPrint.java; sourceTree = "<group>"; };
-		9F65A028239577D00096E015 /* MMRDB.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = MMRDB.java; sourceTree = "<group>"; };
-		9F65A029239577D00096E015 /* MMRProof.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = MMRProof.java; sourceTree = "<group>"; };
-		9F65A02A239577D00096E015 /* MMREntry.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = MMREntry.java; sourceTree = "<group>"; };
-		9F65A02B239577D00096E015 /* MMRData.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = MMRData.java; sourceTree = "<group>"; };
-		9F65A02C239577D00096E015 /* MMRSet.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = MMRSet.java; sourceTree = "<group>"; };
-		9F65A02E239577D00096E015 /* CoinDBPrinter.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = CoinDBPrinter.java; sourceTree = "<group>"; };
-		9F65A02F239577D00096E015 /* CoinDBRow.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = CoinDBRow.java; sourceTree = "<group>"; };
-		9F65A030239577D00096E015 /* CoinDB.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = CoinDB.java; sourceTree = "<group>"; };
-		9F65A032239577D00096E015 /* JavaCoinDBRow.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = JavaCoinDBRow.java; sourceTree = "<group>"; };
-		9F65A033239577D00096E015 /* JavaCoinDB.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = JavaCoinDB.java; sourceTree = "<group>"; };
-		9F65A035239577D00096E015 /* SQLCoinDB.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = SQLCoinDB.java; sourceTree = "<group>"; };
-		9F65A037239577D00096E015 /* TxPOWDBRow.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = TxPOWDBRow.java; sourceTree = "<group>"; };
-		9F65A038239577D00096E015 /* TxPowDBPrinter.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = TxPowDBPrinter.java; sourceTree = "<group>"; };
-		9F65A039239577D00096E015 /* TxPowDB.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = TxPowDB.java; sourceTree = "<group>"; };
-		9F65A03B239577D00096E015 /* JavaDBRow.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = JavaDBRow.java; sourceTree = "<group>"; };
-		9F65A03C239577D00096E015 /* JavaDB.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = JavaDB.java; sourceTree = "<group>"; };
-		9F65A03E239577D00096E015 /* SQLTxPoWDB.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = SQLTxPoWDB.java; sourceTree = "<group>"; };
-		9F65A040239577D00096E015 /* Contract.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = Contract.java; sourceTree = "<group>"; };
-		9F65A042239577D00096E015 /* ScriptValue.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = ScriptValue.java; sourceTree = "<group>"; };
-		9F65A043239577D00096E015 /* BooleanValue.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = BooleanValue.java; sourceTree = "<group>"; };
-		9F65A044239577D00096E015 /* NumberValue.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = NumberValue.java; sourceTree = "<group>"; };
-		9F65A045239577D00096E015 /* Value.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = Value.java; sourceTree = "<group>"; };
-		9F65A046239577D00096E015 /* HEXValue.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = HEXValue.java; sourceTree = "<group>"; };
-		9F65A048239577D00096E015 /* ExecutionException.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = ExecutionException.java; sourceTree = "<group>"; };
-		9F65A049239577D00096E015 /* MinimaException.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = MinimaException.java; sourceTree = "<group>"; };
-		9F65A04A239577D00096E015 /* MinimaParseException.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = MinimaParseException.java; sourceTree = "<group>"; };
-		9F65A04B239577D00096E015 /* VariableException.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = VariableException.java; sourceTree = "<group>"; };
-		9F65A04D239577D00096E015 /* Statement.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = Statement.java; sourceTree = "<group>"; };
-		9F65A04E239577D00096E015 /* StatementBlock.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = StatementBlock.java; sourceTree = "<group>"; };
-		9F65A04F239577D00096E015 /* StatementParser.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = StatementParser.java; sourceTree = "<group>"; };
-		9F65A051239577D00096E015 /* IFstatement.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = IFstatement.java; sourceTree = "<group>"; };
-		9F65A052239577D00096E015 /* WHILEstatement.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = WHILEstatement.java; sourceTree = "<group>"; };
-		9F65A053239577D00096E015 /* EXECstatement.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = EXECstatement.java; sourceTree = "<group>"; };
-		9F65A054239577D00096E015 /* MASTstatement.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = MASTstatement.java; sourceTree = "<group>"; };
-		9F65A055239577D00096E015 /* LETstatement.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = LETstatement.java; sourceTree = "<group>"; };
-		9F65A056239577D00096E015 /* RETURNstatement.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = RETURNstatement.java; sourceTree = "<group>"; };
-		9F65A058239577D00096E015 /* ExpressionParser.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = ExpressionParser.java; sourceTree = "<group>"; };
-		9F65A059239577D00096E015 /* ConstantExpression.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = ConstantExpression.java; sourceTree = "<group>"; };
-		9F65A05A239577D00096E015 /* OperatorExpression.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = OperatorExpression.java; sourceTree = "<group>"; };
-		9F65A05B239577D00096E015 /* VariableExpression.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = VariableExpression.java; sourceTree = "<group>"; };
-		9F65A05C239577D00096E015 /* FunctionExpression.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = FunctionExpression.java; sourceTree = "<group>"; };
-		9F65A05D239577D00096E015 /* ParameterExpression.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = ParameterExpression.java; sourceTree = "<group>"; };
-		9F65A05E239577D00096E015 /* Expression.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = Expression.java; sourceTree = "<group>"; };
-		9F65A05F239577D00096E015 /* BooleanExpression.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = BooleanExpression.java; sourceTree = "<group>"; };
-		9F65A060239577D00096E015 /* GlobalExpression.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = GlobalExpression.java; sourceTree = "<group>"; };
-		9F65A063239577D00096E015 /* SUMOUTTOK.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = SUMOUTTOK.java; sourceTree = "<group>"; };
-		9F65A065239577D00096E015 /* GETINAMT.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = GETINAMT.java; sourceTree = "<group>"; };
-		9F65A066239577D00096E015 /* VERIFYIN.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = VERIFYIN.java; sourceTree = "<group>"; };
-		9F65A067239577D00096E015 /* GETINADDR.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = GETINADDR.java; sourceTree = "<group>"; };
-		9F65A068239577D00096E015 /* GETINTOK.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = GETINTOK.java; sourceTree = "<group>"; };
-		9F65A06A239577D00096E015 /* VERIFYOUT.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = VERIFYOUT.java; sourceTree = "<group>"; };
-		9F65A06B239577D00096E015 /* GETOUTTOK.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = GETOUTTOK.java; sourceTree = "<group>"; };
-		9F65A06C239577D00096E015 /* GETOUTADDR.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = GETOUTADDR.java; sourceTree = "<group>"; };
-		9F65A06D239577D00096E015 /* GETOUTAMT.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = GETOUTAMT.java; sourceTree = "<group>"; };
-		9F65A06E239577D00096E015 /* _PREVSTATE.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = _PREVSTATE.java; sourceTree = "<group>"; };
-		9F65A06F239577D00096E015 /* SUMINTOK.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = SUMINTOK.java; sourceTree = "<group>"; };
-		9F65A070239577D00096E015 /* _STATE.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = _STATE.java; sourceTree = "<group>"; };
-		9F65A072239577D00096E015 /* ASCII.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = ASCII.java; sourceTree = "<group>"; };
-		9F65A073239577D00096E015 /* HEX.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = HEX.java; sourceTree = "<group>"; };
-		9F65A074239577D00096E015 /* NUMBER.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = NUMBER.java; sourceTree = "<group>"; };
-		9F65A075239577D00096E015 /* BOOL.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = BOOL.java; sourceTree = "<group>"; };
-		9F65A076239577D00096E015 /* SCRIPT.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = SCRIPT.java; sourceTree = "<group>"; };
-		9F65A078239577D00096E015 /* BITGET.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = BITGET.java; sourceTree = "<group>"; };
-		9F65A079239577D00096E015 /* BITSET.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = BITSET.java; sourceTree = "<group>"; };
-		9F65A07A239577D00096E015 /* DEC.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = DEC.java; sourceTree = "<group>"; };
-		9F65A07B239577D00096E015 /* CEIL.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = CEIL.java; sourceTree = "<group>"; };
-		9F65A07C239577D00096E015 /* INC.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = INC.java; sourceTree = "<group>"; };
-		9F65A07D239577D00096E015 /* MAX.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = MAX.java; sourceTree = "<group>"; };
-		9F65A07E239577D00096E015 /* MIN.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = MIN.java; sourceTree = "<group>"; };
-		9F65A07F239577D00096E015 /* ABS.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = ABS.java; sourceTree = "<group>"; };
-		9F65A080239577D00096E015 /* FLOOR.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = FLOOR.java; sourceTree = "<group>"; };
-		9F65A082239577D00096E015 /* SHA2.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = SHA2.java; sourceTree = "<group>"; };
-		9F65A083239577D00096E015 /* CHAINSHA.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = CHAINSHA.java; sourceTree = "<group>"; };
-		9F65A084239577D00096E015 /* SHA3.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = SHA3.java; sourceTree = "<group>"; };
-		9F65A085239577D00096E015 /* MinimaFunction.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = MinimaFunction.java; sourceTree = "<group>"; };
-		9F65A087239577D00096E015 /* SUBSET.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = SUBSET.java; sourceTree = "<group>"; };
-		9F65A088239577D00096E015 /* REV.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = REV.java; sourceTree = "<group>"; };
-		9F65A089239577D00096E015 /* LEN.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = LEN.java; sourceTree = "<group>"; };
-		9F65A08A239577D00096E015 /* CONCAT.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = CONCAT.java; sourceTree = "<group>"; };
-		9F65A08B239577D00096E015 /* RPLVAR.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = RPLVAR.java; sourceTree = "<group>"; };
-		9F65A08D239577D00096E015 /* SIGNEDBY.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = SIGNEDBY.java; sourceTree = "<group>"; };
-		9F65A08E239577D00096E015 /* MULTISIG.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = MULTISIG.java; sourceTree = "<group>"; };
-		9F65A08F239577D00096E015 /* CHECKSIG.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = CHECKSIG.java; sourceTree = "<group>"; };
-		9F65A091239577D00096E015 /* QuotedString.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = QuotedString.java; sourceTree = "<group>"; };
-		9F65A092239577D00096E015 /* LexicalTokenizer.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = LexicalTokenizer.java; sourceTree = "<group>"; };
-		9F65A093239577D00096E015 /* Token.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = Token.java; sourceTree = "<group>"; };
-		9F65A095239577D00096E015 /* Coin.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = Coin.java; sourceTree = "<group>"; };
-		9F65A096239577D00096E015 /* Address.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = Address.java; sourceTree = "<group>"; };
-		9F65A097239577D00096E015 /* PubPrivKey.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = PubPrivKey.java; sourceTree = "<group>"; };
-		9F65A098239577D00096E015 /* Difficulty.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = Difficulty.java; sourceTree = "<group>"; };
-		9F65A099239577D00096E015 /* Witness.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = Witness.java; sourceTree = "<group>"; };
-		9F65A09A239577D00096E015 /* TxPOW.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = TxPOW.java; sourceTree = "<group>"; };
-		9F65A09C239577D00096E015 /* MiniData.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = MiniData.java; sourceTree = "<group>"; };
-		9F65A09D239577D00096E015 /* MiniByte.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = MiniByte.java; sourceTree = "<group>"; };
-		9F65A09E239577D00096E015 /* MiniData32.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = MiniData32.java; sourceTree = "<group>"; };
-		9F65A09F239577D00096E015 /* MiniNumber.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = MiniNumber.java; sourceTree = "<group>"; };
-		9F65A0A0239577D00096E015 /* Transaction.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = Transaction.java; sourceTree = "<group>"; };
-		9F65A0A1239577D00096E015 /* Start.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = Start.java; sourceTree = "<group>"; };
-		9F65A0A4239577D00096E015 /* Message.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = Message.java; sourceTree = "<group>"; };
-		9F65A0A5239577D00096E015 /* MessageStack.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = MessageStack.java; sourceTree = "<group>"; };
-		9F65A0A6239577D00096E015 /* TimerMessage.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = TimerMessage.java; sourceTree = "<group>"; };
-		9F65A0A7239577D00096E015 /* MessageProcessor.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = MessageProcessor.java; sourceTree = "<group>"; };
-		9F65A0AA239577D00096E015 /* Precision.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = Precision.java; sourceTree = "<group>"; };
-		9F65A0AB239577D00096E015 /* SBlocks.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = SBlocks.java; sourceTree = "<group>"; };
-		9F65A0AC239577D00096E015 /* BigD.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = BigD.java; sourceTree = "<group>"; };
-		9F65A0AE239577D00096E015 /* POWCascader.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = POWCascader.java; sourceTree = "<group>"; };
-		9F65A0AF239577D00096E015 /* BlockLevel.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = BlockLevel.java; sourceTree = "<group>"; };
-		9F65A0B0239577D00096E015 /* CascadingChain.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = CascadingChain.java; sourceTree = "<group>"; };
-		9F65A0B1239577D00096E015 /* ExactPOWCascader.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = ExactPOWCascader.java; sourceTree = "<group>"; };
-		9F65A0B2239577D00096E015 /* POWChecker.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = POWChecker.java; sourceTree = "<group>"; };
-		9F65A0B3239577D00096E015 /* MinPowCascader.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = MinPowCascader.java; sourceTree = "<group>"; };
-		9F65A0B4239577D00096E015 /* Block.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = Block.java; sourceTree = "<group>"; };
-		9F65A0B6239577D00096E015 /* CChain.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = CChain.java; sourceTree = "<group>"; };
-		9F65A0B7239577D00096E015 /* CChainBlock.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = CChainBlock.java; sourceTree = "<group>"; };
-		9F65A0B8239577D00096E015 /* CChainLevel.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = CChainLevel.java; sourceTree = "<group>"; };
-		9F65A0B9239577D00096E015 /* Cascader.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = Cascader.java; sourceTree = "<group>"; };
-		9F65A0BA239577D00096E015 /* CChainSim.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = CChainSim.java; sourceTree = "<group>"; };
-		9F65A0BC239577D00096E015 /* ChatterClient.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = ChatterClient.java; sourceTree = "<group>"; };
-		9F65A0BD239577D00096E015 /* ChatterServer.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = ChatterServer.java; sourceTree = "<group>"; };
-		9F65A0BF239577D00096E015 /* User.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = User.java; sourceTree = "<group>"; };
-		9F65A0C0239577D00096E015 /* Simulator.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = Simulator.java; sourceTree = "<group>"; };
-		9F65A0C2239577D00096E015 /* SocketClientExample.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = SocketClientExample.java; sourceTree = "<group>"; };
-		9F65A0C3239577D00096E015 /* SocketServerExample.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = SocketServerExample.java; sourceTree = "<group>"; };
-		9F65A0C5239577D00096E015 /* GMSS.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = GMSS.java; sourceTree = "<group>"; };
-		9F65A0C6239577D00096E015 /* Winternitz.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = Winternitz.java; sourceTree = "<group>"; };
-		9F65A0C7239577D00096E015 /* ResponseStream.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = ResponseStream.java; sourceTree = "<group>"; };
-		9F65A0C8239577D00096E015 /* SimpleLogger.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = SimpleLogger.java; sourceTree = "<group>"; };
-		9F65A0C9239577D00096E015 /* Streamable.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = Streamable.java; sourceTree = "<group>"; };
-		9F65A0CA239577D00096E015 /* Crypto.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = Crypto.java; sourceTree = "<group>"; };
-		9F65A0CB239577D00096E015 /* SuperBlockLevels.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = SuperBlockLevels.java; sourceTree = "<group>"; };
-		9F65A0CC239577D00096E015 /* MiniFormat.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = MiniFormat.java; sourceTree = "<group>"; };
-		9F65A0CD239577D00096E015 /* PostReqEx.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = PostReqEx.java; sourceTree = "<group>"; };
-		9F65A0CE239577D00096E015 /* Maths.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = Maths.java; sourceTree = "<group>"; };
-		9F65A0D1239577D00096E015 /* ConsensusHandler.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = ConsensusHandler.java; sourceTree = "<group>"; };
-		9F65A0D2239577D00096E015 /* ConsensusNet.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = ConsensusNet.java; sourceTree = "<group>"; };
-		9F65A0D3239577D00096E015 /* ConsensusUser.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = ConsensusUser.java; sourceTree = "<group>"; };
-		9F65A0D4239577D00096E015 /* ConsensusBackup.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = ConsensusBackup.java; sourceTree = "<group>"; };
-		9F65A0D5239577D00096E015 /* TxPOWChecker.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = TxPOWChecker.java; sourceTree = "<group>"; };
-		9F65A0D6239577D00096E015 /* ConsensusTxn.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = ConsensusTxn.java; sourceTree = "<group>"; };
-		9F65A0D7239577D00096E015 /* ConsensusPrint.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = ConsensusPrint.java; sourceTree = "<group>"; };
-		9F65A0D9239577D00096E015 /* GenesisTransaction.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = GenesisTransaction.java; sourceTree = "<group>"; };
-		9F65A0DA239577D00096E015 /* GenesisTxPOW.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = GenesisTxPOW.java; sourceTree = "<group>"; };
-		9F65A0DB239577D00096E015 /* UserSimulator.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = UserSimulator.java; sourceTree = "<group>"; };
-		9F65A0DD239577D00096E015 /* CommandFunction.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = CommandFunction.java; sourceTree = "<group>"; };
-		9F65A0DE239577D00096E015 /* InputHandler.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = InputHandler.java; sourceTree = "<group>"; };
-		9F65A0DF239577D00096E015 /* InputMessage.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = InputMessage.java; sourceTree = "<group>"; };
-		9F65A0E1239577D00096E015 /* status.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = status.java; sourceTree = "<group>"; };
-		9F65A0E2239577D00096E015 /* tutorial.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = tutorial.java; sourceTree = "<group>"; };
-		9F65A0E3239577D00096E015 /* help.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = help.java; sourceTree = "<group>"; };
-		9F65A0E4239577D00096E015 /* tutorial.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tutorial.txt; sourceTree = "<group>"; };
-		9F65A0E5239577D00096E015 /* newscript.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = newscript.java; sourceTree = "<group>"; };
-		9F65A0E6239577D00096E015 /* quit.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = quit.java; sourceTree = "<group>"; };
-		9F65A0E7239577D00096E015 /* keys.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = keys.java; sourceTree = "<group>"; };
-		9F65A0E9239577D00096E015 /* importcoin.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = importcoin.java; sourceTree = "<group>"; };
-		9F65A0EA239577D00096E015 /* exportkey.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = exportkey.java; sourceTree = "<group>"; };
-		9F65A0EB239577D00096E015 /* exportcoin.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = exportcoin.java; sourceTree = "<group>"; };
-		9F65A0EC239577D00096E015 /* importkey.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = importkey.java; sourceTree = "<group>"; };
-		9F65A0ED239577D00096E015 /* coins.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = coins.java; sourceTree = "<group>"; };
-		9F65A0EE239577D00096E015 /* gimme50.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = gimme50.java; sourceTree = "<group>"; };
-		9F65A0F0239577D00096E015 /* txnoutput.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = txnoutput.java; sourceTree = "<group>"; };
-		9F65A0F1239577D00096E015 /* txnlist.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = txnlist.java; sourceTree = "<group>"; };
-		9F65A0F2239577D00096E015 /* txnsign.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = txnsign.java; sourceTree = "<group>"; };
-		9F65A0F3239577D00096E015 /* txnpost.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = txnpost.java; sourceTree = "<group>"; };
-		9F65A0F4239577D00096E015 /* txndelete.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = txndelete.java; sourceTree = "<group>"; };
-		9F65A0F5239577D00096E015 /* txnvalidate.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = txnvalidate.java; sourceTree = "<group>"; };
-		9F65A0F6239577D00096E015 /* txncreate.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = txncreate.java; sourceTree = "<group>"; };
-		9F65A0F7239577D00096E015 /* txninput.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = txninput.java; sourceTree = "<group>"; };
-		9F65A0F8239577D00096E015 /* intro.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = intro.java; sourceTree = "<group>"; };
-		9F65A0F9239577D00096E015 /* send.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = send.java; sourceTree = "<group>"; };
-		9F65A0FA239577D00096E015 /* printchain.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = printchain.java; sourceTree = "<group>"; };
-		9F65A0FB239577D00096E015 /* minetrans.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = minetrans.java; sourceTree = "<group>"; };
-		9F65A0FC239577D00096E015 /* test.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = test.java; sourceTree = "<group>"; };
-		9F65A0FD239577D00096E015 /* reconnect.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = reconnect.java; sourceTree = "<group>"; };
-		9F65A0FE239577D00096E015 /* runscript.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = runscript.java; sourceTree = "<group>"; };
-		9F65A0FF239577D00096E015 /* backup.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = backup.java; sourceTree = "<group>"; };
-		9F65A100239577D00096E015 /* txpowdrill.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = txpowdrill.java; sourceTree = "<group>"; };
-		9F65A101239577D00096E015 /* balance.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = balance.java; sourceTree = "<group>"; };
-		9F65A102239577D00096E015 /* disconnect.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = disconnect.java; sourceTree = "<group>"; };
-		9F65A103239577D00096E015 /* newaddress.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = newaddress.java; sourceTree = "<group>"; };
-		9F65A104239577D00096E015 /* trace.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = trace.java; sourceTree = "<group>"; };
-		9F65A105239577D00096E015 /* connect.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = connect.java; sourceTree = "<group>"; };
-		9F65A106239577D00096E015 /* createtoken.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = createtoken.java; sourceTree = "<group>"; };
-		9F65A108239577D00096E015 /* NetClient.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = NetClient.java; sourceTree = "<group>"; };
-		9F65A109239577D00096E015 /* NetClientReader.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = NetClientReader.java; sourceTree = "<group>"; };
-		9F65A10A239577D00096E015 /* MultiServer.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = MultiServer.java; sourceTree = "<group>"; };
-		9F65A10B239577D00096E015 /* NetworkHandler.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = NetworkHandler.java; sourceTree = "<group>"; };
-		9F65A10D239577D00096E015 /* NIOClient.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = NIOClient.java; sourceTree = "<group>"; };
-		9F65A10E239577D00096E015 /* NIONetworkHandler.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = NIONetworkHandler.java; sourceTree = "<group>"; };
-		9F65A10F239577D00096E015 /* NIOMultiServer.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = NIOMultiServer.java; sourceTree = "<group>"; };
-		9F65A110239577D00096E015 /* RamIntro.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = RamIntro.java; sourceTree = "<group>"; };
-		9F65A112239577D00096E015 /* RPCClient.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = RPCClient.java; sourceTree = "<group>"; };
-		9F65A113239577D00096E015 /* RPCHandler.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = RPCHandler.java; sourceTree = "<group>"; };
-		9F65A114239577D00096E015 /* RPCServer.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = RPCServer.java; sourceTree = "<group>"; };
-		9F65A115239577D00096E015 /* SystemHandler.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = SystemHandler.java; sourceTree = "<group>"; };
-		9F65A117239577D00096E015 /* TXMiner.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = TXMiner.java; sourceTree = "<group>"; };
-		9F65A118239577D00096E015 /* Main.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = Main.java; sourceTree = "<group>"; };
-		9F65A11A239577D00096E015 /* ProcessManager.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = ProcessManager.java; sourceTree = "<group>"; };
-		9F65A11C239577D00096E015 /* SyncPackage.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = SyncPackage.java; sourceTree = "<group>"; };
-		9F65A11D239577D00096E015 /* SyncPacket.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = SyncPacket.java; sourceTree = "<group>"; };
-		9F65A11E239577D00096E015 /* BackupManager.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = BackupManager.java; sourceTree = "<group>"; };
-		9F65A120239577D00096E015 /* OffChainManager.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = OffChainManager.java; sourceTree = "<group>"; };
-		9F65A121239577D00096E015 /* ThePulse.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = ThePulse.java; sourceTree = "<group>"; };
-		9F65A122239577D00096E015 /* GlobalParams.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = GlobalParams.java; sourceTree = "<group>"; };
-		9F65A123239577D00096E015 /* NativeListener.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = NativeListener.java; sourceTree = "<group>"; };
-		9F65A126239577D00096E015 /* JSONArray.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = JSONArray.java; sourceTree = "<group>"; };
-		9F65A127239577D00096E015 /* JSONValue.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = JSONValue.java; sourceTree = "<group>"; };
-		9F65A128239577D00096E015 /* JSONStreamAware.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = JSONStreamAware.java; sourceTree = "<group>"; };
-		9F65A129239577D00096E015 /* JSONAware.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = JSONAware.java; sourceTree = "<group>"; };
-		9F65A12B239577D00096E015 /* ParseException.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = ParseException.java; sourceTree = "<group>"; };
-		9F65A12C239577D00096E015 /* Yytoken.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = Yytoken.java; sourceTree = "<group>"; };
-		9F65A12D239577D00096E015 /* ContainerFactory.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = ContainerFactory.java; sourceTree = "<group>"; };
-		9F65A12E239577D00096E015 /* ContentHandler.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = ContentHandler.java; sourceTree = "<group>"; };
-		9F65A12F239577D00096E015 /* JSONParser.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = JSONParser.java; sourceTree = "<group>"; };
-		9F65A130239577D00096E015 /* Yylex.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = Yylex.java; sourceTree = "<group>"; };
-		9F65A131239577D00096E015 /* JSONObject.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = JSONObject.java; sourceTree = "<group>"; };
-		9F65A132239577D00096E015 /* ItemList.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = ItemList.java; sourceTree = "<group>"; };
-		9F65A134239577D00096E015 /* TreePrinter.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = TreePrinter.java; sourceTree = "<group>"; };
-		9F65A135239577D00096E015 /* PrintableTreeNode.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = PrintableTreeNode.java; sourceTree = "<group>"; };
-		9F65A136239577D00096E015 /* maintree.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = maintree.java; sourceTree = "<group>"; };
-		9F65A137239577D00096E015 /* TreeNode.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = TreeNode.java; sourceTree = "<group>"; };
-		9F65A138239577D00096E015 /* StandardTreeNodeConverters.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = StandardTreeNodeConverters.java; sourceTree = "<group>"; };
-		9F65A139239577D00096E015 /* TreeNodeConverter.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = TreeNodeConverter.java; sourceTree = "<group>"; };
+		9F6867F823A146B100DBD424 /* App-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "App-Bridging-Header.h"; sourceTree = "<group>"; };
+		9F6867F923A146B200DBD424 /* MinimaBridger.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MinimaBridger.m; sourceTree = "<group>"; };
+		9F6867FB23A146C000DBD424 /* MinimaBridger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MinimaBridger.h; sourceTree = "<group>"; };
 		AF277DCFFFF123FFC6DF26C7 /* Pods_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF51FD2D460BCFE21FA515B2 /* Pods-App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App.release.xcconfig"; path = "Pods/Target Support Files/Pods-App/Pods-App.release.xcconfig"; sourceTree = "<group>"; };
 		FC68EB0AF532CFC21C3344DD /* Pods-App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App.debug.xcconfig"; path = "Pods/Target Support Files/Pods-App/Pods-App.debug.xcconfig"; sourceTree = "<group>"; };
@@ -557,7 +85,7 @@
 		504EC3051FED79650016851F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				504EC3041FED79650016851F /* Minima.app */,
+				504EC3041FED79650016851F /* App.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -565,8 +93,6 @@
 		504EC3061FED79650016851F /* App */ = {
 			isa = PBXGroup;
 			children = (
-				9F5B15AE23990C8D001F23B8 /* BackgroundTask */,
-				9F65A014239577D00096E015 /* Flower */,
 				50379B222058CBB4000EE86E /* capacitor.config.json */,
 				504EC3071FED79650016851F /* AppDelegate.swift */,
 				504EC30B1FED79650016851F /* Main.storyboard */,
@@ -575,9 +101,9 @@
 				504EC3131FED79650016851F /* Info.plist */,
 				2FAD9762203C412B000D30F8 /* config.xml */,
 				50B271D01FEDC1A000F3C39B /* public */,
-				9F6597CE239545FC0096E015 /* MinimaBridger.m */,
-				9F6597CD239545FC0096E015 /* App-Bridging-Header.h */,
-				9F6597D0239546180096E015 /* MinimaBridger.h */,
+				9F6867F923A146B200DBD424 /* MinimaBridger.m */,
+				9F6867FB23A146C000DBD424 /* MinimaBridger.h */,
+				9F6867F823A146B100DBD424 /* App-Bridging-Header.h */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -589,728 +115,6 @@
 				AF51FD2D460BCFE21FA515B2 /* Pods-App.release.xcconfig */,
 			);
 			name = Pods;
-			sourceTree = "<group>";
-		};
-		9F5B15AE23990C8D001F23B8 /* BackgroundTask */ = {
-			isa = PBXGroup;
-			children = (
-				9F5B15AF23990C8D001F23B8 /* blank.wav */,
-				9F5B15B023990C8D001F23B8 /* BackgroundTask.swift */,
-			);
-			path = BackgroundTask;
-			sourceTree = "<group>";
-		};
-		9F65A014239577D00096E015 /* Flower */ = {
-			isa = PBXGroup;
-			children = (
-				9F65A015239577D00096E015 /* minima */,
-				9F65A124239577D00096E015 /* json */,
-				9F65A133239577D00096E015 /* bretty */,
-			);
-			path = Flower;
-			sourceTree = "<group>";
-		};
-		9F65A015239577D00096E015 /* minima */ = {
-			isa = PBXGroup;
-			children = (
-				9F65A016239577D00096E015 /* database */,
-				9F65A03F239577D00096E015 /* miniscript */,
-				9F65A094239577D00096E015 /* objects */,
-				9F65A0A1239577D00096E015 /* Start.java */,
-				9F65A0A2239577D00096E015 /* utils */,
-				9F65A0CF239577D00096E015 /* system */,
-				9F65A122239577D00096E015 /* GlobalParams.java */,
-				9F65A123239577D00096E015 /* NativeListener.java */,
-			);
-			path = minima;
-			sourceTree = "<group>";
-		};
-		9F65A016239577D00096E015 /* database */ = {
-			isa = PBXGroup;
-			children = (
-				9F65A017239577D00096E015 /* userdb */,
-				9F65A01F239577D00096E015 /* txpowtree */,
-				9F65A025239577D00096E015 /* MinimaDB.java */,
-				9F65A026239577D00096E015 /* mmr */,
-				9F65A02D239577D00096E015 /* coindb */,
-				9F65A036239577D00096E015 /* txpowdb */,
-			);
-			path = database;
-			sourceTree = "<group>";
-		};
-		9F65A017239577D00096E015 /* userdb */ = {
-			isa = PBXGroup;
-			children = (
-				9F65A018239577D00096E015 /* java */,
-				9F65A01B239577D00096E015 /* UserDB.java */,
-				9F65A01C239577D00096E015 /* UserDBRow.java */,
-				9F65A01D239577D00096E015 /* sql */,
-			);
-			path = userdb;
-			sourceTree = "<group>";
-		};
-		9F65A018239577D00096E015 /* java */ = {
-			isa = PBXGroup;
-			children = (
-				9F65A019239577D00096E015 /* JavaUserDB.java */,
-				9F65A01A239577D00096E015 /* JavaUserDBRow.java */,
-			);
-			path = java;
-			sourceTree = "<group>";
-		};
-		9F65A01D239577D00096E015 /* sql */ = {
-			isa = PBXGroup;
-			children = (
-				9F65A01E239577D00096E015 /* SQLUserDB.java */,
-			);
-			path = sql;
-			sourceTree = "<group>";
-		};
-		9F65A01F239577D00096E015 /* txpowtree */ = {
-			isa = PBXGroup;
-			children = (
-				9F65A020239577D00096E015 /* BlockTreePrinter.java */,
-				9F65A021239577D00096E015 /* CascadeTree.java */,
-				9F65A022239577D00096E015 /* BlockTreeStore.java */,
-				9F65A023239577D00096E015 /* BlockTreeNode.java */,
-				9F65A024239577D00096E015 /* BlockTree.java */,
-			);
-			path = txpowtree;
-			sourceTree = "<group>";
-		};
-		9F65A026239577D00096E015 /* mmr */ = {
-			isa = PBXGroup;
-			children = (
-				9F65A027239577D00096E015 /* MMRPrint.java */,
-				9F65A028239577D00096E015 /* MMRDB.java */,
-				9F65A029239577D00096E015 /* MMRProof.java */,
-				9F65A02A239577D00096E015 /* MMREntry.java */,
-				9F65A02B239577D00096E015 /* MMRData.java */,
-				9F65A02C239577D00096E015 /* MMRSet.java */,
-			);
-			path = mmr;
-			sourceTree = "<group>";
-		};
-		9F65A02D239577D00096E015 /* coindb */ = {
-			isa = PBXGroup;
-			children = (
-				9F65A02E239577D00096E015 /* CoinDBPrinter.java */,
-				9F65A02F239577D00096E015 /* CoinDBRow.java */,
-				9F65A030239577D00096E015 /* CoinDB.java */,
-				9F65A031239577D00096E015 /* java */,
-				9F65A034239577D00096E015 /* sql */,
-			);
-			path = coindb;
-			sourceTree = "<group>";
-		};
-		9F65A031239577D00096E015 /* java */ = {
-			isa = PBXGroup;
-			children = (
-				9F65A032239577D00096E015 /* JavaCoinDBRow.java */,
-				9F65A033239577D00096E015 /* JavaCoinDB.java */,
-			);
-			path = java;
-			sourceTree = "<group>";
-		};
-		9F65A034239577D00096E015 /* sql */ = {
-			isa = PBXGroup;
-			children = (
-				9F65A035239577D00096E015 /* SQLCoinDB.java */,
-			);
-			path = sql;
-			sourceTree = "<group>";
-		};
-		9F65A036239577D00096E015 /* txpowdb */ = {
-			isa = PBXGroup;
-			children = (
-				9F65A037239577D00096E015 /* TxPOWDBRow.java */,
-				9F65A038239577D00096E015 /* TxPowDBPrinter.java */,
-				9F65A039239577D00096E015 /* TxPowDB.java */,
-				9F65A03A239577D00096E015 /* java */,
-				9F65A03D239577D00096E015 /* sql */,
-			);
-			path = txpowdb;
-			sourceTree = "<group>";
-		};
-		9F65A03A239577D00096E015 /* java */ = {
-			isa = PBXGroup;
-			children = (
-				9F65A03B239577D00096E015 /* JavaDBRow.java */,
-				9F65A03C239577D00096E015 /* JavaDB.java */,
-			);
-			path = java;
-			sourceTree = "<group>";
-		};
-		9F65A03D239577D00096E015 /* sql */ = {
-			isa = PBXGroup;
-			children = (
-				9F65A03E239577D00096E015 /* SQLTxPoWDB.java */,
-			);
-			path = sql;
-			sourceTree = "<group>";
-		};
-		9F65A03F239577D00096E015 /* miniscript */ = {
-			isa = PBXGroup;
-			children = (
-				9F65A040239577D00096E015 /* Contract.java */,
-				9F65A041239577D00096E015 /* values */,
-				9F65A047239577D00096E015 /* exceptions */,
-				9F65A04C239577D00096E015 /* statements */,
-				9F65A057239577D00096E015 /* expressions */,
-				9F65A061239577D00096E015 /* functions */,
-				9F65A090239577D00096E015 /* tokens */,
-			);
-			path = miniscript;
-			sourceTree = "<group>";
-		};
-		9F65A041239577D00096E015 /* values */ = {
-			isa = PBXGroup;
-			children = (
-				9F65A042239577D00096E015 /* ScriptValue.java */,
-				9F65A043239577D00096E015 /* BooleanValue.java */,
-				9F65A044239577D00096E015 /* NumberValue.java */,
-				9F65A045239577D00096E015 /* Value.java */,
-				9F65A046239577D00096E015 /* HEXValue.java */,
-			);
-			path = values;
-			sourceTree = "<group>";
-		};
-		9F65A047239577D00096E015 /* exceptions */ = {
-			isa = PBXGroup;
-			children = (
-				9F65A048239577D00096E015 /* ExecutionException.java */,
-				9F65A049239577D00096E015 /* MinimaException.java */,
-				9F65A04A239577D00096E015 /* MinimaParseException.java */,
-				9F65A04B239577D00096E015 /* VariableException.java */,
-			);
-			path = exceptions;
-			sourceTree = "<group>";
-		};
-		9F65A04C239577D00096E015 /* statements */ = {
-			isa = PBXGroup;
-			children = (
-				9F65A04D239577D00096E015 /* Statement.java */,
-				9F65A04E239577D00096E015 /* StatementBlock.java */,
-				9F65A04F239577D00096E015 /* StatementParser.java */,
-				9F65A050239577D00096E015 /* commands */,
-			);
-			path = statements;
-			sourceTree = "<group>";
-		};
-		9F65A050239577D00096E015 /* commands */ = {
-			isa = PBXGroup;
-			children = (
-				9F65A051239577D00096E015 /* IFstatement.java */,
-				9F65A052239577D00096E015 /* WHILEstatement.java */,
-				9F65A053239577D00096E015 /* EXECstatement.java */,
-				9F65A054239577D00096E015 /* MASTstatement.java */,
-				9F65A055239577D00096E015 /* LETstatement.java */,
-				9F65A056239577D00096E015 /* RETURNstatement.java */,
-			);
-			path = commands;
-			sourceTree = "<group>";
-		};
-		9F65A057239577D00096E015 /* expressions */ = {
-			isa = PBXGroup;
-			children = (
-				9F65A058239577D00096E015 /* ExpressionParser.java */,
-				9F65A059239577D00096E015 /* ConstantExpression.java */,
-				9F65A05A239577D00096E015 /* OperatorExpression.java */,
-				9F65A05B239577D00096E015 /* VariableExpression.java */,
-				9F65A05C239577D00096E015 /* FunctionExpression.java */,
-				9F65A05D239577D00096E015 /* ParameterExpression.java */,
-				9F65A05E239577D00096E015 /* Expression.java */,
-				9F65A05F239577D00096E015 /* BooleanExpression.java */,
-				9F65A060239577D00096E015 /* GlobalExpression.java */,
-			);
-			path = expressions;
-			sourceTree = "<group>";
-		};
-		9F65A061239577D00096E015 /* functions */ = {
-			isa = PBXGroup;
-			children = (
-				9F65A062239577D00096E015 /* txn */,
-				9F65A071239577D00096E015 /* cast */,
-				9F65A077239577D00096E015 /* maths */,
-				9F65A081239577D00096E015 /* sha */,
-				9F65A085239577D00096E015 /* MinimaFunction.java */,
-				9F65A086239577D00096E015 /* base */,
-				9F65A08C239577D00096E015 /* sigs */,
-			);
-			path = functions;
-			sourceTree = "<group>";
-		};
-		9F65A062239577D00096E015 /* txn */ = {
-			isa = PBXGroup;
-			children = (
-				9F65A063239577D00096E015 /* SUMOUTTOK.java */,
-				9F65A064239577D00096E015 /* input */,
-				9F65A069239577D00096E015 /* output */,
-				9F65A06E239577D00096E015 /* _PREVSTATE.java */,
-				9F65A06F239577D00096E015 /* SUMINTOK.java */,
-				9F65A070239577D00096E015 /* _STATE.java */,
-			);
-			path = txn;
-			sourceTree = "<group>";
-		};
-		9F65A064239577D00096E015 /* input */ = {
-			isa = PBXGroup;
-			children = (
-				9F65A065239577D00096E015 /* GETINAMT.java */,
-				9F65A066239577D00096E015 /* VERIFYIN.java */,
-				9F65A067239577D00096E015 /* GETINADDR.java */,
-				9F65A068239577D00096E015 /* GETINTOK.java */,
-			);
-			path = input;
-			sourceTree = "<group>";
-		};
-		9F65A069239577D00096E015 /* output */ = {
-			isa = PBXGroup;
-			children = (
-				9F65A06A239577D00096E015 /* VERIFYOUT.java */,
-				9F65A06B239577D00096E015 /* GETOUTTOK.java */,
-				9F65A06C239577D00096E015 /* GETOUTADDR.java */,
-				9F65A06D239577D00096E015 /* GETOUTAMT.java */,
-			);
-			path = output;
-			sourceTree = "<group>";
-		};
-		9F65A071239577D00096E015 /* cast */ = {
-			isa = PBXGroup;
-			children = (
-				9F65A072239577D00096E015 /* ASCII.java */,
-				9F65A073239577D00096E015 /* HEX.java */,
-				9F65A074239577D00096E015 /* NUMBER.java */,
-				9F65A075239577D00096E015 /* BOOL.java */,
-				9F65A076239577D00096E015 /* SCRIPT.java */,
-			);
-			path = cast;
-			sourceTree = "<group>";
-		};
-		9F65A077239577D00096E015 /* maths */ = {
-			isa = PBXGroup;
-			children = (
-				9F65A078239577D00096E015 /* BITGET.java */,
-				9F65A079239577D00096E015 /* BITSET.java */,
-				9F65A07A239577D00096E015 /* DEC.java */,
-				9F65A07B239577D00096E015 /* CEIL.java */,
-				9F65A07C239577D00096E015 /* INC.java */,
-				9F65A07D239577D00096E015 /* MAX.java */,
-				9F65A07E239577D00096E015 /* MIN.java */,
-				9F65A07F239577D00096E015 /* ABS.java */,
-				9F65A080239577D00096E015 /* FLOOR.java */,
-			);
-			path = maths;
-			sourceTree = "<group>";
-		};
-		9F65A081239577D00096E015 /* sha */ = {
-			isa = PBXGroup;
-			children = (
-				9F65A082239577D00096E015 /* SHA2.java */,
-				9F65A083239577D00096E015 /* CHAINSHA.java */,
-				9F65A084239577D00096E015 /* SHA3.java */,
-			);
-			path = sha;
-			sourceTree = "<group>";
-		};
-		9F65A086239577D00096E015 /* base */ = {
-			isa = PBXGroup;
-			children = (
-				9F65A087239577D00096E015 /* SUBSET.java */,
-				9F65A088239577D00096E015 /* REV.java */,
-				9F65A089239577D00096E015 /* LEN.java */,
-				9F65A08A239577D00096E015 /* CONCAT.java */,
-				9F65A08B239577D00096E015 /* RPLVAR.java */,
-			);
-			path = base;
-			sourceTree = "<group>";
-		};
-		9F65A08C239577D00096E015 /* sigs */ = {
-			isa = PBXGroup;
-			children = (
-				9F65A08D239577D00096E015 /* SIGNEDBY.java */,
-				9F65A08E239577D00096E015 /* MULTISIG.java */,
-				9F65A08F239577D00096E015 /* CHECKSIG.java */,
-			);
-			path = sigs;
-			sourceTree = "<group>";
-		};
-		9F65A090239577D00096E015 /* tokens */ = {
-			isa = PBXGroup;
-			children = (
-				9F65A091239577D00096E015 /* QuotedString.java */,
-				9F65A092239577D00096E015 /* LexicalTokenizer.java */,
-				9F65A093239577D00096E015 /* Token.java */,
-			);
-			path = tokens;
-			sourceTree = "<group>";
-		};
-		9F65A094239577D00096E015 /* objects */ = {
-			isa = PBXGroup;
-			children = (
-				9F65A095239577D00096E015 /* Coin.java */,
-				9F65A096239577D00096E015 /* Address.java */,
-				9F65A097239577D00096E015 /* PubPrivKey.java */,
-				9F65A098239577D00096E015 /* Difficulty.java */,
-				9F65A099239577D00096E015 /* Witness.java */,
-				9F65A09A239577D00096E015 /* TxPOW.java */,
-				9F65A09B239577D00096E015 /* base */,
-				9F65A0A0239577D00096E015 /* Transaction.java */,
-			);
-			path = objects;
-			sourceTree = "<group>";
-		};
-		9F65A09B239577D00096E015 /* base */ = {
-			isa = PBXGroup;
-			children = (
-				9F65A09C239577D00096E015 /* MiniData.java */,
-				9F65A09D239577D00096E015 /* MiniByte.java */,
-				9F65A09E239577D00096E015 /* MiniData32.java */,
-				9F65A09F239577D00096E015 /* MiniNumber.java */,
-			);
-			path = base;
-			sourceTree = "<group>";
-		};
-		9F65A0A2239577D00096E015 /* utils */ = {
-			isa = PBXGroup;
-			children = (
-				9F65A0A3239577D00096E015 /* messages */,
-				9F65A0A8239577D00096E015 /* tests */,
-				9F65A0C7239577D00096E015 /* ResponseStream.java */,
-				9F65A0C8239577D00096E015 /* SimpleLogger.java */,
-				9F65A0C9239577D00096E015 /* Streamable.java */,
-				9F65A0CA239577D00096E015 /* Crypto.java */,
-				9F65A0CB239577D00096E015 /* SuperBlockLevels.java */,
-				9F65A0CC239577D00096E015 /* MiniFormat.java */,
-				9F65A0CD239577D00096E015 /* PostReqEx.java */,
-				9F65A0CE239577D00096E015 /* Maths.java */,
-			);
-			path = utils;
-			sourceTree = "<group>";
-		};
-		9F65A0A3239577D00096E015 /* messages */ = {
-			isa = PBXGroup;
-			children = (
-				9F65A0A4239577D00096E015 /* Message.java */,
-				9F65A0A5239577D00096E015 /* MessageStack.java */,
-				9F65A0A6239577D00096E015 /* TimerMessage.java */,
-				9F65A0A7239577D00096E015 /* MessageProcessor.java */,
-			);
-			path = messages;
-			sourceTree = "<group>";
-		};
-		9F65A0A8239577D00096E015 /* tests */ = {
-			isa = PBXGroup;
-			children = (
-				9F65A0A9239577D00096E015 /* numbers */,
-				9F65A0AD239577D00096E015 /* cascader */,
-				9F65A0B5239577D00096E015 /* cchain */,
-				9F65A0BB239577D00096E015 /* chatter */,
-				9F65A0BE239577D00096E015 /* txpowchain */,
-				9F65A0C1239577D00096E015 /* nio */,
-				9F65A0C4239577D00096E015 /* gmss */,
-			);
-			path = tests;
-			sourceTree = "<group>";
-		};
-		9F65A0A9239577D00096E015 /* numbers */ = {
-			isa = PBXGroup;
-			children = (
-				9F65A0AA239577D00096E015 /* Precision.java */,
-				9F65A0AB239577D00096E015 /* SBlocks.java */,
-				9F65A0AC239577D00096E015 /* BigD.java */,
-			);
-			path = numbers;
-			sourceTree = "<group>";
-		};
-		9F65A0AD239577D00096E015 /* cascader */ = {
-			isa = PBXGroup;
-			children = (
-				9F65A0AE239577D00096E015 /* POWCascader.java */,
-				9F65A0AF239577D00096E015 /* BlockLevel.java */,
-				9F65A0B0239577D00096E015 /* CascadingChain.java */,
-				9F65A0B1239577D00096E015 /* ExactPOWCascader.java */,
-				9F65A0B2239577D00096E015 /* POWChecker.java */,
-				9F65A0B3239577D00096E015 /* MinPowCascader.java */,
-				9F65A0B4239577D00096E015 /* Block.java */,
-			);
-			path = cascader;
-			sourceTree = "<group>";
-		};
-		9F65A0B5239577D00096E015 /* cchain */ = {
-			isa = PBXGroup;
-			children = (
-				9F65A0B6239577D00096E015 /* CChain.java */,
-				9F65A0B7239577D00096E015 /* CChainBlock.java */,
-				9F65A0B8239577D00096E015 /* CChainLevel.java */,
-				9F65A0B9239577D00096E015 /* Cascader.java */,
-				9F65A0BA239577D00096E015 /* CChainSim.java */,
-			);
-			path = cchain;
-			sourceTree = "<group>";
-		};
-		9F65A0BB239577D00096E015 /* chatter */ = {
-			isa = PBXGroup;
-			children = (
-				9F65A0BC239577D00096E015 /* ChatterClient.java */,
-				9F65A0BD239577D00096E015 /* ChatterServer.java */,
-			);
-			path = chatter;
-			sourceTree = "<group>";
-		};
-		9F65A0BE239577D00096E015 /* txpowchain */ = {
-			isa = PBXGroup;
-			children = (
-				9F65A0BF239577D00096E015 /* User.java */,
-				9F65A0C0239577D00096E015 /* Simulator.java */,
-			);
-			path = txpowchain;
-			sourceTree = "<group>";
-		};
-		9F65A0C1239577D00096E015 /* nio */ = {
-			isa = PBXGroup;
-			children = (
-				9F65A0C2239577D00096E015 /* SocketClientExample.java */,
-				9F65A0C3239577D00096E015 /* SocketServerExample.java */,
-			);
-			path = nio;
-			sourceTree = "<group>";
-		};
-		9F65A0C4239577D00096E015 /* gmss */ = {
-			isa = PBXGroup;
-			children = (
-				9F65A0C5239577D00096E015 /* GMSS.java */,
-				9F65A0C6239577D00096E015 /* Winternitz.java */,
-			);
-			path = gmss;
-			sourceTree = "<group>";
-		};
-		9F65A0CF239577D00096E015 /* system */ = {
-			isa = PBXGroup;
-			children = (
-				9F65A0D0239577D00096E015 /* brains */,
-				9F65A0D8239577D00096E015 /* bootstrap */,
-				9F65A0DC239577D00096E015 /* input */,
-				9F65A107239577D00096E015 /* network */,
-				9F65A115239577D00096E015 /* SystemHandler.java */,
-				9F65A116239577D00096E015 /* tx */,
-				9F65A118239577D00096E015 /* Main.java */,
-				9F65A119239577D00096E015 /* external */,
-				9F65A11B239577D00096E015 /* backup */,
-				9F65A11F239577D00096E015 /* maxima */,
-			);
-			path = system;
-			sourceTree = "<group>";
-		};
-		9F65A0D0239577D00096E015 /* brains */ = {
-			isa = PBXGroup;
-			children = (
-				9F65A0D1239577D00096E015 /* ConsensusHandler.java */,
-				9F65A0D2239577D00096E015 /* ConsensusNet.java */,
-				9F65A0D3239577D00096E015 /* ConsensusUser.java */,
-				9F65A0D4239577D00096E015 /* ConsensusBackup.java */,
-				9F65A0D5239577D00096E015 /* TxPOWChecker.java */,
-				9F65A0D6239577D00096E015 /* ConsensusTxn.java */,
-				9F65A0D7239577D00096E015 /* ConsensusPrint.java */,
-			);
-			path = brains;
-			sourceTree = "<group>";
-		};
-		9F65A0D8239577D00096E015 /* bootstrap */ = {
-			isa = PBXGroup;
-			children = (
-				9F65A0D9239577D00096E015 /* GenesisTransaction.java */,
-				9F65A0DA239577D00096E015 /* GenesisTxPOW.java */,
-				9F65A0DB239577D00096E015 /* UserSimulator.java */,
-			);
-			path = bootstrap;
-			sourceTree = "<group>";
-		};
-		9F65A0DC239577D00096E015 /* input */ = {
-			isa = PBXGroup;
-			children = (
-				9F65A0DD239577D00096E015 /* CommandFunction.java */,
-				9F65A0DE239577D00096E015 /* InputHandler.java */,
-				9F65A0DF239577D00096E015 /* InputMessage.java */,
-				9F65A0E0239577D00096E015 /* functions */,
-			);
-			path = input;
-			sourceTree = "<group>";
-		};
-		9F65A0E0239577D00096E015 /* functions */ = {
-			isa = PBXGroup;
-			children = (
-				9F65A0E1239577D00096E015 /* status.java */,
-				9F65A0E2239577D00096E015 /* tutorial.java */,
-				9F65A0E3239577D00096E015 /* help.java */,
-				9F65A0E4239577D00096E015 /* tutorial.txt */,
-				9F65A0E5239577D00096E015 /* newscript.java */,
-				9F65A0E6239577D00096E015 /* quit.java */,
-				9F65A0E7239577D00096E015 /* keys.java */,
-				9F65A0E8239577D00096E015 /* transfer */,
-				9F65A0ED239577D00096E015 /* coins.java */,
-				9F65A0EE239577D00096E015 /* gimme50.java */,
-				9F65A0EF239577D00096E015 /* txns */,
-				9F65A0F8239577D00096E015 /* intro.java */,
-				9F65A0F9239577D00096E015 /* send.java */,
-				9F65A0FA239577D00096E015 /* printchain.java */,
-				9F65A0FB239577D00096E015 /* minetrans.java */,
-				9F65A0FC239577D00096E015 /* test.java */,
-				9F65A0FD239577D00096E015 /* reconnect.java */,
-				9F65A0FE239577D00096E015 /* runscript.java */,
-				9F65A0FF239577D00096E015 /* backup.java */,
-				9F65A100239577D00096E015 /* txpowdrill.java */,
-				9F65A101239577D00096E015 /* balance.java */,
-				9F65A102239577D00096E015 /* disconnect.java */,
-				9F65A103239577D00096E015 /* newaddress.java */,
-				9F65A104239577D00096E015 /* trace.java */,
-				9F65A105239577D00096E015 /* connect.java */,
-				9F65A106239577D00096E015 /* createtoken.java */,
-			);
-			path = functions;
-			sourceTree = "<group>";
-		};
-		9F65A0E8239577D00096E015 /* transfer */ = {
-			isa = PBXGroup;
-			children = (
-				9F65A0E9239577D00096E015 /* importcoin.java */,
-				9F65A0EA239577D00096E015 /* exportkey.java */,
-				9F65A0EB239577D00096E015 /* exportcoin.java */,
-				9F65A0EC239577D00096E015 /* importkey.java */,
-			);
-			path = transfer;
-			sourceTree = "<group>";
-		};
-		9F65A0EF239577D00096E015 /* txns */ = {
-			isa = PBXGroup;
-			children = (
-				9F65A0F0239577D00096E015 /* txnoutput.java */,
-				9F65A0F1239577D00096E015 /* txnlist.java */,
-				9F65A0F2239577D00096E015 /* txnsign.java */,
-				9F65A0F3239577D00096E015 /* txnpost.java */,
-				9F65A0F4239577D00096E015 /* txndelete.java */,
-				9F65A0F5239577D00096E015 /* txnvalidate.java */,
-				9F65A0F6239577D00096E015 /* txncreate.java */,
-				9F65A0F7239577D00096E015 /* txninput.java */,
-			);
-			path = txns;
-			sourceTree = "<group>";
-		};
-		9F65A107239577D00096E015 /* network */ = {
-			isa = PBXGroup;
-			children = (
-				9F65A108239577D00096E015 /* NetClient.java */,
-				9F65A109239577D00096E015 /* NetClientReader.java */,
-				9F65A10A239577D00096E015 /* MultiServer.java */,
-				9F65A10B239577D00096E015 /* NetworkHandler.java */,
-				9F65A10C239577D00096E015 /* nio */,
-				9F65A110239577D00096E015 /* RamIntro.java */,
-				9F65A111239577D00096E015 /* rpc */,
-			);
-			path = network;
-			sourceTree = "<group>";
-		};
-		9F65A10C239577D00096E015 /* nio */ = {
-			isa = PBXGroup;
-			children = (
-				9F65A10D239577D00096E015 /* NIOClient.java */,
-				9F65A10E239577D00096E015 /* NIONetworkHandler.java */,
-				9F65A10F239577D00096E015 /* NIOMultiServer.java */,
-			);
-			path = nio;
-			sourceTree = "<group>";
-		};
-		9F65A111239577D00096E015 /* rpc */ = {
-			isa = PBXGroup;
-			children = (
-				9F65A112239577D00096E015 /* RPCClient.java */,
-				9F65A113239577D00096E015 /* RPCHandler.java */,
-				9F65A114239577D00096E015 /* RPCServer.java */,
-			);
-			path = rpc;
-			sourceTree = "<group>";
-		};
-		9F65A116239577D00096E015 /* tx */ = {
-			isa = PBXGroup;
-			children = (
-				9F65A117239577D00096E015 /* TXMiner.java */,
-			);
-			path = tx;
-			sourceTree = "<group>";
-		};
-		9F65A119239577D00096E015 /* external */ = {
-			isa = PBXGroup;
-			children = (
-				9F65A11A239577D00096E015 /* ProcessManager.java */,
-			);
-			path = external;
-			sourceTree = "<group>";
-		};
-		9F65A11B239577D00096E015 /* backup */ = {
-			isa = PBXGroup;
-			children = (
-				9F65A11C239577D00096E015 /* SyncPackage.java */,
-				9F65A11D239577D00096E015 /* SyncPacket.java */,
-				9F65A11E239577D00096E015 /* BackupManager.java */,
-			);
-			path = backup;
-			sourceTree = "<group>";
-		};
-		9F65A11F239577D00096E015 /* maxima */ = {
-			isa = PBXGroup;
-			children = (
-				9F65A120239577D00096E015 /* OffChainManager.java */,
-				9F65A121239577D00096E015 /* ThePulse.java */,
-			);
-			path = maxima;
-			sourceTree = "<group>";
-		};
-		9F65A124239577D00096E015 /* json */ = {
-			isa = PBXGroup;
-			children = (
-				9F65A125239577D00096E015 /* simple */,
-			);
-			path = json;
-			sourceTree = "<group>";
-		};
-		9F65A125239577D00096E015 /* simple */ = {
-			isa = PBXGroup;
-			children = (
-				9F65A126239577D00096E015 /* JSONArray.java */,
-				9F65A127239577D00096E015 /* JSONValue.java */,
-				9F65A128239577D00096E015 /* JSONStreamAware.java */,
-				9F65A129239577D00096E015 /* JSONAware.java */,
-				9F65A12A239577D00096E015 /* parser */,
-				9F65A131239577D00096E015 /* JSONObject.java */,
-				9F65A132239577D00096E015 /* ItemList.java */,
-			);
-			path = simple;
-			sourceTree = "<group>";
-		};
-		9F65A12A239577D00096E015 /* parser */ = {
-			isa = PBXGroup;
-			children = (
-				9F65A12B239577D00096E015 /* ParseException.java */,
-				9F65A12C239577D00096E015 /* Yytoken.java */,
-				9F65A12D239577D00096E015 /* ContainerFactory.java */,
-				9F65A12E239577D00096E015 /* ContentHandler.java */,
-				9F65A12F239577D00096E015 /* JSONParser.java */,
-				9F65A130239577D00096E015 /* Yylex.java */,
-			);
-			path = parser;
-			sourceTree = "<group>";
-		};
-		9F65A133239577D00096E015 /* bretty */ = {
-			isa = PBXGroup;
-			children = (
-				9F65A134239577D00096E015 /* TreePrinter.java */,
-				9F65A135239577D00096E015 /* PrintableTreeNode.java */,
-				9F65A136239577D00096E015 /* maintree.java */,
-				9F65A137239577D00096E015 /* TreeNode.java */,
-				9F65A138239577D00096E015 /* StandardTreeNodeConverters.java */,
-				9F65A139239577D00096E015 /* TreeNodeConverter.java */,
-			);
-			path = bretty;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1327,13 +131,13 @@
 				9592DBEFFC6D2A0C8D5DEB22 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
-				9F6595BA239539A90096E015 /* PBXBuildRule */,
+				9F6867FC23A1472900DBD424 /* PBXBuildRule */,
 			);
 			dependencies = (
 			);
 			name = App;
 			productName = App;
-			productReference = 504EC3041FED79650016851F /* Minima.app */;
+			productReference = 504EC3041FED79650016851F /* App.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1343,7 +147,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 1120;
+				LastUpgradeCheck = 0920;
 				TargetAttributes = {
 					504EC3031FED79650016851F = {
 						CreatedOnToolsVersion = 9.2;
@@ -1380,8 +184,6 @@
 				504EC30F1FED79650016851F /* Assets.xcassets in Resources */,
 				50379B232058CBB4000EE86E /* capacitor.config.json in Resources */,
 				504EC30D1FED79650016851F /* Main.storyboard in Resources */,
-				9F5B15B123990C8D001F23B8 /* blank.wav in Resources */,
-				9F65A1DB239577D10096E015 /* tutorial.txt in Resources */,
 				2FAD9763203C412B000D30F8 /* config.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1429,242 +231,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9F65A189239577D10096E015 /* MAX.java in Sources */,
-				9F65A16C239577D10096E015 /* OperatorExpression.java in Sources */,
-				9F65A1C2239577D10096E015 /* Winternitz.java in Sources */,
-				9F65A202239577D10096E015 /* NIOMultiServer.java in Sources */,
-				9F65A21F239577D10096E015 /* PrintableTreeNode.java in Sources */,
-				9F65A16F239577D10096E015 /* ParameterExpression.java in Sources */,
-				9F65A181239577D10096E015 /* NUMBER.java in Sources */,
-				9F65A1AF239577D10096E015 /* POWCascader.java in Sources */,
-				9F65A177239577D10096E015 /* GETINTOK.java in Sources */,
-				9F65A1F9239577D10096E015 /* trace.java in Sources */,
-				9F65A223239577D10096E015 /* TreeNodeConverter.java in Sources */,
-				9F65A220239577D10096E015 /* maintree.java in Sources */,
-				9F65A191239577D10096E015 /* SUBSET.java in Sources */,
-				9F65A182239577D10096E015 /* BOOL.java in Sources */,
-				9F65A1E0239577D10096E015 /* exportkey.java in Sources */,
-				9F65A17F239577D10096E015 /* ASCII.java in Sources */,
-				9F65A19A239577D10096E015 /* LexicalTokenizer.java in Sources */,
-				9F65A187239577D10096E015 /* CEIL.java in Sources */,
-				9F65A190239577D10096E015 /* MinimaFunction.java in Sources */,
-				9F65A1C9239577D10096E015 /* PostReqEx.java in Sources */,
-				9F65A1F8239577D10096E015 /* newaddress.java in Sources */,
-				9F65A18E239577D10096E015 /* CHAINSHA.java in Sources */,
-				9F65A1A9239577D10096E015 /* MessageStack.java in Sources */,
-				9F65A1A0239577D10096E015 /* Witness.java in Sources */,
-				9F65A1A5239577D10096E015 /* MiniNumber.java in Sources */,
-				9F65A1F5239577D10096E015 /* txpowdrill.java in Sources */,
-				9F65A20A239577D10096E015 /* ProcessManager.java in Sources */,
-				9F65A1F1239577D10096E015 /* test.java in Sources */,
-				9F65A140239577D10096E015 /* CascadeTree.java in Sources */,
-				9F65A1BC239577D10096E015 /* ChatterServer.java in Sources */,
-				9F65A1FD239577D10096E015 /* NetClientReader.java in Sources */,
-				9F65A184239577D10096E015 /* BITGET.java in Sources */,
-				9F65A196239577D10096E015 /* SIGNEDBY.java in Sources */,
-				9F65A210239577D10096E015 /* GlobalParams.java in Sources */,
-				9F65A160239577D10096E015 /* VariableException.java in Sources */,
-				9F65A1C8239577D10096E015 /* MiniFormat.java in Sources */,
-				9F65A14E239577D10096E015 /* JavaCoinDBRow.java in Sources */,
-				9F65A214239577D10096E015 /* JSONStreamAware.java in Sources */,
-				9F65A188239577D10096E015 /* INC.java in Sources */,
-				9F65A179239577D10096E015 /* GETOUTTOK.java in Sources */,
-				9F65A152239577D10096E015 /* TxPowDBPrinter.java in Sources */,
-				9F65A192239577D10096E015 /* REV.java in Sources */,
-				9F65A200239577D10096E015 /* NIOClient.java in Sources */,
-				9F65A1D3239577D10096E015 /* GenesisTxPOW.java in Sources */,
-				9F65A164239577D10096E015 /* IFstatement.java in Sources */,
-				9F65A201239577D10096E015 /* NIONetworkHandler.java in Sources */,
-				9F65A1A6239577D10096E015 /* Transaction.java in Sources */,
-				9F65A155239577D10096E015 /* JavaDB.java in Sources */,
-				9F65A162239577D10096E015 /* StatementBlock.java in Sources */,
-				9F65A161239577D10096E015 /* Statement.java in Sources */,
-				9F65A154239577D10096E015 /* JavaDBRow.java in Sources */,
-				9F65A194239577D10096E015 /* CONCAT.java in Sources */,
-				9F65A1BB239577D10096E015 /* ChatterClient.java in Sources */,
-				9F65A1E5239577D10096E015 /* txnoutput.java in Sources */,
-				9F65A219239577D10096E015 /* ContentHandler.java in Sources */,
-				9F65A1FF239577D10096E015 /* NetworkHandler.java in Sources */,
-				9F65A1E3239577D10096E015 /* coins.java in Sources */,
-				9F65A1C0239577D10096E015 /* SocketServerExample.java in Sources */,
-				9F65A1F2239577D10096E015 /* reconnect.java in Sources */,
-				9F65A1BD239577D10096E015 /* User.java in Sources */,
-				9F65A172239577D10096E015 /* GlobalExpression.java in Sources */,
-				9F65A14B239577D10096E015 /* CoinDBPrinter.java in Sources */,
-				9F65A15F239577D10096E015 /* MinimaParseException.java in Sources */,
-				9F65A163239577D10096E015 /* StatementParser.java in Sources */,
-				9F65A167239577D10096E015 /* MASTstatement.java in Sources */,
-				9F65A176239577D10096E015 /* GETINADDR.java in Sources */,
-				9F65A213239577D10096E015 /* JSONValue.java in Sources */,
-				9F65A143239577D10096E015 /* BlockTree.java in Sources */,
-				9F65A218239577D10096E015 /* ContainerFactory.java in Sources */,
-				9F65A20E239577D10096E015 /* OffChainManager.java in Sources */,
-				9F65A216239577D10096E015 /* ParseException.java in Sources */,
-				9F65A17E239577D10096E015 /* _STATE.java in Sources */,
-				9F65A15C239577D10096E015 /* HEXValue.java in Sources */,
-				9F65A1B8239577D10096E015 /* CChainLevel.java in Sources */,
-				9F65A17D239577D10096E015 /* SUMINTOK.java in Sources */,
-				9F65A1B4239577D10096E015 /* MinPowCascader.java in Sources */,
-				9F65A1B5239577D10096E015 /* Block.java in Sources */,
-				9F65A209239577D10096E015 /* Main.java in Sources */,
-				9F65A17C239577D10096E015 /* _PREVSTATE.java in Sources */,
-				9F65A21A239577D10096E015 /* JSONParser.java in Sources */,
-				9F65A1E4239577D10096E015 /* gimme50.java in Sources */,
-				9F65A20F239577D10096E015 /* ThePulse.java in Sources */,
-				9F65A18F239577D10096E015 /* SHA3.java in Sources */,
-				9F65A19B239577D10096E015 /* Token.java in Sources */,
-				9F65A18D239577D10096E015 /* SHA2.java in Sources */,
-				9F65A158239577D10096E015 /* ScriptValue.java in Sources */,
-				9F65A20D239577D10096E015 /* BackupManager.java in Sources */,
-				9F65A1AE239577D10096E015 /* BigD.java in Sources */,
-				9F65A13A239577D00096E015 /* JavaUserDB.java in Sources */,
-				9F65A16B239577D10096E015 /* ConstantExpression.java in Sources */,
-				9F65A171239577D10096E015 /* BooleanExpression.java in Sources */,
-				9F65A203239577D10096E015 /* RamIntro.java in Sources */,
-				9F65A197239577D10096E015 /* MULTISIG.java in Sources */,
-				9F65A148239577D10096E015 /* MMREntry.java in Sources */,
-				9F65A146239577D10096E015 /* MMRDB.java in Sources */,
-				9F65A1C3239577D10096E015 /* ResponseStream.java in Sources */,
-				9F65A13B239577D10096E015 /* JavaUserDBRow.java in Sources */,
-				9F65A1CD239577D10096E015 /* ConsensusUser.java in Sources */,
-				9F65A14F239577D10096E015 /* JavaCoinDB.java in Sources */,
-				9F6597CF239545FC0096E015 /* MinimaBridger.m in Sources */,
-				9F65A21B239577D10096E015 /* Yylex.java in Sources */,
-				9F65A1F3239577D10096E015 /* runscript.java in Sources */,
-				9F65A170239577D10096E015 /* Expression.java in Sources */,
-				9F65A13C239577D10096E015 /* UserDB.java in Sources */,
-				9F65A1E8239577D10096E015 /* txnpost.java in Sources */,
-				9F65A15D239577D10096E015 /* ExecutionException.java in Sources */,
-				9F65A1F4239577D10096E015 /* backup.java in Sources */,
-				9F65A166239577D10096E015 /* EXECstatement.java in Sources */,
-				9F65A13F239577D10096E015 /* BlockTreePrinter.java in Sources */,
-				9F65A156239577D10096E015 /* SQLTxPoWDB.java in Sources */,
-				9F65A1D6239577D10096E015 /* InputHandler.java in Sources */,
-				9F65A1EA239577D10096E015 /* txnvalidate.java in Sources */,
-				9F65A175239577D10096E015 /* VERIFYIN.java in Sources */,
-				9F65A1C1239577D10096E015 /* GMSS.java in Sources */,
-				9F65A1D0239577D10096E015 /* ConsensusTxn.java in Sources */,
-				9F65A217239577D10096E015 /* Yytoken.java in Sources */,
-				9F65A19C239577D10096E015 /* Coin.java in Sources */,
-				9F65A165239577D10096E015 /* WHILEstatement.java in Sources */,
-				9F65A14A239577D10096E015 /* MMRSet.java in Sources */,
-				9F65A144239577D10096E015 /* MinimaDB.java in Sources */,
-				9F65A1BA239577D10096E015 /* CChainSim.java in Sources */,
-				9F65A21E239577D10096E015 /* TreePrinter.java in Sources */,
-				9F65A1D2239577D10096E015 /* GenesisTransaction.java in Sources */,
-				9F65A1FE239577D10096E015 /* MultiServer.java in Sources */,
-				9F65A15B239577D10096E015 /* Value.java in Sources */,
-				9F65A145239577D10096E015 /* MMRPrint.java in Sources */,
-				9F65A1CE239577D10096E015 /* ConsensusBackup.java in Sources */,
-				9F65A20B239577D10096E015 /* SyncPackage.java in Sources */,
-				9F65A211239577D10096E015 /* NativeListener.java in Sources */,
+				9F6867FA23A146B200DBD424 /* MinimaBridger.m in Sources */,
 				504EC3081FED79650016851F /* AppDelegate.swift in Sources */,
-				9F65A1B1239577D10096E015 /* CascadingChain.java in Sources */,
-				9F65A1A3239577D10096E015 /* MiniByte.java in Sources */,
-				9F65A198239577D10096E015 /* CHECKSIG.java in Sources */,
-				9F65A1E2239577D10096E015 /* importkey.java in Sources */,
-				9F65A1BE239577D10096E015 /* Simulator.java in Sources */,
-				9F65A1CB239577D10096E015 /* ConsensusHandler.java in Sources */,
-				9F65A19F239577D10096E015 /* Difficulty.java in Sources */,
-				9F65A195239577D10096E015 /* RPLVAR.java in Sources */,
-				9F65A1A7239577D10096E015 /* Start.java in Sources */,
-				9F65A1DD239577D10096E015 /* quit.java in Sources */,
-				9F65A193239577D10096E015 /* LEN.java in Sources */,
-				9F65A1EF239577D10096E015 /* printchain.java in Sources */,
-				9F65A141239577D10096E015 /* BlockTreeStore.java in Sources */,
-				9F65A199239577D10096E015 /* QuotedString.java in Sources */,
-				9F65A150239577D10096E015 /* SQLCoinDB.java in Sources */,
-				9F65A15A239577D10096E015 /* NumberValue.java in Sources */,
-				9F65A13D239577D10096E015 /* UserDBRow.java in Sources */,
-				9F65A1D8239577D10096E015 /* status.java in Sources */,
-				9F65A206239577D10096E015 /* RPCServer.java in Sources */,
-				9F65A1DC239577D10096E015 /* newscript.java in Sources */,
-				9F65A151239577D10096E015 /* TxPOWDBRow.java in Sources */,
-				9F65A208239577D10096E015 /* TXMiner.java in Sources */,
-				9F65A21C239577D10096E015 /* JSONObject.java in Sources */,
-				9F65A1B0239577D10096E015 /* BlockLevel.java in Sources */,
-				9F65A222239577D10096E015 /* StandardTreeNodeConverters.java in Sources */,
-				9F65A20C239577D10096E015 /* SyncPacket.java in Sources */,
-				9F65A1C5239577D10096E015 /* Streamable.java in Sources */,
-				9F65A149239577D10096E015 /* MMRData.java in Sources */,
-				9F65A1FB239577D10096E015 /* createtoken.java in Sources */,
-				9F65A204239577D10096E015 /* RPCClient.java in Sources */,
-				9F65A1DA239577D10096E015 /* help.java in Sources */,
-				9F65A18A239577D10096E015 /* MIN.java in Sources */,
-				9F65A1AD239577D10096E015 /* SBlocks.java in Sources */,
-				9F65A14C239577D10096E015 /* CoinDBRow.java in Sources */,
-				9F65A15E239577D10096E015 /* MinimaException.java in Sources */,
-				9F65A18B239577D10096E015 /* ABS.java in Sources */,
-				9F65A16A239577D10096E015 /* ExpressionParser.java in Sources */,
-				9F65A13E239577D10096E015 /* SQLUserDB.java in Sources */,
-				9F65A168239577D10096E015 /* LETstatement.java in Sources */,
-				9F65A1E9239577D10096E015 /* txndelete.java in Sources */,
-				9F65A159239577D10096E015 /* BooleanValue.java in Sources */,
-				9F65A16D239577D10096E015 /* VariableExpression.java in Sources */,
-				9F65A1E7239577D10096E015 /* txnsign.java in Sources */,
-				9F65A205239577D10096E015 /* RPCHandler.java in Sources */,
-				9F65A1FC239577D10096E015 /* NetClient.java in Sources */,
-				9F65A1EB239577D10096E015 /* txncreate.java in Sources */,
-				9F65A215239577D10096E015 /* JSONAware.java in Sources */,
-				9F65A1A4239577D10096E015 /* MiniData32.java in Sources */,
-				9F65A19D239577D10096E015 /* Address.java in Sources */,
-				9F65A157239577D10096E015 /* Contract.java in Sources */,
-				9F65A173239577D10096E015 /* SUMOUTTOK.java in Sources */,
-				9F65A207239577D10096E015 /* SystemHandler.java in Sources */,
-				9F65A1D4239577D10096E015 /* UserSimulator.java in Sources */,
-				9F65A183239577D10096E015 /* SCRIPT.java in Sources */,
-				9F65A1FA239577D10096E015 /* connect.java in Sources */,
-				9F65A1AA239577D10096E015 /* TimerMessage.java in Sources */,
-				9F65A1DE239577D10096E015 /* keys.java in Sources */,
-				9F65A1B3239577D10096E015 /* POWChecker.java in Sources */,
-				9F65A178239577D10096E015 /* VERIFYOUT.java in Sources */,
-				9F65A1CA239577D10096E015 /* Maths.java in Sources */,
-				9F5B15B223990C8D001F23B8 /* BackgroundTask.swift in Sources */,
-				9F65A174239577D10096E015 /* GETINAMT.java in Sources */,
-				9F65A1A8239577D10096E015 /* Message.java in Sources */,
-				9F65A1D5239577D10096E015 /* CommandFunction.java in Sources */,
-				9F65A1C6239577D10096E015 /* Crypto.java in Sources */,
-				9F65A1EE239577D10096E015 /* send.java in Sources */,
-				9F65A1AC239577D10096E015 /* Precision.java in Sources */,
-				9F65A1A1239577D10096E015 /* TxPOW.java in Sources */,
-				9F65A1D1239577D10096E015 /* ConsensusPrint.java in Sources */,
-				9F65A1BF239577D10096E015 /* SocketClientExample.java in Sources */,
-				9F65A186239577D10096E015 /* DEC.java in Sources */,
-				9F65A180239577D10096E015 /* HEX.java in Sources */,
-				9F65A169239577D10096E015 /* RETURNstatement.java in Sources */,
-				9F65A221239577D10096E015 /* TreeNode.java in Sources */,
-				9F65A1C4239577D10096E015 /* SimpleLogger.java in Sources */,
-				9F65A1B7239577D10096E015 /* CChainBlock.java in Sources */,
-				9F65A153239577D10096E015 /* TxPowDB.java in Sources */,
-				9F65A1ED239577D10096E015 /* intro.java in Sources */,
-				9F65A17A239577D10096E015 /* GETOUTADDR.java in Sources */,
-				9F65A1CF239577D10096E015 /* TxPOWChecker.java in Sources */,
-				9F65A1AB239577D10096E015 /* MessageProcessor.java in Sources */,
-				9F65A1F7239577D10096E015 /* disconnect.java in Sources */,
-				9F65A142239577D10096E015 /* BlockTreeNode.java in Sources */,
-				9F65A1D9239577D10096E015 /* tutorial.java in Sources */,
-				9F65A1B9239577D10096E015 /* Cascader.java in Sources */,
-				9F65A19E239577D10096E015 /* PubPrivKey.java in Sources */,
-				9F65A1DF239577D10096E015 /* importcoin.java in Sources */,
-				9F65A17B239577D10096E015 /* GETOUTAMT.java in Sources */,
-				9F65A16E239577D10096E015 /* FunctionExpression.java in Sources */,
-				9F65A1D7239577D10096E015 /* InputMessage.java in Sources */,
-				9F65A21D239577D10096E015 /* ItemList.java in Sources */,
-				9F65A14D239577D10096E015 /* CoinDB.java in Sources */,
-				9F65A18C239577D10096E015 /* FLOOR.java in Sources */,
-				9F65A1C7239577D10096E015 /* SuperBlockLevels.java in Sources */,
-				9F65A1E1239577D10096E015 /* exportcoin.java in Sources */,
-				9F65A212239577D10096E015 /* JSONArray.java in Sources */,
-				9F65A185239577D10096E015 /* BITSET.java in Sources */,
-				9F65A1E6239577D10096E015 /* txnlist.java in Sources */,
-				9F65A1A2239577D10096E015 /* MiniData.java in Sources */,
-				9F65A1B2239577D10096E015 /* ExactPOWCascader.java in Sources */,
-				9F65A1B6239577D10096E015 /* CChain.java in Sources */,
-				9F65A147239577D10096E015 /* MMRProof.java in Sources */,
-				9F65A1CC239577D10096E015 /* ConsensusNet.java in Sources */,
-				9F65A1EC239577D10096E015 /* txninput.java in Sources */,
-				9F65A1F6239577D10096E015 /* balance.java in Sources */,
-				9F65A1F0239577D10096E015 /* minetrans.java in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1704,7 +272,6 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -1712,7 +279,6 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -1726,7 +292,6 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = "\"${J2OBJC_HOME}/frameworks\"";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1741,14 +306,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "\"${J2OBJC_HOME}/include\"";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				USER_HEADER_SEARCH_PATHS = "\"${J2OBJC_HOME}/include\"";
 			};
 			name = Debug;
 		};
@@ -1766,7 +329,6 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -1774,7 +336,6 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -1788,7 +349,6 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = "\"${J2OBJC_HOME}/frameworks\"";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -1797,12 +357,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "\"${J2OBJC_HOME}/include\"";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				USER_HEADER_SEARCH_PATHS = "\"${J2OBJC_HOME}/include\"";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -1822,15 +380,9 @@
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/CapacitorCordova\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/CordovaPlugins\"",
 				);
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/Capacitor/Capacitor.framework/Headers\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/CapacitorCordova/Cordova.framework/Headers\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/CordovaPlugins/CordovaPlugins.framework/Headers\"",
-				);
 				INFOPLIST_FILE = App/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				J2OBJC_HOME = "/Users/eliasminima/J2OBJC/j2objc-2.5/dist";
+				J2OBJC_HOME = /Users/eliasminima/J2OBJC/j2objc;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "\"${J2OBJC_HOME}/lib\"";
 				OTHER_LDFLAGS = (
@@ -1843,21 +395,17 @@
 					"\"CordovaPlugins\"",
 					"-framework",
 					"\"WebKit\"",
-					"-l",
-					iconv,
 					"-ljre_emul",
-					"-framework",
-					Security,
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-DDEBUG\"";
 				PRODUCT_BUNDLE_IDENTIFIER = org.minima.global;
-				PRODUCT_NAME = Minima;
-				PROJECT_DIR = "/Users/eliasminima/Projects/Minima-Telco-App-19112019-9-44/mobile-app-front-end/app/ios/App/";
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG USE_PUSH";
 				SWIFT_OBJC_BRIDGING_HEADER = "App/App-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "\"${J2OBJC_HOME}/include\"";
 			};
 			name = Debug;
 		};
@@ -1876,15 +424,9 @@
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/CapacitorCordova\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/CordovaPlugins\"",
 				);
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/Capacitor/Capacitor.framework/Headers\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/CapacitorCordova/Cordova.framework/Headers\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/CordovaPlugins/CordovaPlugins.framework/Headers\"",
-				);
 				INFOPLIST_FILE = App/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				J2OBJC_HOME = "/Users/eliasminima/J2OBJC/j2objc-2.5/dist";
+				J2OBJC_HOME = /Users/eliasminima/J2OBJC/j2objc;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "\"${J2OBJC_HOME}/lib\"";
 				OTHER_LDFLAGS = (
@@ -1897,19 +439,15 @@
 					"\"CordovaPlugins\"",
 					"-framework",
 					"\"WebKit\"",
-					"-l",
-					iconv,
 					"-ljre_emul",
-					"-framework",
-					Security,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.minima.global;
-				PRODUCT_NAME = Minima;
-				PROJECT_DIR = "/Users/eliasminima/Projects/Minima-Telco-App-19112019-9-44/mobile-app-front-end/app/ios/App/";
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = USE_PUSH;
 				SWIFT_OBJC_BRIDGING_HEADER = "App/App-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "\"${J2OBJC_HOME}/include\"";
 			};
 			name = Release;
 		};
