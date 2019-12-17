@@ -2,7 +2,7 @@
 //  MinimaBridger.h
 //  App
 //
-//  Created by Elias Nemr on 11/12/2019.
+//  Created by Elias Nemr on 12/12/2019.
 //
 
 #ifndef MinimaBridger_h
