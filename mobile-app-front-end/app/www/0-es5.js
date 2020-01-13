@@ -58,30 +58,31 @@ var detachComponent = function (delegate, element) {
 
 /***/ }),
 
-/***/ "./node_modules/@ionic/core/dist/esm-es5/index-4f661cec.js":
+/***/ "./node_modules/@ionic/core/dist/esm-es5/index-4d91f03a.js":
 /*!*****************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm-es5/index-4f661cec.js ***!
+  !*** ./node_modules/@ionic/core/dist/esm-es5/index-4d91f03a.js ***!
   \*****************************************************************/
-/*! exports provided: d, l, s, t */
+/*! exports provided: d, g, l, s, t */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return deepReady; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return getIonPageElement; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return lifecycle; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return setPageHidden; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "t", function() { return transition; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _core_57385ee8_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./core-57385ee8.js */ "./node_modules/@ionic/core/dist/esm-es5/core-57385ee8.js");
+/* harmony import */ var _core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./core-feeeff0d.js */ "./node_modules/@ionic/core/dist/esm-es5/core-feeeff0d.js");
 /* harmony import */ var _constants_3c3e1099_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants-3c3e1099.js */ "./node_modules/@ionic/core/dist/esm-es5/constants-3c3e1099.js");
 
 
 
-var iosTransitionAnimation = function () { return __webpack_require__.e(/*! import() | ios-transition-56d4bc47-js */ "ios-transition-56d4bc47-js").then(__webpack_require__.bind(null, /*! ./ios.transition-56d4bc47.js */ "./node_modules/@ionic/core/dist/esm-es5/ios.transition-56d4bc47.js")); };
-var mdTransitionAnimation = function () { return __webpack_require__.e(/*! import() | md-transition-3d062e94-js */ "md-transition-3d062e94-js").then(__webpack_require__.bind(null, /*! ./md.transition-3d062e94.js */ "./node_modules/@ionic/core/dist/esm-es5/md.transition-3d062e94.js")); };
+var iosTransitionAnimation = function () { return __webpack_require__.e(/*! import() | ios-transition-504cdd09-js */ "ios-transition-504cdd09-js").then(__webpack_require__.bind(null, /*! ./ios.transition-504cdd09.js */ "./node_modules/@ionic/core/dist/esm-es5/ios.transition-504cdd09.js")); };
+var mdTransitionAnimation = function () { return __webpack_require__.e(/*! import() | md-transition-fea2bbfb-js */ "md-transition-fea2bbfb-js").then(__webpack_require__.bind(null, /*! ./md.transition-fea2bbfb.js */ "./node_modules/@ionic/core/dist/esm-es5/md.transition-fea2bbfb.js")); };
 var transition = function (opts) {
     return new Promise(function (resolve, reject) {
-        Object(_core_57385ee8_js__WEBPACK_IMPORTED_MODULE_1__["w"])(function () {
+        Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_1__["w"])(function () {
             beforeTransition(opts);
             runTransition(opts).then(function (result) {
                 if (result.animation) {
@@ -347,6 +348,17 @@ var setZIndex = function (enteringEl, leavingEl, direction) {
     if (leavingEl !== undefined) {
         leavingEl.style.zIndex = '100';
     }
+};
+var getIonPageElement = function (element) {
+    if (element.classList.contains('ion-page')) {
+        return element;
+    }
+    var ionPage = element.querySelector(':scope > .ion-page, :scope > ion-nav, :scope > ion-tabs');
+    if (ionPage) {
+        return ionPage;
+    }
+    // idk, return the original element so at least something animates and we don't have a null pointer
+    return element;
 };
 
 

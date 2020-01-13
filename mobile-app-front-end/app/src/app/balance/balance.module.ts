@@ -10,7 +10,7 @@ import { BalancePage } from './balance.page';
 const routes: Routes = [
   {
     path: '',
-    component: BalancePage
+    component: BalancePage,
   }
 ];
 

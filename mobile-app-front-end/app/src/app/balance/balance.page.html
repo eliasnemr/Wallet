@@ -1,15 +1,12 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title color="primary">
-      Balance
+    <ion-title>
+    <img align-items-center alt="logo" height="25" src="../assets/icon/minima.svg">
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="balance-bg">
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content
     pullingIcon="arrow-dropdown"
@@ -42,3 +39,4 @@
     </ion-card-content>
   </ion-card>
 </ion-content>
+

@@ -16,8 +16,13 @@
     </ion-card-header>
 
     <ion-card-content >
-
-      <qrcode class="qrcode" [qrdata]="qrCode" [size]="300" [level]="'Q'" colorlight="#e9ecef" *ngIf="qrCode!==''"></qrcode>
+      <qrcode class="qrcode" 
+      [qrdata]="qrCode" 
+      [size]="300" 
+      [level]="'Q'" 
+      colorlight="#e9ecef" 
+      *ngIf="qrCode!==''">
+    </qrcode>
 
       <ion-button expand="block" (click)="copyToClipboard()"[disabled]="!isEmpty">
         <ion-icon name="copy" slot="start"></ion-icon>Copy to clipboard

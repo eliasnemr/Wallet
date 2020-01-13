@@ -13,5 +13,6 @@
         "statusBar.background": "#6da7d9",
         "statusBarItem.hoverBackground": "#458fce",
         "statusBar.foreground": "#15202b"
-    }
+    },
+    "git.ignoreLimitWarning": true
 }

@@ -1,8 +1,8 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["common"],{
 
-/***/ "./node_modules/@ionic/core/dist/esm-es5/cubic-bezier-fc4a068b.js":
+/***/ "./node_modules/@ionic/core/dist/esm-es5/cubic-bezier-2812fda3.js":
 /*!************************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm-es5/cubic-bezier-fc4a068b.js ***!
+  !*** ./node_modules/@ionic/core/dist/esm-es5/cubic-bezier-2812fda3.js ***!
   \************************************************************************/
 /*! exports provided: P, g */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -32,6 +32,9 @@ var Point = /** @class */ (function () {
  * P1: (0.32, 0.72)
  * P2: (0, 1)
  * P3: (1, 1)
+ *
+ * If you give a cubic bezier curve that never reaches the
+ * provided progression, this function will return NaN.
  */
 var getTimeGivenProgression = function (p0, p1, p2, p3, progression) {
     var tValues = solveCubicBezier(p0.y, p1.y, p2.y, p3.y, progression);

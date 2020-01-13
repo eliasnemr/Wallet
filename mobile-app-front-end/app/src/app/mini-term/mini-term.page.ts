@@ -10,7 +10,7 @@ import { environment } from '../../environments/environment';
 @Component({
   selector: 'app-mini-term',
   templateUrl: './mini-term.page.html',
-  styleUrls: ['xterm.css']
+  styleUrls: ['mini-term.page.scss']
 })
 
 export class MiniTermPage implements OnInit {
@@ -75,13 +75,40 @@ export class MiniTermPage implements OnInit {
       self.http.get(self.host + route, { responseType: 'json' }).subscribe((d: any) => {
         setTimeout( () => { self.hideLoader(); }, 500);
         console.log(d);
-        this.theExecuted.push('$' + JSON.stringify(d));
+        
+        const objpretty = JSON.stringify(d, undefined, 1);
+        this.theExecuted.push('$' + objpretty);
         resolve(d);
       }, (err) => {
         self.hideLoader();
         console.log('Error ' + err );
         reject(err);
       });
+    });
+  }
+
+
+
+  syntaxHighlight(json) {
+    if (typeof json !== 'string') {
+         json = JSON.stringify(json, undefined, 2);
+    }
+    json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, 
+    (match) => {
+        let cls = 'number';
+        if (/^"/.test(match)) {
+            if (/:$/.test(match)) {
+                cls = 'key';
+            } else {
+                cls = 'string';
+            }
+        } else if (/true|false/.test(match)) {
+            cls = 'boolean';
+        } else if (/null/.test(match)) {
+            cls = 'null';
+        }
+        return '<span class="' + cls + '">' + match + '</span>';
     });
   }
 

@@ -8,6 +8,15 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
+	"./balance/balance.module": [
+		"./src/app/balance/balance.module.ts",
+		"common",
+		"balance-balance-module"
+	],
+	"./mini-status/mini-status.module": [
+		"./src/app/mini-status/mini-status.module.ts",
+		"mini-status-mini-status-module"
+	],
 	"./mini-term/mini-term.module": [
 		"./src/app/mini-term/mini-term.module.ts",
 		"mini-term-mini-term-module"
@@ -468,7 +477,7 @@ module.exports = webpackAsyncContext;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-app>\n\n  <ion-menu side=\"start\" contentId=\"mainMenu\">\n    <ion-header>\n      <ion-toolbar class=\"menuToolbar\">\n\n        <div class=\"logo\"></div>\n\n      </ion-toolbar>\n    </ion-header>\n    <ion-content>\n      <ion-menu-toggle auto-hide=\"false\">\n        <ion-list lines=\"none\">\n          <ion-item routerLink=\"/balance\" >\n            <ion-icon name=\"card\" slot=\"start\"></ion-icon> Balance\n          </ion-item>\n          <ion-item routerLink=\"/send-funds\" >\n            <ion-icon name=\"send\" slot=\"start\"></ion-icon> Send funds\n          </ion-item>\n          <ion-item routerLink=\"/my-address\">\n            <ion-icon name=\"information-circle\" slot=\"start\"></ion-icon> Minima address\n          </ion-item>\n          <ion-item routerLink=\"/mini-term\">\n            <ion-icon name=\"analytics\" slot=\"start\"></ion-icon> Terminal\n          </ion-item>\n          <ion-item routerLink=\"/settings\">\n            <ion-icon name=\"build\" slot=\"start\"></ion-icon> Settings\n          </ion-item>\n        </ion-list>\n      </ion-menu-toggle>\n    </ion-content>\n  </ion-menu>\n\n  <ion-router-outlet id=\"mainMenu\"></ion-router-outlet>\n</ion-app>"
+module.exports = "<ion-app>\n  <ion-menu side=\"start\" contentId=\"mainMenu\">\n    <ion-header>\n      <ion-toolbar class=\"menuToolbar\">\n        <div class=\"logo\"></div>      \n      </ion-toolbar>\n    </ion-header>\n    <ion-content>\n      <ion-menu-toggle auto-hide=\"false\">\n        <ion-list lines=\"none\">\n          <ion-item routerLink=\"/balance\" >\n            <ion-icon name=\"card\" slot=\"start\"></ion-icon> Balance\n          </ion-item>\n          <ion-item routerLink=\"/send-funds\" >\n            <ion-icon name=\"send\" slot=\"start\"></ion-icon> Send funds\n          </ion-item>\n          <ion-item routerLink=\"/my-address\">\n            <ion-icon name=\"information-circle\" slot=\"start\"></ion-icon> Minima address\n          </ion-item>\n          <ion-item routerLink=\"/mini-term\">\n            <ion-icon name=\"analytics\" slot=\"start\"></ion-icon> Terminal\n          </ion-item>\n          <ion-item routerLink=\"/settings\">\n            <ion-icon name=\"build\" slot=\"start\"></ion-icon> Settings\n          </ion-item>\n        </ion-list>\n      </ion-menu-toggle>\n    </ion-content>\n  </ion-menu>\n\n  <ion-router-outlet id=\"mainMenu\"></ion-router-outlet>\n</ion-app>"
 
 /***/ }),
 
@@ -489,13 +498,18 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const routes = [
+    // {
+    //   path: '',
+    //   loadChildren: () => import('./mini-tabs/mini-tabs.module').then(m => m.MiniTabsPageModule)
+    // }
+    { path: '', loadChildren: './balance/balance.module#BalancePageModule' },
     { path: '', redirectTo: 'balance', pathMatch: 'full' },
-    //{ path: 'home', loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)},
     { path: 'balance', loadChildren: () => Promise.all(/*! import() | balance-balance-module */[__webpack_require__.e("common"), __webpack_require__.e("balance-balance-module")]).then(__webpack_require__.bind(null, /*! ./balance/balance.module */ "./src/app/balance/balance.module.ts")).then(m => m.BalancePageModule) },
     { path: 'my-address', loadChildren: './my-address/my-address.module#MyAddressPageModule' },
-    { path: 'send-funds', loadChildren: './send-funds/send-funds.module#SendFundsPageModule' },
+    { path: 'code', loadChildren: './send-funds/send-funds.module#SendFundsPageModule' },
     { path: 'settings', loadChildren: './settings/settings.module#SettingsPageModule' },
     { path: 'mini-term', loadChildren: './mini-term/mini-term.module#MiniTermPageModule' },
+    { path: 'mini-status', loadChildren: './mini-status/mini-status.module#MiniStatusPageModule' },
 ];
 let AppRoutingModule = class AppRoutingModule {
 };
@@ -665,7 +679,7 @@ __webpack_require__.r(__webpack_exports__);
 // The list of file replacements can be found in `angular.json`.
 const environment = {
     production: false,
-    defaultNode: 'http://127.0.0.1:8998/'
+    defaultNode: 'http://127.0.0.1:8999/'
 };
 /*
  * For easier debugging in development mode, you can import the following file
