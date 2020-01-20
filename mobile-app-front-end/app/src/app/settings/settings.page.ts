@@ -34,11 +34,21 @@ export class SettingsPage implements OnInit {
     });
   }
 
+  async quitMinima(msg:string,header:string) {
+    const alert = await this.alertController.create({
+      header: header,     
+      message: msg,
+      buttons: ['Cancel', 'I am sure.']
+    });
+
+    await alert.present();
+  }
+
   async presentAlert(msg:string,header:string) {
     const alert = await this.alertController.create({
       header: header,     
       message: msg,
-      buttons: ['OK']
+      buttons: ['Cancel', 'Ok']
     });
 
     await alert.present();

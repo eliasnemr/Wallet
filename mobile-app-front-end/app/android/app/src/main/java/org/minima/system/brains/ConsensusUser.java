@@ -1,6 +1,5 @@
 package org.minima.system.brains;
 
-import org.json.simple.JSONObject;
 import org.minima.database.MinimaDB;
 import org.minima.miniscript.Contract;
 import org.minima.miniscript.values.HEXValue;
@@ -13,6 +12,7 @@ import org.minima.objects.base.MiniData;
 import org.minima.objects.base.MiniNumber;
 import org.minima.system.input.InputHandler;
 import org.minima.utils.MinimaLogger;
+import org.minima.utils.json.JSONObject;
 import org.minima.utils.messages.Message;
 
 public class ConsensusUser {

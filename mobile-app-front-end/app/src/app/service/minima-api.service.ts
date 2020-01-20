@@ -65,6 +65,10 @@ export class MinimaApiService {
     return this.request('balance');
   }
 
+  getStatus() {
+    return this.request('status');
+  }
+
   private request(route) {
     const self = this;
     self.showLoader();

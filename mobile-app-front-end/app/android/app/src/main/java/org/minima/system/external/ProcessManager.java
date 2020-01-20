@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-import org.json.simple.JSONObject;
 import org.minima.objects.Coin;
 import org.minima.objects.Transaction;
 import org.minima.objects.base.MiniData;
@@ -12,7 +11,8 @@ import org.minima.objects.base.MiniData32;
 import org.minima.objects.base.MiniNumber;
 import org.minima.system.Main;
 import org.minima.system.SystemHandler;
-//import org.minima.utils.PostReqEx;
+import org.minima.utils.PostReqEx;
+import org.minima.utils.json.JSONObject;
 import org.minima.utils.messages.Message;
 
 public class ProcessManager extends SystemHandler {
@@ -67,7 +67,7 @@ public class ProcessManager extends SystemHandler {
 //			}
 		
 		}else if(zMessage.getMessageType().equals(PROCESS_RELCOIN)) {
-		/*	if(!mRelCoin.equals("")) {
+			if(!mRelCoin.equals("")) {
 				//Get the Coin..
 				Coin cc            = (Coin)zMessage.getObject("coin");
 				MiniData32 transid = (MiniData32)zMessage.getObject("transid");
@@ -82,12 +82,8 @@ public class ProcessManager extends SystemHandler {
 				data.put("spent", spent);
 				
 				//Now call the WebPage..!
-<<<<<<< HEAD
-				//PostReqEx.post(mRelCoin, data.toJSONString());
-=======
 				//HACK _ NEED A POST REQUEST!
 //				PostReqEx.post(mRelCoin, data.toJSONString());
->>>>>>> refs/remotes/origin/Development
 				
 //				//Now convert that to RAW HEX data
 //				MiniData hex = new MiniData(jj.getBytes());
@@ -98,8 +94,6 @@ public class ProcessManager extends SystemHandler {
 //				
 //				PostMessage(new Message(PROCESS_COMMAND).addString("command", func));
 			}
-			
-			*/
 		}
 	}
 	

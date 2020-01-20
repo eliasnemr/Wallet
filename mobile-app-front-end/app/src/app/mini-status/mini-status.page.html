@@ -1,14 +1,200 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Mini Status</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Status
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-<ion-text>
-  Hello
-</ion-text>
+  <!-- Block Generated vs Time elapsed Chart -->
+  <ion-card class="welcome-card" style="background-color:#00AAC8;">
+    <ion-card-header id="status-header">
+      <ion-card-title>
+        <ion-item>
+          <ion-icon align-self-start src="../../assets/icon/minima.svg" size="2"></ion-icon>
+          <b>Minima  v{{ versionNumber }} </b>
+        </ion-item>
+      </ion-card-title>
+    </ion-card-header>
 
 
-  
+    <ion-card-content id="status-content">
+      <ion-list lines="none">
+        <ion-grid no-padding>
+          <ion-row>
+            <ion-col size="2">
+              <ion-item >
+                <ion-icon align-self-center name="checkmark" size="2"></ion-icon>
+              </ion-item>
+            </ion-col>
+            <ion-col size="6">
+              <ion-item>
+                Your node's status
+              </ion-item>
+            </ion-col>
+            <ion-col size="4">
+              <ion-item 
+              [ngStyle] = " {'color': getColor()}"
+               #statusColor>
+                {{status}}
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <!-- New Row -->
+          <ion-row>
+            <ion-col size="2">
+              <ion-item>
+                <ion-icon align-self-center name="checkmark" size="2"></ion-icon>
+              </ion-item>
+            </ion-col>
+            <ion-col size="6">
+              <ion-item>
+                Current uptime
+              </ion-item>
+            </ion-col>
+            <ion-col size="4">
+              <ion-item>
+                {{upTime}}
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <!-- New Row -->
+          <ion-row>
+            <ion-col size="2">
+              <ion-item>
+                <ion-icon align-self-center name="checkmark" size="2"></ion-icon>
+              </ion-item>
+            </ion-col>
+            <ion-col size="6">
+              <ion-item>
+                String uptime
+              </ion-item>
+            </ion-col>
+            <ion-col size="4">
+              <ion-item>
+                {{stringUptime}}
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <!-- New Row -->
+          <ion-row>
+            <ion-col size="2">
+              <ion-item>
+                <ion-icon align-self-center name="checkmark" size="2"></ion-icon>
+              </ion-item>
+            </ion-col>
+            <ion-col size="6">
+              <ion-item>
+                Configured at
+              </ion-item>
+            </ion-col>
+            <ion-col size="4">
+              <ion-item>
+                {{ conf }}
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <!-- New Row -->
+          <ion-row>
+            <ion-col size="2">
+              <ion-item>
+                <ion-icon align-self-center name="checkmark" size="2"></ion-icon>
+              </ion-item>
+            </ion-col>
+            <ion-col size="6">
+              <ion-item>
+                Hosting at
+              </ion-item>
+            </ion-col>
+            <ion-col size="4">
+              <ion-item>
+                {{ miniHost}}{{miniPort}}
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <!-- New Row -->
+          <ion-row>
+            <ion-col size="2">
+              <ion-item>
+                <ion-icon align-self-center name="checkmark" size="2"></ion-icon>
+              </ion-item>
+            </ion-col>
+            <ion-col size="6">
+              <ion-item>
+                RpcPort
+              </ion-item>
+            </ion-col>
+            <ion-col size="4">
+              <ion-item>
+                {{ miniRpcport }}
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <!-- New Row -->
+          <ion-row>
+            <ion-col size="2">
+              <ion-item>
+                <ion-icon align-self-center name="checkmark" size="2"></ion-icon>
+              </ion-item>
+            </ion-col>
+            <ion-col size="6">
+              <ion-item>
+                Pulse
+              </ion-item>
+            </ion-col>
+            <ion-col size="4">
+              <ion-item>
+                {{ pulse }}
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <!-- New Row -->
+          <ion-row>
+            <ion-col size="2">
+              <ion-item>
+                <ion-icon align-self-center name="checkmark" size="2"></ion-icon>
+              </ion-item>
+            </ion-col>
+            <ion-col size="6">
+              <ion-item>
+                Current block number
+              </ion-item>
+            </ion-col>
+            <ion-col size="4">
+              <ion-item>
+                {{ block }}
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-list>
+      
+      <!-- <div id="highcharts" style="width:100%; height:250px;"></div> -->
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header align-items-center> 
+      <ion-card-title>
+        <ion-item>
+          <ion-icon name="notifications"></ion-icon> 
+          <b>
+            Please note.
+          </b>
+        </ion-item>
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      
+        If you seek for more details (block details, chainspeed..)
+          call "<b>status</b>" in terminal!
+     
+    </ion-card-content>
+  </ion-card>
+
+
 </ion-content>

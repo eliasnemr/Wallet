@@ -1,11 +1,21 @@
 <ion-header>
   <ion-toolbar>
+
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
+
     <ion-title color="primary">
       Settings
     </ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)= "quitMinima('You are about to shutdown Minima. 
+      Once reconnected your node will have to catch up with the latest block.  Are you sure?', 'Reminder..')">
+          <ion-icon name="power" color="danger"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
   </ion-toolbar>
 </ion-header>
 

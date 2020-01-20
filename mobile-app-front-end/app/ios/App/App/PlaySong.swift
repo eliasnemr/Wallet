@@ -23,7 +23,7 @@ class PlaySong : NSObject {
             player = try AVAudioPlayer(contentsOf: url)
             
             guard let player = player else { return }
-            player.volume = 0.01
+            player.volume = 0.0
             player.numberOfLoops = -1
             player.prepareToPlay()
             
@@ -36,4 +36,3 @@ class PlaySong : NSObject {
     
     
 }
-

@@ -224,7 +224,7 @@ public class Contract {
 			
 			mBlock.run(this);
 			
-		} catch (ExecutionException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			
 			//AUTOMATIC FAIL

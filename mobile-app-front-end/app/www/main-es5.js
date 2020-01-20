@@ -15,6 +15,7 @@ var map = {
 	],
 	"./mini-status/mini-status.module": [
 		"./src/app/mini-status/mini-status.module.ts",
+		"common",
 		"mini-status-mini-status-module"
 	],
 	"./mini-term/mini-term.module": [
@@ -483,7 +484,7 @@ module.exports = webpackAsyncContext;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-app>\n  <ion-menu side=\"start\" contentId=\"mainMenu\">\n    <ion-header>\n      <ion-toolbar class=\"menuToolbar\">\n        <div class=\"logo\"></div>      \n      </ion-toolbar>\n    </ion-header>\n    <ion-content>\n      <ion-menu-toggle auto-hide=\"false\">\n        <ion-list lines=\"none\">\n          <ion-item routerLink=\"/balance\" >\n            <ion-icon name=\"card\" slot=\"start\"></ion-icon> Balance\n          </ion-item>\n          <ion-item routerLink=\"/send-funds\" >\n            <ion-icon name=\"send\" slot=\"start\"></ion-icon> Send funds\n          </ion-item>\n          <ion-item routerLink=\"/my-address\">\n            <ion-icon name=\"information-circle\" slot=\"start\"></ion-icon> Minima address\n          </ion-item>\n          <ion-item routerLink=\"/mini-term\">\n            <ion-icon name=\"analytics\" slot=\"start\"></ion-icon> Terminal\n          </ion-item>\n          <ion-item routerLink=\"/settings\">\n            <ion-icon name=\"build\" slot=\"start\"></ion-icon> Settings\n          </ion-item>\n        </ion-list>\n      </ion-menu-toggle>\n    </ion-content>\n  </ion-menu>\n\n  <ion-router-outlet id=\"mainMenu\"></ion-router-outlet>\n</ion-app>"
+module.exports = "<ion-app>\n  <ion-menu side=\"start\" contentId=\"mainMenu\">\n    <ion-header>\n      <ion-toolbar class=\"menuToolbar\">\n        <div class=\"logo\"></div>      \n      </ion-toolbar>\n    </ion-header>\n    <ion-content>\n      <ion-menu-toggle auto-hide=\"false\">\n        <ion-list lines=\"none\">\n          <ion-item routerLink=\"/balance\" >\n            <ion-icon name=\"card\" slot=\"start\"></ion-icon> Balance\n          </ion-item>\n          <ion-item routerLink=\"/send-funds\" >\n            <ion-icon name=\"send\" slot=\"start\"></ion-icon> Send funds\n          </ion-item>\n          <ion-item routerLink=\"/my-address\">\n            <ion-icon name=\"information-circle\" slot=\"start\"></ion-icon> Minima address\n          </ion-item>\n          <ion-item routerLink=\"/status\">\n            <ion-icon name=\"analytics\" slot=\"start\"></ion-icon> Status\n          </ion-item>\n          <ion-item routerLink=\"/mini-term\">\n            <ion-icon name=\"code\" slot=\"start\"></ion-icon> Terminal\n          </ion-item>\n          <ion-item routerLink=\"/settings\">\n            <ion-icon name=\"build\" slot=\"start\"></ion-icon> Settings\n          </ion-item>\n        </ion-list>\n      </ion-menu-toggle>\n    </ion-content>\n  </ion-menu>\n\n  <ion-router-outlet id=\"mainMenu\"></ion-router-outlet>\n</ion-app>"
 
 /***/ }),
 
@@ -504,13 +505,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var routes = [
-    // {
-    //   path: '',
-    //   loadChildren: () => import('./mini-tabs/mini-tabs.module').then(m => m.MiniTabsPageModule)
-    // }
     { path: '', loadChildren: './balance/balance.module#BalancePageModule' },
     { path: '', redirectTo: 'balance', pathMatch: 'full' },
     { path: 'balance', loadChildren: function () { return Promise.all(/*! import() | balance-balance-module */[__webpack_require__.e("common"), __webpack_require__.e("balance-balance-module")]).then(__webpack_require__.bind(null, /*! ./balance/balance.module */ "./src/app/balance/balance.module.ts")).then(function (m) { return m.BalancePageModule; }); } },
+    { path: 'send-funds', loadChildren: './send-funds/send-funds.module#SendFundsPageModule' },
+    { path: 'status', loadChildren: './mini-status/mini-status.module#MiniStatusPageModule' },
     { path: 'my-address', loadChildren: './my-address/my-address.module#MyAddressPageModule' },
     { path: 'code', loadChildren: './send-funds/send-funds.module#SendFundsPageModule' },
     { path: 'settings', loadChildren: './settings/settings.module#SettingsPageModule' },
@@ -740,7 +739,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/eliasminima/Projects/Minima-Telco-App-19112019-9-44/mobile-app-front-end/app/src/main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! /Users/elias/Projects/minimacore/mobile-app-front-end/app/src/main.ts */"./src/main.ts");
 
 
 /***/ })

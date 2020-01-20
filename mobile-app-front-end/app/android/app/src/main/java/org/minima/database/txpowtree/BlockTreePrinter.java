@@ -3,12 +3,12 @@ package org.minima.database.txpowtree;
 import java.math.BigInteger;
 import java.util.ArrayList;
 
-import org.bretty.TreeNode;
-import org.bretty.TreePrinter;
 import org.minima.objects.base.MiniData32;
 import org.minima.objects.base.MiniNumber;
 import org.minima.utils.Maths;
 import org.minima.utils.MinimaLogger;
+import org.minima.utils.bretty.TreeNode;
+import org.minima.utils.bretty.TreePrinter;
 
 public class BlockTreePrinter {
 

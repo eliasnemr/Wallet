@@ -5,7 +5,7 @@ import org.minima.system.input.CommandFunction;
 import org.minima.utils.messages.Message;
 
 public class createtoken extends CommandFunction {
-
+	
 	public createtoken() {
 		super("createtoken");
 		setHelp("[amount]", "Create a token with the given amount. The TokenID is one time and globally unique.", "");
@@ -17,17 +17,15 @@ public class createtoken extends CommandFunction {
 		String amount = zInput[1];
 		
 		//Send to the consensus Handler
-		Message msg = new Message(ConsensusHandler.CONSENSUS_CREATETOKEN);
+		Message msg = getResponseMessage(ConsensusHandler.CONSENSUS_CREATETOKEN);
 		msg.addString("amount", amount);
 	
 		getMainHandler().getConsensusHandler().PostMessage(msg);
-		
 	}
 	
 	@Override
 	public CommandFunction getNewFunction() {
-		// TODO Auto-generated method stub
 		return new createtoken();
 	}
-
+	
 }

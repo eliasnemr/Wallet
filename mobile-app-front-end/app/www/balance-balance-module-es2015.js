@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-title>\n    <img align-items-center alt=\"logo\" height=\"25\" src=\"../assets/icon/minima.svg\">\n    </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content class=\"balance-bg\">\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n    <ion-refresher-content\n    pullingIcon=\"arrow-dropdown\"\n    pullingText=\"Pull to refresh.\"\n    refreshingSpinner=\"circles\">\n    </ion-refresher-content>\n\n  </ion-refresher>\n  \n    \n  <ion-card>\n    <ion-card-header>\n      <ion-card-title class=\"ion-text-center\">YOUR BALANCE</ion-card-title>\n    </ion-card-header>\n    <ion-card-content>\n      <ion-grid>\n        <ion-row>\n          <ion-col>\n              <div class=\"ion-text-center\">\n                  <ion-icon \n                  name=\"cash\" \n                  slot=\"start\">\n                </ion-icon> {{balance}}\n                </div>\n          </ion-col>\n        </ion-row>\n      </ion-grid>\n      \n\n    </ion-card-content>\n  </ion-card>\n</ion-content>\n\n"
+module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    <ion-title>\n    <img align-items-center alt=\"logo\" height=\"25\" src=\"../assets/icon/minima.svg\">\n    </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content class=\"balance-bg\">\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n    <ion-refresher-content\n    pullingIcon=\"arrow-dropdown\"\n    pullingText=\"Pull to refresh.\"\n    refreshingSpinner=\"circles\">\n    </ion-refresher-content>\n</ion-refresher>\n  \n    \n  <ion-card>\n    <ion-card-header>\n      <ion-card-title class=\"ion-text-center\">YOUR BALANCE</ion-card-title>\n    </ion-card-header>\n    <ion-card-content>\n      <ion-grid>\n        <ion-row>\n          <ion-col>\n              <div class=\"ion-text-center\">\n                  <ion-icon \n                  name=\"cash\" \n                  slot=\"start\">\n                </ion-icon> {{balance}}\n                </div>\n          </ion-col>\n        </ion-row>\n      </ion-grid>\n      \n\n    </ion-card-content>\n  </ion-card>\n</ion-content>\n\n"
 
 /***/ }),
 
@@ -96,7 +96,10 @@ let BalancePage = class BalancePage {
     ionViewWillEnter() {
         this.api.getBalance().then((res) => {
             console.log(res);
-            this.balance = Math.round(res.response.confirmed * 100) / 100;
+            for (let i = 0; i < Object.keys(res.response.confirmed).length; i++) {
+                this.balance = Math.round(res.response.confirmed[i].amount * 100) / 100;
+            }
+            //this.balance = Math.round(res.response.confirmed.amount * 100) / 100;
             console.log('Balance set');
         });
     }
@@ -104,7 +107,10 @@ let BalancePage = class BalancePage {
         console.log('Refreshing page..');
         this.api.getBalance().then((res) => {
             console.log(res);
-            this.balance = Math.round(res.response.confirmed * 100) / 100;
+            for (let i = 0; i < Object.keys(res.response.confirmed).length; i++) {
+                this.balance = Math.round(res.response.confirmed[i].amount * 100) / 100;
+            }
+            //this.balance = Math.round(res.response.confirmed.amount * 100) / 100;
         });
         event.target.complete();
     }

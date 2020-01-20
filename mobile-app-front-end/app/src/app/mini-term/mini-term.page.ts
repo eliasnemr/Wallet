@@ -1,8 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-
 import {} from 'src/assets/data/terminal.js';
 import { Terminal } from 'xterm';
-
 import { HttpClient, HttpEvent, HttpErrorResponse, HttpEventType } from '@angular/common/http';
 import { LoadingController } from '@ionic/angular';
 import { environment } from '../../environments/environment';
@@ -14,12 +12,11 @@ import { environment } from '../../environments/environment';
 })
 
 export class MiniTermPage implements OnInit {
+  @ViewChild('content', {static : false}) private content: any;
 
   private term: Terminal;
   toExecute = '';
   theExecuted = [];
-  
-
   isEnabled: boolean;
   private host = '';
   private loader: any = null;
@@ -36,7 +33,11 @@ export class MiniTermPage implements OnInit {
     }
   }
 
-  ngOnInit(): void{}
+  ngOnInit(){}
+
+  scrollToBottomOnInit() {
+    this.content.scrollToBottom(50);
+  }
 
   getHost() {
     if (localStorage.getItem('minima_host') == null) {
@@ -78,6 +79,7 @@ export class MiniTermPage implements OnInit {
         
         const objpretty = JSON.stringify(d, undefined, 1);
         this.theExecuted.push('$' + objpretty);
+        this.scrollToBottomOnInit();
         resolve(d);
       }, (err) => {
         self.hideLoader();

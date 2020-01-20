@@ -1,9 +1,10 @@
 package org.minima.system.brains;
 
 import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.Hashtable;
+import java.util.Iterator;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 import org.minima.GlobalParams;
 import org.minima.database.MinimaDB;
 import org.minima.database.coindb.CoinDBPrinter;
@@ -25,6 +26,8 @@ import org.minima.system.input.InputHandler;
 import org.minima.system.network.NetClient;
 import org.minima.utils.Maths;
 import org.minima.utils.MinimaLogger;
+import org.minima.utils.json.JSONArray;
+import org.minima.utils.json.JSONObject;
 import org.minima.utils.messages.Message;
 
 public class ConsensusPrint {
@@ -90,79 +93,108 @@ public class ConsensusPrint {
 			treeprint.printtree();
 		
 		}else if(zMessage.isMessageType(CONSENSUS_BALANCE)){
-			
-//			//Now get the balance..
-//			Hashtable<MiniData32, MiniNumber> totals = new Hashtable<>();
-//			
-//			ArrayList<CoinDBRow> coins = getMainDB().getCoinDB().getComplete();
-//			for(CoinDBRow coin : coins) {
-//				if(!coin.isSpent()) {
-//					//What Token..
-//					MiniData32 tokid = coin.getCoin().getTokenID();
-//					
-//					//Get the Current total..
-//					MiniNumber curr = totals.get(tokid);
-//					if(curr == null) {
-//						curr = MiniNumber.ZERO;
-//					}
-//					
-//					//Add it..
-//					curr = curr.add(coin.getCoin().getAmount());
-//					
-//					//Readd..
-//					totals.put(tokid, curr);
-//				}
-//			}
-//			
-//			//All the balances..
-//			JSONArray totbal = new JSONArray();
-//			
-//			if(totals.size() ==0) {
-//				JSONObject minbal = new JSONObject();
-//				minbal.put("tokenid", MiniData32.ZERO32.toString());
-//				minbal.put("balance", "0");
-//				totbal.add(minbal);
-//				
-//			}else {
-//				//Now create a JSON Object
-//				Enumeration<MiniData32> keys = totals.keys();
-//				while(keys.hasMoreElements())  {
-//					MiniData32 key = keys.nextElement();
-//					MiniNumber tot = totals.get(key);
-//					
-//					JSONObject minbal = new JSONObject();
-//					minbal.put("tokenid", key.toString());
-//					minbal.put("balance", tot.toString());
-//					totbal.add(minbal);
-//				}	
-//			}
-			
-			MiniNumber unconfirmed_total 		= new MiniNumber();
-			MiniNumber confirmed_total 			= new MiniNumber();
-			
+			//Current top block
 			MiniNumber top = getMainDB().getTopBlock();
+			
+			//Now get the balance..
+			Hashtable<String, MiniNumber> totals_confirmed   = new Hashtable<>();
+			Hashtable<String, MiniNumber> totals_unconfirmed = new Hashtable<>();
+			
 			ArrayList<CoinDBRow> coins = getMainDB().getCoinDB().getComplete();
 			for(CoinDBRow coin : coins) {
 				if(coin.isInBlock()) {
+					//What Token..
+					String     tokid = coin.getCoin().getTokenID().to0xString();
 					MiniNumber depth = top.sub(coin.getInBlockNumber());
+					
 					if(!coin.isSpent()) {
 						if(depth.isMoreEqual(GlobalParams.MINIMA_CONFIRM_DEPTH)) {
-							confirmed_total = confirmed_total.add(coin.getCoin().getAmount());
+							//Get the Current total..
+							MiniNumber curr = totals_confirmed.get(tokid);
+							
+							if(curr == null) {
+								curr = MiniNumber.ZERO;
+							}
+							
+							//Add it..
+							curr = curr.add(coin.getCoin().getAmount());
+							
+							//Re-add..
+							totals_confirmed.put(tokid, curr);
 						}else {
-							unconfirmed_total = unconfirmed_total.add(coin.getCoin().getAmount());
+							//Get the Current total..
+							MiniNumber curr = totals_unconfirmed.get(tokid);
+							if(curr == null) {curr = MiniNumber.ZERO;}
+							
+							//Add it..
+							curr = curr.add(coin.getCoin().getAmount());
+							
+							//Re-add..
+							totals_unconfirmed.put(tokid, curr);
 						}
 					}
 				}
 			}
 			
-			//The Object
-			JSONObject minbal = InputHandler.getResponseJSON(zMessage);
-			minbal.put("confirmed", confirmed_total.toString());
-			minbal.put("unconfirmed", unconfirmed_total.toString());
+			//All the balances..
+			JSONObject allbal = InputHandler.getResponseJSON(zMessage);
+			JSONArray totbal = new JSONArray();
 			
-			//Add it to the output
+			//Now create a JSON Object
+			Enumeration<String> keys = totals_confirmed.keys();
+			while(keys.hasMoreElements())  {
+				String key     = keys.nextElement();
+				MiniNumber tot = totals_confirmed.get(key);
+				
+				JSONObject minbal = new JSONObject();
+				minbal.put("tokenid", key);
+				minbal.put("amount", tot.toString());
+				
+				totbal.add(minbal);
+			}	
+			
+			//Confirmed
+			allbal.put("confirmed", totbal);
+			totbal = new JSONArray();
+			
+			//Now create a JSON Object
+			keys = totals_unconfirmed.keys();
+			while(keys.hasMoreElements())  {
+				String key = keys.nextElement();
+				MiniNumber tot = totals_unconfirmed.get(key);
+				
+				JSONObject minbal = new JSONObject();
+				minbal.put("tokenid", key);
+				minbal.put("amount", tot.toString());
+				
+				totbal.add(minbal);
+			}
+			allbal.put("unconfirmed", totbal);
+			
 			InputHandler.endResponse(zMessage, true, "");
-		
+			
+//			MiniNumber unconfirmed_total 		= new MiniNumber();
+//			MiniNumber confirmed_total 			= new MiniNumber();
+//			MiniNumber top = getMainDB().getTopBlock();
+//			ArrayList<CoinDBRow> coins = getMainDB().getCoinDB().getComplete();
+//			for(CoinDBRow coin : coins) {
+//				if(coin.isInBlock()) {
+//					MiniNumber depth = top.sub(coin.getInBlockNumber());
+//					if(!coin.isSpent()) {
+//						if(depth.isMoreEqual(GlobalParams.MINIMA_CONFIRM_DEPTH)) {
+//							confirmed_total = confirmed_total.add(coin.getCoin().getAmount());
+//						}else {
+//							unconfirmed_total = unconfirmed_total.add(coin.getCoin().getAmount());
+//						}
+//					}
+//				}
+//			}
+//			
+//			//The Object
+//			JSONObject minbal = InputHandler.getResponseJSON(zMessage);
+//			minbal.put("confirmed", confirmed_total.toString());
+//			minbal.put("unconfirmed", unconfirmed_total.toString());
+			
 		}else if(zMessage.isMessageType(CONSENSUS_COINS)){
 			//get the MMR
 			BlockTreeNode tip  		= getMainDB().getMainTree().getChainTip();
@@ -360,6 +392,19 @@ public class ConsensusPrint {
 //				}
 //			}
 		}
+	}
+	
+	private MiniNumber getIfExists(Hashtable<MiniData32, MiniNumber> zHashTable, MiniData32 zToken) {
+		Enumeration<MiniData32> keys = zHashTable.keys();
+		
+		while(keys.hasMoreElements()) {
+			MiniData32 key = keys.nextElement();
+			if(key.isExactlyEqual(zToken)) {
+				return zHashTable.get(key);	
+			}
+		}
+		
+		return null;
 	}
 	
 }

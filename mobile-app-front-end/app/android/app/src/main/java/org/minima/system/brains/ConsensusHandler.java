@@ -2,7 +2,6 @@ package org.minima.system.brains;
 
 import java.util.ArrayList;
 
-import org.json.simple.JSONObject;
 import org.minima.NativeListener;
 import org.minima.database.MinimaDB;
 import org.minima.objects.Address;
@@ -24,6 +23,7 @@ import org.minima.system.network.NetClientReader;
 import org.minima.system.network.NetworkHandler;
 import org.minima.system.tx.TXMiner;
 import org.minima.utils.Crypto;
+import org.minima.utils.json.JSONObject;
 import org.minima.utils.messages.Message;
 
 public class ConsensusHandler extends SystemHandler {

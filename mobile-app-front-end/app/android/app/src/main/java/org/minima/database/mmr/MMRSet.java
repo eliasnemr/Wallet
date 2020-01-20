@@ -510,7 +510,7 @@ public class MMRSet implements Streamable {
 	 * @return
 	 */
 	public boolean checkProof(MMRProof zProof) {
-		//Hmm.. thisis not good..
+		//Hmm.. this is not good..
 		if(zProof.getMMRData().isHashOnly()) {
 			System.out.println("Invalid PROOF check HASHONLY! : "+zProof);
 			return false;

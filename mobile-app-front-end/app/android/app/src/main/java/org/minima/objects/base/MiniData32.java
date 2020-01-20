@@ -31,7 +31,6 @@ public class MiniData32 extends MiniData {
 		this("0x00");
 	}
 	
-	
 	public MiniData32(byte[] zData) {
 		this(Maths.getDataAsString(zData));
 	}

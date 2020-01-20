@@ -7,6 +7,32 @@ import java.nio.charset.Charset;
 
 import org.minima.utils.Streamable;
 
+/*public class MiniString extends MiniData {
+	
+	public MiniString(String zString) {
+		super(zString.getBytes(Charset.forName("US-ASCII")));
+	}
+	
+	@Override
+	public String toString() {
+		return new String(getData(),Charset.forName("US-ASCII"));
+	}
+
+	public static MiniString ReadFromStream(DataInputStream zIn){
+		MiniString data = new MiniString("");
+		
+		try {
+			data.readDataStream(zIn);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+		return data;
+	}
+	
+}*/
+
 public class MiniString implements Streamable{
 
 	String mString;

@@ -34,7 +34,9 @@
     "@ionic-native/splash-screen": "^5.19.0",
     "@ionic-native/status-bar": "^5.19.0",
     "@ionic/angular": "^4.11.7",
+    "@types/chart.js": "^2.9.9",
     "angularx-qrcode": "^1.6.4",
+    "chart.js": "^2.9.3",
     "clipboard": "^2.0.4",
     "cordova": "^9.0.0",
     "cordova-android": "8.1.0",
@@ -42,9 +44,13 @@
     "cordova-clipboard": "1.3.0",
     "cordova-ios": "5.0.1",
     "cordova-plugin-add-swift-support": "2.0.2",
+    "cordova-plugin-badge": "^0.8.8",
+    "cordova-plugin-local-notification": "git+https://github.com/katzer/cordova-plugin-local-notifications.git",
     "cordova-plugin-qrscanner": "3.0.1",
     "core-js": "^2.6.11",
+    "highcharts": "^8.0.0",
     "ionic-angular": "^3.9.9",
+    "ng2-charts": "^2.3.0",
     "rxjs": "^6.5.4",
     "tslib": "^1.9.0",
     "xterm": "^4.3.0",
@@ -98,7 +104,10 @@
       "cordova-clipboard": {},
       "cordova-plugin-add-swift-support": {},
       "cordova-plugin-qrscanner": {},
-      "cordova-base64-to-gallery": {}
+      "cordova-base64-to-gallery": {},
+      "cordova-plugin-local-notification": {
+        "ANDROID_SUPPORT_V4_VERSION": "26.+"
+      }
     },
     "platforms": [
       "android",

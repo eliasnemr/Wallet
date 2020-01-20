@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    <ion-title color=\"primary\">\n      Settings\n    </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <ion-card>\n  <ion-card-header>\n\n  <ion-card-title>Settings</ion-card-title>\n  </ion-card-header>\n\n  <ion-card-content>\n    <form>\n\n\n      <ion-item>\n        <ion-label position=\"floating\">Host</ion-label>\n        <ion-input name=\"host\" [(ngModel)]=\"host\"></ion-input>\n      </ion-item>\n\n\n      <br>\n      <br>\n      <ion-button  expand=\"block\" type=\"button\"  (click)=\"giveMe50()\">\n        <ion-icon name=\"cash\" slot=\"start\"></ion-icon>giveMe50\n      </ion-button>\n\n\n    </form>\n\n  </ion-card-content>\n  </ion-card>\n\n</ion-content>\n<ion-footer>\n  <ion-toolbar>\n    <ion-button color=\"danger\" expand=\"block\" (click)=\"saveHost()\" >\n     Save\n    </ion-button>   \n  </ion-toolbar>\n</ion-footer>"
+module.exports = "<ion-header>\n  <ion-toolbar>\n\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n\n    <ion-title color=\"primary\">\n      Settings\n    </ion-title>\n\n    <ion-buttons slot=\"end\">\n      <ion-button (click)= \"quitMinima('You are about to shutdown Minima. \n      Once reconnected your node will have to catch up with the latest block.  Are you sure?', 'Reminder..')\">\n          <ion-icon name=\"power\" color=\"danger\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <ion-card>\n  <ion-card-header>\n\n  <ion-card-title>Settings</ion-card-title>\n  </ion-card-header>\n\n  <ion-card-content>\n    <form>\n\n\n      <ion-item>\n        <ion-label position=\"floating\">Host</ion-label>\n        <ion-input name=\"host\" [(ngModel)]=\"host\"></ion-input>\n      </ion-item>\n\n\n      <br>\n      <br>\n      <ion-button  expand=\"block\" type=\"button\"  (click)=\"giveMe50()\">\n        <ion-icon name=\"cash\" slot=\"start\"></ion-icon>giveMe50\n      </ion-button>\n\n\n    </form>\n\n  </ion-card-content>\n  </ion-card>\n\n</ion-content>\n<ion-footer>\n  <ion-toolbar>\n    <ion-button color=\"danger\" expand=\"block\" (click)=\"saveHost()\" >\n     Save\n    </ion-button>   \n  </ion-toolbar>\n</ion-footer>"
 
 /***/ }),
 
@@ -112,12 +112,22 @@ let SettingsPage = class SettingsPage {
             }
         });
     }
+    quitMinima(msg, header) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            const alert = yield this.alertController.create({
+                header: header,
+                message: msg,
+                buttons: ['Cancel', 'I am sure.']
+            });
+            yield alert.present();
+        });
+    }
     presentAlert(msg, header) {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
             const alert = yield this.alertController.create({
                 header: header,
                 message: msg,
-                buttons: ['OK']
+                buttons: ['Cancel', 'Ok']
             });
             yield alert.present();
         });

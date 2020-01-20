@@ -7,11 +7,11 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 import org.minima.objects.base.MiniByte;
 import org.minima.objects.base.MiniNumber;
 import org.minima.utils.Streamable;
+import org.minima.utils.json.JSONArray;
+import org.minima.utils.json.JSONObject;
 
 /**
  * A transaction is a very simple structure. A list of inputs and a list of outputs. 

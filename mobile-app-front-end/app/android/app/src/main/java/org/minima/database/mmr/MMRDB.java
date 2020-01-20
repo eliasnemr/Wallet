@@ -1,11 +1,6 @@
 package org.minima.database.mmr;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.util.ArrayList;
-import java.util.Hashtable;
 
 import org.minima.objects.Coin;
 import org.minima.objects.StateVariable;
@@ -26,8 +21,6 @@ public class MMRDB {
 	 */
 	MMRSet mRootSet;
 	
-	
-	
 	public MMRDB() {
 		mBaseSet = new MMRSet();
 	}
@@ -43,7 +36,6 @@ public class MMRDB {
 	public MMRSet getCurrentMMR() {
 		return mRootSet;
 	}
-	
 	
 	public static MMRSet mSet1 = new MMRSet();
 	public static MMRSet mSet2 = new MMRSet();

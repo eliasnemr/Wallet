@@ -5,14 +5,15 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 import org.minima.database.mmr.MMRProof;
+import org.minima.objects.base.MiniKeyValue;
 import org.minima.objects.base.MiniByte;
 import org.minima.objects.base.MiniData;
 import org.minima.objects.base.MiniData32;
 import org.minima.utils.Crypto;
 import org.minima.utils.Streamable;
+import org.minima.utils.json.JSONArray;
+import org.minima.utils.json.JSONObject;
 
 public class Witness implements Streamable {
 	
@@ -37,13 +38,41 @@ public class Witness implements Streamable {
 	 */
 	ArrayList<String> mScripts;
 	
+	
+	
+	//--------------NEW WAY ----------------//
+	
+	/**
+	 * An array of the public keys and the corresponding signatures
+	 */
+//	ArrayList<KeyValueMiniData> mPubkSigs;
+	
+	
+	ArrayList<MiniKeyValue> mAllScripts;
+	
+	
+	ArrayList<MiniKeyValue> mTokenProof;
+	
+	
+	
+	
+	
+	/**
+	 * General Constructor
+	 */
 	public Witness() {
+//		mPubkSigs = new ArrayList<>();
+		
 		mPublicKeys = new ArrayList<>();
 		
 		mSignatures = new ArrayList<>();
 		
 		mScripts    = new ArrayList<>();
 		mProofs     = new ArrayList<>();
+		
+		mAllScripts = new ArrayList<MiniKeyValue>();
+		
+		mTokenProof = new ArrayList<MiniKeyValue>();
 	}
 	
 	public void addScript(String zScript) {
@@ -68,6 +97,8 @@ public class Witness implements Streamable {
 		
 		//Add to signatures
 		mSignatures.add(zSig);
+		
+//		KeyValueMiniData pubk = new KeyValueMiniData(zPublicKey, zSig);
 	}
 	
 	public MiniData getPublicKey(int zPubk) {
@@ -93,6 +124,15 @@ public class Witness implements Streamable {
 		}
 		return ret.trim();
 	}
+	
+//	public void setTokenProof(MiniData32 zTokenID, MiniData zTokenProof) {
+//		mTokenProof.add(new MiniKeyValue(zTokenID, zTokenProof));
+//	}
+//	
+//	public MiniData getTokenProof(MiniData32 zTokenID) {
+//		for(Mini)  
+//	}
+	
 	
 	public JSONObject toJSON() {
 		JSONObject obj = new JSONObject();

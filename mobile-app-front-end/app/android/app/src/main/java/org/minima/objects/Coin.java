@@ -4,11 +4,12 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-import org.json.simple.JSONObject;
+import org.minima.objects.base.MiniByte;
 import org.minima.objects.base.MiniData;
 import org.minima.objects.base.MiniData32;
 import org.minima.objects.base.MiniNumber;
 import org.minima.utils.Streamable;
+import org.minima.utils.json.JSONObject;
 
 public class Coin implements Streamable {
 	
@@ -52,7 +53,7 @@ public class Coin implements Streamable {
 	MiniData32  mTokenID;
 	
 //	/**
-//	 * The TokenID is proved by the hash of the coinid (MiniData32) | total amount of coins (MiniNumber) | and total digits (MinByte).
+//	 * The TokenID is proved by the hash of the coinid (MiniData32) | total minima used (MiniNumber) | and total digits (MinByte).
 //	 * If TokenID = 0x00 than this is blank..
 //	 */
 //	MiniData 	mTokenProof;
@@ -86,6 +87,25 @@ public class Coin implements Streamable {
 
 	public MiniData32 getTokenID() {
 		return mTokenID;
+	}
+	
+	/**
+	 * When creating a token a token of LESS THANN 255 tells how many decimal places to use..
+	 */
+	public static MiniData32 getTokenCreationID(int zDecimalPlaces) {
+		int totplaces = zDecimalPlaces;
+		if(totplaces > 255) {
+			totplaces = 255;
+		}
+		
+		//create the number
+		MiniByte tot = new MiniByte(totplaces);
+		
+		//Now generate..
+		byte[] data = new byte[1];
+		data[0] = tot.getByteValue();
+		
+		return new MiniData32(data);
 	}
 	
 	@Override

@@ -68,6 +68,22 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       "clobbers": [
         "cordova.base64ToGallery"
       ]
+    },
+    {
+      "id": "cordova-plugin-badge.Badge",
+      "file": "plugins/cordova-plugin-badge/www/badge.js",
+      "pluginId": "cordova-plugin-badge",
+      "clobbers": [
+        "cordova.plugins.notification.badge"
+      ]
+    },
+    {
+      "id": "cordova-plugin-local-notification.LocalNotification",
+      "file": "plugins/cordova-plugin-local-notification/www/local-notification.js",
+      "pluginId": "cordova-plugin-local-notification",
+      "clobbers": [
+        "cordova.plugins.notification.local"
+      ]
     }
   ];
   module.exports.metadata = {
@@ -80,6 +96,8 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "cordova-clipboard": "1.3.0",
     "cordova-plugin-add-swift-support": "2.0.2",
     "cordova-plugin-qrscanner": "3.0.1",
-    "cordova-base64-to-gallery": "4.1.3"
+    "cordova-base64-to-gallery": "4.1.3",
+    "cordova-plugin-badge": "0.8.8",
+    "cordova-plugin-local-notification": "0.9.0-beta.3"
   };
 });

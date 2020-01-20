@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    <ion-title color=\"primary\">\n      Mini Terminal\n    </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n<ion-grid *ngFor=\"let theExecute of theExecuted\" >\n    <ion-row>\n      <ion-col>\n        <ion-item>\n            <ion-label\n            color=\"primary\"\n            style=\"background-color: cornsilk;\"\n            class=\"ion-text-wrap\">\n              <pre>{{theExecute}}</pre> \n            </ion-label>\n          </ion-item> \n      </ion-col> \n    </ion-row>\n</ion-grid>\n</ion-content>\n\n<ion-footer>\n<ion-toolbar>\n  <ion-row>\n      <ion-col>\n        <ion-input\n        style=\"background-color: #E0E0E0\"\n        type=\"text\"\n        autocapitalize=\"none\"\n        autocorrect=\"off\"\n        placeholder=\"$command line\"\n        [(ngModel)]=\"toExecute\"\n        (keyup.enter) = \"getCall()\">\n      </ion-input>\n    </ion-col>\n      <button ion-button small full item-end clear \n        (click)=\"getCall()\" \n        [disabled] = \"!toExecute\">Execute</button>\n    </ion-row>\n  </ion-toolbar>\n</ion-footer>\n"
+module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    <ion-title color=\"primary\">\n      Mini Terminal\n    </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content #content>\n<ion-grid *ngFor=\"let theExecute of theExecuted\" >\n    <ion-row>\n      <ion-col>\n        <ion-item>\n            <ion-label\n            color=\"primary\"\n            style=\"background-color: cornsilk;\"\n            class=\"ion-text-wrap\">\n              <pre>{{theExecute}}</pre> \n            </ion-label>\n          </ion-item> \n      </ion-col> \n    </ion-row>\n</ion-grid>\n</ion-content>\n\n<ion-footer>\n<ion-toolbar>\n  <ion-row>\n      <ion-col>\n        <ion-input\n        style=\"background-color: #E0E0E0\"\n        type=\"text\"\n        autocapitalize=\"none\"\n        autocorrect=\"off\"\n        placeholder=\"$command line\"\n        [(ngModel)]=\"toExecute\"\n        (keyup.enter) = \"getCall()\">\n      </ion-input>\n    </ion-col>\n      <button ion-button small full item-end clear \n        (click)=\"getCall()\" \n        [disabled] = \"!toExecute\">Execute</button>\n    </ion-row>\n  </ion-toolbar>\n</ion-footer>\n"
 
 /***/ }),
 
@@ -112,6 +112,9 @@ var MiniTermPage = /** @class */ (function () {
         }
     };
     MiniTermPage.prototype.ngOnInit = function () { };
+    MiniTermPage.prototype.scrollToBottomOnInit = function () {
+        this.content.scrollToBottom(50);
+    };
     MiniTermPage.prototype.getHost = function () {
         if (localStorage.getItem('minima_host') == null) {
             localStorage.setItem('minima_host', this.host);
@@ -171,6 +174,7 @@ var MiniTermPage = /** @class */ (function () {
                 console.log(d);
                 var objpretty = JSON.stringify(d, undefined, 1);
                 _this.theExecuted.push('$' + objpretty);
+                _this.scrollToBottomOnInit();
                 resolve(d);
             }, function (err) {
                 self.hideLoader();
@@ -207,6 +211,10 @@ var MiniTermPage = /** @class */ (function () {
         { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"] },
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["LoadingController"] }
     ]; };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('content', { static: false }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], MiniTermPage.prototype, "content", void 0);
     MiniTermPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-mini-term',

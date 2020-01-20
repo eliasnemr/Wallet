@@ -1,19 +1,46 @@
 import UIKit
 import Capacitor
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
-  var playSong: PlaySong = PlaySong()
-    //var startMini: MinimaBridger = MinimaBridger()
+    var minimaBridger = MinimaBridger()
+    let playSong = PlaySong()
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     // Override point for customization after application launch.
     
+    let center = UNUserNotificationCenter.current()
+    
+    center.requestAuthorization(options: [.alert, .sound, .badge])
+    { (granted, error) in
+    }
+    
+    let content = UNMutableNotificationContent()
+    content.title = "Minima"
+    content.body = "You just received some Minima tokens!"
+    
+    let date = Date().addingTimeInterval(5)
+    
+    let dateComponent = Calendar.current.dateComponents([.year, .month, .day, . hour, .minute, .second], from: date)
+    
+    let trigger =
+        UNCalendarNotificationTrigger(dateMatching: dateComponent, repeats: false)
+        
+    // Step 4: Create the request..
+    let uuidString = UUID().uuidString
+    let request = UNNotificationRequest(identifier: uuidString, content: content, trigger: trigger)
+    
+    //Step 5: Register the request
+    center.add(request) { (error) in
+        // Check the error parameter and handle any errors
+        
+    }
+    
     playSong.playSound()
     
-    print("Song is playing now..")
     return true
   }
 

@@ -39,7 +39,7 @@ public class MainProxyHandler extends MessageProcessor {
 	/**
 	 * WebSocketServer only used for notification of a change..
 	 */
-	//RPCWebSocketServer mWebSocketServer;
+//	RPCWebSocketServer mWebSocketServer;
 	
 	/**
 	 * Set of response request and the response object that needs to be finished
@@ -75,8 +75,8 @@ public class MainProxyHandler extends MessageProcessor {
 			mUserHost = new NIOServerHost(8000, this);
 	    	
 			//The websocket listener..
-			//mWebSocketServer = new RPCWebSocketServer(8002);
-			//mWebSocketServer.start();
+//			mWebSocketServer = new RPCWebSocketServer(8002);
+//			mWebSocketServer.start();
 			
 		}else if(zMessage.getMessageType().equals(PROXY_SHUTDOWN)) {
 			
@@ -84,7 +84,7 @@ public class MainProxyHandler extends MessageProcessor {
 			
 			mGETProxy.stop();
 			
-			//mWebSocketServer.stop(1000);
+//			mWebSocketServer.stop(1000);
 			
 			//Stop the parent
 			stopMessageProcessor();
@@ -165,14 +165,14 @@ public class MainProxyHandler extends MessageProcessor {
 				mWebToUser.put(webid,userid);
 			
 				//Send a message to the Web page..
-				//mWebSocketServer.sendMessage(webid, "connected:"+userid);
+//				mWebSocketServer.sendMessage(webid, "connected:"+userid);
 				
 			}else if(data.startsWith("notify:")) {
 				//Notify the website over the websocket..
 				String webid = mUserToWeb.get(userid);
 				
 				//Send it..
-				//mWebSocketServer.sendMessage(webid, "Balance has changed");
+//				mWebSocketServer.sendMessage(webid, "Balance has changed");
 				
 			}else {
 				//Now break it down

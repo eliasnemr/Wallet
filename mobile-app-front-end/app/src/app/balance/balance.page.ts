@@ -15,9 +15,12 @@ export class BalancePage implements OnInit {
   }
 
   ionViewWillEnter() {
-    this.api.getBalance().then((res: any) => {
+    this.api.getBalance().then((res : any) => {
       console.log(res);
-      this.balance = Math.round(res.response.confirmed * 100) / 100;
+      for (let i = 0; i < Object.keys(res.response.confirmed).length; i++){
+        this.balance = Math.round( res.response.confirmed[i].amount * 100) / 100;
+      } 
+      //this.balance = Math.round(res.response.confirmed.amount * 100) / 100;
       console.log('Balance set');
     });
   }
@@ -26,7 +29,10 @@ export class BalancePage implements OnInit {
     console.log('Refreshing page..');
     this.api.getBalance().then((res: any) => {
       console.log(res);
-      this.balance = Math.round(res.response.confirmed * 100) / 100;
+      for (let i = 0; i < Object.keys(res.response.confirmed).length; i++){
+        this.balance = Math.round( res.response.confirmed[i].amount * 100) / 100;
+      } 
+      //this.balance = Math.round(res.response.confirmed.amount * 100) / 100;
     });
     event.target.complete();
   }

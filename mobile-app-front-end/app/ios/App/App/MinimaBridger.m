@@ -6,20 +6,20 @@
 //
 
 #import "MinimaBridger.h"
+#import "org/minima/Start.h"
 //#import "Start.h"
 
-//
-//@implementation MinimaBridger
-//
-//- (id) init {
-//    if(self = [super init]) {
-//        [self runMinima];
-//    }
-//    return self;
-//}
-//
-//- (void) runMinima {
-////    OrgMinimaStart *start = [[OrgMinimaStart alloc] init];
-//}
-//
-//@end
+@implementation MinimaBridger
+
+- (id) init {
+    if(self = [super init]) {
+        [self runMinima];
+    }
+    return self;
+}
+
+- (void) runMinima {
+    OrgMinimaStart *start = [[OrgMinimaStart alloc] init];
+}
+
+@end

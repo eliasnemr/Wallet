@@ -6,17 +6,17 @@
 //
 
 
-//#ifndef MinimaBridger_h
-//#define MinimaBridger_h
-//
-//#import <Foundation/Foundation.h>
-//
-//@interface MinimaBridger : NSObject
-//
-//- (id) init;
-//- (void) runMinima;
-//
-//@end
-//
-//
-//#endif /* MinimaBridger_h */
+#ifndef MinimaBridger_h
+#define MinimaBridger_h
+
+#import <Foundation/Foundation.h>
+
+@interface MinimaBridger : NSObject
+
+- (id) init;
+- (void) runMinima;
+
+@end
+
+
+#endif /* MinimaBridger_h */

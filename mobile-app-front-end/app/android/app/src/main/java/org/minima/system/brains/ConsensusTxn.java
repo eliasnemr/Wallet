@@ -2,8 +2,6 @@ package org.minima.system.brains;
 
 import java.util.ArrayList;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 import org.minima.database.MinimaDB;
 import org.minima.database.coindb.CoinDBRow;
 import org.minima.database.userdb.UserDBRow;
@@ -20,6 +18,8 @@ import org.minima.system.input.InputHandler;
 import org.minima.system.network.NetworkHandler;
 import org.minima.utils.Crypto;
 import org.minima.utils.MinimaLogger;
+import org.minima.utils.json.JSONArray;
+import org.minima.utils.json.JSONObject;
 import org.minima.utils.messages.Message;
 
 public class ConsensusTxn {
@@ -62,7 +62,13 @@ public class ConsensusTxn {
 		
 		return true;
 	}
-	 
+	
+	private void listTransactions(Message zMessage) {
+		Message list = new Message(CONSENSUS_TXNLIST);
+		InputHandler.addResponseMesage(list, zMessage);
+		mHandler.PostMessage(list);
+	}
+	
 	public void processMessage(Message zMessage) throws Exception {
 		
 		/**
@@ -71,9 +77,7 @@ public class ConsensusTxn {
 		if(zMessage.isMessageType(CONSENSUS_TXNCREATE)) {
 			getMainDB().getUserDB().addUserRow();
 			
-			Message list = new Message(CONSENSUS_TXNLIST);
-			InputHandler.addResponseMesage(list, zMessage);
-			mHandler.PostMessage(list);
+			listTransactions(zMessage);
 		
 		}else if(zMessage.isMessageType(CONSENSUS_TXNDELETE)) {
 			//Which transaction
@@ -81,9 +85,7 @@ public class ConsensusTxn {
 			
 			getMainDB().getUserDB().deleteUserRow(trans);
 			
-			Message list = new Message(CONSENSUS_TXNLIST);
-			InputHandler.addResponseMesage(list, zMessage);
-			mHandler.PostMessage(list);
+			listTransactions(zMessage);
 			
 		}else if(zMessage.isMessageType(CONSENSUS_TXNLIST)) {
 			JSONArray arr = new JSONArray();
@@ -133,9 +135,7 @@ public class ConsensusTxn {
 			//Set Script
 			wit.addScript(script);
 			
-			Message list = new Message(CONSENSUS_TXNLIST);
-			InputHandler.addResponseMesage(list, zMessage);
-			mHandler.PostMessage(list);
+			listTransactions(zMessage);
 			
 		}else if(zMessage.isMessageType(CONSENSUS_TXNOUTPUT)) {
 			//Which transaction
@@ -162,7 +162,7 @@ public class ConsensusTxn {
 			//Add the output
 			trx.addOutput(out);
 			
-			mHandler.PostMessage(CONSENSUS_TXNLIST);
+			listTransactions(zMessage);
 			
 		}else if(zMessage.isMessageType(CONSENSUS_TXNPOST)) {
 			//Which transaction
@@ -173,19 +173,20 @@ public class ConsensusTxn {
 			
 			//Get the Transaction..
 			Transaction trx =  getMainDB().getUserDB().getUserRow(trans).getTransaction();
-		
-			//Get the witness..
-			Witness wit = new Witness();
+			Witness wit     =  getMainDB().getUserDB().getUserRow(trans).getWitness();
 			
 			//Post it..
 			mHandler.PostMessage(new Message(ConsensusHandler.CONSENSUS_SENDTRANS).addObject("transaction", trx).addObject("witness", wit));
-		
+			
 		}else if(zMessage.isMessageType(CONSENSUS_TXNVALIDATE)) {
 			//Which transaction
 			int trans    = zMessage.getInteger("transaction");
 			
 			//Check valid..
-			if(!checkTransactionValid(trans)) {System.out.println("Invalid TXN chosen : "+trans); return;}
+			if(!checkTransactionValid(trans)) {
+				System.out.println("Invalid TXN chosen : "+trans); 
+				return;
+			}
 			
 			//Get the user row
 			UserDBRow row = getMainDB().getUserDB().getUserRow(trans);
@@ -195,15 +196,24 @@ public class ConsensusTxn {
 			Witness wit     = row.getWitness();
 			
 			//sum inputs
-			MinimaLogger.log("Custom transaction : "+row);
-			MinimaLogger.log("Inputs  ["+trx.getAllInputs().size()+"] total  : "+trx.sumInputs());
-			MinimaLogger.log("Outputs ["+trx.getAllOutputs().size()+"] total  : "+trx.sumOutputs());
+			JSONObject resp = InputHandler.getResponseJSON(zMessage);
 			
-			//And Check the actual Transaction..
-			boolean checkok = TxPOWChecker.checkTransactionMMR(trx, wit, getMainDB(),
-					getMainDB().getTopBlock(),getMainDB().getMainTree().getChainTip().getMMRSet(),false);
+			MiniNumber ins  = trx.sumInputs();
+			MiniNumber outs = trx.sumOutputs();
+			MiniNumber burn = ins.sub(outs);
+					
+			resp.put("inputs_sum", ins.toString());
+			resp.put("outputs_sum", outs.toString());
+			resp.put("burn", burn.toString());
+			resp.put("valid_amounts", ins.isLess(outs));
 			
-			MinimaLogger.log("Transaction valid : "+checkok);
+//			//And Check the actual Transaction..
+//			boolean checkok = TxPOWChecker.checkTransactionMMR(trx, wit, getMainDB(),
+//					getMainDB().getTopBlock(),getMainDB().getMainTree().getChainTip().getMMRSet(),false);
+//			
+//			resp.put("mmr", checkok);
+			
+			InputHandler.endResponse(zMessage, true, "");
 			
 		}else if(zMessage.isMessageType(CONSENSUS_TXNSIGN)) {
 			//Sign the custom transaction
@@ -232,11 +242,10 @@ public class ConsensusTxn {
 			
 			MiniData signature = key.sign(transhash);
 			
-			//Now set the SIG.. (HACK for now just add thepub key..)
+			//Now set the SIG.. 
 			wit.addSignature(pubk, signature);
 			
-			//List them..
-			mHandler.PostMessage(CONSENSUS_TXNLIST);
+			listTransactions(zMessage);
 		}
 		
 		

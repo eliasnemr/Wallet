@@ -1,5 +1,6 @@
 package org.minima.system.brains;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 
 import org.minima.database.MinimaDB;
@@ -184,9 +185,22 @@ public class TxPOWChecker {
 			
 			//Is this a token create output..
 			MiniData32 tokid = output.getTokenID();
+			
+			if(output.getTokenID().isLessEqual(Coin.TOKENID_CREATE)) {
+				//It's a token..
+				BigInteger big = output.getTokenID().getDataVaue();
+				
+				int val = big.intValue();
+				
+			}
+				
+			
+			
 			if(output.getTokenID().isNumericallyEqual(Coin.TOKENID_CREATE)) {
-				//Set the TokenID to the COinID..
+				//Set the TokenID to the CoinID..
 				tokid = coinid;
+				
+				//Make it the HASH ( CoinID | Total Amount )
 			}
 			
 			if(zTouchMMR) {
@@ -201,7 +215,10 @@ public class TxPOWChecker {
 				
 				//Do we keep it..
 				if(zDB.getUserDB().isAddressRelevant(output.getAddress())) {
+					//Keep this MMR record
 					zMMRSet.addKeeper(unspent.getEntry());	
+					
+					//Keep the token generation numbers
 				}
 			}
 			

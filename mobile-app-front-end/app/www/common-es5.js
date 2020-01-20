@@ -497,6 +497,9 @@ var MinimaApiService = /** @class */ (function () {
     MinimaApiService.prototype.getBalance = function () {
         return this.request('balance');
     };
+    MinimaApiService.prototype.getStatus = function () {
+        return this.request('status');
+    };
     MinimaApiService.prototype.request = function (route) {
         var self = this;
         self.showLoader();

@@ -4,11 +4,11 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-import org.json.simple.JSONObject;
 import org.minima.database.userdb.UserDBRow;
 import org.minima.objects.Transaction;
 import org.minima.objects.Witness;
 import org.minima.utils.Streamable;
+import org.minima.utils.json.JSONObject;
 
 public class JavaUserDBRow implements UserDBRow, Streamable {
 

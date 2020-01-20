@@ -3,6 +3,9 @@
  */
 package org.minima;
 
+import android.util.Log;
+import android.widget.Toast;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -11,19 +14,25 @@ import java.util.ArrayList;
 
 import org.minima.system.Main;
 import org.minima.system.backup.BackupManager;
-import org.minima.system.brains.ConsensusHandler;
+import org.minima.system.bootstrap.GenesisTransaction;
 import org.minima.system.input.InputMessage;
 import org.minima.utils.MiniFormat;
-import org.minima.utils.MinimaLogger;
 import org.minima.utils.ResponseStream;
 import org.minima.utils.messages.Message;
+import org.minima.utils.MinimaLogger;
 
 /**
  * @author Paddy Cerri
  *
  */
 public class Start {
-	
+
+	public static Main mMainServer;
+
+	public static Main getServer(){
+		return mMainServer;
+	}
+
 	/**
 	 * Simple constructor for iOS and Android
 	 */
@@ -37,14 +46,16 @@ public class Start {
 				//Start up Variables
 				ArrayList<String> vars = new ArrayList<>();
 
-				vars.add("-daemon");
 				vars.add("-private");
-				vars.add("-clean");
-				vars.add("-port");
-				vars.add("9001");
-				vars.add("-connect");
-				vars.add("35.240.94.70");
-				vars.add("9001");
+				vars.add("-daemon");
+//				vars.add("-clean");
+//				vars.add("-port");
+//				vars.add("9002");
+//				vars.add("-rpcport");
+//				vars.add("7999");
+//				vars.add("-connect");
+//				vars.add("127.0.0.1");
+//				vars.add("9001");
 				//etc..
 				
 				//And call it..
@@ -55,10 +66,7 @@ public class Start {
 		//Run it..
 		Thread mainthread=new Thread(mainrunner);
 		mainthread.start();
-		
-		
-		
-		}
+	}
 	
 	
 	/**
@@ -81,7 +89,7 @@ public class Start {
 		String relcoin     = "";
 		
 		boolean connect         = true;
-		String connecthost      = "35.240.94.70";
+		String connecthost      = "34.90.172.118";
 		int connectport         = 9001;
 		
 		boolean clean           = false;
@@ -164,21 +172,10 @@ public class Start {
 		
 		//Start the main Minima server
 		Main rcmainserver = new Main(port, rpcport, genesis, conffolder);
-		
-		rcmainserver.getConsensusHandler().addListener(new NativeListener() {
-			@Override
-			public void processMessage(Message zMessage) {
-				//THIS GETS CALLED!
-				
-				if(zMessage.getMessageType().equals(ConsensusHandler.CONSENSUS_NOTIFY_BALANCE)) {
-					System.out.println("Native: " + zMessage);
-				}
-				
-				
-				
-			}
-		});
-		
+
+		//Store this
+		mMainServer = rcmainserver;
+
 		//Set the connect properties
 		rcmainserver.setAutoConnect(connect);
 		rcmainserver.mAutoHost = connecthost;
@@ -197,10 +194,20 @@ public class Start {
 		//Start the system
 		rcmainserver.PostMessage(Main.SYSTEM_STARTUP);
 		
+//		rcmainserver.getConsensusHandler().addListener(new NativeListener() {
+//			@Override
+//			public void processMessage(Message zMessage) {
+//				//THIS GETS CALLED!
+//				Toast.makeText(this, "You just recieved some coins!", Toast.LENGTH_SHORT).show();
+//			}
+//		});
+		
 		//Are we a daemon thread
 		if(daemon) {
 			System.out.println("Daemon Started..");
-			while (true) {
+			
+			//Loop while running..
+			while (rcmainserver.isRunning()) {
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {

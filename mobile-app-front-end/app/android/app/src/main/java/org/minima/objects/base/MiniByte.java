@@ -40,6 +40,10 @@ public class MiniByte implements Streamable{
 		return ( mVal & 0xFF );
 	}
 	
+	public byte getByteValue() {
+		return mVal;
+	}
+	
 	public boolean isEqual(MiniByte zRamByte) {
 		return getValue() == zRamByte.getValue();
 	}

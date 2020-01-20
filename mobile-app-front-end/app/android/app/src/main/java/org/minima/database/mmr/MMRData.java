@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 import org.minima.objects.Coin;
 import org.minima.objects.StateVariable;
 import org.minima.objects.base.MiniByte;
@@ -18,6 +16,8 @@ import org.minima.objects.base.MiniData32;
 import org.minima.objects.base.MiniNumber;
 import org.minima.utils.Crypto;
 import org.minima.utils.Streamable;
+import org.minima.utils.json.JSONArray;
+import org.minima.utils.json.JSONObject;
 
 public class MMRData implements Streamable{
 	

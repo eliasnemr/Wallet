@@ -4,12 +4,12 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-import org.json.simple.JSONObject;
 import org.minima.miniscript.Contract;
 import org.minima.objects.base.MiniByte;
 import org.minima.objects.base.MiniData32;
 import org.minima.utils.Crypto;
 import org.minima.utils.Streamable;
+import org.minima.utils.json.JSONObject;
 
 public class Address implements Streamable{
 	

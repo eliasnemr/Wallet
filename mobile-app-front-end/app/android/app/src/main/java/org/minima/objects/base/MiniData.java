@@ -160,14 +160,7 @@ public class MiniData implements Streamable {
 	
 	@Override
 	public String toString() {
-		String hex = bytesToHex(mData);
-		
-		//Always show full byte
-		if(hex.length() % 2 != 0) {
-			hex = "0"+hex;
-		}
-		
-		return "0x"+hex;
+		return to0xString();
 	}
 	
 	/**
@@ -178,16 +171,26 @@ public class MiniData implements Streamable {
 		return toString().substring(2);
 	}
 	
-	public String toShortOxString() {
-		String data = toString();
+	public String toShort0xString() {
+		String data = to0xString();
 		int len = data.length();
 		if(len > 8) {
 			len = 8;
 		}
-		
 		return data.substring(0, len).concat("..");
 	}
 
+	public String to0xString() {
+		String hex = bytesToHex(mData);
+		
+		//Always show full byte
+		if(hex.length() % 2 != 0) {
+			hex = "0"+hex;
+		}
+		
+		return "0x"+hex;
+	}
+	
 	@Override
 	public void writeDataStream(DataOutputStream zOut) throws IOException {
 		zOut.writeInt(mData.length);

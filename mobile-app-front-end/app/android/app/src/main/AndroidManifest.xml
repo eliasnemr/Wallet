@@ -25,10 +25,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <service
-            android:name=".BackgroundService"
+            android:name=".ForegroundService"
             android:enabled="true"
             android:exported="true"></service>
-
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale"

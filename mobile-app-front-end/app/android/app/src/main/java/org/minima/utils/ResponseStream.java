@@ -1,6 +1,6 @@
 package org.minima.utils;
 
-import org.json.simple.JSONObject;
+import org.minima.utils.json.JSONObject;
 
 public class ResponseStream {
 

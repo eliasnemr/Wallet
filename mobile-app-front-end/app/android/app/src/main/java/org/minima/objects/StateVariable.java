@@ -4,13 +4,13 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-import org.json.simple.JSONObject;
 import org.minima.miniscript.values.Value;
 import org.minima.objects.base.MiniByte;
 import org.minima.objects.base.MiniData;
 import org.minima.objects.base.MiniNumber;
 import org.minima.objects.base.MiniString;
 import org.minima.utils.Streamable;
+import org.minima.utils.json.JSONObject;
 
 public class StateVariable implements Streamable {
 

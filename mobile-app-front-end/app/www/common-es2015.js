@@ -758,6 +758,9 @@ let MinimaApiService = class MinimaApiService {
     getBalance() {
         return this.request('balance');
     }
+    getStatus() {
+        return this.request('status');
+    }
     request(route) {
         const self = this;
         self.showLoader();
