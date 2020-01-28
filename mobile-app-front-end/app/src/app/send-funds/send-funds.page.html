@@ -19,7 +19,7 @@
     <ion-card-content>
       <form>
 
-        <ion-item>
+        <!-- <ion-item>
           <ion-label position="floating">Minima / Token</ion-label>
           <ion-select 
               name="token" 
@@ -27,13 +27,13 @@
               [(ngModel)]="data.tokenid" 
               placeholder="Minima">
 
-        <!-- <ion-select-option *ngFor="let token of data.tokenid">{{ token }}</ion-select-option> -->
+        <ion-select-option *ngFor="let token of data.tokenid">{{ token }}</ion-select-option>
 
             <ion-select-option value="minima"></ion-select-option>
             <ion-select-option value="ethereum">Ethereum</ion-select-option>
 
           </ion-select>
-        </ion-item>
+        </ion-item> -->
         <ion-item>
           <ion-label position="floating">Address</ion-label>
           <ion-input name="address" [(ngModel)]="data.address"></ion-input>

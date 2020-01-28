@@ -17,12 +17,14 @@
 </ion-refresher>
 
 
-  <ion-card class="welcome-card" style="background-color:#00AAC8;">
+  <ion-card class="welcome-card" style="background-color:transparent">
     <ion-card-header id="status-header">
       <ion-card-title>
         <ion-item>
+          <ion-chip>
           <ion-icon align-self-start src="../../assets/icon/minima.svg" size="2"></ion-icon>
           <b>Minima  v{{ versionNumber }} </b>
+          </ion-chip>
         </ion-item>
       </ion-card-title>
     </ion-card-header>
@@ -32,24 +34,28 @@
         <ion-grid no-padding>
           <ion-row>
             <ion-col size="2">
-              <ion-item >
+              <ion-item>
                 <ion-icon name="checkmark" size="2"></ion-icon>
               </ion-item>
             </ion-col>
             <ion-col size="6">
               <ion-item>
-                <ion-text>
-                  Your node's status
-                </ion-text>
-                
+                <ion-chip>
+                  <ion-text>
+                    Your node's status
+                  </ion-text>
+                </ion-chip>
               </ion-item>
+
             </ion-col>
             <ion-col size="4">
+              <ion-chip>
               <ion-item 
               [ngStyle] = " {'color': getColor()}"
                #statusColor>
                 {{status}}
               </ion-item>
+            </ion-chip>
             </ion-col>
           </ion-row>
           <!-- New Row -->

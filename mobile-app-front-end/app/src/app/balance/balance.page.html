@@ -19,11 +19,14 @@
 
   <ion-card>
     <ion-card-header>
-      <ion-card-title class="ion-text-center">YOUR BALANCE</ion-card-title>
+      <ion-item>
+        <ion-icon name="card" style="color:#FF671D;" slot="start"></ion-icon>
+        <ion-card-title class="ion-text-center">Balance</ion-card-title>
+      </ion-item>
     </ion-card-header>
     <ion-card-content>
 
-      <!-- <ion-list *ngFor = "let coin of balance"> -->
+      <!-- <ion-lis *ngFor = "let coin of balance"> -->
       <ion-list lines="none" style="padding:20px;">
       <ion-grid>
       
@@ -69,5 +72,138 @@
       </ion-button>
     </ion-card-content>
   </ion-card>
+
+
+
+  <ion-card>
+    <ion-card-header>
+      <ion-item>
+        <ion-icon name="book" style="color:#FF671D;" slot="start"></ion-icon>
+        <ion-card-title class="ion-text-centre">Transaction History</ion-card-title>
+      </ion-item>
+    </ion-card-header>
+
+    <ion-card-content>
+      <!-- Begin Transaction Pull (Received, Sent transactions) -->
+      <ion-list-header>
+        <ion-label>Today</ion-label>
+      </ion-list-header>
+      <ion-list>
+        <ion-grid>
+          <ion-row style="width: 100%; height: 100%;">
+            <ion-col size="4"> <!-- Avatar of a sent or received -->
+              <ion-chip class="ion-margin-start">
+                  <ion-icon name="arrow-round-back"></ion-icon>
+                <ion-label>Received</ion-label>
+              </ion-chip>
+            </ion-col>
+
+            <ion-col size="4"> <!-- Date & time of transaction -->
+              
+                <ion-label>
+                  <h3 style="font-weight: bold;">0xf53B48a78B7B5111347b4dED5769BAA11f65ea26</h3>
+                  <p>16:48</p>
+                </ion-label>
+            
+            </ion-col>
+
+            <ion-col size="4" style="text-overflow: ellipsis;"> <!-- Address transacted to/from -->
+              <ion-chip class="ion-margin-start">
+              + 50.00
+              </ion-chip>
+            </ion-col>
+
+          </ion-row>
+
+          <ion-row style="width: 100%; height: 100%;">
+            <ion-col size="4"> <!-- Avatar of a sent or received -->
+              <ion-chip class="ion-margin-start">
+                  <ion-icon name="arrow-round-forward"></ion-icon>
+                <ion-label>Sent</ion-label>
+              </ion-chip>
+            </ion-col>
+
+            <ion-col size="4"> <!-- Date & time of transaction -->
+              <ion-label>
+                <h3 style="font-weight: bold;">0xf53B48a78B7B5111347b4dED5769BAA11f65ea26</h3>
+                <p>17:00</p>
+              </ion-label>
+            </ion-col>
+
+            <ion-col size="4" style="text-overflow: ellipsis;"> <!-- Address transacted to/from -->
+              <ion-chip class="ion-margin-start">
+              - 200.00
+              </ion-chip>
+            </ion-col>
+
+          </ion-row>
+        </ion-grid>
+
+
+      </ion-list>
+
+
+      <ion-list-header>
+        <ion-label>Yesterday</ion-label>
+      </ion-list-header>
+      <ion-list>
+        <ion-grid>
+          <ion-row style="width: 100%; height: 100%;">
+            <ion-col size="4"> <!-- Avatar of a sent or received -->
+              <ion-chip class="ion-margin-start">
+                  <ion-icon name="arrow-round-back"></ion-icon>
+                <ion-label>Received</ion-label>
+              </ion-chip>
+            </ion-col>
+
+            <ion-col size="4"> <!-- Date & time of transaction -->
+              
+                <ion-label>
+                  <h3 style="font-weight: bold;">0xf53B48a78B7B5111347b4dED5769BAA11f65ea26</h3>
+                  <p>16:48</p>
+                </ion-label>
+            
+            </ion-col>
+
+            <ion-col size="4" style="text-overflow: ellipsis;"> <!-- Address transacted to/from -->
+              <ion-chip class="ion-margin-start">
+              + 50.00
+              </ion-chip>
+            </ion-col>
+
+          </ion-row>
+
+          <ion-row style="width: 100%; height: 100%;">
+            <ion-col size="4"> <!-- Avatar of a sent or received -->
+              <ion-chip class="ion-margin-start">
+                  <ion-icon name="arrow-round-forward"></ion-icon>
+                <ion-label>Sent</ion-label>
+              </ion-chip>
+            </ion-col>
+
+            <ion-col size="4"> <!-- Date & time of transaction -->
+              <ion-label>
+                <h3 style="font-weight: bold;">0xf53B48a78B7B5111347b4dED5769BAA11f65ea26</h3>
+                <p>17:00</p>
+              </ion-label>
+            </ion-col>
+
+            <ion-col size="4" style="text-overflow: ellipsis;"> <!-- Address transacted to/from -->
+              <ion-chip class="ion-margin-start">
+              - 200.00
+              </ion-chip>
+            </ion-col>
+
+          </ion-row>
+        </ion-grid>
+
+
+      </ion-list>
+
+
+    </ion-card-content>
+  </ion-card>
+
+
 </ion-content>
 
