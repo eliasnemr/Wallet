@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    <ion-title>\n    <img align-items-center alt=\"logo\" height=\"25\" src=\"../assets/icon/minima.svg\">\n    </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content class=\"balance-bg\">\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n    <ion-refresher-content\n    pullingIcon=\"arrow-dropdown\"\n    pullingText=\"Pull to refresh.\"\n    refreshingSpinner=\"circles\">\n    </ion-refresher-content>\n</ion-refresher>\n  \n    \n  <ion-card>\n    <ion-card-header>\n      <ion-card-title class=\"ion-text-center\">YOUR BALANCE</ion-card-title>\n    </ion-card-header>\n    <ion-card-content>\n      <ion-grid>\n        <ion-row>\n          <ion-col>\n              <div class=\"ion-text-center\">\n                  <ion-icon \n                  name=\"cash\" \n                  slot=\"start\">\n                </ion-icon> {{balance}}\n                </div>\n          </ion-col>\n        </ion-row>\n      </ion-grid>\n      \n\n    </ion-card-content>\n  </ion-card>\n</ion-content>\n\n"
+module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    <ion-title>\n    <img align-items-center alt=\"logo\" height=\"25\" src=\"../assets/icon/minima.svg\">\n    </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n    <ion-refresher-content></ion-refresher-content>\n</ion-refresher>\n\n    \n\n  <ion-card>\n    <ion-card-header>\n      <ion-card-title class=\"ion-text-center\">YOUR BALANCE</ion-card-title>\n    </ion-card-header>\n    <ion-card-content>\n\n      <!-- <ion-list *ngFor = \"let coin of balance\"> -->\n      <ion-list lines=\"none\" style=\"padding:20px;\">\n      <ion-grid>\n      \n        <ion-row>\n          <ion-col size=\"4\">\n            <ion-label>\n              \n            </ion-label>             \n          </ion-col>\n          <ion-col size=\"4\">\n            <ion-label class=\"ion-text-wrap\">\n              Confirmed\n            </ion-label>\n          </ion-col>\n          <ion-col size=\"4\"> \n            <ion-label class=\"ion-text-wrap\">\n              {{strUnconfirmed}}\n            </ion-label>\n          </ion-col>\n        </ion-row>\n        <ion-row>\n          <ion-col size=\"4\">\n            <ion-label>\n              <ion-icon src=\"../../assets/icon/minima.svg\"></ion-icon> MINI\n            </ion-label>             \n          </ion-col>\n          <ion-col size=\"4\">\n            <p style=\"color: #00AAC7;\">{{confirmed}}</p>\n          </ion-col>\n          <ion-col size=\"4\">\n            \n            <p style=\"color: #00AAC7\">{{unconfirmed}}</p>\n          </ion-col>\n        </ion-row>\n      </ion-grid>\n    </ion-list>\n\n    <br>\n      <br>\n      <ion-button  expand=\"block\" type=\"button\"  (click)=\"giveMe50()\">\n        <ion-icon name=\"cash\" slot=\"start\"></ion-icon>giveMe50\n      </ion-button>\n    </ion-card-content>\n  </ion-card>\n</ion-content>\n\n"
 
 /***/ }),
 
@@ -69,7 +69,7 @@ var BalancePageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2JhbGFuY2UvYmFsYW5jZS5wYWdlLnNjc3MifQ== */"
+module.exports = "@media screen and (max-width: 320px) {\n  p {\n    font-size: 10px;\n  }\n}\n.ion-text-wrap {\n  word-wrap: normal;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9lbGlhcy9Qcm9qZWN0cy9taW5pbWFjb3JlL21vYmlsZS1hcHAtZnJvbnQtZW5kL2FwcC9zcmMvYXBwL2JhbGFuY2UvYmFsYW5jZS5wYWdlLnNjc3MiLCJzcmMvYXBwL2JhbGFuY2UvYmFsYW5jZS5wYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSTtJQUNJLGVBQUE7RUNDTjtBQUNGO0FERUE7RUFDSSxpQkFBQTtBQ0FKIiwiZmlsZSI6InNyYy9hcHAvYmFsYW5jZS9iYWxhbmNlLnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIkBtZWRpYSBzY3JlZW4gYW5kIChtYXgtd2lkdGg6IDMyMHB4KSB7XG4gICAgcCB7XG4gICAgICAgIGZvbnQtc2l6ZTogMTBweDtcbiAgICB9XG59XG5cbi5pb24tdGV4dC13cmFwIHtcbiAgICB3b3JkLXdyYXA6IG5vcm1hbDtcbn0iLCJAbWVkaWEgc2NyZWVuIGFuZCAobWF4LXdpZHRoOiAzMjBweCkge1xuICBwIHtcbiAgICBmb250LXNpemU6IDEwcHg7XG4gIH1cbn1cbi5pb24tdGV4dC13cmFwIHtcbiAgd29yZC13cmFwOiBub3JtYWw7XG59Il19 */"
 
 /***/ }),
 
@@ -85,14 +85,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BalancePage", function() { return BalancePage; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _service_minima_api_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../service/minima-api.service */ "./src/app/service/minima-api.service.ts");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var _service_minima_api_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../service/minima-api.service */ "./src/app/service/minima-api.service.ts");
+
 
 
 
 var BalancePage = /** @class */ (function () {
-    function BalancePage(api) {
+    function BalancePage(api, alertController) {
         this.api = api;
-        this.balance = 0;
+        this.alertController = alertController;
+        this.confirmed = 0;
     }
     BalancePage.prototype.ngOnInit = function () {
     };
@@ -100,27 +103,93 @@ var BalancePage = /** @class */ (function () {
         var _this = this;
         this.api.getBalance().then(function (res) {
             console.log(res);
-            for (var i = 0; i < Object.keys(res.response.confirmed).length; i++) {
-                _this.balance = Math.round(res.response.confirmed[i].amount * 100) / 100;
+            _this.confirmed = 0;
+            _this.unconfirmed = "";
+            _this.strUnconfirmed = "";
+            var conf = res.response.confirmed;
+            var unconf = res.response.unconfirmed;
+            for (var i = 0; i < conf.length; i++) {
+                _this.confirmed += Math.round(conf[i].amount * 100) / 100;
+                console.log("Confirmed has been logged" + _this.confirmed);
+            }
+            if (unconf.length > 0) {
+                for (var j = 0; j < unconf.length; j++) {
+                    _this.strUnconfirmed = "Unconfirmed";
+                    _this.unconfirmed += Math.round(unconf[j].amount * 100) / 100;
+                    console.log("Unconfirmed has been balanced");
+                }
             }
             //this.balance = Math.round(res.response.confirmed.amount * 100) / 100;
             console.log('Balance set');
+        });
+    };
+    BalancePage.prototype.presentAlert = function (msg, header) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var alert;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.alertController.create({
+                            header: header,
+                            message: msg,
+                            buttons: ['Cancel', 'Ok']
+                        })];
+                    case 1:
+                        alert = _a.sent();
+                        return [4 /*yield*/, alert.present()];
+                    case 2:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    BalancePage.prototype.giveMe50 = function () {
+        var _this = this;
+        this.api.giveMe50().then(function (res) {
+            console.log("Testing giveMe50() " + res);
+            if (res.status == true) {
+                console.log("Result is true" + res);
+                _this.presentAlert('You get 50', 'Info');
+            }
+            else {
+                console.log("Result is false " + res);
+                _this.presentAlert(res.error, 'Error');
+            }
         });
     };
     BalancePage.prototype.doRefresh = function (event) {
         var _this = this;
         console.log('Refreshing page..');
         this.api.getBalance().then(function (res) {
-            console.log(res);
-            for (var i = 0; i < Object.keys(res.response.confirmed).length; i++) {
-                _this.balance = Math.round(res.response.confirmed[i].amount * 100) / 100;
+            _this.confirmed = 0;
+            _this.unconfirmed = "";
+            _this.strUnconfirmed = "";
+            var conf = res.response.confirmed;
+            var unconf = res.response.unconfirmed;
+            for (var i = 0; i < conf.length; i++) {
+                _this.confirmed += Math.round(conf[i].amount * 100) / 100;
+                console.log("Confirmed has been logged" + _this.confirmed);
             }
+            if (unconf.length > 0) {
+                for (var j = 0; j < unconf.length; j++) {
+                    _this.strUnconfirmed = "Unconfirmed";
+                    _this.unconfirmed += Math.round(unconf[j].amount * 100) / 100;
+                    console.log("Unconfirmed has been balanced");
+                }
+            }
+            //   for (let i = 0; i < Object.keys(res.response.confirmed).length; i++){
+            //     this.balance = (Math.round( res.response.confirmed[i].amount * 100) / 100);
+            // } 
             //this.balance = Math.round(res.response.confirmed.amount * 100) / 100;
         });
-        event.target.complete();
+        setTimeout(function () {
+            console.log('Async operation has ended');
+            event.target.complete();
+        }, 1500);
     };
     BalancePage.ctorParameters = function () { return [
-        { type: _service_minima_api_service__WEBPACK_IMPORTED_MODULE_2__["MinimaApiService"] }
+        { type: _service_minima_api_service__WEBPACK_IMPORTED_MODULE_3__["MinimaApiService"] },
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"] }
     ]; };
     BalancePage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -128,7 +197,7 @@ var BalancePage = /** @class */ (function () {
             template: __webpack_require__(/*! raw-loader!./balance.page.html */ "./node_modules/raw-loader/index.js!./src/app/balance/balance.page.html"),
             styles: [__webpack_require__(/*! ./balance.page.scss */ "./src/app/balance/balance.page.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_service_minima_api_service__WEBPACK_IMPORTED_MODULE_2__["MinimaApiService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_service_minima_api_service__WEBPACK_IMPORTED_MODULE_3__["MinimaApiService"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"]])
     ], BalancePage);
     return BalancePage;
 }());

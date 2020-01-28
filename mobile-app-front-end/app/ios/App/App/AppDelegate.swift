@@ -2,42 +2,73 @@ import UIKit
 import Capacitor
 import UserNotifications
 
+
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+@objc class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
     var minimaBridger = MinimaBridger()
     let playSong = PlaySong()
 
+    func callNotification() {
+        let center = UNUserNotificationCenter.current()
+        
+        center.requestAuthorization(options: [.alert, .sound, .badge])
+        { (granted, error) in
+        }
+        
+        let content = UNMutableNotificationContent()
+        content.title = "Minima"
+        content.body = "Minima is now running.."
+        
+        let date = Date().addingTimeInterval(5)
+        
+        let dateComponent = Calendar.current.dateComponents([.year, .month, .day, . hour, .minute, .second], from: date)
+        
+        let trigger =
+            UNCalendarNotificationTrigger(dateMatching: dateComponent, repeats: false)
+            
+        // Step 4: Create the request..
+        let uuidString = UUID().uuidString
+        let request = UNNotificationRequest(identifier: uuidString, content: content, trigger: trigger)
+        
+        //Step 5: Register the request
+        center.add(request) { (error) in
+            // Check the error parameter and handle any errors
+            
+        }
+    }
+    
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     // Override point for customization after application launch.
     
-    let center = UNUserNotificationCenter.current()
-    
-    center.requestAuthorization(options: [.alert, .sound, .badge])
-    { (granted, error) in
-    }
-    
-    let content = UNMutableNotificationContent()
-    content.title = "Minima"
-    content.body = "You just received some Minima tokens!"
-    
-    let date = Date().addingTimeInterval(5)
-    
-    let dateComponent = Calendar.current.dateComponents([.year, .month, .day, . hour, .minute, .second], from: date)
-    
-    let trigger =
-        UNCalendarNotificationTrigger(dateMatching: dateComponent, repeats: false)
-        
-    // Step 4: Create the request..
-    let uuidString = UUID().uuidString
-    let request = UNNotificationRequest(identifier: uuidString, content: content, trigger: trigger)
-    
-    //Step 5: Register the request
-    center.add(request) { (error) in
-        // Check the error parameter and handle any errors
-        
-    }
+//    let center = UNUserNotificationCenter.current()
+//
+//    center.requestAuthorization(options: [.alert, .sound, .badge])
+//    { (granted, error) in
+//    }
+//
+//    let content = UNMutableNotificationContent()
+//    content.title = "Minima"
+//    content.body = "Minima is now running.."
+//
+//    let date = Date().addingTimeInterval(5)
+//
+//    let dateComponent = Calendar.current.dateComponents([.year, .month, .day, . hour, .minute, .second], from: date)
+//
+//    let trigger =
+//        UNCalendarNotificationTrigger(dateMatching: dateComponent, repeats: false)
+//
+//    // Step 4: Create the request..
+//    let uuidString = UUID().uuidString
+//    let request = UNNotificationRequest(identifier: uuidString, content: content, trigger: trigger)
+//
+//    //Step 5: Register the request
+//    center.add(request) { (error) in
+//        // Check the error parameter and handle any errors
+//
+//    }
+    callNotification()
     
     playSong.playSound()
     

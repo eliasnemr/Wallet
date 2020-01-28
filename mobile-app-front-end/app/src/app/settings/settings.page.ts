@@ -34,20 +34,20 @@ export class SettingsPage implements OnInit {
     });
   }
 
-  async quitMinima(msg:string,header:string) {
+  async presentAlert(msg:string,header:string) {
     const alert = await this.alertController.create({
-      header: header,     
+      header: header,
       message: msg,
-      buttons: ['Cancel', 'I am sure.']
+      buttons: ['Cancel', 'Ok']
     });
 
     await alert.present();
   }
 
-  async presentAlert(msg:string,header:string) {
+  async presentQuitAlert() {
     const alert = await this.alertController.create({
-      header: header,     
-      message: msg,
+      header: "Quit Minima",
+      message: "To turn off the Minima Node, you can currently do that by: <br>Android - Force stop in phone's settings.<br>iOS - Sliding up in task manager.",
       buttons: ['Cancel', 'Ok']
     });
 

@@ -502,11 +502,11 @@ var MinimaApiService = /** @class */ (function () {
     };
     MinimaApiService.prototype.request = function (route) {
         var self = this;
-        self.showLoader();
+        // self.showLoader();
         console.log(route);
         return new Promise(function (resolve, reject) {
             self.http.get(self.host + route, { responseType: 'json' }).subscribe(function (d) {
-                setTimeout(function () { self.hideLoader(); }, 500);
+                // setTimeout(() => { self.hideLoader(); }, 500);
                 console.log(d);
                 resolve(d);
             }, function (err) {

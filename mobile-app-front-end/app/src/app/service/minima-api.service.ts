@@ -71,11 +71,11 @@ export class MinimaApiService {
 
   private request(route) {
     const self = this;
-    self.showLoader();
+    // self.showLoader();
     console.log(route);
     return new Promise((resolve, reject) => {
       self.http.get(self.host + route, { responseType: 'json' }).subscribe(( d: any ) => {
-        setTimeout(() => { self.hideLoader(); }, 500);
+        // setTimeout(() => { self.hideLoader(); }, 500);
         console.log(d);
         resolve(d);
       }, (err) => {

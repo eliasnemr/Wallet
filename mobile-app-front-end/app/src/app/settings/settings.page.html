@@ -10,8 +10,7 @@
     </ion-title>
 
     <ion-buttons slot="end">
-      <ion-button (click)= "quitMinima('You are about to shutdown Minima. 
-      Once reconnected your node will have to catch up with the latest block.  Are you sure?', 'Reminder..')">
+      <ion-button (click)= "presentQuitAlert()">
           <ion-icon name="power" color="danger"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -35,15 +34,6 @@
         <ion-label position="floating">Host</ion-label>
         <ion-input name="host" [(ngModel)]="host"></ion-input>
       </ion-item>
-
-
-      <br>
-      <br>
-      <ion-button  expand="block" type="button"  (click)="giveMe50()">
-        <ion-icon name="cash" slot="start"></ion-icon>giveMe50
-      </ion-button>
-
-
     </form>
 
   </ion-card-content>

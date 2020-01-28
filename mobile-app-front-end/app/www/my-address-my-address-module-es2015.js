@@ -869,7 +869,7 @@ var QRCode;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    <ion-title color=\"primary\">\n      Minima address\n    </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <ion-card style=\"display:flex; flex-direction:column; padding: 50px;\">\n    <ion-card-header>\n      <ion-card-title text-center>Here's your Minima address</ion-card-title>\n    </ion-card-header>\n\n    <ion-card-content >\n      <qrcode class=\"qrcode\" \n      [qrdata]=\"qrCode\" \n      [size]=\"300\" \n      [level]=\"'Q'\" \n      colorlight=\"#e9ecef\" \n      *ngIf=\"qrCode!==''\">\n    </qrcode>\n\n      <ion-button expand=\"block\" (click)=\"copyToClipboard()\"[disabled]=\"!isEmpty\">\n        <ion-icon name=\"copy\" slot=\"start\"></ion-icon>Copy to clipboard\n      </ion-button>\n      <p text-center>\n        This address can be used for any Minima or Token transaction\n      </p>\n    </ion-card-content>\n\n  </ion-card>\n\n\n\n\n</ion-content>"
+module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    <ion-title color=\"primary\">\n      Minima address\n    </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <ion-card  class=\"welcome-card\">\n    <ion-card-header id=\"address-header\">\n      <ion-item>\n        <ion-card-title>Here's your Minima address...</ion-card-title>\n      </ion-item>\n    </ion-card-header>\n\n    <ion-card-content class=\"qr-canvas\" #canvasDimension>\n\n      \n    <qrcode\n          [qrdata]=\"qrCode\" \n          [size]=\"canvasSize\"\n          [level]=\"'Q'\" \n          colorlight=\"#e9ecef\" \n          colorDark=\"#000000\"\n          *ngIf=\"qrCode!==''\">\n    </qrcode>  \n        \n      \n\n      <ion-button \n            expand=\"block\" \n            (click)=\"copyToClipboard()\"\n            [disabled]=\"!isEmpty\">\n\n      <ion-icon \n            name=\"copy\" \n            slot=\"start\">\n      </ion-icon>Copy to clipboard\n\n      </ion-button>\n\n      \n      <p style=\"text-align: center;\">\n        This address can be used for any Minima or Token transaction\n      </p>\n\n    </ion-card-content>\n\n  </ion-card>\n</ion-content>"
 
 /***/ }),
 
@@ -931,7 +931,7 @@ MyAddressPageModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL215LWFkZHJlc3MvbXktYWRkcmVzcy5wYWdlLnNjc3MifQ== */"
+module.exports = ".qr-canvas {\n  height: 100%;\n  width: 100%;\n  padding: 5px;\n  border: 5px solid #00AAC8;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9lbGlhcy9Qcm9qZWN0cy9taW5pbWFjb3JlL21vYmlsZS1hcHAtZnJvbnQtZW5kL2FwcC9zcmMvYXBwL215LWFkZHJlc3MvbXktYWRkcmVzcy5wYWdlLnNjc3MiLCJzcmMvYXBwL215LWFkZHJlc3MvbXktYWRkcmVzcy5wYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxZQUFBO0VBQ0EsV0FBQTtFQUNBLFlBQUE7RUFDQSx5QkFBQTtBQ0NKIiwiZmlsZSI6InNyYy9hcHAvbXktYWRkcmVzcy9teS1hZGRyZXNzLnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5xci1jYW52YXMge1xuICAgIGhlaWdodDogMTAwJTtcbiAgICB3aWR0aDogMTAwJTtcbiAgICBwYWRkaW5nOiA1cHg7XG4gICAgYm9yZGVyOiA1cHggc29saWQgIzAwQUFDODtcbn1cbiIsIi5xci1jYW52YXMge1xuICBoZWlnaHQ6IDEwMCU7XG4gIHdpZHRoOiAxMDAlO1xuICBwYWRkaW5nOiA1cHg7XG4gIGJvcmRlcjogNXB4IHNvbGlkICMwMEFBQzg7XG59Il19 */"
 
 /***/ }),
 
@@ -961,10 +961,12 @@ let MyAddressPage = class MyAddressPage {
         this.qrScanner = qrScanner;
         this.api = api;
         this.qrCode = '';
+        this.canvasSize = 300;
     }
-    ngOnInit() {
-    }
+    ngOnInit() { }
     ionViewWillEnter() {
+        this.canvasSize = window.screen.width - 50;
+        console.log("Canvas size: " + this.canvasSize);
         this.api.newAddress().then((res) => {
             if (res.response.address) {
                 // setTimeout(() => {
@@ -985,6 +987,10 @@ MyAddressPage.ctorParameters = () => [
     { type: _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_4__["QRScanner"] },
     { type: _service_minima_api_service__WEBPACK_IMPORTED_MODULE_3__["MinimaApiService"] }
 ];
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('canvasDimension', { static: false }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"])
+], MyAddressPage.prototype, "canvasDimension", void 0);
 MyAddressPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
         selector: 'app-my-address',

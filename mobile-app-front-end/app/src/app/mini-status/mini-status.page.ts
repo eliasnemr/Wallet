@@ -41,12 +41,20 @@ export class MiniStatusPage implements OnInit {
     // this.plotSimpleBarChart();
   }
 
+  doRefresh(event) {
+    console.log('Refreshing page..');
+    this.api.getStatus().then((res: any) => {
+      console.log(res);
+      this.updateStatus();
+    });
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 1500);
+  }
+
   updateStatus() {
     this.api.getStatus().then((res : any) => {
-
-
-
-
 
       console.log(res.response.tip.Block);
       // Check node's status..
@@ -79,50 +87,7 @@ export class MiniStatusPage implements OnInit {
       return 'red';
     }
   }
-  // plotSimpleBarChart() {
-  //   let myChart = HighCharts.chart('highcharts', {
-  //     chart: {
-  //       type: 'line'
-  //     },
-
-  //     title: {
-  //       text: 'MiniBlocks Generated/Time Elapsed'
-  //     },
-
-  //     xAxis: {
-  //       categories: [0, 1000000, 300000]
-  //     },
-
-  //     yAxis: {
-  //       title: {
-  //         text: 'MiniBlocks (TxPoW)'
-  //       },
-  //       plotLines: [{
-  //         value: 0,
-  //         width: 1,
-  //         color: '#808080'
-  //       }]
-  //     },
-
-  //     tooltip: {
-  //       valueSuffix: '\xB0C'
-  //     },
-
-  //     legend: {
-  //       layout: 'vertical',
-  //       align: 'right',
-  //       verticalAlign: 'middle',
-  //       borderWidth: 0
-  //     },
-  //     series: [
-  //       {
-  //         name: 'BLOCKS MINED.',
-  //         data: [0, 3000, 5000]
-  //       }
-  //     ]
-  //   });
-
-  // }
+  
 
   
 }

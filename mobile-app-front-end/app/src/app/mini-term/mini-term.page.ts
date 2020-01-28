@@ -1,29 +1,46 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import {} from 'src/assets/data/terminal.js';
-import { Terminal } from 'xterm';
+import { FitAddon } from 'xterm-addon-fit';
+import { Component, OnInit, ViewChild, ElementRef} from '@angular/core';
+import * as xterm from 'xterm';
 import { HttpClient, HttpEvent, HttpErrorResponse, HttpEventType } from '@angular/common/http';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, NavController } from '@ionic/angular';
 import { environment } from '../../environments/environment';
+import "../../../node_modules/xterm/lib/xterm.js";
+import { Content } from "ionic-angular";
 
+
+//node_modules/xterm/css/xterm.css
 @Component({
   selector: 'app-mini-term',
   templateUrl: './mini-term.page.html',
-  styleUrls: ['mini-term.page.scss']
+  styleUrls: ['../../../node_modules/xterm/css/xterm.css']
 })
 
 export class MiniTermPage implements OnInit {
-  @ViewChild('content', {static : false}) private content: any;
+  @ViewChild('content', {static : false} ) private content: any;
+  
+  //@ViewChild('terminal', {static: false}) terminal: ElementRef;
 
-  private term: Terminal;
+  private term: xterm.Terminal;
+  
   toExecute = '';
   theExecuted = [];
   isEnabled: boolean;
   private host = '';
   private loader: any = null;
 
-  constructor(private http: HttpClient, public loadingController: LoadingController) {
+
+
+  constructor(private http: HttpClient, public loadingController: LoadingController, public navCtrl: NavController) {
     this.host = environment.defaultNode;
     this.host = this.getHost();
+
+    this.term = new xterm.Terminal({
+      cursorBlink: true,
+      scrollback: 60,
+      rows: 30,
+    });
+
+
   }
 
   buttonHandler() {
@@ -34,6 +51,19 @@ export class MiniTermPage implements OnInit {
   }
 
   ngOnInit(){}
+  ionViewDidEnter(){
+    // Xterm.js possible terminal
+    // const fitAddon = new FitAddon();
+    // this.term.loadAddon(fitAddon);
+    // this.term.open( document.getElementById("terminal") );
+
+    // this.term.setOption("allowTransperency", true);
+    // this.term.setOption("theme", {background: "rgba(0,0,0,0)"});
+    // this.term.focus();
+
+    // fitAddon.fit();
+    // this.term.writeln("Welcome to the Minima terminal, type help to start.");
+  }
 
   scrollToBottomOnInit() {
     this.content.scrollToBottom(50);

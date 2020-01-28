@@ -106,14 +106,14 @@ public class ForegroundService extends Service {
 
                                     mBLOCK_NUMBER = txpow.getBlockNumber().toString();
 
-                                    mNotificationBuilder = new NotificationCompat.Builder(ForegroundService.this, CHANNEL_ID)
-                                            .setContentTitle("Your Minima Node is running..")
-                                            .setContentText("Current block number: " + mBLOCK_NUMBER)
-                                            .setSmallIcon(R.drawable.ic_minima)
-                                            .setContentIntent(mPendingIntent)
-                                            .build();
-
-                                    startForeground(1, mNotificationBuilder);
+//                                    mNotificationBuilder = new NotificationCompat.Builder(ForegroundService.this, CHANNEL_ID)
+//                                            .setContentTitle("Your Minima Node is running..")
+//                                            .setContentText("Current block number: " + mBLOCK_NUMBER)
+//                                            .setSmallIcon(R.drawable.ic_minima)
+//                                            .setContentIntent(mPendingIntent)
+//                                            .build();
+//
+//                                    startForeground(1, mNotificationBuilder);
 
                                 }
                             });

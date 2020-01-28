@@ -7,8 +7,8 @@
   "_phantomChildren": {},
   "_requested": {
     "type": "git",
-    "raw": "https://github.com/katzer/cordova-plugin-local-notifications",
-    "rawSpec": "https://github.com/katzer/cordova-plugin-local-notifications",
+    "raw": "git+https://github.com/katzer/cordova-plugin-local-notifications.git",
+    "rawSpec": "git+https://github.com/katzer/cordova-plugin-local-notifications.git",
     "saveSpec": "git+https://github.com/katzer/cordova-plugin-local-notifications.git",
     "fetchSpec": "https://github.com/katzer/cordova-plugin-local-notifications.git",
     "gitCommittish": null
@@ -18,7 +18,7 @@
     "/"
   ],
   "_resolved": "git+https://github.com/katzer/cordova-plugin-local-notifications.git#caff55ec758fdf298029ae98aff7f6a8a097feac",
-  "_spec": "https://github.com/katzer/cordova-plugin-local-notifications",
+  "_spec": "git+https://github.com/katzer/cordova-plugin-local-notifications.git",
   "_where": "/Users/elias/Projects/minimacore/mobile-app-front-end/app",
   "author": {
     "name": "Sebastián Katzer"

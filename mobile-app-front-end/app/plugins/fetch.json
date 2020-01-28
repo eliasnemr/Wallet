@@ -84,12 +84,10 @@
   "cordova-plugin-local-notification": {
     "source": {
       "type": "registry",
-      "id": "https://github.com/katzer/cordova-plugin-local-notifications"
+      "id": "git+https://github.com/katzer/cordova-plugin-local-notifications.git"
     },
     "is_top_level": true,
-    "variables": {
-      "ANDROID_SUPPORT_V4_VERSION": "26.+"
-    }
+    "variables": {}
   },
   "cordova-plugin-badge": {
     "source": {
