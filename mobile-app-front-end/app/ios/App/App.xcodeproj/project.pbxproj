@@ -14,6 +14,7 @@
 		504EC30F1FED79650016851F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 504EC30E1FED79650016851F /* Assets.xcassets */; };
 		504EC3121FED79650016851F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 504EC3101FED79650016851F /* LaunchScreen.storyboard */; };
 		50B271D11FEDC1A000F3C39B /* public in Resources */ = {isa = PBXBuildFile; fileRef = 50B271D01FEDC1A000F3C39B /* public */; };
+		641368B223D7344400E27345 /* TestClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 641368B123D7344400E27345 /* TestClass.swift */; };
 		64351F7523CCDBA800F55743 /* MinimaBridger.m in Sources */ = {isa = PBXBuildFile; fileRef = 64351F7423CCDBA800F55743 /* MinimaBridger.m */; };
 		643535D023CDE10C00F55743 /* PlaySong.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643535CF23CDE10C00F55743 /* PlaySong.swift */; };
 		643535D323CDE2B900F55743 /* Flume.wav in Resources */ = {isa = PBXBuildFile; fileRef = 643535D223CDE2B900F55743 /* Flume.wav */; };
@@ -279,6 +280,7 @@
 		504EC3111FED79650016851F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		504EC3131FED79650016851F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		50B271D01FEDC1A000F3C39B /* public */ = {isa = PBXFileReference; lastKnownFileType = folder; path = public; sourceTree = SOURCE_ROOT; };
+		641368B123D7344400E27345 /* TestClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestClass.swift; sourceTree = "<group>"; };
 		64351F7223CCDBA700F55743 /* App-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "App-Bridging-Header.h"; sourceTree = "<group>"; };
 		64351F7323CCDBA800F55743 /* MinimaBridger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MinimaBridger.h; sourceTree = "<group>"; };
 		64351F7423CCDBA800F55743 /* MinimaBridger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MinimaBridger.m; sourceTree = "<group>"; };
@@ -1830,6 +1832,7 @@
 				50B271D01FEDC1A000F3C39B /* public */,
 				64351F7223CCDBA700F55743 /* App-Bridging-Header.h */,
 				643535CF23CDE10C00F55743 /* PlaySong.swift */,
+				641368B123D7344400E27345 /* TestClass.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -4814,7 +4817,7 @@
 					504EC3031FED79650016851F = {
 						CreatedOnToolsVersion = 9.2;
 						LastSwiftMigration = 1130;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -5104,6 +5107,7 @@
 				64354EEA23D0765F00F55743 /* CChainBlock.m in Sources */,
 				64354E6323D0765F00F55743 /* UserDB.m in Sources */,
 				64354E6223D0765F00F55743 /* UserDBRow.m in Sources */,
+				641368B223D7344400E27345 /* TestClass.swift in Sources */,
 				64354E6E23D0765F00F55743 /* MMRPrint.m in Sources */,
 				64354EDA23D0765F00F55743 /* Streamable.m in Sources */,
 				64354F3823D0765F00F55743 /* status.m in Sources */,
@@ -5203,6 +5207,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -5219,7 +5224,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LIBRARY_SEARCH_PATHS = "${J2OBJC_HOME}/libs";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -5261,6 +5266,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -5271,7 +5277,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LIBRARY_SEARCH_PATHS = "${J2OBJC_HOME}/libs";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
@@ -5288,7 +5294,9 @@
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_ENTITLEMENTS = App/App.entitlements;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 9DMT7BBCFN;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5324,6 +5332,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-DDEBUG\"";
 				PRODUCT_BUNDLE_IDENTIFIER = org.minima.global;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "Minima Global";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG USE_PUSH";
 				SWIFT_OBJC_BRIDGING_HEADER = "App/App-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -5341,7 +5350,9 @@
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_ENTITLEMENTS = App/App.entitlements;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 9DMT7BBCFN;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5376,6 +5387,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.minima.global;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "Minima Global";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = USE_PUSH;
 				SWIFT_OBJC_BRIDGING_HEADER = "App/App-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;

@@ -10,31 +10,45 @@
 </ion-header>
 
 <ion-content>
-  <ion-card style="display:flex; flex-direction:column; padding: 50px;">
-    <ion-card-header>
-      <ion-card-title text-center>Here's your Minima address</ion-card-title>
+  <ion-card  class="welcome-card">
+    <ion-card-header id="address-header">
+      <ion-item>
+        <ion-card-title>Here's your Minima address...</ion-card-title>
+      </ion-item>
     </ion-card-header>
 
-    <ion-card-content >
-      <qrcode class="qrcode" 
-      [qrdata]="qrCode" 
-      [size]="300" 
-      [level]="'Q'" 
-      colorlight="#e9ecef" 
-      *ngIf="qrCode!==''">
-    </qrcode>
+    <ion-card-content class="qr-canvas" #canvasDimension>
 
-      <ion-button expand="block" (click)="copyToClipboard()"[disabled]="!isEmpty">
-        <ion-icon name="copy" slot="start"></ion-icon>Copy to clipboard
+      
+    <qrcode
+          [qrdata]="qrCode" 
+          [size]="canvasSize"
+          [level]="'Q'" 
+          colorlight="#e9ecef" 
+          colorDark="#000000"
+          *ngIf="qrCode!==''">
+    </qrcode>  
+        
+      
+
+      <ion-button 
+            expand="block" 
+            (click)="copyToClipboard()"
+            [disabled]="!isEmpty">
+
+      <ion-icon 
+            name="copy" 
+            slot="start">
+      </ion-icon>Copy to clipboard
+
       </ion-button>
-      <p text-center>
+
+      
+      <p style="text-align: center;">
         This address can be used for any Minima or Token transaction
       </p>
+
     </ion-card-content>
 
   </ion-card>
-
-
-
-
 </ion-content>

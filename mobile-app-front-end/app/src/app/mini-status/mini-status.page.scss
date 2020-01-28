@@ -1,11 +1,18 @@
 
+
 #status-content {
     width: 100%;
-    padding: 20px;
-    border-radius: 20%;;
+    padding: 5px;
+    border-radius: 20%;
+    font-size: 0.5em;
 }
 
 #status-content ion-icon {
-    padding-left: 40px;
+    padding-left: 1em;
     color: #FF671D;
 }
+
+#status-content ion-list ion-grid ion-col ion-item {
+    font-size: 1.5em;
+}
+

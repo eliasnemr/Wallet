@@ -42,17 +42,16 @@ export class SendFundsPage implements OnInit {
           window.document.querySelector('ion-app').classList.add('transparentBody');
           // start scanning
           this.qrScanner.show();
-
           this.isCameraOpen = true;
 
           this.scanSub = this.qrScanner.scan().subscribe((text: string) => {
             console.log('Scanned something', text);
-            
             this.zone.run(()=>{
-              this.data.address = text;            
+              this.data.address = text;
               this.stopCamera();
-            })  
-            
+              window.document.querySelector('ion-app').classList.remove('transparentBody');
+              this.isCameraOpen = false;
+            })
 
           }, (err) => {
             console.log('Scanned failed', err);
@@ -76,12 +75,14 @@ export class SendFundsPage implements OnInit {
   stopCamera() {
     console.log('stop camera',this.scanSub);
     if(this.scanSub!==null){
+      console.log("stopCamera - is not null..")
       this.qrScanner.hide();
       this.scanSub.unsubscribe();
     }
     this.scanSub = null;
     window.document.querySelector('ion-app').classList.remove('transparentBody');
     this.isCameraOpen = false;
+    this.qrScanner.destroy();
   }
 
   pasteFromClipboard() {
@@ -106,11 +107,12 @@ export class SendFundsPage implements OnInit {
   }
 
   sendFunds(){
-    if(this.data.token&&this.data.token!==''&&this.data.address&&this.data.address!==''&&this.data.amount&&this.data.amount>0){
+    if(this.data.address&&this.data.address!==''&&this.data.amount&&this.data.amount>0){
       console.log('sendFunds',this.data);
       this.api.sendFunds(this.data).then((res:any)=>{
-        console.log(res);
-        if(res.result&&res.result=='true'){
+      
+        console.log("Send " + JSON.stringify(res));
+        if(res.status == true){
           this.presentAlert('Sent successfully!', 'Info');
         } else {
           this.presentAlert(res.error, 'Error');

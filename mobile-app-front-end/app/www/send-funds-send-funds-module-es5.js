@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header *ngIf=\"isCameraOpen==false\">\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    <ion-title color=\"primary\">\n      Send funds\n    </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <ion-card *ngIf=\"isCameraOpen==false\">\n    <ion-card-header>\n\n      <ion-card-title>Send funds</ion-card-title>\n    </ion-card-header>\n\n    <ion-card-content>\n      <form>\n\n        <ion-item>\n          <ion-label position=\"floating\">Minima / Token</ion-label>\n          <ion-select name=\"token\" [(ngModel)]=\"data.token\" placeholder=\"Minima / Token\">\n            <ion-select-option value=\"minima\">Minima</ion-select-option>\n          </ion-select>\n        </ion-item>\n        <ion-item>\n          <ion-label position=\"floating\">Address</ion-label>\n          <ion-input name=\"address\" [(ngModel)]=\"data.address\"></ion-input>\n\n        </ion-item>\n\n        <div class=\"rightAlign\">\n          <ion-button type=\"button\" slot=\"end\" size=\"small\" (click)=\"scanQR()\">\n            <ion-icon name=\"qr-scanner\" slot=\"start\"></ion-icon>QR Code\n          </ion-button>\n          <ion-button type=\"button\" slot=\"end\" size=\"small\" (click)=\"pasteFromClipboard()\">\n            <ion-icon name=\"clipboard\" slot=\"start\"></ion-icon>Paste from clipboard\n          </ion-button>\n        </div>\n        <ion-item>\n          <ion-label position=\"floating\">Amount</ion-label>\n          <ion-input type=\"number\" name=\"amount\" [(ngModel)]=\"data.amount\"></ion-input>\n        </ion-item>\n        \n      </form>\n\n    </ion-card-content>\n  </ion-card>\n</ion-content>\n<ion-footer>\n  <ion-toolbar>\n    <ion-button expand=\"block\" (click)=\"stopCamera()\"  *ngIf=\"isCameraOpen==true\">\n     Stop scanning\n    </ion-button>    \n\n    <ion-button color=\"danger\" expand=\"block\" (click)=\"sendFunds()\" *ngIf=\"isCameraOpen==false\">\n      <ion-icon name=\"send\" slot=\"start\"></ion-icon> Send\n    </ion-button>\n  </ion-toolbar>\n</ion-footer>"
+module.exports = "<ion-header *ngIf=\"isCameraOpen==false\">\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    <ion-title color=\"primary\">\n      Send funds\n    </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <ion-card *ngIf=\"isCameraOpen==false\">\n    <ion-card-header>\n\n      <ion-card-title>Send funds</ion-card-title>\n    </ion-card-header>\n\n    <ion-card-content>\n      <form>\n\n        <!-- <ion-item>\n          <ion-label position=\"floating\">Minima / Token</ion-label>\n          <ion-select name=\"token\" [(ngModel)]=\"data.token\" placeholder=\"Minima\">\n            \n            <ion-select-option value=\"minima\">Minima</ion-select-option>\n          </ion-select>\n        </ion-item> -->\n        <ion-item>\n          <ion-label position=\"floating\">Address</ion-label>\n          <ion-input name=\"address\" [(ngModel)]=\"data.address\"></ion-input>\n        </ion-item>\n\n        <div class=\"rightAlign\">\n          <ion-button type=\"button\" slot=\"end\" size=\"small\" (click)=\"scanQR()\">\n            <ion-icon name=\"qr-scanner\" slot=\"start\"></ion-icon>QR Code\n          </ion-button>\n          <ion-button type=\"button\" slot=\"end\" size=\"small\" (click)=\"pasteFromClipboard()\">\n            <ion-icon name=\"clipboard\" slot=\"start\"></ion-icon>Paste from clipboard\n          </ion-button>\n        </div>\n        <ion-item>\n          <ion-label position=\"floating\">Amount</ion-label>\n          <ion-input type=\"number\" name=\"amount\" [(ngModel)]=\"data.amount\"></ion-input>\n        </ion-item>\n        \n      </form>\n\n    </ion-card-content>\n  </ion-card>\n</ion-content>\n<ion-footer>\n  <ion-toolbar>\n    <ion-button expand=\"block\" (click)=\"stopCamera()\"  *ngIf=\"isCameraOpen==true\">\n     Stop scanning\n    </ion-button>    \n\n    <ion-button color=\"danger\" expand=\"block\" (click)=\"sendFunds()\" *ngIf=\"isCameraOpen==false\">\n      <ion-icon name=\"send\" slot=\"start\"></ion-icon> Send\n    </ion-button>\n  </ion-toolbar>\n</ion-footer>"
 
 /***/ }),
 
@@ -131,6 +131,8 @@ var SendFundsPage = /** @class */ (function () {
                     _this.zone.run(function () {
                         _this.data.address = text;
                         _this.stopCamera();
+                        window.document.querySelector('ion-app').classList.remove('transparentBody');
+                        _this.isCameraOpen = false;
                     });
                 }, function (err) {
                     console.log('Scanned failed', err);
@@ -154,12 +156,14 @@ var SendFundsPage = /** @class */ (function () {
     SendFundsPage.prototype.stopCamera = function () {
         console.log('stop camera', this.scanSub);
         if (this.scanSub !== null) {
+            console.log("stopCamera - is not null..");
             this.qrScanner.hide();
             this.scanSub.unsubscribe();
         }
         this.scanSub = null;
         window.document.querySelector('ion-app').classList.remove('transparentBody');
         this.isCameraOpen = false;
+        this.qrScanner.destroy();
     };
     SendFundsPage.prototype.pasteFromClipboard = function () {
         var _this = this;
@@ -191,11 +195,11 @@ var SendFundsPage = /** @class */ (function () {
     };
     SendFundsPage.prototype.sendFunds = function () {
         var _this = this;
-        if (this.data.token && this.data.token !== '' && this.data.address && this.data.address !== '' && this.data.amount && this.data.amount > 0) {
+        if (this.data.address && this.data.address !== '' && this.data.amount && this.data.amount > 0) {
             console.log('sendFunds', this.data);
             this.api.sendFunds(this.data).then(function (res) {
-                console.log(res);
-                if (res.result && res.result == 'true') {
+                console.log("Send " + JSON.stringify(res));
+                if (res.status == true) {
                     _this.presentAlert('Sent successfully!', 'Info');
                 }
                 else {

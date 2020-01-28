@@ -10,7 +10,13 @@
 </ion-header>
 
 <ion-content>
-  <!-- Block Generated vs Time elapsed Chart -->
+
+
+<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+</ion-refresher>
+
+
   <ion-card class="welcome-card" style="background-color:#00AAC8;">
     <ion-card-header id="status-header">
       <ion-card-title>
@@ -21,19 +27,21 @@
       </ion-card-title>
     </ion-card-header>
 
-
     <ion-card-content id="status-content">
       <ion-list lines="none">
         <ion-grid no-padding>
           <ion-row>
             <ion-col size="2">
               <ion-item >
-                <ion-icon align-self-center name="checkmark" size="2"></ion-icon>
+                <ion-icon name="checkmark" size="2"></ion-icon>
               </ion-item>
             </ion-col>
             <ion-col size="6">
               <ion-item>
-                Your node's status
+                <ion-text>
+                  Your node's status
+                </ion-text>
+                
               </ion-item>
             </ion-col>
             <ion-col size="4">
@@ -48,30 +56,12 @@
           <ion-row>
             <ion-col size="2">
               <ion-item>
-                <ion-icon align-self-center name="checkmark" size="2"></ion-icon>
+                <ion-icon name="checkmark" size="2"></ion-icon>
               </ion-item>
             </ion-col>
             <ion-col size="6">
               <ion-item>
-                Current uptime
-              </ion-item>
-            </ion-col>
-            <ion-col size="4">
-              <ion-item>
-                {{upTime}}
-              </ion-item>
-            </ion-col>
-          </ion-row>
-          <!-- New Row -->
-          <ion-row>
-            <ion-col size="2">
-              <ion-item>
-                <ion-icon align-self-center name="checkmark" size="2"></ion-icon>
-              </ion-item>
-            </ion-col>
-            <ion-col size="6">
-              <ion-item>
-                String uptime
+                Node uptime
               </ion-item>
             </ion-col>
             <ion-col size="4">
@@ -84,7 +74,7 @@
           <ion-row>
             <ion-col size="2">
               <ion-item>
-                <ion-icon align-self-center name="checkmark" size="2"></ion-icon>
+                <ion-icon name="checkmark" size="2"></ion-icon>
               </ion-item>
             </ion-col>
             <ion-col size="6">
@@ -102,7 +92,7 @@
           <ion-row>
             <ion-col size="2">
               <ion-item>
-                <ion-icon align-self-center name="checkmark" size="2"></ion-icon>
+                <ion-icon name="checkmark" size="2"></ion-icon>
               </ion-item>
             </ion-col>
             <ion-col size="6">
@@ -120,7 +110,7 @@
           <ion-row>
             <ion-col size="2">
               <ion-item>
-                <ion-icon align-self-center name="checkmark" size="2"></ion-icon>
+                <ion-icon name="checkmark" size="2"></ion-icon>
               </ion-item>
             </ion-col>
             <ion-col size="6">
@@ -138,7 +128,7 @@
           <ion-row>
             <ion-col size="2">
               <ion-item>
-                <ion-icon align-self-center name="checkmark" size="2"></ion-icon>
+                <ion-icon name="checkmark" size="2"></ion-icon>
               </ion-item>
             </ion-col>
             <ion-col size="6">
@@ -156,7 +146,7 @@
           <ion-row>
             <ion-col size="2">
               <ion-item>
-                <ion-icon align-self-center name="checkmark" size="2"></ion-icon>
+                <ion-icon name="checkmark" size="2"></ion-icon>
               </ion-item>
             </ion-col>
             <ion-col size="6">
@@ -190,7 +180,7 @@
     </ion-card-header>
     <ion-card-content>
       
-        If you seek for more details (block details, chainspeed..)
+        If you would like a more detailed status of the node (block details, chainspeed..)
           call "<b>status</b>" in terminal!
      
     </ion-card-content>

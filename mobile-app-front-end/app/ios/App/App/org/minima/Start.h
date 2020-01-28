@@ -16,10 +16,12 @@
 #if !defined (OrgMinimaStart_) && (INCLUDE_ALL_OrgMinimaStart || defined(INCLUDE_OrgMinimaStart))
 #define OrgMinimaStart_
 
+
+@class TestClass;
 @class IOSObjectArray;
 
 @interface OrgMinimaStart : NSObject
-
+- (TestClass *)returnSwiftClassInstance;
 #pragma mark Public
 
 - (instancetype)init;

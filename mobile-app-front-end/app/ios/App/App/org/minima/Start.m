@@ -3,6 +3,7 @@
 //  source: ./org/minima/Start.java
 //
 
+
 #include "IOSClass.h"
 #include "IOSObjectArray.h"
 #include "J2ObjC_source.h"
@@ -30,13 +31,16 @@
 #include "org/minima/utils/ResponseStream.h"
 #include "org/minima/utils/messages/Message.h"
 
-@interface OrgMinimaStart_1 : NSObject < JavaLangRunnable >
+#import "App-Swift.h"
+
+@interface OrgMinimaStart_1 :  NSObject < JavaLangRunnable >
 
 - (instancetype)init;
 
 - (void)run;
 
 @end
+
 
 J2OBJC_EMPTY_STATIC_INIT(OrgMinimaStart_1)
 
@@ -260,13 +264,13 @@ J2OBJC_IGNORE_DESIGNATED_END
   [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out))) printlnWithNSString:@"Minima Started.."];
   JavaUtilArrayList *vars = create_JavaUtilArrayList_init();
   [vars addWithId:@"-clean"];
-  [vars addWithId:@"-port"];
-  [vars addWithId:@"9002"];
-  [vars addWithId:@"-rpcport"];
-  [vars addWithId:@"7999"];
-  [vars addWithId:@"-connect"];
-  [vars addWithId:@"127.0.0.1"];
-  [vars addWithId:@"9001"];
+//  [vars addWithId:@"-port"];
+//  [vars addWithId:@"9002"];
+//  [vars addWithId:@"-rpcport"];
+//  [vars addWithId:@"7999"];
+//  [vars addWithId:@"-connect"];
+//  [vars addWithId:@"127.0.0.1"];
+//  [vars addWithId:@"9001"];
   OrgMinimaStart_mainWithNSStringArray_([vars toArrayWithNSObjectArray:[IOSObjectArray arrayWithLength:0 type:NSString_class_()]]);
 }
 
@@ -309,9 +313,17 @@ J2OBJC_IGNORE_DESIGNATED_BEGIN
 }
 J2OBJC_IGNORE_DESIGNATED_END
 
+// Notification
+
+
 - (void)processMessageWithOrgMinimaUtilsMessagesMessage:(OrgMinimaUtilsMessagesMessage *)zMessage {
   if ([((OrgMinimaUtilsMessagesMessage *) nil_chk(zMessage)) isMessageTypeWithNSString:OrgMinimaSystemBrainsConsensusHandler_CONSENSUS_NOTIFY_BALANCE]) {
-    [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out))) printlnWithNSString:JreStrcat("$@", @"You just received some money. ", zMessage)];
+      
+      //Notification call through Swift
+      TestClass *insta = [[TestClass alloc] init];
+      
+      
+      [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out)))printlnWithNSString:JreStrcat("$@", @"You just received some money. ", zMessage)];
   }
 }
 

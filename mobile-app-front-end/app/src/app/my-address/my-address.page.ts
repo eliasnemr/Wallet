@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef} from '@angular/core';
 import { Clipboard } from '@ionic-native/clipboard/ngx';
 import { MinimaApiService } from '../service/minima-api.service';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
@@ -11,17 +11,21 @@ declare let window: any;
 })
 export class MyAddressPage implements OnInit {
 
+  @ViewChild('canvasDimension', {static: false}) canvasDimension: ElementRef;
+
   private qrCode = '';
+  public canvasSize = 300;
   isEmpty: boolean;
 
-  constructor(private clipboard: Clipboard, private qrScanner: QRScanner, private api: MinimaApiService) { }
+  constructor(private clipboard: Clipboard, private qrScanner: QRScanner, private api: MinimaApiService) {}
 
-  
-
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   ionViewWillEnter() {
+    this.canvasSize = window.screen.width - 50;
+
+    console.log("Canvas size: " + this.canvasSize);
+
     this.api.newAddress().then((res: any) => {
       if (res.response.address) {
         // setTimeout(() => {
