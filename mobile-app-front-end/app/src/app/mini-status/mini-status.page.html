@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>
+    <ion-title color="primary">
       Status
     </ion-title>
   </ion-toolbar>
@@ -21,17 +21,15 @@
     <ion-card-header id="status-header">
       <ion-card-title>
         <ion-item>
-          <ion-chip>
-          <ion-icon align-self-start src="../../assets/icon/minima.svg" size="2"></ion-icon>
-          <b>Minima  v{{ versionNumber }} </b>
-          </ion-chip>
+          <ion-icon slot="start" src="../../assets/icon/minima.svg" size="2"></ion-icon>
+          <ion-card-title class="ion-text-centre">  Minima  v{{ versionNumber }}</ion-card-title>
         </ion-item>
       </ion-card-title>
     </ion-card-header>
 
     <ion-card-content id="status-content">
       <ion-list lines="none">
-        <ion-grid no-padding>
+        <ion-grid class="ion-no-padding">
           <ion-row>
             <ion-col size="2">
               <ion-item>
@@ -40,22 +38,22 @@
             </ion-col>
             <ion-col size="6">
               <ion-item>
-                <ion-chip>
+                
                   <ion-text>
                     Your node's status
                   </ion-text>
-                </ion-chip>
+                
               </ion-item>
 
             </ion-col>
             <ion-col size="4">
-              <ion-chip>
+              
               <ion-item 
               [ngStyle] = " {'color': getColor()}"
                #statusColor>
                 {{status}}
               </ion-item>
-            </ion-chip>
+            
             </ion-col>
           </ion-row>
           <!-- New Row -->
@@ -174,21 +172,17 @@
   </ion-card>
 
   <ion-card>
-    <ion-card-header align-items-center> 
-      <ion-card-title>
-        <ion-item>
-          <ion-icon name="notifications"></ion-icon> 
-          <b>
-            Please note.
-          </b>
-        </ion-item>
-      </ion-card-title>
+    <ion-card-header class="align-items-center"> 
+      <ion-item>
+        <ion-icon name="notifications" style="color:#FF671D;" slot="start"></ion-icon>
+        <ion-card-title class="ion-text-centre">Reminder...</ion-card-title>
+      </ion-item>
     </ion-card-header>
     <ion-card-content>
-      
+      <ion-label style="margin-top:5px;">
         If you would like a more detailed status of the node (block details, chainspeed..)
-          call "<b>status</b>" in terminal!
-     
+          call "status" in terminal!
+        </ion-label>
     </ion-card-content>
   </ion-card>
 

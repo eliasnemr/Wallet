@@ -1,3 +1,4 @@
+import { MinimaApiService } from './service/minima-api.service';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Platform, MenuController } from '@ionic/angular';
@@ -12,13 +13,15 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 export class AppComponent {
 
   private currentRoute:string='';
+  private currentVersion = 0;
 
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private menu: MenuController,
-    private router: Router
+    private router: Router,
+    private api: MinimaApiService
   ) {
     this.initializeApp();
   }
@@ -28,7 +31,8 @@ export class AppComponent {
       this.statusBar.styleDefault();
       setTimeout(() => {this.splashScreen.hide()}, 2000);
 
-      /*this.router.events.subscribe((val:any) => {        
+      this.getVersion();
+      /*this.router.events.subscribe((val:any) => {
         if(val.route&&val.route.path){
           this.currentRoute=val.route.path;
         }
@@ -36,7 +40,14 @@ export class AppComponent {
       });*/
     });
   }
+  getVersion() {
+    this.api.getStatus().then((res : any) => {
 
+      // Check node's version..
+      this.currentVersion = res.response.version;
+      return this.currentVersion;
+    });
+  }
   ionRouteWillChange() {
 
   }

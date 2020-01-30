@@ -4,7 +4,7 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title color="primary">
-      Send funds
+      Send
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -13,7 +13,14 @@
   <ion-card *ngIf="isCameraOpen==false">
     <ion-card-header>
 
-      <ion-card-title>Send funds</ion-card-title>
+      <ion-card-title>
+        <ion-item>
+          <ion-icon style="color: #FF671D" slot="start" name="send" size="2"></ion-icon>
+          <ion-card-title class="ion-text-centre">  Send funds </ion-card-title>
+        </ion-item>
+      </ion-card-title>
+   
+    
     </ion-card-header>
 
     <ion-card-content>

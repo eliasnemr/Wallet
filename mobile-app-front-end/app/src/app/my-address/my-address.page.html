@@ -1,54 +1,44 @@
-<ion-header>
+<ion-header >
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title color="primary">
-      Minima address
+      Receive
     </ion-title>
   </ion-toolbar>
-</ion-header>
+</ion-header >
 
-<ion-content>
+<ion-content fullscreen>
   <ion-card  class="welcome-card">
-    <ion-card-header id="address-header">
-      <ion-item>
-        <ion-card-title>Here's your Minima address...</ion-card-title>
-      </ion-item>
+    <ion-card-header translucent="true">
+        <ion-toolbar>
+                <qrcode
+                      [qrdata]="qrCode" 
+                      [size]="canvasSize"
+                      [level]="'Q'" 
+                      colorlight="#e9ecef" 
+                      colorDark="#000000"
+                      *ngIf="qrCode!==''">
+                </qrcode> 
+        </ion-toolbar>
+        <ion-card-subtitle text-center text-xl-capitalize>
+          This address can be used for any Minima or Token transaction
+        </ion-card-subtitle>
     </ion-card-header>
-
-    <ion-card-content class="qr-canvas" #canvasDimension>
-
-      
-    <qrcode
-          [qrdata]="qrCode" 
-          [size]="canvasSize"
-          [level]="'Q'" 
-          colorlight="#e9ecef" 
-          colorDark="#000000"
-          *ngIf="qrCode!==''">
-    </qrcode>  
-        
-      
-
-      <ion-button 
-            expand="block" 
-            (click)="copyToClipboard()"
-            [disabled]="!isEmpty">
-
-      <ion-icon 
-            name="copy" 
-            slot="start">
-      </ion-icon>Copy to clipboard
-
-      </ion-button>
-
-      
-      <p style="text-align: center;">
-        This address can be used for any Minima or Token transaction
-      </p>
-
+      <ion-card-content fullscreen> 
+                <ion-button 
+                      shape="round"
+                      expand="full"
+                      (click)="copyToClipboard()"
+                      [disabled]="!isEmpty">
+                  <ion-icon
+                        name="copy" 
+                        slot="start">
+                  </ion-icon> Copy to clipboard
+                </ion-button>
+                  <p style="text-align: center;">
+                  </p>
     </ion-card-content>
-
   </ion-card>
 </ion-content>

@@ -11,7 +11,7 @@ import { MinimaApiService } from '../service/minima-api.service';
 })
 export class SendFundsPage implements OnInit {
 
-  private data: any = {};
+  public data: any = {};
   isCameraOpen: boolean = false;
   private scanSub:any=null;
 

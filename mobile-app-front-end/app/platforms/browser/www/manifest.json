@@ -1,0 +1,12 @@
+{
+  "background_color": "#FFF",
+  "display": "standalone",
+  "name": "Minima",
+  "short_name": "Minima",
+  "version": "global.minima.telco",
+  "description": "The mobile blockchain.",
+  "author": "Minima",
+  "icons": [],
+  "orientation": "portrait",
+  "start_url": "index.html"
+}
