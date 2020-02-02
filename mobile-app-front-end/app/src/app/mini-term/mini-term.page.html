@@ -1,5 +1,4 @@
 <ion-header>
-  
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
@@ -10,8 +9,45 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content #content>
 
+<ion-content class="padding" [scrollEvents]="true">
+  
+    <ion-grid *ngFor="let theExecute of theExecuted">
+      <ion-list lines="none">
+        <ion-item class="terminal">
+        <pre> {{ theExecute }}</pre>
+        </ion-item>
+      </ion-list>
+    </ion-grid>
+    <ion-list lines="none">
+    <ion-item class="line">
+      <span id="path">m:/&nbsp;>&nbsp;</span>
+      <ion-input type="text" id="input" [(ngModel)]="toExecute"
+      (keyup.enter) = "request(toExecute)"></ion-input>
+    </ion-item>
+    </ion-list>
+
+      
+
+</ion-content>
+
+
+<!-- <div class="terminal">
+  <div id="history">
+    
+  </div>
+  <div class="line">
+    <span id="path">c:/&nbsp;>&nbsp;</span>
+    <input type="text" id="input">
+  </div>
+</div> -->
+
+
+
+
+
+<!-- Old 'terminal' -->
+<!-- <ion-content #content>
 
 <ion-grid *ngFor="let theExecute of theExecuted" >
     <ion-row>
@@ -21,7 +57,7 @@
             color="primary"
             style="background-color: cornsilk;"
             class="ion-text-wrap">
-              <pre>{{theExecute}}</pre> 
+              <pre> {{theExecute}} </pre> 
             </ion-label>
           </ion-item> 
       </ion-col> 
@@ -48,5 +84,5 @@
         [disabled] = "!toExecute">Execute</button>
     </ion-row>
   </ion-toolbar>
-</ion-footer>
+</ion-footer> -->
 

@@ -2,11 +2,9 @@ import { FitAddon } from 'xterm-addon-fit';
 import { Component, OnInit, ViewChild, ElementRef} from '@angular/core';
 import * as xterm from 'xterm';
 import { HttpClient, HttpEvent, HttpErrorResponse, HttpEventType } from '@angular/common/http';
-import { LoadingController, NavController } from '@ionic/angular';
+import { LoadingController, NavController, IonContent } from '@ionic/angular';
 import { environment } from '../../environments/environment';
-import "../../../node_modules/xterm/lib/xterm.js";
 import { Content } from "ionic-angular";
-
 
 //node_modules/xterm/css/xterm.css
 @Component({
@@ -16,7 +14,7 @@ import { Content } from "ionic-angular";
 })
 
 export class MiniTermPage implements OnInit {
-  @ViewChild('content', {static : false} ) private content: any;
+  @ViewChild('content', {static : false} ) private content: IonContent;
   
   //@ViewChild('terminal', {static: false}) terminal: ElementRef;
 
@@ -34,13 +32,6 @@ export class MiniTermPage implements OnInit {
     this.host = environment.defaultNode;
     this.host = this.getHost();
 
-    this.term = new xterm.Terminal({
-      cursorBlink: true,
-      scrollback: 60,
-      rows: 30,
-    });
-
-
   }
 
   buttonHandler() {
@@ -52,21 +43,11 @@ export class MiniTermPage implements OnInit {
 
   ngOnInit(){}
   ionViewDidEnter(){
-    // Xterm.js possible terminal
-    // const fitAddon = new FitAddon();
-    // this.term.loadAddon(fitAddon);
-    // this.term.open( document.getElementById("terminal") );
 
-    // this.term.setOption("allowTransperency", true);
-    // this.term.setOption("theme", {background: "rgba(0,0,0,0)"});
-    // this.term.focus();
-
-    // fitAddon.fit();
-    // this.term.writeln("Welcome to the Minima terminal, type help to start.");
   }
 
   scrollToBottomOnInit() {
-    this.content.scrollToBottom(50);
+    this.content.scrollToBottom(1500);
   }
 
   getHost() {
@@ -100,16 +81,30 @@ export class MiniTermPage implements OnInit {
 
   private request(route) {
     const self = this;
-    setTimeout( () => {self.showLoader() }, 0);
+    //setTimeout( () => {self.showLoader() }, 0);
     console.log(route);
     return new Promise((resolve, reject) => {///+"&t="+Math.random()
       self.http.get(self.host + route, { responseType: 'json' }).subscribe((d: any) => {
-        setTimeout( () => { self.hideLoader(); }, 500);
+        //setTimeout( () => { self.hideLoader(); }, 500);
         console.log(d);
-        
+      
+        if(this.toExecute === '') {
+          this.theExecuted.push('m:/ > ' + this.toExecute);
+          this.scrollToBottomOnInit();
+        } else if (d.status === true) {
+
         const objpretty = JSON.stringify(d, undefined, 1);
-        this.theExecuted.push('$' + objpretty);
+        this.theExecuted.push('m:/ > ' + this.toExecute);
+        this.theExecuted.push(objpretty);
+      
+        this.toExecute = '';
         this.scrollToBottomOnInit();
+      } else {
+        this.theExecuted.push('m:/ > ' + this.toExecute + '\n' 
+        + 'zsh: command not found: '+this.toExecute);
+        this.toExecute = '';
+        this.scrollToBottomOnInit();
+      }  
         resolve(d);
       }, (err) => {
         self.hideLoader();
@@ -142,6 +137,34 @@ export class MiniTermPage implements OnInit {
         }
         return '<span class="' + cls + '">' + match + '</span>';
     });
+  }
+
+  // $(function() {
+  //   $('.terminal').on('click', function(){
+  //      $('#input').focus();
+  //   });
+  
+  //   $('#input').on('keydown',function search(e) {
+  //     if(e.keyCode == 13) {
+  //       // append your output to the history,
+  //       // here I just append the input
+  //       $('#history').append($(this).val()+'<br/>');
+        
+  //       // you can change the path if you want
+  //       // crappy implementation here, but you get the idea
+  //       if($(this).val().substring(0, 3) === 'cd '){
+  //         $('#path').html($(this).val().substring(3)+'&nbsp;>&nbsp;');
+  //       }
+        
+  //       // clear the input
+  //       $('#input').val('');
+        
+  //     }
+  //   });
+  // });
+  execute() {
+
+
   }
 
 }

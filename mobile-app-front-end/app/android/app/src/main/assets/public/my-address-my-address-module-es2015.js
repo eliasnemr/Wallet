@@ -869,7 +869,7 @@ var QRCode;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    <ion-title color=\"primary\">\n      Minima address\n    </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <ion-card  class=\"welcome-card\">\n    <ion-card-header id=\"address-header\">\n      <ion-item>\n        <ion-card-title>Here's your Minima address...</ion-card-title>\n      </ion-item>\n    </ion-card-header>\n\n    <ion-card-content class=\"qr-canvas\" #canvasDimension>\n\n      \n    <qrcode\n          [qrdata]=\"qrCode\" \n          [size]=\"canvasSize\"\n          [level]=\"'Q'\" \n          colorlight=\"#e9ecef\" \n          colorDark=\"#000000\"\n          *ngIf=\"qrCode!==''\">\n    </qrcode>  \n        \n      \n\n      <ion-button \n            expand=\"block\" \n            (click)=\"copyToClipboard()\"\n            [disabled]=\"!isEmpty\">\n\n      <ion-icon \n            name=\"copy\" \n            slot=\"start\">\n      </ion-icon>Copy to clipboard\n\n      </ion-button>\n\n      \n      <p style=\"text-align: center;\">\n        This address can be used for any Minima or Token transaction\n      </p>\n\n    </ion-card-content>\n\n  </ion-card>\n</ion-content>"
+module.exports = "<ion-header >\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    <ion-title color=\"primary\">\n      Receive\n    </ion-title>\n  </ion-toolbar>\n</ion-header >\n\n<ion-content fullscreen>\n  <ion-card  class=\"welcome-card\">\n    <ion-card-header translucent=\"true\">\n        <ion-toolbar>\n                <qrcode\n                      [qrdata]=\"qrCode\"\n                      [size]=\"canvasSize\"\n                      [level]=\"'Q'\"\n                      colorlight=\"#e9ecef\"\n                      colorDark=\"#000000\"\n                      *ngIf=\"qrCode!==''\">\n                </qrcode> \n        </ion-toolbar>\n        <ion-card-subtitle text-center text-xl-capitalize>\n          This address can be used for any Minima or Token transaction\n        </ion-card-subtitle>\n    </ion-card-header>\n      <ion-card-content fullscreen> \n                <ion-button \n                      shape=\"round\"\n                      expand=\"full\"\n                      (click)=\"copyToClipboard()\"\n                      [disabled]=\"!isEmpty\">\n                  <ion-icon\n                        name=\"copy\" \n                        slot=\"start\">\n                  </ion-icon> Copy to clipboard\n                </ion-button>\n                  <p style=\"text-align: center;\">\n                  </p>\n    </ion-card-content>\n  </ion-card>\n</ion-content>"
 
 /***/ }),
 
@@ -931,7 +931,7 @@ MyAddressPageModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".qr-canvas {\n  height: 100%;\n  width: 100%;\n  padding: 5px;\n  border: 5px solid #00AAC8;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9lbGlhcy9Qcm9qZWN0cy9taW5pbWFjb3JlL21vYmlsZS1hcHAtZnJvbnQtZW5kL2FwcC9zcmMvYXBwL215LWFkZHJlc3MvbXktYWRkcmVzcy5wYWdlLnNjc3MiLCJzcmMvYXBwL215LWFkZHJlc3MvbXktYWRkcmVzcy5wYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxZQUFBO0VBQ0EsV0FBQTtFQUNBLFlBQUE7RUFDQSx5QkFBQTtBQ0NKIiwiZmlsZSI6InNyYy9hcHAvbXktYWRkcmVzcy9teS1hZGRyZXNzLnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5xci1jYW52YXMge1xuICAgIGhlaWdodDogMTAwJTtcbiAgICB3aWR0aDogMTAwJTtcbiAgICBwYWRkaW5nOiA1cHg7XG4gICAgYm9yZGVyOiA1cHggc29saWQgIzAwQUFDODtcbn1cbiIsIi5xci1jYW52YXMge1xuICBoZWlnaHQ6IDEwMCU7XG4gIHdpZHRoOiAxMDAlO1xuICBwYWRkaW5nOiA1cHg7XG4gIGJvcmRlcjogNXB4IHNvbGlkICMwMEFBQzg7XG59Il19 */"
+module.exports = "@media screen and (min-width: 900px) {\n  ion-card {\n    width: 50%;\n    margin-left: 25%;\n  }\n}\nion-card {\n  border-radius: 30px;\n  background-color: #FFFFFF;\n  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);\n  border-top: 3px solid #06AAC7;\n  border-bottom: 3px solid #06AAC7;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9lbGlhcy9Qcm9qZWN0cy9taW5pbWFjb3JlL21vYmlsZS1hcHAtZnJvbnQtZW5kL2FwcC9zcmMvYXBwL215LWFkZHJlc3MvbXktYWRkcmVzcy5wYWdlLnNjc3MiLCJzcmMvYXBwL215LWFkZHJlc3MvbXktYWRkcmVzcy5wYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFFSTtJQUNJLFVBQUE7SUFDQSxnQkFBQTtFQ0FOO0FBQ0Y7QURHQTtFQUNJLG1CQUFBO0VBQ0EseUJBQUE7RUFDQSwwRUFBQTtFQUNBLDZCQUFBO0VBQ0EsZ0NBQUE7QUNESiIsImZpbGUiOiJzcmMvYXBwL215LWFkZHJlc3MvbXktYWRkcmVzcy5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJAbWVkaWEgc2NyZWVuIGFuZCAobWluLXdpZHRoOiA5MDBweCkge1xuICAgIFxuICAgIGlvbi1jYXJkIHtcbiAgICAgICAgd2lkdGg6IDUwJTtcbiAgICAgICAgbWFyZ2luLWxlZnQ6MjUlO1xuICAgIH1cbn1cblxuaW9uLWNhcmQge1xuICAgIGJvcmRlci1yYWRpdXM6IDMwcHg7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogI0ZGRkZGRjtcbiAgICBib3gtc2hhZG93OiAwIDEwcHggMjBweCByZ2JhKDAsMCwwLDAuMTkpLCAwIDZweCA2cHggcmdiYSgwLDAsMCwwLjIzKTtcbiAgICBib3JkZXItdG9wOiAzcHggc29saWQgIzA2QUFDNztcbiAgICBib3JkZXItYm90dG9tOiAzcHggc29saWQgIzA2QUFDNztcbn1cblxuXG4iLCJAbWVkaWEgc2NyZWVuIGFuZCAobWluLXdpZHRoOiA5MDBweCkge1xuICBpb24tY2FyZCB7XG4gICAgd2lkdGg6IDUwJTtcbiAgICBtYXJnaW4tbGVmdDogMjUlO1xuICB9XG59XG5pb24tY2FyZCB7XG4gIGJvcmRlci1yYWRpdXM6IDMwcHg7XG4gIGJhY2tncm91bmQtY29sb3I6ICNGRkZGRkY7XG4gIGJveC1zaGFkb3c6IDAgMTBweCAyMHB4IHJnYmEoMCwgMCwgMCwgMC4xOSksIDAgNnB4IDZweCByZ2JhKDAsIDAsIDAsIDAuMjMpO1xuICBib3JkZXItdG9wOiAzcHggc29saWQgIzA2QUFDNztcbiAgYm9yZGVyLWJvdHRvbTogM3B4IHNvbGlkICMwNkFBQzc7XG59Il19 */"
 
 /***/ }),
 
@@ -946,26 +946,36 @@ module.exports = ".qr-canvas {\n  height: 100%;\n  width: 100%;\n  padding: 5px;
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MyAddressPage", function() { return MyAddressPage; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic-native/clipboard/ngx */ "./node_modules/@ionic-native/clipboard/ngx/index.js");
-/* harmony import */ var _service_minima_api_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../service/minima-api.service */ "./src/app/service/minima-api.service.ts");
-/* harmony import */ var _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic-native/qr-scanner/ngx */ "./node_modules/@ionic-native/qr-scanner/ngx/index.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic-native/clipboard/ngx */ "./node_modules/@ionic-native/clipboard/ngx/index.js");
+/* harmony import */ var _service_minima_api_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../service/minima-api.service */ "./src/app/service/minima-api.service.ts");
+/* harmony import */ var _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic-native/qr-scanner/ngx */ "./node_modules/@ionic-native/qr-scanner/ngx/index.js");
+
 
 
 
 
 
 let MyAddressPage = class MyAddressPage {
-    constructor(clipboard, qrScanner, api) {
+    constructor(clipboard, qrScanner, api, platform) {
         this.clipboard = clipboard;
         this.qrScanner = qrScanner;
         this.api = api;
+        this.platform = platform;
         this.qrCode = '';
-        this.canvasSize = 300;
+        this.canvasSize = 309;
+        this.platform.ready().then((readySource) => {
+            if (this.platform.width() < 900) {
+                this.canvasSize = this.platform.width() - 50;
+            }
+            else if (this.platform.width() >= 900) {
+                this.canvasSize = 350;
+            }
+        });
     }
     ngOnInit() { }
     ionViewWillEnter() {
-        this.canvasSize = window.screen.width - 50;
         console.log("Canvas size: " + this.canvasSize);
         this.api.newAddress().then((res) => {
             if (res.response.address) {
@@ -983,21 +993,25 @@ let MyAddressPage = class MyAddressPage {
     }
 };
 MyAddressPage.ctorParameters = () => [
-    { type: _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_2__["Clipboard"] },
-    { type: _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_4__["QRScanner"] },
-    { type: _service_minima_api_service__WEBPACK_IMPORTED_MODULE_3__["MinimaApiService"] }
+    { type: _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_3__["Clipboard"] },
+    { type: _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_5__["QRScanner"] },
+    { type: _service_minima_api_service__WEBPACK_IMPORTED_MODULE_4__["MinimaApiService"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["Platform"] }
 ];
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('canvasDimension', { static: false }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"])
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ViewChild"])('canvasDimension', { static: false }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_2__["ElementRef"])
 ], MyAddressPage.prototype, "canvasDimension", void 0);
 MyAddressPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Component"])({
         selector: 'app-my-address',
         template: __webpack_require__(/*! raw-loader!./my-address.page.html */ "./node_modules/raw-loader/index.js!./src/app/my-address/my-address.page.html"),
         styles: [__webpack_require__(/*! ./my-address.page.scss */ "./src/app/my-address/my-address.page.scss")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_2__["Clipboard"], _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_4__["QRScanner"], _service_minima_api_service__WEBPACK_IMPORTED_MODULE_3__["MinimaApiService"]])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_3__["Clipboard"],
+        _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_5__["QRScanner"],
+        _service_minima_api_service__WEBPACK_IMPORTED_MODULE_4__["MinimaApiService"],
+        _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["Platform"]])
 ], MyAddressPage);
 
 

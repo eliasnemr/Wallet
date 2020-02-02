@@ -1,6 +1,8 @@
-@media screen and (max-width: 900px) {
-    .card-header {
-        
+@media screen and (min-width: 900px) {
+    
+    ion-card {
+        width: 50%;
+        margin-left:25%;
     }
 }
 
@@ -11,3 +13,5 @@ ion-card {
     border-top: 3px solid #06AAC7;
     border-bottom: 3px solid #06AAC7;
 }
+
+

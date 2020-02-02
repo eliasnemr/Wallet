@@ -48,7 +48,7 @@ export class BalancePage implements OnInit {
 
   async presentAlert(msg:string,header:string) {
     const alert = await this.alertController.create({
-      header: header,     
+      header: header,
       message: msg,
       buttons: ['Cancel', 'Ok']
     });
@@ -61,7 +61,7 @@ export class BalancePage implements OnInit {
       console.log("Testing giveMe50() " + res)
       if(res.status == true) {
         console.log("Result is true" + res);
-        this.presentAlert('You get 50', 'Info');
+        this.presentAlert('A transfer of 50 is on the way...', 'Minima');
       } else {
         console.log("Result is false " + res)
         this.presentAlert(res.error,'Error');

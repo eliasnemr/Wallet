@@ -13,7 +13,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 export class AppComponent {
 
   private currentRoute:string='';
-  private currentVersion = 0;
+  public currentVersion = 0;
 
   constructor(
     private platform: Platform,
@@ -26,10 +26,14 @@ export class AppComponent {
     this.initializeApp();
   }
 
+  ionViewWillEnter(){
+   this.initializeApp();
+  }
+
   initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
-      setTimeout(() => {this.splashScreen.hide()}, 2000);
+      //setTimeout(() => {this.splashScreen.hide()}, 2000);
 
       this.getVersion();
       /*this.router.events.subscribe((val:any) => {
@@ -45,7 +49,7 @@ export class AppComponent {
 
       // Check node's version..
       this.currentVersion = res.response.version;
-      return this.currentVersion;
+      
     });
   }
   ionRouteWillChange() {

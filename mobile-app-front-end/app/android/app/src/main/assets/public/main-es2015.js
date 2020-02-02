@@ -10,12 +10,10 @@
 var map = {
 	"./balance/balance.module": [
 		"./src/app/balance/balance.module.ts",
-		"common",
 		"balance-balance-module"
 	],
 	"./mini-status/mini-status.module": [
 		"./src/app/mini-status/mini-status.module.ts",
-		"common",
 		"mini-status-mini-status-module"
 	],
 	"./mini-term/mini-term.module": [
@@ -24,17 +22,14 @@ var map = {
 	],
 	"./my-address/my-address.module": [
 		"./src/app/my-address/my-address.module.ts",
-		"common",
 		"my-address-my-address-module"
 	],
 	"./send-funds/send-funds.module": [
 		"./src/app/send-funds/send-funds.module.ts",
-		"common",
 		"send-funds-send-funds-module"
 	],
 	"./settings/settings.module": [
 		"./src/app/settings/settings.module.ts",
-		"common",
 		"settings-settings-module"
 	]
 };
@@ -48,7 +43,7 @@ function webpackAsyncContext(req) {
 	}
 
 	var ids = map[req], id = ids[0];
-	return Promise.all(ids.slice(1).map(__webpack_require__.e)).then(function() {
+	return __webpack_require__.e(ids[1]).then(function() {
 		return __webpack_require__(id);
 	});
 }
@@ -478,7 +473,7 @@ module.exports = webpackAsyncContext;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-app>\n  <ion-menu side=\"start\" contentId=\"mainMenu\">\n    <ion-header>\n      <ion-toolbar class=\"menuToolbar\">\n        <div class=\"logo\"></div>      \n      </ion-toolbar>\n    </ion-header>\n    <ion-content>\n      <ion-menu-toggle auto-hide=\"false\">\n        <ion-list lines=\"none\">\n          <ion-item routerLink=\"/balance\" >\n            <ion-icon name=\"card\" slot=\"start\"></ion-icon> Balance\n          </ion-item>\n          <ion-item routerLink=\"/send-funds\" >\n            <ion-icon name=\"send\" slot=\"start\"></ion-icon> Send\n          </ion-item>\n          <ion-item routerLink=\"/my-address\">\n            <ion-icon name=\"arrow-down\" slot=\"start\"></ion-icon> Receive\n          </ion-item>\n        <ion-item-divider>\n        </ion-item-divider>\n          <ion-item routerLink=\"/status\">\n            <ion-icon name=\"analytics\" slot=\"start\"></ion-icon> Status\n          </ion-item>\n          <ion-item routerLink=\"/mini-term\">\n            <ion-icon name=\"code\" slot=\"start\"></ion-icon> Terminal\n          </ion-item>\n          <ion-item-divider></ion-item-divider>\n          <ion-item routerLink=\"/settings\">\n            <ion-icon name=\"build\" slot=\"start\"></ion-icon> Settings\n          </ion-item>\n       </ion-list>\n      </ion-menu-toggle>\n    </ion-content>\n  </ion-menu>\n\n  <ion-router-outlet id=\"mainMenu\"></ion-router-outlet>\n</ion-app>"
+module.exports = "<ion-app>\n  <ion-split-pane when=\"lg\" contentId=\"mainMenu\" >\n  <ion-menu side=\"start\" contentId=\"mainMenu\">\n    <ion-header>\n      <ion-toolbar class=\"menu-toolbar\">\n       <ion-title>\n         <ion-icon src=\"../../assets/icon/minima.svg\" size=\"5\"></ion-icon>\n         <ion-text style=\"font-weight: lighter;\">\n           Minima v0.4\n           </ion-text>\n       </ion-title>   \n      </ion-toolbar>\n    </ion-header>\n    \n    <ion-content>\n        <ion-menu-toggle auto-hide=\"false\">\n          <ion-list main lines=\"none\">\n            <ion-item routerLink=\"/balance\" >\n              <ion-icon name=\"card\" slot=\"start\"></ion-icon> Balance\n            </ion-item>\n            <ion-item routerLink=\"/send-funds\" >\n              <ion-icon name=\"send\" slot=\"start\"></ion-icon> Send\n            </ion-item>\n            <ion-item routerLink=\"/my-address\">\n              <ion-icon name=\"arrow-down\" slot=\"start\"></ion-icon> Receive\n            </ion-item>\n          <ion-item-divider>\n          </ion-item-divider>\n            <ion-item routerLink=\"/status\">\n              <ion-icon name=\"analytics\" slot=\"start\"></ion-icon> Status\n            </ion-item>\n            <ion-item routerLink=\"/mini-term\">\n              <ion-icon name=\"code\" slot=\"start\"></ion-icon> Terminal\n            </ion-item>\n            <ion-item-divider></ion-item-divider>\n            <ion-item routerLink=\"/settings\">\n              <ion-icon name=\"build\" slot=\"start\"></ion-icon> Settings\n            </ion-item>\n        </ion-list>\n        </ion-menu-toggle>\n      \n    </ion-content>\n  </ion-menu>\n        <ion-router-outlet main id=\"mainMenu\"></ion-router-outlet>\n  </ion-split-pane>\n\n</ion-app>"
 
 /***/ }),
 
@@ -501,7 +496,7 @@ __webpack_require__.r(__webpack_exports__);
 const routes = [
     { path: '', loadChildren: './balance/balance.module#BalancePageModule' },
     { path: '', redirectTo: 'balance', pathMatch: 'full' },
-    { path: 'balance', loadChildren: () => Promise.all(/*! import() | balance-balance-module */[__webpack_require__.e("common"), __webpack_require__.e("balance-balance-module")]).then(__webpack_require__.bind(null, /*! ./balance/balance.module */ "./src/app/balance/balance.module.ts")).then(m => m.BalancePageModule) },
+    { path: 'balance', loadChildren: () => __webpack_require__.e(/*! import() | balance-balance-module */ "balance-balance-module").then(__webpack_require__.bind(null, /*! ./balance/balance.module */ "./src/app/balance/balance.module.ts")).then(m => m.BalancePageModule) },
     { path: 'send-funds', loadChildren: './send-funds/send-funds.module#SendFundsPageModule' },
     { path: 'status', loadChildren: './mini-status/mini-status.module#MiniStatusPageModule' },
     { path: 'my-address', loadChildren: './my-address/my-address.module#MyAddressPageModule' },
@@ -547,11 +542,13 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppComponent", function() { return AppComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
-/* harmony import */ var _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic-native/splash-screen/ngx */ "./node_modules/@ionic-native/splash-screen/ngx/index.js");
-/* harmony import */ var _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic-native/status-bar/ngx */ "./node_modules/@ionic-native/status-bar/ngx/index.js");
+/* harmony import */ var _service_minima_api_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./service/minima-api.service */ "./src/app/service/minima-api.service.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic-native/splash-screen/ngx */ "./node_modules/@ionic-native/splash-screen/ngx/index.js");
+/* harmony import */ var _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic-native/status-bar/ngx */ "./node_modules/@ionic-native/status-bar/ngx/index.js");
+
 
 
 
@@ -559,19 +556,25 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let AppComponent = class AppComponent {
-    constructor(platform, splashScreen, statusBar, menu, router) {
+    constructor(platform, splashScreen, statusBar, menu, router, api) {
         this.platform = platform;
         this.splashScreen = splashScreen;
         this.statusBar = statusBar;
         this.menu = menu;
         this.router = router;
+        this.api = api;
         this.currentRoute = '';
+        this.currentVersion = 0;
+        this.initializeApp();
+    }
+    ionViewWillEnter() {
         this.initializeApp();
     }
     initializeApp() {
         this.platform.ready().then(() => {
             this.statusBar.styleDefault();
-            setTimeout(() => { this.splashScreen.hide(); }, 2000);
+            //setTimeout(() => {this.splashScreen.hide()}, 2000);
+            this.getVersion();
             /*this.router.events.subscribe((val:any) => {
               if(val.route&&val.route.path){
                 this.currentRoute=val.route.path;
@@ -580,27 +583,35 @@ let AppComponent = class AppComponent {
             });*/
         });
     }
+    getVersion() {
+        this.api.getStatus().then((res) => {
+            // Check node's version..
+            this.currentVersion = res.response.version;
+        });
+    }
     ionRouteWillChange() {
     }
 };
 AppComponent.ctorParameters = () => [
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["Platform"] },
-    { type: _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_4__["SplashScreen"] },
-    { type: _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_5__["StatusBar"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["MenuController"] },
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] }
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["Platform"] },
+    { type: _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_5__["SplashScreen"] },
+    { type: _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__["StatusBar"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["MenuController"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
+    { type: _service_minima_api_service__WEBPACK_IMPORTED_MODULE_1__["MinimaApiService"] }
 ];
 AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Component"])({
         selector: 'app-root',
         template: __webpack_require__(/*! raw-loader!./app.component.html */ "./node_modules/raw-loader/index.js!./src/app/app.component.html"),
         styles: [__webpack_require__(/*! ./app.component.scss */ "./src/app/app.component.scss")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_3__["Platform"],
-        _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_4__["SplashScreen"],
-        _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_5__["StatusBar"],
-        _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["MenuController"],
-        _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_4__["Platform"],
+        _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_5__["SplashScreen"],
+        _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__["StatusBar"],
+        _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["MenuController"],
+        _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"],
+        _service_minima_api_service__WEBPACK_IMPORTED_MODULE_1__["MinimaApiService"]])
 ], AppComponent);
 
 
@@ -658,6 +669,118 @@ AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"]]
     })
 ], AppModule);
+
+
+
+/***/ }),
+
+/***/ "./src/app/service/minima-api.service.ts":
+/*!***********************************************!*\
+  !*** ./src/app/service/minima-api.service.ts ***!
+  \***********************************************/
+/*! exports provided: MinimaApiService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MinimaApiService", function() { return MinimaApiService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../environments/environment */ "./src/environments/environment.ts");
+
+
+
+
+
+let MinimaApiService = class MinimaApiService {
+    constructor(http, loadingController) {
+        this.http = http;
+        this.loadingController = loadingController;
+        this.host = '';
+        this.loader = null;
+        this.host = _environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].defaultNode;
+        this.host = this.getHost();
+    }
+    showLoader() {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            console.log('Showloader called. ' + this);
+            if (this.loader == null) {
+                console.log('Loader called');
+                this.loader = yield this.loadingController.create({
+                    message: 'Loading'
+                });
+                this.loader.present();
+                console.log('After showloader finished.');
+            }
+        });
+    }
+    hideLoader() {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            if (this.loader !== null) {
+                console.log('Hideloader passed.');
+                yield this.loader.dismiss();
+                this.loader = null;
+            }
+            else { }
+        });
+    }
+    getHost() {
+        if (localStorage.getItem('minima_host') == null) {
+            localStorage.setItem('minima_host', this.host);
+            return this.host;
+        }
+        else {
+            return localStorage.getItem('minima_host');
+        }
+    }
+    setHost(newHost) {
+        localStorage.setItem('minima_host', newHost);
+        this.host = newHost;
+    }
+    newAddress() {
+        return this.request('newaddress');
+    }
+    sendFunds(data) {
+        return this.request('send+' + data.amount + '+' + data.address);
+    }
+    giveMe50() {
+        return this.request('gimme50');
+    }
+    getBalance() {
+        return this.request('balance');
+    }
+    getStatus() {
+        return this.request('status');
+    }
+    request(route) {
+        const self = this;
+        // self.showLoader();
+        console.log(route);
+        return new Promise((resolve, reject) => {
+            self.http.get(self.host + route, { responseType: 'json' }).subscribe((d) => {
+                // setTimeout(() => { self.hideLoader(); }, 500);
+                console.log(d);
+                resolve(d);
+            }, (err) => {
+                self.hideLoader();
+                console.log('Error ' + err);
+                reject(err);
+            });
+        });
+    }
+};
+MinimaApiService.ctorParameters = () => [
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["LoadingController"] }
+];
+MinimaApiService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+        providedIn: 'root'
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"], _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["LoadingController"]])
+], MinimaApiService);
 
 
 
