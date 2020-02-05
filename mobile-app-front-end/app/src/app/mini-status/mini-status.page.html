@@ -17,12 +17,12 @@
 </ion-refresher>
 
 
-  <ion-card class="welcome-card" style="background-color:transparent">
-    <ion-card-header id="status-header">
+  <ion-card class="welcome-card" style="background-color:transparent" color="white">
+    <ion-card-header id="status-header" color="white">
       <ion-card-title>
         <ion-item>
           <ion-icon slot="start" src="../../assets/icon/minima.svg" size="2"></ion-icon>
-          <ion-card-title class="ion-text-centre">  Minima  v{{ versionNumber }}</ion-card-title>
+          <ion-card-title class="ion-text-centre" color="tertiary"><ion-text color="tertiary">Minima  v{{ versionNumber }}</ion-text></ion-card-title>
         </ion-item>
       </ion-card-title>
     </ion-card-header>
@@ -69,7 +69,7 @@
               </ion-item>
             </ion-col>
             <ion-col size="4">
-              <ion-item>
+              <ion-item class="item-text-wrap">
                 {{stringUptime}}
               </ion-item>
             </ion-col>
@@ -88,7 +88,9 @@
             </ion-col>
             <ion-col size="4">
               <ion-item>
+                <ion-label class="item-text-wrap" style="white-space: normal;">
                 {{ conf }}
+              </ion-label>
               </ion-item>
             </ion-col>
           </ion-row>
@@ -105,7 +107,7 @@
               </ion-item>
             </ion-col>
             <ion-col size="4">
-              <ion-item>
+              <ion-item class="item-text-wrap">
                 {{ miniHost}}{{miniPort}}
               </ion-item>
             </ion-col>
@@ -122,8 +124,8 @@
                 RpcPort
               </ion-item>
             </ion-col>
-            <ion-col size="4">
-              <ion-item>
+            <ion-col size="4" >
+              <ion-item class="item-text-wrap">
                 {{ miniRpcport }}
               </ion-item>
             </ion-col>
@@ -171,11 +173,11 @@
     </ion-card-content>
   </ion-card>
 
-  <ion-card>
-    <ion-card-header class="align-items-center"> 
+  <ion-card color="white">
+    <ion-card-header class="align-items-center" color="white"> 
       <ion-item>
         <ion-icon name="notifications" style="color:#FF671D;" slot="start"></ion-icon>
-        <ion-card-title class="ion-text-centre">Reminder...</ion-card-title>
+        <ion-card-title class="ion-text-centre" color="tertiary"><ion-text color="tertiary">Reminder...</ion-text></ion-card-title>
       </ion-item>
     </ion-card-header>
     <ion-card-content>

@@ -10,14 +10,25 @@ import {MinimaApiService } from '../service/minima-api.service';
 export class SettingsPage implements OnInit {
 
   host = '';
+  public shouldEnable: boolean;
+  toggle = document.querySelector('#darkToggle');
 
-  constructor(private api: MinimaApiService, public alertController: AlertController) { }
+  constructor(private api: MinimaApiService, public alertController: AlertController) {}
 
   ngOnInit() {
+    // const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
+    // this.enableDarkTheme(prefersDark.matches);
+    // prefersDark.addListener((mediaQuery) => this.enableDarkTheme(mediaQuery.matches));
+
   }
   
   ionViewWillEnter() {
     this.host = this.api.getHost();
+  }
+
+  enableDarkTheme(shouldEnable) {
+    console.log("Dark Mode activated.");
+    document.body.classList.toggle("dark", shouldEnable);
   }
 
 
@@ -71,5 +82,7 @@ export class SettingsPage implements OnInit {
       this.presentAlert('Check the host','Error');
     }
   }
+
+  
 
 }

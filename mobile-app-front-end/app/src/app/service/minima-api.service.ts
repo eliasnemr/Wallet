@@ -14,8 +14,8 @@ export class MinimaApiService {
   constructor(private http: HttpClient, public loadingController: LoadingController) {
     this.host = environment.defaultNode;
     this.host = this.getHost();
-
   }
+
   async showLoader() {
     console.log('Showloader called. ' + this);
     if (this.loader == null) {
@@ -69,7 +69,7 @@ export class MinimaApiService {
     return this.request('status');
   }
 
-  private request(route) {
+  request(route) {
     const self = this;
     // self.showLoader();
     console.log(route);

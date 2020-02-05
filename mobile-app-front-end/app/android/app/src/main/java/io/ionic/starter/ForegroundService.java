@@ -28,7 +28,7 @@ public class ForegroundService extends Service {
     boolean mStarted = false;
     Handler mHandler;
 
-    NotificationManager mNotificationManager;
+    NotificationManager mNotificationManager, mNotificationManagerLow;
     android.app.Notification mNotificationBuilder;
     PendingIntent mPendingIntent;
     TxPOW txpow;
@@ -51,6 +51,7 @@ public class ForegroundService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         createNotificationChannel();
+
         Intent NotificationIntent = new Intent(this, MainActivity.class);
         mPendingIntent = PendingIntent.getActivity(this, 0
         , NotificationIntent, 0);
@@ -106,14 +107,14 @@ public class ForegroundService extends Service {
 
                                     mBLOCK_NUMBER = txpow.getBlockNumber().toString();
 
-//                                    mNotificationBuilder = new NotificationCompat.Builder(ForegroundService.this, CHANNEL_ID)
-//                                            .setContentTitle("Your Minima Node is running..")
-//                                            .setContentText("Current block number: " + mBLOCK_NUMBER)
-//                                            .setSmallIcon(R.drawable.ic_minima)
-//                                            .setContentIntent(mPendingIntent)
-//                                            .build();
-//
-//                                    startForeground(1, mNotificationBuilder);
+                                    mNotificationBuilder = new NotificationCompat.Builder(ForegroundService.this, CHANNEL_ID)
+                                            .setContentTitle("Your Minima Node is running..")
+                                            .setContentText("Current block number: " + mBLOCK_NUMBER)
+                                            .setSmallIcon(R.drawable.ic_minima)
+                                            .setContentIntent(mPendingIntent)
+                                            .build();
+
+                                    startForeground(1, mNotificationBuilder);
 
                                 }
                             });
@@ -136,7 +137,7 @@ public class ForegroundService extends Service {
             NotificationChannel serviceChannel = new NotificationChannel(
                 CHANNEL_ID,
                 "Foreground Service Channel",
-                    NotificationManager.IMPORTANCE_DEFAULT
+                    NotificationManager.IMPORTANCE_LOW
             );
 
             mNotificationManager =
@@ -144,6 +145,7 @@ public class ForegroundService extends Service {
             mNotificationManager.createNotificationChannel(serviceChannel);
         }
     }
+
 
     @Override
     public void onDestroy() {

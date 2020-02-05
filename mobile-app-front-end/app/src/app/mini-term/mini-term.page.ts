@@ -1,55 +1,83 @@
-import { FitAddon } from 'xterm-addon-fit';
-import { Component, OnInit, ViewChild, ElementRef} from '@angular/core';
-import * as xterm from 'xterm';
+import { Component, OnInit, ViewChild, ElementRef, Renderer2} from '@angular/core';
 import { HttpClient, HttpEvent, HttpErrorResponse, HttpEventType } from '@angular/common/http';
 import { LoadingController, NavController, IonContent } from '@ionic/angular';
 import { environment } from '../../environments/environment';
-import { Content } from "ionic-angular";
+import { MinimaApiService } from '../service/minima-api.service';
 
-//node_modules/xterm/css/xterm.css
 @Component({
   selector: 'app-mini-term',
   templateUrl: './mini-term.page.html',
-  styleUrls: ['../../../node_modules/xterm/css/xterm.css']
+  styleUrls: ['./mini-term.page.scss']
 })
 
 export class MiniTermPage implements OnInit {
-  @ViewChild('content', {static : false} ) private content: IonContent;
-  
-  //@ViewChild('terminal', {static: false}) terminal: ElementRef;
+  @ViewChild(IonContent, {static : false} ) ionContent: IonContent;
+  @ViewChild('terminal', {static: false}) terminal: ElementRef;
 
-  private term: xterm.Terminal;
-  
-  toExecute = '';
-  theExecuted = [];
-  isEnabled: boolean;
+
   private host = '';
+  lastLine = '';
+  isEnabled: boolean; 
   private loader: any = null;
+  globalInstance: any;
+   
 
+  constructor(private http: HttpClient, public loadingController: LoadingController,
+     public navCtrl: NavController, private renderer: Renderer2) {
 
+      this.host = environment.defaultNode;
+      this.host = this.getHost();
 
-  constructor(private http: HttpClient, public loadingController: LoadingController, public navCtrl: NavController) {
-    this.host = environment.defaultNode;
-    this.host = this.getHost();
+    // Disable up and down keys.
+          window.addEventListener("keydown", function(e) {
+            if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+                e.preventDefault();
+            }
+        }, false);
 
-  }
-
-  buttonHandler() {
-    if(this.toExecute == '') {
-    } else {
-      this.isEnabled = true;
     }
-  }
 
+  
   ngOnInit(){}
-  ionViewDidEnter(){
 
-  }
+  ngAfterViewInit() {
+    
+    this.terminal.nativeElement.value += "**********************************************\n";
+    this.terminal.nativeElement.value += "*  __  __  ____  _  _  ____  __  __    __    *\n";
+    this.terminal.nativeElement.value += "* (  \/  )(_  _)( \( )(_  _)(  \/  )  /__\       *\n";
+    this.terminal.nativeElement.value += "*  )    (  _)(_  )  (  _)(_  )    (  /(__)\   *\n";
+    this.terminal.nativeElement.value += "* (_/\/\_)(____)(_)\_)(____)(_/\/\_)(__)(__)      *\n";
+    this.terminal.nativeElement.value += "*                                            *\n";
+    this.terminal.nativeElement.value += "**********************************************\n";
+    this.terminal.nativeElement.value += "Welcome to Minima. For assistance type help. Then press enter.\n";
+
+    this.globalInstance = this.renderer.listen(this.terminal.nativeElement, 'keydown', (e) => {
+
+        if([13].indexOf(e.keyCode) > -1) {
+          // get the whole textarea text..
+          var msg = this.terminal.nativeElement.value;
+
+          // get the last line...
+          this.lastLine = msg.substr(msg.lastIndexOf("\n")+1);
+
+          // get the json call
+          this.request(this.lastLine);
+        }
+    });
+
+ }
+
 
   scrollToBottomOnInit() {
-    this.content.scrollToBottom(1500);
+    console.log("scrolling");
+    setTimeout(() => {
+      this.ionContent.scrollToBottom(300);
+    }, 200);
+    console.log("scrolled.") 
   }
 
+
+  //Minima Api Service
   getHost() {
     if (localStorage.getItem('minima_host') == null) {
       localStorage.setItem('minima_host', this.host);
@@ -59,8 +87,23 @@ export class MiniTermPage implements OnInit {
     }
   }
 
- getCall() {
-    return this.request(this.toExecute);
+  //api calls
+  request(route) {
+    const self = this;
+    console.log(route);
+    return new Promise((resolve, reject) => {
+      self.http.get(self.host + route, { responseType: 'json' }).subscribe(( d: any ) => {
+
+        this.terminal.nativeElement.value += JSON.stringify(d, undefined, 2) + "\n";
+
+        this.terminal.nativeElement.scrollTop = this.terminal.nativeElement.scrollHeight;
+        resolve(d);
+      }, (err) => {
+        self.hideLoader();
+        console.log('Error ' + err );
+        reject(err);
+      });
+    });
   }
 
   async showLoader() {
@@ -71,100 +114,15 @@ export class MiniTermPage implements OnInit {
       this.loader.present();
     }
   }
-
+  
   async hideLoader() {
     if (this.loader !== null) {
       await this.loader.dismiss();
       this.loader = null;
     } else {}
-  }
+}
 
-  private request(route) {
-    const self = this;
-    //setTimeout( () => {self.showLoader() }, 0);
-    console.log(route);
-    return new Promise((resolve, reject) => {///+"&t="+Math.random()
-      self.http.get(self.host + route, { responseType: 'json' }).subscribe((d: any) => {
-        //setTimeout( () => { self.hideLoader(); }, 500);
-        console.log(d);
-      
-        if(this.toExecute === '') {
-          this.theExecuted.push('m:/ > ' + this.toExecute);
-          this.scrollToBottomOnInit();
-        } else if (d.status === true) {
-
-        const objpretty = JSON.stringify(d, undefined, 1);
-        this.theExecuted.push('m:/ > ' + this.toExecute);
-        this.theExecuted.push(objpretty);
-      
-        this.toExecute = '';
-        this.scrollToBottomOnInit();
-      } else {
-        this.theExecuted.push('m:/ > ' + this.toExecute + '\n' 
-        + 'zsh: command not found: '+this.toExecute);
-        this.toExecute = '';
-        this.scrollToBottomOnInit();
-      }  
-        resolve(d);
-      }, (err) => {
-        self.hideLoader();
-        console.log('Error ' + err );
-        reject(err);
-      });
-    });
-  }
-
-
-
-  syntaxHighlight(json) {
-    if (typeof json !== 'string') {
-         json = JSON.stringify(json, undefined, 2);
-    }
-    json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-    return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, 
-    (match) => {
-        let cls = 'number';
-        if (/^"/.test(match)) {
-            if (/:$/.test(match)) {
-                cls = 'key';
-            } else {
-                cls = 'string';
-            }
-        } else if (/true|false/.test(match)) {
-            cls = 'boolean';
-        } else if (/null/.test(match)) {
-            cls = 'null';
-        }
-        return '<span class="' + cls + '">' + match + '</span>';
-    });
-  }
-
-  // $(function() {
-  //   $('.terminal').on('click', function(){
-  //      $('#input').focus();
-  //   });
-  
-  //   $('#input').on('keydown',function search(e) {
-  //     if(e.keyCode == 13) {
-  //       // append your output to the history,
-  //       // here I just append the input
-  //       $('#history').append($(this).val()+'<br/>');
-        
-  //       // you can change the path if you want
-  //       // crappy implementation here, but you get the idea
-  //       if($(this).val().substring(0, 3) === 'cd '){
-  //         $('#path').html($(this).val().substring(3)+'&nbsp;>&nbsp;');
-  //       }
-        
-  //       // clear the input
-  //       $('#input').val('');
-        
-  //     }
-  //   });
-  // });
-  execute() {
-
-
-  }
 
 }
+
+

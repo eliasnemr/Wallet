@@ -15,7 +15,7 @@ ion-app.transparentBody, ion-app.transparentBody ion-content, ion-app.transparen
   }
 
 ion-toolbar{
-	--background:#f8f9fa;
+
 
 	ion-menu-button{
 		--color:rgba(0, 0, 0, 0.5);
@@ -51,7 +51,7 @@ ion-menu{
 	}
 	
 	.menuToolbar{
-		--background:#ddd;
+		--background:rgba(221, 221, 221, 0.852);
 		--padding-start:20px;
 		--padding-end:20px;
 		.logo{
@@ -66,8 +66,10 @@ ion-menu{
 
 ion-card{
 	--background:#e9ecef !important;
+	
 	box-shadow:none !important;
 }
+
 
 
 // .qrcode{

@@ -23,8 +23,8 @@ export class BalancePage implements OnInit {
       console.log(res);
 
       this.confirmed = 0;
-      this.unconfirmed = "";
-      this.strUnconfirmed = "";
+      this.unconfirmed = '';
+      this.strUnconfirmed = '';
       let conf = res.response.confirmed;
       let unconf = res.response.unconfirmed;
 
@@ -59,9 +59,10 @@ export class BalancePage implements OnInit {
   giveMe50() {
     this.api.giveMe50().then((res:any)=>{  
       console.log("Testing giveMe50() " + res)
-      if(res.status == true) {
+      if(res.status === true) {
         console.log("Result is true" + res);
         this.presentAlert('A transfer of 50 is on the way...', 'Minima');
+        this.doRefresh(self.event);
       } else {
         console.log("Result is false " + res)
         this.presentAlert(res.error,'Error');

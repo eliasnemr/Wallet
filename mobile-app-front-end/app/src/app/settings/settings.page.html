@@ -20,10 +20,16 @@
 
 <ion-content>
 
-  <ion-card>
-  <ion-card-header>
+  <ion-card color="white">
+  <ion-card-header color="white">
 
-  <ion-card-title>Settings</ion-card-title>
+  <ion-card-title color="tertiary">
+    <ion-item>
+      <ion-icon name="build" slot="start" size="2" style="color: #FF671D;"></ion-icon>
+      <ion-card-title color="tertiary"><ion-text color="tertiary">Settings</ion-text></ion-card-title>
+    </ion-item>
+    
+  </ion-card-title>
   </ion-card-header>
 
   <ion-card-content>
@@ -31,10 +37,17 @@
 
 
       <ion-item>
-        <ion-label position="floating">Host</ion-label>
+        <ion-label style="font-style: normal;" position="floating" color="primary">Host</ion-label>
         <ion-input name="host" [(ngModel)]="host"></ion-input>
       </ion-item>
     </form>
+   
+    <ion-item>
+      <ion-icon name="moon" style="padding: 10px;" color="primary"></ion-icon>
+      <ion-label style="font-style:normal;" color="tertiary">Night Mode</ion-label>
+      <ion-toggle #darkToggle color="primary" (ionChange)= "enableDarkTheme(shouldEnable)" ></ion-toggle>
+    </ion-item>
+    
 
   </ion-card-content>
   </ion-card>

@@ -4,6 +4,8 @@
 
 /** Ionic CSS Variables **/
 :root {
+  /** font-family **/
+  --ion-font-family: 'Aeonik';
   /** primary **/
   --ion-color-primary: #06ABC7;
   --ion-color-primary-rgb: 56, 128, 255;
@@ -21,9 +23,9 @@
   --ion-color-secondary-tint: #24d6ea;
 
   /** tertiary **/
-  --ion-color-tertiary: #7044ff;
+  --ion-color-tertiary: #000000;
   --ion-color-tertiary-rgb: 112, 68, 255;
-  --ion-color-tertiary-contrast: #ffffff;
+  --ion-color-tertiary-contrast: #000000;
   --ion-color-tertiary-contrast-rgb: 255, 255, 255;
   --ion-color-tertiary-shade: #633ce0;
   --ion-color-tertiary-tint: #7e57ff;
@@ -77,3 +79,27 @@
   --ion-color-light-tint: #f5f6f9;
 }
 
+@font-face {
+  font-family: 'Monotype';
+  font-style: normal;
+  font-weight: normal;
+  src: url('../fonts/monotype.ttf');
+}
+@font-face {
+  font-family: 'Optima';
+  font-style: normal;
+  font-weight: normal;
+  src: url('../fonts/OPTIMA.woff');
+}
+@font-face {
+  font-family: 'Aeonik';
+  font-style: normal;
+  font-weight: normal;
+  src: url('../fonts/Aeonik-Regular.otf');
+}
+@font-face {
+  font-family: 'Aeonik-Light';
+  font-style: normal;
+  font-weight: normal;
+  src: url('../fonts/Aeonik-Light.otf');
+}

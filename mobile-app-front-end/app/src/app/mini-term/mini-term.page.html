@@ -1,4 +1,5 @@
 <ion-header>
+
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
@@ -10,27 +11,17 @@
 </ion-header>
 
 
-<ion-content class="padding" [scrollEvents]="true">
+<ion-content #ionContent>
   
-    <ion-grid *ngFor="let theExecute of theExecuted">
-      <ion-list lines="none">
-        <ion-item class="terminal">
-        <pre> {{ theExecute }}</pre>
-        </ion-item>
-      </ion-list>
-    </ion-grid>
-    <ion-list lines="none">
-    <ion-item class="line">
-      <span id="path">m:/&nbsp;>&nbsp;</span>
-      <ion-input type="text" id="input" [(ngModel)]="toExecute"
-      (keyup.enter) = "request(toExecute)"></ion-input>
-    </ion-item>
-    </ion-list>
-
-      
-
+  <!-- Terminal -->
+  <textarea
+  #terminal
+  class="terminal" 
+  autocapitalize="false"
+  spellcheck="false"
+  autocorrect="off"></textarea
+  >
 </ion-content>
-
 
 <!-- <div class="terminal">
   <div id="history">
@@ -41,48 +32,4 @@
     <input type="text" id="input">
   </div>
 </div> -->
-
-
-
-
-
-<!-- Old 'terminal' -->
-<!-- <ion-content #content>
-
-<ion-grid *ngFor="let theExecute of theExecuted" >
-    <ion-row>
-      <ion-col>
-        <ion-item>
-            <ion-label
-            color="primary"
-            style="background-color: cornsilk;"
-            class="ion-text-wrap">
-              <pre> {{theExecute}} </pre> 
-            </ion-label>
-          </ion-item> 
-      </ion-col> 
-    </ion-row>
-</ion-grid>
-</ion-content>
-
-<ion-footer>
-<ion-toolbar>
-  <ion-row>
-      <ion-col>
-        <ion-input
-        style="background-color: #E0E0E0"
-        type="text"
-        autocapitalize="none"
-        autocorrect="off"
-        placeholder="$command line"
-        [(ngModel)]="toExecute"
-        (keyup.enter) = "getCall()">
-      </ion-input>
-    </ion-col>
-      <button ion-button small full item-end clear 
-        (click)="getCall()" 
-        [disabled] = "!toExecute">Execute</button>
-    </ion-row>
-  </ion-toolbar>
-</ion-footer> -->
 

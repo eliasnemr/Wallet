@@ -8,7 +8,6 @@
     </ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
 
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
@@ -17,11 +16,11 @@
 
     
 
-  <ion-card>
-    <ion-card-header>
+  <ion-card color="white">
+    <ion-card-header color="white">
       <ion-item>
         <ion-icon name="card" style="color:#FF671D;" slot="start"></ion-icon>
-        <ion-card-title class="ion-text-center">Balance</ion-card-title>
+        <ion-card-title class="ion-text-center" color="tertiary"><ion-text color="tertiary">Balance</ion-text></ion-card-title>
       </ion-item>
     </ion-card-header>
     <ion-card-content>
@@ -68,7 +67,7 @@
     <br>
       <br>
       <ion-button  shape="round" expand="block" type="button"  (click)="giveMe50()">
-        <ion-icon name="cash" slot="start" style="color:white;"></ion-icon> Add 50
+        <ion-icon name="cash" slot="start" style="color:white;"></ion-icon> Gimme 50
       </ion-button>
     </ion-card-content>
   </ion-card>

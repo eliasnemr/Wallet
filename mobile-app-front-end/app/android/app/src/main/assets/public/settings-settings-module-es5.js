@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n  <ion-toolbar>\n\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n\n    <ion-title color=\"primary\">\n      Settings\n    </ion-title>\n\n    <ion-buttons slot=\"end\">\n      <ion-button (click)= \"presentQuitAlert()\">\n          <ion-icon name=\"power\" color=\"danger\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <ion-card>\n  <ion-card-header>\n\n  <ion-card-title>Settings</ion-card-title>\n  </ion-card-header>\n\n  <ion-card-content>\n    <form>\n\n\n      <ion-item>\n        <ion-label position=\"floating\">Host</ion-label>\n        <ion-input name=\"host\" [(ngModel)]=\"host\"></ion-input>\n      </ion-item>\n    </form>\n\n  </ion-card-content>\n  </ion-card>\n\n</ion-content>\n<ion-footer>\n  <ion-toolbar>\n    <ion-button color=\"danger\" expand=\"block\" (click)=\"saveHost()\" >\n     Save\n    </ion-button>   \n  </ion-toolbar>\n</ion-footer>"
+module.exports = "<ion-header>\n  <ion-toolbar>\n\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n\n    <ion-title color=\"primary\">\n      Settings\n    </ion-title>\n\n    <ion-buttons slot=\"end\">\n      <ion-button (click)= \"presentQuitAlert()\">\n          <ion-icon name=\"power\" color=\"danger\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <ion-card color=\"white\">\n  <ion-card-header color=\"white\">\n\n  <ion-card-title color=\"tertiary\">\n    <ion-item>\n      <ion-icon name=\"build\" slot=\"start\" size=\"2\" style=\"color: #FF671D;\"></ion-icon>\n      <ion-card-title color=\"tertiary\"><ion-text color=\"tertiary\">Settings</ion-text></ion-card-title>\n    </ion-item>\n    \n  </ion-card-title>\n  </ion-card-header>\n\n  <ion-card-content>\n    <form>\n\n\n      <ion-item>\n        <ion-label style=\"font-style: normal;\" position=\"floating\" color=\"primary\">Host</ion-label>\n        <ion-input name=\"host\" [(ngModel)]=\"host\"></ion-input>\n      </ion-item>\n    </form>\n   \n    <ion-item>\n      <ion-icon name=\"moon\" style=\"padding: 10px;\" color=\"primary\"></ion-icon>\n      <ion-label style=\"font-style:normal;\" color=\"tertiary\">Night Mode</ion-label>\n      <ion-toggle #darkToggle color=\"primary\" (ionChange)= \"enableDarkTheme(shouldEnable)\" ></ion-toggle>\n    </ion-item>\n    \n\n  </ion-card-content>\n  </ion-card>\n\n</ion-content>\n<ion-footer>\n  <ion-toolbar>\n    <ion-button color=\"danger\" expand=\"block\" (click)=\"saveHost()\" >\n     Save\n    </ion-button>   \n  </ion-toolbar>\n</ion-footer>"
 
 /***/ }),
 
@@ -96,11 +96,19 @@ var SettingsPage = /** @class */ (function () {
         this.api = api;
         this.alertController = alertController;
         this.host = '';
+        this.toggle = document.querySelector('#darkToggle');
     }
     SettingsPage.prototype.ngOnInit = function () {
+        // const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
+        // this.enableDarkTheme(prefersDark.matches);
+        // prefersDark.addListener((mediaQuery) => this.enableDarkTheme(mediaQuery.matches));
     };
     SettingsPage.prototype.ionViewWillEnter = function () {
         this.host = this.api.getHost();
+    };
+    SettingsPage.prototype.enableDarkTheme = function (shouldEnable) {
+        console.log("Dark Mode activated.");
+        document.body.classList.toggle("dark", shouldEnable);
     };
     SettingsPage.prototype.giveMe50 = function () {
         var _this = this;
