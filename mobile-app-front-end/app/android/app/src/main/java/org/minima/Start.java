@@ -46,8 +46,9 @@ public class Start {
 				//Start up Variables
 				ArrayList<String> vars = new ArrayList<>();
 
+				//vars.add("-private");
 				vars.add("-daemon");
-				vars.add("-clean");
+				//vars.add("-clean");
 //				vars.add("-clean");
 //				vars.add("-port");
 //				vars.add("9002");
@@ -166,8 +167,14 @@ public class Start {
 		}
 		
 		//Do we wipe
+		File cc = new File(conffolder);
 		if(clean) {
-			BackupManager.deleteFolder(new File(conffolder));
+			BackupManager.deleteFolder(cc);
+		}
+
+
+		if (cc.exists()) {
+			Log.d("Config file:", " exists");
 		}
 		
 		//Start the main Minima server

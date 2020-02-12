@@ -3,24 +3,29 @@
         font-size: 10px;
     }
 }
-
-.ion-text-wrap {
-    word-wrap: normal;
-}
-
 ion-card {
     border-radius: 30px;
     background-color: #FFFFFF;
-    border-top: 3px solid #06AAC7;
-    border-bottom: 3px solid #06AAC7;
+
 }
 
-ion-label {
-    font-style: oblique;
-}
+ion-footer ion-toolbar ion-buttons ion-button{
+    width: 100%;
+ }
 
-
-
-ion-icon {
-    color: #06AAC7;
-}
+ .confirmed-label{
+     font-size: 0.75rem;
+     font-weight: 300;
+     white-space: normal;
+ }
+ .confirmed-amount {
+    color: #00AAC7;
+    font-size: 0.75rem;
+    font-weight: 300;
+    white-space: normal;
+ }
+ .logo-names {
+     font-size: 0.75rem;
+     font-weight: 300;
+     
+ }

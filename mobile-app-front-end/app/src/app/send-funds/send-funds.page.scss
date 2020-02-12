@@ -1,13 +1,17 @@
+.transparentBody {
+    --background: none transparent;
+  }
+
+// ion-app.transparentBody ion-nav{opacity:0}
+
+// ion-app.transparentBody, ion-app.transparentBody ion-content, ion-app.transparentBody .nav-decor {
+	 
+// 	--background: none transparent !important;
+//   }
+
 ion-card {
-    border-radius: 30px;
-    
-    background-color: #FFFFFF;
-    border-top: 3px solid #06AAC7;
-    border-bottom: 3px solid #06AAC7;
+  border-radius: 15px;
 }
-ion-label {
-    font-style: oblique;
-}
-ion-chip {
-    background-color: transparent;
+ion-footer ion-toolbar ion-buttons ion-button{
+  width: 100%;
 }

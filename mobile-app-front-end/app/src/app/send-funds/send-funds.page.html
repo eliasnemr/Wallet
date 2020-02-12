@@ -1,3 +1,4 @@
+<ion-app>
 <ion-header *ngIf="isCameraOpen==false">
   <ion-toolbar>
     <ion-buttons slot="start">
@@ -10,13 +11,13 @@
 </ion-header>
 
 <ion-content>
-  <ion-card *ngIf="isCameraOpen==false" color="white" >
-    <ion-card-header color="white">
-
+  <ion-card *ngIf="isCameraOpen==false" >
+    <ion-card-header>
       <ion-card-title>
-        <ion-item>
-          <ion-icon style="color: #FF671D" slot="start" name="send" size="2"></ion-icon>
-          <ion-card-title class="ion-text-centre" color="tertiary">  <ion-text color="tertiary">Send funds</ion-text> </ion-card-title>
+        <ion-item lines="none">
+          
+          <ion-icon style=" font-size:1.0rem;" slot="start" name="send" size="2"></ion-icon>
+          
         </ion-item>
       </ion-card-title>
    
@@ -48,7 +49,7 @@
 
         <div class="rightAlign">
           <ion-button type="button" slot="end" size="small" (click)="scanQR()">
-            <ion-icon name="qr-scanner" slot="start"></ion-icon>QR Code
+            <ion-icon  name="qr-scanner" slot="start"></ion-icon>QR Code
           </ion-button>
           <ion-button type="button" slot="end" size="small" (click)="pasteFromClipboard()">
             <ion-icon name="clipboard" slot="start"></ion-icon>Paste from clipboard
@@ -63,15 +64,19 @@
 
     </ion-card-content>
   </ion-card>
-</ion-content>
+</ion-content >
 <ion-footer>
   <ion-toolbar>
     <ion-button expand="block" (click)="stopCamera()"  *ngIf="isCameraOpen==true">
      Stop scanning
     </ion-button>    
 
-    <ion-button color="danger" expand="block" (click)="sendFunds()" *ngIf="isCameraOpen==false">
-      <ion-icon name="send" slot="start"></ion-icon> Send
-    </ion-button>
+    <ion-buttons>
+      <ion-button expand="block" (click)="sendFunds()" *ngIf="isCameraOpen==false">
+        <ion-icon name="send" slot="start"></ion-icon> Send
+      </ion-button>
+    </ion-buttons>
+    
   </ion-toolbar>
 </ion-footer>
+</ion-app>

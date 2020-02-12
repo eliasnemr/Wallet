@@ -6,7 +6,7 @@
        <ion-title>
          <ion-icon src="../../assets/icon/minima.svg" size="5"></ion-icon>
          <ion-text style="font-weight: lighter; font-family: Aeonik-Light;">
-           Minima v0.4
+           Minima <ion-badge color="secondary">BETA</ion-badge>
            </ion-text>
        </ion-title>   
       </ion-toolbar>
@@ -15,14 +15,17 @@
     <ion-content>
         <ion-menu-toggle auto-hide="false">
           <ion-list main lines="none">
-            <ion-item routerLink="/balance" >
+            <ion-item routerLink="/balance">
               <ion-icon name="card" slot="start"></ion-icon> Balance
             </ion-item>
-            <ion-item routerLink="/send-funds" >
+            <ion-item routerLink="/send-funds">
               <ion-icon name="send" slot="start"></ion-icon> Send
             </ion-item>
             <ion-item routerLink="/my-address">
               <ion-icon name="arrow-down" slot="start"></ion-icon> Receive
+            </ion-item>
+            <ion-item routerLink="/create-token">
+              <ion-icon name="brush" slot="start"></ion-icon> Token
             </ion-item>
           <ion-item-divider>
           </ion-item-divider>

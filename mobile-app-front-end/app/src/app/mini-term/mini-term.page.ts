@@ -30,7 +30,7 @@ export class MiniTermPage implements OnInit {
 
     // Disable up and down keys.
           window.addEventListener("keydown", function(e) {
-            if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+            if([37, 38, 39, 40].indexOf(e.keyCode) > -1) {
                 e.preventDefault();
             }
         }, false);
@@ -41,14 +41,15 @@ export class MiniTermPage implements OnInit {
   ngOnInit(){}
 
   ngAfterViewInit() {
-    
+
     this.terminal.nativeElement.value += "**********************************************\n";
     this.terminal.nativeElement.value += "*  __  __  ____  _  _  ____  __  __    __    *\n";
-    this.terminal.nativeElement.value += "* (  \/  )(_  _)( \( )(_  _)(  \/  )  /__\       *\n";
-    this.terminal.nativeElement.value += "*  )    (  _)(_  )  (  _)(_  )    (  /(__)\   *\n";
-    this.terminal.nativeElement.value += "* (_/\/\_)(____)(_)\_)(____)(_/\/\_)(__)(__)      *\n";
+    this.terminal.nativeElement.value += "* (  \\/  )(_  _)( \\( )(_  _)(  \\/  )  /__\\   *\n";
+    this.terminal.nativeElement.value += "*  )    (  _)(_  )  (  _)(_  )    (  /(__)\\  *\n";
+    this.terminal.nativeElement.value += "* (_/\\/\\_)(____)(_)\\_)(____)(_/\\/\\_)(__)(__) *\n";
     this.terminal.nativeElement.value += "*                                            *\n";
     this.terminal.nativeElement.value += "**********************************************\n";
+
     this.terminal.nativeElement.value += "Welcome to Minima. For assistance type help. Then press enter.\n";
 
     this.globalInstance = this.renderer.listen(this.terminal.nativeElement, 'keydown', (e) => {

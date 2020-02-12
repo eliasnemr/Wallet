@@ -50,7 +50,7 @@ export class MiniStatusPage implements OnInit {
     setTimeout(() => {
       console.log('Async operation has ended');
       event.target.complete();
-    }, 1500);
+    }, 200);
   }
 
   updateStatus() {

@@ -1,3 +1,4 @@
+<ion-app>
 <ion-header >
   <ion-toolbar >
     <ion-buttons slot="start">
@@ -27,7 +28,16 @@
         </ion-card-subtitle>
     </ion-card-header>
       <ion-card-content fullscreen> 
-                <ion-button 
+                
+                  
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons>
+      <ion-button 
                       shape="round"
                       expand="full"
                       (click)="copyToClipboard()"
@@ -37,8 +47,7 @@
                         slot="start">
                   </ion-icon> Copy to clipboard
                 </ion-button>
-                  <p style="text-align: center;">
-                  </p>
-    </ion-card-content>
-  </ion-card>
-</ion-content>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
+</ion-app>

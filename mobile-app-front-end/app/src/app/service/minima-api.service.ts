@@ -35,6 +35,11 @@ export class MinimaApiService {
     } else {}
   }
 
+
+  createToken(data: any) {
+    return this.request('createtoken+' + data.token + '+' + data.amount);
+  }
+
   getHost() {
     if (localStorage.getItem('minima_host') == null) {
       localStorage.setItem('minima_host', this.host);

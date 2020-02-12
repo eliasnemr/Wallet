@@ -14,6 +14,7 @@ export class SendFundsPage implements OnInit {
   public data: any = {};
   isCameraOpen: boolean = false;
   private scanSub:any=null;
+  ionApp = <HTMLElement>document.getElementsByTagName('ion-app')[0];
 
   constructor(private qrScanner: QRScanner, private clipboard: Clipboard, 
     public alertController: AlertController, private zone: NgZone, 
@@ -39,7 +40,18 @@ export class SendFundsPage implements OnInit {
           console.log('scanQR', status);
 
           //add transparent BG to the ion app
-          window.document.querySelector('ion-app').classList.add('transparentBody');
+          //window.document.querySelector('ion-content').classList.add('transparentBody');
+          // this.ionApp.style.display = 'none';
+          setTimeout(() => {
+            window.document.querySelectorAll('ion-content')
+                  .forEach(element => {
+                      const element1 = element.shadowRoot.querySelector('style');
+                      element1.innerHTML = element1.innerHTML
+                                                   .replace('--background:var(--ion-background-color,#fff);', '--background: transparent');
+                  });
+        }, 300);
+          
+          
           // start scanning
           this.qrScanner.show();
           this.isCameraOpen = true;
@@ -49,9 +61,16 @@ export class SendFundsPage implements OnInit {
             this.zone.run(()=>{
               this.data.address = text;
               this.stopCamera();
-              window.document.querySelector('ion-app').classList.remove('transparentBody');
+              //window.document.querySelector('ion-content').classList.remove('.transparentBody');
+             
+                window.document.querySelectorAll('ion-content')
+                      .forEach(element => {
+                          const element1 = element.shadowRoot.querySelector('style');
+                          element1.innerHTML = element1.innerHTML
+                                                       .replace('--background: transparent', '--background:var(--ion-background-color,#fff);');
+                      });
               this.isCameraOpen = false;
-            })
+              })
 
           }, (err) => {
             console.log('Scanned failed', err);
@@ -80,7 +99,20 @@ export class SendFundsPage implements OnInit {
       this.scanSub.unsubscribe();
     }
     this.scanSub = null;
-    window.document.querySelector('ion-app').classList.remove('transparentBody');
+    //window.document.querySelector('ion-content').classList.remove('transparentBody');
+    
+    setTimeout(() => {
+      window.document.querySelectorAll('ion-content')
+      .forEach(element => {
+          const element1 = element.shadowRoot.querySelector('style');
+          element1.innerHTML = element1.innerHTML
+      .replace('--background: transparent', '--background:var(--ion-background-color,#fff);');
+      });
+    }, 1000)
+      
+    
+    
+    this.ionApp.style.display = 'block';
     this.isCameraOpen = false;
     this.qrScanner.destroy();
   }

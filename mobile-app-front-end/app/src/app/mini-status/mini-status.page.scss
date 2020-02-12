@@ -20,18 +20,20 @@
     word-wrap: normal;
 }
 
-ion-card {
-    border-radius: 30px;
-    background-color: #FFFFFF;
-    border-top: 3px solid #06AAC7;
-    border-bottom: 3px solid #06AAC7;
+
+
+ion-list ion-item h2 {
+    color: #06AAC7;
 }
 
-
-
-ion-label {
-    font-style: oblique;
+ion-list ion-item p {
+    white-space: normal;
 }
+
+ ion-list ion-icon {
+    padding-right: 4px;
+}
+
 
 ion-icon {
     color: #06AAC7;
@@ -40,3 +42,16 @@ ion-icon {
 ion-chip {
     background-color: transparent;
 }
+
+ion-footer ion-list ion-item {
+    border-top: 2px solid #ffffcc;
+    border-bottom: 2px solid#ffffcc;
+    border-radius: 5px;
+}
+
+.sup {
+    position: relative;
+    font-family: "Aeonik-Light";
+    bottom: 1ex; 
+    font-size: 80%;
+  }

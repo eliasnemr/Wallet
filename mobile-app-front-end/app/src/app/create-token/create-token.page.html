@@ -1,0 +1,100 @@
+<ion-app>
+
+<ion-header>
+  <ion-toolbar>
+
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title color = "primary" slot="start"> Token </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<!-- <ion-toolbar>
+  <ion-title> 
+  <ion-icon name="brush"></ion-icon>
+    Fill out your token contract here.
+</ion-title>
+</ion-toolbar> -->
+
+<ion-content>
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>
+          <ion-icon style="font-size:1.0rem;" name="clipboard"></ion-icon>
+          Your Contract for the token, "<ion-text class="tokenStyle">{{ tokenName }}</ion-text>"
+        </ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+
+        <ion-list lines="none">
+          <ion-item>
+            <ion-icon style="color:#FF671D" name="return-right" size="small"></ion-icon> 
+            <ion-text style="font-weight: lighter; font-family: Aeonik-Light; padding:5px;">
+              Converting {{ minimaAmount }} Minima to
+              <ion-text style="font-weight: lighter; font-family: Aeonik-Light;">
+                {{ tokenAmount }}
+              </ion-text>
+              "<ion-text style="font-weight: lighter; font-family: Aeonik-Light;" class="tokenStyle">{{ tokenName }}</ion-text>"
+              </ion-text> 
+              
+          </ion-item>
+        </ion-list>
+        
+
+      </ion-card-content>
+
+      <form>
+        <ion-list>
+          <ion-item>
+            <ion-label position="floating" class="amount-font">Name</ion-label>
+            <ion-input #nameTextArea (ionChange)="onUpdateTokenName($event)"></ion-input>
+             <!-- <ion-input placeholder="a description of token"></ion-input> -->
+          </ion-item>
+  
+          <ion-item>
+            <ion-label class="amount-font" position="floating">Amount</ion-label>
+            <ion-input #amountRef (ionChange)="onAmountChanged($event)"></ion-input>
+          </ion-item>
+  
+          <!-- <ion-item lines="none" position="float">
+  
+            <ion-range 
+            #tokenSlider
+            color="danger" 
+            pin="true"
+            min="0"
+            max="{{ balance }}"
+            (ionChange)="onSliderChanged($event)">
+            <ion-label slot="start" size="small" >0</ion-label>  
+            <ion-label slot="end"> {{ balance }} </ion-label>
+          </ion-range>
+          </ion-item> -->
+          
+  
+        
+        </ion-list>
+  
+  
+  
+  
+      </form>
+
+
+    </ion-card>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons>
+      <ion-button (click)="createToken()" shape="fill"  slot="primary" expand="fill" type="button" position="relative" >
+      Create token
+      </ion-button>
+    </ion-buttons>
+    
+  </ion-toolbar>
+</ion-footer>
+</ion-app>

@@ -1,3 +1,4 @@
+<ion-app>
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
@@ -13,21 +14,24 @@
 
 
 <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content></ion-refresher-content>
+            <ion-refresher-content></ion-refresher-content>
 </ion-refresher>
 
 
-  <ion-card class="welcome-card" style="background-color:transparent" color="white">
-    <ion-card-header id="status-header" color="white">
-      <ion-card-title>
-        <ion-item>
+    <ion-toolbar>
+      <ion-title class="ion-text-centre" color="tertiary">
+        <ion-item lines="none">
           <ion-icon slot="start" src="../../assets/icon/minima.svg" size="2"></ion-icon>
-          <ion-card-title class="ion-text-centre" color="tertiary"><ion-text color="tertiary">Minima  v{{ versionNumber }}</ion-text></ion-card-title>
+            Minima 
+          <ion-badge class="sup" color="secondary">BETA</ion-badge>
+            
+         
         </ion-item>
-      </ion-card-title>
-    </ion-card-header>
+      </ion-title>
+    </ion-toolbar>
+      
 
-    <ion-card-content id="status-content">
+    
         <ion-list>
           <ion-item>
             <ion-icon name="checkmark-circle" slot="start"></ion-icon>
@@ -64,14 +68,7 @@
             <p>{{ miniRpcport }}</p>
             </ion-label>
           </ion-item>
-          <ion-item>
-            <ion-icon name="checkmark-circle" slot="start"></ion-icon>
-            <ion-label>
-            <h2>Pulse</h2>
-            <p>{{ pulse }}</p>
-            </ion-label>
-          </ion-item>
-          <ion-item>
+          <ion-item lines="none">
             <ion-icon name="checkmark-circle" slot="start"></ion-icon>
             <ion-label>
             <h2>Last block number</h2>
@@ -82,17 +79,21 @@
   
         
   
-      </ion-card-content>
         
-    </ion-card>
   
-    <ion-footer>
-      <ion-label>
-        <ion-icon name="notification"></ion-icon>
-        <h2></h2>
-        <p>Call "status" in terminal</p>
-      </ion-label>
-    </ion-footer>
+
 
 
 </ion-content>
+
+<ion-footer>
+     <ion-list lines="none">
+       <ion-item>
+       <ion-icon slot="start" name="notifications"></ion-icon>
+       
+       <p>Call "status" in 
+         <a style="font-style: normal;" routerLink="/mini-term">terminal</a> for more details of the node's status.</p> 
+      </ion-item>
+     </ion-list>
+</ion-footer>
+</ion-app>

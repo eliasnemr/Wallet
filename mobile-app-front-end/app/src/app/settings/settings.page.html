@@ -1,3 +1,4 @@
+<ion-app>
 <ion-header>
   <ion-toolbar>
 
@@ -20,43 +21,30 @@
 
 <ion-content>
 
-  <ion-card color="white">
-  <ion-card-header color="white">
-
-  <ion-card-title color="tertiary">
-    <ion-item>
-      <ion-icon name="build" slot="start" size="2" style="color: #FF671D;"></ion-icon>
-      <ion-card-title color="tertiary"><ion-text color="tertiary">Settings</ion-text></ion-card-title>
-    </ion-item>
-    
-  </ion-card-title>
-  </ion-card-header>
-
-  <ion-card-content>
     <form>
-
-
       <ion-item>
+        <ion-icon slot="start" name="link" style="padding: 10px;" color="primary"></ion-icon>
         <ion-label style="font-style: normal;" position="floating" color="primary">Host</ion-label>
         <ion-input name="host" [(ngModel)]="host"></ion-input>
       </ion-item>
     </form>
    
-    <ion-item>
-      <ion-icon name="moon" style="padding: 10px;" color="primary"></ion-icon>
+    <ion-item lines="none">
+      <ion-icon slot="start" name="moon" style="padding: 10px;" color="primary"></ion-icon>
       <ion-label style="font-style:normal;" color="tertiary">Night Mode</ion-label>
       <ion-toggle #darkToggle color="primary" (ionChange)= "enableDarkTheme(shouldEnable)" ></ion-toggle>
     </ion-item>
     
-
-  </ion-card-content>
-  </ion-card>
-
 </ion-content>
 <ion-footer>
   <ion-toolbar>
+    <ion-buttons>
+
+    
     <ion-button color="danger" expand="block" (click)="saveHost()" >
      Save
     </ion-button>   
+  </ion-buttons>
   </ion-toolbar>
 </ion-footer>
+</ion-app>

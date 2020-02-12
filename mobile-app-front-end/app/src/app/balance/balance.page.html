@@ -1,3 +1,4 @@
+<ion-app>
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
@@ -8,202 +9,82 @@
     </ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content>
 
+<ion-content>
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
-</ion-refresher>
-
-    
+  </ion-refresher>
 
   <ion-card color="white">
     <ion-card-header color="white">
-      <ion-item>
-        <ion-icon name="card" style="color:#FF671D;" slot="start"></ion-icon>
-        <ion-card-title class="ion-text-center" color="tertiary"><ion-text color="tertiary">Balance</ion-text></ion-card-title>
+      <ion-item lines="none">
+        <ion-icon style=" font-size:1.0rem" name="card" slot="start"></ion-icon>
+        <ion-card-title class="ion-text-center" color="tertiary"><ion-text color="tertiary"></ion-text></ion-card-title>
       </ion-item>
     </ion-card-header>
     <ion-card-content>
 
       <!-- <ion-lis *ngFor = "let coin of balance"> -->
       <ion-list lines="none" style="padding:20px;">
-      <ion-grid>
-      
-        <ion-row>
-          <ion-col size="4">
-            <ion-label>
-              
-            </ion-label>             
-          </ion-col>
-          <ion-col size="4">
-            
-            <ion-label class="ion-text-wrap">
-              Confirmed
-            </ion-label>
-          </ion-col>
-          <ion-col size="4"> 
-            <ion-label class="ion-text-wrap">
-              {{strUnconfirmed}}
-            </ion-label>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col size="4">
-            <ion-label>
-              <ion-icon src="../../assets/icon/minima.svg"></ion-icon> MINI
-            </ion-label>          
-          </ion-col>
-          <ion-col size="4">
-            <p style="color: #00AAC7;">{{confirmed}}</p>
-          </ion-col>
-          <ion-col size="4">
-            
-            <p style="color: #00AAC7">{{unconfirmed}}</p>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-list>
+        <ion-item>
+          <ion-label></ion-label> <!-- Empty label filler -->
+          <ion-label class="confirmed-label">
+            Confirmed
+          </ion-label>
+          <ion-label class="confirmed-label">
+            {{strUnconfirmed}}
+          </ion-label>
 
-    <br>
-      <br>
-      <ion-button  shape="round" expand="block" type="button"  (click)="giveMe50()">
-        <ion-icon name="cash" slot="start" style="color:white;"></ion-icon> Gimme 50
-      </ion-button>
+        </ion-item>
+          
+      </ion-list>
+
+      <ion-list *ngFor="let token of tokenArr" #tokenArrayReference>
+
+        <ion-item-sliding>
+          <ion-item-options side="start">
+            <ion-item-option routerLink="/my-address">Receive</ion-item-option>
+            <ion-item-option color="danger" routerLink="/send-funds">Send</ion-item-option>
+          </ion-item-options>
+      
+          <ion-item>
+            <ion-label class="logo-names">
+              <ion-icon  [hidden]="amiToken()" src="../../assets/icon/minima.svg"></ion-icon> 
+              {{ token.token }}
+            </ion-label>  
+            <ion-label class="confirmed-amount">
+              {{ token.confirmed  }} 
+            </ion-label>
+            <ion-label class="confirmed-amount">
+             {{ token.unconfirmed }}
+            </ion-label>
+          </ion-item>
+      
+          <ion-item-options side="end">
+            <ion-item-option (click)="presentPopover($event)">TokenID</ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+        
+    </ion-list>
+    
+
+    <ion-progress-bar 
+    #progressBar value="0.25" 
+    buffer="0.5" 
+    [hidden] = "progressShow">
+  </ion-progress-bar>  
     </ion-card-content>
   </ion-card>
 
-
-
-  <!-- <ion-card>
-    <ion-card-header>
-      <ion-item>
-        <ion-icon name="book" style="color:#FF671D;" slot="start"></ion-icon>
-        <ion-card-title class="ion-text-centre">Transaction History (UNDER DEV)</ion-card-title>
-      </ion-item>
-    </ion-card-header>
-
-    <ion-card-content> -->
-      <!-- Begin Transaction Pull (Received, Sent transactions) -->
-      <!-- <ion-list-header>
-        
-        <ion-label><ion-icon name="calendar"></ion-icon>Today</ion-label>
-      </ion-list-header>
-      <ion-list>
-        <ion-grid>
-          <ion-row style="width: 100%; height: 100%;"> -->
-            <!-- <ion-col size="4"> 
-              <ion-chip class="ion-margin-start">
-                  <ion-icon name="arrow-round-back"></ion-icon>
-                <ion-label>Received</ion-label>
-              </ion-chip>
-            </ion-col>
-
-            <ion-col size="4"> 
-              
-                <ion-label>
-                  <h3 style="font-weight: bold;">0xf53B48a78B7B5111347b4dED5769BAA11f65ea26</h3>
-                  <p>16:48</p>
-                </ion-label>
-            
-            </ion-col>
-
-            <ion-col size="4" style="text-overflow: ellipsis;"> 
-              <ion-chip class="ion-margin-start">
-              + 50.00
-              </ion-chip>
-            </ion-col>
-
-          </ion-row>
-
-          <ion-row style="width: 100%; height: 100%;">
-            <ion-col size="4"> 
-              <ion-chip class="ion-margin-start">
-                  <ion-icon name="arrow-round-forward"></ion-icon>
-                <ion-label>Sent</ion-label>
-              </ion-chip>
-            </ion-col>
-
-            <ion-col size="4"> 
-              <ion-label>
-                <h3 style="font-weight: bold;">0xf53B48a78B7B5111347b4dED5769BAA11f65ea26</h3>
-                <p>17:00</p>
-              </ion-label>
-            </ion-col>
-
-            <ion-col size="4" style="text-overflow: ellipsis;"> 
-              <ion-chip class="ion-margin-start">
-              - 200.00
-              </ion-chip>
-            </ion-col>
-
-          </ion-row>
-        </ion-grid>
-
-
-      </ion-list> -->
-
-
-      <!-- <ion-list-header>
-        <ion-label><ion-icon name="calendar"></ion-icon>Yesterday</ion-label>
-      </ion-list-header>
-      <ion-list>
-        <ion-grid>
-          <ion-row style="width: 100%; height: 100%;">
-            <ion-col size="4"> 
-              <ion-chip class="ion-margin-start">
-                  <ion-icon name="arrow-round-back"></ion-icon>
-                <ion-label>Received</ion-label>
-              </ion-chip>
-            </ion-col>
-
-            <ion-col size="4"> 
-              
-                <ion-label>
-                  <h3 style="font-weight: bold;">0xf53B48a78B7B5111347b4dED5769BAA11f65ea26</h3>
-                  <p>16:48</p>
-                </ion-label>
-            
-            </ion-col>
-
-            <ion-col size="4" style="text-overflow: ellipsis;"> 
-              <ion-chip class="ion-margin-start">
-              + 50.00
-              </ion-chip>
-            </ion-col>
-
-          </ion-row>
-
-          <ion-row style="width: 100%; height: 100%;">
-            <ion-col size="4"> 
-              <ion-chip class="ion-margin-start">
-                  <ion-icon name="arrow-round-forward"></ion-icon>
-                <ion-label>Sent</ion-label>
-              </ion-chip>
-            </ion-col>
-
-            <ion-col size="4">
-              <ion-label>
-                <h3 style="font-weight: bold;">0xf53B48a78B7B5111347b4dED5769BAA11f65ea26</h3>
-                <p>17:00</p>
-              </ion-label>
-            </ion-col>
-
-            <ion-col size="4" style="text-overflow: ellipsis;"> 
-              <ion-chip class="ion-margin-start">
-              - 200.00
-              </ion-chip>
-            </ion-col>
-
-          </ion-row>
-        </ion-grid>
-
-
-      </ion-list>
-
-
-    </ion-card-content>
-  </ion-card> -->
-
-
 </ion-content>
 
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons>
+      <ion-button shape="" expand="block" type="button"  (click)="giveMe50()">
+        <ion-icon name="cash" slot="start"></ion-icon> Gimme 50
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
+</ion-app>

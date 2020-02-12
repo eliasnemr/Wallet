@@ -263,6 +263,8 @@ J2OBJC_IGNORE_DESIGNATED_END
 - (void)run {
   [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out))) printlnWithNSString:@"Minima Started.."];
   JavaUtilArrayList *vars = create_JavaUtilArrayList_init();
+//    [vars addWithId:@"-private"];
+//    [vars addWithId:@"-daemon"];
   [vars addWithId:@"-clean"];
 //  [vars addWithId:@"-port"];
 //  [vars addWithId:@"9002"];

@@ -3,25 +3,21 @@
 }
 
 .transparentBody {
-	background: none transparent !important;
-	--background: none transparent !important;
+	background: transparent !important;
 }
 
-ion-app.transparentBody ion-nav{opacity:0}
+// ion-app.transparentBody ion-nav{opacity:0}
 
-ion-app.transparentBody, ion-app.transparentBody ion-content, ion-app.transparentBody .nav-decor {
-	background: transparent none !important; 
-	--background: none transparent !important;
-  }
+// ion-app.transparentBody, ion-app.transparentBody ion-content, ion-app.transparentBody .nav-decor {
+	 
+// 	--background: none transparent !important;
+//   }
 
 ion-toolbar{
-
-
 	ion-menu-button{
 		--color:rgba(0, 0, 0, 0.5);
 	}
 
-	
 }
 
 ion-item{
@@ -66,7 +62,6 @@ ion-menu{
 
 ion-card{
 	--background:#e9ecef !important;
-	
 	box-shadow:none !important;
 }
 
