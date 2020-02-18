@@ -17,8 +17,8 @@
 #define OrgMinimaUtilsMerkleProof_
 
 @class JavaUtilArrayList;
-@class OrgMinimaObjectsBaseMiniData32;
 @class OrgMinimaObjectsBaseMiniData;
+@class OrgMinimaObjectsBaseMiniHash;
 
 @interface OrgMinimaUtilsMerkleProof : NSObject {
  @public
@@ -30,10 +30,10 @@
 
 - (instancetype)initWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zData;
 
-- (void)addBranchHashWithOrgMinimaObjectsBaseMiniData32:(OrgMinimaObjectsBaseMiniData32 *)zHash
-                                            withBoolean:(jboolean)zLeftRight;
+- (void)addBranchHashWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zHash
+                                          withBoolean:(jboolean)zLeftRight;
 
-- (OrgMinimaObjectsBaseMiniData32 *)calculateFinalHash;
+- (OrgMinimaObjectsBaseMiniHash *)calculateFinalHash;
 
 - (jint)getProofLen;
 
@@ -62,12 +62,12 @@ J2OBJC_TYPE_LITERAL_HEADER(OrgMinimaUtilsMerkleProof)
 #define OrgMinimaUtilsMerkleProof_MerkleProofChunk_
 
 @class OrgMinimaObjectsBaseMiniByte;
-@class OrgMinimaObjectsBaseMiniData32;
+@class OrgMinimaObjectsBaseMiniHash;
 @class OrgMinimaUtilsMerkleProof;
 
 @interface OrgMinimaUtilsMerkleProof_MerkleProofChunk : NSObject {
  @public
-  OrgMinimaObjectsBaseMiniData32 *mData_;
+  OrgMinimaObjectsBaseMiniHash *mData_;
   OrgMinimaObjectsBaseMiniByte *mLeftRight_;
 }
 
@@ -83,7 +83,7 @@ J2OBJC_TYPE_LITERAL_HEADER(OrgMinimaUtilsMerkleProof)
 
 J2OBJC_EMPTY_STATIC_INIT(OrgMinimaUtilsMerkleProof_MerkleProofChunk)
 
-J2OBJC_FIELD_SETTER(OrgMinimaUtilsMerkleProof_MerkleProofChunk, mData_, OrgMinimaObjectsBaseMiniData32 *)
+J2OBJC_FIELD_SETTER(OrgMinimaUtilsMerkleProof_MerkleProofChunk, mData_, OrgMinimaObjectsBaseMiniHash *)
 J2OBJC_FIELD_SETTER(OrgMinimaUtilsMerkleProof_MerkleProofChunk, mLeftRight_, OrgMinimaObjectsBaseMiniByte *)
 
 FOUNDATION_EXPORT void OrgMinimaUtilsMerkleProof_MerkleProofChunk_initWithOrgMinimaUtilsMerkleProof_(OrgMinimaUtilsMerkleProof_MerkleProofChunk *self, OrgMinimaUtilsMerkleProof *outer$);

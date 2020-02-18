@@ -7,7 +7,7 @@
 #include "java/util/ArrayList.h"
 #include "org/minima/objects/base/MiniByte.h"
 #include "org/minima/objects/base/MiniData.h"
-#include "org/minima/objects/base/MiniData32.h"
+#include "org/minima/objects/base/MiniHash.h"
 #include "org/minima/utils/MerkleProof.h"
 
 @implementation OrgMinimaUtilsMerkleProof
@@ -17,15 +17,15 @@
   return self;
 }
 
-- (void)addBranchHashWithOrgMinimaObjectsBaseMiniData32:(OrgMinimaObjectsBaseMiniData32 *)zHash
-                                            withBoolean:(jboolean)zLeftRight {
+- (void)addBranchHashWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zHash
+                                          withBoolean:(jboolean)zLeftRight {
 }
 
 - (jint)getProofLen {
   return [((JavaUtilArrayList *) nil_chk(mBranch_)) size];
 }
 
-- (OrgMinimaObjectsBaseMiniData32 *)calculateFinalHash {
+- (OrgMinimaObjectsBaseMiniHash *)calculateFinalHash {
   return nil;
 }
 
@@ -40,13 +40,13 @@
     { NULL, NULL, 0x1, -1, 0, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 1, 2, -1, -1, -1, -1 },
     { NULL, "I", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsBaseMiniData32;", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMiniHash;", 0x1, -1, -1, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
   #pragma clang diagnostic ignored "-Wundeclared-selector"
   methods[0].selector = @selector(initWithOrgMinimaObjectsBaseMiniData:);
-  methods[1].selector = @selector(addBranchHashWithOrgMinimaObjectsBaseMiniData32:withBoolean:);
+  methods[1].selector = @selector(addBranchHashWithOrgMinimaObjectsBaseMiniHash:withBoolean:);
   methods[2].selector = @selector(getProofLen);
   methods[3].selector = @selector(calculateFinalHash);
   #pragma clang diagnostic pop
@@ -54,7 +54,7 @@
     { "mData_", "LOrgMinimaObjectsBaseMiniData;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mBranch_", "LJavaUtilArrayList;", .constantValue.asLong = 0, 0x0, -1, -1, 3, -1 },
   };
-  static const void *ptrTable[] = { "LOrgMinimaObjectsBaseMiniData;", "addBranchHash", "LOrgMinimaObjectsBaseMiniData32;Z", "Ljava/util/ArrayList<Lorg/minima/utils/MerkleProof$MerkleProofChunk;>;", "LOrgMinimaUtilsMerkleProof_MerkleProofChunk;" };
+  static const void *ptrTable[] = { "LOrgMinimaObjectsBaseMiniData;", "addBranchHash", "LOrgMinimaObjectsBaseMiniHash;Z", "Ljava/util/ArrayList<Lorg/minima/utils/MerkleProof$MerkleProofChunk;>;", "LOrgMinimaUtilsMerkleProof_MerkleProofChunk;" };
   static const J2ObjcClassInfo _OrgMinimaUtilsMerkleProof = { "MerkleProof", "org.minima.utils", ptrTable, methods, fields, 7, 0x1, 4, 2, -1, 4, -1, -1, -1 };
   return &_OrgMinimaUtilsMerkleProof;
 }
@@ -100,7 +100,7 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(OrgMinimaUtilsMerkleProof)
   methods[0].selector = @selector(initWithOrgMinimaUtilsMerkleProof:);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
-    { "mData_", "LOrgMinimaObjectsBaseMiniData32;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
+    { "mData_", "LOrgMinimaObjectsBaseMiniHash;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mLeftRight_", "LOrgMinimaObjectsBaseMiniByte;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
   };
   static const void *ptrTable[] = { "LOrgMinimaUtilsMerkleProof;" };

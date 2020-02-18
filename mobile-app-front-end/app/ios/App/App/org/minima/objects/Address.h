@@ -22,28 +22,28 @@
 
 @class JavaIoDataInputStream;
 @class JavaIoDataOutputStream;
-@class OrgMinimaObjectsBaseMiniData32;
+@class OrgMinimaObjectsBaseMiniHash;
 @class OrgMinimaUtilsJsonJSONObject;
 
 @interface OrgMinimaObjectsAddress : NSObject < OrgMinimaUtilsStreamable > {
  @public
   NSString *mScript_;
-  OrgMinimaObjectsBaseMiniData32 *mAddressData_;
+  OrgMinimaObjectsBaseMiniHash *mAddressData_;
 }
 
 #pragma mark Public
 
 - (instancetype)init;
 
-- (instancetype)initWithOrgMinimaObjectsBaseMiniData32:(OrgMinimaObjectsBaseMiniData32 *)zAddressData;
+- (instancetype)initWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zAddressData;
 
 - (instancetype)initWithNSString:(NSString *)zScript;
 
-- (OrgMinimaObjectsBaseMiniData32 *)getAddressData;
+- (OrgMinimaObjectsBaseMiniHash *)getAddressData;
 
 - (NSString *)getScript;
 
-- (jboolean)isEqualWithOrgMinimaObjectsBaseMiniData32:(OrgMinimaObjectsBaseMiniData32 *)zAddress;
+- (jboolean)isEqualWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zAddress;
 
 - (void)readDataStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn;
 
@@ -60,7 +60,7 @@
 J2OBJC_STATIC_INIT(OrgMinimaObjectsAddress)
 
 J2OBJC_FIELD_SETTER(OrgMinimaObjectsAddress, mScript_, NSString *)
-J2OBJC_FIELD_SETTER(OrgMinimaObjectsAddress, mAddressData_, OrgMinimaObjectsBaseMiniData32 *)
+J2OBJC_FIELD_SETTER(OrgMinimaObjectsAddress, mAddressData_, OrgMinimaObjectsBaseMiniHash *)
 
 inline OrgMinimaObjectsAddress *OrgMinimaObjectsAddress_get_TRUE_ADDRESS(void);
 inline OrgMinimaObjectsAddress *OrgMinimaObjectsAddress_set_TRUE_ADDRESS(OrgMinimaObjectsAddress *value);
@@ -80,11 +80,11 @@ FOUNDATION_EXPORT OrgMinimaObjectsAddress *new_OrgMinimaObjectsAddress_initWithN
 
 FOUNDATION_EXPORT OrgMinimaObjectsAddress *create_OrgMinimaObjectsAddress_initWithNSString_(NSString *zScript);
 
-FOUNDATION_EXPORT void OrgMinimaObjectsAddress_initWithOrgMinimaObjectsBaseMiniData32_(OrgMinimaObjectsAddress *self, OrgMinimaObjectsBaseMiniData32 *zAddressData);
+FOUNDATION_EXPORT void OrgMinimaObjectsAddress_initWithOrgMinimaObjectsBaseMiniHash_(OrgMinimaObjectsAddress *self, OrgMinimaObjectsBaseMiniHash *zAddressData);
 
-FOUNDATION_EXPORT OrgMinimaObjectsAddress *new_OrgMinimaObjectsAddress_initWithOrgMinimaObjectsBaseMiniData32_(OrgMinimaObjectsBaseMiniData32 *zAddressData) NS_RETURNS_RETAINED;
+FOUNDATION_EXPORT OrgMinimaObjectsAddress *new_OrgMinimaObjectsAddress_initWithOrgMinimaObjectsBaseMiniHash_(OrgMinimaObjectsBaseMiniHash *zAddressData) NS_RETURNS_RETAINED;
 
-FOUNDATION_EXPORT OrgMinimaObjectsAddress *create_OrgMinimaObjectsAddress_initWithOrgMinimaObjectsBaseMiniData32_(OrgMinimaObjectsBaseMiniData32 *zAddressData);
+FOUNDATION_EXPORT OrgMinimaObjectsAddress *create_OrgMinimaObjectsAddress_initWithOrgMinimaObjectsBaseMiniHash_(OrgMinimaObjectsBaseMiniHash *zAddressData);
 
 J2OBJC_TYPE_LITERAL_HEADER(OrgMinimaObjectsAddress)
 

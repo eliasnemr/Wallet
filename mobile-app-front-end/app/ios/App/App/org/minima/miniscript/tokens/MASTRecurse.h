@@ -18,7 +18,7 @@
 
 @class IOSObjectArray;
 @class JavaUtilHashtable;
-@class OrgMinimaObjectsBaseMiniData32;
+@class OrgMinimaObjectsBaseMiniHash;
 
 @interface OrgMinimaMiniscriptTokensMASTRecurse : NSObject
 
@@ -30,8 +30,8 @@
 
 + (void)mainWithNSStringArray:(IOSObjectArray *)zArgs;
 
-+ (OrgMinimaObjectsBaseMiniData32 *)MASTWithNSString:(NSString *)zRamScript
-                               withJavaUtilHashtable:(JavaUtilHashtable *)zTable;
++ (OrgMinimaObjectsBaseMiniHash *)MASTWithNSString:(NSString *)zRamScript
+                             withJavaUtilHashtable:(JavaUtilHashtable *)zTable;
 
 @end
 
@@ -43,7 +43,7 @@ FOUNDATION_EXPORT OrgMinimaMiniscriptTokensMASTRecurse *new_OrgMinimaMiniscriptT
 
 FOUNDATION_EXPORT OrgMinimaMiniscriptTokensMASTRecurse *create_OrgMinimaMiniscriptTokensMASTRecurse_init(void);
 
-FOUNDATION_EXPORT OrgMinimaObjectsBaseMiniData32 *OrgMinimaMiniscriptTokensMASTRecurse_MASTWithNSString_withJavaUtilHashtable_(NSString *zRamScript, JavaUtilHashtable *zTable);
+FOUNDATION_EXPORT OrgMinimaObjectsBaseMiniHash *OrgMinimaMiniscriptTokensMASTRecurse_MASTWithNSString_withJavaUtilHashtable_(NSString *zRamScript, JavaUtilHashtable *zTable);
 
 FOUNDATION_EXPORT void OrgMinimaMiniscriptTokensMASTRecurse_mainWithNSStringArray_(IOSObjectArray *zArgs);
 

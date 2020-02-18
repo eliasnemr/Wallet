@@ -10,7 +10,7 @@
 #include "java/math/BigInteger.h"
 #include "org/minima/database/mmr/MMRData.h"
 #include "org/minima/database/mmr/MMREntry.h"
-#include "org/minima/objects/base/MiniData32.h"
+#include "org/minima/objects/base/MiniHash.h"
 #include "org/minima/objects/base/MiniNumber.h"
 #include "org/minima/utils/MinimaLogger.h"
 
@@ -67,7 +67,7 @@ withOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zEntry {
   return mBlockTime_;
 }
 
-- (OrgMinimaObjectsBaseMiniData32 *)getHashValue {
+- (OrgMinimaObjectsBaseMiniHash *)getHashValue {
   if ([self isEmpty]) {
     OrgMinimaUtilsMinimaLogger_logWithNSString_(JreStrcat("$@", @"ERROR NULL Entry : ", self));
   }
@@ -167,7 +167,7 @@ withOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zEntry {
     { NULL, "LOrgMinimaDatabaseMmrMMRData;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 5, 6, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsBaseMiniData32;", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMiniHash;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LNSString;", 0x1, 7, -1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "I", 0x1, -1, -1, -1, -1, -1, -1 },

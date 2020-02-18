@@ -48,8 +48,8 @@ NSString *OrgMinimaSystemBackupBackupManager_BACKUP_POSTACTION_HANDLER = @"BACKU
 @implementation OrgMinimaSystemBackupBackupManager
 
 - (instancetype)initWithOrgMinimaSystemMain:(OrgMinimaSystemMain *)zMain
-                               withNSString:(NSString *)zHomeFolder {
-  OrgMinimaSystemBackupBackupManager_initWithOrgMinimaSystemMain_withNSString_(self, zMain, zHomeFolder);
+                               withNSString:(NSString *)zConfFolder {
+  OrgMinimaSystemBackupBackupManager_initWithOrgMinimaSystemMain_withNSString_(self, zMain, zConfFolder);
   return self;
 }
 
@@ -80,7 +80,7 @@ NSString *OrgMinimaSystemBackupBackupManager_BACKUP_POSTACTION_HANDLER = @"BACKU
     OrgMinimaSystemBackupBackupManager_initFolders(self);
   }
   else if ([zMessage isMessageTypeWithNSString:OrgMinimaSystemBackupBackupManager_BACKUP_CLEAR]) {
-    JavaIoFile *root = create_JavaIoFile_initWithJavaIoFile_withNSString_(create_JavaIoFile_initWithNSString_(mHomeFolder_), @"minima");
+    JavaIoFile *root = create_JavaIoFile_initWithNSString_(mConfigurationFolder_);
     if ([root exists]) {
       OrgMinimaUtilsMinimaLogger_logWithNSString_(JreStrcat("$$", @"Wiping Minima Folder : ", [root getAbsolutePath]));
       OrgMinimaSystemBackupBackupManager_deleteFolderWithJavaIoFile_(root);
@@ -167,7 +167,7 @@ NSString *OrgMinimaSystemBackupBackupManager_BACKUP_POSTACTION_HANDLER = @"BACKU
 }
 
 - (void)dealloc {
-  RELEASE_(mHomeFolder_);
+  RELEASE_(mConfigurationFolder_);
   RELEASE_(mRoot_);
   RELEASE_(mBackup_);
   RELEASE_(mTxPOWDB_);
@@ -211,7 +211,7 @@ NSString *OrgMinimaSystemBackupBackupManager_BACKUP_POSTACTION_HANDLER = @"BACKU
     { "BACKUP_READTXPOW", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 18, -1, -1 },
     { "BACKUP_POSTACTIONMSG", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 19, -1, -1 },
     { "BACKUP_POSTACTION_HANDLER", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 20, -1, -1 },
-    { "mHomeFolder_", "LNSString;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
+    { "mConfigurationFolder_", "LNSString;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mRoot_", "LJavaIoFile;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mBackup_", "LJavaIoFile;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mTxPOWDB_", "LJavaIoFile;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
@@ -223,19 +223,19 @@ NSString *OrgMinimaSystemBackupBackupManager_BACKUP_POSTACTION_HANDLER = @"BACKU
 
 @end
 
-void OrgMinimaSystemBackupBackupManager_initWithOrgMinimaSystemMain_withNSString_(OrgMinimaSystemBackupBackupManager *self, OrgMinimaSystemMain *zMain, NSString *zHomeFolder) {
+void OrgMinimaSystemBackupBackupManager_initWithOrgMinimaSystemMain_withNSString_(OrgMinimaSystemBackupBackupManager *self, OrgMinimaSystemMain *zMain, NSString *zConfFolder) {
   OrgMinimaSystemSystemHandler_initWithOrgMinimaSystemMain_withNSString_(self, zMain, @"Backup Manager");
-  JreStrongAssign(&self->mHomeFolder_, @"");
-  JreStrongAssign(&self->mHomeFolder_, zHomeFolder);
+  JreStrongAssign(&self->mConfigurationFolder_, @"");
+  JreStrongAssign(&self->mConfigurationFolder_, zConfFolder);
   [self PostMessageWithNSString:OrgMinimaSystemBackupBackupManager_BACKUP_INIT];
 }
 
-OrgMinimaSystemBackupBackupManager *new_OrgMinimaSystemBackupBackupManager_initWithOrgMinimaSystemMain_withNSString_(OrgMinimaSystemMain *zMain, NSString *zHomeFolder) {
-  J2OBJC_NEW_IMPL(OrgMinimaSystemBackupBackupManager, initWithOrgMinimaSystemMain_withNSString_, zMain, zHomeFolder)
+OrgMinimaSystemBackupBackupManager *new_OrgMinimaSystemBackupBackupManager_initWithOrgMinimaSystemMain_withNSString_(OrgMinimaSystemMain *zMain, NSString *zConfFolder) {
+  J2OBJC_NEW_IMPL(OrgMinimaSystemBackupBackupManager, initWithOrgMinimaSystemMain_withNSString_, zMain, zConfFolder)
 }
 
-OrgMinimaSystemBackupBackupManager *create_OrgMinimaSystemBackupBackupManager_initWithOrgMinimaSystemMain_withNSString_(OrgMinimaSystemMain *zMain, NSString *zHomeFolder) {
-  J2OBJC_CREATE_IMPL(OrgMinimaSystemBackupBackupManager, initWithOrgMinimaSystemMain_withNSString_, zMain, zHomeFolder)
+OrgMinimaSystemBackupBackupManager *create_OrgMinimaSystemBackupBackupManager_initWithOrgMinimaSystemMain_withNSString_(OrgMinimaSystemMain *zMain, NSString *zConfFolder) {
+  J2OBJC_CREATE_IMPL(OrgMinimaSystemBackupBackupManager, initWithOrgMinimaSystemMain_withNSString_, zMain, zConfFolder)
 }
 
 JavaIoFile *OrgMinimaSystemBackupBackupManager_ensureFolderWithJavaIoFile_(OrgMinimaSystemBackupBackupManager *self, JavaIoFile *zFolder) {
@@ -246,7 +246,7 @@ JavaIoFile *OrgMinimaSystemBackupBackupManager_ensureFolderWithJavaIoFile_(OrgMi
 }
 
 void OrgMinimaSystemBackupBackupManager_initFolders(OrgMinimaSystemBackupBackupManager *self) {
-  JreStrongAssign(&self->mRoot_, OrgMinimaSystemBackupBackupManager_ensureFolderWithJavaIoFile_(self, create_JavaIoFile_initWithJavaIoFile_withNSString_(create_JavaIoFile_initWithNSString_(self->mHomeFolder_), @"minima")));
+  JreStrongAssign(&self->mRoot_, OrgMinimaSystemBackupBackupManager_ensureFolderWithJavaIoFile_(self, create_JavaIoFile_initWithNSString_(self->mConfigurationFolder_)));
   JreStrongAssign(&self->mTxPOWDB_, OrgMinimaSystemBackupBackupManager_ensureFolderWithJavaIoFile_(self, create_JavaIoFile_initWithJavaIoFile_withNSString_(self->mRoot_, @"txpow")));
   JreStrongAssign(&self->mBackup_, OrgMinimaSystemBackupBackupManager_ensureFolderWithJavaIoFile_(self, create_JavaIoFile_initWithJavaIoFile_withNSString_(self->mRoot_, @"backup")));
 }
@@ -265,13 +265,17 @@ void OrgMinimaSystemBackupBackupManager_deleteFolderWithJavaIoFile_(JavaIoFile *
           OrgMinimaSystemBackupBackupManager_deleteFolderWithJavaIoFile_(ff);
         }
         else {
-          [ff delete__];
+          if ([((NSString *) nil_chk([((NSString *) nil_chk([ff getAbsolutePath])) lowercaseString])) java_contains:@"minima"]) {
+            [ff delete__];
+          }
         }
       }
     }
   }
   if (zFolder != nil && [zFolder exists]) {
-    [zFolder delete__];
+    if ([((NSString *) nil_chk([((NSString *) nil_chk([zFolder getAbsolutePath])) lowercaseString])) java_contains:@"minima"]) {
+      [zFolder delete__];
+    }
   }
 }
 

@@ -3,7 +3,6 @@
 //  source: ./org/minima/Start.java
 //
 
-
 #include "IOSClass.h"
 #include "IOSObjectArray.h"
 #include "J2ObjC_source.h"
@@ -30,17 +29,16 @@
 #include "org/minima/utils/MinimaLogger.h"
 #include "org/minima/utils/ResponseStream.h"
 #include "org/minima/utils/messages/Message.h"
-
 #import "App-Swift.h"
 
-@interface OrgMinimaStart_1 :  NSObject < JavaLangRunnable >
+
+@interface OrgMinimaStart_1 : NSObject < JavaLangRunnable >
 
 - (instancetype)init;
 
 - (void)run;
 
 @end
-
 
 J2OBJC_EMPTY_STATIC_INIT(OrgMinimaStart_1)
 
@@ -66,7 +64,13 @@ __attribute__((unused)) static OrgMinimaStart_2 *new_OrgMinimaStart_2_init(void)
 
 __attribute__((unused)) static OrgMinimaStart_2 *create_OrgMinimaStart_2_init(void);
 
+OrgMinimaSystemMain *OrgMinimaStart_mMainServer;
+
 @implementation OrgMinimaStart
+
++ (OrgMinimaSystemMain *)getServer {
+  return OrgMinimaStart_getServer();
+}
 
 J2OBJC_IGNORE_DESIGNATED_BEGIN
 - (instancetype)init {
@@ -81,21 +85,31 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 + (const J2ObjcClassInfo *)__metadata {
   static J2ObjcMethodInfo methods[] = {
+    { NULL, "LOrgMinimaSystemMain;", 0x9, -1, -1, -1, -1, -1, -1 },
     { NULL, NULL, 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x9, 0, 1, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
   #pragma clang diagnostic ignored "-Wundeclared-selector"
-  methods[0].selector = @selector(init);
-  methods[1].selector = @selector(mainWithNSStringArray:);
+  methods[0].selector = @selector(getServer);
+  methods[1].selector = @selector(init);
+  methods[2].selector = @selector(mainWithNSStringArray:);
   #pragma clang diagnostic pop
-  static const void *ptrTable[] = { "main", "[LNSString;" };
-  static const J2ObjcClassInfo _OrgMinimaStart = { "Start", "org.minima", ptrTable, methods, NULL, 7, 0x1, 2, 0, -1, -1, -1, -1, -1 };
+  static const J2ObjcFieldInfo fields[] = {
+    { "mMainServer", "LOrgMinimaSystemMain;", .constantValue.asLong = 0, 0x9, -1, 2, -1, -1 },
+  };
+  static const void *ptrTable[] = { "main", "[LNSString;", &OrgMinimaStart_mMainServer };
+  static const J2ObjcClassInfo _OrgMinimaStart = { "Start", "org.minima", ptrTable, methods, fields, 7, 0x1, 3, 1, -1, -1, -1, -1, -1 };
   return &_OrgMinimaStart;
 }
 
 @end
+
+OrgMinimaSystemMain *OrgMinimaStart_getServer() {
+  OrgMinimaStart_initialize();
+  return OrgMinimaStart_mMainServer;
+}
 
 void OrgMinimaStart_init(OrgMinimaStart *self) {
   NSObject_init(self);
@@ -125,7 +139,8 @@ void OrgMinimaStart_mainWithNSStringArray_(IOSObjectArray *zArgs) {
   jboolean clean = false;
   jboolean genesis = false;
   jboolean daemon = false;
-  NSString *conffolder = JreStrcat("$$", JavaLangSystem_getPropertyWithNSString_(@"user.home"), @"/minima");
+  JavaIoFile *conf = create_JavaIoFile_initWithNSString_withNSString_(JavaLangSystem_getPropertyWithNSString_(@"user.home"), @".minima");
+  NSString *conffolder = [conf getAbsolutePath];
   if (arglen > 0) {
     jint counter = 0;
     while (counter < arglen) {
@@ -190,6 +205,7 @@ void OrgMinimaStart_mainWithNSStringArray_(IOSObjectArray *zArgs) {
     OrgMinimaSystemBackupBackupManager_deleteFolderWithJavaIoFile_(create_JavaIoFile_initWithNSString_(conffolder));
   }
   OrgMinimaSystemMain *rcmainserver = create_OrgMinimaSystemMain_initWithInt_withInt_withBoolean_withNSString_(port, rpcport, genesis, conffolder);
+  JreStrongAssign(&OrgMinimaStart_mMainServer, rcmainserver);
   [rcmainserver setAutoConnectWithBoolean:connect];
   JreStrongAssign(&rcmainserver->mAutoHost_, connecthost);
   rcmainserver->mAutoPort_ = connectport;
@@ -221,7 +237,7 @@ void OrgMinimaStart_mainWithNSStringArray_(IOSObjectArray *zArgs) {
       @try {
         NSString *input = [((NSString *) nil_chk([bis readLine])) java_trim];
         OrgMinimaUtilsResponseStream *response = create_OrgMinimaUtilsResponseStream_init();
-        if (![((NSString *) nil_chk(input)) isEqual:@""]) {
+        if (input != nil && ![input isEqual:@""]) {
           OrgMinimaSystemInputInputMessage *inmsg = create_OrgMinimaSystemInputInputMessage_initWithNSString_withOrgMinimaUtilsResponseStream_(input, response);
           [((OrgMinimaSystemInputInputHandler *) nil_chk([rcmainserver getInputHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:inmsg];
           if ([((NSString *) nil_chk([input lowercaseString])) isEqual:@"quit"]) {
@@ -263,15 +279,13 @@ J2OBJC_IGNORE_DESIGNATED_END
 - (void)run {
   [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out))) printlnWithNSString:@"Minima Started.."];
   JavaUtilArrayList *vars = create_JavaUtilArrayList_init();
-//    [vars addWithId:@"-private"];
-//    [vars addWithId:@"-daemon"];
-  [vars addWithId:@"-clean"];
+    [vars addWithId:@"-private"];
+    [vars addWithId:@"-daemon"];
+//    [vars addWithId:@"-clean"];
 //  [vars addWithId:@"-port"];
-//  [vars addWithId:@"9002"];
-//  [vars addWithId:@"-rpcport"];
-//  [vars addWithId:@"7999"];
+//  [vars addWithId:@"9001"];
 //  [vars addWithId:@"-connect"];
-//  [vars addWithId:@"127.0.0.1"];
+//  [vars addWithId:@"34.65.19.123"];
 //  [vars addWithId:@"9001"];
   OrgMinimaStart_mainWithNSStringArray_([vars toArrayWithNSObjectArray:[IOSObjectArray arrayWithLength:0 type:NSString_class_()]]);
 }
@@ -315,18 +329,16 @@ J2OBJC_IGNORE_DESIGNATED_BEGIN
 }
 J2OBJC_IGNORE_DESIGNATED_END
 
-// Notification
-
-
 - (void)processMessageWithOrgMinimaUtilsMessagesMessage:(OrgMinimaUtilsMessagesMessage *)zMessage {
-  if ([((OrgMinimaUtilsMessagesMessage *) nil_chk(zMessage)) isMessageTypeWithNSString:OrgMinimaSystemBrainsConsensusHandler_CONSENSUS_NOTIFY_BALANCE]) {
-      
-      //Notification call through Swift
-      TestClass *insta = [[TestClass alloc] init];
-      
-      
-      [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out)))printlnWithNSString:JreStrcat("$@", @"You just received some money. ", zMessage)];
-  }
+    if ([((OrgMinimaUtilsMessagesMessage *) nil_chk(zMessage)) isMessageTypeWithNSString:OrgMinimaSystemBrainsConsensusHandler_CONSENSUS_NOTIFY_BALANCE]) {
+        
+        //Notification call through Swift
+        TestClass *insta = [[TestClass alloc] init];
+        
+        
+        [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out)))printlnWithNSString:JreStrcat("$@", @"You just received some money. ", zMessage)];
+    }
+    
 }
 
 + (const J2ObjcClassInfo *)__metadata {

@@ -6,7 +6,7 @@
 #include "J2ObjC_source.h"
 #include "java/lang/Boolean.h"
 #include "org/minima/objects/Coin.h"
-#include "org/minima/objects/base/MiniData32.h"
+#include "org/minima/objects/base/MiniHash.h"
 #include "org/minima/system/Main.h"
 #include "org/minima/system/SystemHandler.h"
 #include "org/minima/system/external/ProcessManager.h"
@@ -37,13 +37,13 @@ NSString *OrgMinimaSystemExternalProcessManager_PROCESS_RELCOIN = @"PROCESS_RELC
   else if ([((NSString *) nil_chk([zMessage getMessageType])) isEqual:OrgMinimaSystemExternalProcessManager_PROCESS_RELCOIN]) {
     if (![((NSString *) nil_chk(mRelCoin_)) isEqual:@""]) {
       OrgMinimaObjectsCoin *cc = (OrgMinimaObjectsCoin *) cast_chk([zMessage getObjectWithNSString:@"coin"], [OrgMinimaObjectsCoin class]);
-      OrgMinimaObjectsBaseMiniData32 *transid = (OrgMinimaObjectsBaseMiniData32 *) cast_chk([zMessage getObjectWithNSString:@"transid"], [OrgMinimaObjectsBaseMiniData32 class]);
-      OrgMinimaObjectsBaseMiniData32 *txpowid = (OrgMinimaObjectsBaseMiniData32 *) cast_chk([zMessage getObjectWithNSString:@"txpowid"], [OrgMinimaObjectsBaseMiniData32 class]);
+      OrgMinimaObjectsBaseMiniHash *transid = (OrgMinimaObjectsBaseMiniHash *) cast_chk([zMessage getObjectWithNSString:@"transid"], [OrgMinimaObjectsBaseMiniHash class]);
+      OrgMinimaObjectsBaseMiniHash *txpowid = (OrgMinimaObjectsBaseMiniHash *) cast_chk([zMessage getObjectWithNSString:@"txpowid"], [OrgMinimaObjectsBaseMiniHash class]);
       jboolean spent = [zMessage getBooleanWithNSString:@"spent"];
       OrgMinimaUtilsJsonJSONObject *data = create_OrgMinimaUtilsJsonJSONObject_init();
       [data putWithId:@"coin" withId:[((OrgMinimaObjectsCoin *) nil_chk(cc)) toJSON]];
-      [data putWithId:@"transid" withId:[((OrgMinimaObjectsBaseMiniData32 *) nil_chk(transid)) description]];
-      [data putWithId:@"txpowid" withId:[((OrgMinimaObjectsBaseMiniData32 *) nil_chk(txpowid)) description]];
+      [data putWithId:@"transid" withId:[((OrgMinimaObjectsBaseMiniHash *) nil_chk(transid)) description]];
+      [data putWithId:@"txpowid" withId:[((OrgMinimaObjectsBaseMiniHash *) nil_chk(txpowid)) description]];
       [data putWithId:@"spent" withId:JavaLangBoolean_valueOfWithBoolean_(spent)];
     }
   }

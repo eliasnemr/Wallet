@@ -13,7 +13,7 @@
 #include "org/minima/database/txpowtree/BlockTreeNode.h"
 #include "org/minima/database/txpowtree/CascadeTree.h"
 #include "org/minima/objects/TxPOW.h"
-#include "org/minima/objects/base/MiniData32.h"
+#include "org/minima/objects/base/MiniHash.h"
 #include "org/minima/objects/base/MiniNumber.h"
 
 @interface OrgMinimaDatabaseTxpowtreeCascadeTree ()
@@ -171,7 +171,7 @@ JavaUtilArrayList *OrgMinimaDatabaseTxpowtreeCascadeTree_removeLowerLevelsWithJa
       [ret addWithId:copy_];
     }
     else {
-      id<OrgMinimaDatabaseTxpowdbTxPOWDBRow> row = [((OrgMinimaDatabaseMinimaDB *) nil_chk(self->mDB_)) getTxPOWRowWithOrgMinimaObjectsBaseMiniData32:[node getTxPowID]];
+      id<OrgMinimaDatabaseTxpowdbTxPOWDBRow> row = [((OrgMinimaDatabaseMinimaDB *) nil_chk(self->mDB_)) getTxPOWRowWithOrgMinimaObjectsBaseMiniHash:[node getTxPowID]];
       [((id<OrgMinimaDatabaseTxpowdbTxPOWDBRow>) nil_chk(row)) setOnChainBlockWithBoolean:false];
       [((JavaUtilArrayList *) nil_chk(self->mRemovals_)) addWithId:node];
     }

@@ -28,6 +28,7 @@
   OrgMinimaSystemInputInputHandler *mInputHandler_;
   JavaNetServerSocket *mServerSocket_;
   jint mPort_;
+  NSString *mHost_;
   jboolean mRunning_;
 }
 
@@ -35,6 +36,10 @@
 
 - (instancetype)initWithOrgMinimaSystemInputInputHandler:(OrgMinimaSystemInputInputHandler *)zInput
                                                  withInt:(jint)zPort;
+
+- (NSString *)getHost;
+
+- (NSString *)getIPAddress;
 
 - (jint)getPort;
 
@@ -52,6 +57,7 @@ J2OBJC_EMPTY_STATIC_INIT(OrgMinimaSystemNetworkRpcRPCServer)
 
 J2OBJC_FIELD_SETTER(OrgMinimaSystemNetworkRpcRPCServer, mInputHandler_, OrgMinimaSystemInputInputHandler *)
 J2OBJC_FIELD_SETTER(OrgMinimaSystemNetworkRpcRPCServer, mServerSocket_, JavaNetServerSocket *)
+J2OBJC_FIELD_SETTER(OrgMinimaSystemNetworkRpcRPCServer, mHost_, NSString *)
 
 FOUNDATION_EXPORT void OrgMinimaSystemNetworkRpcRPCServer_initWithOrgMinimaSystemInputInputHandler_withInt_(OrgMinimaSystemNetworkRpcRPCServer *self, OrgMinimaSystemInputInputHandler *zInput, jint zPort);
 

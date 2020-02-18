@@ -48,7 +48,7 @@
 - (instancetype)initWithInt:(jint)zPort
                     withInt:(jint)zRPCPort
                 withBoolean:(jboolean)zGenesis
-               withNSString:(NSString *)zHomeFolder;
+               withNSString:(NSString *)zConfFolder;
 
 - (OrgMinimaSystemBackupBackupManager *)getBackupManager;
 
@@ -88,8 +88,6 @@
 - (void)processMessageWithOrgMinimaUtilsMessagesMessage:(OrgMinimaUtilsMessagesMessage *)zMessage;
 
 // Disallowed inherited constructors, do not use.
-
-- (instancetype)init NS_UNAVAILABLE;
 
 - (instancetype)initWithNSString:(NSString *)arg0 NS_UNAVAILABLE;
 
@@ -131,11 +129,11 @@ inline NSString *OrgMinimaSystemMain_get_SYSTEM_EVENT(void);
 FOUNDATION_EXPORT NSString *OrgMinimaSystemMain_SYSTEM_EVENT;
 J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemMain, SYSTEM_EVENT, NSString *)
 
-FOUNDATION_EXPORT void OrgMinimaSystemMain_initWithInt_withInt_withBoolean_withNSString_(OrgMinimaSystemMain *self, jint zPort, jint zRPCPort, jboolean zGenesis, NSString *zHomeFolder);
+FOUNDATION_EXPORT void OrgMinimaSystemMain_initWithInt_withInt_withBoolean_withNSString_(OrgMinimaSystemMain *self, jint zPort, jint zRPCPort, jboolean zGenesis, NSString *zConfFolder);
 
-FOUNDATION_EXPORT OrgMinimaSystemMain *new_OrgMinimaSystemMain_initWithInt_withInt_withBoolean_withNSString_(jint zPort, jint zRPCPort, jboolean zGenesis, NSString *zHomeFolder) NS_RETURNS_RETAINED;
+FOUNDATION_EXPORT OrgMinimaSystemMain *new_OrgMinimaSystemMain_initWithInt_withInt_withBoolean_withNSString_(jint zPort, jint zRPCPort, jboolean zGenesis, NSString *zConfFolder) NS_RETURNS_RETAINED;
 
-FOUNDATION_EXPORT OrgMinimaSystemMain *create_OrgMinimaSystemMain_initWithInt_withInt_withBoolean_withNSString_(jint zPort, jint zRPCPort, jboolean zGenesis, NSString *zHomeFolder);
+FOUNDATION_EXPORT OrgMinimaSystemMain *create_OrgMinimaSystemMain_initWithInt_withInt_withBoolean_withNSString_(jint zPort, jint zRPCPort, jboolean zGenesis, NSString *zConfFolder);
 
 J2OBJC_TYPE_LITERAL_HEADER(OrgMinimaSystemMain)
 

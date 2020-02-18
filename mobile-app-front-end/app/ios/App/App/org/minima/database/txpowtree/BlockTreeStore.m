@@ -11,7 +11,7 @@
 #include "org/minima/database/txpowtree/BlockTreeNode.h"
 #include "org/minima/database/txpowtree/BlockTreeStore.h"
 #include "org/minima/objects/base/MiniByte.h"
-#include "org/minima/objects/base/MiniData32.h"
+#include "org/minima/objects/base/MiniHash.h"
 
 @interface OrgMinimaDatabaseTxpowtreeBlockTreeStore ()
 
@@ -112,7 +112,7 @@ void OrgMinimaDatabaseTxpowtreeBlockTreeStore_recursivewriteWithOrgMinimaDatabas
   else {
     [((OrgMinimaObjectsBaseMiniByte *) nil_chk(JreLoadStatic(OrgMinimaObjectsBaseMiniByte, FALSE))) writeDataStreamWithJavaIoDataOutputStream:zOut];
   }
-  [((OrgMinimaObjectsBaseMiniData32 *) nil_chk([zNode getTxPowID])) writeDataStreamWithJavaIoDataOutputStream:zOut];
+  [((OrgMinimaObjectsBaseMiniHash *) nil_chk([zNode getTxPowID])) writeDataStreamWithJavaIoDataOutputStream:zOut];
   JavaUtilArrayList *children = [zNode getChildren];
   jint len = [((JavaUtilArrayList *) nil_chk(children)) size];
   [((JavaIoDataOutputStream *) nil_chk(zOut)) writeIntWithInt:len];

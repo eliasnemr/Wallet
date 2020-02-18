@@ -14,7 +14,7 @@
 #include "org/minima/miniscript/values/Value.h"
 #include "org/minima/objects/Coin.h"
 #include "org/minima/objects/Transaction.h"
-#include "org/minima/objects/base/MiniData32.h"
+#include "org/minima/objects/base/MiniHash.h"
 #include "org/minima/objects/base/MiniNumber.h"
 
 @implementation OrgMinimaMiniscriptFunctionsTxnSUMINTOK
@@ -27,12 +27,12 @@ J2OBJC_IGNORE_DESIGNATED_BEGIN
 J2OBJC_IGNORE_DESIGNATED_END
 
 - (OrgMinimaMiniscriptValuesValue *)runFunctionWithOrgMinimaMiniscriptContract:(OrgMinimaMiniscriptContract *)zContract {
-  OrgMinimaObjectsBaseMiniData32 *token = create_OrgMinimaObjectsBaseMiniData32_initWithByteArray_([((OrgMinimaMiniscriptValuesValue *) nil_chk([((id<OrgMinimaMiniscriptExpressionsExpression>) nil_chk([self getParameterWithInt:0])) getValueWithOrgMinimaMiniscriptContract:zContract])) getRawData]);
+  OrgMinimaObjectsBaseMiniHash *token = create_OrgMinimaObjectsBaseMiniHash_initWithByteArray_([((OrgMinimaMiniscriptValuesValue *) nil_chk([((id<OrgMinimaMiniscriptExpressionsExpression>) nil_chk([self getParameterWithInt:0])) getValueWithOrgMinimaMiniscriptContract:zContract])) getRawData]);
   OrgMinimaObjectsTransaction *trans = [((OrgMinimaMiniscriptContract *) nil_chk(zContract)) getTransaction];
   JavaUtilArrayList *ins = [((OrgMinimaObjectsTransaction *) nil_chk(trans)) getAllInputs];
   OrgMinimaObjectsBaseMiniNumber *total = JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, ZERO);
   for (OrgMinimaObjectsCoin * __strong cc in nil_chk(ins)) {
-    if ([((OrgMinimaObjectsBaseMiniData32 *) nil_chk([((OrgMinimaObjectsCoin *) nil_chk(cc)) getTokenID])) isExactlyEqualWithOrgMinimaObjectsBaseMiniData:token]) {
+    if ([((OrgMinimaObjectsBaseMiniHash *) nil_chk([((OrgMinimaObjectsCoin *) nil_chk(cc)) getTokenID])) isExactlyEqualWithOrgMinimaObjectsBaseMiniData:token]) {
       total = [((OrgMinimaObjectsBaseMiniNumber *) nil_chk(total)) addWithOrgMinimaObjectsBaseMiniNumber:[cc getAmount]];
     }
   }

@@ -19,7 +19,7 @@
 @class IOSObjectArray;
 @class JavaMathBigDecimal;
 @class JavaMathBigInteger;
-@class OrgMinimaObjectsBaseMiniData32;
+@class OrgMinimaObjectsBaseMiniHash;
 
 @interface OrgMinimaUtilsSuperBlockLevels : NSObject {
  @public
@@ -33,7 +33,7 @@
 
 - (JavaMathBigDecimal *)get2POWWithInt:(jint)zExponent;
 
-- (jint)getSuperBlockLevelWithOrgMinimaObjectsBaseMiniData32:(OrgMinimaObjectsBaseMiniData32 *)zData;
+- (jint)getSuperBlockLevelWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zData;
 
 + (OrgMinimaUtilsSuperBlockLevels *)getSupers;
 

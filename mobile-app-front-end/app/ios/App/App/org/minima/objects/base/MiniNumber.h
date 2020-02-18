@@ -84,6 +84,8 @@
 
 - (OrgMinimaObjectsBaseMiniNumber *)multWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zNumber;
 
+- (OrgMinimaObjectsBaseMiniNumber *)powWithInt:(jint)zNumber;
+
 - (void)readDataStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn;
 
 + (OrgMinimaObjectsBaseMiniNumber *)ReadFromStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn;
@@ -127,6 +129,11 @@ inline OrgMinimaObjectsBaseMiniNumber *OrgMinimaObjectsBaseMiniNumber_get_EIGHT(
 /*! INTERNAL ONLY - Use accessor function from above. */
 FOUNDATION_EXPORT OrgMinimaObjectsBaseMiniNumber *OrgMinimaObjectsBaseMiniNumber_EIGHT;
 J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaObjectsBaseMiniNumber, EIGHT, OrgMinimaObjectsBaseMiniNumber *)
+
+inline OrgMinimaObjectsBaseMiniNumber *OrgMinimaObjectsBaseMiniNumber_get_TEN(void);
+/*! INTERNAL ONLY - Use accessor function from above. */
+FOUNDATION_EXPORT OrgMinimaObjectsBaseMiniNumber *OrgMinimaObjectsBaseMiniNumber_TEN;
+J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaObjectsBaseMiniNumber, TEN, OrgMinimaObjectsBaseMiniNumber *)
 
 inline OrgMinimaObjectsBaseMiniNumber *OrgMinimaObjectsBaseMiniNumber_get_MINUSONE(void);
 /*! INTERNAL ONLY - Use accessor function from above. */

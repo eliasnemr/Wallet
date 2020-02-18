@@ -54,7 +54,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 void OrgMinimaSystemInputFunctionsTransferimportkey_init(OrgMinimaSystemInputFunctionsTransferimportkey *self) {
   OrgMinimaSystemInputCommandFunction_initWithNSString_(self, @"importkey");
-  [self setHelpWithNSString:@"[ private key seed ]" withNSString:@"Import the private key seed of the public key" withNSString:@""];
+  [self setHelpWithNSString:@"[private key seed]" withNSString:@"Import the private key seed of the public key" withNSString:@""];
 }
 
 OrgMinimaSystemInputFunctionsTransferimportkey *new_OrgMinimaSystemInputFunctionsTransferimportkey_init() {

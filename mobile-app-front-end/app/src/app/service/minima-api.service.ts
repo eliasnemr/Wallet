@@ -35,9 +35,12 @@ export class MinimaApiService {
     } else {}
   }
 
-
   createToken(data: any) {
     return this.request('createtoken+' + data.token + '+' + data.amount);
+  }
+
+  webLink(data: any) {
+    return this.request('weblink+' + data.url);
   }
 
   getHost() {
@@ -59,7 +62,7 @@ export class MinimaApiService {
   }
 
   sendFunds(data: any) {
-    return this.request('send+' + data.amount + '+' + data.address);
+    return this.request('send+' + data.amount + '+' + data.address + '+' + data.tokenid);
   }
 
   giveMe50() {

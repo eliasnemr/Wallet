@@ -14,7 +14,7 @@
 #include "org/minima/miniscript/values/Value.h"
 #include "org/minima/objects/Coin.h"
 #include "org/minima/objects/Transaction.h"
-#include "org/minima/objects/base/MiniData32.h"
+#include "org/minima/objects/base/MiniHash.h"
 #include "org/minima/objects/base/MiniNumber.h"
 
 @implementation OrgMinimaMiniscriptFunctionsTxnInputGETINADDR

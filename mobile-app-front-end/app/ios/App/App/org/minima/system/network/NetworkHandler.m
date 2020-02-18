@@ -6,6 +6,7 @@
 #include "J2ObjC_source.h"
 #include "java/lang/Exception.h"
 #include "java/lang/Thread.h"
+#include "java/net/URLEncoder.h"
 #include "java/util/ArrayList.h"
 #include "org/minima/system/Main.h"
 #include "org/minima/system/SystemHandler.h"
@@ -14,8 +15,10 @@
 #include "org/minima/system/network/NetClient.h"
 #include "org/minima/system/network/NetworkHandler.h"
 #include "org/minima/system/network/WebProxyManager.h"
+#include "org/minima/system/network/rpc/RPCClient.h"
 #include "org/minima/system/network/rpc/RPCServer.h"
 #include "org/minima/utils/MinimaLogger.h"
+#include "org/minima/utils/json/JSONObject.h"
 #include "org/minima/utils/messages/Message.h"
 #include "org/minima/utils/messages/TimerMessage.h"
 
@@ -91,7 +94,7 @@ NSString *OrgMinimaSystemNetworkNetworkHandler_NETWORK_NOTIFY = @"NETWORK_NOTIFY
     }
     OrgMinimaUtilsMessagesMessage *msg = create_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemNetworkNetClient_NETCLIENT_SHUTDOWN);
     for (OrgMinimaSystemNetworkNetClient * __strong client in nil_chk(mClients_)) {
-      [((OrgMinimaSystemNetworkNetClient *) nil_chk(client)) PostMessageWithOrgMinimaUtilsMessagesMessage:msg];
+      [((OrgMinimaSystemNetworkNetClient *) nil_chk(client)) stopMessageProcessor];
     }
     [self stopMessageProcessor];
   }
@@ -101,14 +104,12 @@ NSString *OrgMinimaSystemNetworkNetworkHandler_NETWORK_NOTIFY = @"NETWORK_NOTIFY
     }
   }
   else if ([zMessage isMessageTypeWithNSString:OrgMinimaSystemNetworkNetworkHandler_NETWORK_WEBPROXY]) {
-    NSString *host = [zMessage getStringWithNSString:@"host"];
-    jint port = [zMessage getIntegerWithNSString:@"port"];
-    NSString *webhost = [zMessage getStringWithNSString:@"webhostid"];
-    if (mProxyManager_ != nil) {
-      [mProxyManager_ PostMessageWithNSString:OrgMinimaSystemNetworkWebProxyManager_WEBPROXY_SHUTDOWN];
-    }
-    JreStrongAssignAndConsume(&mProxyManager_, new_OrgMinimaSystemNetworkWebProxyManager_initWithNSString_withInt_withNSString_withOrgMinimaSystemNetworkNetworkHandler_(host, port, webhost, self));
-    OrgMinimaSystemInputInputHandler_endResponseWithOrgMinimaUtilsMessagesMessage_withBoolean_withNSString_(zMessage, true, @"ProxyWebLink started..");
+    NSString *uuid = [zMessage getStringWithNSString:@"uuid"];
+    NSString *ip = JreStrcat("$C$CI", uuid, '#', [((OrgMinimaSystemNetworkRpcRPCServer *) nil_chk([self getRPCServer])) getHost], ':', [((OrgMinimaSystemNetworkRpcRPCServer *) nil_chk([self getRPCServer])) getPort]);
+    NSString *url = JreStrcat("$$", @"http://10.0.121.68:9000/", JavaNetURLEncoder_encodeWithNSString_withNSString_(ip, @"UTF-8"));
+    OrgMinimaSystemNetworkRpcRPCClient_sendGETWithNSString_(url);
+    [((OrgMinimaUtilsJsonJSONObject *) nil_chk(OrgMinimaSystemInputInputHandler_getResponseJSONWithOrgMinimaUtilsMessagesMessage_(zMessage))) putWithId:@"url" withId:url];
+    OrgMinimaSystemInputInputHandler_endResponseWithOrgMinimaUtilsMessagesMessage_withBoolean_withNSString_(zMessage, true, @"");
   }
   else if ([zMessage isMessageTypeWithNSString:OrgMinimaSystemNetworkNetworkHandler_NETWORK_CONNECT]) {
     NSString *host = [zMessage getStringWithNSString:@"host"];

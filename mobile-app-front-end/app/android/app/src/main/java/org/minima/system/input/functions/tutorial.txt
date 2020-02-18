@@ -57,7 +57,7 @@ FUNCTION    ::= FUNC ( EXPRESSION1 EXPRESSION2 .. EXPRESSIONn )
 FUNC        ::= CONCAT | LEN | REV | SUBSET | RPLVAR |
                 ASCII | BOOL | HEX | NUMBER | SCRIPT |
                 ABS | CEIL | FLOOR | MIN | MAX | INC | DEC |
-                BITSET | BITGET | PROOF | SHA3 | SHA2 |
+                BITSET | BITGET | PROOF | SHA3 | SHA2 | ADDR |
                 SIGNEDBY | MULTISIGNEDBY | CHECKSIG |
                 GETOUTADDR | GETOUTAMT | GETOUTTOK | VERIFYOUT |
                 GETINADDR | GETINAMT | GETINTOK | GETINID | VERIFYIN |
@@ -87,13 +87,13 @@ LEN ( HEX )
 Length of the data
 
 REV ( HEX )
-Reverse the Data structure
+Reverse the data
 
 SUBSET ( HEX NUMBER NUMBER )
 Return a subset of the data start length
 
 RPLVAR ( SCRIPT SCRIPT SCRIPT ) 
-Replace a variable definition in a script with the following Expression. Can be used on @SCRIPT or other to create a covenant with new variables and check outputs.
+In a script, replace a variable definition with the following Expression. Can be used on @SCRIPT or other to create a covenant with new variables and check outputs.
 
 ASCII ( HEX )
 Convert the HEX value of a script value to a script
@@ -136,6 +136,9 @@ Set the value of the BIT at that Position to 0 or 1
 
 BITGET ( HEX NUMBER ) 
 Get the BINARY value of the bit at the position.
+
+ADDR ( SCRIPT )
+Convert the SCRIPT into a HEX address
 
 CHAINSHA ( HEX HEX ) 
 Recursively hash the first HEX value with the proof provided in the second. A proof is a BYTE denoting left or right with a hex data value. Returns the final result that can be checked in script. 
@@ -185,14 +188,14 @@ Sum the input values of a certain token
 SUMOUTTOK ( HEX )
 Sum the output values of a certain token 
 
-*STATE ( BYTE )
+STATE ( BYTE )
 Return the state value 0-255
 
-*PREVSTATE ( BYTE )
+PREVSTATE ( BYTE )
 Return the state value 0-255 of the input stored in the MMR data in the initial transaction this input was created. Allows for a state to be maintained from 1 spend to the next.
 
 *DYNSTATE ( BYTE  EXPRESSION )
-Can be called only once per transaction. Will change the State value to the expression value.  N = N+1. This way rolling transactions are possible. Multiple calls to the same input in the same block. If called twice must be =.
+Can be called only once per transaction. Will change the State value to the expression value.  N = N+1. This way rolling transactions are possible. Multiple calls to the same input in the same block.
 
 Examples
 --------
@@ -208,3 +211,4 @@ ENDIF
 LET x = GETSATE ( 23 )
 LET shax = SHA3 ( x )
 IF shax EQ 0x6785456 AND SIGNEDBY ( 0x12345.. ) THEN RETURN TRUE ENDIF
+

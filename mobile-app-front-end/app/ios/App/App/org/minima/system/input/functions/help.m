@@ -19,11 +19,13 @@
 #include "org/minima/system/input/functions/newaddress.h"
 #include "org/minima/system/input/functions/newscript.h"
 #include "org/minima/system/input/functions/printchain.h"
+#include "org/minima/system/input/functions/printtree.h"
 #include "org/minima/system/input/functions/quit.h"
 #include "org/minima/system/input/functions/reconnect.h"
 #include "org/minima/system/input/functions/runscript.h"
 #include "org/minima/system/input/functions/send.h"
 #include "org/minima/system/input/functions/status.h"
+#include "org/minima/system/input/functions/trace.h"
 #include "org/minima/system/input/functions/transfer/exportkey.h"
 #include "org/minima/system/input/functions/transfer/importkey.h"
 #include "org/minima/system/input/functions/tutorial.h"
@@ -34,6 +36,7 @@
 #include "org/minima/system/input/functions/txns/txnoutput.h"
 #include "org/minima/system/input/functions/txns/txnpost.h"
 #include "org/minima/system/input/functions/txns/txnsign.h"
+#include "org/minima/system/input/functions/txns/txnstatevar.h"
 #include "org/minima/system/input/functions/txns/txnvalidate.h"
 #include "org/minima/system/input/functions/txpowinfo.h"
 #include "org/minima/system/input/functions/weblink.h"
@@ -59,10 +62,10 @@ J2OBJC_IGNORE_DESIGNATED_END
     else {
       NSString *desc = [((NSString *) nil_chk([found getDescription])) java_trim];
       if ([((NSString *) nil_chk(desc)) isEqual:@""]) {
-        [((OrgMinimaUtilsJsonJSONObject *) nil_chk([((OrgMinimaUtilsResponseStream *) nil_chk([self getResponseStream])) getDataJSON])) putWithId:@"description" withId:[found getSimple]];
+        [((OrgMinimaUtilsJsonJSONObject *) nil_chk([((OrgMinimaUtilsResponseStream *) nil_chk([self getResponseStream])) getDataJSON])) putWithId:@"description" withId:JreStrcat("$$$", [found getParams], @" - ", [found getSimple])];
       }
       else {
-        [((OrgMinimaUtilsJsonJSONObject *) nil_chk([((OrgMinimaUtilsResponseStream *) nil_chk([self getResponseStream])) getDataJSON])) putWithId:@"description" withId:desc];
+        [((OrgMinimaUtilsJsonJSONObject *) nil_chk([((OrgMinimaUtilsResponseStream *) nil_chk([self getResponseStream])) getDataJSON])) putWithId:@"description" withId:JreStrcat("$$$", [found getParams], @" - ", desc)];
       }
       [((OrgMinimaUtilsResponseStream *) nil_chk([self getResponseStream])) endStatusWithBoolean:true withNSString:@""];
     }
@@ -72,6 +75,8 @@ J2OBJC_IGNORE_DESIGNATED_END
     [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionstutorial_init()];
     [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionsstatus_init()];
     [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionsprintchain_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionsprinttree_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionstrace_init()];
     [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionsminetrans_init()];
     [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionsbackup_init()];
     [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionsconnect_init()];
@@ -95,6 +100,7 @@ J2OBJC_IGNORE_DESIGNATED_END
     [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionsTxnstxndelete_init()];
     [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionsTxnstxninput_init()];
     [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionsTxnstxnoutput_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionsTxnstxnstatevar_init()];
     [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionsTxnstxnsign_init()];
     [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionsTxnstxnvalidate_init()];
     [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionsTxnstxnpost_init()];
@@ -105,12 +111,26 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 - (void)addJSONDescWithOrgMinimaSystemInputCommandFunction:(OrgMinimaSystemInputCommandFunction *)zFunc {
   NSString *params = [((NSString *) nil_chk([((NSString *) nil_chk([((NSString *) nil_chk([((OrgMinimaSystemInputCommandFunction *) nil_chk(zFunc)) getParams])) java_replaceAll:@"\\{" withReplacement:@"\\("])) java_replaceAll:@"\\}" withReplacement:@"\\)"])) java_trim];
+  NSString *name = [self getStrOfLengthWithInt:12 withNSString:[zFunc getName]];
   if ([((NSString *) nil_chk(params)) isEqual:@""]) {
-    [((OrgMinimaUtilsJsonJSONObject *) nil_chk([((OrgMinimaUtilsResponseStream *) nil_chk([self getResponseStream])) getDataJSON])) putWithId:[zFunc getName] withId:[zFunc getSimple]];
+    [((OrgMinimaUtilsJsonJSONObject *) nil_chk([((OrgMinimaUtilsResponseStream *) nil_chk([self getResponseStream])) getDataJSON])) putWithId:name withId:[zFunc getSimple]];
   }
   else {
-    [((OrgMinimaUtilsJsonJSONObject *) nil_chk([((OrgMinimaUtilsResponseStream *) nil_chk([self getResponseStream])) getDataJSON])) putWithId:[zFunc getName] withId:JreStrcat("$$$", params, @" - ", [zFunc getSimple])];
+    [((OrgMinimaUtilsJsonJSONObject *) nil_chk([((OrgMinimaUtilsResponseStream *) nil_chk([self getResponseStream])) getDataJSON])) putWithId:name withId:JreStrcat("$$$", params, @" - ", [zFunc getSimple])];
   }
+}
+
+- (NSString *)getStrOfLengthWithInt:(jint)zDesiredLen
+                       withNSString:(NSString *)zString {
+  NSString *ret = [NSString stringWithString:zString];
+  jint len = [ret java_length];
+  if (len >= zDesiredLen) {
+    return [ret java_substring:0 endIndex:zDesiredLen];
+  }
+  for (jint i = 0; i < zDesiredLen - len; i++) {
+    ret = [((NSString *) nil_chk(ret)) java_concat:@" "];
+  }
+  return ret;
 }
 
 - (OrgMinimaSystemInputCommandFunction *)getNewFunction {
@@ -122,6 +142,7 @@ J2OBJC_IGNORE_DESIGNATED_END
     { NULL, NULL, 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 0, 1, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 2, 3, -1, -1, -1, -1 },
+    { NULL, "LNSString;", 0x1, 4, 5, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaSystemInputCommandFunction;", 0x1, -1, -1, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
@@ -130,10 +151,11 @@ J2OBJC_IGNORE_DESIGNATED_END
   methods[0].selector = @selector(init);
   methods[1].selector = @selector(doFunctionWithNSStringArray:);
   methods[2].selector = @selector(addJSONDescWithOrgMinimaSystemInputCommandFunction:);
-  methods[3].selector = @selector(getNewFunction);
+  methods[3].selector = @selector(getStrOfLengthWithInt:withNSString:);
+  methods[4].selector = @selector(getNewFunction);
   #pragma clang diagnostic pop
-  static const void *ptrTable[] = { "doFunction", "[LNSString;", "addJSONDesc", "LOrgMinimaSystemInputCommandFunction;" };
-  static const J2ObjcClassInfo _OrgMinimaSystemInputFunctionshelp = { "help", "org.minima.system.input.functions", ptrTable, methods, NULL, 7, 0x1, 4, 0, -1, -1, -1, -1, -1 };
+  static const void *ptrTable[] = { "doFunction", "[LNSString;", "addJSONDesc", "LOrgMinimaSystemInputCommandFunction;", "getStrOfLength", "ILNSString;" };
+  static const J2ObjcClassInfo _OrgMinimaSystemInputFunctionshelp = { "help", "org.minima.system.input.functions", ptrTable, methods, NULL, 7, 0x1, 5, 0, -1, -1, -1, -1, -1 };
   return &_OrgMinimaSystemInputFunctionshelp;
 }
 

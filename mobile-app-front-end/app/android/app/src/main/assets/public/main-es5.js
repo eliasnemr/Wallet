@@ -10,6 +10,7 @@
 var map = {
 	"./balance/balance.module": [
 		"./src/app/balance/balance.module.ts",
+		"common",
 		"balance-balance-module"
 	],
 	"./create-token/create-token.module": [
@@ -30,11 +31,16 @@ var map = {
 	],
 	"./send-funds/send-funds.module": [
 		"./src/app/send-funds/send-funds.module.ts",
+		"common",
 		"send-funds-send-funds-module"
 	],
 	"./settings/settings.module": [
 		"./src/app/settings/settings.module.ts",
 		"settings-settings-module"
+	],
+	"./web-scanner/web-scanner.module": [
+		"./src/app/web-scanner/web-scanner.module.ts",
+		"web-scanner-web-scanner-module"
 	]
 };
 function webpackAsyncContext(req) {
@@ -47,7 +53,7 @@ function webpackAsyncContext(req) {
 	}
 
 	var ids = map[req], id = ids[0];
-	return __webpack_require__.e(ids[1]).then(function() {
+	return Promise.all(ids.slice(1).map(__webpack_require__.e)).then(function() {
 		return __webpack_require__(id);
 	});
 }
@@ -483,7 +489,18 @@ module.exports = webpackAsyncContext;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-app>\n  <ion-split-pane when=\"lg\" contentId=\"mainMenu\" >\n  <ion-menu side=\"start\" contentId=\"mainMenu\">\n    <ion-header>\n      <ion-toolbar class=\"menu-toolbar\">\n       <ion-title>\n         <ion-icon src=\"../../assets/icon/minima.svg\" size=\"5\"></ion-icon>\n         <ion-text style=\"font-weight: lighter; font-family: Aeonik-Light;\">\n           Minima <ion-badge color=\"secondary\">v0.4</ion-badge>\n           </ion-text>\n       </ion-title>   \n      </ion-toolbar>\n    </ion-header>\n    \n    <ion-content>\n        <ion-menu-toggle auto-hide=\"false\">\n          <ion-list main lines=\"none\">\n            <ion-item routerLink=\"/balance\">\n              <ion-icon name=\"card\" slot=\"start\"></ion-icon> Balance\n            </ion-item>\n            <ion-item routerLink=\"/send-funds\">\n              <ion-icon name=\"send\" slot=\"start\"></ion-icon> Send\n            </ion-item>\n            <ion-item routerLink=\"/my-address\">\n              <ion-icon name=\"arrow-down\" slot=\"start\"></ion-icon> Receive\n            </ion-item>\n            <ion-item routerLink=\"/create-token\">\n              <ion-icon name=\"brush\" slot=\"start\"></ion-icon> Token\n            </ion-item>\n          <ion-item-divider>\n          </ion-item-divider>\n            <ion-item routerLink=\"/status\">\n              <ion-icon name=\"analytics\" slot=\"start\"></ion-icon> Status\n            </ion-item>\n            <ion-item routerLink=\"/mini-term\">\n              <ion-icon name=\"code\" slot=\"start\"></ion-icon> Terminal\n            </ion-item>\n            <ion-item-divider></ion-item-divider>\n            <ion-item routerLink=\"/settings\">\n              <ion-icon name=\"build\" slot=\"start\"></ion-icon> Settings\n            </ion-item>\n        </ion-list>\n        </ion-menu-toggle>\n      \n    </ion-content>\n  </ion-menu>\n        <ion-router-outlet main id=\"mainMenu\"></ion-router-outlet>\n  </ion-split-pane>\n\n</ion-app>"
+module.exports = "<ion-app>\n  <ion-split-pane when=\"lg\" contentId=\"mainMenu\" class=\"splitpane\" >\n  <ion-menu side=\"start\" contentId=\"mainMenu\">\n    <ion-header>\n      <ion-toolbar class=\"menu-toolbar\">\n      <ion-title>\n        <ion-icon class=\"menu-logo\" src=\"../../assets/icon/minima.svg\"></ion-icon>\n      <ion-note class=\"menu-logo-title\">\n          Minima \n      <ion-badge color=\"#00ABC8\" (click)=\"betaTap()\">BETA</ion-badge>\n      </ion-note>\n       </ion-title>   \n      </ion-toolbar>\n      \n    </ion-header>\n    \n\n    \n    <ion-content>\n        <ion-menu-toggle auto-hide=\"false\">\n          <ion-list main lines=\"none\">\n            \n          <ion-item>\n          <ion-button class=\"social-web\" href=\"https://minima.global/\">\n            <ion-label class=\"social-lbl\">Minima</ion-label>\n            <ion-icon class=\"social-icon\" name=\"planet\"></ion-icon> \n          </ion-button>\n          <ion-button class=\"social-web\" href=\"https://twitter.com/Minima_Global\">\n            <ion-label class=\"social-lbl\">Twitter</ion-label>\n            <ion-icon class=\"social-icon\" name=\"logo-twitter\"></ion-icon> \n          </ion-button>\n          <ion-button class=\"social-web\" href=\"https://t.me/Minima_Global\">\n            <ion-label class=\"social-lbl\">Telegram</ion-label>\n            <ion-icon class=\"social-icon\" src=\"../assets/telegram.svg\"></ion-icon> \n          </ion-button>\n            </ion-item>\n            \n            <ion-item routerLink=\"/balance\">\n              <ion-icon name=\"card\" slot=\"start\"></ion-icon> Balance\n            </ion-item>\n            <ion-item routerLink=\"/send-funds\">\n              <ion-icon name=\"send\" slot=\"start\"></ion-icon> Send\n            </ion-item>\n            <ion-item routerLink=\"/my-address\">\n              <ion-icon name=\"arrow-down\" slot=\"start\"></ion-icon> Receive\n            </ion-item>\n            <ion-item routerLink=\"/create-token\">\n              <ion-icon name=\"brush\" slot=\"start\"></ion-icon> Token\n            </ion-item>\n          <ion-item-divider>\n          </ion-item-divider>\n            <ion-item routerLink=\"/status\">\n              <ion-icon name=\"analytics\" slot=\"start\"></ion-icon> Status\n            </ion-item>\n            <ion-item routerLink=\"/mini-term\">\n              <ion-icon name=\"code\" slot=\"start\"></ion-icon> Terminal\n            </ion-item>\n            <ion-item routerLink=\"/web-scanner\">\n              <ion-icon name=\"desktop\" slot=\"start\"></ion-icon> Web\n            </ion-item>\n            <ion-item-divider></ion-item-divider>\n            <ion-item routerLink=\"/settings\">\n              <ion-icon name=\"build\" slot=\"start\"></ion-icon> Settings\n            </ion-item>\n        </ion-list>\n        </ion-menu-toggle>\n\n    </ion-content>\n  </ion-menu>\n        <ion-router-outlet main id=\"mainMenu\"></ion-router-outlet>\n  </ion-split-pane>\n\n</ion-app>"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/pop-over/pop-over.component.html":
+/*!****************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/pop-over/pop-over.component.html ***!
+  \****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n<ion-list>\n    <ion-list-header style=\"background-image:url('../../assets/minimatile.png'); color:black; font-weight: bolder; font-family: 'Aeonik'\">\n        Token ID \n    </ion-list-header>\n    <ion-label>\n    {{refTokenid}}\n    </ion-label>\n    <ion-button (click)=\"copyToClipboard()\"style=\"width: 100%\" expand=\"full\">\n        <ion-icon name=\"copy\"></ion-icon> \n        Copy\n    </ion-button>\n</ion-list>\n\n\n"
 
 /***/ }),
 
@@ -506,7 +523,7 @@ __webpack_require__.r(__webpack_exports__);
 var routes = [
     { path: '', loadChildren: './balance/balance.module#BalancePageModule' },
     { path: '', redirectTo: 'balance', pathMatch: 'full' },
-    { path: 'balance', loadChildren: function () { return __webpack_require__.e(/*! import() | balance-balance-module */ "balance-balance-module").then(__webpack_require__.bind(null, /*! ./balance/balance.module */ "./src/app/balance/balance.module.ts")).then(function (m) { return m.BalancePageModule; }); } },
+    { path: 'balance', loadChildren: function () { return Promise.all(/*! import() | balance-balance-module */[__webpack_require__.e("common"), __webpack_require__.e("balance-balance-module")]).then(__webpack_require__.bind(null, /*! ./balance/balance.module */ "./src/app/balance/balance.module.ts")).then(function (m) { return m.BalancePageModule; }); } },
     { path: 'send-funds', loadChildren: './send-funds/send-funds.module#SendFundsPageModule' },
     { path: 'create-token', loadChildren: './create-token/create-token.module#CreateTokenPageModule' },
     { path: 'status', loadChildren: './mini-status/mini-status.module#MiniStatusPageModule' },
@@ -516,6 +533,7 @@ var routes = [
     { path: 'mini-term', loadChildren: './mini-term/mini-term.module#MiniTermPageModule' },
     { path: 'mini-status', loadChildren: './mini-status/mini-status.module#MiniStatusPageModule' },
     { path: 'create-token', loadChildren: './create-token/create-token.module#CreateTokenPageModule' },
+    { path: 'web-scanner', loadChildren: './web-scanner/web-scanner.module#WebScannerPageModule' },
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
@@ -542,7 +560,7 @@ var AppRoutingModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "ion-icon {\n  color: #FF671D;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9lbGlhcy9Qcm9qZWN0cy9taW5pbWFjb3JlL21vYmlsZS1hcHAtZnJvbnQtZW5kL2FwcC9zcmMvYXBwL2FwcC5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvYXBwLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksY0FBQTtBQ0NKIiwiZmlsZSI6InNyYy9hcHAvYXBwLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiaW9uLWljb24ge1xuICAgIGNvbG9yOiAjRkY2NzFEO1xufVxuIiwiaW9uLWljb24ge1xuICBjb2xvcjogI0ZGNjcxRDtcbn0iXX0= */"
+module.exports = "ion-icon {\n  color: #FF671D;\n}\n\n.social-icon {\n  color: #ffffff;\n  padding: 0px;\n}\n\nion-item:hover {\n  background-color: #0ad1e7;\n}\n\nion-icon:hover {\n  color: #ffffff;\n}\n\nion-item:active {\n  background-color: #0ad1e7;\n}\n\n.social-web {\n  margin: auto;\n}\n\n.social-lbl {\n  color: white;\n}\n\n.menu-logo {\n  font-size: 22px;\n}\n\n.menu-logo-title {\n  font-family: \"Aeonik\";\n  font-weight: bolder;\n  font-size: 14px;\n}\n\nion-note {\n  font-family: \"Aeonik\";\n  color: #929396;\n}\n\nion-note ion-badge {\n  color: #FF671E;\n  font-size: 10px;\n}\n\n@media only screen and (min-width: 992px) {\n  .splitpane {\n    margin-left: 180px;\n    margin-right: 180px;\n    margin-top: 100px;\n    margin-bottom: 100px;\n    box-shadow: 2px 2px 5px grey;\n  }\n\n  ion-app {\n    background-image: url('minimatile.png');\n  }\n\n  .menu-logo {\n    font-size: 35px;\n  }\n\n  .menu-logo-title {\n    font-family: \"Aeonik\";\n    font-weight: bolder;\n    font-size: 28px;\n    padding-top: 5px;\n    padding-left: 2px;\n    position: absolute;\n  }\n\n  ion-note {\n    position: absolute;\n    padding-right: 50px;\n    font-weight: bolder;\n    font-size: 12px;\n    font-family: \"Aeonik\";\n    color: #929396;\n  }\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9lbGlhcy9Qcm9qZWN0cy9taW5pbWFjb3JlL21vYmlsZS1hcHAtZnJvbnQtZW5kL2FwcC9zcmMvYXBwL2FwcC5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvYXBwLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksY0FBQTtBQ0NKOztBRENBO0VBQ0ksY0FBQTtFQUNBLFlBQUE7QUNFSjs7QURBQTtFQUNJLHlCQUFBO0FDR0o7O0FEREE7RUFDSSxjQUFBO0FDSUo7O0FEQUE7RUFDSSx5QkFBQTtBQ0dKOztBREFBO0VBQ0ksWUFBQTtBQ0dKOztBRERBO0VBQ0ksWUFBQTtBQ0lKOztBRERBO0VBQ0ksZUFBQTtBQ0lKOztBRERBO0VBQ0kscUJBQUE7RUFDQSxtQkFBQTtFQUNBLGVBQUE7QUNJSjs7QUREQTtFQUNJLHFCQUFBO0VBQ0EsY0FBQTtBQ0lKOztBREZBO0VBQ0ksY0FBQTtFQUNBLGVBQUE7QUNLSjs7QURGQTtFQUNJO0lBQ0ksa0JBQUE7SUFDQSxtQkFBQTtJQUNBLGlCQUFBO0lBQ0Esb0JBQUE7SUFFQSw0QkFBQTtFQ0lOOztFREZFO0lBQ0ksdUNBQUE7RUNLTjs7RURIRTtJQUNJLGVBQUE7RUNNTjs7RURIRTtJQUNJLHFCQUFBO0lBQ0EsbUJBQUE7SUFDQSxlQUFBO0lBQ0EsZ0JBQUE7SUFDQSxpQkFBQTtJQUNBLGtCQUFBO0VDTU47O0VESEU7SUFDSSxrQkFBQTtJQUNBLG1CQUFBO0lBQ0EsbUJBQUE7SUFDQSxlQUFBO0lBQ0EscUJBQUE7SUFDQSxjQUFBO0VDTU47QUFDRiIsImZpbGUiOiJzcmMvYXBwL2FwcC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImlvbi1pY29uIHtcbiAgICBjb2xvcjogI0ZGNjcxRDtcbn1cbi5zb2NpYWwtaWNvbiB7XG4gICAgY29sb3I6ICNmZmZmZmY7XG4gICAgcGFkZGluZzogMHB4O1xufVxuaW9uLWl0ZW06aG92ZXIge1xuICAgIGJhY2tncm91bmQtY29sb3I6IHJnYigxMCwyMDksMjMxKTtcbn1cbmlvbi1pY29uOmhvdmVyIHtcbiAgICBjb2xvcjogI2ZmZmZmZjtcblxufVxuXG5pb24taXRlbTphY3RpdmUge1xuICAgIGJhY2tncm91bmQtY29sb3I6IHJnYigxMCwyMDksMjMxKTtcbn1cblxuLnNvY2lhbC13ZWIge1xuICAgIG1hcmdpbjogYXV0bztcbn1cbi5zb2NpYWwtbGJsIHtcbiAgICBjb2xvcjp3aGl0ZTtcbn1cblxuLm1lbnUtbG9nbyB7XG4gICAgZm9udC1zaXplOiAyMnB4O1xuICAgIFxufVxuLm1lbnUtbG9nby10aXRsZSB7XG4gICAgZm9udC1mYW1pbHk6ICdBZW9uaWsnO1xuICAgIGZvbnQtd2VpZ2h0OiBib2xkZXI7XG4gICAgZm9udC1zaXplOiAxNHB4O1xufVxuXG5pb24tbm90ZSB7XG4gICAgZm9udC1mYW1pbHk6ICdBZW9uaWsnO1xuICAgIGNvbG9yOiAjOTI5Mzk2O1xufVxuaW9uLW5vdGUgaW9uLWJhZGdlIHtcbiAgICBjb2xvcjogI0ZGNjcxRTtcbiAgICBmb250LXNpemU6IDEwcHg7XG59XG5cbkBtZWRpYSBvbmx5IHNjcmVlbiBhbmQgKG1pbi13aWR0aDogOTkycHgpIHtcbiAgICAuc3BsaXRwYW5lIHtcbiAgICAgICAgbWFyZ2luLWxlZnQ6IDE4MHB4O1xuICAgICAgICBtYXJnaW4tcmlnaHQ6IDE4MHB4O1xuICAgICAgICBtYXJnaW4tdG9wOiAxMDBweDtcbiAgICAgICAgbWFyZ2luLWJvdHRvbTogMTAwcHg7XG4gICAgICAgIFxuICAgICAgICBib3gtc2hhZG93OiAycHggMnB4IDVweCBncmV5O1xuICAgIH1cbiAgICBpb24tYXBwIHtcbiAgICAgICAgYmFja2dyb3VuZC1pbWFnZTogdXJsKCcuLi9hc3NldHMvbWluaW1hdGlsZS5wbmcnKTtcbiAgICB9XG4gICAgLm1lbnUtbG9nbyB7XG4gICAgICAgIGZvbnQtc2l6ZTogMzVweDtcbiAgICAgICAgXG4gICAgfVxuICAgIC5tZW51LWxvZ28tdGl0bGUge1xuICAgICAgICBmb250LWZhbWlseTogJ0Flb25payc7XG4gICAgICAgIGZvbnQtd2VpZ2h0OiBib2xkZXI7XG4gICAgICAgIGZvbnQtc2l6ZTogMjhweDtcbiAgICAgICAgcGFkZGluZy10b3A6IDVweDtcbiAgICAgICAgcGFkZGluZy1sZWZ0OiAycHg7XG4gICAgICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgICB9XG4gICAgXG4gICAgaW9uLW5vdGUge1xuICAgICAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgICAgIHBhZGRpbmctcmlnaHQ6IDUwcHg7XG4gICAgICAgIGZvbnQtd2VpZ2h0OiBib2xkZXI7XG4gICAgICAgIGZvbnQtc2l6ZTogMTJweDtcbiAgICAgICAgZm9udC1mYW1pbHk6ICdBZW9uaWsnO1xuICAgICAgICBjb2xvcjogIzkyOTM5NjtcbiAgICB9XG59XG4iLCJpb24taWNvbiB7XG4gIGNvbG9yOiAjRkY2NzFEO1xufVxuXG4uc29jaWFsLWljb24ge1xuICBjb2xvcjogI2ZmZmZmZjtcbiAgcGFkZGluZzogMHB4O1xufVxuXG5pb24taXRlbTpob3ZlciB7XG4gIGJhY2tncm91bmQtY29sb3I6ICMwYWQxZTc7XG59XG5cbmlvbi1pY29uOmhvdmVyIHtcbiAgY29sb3I6ICNmZmZmZmY7XG59XG5cbmlvbi1pdGVtOmFjdGl2ZSB7XG4gIGJhY2tncm91bmQtY29sb3I6ICMwYWQxZTc7XG59XG5cbi5zb2NpYWwtd2ViIHtcbiAgbWFyZ2luOiBhdXRvO1xufVxuXG4uc29jaWFsLWxibCB7XG4gIGNvbG9yOiB3aGl0ZTtcbn1cblxuLm1lbnUtbG9nbyB7XG4gIGZvbnQtc2l6ZTogMjJweDtcbn1cblxuLm1lbnUtbG9nby10aXRsZSB7XG4gIGZvbnQtZmFtaWx5OiBcIkFlb25pa1wiO1xuICBmb250LXdlaWdodDogYm9sZGVyO1xuICBmb250LXNpemU6IDE0cHg7XG59XG5cbmlvbi1ub3RlIHtcbiAgZm9udC1mYW1pbHk6IFwiQWVvbmlrXCI7XG4gIGNvbG9yOiAjOTI5Mzk2O1xufVxuXG5pb24tbm90ZSBpb24tYmFkZ2Uge1xuICBjb2xvcjogI0ZGNjcxRTtcbiAgZm9udC1zaXplOiAxMHB4O1xufVxuXG5AbWVkaWEgb25seSBzY3JlZW4gYW5kIChtaW4td2lkdGg6IDk5MnB4KSB7XG4gIC5zcGxpdHBhbmUge1xuICAgIG1hcmdpbi1sZWZ0OiAxODBweDtcbiAgICBtYXJnaW4tcmlnaHQ6IDE4MHB4O1xuICAgIG1hcmdpbi10b3A6IDEwMHB4O1xuICAgIG1hcmdpbi1ib3R0b206IDEwMHB4O1xuICAgIGJveC1zaGFkb3c6IDJweCAycHggNXB4IGdyZXk7XG4gIH1cblxuICBpb24tYXBwIHtcbiAgICBiYWNrZ3JvdW5kLWltYWdlOiB1cmwoXCIuLi9hc3NldHMvbWluaW1hdGlsZS5wbmdcIik7XG4gIH1cblxuICAubWVudS1sb2dvIHtcbiAgICBmb250LXNpemU6IDM1cHg7XG4gIH1cblxuICAubWVudS1sb2dvLXRpdGxlIHtcbiAgICBmb250LWZhbWlseTogXCJBZW9uaWtcIjtcbiAgICBmb250LXdlaWdodDogYm9sZGVyO1xuICAgIGZvbnQtc2l6ZTogMjhweDtcbiAgICBwYWRkaW5nLXRvcDogNXB4O1xuICAgIHBhZGRpbmctbGVmdDogMnB4O1xuICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgfVxuXG4gIGlvbi1ub3RlIHtcbiAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgcGFkZGluZy1yaWdodDogNTBweDtcbiAgICBmb250LXdlaWdodDogYm9sZGVyO1xuICAgIGZvbnQtc2l6ZTogMTJweDtcbiAgICBmb250LWZhbWlseTogXCJBZW9uaWtcIjtcbiAgICBjb2xvcjogIzkyOTM5NjtcbiAgfVxufSJdfQ== */"
 
 /***/ }),
 
@@ -608,6 +626,9 @@ var AppComponent = /** @class */ (function () {
     };
     AppComponent.prototype.ionRouteWillChange = function () {
     };
+    AppComponent.prototype.betaTap = function () {
+        alert("Minima Node Version 0.4");
+    };
     AppComponent.ctorParameters = function () { return [
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["Platform"] },
         { type: _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_5__["SplashScreen"] },
@@ -659,6 +680,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
 /* harmony import */ var _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @ionic-native/clipboard/ngx */ "./node_modules/@ionic-native/clipboard/ngx/index.js");
 /* harmony import */ var _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @ionic-native/qr-scanner/ngx */ "./node_modules/@ionic-native/qr-scanner/ngx/index.js");
+/* harmony import */ var _pop_over_pop_over_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./pop-over/pop-over.component */ "./src/app/pop-over/pop-over.component.ts");
+
 
 
 
@@ -677,8 +700,8 @@ var AppModule = /** @class */ (function () {
     }
     AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-            declarations: [_app_component__WEBPACK_IMPORTED_MODULE_9__["AppComponent"]],
-            entryComponents: [],
+            declarations: [_app_component__WEBPACK_IMPORTED_MODULE_9__["AppComponent"], _pop_over_pop_over_component__WEBPACK_IMPORTED_MODULE_13__["PopOverComponent"]],
+            entryComponents: [_pop_over_pop_over_component__WEBPACK_IMPORTED_MODULE_13__["PopOverComponent"]],
             imports: [_angular_forms__WEBPACK_IMPORTED_MODULE_8__["FormsModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClientModule"], _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"], _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonicModule"].forRoot(), _app_routing_module__WEBPACK_IMPORTED_MODULE_10__["AppRoutingModule"]],
             providers: [
                 _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_7__["StatusBar"],
@@ -691,6 +714,98 @@ var AppModule = /** @class */ (function () {
         })
     ], AppModule);
     return AppModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/pop-over/pop-over.component.scss":
+/*!**************************************************!*\
+  !*** ./src/app/pop-over/pop-over.component.scss ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "ion-button {\n  height: 35px;\n}\n\n.popover {\n  max-width: none;\n}\n\nion-list {\n  background-image: url('minimatile.png');\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9lbGlhcy9Qcm9qZWN0cy9taW5pbWFjb3JlL21vYmlsZS1hcHAtZnJvbnQtZW5kL2FwcC9zcmMvYXBwL3BvcC1vdmVyL3BvcC1vdmVyLmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9wb3Atb3Zlci9wb3Atb3Zlci5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFPQTtFQUNJLFlBQUE7QUNOSjs7QURRQTtFQUNJLGVBQUE7QUNMSjs7QURPQTtFQUNJLHVDQUFBO0FDSkoiLCJmaWxlIjoic3JjL2FwcC9wb3Atb3Zlci9wb3Atb3Zlci5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi8vIEBtZWRpYSBvbmx5IHNjcmVlbiBhbmQgKG1pbi13aWR0aDogOTkycHgpIHtcbi8vICAgICBpb24tbGlzdCB7XG4vLyAgICAgICAgIGJhY2tncm91bmQtaW1hZ2U6IHVybCgnLi4vLi4vYXNzZXRzL21pbmltYXRpbGUucG5nJyk7XG4gICAgICAgIFxuLy8gICAgIH1cbi8vIH1cblxuaW9uLWJ1dHRvbiB7XG4gICAgaGVpZ2h0OiAzNXB4O1xufVxuLnBvcG92ZXJ7XG4gICAgbWF4LXdpZHRoOiBub25lO1xufVxuaW9uLWxpc3Qge1xuICAgIGJhY2tncm91bmQtaW1hZ2U6IHVybCgnLi4vLi4vYXNzZXRzL21pbmltYXRpbGUucG5nJyk7XG59XG4iLCJpb24tYnV0dG9uIHtcbiAgaGVpZ2h0OiAzNXB4O1xufVxuXG4ucG9wb3ZlciB7XG4gIG1heC13aWR0aDogbm9uZTtcbn1cblxuaW9uLWxpc3Qge1xuICBiYWNrZ3JvdW5kLWltYWdlOiB1cmwoXCIuLi8uLi9hc3NldHMvbWluaW1hdGlsZS5wbmdcIik7XG59Il19 */"
+
+/***/ }),
+
+/***/ "./src/app/pop-over/pop-over.component.ts":
+/*!************************************************!*\
+  !*** ./src/app/pop-over/pop-over.component.ts ***!
+  \************************************************/
+/*! exports provided: PopOverComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PopOverComponent", function() { return PopOverComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic-native/clipboard/ngx */ "./node_modules/@ionic-native/clipboard/ngx/index.js");
+
+
+
+
+var PopOverComponent = /** @class */ (function () {
+    function PopOverComponent(navParams, clipboard, alertController) {
+        this.navParams = navParams;
+        this.clipboard = clipboard;
+        this.alertController = alertController;
+        this.refTokenid = '';
+    }
+    PopOverComponent.prototype.ngOnInit = function () {
+        this.refTokenid = this.navParams.get('tokenid');
+    };
+    PopOverComponent.prototype.ionViewWillEnter = function () { };
+    PopOverComponent.prototype.copyToClipboard = function () {
+        this.clipboard.copy(this.refTokenid);
+        this.presentAlert("Copied to clipboard", "Clipboard");
+    };
+    PopOverComponent.prototype.presentAlert = function (msg, header) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var alert;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.alertController.create({
+                            header: header,
+                            message: msg,
+                            buttons: ['Cancel', 'Ok']
+                        })];
+                    case 1:
+                        alert = _a.sent();
+                        return [4 /*yield*/, alert.present()];
+                    case 2:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    PopOverComponent.ctorParameters = function () { return [
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavParams"] },
+        { type: _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_3__["Clipboard"] },
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"] }
+    ]; };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])("tokenName"),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], PopOverComponent.prototype, "tokenName", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])("tokenId"),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], PopOverComponent.prototype, "tokenId", void 0);
+    PopOverComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-pop-over',
+            template: __webpack_require__(/*! raw-loader!./pop-over.component.html */ "./node_modules/raw-loader/index.js!./src/app/pop-over/pop-over.component.html"),
+            styles: [__webpack_require__(/*! ./pop-over.component.scss */ "./src/app/pop-over/pop-over.component.scss")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavParams"], _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_3__["Clipboard"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"]])
+    ], PopOverComponent);
+    return PopOverComponent;
 }());
 
 
@@ -766,6 +881,12 @@ var MinimaApiService = /** @class */ (function () {
             });
         });
     };
+    MinimaApiService.prototype.createToken = function (data) {
+        return this.request('createtoken+' + data.token + '+' + data.amount);
+    };
+    MinimaApiService.prototype.webLink = function (data) {
+        return this.request('weblink+' + data.url);
+    };
     MinimaApiService.prototype.getHost = function () {
         if (localStorage.getItem('minima_host') == null) {
             localStorage.setItem('minima_host', this.host);
@@ -783,7 +904,7 @@ var MinimaApiService = /** @class */ (function () {
         return this.request('newaddress');
     };
     MinimaApiService.prototype.sendFunds = function (data) {
-        return this.request('send+' + data.amount + '+' + data.address);
+        return this.request('send+' + data.amount + '+' + data.address + '+' + data.tokenid);
     };
     MinimaApiService.prototype.giveMe50 = function () {
         return this.request('gimme50');

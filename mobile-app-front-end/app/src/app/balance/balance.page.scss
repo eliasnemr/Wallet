@@ -14,18 +14,38 @@ ion-footer ion-toolbar ion-buttons ion-button{
  }
 
  .confirmed-label{
-     font-size: 0.75rem;
+     margin: auto;
+     font-size: 1.0rem;
      font-weight: 300;
      white-space: normal;
  }
  .confirmed-amount {
     color: #00AAC7;
-    font-size: 0.75rem;
+    font-size: 1.0rem;
     font-weight: 300;
     white-space: normal;
  }
  .logo-names {
-     font-size: 0.75rem;
+     font-size: 0.8rem;
      font-weight: 300;
      
  }
+
+ .icon-head{
+    color: #1FB4CD;
+ }
+ .action-btn {
+    height: 40px;
+  }
+  .action-btn:hover {
+    height: 50px;
+  }
+
+  .balance-token {
+      font-size: 1.5rem;
+  }
+  .balance-tokenname {
+   position: absolute;
+   padding-top: 6px;
+   padding-left: 2px;
+  }

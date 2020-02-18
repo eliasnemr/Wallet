@@ -3,9 +3,6 @@
  */
 package org.minima;
 
-import android.util.Log;
-import android.widget.Toast;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -14,25 +11,26 @@ import java.util.ArrayList;
 
 import org.minima.system.Main;
 import org.minima.system.backup.BackupManager;
-import org.minima.system.bootstrap.GenesisTransaction;
 import org.minima.system.input.InputMessage;
 import org.minima.utils.MiniFormat;
+import org.minima.utils.MinimaLogger;
 import org.minima.utils.ResponseStream;
 import org.minima.utils.messages.Message;
-import org.minima.utils.MinimaLogger;
 
 /**
  * @author Paddy Cerri
  *
  */
 public class Start {
-
+	
+	/**
+	 * A static link to the main server
+	 */
 	public static Main mMainServer;
-
-	public static Main getServer(){
+	public static Main getServer() {
 		return mMainServer;
 	}
-
+	
 	/**
 	 * Simple constructor for iOS and Android
 	 */
@@ -46,16 +44,13 @@ public class Start {
 				//Start up Variables
 				ArrayList<String> vars = new ArrayList<>();
 
-				//vars.add("-private");
+				vars.add("-private");
 				vars.add("-daemon");
-				//vars.add("-clean");
-//				vars.add("-clean");
+				vars.add("-clean");
 //				vars.add("-port");
-//				vars.add("9002");
-//				vars.add("-rpcport");
-//				vars.add("7999");
+//				vars.add("9001");
 //				vars.add("-connect");
-//				vars.add("127.0.0.1");
+//				vars.add("34.65.19.123");
 //				vars.add("9001");
 				//etc..
 				
@@ -83,7 +78,7 @@ public class Start {
 		int port 				= 9001;
 		int rpcport 			= 8999;
 		
-		//Currently DISABLED
+		//Currently DISABLED .. will re-enable later
 		//Is a function called when there is a new relevant transaction..
 		//This function could put the data in a web database etc..
 		String txnfunction = "";
@@ -97,7 +92,9 @@ public class Start {
 		boolean genesis 		= false;
 		boolean daemon          = false;
 		
-		String conffolder = System.getProperty("user.home")+"/minima"; 
+		//Configuration folder
+		File conf = new File(System.getProperty("user.home"),".minima");
+		String conffolder = conf.getAbsolutePath();
 		
 		if(arglen > 0) {
 			int counter	=	0;
@@ -167,22 +164,16 @@ public class Start {
 		}
 		
 		//Do we wipe
-		File cc = new File(conffolder);
 		if(clean) {
-			BackupManager.deleteFolder(cc);
-		}
-
-
-		if (cc.exists()) {
-			Log.d("Config file:", " exists");
+			BackupManager.deleteFolder(new File(conffolder));
 		}
 		
 		//Start the main Minima server
 		Main rcmainserver = new Main(port, rpcport, genesis, conffolder);
-
-		//Store this
+		
+		//Link it.
 		mMainServer = rcmainserver;
-
+		
 		//Set the connect properties
 		rcmainserver.setAutoConnect(connect);
 		rcmainserver.mAutoHost = connecthost;
@@ -201,13 +192,12 @@ public class Start {
 		//Start the system
 		rcmainserver.PostMessage(Main.SYSTEM_STARTUP);
 		
-//		rcmainserver.getConsensusHandler().addListener(new NativeListener() {
-//			@Override
-//			public void processMessage(Message zMessage) {
-//				//THIS GETS CALLED!
-//				Toast.makeText(this, "You just recieved some coins!", Toast.LENGTH_SHORT).show();
-//			}
-//		});
+		rcmainserver.getConsensusHandler().addListener(new NativeListener() {
+			@Override
+			public void processMessage(Message zMessage) {
+				//THIS GETS CALLED!
+			}
+		});
 		
 		//Are we a daemon thread
 		if(daemon) {
@@ -235,7 +225,7 @@ public class Start {
 		            //New response packet..
 		            ResponseStream response = new ResponseStream();
 		            
-		            if(!input.equals("")) {
+		            if(input!=null && !input.equals("")) {
 		            	//Set the output stream
 			            InputMessage inmsg = new InputMessage(input, response);
 			            

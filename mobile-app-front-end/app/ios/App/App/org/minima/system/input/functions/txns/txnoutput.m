@@ -7,7 +7,7 @@
 #include "J2ObjC_source.h"
 #include "java/lang/Integer.h"
 #include "org/minima/objects/Address.h"
-#include "org/minima/objects/base/MiniData32.h"
+#include "org/minima/objects/base/MiniHash.h"
 #include "org/minima/objects/base/MiniNumber.h"
 #include "org/minima/system/Main.h"
 #include "org/minima/system/brains/ConsensusHandler.h"
@@ -35,7 +35,7 @@ J2OBJC_IGNORE_DESIGNATED_END
     return;
   }
   NSString *address = IOSObjectArray_Get(zInput, 3);
-  OrgMinimaObjectsAddress *addr = create_OrgMinimaObjectsAddress_initWithOrgMinimaObjectsBaseMiniData32_(create_OrgMinimaObjectsBaseMiniData32_initWithNSString_(address));
+  OrgMinimaObjectsAddress *addr = create_OrgMinimaObjectsAddress_initWithOrgMinimaObjectsBaseMiniHash_(create_OrgMinimaObjectsBaseMiniHash_initWithNSString_(address));
   NSString *tokenid = @"0x00";
   if (zInput->size_ > 4) {
     tokenid = IOSObjectArray_Get(zInput, 4);

@@ -10,7 +10,7 @@
 #include "org/minima/database/mmr/MMRSet.h"
 #include "org/minima/database/txpowtree/BlockTreeNode.h"
 #include "org/minima/objects/TxPOW.h"
-#include "org/minima/objects/base/MiniData32.h"
+#include "org/minima/objects/base/MiniHash.h"
 #include "org/minima/utils/Maths.h"
 
 @interface OrgMinimaDatabaseTxpowtreeBlockTreeNode () {
@@ -119,7 +119,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   [self resetCurrentWeight];
 }
 
-- (OrgMinimaObjectsBaseMiniData32 *)getTxPowID {
+- (OrgMinimaObjectsBaseMiniHash *)getTxPowID {
   return [((OrgMinimaObjectsTxPOW *) nil_chk([self getTxPow])) getTxPowID];
 }
 
@@ -156,7 +156,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 - (jint)compareToWithId:(OrgMinimaDatabaseTxpowtreeBlockTreeNode *)o {
   cast_chk(o, [OrgMinimaDatabaseTxpowtreeBlockTreeNode class]);
-  return [((OrgMinimaObjectsBaseMiniData32 *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk(o)) getTxPowID])) compareWithOrgMinimaObjectsBaseMiniData:[self getTxPowID]];
+  return [((OrgMinimaObjectsBaseMiniHash *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk(o)) getTxPowID])) compareWithOrgMinimaObjectsBaseMiniData:[self getTxPowID]];
 }
 
 - (NSString *)description {
@@ -193,7 +193,7 @@ J2OBJC_IGNORE_DESIGNATED_END
     { NULL, "I", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "I", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 11, 4, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsBaseMiniData32;", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMiniHash;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 12, 2, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaDatabaseTxpowtreeBlockTreeNode;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 13, 2, -1, -1, -1, -1 },

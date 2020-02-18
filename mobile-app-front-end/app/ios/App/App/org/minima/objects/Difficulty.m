@@ -6,7 +6,7 @@
 #include "J2ObjC_source.h"
 #include "java/math/BigInteger.h"
 #include "org/minima/objects/Difficulty.h"
-#include "org/minima/objects/base/MiniData32.h"
+#include "org/minima/objects/base/MiniHash.h"
 
 J2OBJC_INITIALIZED_DEFN(OrgMinimaObjectsDifficulty)
 
@@ -20,8 +20,8 @@ JavaMathBigInteger *OrgMinimaObjectsDifficulty_DIFF_TWO;
   return self;
 }
 
-- (jboolean)isOKWithOrgMinimaObjectsBaseMiniData32:(OrgMinimaObjectsBaseMiniData32 *)zValue {
-  return [((JavaMathBigInteger *) nil_chk([((OrgMinimaObjectsBaseMiniData32 *) nil_chk(zValue)) getDataVaue])) compareToWithId:mDifficulty_] <= 0;
+- (jboolean)isOKWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zValue {
+  return [((JavaMathBigInteger *) nil_chk([((OrgMinimaObjectsBaseMiniHash *) nil_chk(zValue)) getDataVaue])) compareToWithId:mDifficulty_] <= 0;
 }
 
 - (NSString *)description {
@@ -43,7 +43,7 @@ JavaMathBigInteger *OrgMinimaObjectsDifficulty_DIFF_TWO;
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
   #pragma clang diagnostic ignored "-Wundeclared-selector"
   methods[0].selector = @selector(initWithInt:);
-  methods[1].selector = @selector(isOKWithOrgMinimaObjectsBaseMiniData32:);
+  methods[1].selector = @selector(isOKWithOrgMinimaObjectsBaseMiniHash:);
   methods[2].selector = @selector(description);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
@@ -52,7 +52,7 @@ JavaMathBigInteger *OrgMinimaObjectsDifficulty_DIFF_TWO;
     { "mValue_", "I", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mDifficulty_", "LJavaMathBigInteger;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
   };
-  static const void *ptrTable[] = { "I", "isOK", "LOrgMinimaObjectsBaseMiniData32;", "toString", &OrgMinimaObjectsDifficulty_MAX_VAL, &OrgMinimaObjectsDifficulty_DIFF_TWO };
+  static const void *ptrTable[] = { "I", "isOK", "LOrgMinimaObjectsBaseMiniHash;", "toString", &OrgMinimaObjectsDifficulty_MAX_VAL, &OrgMinimaObjectsDifficulty_DIFF_TWO };
   static const J2ObjcClassInfo _OrgMinimaObjectsDifficulty = { "Difficulty", "org.minima.objects", ptrTable, methods, fields, 7, 0x1, 3, 4, -1, -1, -1, -1, -1 };
   return &_OrgMinimaObjectsDifficulty;
 }

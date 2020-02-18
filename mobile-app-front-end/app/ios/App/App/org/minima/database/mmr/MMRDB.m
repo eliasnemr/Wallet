@@ -18,7 +18,7 @@
 #include "org/minima/objects/Coin.h"
 #include "org/minima/objects/base/MiniByte.h"
 #include "org/minima/objects/base/MiniData.h"
-#include "org/minima/objects/base/MiniData32.h"
+#include "org/minima/objects/base/MiniHash.h"
 #include "org/minima/objects/base/MiniNumber.h"
 
 J2OBJC_INITIALIZED_DEFN(OrgMinimaDatabaseMmrMMRDB)
@@ -166,11 +166,11 @@ void OrgMinimaDatabaseMmrMMRDB_printSets() {
 
 OrgMinimaDatabaseMmrMMRData *OrgMinimaDatabaseMmrMMRDB_getRandomCoin() {
   OrgMinimaDatabaseMmrMMRDB_initialize();
-  OrgMinimaObjectsBaseMiniData32 *coin = create_OrgMinimaObjectsBaseMiniData32_initWithByteArray_([((OrgMinimaObjectsBaseMiniData *) nil_chk(OrgMinimaObjectsBaseMiniData_getRandomDataWithInt_(32))) getData]);
-  OrgMinimaObjectsBaseMiniData32 *address = create_OrgMinimaObjectsBaseMiniData32_initWithNSString_(@"0xABBA");
+  OrgMinimaObjectsBaseMiniHash *coin = create_OrgMinimaObjectsBaseMiniHash_initWithByteArray_([((OrgMinimaObjectsBaseMiniData *) nil_chk(OrgMinimaObjectsBaseMiniData_getRandomDataWithInt_(32))) getData]);
+  OrgMinimaObjectsBaseMiniHash *address = create_OrgMinimaObjectsBaseMiniHash_initWithNSString_(@"0xABBA");
   OrgMinimaObjectsBaseMiniNumber *amount = create_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(@"100");
-  OrgMinimaObjectsBaseMiniData32 *tokenid = create_OrgMinimaObjectsBaseMiniData32_initWithNSString_(@"0x00");
-  OrgMinimaObjectsCoin *cc = create_OrgMinimaObjectsCoin_initWithOrgMinimaObjectsBaseMiniData32_withOrgMinimaObjectsBaseMiniData32_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniData32_(coin, address, amount, tokenid);
+  OrgMinimaObjectsBaseMiniHash *tokenid = create_OrgMinimaObjectsBaseMiniHash_initWithNSString_(@"0x00");
+  OrgMinimaObjectsCoin *cc = create_OrgMinimaObjectsCoin_initWithOrgMinimaObjectsBaseMiniHash_withOrgMinimaObjectsBaseMiniHash_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniHash_(coin, address, amount, tokenid);
   return create_OrgMinimaDatabaseMmrMMRData_initWithOrgMinimaObjectsBaseMiniByte_withOrgMinimaObjectsCoin_withOrgMinimaObjectsBaseMiniNumber_withJavaUtilArrayList_(JreLoadStatic(OrgMinimaObjectsBaseMiniByte, FALSE), cc, JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, ZERO), create_JavaUtilArrayList_init());
 }
 

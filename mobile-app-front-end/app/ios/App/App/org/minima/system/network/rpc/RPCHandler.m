@@ -40,7 +40,7 @@
     NSString *input = [in readLine];
     JavaUtilStringTokenizer *parse = create_JavaUtilStringTokenizer_initWithNSString_(input);
     NSString *method = [((NSString *) nil_chk([parse nextToken])) uppercaseString];
-    fileRequested = [((NSString *) nil_chk([parse nextToken])) lowercaseString];
+    fileRequested = [parse nextToken];
     if ([((NSString *) nil_chk(method)) isEqual:@"GET"]) {
       NSString *function = [NSString stringWithString:fileRequested];
       if ([function java_hasPrefix:@"/"]) {

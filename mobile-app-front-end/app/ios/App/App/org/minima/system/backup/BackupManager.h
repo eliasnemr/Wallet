@@ -27,7 +27,7 @@
 
 @interface OrgMinimaSystemBackupBackupManager : OrgMinimaSystemSystemHandler {
  @public
-  NSString *mHomeFolder_;
+  NSString *mConfigurationFolder_;
   JavaIoFile *mRoot_;
   JavaIoFile *mBackup_;
   JavaIoFile *mTxPOWDB_;
@@ -36,7 +36,7 @@
 #pragma mark Public
 
 - (instancetype)initWithOrgMinimaSystemMain:(OrgMinimaSystemMain *)zMain
-                               withNSString:(NSString *)zHomeFolder;
+                               withNSString:(NSString *)zConfFolder;
 
 - (void)backupTxpowWithOrgMinimaObjectsTxPOW:(OrgMinimaObjectsTxPOW *)zTxPOW;
 
@@ -62,7 +62,7 @@
 
 J2OBJC_EMPTY_STATIC_INIT(OrgMinimaSystemBackupBackupManager)
 
-J2OBJC_FIELD_SETTER(OrgMinimaSystemBackupBackupManager, mHomeFolder_, NSString *)
+J2OBJC_FIELD_SETTER(OrgMinimaSystemBackupBackupManager, mConfigurationFolder_, NSString *)
 J2OBJC_FIELD_SETTER(OrgMinimaSystemBackupBackupManager, mRoot_, JavaIoFile *)
 J2OBJC_FIELD_SETTER(OrgMinimaSystemBackupBackupManager, mBackup_, JavaIoFile *)
 J2OBJC_FIELD_SETTER(OrgMinimaSystemBackupBackupManager, mTxPOWDB_, JavaIoFile *)
@@ -112,11 +112,11 @@ inline NSString *OrgMinimaSystemBackupBackupManager_get_BACKUP_POSTACTION_HANDLE
 FOUNDATION_EXPORT NSString *OrgMinimaSystemBackupBackupManager_BACKUP_POSTACTION_HANDLER;
 J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBackupBackupManager, BACKUP_POSTACTION_HANDLER, NSString *)
 
-FOUNDATION_EXPORT void OrgMinimaSystemBackupBackupManager_initWithOrgMinimaSystemMain_withNSString_(OrgMinimaSystemBackupBackupManager *self, OrgMinimaSystemMain *zMain, NSString *zHomeFolder);
+FOUNDATION_EXPORT void OrgMinimaSystemBackupBackupManager_initWithOrgMinimaSystemMain_withNSString_(OrgMinimaSystemBackupBackupManager *self, OrgMinimaSystemMain *zMain, NSString *zConfFolder);
 
-FOUNDATION_EXPORT OrgMinimaSystemBackupBackupManager *new_OrgMinimaSystemBackupBackupManager_initWithOrgMinimaSystemMain_withNSString_(OrgMinimaSystemMain *zMain, NSString *zHomeFolder) NS_RETURNS_RETAINED;
+FOUNDATION_EXPORT OrgMinimaSystemBackupBackupManager *new_OrgMinimaSystemBackupBackupManager_initWithOrgMinimaSystemMain_withNSString_(OrgMinimaSystemMain *zMain, NSString *zConfFolder) NS_RETURNS_RETAINED;
 
-FOUNDATION_EXPORT OrgMinimaSystemBackupBackupManager *create_OrgMinimaSystemBackupBackupManager_initWithOrgMinimaSystemMain_withNSString_(OrgMinimaSystemMain *zMain, NSString *zHomeFolder);
+FOUNDATION_EXPORT OrgMinimaSystemBackupBackupManager *create_OrgMinimaSystemBackupBackupManager_initWithOrgMinimaSystemMain_withNSString_(OrgMinimaSystemMain *zMain, NSString *zConfFolder);
 
 FOUNDATION_EXPORT void OrgMinimaSystemBackupBackupManager_deleteFolderWithJavaIoFile_(JavaIoFile *zFolder);
 

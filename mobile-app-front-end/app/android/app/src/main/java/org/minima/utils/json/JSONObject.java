@@ -125,7 +125,7 @@ public class JSONObject extends LinkedHashMap implements JSONAware, JSONStreamAw
 	 * 
 	 * @see org.minima.utils.json.JSONValue#escape(String)
 	 * 
-	 * @param
+	 * @param s
 	 * @return
 	 */
 	public static String escape(String s){

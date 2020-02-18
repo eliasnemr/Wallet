@@ -17,7 +17,7 @@
 #define OrgMinimaDatabaseTxpowdbTxPowDB_
 
 @class JavaUtilArrayList;
-@class OrgMinimaObjectsBaseMiniData32;
+@class OrgMinimaObjectsBaseMiniHash;
 @class OrgMinimaObjectsBaseMiniNumber;
 @class OrgMinimaObjectsTxPOW;
 @protocol OrgMinimaDatabaseTxpowdbTxPOWDBRow;
@@ -26,19 +26,19 @@
 
 - (id<OrgMinimaDatabaseTxpowdbTxPOWDBRow>)addTxPOWDBRowWithOrgMinimaObjectsTxPOW:(OrgMinimaObjectsTxPOW *)zTxPOW;
 
-- (id<OrgMinimaDatabaseTxpowdbTxPOWDBRow>)findTxPOWDBRowWithOrgMinimaObjectsBaseMiniData32:(OrgMinimaObjectsBaseMiniData32 *)zTxPOWID;
+- (id<OrgMinimaDatabaseTxpowdbTxPOWDBRow>)findTxPOWDBRowWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zTxPOWID;
 
 - (JavaUtilArrayList *)getAllTxPOWDBRow;
 
 - (void)resetAllInBlocks;
 
-- (void)removeTxPOWWithOrgMinimaObjectsBaseMiniData32:(OrgMinimaObjectsBaseMiniData32 *)zTxPOWID;
+- (void)removeTxPOWWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zTxPOWID;
 
 - (JavaUtilArrayList *)removeTxPOWInBlockLessThanWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zBlockNumber;
 
 - (JavaUtilArrayList *)getAllUnusedTxPOW;
 
-- (JavaUtilArrayList *)getChildBlocksTxPOWWithOrgMinimaObjectsBaseMiniData32:(OrgMinimaObjectsBaseMiniData32 *)zParent;
+- (JavaUtilArrayList *)getChildBlocksTxPOWWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zParent;
 
 - (JavaUtilArrayList *)getAllBlocksMissingTransactions;
 

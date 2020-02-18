@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { NavParams, PopoverController, AlertController } from '@ionic/angular';
+import { Clipboard } from '@ionic-native/clipboard/ngx';
 
 @Component({
   selector: 'app-pop-over',
@@ -9,23 +11,30 @@ export class PopOverComponent implements OnInit {
   @Input("tokenName") tokenName;
   @Input("tokenId") tokenId;
 
-  
-  public refTokenId: any;
-  public tokenNameVar: any;
-  public tokenIdVar: any;
+  public refTokenid = '';
 
-  constructor() {
-
-  }
+  constructor(public navParams: NavParams, private clipboard: Clipboard, private alertController: AlertController) {}
 
   ngOnInit() {
-    this.refTokenId = this.tokenId;
+    this.refTokenid = this.navParams.get('tokenid');
   }
 
-  ionViewWillEnter() {
+  ionViewWillEnter() {}
 
+  copyToClipboard() {
+    this.clipboard.copy(this.refTokenid);
+    this.presentAlert("Copied to clipboard", "Clipboard");
   }
 
+  async presentAlert(msg:string,header:string) {
+    const alert = await this.alertController.create({
+      header: header,
+      message: msg,
+      buttons: ['Cancel', 'Ok']
+    });
+
+    await alert.present();
+  }
   
 
 }

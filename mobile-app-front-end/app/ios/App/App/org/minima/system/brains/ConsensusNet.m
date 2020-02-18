@@ -13,7 +13,7 @@
 #include "org/minima/database/txpowtree/BlockTreeNode.h"
 #include "org/minima/objects/TxPOW.h"
 #include "org/minima/objects/base/MiniByte.h"
-#include "org/minima/objects/base/MiniData32.h"
+#include "org/minima/objects/base/MiniHash.h"
 #include "org/minima/objects/base/MiniNumber.h"
 #include "org/minima/system/backup/SyncPackage.h"
 #include "org/minima/system/backup/SyncPacket.h"
@@ -110,13 +110,13 @@ NSString *OrgMinimaSystemBrainsConsensusNet_CONSENSUS_NET_TXPOW;
         if (requeston) {
           OrgMinimaObjectsTxPOW *txpow = [spack getTxPOW];
           JavaUtilArrayList *txns = [((OrgMinimaObjectsTxPOW *) nil_chk(txpow)) getBlockTxns];
-          for (OrgMinimaObjectsBaseMiniData32 * __strong txn in nil_chk(txns)) {
-            if (![((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusNet_getMainDB(self))) isTxPOWFoundWithOrgMinimaObjectsBaseMiniData32:txn]) {
+          for (OrgMinimaObjectsBaseMiniHash * __strong txn in nil_chk(txns)) {
+            if (![((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusNet_getMainDB(self))) isTxPOWFoundWithOrgMinimaObjectsBaseMiniHash:txn]) {
               OrgMinimaSystemBrainsConsensusNet_sendNetMessageWithOrgMinimaUtilsMessagesMessage_withOrgMinimaObjectsBaseMiniByte_withOrgMinimaUtilsStreamable_(self, zMessage, JreLoadStatic(OrgMinimaSystemNetworkNetClientReader, NETMESSAGE_TXPOW_REQUEST), txn);
               totalreq++;
             }
           }
-          if (![((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusNet_getMainDB(self))) isTxPOWFoundWithOrgMinimaObjectsBaseMiniData32:[txpow getTxPowID]]) {
+          if (![((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusNet_getMainDB(self))) isTxPOWFoundWithOrgMinimaObjectsBaseMiniHash:[txpow getTxPowID]]) {
             OrgMinimaSystemBrainsConsensusNet_sendNetMessageWithOrgMinimaUtilsMessagesMessage_withOrgMinimaObjectsBaseMiniByte_withOrgMinimaUtilsStreamable_(self, zMessage, JreLoadStatic(OrgMinimaSystemNetworkNetClientReader, NETMESSAGE_TXPOW_REQUEST), [txpow getTxPowID]);
             totalreq++;
           }
@@ -126,15 +126,15 @@ NSString *OrgMinimaSystemBrainsConsensusNet_CONSENSUS_NET_TXPOW;
     }
   }
   else if ([zMessage isMessageTypeWithNSString:OrgMinimaSystemBrainsConsensusNet_CONSENSUS_NET_TXPOWID]) {
-    OrgMinimaObjectsBaseMiniData32 *txpowid = (OrgMinimaObjectsBaseMiniData32 *) cast_chk([zMessage getObjectWithNSString:@"txpowid"], [OrgMinimaObjectsBaseMiniData32 class]);
-    OrgMinimaObjectsTxPOW *txpow = [((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusNet_getMainDB(self))) getTxPOWWithOrgMinimaObjectsBaseMiniData32:txpowid];
+    OrgMinimaObjectsBaseMiniHash *txpowid = (OrgMinimaObjectsBaseMiniHash *) cast_chk([zMessage getObjectWithNSString:@"txpowid"], [OrgMinimaObjectsBaseMiniHash class]);
+    OrgMinimaObjectsTxPOW *txpow = [((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusNet_getMainDB(self))) getTxPOWWithOrgMinimaObjectsBaseMiniHash:txpowid];
     if (txpow == nil) {
       OrgMinimaSystemBrainsConsensusNet_sendNetMessageWithOrgMinimaUtilsMessagesMessage_withOrgMinimaObjectsBaseMiniByte_withOrgMinimaUtilsStreamable_(self, zMessage, JreLoadStatic(OrgMinimaSystemNetworkNetClientReader, NETMESSAGE_TXPOW_REQUEST), txpowid);
     }
   }
   else if ([zMessage isMessageTypeWithNSString:OrgMinimaSystemBrainsConsensusNet_CONSENSUS_NET_TXPOWREQUEST]) {
-    OrgMinimaObjectsBaseMiniData32 *txpowid = (OrgMinimaObjectsBaseMiniData32 *) cast_chk([zMessage getObjectWithNSString:@"txpowid"], [OrgMinimaObjectsBaseMiniData32 class]);
-    OrgMinimaObjectsTxPOW *txpow = [((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusNet_getMainDB(self))) getTxPOWWithOrgMinimaObjectsBaseMiniData32:txpowid];
+    OrgMinimaObjectsBaseMiniHash *txpowid = (OrgMinimaObjectsBaseMiniHash *) cast_chk([zMessage getObjectWithNSString:@"txpowid"], [OrgMinimaObjectsBaseMiniHash class]);
+    OrgMinimaObjectsTxPOW *txpow = [((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusNet_getMainDB(self))) getTxPOWWithOrgMinimaObjectsBaseMiniHash:txpowid];
     if (txpow == nil) {
       OrgMinimaUtilsMinimaLogger_logWithNSString_(JreStrcat("$@", @"TXPOWREQUEST OF MISSING TXPOW ", txpowid));
     }
@@ -150,7 +150,7 @@ NSString *OrgMinimaSystemBrainsConsensusNet_CONSENSUS_NET_TXPOW;
       OrgMinimaUtilsMinimaLogger_logWithNSString_(JreStrcat("$@", @"ERROR FAKE - not enough POW : ", txpow));
       return;
     }
-    if ([((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusNet_getMainDB(self))) getTxPOWWithOrgMinimaObjectsBaseMiniData32:[txpow getTxPowID]] != nil) {
+    if ([((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusNet_getMainDB(self))) getTxPOWWithOrgMinimaObjectsBaseMiniHash:[txpow getTxPowID]] != nil) {
       return;
     }
     jboolean sigsok = OrgMinimaSystemBrainsTxPOWChecker_checkSigsWithOrgMinimaObjectsTxPOW_(txpow);
@@ -164,12 +164,12 @@ NSString *OrgMinimaSystemBrainsConsensusNet_CONSENSUS_NET_TXPOW;
       return;
     }
     id<OrgMinimaDatabaseTxpowdbTxPOWDBRow> row = [((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusNet_getMainDB(self))) addNewTxPowWithOrgMinimaObjectsTxPOW:txpow];
-    if ([((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusNet_getMainDB(self))) getTxPOWWithOrgMinimaObjectsBaseMiniData32:[txpow getParentID]] == nil) {
+    if ([((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusNet_getMainDB(self))) getTxPOWWithOrgMinimaObjectsBaseMiniHash:[txpow getParentID]] == nil) {
       OrgMinimaSystemBrainsConsensusNet_sendNetMessageWithOrgMinimaUtilsMessagesMessage_withOrgMinimaObjectsBaseMiniByte_withOrgMinimaUtilsStreamable_(self, zMessage, JreLoadStatic(OrgMinimaSystemNetworkNetClientReader, NETMESSAGE_TXPOW_REQUEST), [txpow getParentID]);
     }
     JavaUtilArrayList *txns = [txpow getBlockTxns];
-    for (OrgMinimaObjectsBaseMiniData32 * __strong txn in nil_chk(txns)) {
-      if ([((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusNet_getMainDB(self))) getTxPOWWithOrgMinimaObjectsBaseMiniData32:txn] == nil) {
+    for (OrgMinimaObjectsBaseMiniHash * __strong txn in nil_chk(txns)) {
+      if ([((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusNet_getMainDB(self))) getTxPOWWithOrgMinimaObjectsBaseMiniHash:txn] == nil) {
         OrgMinimaSystemBrainsConsensusNet_sendNetMessageWithOrgMinimaUtilsMessagesMessage_withOrgMinimaObjectsBaseMiniByte_withOrgMinimaUtilsStreamable_(self, zMessage, JreLoadStatic(OrgMinimaSystemNetworkNetClientReader, NETMESSAGE_TXPOW_REQUEST), txn);
       }
     }

@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
-import { AlertController, PopoverController, IonLabel, IonList } from '@ionic/angular';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy, Output, EventEmitter, NgModule } from '@angular/core';
+import { AlertController, PopoverController, IonLabel, IonList, IonItem, IonNote, IonInput } from '@ionic/angular';
 import { MinimaApiService } from '../service/minima-api.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { interval, Subscription, Observable } from 'rxjs';
@@ -13,6 +13,8 @@ import { PopOverComponent } from '../pop-over/pop-over.component';
 })
 
 export class BalancePage implements OnInit {
+
+  @ViewChild('referenceToken', {static:false}) referenceToken: IonLabel;
 
   public balance: number;
   public theBalanceExists:any;
@@ -29,8 +31,8 @@ export class BalancePage implements OnInit {
   public confirmed = 0;
   public unconfirmed : any;
   public strUnconfirmed: any;
-
-  private firstObsubscription: Subscription;
+  
+  public refTokenId;
 
   constructor(private api: MinimaApiService, 
     public alertController: AlertController,
@@ -159,17 +161,13 @@ export class BalancePage implements OnInit {
     }, 200);
   }
 
-
-
-  async presentPopover(ev: any) {
-
-    
-
+  async presentPopover(ev: any, data:any) {
     const popover = await this.popoverController.create({
       component: PopOverComponent,
       event: ev,
-      translucent: true,
-      componentProps:{tokenId: "0x0000000"},
+      cssClass: 'popover',
+      translucent: false,
+      componentProps:{tokenid: data},
     });
     return await popover.present();
 

@@ -23,7 +23,7 @@
 @class JavaMathBigInteger;
 @class JavaUtilArrayList;
 @class OrgMinimaDatabaseMmrMMRSet;
-@class OrgMinimaObjectsBaseMiniData32;
+@class OrgMinimaObjectsBaseMiniHash;
 @class OrgMinimaObjectsTxPOW;
 
 @interface OrgMinimaDatabaseTxpowtreeBlockTreeNode : NSObject < JavaLangComparable > {
@@ -65,7 +65,7 @@
 
 - (OrgMinimaObjectsTxPOW *)getTxPow;
 
-- (OrgMinimaObjectsBaseMiniData32 *)getTxPowID;
+- (OrgMinimaObjectsBaseMiniHash *)getTxPowID;
 
 - (JavaMathBigInteger *)getWeight;
 

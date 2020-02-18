@@ -12,7 +12,7 @@
 #include "org/minima/database/txpowtree/BlockTreeNode.h"
 #include "org/minima/database/txpowtree/BlockTreePrinter.h"
 #include "org/minima/objects/TxPOW.h"
-#include "org/minima/objects/base/MiniData32.h"
+#include "org/minima/objects/base/MiniHash.h"
 #include "org/minima/objects/base/MiniNumber.h"
 #include "org/minima/utils/Maths.h"
 #include "org/minima/utils/MinimaLogger.h"
@@ -117,7 +117,7 @@ __attribute__((unused)) static void OrgMinimaDatabaseTxpowtreeBlockTreePrinter_d
   static const J2ObjcFieldInfo fields[] = {
     { "mTree_", "LOrgMinimaDatabaseTxpowtreeBlockTree;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mCascadeNode_", "J", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
-    { "mTipID_", "LOrgMinimaObjectsBaseMiniData32;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
+    { "mTipID_", "LOrgMinimaObjectsBaseMiniHash;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mSimple_", "Z", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
   };
   static const void *ptrTable[] = { "LOrgMinimaDatabaseTxpowtreeBlockTree;Z", "convertNodeToString", "LOrgMinimaDatabaseTxpowtreeBlockTreeNode;", "getStarString", "I", "drillNode", "LOrgMinimaDatabaseTxpowtreeBlockTreeNode;LOrgMinimaUtilsBrettyTreeNode;" };
@@ -151,7 +151,7 @@ NSString *OrgMinimaDatabaseTxpowtreeBlockTreePrinter_convertNodeToStringWithOrgM
   if (self->mCascadeNode_ == [((OrgMinimaObjectsBaseMiniNumber *) nil_chk([((OrgMinimaObjectsTxPOW *) nil_chk([zNode getTxPow])) getBlockNumber])) getAsLong]) {
     JreStrAppend(&add, "$", @" [++CASCADING++]");
   }
-  if ([((OrgMinimaObjectsBaseMiniData32 *) nil_chk([zNode getTxPowID])) isNumericallyEqualWithOrgMinimaObjectsBaseMiniData:self->mTipID_]) {
+  if ([((OrgMinimaObjectsBaseMiniHash *) nil_chk([zNode getTxPowID])) isNumericallyEqualWithOrgMinimaObjectsBaseMiniData:self->mTipID_]) {
     JreStrAppend(&add, "$", @" [++THE TIP++]");
   }
   if (self->mSimple_) {

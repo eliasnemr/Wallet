@@ -8,6 +8,7 @@
 #include "org/minima/system/Main.h"
 #include "org/minima/system/input/CommandFunction.h"
 #include "org/minima/system/input/functions/trace.h"
+#include "org/minima/utils/ResponseStream.h"
 
 @implementation OrgMinimaSystemInputFunctionstrace
 
@@ -21,6 +22,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 - (void)doFunctionWithNSStringArray:(IOSObjectArray *)zInput {
   jboolean on = [((NSString *) nil_chk(IOSObjectArray_Get(nil_chk(zInput), 1))) java_equalsIgnoreCase:@"on"];
   [((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) setTraceWithBoolean:on];
+  [((OrgMinimaUtilsResponseStream *) nil_chk([self getResponseStream])) endStatusWithBoolean:true withNSString:JreStrcat("$Z", @"Trace : ", on)];
 }
 
 - (OrgMinimaSystemInputCommandFunction *)getNewFunction {
@@ -49,7 +51,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 void OrgMinimaSystemInputFunctionstrace_init(OrgMinimaSystemInputFunctionstrace *self) {
   OrgMinimaSystemInputCommandFunction_initWithNSString_(self, @"trace");
-  [self setHelpWithNSString:@"[on/off]" withNSString:@"Turn ON/OFF debug info as new transaction and block are found" withNSString:@""];
+  [self setHelpWithNSString:@"[on|off]" withNSString:@"Turn ON|OFF debug info as new transaction and block are found" withNSString:@""];
 }
 
 OrgMinimaSystemInputFunctionstrace *new_OrgMinimaSystemInputFunctionstrace_init() {

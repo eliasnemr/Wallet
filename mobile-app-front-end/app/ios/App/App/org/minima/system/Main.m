@@ -54,8 +54,8 @@ NSString *OrgMinimaSystemMain_SYSTEM_EVENT = @"SYSTEM_EVENT";
 - (instancetype)initWithInt:(jint)zPort
                     withInt:(jint)zRPCPort
                 withBoolean:(jboolean)zGenesis
-               withNSString:(NSString *)zHomeFolder {
-  OrgMinimaSystemMain_initWithInt_withInt_withBoolean_withNSString_(self, zPort, zRPCPort, zGenesis, zHomeFolder);
+               withNSString:(NSString *)zConfFolder {
+  OrgMinimaSystemMain_initWithInt_withInt_withBoolean_withNSString_(self, zPort, zRPCPort, zGenesis, zConfFolder);
   return self;
 }
 
@@ -164,6 +164,7 @@ NSString *OrgMinimaSystemMain_SYSTEM_EVENT = @"SYSTEM_EVENT";
     [((OrgMinimaSystemBootstrapUserSimulator *) nil_chk(mSim_)) stopMessageProcessor];
     JavaLangThread_sleepWithLong_(250);
     [self stopMessageProcessor];
+    [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk(mConsensus_)) updateListenersWithOrgMinimaUtilsMessagesMessage:create_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemBrainsConsensusHandler_CONSENSUS_NOTIFY_QUIT)];
     OrgMinimaUtilsMinimaLogger_logWithNSString_(@"Minima Stopped. Bye Bye..");
   }
   else if ([zMessage isMessageTypeWithNSString:OrgMinimaSystemMain_SYSTEM_ALLSTOP]) {
@@ -262,7 +263,7 @@ NSString *OrgMinimaSystemMain_SYSTEM_EVENT = @"SYSTEM_EVENT";
 
 @end
 
-void OrgMinimaSystemMain_initWithInt_withInt_withBoolean_withNSString_(OrgMinimaSystemMain *self, jint zPort, jint zRPCPort, jboolean zGenesis, NSString *zHomeFolder) {
+void OrgMinimaSystemMain_initWithInt_withInt_withBoolean_withNSString_(OrgMinimaSystemMain *self, jint zPort, jint zRPCPort, jboolean zGenesis, NSString *zConfFolder) {
   OrgMinimaUtilsMessagesMessageProcessor_initWithNSString_(self, @"MAIN     ");
   self->mGenesis_ = false;
   self->mAutoConnect_ = false;
@@ -281,19 +282,19 @@ void OrgMinimaSystemMain_initWithInt_withInt_withBoolean_withNSString_(OrgMinima
   JreStrongAssignAndConsume(&self->mInput_, new_OrgMinimaSystemInputInputHandler_initWithOrgMinimaSystemMain_(self));
   JreStrongAssignAndConsume(&self->mNetwork_, new_OrgMinimaSystemNetworkNetworkHandler_initWithOrgMinimaSystemMain_(self));
   JreStrongAssignAndConsume(&self->mTXMiner_, new_OrgMinimaSystemTxTXMiner_initWithOrgMinimaSystemMain_(self));
-  JreStrongAssignAndConsume(&self->mBackup_, new_OrgMinimaSystemBackupBackupManager_initWithOrgMinimaSystemMain_withNSString_(self, zHomeFolder));
+  JreStrongAssignAndConsume(&self->mBackup_, new_OrgMinimaSystemBackupBackupManager_initWithOrgMinimaSystemMain_withNSString_(self, zConfFolder));
   JreStrongAssignAndConsume(&self->mProcessManager_, new_OrgMinimaSystemExternalProcessManager_initWithOrgMinimaSystemMain_(self));
   JreStrongAssignAndConsume(&self->mConsensus_, new_OrgMinimaSystemBrainsConsensusHandler_initWithOrgMinimaSystemMain_(self));
   self->mGenesis_ = zGenesis;
   JreStrongAssignAndConsume(&self->mSim_, new_OrgMinimaSystemBootstrapUserSimulator_initWithOrgMinimaSystemMain_(self));
 }
 
-OrgMinimaSystemMain *new_OrgMinimaSystemMain_initWithInt_withInt_withBoolean_withNSString_(jint zPort, jint zRPCPort, jboolean zGenesis, NSString *zHomeFolder) {
-  J2OBJC_NEW_IMPL(OrgMinimaSystemMain, initWithInt_withInt_withBoolean_withNSString_, zPort, zRPCPort, zGenesis, zHomeFolder)
+OrgMinimaSystemMain *new_OrgMinimaSystemMain_initWithInt_withInt_withBoolean_withNSString_(jint zPort, jint zRPCPort, jboolean zGenesis, NSString *zConfFolder) {
+  J2OBJC_NEW_IMPL(OrgMinimaSystemMain, initWithInt_withInt_withBoolean_withNSString_, zPort, zRPCPort, zGenesis, zConfFolder)
 }
 
-OrgMinimaSystemMain *create_OrgMinimaSystemMain_initWithInt_withInt_withBoolean_withNSString_(jint zPort, jint zRPCPort, jboolean zGenesis, NSString *zHomeFolder) {
-  J2OBJC_CREATE_IMPL(OrgMinimaSystemMain, initWithInt_withInt_withBoolean_withNSString_, zPort, zRPCPort, zGenesis, zHomeFolder)
+OrgMinimaSystemMain *create_OrgMinimaSystemMain_initWithInt_withInt_withBoolean_withNSString_(jint zPort, jint zRPCPort, jboolean zGenesis, NSString *zConfFolder) {
+  J2OBJC_CREATE_IMPL(OrgMinimaSystemMain, initWithInt_withInt_withBoolean_withNSString_, zPort, zRPCPort, zGenesis, zConfFolder)
 }
 
 J2OBJC_CLASS_TYPE_LITERAL_SOURCE(OrgMinimaSystemMain)

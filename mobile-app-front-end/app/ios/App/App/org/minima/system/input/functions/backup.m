@@ -54,7 +54,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 void OrgMinimaSystemInputFunctionsbackup_init(OrgMinimaSystemInputFunctionsbackup *self) {
   OrgMinimaSystemInputCommandFunction_initWithNSString_(self, @"backup");
-  [self setHelpWithNSString:@"" withNSString:@"Backup the current User details (done automatically when you quit)" withNSString:@""];
+  [self setHelpWithNSString:@"" withNSString:@"Backup the current User details (done automatically when you quit or your balance changes)" withNSString:@""];
 }
 
 OrgMinimaSystemInputFunctionsbackup *new_OrgMinimaSystemInputFunctionsbackup_init() {

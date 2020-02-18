@@ -61,8 +61,6 @@ withOrgMinimaSystemNetworkNetworkHandler:(OrgMinimaSystemNetworkNetworkHandler *
 
 // Disallowed inherited constructors, do not use.
 
-- (instancetype)init NS_UNAVAILABLE;
-
 - (instancetype)initWithNSString:(NSString *)arg0 NS_UNAVAILABLE;
 
 @end

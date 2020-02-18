@@ -401,6 +401,38 @@ var findCheckedOption = function (el, tagName) {
 
 
 
+/***/ }),
+
+/***/ "./src/app/tokens.ts":
+/*!***************************!*\
+  !*** ./src/app/tokens.ts ***!
+  \***************************/
+/*! exports provided: Tokens */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Tokens", function() { return Tokens; });
+var Tokens = /** @class */ (function () {
+    function Tokens(id, tkn, conf, unconf, ttl) {
+        this.tokenid = id;
+        this.token = tkn;
+        this.confirmed = conf;
+        this.unconfirmed = unconf;
+        this.total = ttl;
+    }
+    Tokens.ctorParameters = function () { return [
+        { type: String },
+        { type: String },
+        { type: Number },
+        { type: undefined },
+        { type: Number }
+    ]; };
+    return Tokens;
+}());
+
+
+
 /***/ })
 
 }]);

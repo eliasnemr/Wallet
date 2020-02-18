@@ -24,7 +24,7 @@
 @class JavaIoDataInputStream;
 @class JavaIoDataOutputStream;
 @class JavaUtilArrayList;
-@class OrgMinimaObjectsBaseMiniData32;
+@class OrgMinimaObjectsBaseMiniHash;
 @class OrgMinimaObjectsBaseMiniNumber;
 @class OrgMinimaObjectsTransaction;
 @class OrgMinimaObjectsWitness;
@@ -33,8 +33,8 @@
 @interface OrgMinimaObjectsTxPOW : NSObject < OrgMinimaUtilsStreamable > {
  @public
   IOSObjectArray *mSuperParents_;
-  OrgMinimaObjectsBaseMiniData32 *mMMRRoot_;
-  OrgMinimaObjectsBaseMiniData32 *mMagic_;
+  OrgMinimaObjectsBaseMiniHash *mMMRRoot_;
+  OrgMinimaObjectsBaseMiniHash *mMagic_;
   jboolean _mIsBlockPOW_;
   jboolean _mIsTxnPOW_;
   jint _mSuperBlock_;
@@ -54,9 +54,9 @@
 
 - (JavaUtilArrayList *)getBlockTxns;
 
-- (OrgMinimaObjectsBaseMiniData32 *)getMMRRoot;
+- (OrgMinimaObjectsBaseMiniHash *)getMMRRoot;
 
-- (OrgMinimaObjectsBaseMiniData32 *)getParentID;
+- (OrgMinimaObjectsBaseMiniHash *)getParentID;
 
 - (jint)getSuperLevel;
 
@@ -66,7 +66,7 @@
 
 - (jint)getTxnDifficulty;
 
-- (OrgMinimaObjectsBaseMiniData32 *)getTxPowID;
+- (OrgMinimaObjectsBaseMiniHash *)getTxPowID;
 
 - (OrgMinimaObjectsWitness *)getWitness;
 
@@ -80,11 +80,11 @@
 
 - (void)setBlockNumberWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zBlockNum;
 
-- (void)setMMRRootWithOrgMinimaObjectsBaseMiniData32:(OrgMinimaObjectsBaseMiniData32 *)zRoot;
+- (void)setMMRRootWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zRoot;
 
 - (void)setNonceWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zNonce;
 
-- (void)setParentWithOrgMinimaObjectsBaseMiniData32:(OrgMinimaObjectsBaseMiniData32 *)zData;
+- (void)setParentWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zData;
 
 - (void)setTimeMilliWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zMilli;
 
@@ -105,8 +105,8 @@
 J2OBJC_STATIC_INIT(OrgMinimaObjectsTxPOW)
 
 J2OBJC_FIELD_SETTER(OrgMinimaObjectsTxPOW, mSuperParents_, IOSObjectArray *)
-J2OBJC_FIELD_SETTER(OrgMinimaObjectsTxPOW, mMMRRoot_, OrgMinimaObjectsBaseMiniData32 *)
-J2OBJC_FIELD_SETTER(OrgMinimaObjectsTxPOW, mMagic_, OrgMinimaObjectsBaseMiniData32 *)
+J2OBJC_FIELD_SETTER(OrgMinimaObjectsTxPOW, mMMRRoot_, OrgMinimaObjectsBaseMiniHash *)
+J2OBJC_FIELD_SETTER(OrgMinimaObjectsTxPOW, mMagic_, OrgMinimaObjectsBaseMiniHash *)
 
 inline jint OrgMinimaObjectsTxPOW_get_SUPERPARENT_NUM(void);
 #define OrgMinimaObjectsTxPOW_SUPERPARENT_NUM 256

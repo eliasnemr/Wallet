@@ -1,4 +1,3 @@
-<ion-app>
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
@@ -8,6 +7,7 @@
     Balance
     </ion-title>
   </ion-toolbar>
+  
 </ion-header>
 
 <ion-content>
@@ -17,27 +17,11 @@
 
   <ion-card color="white">
     <ion-card-header color="white">
-      <ion-item lines="none">
-        <ion-icon style=" font-size:1.0rem" name="card" slot="start"></ion-icon>
-        <ion-card-title class="ion-text-center" color="tertiary"><ion-text color="tertiary"></ion-text></ion-card-title>
-      </ion-item>
+      
     </ion-card-header>
     <ion-card-content>
-
-      <!-- <ion-lis *ngFor = "let coin of balance"> -->
-      <ion-list lines="none" style="padding:20px;">
-        <ion-item>
-          <ion-label></ion-label> <!-- Empty label filler -->
-          <ion-label class="confirmed-label">
-            Confirmed
-          </ion-label>
-          <ion-label class="confirmed-label">
-            {{strUnconfirmed}}
-          </ion-label>
-
-        </ion-item>
-          
-      </ion-list>
+      
+      <ion-icon style=" font-size:2.0rem; padding-left:10px;" name="card" slot="start" class="icon-head"></ion-icon>
 
       <ion-list *ngFor="let token of tokenArr" #tokenArrayReference>
 
@@ -46,11 +30,11 @@
             <ion-item-option routerLink="/my-address">Receive</ion-item-option>
             <ion-item-option color="danger" routerLink="/send-funds">Send</ion-item-option>
           </ion-item-options>
-      
-          <ion-item>
+          
+          <ion-item detail lines="full" style="padding: 0px;">
             <ion-label class="logo-names">
-              <ion-icon  [hidden]="amiToken()" src="../../assets/icon/minima.svg"></ion-icon> 
-              {{ token.token }}
+              <ion-icon class="balance-token" [hidden]="amiToken()" src="../../assets/icon/minima.svg"></ion-icon> 
+              <ion-note class="balance-tokenname" #refToken> {{ token.token }} </ion-note>
             </ion-label>  
             <ion-label class="confirmed-amount">
               {{ token.confirmed  }} 
@@ -61,7 +45,7 @@
           </ion-item>
       
           <ion-item-options side="end">
-            <ion-item-option (click)="presentPopover($event)">TokenID</ion-item-option>
+            <ion-item-option (click)="presentPopover($event, token.tokenid)">Token ID</ion-item-option>
           </ion-item-options>
         </ion-item-sliding>
         
@@ -81,10 +65,9 @@
 <ion-footer>
   <ion-toolbar>
     <ion-buttons>
-      <ion-button shape="" expand="block" type="button"  (click)="giveMe50()">
+      <ion-button class="action-btn" shape="" expand="block" type="button"  (click)="giveMe50()">
         <ion-icon name="cash" slot="start"></ion-icon> Gimme 50
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-footer>
-</ion-app>

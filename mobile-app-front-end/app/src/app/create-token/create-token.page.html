@@ -90,8 +90,10 @@
 <ion-footer>
   <ion-toolbar>
     <ion-buttons>
-      <ion-button (click)="createToken()" shape="fill"  slot="primary" expand="fill" type="button" position="relative" >
-      Create token
+      
+      <ion-button class="action-btn" (click)="createToken()" shape="fill"  slot="primary" expand="fill" type="button" position="relative" >
+        <ion-icon name="brush" slot="start"></ion-icon>
+        Create token
       </ion-button>
     </ion-buttons>
     

@@ -119,6 +119,11 @@ inline NSString *OrgMinimaSystemBrainsConsensusHandler_get_CONSENSUS_STATUS(void
 FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusHandler_CONSENSUS_STATUS;
 J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBrainsConsensusHandler, CONSENSUS_STATUS, NSString *)
 
+inline NSString *OrgMinimaSystemBrainsConsensusHandler_get_CONSENSUS_NOTIFY_QUIT(void);
+/*! INTERNAL ONLY - Use accessor function from above. */
+FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusHandler_CONSENSUS_NOTIFY_QUIT;
+J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBrainsConsensusHandler, CONSENSUS_NOTIFY_QUIT, NSString *)
+
 inline NSString *OrgMinimaSystemBrainsConsensusHandler_get_CONSENSUS_NOTIFY_BALANCE(void);
 /*! INTERNAL ONLY - Use accessor function from above. */
 FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusHandler_CONSENSUS_NOTIFY_BALANCE;

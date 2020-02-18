@@ -54,7 +54,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 void OrgMinimaSystemInputFunctionsTransferexportkey_init(OrgMinimaSystemInputFunctionsTransferexportkey *self) {
   OrgMinimaSystemInputCommandFunction_initWithNSString_(self, @"exportkey");
-  [self setHelpWithNSString:@"[ public key ]" withNSString:@"Export the private key seed of the public key" withNSString:@""];
+  [self setHelpWithNSString:@"[public key]" withNSString:@"Export the private key seed of the public key" withNSString:@""];
 }
 
 OrgMinimaSystemInputFunctionsTransferexportkey *new_OrgMinimaSystemInputFunctionsTransferexportkey_init() {

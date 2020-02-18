@@ -54,7 +54,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 void OrgMinimaSystemInputFunctionstxpowinfo_init(OrgMinimaSystemInputFunctionstxpowinfo *self) {
   OrgMinimaSystemInputCommandFunction_initWithNSString_(self, @"txpowinfo");
-  [self setHelpWithNSString:@"[ txpowid ]" withNSString:@"Return info about a specific TxPOW" withNSString:@""];
+  [self setHelpWithNSString:@"[txpowid]" withNSString:@"Return info about a specific TxPOW" withNSString:@""];
 }
 
 OrgMinimaSystemInputFunctionstxpowinfo *new_OrgMinimaSystemInputFunctionstxpowinfo_init() {

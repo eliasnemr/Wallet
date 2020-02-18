@@ -8,6 +8,7 @@
 #include "org/minima/system/Main.h"
 #include "org/minima/system/input/CommandFunction.h"
 #include "org/minima/system/input/functions/quit.h"
+#include "org/minima/utils/ResponseStream.h"
 
 @implementation OrgMinimaSystemInputFunctionsquit
 
@@ -20,6 +21,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 - (void)doFunctionWithNSStringArray:(IOSObjectArray *)zInput {
   [((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) SystemShutDown];
+  [((OrgMinimaUtilsResponseStream *) nil_chk([self getResponseStream])) endStatusWithBoolean:true withNSString:@"Minima System shutting down.."];
 }
 
 - (OrgMinimaSystemInputCommandFunction *)getNewFunction {

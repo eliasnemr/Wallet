@@ -49,9 +49,38 @@ ion-footer ion-list ion-item {
     border-radius: 5px;
 }
 
-.sup {
-    position: relative;
-    font-family: "Aeonik-Light";
-    bottom: 1ex; 
-    font-size: 80%;
-  }
+.status-logo {
+    font-size: 35px;
+}
+ion-note ion-badge {
+    border-radius: 10px;
+    font-size: 10px;
+    margin-bottom: 10px;
+    background-color: none;
+}
+ion-note {
+    font-family: 'Aeonik';
+    font-weight: bolder;
+    font-size: 22px;
+    padding-top: 23px;
+    color: #929396;
+}
+
+@media only screen and (min-width: 992px) {
+    .status-logo-title {
+        font-family: 'Aeonik';
+        font-weight: bolder;
+        font-size: 28px;
+        padding-top: 18px;
+        position: absolute;
+    }
+    
+    ion-note {
+        position: absolute;
+        padding-right: 50px;
+        font-weight: bolder;
+        font-size: 12px;
+        font-family: 'Aeonik';
+        color: #929396;
+    }
+}

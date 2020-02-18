@@ -32,6 +32,9 @@
     { NULL, "LOrgMinimaDatabaseUserdbUserDBRow;", 0x401, 16, 17, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaDatabaseUserdbUserDBRow;", 0x401, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x401, 18, 17, -1, -1, -1, -1 },
+    { NULL, "LJavaUtilArrayList;", 0x401, -1, -1, -1, 19, -1, -1 },
+    { NULL, "LOrgMinimaObjectsTokenDetails;", 0x401, 20, 7, -1, -1, -1, -1 },
+    { NULL, "V", 0x401, 21, 22, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
@@ -42,21 +45,24 @@
   methods[3].selector = @selector(getSimpleAddresses);
   methods[4].selector = @selector(newSimpleAddress);
   methods[5].selector = @selector(newSimpleAddressWithOrgMinimaObjectsPubPrivKey:);
-  methods[6].selector = @selector(isSimpleAddressWithOrgMinimaObjectsBaseMiniData32:);
-  methods[7].selector = @selector(getPublicKeyWithOrgMinimaObjectsBaseMiniData32:);
+  methods[6].selector = @selector(isSimpleAddressWithOrgMinimaObjectsBaseMiniHash:);
+  methods[7].selector = @selector(getPublicKeyWithOrgMinimaObjectsBaseMiniHash:);
   methods[8].selector = @selector(getScriptAddresses);
   methods[9].selector = @selector(newScriptAddressWithNSString:);
   methods[10].selector = @selector(getAllAddresses);
-  methods[11].selector = @selector(getScriptWithOrgMinimaObjectsBaseMiniData32:);
-  methods[12].selector = @selector(isAddressRelevantWithOrgMinimaObjectsBaseMiniData32:);
+  methods[11].selector = @selector(getScriptWithOrgMinimaObjectsBaseMiniHash:);
+  methods[12].selector = @selector(isAddressRelevantWithOrgMinimaObjectsBaseMiniHash:);
   methods[13].selector = @selector(isTransactionRelevantWithOrgMinimaObjectsTransaction:);
   methods[14].selector = @selector(getAllRows);
   methods[15].selector = @selector(getUserRowWithInt:);
   methods[16].selector = @selector(addUserRow);
   methods[17].selector = @selector(deleteUserRowWithInt:);
+  methods[18].selector = @selector(getAllKnownTokens);
+  methods[19].selector = @selector(getTokenDetailWithOrgMinimaObjectsBaseMiniHash:);
+  methods[20].selector = @selector(addTokenDetailsWithOrgMinimaObjectsTokenDetails:);
   #pragma clang diagnostic pop
-  static const void *ptrTable[] = { "()Ljava/util/ArrayList<Lorg/minima/objects/PubPrivKey;>;", "getPubPrivKey", "LOrgMinimaObjectsBaseMiniData;", "()Ljava/util/ArrayList<Lorg/minima/objects/Address;>;", "newSimpleAddress", "LOrgMinimaObjectsPubPrivKey;", "isSimpleAddress", "LOrgMinimaObjectsBaseMiniData32;", "getPublicKey", "newScriptAddress", "LNSString;", "getScript", "isAddressRelevant", "isTransactionRelevant", "LOrgMinimaObjectsTransaction;", "()Ljava/util/ArrayList<Lorg/minima/database/userdb/UserDBRow;>;", "getUserRow", "I", "deleteUserRow" };
-  static const J2ObjcClassInfo _OrgMinimaDatabaseUserdbUserDB = { "UserDB", "org.minima.database.userdb", ptrTable, methods, NULL, 7, 0x609, 18, 0, -1, -1, -1, -1, -1 };
+  static const void *ptrTable[] = { "()Ljava/util/ArrayList<Lorg/minima/objects/PubPrivKey;>;", "getPubPrivKey", "LOrgMinimaObjectsBaseMiniData;", "()Ljava/util/ArrayList<Lorg/minima/objects/Address;>;", "newSimpleAddress", "LOrgMinimaObjectsPubPrivKey;", "isSimpleAddress", "LOrgMinimaObjectsBaseMiniHash;", "getPublicKey", "newScriptAddress", "LNSString;", "getScript", "isAddressRelevant", "isTransactionRelevant", "LOrgMinimaObjectsTransaction;", "()Ljava/util/ArrayList<Lorg/minima/database/userdb/UserDBRow;>;", "getUserRow", "I", "deleteUserRow", "()Ljava/util/ArrayList<Lorg/minima/objects/TokenDetails;>;", "getTokenDetail", "addTokenDetails", "LOrgMinimaObjectsTokenDetails;" };
+  static const J2ObjcClassInfo _OrgMinimaDatabaseUserdbUserDB = { "UserDB", "org.minima.database.userdb", ptrTable, methods, NULL, 7, 0x609, 21, 0, -1, -1, -1, -1, -1 };
   return &_OrgMinimaDatabaseUserdbUserDB;
 }
 

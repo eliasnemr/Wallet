@@ -1,8 +1,9 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit, NgZone, NgModule} from '@angular/core';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 import { Clipboard } from '@ionic-native/clipboard/ngx';
 import { AlertController } from '@ionic/angular';
 import { MinimaApiService } from '../service/minima-api.service';
+import { Tokens } from '../tokens';
 
 @Component({
   selector: 'app-send-funds',
@@ -16,15 +17,21 @@ export class SendFundsPage implements OnInit {
   private scanSub:any=null;
   ionApp = <HTMLElement>document.getElementsByTagName('ion-app')[0];
 
+  // Pull in tokens vars
+  public MINIMA_TOKEN_ID = '0x0000000000000000000000000000000000000000000000000000000000000000';
+  public hideProgress = false;
+  public progressShow = true;
+  public strUnconfirmed: any;
+  public tokenArr = [];
+
   constructor(private qrScanner: QRScanner, private clipboard: Clipboard, 
     public alertController: AlertController, private zone: NgZone, 
     private api: MinimaApiService) { }
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 
   ionViewWillEnter() {
+    this.pullInTokens();
     this.isCameraOpen = false;
   }
 
@@ -50,8 +57,6 @@ export class SendFundsPage implements OnInit {
                                                    .replace('--background:var(--ion-background-color,#fff);', '--background: transparent');
                   });
         }, 300);
-          
-          
           // start scanning
           this.qrScanner.show();
           this.isCameraOpen = true;
@@ -59,15 +64,15 @@ export class SendFundsPage implements OnInit {
           this.scanSub = this.qrScanner.scan().subscribe((text: string) => {
             console.log('Scanned something', text);
             this.zone.run(()=>{
+              console.log('Scanned something', text);
               this.data.address = text;
               this.stopCamera();
               //window.document.querySelector('ion-content').classList.remove('.transparentBody');
-             
                 window.document.querySelectorAll('ion-content')
                       .forEach(element => {
                           const element1 = element.shadowRoot.querySelector('style');
                           element1.innerHTML = element1.innerHTML
-                                                       .replace('--background: transparent', '--background:var(--ion-background-color,#fff);');
+                          .replace('--background: transparent', '--background:var(--ion-background-color,#fff);');
                       });
               this.isCameraOpen = false;
               })
@@ -101,14 +106,14 @@ export class SendFundsPage implements OnInit {
     this.scanSub = null;
     //window.document.querySelector('ion-content').classList.remove('transparentBody');
     
-    setTimeout(() => {
+    
       window.document.querySelectorAll('ion-content')
       .forEach(element => {
           const element1 = element.shadowRoot.querySelector('style');
           element1.innerHTML = element1.innerHTML
       .replace('--background: transparent', '--background:var(--ion-background-color,#fff);');
       });
-    }, 1000)
+    
       
     
     
@@ -138,13 +143,79 @@ export class SendFundsPage implements OnInit {
     await alert.present();
   }
 
+  pullInTokens() {
+    this.api.getBalance().then((res : any) => {
+      console.log(res);
+
+      this.strUnconfirmed = '';
+      let countTokens = 0;
+      
+      res.response.balance.forEach(element => {
+        countTokens++;
+
+        if(element.tokenid === this.MINIMA_TOKEN_ID) {
+          const tempConfirmed = (Math.round(element.confirmed * 100)/100);
+          let tempUnConfirmed = ''; 
+          
+          if(element.unconfirmed > 0){
+            this.strUnconfirmed = 'Unconfirmed';
+            tempUnConfirmed = (Math.round(element.unconfirmed * 100)/100).toString();
+          } else {
+            tempUnConfirmed = '';
+          }
+          
+          const temp = new Tokens(
+             element.tokenid,
+             element.token,
+             tempConfirmed,
+             tempUnConfirmed,
+             element.total);
+
+          this.tokenArr.push(temp);
+          
+          //this.tokenArr[0] = temp;
+        }
+        this.strUnconfirmed = '';
+      });
+      
+      res.response.balance.forEach(element => {
+        if(element.tokenid != this.MINIMA_TOKEN_ID) {
+          let tempConfirmed = (Math.round(element.confirmed * 100)/100);
+          let tempUnConfirmed = ''; 
+          
+
+          if(element.unconfirmed > 0){
+            this.strUnconfirmed = 'Unconfirmed';
+            tempUnConfirmed = (Math.round(element.unconfirmed * 100)/100).toString();
+          } else {
+            tempUnConfirmed = '';
+          }
+        
+          const temp = new Tokens(
+             element.tokenid,
+             element.token,
+             tempConfirmed,
+             tempUnConfirmed,
+             element.total);
+             
+             this.tokenArr.push(temp);
+        }
+        
+        this.strUnconfirmed = '';
+        
+      });
+    });
+
+    this.tokenArr = new Array;
+  }
+
   sendFunds(){
-    if(this.data.address&&this.data.address!==''&&this.data.amount&&this.data.amount>0){
+    if(this.data.address&&this.data.address!==''&&this.data.amount&&this.data.amount>0&&
+    this.data.tokenid&&this.data.tokenid!==''){
       console.log('sendFunds',this.data);
       this.api.sendFunds(this.data).then((res:any)=>{
-      
         console.log("Send " + JSON.stringify(res));
-        if(res.status == true){
+        if(res.status == true) {
           this.presentAlert('Sent successfully!', 'Info');
         } else {
           this.presentAlert(res.error, 'Error');

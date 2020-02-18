@@ -15,68 +15,63 @@
     <ion-card-header>
       <ion-card-title>
         <ion-item lines="none">
-          
-          <ion-icon style=" font-size:1.0rem;" slot="start" name="send" size="2"></ion-icon>
-          
+          <ion-icon style=" font-size:2.0rem;" slot="start" name="send" class="icon-head" ></ion-icon>
         </ion-item>
       </ion-card-title>
-   
-    
     </ion-card-header>
 
     <ion-card-content>
       <form>
-
-        <!-- <ion-item>
-          <ion-label position="floating">Minima / Token</ion-label>
+        <ion-item>
+          <ion-label position="floating">Tokens</ion-label>
           <ion-select 
-              name="token" 
-              value="Minima" 
-              [(ngModel)]="data.tokenid" 
-              placeholder="Minima">
+              class="token-select"
+              name="token"
+              cancelText="Dismiss"
+              okText="Ok"
+              [(ngModel)]= "data.tokenid"
+              placeholder="Select your token">
+            <ion-select-option  *ngFor="let token of tokenArr" [value]="token.tokenid">
+              {{ token.token  + '->' + token.tokenid  }} 
+            </ion-select-option>
+        </ion-select>
+        </ion-item>
 
-        <ion-select-option *ngFor="let token of data.tokenid">{{ token }}</ion-select-option>
-
-            <ion-select-option value="minima"></ion-select-option>
-            <ion-select-option value="ethereum">Ethereum</ion-select-option>
-
-          </ion-select>
-        </ion-item> -->
         <ion-item>
           <ion-label position="floating">Address</ion-label>
           <ion-input name="address" [(ngModel)]="data.address"></ion-input>
+          
         </ion-item>
-
-        <div class="rightAlign">
-          <ion-button type="button" slot="end" size="small" (click)="scanQR()">
-            <ion-icon  name="qr-scanner" slot="start"></ion-icon>QR Code
+        <ion-item lines="none" slot="end">
+          <ion-button type="button" class="util-btns" size="small" (click)="scanQR()">
+            <ion-label slot="start" style="padding:2px">SCAN QR</ion-label>
+            <ion-icon  name="qr-scanner" ></ion-icon>
           </ion-button>
-          <ion-button type="button" slot="end" size="small" (click)="pasteFromClipboard()">
-            <ion-icon name="clipboard" slot="start"></ion-icon>Paste from clipboard
+          <ion-button type="button" size="small" class="util-btns" (click)="pasteFromClipboard()">
+            <ion-label slot="start" style="padding:5px">CLIPBOARD</ion-label>
+            <ion-icon name="clipboard" ></ion-icon>
           </ion-button>
-        </div>
+        </ion-item>
         <ion-item>
           <ion-label position="floating">Amount</ion-label>
           <ion-input type="number" name="amount" [(ngModel)]="data.amount"></ion-input>
         </ion-item>
-        
       </form>
 
     </ion-card-content>
+    
   </ion-card>
-</ion-content >
+</ion-content>
 <ion-footer>
   <ion-toolbar>
-    <ion-button expand="block" (click)="stopCamera()"  *ngIf="isCameraOpen==true">
-     Stop scanning
-    </ion-button>    
-
-    <ion-buttons>
-      <ion-button expand="block" (click)="sendFunds()" *ngIf="isCameraOpen==false">
+    <ion-buttons> 
+      <ion-button class="action-btn" expand="block" (click)="stopCamera()"  *ngIf="isCameraOpen==true">
+        Stop scanning
+       </ion-button>
+      <ion-button class="action-btn" expand="block" (click)="sendFunds()" *ngIf="isCameraOpen==false">
         <ion-icon name="send" slot="start"></ion-icon> Send
       </ion-button>
     </ion-buttons>
-    
   </ion-toolbar>
 </ion-footer>
 </ion-app>

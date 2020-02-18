@@ -10,8 +10,10 @@
 #include "java/lang/System.h"
 #include "java/util/Random.h"
 #include "org/minima/objects/Difficulty.h"
+#include "org/minima/objects/Transaction.h"
 #include "org/minima/objects/TxPOW.h"
-#include "org/minima/objects/base/MiniData32.h"
+#include "org/minima/objects/Witness.h"
+#include "org/minima/objects/base/MiniHash.h"
 #include "org/minima/objects/base/MiniNumber.h"
 #include "org/minima/system/Main.h"
 #include "org/minima/system/SystemHandler.h"
@@ -37,19 +39,28 @@ NSString *OrgMinimaSystemTxTXMiner_TXMINER_MINETXPOW = @"MINE_TXPOW";
     OrgMinimaObjectsDifficulty *txdiff = create_OrgMinimaObjectsDifficulty_initWithInt_([((OrgMinimaObjectsTxPOW *) nil_chk(txpow)) getTxnDifficulty]);
     JavaUtilRandom *rand = create_JavaUtilRandom_init();
     OrgMinimaObjectsBaseMiniNumber *nonce = JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, ZERO);
-    OrgMinimaObjectsBaseMiniData32 *hash_ = nil;
+    OrgMinimaObjectsBaseMiniHash *hash_ = nil;
     jboolean mining = true;
-    while (mining) {
+    jlong currentTime = JavaLangSystem_currentTimeMillis();
+    jlong maxTime = currentTime + 10000;
+    while (mining && currentTime < maxTime) {
       [txpow setNonceWithOrgMinimaObjectsBaseMiniNumber:nonce];
       hash_ = [((OrgMinimaUtilsCrypto *) nil_chk(OrgMinimaUtilsCrypto_getInstance())) hashObjectWithOrgMinimaUtilsStreamable:txpow];
-      if ([txdiff isOKWithOrgMinimaObjectsBaseMiniData32:hash_]) {
+      if ([txdiff isOKWithOrgMinimaObjectsBaseMiniHash:hash_]) {
         mining = false;
       }
       nonce = [((OrgMinimaObjectsBaseMiniNumber *) nil_chk(nonce)) increment];
+      currentTime = JavaLangSystem_currentTimeMillis();
     }
-    [txpow calculateTXPOWID];
-    OrgMinimaUtilsMessagesMessage *msg = [create_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemBrainsConsensusHandler_CONSENSUS_PRE_PROCESSTXPOW) addObjectWithNSString:@"txpow" withId:txpow];
-    [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getConsensusHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:msg];
+    if (mining) {
+      OrgMinimaUtilsMessagesMessage *sametr = [((OrgMinimaUtilsMessagesMessage *) nil_chk([create_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemBrainsConsensusHandler_CONSENSUS_SENDTRANS) addObjectWithNSString:@"transaction" withId:[txpow getTransaction]])) addObjectWithNSString:@"witness" withId:[txpow getWitness]];
+      [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getConsensusHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:sametr];
+    }
+    else {
+      [txpow calculateTXPOWID];
+      OrgMinimaUtilsMessagesMessage *msg = [create_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemBrainsConsensusHandler_CONSENSUS_PRE_PROCESSTXPOW) addObjectWithNSString:@"txpow" withId:txpow];
+      [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getConsensusHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:msg];
+    }
   }
   else if ([zMessage isMessageTypeWithNSString:OrgMinimaSystemTxTXMiner_TXMINER_TESTHASHING]) {
     jlong timenow = JavaLangSystem_currentTimeMillis();

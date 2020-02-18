@@ -124,9 +124,9 @@
 
 void OrgMinimaSystemNetworkMultiServer_initWithOrgMinimaSystemNetworkNetworkHandler_withInt_(OrgMinimaSystemNetworkMultiServer *self, OrgMinimaSystemNetworkNetworkHandler *zNetwork, jint zPort) {
   NSObject_init(self);
-  JreStrongAssign(&self->mHost_, @"0.0.0.0");
+  JreStrongAssign(&self->mHost_, @"127.0.0.1");
   self->mHardHostSet_ = false;
-  JreStrongAssign(&self->mHardHost_, @"0.0.0.0");
+  JreStrongAssign(&self->mHardHost_, @"127.0.0.1");
   self->mRunning_ = true;
   JreStrongAssign(&self->mNetwork_, zNetwork);
   self->mPort_ = zPort;

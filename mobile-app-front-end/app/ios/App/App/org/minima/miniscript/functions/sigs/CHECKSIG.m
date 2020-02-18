@@ -14,7 +14,7 @@
 #include "org/minima/miniscript/values/Value.h"
 #include "org/minima/objects/PubPrivKey.h"
 #include "org/minima/objects/base/MiniData.h"
-#include "org/minima/objects/base/MiniData32.h"
+#include "org/minima/objects/base/MiniHash.h"
 
 @implementation OrgMinimaMiniscriptFunctionsSigsCHECKSIG
 
@@ -29,7 +29,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   OrgMinimaMiniscriptValuesHEXValue *pubkey = (OrgMinimaMiniscriptValuesHEXValue *) cast_chk([((id<OrgMinimaMiniscriptExpressionsExpression>) nil_chk([self getParameterWithInt:0])) getValueWithOrgMinimaMiniscriptContract:zContract], [OrgMinimaMiniscriptValuesHEXValue class]);
   OrgMinimaMiniscriptValuesHEXValue *data = (OrgMinimaMiniscriptValuesHEXValue *) cast_chk([((id<OrgMinimaMiniscriptExpressionsExpression>) nil_chk([self getParameterWithInt:1])) getValueWithOrgMinimaMiniscriptContract:zContract], [OrgMinimaMiniscriptValuesHEXValue class]);
   OrgMinimaMiniscriptValuesHEXValue *sig = (OrgMinimaMiniscriptValuesHEXValue *) cast_chk([((id<OrgMinimaMiniscriptExpressionsExpression>) nil_chk([self getParameterWithInt:2])) getValueWithOrgMinimaMiniscriptContract:zContract], [OrgMinimaMiniscriptValuesHEXValue class]);
-  jboolean ok = OrgMinimaObjectsPubPrivKey_verifyWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniData32_withOrgMinimaObjectsBaseMiniData_([((OrgMinimaMiniscriptValuesHEXValue *) nil_chk(pubkey)) getMiniData], create_OrgMinimaObjectsBaseMiniData32_initWithByteArray_([((OrgMinimaMiniscriptValuesHEXValue *) nil_chk(data)) getRawData]), [((OrgMinimaMiniscriptValuesHEXValue *) nil_chk(sig)) getMiniData]);
+  jboolean ok = OrgMinimaObjectsPubPrivKey_verifyWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniHash_withOrgMinimaObjectsBaseMiniData_([((OrgMinimaMiniscriptValuesHEXValue *) nil_chk(pubkey)) getMiniData], create_OrgMinimaObjectsBaseMiniHash_initWithByteArray_([((OrgMinimaMiniscriptValuesHEXValue *) nil_chk(data)) getRawData]), [((OrgMinimaMiniscriptValuesHEXValue *) nil_chk(sig)) getMiniData]);
   return create_OrgMinimaMiniscriptValuesBooleanValue_initWithBoolean_(ok);
 }
 

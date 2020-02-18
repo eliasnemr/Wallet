@@ -1,9 +1,38 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>web-scanner</ion-title>
+    <ion-menu-button slot="start"></ion-menu-button>
+    <ion-title color="primary">Web</ion-title>
   </ion-toolbar>
 </ion-header>
 
+
+
 <ion-content>
+  <!-- <ion-toolbar>
+    <ion-item lines="none" class="web-img">
+      <ion-img class="web-img" src="../assets/web.svg"></ion-img>
+    </ion-item>
+    <ion-item class="web-img" lines="none">
+      <ion-text class="web-lbl" style="font-family: Aeonik-light; width:100%; text-align: center;"> <br><br><br>Minima Web ready to scan. <br> Scan qr code below to begin.</ion-text>
+    </ion-item>
+  </ion-toolbar> -->
+
 
 </ion-content>
+
+
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons>
+      <ion-button class="qr-button" expand="block" (click)="stopCamera()"  *ngIf="isCameraOpen===true">
+        Stop scanning
+       </ion-button> 
+
+      <ion-button class="qr-button" (click)="scanQR()" *ngIf="isCameraOpen===false">
+        <ion-icon name="qr-scanner"></ion-icon> 
+        Scan Qr Code
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

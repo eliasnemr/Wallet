@@ -13,4 +13,27 @@
 #endif
 #undef RESTRICT_OrgMinimaSystemNetworkWebproxyRPCWebSocketServer
 
+#if !defined (OrgMinimaSystemNetworkWebproxyRPCWebSocketServer_) && (INCLUDE_ALL_OrgMinimaSystemNetworkWebproxyRPCWebSocketServer || defined(INCLUDE_OrgMinimaSystemNetworkWebproxyRPCWebSocketServer))
+#define OrgMinimaSystemNetworkWebproxyRPCWebSocketServer_
+
+@interface OrgMinimaSystemNetworkWebproxyRPCWebSocketServer : NSObject
+
+#pragma mark Public
+
+- (instancetype)init;
+
+@end
+
+J2OBJC_EMPTY_STATIC_INIT(OrgMinimaSystemNetworkWebproxyRPCWebSocketServer)
+
+FOUNDATION_EXPORT void OrgMinimaSystemNetworkWebproxyRPCWebSocketServer_init(OrgMinimaSystemNetworkWebproxyRPCWebSocketServer *self);
+
+FOUNDATION_EXPORT OrgMinimaSystemNetworkWebproxyRPCWebSocketServer *new_OrgMinimaSystemNetworkWebproxyRPCWebSocketServer_init(void) NS_RETURNS_RETAINED;
+
+FOUNDATION_EXPORT OrgMinimaSystemNetworkWebproxyRPCWebSocketServer *create_OrgMinimaSystemNetworkWebproxyRPCWebSocketServer_init(void);
+
+J2OBJC_TYPE_LITERAL_HEADER(OrgMinimaSystemNetworkWebproxyRPCWebSocketServer)
+
+#endif
+
 #pragma pop_macro("INCLUDE_ALL_OrgMinimaSystemNetworkWebproxyRPCWebSocketServer")

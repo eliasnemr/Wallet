@@ -67,6 +67,8 @@ withOrgMinimaSystemNetworkNetworkHandler:(OrgMinimaSystemNetworkNetworkHandler *
 
 - (void)noReconnect;
 
+- (void)stopMessageProcessor;
+
 - (OrgMinimaUtilsJsonJSONObject *)toJSON;
 
 - (NSString *)description;
@@ -79,8 +81,6 @@ withOrgMinimaSystemNetworkNetworkHandler:(OrgMinimaSystemNetworkNetworkHandler *
                    withOrgMinimaUtilsStreamable:(id<OrgMinimaUtilsStreamable>)zMessage;
 
 // Disallowed inherited constructors, do not use.
-
-- (instancetype)init NS_UNAVAILABLE;
 
 - (instancetype)initWithNSString:(NSString *)arg0 NS_UNAVAILABLE;
 
@@ -95,6 +95,11 @@ J2OBJC_FIELD_SETTER(OrgMinimaSystemNetworkNetClient, mInputThread_, JavaLangThre
 J2OBJC_FIELD_SETTER(OrgMinimaSystemNetworkNetClient, mInputReader_, OrgMinimaSystemNetworkNetClientReader *)
 J2OBJC_FIELD_SETTER(OrgMinimaSystemNetworkNetClient, mUID_, NSString *)
 J2OBJC_FIELD_SETTER(OrgMinimaSystemNetworkNetClient, mHost_, NSString *)
+
+inline NSString *OrgMinimaSystemNetworkNetClient_get_NETCLIENT_INITCONNECT(void);
+/*! INTERNAL ONLY - Use accessor function from above. */
+FOUNDATION_EXPORT NSString *OrgMinimaSystemNetworkNetClient_NETCLIENT_INITCONNECT;
+J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemNetworkNetClient, NETCLIENT_INITCONNECT, NSString *)
 
 inline NSString *OrgMinimaSystemNetworkNetClient_get_NETCLIENT_STARTUP(void);
 /*! INTERNAL ONLY - Use accessor function from above. */

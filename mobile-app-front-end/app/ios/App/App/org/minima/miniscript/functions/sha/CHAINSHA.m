@@ -16,7 +16,7 @@
 #include "org/minima/miniscript/values/HEXValue.h"
 #include "org/minima/miniscript/values/Value.h"
 #include "org/minima/objects/base/MiniByte.h"
-#include "org/minima/objects/base/MiniData32.h"
+#include "org/minima/objects/base/MiniHash.h"
 #include "org/minima/utils/Crypto.h"
 
 @implementation OrgMinimaMiniscriptFunctionsShaCHAINSHA
@@ -40,12 +40,12 @@ J2OBJC_IGNORE_DESIGNATED_END
     @throw create_OrgMinimaMiniscriptExceptionsExecutionException_initWithNSString_(@"Chain data not a multiple of 33 bytes long.");
   }
   jint loop = chdata->size_ / 33;
-  OrgMinimaObjectsBaseMiniData32 *total = create_OrgMinimaObjectsBaseMiniData32_initWithByteArray_(indata);
+  OrgMinimaObjectsBaseMiniHash *total = create_OrgMinimaObjectsBaseMiniHash_initWithByteArray_(indata);
   JavaIoByteArrayInputStream *bais = create_JavaIoByteArrayInputStream_initWithByteArray_(chdata);
   JavaIoDataInputStream *dis = create_JavaIoDataInputStream_initWithJavaIoInputStream_(bais);
   for (jint i = 0; i < loop; i++) {
     OrgMinimaObjectsBaseMiniByte *leftrigt = OrgMinimaObjectsBaseMiniByte_ReadFromStreamWithJavaIoDataInputStream_(dis);
-    OrgMinimaObjectsBaseMiniData32 *data = OrgMinimaObjectsBaseMiniData32_ReadFromStreamWithJavaIoDataInputStream_(dis);
+    OrgMinimaObjectsBaseMiniHash *data = OrgMinimaObjectsBaseMiniHash_ReadFromStreamWithJavaIoDataInputStream_(dis);
     if ([((OrgMinimaObjectsBaseMiniByte *) nil_chk(leftrigt)) isTrue]) {
       total = [((OrgMinimaUtilsCrypto *) nil_chk(OrgMinimaUtilsCrypto_getInstance())) hashObjectsWithOrgMinimaUtilsStreamable:data withOrgMinimaUtilsStreamable:total];
     }
@@ -59,7 +59,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   @catch (JavaIoIOException *e) {
     @throw create_OrgMinimaMiniscriptExceptionsExecutionException_initWithNSString_(JreStrcat("$@", @"Strange IO Exception at CHAINSHA !? ", e));
   }
-  return create_OrgMinimaMiniscriptValuesHEXValue_initWithByteArray_([((OrgMinimaObjectsBaseMiniData32 *) nil_chk(total)) getData]);
+  return create_OrgMinimaMiniscriptValuesHEXValue_initWithByteArray_([((OrgMinimaObjectsBaseMiniHash *) nil_chk(total)) getData]);
 }
 
 - (OrgMinimaMiniscriptFunctionsMinimaFunction *)getNewFunction {

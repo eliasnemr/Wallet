@@ -26,6 +26,8 @@
 
 + (void)mainWithNSStringArray:(IOSObjectArray *)zArgs;
 
++ (NSString *)sendGETWithNSString:(NSString *)zHost;
+
 @end
 
 J2OBJC_EMPTY_STATIC_INIT(OrgMinimaSystemNetworkRpcRPCClient)
@@ -41,6 +43,8 @@ FOUNDATION_EXPORT void OrgMinimaSystemNetworkRpcRPCClient_init(OrgMinimaSystemNe
 FOUNDATION_EXPORT OrgMinimaSystemNetworkRpcRPCClient *new_OrgMinimaSystemNetworkRpcRPCClient_init(void) NS_RETURNS_RETAINED;
 
 FOUNDATION_EXPORT OrgMinimaSystemNetworkRpcRPCClient *create_OrgMinimaSystemNetworkRpcRPCClient_init(void);
+
+FOUNDATION_EXPORT NSString *OrgMinimaSystemNetworkRpcRPCClient_sendGETWithNSString_(NSString *zHost);
 
 FOUNDATION_EXPORT void OrgMinimaSystemNetworkRpcRPCClient_mainWithNSStringArray_(IOSObjectArray *zArgs);
 

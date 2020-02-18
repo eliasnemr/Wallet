@@ -11,7 +11,7 @@
 #include "org/minima/database/mmr/MMREntry.h"
 #include "org/minima/database/mmr/MMRPrint.h"
 #include "org/minima/database/mmr/MMRSet.h"
-#include "org/minima/objects/base/MiniData32.h"
+#include "org/minima/objects/base/MiniHash.h"
 #include "org/minima/objects/base/MiniNumber.h"
 
 @interface OrgMinimaDatabaseMmrMMRPrint ()

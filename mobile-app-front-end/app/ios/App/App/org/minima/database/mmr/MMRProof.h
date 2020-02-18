@@ -25,7 +25,7 @@
 @class JavaUtilArrayList;
 @class OrgMinimaDatabaseMmrMMRData;
 @class OrgMinimaObjectsBaseMiniByte;
-@class OrgMinimaObjectsBaseMiniData32;
+@class OrgMinimaObjectsBaseMiniHash;
 @class OrgMinimaObjectsBaseMiniNumber;
 @class OrgMinimaObjectsCoin;
 @class OrgMinimaUtilsJsonJSONObject;
@@ -47,10 +47,10 @@
                        withOrgMinimaDatabaseMmrMMRData:(OrgMinimaDatabaseMmrMMRData *)zInitialData
                     withOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zBlockTime;
 
-- (void)addHashWithOrgMinimaObjectsBaseMiniData32:(OrgMinimaObjectsBaseMiniData32 *)zHash
-                                      withBoolean:(jboolean)zLeft;
+- (void)addHashWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zHash
+                                    withBoolean:(jboolean)zLeft;
 
-- (OrgMinimaObjectsBaseMiniData32 *)calculateProof;
+- (OrgMinimaObjectsBaseMiniHash *)calculateProof;
 
 - (jboolean)checkCoinWithOrgMinimaObjectsCoin:(OrgMinimaObjectsCoin *)zCoin;
 
@@ -62,7 +62,7 @@
 
 - (OrgMinimaDatabaseMmrMMRData *)getMMRData;
 
-- (OrgMinimaObjectsBaseMiniData32 *)getProofWithInt:(jint)zProof;
+- (OrgMinimaObjectsBaseMiniHash *)getProofWithInt:(jint)zProof;
 
 - (jint)getProofLen;
 

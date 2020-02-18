@@ -16,21 +16,30 @@
 #if !defined (OrgMinimaStart_) && (INCLUDE_ALL_OrgMinimaStart || defined(INCLUDE_OrgMinimaStart))
 #define OrgMinimaStart_
 
-
-@class TestClass;
 @class IOSObjectArray;
+@class OrgMinimaSystemMain;
 
 @interface OrgMinimaStart : NSObject
-- (TestClass *)returnSwiftClassInstance;
+
 #pragma mark Public
 
 - (instancetype)init;
+
++ (OrgMinimaSystemMain *)getServer;
 
 + (void)mainWithNSStringArray:(IOSObjectArray *)zArgs;
 
 @end
 
 J2OBJC_EMPTY_STATIC_INIT(OrgMinimaStart)
+
+inline OrgMinimaSystemMain *OrgMinimaStart_get_mMainServer(void);
+inline OrgMinimaSystemMain *OrgMinimaStart_set_mMainServer(OrgMinimaSystemMain *value);
+/*! INTERNAL ONLY - Use accessor function from above. */
+FOUNDATION_EXPORT OrgMinimaSystemMain *OrgMinimaStart_mMainServer;
+J2OBJC_STATIC_FIELD_OBJ(OrgMinimaStart, mMainServer, OrgMinimaSystemMain *)
+
+FOUNDATION_EXPORT OrgMinimaSystemMain *OrgMinimaStart_getServer(void);
 
 FOUNDATION_EXPORT void OrgMinimaStart_init(OrgMinimaStart *self);
 

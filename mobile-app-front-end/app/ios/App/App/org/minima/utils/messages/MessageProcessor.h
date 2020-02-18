@@ -32,11 +32,10 @@
  @public
   JavaUtilLinkedList *mTimerMessages_;
   jboolean mLogON_;
+  NSString *mName_;
 }
 
 #pragma mark Public
-
-- (instancetype)init;
 
 - (instancetype)initWithNSString:(NSString *)zName;
 
@@ -59,8 +58,7 @@
 J2OBJC_EMPTY_STATIC_INIT(OrgMinimaUtilsMessagesMessageProcessor)
 
 J2OBJC_FIELD_SETTER(OrgMinimaUtilsMessagesMessageProcessor, mTimerMessages_, JavaUtilLinkedList *)
-
-FOUNDATION_EXPORT void OrgMinimaUtilsMessagesMessageProcessor_init(OrgMinimaUtilsMessagesMessageProcessor *self);
+J2OBJC_FIELD_SETTER(OrgMinimaUtilsMessagesMessageProcessor, mName_, NSString *)
 
 FOUNDATION_EXPORT void OrgMinimaUtilsMessagesMessageProcessor_initWithNSString_(OrgMinimaUtilsMessagesMessageProcessor *self, NSString *zName);
 

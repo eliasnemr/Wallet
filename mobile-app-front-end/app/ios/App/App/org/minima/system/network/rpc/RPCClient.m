@@ -18,14 +18,6 @@
 #include "java/net/URLEncoder.h"
 #include "org/minima/system/network/rpc/RPCClient.h"
 
-@interface OrgMinimaSystemNetworkRpcRPCClient ()
-
-+ (NSString *)sendGETWithNSString:(NSString *)zHost;
-
-@end
-
-__attribute__((unused)) static NSString *OrgMinimaSystemNetworkRpcRPCClient_sendGETWithNSString_(NSString *zHost);
-
 NSString *OrgMinimaSystemNetworkRpcRPCClient_USER_AGENT = @"Minima/1.0";
 
 @implementation OrgMinimaSystemNetworkRpcRPCClient
@@ -48,7 +40,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 + (const J2ObjcClassInfo *)__metadata {
   static J2ObjcMethodInfo methods[] = {
     { NULL, NULL, 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LNSString;", 0xa, 0, 1, 2, -1, -1, -1 },
+    { NULL, "LNSString;", 0x9, 0, 1, 2, -1, -1, -1 },
     { NULL, "V", 0x9, 3, 4, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
@@ -95,7 +87,6 @@ NSString *OrgMinimaSystemNetworkRpcRPCClient_sendGETWithNSString_(NSString *zHos
       [response appendWithNSString:inputLine];
     }
     [in close];
-    [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out))) printlnWithNSString:[response description]];
   }
   else {
   }
@@ -105,12 +96,13 @@ NSString *OrgMinimaSystemNetworkRpcRPCClient_sendGETWithNSString_(NSString *zHos
 void OrgMinimaSystemNetworkRpcRPCClient_mainWithNSStringArray_(IOSObjectArray *zArgs) {
   OrgMinimaSystemNetworkRpcRPCClient_initialize();
   NSString *host = @"127.0.0.1";
-  jint port = 8001;
+  jint port = 8999;
   NSString *request = @"balance";
   @try {
     NSString *url = JreStrcat("$$CIC$", @"http://", host, ':', port, '/', JavaNetURLEncoder_encodeWithNSString_withNSString_(request, @"UTF-8"));
     [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out))) printlnWithNSString:JreStrcat("$$", @"GET ", url)];
-    OrgMinimaSystemNetworkRpcRPCClient_sendGETWithNSString_(url);
+    NSString *resp = OrgMinimaSystemNetworkRpcRPCClient_sendGETWithNSString_(url);
+    [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out))) printlnWithNSString:resp];
   }
   @catch (JavaIoIOException *e) {
     [e printStackTrace];

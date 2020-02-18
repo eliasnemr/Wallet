@@ -18,7 +18,7 @@
 
 @class JavaUtilArrayList;
 @class OrgMinimaDatabaseTxpowtreeBlockTreeNode;
-@class OrgMinimaObjectsBaseMiniData32;
+@class OrgMinimaObjectsBaseMiniHash;
 @class OrgMinimaObjectsBaseMiniNumber;
 
 @interface OrgMinimaDatabaseTxpowtreeBlockTree : NSObject {
@@ -35,7 +35,7 @@
 
 - (jboolean)addNodeWithOrgMinimaDatabaseTxpowtreeBlockTreeNode:(OrgMinimaDatabaseTxpowtreeBlockTreeNode *)zNode;
 
-- (OrgMinimaDatabaseTxpowtreeBlockTreeNode *)findNodeWithOrgMinimaObjectsBaseMiniData32:(OrgMinimaObjectsBaseMiniData32 *)zTxPOWID;
+- (OrgMinimaDatabaseTxpowtreeBlockTreeNode *)findNodeWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zTxPOWID;
 
 - (JavaUtilArrayList *)getAsList;
 

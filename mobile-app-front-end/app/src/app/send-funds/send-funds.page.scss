@@ -15,3 +15,23 @@ ion-card {
 ion-footer ion-toolbar ion-buttons ion-button{
   width: 100%;
 }
+.icon-head{
+  color: #1FB4CD;
+}
+.util-btns {
+  padding: 3px;
+  text-align: center;
+  // padding: 1px;
+  margin: 2px;
+}
+.action-btn {
+  height: 40px;
+}
+.action-btn:hover {
+  height: 50px !important; 
+}
+.token-select {
+  font-family: Aeonik;
+  color: #1FB4CD;
+  font-weight: bolder;
+}

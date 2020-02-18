@@ -11,7 +11,7 @@
 #include "org/minima/miniscript/functions/sha/SHA2.h"
 #include "org/minima/miniscript/values/HEXValue.h"
 #include "org/minima/miniscript/values/Value.h"
-#include "org/minima/objects/base/MiniData32.h"
+#include "org/minima/objects/base/MiniHash.h"
 #include "org/minima/utils/Crypto.h"
 
 @implementation OrgMinimaMiniscriptFunctionsShaSHA2
@@ -26,7 +26,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 - (OrgMinimaMiniscriptValuesValue *)runFunctionWithOrgMinimaMiniscriptContract:(OrgMinimaMiniscriptContract *)zContract {
   IOSByteArray *data = [((OrgMinimaMiniscriptValuesValue *) nil_chk([((id<OrgMinimaMiniscriptExpressionsExpression>) nil_chk([self getParameterWithInt:0])) getValueWithOrgMinimaMiniscriptContract:zContract])) getRawData];
   IOSByteArray *ans = [((OrgMinimaUtilsCrypto *) nil_chk(OrgMinimaUtilsCrypto_getInstance())) hashSHA2WithByteArray:data];
-  OrgMinimaObjectsBaseMiniData32 *hash_ = create_OrgMinimaObjectsBaseMiniData32_initWithByteArray_(ans);
+  OrgMinimaObjectsBaseMiniHash *hash_ = create_OrgMinimaObjectsBaseMiniHash_initWithByteArray_(ans);
   return create_OrgMinimaMiniscriptValuesHEXValue_initWithByteArray_([hash_ getData]);
 }
 

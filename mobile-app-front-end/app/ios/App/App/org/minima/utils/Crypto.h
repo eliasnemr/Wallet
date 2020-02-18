@@ -18,7 +18,7 @@
 
 @class IOSByteArray;
 @class IOSObjectArray;
-@class OrgMinimaObjectsBaseMiniData32;
+@class OrgMinimaObjectsBaseMiniHash;
 @protocol OrgMinimaUtilsStreamable;
 
 @interface OrgMinimaUtilsCrypto : NSObject
@@ -29,14 +29,14 @@
 
 + (OrgMinimaUtilsCrypto *)getInstance;
 
-- (OrgMinimaObjectsBaseMiniData32 *)hashAllObjectsWithOrgMinimaUtilsStreamableArray:(IOSObjectArray *)zObjects;
+- (OrgMinimaObjectsBaseMiniHash *)hashAllObjectsWithOrgMinimaUtilsStreamableArray:(IOSObjectArray *)zObjects;
 
 - (IOSByteArray *)hashDataWithByteArray:(IOSByteArray *)zData;
 
-- (OrgMinimaObjectsBaseMiniData32 *)hashObjectWithOrgMinimaUtilsStreamable:(id<OrgMinimaUtilsStreamable>)zObject;
+- (OrgMinimaObjectsBaseMiniHash *)hashObjectWithOrgMinimaUtilsStreamable:(id<OrgMinimaUtilsStreamable>)zObject;
 
-- (OrgMinimaObjectsBaseMiniData32 *)hashObjectsWithOrgMinimaUtilsStreamable:(id<OrgMinimaUtilsStreamable>)zLeftObject
-                                               withOrgMinimaUtilsStreamable:(id<OrgMinimaUtilsStreamable>)zRightObject2;
+- (OrgMinimaObjectsBaseMiniHash *)hashObjectsWithOrgMinimaUtilsStreamable:(id<OrgMinimaUtilsStreamable>)zLeftObject
+                                             withOrgMinimaUtilsStreamable:(id<OrgMinimaUtilsStreamable>)zRightObject2;
 
 - (IOSByteArray *)hashSHA2WithByteArray:(IOSByteArray *)zData;
 

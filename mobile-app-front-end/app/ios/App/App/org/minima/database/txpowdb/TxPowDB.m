@@ -30,18 +30,18 @@
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
   #pragma clang diagnostic ignored "-Wundeclared-selector"
   methods[0].selector = @selector(addTxPOWDBRowWithOrgMinimaObjectsTxPOW:);
-  methods[1].selector = @selector(findTxPOWDBRowWithOrgMinimaObjectsBaseMiniData32:);
+  methods[1].selector = @selector(findTxPOWDBRowWithOrgMinimaObjectsBaseMiniHash:);
   methods[2].selector = @selector(getAllTxPOWDBRow);
   methods[3].selector = @selector(resetAllInBlocks);
-  methods[4].selector = @selector(removeTxPOWWithOrgMinimaObjectsBaseMiniData32:);
+  methods[4].selector = @selector(removeTxPOWWithOrgMinimaObjectsBaseMiniHash:);
   methods[5].selector = @selector(removeTxPOWInBlockLessThanWithOrgMinimaObjectsBaseMiniNumber:);
   methods[6].selector = @selector(getAllUnusedTxPOW);
-  methods[7].selector = @selector(getChildBlocksTxPOWWithOrgMinimaObjectsBaseMiniData32:);
+  methods[7].selector = @selector(getChildBlocksTxPOWWithOrgMinimaObjectsBaseMiniHash:);
   methods[8].selector = @selector(getAllBlocksMissingTransactions);
   methods[9].selector = @selector(getSize);
   methods[10].selector = @selector(ClearDB);
   #pragma clang diagnostic pop
-  static const void *ptrTable[] = { "addTxPOWDBRow", "LOrgMinimaObjectsTxPOW;", "findTxPOWDBRow", "LOrgMinimaObjectsBaseMiniData32;", "()Ljava/util/ArrayList<Lorg/minima/database/txpowdb/TxPOWDBRow;>;", "removeTxPOW", "removeTxPOWInBlockLessThan", "LOrgMinimaObjectsBaseMiniNumber;", "(Lorg/minima/objects/base/MiniNumber;)Ljava/util/ArrayList<Lorg/minima/database/txpowdb/TxPOWDBRow;>;", "getChildBlocksTxPOW", "(Lorg/minima/objects/base/MiniData32;)Ljava/util/ArrayList<Lorg/minima/database/txpowdb/TxPOWDBRow;>;" };
+  static const void *ptrTable[] = { "addTxPOWDBRow", "LOrgMinimaObjectsTxPOW;", "findTxPOWDBRow", "LOrgMinimaObjectsBaseMiniHash;", "()Ljava/util/ArrayList<Lorg/minima/database/txpowdb/TxPOWDBRow;>;", "removeTxPOW", "removeTxPOWInBlockLessThan", "LOrgMinimaObjectsBaseMiniNumber;", "(Lorg/minima/objects/base/MiniNumber;)Ljava/util/ArrayList<Lorg/minima/database/txpowdb/TxPOWDBRow;>;", "getChildBlocksTxPOW", "(Lorg/minima/objects/base/MiniHash;)Ljava/util/ArrayList<Lorg/minima/database/txpowdb/TxPOWDBRow;>;" };
   static const J2ObjcClassInfo _OrgMinimaDatabaseTxpowdbTxPowDB = { "TxPowDB", "org.minima.database.txpowdb", ptrTable, methods, NULL, 7, 0x609, 11, 0, -1, -1, -1, -1, -1 };
   return &_OrgMinimaDatabaseTxpowdbTxPowDB;
 }

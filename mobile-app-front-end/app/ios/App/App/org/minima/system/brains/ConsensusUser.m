@@ -14,7 +14,7 @@
 #include "org/minima/objects/PubPrivKey.h"
 #include "org/minima/objects/Transaction.h"
 #include "org/minima/objects/base/MiniData.h"
-#include "org/minima/objects/base/MiniData32.h"
+#include "org/minima/objects/base/MiniHash.h"
 #include "org/minima/objects/base/MiniNumber.h"
 #include "org/minima/system/brains/ConsensusHandler.h"
 #include "org/minima/system/brains/ConsensusUser.h"
@@ -56,7 +56,7 @@ NSString *OrgMinimaSystemBrainsConsensusUser_CONSENSUS_IMPORTCOIN = @"CONSENSUSU
   if ([((OrgMinimaUtilsMessagesMessage *) nil_chk(zMessage)) isMessageTypeWithNSString:OrgMinimaSystemBrainsConsensusUser_CONSENSUS_NEWSIMPLE]) {
     OrgMinimaObjectsAddress *addr = [((id<OrgMinimaDatabaseUserdbUserDB>) nil_chk([((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusUser_getMainDB(self))) getUserDB])) newSimpleAddress];
     OrgMinimaUtilsJsonJSONObject *resp = OrgMinimaSystemInputInputHandler_getResponseJSONWithOrgMinimaUtilsMessagesMessage_(zMessage);
-    [((OrgMinimaUtilsJsonJSONObject *) nil_chk(resp)) putWithId:@"address" withId:[((OrgMinimaObjectsBaseMiniData32 *) nil_chk([((OrgMinimaObjectsAddress *) nil_chk(addr)) getAddressData])) description]];
+    [((OrgMinimaUtilsJsonJSONObject *) nil_chk(resp)) putWithId:@"address" withId:[((OrgMinimaObjectsBaseMiniHash *) nil_chk([((OrgMinimaObjectsAddress *) nil_chk(addr)) getAddressData])) description]];
     [resp putWithId:@"script" withId:[((NSString *) nil_chk([addr getScript])) description]];
     OrgMinimaSystemInputInputHandler_endResponseWithOrgMinimaUtilsMessagesMessage_withBoolean_withNSString_(zMessage, true, @"");
   }
@@ -64,7 +64,7 @@ NSString *OrgMinimaSystemBrainsConsensusUser_CONSENSUS_IMPORTCOIN = @"CONSENSUSU
     NSString *script = [zMessage getStringWithNSString:@"script"];
     OrgMinimaObjectsAddress *addr = [((id<OrgMinimaDatabaseUserdbUserDB>) nil_chk([((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusUser_getMainDB(self))) getUserDB])) newScriptAddressWithNSString:script];
     OrgMinimaUtilsJsonJSONObject *resp = OrgMinimaSystemInputInputHandler_getResponseJSONWithOrgMinimaUtilsMessagesMessage_(zMessage);
-    [((OrgMinimaUtilsJsonJSONObject *) nil_chk(resp)) putWithId:@"address" withId:[((OrgMinimaObjectsBaseMiniData32 *) nil_chk([((OrgMinimaObjectsAddress *) nil_chk(addr)) getAddressData])) description]];
+    [((OrgMinimaUtilsJsonJSONObject *) nil_chk(resp)) putWithId:@"address" withId:[((OrgMinimaObjectsBaseMiniHash *) nil_chk([((OrgMinimaObjectsAddress *) nil_chk(addr)) getAddressData])) description]];
     [resp putWithId:@"script" withId:[((NSString *) nil_chk([addr getScript])) description]];
     OrgMinimaSystemInputInputHandler_endResponseWithOrgMinimaUtilsMessagesMessage_withBoolean_withNSString_(zMessage, true, @"");
   }

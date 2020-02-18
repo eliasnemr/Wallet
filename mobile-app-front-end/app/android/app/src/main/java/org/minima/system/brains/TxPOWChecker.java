@@ -1,16 +1,12 @@
 package org.minima.system.brains;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 
 import org.minima.database.MinimaDB;
-import org.minima.database.coindb.CoinDB;
-import org.minima.database.coindb.CoinDBRow;
 import org.minima.database.mmr.MMRData;
 import org.minima.database.mmr.MMREntry;
 import org.minima.database.mmr.MMRProof;
 import org.minima.database.mmr.MMRSet;
-import org.minima.database.txpowdb.TxPOWDBRow;
 import org.minima.miniscript.Contract;
 import org.minima.miniscript.values.HEXValue;
 import org.minima.miniscript.values.NumberValue;
@@ -18,16 +14,16 @@ import org.minima.miniscript.values.ScriptValue;
 import org.minima.objects.Address;
 import org.minima.objects.Coin;
 import org.minima.objects.PubPrivKey;
+import org.minima.objects.TokenDetails;
 import org.minima.objects.Transaction;
 import org.minima.objects.TxPOW;
 import org.minima.objects.Witness;
 import org.minima.objects.base.MiniByte;
 import org.minima.objects.base.MiniData;
-import org.minima.objects.base.MiniData32;
+import org.minima.objects.base.MiniHash;
 import org.minima.objects.base.MiniNumber;
 import org.minima.system.input.functions.gimme50;
 import org.minima.utils.Crypto;
-import org.minima.utils.MinimaLogger;
 
 public class TxPOWChecker {
 	
@@ -42,7 +38,7 @@ public class TxPOWChecker {
 		Transaction trans = zTxPOW.getTransaction();
 		
 		//Get the Hash
-		MiniData32 transhash = Crypto.getInstance().hashObject(trans);
+		MiniHash transhash = Crypto.getInstance().hashObject(trans);
 		
 		//Now cycle
 		Witness wit = zTxPOW.getWitness();
@@ -170,7 +166,7 @@ public class TxPOWChecker {
 		}
 		
 		//The HASH of the Transaction.. needed for coinid
-		MiniData32 transhash = Crypto.getInstance().hashObject(zTrans);
+		MiniHash transhash = Crypto.getInstance().hashObject(zTrans);
 				
 		//Get outputs - add them to the MMR also..
 		MiniNumber totalout = MiniNumber.ZERO;
@@ -181,28 +177,34 @@ public class TxPOWChecker {
 			Coin output = outputs.get(i);
 			
 			//Now calculate the CoinID / TokenID
-			MiniData32 coinid = Crypto.getInstance().hashObjects(transhash, new MiniByte(i));
+			MiniHash coinid = Crypto.getInstance().hashObjects(transhash, new MiniByte(i));
 			
 			//Is this a token create output..
-			MiniData32 tokid = output.getTokenID();
+			MiniHash tokid 			= output.getTokenID();
+			TokenDetails newtoken 	= null;
 			
-			if(output.getTokenID().isLessEqual(Coin.TOKENID_CREATE)) {
-				//It's a token..
-				BigInteger big = output.getTokenID().getDataVaue();
+			//Is this a token or are we creating a Token
+			TokenDetails newtokdets = null;
+			if(tokid.isExactlyEqual(Coin.TOKENID_CREATE)) {
+				//Make it the HASH ( CoinID | Total Amount..the token details )
+				TokenDetails gentoken = zWit.getTokenGenDetails();
+				newtokdets = new TokenDetails(coinid,gentoken.getScale(), gentoken.getAmount(), gentoken.getName());
 				
-				int val = big.intValue();
+				//Set the Globally Unique TokenID!
+				tokid = newtokdets.getTokenID();
+			
+				//Its a regular token transaction
+			}else if(!tokid.isExactlyEqual(Coin.MINIMA_TOKENID)) {
+				//Get the token..
+				newtokdets = zWit.getTokenDetail(tokid);
 				
+				//Check it..
+				if(newtokdets == null) {
+					return false;
+				}
 			}
-				
-			
-			
-			if(output.getTokenID().isNumericallyEqual(Coin.TOKENID_CREATE)) {
-				//Set the TokenID to the CoinID..
-				tokid = coinid;
-				
-				//Make it the HASH ( CoinID | Total Amount )
-			}
-			
+	
+			//Are we writing to the MMR
 			if(zTouchMMR) {
 				//Create a new Coin..
 				Coin mmrcoin = new Coin(coinid, output.getAddress(), output.getAmount(), tokid);
@@ -219,6 +221,9 @@ public class TxPOWChecker {
 					zMMRSet.addKeeper(unspent.getEntry());	
 					
 					//Keep the token generation numbers
+					if(newtokdets != null) {
+						zDB.getUserDB().addTokenDetails(newtokdets);
+					}
 				}
 			}
 			

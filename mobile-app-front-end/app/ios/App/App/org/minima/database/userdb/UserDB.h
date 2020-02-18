@@ -18,9 +18,10 @@
 
 @class JavaUtilArrayList;
 @class OrgMinimaObjectsAddress;
-@class OrgMinimaObjectsBaseMiniData32;
 @class OrgMinimaObjectsBaseMiniData;
+@class OrgMinimaObjectsBaseMiniHash;
 @class OrgMinimaObjectsPubPrivKey;
+@class OrgMinimaObjectsTokenDetails;
 @class OrgMinimaObjectsTransaction;
 @protocol OrgMinimaDatabaseUserdbUserDBRow;
 
@@ -38,9 +39,9 @@
 
 - (OrgMinimaObjectsAddress *)newSimpleAddressWithOrgMinimaObjectsPubPrivKey:(OrgMinimaObjectsPubPrivKey *)zPubPriv OBJC_METHOD_FAMILY_NONE;
 
-- (jboolean)isSimpleAddressWithOrgMinimaObjectsBaseMiniData32:(OrgMinimaObjectsBaseMiniData32 *)zAddress;
+- (jboolean)isSimpleAddressWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zAddress;
 
-- (OrgMinimaObjectsBaseMiniData *)getPublicKeyWithOrgMinimaObjectsBaseMiniData32:(OrgMinimaObjectsBaseMiniData32 *)zAddress;
+- (OrgMinimaObjectsBaseMiniData *)getPublicKeyWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zAddress;
 
 - (JavaUtilArrayList *)getScriptAddresses;
 
@@ -48,9 +49,9 @@
 
 - (JavaUtilArrayList *)getAllAddresses;
 
-- (NSString *)getScriptWithOrgMinimaObjectsBaseMiniData32:(OrgMinimaObjectsBaseMiniData32 *)zAddress;
+- (NSString *)getScriptWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zAddress;
 
-- (jboolean)isAddressRelevantWithOrgMinimaObjectsBaseMiniData32:(OrgMinimaObjectsBaseMiniData32 *)zAddress;
+- (jboolean)isAddressRelevantWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zAddress;
 
 - (jboolean)isTransactionRelevantWithOrgMinimaObjectsTransaction:(OrgMinimaObjectsTransaction *)zTrans;
 
@@ -61,6 +62,12 @@
 - (id<OrgMinimaDatabaseUserdbUserDBRow>)addUserRow;
 
 - (void)deleteUserRowWithInt:(jint)zID;
+
+- (JavaUtilArrayList *)getAllKnownTokens;
+
+- (OrgMinimaObjectsTokenDetails *)getTokenDetailWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zTokenID;
+
+- (void)addTokenDetailsWithOrgMinimaObjectsTokenDetails:(OrgMinimaObjectsTokenDetails *)zToken;
 
 @end
 

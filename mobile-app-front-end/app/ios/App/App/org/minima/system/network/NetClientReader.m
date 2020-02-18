@@ -11,7 +11,7 @@
 #include "java/net/Socket.h"
 #include "org/minima/objects/TxPOW.h"
 #include "org/minima/objects/base/MiniByte.h"
-#include "org/minima/objects/base/MiniData32.h"
+#include "org/minima/objects/base/MiniHash.h"
 #include "org/minima/system/Main.h"
 #include "org/minima/system/backup/SyncPackage.h"
 #include "org/minima/system/brains/ConsensusHandler.h"
@@ -52,7 +52,7 @@ OrgMinimaObjectsBaseMiniByte *OrgMinimaSystemNetworkNetClientReader_NETMESSAGE_T
         [rec addObjectWithNSString:@"sync" withId:sp];
       }
       else if ([msgtype isEqualWithOrgMinimaObjectsBaseMiniByte:OrgMinimaSystemNetworkNetClientReader_NETMESSAGE_TXPOWID]) {
-        OrgMinimaObjectsBaseMiniData32 *hash_ = create_OrgMinimaObjectsBaseMiniData32_init();
+        OrgMinimaObjectsBaseMiniHash *hash_ = create_OrgMinimaObjectsBaseMiniHash_init();
         [hash_ readDataStreamWithJavaIoDataInputStream:mInput];
         [rec addObjectWithNSString:@"txpowid" withId:hash_];
       }
@@ -62,7 +62,7 @@ OrgMinimaObjectsBaseMiniByte *OrgMinimaSystemNetworkNetClientReader_NETMESSAGE_T
         [rec addObjectWithNSString:@"txpow" withId:tx];
       }
       else if ([msgtype isEqualWithOrgMinimaObjectsBaseMiniByte:OrgMinimaSystemNetworkNetClientReader_NETMESSAGE_TXPOW_REQUEST]) {
-        OrgMinimaObjectsBaseMiniData32 *hash_ = create_OrgMinimaObjectsBaseMiniData32_init();
+        OrgMinimaObjectsBaseMiniHash *hash_ = create_OrgMinimaObjectsBaseMiniHash_init();
         [hash_ readDataStreamWithJavaIoDataInputStream:mInput];
         [rec addObjectWithNSString:@"txpowid" withId:hash_];
       }
@@ -79,7 +79,6 @@ OrgMinimaObjectsBaseMiniByte *OrgMinimaSystemNetworkNetClientReader_NETMESSAGE_T
     }
   }
   @catch (JavaLangException *exc) {
-    OrgMinimaUtilsMinimaLogger_logWithNSString_(JreStrcat("$$$@", @"NetClientReader closed UID ", [((OrgMinimaSystemNetworkNetClient *) nil_chk(mNetClient_)) getUID], @" exc:", exc));
   }
   [((OrgMinimaSystemNetworkNetworkHandler *) nil_chk([((OrgMinimaSystemNetworkNetClient *) nil_chk(mNetClient_)) getNetworkHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:[create_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemNetworkNetworkHandler_NETWORK_CLIENTERROR) addObjectWithNSString:@"client" withId:mNetClient_]];
 }

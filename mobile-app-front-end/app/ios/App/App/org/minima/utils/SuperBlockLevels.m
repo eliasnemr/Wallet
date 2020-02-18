@@ -8,7 +8,7 @@
 #include "J2ObjC_source.h"
 #include "java/math/BigDecimal.h"
 #include "java/math/BigInteger.h"
-#include "org/minima/objects/base/MiniData32.h"
+#include "org/minima/objects/base/MiniHash.h"
 #include "org/minima/utils/SuperBlockLevels.h"
 
 inline OrgMinimaUtilsSuperBlockLevels *OrgMinimaUtilsSuperBlockLevels_get_mSuperDuper(void);
@@ -33,9 +33,9 @@ J2OBJC_IGNORE_DESIGNATED_END
   return IOSObjectArray_Get(nil_chk(mPOW2_), zExponent);
 }
 
-- (jint)getSuperBlockLevelWithOrgMinimaObjectsBaseMiniData32:(OrgMinimaObjectsBaseMiniData32 *)zData {
+- (jint)getSuperBlockLevelWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zData {
   for (jint i = OrgMinimaUtilsSuperBlockLevels_MAX_LEVELS - 1; i >= 0; i--) {
-    NSString *hex = [((OrgMinimaObjectsBaseMiniData32 *) nil_chk(zData)) toPureHexString];
+    NSString *hex = [((OrgMinimaObjectsBaseMiniHash *) nil_chk(zData)) toPureHexString];
     JavaMathBigInteger *val = create_JavaMathBigInteger_initWithNSString_withInt_(hex, 16);
     if ([val compareToWithId:IOSObjectArray_Get(nil_chk(mSuperLevels_), i)] <= 0) {
       return i;
@@ -68,7 +68,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   methods[0].selector = @selector(getSupers);
   methods[1].selector = @selector(init);
   methods[2].selector = @selector(get2POWWithInt:);
-  methods[3].selector = @selector(getSuperBlockLevelWithOrgMinimaObjectsBaseMiniData32:);
+  methods[3].selector = @selector(getSuperBlockLevelWithOrgMinimaObjectsBaseMiniHash:);
   methods[4].selector = @selector(getSuperValueWithInt:);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
@@ -77,7 +77,7 @@ J2OBJC_IGNORE_DESIGNATED_END
     { "mSuperLevels_", "[LJavaMathBigInteger;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mPOW2_", "[LJavaMathBigDecimal;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
   };
-  static const void *ptrTable[] = { "get2POW", "I", "getSuperBlockLevel", "LOrgMinimaObjectsBaseMiniData32;", "getSuperValue", &OrgMinimaUtilsSuperBlockLevels_mSuperDuper };
+  static const void *ptrTable[] = { "get2POW", "I", "getSuperBlockLevel", "LOrgMinimaObjectsBaseMiniHash;", "getSuperValue", &OrgMinimaUtilsSuperBlockLevels_mSuperDuper };
   static const J2ObjcClassInfo _OrgMinimaUtilsSuperBlockLevels = { "SuperBlockLevels", "org.minima.utils", ptrTable, methods, fields, 7, 0x1, 5, 4, -1, -1, -1, -1, -1 };
   return &_OrgMinimaUtilsSuperBlockLevels;
 }

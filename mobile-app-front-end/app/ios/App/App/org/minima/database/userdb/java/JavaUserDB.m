@@ -13,9 +13,10 @@
 #include "org/minima/objects/Address.h"
 #include "org/minima/objects/Coin.h"
 #include "org/minima/objects/PubPrivKey.h"
+#include "org/minima/objects/TokenDetails.h"
 #include "org/minima/objects/Transaction.h"
 #include "org/minima/objects/base/MiniData.h"
-#include "org/minima/objects/base/MiniData32.h"
+#include "org/minima/objects/base/MiniHash.h"
 
 @implementation OrgMinimaDatabaseUserdbJavaJavaUserDB
 
@@ -81,9 +82,9 @@ J2OBJC_IGNORE_DESIGNATED_END
   return addr;
 }
 
-- (jboolean)isSimpleAddressWithOrgMinimaObjectsBaseMiniData32:(OrgMinimaObjectsBaseMiniData32 *)zAddress {
+- (jboolean)isSimpleAddressWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zAddress {
   for (OrgMinimaObjectsAddress * __strong addr in nil_chk(mAddresses_)) {
-    if ([((OrgMinimaObjectsAddress *) nil_chk(addr)) isEqualWithOrgMinimaObjectsBaseMiniData32:zAddress]) {
+    if ([((OrgMinimaObjectsAddress *) nil_chk(addr)) isEqualWithOrgMinimaObjectsBaseMiniHash:zAddress]) {
       return true;
     }
   }
@@ -110,18 +111,18 @@ J2OBJC_IGNORE_DESIGNATED_END
   return addr;
 }
 
-- (NSString *)getScriptWithOrgMinimaObjectsBaseMiniData32:(OrgMinimaObjectsBaseMiniData32 *)zAddress {
+- (NSString *)getScriptWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zAddress {
   for (OrgMinimaObjectsAddress * __strong addr in nil_chk(mTotalAddresses_)) {
-    if ([((OrgMinimaObjectsBaseMiniData32 *) nil_chk([((OrgMinimaObjectsAddress *) nil_chk(addr)) getAddressData])) isExactlyEqualWithOrgMinimaObjectsBaseMiniData:zAddress]) {
+    if ([((OrgMinimaObjectsBaseMiniHash *) nil_chk([((OrgMinimaObjectsAddress *) nil_chk(addr)) getAddressData])) isExactlyEqualWithOrgMinimaObjectsBaseMiniData:zAddress]) {
       return [addr getScript];
     }
   }
   return @"NULL";
 }
 
-- (jboolean)isAddressRelevantWithOrgMinimaObjectsBaseMiniData32:(OrgMinimaObjectsBaseMiniData32 *)zAddress {
+- (jboolean)isAddressRelevantWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zAddress {
   for (OrgMinimaObjectsAddress * __strong addr in nil_chk(mTotalAddresses_)) {
-    if ([((OrgMinimaObjectsBaseMiniData32 *) nil_chk([((OrgMinimaObjectsAddress *) nil_chk(addr)) getAddressData])) isExactlyEqualWithOrgMinimaObjectsBaseMiniData:zAddress]) {
+    if ([((OrgMinimaObjectsBaseMiniHash *) nil_chk([((OrgMinimaObjectsAddress *) nil_chk(addr)) getAddressData])) isExactlyEqualWithOrgMinimaObjectsBaseMiniData:zAddress]) {
       return true;
     }
   }
@@ -133,21 +134,21 @@ J2OBJC_IGNORE_DESIGNATED_END
   JavaUtilArrayList *outs = [zTrans getAllOutputs];
   jboolean rel = false;
   for (OrgMinimaObjectsCoin * __strong in in nil_chk(ins)) {
-    if ([self isAddressRelevantWithOrgMinimaObjectsBaseMiniData32:[((OrgMinimaObjectsCoin *) nil_chk(in)) getAddress]]) {
+    if ([self isAddressRelevantWithOrgMinimaObjectsBaseMiniHash:[((OrgMinimaObjectsCoin *) nil_chk(in)) getAddress]]) {
       rel = true;
     }
   }
   for (OrgMinimaObjectsCoin * __strong out in nil_chk(outs)) {
-    if ([self isAddressRelevantWithOrgMinimaObjectsBaseMiniData32:[((OrgMinimaObjectsCoin *) nil_chk(out)) getAddress]]) {
+    if ([self isAddressRelevantWithOrgMinimaObjectsBaseMiniHash:[((OrgMinimaObjectsCoin *) nil_chk(out)) getAddress]]) {
       rel = true;
     }
   }
   return rel;
 }
 
-- (OrgMinimaObjectsBaseMiniData *)getPublicKeyWithOrgMinimaObjectsBaseMiniData32:(OrgMinimaObjectsBaseMiniData32 *)zAddress {
+- (OrgMinimaObjectsBaseMiniData *)getPublicKeyWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zAddress {
   for (OrgMinimaObjectsAddress * __strong addr in nil_chk(mAddresses_)) {
-    if ([((OrgMinimaObjectsAddress *) nil_chk(addr)) isEqualWithOrgMinimaObjectsBaseMiniData32:zAddress]) {
+    if ([((OrgMinimaObjectsAddress *) nil_chk(addr)) isEqualWithOrgMinimaObjectsBaseMiniHash:zAddress]) {
       NSString *script = [addr getScript];
       jint index = [((NSString *) nil_chk(script)) java_indexOfString:@"0x"];
       jint end = [script java_indexOfString:@" " fromIndex:index];
@@ -175,6 +176,11 @@ J2OBJC_IGNORE_DESIGNATED_END
   for (OrgMinimaObjectsAddress * __strong addr in nil_chk(mScriptAddresses_)) {
     [((OrgMinimaObjectsAddress *) nil_chk(addr)) writeDataStreamWithJavaIoDataOutputStream:zOut];
   }
+  len = [((JavaUtilArrayList *) nil_chk(mAllTokens_)) size];
+  [zOut writeIntWithInt:len];
+  for (OrgMinimaObjectsTokenDetails * __strong td in nil_chk(mAllTokens_)) {
+    [((OrgMinimaObjectsTokenDetails *) nil_chk(td)) writeDataStreamWithJavaIoDataOutputStream:zOut];
+  }
   [zOut writeIntWithInt:mCounter_];
   len = [((JavaUtilArrayList *) nil_chk(mRows_)) size];
   [zOut writeIntWithInt:len];
@@ -190,6 +196,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   JreStrongAssignAndConsume(&mScriptAddresses_, new_JavaUtilArrayList_init());
   JreStrongAssignAndConsume(&mTotalAddresses_, new_JavaUtilArrayList_init());
   JreStrongAssignAndConsume(&mRows_, new_JavaUtilArrayList_init());
+  JreStrongAssignAndConsume(&mAllTokens_, new_JavaUtilArrayList_init());
   jint len = [((JavaIoDataInputStream *) nil_chk(zIn)) readInt];
   for (jint i = 0; i < len; i++) {
     OrgMinimaObjectsPubPrivKey *pp = create_OrgMinimaObjectsPubPrivKey_initWithBoolean_(true);
@@ -210,6 +217,10 @@ J2OBJC_IGNORE_DESIGNATED_END
     [((JavaUtilArrayList *) nil_chk(mScriptAddresses_)) addWithId:addr];
     [((JavaUtilArrayList *) nil_chk(mTotalAddresses_)) addWithId:addr];
   }
+  len = [zIn readInt];
+  for (jint i = 0; i < len; i++) {
+    [((JavaUtilArrayList *) nil_chk(mAllTokens_)) addWithId:OrgMinimaObjectsTokenDetails_ReadFromStreamWithJavaIoDataInputStream_(zIn)];
+  }
   mCounter_ = [zIn readInt];
   len = [zIn readInt];
   for (jint i = 0; i < len; i++) {
@@ -219,12 +230,32 @@ J2OBJC_IGNORE_DESIGNATED_END
   }
 }
 
+- (JavaUtilArrayList *)getAllKnownTokens {
+  return mAllTokens_;
+}
+
+- (OrgMinimaObjectsTokenDetails *)getTokenDetailWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zTokenID {
+  for (OrgMinimaObjectsTokenDetails * __strong td in nil_chk(mAllTokens_)) {
+    if ([((OrgMinimaObjectsBaseMiniHash *) nil_chk([((OrgMinimaObjectsTokenDetails *) nil_chk(td)) getTokenID])) isExactlyEqualWithOrgMinimaObjectsBaseMiniData:zTokenID]) {
+      return td;
+    }
+  }
+  return nil;
+}
+
+- (void)addTokenDetailsWithOrgMinimaObjectsTokenDetails:(OrgMinimaObjectsTokenDetails *)zToken {
+  if ([self getTokenDetailWithOrgMinimaObjectsBaseMiniHash:[((OrgMinimaObjectsTokenDetails *) nil_chk(zToken)) getTokenID]] == nil) {
+    [((JavaUtilArrayList *) nil_chk(mAllTokens_)) addWithId:zToken];
+  }
+}
+
 - (void)dealloc {
   RELEASE_(mPubPrivKeys_);
   RELEASE_(mAddresses_);
   RELEASE_(mScriptAddresses_);
   RELEASE_(mRows_);
   RELEASE_(mTotalAddresses_);
+  RELEASE_(mAllTokens_);
   [super dealloc];
 }
 
@@ -251,6 +282,9 @@ J2OBJC_IGNORE_DESIGNATED_END
     { NULL, "LOrgMinimaObjectsBaseMiniData;", 0x1, 18, 9, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 19, 20, 21, -1, -1, -1 },
     { NULL, "V", 0x1, 22, 23, 21, -1, -1, -1 },
+    { NULL, "LJavaUtilArrayList;", 0x1, -1, -1, -1, 24, -1, -1 },
+    { NULL, "LOrgMinimaObjectsTokenDetails;", 0x1, 25, 9, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 26, 27, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
@@ -266,27 +300,31 @@ J2OBJC_IGNORE_DESIGNATED_END
   methods[8].selector = @selector(getSimpleAddresses);
   methods[9].selector = @selector(newSimpleAddress);
   methods[10].selector = @selector(newSimpleAddressWithOrgMinimaObjectsPubPrivKey:);
-  methods[11].selector = @selector(isSimpleAddressWithOrgMinimaObjectsBaseMiniData32:);
+  methods[11].selector = @selector(isSimpleAddressWithOrgMinimaObjectsBaseMiniHash:);
   methods[12].selector = @selector(getPubPrivKeyWithOrgMinimaObjectsBaseMiniData:);
   methods[13].selector = @selector(getScriptAddresses);
   methods[14].selector = @selector(newScriptAddressWithNSString:);
-  methods[15].selector = @selector(getScriptWithOrgMinimaObjectsBaseMiniData32:);
-  methods[16].selector = @selector(isAddressRelevantWithOrgMinimaObjectsBaseMiniData32:);
+  methods[15].selector = @selector(getScriptWithOrgMinimaObjectsBaseMiniHash:);
+  methods[16].selector = @selector(isAddressRelevantWithOrgMinimaObjectsBaseMiniHash:);
   methods[17].selector = @selector(isTransactionRelevantWithOrgMinimaObjectsTransaction:);
-  methods[18].selector = @selector(getPublicKeyWithOrgMinimaObjectsBaseMiniData32:);
+  methods[18].selector = @selector(getPublicKeyWithOrgMinimaObjectsBaseMiniHash:);
   methods[19].selector = @selector(writeDataStreamWithJavaIoDataOutputStream:);
   methods[20].selector = @selector(readDataStreamWithJavaIoDataInputStream:);
+  methods[21].selector = @selector(getAllKnownTokens);
+  methods[22].selector = @selector(getTokenDetailWithOrgMinimaObjectsBaseMiniHash:);
+  methods[23].selector = @selector(addTokenDetailsWithOrgMinimaObjectsTokenDetails:);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
-    { "mPubPrivKeys_", "LJavaUtilArrayList;", .constantValue.asLong = 0, 0x0, -1, -1, 24, -1 },
-    { "mAddresses_", "LJavaUtilArrayList;", .constantValue.asLong = 0, 0x0, -1, -1, 25, -1 },
-    { "mScriptAddresses_", "LJavaUtilArrayList;", .constantValue.asLong = 0, 0x0, -1, -1, 25, -1 },
+    { "mPubPrivKeys_", "LJavaUtilArrayList;", .constantValue.asLong = 0, 0x0, -1, -1, 28, -1 },
+    { "mAddresses_", "LJavaUtilArrayList;", .constantValue.asLong = 0, 0x0, -1, -1, 29, -1 },
+    { "mScriptAddresses_", "LJavaUtilArrayList;", .constantValue.asLong = 0, 0x0, -1, -1, 29, -1 },
     { "mCounter_", "I", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
-    { "mRows_", "LJavaUtilArrayList;", .constantValue.asLong = 0, 0x0, -1, -1, 26, -1 },
-    { "mTotalAddresses_", "LJavaUtilArrayList;", .constantValue.asLong = 0, 0x0, -1, -1, 25, -1 },
+    { "mRows_", "LJavaUtilArrayList;", .constantValue.asLong = 0, 0x0, -1, -1, 30, -1 },
+    { "mTotalAddresses_", "LJavaUtilArrayList;", .constantValue.asLong = 0, 0x0, -1, -1, 29, -1 },
+    { "mAllTokens_", "LJavaUtilArrayList;", .constantValue.asLong = 0, 0x0, -1, -1, 31, -1 },
   };
-  static const void *ptrTable[] = { "()Ljava/util/ArrayList<Lorg/minima/objects/Address;>;", "()Ljava/util/ArrayList<Lorg/minima/objects/PubPrivKey;>;", "()Ljava/util/ArrayList<Lorg/minima/database/userdb/UserDBRow;>;", "getUserRow", "I", "deleteUserRow", "newSimpleAddress", "LOrgMinimaObjectsPubPrivKey;", "isSimpleAddress", "LOrgMinimaObjectsBaseMiniData32;", "getPubPrivKey", "LOrgMinimaObjectsBaseMiniData;", "newScriptAddress", "LNSString;", "getScript", "isAddressRelevant", "isTransactionRelevant", "LOrgMinimaObjectsTransaction;", "getPublicKey", "writeDataStream", "LJavaIoDataOutputStream;", "LJavaIoIOException;", "readDataStream", "LJavaIoDataInputStream;", "Ljava/util/ArrayList<Lorg/minima/objects/PubPrivKey;>;", "Ljava/util/ArrayList<Lorg/minima/objects/Address;>;", "Ljava/util/ArrayList<Lorg/minima/database/userdb/UserDBRow;>;" };
-  static const J2ObjcClassInfo _OrgMinimaDatabaseUserdbJavaJavaUserDB = { "JavaUserDB", "org.minima.database.userdb.java", ptrTable, methods, fields, 7, 0x1, 21, 6, -1, -1, -1, -1, -1 };
+  static const void *ptrTable[] = { "()Ljava/util/ArrayList<Lorg/minima/objects/Address;>;", "()Ljava/util/ArrayList<Lorg/minima/objects/PubPrivKey;>;", "()Ljava/util/ArrayList<Lorg/minima/database/userdb/UserDBRow;>;", "getUserRow", "I", "deleteUserRow", "newSimpleAddress", "LOrgMinimaObjectsPubPrivKey;", "isSimpleAddress", "LOrgMinimaObjectsBaseMiniHash;", "getPubPrivKey", "LOrgMinimaObjectsBaseMiniData;", "newScriptAddress", "LNSString;", "getScript", "isAddressRelevant", "isTransactionRelevant", "LOrgMinimaObjectsTransaction;", "getPublicKey", "writeDataStream", "LJavaIoDataOutputStream;", "LJavaIoIOException;", "readDataStream", "LJavaIoDataInputStream;", "()Ljava/util/ArrayList<Lorg/minima/objects/TokenDetails;>;", "getTokenDetail", "addTokenDetails", "LOrgMinimaObjectsTokenDetails;", "Ljava/util/ArrayList<Lorg/minima/objects/PubPrivKey;>;", "Ljava/util/ArrayList<Lorg/minima/objects/Address;>;", "Ljava/util/ArrayList<Lorg/minima/database/userdb/UserDBRow;>;", "Ljava/util/ArrayList<Lorg/minima/objects/TokenDetails;>;" };
+  static const J2ObjcClassInfo _OrgMinimaDatabaseUserdbJavaJavaUserDB = { "JavaUserDB", "org.minima.database.userdb.java", ptrTable, methods, fields, 7, 0x1, 24, 7, -1, -1, -1, -1, -1 };
   return &_OrgMinimaDatabaseUserdbJavaJavaUserDB;
 }
 
@@ -298,6 +336,7 @@ void OrgMinimaDatabaseUserdbJavaJavaUserDB_init(OrgMinimaDatabaseUserdbJavaJavaU
   JreStrongAssignAndConsume(&self->mAddresses_, new_JavaUtilArrayList_init());
   JreStrongAssignAndConsume(&self->mScriptAddresses_, new_JavaUtilArrayList_init());
   JreStrongAssignAndConsume(&self->mTotalAddresses_, new_JavaUtilArrayList_init());
+  JreStrongAssignAndConsume(&self->mAllTokens_, new_JavaUtilArrayList_init());
   self->mCounter_ = 0;
   JreStrongAssignAndConsume(&self->mRows_, new_JavaUtilArrayList_init());
 }

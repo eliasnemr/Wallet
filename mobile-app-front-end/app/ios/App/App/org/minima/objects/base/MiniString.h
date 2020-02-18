@@ -16,17 +16,14 @@
 #if !defined (OrgMinimaObjectsBaseMiniString_) && (INCLUDE_ALL_OrgMinimaObjectsBaseMiniString || defined(INCLUDE_OrgMinimaObjectsBaseMiniString))
 #define OrgMinimaObjectsBaseMiniString_
 
-#define RESTRICT_OrgMinimaUtilsStreamable 1
-#define INCLUDE_OrgMinimaUtilsStreamable 1
-#include "org/minima/utils/Streamable.h"
+#define RESTRICT_OrgMinimaObjectsBaseMiniData 1
+#define INCLUDE_OrgMinimaObjectsBaseMiniData 1
+#include "org/minima/objects/base/MiniData.h"
 
+@class IOSByteArray;
 @class JavaIoDataInputStream;
-@class JavaIoDataOutputStream;
 
-@interface OrgMinimaObjectsBaseMiniString : NSObject < OrgMinimaUtilsStreamable > {
- @public
-  NSString *mString_;
-}
+@interface OrgMinimaObjectsBaseMiniString : OrgMinimaObjectsBaseMiniData
 
 #pragma mark Public
 
@@ -34,23 +31,19 @@
 
 - (instancetype)initWithNSString:(NSString *)zString;
 
-- (void)readDataStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn;
-
 + (OrgMinimaObjectsBaseMiniString *)ReadFromStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn;
 
 - (NSString *)description;
-
-- (void)writeDataStreamWithJavaIoDataOutputStream:(JavaIoDataOutputStream *)zOut;
 
 // Disallowed inherited constructors, do not use.
 
 - (instancetype)init NS_UNAVAILABLE;
 
+- (instancetype)initWithByteArray:(IOSByteArray *)arg0 NS_UNAVAILABLE;
+
 @end
 
 J2OBJC_EMPTY_STATIC_INIT(OrgMinimaObjectsBaseMiniString)
-
-J2OBJC_FIELD_SETTER(OrgMinimaObjectsBaseMiniString, mString_, NSString *)
 
 FOUNDATION_EXPORT void OrgMinimaObjectsBaseMiniString_initWithNSString_(OrgMinimaObjectsBaseMiniString *self, NSString *zString);
 

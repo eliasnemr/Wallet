@@ -1,20 +1,40 @@
 <ion-app>
-  <ion-split-pane when="lg" contentId="mainMenu" >
+  <ion-split-pane when="lg" contentId="mainMenu" class="splitpane" >
   <ion-menu side="start" contentId="mainMenu">
     <ion-header>
       <ion-toolbar class="menu-toolbar">
-       <ion-title>
-         <ion-icon src="../../assets/icon/minima.svg" size="5"></ion-icon>
-         <ion-text style="font-weight: lighter; font-family: Aeonik-Light;">
-           Minima <ion-badge color="secondary">BETA</ion-badge>
-           </ion-text>
+      <ion-title>
+        <ion-icon class="menu-logo" src="../../assets/icon/minima.svg"></ion-icon>
+      <ion-note class="menu-logo-title">
+          Minima 
+      <ion-badge color="#00ABC8" (click)="betaTap()">BETA</ion-badge>
+      </ion-note>
        </ion-title>   
       </ion-toolbar>
+      
     </ion-header>
+    
+
     
     <ion-content>
         <ion-menu-toggle auto-hide="false">
           <ion-list main lines="none">
+            
+          <ion-item>
+          <ion-button class="social-web" href="https://minima.global/">
+            <ion-label class="social-lbl">Minima</ion-label>
+            <ion-icon class="social-icon" name="planet"></ion-icon> 
+          </ion-button>
+          <ion-button class="social-web" href="https://twitter.com/Minima_Global">
+            <ion-label class="social-lbl">Twitter</ion-label>
+            <ion-icon class="social-icon" name="logo-twitter"></ion-icon> 
+          </ion-button>
+          <ion-button class="social-web" href="https://t.me/Minima_Global">
+            <ion-label class="social-lbl">Telegram</ion-label>
+            <ion-icon class="social-icon" src="../assets/telegram.svg"></ion-icon> 
+          </ion-button>
+            </ion-item>
+            
             <ion-item routerLink="/balance">
               <ion-icon name="card" slot="start"></ion-icon> Balance
             </ion-item>
@@ -35,13 +55,16 @@
             <ion-item routerLink="/mini-term">
               <ion-icon name="code" slot="start"></ion-icon> Terminal
             </ion-item>
+            <ion-item routerLink="/web-scanner">
+              <ion-icon name="desktop" slot="start"></ion-icon> Web
+            </ion-item>
             <ion-item-divider></ion-item-divider>
             <ion-item routerLink="/settings">
               <ion-icon name="build" slot="start"></ion-icon> Settings
             </ion-item>
         </ion-list>
         </ion-menu-toggle>
-      
+
     </ion-content>
   </ion-menu>
         <ion-router-outlet main id="mainMenu"></ion-router-outlet>

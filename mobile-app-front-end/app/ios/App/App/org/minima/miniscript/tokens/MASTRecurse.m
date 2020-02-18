@@ -12,7 +12,7 @@
 #include "java/util/StringTokenizer.h"
 #include "org/minima/miniscript/Contract.h"
 #include "org/minima/miniscript/tokens/MASTRecurse.h"
-#include "org/minima/objects/base/MiniData32.h"
+#include "org/minima/objects/base/MiniHash.h"
 #include "org/minima/utils/Crypto.h"
 
 @implementation OrgMinimaMiniscriptTokensMASTRecurse
@@ -24,8 +24,8 @@ J2OBJC_IGNORE_DESIGNATED_BEGIN
 }
 J2OBJC_IGNORE_DESIGNATED_END
 
-+ (OrgMinimaObjectsBaseMiniData32 *)MASTWithNSString:(NSString *)zRamScript
-                               withJavaUtilHashtable:(JavaUtilHashtable *)zTable {
++ (OrgMinimaObjectsBaseMiniHash *)MASTWithNSString:(NSString *)zRamScript
+                             withJavaUtilHashtable:(JavaUtilHashtable *)zTable {
   return OrgMinimaMiniscriptTokensMASTRecurse_MASTWithNSString_withJavaUtilHashtable_(zRamScript, zTable);
 }
 
@@ -44,7 +44,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 + (const J2ObjcClassInfo *)__metadata {
   static J2ObjcMethodInfo methods[] = {
     { NULL, NULL, 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsBaseMiniData32;", 0x9, 0, 1, -1, 2, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMiniHash;", 0x9, 0, 1, -1, 2, -1, -1 },
     { NULL, "LNSString;", 0x1, 3, 4, -1, -1, -1, -1 },
     { NULL, "V", 0x9, 5, 6, -1, -1, -1, -1 },
   };
@@ -56,7 +56,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   methods[2].selector = @selector(getInternalMASTWithNSString:);
   methods[3].selector = @selector(mainWithNSStringArray:);
   #pragma clang diagnostic pop
-  static const void *ptrTable[] = { "MAST", "LNSString;LJavaUtilHashtable;", "(Ljava/lang/String;Ljava/util/Hashtable<Lorg/minima/objects/base/MiniData32;Ljava/lang/String;>;)Lorg/minima/objects/base/MiniData32;", "getInternalMAST", "LNSString;", "main", "[LNSString;" };
+  static const void *ptrTable[] = { "MAST", "LNSString;LJavaUtilHashtable;", "(Ljava/lang/String;Ljava/util/Hashtable<Lorg/minima/objects/base/MiniHash;Ljava/lang/String;>;)Lorg/minima/objects/base/MiniHash;", "getInternalMAST", "LNSString;", "main", "[LNSString;" };
   static const J2ObjcClassInfo _OrgMinimaMiniscriptTokensMASTRecurse = { "MASTRecurse", "org.minima.miniscript.tokens", ptrTable, methods, NULL, 7, 0x1, 4, 0, -1, -1, -1, -1, -1 };
   return &_OrgMinimaMiniscriptTokensMASTRecurse;
 }
@@ -75,14 +75,14 @@ OrgMinimaMiniscriptTokensMASTRecurse *create_OrgMinimaMiniscriptTokensMASTRecurs
   J2OBJC_CREATE_IMPL(OrgMinimaMiniscriptTokensMASTRecurse, init)
 }
 
-OrgMinimaObjectsBaseMiniData32 *OrgMinimaMiniscriptTokensMASTRecurse_MASTWithNSString_withJavaUtilHashtable_(NSString *zRamScript, JavaUtilHashtable *zTable) {
+OrgMinimaObjectsBaseMiniHash *OrgMinimaMiniscriptTokensMASTRecurse_MASTWithNSString_withJavaUtilHashtable_(NSString *zRamScript, JavaUtilHashtable *zTable) {
   OrgMinimaMiniscriptTokensMASTRecurse_initialize();
   NSString *script = OrgMinimaMiniscriptContract_cleanScriptWithNSString_(zRamScript);
   [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out))) printlnWithNSString:JreStrcat("$$C", @"MAST : *", script, '*')];
   jint mindex = [((NSString *) nil_chk(script)) java_indexOfString:@"MAST "];
   if (mindex == -1) {
     IOSByteArray *hdata = [((OrgMinimaUtilsCrypto *) nil_chk(OrgMinimaUtilsCrypto_getInstance())) hashDataWithByteArray:[script java_getBytes]];
-    OrgMinimaObjectsBaseMiniData32 *hsh = create_OrgMinimaObjectsBaseMiniData32_initWithByteArray_(hdata);
+    OrgMinimaObjectsBaseMiniHash *hsh = create_OrgMinimaObjectsBaseMiniHash_initWithByteArray_(hdata);
     [((JavaUtilHashtable *) nil_chk(zTable)) putWithId:hsh withId:script];
     return hsh;
   }

@@ -16,9 +16,21 @@
 #include "org/minima/objects/base/MiniData.h"
 #include "org/minima/utils/MinimaLogger.h"
 
+@interface OrgMinimaObjectsBaseMiniData ()
+
++ (IOSByteArray *)hexStringToByteArrayWithNSString:(NSString *)zHex;
+
++ (NSString *)bytesToHexWithByteArray:(IOSByteArray *)bytes;
+
+@end
+
 inline IOSCharArray *OrgMinimaObjectsBaseMiniData_get_hexArray(void);
 static IOSCharArray *OrgMinimaObjectsBaseMiniData_hexArray;
 J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaObjectsBaseMiniData, hexArray, IOSCharArray *)
+
+__attribute__((unused)) static IOSByteArray *OrgMinimaObjectsBaseMiniData_hexStringToByteArrayWithNSString_(NSString *zHex);
+
+__attribute__((unused)) static NSString *OrgMinimaObjectsBaseMiniData_bytesToHexWithByteArray_(IOSByteArray *bytes);
 
 J2OBJC_INITIALIZED_DEFN(OrgMinimaObjectsBaseMiniData)
 
@@ -176,8 +188,8 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 + (const J2ObjcClassInfo *)__metadata {
   static J2ObjcMethodInfo methods[] = {
-    { NULL, "[B", 0x9, 0, 1, -1, -1, -1, -1 },
-    { NULL, "LNSString;", 0x9, 2, 3, -1, -1, -1, -1 },
+    { NULL, "[B", 0xa, 0, 1, -1, -1, -1, -1 },
+    { NULL, "LNSString;", 0xa, 2, 3, -1, -1, -1, -1 },
     { NULL, NULL, 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, NULL, 0x1, -1, 1, -1, -1, -1, -1 },
     { NULL, NULL, 0x1, -1, 3, -1, -1, -1, -1 },

@@ -1,4 +1,16 @@
-ion-card {
-    border-radius: 15px;
-}
+// @media only screen and (min-width: 992px) {
+//     ion-list {
+//         background-image: url('../../assets/minimatile.png');
+        
+//     }
+// }
 
+ion-button {
+    height: 35px;
+}
+.popover{
+    max-width: none;
+}
+ion-list {
+    background-image: url('../../assets/minimatile.png');
+}

@@ -5,7 +5,6 @@
 
 #include "IOSObjectArray.h"
 #include "J2ObjC_source.h"
-#include "java/lang/Integer.h"
 #include "org/minima/system/Main.h"
 #include "org/minima/system/input/CommandFunction.h"
 #include "org/minima/system/input/functions/weblink.h"
@@ -22,11 +21,9 @@ J2OBJC_IGNORE_DESIGNATED_BEGIN
 J2OBJC_IGNORE_DESIGNATED_END
 
 - (void)doFunctionWithNSStringArray:(IOSObjectArray *)zInput {
-  NSString *host = IOSObjectArray_Get(nil_chk(zInput), 1);
-  jint port = JavaLangInteger_parseIntWithNSString_(IOSObjectArray_Get(zInput, 2));
-  NSString *webhost = IOSObjectArray_Get(zInput, 3);
+  NSString *uuid = IOSObjectArray_Get(nil_chk(zInput), 1);
   OrgMinimaUtilsMessagesMessage *connect = [self getResponseMessageWithNSString:OrgMinimaSystemNetworkNetworkHandler_NETWORK_WEBPROXY];
-  [((OrgMinimaUtilsMessagesMessage *) nil_chk([((OrgMinimaUtilsMessagesMessage *) nil_chk([((OrgMinimaUtilsMessagesMessage *) nil_chk(connect)) addIntWithNSString:@"port" withInt:port])) addStringWithNSString:@"host" withNSString:host])) addStringWithNSString:@"webhostid" withNSString:webhost];
+  [((OrgMinimaUtilsMessagesMessage *) nil_chk(connect)) addStringWithNSString:@"uuid" withNSString:uuid];
   [((OrgMinimaSystemNetworkNetworkHandler *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getNetworkHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:connect];
 }
 
@@ -56,7 +53,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 void OrgMinimaSystemInputFunctionsweblink_init(OrgMinimaSystemInputFunctionsweblink *self) {
   OrgMinimaSystemInputCommandFunction_initWithNSString_(self, @"weblink");
-  [self setHelpWithNSString:@"[host] [port]" withNSString:@"Connect to a Minima Web Proxy node" withNSString:@""];
+  [self setHelpWithNSString:@"[UUID]" withNSString:@"Connect your phone to a webpage given the UUID" withNSString:@""];
 }
 
 OrgMinimaSystemInputFunctionsweblink *new_OrgMinimaSystemInputFunctionsweblink_init() {

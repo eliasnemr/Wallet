@@ -8,7 +8,7 @@
 #include "java/io/DataOutputStream.h"
 #include "org/minima/objects/PubPrivKey.h"
 #include "org/minima/objects/base/MiniData.h"
-#include "org/minima/objects/base/MiniData32.h"
+#include "org/minima/objects/base/MiniHash.h"
 
 @implementation OrgMinimaObjectsPubPrivKey
 
@@ -29,19 +29,19 @@ J2OBJC_IGNORE_DESIGNATED_END
   return self;
 }
 
-- (OrgMinimaObjectsBaseMiniData *)signWithOrgMinimaObjectsBaseMiniData32:(OrgMinimaObjectsBaseMiniData32 *)zData {
+- (OrgMinimaObjectsBaseMiniData *)signWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zData {
   return OrgMinimaObjectsBaseMiniData_getRandomDataWithInt_(64);
 }
 
-- (jboolean)verifyWithOrgMinimaObjectsBaseMiniData32:(OrgMinimaObjectsBaseMiniData32 *)zData
-                    withOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zSignature {
-  return OrgMinimaObjectsPubPrivKey_verifyWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniData32_withOrgMinimaObjectsBaseMiniData_(mPublicKey_, zData, zSignature);
+- (jboolean)verifyWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zData
+                  withOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zSignature {
+  return OrgMinimaObjectsPubPrivKey_verifyWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniHash_withOrgMinimaObjectsBaseMiniData_(mPublicKey_, zData, zSignature);
 }
 
 + (jboolean)verifyWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zPubKey
-                withOrgMinimaObjectsBaseMiniData32:(OrgMinimaObjectsBaseMiniData32 *)zData
+                  withOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zData
                   withOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zSignature {
-  return OrgMinimaObjectsPubPrivKey_verifyWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniData32_withOrgMinimaObjectsBaseMiniData_(zPubKey, zData, zSignature);
+  return OrgMinimaObjectsPubPrivKey_verifyWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniHash_withOrgMinimaObjectsBaseMiniData_(zPubKey, zData, zSignature);
 }
 
 - (OrgMinimaObjectsBaseMiniData *)getPublicKey {
@@ -92,9 +92,9 @@ J2OBJC_IGNORE_DESIGNATED_END
   methods[0].selector = @selector(init);
   methods[1].selector = @selector(initWithOrgMinimaObjectsBaseMiniData:);
   methods[2].selector = @selector(initWithBoolean:);
-  methods[3].selector = @selector(signWithOrgMinimaObjectsBaseMiniData32:);
-  methods[4].selector = @selector(verifyWithOrgMinimaObjectsBaseMiniData32:withOrgMinimaObjectsBaseMiniData:);
-  methods[5].selector = @selector(verifyWithOrgMinimaObjectsBaseMiniData:withOrgMinimaObjectsBaseMiniData32:withOrgMinimaObjectsBaseMiniData:);
+  methods[3].selector = @selector(signWithOrgMinimaObjectsBaseMiniHash:);
+  methods[4].selector = @selector(verifyWithOrgMinimaObjectsBaseMiniHash:withOrgMinimaObjectsBaseMiniData:);
+  methods[5].selector = @selector(verifyWithOrgMinimaObjectsBaseMiniData:withOrgMinimaObjectsBaseMiniHash:withOrgMinimaObjectsBaseMiniData:);
   methods[6].selector = @selector(getPublicKey);
   methods[7].selector = @selector(getPrivateSeed);
   methods[8].selector = @selector(description);
@@ -105,7 +105,7 @@ J2OBJC_IGNORE_DESIGNATED_END
     { "mPrivateSeed_", "LOrgMinimaObjectsBaseMiniData;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mPublicKey_", "LOrgMinimaObjectsBaseMiniData;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
   };
-  static const void *ptrTable[] = { "LOrgMinimaObjectsBaseMiniData;", "Z", "sign", "LOrgMinimaObjectsBaseMiniData32;", "verify", "LOrgMinimaObjectsBaseMiniData32;LOrgMinimaObjectsBaseMiniData;", "LOrgMinimaObjectsBaseMiniData;LOrgMinimaObjectsBaseMiniData32;LOrgMinimaObjectsBaseMiniData;", "toString", "writeDataStream", "LJavaIoDataOutputStream;", "LJavaIoIOException;", "readDataStream", "LJavaIoDataInputStream;" };
+  static const void *ptrTable[] = { "LOrgMinimaObjectsBaseMiniData;", "Z", "sign", "LOrgMinimaObjectsBaseMiniHash;", "verify", "LOrgMinimaObjectsBaseMiniHash;LOrgMinimaObjectsBaseMiniData;", "LOrgMinimaObjectsBaseMiniData;LOrgMinimaObjectsBaseMiniHash;LOrgMinimaObjectsBaseMiniData;", "toString", "writeDataStream", "LJavaIoDataOutputStream;", "LJavaIoIOException;", "readDataStream", "LJavaIoDataInputStream;" };
   static const J2ObjcClassInfo _OrgMinimaObjectsPubPrivKey = { "PubPrivKey", "org.minima.objects", ptrTable, methods, fields, 7, 0x1, 11, 2, -1, -1, -1, -1, -1 };
   return &_OrgMinimaObjectsPubPrivKey;
 }
@@ -150,7 +150,7 @@ OrgMinimaObjectsPubPrivKey *create_OrgMinimaObjectsPubPrivKey_initWithBoolean_(j
   J2OBJC_CREATE_IMPL(OrgMinimaObjectsPubPrivKey, initWithBoolean_, empty)
 }
 
-jboolean OrgMinimaObjectsPubPrivKey_verifyWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniData32_withOrgMinimaObjectsBaseMiniData_(OrgMinimaObjectsBaseMiniData *zPubKey, OrgMinimaObjectsBaseMiniData32 *zData, OrgMinimaObjectsBaseMiniData *zSignature) {
+jboolean OrgMinimaObjectsPubPrivKey_verifyWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniHash_withOrgMinimaObjectsBaseMiniData_(OrgMinimaObjectsBaseMiniData *zPubKey, OrgMinimaObjectsBaseMiniHash *zData, OrgMinimaObjectsBaseMiniData *zSignature) {
   OrgMinimaObjectsPubPrivKey_initialize();
   return true;
 }

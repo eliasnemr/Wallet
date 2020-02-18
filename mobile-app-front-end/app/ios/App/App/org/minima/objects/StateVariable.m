@@ -7,6 +7,7 @@
 #include "java/io/DataInputStream.h"
 #include "java/io/DataOutputStream.h"
 #include "java/io/IOException.h"
+#include "org/minima/miniscript/Contract.h"
 #include "org/minima/objects/StateVariable.h"
 #include "org/minima/objects/base/MiniNumber.h"
 #include "org/minima/objects/base/MiniString.h"
@@ -38,6 +39,10 @@ J2OBJC_IGNORE_DESIGNATED_BEGIN
   return self;
 }
 J2OBJC_IGNORE_DESIGNATED_END
+
+- (void)resetDataWithOrgMinimaObjectsBaseMiniString:(OrgMinimaObjectsBaseMiniString *)zData {
+  JreStrongAssign(&mData_, zData);
+}
 
 - (OrgMinimaObjectsBaseMiniString *)getData {
   return mData_;
@@ -82,33 +87,35 @@ J2OBJC_IGNORE_DESIGNATED_END
   static J2ObjcMethodInfo methods[] = {
     { NULL, NULL, 0x1, -1, 0, -1, -1, -1, -1 },
     { NULL, NULL, 0x2, -1, -1, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 1, 2, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaObjectsBaseMiniString;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaUtilsJsonJSONObject;", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LNSString;", 0x1, 1, -1, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 2, 3, 4, -1, -1, -1 },
-    { NULL, "V", 0x1, 5, 6, 4, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsStateVariable;", 0x9, 7, 6, -1, -1, -1, -1 },
+    { NULL, "LNSString;", 0x1, 3, -1, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 4, 5, 6, -1, -1, -1 },
+    { NULL, "V", 0x1, 7, 8, 6, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsStateVariable;", 0x9, 9, 8, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
   #pragma clang diagnostic ignored "-Wundeclared-selector"
   methods[0].selector = @selector(initWithOrgMinimaObjectsBaseMiniNumber:withNSString:);
   methods[1].selector = @selector(init);
-  methods[2].selector = @selector(getData);
-  methods[3].selector = @selector(getPort);
-  methods[4].selector = @selector(toJSON);
-  methods[5].selector = @selector(description);
-  methods[6].selector = @selector(writeDataStreamWithJavaIoDataOutputStream:);
-  methods[7].selector = @selector(readDataStreamWithJavaIoDataInputStream:);
-  methods[8].selector = @selector(ReadFromStreamWithJavaIoDataInputStream:);
+  methods[2].selector = @selector(resetDataWithOrgMinimaObjectsBaseMiniString:);
+  methods[3].selector = @selector(getData);
+  methods[4].selector = @selector(getPort);
+  methods[5].selector = @selector(toJSON);
+  methods[6].selector = @selector(description);
+  methods[7].selector = @selector(writeDataStreamWithJavaIoDataOutputStream:);
+  methods[8].selector = @selector(readDataStreamWithJavaIoDataInputStream:);
+  methods[9].selector = @selector(ReadFromStreamWithJavaIoDataInputStream:);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
     { "mData_", "LOrgMinimaObjectsBaseMiniString;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mPort_", "LOrgMinimaObjectsBaseMiniNumber;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
   };
-  static const void *ptrTable[] = { "LOrgMinimaObjectsBaseMiniNumber;LNSString;", "toString", "writeDataStream", "LJavaIoDataOutputStream;", "LJavaIoIOException;", "readDataStream", "LJavaIoDataInputStream;", "ReadFromStream" };
-  static const J2ObjcClassInfo _OrgMinimaObjectsStateVariable = { "StateVariable", "org.minima.objects", ptrTable, methods, fields, 7, 0x1, 9, 2, -1, -1, -1, -1, -1 };
+  static const void *ptrTable[] = { "LOrgMinimaObjectsBaseMiniNumber;LNSString;", "resetData", "LOrgMinimaObjectsBaseMiniString;", "toString", "writeDataStream", "LJavaIoDataOutputStream;", "LJavaIoIOException;", "readDataStream", "LJavaIoDataInputStream;", "ReadFromStream" };
+  static const J2ObjcClassInfo _OrgMinimaObjectsStateVariable = { "StateVariable", "org.minima.objects", ptrTable, methods, fields, 7, 0x1, 10, 2, -1, -1, -1, -1, -1 };
   return &_OrgMinimaObjectsStateVariable;
 }
 
@@ -116,7 +123,8 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 void OrgMinimaObjectsStateVariable_initWithOrgMinimaObjectsBaseMiniNumber_withNSString_(OrgMinimaObjectsStateVariable *self, OrgMinimaObjectsBaseMiniNumber *zPort, NSString *zData) {
   NSObject_init(self);
-  JreStrongAssignAndConsume(&self->mData_, new_OrgMinimaObjectsBaseMiniString_initWithNSString_(zData));
+  NSString *cleanvar = OrgMinimaMiniscriptContract_cleanScriptWithNSString_(zData);
+  JreStrongAssignAndConsume(&self->mData_, new_OrgMinimaObjectsBaseMiniString_initWithNSString_(cleanvar));
   JreStrongAssign(&self->mPort_, zPort);
 }
 

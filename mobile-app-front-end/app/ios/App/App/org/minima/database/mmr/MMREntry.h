@@ -27,7 +27,7 @@
 @class JavaIoDataInputStream;
 @class JavaIoDataOutputStream;
 @class OrgMinimaDatabaseMmrMMRData;
-@class OrgMinimaObjectsBaseMiniData32;
+@class OrgMinimaObjectsBaseMiniHash;
 @class OrgMinimaObjectsBaseMiniNumber;
 
 @interface OrgMinimaDatabaseMmrMMREntry : NSObject < JavaLangComparable, OrgMinimaUtilsStreamable > {
@@ -61,7 +61,7 @@ withOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zEntry;
 
 - (OrgMinimaObjectsBaseMiniNumber *)getEntry;
 
-- (OrgMinimaObjectsBaseMiniData32 *)getHashValue;
+- (OrgMinimaObjectsBaseMiniHash *)getHashValue;
 
 - (OrgMinimaObjectsBaseMiniNumber *)getLeftChildEntry;
 

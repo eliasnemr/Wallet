@@ -21,7 +21,7 @@
 #include "org/minima/database/coindb/CoinDB.h"
 
 @class JavaUtilArrayList;
-@class OrgMinimaObjectsBaseMiniData32;
+@class OrgMinimaObjectsBaseMiniHash;
 @class OrgMinimaObjectsBaseMiniNumber;
 @class OrgMinimaObjectsCoin;
 @protocol OrgMinimaDatabaseCoindbCoinDBRow;
@@ -37,11 +37,11 @@
 
 - (id<OrgMinimaDatabaseCoindbCoinDBRow>)addCoinRowWithOrgMinimaObjectsCoin:(OrgMinimaObjectsCoin *)zCoin;
 
-- (JavaUtilArrayList *)checkForRelevantCoinsWithOrgMinimaObjectsBaseMiniData32:(OrgMinimaObjectsBaseMiniData32 *)zAddress;
+- (JavaUtilArrayList *)checkForRelevantCoinsWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zAddress;
 
 - (void)clearDB;
 
-- (id<OrgMinimaDatabaseCoindbCoinDBRow>)getCoinRowWithOrgMinimaObjectsBaseMiniData32:(OrgMinimaObjectsBaseMiniData32 *)zCoinID;
+- (id<OrgMinimaDatabaseCoindbCoinDBRow>)getCoinRowWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zCoinID;
 
 - (JavaUtilArrayList *)getComplete;
 

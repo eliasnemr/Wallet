@@ -12,3 +12,12 @@ ion-chip {
 ion-footer ion-toolbar ion-buttons ion-button{
     width: 100%;
  }
+ion-icon {
+    padding: 5px;
+}
+.action-btn {
+    height: 40px;
+  }
+  .action-btn:hover {
+    height: 50px;
+  }

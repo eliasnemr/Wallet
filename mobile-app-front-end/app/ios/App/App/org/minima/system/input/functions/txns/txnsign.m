@@ -25,8 +25,8 @@ J2OBJC_IGNORE_DESIGNATED_END
 - (void)doFunctionWithNSStringArray:(IOSObjectArray *)zInput {
   jint txn = JavaLangInteger_parseIntWithNSString_(IOSObjectArray_Get(nil_chk(zInput), 1));
   NSString *PublicKey = IOSObjectArray_Get(zInput, 2);
-  OrgMinimaUtilsMessagesMessage *msg = create_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemBrainsConsensusTxn_CONSENSUS_TXNSIGN);
-  [msg addIntWithNSString:@"transaction" withInt:txn];
+  OrgMinimaUtilsMessagesMessage *msg = [self getResponseMessageWithNSString:OrgMinimaSystemBrainsConsensusTxn_CONSENSUS_TXNSIGN];
+  [((OrgMinimaUtilsMessagesMessage *) nil_chk(msg)) addIntWithNSString:@"transaction" withInt:txn];
   [msg addStringWithNSString:@"pubkey" withNSString:PublicKey];
   [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getConsensusHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:msg];
 }

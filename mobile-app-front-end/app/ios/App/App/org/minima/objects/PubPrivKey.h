@@ -22,8 +22,8 @@
 
 @class JavaIoDataInputStream;
 @class JavaIoDataOutputStream;
-@class OrgMinimaObjectsBaseMiniData32;
 @class OrgMinimaObjectsBaseMiniData;
+@class OrgMinimaObjectsBaseMiniHash;
 
 @interface OrgMinimaObjectsPubPrivKey : NSObject < OrgMinimaUtilsStreamable > {
  @public
@@ -45,16 +45,16 @@
 
 - (void)readDataStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn;
 
-- (OrgMinimaObjectsBaseMiniData *)signWithOrgMinimaObjectsBaseMiniData32:(OrgMinimaObjectsBaseMiniData32 *)zData;
+- (OrgMinimaObjectsBaseMiniData *)signWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zData;
 
 - (NSString *)description;
 
 + (jboolean)verifyWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zPubKey
-                withOrgMinimaObjectsBaseMiniData32:(OrgMinimaObjectsBaseMiniData32 *)zData
+                  withOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zData
                   withOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zSignature;
 
-- (jboolean)verifyWithOrgMinimaObjectsBaseMiniData32:(OrgMinimaObjectsBaseMiniData32 *)zData
-                    withOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zSignature;
+- (jboolean)verifyWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zData
+                  withOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zSignature;
 
 - (void)writeDataStreamWithJavaIoDataOutputStream:(JavaIoDataOutputStream *)zOut;
 
@@ -83,7 +83,7 @@ FOUNDATION_EXPORT OrgMinimaObjectsPubPrivKey *new_OrgMinimaObjectsPubPrivKey_ini
 
 FOUNDATION_EXPORT OrgMinimaObjectsPubPrivKey *create_OrgMinimaObjectsPubPrivKey_initWithBoolean_(jboolean empty);
 
-FOUNDATION_EXPORT jboolean OrgMinimaObjectsPubPrivKey_verifyWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniData32_withOrgMinimaObjectsBaseMiniData_(OrgMinimaObjectsBaseMiniData *zPubKey, OrgMinimaObjectsBaseMiniData32 *zData, OrgMinimaObjectsBaseMiniData *zSignature);
+FOUNDATION_EXPORT jboolean OrgMinimaObjectsPubPrivKey_verifyWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniHash_withOrgMinimaObjectsBaseMiniData_(OrgMinimaObjectsBaseMiniData *zPubKey, OrgMinimaObjectsBaseMiniHash *zData, OrgMinimaObjectsBaseMiniData *zSignature);
 
 J2OBJC_TYPE_LITERAL_HEADER(OrgMinimaObjectsPubPrivKey)
 

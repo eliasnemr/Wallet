@@ -42,6 +42,12 @@
 
 J2OBJC_EMPTY_STATIC_INIT(OrgMinimaSystemInputFunctionstutorial)
 
+inline NSString *OrgMinimaSystemInputFunctionstutorial_get_TUTORIAL_TEXT(void);
+inline NSString *OrgMinimaSystemInputFunctionstutorial_set_TUTORIAL_TEXT(NSString *value);
+/*! INTERNAL ONLY - Use accessor function from above. */
+FOUNDATION_EXPORT NSString *OrgMinimaSystemInputFunctionstutorial_TUTORIAL_TEXT;
+J2OBJC_STATIC_FIELD_OBJ(OrgMinimaSystemInputFunctionstutorial, TUTORIAL_TEXT, NSString *)
+
 FOUNDATION_EXPORT void OrgMinimaSystemInputFunctionstutorial_init(OrgMinimaSystemInputFunctionstutorial *self);
 
 FOUNDATION_EXPORT OrgMinimaSystemInputFunctionstutorial *new_OrgMinimaSystemInputFunctionstutorial_init(void) NS_RETURNS_RETAINED;

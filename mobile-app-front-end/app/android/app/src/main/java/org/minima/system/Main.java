@@ -78,7 +78,6 @@ public class Main extends MessageProcessor {
 	 */
 	MiniNumber mCurrentTopBlock;
 	
-	
 	/**
 	 * When did this node start up..
 	 */
@@ -89,7 +88,7 @@ public class Main extends MessageProcessor {
 	 * @param zPort
 	 * @param zGenesis
 	 */
-	public Main(int zPort, int zRPCPort, boolean zGenesis, String zHomeFolder) {
+	public Main(int zPort, int zRPCPort, boolean zGenesis, String zConfFolder) {
 		super("MAIN     ");
 		
 		//What time do we start..
@@ -114,7 +113,7 @@ public class Main extends MessageProcessor {
 		
 		mNetwork 	= new NetworkHandler(this);
 		mTXMiner 	= new TXMiner(this);
-		mBackup     = new BackupManager(this,zHomeFolder);
+		mBackup     = new BackupManager(this,zConfFolder);
 		
 		mProcessManager = new ProcessManager(this);
 		
@@ -270,6 +269,9 @@ public class Main extends MessageProcessor {
 			
 			//And shut this down too..
 			stopMessageProcessor();
+			
+			//Notify Listeners..
+			mConsensus.updateListeners(new Message(ConsensusHandler.CONSENSUS_NOTIFY_QUIT));
 			
 			//All done..
 			MinimaLogger.log("Minima Stopped. Bye Bye..");

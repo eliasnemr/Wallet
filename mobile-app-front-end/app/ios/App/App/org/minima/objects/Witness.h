@@ -25,6 +25,8 @@
 @class JavaUtilArrayList;
 @class OrgMinimaDatabaseMmrMMRProof;
 @class OrgMinimaObjectsBaseMiniData;
+@class OrgMinimaObjectsBaseMiniHash;
+@class OrgMinimaObjectsTokenDetails;
 @class OrgMinimaUtilsJsonJSONObject;
 
 @interface OrgMinimaObjectsWitness : NSObject < OrgMinimaUtilsStreamable > {
@@ -33,8 +35,8 @@
   JavaUtilArrayList *mSignatures_;
   JavaUtilArrayList *mProofs_;
   JavaUtilArrayList *mScripts_;
-  JavaUtilArrayList *mAllScripts_;
-  JavaUtilArrayList *mTokenProof_;
+  OrgMinimaObjectsTokenDetails *mTokenGenDetails_;
+  JavaUtilArrayList *mTokenDetails_;
 }
 
 #pragma mark Public
@@ -48,6 +50,10 @@
 - (void)addSignatureWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zPublicKey
                     withOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zSig;
 
+- (void)addTokenDetailsWithOrgMinimaObjectsTokenDetails:(OrgMinimaObjectsTokenDetails *)zDetails;
+
+- (void)clearProofs;
+
 - (JavaUtilArrayList *)getAllProofs;
 
 - (JavaUtilArrayList *)getAllPubKeys;
@@ -56,13 +62,21 @@
 
 - (JavaUtilArrayList *)getAllSignatures;
 
+- (JavaUtilArrayList *)getAllTokenDetails;
+
 - (OrgMinimaObjectsBaseMiniData *)getPublicKeyWithInt:(jint)zPubk;
 
 - (NSString *)getScriptWithInt:(jint)zScript;
 
 - (OrgMinimaObjectsBaseMiniData *)getSignatureWithInt:(jint)zSig;
 
+- (OrgMinimaObjectsTokenDetails *)getTokenDetailWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zTokenID;
+
+- (OrgMinimaObjectsTokenDetails *)getTokenGenDetails;
+
 - (void)readDataStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn;
+
+- (void)setTokenGenDetailsWithOrgMinimaObjectsTokenDetails:(OrgMinimaObjectsTokenDetails *)zTokGenDetails;
 
 - (OrgMinimaUtilsJsonJSONObject *)toJSON;
 
@@ -78,8 +92,8 @@ J2OBJC_FIELD_SETTER(OrgMinimaObjectsWitness, mPublicKeys_, JavaUtilArrayList *)
 J2OBJC_FIELD_SETTER(OrgMinimaObjectsWitness, mSignatures_, JavaUtilArrayList *)
 J2OBJC_FIELD_SETTER(OrgMinimaObjectsWitness, mProofs_, JavaUtilArrayList *)
 J2OBJC_FIELD_SETTER(OrgMinimaObjectsWitness, mScripts_, JavaUtilArrayList *)
-J2OBJC_FIELD_SETTER(OrgMinimaObjectsWitness, mAllScripts_, JavaUtilArrayList *)
-J2OBJC_FIELD_SETTER(OrgMinimaObjectsWitness, mTokenProof_, JavaUtilArrayList *)
+J2OBJC_FIELD_SETTER(OrgMinimaObjectsWitness, mTokenGenDetails_, OrgMinimaObjectsTokenDetails *)
+J2OBJC_FIELD_SETTER(OrgMinimaObjectsWitness, mTokenDetails_, JavaUtilArrayList *)
 
 FOUNDATION_EXPORT void OrgMinimaObjectsWitness_init(OrgMinimaObjectsWitness *self);
 

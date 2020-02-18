@@ -28,9 +28,10 @@
 @class JavaIoDataOutputStream;
 @class JavaUtilArrayList;
 @class OrgMinimaObjectsAddress;
-@class OrgMinimaObjectsBaseMiniData32;
 @class OrgMinimaObjectsBaseMiniData;
+@class OrgMinimaObjectsBaseMiniHash;
 @class OrgMinimaObjectsPubPrivKey;
+@class OrgMinimaObjectsTokenDetails;
 @class OrgMinimaObjectsTransaction;
 @protocol OrgMinimaDatabaseUserdbUserDBRow;
 
@@ -42,11 +43,14 @@
   jint mCounter_;
   JavaUtilArrayList *mRows_;
   JavaUtilArrayList *mTotalAddresses_;
+  JavaUtilArrayList *mAllTokens_;
 }
 
 #pragma mark Public
 
 - (instancetype)init;
+
+- (void)addTokenDetailsWithOrgMinimaObjectsTokenDetails:(OrgMinimaObjectsTokenDetails *)zToken;
 
 - (id<OrgMinimaDatabaseUserdbUserDBRow>)addUserRow;
 
@@ -54,25 +58,29 @@
 
 - (JavaUtilArrayList *)getAllAddresses;
 
+- (JavaUtilArrayList *)getAllKnownTokens;
+
 - (JavaUtilArrayList *)getAllRows;
 
 - (JavaUtilArrayList *)getKeys;
 
-- (OrgMinimaObjectsBaseMiniData *)getPublicKeyWithOrgMinimaObjectsBaseMiniData32:(OrgMinimaObjectsBaseMiniData32 *)zAddress;
+- (OrgMinimaObjectsBaseMiniData *)getPublicKeyWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zAddress;
 
 - (OrgMinimaObjectsPubPrivKey *)getPubPrivKeyWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zPubKey;
 
-- (NSString *)getScriptWithOrgMinimaObjectsBaseMiniData32:(OrgMinimaObjectsBaseMiniData32 *)zAddress;
+- (NSString *)getScriptWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zAddress;
 
 - (JavaUtilArrayList *)getScriptAddresses;
 
 - (JavaUtilArrayList *)getSimpleAddresses;
 
+- (OrgMinimaObjectsTokenDetails *)getTokenDetailWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zTokenID;
+
 - (id<OrgMinimaDatabaseUserdbUserDBRow>)getUserRowWithInt:(jint)zID;
 
-- (jboolean)isAddressRelevantWithOrgMinimaObjectsBaseMiniData32:(OrgMinimaObjectsBaseMiniData32 *)zAddress;
+- (jboolean)isAddressRelevantWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zAddress;
 
-- (jboolean)isSimpleAddressWithOrgMinimaObjectsBaseMiniData32:(OrgMinimaObjectsBaseMiniData32 *)zAddress;
+- (jboolean)isSimpleAddressWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zAddress;
 
 - (jboolean)isTransactionRelevantWithOrgMinimaObjectsTransaction:(OrgMinimaObjectsTransaction *)zTrans;
 
@@ -97,6 +105,7 @@ J2OBJC_FIELD_SETTER(OrgMinimaDatabaseUserdbJavaJavaUserDB, mAddresses_, JavaUtil
 J2OBJC_FIELD_SETTER(OrgMinimaDatabaseUserdbJavaJavaUserDB, mScriptAddresses_, JavaUtilArrayList *)
 J2OBJC_FIELD_SETTER(OrgMinimaDatabaseUserdbJavaJavaUserDB, mRows_, JavaUtilArrayList *)
 J2OBJC_FIELD_SETTER(OrgMinimaDatabaseUserdbJavaJavaUserDB, mTotalAddresses_, JavaUtilArrayList *)
+J2OBJC_FIELD_SETTER(OrgMinimaDatabaseUserdbJavaJavaUserDB, mAllTokens_, JavaUtilArrayList *)
 
 FOUNDATION_EXPORT void OrgMinimaDatabaseUserdbJavaJavaUserDB_init(OrgMinimaDatabaseUserdbJavaJavaUserDB *self);
 

@@ -55,4 +55,8 @@ export class AppComponent {
   ionRouteWillChange() {
 
   }
+
+  betaTap() {
+    alert("Minima Node Version 0.4");
+  }
 }

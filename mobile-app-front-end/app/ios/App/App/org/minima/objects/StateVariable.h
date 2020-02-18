@@ -45,6 +45,8 @@
 
 + (OrgMinimaObjectsStateVariable *)ReadFromStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn;
 
+- (void)resetDataWithOrgMinimaObjectsBaseMiniString:(OrgMinimaObjectsBaseMiniString *)zData;
+
 - (OrgMinimaUtilsJsonJSONObject *)toJSON;
 
 - (NSString *)description;

@@ -21,7 +21,7 @@
 #include "org/minima/objects/TxPOW.h"
 
 @class IOSObjectArray;
-@class OrgMinimaObjectsBaseMiniData32;
+@class OrgMinimaObjectsBaseMiniHash;
 
 @interface OrgMinimaSystemBootstrapGenesisTxPOW : OrgMinimaObjectsTxPOW
 
@@ -35,11 +35,11 @@
 
 J2OBJC_STATIC_INIT(OrgMinimaSystemBootstrapGenesisTxPOW)
 
-inline OrgMinimaObjectsBaseMiniData32 *OrgMinimaSystemBootstrapGenesisTxPOW_get_GENESIS_INPUT(void);
-inline OrgMinimaObjectsBaseMiniData32 *OrgMinimaSystemBootstrapGenesisTxPOW_set_GENESIS_INPUT(OrgMinimaObjectsBaseMiniData32 *value);
+inline OrgMinimaObjectsBaseMiniHash *OrgMinimaSystemBootstrapGenesisTxPOW_get_GENESIS_INPUT(void);
+inline OrgMinimaObjectsBaseMiniHash *OrgMinimaSystemBootstrapGenesisTxPOW_set_GENESIS_INPUT(OrgMinimaObjectsBaseMiniHash *value);
 /*! INTERNAL ONLY - Use accessor function from above. */
-FOUNDATION_EXPORT OrgMinimaObjectsBaseMiniData32 *OrgMinimaSystemBootstrapGenesisTxPOW_GENESIS_INPUT;
-J2OBJC_STATIC_FIELD_OBJ(OrgMinimaSystemBootstrapGenesisTxPOW, GENESIS_INPUT, OrgMinimaObjectsBaseMiniData32 *)
+FOUNDATION_EXPORT OrgMinimaObjectsBaseMiniHash *OrgMinimaSystemBootstrapGenesisTxPOW_GENESIS_INPUT;
+J2OBJC_STATIC_FIELD_OBJ(OrgMinimaSystemBootstrapGenesisTxPOW, GENESIS_INPUT, OrgMinimaObjectsBaseMiniHash *)
 
 FOUNDATION_EXPORT void OrgMinimaSystemBootstrapGenesisTxPOW_init(OrgMinimaSystemBootstrapGenesisTxPOW *self);
 

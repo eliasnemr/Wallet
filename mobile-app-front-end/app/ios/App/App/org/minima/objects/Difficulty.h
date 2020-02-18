@@ -17,7 +17,7 @@
 #define OrgMinimaObjectsDifficulty_
 
 @class JavaMathBigInteger;
-@class OrgMinimaObjectsBaseMiniData32;
+@class OrgMinimaObjectsBaseMiniHash;
 
 @interface OrgMinimaObjectsDifficulty : NSObject {
  @public
@@ -29,7 +29,7 @@
 
 - (instancetype)initWithInt:(jint)zDifficulty;
 
-- (jboolean)isOKWithOrgMinimaObjectsBaseMiniData32:(OrgMinimaObjectsBaseMiniData32 *)zValue;
+- (jboolean)isOKWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zValue;
 
 - (NSString *)description;
 

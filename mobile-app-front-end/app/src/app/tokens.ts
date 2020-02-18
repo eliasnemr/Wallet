@@ -9,7 +9,7 @@ export class Tokens {
     private total: number;
 
 
-    constructor(id:string, tkn: string, conf: number, unconf: any, ttl: number) {
+    constructor(id: string, tkn: string, conf: number, unconf: any, ttl: number) {
         this.tokenid = id;
         this.token = tkn;
         this.confirmed = conf;

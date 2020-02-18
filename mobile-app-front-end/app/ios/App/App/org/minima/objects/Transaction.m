@@ -12,6 +12,7 @@
 #include "org/minima/objects/Transaction.h"
 #include "org/minima/objects/base/MiniByte.h"
 #include "org/minima/objects/base/MiniNumber.h"
+#include "org/minima/objects/base/MiniString.h"
 #include "org/minima/utils/json/JSONArray.h"
 #include "org/minima/utils/json/JSONObject.h"
 
@@ -61,7 +62,13 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (void)addStateVariableWithOrgMinimaObjectsStateVariable:(OrgMinimaObjectsStateVariable *)zValue {
-  [((JavaUtilArrayList *) nil_chk(mState_)) addWithId:zValue];
+  OrgMinimaObjectsStateVariable *sv = [self getStateValueWithOrgMinimaObjectsBaseMiniNumber:[((OrgMinimaObjectsStateVariable *) nil_chk(zValue)) getPort]];
+  if (sv != nil) {
+    [sv resetDataWithOrgMinimaObjectsBaseMiniString:[zValue getData]];
+  }
+  else {
+    [((JavaUtilArrayList *) nil_chk(mState_)) addWithId:zValue];
+  }
 }
 
 - (OrgMinimaObjectsStateVariable *)getStateValueWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zStateNum {

@@ -10,6 +10,7 @@ import org.minima.system.input.functions.txns.txnlist;
 import org.minima.system.input.functions.txns.txnoutput;
 import org.minima.system.input.functions.txns.txnpost;
 import org.minima.system.input.functions.txns.txnsign;
+import org.minima.system.input.functions.txns.txnstatevar;
 import org.minima.system.input.functions.txns.txnvalidate;
 
 public class help extends CommandFunction{
@@ -39,9 +40,9 @@ public class help extends CommandFunction{
 			} else {
 				String desc = found.getDescription().trim();
 				if(desc.equals("")) {
-					getResponseStream().getDataJSON().put("description", found.getSimple());
+					getResponseStream().getDataJSON().put("description", found.getParams()+" - "+found.getSimple());
 				}else {
-					getResponseStream().getDataJSON().put("description", desc);	
+					getResponseStream().getDataJSON().put("description", found.getParams()+" - "+desc);	
 				}
 				
 				getResponseStream().endStatus(true, "");
@@ -53,8 +54,9 @@ public class help extends CommandFunction{
 			
 			addJSONDesc(new status());
 			addJSONDesc(new printchain());
-
-			//			addJSONDesc(new trace());
+			addJSONDesc(new printtree());
+	
+			addJSONDesc(new trace());
 			addJSONDesc(new minetrans());
 			addJSONDesc(new backup());
 			
@@ -75,6 +77,7 @@ public class help extends CommandFunction{
 			addJSONDesc(new newaddress());
 			addJSONDesc(new newscript());
 			addJSONDesc(new runscript());
+			
 			addJSONDesc(new exportkey());
 			addJSONDesc(new importkey());
 			
@@ -83,12 +86,12 @@ public class help extends CommandFunction{
 			addJSONDesc(new txndelete());
 			addJSONDesc(new txninput());
 			addJSONDesc(new txnoutput());
+			addJSONDesc(new txnstatevar());
 			addJSONDesc(new txnsign());
 			addJSONDesc(new txnvalidate());
 			addJSONDesc(new txnpost());
 			
 			addJSONDesc(new quit());
-			
 			
 			//It's worked
 			getResponseStream().endStatus(true, "");
@@ -99,13 +102,32 @@ public class help extends CommandFunction{
 		//Need to HACK swap {} for () .. JSON..
 		String params = zFunc.getParams().replaceAll("\\{", "\\(").replaceAll("\\}", "\\)").trim();
 		
+		//The Name.. same length for better reading
+		String name = getStrOfLength(12, zFunc.getName());
+		
 		//Auto fill
 		if(params.equals("")) {
-			getResponseStream().getDataJSON().put(zFunc.getName(), zFunc.getSimple());
+			getResponseStream().getDataJSON().put(name, zFunc.getSimple());
 		}else {
-			getResponseStream().getDataJSON().put(zFunc.getName(), params+ " - " + zFunc.getSimple());
+			getResponseStream().getDataJSON().put(name, params+ " - " + zFunc.getSimple());
+		}
+	}
+	
+	public String getStrOfLength(int zDesiredLen, String zString) {
+		String ret = new String(zString);
+		int len    = ret.length();
+		
+		//The same or longer
+		if(len >= zDesiredLen) {
+			return ret.substring(0, zDesiredLen);
 		}
 		
+		//If Shorter add zeros
+		for(int i=0;i< zDesiredLen-len;i++) {
+			ret = ret.concat(" ");
+		}
+		
+		return ret;
 	}
 	
 	@Override

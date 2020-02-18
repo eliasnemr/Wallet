@@ -19,15 +19,14 @@
 
 
     <ion-toolbar>
-      <ion-title class="ion-text-centre" color="tertiary">
         <ion-item lines="none">
-          <ion-icon slot="start" src="../../assets/icon/minima.svg" size="2"></ion-icon>
+          <ion-icon class="status-logo"slot="start" src="../../assets/icon/minima.svg"></ion-icon>
+          <ion-note class="status-logo-title">
             Minima 
-          <ion-badge class="sup" color="secondary">BETA</ion-badge>
-            
-         
+            <ion-badge class="sup" color="secondary">BETA</ion-badge>
+          </ion-note>
         </ion-item>
-      </ion-title>
+
     </ion-toolbar>
       
 
@@ -76,13 +75,6 @@
             </ion-label>
           </ion-item>
         </ion-list>
-  
-        
-  
-        
-  
-
-
 
 </ion-content>
 
@@ -90,7 +82,6 @@
      <ion-list lines="none">
        <ion-item>
        <ion-icon slot="start" name="notifications"></ion-icon>
-       
        <p>Call "status" in 
          <a style="font-style: normal;" routerLink="/mini-term">terminal</a> for more details of the node's status.</p> 
       </ion-item>

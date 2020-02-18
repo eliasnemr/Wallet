@@ -10,7 +10,7 @@
 #include "java/io/DataOutputStream.h"
 #include "java/lang/Exception.h"
 #include "java/security/MessageDigest.h"
-#include "org/minima/objects/base/MiniData32.h"
+#include "org/minima/objects/base/MiniHash.h"
 #include "org/minima/utils/Crypto.h"
 #include "org/minima/utils/Streamable.h"
 
@@ -66,7 +66,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   return nil;
 }
 
-- (OrgMinimaObjectsBaseMiniData32 *)hashObjectWithOrgMinimaUtilsStreamable:(id<OrgMinimaUtilsStreamable>)zObject {
+- (OrgMinimaObjectsBaseMiniHash *)hashObjectWithOrgMinimaUtilsStreamable:(id<OrgMinimaUtilsStreamable>)zObject {
   @try {
     JavaIoByteArrayOutputStream *baos = create_JavaIoByteArrayOutputStream_init();
     JavaIoDataOutputStream *dos = create_JavaIoDataOutputStream_initWithJavaIoOutputStream_(baos);
@@ -74,7 +74,7 @@ J2OBJC_IGNORE_DESIGNATED_END
     [dos flush];
     IOSByteArray *objdata = [baos toByteArray];
     IOSByteArray *hashdata = [self hashDataWithByteArray:objdata];
-    return create_OrgMinimaObjectsBaseMiniData32_initWithByteArray_(hashdata);
+    return create_OrgMinimaObjectsBaseMiniHash_initWithByteArray_(hashdata);
   }
   @catch (JavaLangException *e) {
     [e printStackTrace];
@@ -82,8 +82,8 @@ J2OBJC_IGNORE_DESIGNATED_END
   return nil;
 }
 
-- (OrgMinimaObjectsBaseMiniData32 *)hashObjectsWithOrgMinimaUtilsStreamable:(id<OrgMinimaUtilsStreamable>)zLeftObject
-                                               withOrgMinimaUtilsStreamable:(id<OrgMinimaUtilsStreamable>)zRightObject2 {
+- (OrgMinimaObjectsBaseMiniHash *)hashObjectsWithOrgMinimaUtilsStreamable:(id<OrgMinimaUtilsStreamable>)zLeftObject
+                                             withOrgMinimaUtilsStreamable:(id<OrgMinimaUtilsStreamable>)zRightObject2 {
   @try {
     JavaIoByteArrayOutputStream *baos = create_JavaIoByteArrayOutputStream_init();
     JavaIoDataOutputStream *dos = create_JavaIoDataOutputStream_initWithJavaIoOutputStream_(baos);
@@ -92,7 +92,7 @@ J2OBJC_IGNORE_DESIGNATED_END
     [dos flush];
     IOSByteArray *objdata = [baos toByteArray];
     IOSByteArray *hashdata = [self hashDataWithByteArray:objdata];
-    return create_OrgMinimaObjectsBaseMiniData32_initWithByteArray_(hashdata);
+    return create_OrgMinimaObjectsBaseMiniHash_initWithByteArray_(hashdata);
   }
   @catch (JavaLangException *e) {
     [e printStackTrace];
@@ -100,7 +100,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   return nil;
 }
 
-- (OrgMinimaObjectsBaseMiniData32 *)hashAllObjectsWithOrgMinimaUtilsStreamableArray:(IOSObjectArray *)zObjects {
+- (OrgMinimaObjectsBaseMiniHash *)hashAllObjectsWithOrgMinimaUtilsStreamableArray:(IOSObjectArray *)zObjects {
   @try {
     JavaIoByteArrayOutputStream *baos = create_JavaIoByteArrayOutputStream_init();
     JavaIoDataOutputStream *dos = create_JavaIoDataOutputStream_initWithJavaIoOutputStream_(baos);
@@ -116,7 +116,7 @@ J2OBJC_IGNORE_DESIGNATED_END
     [dos flush];
     IOSByteArray *objdata = [baos toByteArray];
     IOSByteArray *hashdata = [self hashDataWithByteArray:objdata];
-    return create_OrgMinimaObjectsBaseMiniData32_initWithByteArray_(hashdata);
+    return create_OrgMinimaObjectsBaseMiniHash_initWithByteArray_(hashdata);
   }
   @catch (JavaLangException *e) {
     [e printStackTrace];
@@ -135,9 +135,9 @@ J2OBJC_IGNORE_DESIGNATED_END
     { NULL, "LJavaSecurityMessageDigest;", 0x2, -1, -1, 0, -1, -1, -1 },
     { NULL, "[B", 0x1, 1, 2, -1, -1, -1, -1 },
     { NULL, "[B", 0x1, 3, 2, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsBaseMiniData32;", 0x1, 4, 5, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsBaseMiniData32;", 0x1, 6, 7, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsBaseMiniData32;", 0x81, 8, 9, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMiniHash;", 0x1, 4, 5, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMiniHash;", 0x1, 6, 7, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMiniHash;", 0x81, 8, 9, -1, -1, -1, -1 },
     { NULL, "V", 0x9, 10, 11, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push

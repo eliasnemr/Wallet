@@ -17,13 +17,13 @@
 #define OrgMinimaDatabaseTxpowtreeBlockTreePrinter_
 
 @class OrgMinimaDatabaseTxpowtreeBlockTree;
-@class OrgMinimaObjectsBaseMiniData32;
+@class OrgMinimaObjectsBaseMiniHash;
 
 @interface OrgMinimaDatabaseTxpowtreeBlockTreePrinter : NSObject {
  @public
   OrgMinimaDatabaseTxpowtreeBlockTree *mTree_;
   jlong mCascadeNode_;
-  OrgMinimaObjectsBaseMiniData32 *mTipID_;
+  OrgMinimaObjectsBaseMiniHash *mTipID_;
   jboolean mSimple_;
 }
 
@@ -45,7 +45,7 @@
 J2OBJC_EMPTY_STATIC_INIT(OrgMinimaDatabaseTxpowtreeBlockTreePrinter)
 
 J2OBJC_FIELD_SETTER(OrgMinimaDatabaseTxpowtreeBlockTreePrinter, mTree_, OrgMinimaDatabaseTxpowtreeBlockTree *)
-J2OBJC_FIELD_SETTER(OrgMinimaDatabaseTxpowtreeBlockTreePrinter, mTipID_, OrgMinimaObjectsBaseMiniData32 *)
+J2OBJC_FIELD_SETTER(OrgMinimaDatabaseTxpowtreeBlockTreePrinter, mTipID_, OrgMinimaObjectsBaseMiniHash *)
 
 FOUNDATION_EXPORT void OrgMinimaDatabaseTxpowtreeBlockTreePrinter_initWithOrgMinimaDatabaseTxpowtreeBlockTree_withBoolean_(OrgMinimaDatabaseTxpowtreeBlockTreePrinter *self, OrgMinimaDatabaseTxpowtreeBlockTree *zTree, jboolean zSimple);
 

@@ -14,7 +14,7 @@
 #include "org/minima/database/mmr/MMRProof.h"
 #include "org/minima/objects/Coin.h"
 #include "org/minima/objects/base/MiniByte.h"
-#include "org/minima/objects/base/MiniData32.h"
+#include "org/minima/objects/base/MiniHash.h"
 #include "org/minima/objects/base/MiniNumber.h"
 #include "org/minima/utils/Crypto.h"
 #include "org/minima/utils/json/JSONArray.h"
@@ -36,8 +36,8 @@ J2OBJC_IGNORE_DESIGNATED_END
   return self;
 }
 
-- (void)addHashWithOrgMinimaObjectsBaseMiniData32:(OrgMinimaObjectsBaseMiniData32 *)zHash
-                                      withBoolean:(jboolean)zLeft {
+- (void)addHashWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zHash
+                                    withBoolean:(jboolean)zLeft {
   [((JavaUtilArrayList *) nil_chk(mProofChain_)) addWithId:zHash];
   if (zLeft) {
     [((JavaUtilArrayList *) nil_chk(mLeftHash_)) addWithId:JreLoadStatic(OrgMinimaObjectsBaseMiniByte, TRUE)];
@@ -63,7 +63,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   return [((JavaUtilArrayList *) nil_chk(mLeftHash_)) getWithInt:zProof];
 }
 
-- (OrgMinimaObjectsBaseMiniData32 *)getProofWithInt:(jint)zProof {
+- (OrgMinimaObjectsBaseMiniHash *)getProofWithInt:(jint)zProof {
   return [((JavaUtilArrayList *) nil_chk(mProofChain_)) getWithInt:zProof];
 }
 
@@ -71,8 +71,8 @@ J2OBJC_IGNORE_DESIGNATED_END
   return [((JavaUtilArrayList *) nil_chk(mProofChain_)) size];
 }
 
-- (OrgMinimaObjectsBaseMiniData32 *)calculateProof {
-  OrgMinimaObjectsBaseMiniData32 *current = [((OrgMinimaDatabaseMmrMMRData *) nil_chk(mData_)) getFinalHash];
+- (OrgMinimaObjectsBaseMiniHash *)calculateProof {
+  OrgMinimaObjectsBaseMiniHash *current = [((OrgMinimaDatabaseMmrMMRData *) nil_chk(mData_)) getFinalHash];
   jint len = [self getProofLen];
   for (jint i = 0; i < len; i++) {
     if ([((OrgMinimaObjectsBaseMiniByte *) nil_chk([self getLeftHashWithInt:i])) isEqualWithOrgMinimaObjectsBaseMiniByte:JreLoadStatic(OrgMinimaObjectsBaseMiniByte, TRUE)]) {
@@ -87,10 +87,10 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 - (jboolean)checkCoinWithOrgMinimaObjectsCoin:(OrgMinimaObjectsCoin *)zCoin {
   OrgMinimaObjectsCoin *cc = [((OrgMinimaDatabaseMmrMMRData *) nil_chk([self getMMRData])) getCoin];
-  jboolean coinidcheck = [((OrgMinimaObjectsBaseMiniData32 *) nil_chk([((OrgMinimaObjectsCoin *) nil_chk(cc)) getCoinID])) isExactlyEqualWithOrgMinimaObjectsBaseMiniData:[((OrgMinimaObjectsCoin *) nil_chk(zCoin)) getCoinID]];
+  jboolean coinidcheck = [((OrgMinimaObjectsBaseMiniHash *) nil_chk([((OrgMinimaObjectsCoin *) nil_chk(cc)) getCoinID])) isExactlyEqualWithOrgMinimaObjectsBaseMiniData:[((OrgMinimaObjectsCoin *) nil_chk(zCoin)) getCoinID]];
   jboolean amountcheck = [((OrgMinimaObjectsBaseMiniNumber *) nil_chk([cc getAmount])) isEqualWithOrgMinimaObjectsBaseMiniNumber:[zCoin getAmount]];
-  jboolean addresscheck = [((OrgMinimaObjectsBaseMiniData32 *) nil_chk([cc getAddress])) isExactlyEqualWithOrgMinimaObjectsBaseMiniData:[zCoin getAddress]];
-  jboolean tokencheck = [((OrgMinimaObjectsBaseMiniData32 *) nil_chk([cc getTokenID])) isExactlyEqualWithOrgMinimaObjectsBaseMiniData:[zCoin getTokenID]];
+  jboolean addresscheck = [((OrgMinimaObjectsBaseMiniHash *) nil_chk([cc getAddress])) isExactlyEqualWithOrgMinimaObjectsBaseMiniData:[zCoin getAddress]];
+  jboolean tokencheck = [((OrgMinimaObjectsBaseMiniHash *) nil_chk([cc getTokenID])) isExactlyEqualWithOrgMinimaObjectsBaseMiniData:[zCoin getTokenID]];
   return coinidcheck && amountcheck && addresscheck && tokencheck;
 }
 
@@ -105,11 +105,11 @@ J2OBJC_IGNORE_DESIGNATED_END
     OrgMinimaUtilsJsonJSONObject *chunk = create_OrgMinimaUtilsJsonJSONObject_init();
     [chunk putWithId:@"index" withId:JavaLangInteger_valueOfWithInt_(i)];
     [chunk putWithId:@"leftside" withId:JavaLangBoolean_valueOfWithBoolean_([((OrgMinimaObjectsBaseMiniByte *) nil_chk([((JavaUtilArrayList *) nil_chk(mLeftHash_)) getWithInt:i])) isTrue])];
-    [chunk putWithId:@"hash" withId:[((OrgMinimaObjectsBaseMiniData32 *) nil_chk([((JavaUtilArrayList *) nil_chk(mProofChain_)) getWithInt:i])) description]];
+    [chunk putWithId:@"hash" withId:[((OrgMinimaObjectsBaseMiniHash *) nil_chk([((JavaUtilArrayList *) nil_chk(mProofChain_)) getWithInt:i])) description]];
     [proof addWithId:chunk];
   }
   [obj putWithId:@"proofchain" withId:proof];
-  [obj putWithId:@"finalhash" withId:[((OrgMinimaObjectsBaseMiniData32 *) nil_chk([self calculateProof])) description]];
+  [obj putWithId:@"finalhash" withId:[((OrgMinimaObjectsBaseMiniHash *) nil_chk([self calculateProof])) description]];
   return obj;
 }
 
@@ -125,7 +125,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   [((JavaIoDataOutputStream *) nil_chk(zOut)) writeIntWithInt:len];
   for (jint i = 0; i < len; i++) {
     [((OrgMinimaObjectsBaseMiniByte *) nil_chk([self getLeftHashWithInt:i])) writeDataStreamWithJavaIoDataOutputStream:zOut];
-    [((OrgMinimaObjectsBaseMiniData32 *) nil_chk([self getProofWithInt:i])) writeDataStreamWithJavaIoDataOutputStream:zOut];
+    [((OrgMinimaObjectsBaseMiniHash *) nil_chk([self getProofWithInt:i])) writeDataStreamWithJavaIoDataOutputStream:zOut];
   }
 }
 
@@ -138,7 +138,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   jint len = [((JavaIoDataInputStream *) nil_chk(zIn)) readInt];
   for (jint i = 0; i < len; i++) {
     [((JavaUtilArrayList *) nil_chk(mLeftHash_)) addWithId:OrgMinimaObjectsBaseMiniByte_ReadFromStreamWithJavaIoDataInputStream_(zIn)];
-    [((JavaUtilArrayList *) nil_chk(mProofChain_)) addWithId:OrgMinimaObjectsBaseMiniData32_ReadFromStreamWithJavaIoDataInputStream_(zIn)];
+    [((JavaUtilArrayList *) nil_chk(mProofChain_)) addWithId:OrgMinimaObjectsBaseMiniHash_ReadFromStreamWithJavaIoDataInputStream_(zIn)];
   }
 }
 
@@ -164,9 +164,9 @@ J2OBJC_IGNORE_DESIGNATED_END
     { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaDatabaseMmrMMRData;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaObjectsBaseMiniByte;", 0x1, 3, 4, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsBaseMiniData32;", 0x1, 5, 4, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMiniHash;", 0x1, 5, 4, -1, -1, -1, -1 },
     { NULL, "I", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsBaseMiniData32;", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMiniHash;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "Z", 0x1, 6, 7, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaUtilsJsonJSONObject;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LNSString;", 0x1, 8, -1, -1, -1, -1, -1 },
@@ -179,7 +179,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   #pragma clang diagnostic ignored "-Wundeclared-selector"
   methods[0].selector = @selector(init);
   methods[1].selector = @selector(initWithOrgMinimaObjectsBaseMiniNumber:withOrgMinimaDatabaseMmrMMRData:withOrgMinimaObjectsBaseMiniNumber:);
-  methods[2].selector = @selector(addHashWithOrgMinimaObjectsBaseMiniData32:withBoolean:);
+  methods[2].selector = @selector(addHashWithOrgMinimaObjectsBaseMiniHash:withBoolean:);
   methods[3].selector = @selector(getBlockTime);
   methods[4].selector = @selector(getEntryNumber);
   methods[5].selector = @selector(getMMRData);
@@ -201,7 +201,7 @@ J2OBJC_IGNORE_DESIGNATED_END
     { "mProofChain_", "LJavaUtilArrayList;", .constantValue.asLong = 0, 0x0, -1, -1, 15, -1 },
     { "mLeftHash_", "LJavaUtilArrayList;", .constantValue.asLong = 0, 0x0, -1, -1, 16, -1 },
   };
-  static const void *ptrTable[] = { "LOrgMinimaObjectsBaseMiniNumber;LOrgMinimaDatabaseMmrMMRData;LOrgMinimaObjectsBaseMiniNumber;", "addHash", "LOrgMinimaObjectsBaseMiniData32;Z", "getLeftHash", "I", "getProof", "checkCoin", "LOrgMinimaObjectsCoin;", "toString", "writeDataStream", "LJavaIoDataOutputStream;", "LJavaIoIOException;", "readDataStream", "LJavaIoDataInputStream;", "ReadFromStream", "Ljava/util/ArrayList<Lorg/minima/objects/base/MiniData32;>;", "Ljava/util/ArrayList<Lorg/minima/objects/base/MiniByte;>;" };
+  static const void *ptrTable[] = { "LOrgMinimaObjectsBaseMiniNumber;LOrgMinimaDatabaseMmrMMRData;LOrgMinimaObjectsBaseMiniNumber;", "addHash", "LOrgMinimaObjectsBaseMiniHash;Z", "getLeftHash", "I", "getProof", "checkCoin", "LOrgMinimaObjectsCoin;", "toString", "writeDataStream", "LJavaIoDataOutputStream;", "LJavaIoIOException;", "readDataStream", "LJavaIoDataInputStream;", "ReadFromStream", "Ljava/util/ArrayList<Lorg/minima/objects/base/MiniHash;>;", "Ljava/util/ArrayList<Lorg/minima/objects/base/MiniByte;>;" };
   static const J2ObjcClassInfo _OrgMinimaDatabaseMmrMMRProof = { "MMRProof", "org.minima.database.mmr", ptrTable, methods, fields, 7, 0x1, 16, 5, -1, -1, -1, -1, -1 };
   return &_OrgMinimaDatabaseMmrMMRProof;
 }

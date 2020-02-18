@@ -27,7 +27,7 @@
 @class OrgMinimaDatabaseMmrMMRData;
 @class OrgMinimaDatabaseMmrMMREntry;
 @class OrgMinimaDatabaseMmrMMRProof;
-@class OrgMinimaObjectsBaseMiniData32;
+@class OrgMinimaObjectsBaseMiniHash;
 @class OrgMinimaObjectsBaseMiniNumber;
 
 @interface OrgMinimaDatabaseMmrMMRSet : NSObject < OrgMinimaUtilsStreamable > {
@@ -40,7 +40,7 @@
   IOSObjectArray *mMaxEntries_;
   JavaUtilArrayList *mKeepers_;
   jboolean mFinalized_;
-  OrgMinimaObjectsBaseMiniData32 *mFinalizedRoot_;
+  OrgMinimaObjectsBaseMiniHash *mFinalizedRoot_;
   JavaUtilArrayList *mFinalizedPeaks_;
   JavaUtilArrayList *mFinalizedZeroRow_;
 }
@@ -61,7 +61,7 @@
 
 - (void)finalizeSet;
 
-- (OrgMinimaDatabaseMmrMMREntry *)findEntryWithOrgMinimaObjectsBaseMiniData32:(OrgMinimaObjectsBaseMiniData32 *)zCoinID;
+- (OrgMinimaDatabaseMmrMMREntry *)findEntryWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zCoinID;
 
 - (OrgMinimaObjectsBaseMiniNumber *)getBlockTime;
 
@@ -73,7 +73,7 @@
 
 - (JavaUtilArrayList *)getMMRPeaks;
 
-- (OrgMinimaObjectsBaseMiniData32 *)getMMRRoot;
+- (OrgMinimaObjectsBaseMiniHash *)getMMRRoot;
 
 - (OrgMinimaDatabaseMmrMMRSet *)getParent;
 
@@ -115,7 +115,7 @@ J2OBJC_FIELD_SETTER(OrgMinimaDatabaseMmrMMRSet, mEntryNumber_, OrgMinimaObjectsB
 J2OBJC_FIELD_SETTER(OrgMinimaDatabaseMmrMMRSet, mEntries_, JavaUtilArrayList *)
 J2OBJC_FIELD_SETTER(OrgMinimaDatabaseMmrMMRSet, mMaxEntries_, IOSObjectArray *)
 J2OBJC_FIELD_SETTER(OrgMinimaDatabaseMmrMMRSet, mKeepers_, JavaUtilArrayList *)
-J2OBJC_FIELD_SETTER(OrgMinimaDatabaseMmrMMRSet, mFinalizedRoot_, OrgMinimaObjectsBaseMiniData32 *)
+J2OBJC_FIELD_SETTER(OrgMinimaDatabaseMmrMMRSet, mFinalizedRoot_, OrgMinimaObjectsBaseMiniHash *)
 J2OBJC_FIELD_SETTER(OrgMinimaDatabaseMmrMMRSet, mFinalizedPeaks_, JavaUtilArrayList *)
 J2OBJC_FIELD_SETTER(OrgMinimaDatabaseMmrMMRSet, mFinalizedZeroRow_, JavaUtilArrayList *)
 

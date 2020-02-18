@@ -58,7 +58,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 void OrgMinimaSystemInputFunctionsreconnect_init(OrgMinimaSystemInputFunctionsreconnect *self) {
   OrgMinimaSystemInputCommandFunction_initWithNSString_(self, @"reconnect");
-  [self setHelpWithNSString:@"[ on | off ]" withNSString:@"Set global reconnect ability on or off" withNSString:@""];
+  [self setHelpWithNSString:@"[on|off]" withNSString:@"Set global reconnect ability on or off" withNSString:@""];
 }
 
 OrgMinimaSystemInputFunctionsreconnect *new_OrgMinimaSystemInputFunctionsreconnect_init() {

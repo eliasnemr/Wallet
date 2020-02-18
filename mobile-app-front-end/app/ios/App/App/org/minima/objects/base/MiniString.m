@@ -6,9 +6,9 @@
 #include "IOSPrimitiveArray.h"
 #include "J2ObjC_source.h"
 #include "java/io/DataInputStream.h"
-#include "java/io/DataOutputStream.h"
 #include "java/io/IOException.h"
 #include "java/nio/charset/Charset.h"
+#include "org/minima/objects/base/MiniData.h"
 #include "org/minima/objects/base/MiniString.h"
 
 @implementation OrgMinimaObjectsBaseMiniString
@@ -24,24 +24,11 @@
 }
 
 - (NSString *)description {
-  return mString_;
-}
-
-- (void)writeDataStreamWithJavaIoDataOutputStream:(JavaIoDataOutputStream *)zOut {
-  [((JavaIoDataOutputStream *) nil_chk(zOut)) writeUTFWithNSString:mString_];
-}
-
-- (void)readDataStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn {
-  JreStrongAssign(&mString_, [((JavaIoDataInputStream *) nil_chk(zIn)) readUTF]);
+  return [NSString java_stringWithBytes:[self getData] charset:JavaNioCharsetCharset_forNameWithNSString_(@"US-ASCII")];
 }
 
 + (OrgMinimaObjectsBaseMiniString *)ReadFromStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn {
   return OrgMinimaObjectsBaseMiniString_ReadFromStreamWithJavaIoDataInputStream_(zIn);
-}
-
-- (void)dealloc {
-  RELEASE_(mString_);
-  [super dealloc];
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -49,9 +36,7 @@
     { NULL, NULL, 0x1, -1, 0, -1, -1, -1, -1 },
     { NULL, NULL, 0x1, -1, 1, -1, -1, -1, -1 },
     { NULL, "LNSString;", 0x1, 2, -1, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 3, 4, 5, -1, -1, -1 },
-    { NULL, "V", 0x1, 6, 7, 5, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsBaseMiniString;", 0x9, 8, 7, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMiniString;", 0x9, 3, 4, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
@@ -59,23 +44,17 @@
   methods[0].selector = @selector(initWithNSString:);
   methods[1].selector = @selector(initWithOrgMinimaObjectsBaseMiniString:);
   methods[2].selector = @selector(description);
-  methods[3].selector = @selector(writeDataStreamWithJavaIoDataOutputStream:);
-  methods[4].selector = @selector(readDataStreamWithJavaIoDataInputStream:);
-  methods[5].selector = @selector(ReadFromStreamWithJavaIoDataInputStream:);
+  methods[3].selector = @selector(ReadFromStreamWithJavaIoDataInputStream:);
   #pragma clang diagnostic pop
-  static const J2ObjcFieldInfo fields[] = {
-    { "mString_", "LNSString;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
-  };
-  static const void *ptrTable[] = { "LNSString;", "LOrgMinimaObjectsBaseMiniString;", "toString", "writeDataStream", "LJavaIoDataOutputStream;", "LJavaIoIOException;", "readDataStream", "LJavaIoDataInputStream;", "ReadFromStream" };
-  static const J2ObjcClassInfo _OrgMinimaObjectsBaseMiniString = { "MiniString", "org.minima.objects.base", ptrTable, methods, fields, 7, 0x1, 6, 1, -1, -1, -1, -1, -1 };
+  static const void *ptrTable[] = { "LNSString;", "LOrgMinimaObjectsBaseMiniString;", "toString", "ReadFromStream", "LJavaIoDataInputStream;" };
+  static const J2ObjcClassInfo _OrgMinimaObjectsBaseMiniString = { "MiniString", "org.minima.objects.base", ptrTable, methods, NULL, 7, 0x1, 4, 0, -1, -1, -1, -1, -1 };
   return &_OrgMinimaObjectsBaseMiniString;
 }
 
 @end
 
 void OrgMinimaObjectsBaseMiniString_initWithNSString_(OrgMinimaObjectsBaseMiniString *self, NSString *zString) {
-  NSObject_init(self);
-  JreStrongAssign(&self->mString_, [NSString java_stringWithBytes:[((NSString *) nil_chk(zString)) java_getBytesWithCharset:JavaNioCharsetCharset_forNameWithNSString_(@"US-ASCII")]]);
+  OrgMinimaObjectsBaseMiniData_initWithByteArray_(self, [((NSString *) nil_chk(zString)) java_getBytesWithCharset:JavaNioCharsetCharset_forNameWithNSString_(@"US-ASCII")]);
 }
 
 OrgMinimaObjectsBaseMiniString *new_OrgMinimaObjectsBaseMiniString_initWithNSString_(NSString *zString) {
@@ -87,8 +66,7 @@ OrgMinimaObjectsBaseMiniString *create_OrgMinimaObjectsBaseMiniString_initWithNS
 }
 
 void OrgMinimaObjectsBaseMiniString_initWithOrgMinimaObjectsBaseMiniString_(OrgMinimaObjectsBaseMiniString *self, OrgMinimaObjectsBaseMiniString *zString) {
-  NSObject_init(self);
-  JreStrongAssign(&self->mString_, [NSString java_stringWithBytes:[((NSString *) nil_chk([((OrgMinimaObjectsBaseMiniString *) nil_chk(zString)) description])) java_getBytesWithCharset:JavaNioCharsetCharset_forNameWithNSString_(@"US-ASCII")]]);
+  OrgMinimaObjectsBaseMiniString_initWithNSString_(self, [((OrgMinimaObjectsBaseMiniString *) nil_chk(zString)) to0xString]);
 }
 
 OrgMinimaObjectsBaseMiniString *new_OrgMinimaObjectsBaseMiniString_initWithOrgMinimaObjectsBaseMiniString_(OrgMinimaObjectsBaseMiniString *zString) {

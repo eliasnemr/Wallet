@@ -40,8 +40,6 @@
 
 - (instancetype)initWithNSString:(NSString *)zHexString;
 
-+ (NSString *)bytesToHexWithByteArray:(IOSByteArray *)bytes;
-
 - (jint)compareWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zCompare;
 
 - (OrgMinimaObjectsBaseMiniData *)concatWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zConcat;
@@ -55,8 +53,6 @@
 - (jint)getLength;
 
 + (OrgMinimaObjectsBaseMiniData *)getRandomDataWithInt:(jint)len;
-
-+ (IOSByteArray *)hexStringToByteArrayWithNSString:(NSString *)zHex;
 
 - (jboolean)isExactlyEqualWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zCompare;
 
@@ -100,10 +96,6 @@ J2OBJC_STATIC_INIT(OrgMinimaObjectsBaseMiniData)
 
 J2OBJC_FIELD_SETTER(OrgMinimaObjectsBaseMiniData, mData_, IOSByteArray *)
 J2OBJC_FIELD_SETTER(OrgMinimaObjectsBaseMiniData, mDataVal_, JavaMathBigInteger *)
-
-FOUNDATION_EXPORT IOSByteArray *OrgMinimaObjectsBaseMiniData_hexStringToByteArrayWithNSString_(NSString *zHex);
-
-FOUNDATION_EXPORT NSString *OrgMinimaObjectsBaseMiniData_bytesToHexWithByteArray_(IOSByteArray *bytes);
 
 FOUNDATION_EXPORT void OrgMinimaObjectsBaseMiniData_init(OrgMinimaObjectsBaseMiniData *self);
 

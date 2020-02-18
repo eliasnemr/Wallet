@@ -5,12 +5,15 @@
 
 #include "IOSObjectArray.h"
 #include "J2ObjC_source.h"
-#include "java/io/PrintStream.h"
 #include "java/lang/Integer.h"
-#include "java/lang/System.h"
+#include "java/lang/Thread.h"
+#include "org/minima/objects/Transaction.h"
+#include "org/minima/objects/Witness.h"
 #include "org/minima/system/Main.h"
+#include "org/minima/system/brains/ConsensusHandler.h"
 #include "org/minima/system/input/CommandFunction.h"
 #include "org/minima/system/input/functions/minetrans.h"
+#include "org/minima/utils/messages/Message.h"
 
 @implementation OrgMinimaSystemInputFunctionsminetrans
 
@@ -22,32 +25,19 @@ J2OBJC_IGNORE_DESIGNATED_BEGIN
 J2OBJC_IGNORE_DESIGNATED_END
 
 - (void)doFunctionWithNSStringArray:(IOSObjectArray *)zInput {
+  jint num = 1;
   if (((IOSObjectArray *) nil_chk(zInput))->size_ > 1) {
-    jboolean stress = false;
-    if (zInput->size_ > 2) {
-      if (![((NSString *) nil_chk(IOSObjectArray_Get(zInput, 2))) isEqual:@"stress"]) {
-        [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out))) printlnWithNSString:@"Incorrect function format."];
-        return;
-      }
-      stress = true;
-    }
-    if ([((NSString *) nil_chk(IOSObjectArray_Get(zInput, 1))) java_equalsIgnoreCase:@"auto"]) {
-      [((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) setSimulatorWithBoolean:true withInt:-1 withBoolean:stress];
-      [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out))) printlnWithNSString:JreStrcat("$Z", @"AUTO transaction mining ON stress:", stress)];
-    }
-    else if ([((NSString *) nil_chk(IOSObjectArray_Get(zInput, 1))) java_equalsIgnoreCase:@"off"]) {
-      [((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) setSimulatorWithBoolean:false withInt:0 withBoolean:stress];
-      [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out))) printlnWithNSString:JreStrcat("$Z", @"AUTO transaction mining OFF stress:", stress)];
-    }
-    else {
-      jint count = JavaLangInteger_parseIntWithNSString_(IOSObjectArray_Get(zInput, 1));
-      [((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) setSimulatorWithBoolean:true withInt:count withBoolean:stress];
-      [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out))) printlnWithNSString:JreStrcat("I$", count, @" transactions added to mining stack..")];
-    }
+    num = JavaLangInteger_parseIntWithNSString_(IOSObjectArray_Get(zInput, 1));
   }
-  else {
-    [((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) setSimulatorWithBoolean:true withInt:1 withBoolean:false];
-    [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out))) printlnWithNSString:@"1 off-chain transaction added to mining stack.."];
+  OrgMinimaUtilsMessagesMessage *newtrans = [((OrgMinimaUtilsMessagesMessage *) nil_chk([((OrgMinimaUtilsMessagesMessage *) nil_chk([self getResponseMessageWithNSString:OrgMinimaSystemBrainsConsensusHandler_CONSENSUS_SENDTRANS])) addObjectWithNSString:@"transaction" withId:create_OrgMinimaObjectsTransaction_init()])) addObjectWithNSString:@"witness" withId:create_OrgMinimaObjectsWitness_init()];
+  if (num > 1) {
+    newtrans = [((OrgMinimaUtilsMessagesMessage *) nil_chk([create_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemBrainsConsensusHandler_CONSENSUS_SENDTRANS) addObjectWithNSString:@"transaction" withId:create_OrgMinimaObjectsTransaction_init()])) addObjectWithNSString:@"witness" withId:create_OrgMinimaObjectsWitness_init()];
+  }
+  for (jint i = 0; i < num; i++) {
+    [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getConsensusHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:newtrans];
+    if (i < num - 1) {
+      JavaLangThread_sleepWithLong_(1000);
+    }
   }
 }
 
@@ -77,7 +67,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 void OrgMinimaSystemInputFunctionsminetrans_init(OrgMinimaSystemInputFunctionsminetrans *self) {
   OrgMinimaSystemInputCommandFunction_initWithNSString_(self, @"minetrans");
-  [self setHelpWithNSString:@"[number|auto|off] {stress}" withNSString:@"Mine a transaction and only publish if a block is found. Or stress to mine a published transaction." withNSString:@"This function simulates a User sending a random transaction. If not stress then this will only publish if a block is found : an off-chain transaction. If you use auto it will fire a transaction every 200 millisecs."];
+  [self setHelpWithNSString:@"(number of txns)" withNSString:@"Mine a blank transaction" withNSString:@"1 sec pause between multiple transactions. Useful when debugging and MINIMA_ZERO_DIFF_BLK set to true"];
 }
 
 OrgMinimaSystemInputFunctionsminetrans *new_OrgMinimaSystemInputFunctionsminetrans_init() {

@@ -3,8 +3,10 @@ package org.minima.system.tx;
 import java.util.Random;
 
 import org.minima.objects.Difficulty;
+import org.minima.objects.Transaction;
 import org.minima.objects.TxPOW;
-import org.minima.objects.base.MiniData32;
+import org.minima.objects.Witness;
+import org.minima.objects.base.MiniHash;
 import org.minima.objects.base.MiniNumber;
 import org.minima.system.Main;
 import org.minima.system.SystemHandler;
@@ -36,6 +38,8 @@ public class TXMiner extends SystemHandler{
 			//What is the minimum difficulty
 			Difficulty txdiff 	= new Difficulty(txpow.getTxnDifficulty());
 			
+//			System.out.println("MINING @ "+txdiff);
+			
 			//default nonce set to something..
 			Random rand = new Random();
 			
@@ -43,9 +47,16 @@ public class TXMiner extends SystemHandler{
 			MiniNumber nonce = MiniNumber.ZERO;
 			
 			//And now start hashing.. 
-			MiniData32 hash 	= null;
+			MiniHash hash = null;
 			boolean mining 	= true;
-			while(mining) {
+			
+			//Do so many then recalculate.. to have the latest block data
+			long currentTime  = System.currentTimeMillis();
+			
+			//should be about 10..
+			long maxTime  	  = currentTime + 10000;
+			
+			while(mining && currentTime < maxTime) {
 				//Set the Nonce..
 				txpow.setNonce(nonce);
 				
@@ -59,14 +70,36 @@ public class TXMiner extends SystemHandler{
 				
 				//Increment the nonce..
 				nonce = nonce.increment();
+				
+				//New time
+				currentTime  = System.currentTimeMillis();
 			}
 			
-			//Set the TxPOW
-			txpow.calculateTXPOWID();
+			//Did we find it.. ?
+			if(mining) {
+//				System.out.println("NOTFINISHED "+nonce);
+				
+				//Repost the same transaction.. get a new TxPOW block with latest details
+				Message sametr = new Message(ConsensusHandler.CONSENSUS_SENDTRANS)
+										.addObject("transaction", txpow.getTransaction())
+										.addObject("witness", txpow.getWitness());
+
+				//Send it..
+				getMainHandler().getConsensusHandler().PostMessage(sametr);
+				
+			}else {
+//				System.out.println("MINED! "+nonce);
+				
+				//Set the TxPOW
+				txpow.calculateTXPOWID();
+				
+				//We have a valid TX-POW.. tell main
+				Message msg = new Message(ConsensusHandler.CONSENSUS_PRE_PROCESSTXPOW).addObject("txpow", txpow);
+				getMainHandler().getConsensusHandler().PostMessage(msg);
+			}
 			
-			//We have a valid TX-POW.. tell main
-			Message msg = new Message(ConsensusHandler.CONSENSUS_PRE_PROCESSTXPOW).addObject("txpow", txpow);
-			getMainHandler().getConsensusHandler().PostMessage(msg);
+			
+//			System.out.println("FINISHED @ "+txdiff+" "+nonce);
 			
 		}else if(zMessage.isMessageType(TXMINER_TESTHASHING)) {
 			//See how many hashes this machine can do..

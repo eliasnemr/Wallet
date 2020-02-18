@@ -1,3 +1,79 @@
 ion-icon {
     color: #FF671D;
 }
+.social-icon {
+    color: #ffffff;
+    padding: 0px;
+}
+ion-item:hover {
+    background-color: rgb(10,209,231);
+}
+ion-icon:hover {
+    color: #ffffff;
+
+}
+
+ion-item:active {
+    background-color: rgb(10,209,231);
+}
+
+.social-web {
+    margin: auto;
+}
+.social-lbl {
+    color:white;
+}
+
+.menu-logo {
+    font-size: 22px;
+    
+}
+.menu-logo-title {
+    font-family: 'Aeonik';
+    font-weight: bolder;
+    font-size: 14px;
+}
+
+ion-note {
+    font-family: 'Aeonik';
+    color: #929396;
+}
+ion-note ion-badge {
+    color: #FF671E;
+    font-size: 10px;
+}
+
+@media only screen and (min-width: 992px) {
+    .splitpane {
+        margin-left: 180px;
+        margin-right: 180px;
+        margin-top: 100px;
+        margin-bottom: 100px;
+        
+        box-shadow: 2px 2px 5px grey;
+    }
+    ion-app {
+        background-image: url('../assets/minimatile.png');
+    }
+    .menu-logo {
+        font-size: 35px;
+        
+    }
+    .menu-logo-title {
+        font-family: 'Aeonik';
+        font-weight: bolder;
+        font-size: 28px;
+        padding-top: 5px;
+        padding-left: 2px;
+        position: absolute;
+    }
+    
+    ion-note {
+        position: absolute;
+        padding-right: 50px;
+        font-weight: bolder;
+        font-size: 12px;
+        font-family: 'Aeonik';
+        color: #929396;
+    }
+}

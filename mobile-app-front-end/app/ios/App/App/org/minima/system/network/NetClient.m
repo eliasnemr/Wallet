@@ -37,6 +37,7 @@
 
 __attribute__((unused)) static OrgMinimaSystemMain *OrgMinimaSystemNetworkNetClient_getMain(OrgMinimaSystemNetworkNetClient *self);
 
+NSString *OrgMinimaSystemNetworkNetClient_NETCLIENT_INITCONNECT = @"NETCLIENT_INITCONNECT";
 NSString *OrgMinimaSystemNetworkNetClient_NETCLIENT_STARTUP = @"NETCLIENT_STARTUP";
 NSString *OrgMinimaSystemNetworkNetClient_NETCLIENT_SHUTDOWN = @"NETCLIENT_SHUTDOWN";
 NSString *OrgMinimaSystemNetworkNetClient_NETCLIENT_SENDOBJECT = @"NETCLIENT_SENDOBJECT";
@@ -101,8 +102,39 @@ withOrgMinimaSystemNetworkNetworkHandler:(OrgMinimaSystemNetworkNetworkHandler *
   return [((OrgMinimaUtilsJsonJSONObject *) nil_chk([self toJSON])) description];
 }
 
+- (void)stopMessageProcessor {
+  @try {
+    [((JavaIoDataOutputStream *) nil_chk(mOutput_)) close];
+  }
+  @catch (JavaLangException *exc) {
+  }
+  @try {
+    [((JavaLangThread *) nil_chk(mInputThread_)) interrupt];
+  }
+  @catch (JavaLangException *exc) {
+  }
+  @try {
+    [((JavaNetSocket *) nil_chk(mSocket_)) close];
+  }
+  @catch (JavaLangException *exc) {
+  }
+  [super stopMessageProcessor];
+}
+
 - (void)processMessageWithOrgMinimaUtilsMessagesMessage:(OrgMinimaUtilsMessagesMessage *)zMessage {
-  if ([((OrgMinimaUtilsMessagesMessage *) nil_chk(zMessage)) isMessageTypeWithNSString:OrgMinimaSystemNetworkNetClient_NETCLIENT_STARTUP]) {
+  if ([((OrgMinimaUtilsMessagesMessage *) nil_chk(zMessage)) isMessageTypeWithNSString:OrgMinimaSystemNetworkNetClient_NETCLIENT_INITCONNECT]) {
+    @try {
+      JreStrongAssignAndConsume(&mSocket_, new_JavaNetSocket_init());
+      [mSocket_ connectWithJavaNetSocketAddress:create_JavaNetInetSocketAddress_initWithNSString_withInt_(mHost_, mPort_) withInt:10000];
+    }
+    @catch (JavaLangException *e) {
+      OrgMinimaUtilsMinimaLogger_logWithNSString_(JreStrcat("$$CI", @"Error @ connection start : ", mHost_, ':', mPort_));
+      [((OrgMinimaSystemNetworkNetworkHandler *) nil_chk(mNetworkMain_)) PostMessageWithOrgMinimaUtilsMessagesMessage:[create_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemNetworkNetworkHandler_NETWORK_CLIENTERROR) addObjectWithNSString:@"client" withId:self]];
+      return;
+    }
+    [self PostMessageWithNSString:OrgMinimaSystemNetworkNetClient_NETCLIENT_STARTUP];
+  }
+  else if ([zMessage isMessageTypeWithNSString:OrgMinimaSystemNetworkNetClient_NETCLIENT_STARTUP]) {
     JreStrongAssignAndConsume(&mOutput_, new_JavaIoDataOutputStream_initWithJavaIoOutputStream_([((JavaNetSocket *) nil_chk(mSocket_)) getOutputStream]));
     JreStrongAssignAndConsume(&mInputReader_, new_OrgMinimaSystemNetworkNetClientReader_initWithOrgMinimaSystemNetworkNetClient_(self));
     JreStrongAssignAndConsume(&mInputThread_, new_JavaLangThread_initWithJavaLangRunnable_(mInputReader_));
@@ -184,6 +216,7 @@ withOrgMinimaSystemNetworkNetworkHandler:(OrgMinimaSystemNetworkNetworkHandler *
     { NULL, "LOrgMinimaSystemMain;", 0x2, -1, -1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaUtilsJsonJSONObject;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LNSString;", 0x1, 2, -1, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x4, 3, 4, 5, -1, -1, -1 },
     { NULL, "V", 0x4, 6, 7, -1, -1, -1, -1 },
   };
@@ -202,14 +235,16 @@ withOrgMinimaSystemNetworkNetworkHandler:(OrgMinimaSystemNetworkNetworkHandler *
   methods[9].selector = @selector(getMain);
   methods[10].selector = @selector(toJSON);
   methods[11].selector = @selector(description);
-  methods[12].selector = @selector(processMessageWithOrgMinimaUtilsMessagesMessage:);
-  methods[13].selector = @selector(sendMessageWithOrgMinimaUtilsStreamable:withOrgMinimaUtilsStreamable:);
+  methods[12].selector = @selector(stopMessageProcessor);
+  methods[13].selector = @selector(processMessageWithOrgMinimaUtilsMessagesMessage:);
+  methods[14].selector = @selector(sendMessageWithOrgMinimaUtilsStreamable:withOrgMinimaUtilsStreamable:);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
-    { "NETCLIENT_STARTUP", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 8, -1, -1 },
-    { "NETCLIENT_SHUTDOWN", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 9, -1, -1 },
-    { "NETCLIENT_SENDOBJECT", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 10, -1, -1 },
-    { "NETCLIENT_SENDTXPOW", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 11, -1, -1 },
+    { "NETCLIENT_INITCONNECT", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 8, -1, -1 },
+    { "NETCLIENT_STARTUP", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 9, -1, -1 },
+    { "NETCLIENT_SHUTDOWN", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 10, -1, -1 },
+    { "NETCLIENT_SENDOBJECT", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 11, -1, -1 },
+    { "NETCLIENT_SENDTXPOW", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 12, -1, -1 },
     { "mNetworkMain_", "LOrgMinimaSystemNetworkNetworkHandler;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mSocket_", "LJavaNetSocket;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mOutput_", "LJavaIoDataOutputStream;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
@@ -222,8 +257,8 @@ withOrgMinimaSystemNetworkNetworkHandler:(OrgMinimaSystemNetworkNetworkHandler *
     { "mReconnectAttempts_", "I", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mStartOK_", "Z", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
   };
-  static const void *ptrTable[] = { "LNSString;ILOrgMinimaSystemNetworkNetworkHandler;", "LJavaNetSocket;LOrgMinimaSystemNetworkNetworkHandler;", "toString", "processMessage", "LOrgMinimaUtilsMessagesMessage;", "LJavaLangException;", "sendMessage", "LOrgMinimaUtilsStreamable;LOrgMinimaUtilsStreamable;", &OrgMinimaSystemNetworkNetClient_NETCLIENT_STARTUP, &OrgMinimaSystemNetworkNetClient_NETCLIENT_SHUTDOWN, &OrgMinimaSystemNetworkNetClient_NETCLIENT_SENDOBJECT, &OrgMinimaSystemNetworkNetClient_NETCLIENT_SENDTXPOW };
-  static const J2ObjcClassInfo _OrgMinimaSystemNetworkNetClient = { "NetClient", "org.minima.system.network", ptrTable, methods, fields, 7, 0x1, 14, 15, -1, -1, -1, -1, -1 };
+  static const void *ptrTable[] = { "LNSString;ILOrgMinimaSystemNetworkNetworkHandler;", "LJavaNetSocket;LOrgMinimaSystemNetworkNetworkHandler;", "toString", "processMessage", "LOrgMinimaUtilsMessagesMessage;", "LJavaLangException;", "sendMessage", "LOrgMinimaUtilsStreamable;LOrgMinimaUtilsStreamable;", &OrgMinimaSystemNetworkNetClient_NETCLIENT_INITCONNECT, &OrgMinimaSystemNetworkNetClient_NETCLIENT_STARTUP, &OrgMinimaSystemNetworkNetClient_NETCLIENT_SHUTDOWN, &OrgMinimaSystemNetworkNetClient_NETCLIENT_SENDOBJECT, &OrgMinimaSystemNetworkNetClient_NETCLIENT_SENDTXPOW };
+  static const J2ObjcClassInfo _OrgMinimaSystemNetworkNetClient = { "NetClient", "org.minima.system.network", ptrTable, methods, fields, 7, 0x1, 15, 16, -1, -1, -1, -1, -1 };
   return &_OrgMinimaSystemNetworkNetClient;
 }
 
@@ -239,16 +274,7 @@ void OrgMinimaSystemNetworkNetClient_initWithNSString_withInt_withOrgMinimaSyste
   self->mReconnectAttempts_ = 0;
   JreStrongAssign(&self->mNetworkMain_, zNetwork);
   JreStrongAssign(&self->mUID_, JreStrcat("I", JavaLangMath_absWithInt_([create_JavaUtilRandom_init() nextInt])));
-  @try {
-    JreStrongAssignAndConsume(&self->mSocket_, new_JavaNetSocket_init());
-    [self->mSocket_ connectWithJavaNetSocketAddress:create_JavaNetInetSocketAddress_initWithNSString_withInt_(zHost, zPort) withInt:10000];
-  }
-  @catch (JavaLangException *e) {
-    OrgMinimaUtilsMinimaLogger_logWithNSString_(JreStrcat("$$CI", @"Error @ connection start : ", zHost, ':', zPort));
-    [((OrgMinimaSystemNetworkNetworkHandler *) nil_chk(self->mNetworkMain_)) PostMessageWithOrgMinimaUtilsMessagesMessage:[create_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemNetworkNetworkHandler_NETWORK_CLIENTERROR) addObjectWithNSString:@"client" withId:self]];
-    return;
-  }
-  [self PostMessageWithNSString:OrgMinimaSystemNetworkNetClient_NETCLIENT_STARTUP];
+  [self PostMessageWithNSString:OrgMinimaSystemNetworkNetClient_NETCLIENT_INITCONNECT];
 }
 
 OrgMinimaSystemNetworkNetClient *new_OrgMinimaSystemNetworkNetClient_initWithNSString_withInt_withOrgMinimaSystemNetworkNetworkHandler_(NSString *zHost, jint zPort, OrgMinimaSystemNetworkNetworkHandler *zNetwork) {

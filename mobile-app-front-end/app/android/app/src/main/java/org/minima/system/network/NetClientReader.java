@@ -7,7 +7,7 @@ import java.net.SocketException;
 import org.minima.objects.TxPOW;
 import org.minima.objects.base.MiniByte;
 import org.minima.objects.base.MiniData;
-import org.minima.objects.base.MiniData32;
+import org.minima.objects.base.MiniHash;
 import org.minima.system.backup.SyncPackage;
 import org.minima.system.brains.ConsensusHandler;
 import org.minima.system.brains.ConsensusNet;
@@ -57,6 +57,8 @@ public class NetClientReader implements Runnable {
 
 	@Override
 	public void run() {
+//		System.out.println("NetClientReader started");
+		
 		try {
 			//Create an input stream
 			DataInputStream mInput = new DataInputStream(new BufferedInputStream(mNetClient.getSocket().getInputStream()));
@@ -91,7 +93,7 @@ public class NetClientReader implements Runnable {
 					
 				}else if(msgtype.isEqual(NETMESSAGE_TXPOWID)) {
 					//Peer now has this TXPOW - if you don't you can request the full version
-					MiniData32 hash  = new MiniData32();
+					MiniHash hash  = new MiniHash();
 					hash.readDataStream(mInput);
 					
 					//Add this ID
@@ -107,7 +109,7 @@ public class NetClientReader implements Runnable {
 					
 				}else if(msgtype.isEqual(NETMESSAGE_TXPOW_REQUEST)) {
 					//Requesting a TxPOW
-					MiniData32 hash  = new MiniData32();
+					MiniHash hash  = new MiniHash();
 					hash.readDataStream(mInput);
 					
 					//Add this ID
@@ -133,8 +135,11 @@ public class NetClientReader implements Runnable {
 //		}catch(IOException exc) {
 		}catch(Exception exc) {
 //			exc.printStackTrace();
-			MinimaLogger.log("NetClientReader closed UID "+mNetClient.getUID()+" exc:"+exc);
+//			MinimaLogger.log("NetClientReader closed UID "+mNetClient.getUID()+" exc:"+exc);
 		}
+		
+//		System.out.println("NetClientReader stopped");
+		
 		
 		//Tell the network Handler
 		mNetClient.getNetworkHandler().PostMessage(new Message(NetworkHandler.NETWORK_CLIENTERROR).addObject("client", mNetClient));

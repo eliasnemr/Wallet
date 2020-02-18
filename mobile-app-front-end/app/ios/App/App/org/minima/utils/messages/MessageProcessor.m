@@ -34,13 +34,6 @@ __attribute__((unused)) static void OrgMinimaUtilsMessagesMessageProcessor_check
 
 @implementation OrgMinimaUtilsMessagesMessageProcessor
 
-J2OBJC_IGNORE_DESIGNATED_BEGIN
-- (instancetype)init {
-  OrgMinimaUtilsMessagesMessageProcessor_init(self);
-  return self;
-}
-J2OBJC_IGNORE_DESIGNATED_END
-
 - (instancetype)initWithNSString:(NSString *)zName {
   OrgMinimaUtilsMessagesMessageProcessor_initWithNSString_(self, zName);
   return self;
@@ -103,12 +96,12 @@ J2OBJC_IGNORE_DESIGNATED_END
 - (void)dealloc {
   RELEASE_(mMainThread_);
   RELEASE_(mTimerMessages_);
+  RELEASE_(mName_);
   [super dealloc];
 }
 
 + (const J2ObjcClassInfo *)__metadata {
   static J2ObjcMethodInfo methods[] = {
-    { NULL, NULL, 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, NULL, 0x1, -1, 0, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 1, 2, -1, -1, -1, -1 },
     { NULL, "Z", 0x1, -1, -1, -1, -1, -1, -1 },
@@ -121,36 +114,33 @@ J2OBJC_IGNORE_DESIGNATED_END
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
   #pragma clang diagnostic ignored "-Wundeclared-selector"
-  methods[0].selector = @selector(init);
-  methods[1].selector = @selector(initWithNSString:);
-  methods[2].selector = @selector(setLOGWithBoolean:);
-  methods[3].selector = @selector(isRunning);
-  methods[4].selector = @selector(stopMessageProcessor);
-  methods[5].selector = @selector(PostTimerMessageWithOrgMinimaUtilsMessagesTimerMessage:);
-  methods[6].selector = @selector(run);
-  methods[7].selector = @selector(checkTimerMessages);
-  methods[8].selector = @selector(processMessageWithOrgMinimaUtilsMessagesMessage:);
+  methods[0].selector = @selector(initWithNSString:);
+  methods[1].selector = @selector(setLOGWithBoolean:);
+  methods[2].selector = @selector(isRunning);
+  methods[3].selector = @selector(stopMessageProcessor);
+  methods[4].selector = @selector(PostTimerMessageWithOrgMinimaUtilsMessagesTimerMessage:);
+  methods[5].selector = @selector(run);
+  methods[6].selector = @selector(checkTimerMessages);
+  methods[7].selector = @selector(processMessageWithOrgMinimaUtilsMessagesMessage:);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
     { "mMainThread_", "LJavaLangThread;", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
     { "mRunning_", "Z", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
     { "mTimerMessages_", "LJavaUtilLinkedList;", .constantValue.asLong = 0, 0x0, -1, -1, 8, -1 },
     { "mLogON_", "Z", .constantValue.asLong = 0, 0x4, -1, -1, -1, -1 },
+    { "mName_", "LNSString;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
   };
   static const void *ptrTable[] = { "LNSString;", "setLOG", "Z", "PostTimerMessage", "LOrgMinimaUtilsMessagesTimerMessage;", "processMessage", "LOrgMinimaUtilsMessagesMessage;", "LJavaLangException;", "Ljava/util/LinkedList<Lorg/minima/utils/messages/TimerMessage;>;" };
-  static const J2ObjcClassInfo _OrgMinimaUtilsMessagesMessageProcessor = { "MessageProcessor", "org.minima.utils.messages", ptrTable, methods, fields, 7, 0x401, 9, 4, -1, -1, -1, -1, -1 };
+  static const J2ObjcClassInfo _OrgMinimaUtilsMessagesMessageProcessor = { "MessageProcessor", "org.minima.utils.messages", ptrTable, methods, fields, 7, 0x401, 8, 5, -1, -1, -1, -1, -1 };
   return &_OrgMinimaUtilsMessagesMessageProcessor;
 }
 
 @end
 
-void OrgMinimaUtilsMessagesMessageProcessor_init(OrgMinimaUtilsMessagesMessageProcessor *self) {
-  OrgMinimaUtilsMessagesMessageProcessor_initWithNSString_(self, @"");
-}
-
 void OrgMinimaUtilsMessagesMessageProcessor_initWithNSString_(OrgMinimaUtilsMessagesMessageProcessor *self, NSString *zName) {
   OrgMinimaUtilsMessagesMessageStack_init(self);
   self->mLogON_ = false;
+  JreStrongAssign(&self->mName_, zName);
   self->mRunning_ = true;
   JreStrongAssignAndConsume(&self->mTimerMessages_, new_JavaUtilLinkedList_init());
   JreStrongAssignAndConsume(&self->mMainThread_, new_JavaLangThread_initWithJavaLangRunnable_withNSString_(self, zName));
