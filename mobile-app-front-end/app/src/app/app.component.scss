@@ -2,8 +2,7 @@ ion-icon {
     color: #FF671D;
 }
 .social-icon {
-    color: #ffffff;
-    padding: 0px;
+    
 }
 ion-item:hover {
     background-color: rgb(10,209,231);
@@ -29,7 +28,7 @@ ion-item:active {
     
 }
 .menu-logo-title {
-    font-family: 'Aeonik';
+    font-family: 'Ridley-normal';
     font-weight: bolder;
     font-size: 14px;
 }
@@ -53,17 +52,17 @@ ion-note ion-badge {
         box-shadow: 2px 2px 5px grey;
     }
     ion-app {
-        background-image: url('../assets/minimatile.png');
+        background-image: url('../assets/miniTiles.png');
     }
     .menu-logo {
         font-size: 35px;
         
     }
     .menu-logo-title {
-        font-family: 'Aeonik';
-        font-weight: bolder;
+        font-family: 'Ridley-normal';
+        font-weight: lighter;
         font-size: 28px;
-        padding-top: 5px;
+        padding-top: 7px;
         padding-left: 2px;
         position: absolute;
     }

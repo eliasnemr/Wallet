@@ -50,7 +50,7 @@ ion-footer ion-list ion-item {
 }
 
 .status-logo {
-    font-size: 35px;
+    font-size: 30px;
 }
 ion-note ion-badge {
     border-radius: 10px;
@@ -65,13 +65,20 @@ ion-note {
     padding-top: 23px;
     color: #929396;
 }
+.status-logo-title {
+    font-family: 'Ridley-normal';
+    font-weight: lighter;
+    font-size: 22px;
+    padding-top: 12px;
+    position: absolute;
+}
 
 @media only screen and (min-width: 992px) {
     .status-logo-title {
-        font-family: 'Aeonik';
-        font-weight: bolder;
-        font-size: 28px;
-        padding-top: 18px;
+        font-family: 'Ridley-normal';
+        font-weight: lighter;
+        font-size: 22px;
+        padding-top: 12px;
         position: absolute;
     }
     

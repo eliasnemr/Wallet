@@ -33,7 +33,7 @@ export class AppComponent {
   initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
-      //setTimeout(() => {this.splashScreen.hide()}, 2000);
+      setTimeout(() => {this.splashScreen.hide()}, 2000);
 
       this.getVersion();
       /*this.router.events.subscribe((val:any) => {
