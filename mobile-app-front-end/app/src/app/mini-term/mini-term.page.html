@@ -8,17 +8,16 @@
     <ion-title color="primary">
       Terminal
     </ion-title>
-      <ion-item lines="none" slot="end" style="font-family: 'Optima'; font-size: 20px;">aA</ion-item>
+      <ion-item (click)="presentPopover($event)" lines="none" slot="end" style="font-family: 'Optima'; font-size: 20px;">aA</ion-item>
   </ion-toolbar>
 </ion-header>
 
-
 <ion-content #ionContent>
-  
   <!-- Terminal -->
   <textarea
   #terminal
-  class="terminal" 
+  class="terminal"
+  [ngStyle] = "{'font-size': getFontSize()}" 
   autocapitalize="false"
   spellcheck="false"
   autocorrect="off"></textarea>

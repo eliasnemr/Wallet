@@ -1,11 +1,10 @@
 ion-list ion-item ion-range ion-label {
-        font-size: 1.0rem;
-        font-weight: 300;
-        position:relative;
+    font-size: 1.0rem;
+    font-weight: 300;
+    position:relative;
 }
 .amount-font{
     font-size: 1rem;
-    
 }
 
 ion-footer ion-toolbar ion-buttons ion-button{
@@ -22,13 +21,12 @@ ion-card {
 }
 
 ion-toolbar ion-title {
-    
     font-weight: 300;
     position:relative;
 }
 .action-btn {
     height: 40px;
-  }
-  .action-btn:hover {
+}
+.action-btn:hover {
     height: 50px;
-  }
+}

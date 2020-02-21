@@ -9,19 +9,19 @@
 
 <ion-list lines="half">
   <ion-item lines="half" href="https://t.me/Minima_Global" detail>
-    <ion-icon slot="start" src="../assets/telegram.svg" style="padding: 10px;" color="primary" size="large"></ion-icon>
-    Join our telegram chat
+    <ion-icon slot="start" [src]="teleImgMode()" style="padding: 10px;" color="primary" size="large"></ion-icon>
+    Join our Telegram chat
   </ion-item>
   <ion-item lines="half" href="https://twitter.com/Minima_Global" detail>
     <ion-icon slot="start" src="../assets/Twitter.svg" style="padding: 10px;" color="primary" size="large"></ion-icon>
-    Follow us on twitter
+    Follow us on Twitter
   </ion-item>
   <ion-item lines="half" href="https://github.com/spartacusrex99/Minima" detail>
-    <ion-icon slot="start" src="../assets/Github.svg" style="padding: 10px;" color="tertiary" size="large"></ion-icon>
+    <ion-icon slot="start" [src]="gitImgMode()" style="padding: 10px;" color="primary" size="large"></ion-icon>
     Join our dev community
   </ion-item>
   <ion-item lines="half" href="https://medium.com/minima-global" detail>
-    <ion-icon slot="start" src="../assets/Medium.svg" style="padding: 10px;" color="tertiary" size="large"></ion-icon>
+    <ion-icon slot="start" src="../assets/Medium.svg" style="padding: 10px;" color="primary" size="large"></ion-icon>
     Subscribe to our Medium blog
   </ion-item>
   <ion-item lines="half" href="https://minima.global/" detail>

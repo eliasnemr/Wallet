@@ -32,6 +32,15 @@ export class WebScannerPage implements OnInit {
    this.stopCamera();
   }
 
+  // figure out which web pic to use depending if light or dark mode
+  identifyImg() {
+    if(document.body.classList.value === 'dark') {
+      return '../assets/darkweb.svg';
+    } else {
+      return '../assets/lightweb.svg';
+    }
+  }
+
   scanQR() {
     this.qrScanner.prepare()
       .then((status: QRScannerStatus) => {

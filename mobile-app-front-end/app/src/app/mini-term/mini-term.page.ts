@@ -1,8 +1,11 @@
-import { Component, OnInit, ViewChild, ElementRef, Renderer2} from '@angular/core';
-import { HttpClient, HttpEvent, HttpErrorResponse, HttpEventType } from '@angular/common/http';
-import { LoadingController, NavController, IonContent } from '@ionic/angular';
+import { Observable, Subscription } from 'rxjs';
+import { PopTermComponent } from './../pop-term/pop-term.component';
+import { Component, OnInit, ViewChild, ElementRef, Renderer2, OnDestroy } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { LoadingController, NavController, IonContent, PopoverController } from '@ionic/angular';
 import { environment } from '../../environments/environment';
-import { MinimaApiService } from '../service/minima-api.service';
+import { map } from 'rxjs/operators';
+import { UserTerminal } from '../userterminal.service';
 
 @Component({
   selector: 'app-mini-term',
@@ -10,24 +13,28 @@ import { MinimaApiService } from '../service/minima-api.service';
   styleUrls: ['./mini-term.page.scss']
 })
 
-export class MiniTermPage implements OnInit {
+export class MiniTermPage implements OnInit, OnDestroy {
+
   @ViewChild(IonContent, {static : false} ) ionContent: IonContent;
   @ViewChild('terminal', {static: false}) terminal: ElementRef;
-
-
+  
+  public size: number = 8;
   private host = '';
-  lastLine = '';
-  isEnabled: boolean; 
+  public lastLine = '';
+  public isEnabled: boolean; 
   private loader: any = null;
-  globalInstance: any;
-   
+  public globalInstance: any;
+  public fontSubscription: Subscription;
 
-  constructor(private http: HttpClient, public loadingController: LoadingController,
-     public navCtrl: NavController, private renderer: Renderer2) {
+  constructor(private http: HttpClient,
+             public loadingController: LoadingController,
+             public navCtrl: NavController, private renderer: Renderer2,
+             public popoverController: PopoverController,
+             public userTerminal: UserTerminal) {
 
       this.host = environment.defaultNode;
       this.host = this.getHost();
-
+      
     // Disable up and down keys.
           window.addEventListener("keydown", function(e) {
             if([37, 38, 39, 40].indexOf(e.keyCode) > -1) {
@@ -37,8 +44,42 @@ export class MiniTermPage implements OnInit {
 
     }
 
+    getFontSize() {
+      return this.size + 'px';
+    }
+
+  ngOnInit(){
+    /* Quick note: 
+    Rxjs passes in an observer for us.. we are meant to tell it
+    what to listen to... (an observer is listening to 
+      what changed, error or completed)
+    */
+    // const observFontSize = Observable.create(observer =>  {
+      
+    
+    // });
+
+    // observFontSize.pipe(map( data => {
+
+    // }));
+
+    // this.fontSubscription = observFontSize.subscribe( data => {
+    //   console.log(data);
+    // });
+
+    // Stored subscription that watches if we activated button on PopTerm
+    this.fontSubscription = 
+      this.userTerminal.fontSizeEmitter.subscribe( didActivate => {
+        
+        this.size += didActivate;
+        
+    });
+
+  }
   
-  ngOnInit(){}
+  ngOnDestroy() {
+    this.fontSubscription.unsubscribe();
+  }
 
   ngAfterViewInit() {
 
@@ -68,7 +109,6 @@ export class MiniTermPage implements OnInit {
 
  }
 
-
   scrollToBottomOnInit() {
     console.log("scrolling");
     setTimeout(() => {
@@ -76,7 +116,6 @@ export class MiniTermPage implements OnInit {
     }, 200);
     console.log("scrolled.") 
   }
-
 
   //Minima Api Service
   getHost() {
@@ -121,7 +160,17 @@ export class MiniTermPage implements OnInit {
       await this.loader.dismiss();
       this.loader = null;
     } else {}
-}
+  }
+
+  async presentPopover(ev: any) {
+  const popover = await this.popoverController.create({
+    component: PopTermComponent,
+    event: ev,
+    translucent: false,
+  });
+  return await popover.present();
+
+  }
 
 
 }

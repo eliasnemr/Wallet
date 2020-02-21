@@ -1,8 +1,6 @@
 <ion-app>
-
 <ion-header>
   <ion-toolbar>
-
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
@@ -11,19 +9,20 @@
 </ion-header>
 
 <ion-content>
-
-    <ion-card>
+    <ion-card color="black">
       <ion-card-header>
         <ion-card-title>
+          <ion-item lines="none">
           <ion-icon style="font-size:1.0rem;" name="clipboard"></ion-icon>
           Your Contract for the token, "<ion-text class="tokenStyle">{{ tokenName }}</ion-text>"
+        </ion-item>
         </ion-card-title>
       </ion-card-header>
 
       <ion-card-content>
-
-        <ion-list lines="none">
-          <ion-item>
+        <form>
+        
+          <ion-item lines="none">
             <ion-icon style="color:#FF671D" name="return-right" size="small"></ion-icon> 
             <ion-text style="font-weight: lighter; font-family: 'Aeonik-Light'; padding:5px;">
               Converting {{ minimaAmount + ' Minima to ' + tokenAmount }} 
@@ -31,13 +30,8 @@
             </ion-text> 
               
           </ion-item>
-        </ion-list>
         
-
-      </ion-card-content>
-
-      
-        <ion-list>
+        
           <ion-item>
             <ion-label position="floating" class="amount-font">Name</ion-label>
             <ion-input #nameTextArea (ionChange)="onUpdateTokenName($event)"></ion-input>
@@ -48,7 +42,12 @@
             <ion-label class="amount-font" position="floating">Amount</ion-label>
             <ion-input #amountRef (ionChange)="onAmountChanged($event)"></ion-input>
           </ion-item>        
-        </ion-list>
+        
+      </form>
+      </ion-card-content>
+
+      
+        
     </ion-card>
 
 </ion-content>

@@ -12,4 +12,19 @@ export class CommunityPage implements OnInit {
   ngOnInit() {
   }
 
+  gitImgMode() {
+    if(document.body.classList.value === 'dark') {
+      return '../assets/githubdark.svg';
+    } else {
+      return '../assets/Github.svg';
+    }
+  }
+  teleImgMode() {
+    if(document.body.classList.value === 'dark') {
+      return '../assets/telegramdark.svg';
+    } else {
+      return '../assets/telegram.svg';
+    }
+  }
+
 }

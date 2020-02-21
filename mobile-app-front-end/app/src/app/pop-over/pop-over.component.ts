@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { NavParams, PopoverController, AlertController } from '@ionic/angular';
+import { NavParams, AlertController } from '@ionic/angular';
 import { Clipboard } from '@ionic-native/clipboard/ngx';
 
 @Component({
