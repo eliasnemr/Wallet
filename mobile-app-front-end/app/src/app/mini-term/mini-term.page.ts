@@ -13,7 +13,7 @@ import { UserTerminal } from '../userterminal.service';
   styleUrls: ['./mini-term.page.scss']
 })
 
-export class MiniTermPage implements OnInit, OnDestroy {
+export class MiniTermPage implements OnInit {
 
   @ViewChild(IonContent, {static : false} ) ionContent: IonContent;
   @ViewChild('terminal', {static: false}) terminal: ElementRef;
@@ -44,41 +44,19 @@ export class MiniTermPage implements OnInit, OnDestroy {
 
     }
 
-    getFontSize() {
-      return this.size + 'px';
-    }
+  ngOnInit(){}
 
-  ngOnInit(){
-    /* Quick note: 
-    Rxjs passes in an observer for us.. we are meant to tell it
-    what to listen to... (an observer is listening to 
-      what changed, error or completed)
-    */
-    // const observFontSize = Observable.create(observer =>  {
-      
-    
-    // });
-
-    // observFontSize.pipe(map( data => {
-
-    // }));
-
-    // this.fontSubscription = observFontSize.subscribe( data => {
-    //   console.log(data);
-    // });
-
-    // Stored subscription that watches if we activated button on PopTerm
-    this.fontSubscription = 
-      this.userTerminal.fontSizeEmitter.subscribe( didActivate => {
-        
-        this.size += didActivate;
-        
-    });
-
+  ionViewWillEnter(){
+       // Stored subscription that watches if we activated button on PopTerm
+       this.fontSubscription = 
+       this.userTerminal.fontSizeEmitter.subscribe( didActivate => {
+         if(this.size > 0 && this.size <= 50){
+         this.size += didActivate;
+          }
+     });
   }
-  
-  ngOnDestroy() {
-    this.fontSubscription.unsubscribe();
+  ionViewWillLeave(){
+   this.fontSubscription.unsubscribe();
   }
 
   ngAfterViewInit() {
@@ -108,6 +86,13 @@ export class MiniTermPage implements OnInit, OnDestroy {
     });
 
  }
+
+ //PopTerm Editing methods
+ getFontSize() {
+  return this.size + 'px';
+}
+
+//end of PopTerm Editing methods
 
   scrollToBottomOnInit() {
     console.log("scrolling");
@@ -171,7 +156,7 @@ export class MiniTermPage implements OnInit, OnDestroy {
   return await popover.present();
 
   }
-
+//End of MinimaApiService
 
 }
 

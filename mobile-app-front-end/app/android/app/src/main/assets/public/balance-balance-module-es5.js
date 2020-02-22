@@ -119,8 +119,6 @@ var BalancePage = /** @class */ (function () {
         this.api.getBalance().then(function (res) {
             console.log(res);
             _this.strUnconfirmed = '';
-            var theBalanceExists = res.response.balance;
-            var theBalanceLength = res.response.balance.length;
             var countTokens = 0;
             res.response.balance.forEach(function (element) {
                 countTokens++;

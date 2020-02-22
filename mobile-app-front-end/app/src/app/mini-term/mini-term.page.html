@@ -8,7 +8,12 @@
     <ion-title color="primary">
       Terminal
     </ion-title>
-      <ion-item (click)="presentPopover($event)" lines="none" slot="end" style="font-family: 'Optima'; font-size: 20px;">aA</ion-item>
+      <ion-label 
+      (click)="presentPopover($event)" 
+      fill="clear"
+      lines="none" 
+      slot="end"
+      class="resize-tool-btn">aA</ion-label>
   </ion-toolbar>
 </ion-header>
 

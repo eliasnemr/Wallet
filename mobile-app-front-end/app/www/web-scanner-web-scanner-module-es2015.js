@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-menu-button slot=\"start\"></ion-menu-button>\n    <ion-title color=\"primary\">Web</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n\n\n<ion-content>\n<ion-list lines=\"none\">\n\n    <ion-item lines=\"none\" class=\"web-img\">\n      <ion-img class=\"web-img\" src=\"../assets/web.svg\"></ion-img>\n    </ion-item>\n    <ion-item class=\"web-img\" lines=\"none\">\n      <ion-text class=\"web-lbl\" style=\"font-family: Aeonik-light; width:100%; text-align: center;\">Minima Web ready to scan.</ion-text>\n    </ion-item>\n    \n    <ion-item>\n      <ion-text class=\"web-lbl\" style=\"font-family: Aeonik-light; width:100%; text-align: center;\">Navigate to <ion-note style=\"font-weight: bold;\">\"https://dev.minima.global\"</ion-note> on desktop.</ion-text>\n    </ion-item>\n  </ion-list>\n</ion-content>\n\n\n\n<ion-footer>\n  <ion-toolbar>\n    <ion-buttons>\n      <ion-button class=\"qr-button\" expand=\"block\" (click)=\"stopCamera()\"  *ngIf=\"isCameraOpen===true\">\n        Stop scanning\n       </ion-button> \n\n      <ion-button class=\"qr-button\" (click)=\"scanQR()\" *ngIf=\"isCameraOpen===false\">\n        <ion-icon name=\"qr-scanner\"></ion-icon> \n        Scan Qr Code\n      </ion-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-footer>"
+module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-menu-button slot=\"start\"></ion-menu-button>\n    <ion-title color=\"primary\">Web</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n\n\n<ion-content>\n<ion-list lines=\"none\">\n\n    <ion-item lines=\"none\" class=\"web-img\">\n      <ion-img class=\"web-img\" [src]=\"identifyImg()\"></ion-img>\n    </ion-item>\n    <ion-item lines=\"none\">\n      <ion-text class=\"web-lbl\" style=\"font-family: Aeonik-light; width:100%; text-align: center;\">Minima Web ready to scan.</ion-text>\n    </ion-item>\n    \n    <ion-item>\n      <ion-text class=\"web-lbl\" style=\"font-family: Aeonik-light; width:100%; text-align: center;\">Navigate to <ion-note style=\"font-weight: bold;\">\"https://dev.minima.global\"</ion-note> on desktop.</ion-text>\n    </ion-item>\n  </ion-list>\n</ion-content>\n\n\n\n<ion-footer>\n  <ion-toolbar>\n    <ion-buttons>\n      <ion-button class=\"qr-button\" expand=\"block\" (click)=\"stopCamera()\"  *ngIf=\"isCameraOpen===true\">\n        Stop scanning\n       </ion-button> \n\n      <ion-button class=\"qr-button\" (click)=\"scanQR()\" *ngIf=\"isCameraOpen===false\">\n        <ion-icon name=\"qr-scanner\"></ion-icon> \n        Scan Qr Code\n      </ion-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-footer>"
 
 /***/ }),
 
@@ -108,6 +108,15 @@ let WebScannerPage = class WebScannerPage {
     }
     ionViewWillLeave() {
         this.stopCamera();
+    }
+    // figure out which web pic to use depending if light or dark mode
+    identifyImg() {
+        if (document.body.classList.value === 'dark') {
+            return '../assets/darkweb.svg';
+        }
+        else {
+            return '../assets/lightweb.svg';
+        }
     }
     scanQR() {
         this.qrScanner.prepare()

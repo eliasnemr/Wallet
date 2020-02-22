@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-menu-button slot=\"start\"></ion-menu-button>\n    <ion-title color=\"primary\">Join Community</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n<ion-list lines=\"half\">\n  <ion-item lines=\"half\" href=\"https://t.me/Minima_Global\" detail>\n    <ion-icon slot=\"start\" src=\"../assets/telegram.svg\" style=\"padding: 10px;\" color=\"primary\" size=\"large\"></ion-icon>\n    Join our telegram chat\n  </ion-item>\n  <ion-item lines=\"half\" href=\"https://twitter.com/Minima_Global\" detail>\n    <ion-icon slot=\"start\" src=\"../assets/Twitter.svg\" style=\"padding: 10px;\" color=\"primary\" size=\"large\"></ion-icon>\n    Follow us on twitter\n  </ion-item>\n  <ion-item lines=\"half\" href=\"https://github.com/spartacusrex99/Minima\" detail>\n    <ion-icon slot=\"start\" src=\"../assets/Github.svg\" style=\"padding: 10px;\" color=\"tertiary\" size=\"large\"></ion-icon>\n    Join our dev community\n  </ion-item>\n  <ion-item lines=\"half\" href=\"https://medium.com/minima-global\" detail>\n    <ion-icon slot=\"start\" src=\"../assets/Medium.svg\" style=\"padding: 10px;\" color=\"tertiary\" size=\"large\"></ion-icon>\n    Subscribe to our Medium blog\n  </ion-item>\n  <ion-item lines=\"half\" href=\"https://minima.global/\" detail>\n    <ion-icon slot=\"start\" name=\"globe\" style=\"padding: 10px;\" color=\"gray\" size=\"large\"></ion-icon>\n    Official Minima Website\n  </ion-item>\n  \n</ion-list>\n</ion-content>\n"
+module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-menu-button slot=\"start\"></ion-menu-button>\n    <ion-title color=\"primary\">Join Community</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n<ion-list lines=\"half\">\n  <ion-item lines=\"half\" href=\"https://t.me/Minima_Global\" detail>\n    <ion-icon slot=\"start\" [src]=\"teleImgMode()\" style=\"padding: 10px;\" color=\"primary\" size=\"large\"></ion-icon>\n    Join our Telegram chat\n  </ion-item>\n  <ion-item lines=\"half\" href=\"https://twitter.com/Minima_Global\" detail>\n    <ion-icon slot=\"start\" src=\"../assets/Twitter.svg\" style=\"padding: 10px;\" color=\"primary\" size=\"large\"></ion-icon>\n    Follow us on Twitter\n  </ion-item>\n  <ion-item lines=\"half\" href=\"https://github.com/spartacusrex99/Minima\" detail>\n    <ion-icon slot=\"start\" [src]=\"gitImgMode()\" style=\"padding: 10px;\" color=\"primary\" size=\"large\"></ion-icon>\n    Join our dev community\n  </ion-item>\n  <ion-item lines=\"half\" href=\"https://medium.com/minima-global\" detail>\n    <ion-icon slot=\"start\" src=\"../assets/Medium.svg\" style=\"padding: 10px;\" color=\"primary\" size=\"large\"></ion-icon>\n    Subscribe to our Medium blog\n  </ion-item>\n  <ion-item lines=\"half\" href=\"https://minima.global/\" detail>\n    <ion-icon slot=\"start\" name=\"globe\" style=\"padding: 10px;\" color=\"gray\" size=\"large\"></ion-icon>\n    Official Minima Website\n  </ion-item>\n  \n</ion-list>\n</ion-content>\n"
 
 /***/ }),
 
@@ -87,6 +87,22 @@ __webpack_require__.r(__webpack_exports__);
 let CommunityPage = class CommunityPage {
     constructor() { }
     ngOnInit() {
+    }
+    gitImgMode() {
+        if (document.body.classList.value === 'dark') {
+            return '../assets/githubdark.svg';
+        }
+        else {
+            return '../assets/Github.svg';
+        }
+    }
+    teleImgMode() {
+        if (document.body.classList.value === 'dark') {
+            return '../assets/telegramdark.svg';
+        }
+        else {
+            return '../assets/telegram.svg';
+        }
     }
 };
 CommunityPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
