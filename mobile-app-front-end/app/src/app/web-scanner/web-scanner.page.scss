@@ -9,18 +9,24 @@ ion-icon {
     padding: 5px;
 }
 .web-img {
-    // height: 40vh !important;
+    padding-top: 20px;
     margin: auto;
-    // width: auto !important;
     width: 300px;
     align-items: center;
 }
 .web-lbl {
     white-space: normal;
-    //height: 11vh !important;
     margin: auto;
-    //width: auto !important;
     align-items: center;
     font-family: 'Aeonik-light';
 
 }
+
+
+// iOS & Android layout fix
+// .ios web-img {
+//     padding-top: 20px;
+// }
+// .md web-img {
+//     padding-top: 20px;
+// }

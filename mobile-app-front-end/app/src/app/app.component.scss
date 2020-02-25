@@ -23,19 +23,17 @@ ion-item:active {
     font-size: 22px;
     
 }
-.menu-logo-title {
-    font-family: 'Ridley-normal';
-    font-weight: bolder;
-    font-size: 14px;
-}
+.menu-badge {
+    color: #FF671D;
+    font-size: 8px;
+    background-color: white;
 
-ion-note {
-    font-family: 'Aeonik';
-    color: #929396;
 }
-ion-note ion-badge {
-    color: #FF671E;
-    font-size: 10px;
+.menu-minima {
+    font-family: 'Ridley-normal';
+    font-weight: normal;
+    font-size: 12px;
+    margin: auto;
 }
 
 @media only screen and (min-width: 992px) {
@@ -44,7 +42,6 @@ ion-note ion-badge {
         margin-right: 180px;
         margin-top: 100px;
         margin-bottom: 100px;
-        
         box-shadow: 2px 2px 5px grey;
     }
     ion-app {
@@ -53,38 +50,37 @@ ion-note ion-badge {
     .menu-logo {
         font-size: 35px;
     }
-    .menu-logo-title {
-        font-family: 'Ridley-normal';
-        font-weight: lighter;
-        font-size: 22px;
-        padding-top: 11px;
-        padding-left: 2px;
-        position: absolute;
-    }
     
     ion-note {
-        position: absolute;
         padding-right: 50px;
         font-weight: bolder;
         font-size: 12px;
         font-family: 'Aeonik';
         color: #929396;
     }
+    .menu-badge {
+        color: #FF671D;
+        background-color: white;
+    }
+    .menu-minima {
+        font-family: 'Ridley-normal';
+        font-weight: normal;
+        font-size: 22px;
+        margin: auto;
+    }
 }
-// iphone
-@media only screen and (min-width: 375px) {
+
+// iOS layout
     .ios .menu-logo-title {
         font-family: 'Ridley-normal';
         font-weight: normal;
         font-size: 12px;
         padding-bottom: 2px;
-        float: inline-start;
         
     }
-    ion-note ion-badge {
+    .ios ion-note ion-badge {
         margin: auto;
         color: #FF671E;
         font-size: 8px;
     }
     
-}

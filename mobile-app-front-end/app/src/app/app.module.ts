@@ -13,7 +13,8 @@ import { Clipboard } from '@ionic-native/clipboard/ngx';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 import { PopOverComponent } from './pop-over/pop-over.component';
 import { PopTermComponent } from './pop-term/pop-term.component';
-import { UserTerminal } from './userterminal.service';
+import { UserTerminal } from './service/userterminal.service';
+import * as MifiJS from '../assets/JS/minimajs.js';
 
 
 @NgModule({

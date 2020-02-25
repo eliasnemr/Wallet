@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    <ion-title color=\"primary\">  \n    Balance\n    </ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n    <ion-refresher-content></ion-refresher-content>\n</ion-refresher>\n\n  <ion-card color=\"white\">\n    <ion-card-header color=\"white\">\n      <ion-item lines=\"none\">\n        <ion-icon name=\"card\" style=\"color:#FF671D;\" slot=\"start\"></ion-icon>\n        <ion-card-title class=\"ion-text-center\" color=\"tertiary\"><ion-text color=\"tertiary\">Balance</ion-text></ion-card-title>\n      </ion-item>\n    </ion-card-header>\n    <ion-card-content>\n\n      <!-- <ion-lis *ngFor = \"let coin of balance\"> -->\n      <ion-list lines=\"none\" style=\"padding:20px;\">\n      <ion-grid>\n      \n        <ion-row>\n          <ion-col size=\"4\">\n            <ion-label>\n              \n            </ion-label>             \n          </ion-col>\n          <ion-col size=\"4\">\n            \n            <ion-label class=\"ion-text-wrap\">\n              Confirmed\n            </ion-label>\n          </ion-col>\n          <ion-col size=\"4\"> \n            <ion-label class=\"ion-text-wrap\">\n              {{strUnconfirmed}}\n            </ion-label>\n          </ion-col>\n        </ion-row>\n        <ion-row>\n          <ion-col size=\"4\">\n            <ion-label>\n              <ion-icon src=\"../../assets/icon/minima.svg\"></ion-icon> MINI\n            </ion-label>          \n          </ion-col>\n          <ion-col size=\"4\">\n            <p style=\"color: #00AAC7;\">{{confirmed}}</p>\n          </ion-col>\n          <ion-col size=\"4\">\n            \n            <p style=\"color: #00AAC7\">{{unconfirmed}}</p>\n          </ion-col>\n        </ion-row>\n        <ion-progress-bar #progressBar value=\"0.25\" buffer=\"0.5\" [hidden] = \"progressShow\"></ion-progress-bar>\n      </ion-grid>\n    </ion-list>\n      \n    </ion-card-content>\n  </ion-card>\n\n\n\n  <!-- <ion-card>\n    <ion-card-header>\n      <ion-item>\n        <ion-icon name=\"book\" style=\"color:#FF671D;\" slot=\"start\"></ion-icon>\n        <ion-card-title class=\"ion-text-centre\">Transaction History (UNDER DEV)</ion-card-title>\n      </ion-item>\n    </ion-card-header>\n\n    <ion-card-content> -->\n      <!-- Begin Transaction Pull (Received, Sent transactions) -->\n      <!-- <ion-list-header>\n        \n        <ion-label><ion-icon name=\"calendar\"></ion-icon>Today</ion-label>\n      </ion-list-header>\n      <ion-list>\n        <ion-grid>\n          <ion-row style=\"width: 100%; height: 100%;\"> -->\n            <!-- <ion-col size=\"4\"> \n              <ion-chip class=\"ion-margin-start\">\n                  <ion-icon name=\"arrow-round-back\"></ion-icon>\n                <ion-label>Received</ion-label>\n              </ion-chip>\n            </ion-col>\n\n            <ion-col size=\"4\"> \n              \n                <ion-label>\n                  <h3 style=\"font-weight: bold;\">0xf53B48a78B7B5111347b4dED5769BAA11f65ea26</h3>\n                  <p>16:48</p>\n                </ion-label>\n            \n            </ion-col>\n\n            <ion-col size=\"4\" style=\"text-overflow: ellipsis;\"> \n              <ion-chip class=\"ion-margin-start\">\n              + 50.00\n              </ion-chip>\n            </ion-col>\n\n          </ion-row>\n\n          <ion-row style=\"width: 100%; height: 100%;\">\n            <ion-col size=\"4\"> \n              <ion-chip class=\"ion-margin-start\">\n                  <ion-icon name=\"arrow-round-forward\"></ion-icon>\n                <ion-label>Sent</ion-label>\n              </ion-chip>\n            </ion-col>\n\n            <ion-col size=\"4\"> \n              <ion-label>\n                <h3 style=\"font-weight: bold;\">0xf53B48a78B7B5111347b4dED5769BAA11f65ea26</h3>\n                <p>17:00</p>\n              </ion-label>\n            </ion-col>\n\n            <ion-col size=\"4\" style=\"text-overflow: ellipsis;\"> \n              <ion-chip class=\"ion-margin-start\">\n              - 200.00\n              </ion-chip>\n            </ion-col>\n\n          </ion-row>\n        </ion-grid>\n\n\n      </ion-list> -->\n\n\n      <!-- <ion-list-header>\n        <ion-label><ion-icon name=\"calendar\"></ion-icon>Yesterday</ion-label>\n      </ion-list-header>\n      <ion-list>\n        <ion-grid>\n          <ion-row style=\"width: 100%; height: 100%;\">\n            <ion-col size=\"4\"> \n              <ion-chip class=\"ion-margin-start\">\n                  <ion-icon name=\"arrow-round-back\"></ion-icon>\n                <ion-label>Received</ion-label>\n              </ion-chip>\n            </ion-col>\n\n            <ion-col size=\"4\"> \n              \n                <ion-label>\n                  <h3 style=\"font-weight: bold;\">0xf53B48a78B7B5111347b4dED5769BAA11f65ea26</h3>\n                  <p>16:48</p>\n                </ion-label>\n            \n            </ion-col>\n\n            <ion-col size=\"4\" style=\"text-overflow: ellipsis;\"> \n              <ion-chip class=\"ion-margin-start\">\n              + 50.00\n              </ion-chip>\n            </ion-col>\n\n          </ion-row>\n\n          <ion-row style=\"width: 100%; height: 100%;\">\n            <ion-col size=\"4\"> \n              <ion-chip class=\"ion-margin-start\">\n                  <ion-icon name=\"arrow-round-forward\"></ion-icon>\n                <ion-label>Sent</ion-label>\n              </ion-chip>\n            </ion-col>\n\n            <ion-col size=\"4\">\n              <ion-label>\n                <h3 style=\"font-weight: bold;\">0xf53B48a78B7B5111347b4dED5769BAA11f65ea26</h3>\n                <p>17:00</p>\n              </ion-label>\n            </ion-col>\n\n            <ion-col size=\"4\" style=\"text-overflow: ellipsis;\"> \n              <ion-chip class=\"ion-margin-start\">\n              - 200.00\n              </ion-chip>\n            </ion-col>\n\n          </ion-row>\n        </ion-grid>\n\n\n      </ion-list>\n\n\n    </ion-card-content>\n  </ion-card> -->\n\n\n</ion-content>\n\n<ion-footer>\n  <ion-toolbar>\n    <ion-button  shape=\"round\" expand=\"block\" type=\"button\"  (click)=\"giveMe50()\">\n      <ion-icon name=\"cash\" slot=\"start\" style=\"color:white;\"></ion-icon> Gimme 50\n    </ion-button>\n  </ion-toolbar>\n</ion-footer>"
+module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    <ion-title color=\"primary\">  \n    Balance\n    </ion-title>\n  </ion-toolbar>\n  \n</ion-header>\n\n<ion-content>\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n\n  <ion-card color=\"white\">\n    <ion-card-header color=\"white\">\n      \n    </ion-card-header>\n    <ion-card-content>\n      \n      <ion-icon style=\" font-size:2.0rem; padding-left:10px;\" name=\"card\" slot=\"start\" class=\"icon-head\"></ion-icon>\n\n      <ion-list *ngFor=\"let token of tokenArr\" #tokenArrayReference>\n\n        <ion-item-sliding>\n          <ion-item-options side=\"start\">\n            <ion-item-option routerLink=\"/my-address\">Receive</ion-item-option>\n            <ion-item-option color=\"danger\" routerLink=\"/send-funds\">Send</ion-item-option>\n          </ion-item-options>\n          \n          <ion-item detail lines=\"full\" style=\"padding: 0px;\">\n            <ion-label class=\"logo-names\">\n              <ion-icon class=\"balance-token\" [hidden]=\"amiToken()\" src=\"../../assets/icon/minima.svg\"></ion-icon> \n              <ion-note class=\"balance-tokenname\" #refToken> {{ token.token }} </ion-note>\n            </ion-label>  \n            <ion-label class=\"confirmed-amount\">\n              {{ token.confirmed  }} \n            </ion-label>\n            <ion-label class=\"confirmed-amount\">\n             {{ token.unconfirmed }}\n            </ion-label>\n          </ion-item>\n      \n          <ion-item-options side=\"end\">\n            <ion-item-option (click)=\"presentPopover($event, token.tokenid)\">Token ID</ion-item-option>\n          </ion-item-options>\n        </ion-item-sliding>\n        \n    </ion-list>\n    \n\n    <ion-progress-bar \n    #progressBar value=\"0.25\" \n    buffer=\"0.5\" \n    [hidden] = \"progressShow\">\n    </ion-progress-bar>  \n    </ion-card-content>\n  </ion-card>\n\n</ion-content>\n\n<ion-footer>\n  <ion-toolbar>\n    <ion-buttons>\n      <ion-button class=\"action-btn\" shape=\"\" expand=\"block\" type=\"button\"  (click)=\"giveMe50()\">\n        <ion-icon name=\"cash\" slot=\"start\"></ion-icon> Gimme 50\n      </ion-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-footer>\n"
 
 /***/ }),
 
@@ -66,7 +66,7 @@ BalancePageModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "@media screen and (max-width: 320px) {\n  p {\n    font-size: 10px;\n  }\n}\n.ion-text-wrap {\n  word-wrap: normal;\n}\nion-card {\n  border-radius: 30px;\n  background-color: #FFFFFF;\n}\nion-icon {\n  color: #06AAC7;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9lbGlhcy9Qcm9qZWN0cy9taW5pbWFjb3JlL21vYmlsZS1hcHAtZnJvbnQtZW5kL2FwcC9zcmMvYXBwL2JhbGFuY2UvYmFsYW5jZS5wYWdlLnNjc3MiLCJzcmMvYXBwL2JhbGFuY2UvYmFsYW5jZS5wYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSTtJQUNJLGVBQUE7RUNDTjtBQUNGO0FERUE7RUFDSSxpQkFBQTtBQ0FKO0FER0E7RUFDSSxtQkFBQTtFQUNBLHlCQUFBO0FDQUo7QURJQTtFQUNJLGNBQUE7QUNESiIsImZpbGUiOiJzcmMvYXBwL2JhbGFuY2UvYmFsYW5jZS5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJAbWVkaWEgc2NyZWVuIGFuZCAobWF4LXdpZHRoOiAzMjBweCkge1xuICAgIHAge1xuICAgICAgICBmb250LXNpemU6IDEwcHg7XG4gICAgfVxufVxuXG4uaW9uLXRleHQtd3JhcCB7XG4gICAgd29yZC13cmFwOiBub3JtYWw7XG59XG5cbmlvbi1jYXJkIHtcbiAgICBib3JkZXItcmFkaXVzOiAzMHB4O1xuICAgIGJhY2tncm91bmQtY29sb3I6ICNGRkZGRkY7XG5cbn1cblxuaW9uLWljb24ge1xuICAgIGNvbG9yOiAjMDZBQUM3O1xufSIsIkBtZWRpYSBzY3JlZW4gYW5kIChtYXgtd2lkdGg6IDMyMHB4KSB7XG4gIHAge1xuICAgIGZvbnQtc2l6ZTogMTBweDtcbiAgfVxufVxuLmlvbi10ZXh0LXdyYXAge1xuICB3b3JkLXdyYXA6IG5vcm1hbDtcbn1cblxuaW9uLWNhcmQge1xuICBib3JkZXItcmFkaXVzOiAzMHB4O1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjRkZGRkZGO1xufVxuXG5pb24taWNvbiB7XG4gIGNvbG9yOiAjMDZBQUM3O1xufSJdfQ== */"
+module.exports = "@media screen and (max-width: 320px) {\n  p {\n    font-size: 10px;\n  }\n}\nion-card {\n  border-radius: 30px;\n  background-color: #FFFFFF;\n}\nion-footer ion-toolbar ion-buttons ion-button {\n  width: 100%;\n}\n.confirmed-label {\n  margin: auto;\n  font-size: 1rem;\n  font-weight: 300;\n  white-space: normal;\n}\n.confirmed-amount {\n  color: #00AAC7;\n  font-size: 1rem;\n  font-weight: 300;\n  white-space: normal;\n}\n.logo-names {\n  font-size: 0.8rem;\n  font-weight: 300;\n}\n.icon-head {\n  color: #1FB4CD;\n}\n.action-btn {\n  height: 40px;\n}\n.action-btn:hover {\n  height: 50px;\n}\n.balance-token {\n  font-size: 1.5rem;\n}\n.balance-tokenname {\n  position: absolute;\n  padding-top: 6px;\n  padding-left: 2px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9lbGlhcy9Qcm9qZWN0cy9taW5pbWFjb3JlL21vYmlsZS1hcHAtZnJvbnQtZW5kL2FwcC9zcmMvYXBwL2JhbGFuY2UvYmFsYW5jZS5wYWdlLnNjc3MiLCJzcmMvYXBwL2JhbGFuY2UvYmFsYW5jZS5wYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSTtJQUNJLGVBQUE7RUNDTjtBQUNGO0FEQ0E7RUFDSSxtQkFBQTtFQUNBLHlCQUFBO0FDQ0o7QURHQTtFQUNJLFdBQUE7QUNBSjtBREdDO0VBQ0ksWUFBQTtFQUNBLGVBQUE7RUFDQSxnQkFBQTtFQUNBLG1CQUFBO0FDQUw7QURFQztFQUNHLGNBQUE7RUFDQSxlQUFBO0VBQ0EsZ0JBQUE7RUFDQSxtQkFBQTtBQ0NKO0FEQ0M7RUFDSSxpQkFBQTtFQUNBLGdCQUFBO0FDRUw7QURFQztFQUNHLGNBQUE7QUNDSjtBRENDO0VBQ0csWUFBQTtBQ0VKO0FEQUU7RUFDRSxZQUFBO0FDR0o7QURBRTtFQUNJLGlCQUFBO0FDR047QURERTtFQUNDLGtCQUFBO0VBQ0EsZ0JBQUE7RUFDQSxpQkFBQTtBQ0lIIiwiZmlsZSI6InNyYy9hcHAvYmFsYW5jZS9iYWxhbmNlLnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIkBtZWRpYSBzY3JlZW4gYW5kIChtYXgtd2lkdGg6IDMyMHB4KSB7XG4gICAgcCB7XG4gICAgICAgIGZvbnQtc2l6ZTogMTBweDtcbiAgICB9XG59XG5pb24tY2FyZCB7XG4gICAgYm9yZGVyLXJhZGl1czogMzBweDtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjRkZGRkZGO1xuXG59XG5cbmlvbi1mb290ZXIgaW9uLXRvb2xiYXIgaW9uLWJ1dHRvbnMgaW9uLWJ1dHRvbntcbiAgICB3aWR0aDogMTAwJTtcbiB9XG5cbiAuY29uZmlybWVkLWxhYmVse1xuICAgICBtYXJnaW46IGF1dG87XG4gICAgIGZvbnQtc2l6ZTogMS4wcmVtO1xuICAgICBmb250LXdlaWdodDogMzAwO1xuICAgICB3aGl0ZS1zcGFjZTogbm9ybWFsO1xuIH1cbiAuY29uZmlybWVkLWFtb3VudCB7XG4gICAgY29sb3I6ICMwMEFBQzc7XG4gICAgZm9udC1zaXplOiAxLjByZW07XG4gICAgZm9udC13ZWlnaHQ6IDMwMDtcbiAgICB3aGl0ZS1zcGFjZTogbm9ybWFsO1xuIH1cbiAubG9nby1uYW1lcyB7XG4gICAgIGZvbnQtc2l6ZTogMC44cmVtO1xuICAgICBmb250LXdlaWdodDogMzAwO1xuICAgICBcbiB9XG5cbiAuaWNvbi1oZWFke1xuICAgIGNvbG9yOiAjMUZCNENEO1xuIH1cbiAuYWN0aW9uLWJ0biB7XG4gICAgaGVpZ2h0OiA0MHB4O1xuICB9XG4gIC5hY3Rpb24tYnRuOmhvdmVyIHtcbiAgICBoZWlnaHQ6IDUwcHg7XG4gIH1cblxuICAuYmFsYW5jZS10b2tlbiB7XG4gICAgICBmb250LXNpemU6IDEuNXJlbTtcbiAgfVxuICAuYmFsYW5jZS10b2tlbm5hbWUge1xuICAgcG9zaXRpb246IGFic29sdXRlO1xuICAgcGFkZGluZy10b3A6IDZweDtcbiAgIHBhZGRpbmctbGVmdDogMnB4O1xuICB9IiwiQG1lZGlhIHNjcmVlbiBhbmQgKG1heC13aWR0aDogMzIwcHgpIHtcbiAgcCB7XG4gICAgZm9udC1zaXplOiAxMHB4O1xuICB9XG59XG5pb24tY2FyZCB7XG4gIGJvcmRlci1yYWRpdXM6IDMwcHg7XG4gIGJhY2tncm91bmQtY29sb3I6ICNGRkZGRkY7XG59XG5cbmlvbi1mb290ZXIgaW9uLXRvb2xiYXIgaW9uLWJ1dHRvbnMgaW9uLWJ1dHRvbiB7XG4gIHdpZHRoOiAxMDAlO1xufVxuXG4uY29uZmlybWVkLWxhYmVsIHtcbiAgbWFyZ2luOiBhdXRvO1xuICBmb250LXNpemU6IDFyZW07XG4gIGZvbnQtd2VpZ2h0OiAzMDA7XG4gIHdoaXRlLXNwYWNlOiBub3JtYWw7XG59XG5cbi5jb25maXJtZWQtYW1vdW50IHtcbiAgY29sb3I6ICMwMEFBQzc7XG4gIGZvbnQtc2l6ZTogMXJlbTtcbiAgZm9udC13ZWlnaHQ6IDMwMDtcbiAgd2hpdGUtc3BhY2U6IG5vcm1hbDtcbn1cblxuLmxvZ28tbmFtZXMge1xuICBmb250LXNpemU6IDAuOHJlbTtcbiAgZm9udC13ZWlnaHQ6IDMwMDtcbn1cblxuLmljb24taGVhZCB7XG4gIGNvbG9yOiAjMUZCNENEO1xufVxuXG4uYWN0aW9uLWJ0biB7XG4gIGhlaWdodDogNDBweDtcbn1cblxuLmFjdGlvbi1idG46aG92ZXIge1xuICBoZWlnaHQ6IDUwcHg7XG59XG5cbi5iYWxhbmNlLXRva2VuIHtcbiAgZm9udC1zaXplOiAxLjVyZW07XG59XG5cbi5iYWxhbmNlLXRva2VubmFtZSB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgcGFkZGluZy10b3A6IDZweDtcbiAgcGFkZGluZy1sZWZ0OiAycHg7XG59Il19 */"
 
 /***/ }),
 
@@ -85,69 +85,79 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var _service_minima_api_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../service/minima-api.service */ "./src/app/service/minima-api.service.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var _tokens__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../tokens */ "./src/app/tokens.ts");
+/* harmony import */ var _pop_over_pop_over_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../pop-over/pop-over.component */ "./src/app/pop-over/pop-over.component.ts");
+/* harmony import */ var _service_balance_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../service/balance.service */ "./src/app/service/balance.service.ts");
+
+
+
 
 
 
 
 
 let BalancePage = class BalancePage {
-    constructor(api, alertController, route) {
+    constructor(api, alertController, route, popoverController, balanceService) {
         this.api = api;
         this.alertController = alertController;
         this.route = route;
+        this.popoverController = popoverController;
+        this.balanceService = balanceService;
+        this.MINIMA_TOKEN_ID = '0x0000000000000000000000000000000000000000000000000000000000000000';
+        this.amitoken = false;
+        this.tokenArr = [];
         this.hideProgress = false;
         this.progressShow = true;
         this.confirmed = 0;
     }
-    ngOnInit() {
-        // this.firstObsubscription = interval(1000).subscribe( count => {
-        //   console.log(count);
-        // });
-        // const customIntervalObservable = Observable.create(observer => {
-        //   observer.next();
-        //   this.doRefresh(this.route);
-        //   setInterval(() => {
-        //     observer.next();
-        //     if(this.unconfirmed > 0) {
-        //       this.doRefresh(this.alertController);
-        //     }else { 
-        //       observer.complete();
-        //     }
-        //   }, 2000);
-        // });
-        // this.firstObsubscription = customIntervalObservable.subscribe(data => {
-        //   alert(data);
-        // });
-        //this.firstObsubscription.unsubscribe();
-        // this.route.params.subscribe((params: Params) => {
-        //   this.balance = +params.balance;
-        //   console.log("balance has changed");
-        // });
-    }
+    ngOnInit() { }
     ionViewWillEnter() {
+        this.pullInTokens();
+    }
+    pullInTokens() {
         this.api.getBalance().then((res) => {
             console.log(res);
-            this.progressShow = true;
-            this.confirmed = 0;
-            this.unconfirmed = '';
             this.strUnconfirmed = '';
-            let conf = res.response.confirmed;
-            let unconf = res.response.unconfirmed;
-            for (let i = 0; i < conf.length; i++) {
-                this.confirmed += Math.round(conf[i].amount * 100) / 100;
-                console.log("Confirmed has been logged" + this.confirmed);
-            }
-            if (unconf.length > 0) {
-                this.progressShow = false;
-                for (let j = 0; j < unconf.length; j++) {
-                    this.strUnconfirmed = "Unconfirmed";
-                    this.unconfirmed += Math.round(unconf[j].amount * 100) / 100;
-                    console.log("Unconfirmed has been balanced");
+            let countTokens = 0;
+            res.response.balance.forEach(element => {
+                countTokens++;
+                if (element.tokenid === this.MINIMA_TOKEN_ID) {
+                    let tempConfirmed = (Math.round(element.confirmed * 100) / 100);
+                    let tempUnConfirmed = '';
+                    if (element.unconfirmed > 0) {
+                        this.strUnconfirmed = 'Unconfirmed';
+                        tempUnConfirmed = (Math.round(element.unconfirmed * 100) / 100).toString();
+                    }
+                    else {
+                        tempUnConfirmed = '';
+                    }
+                    let temp = new _tokens__WEBPACK_IMPORTED_MODULE_5__["Tokens"](element.tokenid, element.token, tempConfirmed, tempUnConfirmed, element.total);
+                    this.tokenArr.push(temp);
+                    //this.tokenArr[0] = temp;
                 }
-            }
-            //this.balance = Math.round(res.response.confirmed.amount * 100) / 100;
-            console.log('Balance set');
+                this.strUnconfirmed = '';
+            });
+            res.response.balance.forEach(element => {
+                if (element.tokenid != this.MINIMA_TOKEN_ID) {
+                    let tempConfirmed = (Math.round(element.confirmed * 100) / 100);
+                    let tempUnConfirmed = '';
+                    if (element.unconfirmed > 0) {
+                        this.strUnconfirmed = 'Unconfirmed';
+                        tempUnConfirmed = (Math.round(element.unconfirmed * 100) / 100).toString();
+                    }
+                    else {
+                        tempUnConfirmed = '';
+                    }
+                    let temp = new _tokens__WEBPACK_IMPORTED_MODULE_5__["Tokens"](element.tokenid, element.token, tempConfirmed, tempUnConfirmed, element.total);
+                    this.tokenArr.push(temp);
+                }
+                this.strUnconfirmed = '';
+            });
         });
+        this.tokenArr = new Array;
+    }
+    amiToken() {
+        return this.amitoken;
     }
     shouldHide() {
         return true;
@@ -178,35 +188,36 @@ let BalancePage = class BalancePage {
     doRefresh(event) {
         console.log('Refreshing page..');
         //window.location.reload();
-        this.api.getBalance().then((res) => {
-            this.progressShow = true;
-            this.confirmed = 0;
-            this.unconfirmed = "";
-            this.strUnconfirmed = "";
-            let conf = res.response.confirmed;
-            let unconf = res.response.unconfirmed;
-            for (let i = 0; i < conf.length; i++) {
-                this.confirmed += Math.round(conf[i].amount * 100) / 100;
-            }
-            if (unconf.length > 0) {
-                this.progressShow = false;
-                for (let j = 0; j < unconf.length; j++) {
-                    this.strUnconfirmed = "Unconfirmed";
-                    this.unconfirmed += Math.round(unconf[j].amount * 100) / 100;
-                }
-            }
-        });
+        this.pullInTokens();
         setTimeout(() => {
             event.target.complete();
             console.log('refreshing completed.');
         }, 200);
     }
+    presentPopover(ev, data) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            const popover = yield this.popoverController.create({
+                component: _pop_over_pop_over_component__WEBPACK_IMPORTED_MODULE_6__["PopOverComponent"],
+                event: ev,
+                cssClass: 'popover',
+                translucent: false,
+                componentProps: { tokenid: data },
+            });
+            return yield popover.present();
+        });
+    }
 };
 BalancePage.ctorParameters = () => [
     { type: _service_minima_api_service__WEBPACK_IMPORTED_MODULE_3__["MinimaApiService"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"] },
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"] }
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["PopoverController"] },
+    { type: _service_balance_service__WEBPACK_IMPORTED_MODULE_7__["BalanceService"] }
 ];
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('referenceToken', { static: false }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonLabel"])
+], BalancePage.prototype, "referenceToken", void 0);
 BalancePage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
         selector: 'app-balance',
@@ -215,7 +226,9 @@ BalancePage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     }),
     tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_service_minima_api_service__WEBPACK_IMPORTED_MODULE_3__["MinimaApiService"],
         _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"],
-        _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"]])
+        _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"],
+        _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["PopoverController"],
+        _service_balance_service__WEBPACK_IMPORTED_MODULE_7__["BalanceService"]])
 ], BalancePage);
 
 

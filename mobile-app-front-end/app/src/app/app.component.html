@@ -3,18 +3,18 @@
   <ion-menu side="start" contentId="mainMenu">
     <ion-header>
       <ion-toolbar class="menu-toolbar">
+
       <ion-title>
-        <ion-icon class="menu-logo" src="../../assets/icon/minima.svg"></ion-icon>
-      <ion-note class="menu-logo-title">
-          MINIMA
-      <ion-badge color="#00ABC8" (click)="betaTap()">BETA</ion-badge>
-      </ion-note>
-       </ion-title>   
+        <ion-label>
+      <ion-icon class="menu-logo" src="../../assets/icon/minima.svg"></ion-icon> 
+       <ion-label class="menu-minima">MINIMA</ion-label>
+      <ion-badge class="menu-badge" (click)="betaTap()">BETA</ion-badge>
+    </ion-label>   
+    </ion-title>   
+       
       </ion-toolbar>
       
     </ion-header>
-    
-
     
     <ion-content>
         <ion-menu-toggle auto-hide="false">
@@ -48,29 +48,9 @@
         </ion-list>
         </ion-menu-toggle>
 
-
-
-        
-  
-            
-        <!-- <ion-item lines="none">
-          <ion-button class="social-web" href="https://minima.global/">
-            <ion-label class="social-lbl">Minima</ion-label>
-            <ion-icon class="social-icon" name="planet"></ion-icon> 
-          </ion-button>
-          <ion-button class="social-web" href="https://twitter.com/Minima_Global">
-            <ion-label class="social-lbl">Twitter</ion-label>
-            <ion-icon class="social-icon" name="logo-twitter"></ion-icon> 
-          </ion-button>
-          <ion-button class="social-web" href="https://t.me/Minima_Global">
-            <ion-label class="social-lbl">Telegram</ion-label>
-            <ion-icon class="social-icon" src="../assets/telegram.svg"></ion-icon> 
-          </ion-button>
-          </ion-item> -->
-
     </ion-content>
     <ion-menu-toggle auto-hide="false" >
-    <ion-footer padding>
+    <ion-footer class="ion-padding">
       <ion-item routerLink="/community" lines="none">
         <ion-icon name="share" slot="start"></ion-icon> Join Community
       </ion-item>

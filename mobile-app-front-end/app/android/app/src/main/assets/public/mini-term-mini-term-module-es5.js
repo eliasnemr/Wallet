@@ -89,7 +89,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../environments/environment */ "./src/environments/environment.ts");
-/* harmony import */ var _userterminal_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../userterminal.service */ "./src/app/userterminal.service.ts");
+/* harmony import */ var _service_userterminal_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../service/userterminal.service */ "./src/app/service/userterminal.service.ts");
 
 
 
@@ -253,7 +253,7 @@ var MiniTermPage = /** @class */ (function () {
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["NavController"] },
         { type: _angular_core__WEBPACK_IMPORTED_MODULE_2__["Renderer2"] },
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["PopoverController"] },
-        { type: _userterminal_service__WEBPACK_IMPORTED_MODULE_6__["UserTerminal"] }
+        { type: _service_userterminal_service__WEBPACK_IMPORTED_MODULE_6__["UserTerminal"] }
     ]; };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ViewChild"])(_ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonContent"], { static: false }),
@@ -273,7 +273,7 @@ var MiniTermPage = /** @class */ (function () {
             _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["NavController"], _angular_core__WEBPACK_IMPORTED_MODULE_2__["Renderer2"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["PopoverController"],
-            _userterminal_service__WEBPACK_IMPORTED_MODULE_6__["UserTerminal"]])
+            _service_userterminal_service__WEBPACK_IMPORTED_MODULE_6__["UserTerminal"]])
     ], MiniTermPage);
     return MiniTermPage;
 }());

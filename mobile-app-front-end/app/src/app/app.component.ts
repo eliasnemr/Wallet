@@ -5,6 +5,7 @@ import { Platform, MenuController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
+declare var Minima: any;
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -23,6 +24,7 @@ export class AppComponent {
     private router: Router,
     private api: MinimaApiService
   ) {
+    this.getPlatform();
     this.initializeApp();
   }
 
@@ -44,6 +46,31 @@ export class AppComponent {
       });*/
     });
   }
+
+  /* Get platform type to see if should be MiniWeb or not */
+  getPlatform() {
+    // Minima.logout();
+    /*  If on desktop do this.. */
+    if(this.platform.is('desktop') || this.platform.is('pwa')) {
+      console.log('Running Mini Desktop/Pwa');
+      window.addEventListener('load', (ev: Event) => {
+        console.log('Minima Page loaded..');
+        window.addEventListener('MinimaEvent', (evt: any)=> {
+          console.log('Event connection successful!');
+          console.log(' ')
+          if(evt.detail.event === 'connected') {
+            console.log('We are now connected with host -> ' + Minima.host);
+            this.api.setHost('http://'+ Minima.host + '/');
+          }
+        });
+        
+        Minima.init();
+      });
+    } else {
+      console.log('Running Minima on mobile. :)');
+    }
+  }
+
   getVersion() {
     this.api.getStatus().then((res : any) => {
 

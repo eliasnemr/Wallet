@@ -162,7 +162,7 @@ public class NetworkHandler extends SystemHandler{
 			String ip = uuid+"#"+getRPCServer().getHost()+":"+getRPCServer().getPort();
 			
 			//Call the Minima Proxy - this should be user definable..#TODO
-			String url = "http://127.0.0.1:9000/"+URLEncoder.encode(ip, "UTF-8");
+			String url = "http://mifi.minima.global:9000/"+URLEncoder.encode(ip, "UTF-8");
 		
 			//Call it..
 			RPCClient.sendGET(url);

@@ -106,7 +106,7 @@ NSString *OrgMinimaSystemNetworkNetworkHandler_NETWORK_NOTIFY = @"NETWORK_NOTIFY
   else if ([zMessage isMessageTypeWithNSString:OrgMinimaSystemNetworkNetworkHandler_NETWORK_WEBPROXY]) {
     NSString *uuid = [zMessage getStringWithNSString:@"uuid"];
     NSString *ip = JreStrcat("$C$CI", uuid, '#', [((OrgMinimaSystemNetworkRpcRPCServer *) nil_chk([self getRPCServer])) getHost], ':', [((OrgMinimaSystemNetworkRpcRPCServer *) nil_chk([self getRPCServer])) getPort]);
-    NSString *url = JreStrcat("$$", @"http://10.0.121.68:9000/", JavaNetURLEncoder_encodeWithNSString_withNSString_(ip, @"UTF-8"));
+    NSString *url = JreStrcat("$$", @"http://mifi.minima.global:9000/", JavaNetURLEncoder_encodeWithNSString_withNSString_(ip, @"UTF-8"));
     OrgMinimaSystemNetworkRpcRPCClient_sendGETWithNSString_(url);
     [((OrgMinimaUtilsJsonJSONObject *) nil_chk(OrgMinimaSystemInputInputHandler_getResponseJSONWithOrgMinimaUtilsMessagesMessage_(zMessage))) putWithId:@"url" withId:url];
     OrgMinimaSystemInputInputHandler_endResponseWithOrgMinimaUtilsMessagesMessage_withBoolean_withNSString_(zMessage, true, @"");

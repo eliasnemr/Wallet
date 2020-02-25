@@ -5,6 +5,8 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { interval, Subscription, Observable } from 'rxjs';
 import { Tokens } from '../tokens';
 import { PopOverComponent } from '../pop-over/pop-over.component';
+import { BalanceService } from '../service/balance.service';
+import { Subject } from 'rxjs/Subject';
 
 @Component({
   selector: 'app-balance',
@@ -31,19 +33,24 @@ export class BalancePage implements OnInit {
   public confirmed = 0;
   public unconfirmed : any;
   public strUnconfirmed: any;
+  public confirmedSubscription: Subscription;
+  public unconfirmedSubscription: Subscription;
   
   public refTokenId;
 
   constructor(private api: MinimaApiService, 
     public alertController: AlertController,
     private route: ActivatedRoute,
-    public popoverController: PopoverController) {}
+    public popoverController: PopoverController,
+    public balanceService: BalanceService) {}
 
   ngOnInit() {}
 
   ionViewWillEnter() {
     this.pullInTokens();
+
   }
+
 
   pullInTokens() {
     this.api.getBalance().then((res : any) => {
@@ -89,7 +96,6 @@ export class BalancePage implements OnInit {
           let tempConfirmed = (Math.round(element.confirmed * 100)/100);
           let tempUnConfirmed = ''; 
           
-
           if(element.unconfirmed > 0){
             this.strUnconfirmed = 'Unconfirmed';
             tempUnConfirmed = (Math.round(element.unconfirmed * 100)/100).toString();

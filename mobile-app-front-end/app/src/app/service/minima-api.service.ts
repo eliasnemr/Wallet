@@ -1,7 +1,10 @@
+import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpEvent, HttpErrorResponse, HttpEventType } from '@angular/common/http';
 import { LoadingController } from '@ionic/angular';
 import { environment } from '../../environments/environment';
+import { BalanceService } from './balance.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +14,7 @@ export class MinimaApiService {
   private host = '';
   private loader: any = null;
 
-  constructor(private http: HttpClient, public loadingController: LoadingController) {
+  constructor(private http: HttpClient, public loadingController: LoadingController, public balanceService: BalanceService) {
     this.host = environment.defaultNode;
     this.host = this.getHost();
   }
@@ -77,7 +80,7 @@ export class MinimaApiService {
     return this.request('status');
   }
 
-  request(route) {
+  request(route: any) {
     const self = this;
     // self.showLoader();
     console.log(route);
@@ -93,4 +96,21 @@ export class MinimaApiService {
       });
     });
   }
+
+  /* Creating an Observable for http requests... */
+  // request$(route: any): Observable<string> {
+  //   const self = this;
+  //   return this.http.get(self.host + route, {responseType: 'json'})
+  //   .map(res => ) {
+      
+
+      
+  //   }
+
+
+
+  // }
+
+
+
 }

@@ -1,0 +1,1 @@
+var testvar = "hello from MIFI!";

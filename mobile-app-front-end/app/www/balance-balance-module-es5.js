@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    <ion-title color=\"primary\">  \n    Balance\n    </ion-title>\n  </ion-toolbar>\n  \n</ion-header>\n\n<ion-content>\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n\n  <ion-card color=\"white\">\n    <ion-card-header color=\"white\">\n      \n    </ion-card-header>\n    <ion-card-content>\n      \n      <ion-icon style=\" font-size:2.0rem; padding-left:10px;\" name=\"card\" slot=\"start\" class=\"icon-head\"></ion-icon>\n\n      <ion-list *ngFor=\"let token of tokenArr\" #tokenArrayReference>\n\n        <ion-item-sliding>\n          <ion-item-options side=\"start\">\n            <ion-item-option routerLink=\"/my-address\">Receive</ion-item-option>\n            <ion-item-option color=\"danger\" routerLink=\"/send-funds\">Send</ion-item-option>\n          </ion-item-options>\n          \n          <ion-item detail lines=\"full\" style=\"padding: 0px;\">\n            <ion-label class=\"logo-names\">\n              <ion-icon class=\"balance-token\" [hidden]=\"amiToken()\" src=\"../../assets/icon/minima.svg\"></ion-icon> \n              <ion-note class=\"balance-tokenname\" #refToken> {{ token.token }} </ion-note>\n            </ion-label>  \n            <ion-label class=\"confirmed-amount\">\n              {{ token.confirmed  }} \n            </ion-label>\n            <ion-label class=\"confirmed-amount\">\n             {{ token.unconfirmed }}\n            </ion-label>\n          </ion-item>\n      \n          <ion-item-options side=\"end\">\n            <ion-item-option (click)=\"presentPopover($event, token.tokenid)\">Token ID</ion-item-option>\n          </ion-item-options>\n        </ion-item-sliding>\n        \n    </ion-list>\n    \n\n    <ion-progress-bar \n    #progressBar value=\"0.25\" \n    buffer=\"0.5\" \n    [hidden] = \"progressShow\">\n  </ion-progress-bar>  \n    </ion-card-content>\n  </ion-card>\n\n</ion-content>\n\n<ion-footer>\n  <ion-toolbar>\n    <ion-buttons>\n      <ion-button class=\"action-btn\" shape=\"\" expand=\"block\" type=\"button\"  (click)=\"giveMe50()\">\n        <ion-icon name=\"cash\" slot=\"start\"></ion-icon> Gimme 50\n      </ion-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-footer>\n"
+module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    <ion-title color=\"primary\">  \n    Balance\n    </ion-title>\n  </ion-toolbar>\n  \n</ion-header>\n\n<ion-content>\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n\n  <ion-card color=\"white\">\n    <ion-card-header color=\"white\">\n      \n    </ion-card-header>\n    <ion-card-content>\n      \n      <ion-icon style=\" font-size:2.0rem; padding-left:10px;\" name=\"card\" slot=\"start\" class=\"icon-head\"></ion-icon>\n\n      <ion-list *ngFor=\"let token of tokenArr\" #tokenArrayReference>\n\n        <ion-item-sliding>\n          <ion-item-options side=\"start\">\n            <ion-item-option routerLink=\"/my-address\">Receive</ion-item-option>\n            <ion-item-option color=\"danger\" routerLink=\"/send-funds\">Send</ion-item-option>\n          </ion-item-options>\n          \n          <ion-item detail lines=\"full\" style=\"padding: 0px;\">\n            <ion-label class=\"logo-names\">\n              <ion-icon class=\"balance-token\" [hidden]=\"amiToken()\" src=\"../../assets/icon/minima.svg\"></ion-icon> \n              <ion-note class=\"balance-tokenname\" #refToken> {{ token.token }} </ion-note>\n            </ion-label>  \n            <ion-label class=\"confirmed-amount\">\n              {{ token.confirmed  }} \n            </ion-label>\n            <ion-label class=\"confirmed-amount\">\n             {{ token.unconfirmed }}\n            </ion-label>\n          </ion-item>\n      \n          <ion-item-options side=\"end\">\n            <ion-item-option (click)=\"presentPopover($event, token.tokenid)\">Token ID</ion-item-option>\n          </ion-item-options>\n        </ion-item-sliding>\n        \n    </ion-list>\n    \n\n    <ion-progress-bar \n    #progressBar value=\"0.25\" \n    buffer=\"0.5\" \n    [hidden] = \"progressShow\">\n    </ion-progress-bar>  \n    </ion-card-content>\n  </ion-card>\n\n</ion-content>\n\n<ion-footer>\n  <ion-toolbar>\n    <ion-buttons>\n      <ion-button class=\"action-btn\" shape=\"\" expand=\"block\" type=\"button\"  (click)=\"giveMe50()\">\n        <ion-icon name=\"cash\" slot=\"start\"></ion-icon> Gimme 50\n      </ion-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-footer>\n"
 
 /***/ }),
 
@@ -90,6 +90,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _tokens__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../tokens */ "./src/app/tokens.ts");
 /* harmony import */ var _pop_over_pop_over_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../pop-over/pop-over.component */ "./src/app/pop-over/pop-over.component.ts");
+/* harmony import */ var _service_balance_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../service/balance.service */ "./src/app/service/balance.service.ts");
+
 
 
 
@@ -98,11 +100,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var BalancePage = /** @class */ (function () {
-    function BalancePage(api, alertController, route, popoverController) {
+    function BalancePage(api, alertController, route, popoverController, balanceService) {
         this.api = api;
         this.alertController = alertController;
         this.route = route;
         this.popoverController = popoverController;
+        this.balanceService = balanceService;
         this.MINIMA_TOKEN_ID = '0x0000000000000000000000000000000000000000000000000000000000000000';
         this.amitoken = false;
         this.tokenArr = [];
@@ -230,7 +233,8 @@ var BalancePage = /** @class */ (function () {
         { type: _service_minima_api_service__WEBPACK_IMPORTED_MODULE_3__["MinimaApiService"] },
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"] },
         { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"] },
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["PopoverController"] }
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["PopoverController"] },
+        { type: _service_balance_service__WEBPACK_IMPORTED_MODULE_7__["BalanceService"] }
     ]; };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('referenceToken', { static: false }),
@@ -245,7 +249,8 @@ var BalancePage = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_service_minima_api_service__WEBPACK_IMPORTED_MODULE_3__["MinimaApiService"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"],
             _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"],
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["PopoverController"]])
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["PopoverController"],
+            _service_balance_service__WEBPACK_IMPORTED_MODULE_7__["BalanceService"]])
     ], BalancePage);
     return BalancePage;
 }());

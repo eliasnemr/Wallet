@@ -119,15 +119,14 @@ export class WebScannerPage implements OnInit {
       this.qrScanner.hide();
       this.scanSub.unsubscribe();
     }
-    this.scanSub = null;
-      window.document.querySelectorAll('ion-content')
-      .forEach(element => {
-          const element1 = element.shadowRoot.querySelector('style');
-          element1.innerHTML = element1.innerHTML
-      .replace('--background: transparent', '--background:var(--ion-background-color,#fff);');
-      });
-    this.ionApp.style.display = 'block';
-    this.isCameraOpen = false;
+    window.document.querySelectorAll('ion-content')
+                  .forEach(element => {
+                      const element1 = element.shadowRoot.querySelector('style');
+                      element1.innerHTML = element1.innerHTML
+                  .replace('--background: transparent', '--background:var(--ion-background-color,#fff);');
+            });
+            this.isCameraOpen = false;
+            
     this.qrScanner.destroy();
   }
 

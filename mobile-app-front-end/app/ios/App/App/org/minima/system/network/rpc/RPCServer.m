@@ -174,7 +174,7 @@ void OrgMinimaSystemNetworkRpcRPCServer_initWithOrgMinimaSystemInputInputHandler
   self->mRunning_ = true;
   JreStrongAssign(&self->mInputHandler_, zInput);
   self->mPort_ = zPort;
-  self->mHost_ = [self getIPAddress];
+  self->mHost_ = [self getIPAddress];   
   //JreStrongAssign(&self->mHost_, @"127.0.0.1");
   /*jboolean found = false;
   @try {

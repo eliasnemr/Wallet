@@ -487,7 +487,7 @@ module.exports = webpackAsyncContext;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-app>\n  <ion-split-pane when=\"lg\" contentId=\"mainMenu\" class=\"splitpane\" >\n  <ion-menu side=\"start\" contentId=\"mainMenu\">\n    <ion-header>\n      <ion-toolbar class=\"menu-toolbar\">\n      <ion-title>\n        <ion-icon class=\"menu-logo\" src=\"../../assets/icon/minima.svg\"></ion-icon>\n      <ion-note class=\"menu-logo-title\">\n          MINIMA\n      <ion-badge color=\"#00ABC8\" (click)=\"betaTap()\">BETA</ion-badge>\n      </ion-note>\n       </ion-title>   \n      </ion-toolbar>\n      \n    </ion-header>\n    \n\n    \n    <ion-content>\n        <ion-menu-toggle auto-hide=\"false\">\n          <ion-list main lines=\"none\">\n            \n            <ion-item routerLink=\"/balance\">\n              <ion-icon name=\"card\" slot=\"start\"></ion-icon> Balance\n            </ion-item>\n            <ion-item routerLink=\"/send-funds\">\n              <ion-icon name=\"send\" slot=\"start\"></ion-icon> Send\n            </ion-item>\n            <ion-item routerLink=\"/my-address\">\n              <ion-icon name=\"arrow-down\" slot=\"start\"></ion-icon> Receive\n            </ion-item>\n            <ion-item lines=\"full\" routerLink=\"/create-token\">\n              <ion-icon name=\"brush\" slot=\"start\"></ion-icon> Token\n            </ion-item>\n            \n            <ion-item routerLink=\"/status\">\n              <ion-icon name=\"analytics\" slot=\"start\"></ion-icon> Status\n            </ion-item>\n            <ion-item routerLink=\"/mini-term\">\n              <ion-icon name=\"code\" slot=\"start\"></ion-icon> Terminal\n            </ion-item>\n            <ion-item lines=\"full\" routerLink=\"/web-scanner\">\n              <ion-icon name=\"desktop\" slot=\"start\"></ion-icon> Web\n            </ion-item>\n            <ion-item lines=\"none\" routerLink=\"/settings\">\n              <ion-icon name=\"build\" slot=\"start\"></ion-icon> Settings\n            </ion-item>\n        </ion-list>\n        </ion-menu-toggle>\n\n\n\n        \n  \n            \n        <!-- <ion-item lines=\"none\">\n          <ion-button class=\"social-web\" href=\"https://minima.global/\">\n            <ion-label class=\"social-lbl\">Minima</ion-label>\n            <ion-icon class=\"social-icon\" name=\"planet\"></ion-icon> \n          </ion-button>\n          <ion-button class=\"social-web\" href=\"https://twitter.com/Minima_Global\">\n            <ion-label class=\"social-lbl\">Twitter</ion-label>\n            <ion-icon class=\"social-icon\" name=\"logo-twitter\"></ion-icon> \n          </ion-button>\n          <ion-button class=\"social-web\" href=\"https://t.me/Minima_Global\">\n            <ion-label class=\"social-lbl\">Telegram</ion-label>\n            <ion-icon class=\"social-icon\" src=\"../assets/telegram.svg\"></ion-icon> \n          </ion-button>\n          </ion-item> -->\n\n    </ion-content>\n    <ion-menu-toggle auto-hide=\"false\" >\n    <ion-footer padding>\n      <ion-item routerLink=\"/community\" lines=\"none\">\n        <ion-icon name=\"share\" slot=\"start\"></ion-icon> Join Community\n      </ion-item>\n    </ion-footer>\n  </ion-menu-toggle>\n  </ion-menu>\n        <ion-router-outlet main id=\"mainMenu\"></ion-router-outlet>\n  </ion-split-pane>\n\n</ion-app>"
+module.exports = "<ion-app>\n  <ion-split-pane when=\"lg\" contentId=\"mainMenu\" class=\"splitpane\" >\n  <ion-menu side=\"start\" contentId=\"mainMenu\">\n    <ion-header>\n      <ion-toolbar class=\"menu-toolbar\">\n\n      <ion-title>\n        <ion-label>\n      <ion-icon class=\"menu-logo\" src=\"../../assets/icon/minima.svg\"></ion-icon> \n       <ion-label class=\"menu-minima\">MINIMA</ion-label>\n      <ion-badge class=\"menu-badge\" (click)=\"betaTap()\">BETA</ion-badge>\n    </ion-label>   \n    </ion-title>   \n       \n      </ion-toolbar>\n      \n    </ion-header>\n    \n    <ion-content>\n        <ion-menu-toggle auto-hide=\"false\">\n          <ion-list main lines=\"none\">\n            \n            <ion-item routerLink=\"/balance\">\n              <ion-icon name=\"card\" slot=\"start\"></ion-icon> Balance\n            </ion-item>\n            <ion-item routerLink=\"/send-funds\">\n              <ion-icon name=\"send\" slot=\"start\"></ion-icon> Send\n            </ion-item>\n            <ion-item routerLink=\"/my-address\">\n              <ion-icon name=\"arrow-down\" slot=\"start\"></ion-icon> Receive\n            </ion-item>\n            <ion-item lines=\"full\" routerLink=\"/create-token\">\n              <ion-icon name=\"brush\" slot=\"start\"></ion-icon> Token\n            </ion-item>\n            \n            <ion-item routerLink=\"/status\">\n              <ion-icon name=\"analytics\" slot=\"start\"></ion-icon> Status\n            </ion-item>\n            <ion-item routerLink=\"/mini-term\">\n              <ion-icon name=\"code\" slot=\"start\"></ion-icon> Terminal\n            </ion-item>\n            <ion-item lines=\"full\" routerLink=\"/web-scanner\">\n              <ion-icon name=\"desktop\" slot=\"start\"></ion-icon> Web\n            </ion-item>\n            <ion-item lines=\"none\" routerLink=\"/settings\">\n              <ion-icon name=\"build\" slot=\"start\"></ion-icon> Settings\n            </ion-item>\n        </ion-list>\n        </ion-menu-toggle>\n\n    </ion-content>\n    <ion-menu-toggle auto-hide=\"false\" >\n    <ion-footer class=\"ion-padding\">\n      <ion-item routerLink=\"/community\" lines=\"none\">\n        <ion-icon name=\"share\" slot=\"start\"></ion-icon> Join Community\n      </ion-item>\n    </ion-footer>\n  </ion-menu-toggle>\n  </ion-menu>\n        <ion-router-outlet main id=\"mainMenu\"></ion-router-outlet>\n  </ion-split-pane>\n\n</ion-app>"
 
 /***/ }),
 
@@ -567,7 +567,7 @@ AppRoutingModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "ion-icon {\n  color: #FF671D;\n}\n\nion-item:hover {\n  background-color: #0ad1e7;\n}\n\nion-icon:hover {\n  color: #ffffff;\n}\n\nion-item:active {\n  background-color: #0ad1e7;\n}\n\n.social-web {\n  margin: auto;\n}\n\n.social-lbl {\n  color: white;\n}\n\n.menu-logo {\n  font-size: 22px;\n}\n\n.menu-logo-title {\n  font-family: \"Ridley-normal\";\n  font-weight: bolder;\n  font-size: 14px;\n}\n\nion-note {\n  font-family: \"Aeonik\";\n  color: #929396;\n}\n\nion-note ion-badge {\n  color: #FF671E;\n  font-size: 10px;\n}\n\n@media only screen and (min-width: 992px) {\n  .splitpane {\n    margin-left: 180px;\n    margin-right: 180px;\n    margin-top: 100px;\n    margin-bottom: 100px;\n    box-shadow: 2px 2px 5px grey;\n  }\n\n  ion-app {\n    background-image: url('miniTiles.png');\n  }\n\n  .menu-logo {\n    font-size: 35px;\n  }\n\n  .menu-logo-title {\n    font-family: \"Ridley-normal\";\n    font-weight: lighter;\n    font-size: 22px;\n    padding-top: 11px;\n    padding-left: 2px;\n    position: absolute;\n  }\n\n  ion-note {\n    position: absolute;\n    padding-right: 50px;\n    font-weight: bolder;\n    font-size: 12px;\n    font-family: \"Aeonik\";\n    color: #929396;\n  }\n}\n\n@media only screen and (min-width: 375px) {\n  .ios .menu-logo-title {\n    font-family: \"Ridley-normal\";\n    font-weight: normal;\n    font-size: 12px;\n    padding-bottom: 2px;\n    float: inline-start;\n  }\n\n  ion-note ion-badge {\n    margin: auto;\n    color: #FF671E;\n    font-size: 8px;\n  }\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9lbGlhcy9Qcm9qZWN0cy9taW5pbWFjb3JlL21vYmlsZS1hcHAtZnJvbnQtZW5kL2FwcC9zcmMvYXBwL2FwcC5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvYXBwLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksY0FBQTtBQ0NKOztBRENBO0VBQ0kseUJBQUE7QUNFSjs7QURBQTtFQUNJLGNBQUE7QUNHSjs7QURBQTtFQUNJLHlCQUFBO0FDR0o7O0FEQUE7RUFDSSxZQUFBO0FDR0o7O0FEREE7RUFDSSxZQUFBO0FDSUo7O0FEREE7RUFDSSxlQUFBO0FDSUo7O0FEREE7RUFDSSw0QkFBQTtFQUNBLG1CQUFBO0VBQ0EsZUFBQTtBQ0lKOztBRERBO0VBQ0kscUJBQUE7RUFDQSxjQUFBO0FDSUo7O0FERkE7RUFDSSxjQUFBO0VBQ0EsZUFBQTtBQ0tKOztBREZBO0VBQ0k7SUFDSSxrQkFBQTtJQUNBLG1CQUFBO0lBQ0EsaUJBQUE7SUFDQSxvQkFBQTtJQUVBLDRCQUFBO0VDSU47O0VERkU7SUFDSSxzQ0FBQTtFQ0tOOztFREhFO0lBQ0ksZUFBQTtFQ01OOztFREpFO0lBQ0ksNEJBQUE7SUFDQSxvQkFBQTtJQUNBLGVBQUE7SUFDQSxpQkFBQTtJQUNBLGlCQUFBO0lBQ0Esa0JBQUE7RUNPTjs7RURKRTtJQUNJLGtCQUFBO0lBQ0EsbUJBQUE7SUFDQSxtQkFBQTtJQUNBLGVBQUE7SUFDQSxxQkFBQTtJQUNBLGNBQUE7RUNPTjtBQUNGOztBREpBO0VBQ0k7SUFDSSw0QkFBQTtJQUNBLG1CQUFBO0lBQ0EsZUFBQTtJQUNBLG1CQUFBO0lBQ0EsbUJBQUE7RUNNTjs7RURIRTtJQUNJLFlBQUE7SUFDQSxjQUFBO0lBQ0EsY0FBQTtFQ01OO0FBQ0YiLCJmaWxlIjoic3JjL2FwcC9hcHAuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJpb24taWNvbiB7XG4gICAgY29sb3I6ICNGRjY3MUQ7XG59XG5pb24taXRlbTpob3ZlciB7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogcmdiKDEwLDIwOSwyMzEpO1xufVxuaW9uLWljb246aG92ZXIge1xuICAgIGNvbG9yOiAjZmZmZmZmO1xufVxuXG5pb24taXRlbTphY3RpdmUge1xuICAgIGJhY2tncm91bmQtY29sb3I6IHJnYigxMCwyMDksMjMxKTtcbn1cblxuLnNvY2lhbC13ZWIge1xuICAgIG1hcmdpbjogYXV0bztcbn1cbi5zb2NpYWwtbGJsIHtcbiAgICBjb2xvcjp3aGl0ZTtcbn1cblxuLm1lbnUtbG9nbyB7XG4gICAgZm9udC1zaXplOiAyMnB4O1xuICAgIFxufVxuLm1lbnUtbG9nby10aXRsZSB7XG4gICAgZm9udC1mYW1pbHk6ICdSaWRsZXktbm9ybWFsJztcbiAgICBmb250LXdlaWdodDogYm9sZGVyO1xuICAgIGZvbnQtc2l6ZTogMTRweDtcbn1cblxuaW9uLW5vdGUge1xuICAgIGZvbnQtZmFtaWx5OiAnQWVvbmlrJztcbiAgICBjb2xvcjogIzkyOTM5Njtcbn1cbmlvbi1ub3RlIGlvbi1iYWRnZSB7XG4gICAgY29sb3I6ICNGRjY3MUU7XG4gICAgZm9udC1zaXplOiAxMHB4O1xufVxuXG5AbWVkaWEgb25seSBzY3JlZW4gYW5kIChtaW4td2lkdGg6IDk5MnB4KSB7XG4gICAgLnNwbGl0cGFuZSB7XG4gICAgICAgIG1hcmdpbi1sZWZ0OiAxODBweDtcbiAgICAgICAgbWFyZ2luLXJpZ2h0OiAxODBweDtcbiAgICAgICAgbWFyZ2luLXRvcDogMTAwcHg7XG4gICAgICAgIG1hcmdpbi1ib3R0b206IDEwMHB4O1xuICAgICAgICBcbiAgICAgICAgYm94LXNoYWRvdzogMnB4IDJweCA1cHggZ3JleTtcbiAgICB9XG4gICAgaW9uLWFwcCB7XG4gICAgICAgIGJhY2tncm91bmQtaW1hZ2U6IHVybCgnLi4vYXNzZXRzL21pbmlUaWxlcy5wbmcnKTtcbiAgICB9XG4gICAgLm1lbnUtbG9nbyB7XG4gICAgICAgIGZvbnQtc2l6ZTogMzVweDtcbiAgICB9XG4gICAgLm1lbnUtbG9nby10aXRsZSB7XG4gICAgICAgIGZvbnQtZmFtaWx5OiAnUmlkbGV5LW5vcm1hbCc7XG4gICAgICAgIGZvbnQtd2VpZ2h0OiBsaWdodGVyO1xuICAgICAgICBmb250LXNpemU6IDIycHg7XG4gICAgICAgIHBhZGRpbmctdG9wOiAxMXB4O1xuICAgICAgICBwYWRkaW5nLWxlZnQ6IDJweDtcbiAgICAgICAgcG9zaXRpb246IGFic29sdXRlO1xuICAgIH1cbiAgICBcbiAgICBpb24tbm90ZSB7XG4gICAgICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgICAgICAgcGFkZGluZy1yaWdodDogNTBweDtcbiAgICAgICAgZm9udC13ZWlnaHQ6IGJvbGRlcjtcbiAgICAgICAgZm9udC1zaXplOiAxMnB4O1xuICAgICAgICBmb250LWZhbWlseTogJ0Flb25payc7XG4gICAgICAgIGNvbG9yOiAjOTI5Mzk2O1xuICAgIH1cbn1cbi8vIGlwaG9uZVxuQG1lZGlhIG9ubHkgc2NyZWVuIGFuZCAobWluLXdpZHRoOiAzNzVweCkge1xuICAgIC5pb3MgLm1lbnUtbG9nby10aXRsZSB7XG4gICAgICAgIGZvbnQtZmFtaWx5OiAnUmlkbGV5LW5vcm1hbCc7XG4gICAgICAgIGZvbnQtd2VpZ2h0OiBub3JtYWw7XG4gICAgICAgIGZvbnQtc2l6ZTogMTJweDtcbiAgICAgICAgcGFkZGluZy1ib3R0b206IDJweDtcbiAgICAgICAgZmxvYXQ6IGlubGluZS1zdGFydDtcbiAgICAgICAgXG4gICAgfVxuICAgIGlvbi1ub3RlIGlvbi1iYWRnZSB7XG4gICAgICAgIG1hcmdpbjogYXV0bztcbiAgICAgICAgY29sb3I6ICNGRjY3MUU7XG4gICAgICAgIGZvbnQtc2l6ZTogOHB4O1xuICAgIH1cbiAgICBcbn0iLCJpb24taWNvbiB7XG4gIGNvbG9yOiAjRkY2NzFEO1xufVxuXG5pb24taXRlbTpob3ZlciB7XG4gIGJhY2tncm91bmQtY29sb3I6ICMwYWQxZTc7XG59XG5cbmlvbi1pY29uOmhvdmVyIHtcbiAgY29sb3I6ICNmZmZmZmY7XG59XG5cbmlvbi1pdGVtOmFjdGl2ZSB7XG4gIGJhY2tncm91bmQtY29sb3I6ICMwYWQxZTc7XG59XG5cbi5zb2NpYWwtd2ViIHtcbiAgbWFyZ2luOiBhdXRvO1xufVxuXG4uc29jaWFsLWxibCB7XG4gIGNvbG9yOiB3aGl0ZTtcbn1cblxuLm1lbnUtbG9nbyB7XG4gIGZvbnQtc2l6ZTogMjJweDtcbn1cblxuLm1lbnUtbG9nby10aXRsZSB7XG4gIGZvbnQtZmFtaWx5OiBcIlJpZGxleS1ub3JtYWxcIjtcbiAgZm9udC13ZWlnaHQ6IGJvbGRlcjtcbiAgZm9udC1zaXplOiAxNHB4O1xufVxuXG5pb24tbm90ZSB7XG4gIGZvbnQtZmFtaWx5OiBcIkFlb25pa1wiO1xuICBjb2xvcjogIzkyOTM5Njtcbn1cblxuaW9uLW5vdGUgaW9uLWJhZGdlIHtcbiAgY29sb3I6ICNGRjY3MUU7XG4gIGZvbnQtc2l6ZTogMTBweDtcbn1cblxuQG1lZGlhIG9ubHkgc2NyZWVuIGFuZCAobWluLXdpZHRoOiA5OTJweCkge1xuICAuc3BsaXRwYW5lIHtcbiAgICBtYXJnaW4tbGVmdDogMTgwcHg7XG4gICAgbWFyZ2luLXJpZ2h0OiAxODBweDtcbiAgICBtYXJnaW4tdG9wOiAxMDBweDtcbiAgICBtYXJnaW4tYm90dG9tOiAxMDBweDtcbiAgICBib3gtc2hhZG93OiAycHggMnB4IDVweCBncmV5O1xuICB9XG5cbiAgaW9uLWFwcCB7XG4gICAgYmFja2dyb3VuZC1pbWFnZTogdXJsKFwiLi4vYXNzZXRzL21pbmlUaWxlcy5wbmdcIik7XG4gIH1cblxuICAubWVudS1sb2dvIHtcbiAgICBmb250LXNpemU6IDM1cHg7XG4gIH1cblxuICAubWVudS1sb2dvLXRpdGxlIHtcbiAgICBmb250LWZhbWlseTogXCJSaWRsZXktbm9ybWFsXCI7XG4gICAgZm9udC13ZWlnaHQ6IGxpZ2h0ZXI7XG4gICAgZm9udC1zaXplOiAyMnB4O1xuICAgIHBhZGRpbmctdG9wOiAxMXB4O1xuICAgIHBhZGRpbmctbGVmdDogMnB4O1xuICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgfVxuXG4gIGlvbi1ub3RlIHtcbiAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgcGFkZGluZy1yaWdodDogNTBweDtcbiAgICBmb250LXdlaWdodDogYm9sZGVyO1xuICAgIGZvbnQtc2l6ZTogMTJweDtcbiAgICBmb250LWZhbWlseTogXCJBZW9uaWtcIjtcbiAgICBjb2xvcjogIzkyOTM5NjtcbiAgfVxufVxuQG1lZGlhIG9ubHkgc2NyZWVuIGFuZCAobWluLXdpZHRoOiAzNzVweCkge1xuICAuaW9zIC5tZW51LWxvZ28tdGl0bGUge1xuICAgIGZvbnQtZmFtaWx5OiBcIlJpZGxleS1ub3JtYWxcIjtcbiAgICBmb250LXdlaWdodDogbm9ybWFsO1xuICAgIGZvbnQtc2l6ZTogMTJweDtcbiAgICBwYWRkaW5nLWJvdHRvbTogMnB4O1xuICAgIGZsb2F0OiBpbmxpbmUtc3RhcnQ7XG4gIH1cblxuICBpb24tbm90ZSBpb24tYmFkZ2Uge1xuICAgIG1hcmdpbjogYXV0bztcbiAgICBjb2xvcjogI0ZGNjcxRTtcbiAgICBmb250LXNpemU6IDhweDtcbiAgfVxufSJdfQ== */"
+module.exports = "ion-icon {\n  color: #FF671D;\n}\n\nion-item:hover {\n  background-color: #0ad1e7;\n}\n\nion-icon:hover {\n  color: #ffffff;\n}\n\nion-item:active {\n  background-color: #0ad1e7;\n}\n\n.social-web {\n  margin: auto;\n}\n\n.social-lbl {\n  color: white;\n}\n\n.menu-logo {\n  font-size: 22px;\n}\n\n.menu-badge {\n  color: #FF671D;\n  font-size: 8px;\n  background-color: white;\n}\n\n.menu-minima {\n  font-family: \"Ridley-normal\";\n  font-weight: normal;\n  font-size: 12px;\n  margin: auto;\n}\n\n@media only screen and (min-width: 992px) {\n  .splitpane {\n    margin-left: 180px;\n    margin-right: 180px;\n    margin-top: 100px;\n    margin-bottom: 100px;\n    box-shadow: 2px 2px 5px grey;\n  }\n\n  ion-app {\n    background-image: url('miniTiles.png');\n  }\n\n  .menu-logo {\n    font-size: 35px;\n  }\n\n  ion-note {\n    padding-right: 50px;\n    font-weight: bolder;\n    font-size: 12px;\n    font-family: \"Aeonik\";\n    color: #929396;\n  }\n\n  .menu-badge {\n    color: #FF671D;\n    background-color: white;\n  }\n\n  .menu-minima {\n    font-family: \"Ridley-normal\";\n    font-weight: normal;\n    font-size: 22px;\n    margin: auto;\n  }\n}\n\n.ios .menu-logo-title {\n  font-family: \"Ridley-normal\";\n  font-weight: normal;\n  font-size: 12px;\n  padding-bottom: 2px;\n}\n\n.ios ion-note ion-badge {\n  margin: auto;\n  color: #FF671E;\n  font-size: 8px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9lbGlhcy9Qcm9qZWN0cy9taW5pbWFjb3JlL21vYmlsZS1hcHAtZnJvbnQtZW5kL2FwcC9zcmMvYXBwL2FwcC5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvYXBwLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksY0FBQTtBQ0NKOztBRENBO0VBQ0kseUJBQUE7QUNFSjs7QURBQTtFQUNJLGNBQUE7QUNHSjs7QURBQTtFQUNJLHlCQUFBO0FDR0o7O0FEQUE7RUFDSSxZQUFBO0FDR0o7O0FEREE7RUFDSSxZQUFBO0FDSUo7O0FEREE7RUFDSSxlQUFBO0FDSUo7O0FEREE7RUFDSSxjQUFBO0VBQ0EsY0FBQTtFQUNBLHVCQUFBO0FDSUo7O0FEREE7RUFDSSw0QkFBQTtFQUNBLG1CQUFBO0VBQ0EsZUFBQTtFQUNBLFlBQUE7QUNJSjs7QUREQTtFQUNJO0lBQ0ksa0JBQUE7SUFDQSxtQkFBQTtJQUNBLGlCQUFBO0lBQ0Esb0JBQUE7SUFDQSw0QkFBQTtFQ0lOOztFREZFO0lBQ0ksc0NBQUE7RUNLTjs7RURIRTtJQUNJLGVBQUE7RUNNTjs7RURIRTtJQUNJLG1CQUFBO0lBQ0EsbUJBQUE7SUFDQSxlQUFBO0lBQ0EscUJBQUE7SUFDQSxjQUFBO0VDTU47O0VESkU7SUFDSSxjQUFBO0lBQ0EsdUJBQUE7RUNPTjs7RURMRTtJQUNJLDRCQUFBO0lBQ0EsbUJBQUE7SUFDQSxlQUFBO0lBQ0EsWUFBQTtFQ1FOO0FBQ0Y7O0FESkk7RUFDSSw0QkFBQTtFQUNBLG1CQUFBO0VBQ0EsZUFBQTtFQUNBLG1CQUFBO0FDTVI7O0FESEk7RUFDSSxZQUFBO0VBQ0EsY0FBQTtFQUNBLGNBQUE7QUNNUiIsImZpbGUiOiJzcmMvYXBwL2FwcC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImlvbi1pY29uIHtcbiAgICBjb2xvcjogI0ZGNjcxRDtcbn1cbmlvbi1pdGVtOmhvdmVyIHtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiByZ2IoMTAsMjA5LDIzMSk7XG59XG5pb24taWNvbjpob3ZlciB7XG4gICAgY29sb3I6ICNmZmZmZmY7XG59XG5cbmlvbi1pdGVtOmFjdGl2ZSB7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogcmdiKDEwLDIwOSwyMzEpO1xufVxuXG4uc29jaWFsLXdlYiB7XG4gICAgbWFyZ2luOiBhdXRvO1xufVxuLnNvY2lhbC1sYmwge1xuICAgIGNvbG9yOndoaXRlO1xufVxuXG4ubWVudS1sb2dvIHtcbiAgICBmb250LXNpemU6IDIycHg7XG4gICAgXG59XG4ubWVudS1iYWRnZSB7XG4gICAgY29sb3I6ICNGRjY3MUQ7XG4gICAgZm9udC1zaXplOiA4cHg7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogd2hpdGU7XG5cbn1cbi5tZW51LW1pbmltYSB7XG4gICAgZm9udC1mYW1pbHk6ICdSaWRsZXktbm9ybWFsJztcbiAgICBmb250LXdlaWdodDogbm9ybWFsO1xuICAgIGZvbnQtc2l6ZTogMTJweDtcbiAgICBtYXJnaW46IGF1dG87XG59XG5cbkBtZWRpYSBvbmx5IHNjcmVlbiBhbmQgKG1pbi13aWR0aDogOTkycHgpIHtcbiAgICAuc3BsaXRwYW5lIHtcbiAgICAgICAgbWFyZ2luLWxlZnQ6IDE4MHB4O1xuICAgICAgICBtYXJnaW4tcmlnaHQ6IDE4MHB4O1xuICAgICAgICBtYXJnaW4tdG9wOiAxMDBweDtcbiAgICAgICAgbWFyZ2luLWJvdHRvbTogMTAwcHg7XG4gICAgICAgIGJveC1zaGFkb3c6IDJweCAycHggNXB4IGdyZXk7XG4gICAgfVxuICAgIGlvbi1hcHAge1xuICAgICAgICBiYWNrZ3JvdW5kLWltYWdlOiB1cmwoJy4uL2Fzc2V0cy9taW5pVGlsZXMucG5nJyk7XG4gICAgfVxuICAgIC5tZW51LWxvZ28ge1xuICAgICAgICBmb250LXNpemU6IDM1cHg7XG4gICAgfVxuICAgIFxuICAgIGlvbi1ub3RlIHtcbiAgICAgICAgcGFkZGluZy1yaWdodDogNTBweDtcbiAgICAgICAgZm9udC13ZWlnaHQ6IGJvbGRlcjtcbiAgICAgICAgZm9udC1zaXplOiAxMnB4O1xuICAgICAgICBmb250LWZhbWlseTogJ0Flb25payc7XG4gICAgICAgIGNvbG9yOiAjOTI5Mzk2O1xuICAgIH1cbiAgICAubWVudS1iYWRnZSB7XG4gICAgICAgIGNvbG9yOiAjRkY2NzFEO1xuICAgICAgICBiYWNrZ3JvdW5kLWNvbG9yOiB3aGl0ZTtcbiAgICB9XG4gICAgLm1lbnUtbWluaW1hIHtcbiAgICAgICAgZm9udC1mYW1pbHk6ICdSaWRsZXktbm9ybWFsJztcbiAgICAgICAgZm9udC13ZWlnaHQ6IG5vcm1hbDtcbiAgICAgICAgZm9udC1zaXplOiAyMnB4O1xuICAgICAgICBtYXJnaW46IGF1dG87XG4gICAgfVxufVxuXG4vLyBpT1MgbGF5b3V0XG4gICAgLmlvcyAubWVudS1sb2dvLXRpdGxlIHtcbiAgICAgICAgZm9udC1mYW1pbHk6ICdSaWRsZXktbm9ybWFsJztcbiAgICAgICAgZm9udC13ZWlnaHQ6IG5vcm1hbDtcbiAgICAgICAgZm9udC1zaXplOiAxMnB4O1xuICAgICAgICBwYWRkaW5nLWJvdHRvbTogMnB4O1xuICAgICAgICBcbiAgICB9XG4gICAgLmlvcyBpb24tbm90ZSBpb24tYmFkZ2Uge1xuICAgICAgICBtYXJnaW46IGF1dG87XG4gICAgICAgIGNvbG9yOiAjRkY2NzFFO1xuICAgICAgICBmb250LXNpemU6IDhweDtcbiAgICB9XG4gICAgXG4iLCJpb24taWNvbiB7XG4gIGNvbG9yOiAjRkY2NzFEO1xufVxuXG5pb24taXRlbTpob3ZlciB7XG4gIGJhY2tncm91bmQtY29sb3I6ICMwYWQxZTc7XG59XG5cbmlvbi1pY29uOmhvdmVyIHtcbiAgY29sb3I6ICNmZmZmZmY7XG59XG5cbmlvbi1pdGVtOmFjdGl2ZSB7XG4gIGJhY2tncm91bmQtY29sb3I6ICMwYWQxZTc7XG59XG5cbi5zb2NpYWwtd2ViIHtcbiAgbWFyZ2luOiBhdXRvO1xufVxuXG4uc29jaWFsLWxibCB7XG4gIGNvbG9yOiB3aGl0ZTtcbn1cblxuLm1lbnUtbG9nbyB7XG4gIGZvbnQtc2l6ZTogMjJweDtcbn1cblxuLm1lbnUtYmFkZ2Uge1xuICBjb2xvcjogI0ZGNjcxRDtcbiAgZm9udC1zaXplOiA4cHg7XG4gIGJhY2tncm91bmQtY29sb3I6IHdoaXRlO1xufVxuXG4ubWVudS1taW5pbWEge1xuICBmb250LWZhbWlseTogXCJSaWRsZXktbm9ybWFsXCI7XG4gIGZvbnQtd2VpZ2h0OiBub3JtYWw7XG4gIGZvbnQtc2l6ZTogMTJweDtcbiAgbWFyZ2luOiBhdXRvO1xufVxuXG5AbWVkaWEgb25seSBzY3JlZW4gYW5kIChtaW4td2lkdGg6IDk5MnB4KSB7XG4gIC5zcGxpdHBhbmUge1xuICAgIG1hcmdpbi1sZWZ0OiAxODBweDtcbiAgICBtYXJnaW4tcmlnaHQ6IDE4MHB4O1xuICAgIG1hcmdpbi10b3A6IDEwMHB4O1xuICAgIG1hcmdpbi1ib3R0b206IDEwMHB4O1xuICAgIGJveC1zaGFkb3c6IDJweCAycHggNXB4IGdyZXk7XG4gIH1cblxuICBpb24tYXBwIHtcbiAgICBiYWNrZ3JvdW5kLWltYWdlOiB1cmwoXCIuLi9hc3NldHMvbWluaVRpbGVzLnBuZ1wiKTtcbiAgfVxuXG4gIC5tZW51LWxvZ28ge1xuICAgIGZvbnQtc2l6ZTogMzVweDtcbiAgfVxuXG4gIGlvbi1ub3RlIHtcbiAgICBwYWRkaW5nLXJpZ2h0OiA1MHB4O1xuICAgIGZvbnQtd2VpZ2h0OiBib2xkZXI7XG4gICAgZm9udC1zaXplOiAxMnB4O1xuICAgIGZvbnQtZmFtaWx5OiBcIkFlb25pa1wiO1xuICAgIGNvbG9yOiAjOTI5Mzk2O1xuICB9XG5cbiAgLm1lbnUtYmFkZ2Uge1xuICAgIGNvbG9yOiAjRkY2NzFEO1xuICAgIGJhY2tncm91bmQtY29sb3I6IHdoaXRlO1xuICB9XG5cbiAgLm1lbnUtbWluaW1hIHtcbiAgICBmb250LWZhbWlseTogXCJSaWRsZXktbm9ybWFsXCI7XG4gICAgZm9udC13ZWlnaHQ6IG5vcm1hbDtcbiAgICBmb250LXNpemU6IDIycHg7XG4gICAgbWFyZ2luOiBhdXRvO1xuICB9XG59XG4uaW9zIC5tZW51LWxvZ28tdGl0bGUge1xuICBmb250LWZhbWlseTogXCJSaWRsZXktbm9ybWFsXCI7XG4gIGZvbnQtd2VpZ2h0OiBub3JtYWw7XG4gIGZvbnQtc2l6ZTogMTJweDtcbiAgcGFkZGluZy1ib3R0b206IDJweDtcbn1cblxuLmlvcyBpb24tbm90ZSBpb24tYmFkZ2Uge1xuICBtYXJnaW46IGF1dG87XG4gIGNvbG9yOiAjRkY2NzFFO1xuICBmb250LXNpemU6IDhweDtcbn0iXX0= */"
 
 /***/ }),
 
@@ -605,6 +605,7 @@ let AppComponent = class AppComponent {
         this.api = api;
         this.currentRoute = '';
         this.currentVersion = 0;
+        this.getPlatform();
         this.initializeApp();
     }
     ionViewWillEnter() {
@@ -622,6 +623,29 @@ let AppComponent = class AppComponent {
              //this.menu.close();
             });*/
         });
+    }
+    /* Get platform type to see if should be MiniWeb or not */
+    getPlatform() {
+        // Minima.logout();
+        /*  If on desktop do this.. */
+        if (this.platform.is('desktop') || this.platform.is('pwa')) {
+            console.log('Running Mini Desktop/Pwa');
+            window.addEventListener('load', (ev) => {
+                console.log('Minima Page loaded..');
+                window.addEventListener('MinimaEvent', (evt) => {
+                    console.log('Event connection successful!');
+                    console.log(' ');
+                    if (evt.detail.event === 'connected') {
+                        console.log('We are now connected with host -> ' + Minima.host);
+                        this.api.setHost('http://' + Minima.host + '/');
+                    }
+                });
+                Minima.init();
+            });
+        }
+        else {
+            console.log('Running Minima on mobile. :)');
+        }
     }
     getVersion() {
         this.api.getStatus().then((res) => {
@@ -686,7 +710,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @ionic-native/qr-scanner/ngx */ "./node_modules/@ionic-native/qr-scanner/ngx/index.js");
 /* harmony import */ var _pop_over_pop_over_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./pop-over/pop-over.component */ "./src/app/pop-over/pop-over.component.ts");
 /* harmony import */ var _pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./pop-term/pop-term.component */ "./src/app/pop-term/pop-term.component.ts");
-/* harmony import */ var _userterminal_service__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./userterminal.service */ "./src/app/userterminal.service.ts");
+/* harmony import */ var _service_userterminal_service__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./service/userterminal.service */ "./src/app/service/userterminal.service.ts");
 
 
 
@@ -717,7 +741,7 @@ AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
             _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_12__["QRScanner"],
             { provide: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouteReuseStrategy"], useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonicRouteStrategy"] },
             _pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_14__["PopTermComponent"],
-            _userterminal_service__WEBPACK_IMPORTED_MODULE_15__["UserTerminal"]
+            _service_userterminal_service__WEBPACK_IMPORTED_MODULE_15__["UserTerminal"]
         ],
         bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_9__["AppComponent"]]
     })
@@ -830,7 +854,7 @@ module.exports = ".activate-btn-minus {\n  color: #929396;\n  text-align: centre
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PopTermComponent", function() { return PopTermComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _userterminal_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../userterminal.service */ "./src/app/userterminal.service.ts");
+/* harmony import */ var _service_userterminal_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../service/userterminal.service */ "./src/app/service/userterminal.service.ts");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 
 
@@ -849,7 +873,7 @@ let PopTermComponent = class PopTermComponent {
     }
 };
 PopTermComponent.ctorParameters = () => [
-    { type: _userterminal_service__WEBPACK_IMPORTED_MODULE_1__["UserTerminal"] }
+    { type: _service_userterminal_service__WEBPACK_IMPORTED_MODULE_1__["UserTerminal"] }
 ];
 PopTermComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Component"])({
@@ -857,8 +881,41 @@ PopTermComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         template: __webpack_require__(/*! raw-loader!./pop-term.component.html */ "./node_modules/raw-loader/index.js!./src/app/pop-term/pop-term.component.html"),
         styles: [__webpack_require__(/*! ./pop-term.component.scss */ "./src/app/pop-term/pop-term.component.scss")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_userterminal_service__WEBPACK_IMPORTED_MODULE_1__["UserTerminal"]])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_service_userterminal_service__WEBPACK_IMPORTED_MODULE_1__["UserTerminal"]])
 ], PopTermComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/service/balance.service.ts":
+/*!********************************************!*\
+  !*** ./src/app/service/balance.service.ts ***!
+  \********************************************/
+/*! exports provided: BalanceService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BalanceService", function() { return BalanceService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var rxjs_Subject__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/Subject */ "./node_modules/rxjs-compat/_esm2015/Subject.js");
+
+
+
+let BalanceService = class BalanceService {
+    constructor() {
+        this.confirmedBalance = new rxjs_Subject__WEBPACK_IMPORTED_MODULE_2__["Subject"]();
+        this.unconfirmedBalance = new rxjs_Subject__WEBPACK_IMPORTED_MODULE_2__["Subject"]();
+    }
+};
+BalanceService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+        providedIn: 'root'
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+], BalanceService);
 
 
 
@@ -879,15 +936,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../environments/environment */ "./src/environments/environment.ts");
+/* harmony import */ var _balance_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./balance.service */ "./src/app/service/balance.service.ts");
+
 
 
 
 
 
 let MinimaApiService = class MinimaApiService {
-    constructor(http, loadingController) {
+    constructor(http, loadingController, balanceService) {
         this.http = http;
         this.loadingController = loadingController;
+        this.balanceService = balanceService;
         this.host = '';
         this.loader = null;
         this.host = _environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].defaultNode;
@@ -969,23 +1029,24 @@ let MinimaApiService = class MinimaApiService {
 };
 MinimaApiService.ctorParameters = () => [
     { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["LoadingController"] }
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["LoadingController"] },
+    { type: _balance_service__WEBPACK_IMPORTED_MODULE_5__["BalanceService"] }
 ];
 MinimaApiService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
         providedIn: 'root'
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"], _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["LoadingController"]])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"], _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["LoadingController"], _balance_service__WEBPACK_IMPORTED_MODULE_5__["BalanceService"]])
 ], MinimaApiService);
 
 
 
 /***/ }),
 
-/***/ "./src/app/userterminal.service.ts":
-/*!*****************************************!*\
-  !*** ./src/app/userterminal.service.ts ***!
-  \*****************************************/
+/***/ "./src/app/service/userterminal.service.ts":
+/*!*************************************************!*\
+  !*** ./src/app/service/userterminal.service.ts ***!
+  \*************************************************/
 /*! exports provided: UserTerminal */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 

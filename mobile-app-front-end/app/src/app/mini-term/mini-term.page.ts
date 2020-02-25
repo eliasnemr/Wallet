@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { LoadingController, NavController, IonContent, PopoverController } from '@ionic/angular';
 import { environment } from '../../environments/environment';
 import { map } from 'rxjs/operators';
-import { UserTerminal } from '../userterminal.service';
+import { UserTerminal } from '../service/userterminal.service';
 
 @Component({
   selector: 'app-mini-term',

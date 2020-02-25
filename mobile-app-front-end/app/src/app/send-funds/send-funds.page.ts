@@ -107,17 +107,13 @@ export class SendFundsPage implements OnInit {
     //window.document.querySelector('ion-content').classList.remove('transparentBody');
     
     
-      window.document.querySelectorAll('ion-content')
-      .forEach(element => {
-          const element1 = element.shadowRoot.querySelector('style');
-          element1.innerHTML = element1.innerHTML
+    window.document.querySelectorAll('ion-content')
+    .forEach(element => {
+      const element1 = element.shadowRoot.querySelector('style');
+      element1.innerHTML = element1.innerHTML
       .replace('--background: transparent', '--background:var(--ion-background-color,#fff);');
-      });
+    });
     
-      
-    
-    
-    this.ionApp.style.display = 'block';
     this.isCameraOpen = false;
     this.qrScanner.destroy();
   }
