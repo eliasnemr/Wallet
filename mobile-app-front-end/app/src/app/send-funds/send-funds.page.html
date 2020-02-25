@@ -1,5 +1,5 @@
 <ion-app>
-<ion-header *ngIf="isCameraOpen==false">
+<ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
@@ -10,8 +10,8 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-card *ngIf="isCameraOpen==false" >
+<ion-content *ngIf="isCameraOpen==false">
+  <ion-card>
     <ion-card-header>
       <ion-card-title>
         <ion-item lines="none">
@@ -21,7 +21,6 @@
     </ion-card-header>
 
     <ion-card-content>
-      <form>
         <ion-item>
           <ion-label position="floating">Tokens</ion-label>
           <ion-select 
@@ -56,8 +55,6 @@
           <ion-label position="floating">Amount</ion-label>
           <ion-input type="number" name="amount" [(ngModel)]="data.amount"></ion-input>
         </ion-item>
-      </form>
-
     </ion-card-content>
     
   </ion-card>

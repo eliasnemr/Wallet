@@ -1,5 +1,5 @@
 import { MinimaApiService } from './../service/minima-api.service';
-import { AlertController } from '@ionic/angular';
+import { AlertController, Platform } from '@ionic/angular';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 import { Component, OnInit, NgZone } from '@angular/core';
 
@@ -19,7 +19,8 @@ export class WebScannerPage implements OnInit {
   constructor(private qrScanner: QRScanner,
      private zone: NgZone,
      public alertController: AlertController,
-     private api: MinimaApiService) {}
+     private api: MinimaApiService,
+     private platform: Platform) {}
 
   ngOnInit() {
   }
@@ -41,20 +42,61 @@ export class WebScannerPage implements OnInit {
     }
   }
 
+  identifyPlatformToScan_Add(){
+    if(this.platform.is('ios')){
+      console.log('iOS Qr Code.')
+      setTimeout( () => {
+        window.document.querySelectorAll('ion-content')
+          .forEach(element => {
+            const element1 = element.shadowRoot.querySelector('style');
+            element1.innerHTML = element1.innerHTML
+          .replace('--background:var(--ion-background-color,#fff);', '--background: transparent');
+        });
+      }, 300);
+    } else if(this.platform.is('android')) {
+      // window.document.querySelector('ion-content').classList.add('transparentBody');
+      setTimeout( () => {
+      window.document.querySelectorAll('ion-content')
+          .forEach(element => {
+            const element1 = element.shadowRoot.querySelector('style');
+            element1.innerHTML = element1.innerHTML
+          .replace('--background:var(--ion-background-color,#fff);', '--background: transparent');
+        });
+      }, 300);
+    }
+  }
+  identifyPlatformToScan_Remove(){
+    if(this.platform.is('ios')){
+      console.log('iOS Qr Code.')
+      setTimeout( () => {
+        window.document.querySelectorAll('ion-content')
+          .forEach(element => {
+            const element1 = element.shadowRoot.querySelector('style');
+            element1.innerHTML = element1.innerHTML
+          .replace('--background: transparent', '--background:var(--ion-background-color,#fff);');
+        });
+      }, 300);
+    } else if(this.platform.is('android')) {
+      // window.document.querySelector('ion-content').classList.remove('transparentBody');
+      setTimeout( () => {
+        window.document.querySelectorAll('ion-content')
+          .forEach(element => {
+            const element1 = element.shadowRoot.querySelector('style');
+            element1.innerHTML = element1.innerHTML
+          .replace('--background: transparent', '--background:var(--ion-background-color,#fff);');
+        });
+      }, 300);
+    }
+  }
+
   scanQR() {
     this.qrScanner.prepare()
       .then((status: QRScannerStatus) => {
         if (status.authorized) {
           // camera permission was granted
           console.log('scanQR', status);
-          setTimeout(() => {
-            window.document.querySelectorAll('ion-content')
-                  .forEach(element => {
-                      const element1 = element.shadowRoot.querySelector('style');
-                      element1.innerHTML = element1.innerHTML
-                                                   .replace('--background:var(--ion-background-color,#fff);', '--background: transparent');
-                  });
-        }, 300);
+        
+        this.identifyPlatformToScan_Add();
 
         this.qrScanner.show();
         this.isCameraOpen = true;
@@ -66,14 +108,7 @@ export class WebScannerPage implements OnInit {
           
             this.stopCamera();
             this.qrWebLink(text);
-            // window.document.querySelector('ion-content').classList.remove('.transparentBody');
-           
-            window.document.querySelectorAll('ion-content')
-                  .forEach(element => {
-                      const element1 = element.shadowRoot.querySelector('style');
-                      element1.innerHTML = element1.innerHTML
-                  .replace('--background: transparent', '--background:var(--ion-background-color,#fff);');
-            });
+            this.identifyPlatformToScan_Remove();
             this.isCameraOpen = false;
             })
         }, (err) => {
@@ -119,14 +154,9 @@ export class WebScannerPage implements OnInit {
       this.qrScanner.hide();
       this.scanSub.unsubscribe();
     }
-    window.document.querySelectorAll('ion-content')
-                  .forEach(element => {
-                      const element1 = element.shadowRoot.querySelector('style');
-                      element1.innerHTML = element1.innerHTML
-                  .replace('--background: transparent', '--background:var(--ion-background-color,#fff);');
-            });
-            this.isCameraOpen = false;
-            
+    this.scanSub = null;
+    this.identifyPlatformToScan_Remove();
+    this.isCameraOpen = false;
     this.qrScanner.destroy();
   }
 

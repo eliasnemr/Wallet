@@ -1,7 +1,7 @@
 import { Component, OnInit, NgZone, NgModule} from '@angular/core';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 import { Clipboard } from '@ionic-native/clipboard/ngx';
-import { AlertController } from '@ionic/angular';
+import { AlertController, Platform } from '@ionic/angular';
 import { MinimaApiService } from '../service/minima-api.service';
 import { Tokens } from '../tokens';
 
@@ -26,7 +26,7 @@ export class SendFundsPage implements OnInit {
 
   constructor(private qrScanner: QRScanner, private clipboard: Clipboard, 
     public alertController: AlertController, private zone: NgZone, 
-    private api: MinimaApiService) { }
+    private api: MinimaApiService, private platform: Platform) { }
 
   ngOnInit() {}
 
@@ -39,6 +39,53 @@ export class SendFundsPage implements OnInit {
     this.stopCamera();
   }
 
+  identifyPlatformToScan_Add(){
+    if(this.platform.is('ios')){
+      console.log('iOS Qr Code.')
+      setTimeout( () => {
+        window.document.querySelectorAll('ion-content')
+          .forEach(element => {
+            const element1 = element.shadowRoot.querySelector('style');
+            element1.innerHTML = element1.innerHTML
+          .replace('--background:var(--ion-background-color,#fff);', '--background: transparent');
+        });
+      }, 300);
+    } else if(this.platform.is('android')) {
+      // window.document.querySelector('ion-content').classList.add('transparentBody');
+      setTimeout( () => {
+      window.document.querySelectorAll('ion-content')
+          .forEach(element => {
+            const element1 = element.shadowRoot.querySelector('style');
+            element1.innerHTML = element1.innerHTML
+          .replace('--background:var(--ion-background-color,#fff);', '--background: transparent');
+        });
+      }, 300);
+    }
+  }
+  identifyPlatformToScan_Remove(){
+    if(this.platform.is('ios')){
+      console.log('iOS Qr Code.')
+      setTimeout( () => {
+        window.document.querySelectorAll('ion-content')
+          .forEach(element => {
+            const element1 = element.shadowRoot.querySelector('style');
+            element1.innerHTML = element1.innerHTML
+          .replace('--background: transparent', '--background:var(--ion-background-color,#fff);');
+        });
+      }, 300);
+    } else if(this.platform.is('android')) {
+      // window.document.querySelector('ion-content').classList.remove('transparentBody');
+      setTimeout( () => {
+        window.document.querySelectorAll('ion-content')
+          .forEach(element => {
+            const element1 = element.shadowRoot.querySelector('style');
+            element1.innerHTML = element1.innerHTML
+          .replace('--background: transparent', '--background:var(--ion-background-color,#fff);');
+        });
+      }, 300);
+    }
+  }
+
   scanQR() {
     this.qrScanner.prepare()
       .then((status: QRScannerStatus) => {
@@ -46,18 +93,9 @@ export class SendFundsPage implements OnInit {
           // camera permission was granted
           console.log('scanQR', status);
 
-          //add transparent BG to the ion app
-          //window.document.querySelector('ion-content').classList.add('transparentBody');
-          // this.ionApp.style.display = 'none';
-          setTimeout(() => {
-            window.document.querySelectorAll('ion-content')
-                  .forEach(element => {
-                      const element1 = element.shadowRoot.querySelector('style');
-                      element1.innerHTML = element1.innerHTML
-                                                   .replace('--background:var(--ion-background-color,#fff);', '--background: transparent');
-                  });
-        }, 300);
-          // start scanning
+          // Which class adding should I use?
+          this.identifyPlatformToScan_Add();
+
           this.qrScanner.show();
           this.isCameraOpen = true;
 
@@ -67,13 +105,9 @@ export class SendFundsPage implements OnInit {
               console.log('Scanned something', text);
               this.data.address = text;
               this.stopCamera();
-              //window.document.querySelector('ion-content').classList.remove('.transparentBody');
-                window.document.querySelectorAll('ion-content')
-                      .forEach(element => {
-                          const element1 = element.shadowRoot.querySelector('style');
-                          element1.innerHTML = element1.innerHTML
-                          .replace('--background: transparent', '--background:var(--ion-background-color,#fff);');
-                      });
+
+              this.identifyPlatformToScan_Remove();
+
               this.isCameraOpen = false;
               })
 
@@ -104,16 +138,8 @@ export class SendFundsPage implements OnInit {
       this.scanSub.unsubscribe();
     }
     this.scanSub = null;
-    //window.document.querySelector('ion-content').classList.remove('transparentBody');
-    
-    
-    window.document.querySelectorAll('ion-content')
-    .forEach(element => {
-      const element1 = element.shadowRoot.querySelector('style');
-      element1.innerHTML = element1.innerHTML
-      .replace('--background: transparent', '--background:var(--ion-background-color,#fff);');
-    });
-    
+    this.identifyPlatformToScan_Remove();
+    //this.ionApp.style.display = 'block';
     this.isCameraOpen = false;
     this.qrScanner.destroy();
   }

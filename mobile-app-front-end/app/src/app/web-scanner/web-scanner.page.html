@@ -1,15 +1,14 @@
 <ion-app>
 <ion-header>
   <ion-toolbar>
-    <ion-menu-button slot="start"></ion-menu-button>
+    <ion-buttons slot="start">
+    <ion-menu-button></ion-menu-button>
+    </ion-buttons>
     <ion-title color="primary">Web</ion-title>
   </ion-toolbar>
 </ion-header>
 
-
-
 <ion-content *ngIf="isCameraOpen==false">
-
     <ion-list lines="none">
       <ion-item lines="none" class="web-img">
         <ion-img class="web-img" [src]="identifyImg()"></ion-img>
@@ -25,16 +24,13 @@
     
 </ion-content>
 
-
-
 <ion-footer>
   <ion-toolbar>
     <ion-buttons>
-      <ion-button class="qr-button" expand="block" (click)="stopCamera()"  *ngIf="isCameraOpen===true">
+      <ion-button class="qr-button" expand="block" (click)="stopCamera()"  *ngIf="isCameraOpen==true">
         Stop scanning
        </ion-button> 
-
-      <ion-button class="qr-button" (click)="scanQR()" *ngIf="isCameraOpen===false">
+      <ion-button class="qr-button" (click)="scanQR()" *ngIf="isCameraOpen==false">
         <ion-icon name="qr-scanner"></ion-icon> 
         Scan Qr Code
       </ion-button>

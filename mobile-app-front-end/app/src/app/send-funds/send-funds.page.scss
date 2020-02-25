@@ -24,3 +24,7 @@ ion-footer ion-toolbar ion-buttons ion-button{
   color: #1FB4CD;
   font-weight: bolder;
 }
+.transparentBody {
+	background: none transparent !important;
+	--background: none transparent !important;
+}
