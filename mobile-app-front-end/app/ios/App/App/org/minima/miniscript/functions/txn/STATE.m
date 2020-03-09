@@ -25,13 +25,12 @@ J2OBJC_IGNORE_DESIGNATED_BEGIN
 J2OBJC_IGNORE_DESIGNATED_END
 
 - (OrgMinimaMiniscriptValuesValue *)runFunctionWithOrgMinimaMiniscriptContract:(OrgMinimaMiniscriptContract *)zContract {
-  jint statenum = [((OrgMinimaObjectsBaseMiniNumber *) nil_chk([((OrgMinimaMiniscriptValuesValue *) nil_chk([((id<OrgMinimaMiniscriptExpressionsExpression>) nil_chk([self getParameterWithInt:0])) getValueWithOrgMinimaMiniscriptContract:zContract])) getNumber])) getAsInt];
+  OrgMinimaObjectsBaseMiniNumber *statenum = [((OrgMinimaMiniscriptValuesValue *) nil_chk([((id<OrgMinimaMiniscriptExpressionsExpression>) nil_chk([self getParameterWithInt:0])) getValueWithOrgMinimaMiniscriptContract:zContract])) getNumber];
   OrgMinimaObjectsTransaction *trans = [((OrgMinimaMiniscriptContract *) nil_chk(zContract)) getTransaction];
-  OrgMinimaObjectsBaseMiniNumber *sv = create_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(JreStrcat("I", statenum));
-  if (![((OrgMinimaObjectsTransaction *) nil_chk(trans)) stateExistsWithOrgMinimaObjectsBaseMiniNumber:sv]) {
-    @throw create_OrgMinimaMiniscriptExceptionsExecutionException_initWithNSString_(JreStrcat("$@", @"Invalid State Variable ", sv));
+  if (![((OrgMinimaObjectsTransaction *) nil_chk(trans)) stateExistsWithOrgMinimaObjectsBaseMiniNumber:statenum]) {
+    @throw create_OrgMinimaMiniscriptExceptionsExecutionException_initWithNSString_(JreStrcat("$@", @"Invalid State Variable ", statenum));
   }
-  NSString *stateval = [((OrgMinimaObjectsBaseMiniString *) nil_chk([((OrgMinimaObjectsStateVariable *) nil_chk([trans getStateValueWithOrgMinimaObjectsBaseMiniNumber:sv])) getData])) description];
+  NSString *stateval = [((OrgMinimaObjectsBaseMiniString *) nil_chk([((OrgMinimaObjectsStateVariable *) nil_chk([trans getStateValueWithOrgMinimaObjectsBaseMiniNumber:statenum])) getData])) description];
   stateval = OrgMinimaMiniscriptContract_cleanScriptWithNSString_(stateval);
   return OrgMinimaMiniscriptValuesValue_getValueWithNSString_(stateval);
 }

@@ -403,10 +403,10 @@ var findCheckedOption = function (el, tagName) {
 
 /***/ }),
 
-/***/ "./src/app/tokens.ts":
-/*!***************************!*\
-  !*** ./src/app/tokens.ts ***!
-  \***************************/
+/***/ "./src/app/MiniObjects/tokens.ts":
+/*!***************************************!*\
+  !*** ./src/app/MiniObjects/tokens.ts ***!
+  \***************************************/
 /*! exports provided: Tokens */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 

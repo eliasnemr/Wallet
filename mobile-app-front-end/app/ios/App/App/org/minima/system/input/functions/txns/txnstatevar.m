@@ -59,7 +59,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 void OrgMinimaSystemInputFunctionsTxnstxnstatevar_init(OrgMinimaSystemInputFunctionsTxnstxnstatevar *self) {
   OrgMinimaSystemInputCommandFunction_initWithNSString_(self, @"txnstatevar");
-  [self setHelpWithNSString:@"[txn_num] [port] [variable]" withNSString:@"Add a state variable to the transaction" withNSString:@""];
+  [self setHelpWithNSString:@"[id] [port] [variable]" withNSString:@"Add a state variable to the transaction" withNSString:@""];
 }
 
 OrgMinimaSystemInputFunctionsTxnstxnstatevar *new_OrgMinimaSystemInputFunctionsTxnstxnstatevar_init() {

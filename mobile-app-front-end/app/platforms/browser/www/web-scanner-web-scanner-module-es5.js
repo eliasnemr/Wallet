@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-menu-button slot=\"start\"></ion-menu-button>\n    <ion-title color=\"primary\">Web</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n\n\n<ion-content>\n<ion-list lines=\"none\">\n\n    <ion-item lines=\"none\" class=\"web-img\">\n      <ion-img class=\"web-img\" [src]=\"identifyImg()\"></ion-img>\n    </ion-item>\n    <ion-item lines=\"none\">\n      <ion-text class=\"web-lbl\" style=\"font-family: Aeonik-light; width:100%; text-align: center;\">Minima Web ready to scan.</ion-text>\n    </ion-item>\n    \n    <ion-item>\n      <ion-text class=\"web-lbl\" style=\"font-family: Aeonik-light; width:100%; text-align: center;\">Navigate to <ion-note style=\"font-weight: bold;\">\"https://dev.minima.global\"</ion-note> on desktop.</ion-text>\n    </ion-item>\n  </ion-list>\n</ion-content>\n\n\n\n<ion-footer>\n  <ion-toolbar>\n    <ion-buttons>\n      <ion-button class=\"qr-button\" expand=\"block\" (click)=\"stopCamera()\"  *ngIf=\"isCameraOpen===true\">\n        Stop scanning\n       </ion-button> \n\n      <ion-button class=\"qr-button\" (click)=\"scanQR()\" *ngIf=\"isCameraOpen===false\">\n        <ion-icon name=\"qr-scanner\"></ion-icon> \n        Scan Qr Code\n      </ion-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-footer>"
+module.exports = "<ion-app>\n<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n    <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    <ion-title color=\"primary\">Web</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content *ngIf=\"isCameraOpen==false\">\n    <ion-list lines=\"none\">\n      <ion-item lines=\"none\" class=\"web-img\">\n        <ion-img class=\"web-img\" [src]=\"identifyImg()\"></ion-img>\n      </ion-item>\n      <ion-item lines=\"none\">\n        <ion-text class=\"web-lbl\" style=\"font-family: Aeonik-light; width:100%; text-align: center;\">Minima Web ready to scan.</ion-text>\n      </ion-item>\n      \n      <ion-item>\n        <ion-text class=\"web-lbl\" style=\"font-family: Aeonik-light; width:100%; text-align: center;\">Navigate to <ion-note style=\"font-weight: bold;\">\"https://dev.minima.global\"</ion-note> on desktop.</ion-text>\n      </ion-item>\n    </ion-list>\n    \n</ion-content>\n\n<ion-footer>\n  <ion-toolbar>\n    <ion-buttons>\n      <ion-button class=\"qr-button\" expand=\"block\" (click)=\"stopCamera()\"  *ngIf=\"isCameraOpen==true\">\n        Stop scanning\n       </ion-button> \n      <ion-button class=\"qr-button\" (click)=\"scanQR()\" *ngIf=\"isCameraOpen==false\">\n        <ion-icon name=\"qr-scanner\"></ion-icon> \n        Scan Qr Code\n      </ion-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-footer>\n</ion-app>"
 
 /***/ }),
 
@@ -69,7 +69,7 @@ var WebScannerPageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".qr-button {\n  width: 100%;\n  height: 40px;\n}\n\n.qr-button:hover {\n  height: 50px;\n}\n\nion-icon {\n  padding: 5px;\n}\n\n.web-img {\n  padding-top: 20px;\n  margin: auto;\n  width: 300px;\n  -webkit-box-align: center;\n          align-items: center;\n}\n\n.web-lbl {\n  white-space: normal;\n  margin: auto;\n  -webkit-box-align: center;\n          align-items: center;\n  font-family: \"Aeonik-light\";\n}\n\n.ios web-img {\n  padding-top: 20px;\n}\n\n.md web-img {\n  padding-top: 20px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9lbGlhcy9Qcm9qZWN0cy9taW5pbWFjb3JlL21vYmlsZS1hcHAtZnJvbnQtZW5kL2FwcC9zcmMvYXBwL3dlYi1zY2FubmVyL3dlYi1zY2FubmVyLnBhZ2Uuc2NzcyIsInNyYy9hcHAvd2ViLXNjYW5uZXIvd2ViLXNjYW5uZXIucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksV0FBQTtFQUNBLFlBQUE7QUNDSjs7QURDQTtFQUNJLFlBQUE7QUNFSjs7QURBQTtFQUNJLFlBQUE7QUNHSjs7QUREQTtFQUVJLGlCQUFBO0VBQ0EsWUFBQTtFQUVBLFlBQUE7RUFDQSx5QkFBQTtVQUFBLG1CQUFBO0FDRUo7O0FEQUE7RUFDSSxtQkFBQTtFQUVBLFlBQUE7RUFFQSx5QkFBQTtVQUFBLG1CQUFBO0VBQ0EsMkJBQUE7QUNDSjs7QURJQTtFQUNJLGlCQUFBO0FDREo7O0FER0E7RUFDSSxpQkFBQTtBQ0FKIiwiZmlsZSI6InNyYy9hcHAvd2ViLXNjYW5uZXIvd2ViLXNjYW5uZXIucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnFyLWJ1dHRvbiB7XG4gICAgd2lkdGg6IDEwMCU7XG4gICAgaGVpZ2h0OiA0MHB4O1xufVxuLnFyLWJ1dHRvbjpob3ZlciB7XG4gICAgaGVpZ2h0OiA1MHB4O1xufVxuaW9uLWljb24ge1xuICAgIHBhZGRpbmc6IDVweDtcbn1cbi53ZWItaW1nIHtcbiAgICAvLyBoZWlnaHQ6IDQwdmggIWltcG9ydGFudDtcbiAgICBwYWRkaW5nLXRvcDogMjBweDtcbiAgICBtYXJnaW46IGF1dG87XG4gICAgLy8gd2lkdGg6IGF1dG8gIWltcG9ydGFudDtcbiAgICB3aWR0aDogMzAwcHg7XG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbn1cbi53ZWItbGJsIHtcbiAgICB3aGl0ZS1zcGFjZTogbm9ybWFsO1xuICAgIC8vaGVpZ2h0OiAxMXZoICFpbXBvcnRhbnQ7XG4gICAgbWFyZ2luOiBhdXRvO1xuICAgIC8vd2lkdGg6IGF1dG8gIWltcG9ydGFudDtcbiAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuICAgIGZvbnQtZmFtaWx5OiAnQWVvbmlrLWxpZ2h0JztcblxufVxuXG4vLyBpT1MgJiBBbmRyb2lkIGxheW91dCBmaXhcbi5pb3Mgd2ViLWltZyB7XG4gICAgcGFkZGluZy10b3A6IDIwcHg7XG59XG4ubWQgd2ViLWltZyB7XG4gICAgcGFkZGluZy10b3A6IDIwcHg7XG59XG4iLCIucXItYnV0dG9uIHtcbiAgd2lkdGg6IDEwMCU7XG4gIGhlaWdodDogNDBweDtcbn1cblxuLnFyLWJ1dHRvbjpob3ZlciB7XG4gIGhlaWdodDogNTBweDtcbn1cblxuaW9uLWljb24ge1xuICBwYWRkaW5nOiA1cHg7XG59XG5cbi53ZWItaW1nIHtcbiAgcGFkZGluZy10b3A6IDIwcHg7XG4gIG1hcmdpbjogYXV0bztcbiAgd2lkdGg6IDMwMHB4O1xuICBhbGlnbi1pdGVtczogY2VudGVyO1xufVxuXG4ud2ViLWxibCB7XG4gIHdoaXRlLXNwYWNlOiBub3JtYWw7XG4gIG1hcmdpbjogYXV0bztcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAgZm9udC1mYW1pbHk6IFwiQWVvbmlrLWxpZ2h0XCI7XG59XG5cbi5pb3Mgd2ViLWltZyB7XG4gIHBhZGRpbmctdG9wOiAyMHB4O1xufVxuXG4ubWQgd2ViLWltZyB7XG4gIHBhZGRpbmctdG9wOiAyMHB4O1xufSJdfQ== */"
+module.exports = ".qr-button {\n  width: 100%;\n  height: 40px;\n}\n\n.qr-button:hover {\n  height: 50px;\n}\n\nion-icon {\n  padding: 5px;\n}\n\n.web-img {\n  padding-top: 20px;\n  margin: auto;\n  width: 300px;\n  -webkit-box-align: center;\n          align-items: center;\n}\n\n.web-lbl {\n  white-space: normal;\n  margin: auto;\n  -webkit-box-align: center;\n          align-items: center;\n  font-family: \"Aeonik-light\";\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9lbGlhcy9Qcm9qZWN0cy9taW5pbWFjb3JlL21vYmlsZS1hcHAtZnJvbnQtZW5kL2FwcC9zcmMvYXBwL3dlYi1zY2FubmVyL3dlYi1zY2FubmVyLnBhZ2Uuc2NzcyIsInNyYy9hcHAvd2ViLXNjYW5uZXIvd2ViLXNjYW5uZXIucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksV0FBQTtFQUNBLFlBQUE7QUNDSjs7QURDQTtFQUNJLFlBQUE7QUNFSjs7QURBQTtFQUNJLFlBQUE7QUNHSjs7QUREQTtFQUNJLGlCQUFBO0VBQ0EsWUFBQTtFQUNBLFlBQUE7RUFDQSx5QkFBQTtVQUFBLG1CQUFBO0FDSUo7O0FERkE7RUFDSSxtQkFBQTtFQUNBLFlBQUE7RUFDQSx5QkFBQTtVQUFBLG1CQUFBO0VBQ0EsMkJBQUE7QUNLSiIsImZpbGUiOiJzcmMvYXBwL3dlYi1zY2FubmVyL3dlYi1zY2FubmVyLnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5xci1idXR0b24ge1xuICAgIHdpZHRoOiAxMDAlO1xuICAgIGhlaWdodDogNDBweDtcbn1cbi5xci1idXR0b246aG92ZXIge1xuICAgIGhlaWdodDogNTBweDtcbn1cbmlvbi1pY29uIHtcbiAgICBwYWRkaW5nOiA1cHg7XG59XG4ud2ViLWltZyB7XG4gICAgcGFkZGluZy10b3A6IDIwcHg7XG4gICAgbWFyZ2luOiBhdXRvO1xuICAgIHdpZHRoOiAzMDBweDtcbiAgICBhbGlnbi1pdGVtczogY2VudGVyO1xufVxuLndlYi1sYmwge1xuICAgIHdoaXRlLXNwYWNlOiBub3JtYWw7XG4gICAgbWFyZ2luOiBhdXRvO1xuICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG4gICAgZm9udC1mYW1pbHk6ICdBZW9uaWstbGlnaHQnO1xuXG59XG5cblxuLy8gaU9TICYgQW5kcm9pZCBsYXlvdXQgZml4XG4vLyAuaW9zIHdlYi1pbWcge1xuLy8gICAgIHBhZGRpbmctdG9wOiAyMHB4O1xuLy8gfVxuLy8gLm1kIHdlYi1pbWcge1xuLy8gICAgIHBhZGRpbmctdG9wOiAyMHB4O1xuLy8gfVxuIiwiLnFyLWJ1dHRvbiB7XG4gIHdpZHRoOiAxMDAlO1xuICBoZWlnaHQ6IDQwcHg7XG59XG5cbi5xci1idXR0b246aG92ZXIge1xuICBoZWlnaHQ6IDUwcHg7XG59XG5cbmlvbi1pY29uIHtcbiAgcGFkZGluZzogNXB4O1xufVxuXG4ud2ViLWltZyB7XG4gIHBhZGRpbmctdG9wOiAyMHB4O1xuICBtYXJnaW46IGF1dG87XG4gIHdpZHRoOiAzMDBweDtcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbn1cblxuLndlYi1sYmwge1xuICB3aGl0ZS1zcGFjZTogbm9ybWFsO1xuICBtYXJnaW46IGF1dG87XG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG4gIGZvbnQtZmFtaWx5OiBcIkFlb25pay1saWdodFwiO1xufSJdfQ== */"
 
 /***/ }),
 
@@ -94,11 +94,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var WebScannerPage = /** @class */ (function () {
-    function WebScannerPage(qrScanner, zone, alertController, api) {
+    function WebScannerPage(qrScanner, zone, alertController, api, platform) {
         this.qrScanner = qrScanner;
         this.zone = zone;
         this.alertController = alertController;
         this.api = api;
+        this.platform = platform;
         this.isCameraOpen = false;
         this.scanSub = null;
         this.data = {};
@@ -121,6 +122,54 @@ var WebScannerPage = /** @class */ (function () {
             return '../assets/lightweb.svg';
         }
     };
+    WebScannerPage.prototype.identifyPlatformToScan_Add = function () {
+        if (this.platform.is('ios')) {
+            console.log('iOS Qr Code.');
+            setTimeout(function () {
+                window.document.querySelectorAll('ion-content')
+                    .forEach(function (element) {
+                    var element1 = element.shadowRoot.querySelector('style');
+                    element1.innerHTML = element1.innerHTML
+                        .replace('--background:var(--ion-background-color,#fff);', '--background: transparent');
+                });
+            }, 300);
+        }
+        else if (this.platform.is('android')) {
+            // window.document.querySelector('ion-content').classList.add('transparentBody');
+            setTimeout(function () {
+                window.document.querySelectorAll('ion-content')
+                    .forEach(function (element) {
+                    var element1 = element.shadowRoot.querySelector('style');
+                    element1.innerHTML = element1.innerHTML
+                        .replace('--background:var(--ion-background-color,#fff);', '--background: transparent');
+                });
+            }, 300);
+        }
+    };
+    WebScannerPage.prototype.identifyPlatformToScan_Remove = function () {
+        if (this.platform.is('ios')) {
+            console.log('iOS Qr Code.');
+            setTimeout(function () {
+                window.document.querySelectorAll('ion-content')
+                    .forEach(function (element) {
+                    var element1 = element.shadowRoot.querySelector('style');
+                    element1.innerHTML = element1.innerHTML
+                        .replace('--background: transparent', '--background:var(--ion-background-color,#fff);');
+                });
+            }, 300);
+        }
+        else if (this.platform.is('android')) {
+            // window.document.querySelector('ion-content').classList.remove('transparentBody');
+            setTimeout(function () {
+                window.document.querySelectorAll('ion-content')
+                    .forEach(function (element) {
+                    var element1 = element.shadowRoot.querySelector('style');
+                    element1.innerHTML = element1.innerHTML
+                        .replace('--background: transparent', '--background:var(--ion-background-color,#fff);');
+                });
+            }, 300);
+        }
+    };
     WebScannerPage.prototype.scanQR = function () {
         var _this = this;
         this.qrScanner.prepare()
@@ -128,14 +177,7 @@ var WebScannerPage = /** @class */ (function () {
             if (status.authorized) {
                 // camera permission was granted
                 console.log('scanQR', status);
-                setTimeout(function () {
-                    window.document.querySelectorAll('ion-content')
-                        .forEach(function (element) {
-                        var element1 = element.shadowRoot.querySelector('style');
-                        element1.innerHTML = element1.innerHTML
-                            .replace('--background:var(--ion-background-color,#fff);', '--background: transparent');
-                    });
-                }, 300);
+                _this.identifyPlatformToScan_Add();
                 _this.qrScanner.show();
                 _this.isCameraOpen = true;
                 _this.scanSub = _this.qrScanner.scan().subscribe(function (text) {
@@ -144,13 +186,7 @@ var WebScannerPage = /** @class */ (function () {
                         //alert("Scanned this ->>>" + text);
                         _this.stopCamera();
                         _this.qrWebLink(text);
-                        // window.document.querySelector('ion-content').classList.remove('.transparentBody');
-                        window.document.querySelectorAll('ion-content')
-                            .forEach(function (element) {
-                            var element1 = element.shadowRoot.querySelector('style');
-                            element1.innerHTML = element1.innerHTML
-                                .replace('--background: transparent', '--background:var(--ion-background-color,#fff);');
-                        });
+                        _this.identifyPlatformToScan_Remove();
                         _this.isCameraOpen = false;
                     });
                 }, function (err) {
@@ -182,7 +218,6 @@ var WebScannerPage = /** @class */ (function () {
                     _this.presentAlert('Success!', 'You are now connected.');
                 }
                 else {
-                    alert("Hasn't connected");
                     _this.presentAlert(res.error, 'Error');
                 }
             });
@@ -199,13 +234,7 @@ var WebScannerPage = /** @class */ (function () {
             this.scanSub.unsubscribe();
         }
         this.scanSub = null;
-        window.document.querySelectorAll('ion-content')
-            .forEach(function (element) {
-            var element1 = element.shadowRoot.querySelector('style');
-            element1.innerHTML = element1.innerHTML
-                .replace('--background: transparent', '--background:var(--ion-background-color,#fff);');
-        });
-        this.ionApp.style.display = 'block';
+        this.identifyPlatformToScan_Remove();
         this.isCameraOpen = false;
         this.qrScanner.destroy();
     };
@@ -233,7 +262,8 @@ var WebScannerPage = /** @class */ (function () {
         { type: _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_3__["QRScanner"] },
         { type: _angular_core__WEBPACK_IMPORTED_MODULE_4__["NgZone"] },
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"] },
-        { type: _service_minima_api_service__WEBPACK_IMPORTED_MODULE_1__["MinimaApiService"] }
+        { type: _service_minima_api_service__WEBPACK_IMPORTED_MODULE_1__["MinimaApiService"] },
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Platform"] }
     ]; };
     WebScannerPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Component"])({
@@ -244,7 +274,8 @@ var WebScannerPage = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_3__["QRScanner"],
             _angular_core__WEBPACK_IMPORTED_MODULE_4__["NgZone"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"],
-            _service_minima_api_service__WEBPACK_IMPORTED_MODULE_1__["MinimaApiService"]])
+            _service_minima_api_service__WEBPACK_IMPORTED_MODULE_1__["MinimaApiService"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Platform"]])
     ], WebScannerPage);
     return WebScannerPage;
 }());

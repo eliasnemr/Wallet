@@ -1,0 +1,72 @@
+<ion-app>
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+      <ion-title color="primary">Transaction History</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <ion-card>
+      <ion-card-header>
+        Recent Activity
+      </ion-card-header>
+      <ion-card-content>
+  
+        <ion-item *ngIf="t_summaryArr.length < 1" lines="none">
+        <ion-text>No activities to display.</ion-text>
+        </ion-item>
+        <ion-list *ngFor="let trans of t_summaryArr.slice().reverse();">
+      
+        <ion-grid><ion-row>
+        <ion-item *ngIf="t_summaryArr.length >= 1;" detail class="activity"
+           (click)="presentHistoryInfo($event, trans.receivingAddress,
+                                     trans.blockNumber, trans.transAmount, trans.isBlock, 
+                                     trans.txpowid, trans.parent, trans.blockdiff, trans.date)">
+          <ion-col class="col-month" fixed="true">
+          <ion-label>
+          <h1 id="month">
+            {{ trans.transMonth }} 
+          </h1>
+          <p id="day">
+            {{ trans.transDay }}
+          </p>
+        </ion-label>
+        </ion-col>
+        <!-- Maybe add icon here -->
+  
+        <ion-col class="col-transtype" fixed="true">
+        <ion-label id="transaction">
+          <h2 class="h2-type">
+            {{ checkTransType(trans.transAmount) }} {{ trans.transTokenName }}
+          </h2>
+          <p class="p-tokenid">
+            Token Id: {{ trans.transTokenId }}
+          </p>
+        </ion-label>
+        </ion-col>
+  
+        <ion-col class="col-transamnt" fixed="true">
+        <ion-label class="amount">
+          <h2 class="amount-h2">
+            {{ trans.transAmount }} MINI
+          </h2>
+          <p class="amount-p">
+            +$11.09
+          </p>
+        </ion-label> 
+       
+      </ion-col>
+        </ion-item>
+          
+      </ion-row></ion-grid>
+      </ion-list>
+  
+  
+      </ion-card-content>
+    </ion-card>
+  
+  </ion-content>
+  </ion-app>

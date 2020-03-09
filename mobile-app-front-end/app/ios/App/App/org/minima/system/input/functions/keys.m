@@ -8,6 +8,7 @@
 #include "org/minima/system/Main.h"
 #include "org/minima/system/brains/ConsensusHandler.h"
 #include "org/minima/system/brains/ConsensusPrint.h"
+#include "org/minima/system/brains/ConsensusUser.h"
 #include "org/minima/system/input/CommandFunction.h"
 #include "org/minima/system/input/functions/keys.h"
 #include "org/minima/utils/messages/Message.h"
@@ -22,8 +23,11 @@ J2OBJC_IGNORE_DESIGNATED_BEGIN
 J2OBJC_IGNORE_DESIGNATED_END
 
 - (void)doFunctionWithNSStringArray:(IOSObjectArray *)zInput {
-  OrgMinimaUtilsMessagesMessage *msg = [self getResponseMessageWithNSString:OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_KEYS];
-  [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getConsensusHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:msg];
+  if (((IOSObjectArray *) nil_chk(zInput))->size_ > 1) {
+    [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getConsensusHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:[self getResponseMessageWithNSString:OrgMinimaSystemBrainsConsensusUser_CONSENSUS_NEWKEY]];
+    return;
+  }
+  [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getConsensusHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:[self getResponseMessageWithNSString:OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_KEYS]];
 }
 
 - (OrgMinimaSystemInputCommandFunction *)getNewFunction {
@@ -52,7 +56,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 void OrgMinimaSystemInputFunctionskeys_init(OrgMinimaSystemInputFunctionskeys *self) {
   OrgMinimaSystemInputCommandFunction_initWithNSString_(self, @"keys");
-  [self setHelpWithNSString:@"" withNSString:@"Return a list of all the addresses and public keys in this account" withNSString:@""];
+  [self setHelpWithNSString:@"(new)" withNSString:@"Create a new key pair or return a list of all the addresses and public keys in this account" withNSString:@""];
 }
 
 OrgMinimaSystemInputFunctionskeys *new_OrgMinimaSystemInputFunctionskeys_init() {

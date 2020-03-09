@@ -81,12 +81,14 @@ NSString *OrgMinimaSystemNetworkRpcRPCClient_sendGETWithNSString_(NSString *zHos
   jint responseCode = [con getResponseCode];
   JavaLangStringBuffer *response = create_JavaLangStringBuffer_init();
   if (responseCode == JavaNetHttpURLConnection_HTTP_OK) {
-    JavaIoBufferedReader *in = create_JavaIoBufferedReader_initWithJavaIoReader_(create_JavaIoInputStreamReader_initWithJavaIoInputStream_([con getInputStream]));
+    JavaIoInputStream *is = [con getInputStream];
+    JavaIoBufferedReader *in = create_JavaIoBufferedReader_initWithJavaIoReader_(create_JavaIoInputStreamReader_initWithJavaIoInputStream_(is));
     NSString *inputLine;
     while ((inputLine = [in readLine]) != nil) {
       [response appendWithNSString:inputLine];
     }
     [in close];
+    [((JavaIoInputStream *) nil_chk(is)) close];
   }
   else {
   }

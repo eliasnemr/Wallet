@@ -3,18 +3,18 @@ package org.minima.system.brains;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
-import java.util.Iterator;
 
 import org.minima.GlobalParams;
 import org.minima.database.MinimaDB;
 import org.minima.database.coindb.CoinDBPrinter;
 import org.minima.database.coindb.CoinDBRow;
 import org.minima.database.mmr.MMRPrint;
-import org.minima.database.mmr.MMRProof;
 import org.minima.database.mmr.MMRSet;
 import org.minima.database.txpowdb.TxPowDBPrinter;
 import org.minima.database.txpowtree.BlockTreeNode;
 import org.minima.database.txpowtree.BlockTreePrinter;
+import org.minima.database.userdb.UserDB;
+import org.minima.database.userdb.java.reltxpow;
 import org.minima.objects.Address;
 import org.minima.objects.Coin;
 import org.minima.objects.PubPrivKey;
@@ -26,12 +26,10 @@ import org.minima.system.Main;
 import org.minima.system.input.InputHandler;
 import org.minima.system.network.NetClient;
 import org.minima.utils.Maths;
-import org.minima.utils.MiniFormat;
 import org.minima.utils.MinimaLogger;
 import org.minima.utils.json.JSONArray;
 import org.minima.utils.json.JSONObject;
 import org.minima.utils.messages.Message;
-
 
 public class ConsensusPrint {
 
@@ -42,6 +40,8 @@ public class ConsensusPrint {
 	public static final String CONSENSUS_COINS 				= CONSENSUS_PREFIX+"COINS";
 	public static final String CONSENSUS_TXPOW 				= CONSENSUS_PREFIX+"TXPOW";
 	public static final String CONSENSUS_KEYS 				= CONSENSUS_PREFIX+"KEYS";
+	
+	public static final String CONSENSUS_HISTORY 		    = CONSENSUS_PREFIX+"HISTORY";
 	
 	public static final String CONSENSUS_STATUS 			= CONSENSUS_PREFIX+"STATUS";
 	public static final String CONSENSUS_PRINTCHAIN 		= CONSENSUS_PREFIX+"PRINTCHAIN";
@@ -115,9 +115,14 @@ public class ConsensusPrint {
 			Hashtable<String, MiniNumber> totals_confirmed   = new Hashtable<>();
 			Hashtable<String, MiniNumber> totals_unconfirmed = new Hashtable<>();
 			
+			UserDB userdb = getMainDB().getUserDB();
 			ArrayList<CoinDBRow> coins = getMainDB().getCoinDB().getComplete();
 			for(CoinDBRow coin : coins) {
-				if(coin.isInBlock()) {
+				
+				//Is this one of ours ? Could be an import of someone elses 
+				boolean rel = userdb.isAddressRelevant(coin.getCoin().getAddress());
+				
+				if(coin.isInBlock() && rel) {
 					//What Token..
 					String     tokid 	= coin.getCoin().getTokenID().to0xString();
 					MiniHash   tokhash 	= new MiniHash(tokid);
@@ -320,22 +325,59 @@ public class ConsensusPrint {
 			
 			//All good
 			InputHandler.endResponse(zMessage, true, "");
-			
+	
 		}else if(zMessage.isMessageType(CONSENSUS_COINS)){
+			//Return all or some
+			String address = "";
+			if(zMessage.exists("address")) {
+				address = zMessage.getString("address");
+			}
+			
 			//get the MMR
 			BlockTreeNode tip  		= getMainDB().getMainTree().getChainTip();
 			MMRSet baseset 			= tip.getMMRSet();
 			
-			MiniNumber top = getMainDB().getTopBlock();
+			JSONObject allcoins = InputHandler.getResponseJSON(zMessage);
+			JSONArray totcoins = new JSONArray();
+			
 			ArrayList<CoinDBRow> coins = getMainDB().getCoinDB().getComplete();
-			int counter=0;
 			for(CoinDBRow coin : coins) {
 				if(!coin.isSpent()) {
-					InputHandler.getResponseJSON(zMessage).put(counter++, baseset.getProof(coin.getMMREntry()) );
+					if(address.equals("")) {
+						totcoins.add(baseset.getProof(coin.getMMREntry()).toJSON());	
+					}else if(address.equals(coin.getCoin().getAddress().to0xString())) {
+						totcoins.add(baseset.getProof(coin.getMMREntry()).toJSON());
+					}
 				}
 			}
 			
+			//Add to the main JSON
+			allcoins.put("coins", totcoins);
+			
 			//Add it to the output
+			InputHandler.endResponse(zMessage, true, "");
+		
+		}else if(zMessage.isMessageType(CONSENSUS_HISTORY)){
+			//Is it a clear..
+			if(zMessage.exists("clear")) {
+				getMainDB().getUserDB().clearHistory();
+			}
+			
+			//Get the HIstory
+			ArrayList<reltxpow> history = getMainDB().getUserDB().getHistory();
+			
+			//All the relevant transactions..
+			JSONObject allbal = InputHandler.getResponseJSON(zMessage);
+			JSONArray totbal = new JSONArray();
+			
+			for(reltxpow rpow : history) {
+				totbal.add(rpow.toJSON());
+			}
+			
+			//And add to the final response
+			allbal.put("history",totbal);
+			
+			//All good
 			InputHandler.endResponse(zMessage, true, "");
 		
 		}else if(zMessage.isMessageType(CONSENSUS_TXPOW)){

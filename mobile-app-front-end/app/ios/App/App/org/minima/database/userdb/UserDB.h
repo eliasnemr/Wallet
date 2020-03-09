@@ -20,9 +20,11 @@
 @class OrgMinimaObjectsAddress;
 @class OrgMinimaObjectsBaseMiniData;
 @class OrgMinimaObjectsBaseMiniHash;
+@class OrgMinimaObjectsBaseMiniNumber;
 @class OrgMinimaObjectsPubPrivKey;
 @class OrgMinimaObjectsTokenDetails;
 @class OrgMinimaObjectsTransaction;
+@class OrgMinimaObjectsTxPOW;
 @protocol OrgMinimaDatabaseUserdbUserDBRow;
 
 @protocol OrgMinimaDatabaseUserdbUserDB < JavaObject >
@@ -59,7 +61,7 @@
 
 - (id<OrgMinimaDatabaseUserdbUserDBRow>)getUserRowWithInt:(jint)zID;
 
-- (id<OrgMinimaDatabaseUserdbUserDBRow>)addUserRow;
+- (id<OrgMinimaDatabaseUserdbUserDBRow>)addUserRowWithInt:(jint)zID;
 
 - (void)deleteUserRowWithInt:(jint)zID;
 
@@ -68,6 +70,13 @@
 - (OrgMinimaObjectsTokenDetails *)getTokenDetailWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zTokenID;
 
 - (void)addTokenDetailsWithOrgMinimaObjectsTokenDetails:(OrgMinimaObjectsTokenDetails *)zToken;
+
+- (JavaUtilArrayList *)getHistory;
+
+- (void)addToHistoryWithOrgMinimaObjectsTxPOW:(OrgMinimaObjectsTxPOW *)zTxPOW
+           withOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zValue;
+
+- (void)clearHistory;
 
 @end
 

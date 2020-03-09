@@ -22,11 +22,16 @@ ion-footer ion-toolbar ion-buttons ion-button{
  .confirmed-amount {
     color: #00AAC7;
     font-size: 1.0rem;
-    font-weight: 300;
+    font-family: 'Aeonik-bold';
     white-space: normal;
  }
- .logo-names {
+ .unconfirmed-amount {
      font-size: 0.8rem;
+     font-family: 'Aeonik-bold';
+     white-space: normal;
+ }
+ .logo-names {
+     font-size: 1.0rem;
      font-weight: 300;
      
  }
@@ -46,6 +51,8 @@ ion-footer ion-toolbar ion-buttons ion-button{
   }
   .balance-tokenname {
    position: absolute;
+   font-family: 'Aeonik-bold' ;
+   text-transform: uppercase;
    padding-top: 6px;
    padding-left: 2px;
   }

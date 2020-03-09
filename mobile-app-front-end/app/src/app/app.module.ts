@@ -13,13 +13,14 @@ import { Clipboard } from '@ionic-native/clipboard/ngx';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 import { PopOverComponent } from './pop-over/pop-over.component';
 import { PopTermComponent } from './pop-term/pop-term.component';
+import { PopHistoryComponent } from './pop-history/pop-history.component';
 import { UserTerminal } from './service/userterminal.service';
 import * as MifiJS from '../assets/JS/minimajs.js';
 
 
 @NgModule({
-  declarations: [AppComponent, PopOverComponent, PopTermComponent],
-  entryComponents: [PopOverComponent, PopTermComponent],
+  declarations: [AppComponent, PopOverComponent, PopTermComponent, PopHistoryComponent],
+  entryComponents: [PopOverComponent, PopTermComponent, PopHistoryComponent],
   imports: [FormsModule, HttpClientModule, BrowserModule, IonicModule.forRoot(), AppRoutingModule],
   providers: [
     StatusBar,
@@ -28,6 +29,8 @@ import * as MifiJS from '../assets/JS/minimajs.js';
     QRScanner,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     PopTermComponent,
+    PopOverComponent,
+    PopHistoryComponent,
     UserTerminal
   ],
   bootstrap: [AppComponent]

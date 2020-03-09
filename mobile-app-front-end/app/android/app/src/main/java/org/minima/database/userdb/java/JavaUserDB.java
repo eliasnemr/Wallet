@@ -13,8 +13,10 @@ import org.minima.objects.Coin;
 import org.minima.objects.PubPrivKey;
 import org.minima.objects.TokenDetails;
 import org.minima.objects.Transaction;
+import org.minima.objects.TxPOW;
 import org.minima.objects.base.MiniData;
 import org.minima.objects.base.MiniHash;
+import org.minima.objects.base.MiniNumber;
 import org.minima.utils.MinimaLogger;
 import org.minima.utils.Streamable;
 
@@ -35,6 +37,11 @@ public class JavaUserDB implements UserDB, Streamable{
 	ArrayList<TokenDetails> mAllTokens;
 	
 	/**
+	 * Transaction History
+	 */
+	ArrayList<reltxpow> mHistory;
+	
+	/**
 	 * Base constructor
 	 */
 	public JavaUserDB() {
@@ -46,6 +53,8 @@ public class JavaUserDB implements UserDB, Streamable{
 		
 		mCounter = 0;
 		mRows  = new ArrayList<>();
+		
+		mHistory = new ArrayList<>();
 	}
 	
 	@Override
@@ -81,8 +90,8 @@ public class JavaUserDB implements UserDB, Streamable{
 	}
 
 	@Override
-	public UserDBRow addUserRow() {
-		UserDBRow row = new JavaUserDBRow(mCounter++);
+	public UserDBRow addUserRow(int zID) {
+		UserDBRow row = new JavaUserDBRow(zID);
 		mRows.add(row);
 		return row;
 	}
@@ -154,6 +163,9 @@ public class JavaUserDB implements UserDB, Streamable{
 		//A simple script.. 
 		Address addr = new Address(zScript);
 		
+		//Do we allready have it ?
+		//..
+		
 		//Add to the simple wallet
 		mScriptAddresses.add(addr);
 		mTotalAddresses.add(addr);
@@ -170,7 +182,7 @@ public class JavaUserDB implements UserDB, Streamable{
 			}
 		}
 		
-		return "NULL";
+		return "";
 	}
 
 	
@@ -265,6 +277,13 @@ public class JavaUserDB implements UserDB, Streamable{
 			JavaUserDBRow jrow = (JavaUserDBRow) row;		
 			jrow.writeDataStream(zOut);
 		}	
+		
+		//History
+		len = mHistory.size();
+		zOut.writeInt(len);
+		for(reltxpow rtxpow : mHistory) {
+			rtxpow.writeDataStream(zOut);
+		}
 	}
 
 	@Override
@@ -318,6 +337,15 @@ public class JavaUserDB implements UserDB, Streamable{
 			row.readDataStream(zIn);
 			mRows.add(row);
 		}
+		
+		//History
+		mHistory = new ArrayList<reltxpow>();
+		len = zIn.readInt();
+		for(int i=0;i<len;i++) {
+			reltxpow rpow = new reltxpow();
+			rpow.readDataStream(zIn);
+			mHistory.add(rpow);
+		}
 	}
 
 	@Override
@@ -343,6 +371,37 @@ public class JavaUserDB implements UserDB, Streamable{
 			//We don't have it - add it
 			mAllTokens.add(zToken);	
 		}
+	}
+
+	/**
+	 * Transasction History 
+	 */
+	@Override
+	public ArrayList<reltxpow> getHistory() {
+		return mHistory;
+	}
+
+	@Override
+	public void addToHistory(TxPOW zTxPOW, MiniNumber zValue) {
+		mHistory.add(new reltxpow(zTxPOW, zValue));
+	}
+
+//	@Override
+//	public void removeHistory(MiniHash zTxPowID) {
+//		ArrayList<TxPOW> newhist = new ArrayList<TxPOW>();
+//		
+//		for(TxPOW txpow : mHistory) {
+//			if(!txpow.getTxPowID().isExactlyEqual(zTxPowID)) {
+//				newhist.add(txpow);
+//			}
+//		}
+//		
+//		mHistory = newhist;
+//	}
+
+	@Override
+	public void clearHistory() {
+		mHistory.clear();
 	}
 
 }

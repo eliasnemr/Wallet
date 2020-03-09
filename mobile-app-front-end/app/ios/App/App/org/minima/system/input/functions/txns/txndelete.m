@@ -55,7 +55,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 void OrgMinimaSystemInputFunctionsTxnstxndelete_init(OrgMinimaSystemInputFunctionsTxnstxndelete *self) {
   OrgMinimaSystemInputCommandFunction_initWithNSString_(self, @"txndelete");
-  [self setHelpWithNSString:@"[txn_num]" withNSString:@"Delete the custom transaction" withNSString:@""];
+  [self setHelpWithNSString:@"[id]" withNSString:@"Delete the custom transaction" withNSString:@""];
 }
 
 OrgMinimaSystemInputFunctionsTxnstxndelete *new_OrgMinimaSystemInputFunctionsTxnstxndelete_init() {

@@ -30,11 +30,14 @@
     { NULL, "Z", 0x401, 13, 14, -1, -1, -1, -1 },
     { NULL, "LJavaUtilArrayList;", 0x401, -1, -1, -1, 15, -1, -1 },
     { NULL, "LOrgMinimaDatabaseUserdbUserDBRow;", 0x401, 16, 17, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaDatabaseUserdbUserDBRow;", 0x401, -1, -1, -1, -1, -1, -1 },
-    { NULL, "V", 0x401, 18, 17, -1, -1, -1, -1 },
-    { NULL, "LJavaUtilArrayList;", 0x401, -1, -1, -1, 19, -1, -1 },
-    { NULL, "LOrgMinimaObjectsTokenDetails;", 0x401, 20, 7, -1, -1, -1, -1 },
-    { NULL, "V", 0x401, 21, 22, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaDatabaseUserdbUserDBRow;", 0x401, 18, 17, -1, -1, -1, -1 },
+    { NULL, "V", 0x401, 19, 17, -1, -1, -1, -1 },
+    { NULL, "LJavaUtilArrayList;", 0x401, -1, -1, -1, 20, -1, -1 },
+    { NULL, "LOrgMinimaObjectsTokenDetails;", 0x401, 21, 7, -1, -1, -1, -1 },
+    { NULL, "V", 0x401, 22, 23, -1, -1, -1, -1 },
+    { NULL, "LJavaUtilArrayList;", 0x401, -1, -1, -1, 24, -1, -1 },
+    { NULL, "V", 0x401, 25, 26, -1, -1, -1, -1 },
+    { NULL, "V", 0x401, -1, -1, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
@@ -55,14 +58,17 @@
   methods[13].selector = @selector(isTransactionRelevantWithOrgMinimaObjectsTransaction:);
   methods[14].selector = @selector(getAllRows);
   methods[15].selector = @selector(getUserRowWithInt:);
-  methods[16].selector = @selector(addUserRow);
+  methods[16].selector = @selector(addUserRowWithInt:);
   methods[17].selector = @selector(deleteUserRowWithInt:);
   methods[18].selector = @selector(getAllKnownTokens);
   methods[19].selector = @selector(getTokenDetailWithOrgMinimaObjectsBaseMiniHash:);
   methods[20].selector = @selector(addTokenDetailsWithOrgMinimaObjectsTokenDetails:);
+  methods[21].selector = @selector(getHistory);
+  methods[22].selector = @selector(addToHistoryWithOrgMinimaObjectsTxPOW:withOrgMinimaObjectsBaseMiniNumber:);
+  methods[23].selector = @selector(clearHistory);
   #pragma clang diagnostic pop
-  static const void *ptrTable[] = { "()Ljava/util/ArrayList<Lorg/minima/objects/PubPrivKey;>;", "getPubPrivKey", "LOrgMinimaObjectsBaseMiniData;", "()Ljava/util/ArrayList<Lorg/minima/objects/Address;>;", "newSimpleAddress", "LOrgMinimaObjectsPubPrivKey;", "isSimpleAddress", "LOrgMinimaObjectsBaseMiniHash;", "getPublicKey", "newScriptAddress", "LNSString;", "getScript", "isAddressRelevant", "isTransactionRelevant", "LOrgMinimaObjectsTransaction;", "()Ljava/util/ArrayList<Lorg/minima/database/userdb/UserDBRow;>;", "getUserRow", "I", "deleteUserRow", "()Ljava/util/ArrayList<Lorg/minima/objects/TokenDetails;>;", "getTokenDetail", "addTokenDetails", "LOrgMinimaObjectsTokenDetails;" };
-  static const J2ObjcClassInfo _OrgMinimaDatabaseUserdbUserDB = { "UserDB", "org.minima.database.userdb", ptrTable, methods, NULL, 7, 0x609, 21, 0, -1, -1, -1, -1, -1 };
+  static const void *ptrTable[] = { "()Ljava/util/ArrayList<Lorg/minima/objects/PubPrivKey;>;", "getPubPrivKey", "LOrgMinimaObjectsBaseMiniData;", "()Ljava/util/ArrayList<Lorg/minima/objects/Address;>;", "newSimpleAddress", "LOrgMinimaObjectsPubPrivKey;", "isSimpleAddress", "LOrgMinimaObjectsBaseMiniHash;", "getPublicKey", "newScriptAddress", "LNSString;", "getScript", "isAddressRelevant", "isTransactionRelevant", "LOrgMinimaObjectsTransaction;", "()Ljava/util/ArrayList<Lorg/minima/database/userdb/UserDBRow;>;", "getUserRow", "I", "addUserRow", "deleteUserRow", "()Ljava/util/ArrayList<Lorg/minima/objects/TokenDetails;>;", "getTokenDetail", "addTokenDetails", "LOrgMinimaObjectsTokenDetails;", "()Ljava/util/ArrayList<Lorg/minima/database/userdb/java/reltxpow;>;", "addToHistory", "LOrgMinimaObjectsTxPOW;LOrgMinimaObjectsBaseMiniNumber;" };
+  static const J2ObjcClassInfo _OrgMinimaDatabaseUserdbUserDB = { "UserDB", "org.minima.database.userdb", ptrTable, methods, NULL, 7, 0x609, 24, 0, -1, -1, -1, -1, -1 };
   return &_OrgMinimaDatabaseUserdbUserDB;
 }
 

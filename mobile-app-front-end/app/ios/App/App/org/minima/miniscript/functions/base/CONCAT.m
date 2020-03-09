@@ -8,6 +8,7 @@
 #include "IOSPrimitiveArray.h"
 #include "J2ObjC_source.h"
 #include "java/lang/System.h"
+#include "java/nio/charset/Charset.h"
 #include "java/util/ArrayList.h"
 #include "org/minima/miniscript/Contract.h"
 #include "org/minima/miniscript/exceptions/ExecutionException.h"
@@ -35,24 +36,37 @@ J2OBJC_IGNORE_DESIGNATED_END
     @throw create_OrgMinimaMiniscriptExceptionsExecutionException_initWithNSString_(JreStrcat("$I", @"Invalid number of Parameters for CONCAT ", paramnum));
   }
   jint type = [((OrgMinimaMiniscriptValuesValue *) nil_chk([((id<OrgMinimaMiniscriptExpressionsExpression>) nil_chk([params getWithInt:0])) getValueWithOrgMinimaMiniscriptContract:zContract])) getValueType];
+  if (type != OrgMinimaMiniscriptValuesHEXValue_VALUE_HEX && type != OrgMinimaMiniscriptValuesScriptValue_VALUE_SCRIPT) {
+    @throw create_OrgMinimaMiniscriptExceptionsExecutionException_initWithNSString_(JreStrcat("$I$$", @"Invaid Value Type in CONCAT ", type, @") MUST be HEX or SCRIPT ", [((id<OrgMinimaMiniscriptExpressionsExpression>) nil_chk([params getWithInt:0])) description]));
+  }
   jint totlen = 0;
   jint counter = 0;
   for (id<OrgMinimaMiniscriptExpressionsExpression> __strong exp in params) {
-    IOSObjectArray_Set(parambytes, counter, [((OrgMinimaMiniscriptValuesValue *) nil_chk([((id<OrgMinimaMiniscriptExpressionsExpression>) nil_chk(exp)) getValueWithOrgMinimaMiniscriptContract:zContract])) getRawData]);
+    jint intype = [((OrgMinimaMiniscriptValuesValue *) nil_chk([((id<OrgMinimaMiniscriptExpressionsExpression>) nil_chk(exp)) getValueWithOrgMinimaMiniscriptContract:zContract])) getValueType];
+    if (intype != type) {
+      @throw create_OrgMinimaMiniscriptExceptionsExecutionException_initWithNSString_(JreStrcat("$I$", @"Invaid Value Type in CONCAT ", intype, @") MUST all be the same"));
+    }
+    IOSObjectArray_Set(parambytes, counter, [((OrgMinimaMiniscriptValuesValue *) nil_chk([exp getValueWithOrgMinimaMiniscriptContract:zContract])) getRawData]);
     totlen += ((IOSByteArray *) nil_chk(IOSObjectArray_Get(parambytes, counter)))->size_;
     counter++;
   }
   IOSByteArray *result = [IOSByteArray arrayWithLength:totlen];
+  NSString *fullstring = @"";
   jint pos = 0;
   for (jint i = 0; i < counter; i++) {
-    JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(IOSObjectArray_Get(parambytes, i), 0, result, pos, ((IOSByteArray *) nil_chk(IOSObjectArray_Get(parambytes, i)))->size_);
-    pos += ((IOSByteArray *) nil_chk(IOSObjectArray_Get(parambytes, i)))->size_;
+    if (type == OrgMinimaMiniscriptValuesHEXValue_VALUE_HEX) {
+      JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(IOSObjectArray_Get(parambytes, i), 0, result, pos, ((IOSByteArray *) nil_chk(IOSObjectArray_Get(parambytes, i)))->size_);
+      pos += ((IOSByteArray *) nil_chk(IOSObjectArray_Get(parambytes, i)))->size_;
+    }
+    else {
+      JreStrAppend(&fullstring, "$C", [NSString java_stringWithBytes:IOSObjectArray_Get(parambytes, i) charset:JavaNioCharsetCharset_forNameWithNSString_(@"US-ASCII")], ' ');
+    }
   }
   if (type == OrgMinimaMiniscriptValuesHEXValue_VALUE_HEX) {
     return create_OrgMinimaMiniscriptValuesHEXValue_initWithByteArray_(result);
   }
   else if (type == OrgMinimaMiniscriptValuesScriptValue_VALUE_SCRIPT) {
-    return create_OrgMinimaMiniscriptValuesScriptValue_initWithNSString_([NSString java_stringWithBytes:result]);
+    return create_OrgMinimaMiniscriptValuesScriptValue_initWithNSString_(fullstring);
   }
   else {
     @throw create_OrgMinimaMiniscriptExceptionsExecutionException_initWithNSString_(JreStrcat("$I$$", @"Invaid Value Type in CONCAT ", type, @") ", [((id<OrgMinimaMiniscriptExpressionsExpression>) nil_chk([params getWithInt:0])) description]));

@@ -98,6 +98,12 @@
   src: url('../fonts/Aeonik-Regular.otf');
 }
 @font-face {
+  font-family: 'Aeonik-Bold';
+  font-style: normal;
+  font-weight: normal;
+  src: url('../fonts/Aeonik-Medium.otf');
+}
+@font-face {
   font-family: 'Blooming';
   font-style: normal;
   font-weight: normal;
@@ -114,4 +120,28 @@
   font-style: normal;
   font-weight: normal;
   src: url('../fonts/RidleyGroteskDemo-Regular.otf');
+}
+
+.history-popover {
+  opacity: 0.96; 
+}
+
+.ios .balance-popover {
+  --width: 200px;
+  --height: 80px;
+  opacity: 0.96;
+}
+.md .balance-popover {
+  --width: 200px;
+  opacity: 0.96;
+
+}
+@media only screen and (min-width: 992px) {
+    .balance-popover {
+      --width: 200px;
+      --height: 100px;
+    opacity: 0.96;
+
+    }
+
 }

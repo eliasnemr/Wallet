@@ -21,6 +21,8 @@
 #include "org/minima/system/network/rpc/RPCHandler.h"
 #include "org/minima/utils/MiniFormat.h"
 #include "org/minima/utils/ResponseStream.h"
+#include "org/minima/utils/json/JSONArray.h"
+#include "org/minima/utils/json/JSONObject.h"
 
 @implementation OrgMinimaSystemNetworkRpcRPCHandler
 
@@ -47,26 +49,50 @@
         function = [function java_substring:1];
       }
       function = [((NSString *) nil_chk(JavaNetURLDecoder_decodeWithNSString_withNSString_(function, @"UTF-8"))) java_trim];
-      OrgMinimaUtilsResponseStream *response = create_OrgMinimaUtilsResponseStream_init();
-      if (![((NSString *) nil_chk(function)) isEqual:@""]) {
-        OrgMinimaSystemInputInputMessage *inmsg = create_OrgMinimaSystemInputInputMessage_initWithNSString_withOrgMinimaUtilsResponseStream_(function, response);
-        [((OrgMinimaSystemInputInputHandler *) nil_chk(mInputHandler_)) PostMessageWithOrgMinimaUtilsMessagesMessage:inmsg];
-        if (![((NSString *) nil_chk([((NSString *) nil_chk(input)) lowercaseString])) isEqual:@"quit"]) {
-          [response waitToFinish];
-        }
+      jboolean multi = false;
+      if ([((NSString *) nil_chk(function)) java_indexOfString:@";"] != -1) {
+        multi = true;
       }
-      NSString *resp = [response getResponse];
-      if ([((NSString *) nil_chk(resp)) java_hasPrefix:@"{"] || [resp java_hasPrefix:@"["]) {
-        resp = OrgMinimaUtilsMiniFormat_PrettyJSONWithNSString_(resp);
+      NSString *result = @"";
+      if (!multi) {
+        OrgMinimaUtilsResponseStream *response = create_OrgMinimaUtilsResponseStream_init();
+        if (![function isEqual:@""]) {
+          OrgMinimaSystemInputInputMessage *inmsg = create_OrgMinimaSystemInputInputMessage_initWithNSString_withOrgMinimaUtilsResponseStream_(function, response);
+          [((OrgMinimaSystemInputInputHandler *) nil_chk(mInputHandler_)) PostMessageWithOrgMinimaUtilsMessagesMessage:inmsg];
+          if (![((NSString *) nil_chk([((NSString *) nil_chk(input)) lowercaseString])) isEqual:@"quit"]) {
+            [response waitToFinish];
+          }
+        }
+        result = [response getResponse];
+      }
+      else {
+        OrgMinimaUtilsJsonJSONArray *responses = create_OrgMinimaUtilsJsonJSONArray_init();
+        JavaUtilStringTokenizer *functions = create_JavaUtilStringTokenizer_initWithNSString_withNSString_(function, @";");
+        while ([functions hasMoreElements]) {
+          NSString *func = [((NSString *) nil_chk([functions nextToken])) java_trim];
+          OrgMinimaUtilsResponseStream *response = create_OrgMinimaUtilsResponseStream_init();
+          if (![((NSString *) nil_chk(func)) isEqual:@""]) {
+            OrgMinimaSystemInputInputMessage *inmsg = create_OrgMinimaSystemInputInputMessage_initWithNSString_withOrgMinimaUtilsResponseStream_(func, response);
+            [((OrgMinimaSystemInputInputHandler *) nil_chk(mInputHandler_)) PostMessageWithOrgMinimaUtilsMessagesMessage:inmsg];
+            if (![((NSString *) nil_chk([((NSString *) nil_chk(input)) lowercaseString])) isEqual:@"quit"]) {
+              [response waitToFinish];
+            }
+            [responses addWithId:[response getFinalJSON]];
+          }
+        }
+        result = [responses description];
+      }
+      if ([((NSString *) nil_chk(result)) java_hasPrefix:@"{"] || [result java_hasPrefix:@"["]) {
+        result = OrgMinimaUtilsMiniFormat_PrettyJSONWithNSString_(result);
       }
       [out printlnWithNSString:@"HTTP/1.1 200 OK"];
       [out printlnWithNSString:@"Server: HTTP RPC Server from Minima : 1.0"];
       [out printlnWithNSString:JreStrcat("$@", @"Date: ", create_JavaUtilDate_init())];
       [out printlnWithNSString:@"Content-type: text/plain"];
-      [out printlnWithNSString:JreStrcat("$I", @"Content-length: ", [((NSString *) nil_chk(resp)) java_length])];
+      [out printlnWithNSString:JreStrcat("$I", @"Content-length: ", [((NSString *) nil_chk(result)) java_length])];
       [out printlnWithNSString:@"Access-Control-Allow-Origin: *"];
       [out println];
-      [out printlnWithNSString:resp];
+      [out printlnWithNSString:result];
       [out flush];
     }
   }

@@ -138,7 +138,6 @@ export class WebScannerPage implements OnInit {
         if(res.status === true){
           this.presentAlert('Success!', 'You are now connected.');
         } else {
-          alert("Hasn't connected");
           this.presentAlert(res.error, 'Error');
         }
       });

@@ -63,6 +63,10 @@ NSString *OrgMinimaSystemMain_SYSTEM_EVENT = @"SYSTEM_EVENT";
   mAutoConnect_ = zAuto;
 }
 
+- (void)setMiFiProxyWithNSString:(NSString *)zProxy {
+  [((OrgMinimaSystemNetworkNetworkHandler *) nil_chk(mNetwork_)) setProxyWithNSString:zProxy];
+}
+
 - (void)setAutoConnectHostPortWithNSString:(NSString *)zHost
                                    withInt:(jint)zPort {
   JreStrongAssign(&mAutoHost_, zHost);
@@ -197,12 +201,13 @@ NSString *OrgMinimaSystemMain_SYSTEM_EVENT = @"SYSTEM_EVENT";
     { NULL, NULL, 0x1, -1, 0, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 1, 2, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 3, 4, -1, -1, -1, -1 },
-    { NULL, "J", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 5, 6, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 7, 6, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 8, 9, -1, -1, -1, -1 },
+    { NULL, "J", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 7, 4, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 8, 4, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 9, 10, -1, -1, -1, -1 },
     { NULL, "V", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 10, 2, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 11, 2, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaSystemInputInputHandler;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaSystemNetworkNetworkHandler;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaSystemBrainsConsensusHandler;", 0x1, -1, -1, -1, -1, -1, -1 },
@@ -210,36 +215,37 @@ NSString *OrgMinimaSystemMain_SYSTEM_EVENT = @"SYSTEM_EVENT";
     { NULL, "LOrgMinimaSystemExternalProcessManager;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaSystemTxTXMiner;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaSystemBootstrapUserSimulator;", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "V", 0x4, 11, 12, 13, -1, -1, -1 },
+    { NULL, "V", 0x4, 12, 13, 14, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
   #pragma clang diagnostic ignored "-Wundeclared-selector"
   methods[0].selector = @selector(initWithInt:withInt:withBoolean:withNSString:);
   methods[1].selector = @selector(setAutoConnectWithBoolean:);
-  methods[2].selector = @selector(setAutoConnectHostPortWithNSString:withInt:);
-  methods[3].selector = @selector(getNodeStartTime);
-  methods[4].selector = @selector(setNewTxnCommandWithNSString:);
-  methods[5].selector = @selector(setNewRelCoinWithNSString:);
-  methods[6].selector = @selector(setSimulatorWithBoolean:withInt:withBoolean:);
-  methods[7].selector = @selector(SystemShutDown);
-  methods[8].selector = @selector(setTraceWithBoolean:);
-  methods[9].selector = @selector(getInputHandler);
-  methods[10].selector = @selector(getNetworkHandler);
-  methods[11].selector = @selector(getConsensusHandler);
-  methods[12].selector = @selector(getBackupManager);
-  methods[13].selector = @selector(getProcessManager);
-  methods[14].selector = @selector(getMiner);
-  methods[15].selector = @selector(getsimulator);
-  methods[16].selector = @selector(processMessageWithOrgMinimaUtilsMessagesMessage:);
+  methods[2].selector = @selector(setMiFiProxyWithNSString:);
+  methods[3].selector = @selector(setAutoConnectHostPortWithNSString:withInt:);
+  methods[4].selector = @selector(getNodeStartTime);
+  methods[5].selector = @selector(setNewTxnCommandWithNSString:);
+  methods[6].selector = @selector(setNewRelCoinWithNSString:);
+  methods[7].selector = @selector(setSimulatorWithBoolean:withInt:withBoolean:);
+  methods[8].selector = @selector(SystemShutDown);
+  methods[9].selector = @selector(setTraceWithBoolean:);
+  methods[10].selector = @selector(getInputHandler);
+  methods[11].selector = @selector(getNetworkHandler);
+  methods[12].selector = @selector(getConsensusHandler);
+  methods[13].selector = @selector(getBackupManager);
+  methods[14].selector = @selector(getProcessManager);
+  methods[15].selector = @selector(getMiner);
+  methods[16].selector = @selector(getsimulator);
+  methods[17].selector = @selector(processMessageWithOrgMinimaUtilsMessagesMessage:);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
-    { "SYSTEM_STARTUP", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 14, -1, -1 },
-    { "SYSTEM_INIT", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 15, -1, -1 },
-    { "SYSTEM_SHUTDOWN", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 16, -1, -1 },
-    { "SYSTEM_FULLSHUTDOWN", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 17, -1, -1 },
-    { "SYSTEM_ALLSTOP", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 18, -1, -1 },
-    { "SYSTEM_EVENT", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 19, -1, -1 },
+    { "SYSTEM_STARTUP", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 15, -1, -1 },
+    { "SYSTEM_INIT", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 16, -1, -1 },
+    { "SYSTEM_SHUTDOWN", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 17, -1, -1 },
+    { "SYSTEM_FULLSHUTDOWN", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 18, -1, -1 },
+    { "SYSTEM_ALLSTOP", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 19, -1, -1 },
+    { "SYSTEM_EVENT", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 20, -1, -1 },
     { "mInput_", "LOrgMinimaSystemInputInputHandler;", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
     { "mNetwork_", "LOrgMinimaSystemNetworkNetworkHandler;", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
     { "mTXMiner_", "LOrgMinimaSystemTxTXMiner;", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
@@ -256,8 +262,8 @@ NSString *OrgMinimaSystemMain_SYSTEM_EVENT = @"SYSTEM_EVENT";
     { "mCurrentTopBlock_", "LOrgMinimaObjectsBaseMiniNumber;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mNodeStartTime_", "J", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
   };
-  static const void *ptrTable[] = { "IIZLNSString;", "setAutoConnect", "Z", "setAutoConnectHostPort", "LNSString;I", "setNewTxnCommand", "LNSString;", "setNewRelCoin", "setSimulator", "ZIZ", "setTrace", "processMessage", "LOrgMinimaUtilsMessagesMessage;", "LJavaLangException;", &OrgMinimaSystemMain_SYSTEM_STARTUP, &OrgMinimaSystemMain_SYSTEM_INIT, &OrgMinimaSystemMain_SYSTEM_SHUTDOWN, &OrgMinimaSystemMain_SYSTEM_FULLSHUTDOWN, &OrgMinimaSystemMain_SYSTEM_ALLSTOP, &OrgMinimaSystemMain_SYSTEM_EVENT };
-  static const J2ObjcClassInfo _OrgMinimaSystemMain = { "Main", "org.minima.system", ptrTable, methods, fields, 7, 0x1, 17, 21, -1, -1, -1, -1, -1 };
+  static const void *ptrTable[] = { "IIZLNSString;", "setAutoConnect", "Z", "setMiFiProxy", "LNSString;", "setAutoConnectHostPort", "LNSString;I", "setNewTxnCommand", "setNewRelCoin", "setSimulator", "ZIZ", "setTrace", "processMessage", "LOrgMinimaUtilsMessagesMessage;", "LJavaLangException;", &OrgMinimaSystemMain_SYSTEM_STARTUP, &OrgMinimaSystemMain_SYSTEM_INIT, &OrgMinimaSystemMain_SYSTEM_SHUTDOWN, &OrgMinimaSystemMain_SYSTEM_FULLSHUTDOWN, &OrgMinimaSystemMain_SYSTEM_ALLSTOP, &OrgMinimaSystemMain_SYSTEM_EVENT };
+  static const J2ObjcClassInfo _OrgMinimaSystemMain = { "Main", "org.minima.system", ptrTable, methods, fields, 7, 0x1, 18, 21, -1, -1, -1, -1, -1 };
   return &_OrgMinimaSystemMain;
 }
 

@@ -40,6 +40,10 @@ J2OBJC_IGNORE_DESIGNATED_END
   return mDataJSON_;
 }
 
+- (OrgMinimaUtilsJsonJSONObject *)getFinalJSON {
+  return mJSON_;
+}
+
 - (void)endStatusWithBoolean:(jboolean)zValid
                 withNSString:(NSString *)zError {
   [((OrgMinimaUtilsJsonJSONObject *) nil_chk(mJSON_)) putWithId:@"status" withId:JavaLangBoolean_valueOfWithBoolean_(zValid)];
@@ -48,7 +52,7 @@ J2OBJC_IGNORE_DESIGNATED_END
     [((OrgMinimaUtilsJsonJSONObject *) nil_chk(mJSON_)) putWithId:@"error" withId:zError];
   }
   [((OrgMinimaUtilsJsonJSONObject *) nil_chk(mJSON_)) putWithId:@"response" withId:mDataJSON_];
-  JreStrongAssign(&mFinalResponse_, [((OrgMinimaUtilsJsonJSONObject *) nil_chk(mJSON_)) description]);
+  JreStrongAssign(&mFinalResponse_, [((NSString *) nil_chk([((OrgMinimaUtilsJsonJSONObject *) nil_chk(mJSON_)) description])) java_replaceAll:@"\\\\/" withReplacement:@"/"]);
   mFinished_ = true;
 }
 
@@ -90,6 +94,7 @@ J2OBJC_IGNORE_DESIGNATED_END
     { NULL, "V", 0x1, 0, 1, -1, -1, -1, -1 },
     { NULL, "LNSString;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaUtilsJsonJSONObject;", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaUtilsJsonJSONObject;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 2, 3, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 4, 1, -1, -1, -1, -1 },
     { NULL, "Z", 0x1, -1, -1, -1, -1, -1, -1 },
@@ -104,10 +109,11 @@ J2OBJC_IGNORE_DESIGNATED_END
   methods[3].selector = @selector(setFunctionWithNSString:);
   methods[4].selector = @selector(getResponse);
   methods[5].selector = @selector(getDataJSON);
-  methods[6].selector = @selector(endStatusWithBoolean:withNSString:);
-  methods[7].selector = @selector(hardEndStatusWithNSString:);
-  methods[8].selector = @selector(isFinished);
-  methods[9].selector = @selector(waitToFinish);
+  methods[6].selector = @selector(getFinalJSON);
+  methods[7].selector = @selector(endStatusWithBoolean:withNSString:);
+  methods[8].selector = @selector(hardEndStatusWithNSString:);
+  methods[9].selector = @selector(isFinished);
+  methods[10].selector = @selector(waitToFinish);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
     { "MAX_WAITTIME", "J", .constantValue.asLong = OrgMinimaUtilsResponseStream_MAX_WAITTIME, 0x19, -1, -1, -1, -1 },
@@ -119,7 +125,7 @@ J2OBJC_IGNORE_DESIGNATED_END
     { "mIsLocal_", "Z", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
   };
   static const void *ptrTable[] = { "setFunction", "LNSString;", "endStatus", "ZLNSString;", "hardEndStatus" };
-  static const J2ObjcClassInfo _OrgMinimaUtilsResponseStream = { "ResponseStream", "org.minima.utils", ptrTable, methods, fields, 7, 0x1, 10, 7, -1, -1, -1, -1, -1 };
+  static const J2ObjcClassInfo _OrgMinimaUtilsResponseStream = { "ResponseStream", "org.minima.utils", ptrTable, methods, fields, 7, 0x1, 11, 7, -1, -1, -1, -1, -1 };
   return &_OrgMinimaUtilsResponseStream;
 }
 

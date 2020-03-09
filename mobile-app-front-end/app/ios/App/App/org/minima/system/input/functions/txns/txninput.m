@@ -59,7 +59,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 void OrgMinimaSystemInputFunctionsTxnstxninput_init(OrgMinimaSystemInputFunctionsTxnstxninput *self) {
   OrgMinimaSystemInputCommandFunction_initWithNSString_(self, @"txninput");
-  [self setHelpWithNSString:@"[txn_num] [coinID]" withNSString:@"Add a specific Coin as an input to the specified transaction" withNSString:@""];
+  [self setHelpWithNSString:@"[id] [coinID]" withNSString:@"Add a specific Coin as an input to the specified transaction" withNSString:@""];
 }
 
 OrgMinimaSystemInputFunctionsTxnstxninput *new_OrgMinimaSystemInputFunctionsTxnstxninput_init() {

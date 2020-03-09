@@ -1,6 +1,3 @@
-
-
-
 export class Tokens {
     private tokenid: string;
     private token: string;

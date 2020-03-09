@@ -4,6 +4,7 @@
 //
 
 #include "J2ObjC_source.h"
+#include "java/io/IOException.h"
 #include "java/lang/Exception.h"
 #include "java/lang/Thread.h"
 #include "java/net/URLEncoder.h"
@@ -58,6 +59,13 @@ NSString *OrgMinimaSystemNetworkNetworkHandler_NETWORK_NOTIFY = @"NETWORK_NOTIFY
   return mRPCServer_;
 }
 
+- (void)setProxyWithNSString:(NSString *)zProxy {
+  JreStrongAssign(&mMifiProxy_, zProxy);
+  if (![((NSString *) nil_chk(mMifiProxy_)) java_hasSuffix:@"/"]) {
+    JreStrAppendStrong(&mMifiProxy_, "$", @"/");
+  }
+}
+
 - (void)setGlobalReconnectWithBoolean:(jboolean)zGlobalReconnect {
   mGlobalReconnect_ = zGlobalReconnect;
 }
@@ -73,6 +81,7 @@ NSString *OrgMinimaSystemNetworkNetworkHandler_NETWORK_NOTIFY = @"NETWORK_NOTIFY
     JreStrongAssignAndConsume(&mRPCServer_, new_OrgMinimaSystemNetworkRpcRPCServer_initWithOrgMinimaSystemInputInputHandler_withInt_([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getInputHandler], rpcport));
     JavaLangThread *rpc = create_JavaLangThread_initWithJavaLangRunnable_(mRPCServer_);
     [rpc start];
+    OrgMinimaUtilsMinimaLogger_logWithNSString_(JreStrcat("$$", @"MiFi proxy set : ", mMifiProxy_));
   }
   else if ([zMessage isMessageTypeWithNSString:OrgMinimaSystemNetworkNetworkHandler_NETWORK_SHUTDOWN]) {
     @try {
@@ -85,13 +94,6 @@ NSString *OrgMinimaSystemNetworkNetworkHandler_NETWORK_NOTIFY = @"NETWORK_NOTIFY
     }
     @catch (JavaLangException *exc) {
     }
-    @try {
-      if (mProxyManager_ != nil) {
-        [mProxyManager_ PostMessageWithNSString:OrgMinimaSystemNetworkWebProxyManager_WEBPROXY_SHUTDOWN];
-      }
-    }
-    @catch (JavaLangException *exc) {
-    }
     OrgMinimaUtilsMessagesMessage *msg = create_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemNetworkNetClient_NETCLIENT_SHUTDOWN);
     for (OrgMinimaSystemNetworkNetClient * __strong client in nil_chk(mClients_)) {
       [((OrgMinimaSystemNetworkNetClient *) nil_chk(client)) stopMessageProcessor];
@@ -99,16 +101,23 @@ NSString *OrgMinimaSystemNetworkNetworkHandler_NETWORK_NOTIFY = @"NETWORK_NOTIFY
     [self stopMessageProcessor];
   }
   else if ([zMessage isMessageTypeWithNSString:OrgMinimaSystemNetworkNetworkHandler_NETWORK_NOTIFY]) {
-    if (mProxyManager_ != nil) {
-      [mProxyManager_ PostMessageWithNSString:OrgMinimaSystemNetworkWebProxyManager_WEBPROXY_NOTIFY];
-    }
   }
   else if ([zMessage isMessageTypeWithNSString:OrgMinimaSystemNetworkNetworkHandler_NETWORK_WEBPROXY]) {
     NSString *uuid = [zMessage getStringWithNSString:@"uuid"];
     NSString *ip = JreStrcat("$C$CI", uuid, '#', [((OrgMinimaSystemNetworkRpcRPCServer *) nil_chk([self getRPCServer])) getHost], ':', [((OrgMinimaSystemNetworkRpcRPCServer *) nil_chk([self getRPCServer])) getPort]);
-    NSString *url = JreStrcat("$$", @"http://mifi.minima.global:9000/", JavaNetURLEncoder_encodeWithNSString_withNSString_(ip, @"UTF-8"));
-    OrgMinimaSystemNetworkRpcRPCClient_sendGETWithNSString_(url);
+    NSString *url = JreStrcat("$$", mMifiProxy_, JavaNetURLEncoder_encodeWithNSString_withNSString_(ip, @"UTF-8"));
+    NSString *resp = @"";
+    @try {
+      resp = OrgMinimaSystemNetworkRpcRPCClient_sendGETWithNSString_(url);
+    }
+    @catch (JavaIoIOException *exc) {
+      [((OrgMinimaUtilsJsonJSONObject *) nil_chk(OrgMinimaSystemInputInputHandler_getResponseJSONWithOrgMinimaUtilsMessagesMessage_(zMessage))) putWithId:@"url" withId:url];
+      [((OrgMinimaUtilsJsonJSONObject *) nil_chk(OrgMinimaSystemInputInputHandler_getResponseJSONWithOrgMinimaUtilsMessagesMessage_(zMessage))) putWithId:@"resp" withId:exc];
+      OrgMinimaSystemInputInputHandler_endResponseWithOrgMinimaUtilsMessagesMessage_withBoolean_withNSString_(zMessage, true, @"");
+      return;
+    }
     [((OrgMinimaUtilsJsonJSONObject *) nil_chk(OrgMinimaSystemInputInputHandler_getResponseJSONWithOrgMinimaUtilsMessagesMessage_(zMessage))) putWithId:@"url" withId:url];
+    [((OrgMinimaUtilsJsonJSONObject *) nil_chk(OrgMinimaSystemInputInputHandler_getResponseJSONWithOrgMinimaUtilsMessagesMessage_(zMessage))) putWithId:@"resp" withId:resp];
     OrgMinimaSystemInputInputHandler_endResponseWithOrgMinimaUtilsMessagesMessage_withBoolean_withNSString_(zMessage, true, @"");
   }
   else if ([zMessage isMessageTypeWithNSString:OrgMinimaSystemNetworkNetworkHandler_NETWORK_CONNECT]) {
@@ -173,6 +182,7 @@ NSString *OrgMinimaSystemNetworkNetworkHandler_NETWORK_NOTIFY = @"NETWORK_NOTIFY
   RELEASE_(mRPCServer_);
   RELEASE_(mProxyManager_);
   RELEASE_(mClients_);
+  RELEASE_(mMifiProxy_);
   [super dealloc];
 }
 
@@ -182,9 +192,10 @@ NSString *OrgMinimaSystemNetworkNetworkHandler_NETWORK_NOTIFY = @"NETWORK_NOTIFY
     { NULL, "LOrgMinimaSystemNetworkMultiServer;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaSystemNetworkRpcRPCServer;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 1, 2, -1, -1, -1, -1 },
-    { NULL, "V", 0x4, 3, 4, 5, -1, -1, -1 },
-    { NULL, "V", 0x2, 6, 4, -1, -1, -1, -1 },
-    { NULL, "LJavaUtilArrayList;", 0x1, -1, -1, -1, 7, -1, -1 },
+    { NULL, "V", 0x1, 3, 4, -1, -1, -1, -1 },
+    { NULL, "V", 0x4, 5, 6, 7, -1, -1, -1 },
+    { NULL, "V", 0x2, 8, 6, -1, -1, -1, -1 },
+    { NULL, "LJavaUtilArrayList;", 0x1, -1, -1, -1, 9, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
@@ -192,32 +203,34 @@ NSString *OrgMinimaSystemNetworkNetworkHandler_NETWORK_NOTIFY = @"NETWORK_NOTIFY
   methods[0].selector = @selector(initWithOrgMinimaSystemMain:);
   methods[1].selector = @selector(getServer);
   methods[2].selector = @selector(getRPCServer);
-  methods[3].selector = @selector(setGlobalReconnectWithBoolean:);
-  methods[4].selector = @selector(processMessageWithOrgMinimaUtilsMessagesMessage:);
-  methods[5].selector = @selector(sendToAllWithOrgMinimaUtilsMessagesMessage:);
-  methods[6].selector = @selector(getNetClients);
+  methods[3].selector = @selector(setProxyWithNSString:);
+  methods[4].selector = @selector(setGlobalReconnectWithBoolean:);
+  methods[5].selector = @selector(processMessageWithOrgMinimaUtilsMessagesMessage:);
+  methods[6].selector = @selector(sendToAllWithOrgMinimaUtilsMessagesMessage:);
+  methods[7].selector = @selector(getNetClients);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
-    { "NETWORK_STARTUP", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 8, -1, -1 },
-    { "NETWORK_SHUTDOWN", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 9, -1, -1 },
-    { "NETWORK_CONNECT", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 10, -1, -1 },
-    { "NETWORK_DISCONNECT", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 11, -1, -1 },
-    { "NETWORK_NEWCLIENT", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 12, -1, -1 },
-    { "NETWORK_CLIENTERROR", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 13, -1, -1 },
-    { "NETWORK_PING", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 14, -1, -1 },
-    { "NETWORK_TRACE", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 15, -1, -1 },
-    { "NETWORK_SENDALL", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 16, -1, -1 },
-    { "NETWORK_ALLSTOP", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 17, -1, -1 },
-    { "NETWORK_WEBPROXY", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 18, -1, -1 },
-    { "NETWORK_NOTIFY", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 19, -1, -1 },
+    { "NETWORK_STARTUP", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 10, -1, -1 },
+    { "NETWORK_SHUTDOWN", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 11, -1, -1 },
+    { "NETWORK_CONNECT", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 12, -1, -1 },
+    { "NETWORK_DISCONNECT", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 13, -1, -1 },
+    { "NETWORK_NEWCLIENT", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 14, -1, -1 },
+    { "NETWORK_CLIENTERROR", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 15, -1, -1 },
+    { "NETWORK_PING", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 16, -1, -1 },
+    { "NETWORK_TRACE", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 17, -1, -1 },
+    { "NETWORK_SENDALL", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 18, -1, -1 },
+    { "NETWORK_ALLSTOP", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 19, -1, -1 },
+    { "NETWORK_WEBPROXY", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 20, -1, -1 },
+    { "NETWORK_NOTIFY", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 21, -1, -1 },
     { "mServer_", "LOrgMinimaSystemNetworkMultiServer;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mRPCServer_", "LOrgMinimaSystemNetworkRpcRPCServer;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mProxyManager_", "LOrgMinimaSystemNetworkWebProxyManager;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
-    { "mClients_", "LJavaUtilArrayList;", .constantValue.asLong = 0, 0x0, -1, -1, 20, -1 },
+    { "mClients_", "LJavaUtilArrayList;", .constantValue.asLong = 0, 0x0, -1, -1, 22, -1 },
     { "mGlobalReconnect_", "Z", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
+    { "mMifiProxy_", "LNSString;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
   };
-  static const void *ptrTable[] = { "LOrgMinimaSystemMain;", "setGlobalReconnect", "Z", "processMessage", "LOrgMinimaUtilsMessagesMessage;", "LJavaLangException;", "sendToAll", "()Ljava/util/ArrayList<Lorg/minima/system/network/NetClient;>;", &OrgMinimaSystemNetworkNetworkHandler_NETWORK_STARTUP, &OrgMinimaSystemNetworkNetworkHandler_NETWORK_SHUTDOWN, &OrgMinimaSystemNetworkNetworkHandler_NETWORK_CONNECT, &OrgMinimaSystemNetworkNetworkHandler_NETWORK_DISCONNECT, &OrgMinimaSystemNetworkNetworkHandler_NETWORK_NEWCLIENT, &OrgMinimaSystemNetworkNetworkHandler_NETWORK_CLIENTERROR, &OrgMinimaSystemNetworkNetworkHandler_NETWORK_PING, &OrgMinimaSystemNetworkNetworkHandler_NETWORK_TRACE, &OrgMinimaSystemNetworkNetworkHandler_NETWORK_SENDALL, &OrgMinimaSystemNetworkNetworkHandler_NETWORK_ALLSTOP, &OrgMinimaSystemNetworkNetworkHandler_NETWORK_WEBPROXY, &OrgMinimaSystemNetworkNetworkHandler_NETWORK_NOTIFY, "Ljava/util/ArrayList<Lorg/minima/system/network/NetClient;>;" };
-  static const J2ObjcClassInfo _OrgMinimaSystemNetworkNetworkHandler = { "NetworkHandler", "org.minima.system.network", ptrTable, methods, fields, 7, 0x1, 7, 17, -1, -1, -1, -1, -1 };
+  static const void *ptrTable[] = { "LOrgMinimaSystemMain;", "setProxy", "LNSString;", "setGlobalReconnect", "Z", "processMessage", "LOrgMinimaUtilsMessagesMessage;", "LJavaLangException;", "sendToAll", "()Ljava/util/ArrayList<Lorg/minima/system/network/NetClient;>;", &OrgMinimaSystemNetworkNetworkHandler_NETWORK_STARTUP, &OrgMinimaSystemNetworkNetworkHandler_NETWORK_SHUTDOWN, &OrgMinimaSystemNetworkNetworkHandler_NETWORK_CONNECT, &OrgMinimaSystemNetworkNetworkHandler_NETWORK_DISCONNECT, &OrgMinimaSystemNetworkNetworkHandler_NETWORK_NEWCLIENT, &OrgMinimaSystemNetworkNetworkHandler_NETWORK_CLIENTERROR, &OrgMinimaSystemNetworkNetworkHandler_NETWORK_PING, &OrgMinimaSystemNetworkNetworkHandler_NETWORK_TRACE, &OrgMinimaSystemNetworkNetworkHandler_NETWORK_SENDALL, &OrgMinimaSystemNetworkNetworkHandler_NETWORK_ALLSTOP, &OrgMinimaSystemNetworkNetworkHandler_NETWORK_WEBPROXY, &OrgMinimaSystemNetworkNetworkHandler_NETWORK_NOTIFY, "Ljava/util/ArrayList<Lorg/minima/system/network/NetClient;>;" };
+  static const J2ObjcClassInfo _OrgMinimaSystemNetworkNetworkHandler = { "NetworkHandler", "org.minima.system.network", ptrTable, methods, fields, 7, 0x1, 8, 18, -1, -1, -1, -1, -1 };
   return &_OrgMinimaSystemNetworkNetworkHandler;
 }
 
@@ -227,6 +240,7 @@ void OrgMinimaSystemNetworkNetworkHandler_initWithOrgMinimaSystemMain_(OrgMinima
   OrgMinimaSystemSystemHandler_initWithOrgMinimaSystemMain_withNSString_(self, zMain, @"NETWORK");
   JreStrongAssignAndConsume(&self->mClients_, new_JavaUtilArrayList_init());
   self->mGlobalReconnect_ = true;
+  JreStrongAssign(&self->mMifiProxy_, @"http://mifi.minima.global:9000/");
 }
 
 OrgMinimaSystemNetworkNetworkHandler *new_OrgMinimaSystemNetworkNetworkHandler_initWithOrgMinimaSystemMain_(OrgMinimaSystemMain *zMain) {

@@ -139,7 +139,12 @@ OrgMinimaMiniscriptExpressionsExpressionParser *create_OrgMinimaMiniscriptExpres
 
 id<OrgMinimaMiniscriptExpressionsExpression> OrgMinimaMiniscriptExpressionsExpressionParser_getExpressionWithJavaUtilList_(id<JavaUtilList> zTokens) {
   OrgMinimaMiniscriptExpressionsExpressionParser_initialize();
-  return OrgMinimaMiniscriptExpressionsExpressionParser_getExpressionWithOrgMinimaMiniscriptTokensLexicalTokenizer_(create_OrgMinimaMiniscriptTokensLexicalTokenizer_initWithJavaUtilList_(zTokens));
+  OrgMinimaMiniscriptTokensLexicalTokenizer *lt = create_OrgMinimaMiniscriptTokensLexicalTokenizer_initWithJavaUtilList_(zTokens);
+  id<OrgMinimaMiniscriptExpressionsExpression> exp = OrgMinimaMiniscriptExpressionsExpressionParser_getExpressionWithOrgMinimaMiniscriptTokensLexicalTokenizer_(lt);
+  if (![lt checkAllTokensUsed]) {
+    @throw create_OrgMinimaMiniscriptExceptionsMinimaParseException_initWithNSString_(@"Incorrect token number in expression!");
+  }
+  return exp;
 }
 
 id<OrgMinimaMiniscriptExpressionsExpression> OrgMinimaMiniscriptExpressionsExpressionParser_getExpressionWithOrgMinimaMiniscriptTokensLexicalTokenizer_(OrgMinimaMiniscriptTokensLexicalTokenizer *zTokens) {

@@ -37,6 +37,8 @@
 
 - (OrgMinimaUtilsJsonJSONObject *)getDataJSON;
 
+- (OrgMinimaUtilsJsonJSONObject *)getFinalJSON;
+
 - (NSString *)getResponse;
 
 - (void)hardEndStatusWithNSString:(NSString *)zResult;

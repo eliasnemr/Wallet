@@ -3,7 +3,7 @@ import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 import { Clipboard } from '@ionic-native/clipboard/ngx';
 import { AlertController, Platform } from '@ionic/angular';
 import { MinimaApiService } from '../service/minima-api.service';
-import { Tokens } from '../tokens';
+import { Tokens } from '../MiniObjects/tokens';
 
 @Component({
   selector: 'app-send-funds',
@@ -85,6 +85,7 @@ export class SendFundsPage implements OnInit {
       }, 300);
     }
   }
+
 
   scanQR() {
     this.qrScanner.prepare()

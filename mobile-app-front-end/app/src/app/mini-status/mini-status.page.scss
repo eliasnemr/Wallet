@@ -52,9 +52,9 @@ ion-footer ion-list ion-item {
 .status-logo {
     font-size: 30px;
 }
-ion-note ion-badge {
+.sup {
     border-radius: 10px;
-    font-size: 10px;
+    font-size: 8px;
     margin-bottom: 10px;
     background-color: none;
 }
@@ -67,21 +67,21 @@ ion-note {
 }
 .status-logo-title {
     font-family: 'Ridley-normal';
-    font-weight: lighter;
     font-size: 22px;
-    padding-top: 12px;
-    position: absolute;
 }
+.status-logo-title {
+    font-family: 'Ridley-normal';
+    margin-top:24px;
+    font-size: 20px;
 
+}
 @media only screen and (min-width: 992px) {
     .status-logo-title {
         font-family: 'Ridley-normal';
-        font-weight: lighter;
-        font-size: 22px;
-        padding-top: 12px;
-        position: absolute;
+        margin-top:24px;
+        font-size: 20px;
+
     }
-    
     ion-note {
         position: absolute;
         padding-right: 50px;

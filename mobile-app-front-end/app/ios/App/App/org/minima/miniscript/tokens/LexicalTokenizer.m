@@ -27,6 +27,10 @@
   mPos_--;
 }
 
+- (jboolean)checkAllTokensUsed {
+  return mPos_ == [((id<JavaUtilList>) nil_chk(mTokens_)) size];
+}
+
 - (jboolean)hasMoreElements {
   return mPos_ < mSize_;
 }
@@ -42,6 +46,7 @@
     { NULL, "LOrgMinimaMiniscriptTokensToken;", 0x1, -1, -1, 2, -1, -1, -1 },
     { NULL, "V", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "Z", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "Z", 0x1, -1, -1, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
@@ -49,7 +54,8 @@
   methods[0].selector = @selector(initWithJavaUtilList:);
   methods[1].selector = @selector(getNextToken);
   methods[2].selector = @selector(goBackToken);
-  methods[3].selector = @selector(hasMoreElements);
+  methods[3].selector = @selector(checkAllTokensUsed);
+  methods[4].selector = @selector(hasMoreElements);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
     { "mTokens_", "LJavaUtilList;", .constantValue.asLong = 0, 0x0, -1, -1, 3, -1 },
@@ -57,7 +63,7 @@
     { "mSize_", "I", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
   };
   static const void *ptrTable[] = { "LJavaUtilList;", "(Ljava/util/List<Lorg/minima/miniscript/tokens/Token;>;)V", "LOrgMinimaMiniscriptExceptionsMinimaParseException;", "Ljava/util/List<Lorg/minima/miniscript/tokens/Token;>;" };
-  static const J2ObjcClassInfo _OrgMinimaMiniscriptTokensLexicalTokenizer = { "LexicalTokenizer", "org.minima.miniscript.tokens", ptrTable, methods, fields, 7, 0x1, 4, 3, -1, -1, -1, -1, -1 };
+  static const J2ObjcClassInfo _OrgMinimaMiniscriptTokensLexicalTokenizer = { "LexicalTokenizer", "org.minima.miniscript.tokens", ptrTable, methods, fields, 7, 0x1, 5, 3, -1, -1, -1, -1, -1 };
   return &_OrgMinimaMiniscriptTokensLexicalTokenizer;
 }
 

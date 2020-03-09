@@ -51,6 +51,8 @@
 
 - (instancetype)initWithOrgMinimaDatabaseMmrMMRSet:(OrgMinimaDatabaseMmrMMRSet *)zParent;
 
+- (OrgMinimaDatabaseMmrMMREntry *)addExternalUnspentCoinWithOrgMinimaDatabaseMmrMMRProof:(OrgMinimaDatabaseMmrMMRProof *)zProof;
+
 - (void)addKeeperWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zEntry;
 
 - (OrgMinimaDatabaseMmrMMREntry *)addUnspentCoinWithOrgMinimaDatabaseMmrMMRData:(OrgMinimaDatabaseMmrMMRData *)zData;

@@ -30,6 +30,8 @@
 
 - (instancetype)initWithJavaUtilList:(id<JavaUtilList>)zTokens;
 
+- (jboolean)checkAllTokensUsed;
+
 - (OrgMinimaMiniscriptTokensToken *)getNextToken;
 
 - (void)goBackToken;

@@ -55,7 +55,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 void OrgMinimaSystemInputFunctionsTxnstxnvalidate_init(OrgMinimaSystemInputFunctionsTxnstxnvalidate *self) {
   OrgMinimaSystemInputCommandFunction_initWithNSString_(self, @"txnvalidate");
-  [self setHelpWithNSString:@"[txn_num]" withNSString:@"Check the validity (params scripts sigs) of the transaction" withNSString:@""];
+  [self setHelpWithNSString:@"[id]" withNSString:@"Check the validity (params scripts sigs) of the transaction" withNSString:@""];
 }
 
 OrgMinimaSystemInputFunctionsTxnstxnvalidate *new_OrgMinimaSystemInputFunctionsTxnstxnvalidate_init() {

@@ -55,7 +55,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 void OrgMinimaSystemInputFunctionsTxnstxnpost_init(OrgMinimaSystemInputFunctionsTxnstxnpost *self) {
   OrgMinimaSystemInputCommandFunction_initWithNSString_(self, @"txnpost");
-  [self setHelpWithNSString:@"[txn_num]" withNSString:@"Post the transaction the the network" withNSString:@""];
+  [self setHelpWithNSString:@"[id]" withNSString:@"Post the transaction the the network" withNSString:@""];
 }
 
 OrgMinimaSystemInputFunctionsTxnstxnpost *new_OrgMinimaSystemInputFunctionsTxnstxnpost_init() {

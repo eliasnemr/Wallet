@@ -43,7 +43,9 @@
         OrgMinimaObjectsWitness *wit = create_OrgMinimaObjectsWitness_init();
         mine = [((OrgMinimaUtilsMessagesMessage *) nil_chk([create_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemBrainsConsensusHandler_CONSENSUS_SENDTRANS) addObjectWithNSString:@"transaction" withId:trans])) addObjectWithNSString:@"witness" withId:wit];
       }
-      [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getConsensusHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:mine];
+      {
+        [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getConsensusHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:mine];
+      }
       if (mCounter_ != -1) {
         mCounter_--;
         if (mCounter_ <= 0) {

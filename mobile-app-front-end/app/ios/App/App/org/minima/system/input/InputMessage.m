@@ -51,7 +51,7 @@ withOrgMinimaUtilsResponseStream:(OrgMinimaUtilsResponseStream *)zResponseStream
 
 void OrgMinimaSystemInputInputMessage_initWithNSString_withOrgMinimaUtilsResponseStream_(OrgMinimaSystemInputInputMessage *self, NSString *zInput, OrgMinimaUtilsResponseStream *zResponseStream) {
   OrgMinimaUtilsMessagesMessage_initWithNSString_(self, OrgMinimaSystemInputInputHandler_INPUT_COMMAND);
-  [self addObjectWithNSString:OrgMinimaSystemInputInputHandler_INPUT_FUNCTION withId:zInput];
+  [self addObjectWithNSString:OrgMinimaSystemInputInputHandler_INPUT_FUNCTION withId:[((NSString *) nil_chk(zInput)) java_trim]];
   [self addObjectWithNSString:OrgMinimaSystemInputInputHandler_INPUT_RESPONSE withId:zResponseStream];
 }
 

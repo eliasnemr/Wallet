@@ -74,7 +74,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 void OrgMinimaSystemInputFunctionsTxnstxnoutput_init(OrgMinimaSystemInputFunctionsTxnstxnoutput *self) {
   OrgMinimaSystemInputCommandFunction_initWithNSString_(self, @"txnoutput");
-  [self setHelpWithNSString:@"[txn_num] [amount] [address] {tokenID}" withNSString:@"Add an output to the specified transaction" withNSString:@""];
+  [self setHelpWithNSString:@"[id] [amount] [address] {tokenID}" withNSString:@"Add an output to the specified transaction" withNSString:@""];
 }
 
 OrgMinimaSystemInputFunctionsTxnstxnoutput *new_OrgMinimaSystemInputFunctionsTxnstxnoutput_init() {

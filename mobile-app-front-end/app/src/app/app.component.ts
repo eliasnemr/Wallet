@@ -12,7 +12,6 @@ declare var Minima: any;
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
-
   private currentRoute:string='';
   public currentVersion = 0;
 
@@ -24,7 +23,7 @@ export class AppComponent {
     private router: Router,
     private api: MinimaApiService
   ) {
-    this.getPlatform();
+    //this.getPlatform();
     this.initializeApp();
   }
 
@@ -33,6 +32,7 @@ export class AppComponent {
   }
 
   initializeApp() {
+    console.log('App initialized');
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       setTimeout(() => {this.splashScreen.hide()}, 2000);
@@ -47,9 +47,25 @@ export class AppComponent {
     });
   }
 
+  getImg() {
+    if(document.body.classList.value === 'dark'){
+      return '../../assets/fulllogodark.svg';
+    } else {
+      return '../../assets/fulllogo.svg';
+    }
+  }
+
+  isThisDesktop() {
+    if(this.platform.is('desktop')) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   /* Get platform type to see if should be MiniWeb or not */
   getPlatform() {
-    // Minima.logout();
+    //Minima.logout();
     /*  If on desktop do this.. */
     if(this.platform.is('desktop') || this.platform.is('pwa')) {
       console.log('Running Mini Desktop/Pwa');
@@ -57,11 +73,23 @@ export class AppComponent {
         console.log('Minima Page loaded..');
         window.addEventListener('MinimaEvent', (evt: any)=> {
           console.log('Event connection successful!');
-          console.log(' ')
+          console.log(' ');
           if(evt.detail.event === 'connected') {
             console.log('We are now connected with host -> ' + Minima.host);
             this.api.setHost('http://'+ Minima.host + '/');
           }
+        });
+
+        window.addEventListener('newbalance', (evt: any)=> {
+          console.log('Balance update ->' + Minima.global_balance);
+
+          
+        });
+
+        window.addEventListener('newblock', (evt: any)=> {
+          console.log('Block update ->');
+          alert('New Block');
+          
         });
         
         Minima.init();
@@ -86,4 +114,6 @@ export class AppComponent {
   betaTap() {
     alert("Minima Node Version 0.4");
   }
+
+ Notifier() {}
 }

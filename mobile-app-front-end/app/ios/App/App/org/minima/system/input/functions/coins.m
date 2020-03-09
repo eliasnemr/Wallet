@@ -23,6 +23,9 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 - (void)doFunctionWithNSStringArray:(IOSObjectArray *)zInput {
   OrgMinimaUtilsMessagesMessage *msg = [self getResponseMessageWithNSString:OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_COINS];
+  if (((IOSObjectArray *) nil_chk(zInput))->size_ > 1) {
+    [((OrgMinimaUtilsMessagesMessage *) nil_chk(msg)) addStringWithNSString:@"address" withNSString:IOSObjectArray_Get(zInput, 1)];
+  }
   [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getConsensusHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:msg];
 }
 
@@ -52,7 +55,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 void OrgMinimaSystemInputFunctionscoins_init(OrgMinimaSystemInputFunctionscoins *self) {
   OrgMinimaSystemInputCommandFunction_initWithNSString_(self, @"coins");
-  [self setHelpWithNSString:@"" withNSString:@"Return a list of unspent coins" withNSString:@""];
+  [self setHelpWithNSString:@"" withNSString:@"(address) Either return all coins or all coins of a given address" withNSString:@""];
 }
 
 OrgMinimaSystemInputFunctionscoins *new_OrgMinimaSystemInputFunctionscoins_init() {

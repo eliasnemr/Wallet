@@ -30,9 +30,11 @@
 @class OrgMinimaObjectsAddress;
 @class OrgMinimaObjectsBaseMiniData;
 @class OrgMinimaObjectsBaseMiniHash;
+@class OrgMinimaObjectsBaseMiniNumber;
 @class OrgMinimaObjectsPubPrivKey;
 @class OrgMinimaObjectsTokenDetails;
 @class OrgMinimaObjectsTransaction;
+@class OrgMinimaObjectsTxPOW;
 @protocol OrgMinimaDatabaseUserdbUserDBRow;
 
 @interface OrgMinimaDatabaseUserdbJavaJavaUserDB : NSObject < OrgMinimaDatabaseUserdbUserDB, OrgMinimaUtilsStreamable > {
@@ -44,15 +46,21 @@
   JavaUtilArrayList *mRows_;
   JavaUtilArrayList *mTotalAddresses_;
   JavaUtilArrayList *mAllTokens_;
+  JavaUtilArrayList *mHistory_;
 }
 
 #pragma mark Public
 
 - (instancetype)init;
 
+- (void)addToHistoryWithOrgMinimaObjectsTxPOW:(OrgMinimaObjectsTxPOW *)zTxPOW
+           withOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zValue;
+
 - (void)addTokenDetailsWithOrgMinimaObjectsTokenDetails:(OrgMinimaObjectsTokenDetails *)zToken;
 
-- (id<OrgMinimaDatabaseUserdbUserDBRow>)addUserRow;
+- (id<OrgMinimaDatabaseUserdbUserDBRow>)addUserRowWithInt:(jint)zID;
+
+- (void)clearHistory;
 
 - (void)deleteUserRowWithInt:(jint)zID;
 
@@ -61,6 +69,8 @@
 - (JavaUtilArrayList *)getAllKnownTokens;
 
 - (JavaUtilArrayList *)getAllRows;
+
+- (JavaUtilArrayList *)getHistory;
 
 - (JavaUtilArrayList *)getKeys;
 
@@ -106,6 +116,7 @@ J2OBJC_FIELD_SETTER(OrgMinimaDatabaseUserdbJavaJavaUserDB, mScriptAddresses_, Ja
 J2OBJC_FIELD_SETTER(OrgMinimaDatabaseUserdbJavaJavaUserDB, mRows_, JavaUtilArrayList *)
 J2OBJC_FIELD_SETTER(OrgMinimaDatabaseUserdbJavaJavaUserDB, mTotalAddresses_, JavaUtilArrayList *)
 J2OBJC_FIELD_SETTER(OrgMinimaDatabaseUserdbJavaJavaUserDB, mAllTokens_, JavaUtilArrayList *)
+J2OBJC_FIELD_SETTER(OrgMinimaDatabaseUserdbJavaJavaUserDB, mHistory_, JavaUtilArrayList *)
 
 FOUNDATION_EXPORT void OrgMinimaDatabaseUserdbJavaJavaUserDB_init(OrgMinimaDatabaseUserdbJavaJavaUserDB *self);
 

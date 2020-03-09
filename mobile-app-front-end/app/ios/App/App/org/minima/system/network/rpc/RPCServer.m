@@ -21,6 +21,7 @@
 #include "org/minima/system/network/rpc/RPCServer.h"
 #include "org/minima/utils/MinimaLogger.h"
 
+// Imports for getIPAddress for Minima Web
 #include <ifaddrs.h>
 #include <arpa/inet.h>
 
@@ -111,36 +112,10 @@
   return &_OrgMinimaSystemNetworkRpcRPCServer;
 }
 
-- (NSString *)getIPAddressOLD
-{
-  NSString *address = @"error";
-  struct ifaddrs *interfaces = NULL;
-  struct ifaddrs *temp_addr = NULL;
-  int success = 0;
 
-  // retrieve the current interfaces - returns 0 on success
-  success = getifaddrs(&interfaces);
-  if (success == 0) {
-    // Loop through linked list of interfaces
-    temp_addr = interfaces;
-    while (temp_addr != NULL) {
-      if( temp_addr->ifa_addr->sa_family == AF_INET) {
-        // Check if interface is en0 which is the wifi connection on the iPhone
-        if ([[NSString stringWithUTF8String:temp_addr->ifa_name] isEqualToString:@"en0"]) {
-          // Get NSString from C String
-          address = [NSString stringWithUTF8String:inet_ntoa(((struct sockaddr_in *)temp_addr->ifa_addr)->sin_addr)];
-        }
-      }
 
-      temp_addr = temp_addr->ifa_next;
-    }
-  }
+// Getting ip address for status + web
 
-  // Free memory
-  freeifaddrs(interfaces);
-
-  return address;
-}
 - (NSString *)getIPAddress {
     NSString *address = @"error";
     struct ifaddrs *interfaces = NULL;
@@ -154,7 +129,7 @@
         while(temp_addr != NULL) {
             if(temp_addr->ifa_addr->sa_family == AF_INET) {
                 // Check if interface is en0 which is the wifi connection on the iPhone
-                if([[NSString stringWithUTF8String:temp_addr->ifa_name] isEqualToString:@"en0"]) {
+                if([[NSString stringWithUTF8String:temp_addr->ifa_name] isEqualToString:@"en0"] || [[NSString stringWithUTF8String:temp_addr->ifa_name] isEqualToString:@"pdp_ip0"])  {
                     // Get NSString from C String
                     address = [NSString stringWithUTF8String:inet_ntoa(((struct sockaddr_in *)temp_addr->ifa_addr)->sin_addr)];
                 }
@@ -174,7 +149,7 @@ void OrgMinimaSystemNetworkRpcRPCServer_initWithOrgMinimaSystemInputInputHandler
   self->mRunning_ = true;
   JreStrongAssign(&self->mInputHandler_, zInput);
   self->mPort_ = zPort;
-  self->mHost_ = [self getIPAddress];   
+  self->mHost_ = [self getIPAddress];
   //JreStrongAssign(&self->mHost_, @"127.0.0.1");
   /*jboolean found = false;
   @try {
@@ -203,6 +178,7 @@ void OrgMinimaSystemNetworkRpcRPCServer_initWithOrgMinimaSystemInputInputHandler
   [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out))) printlnWithNSString:JreStrcat("$$CI", @"RPC Server started on ", self->mHost_, ':', self->mPort_)]; */
 }
 
+
 OrgMinimaSystemNetworkRpcRPCServer *new_OrgMinimaSystemNetworkRpcRPCServer_initWithOrgMinimaSystemInputInputHandler_withInt_(OrgMinimaSystemInputInputHandler *zInput, jint zPort) {
   J2OBJC_NEW_IMPL(OrgMinimaSystemNetworkRpcRPCServer, initWithOrgMinimaSystemInputInputHandler_withInt_, zInput, zPort)
 }
@@ -214,7 +190,3 @@ OrgMinimaSystemNetworkRpcRPCServer *create_OrgMinimaSystemNetworkRpcRPCServer_in
 J2OBJC_CLASS_TYPE_LITERAL_SOURCE(OrgMinimaSystemNetworkRpcRPCServer)
 
 @end
-
-
-
-

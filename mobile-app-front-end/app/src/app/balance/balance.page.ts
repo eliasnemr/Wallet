@@ -1,23 +1,23 @@
-import { Component, OnInit, ViewChild, ElementRef, OnDestroy, Output, EventEmitter, NgModule } from '@angular/core';
-import { AlertController, PopoverController, IonLabel, IonList, IonItem, IonNote, IonInput } from '@ionic/angular';
+import { Component, OnInit, ViewChild, NgZone, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
+import { AlertController, PopoverController, IonLabel } from '@ionic/angular';
 import { MinimaApiService } from '../service/minima-api.service';
-import { ActivatedRoute, Params } from '@angular/router';
-import { interval, Subscription, Observable } from 'rxjs';
-import { Tokens } from '../tokens';
+import { ActivatedRoute } from '@angular/router';
+import { Tokens } from '../MiniObjects/tokens';
 import { PopOverComponent } from '../pop-over/pop-over.component';
 import { BalanceService } from '../service/balance.service';
-import { Subject } from 'rxjs/Subject';
 
 @Component({
   selector: 'app-balance',
   templateUrl: './balance.page.html',
   styleUrls: ['./balance.page.scss'],
+  changeDetection: ChangeDetectionStrategy.Default
 })
 
 export class BalancePage implements OnInit {
 
   @ViewChild('referenceToken', {static:false}) referenceToken: IonLabel;
 
+// + vars
   public balance: number;
   public theBalanceExists:any;
   public theBalanceLength:any;
@@ -32,47 +32,52 @@ export class BalancePage implements OnInit {
   public progressShow = true;
   public confirmed = 0;
   public unconfirmed : any;
-  public strUnconfirmed: any;
-  public confirmedSubscription: Subscription;
-  public unconfirmedSubscription: Subscription;
   
   public refTokenId;
 
-  constructor(private api: MinimaApiService, 
+// - vars
+  private host: any = '';
+
+  constructor(
+    private api: MinimaApiService,
     public alertController: AlertController,
-    private route: ActivatedRoute,
     public popoverController: PopoverController,
-    public balanceService: BalanceService) {}
+    public balanceService: BalanceService,
+    public changeDetection: ChangeDetectorRef) {}
 
   ngOnInit() {}
 
   ionViewWillEnter() {
     this.pullInTokens();
-
   }
 
-
   pullInTokens() {
+    // get our balance
     this.api.getBalance().then((res : any) => {
+      
       console.log(res);
 
-      this.strUnconfirmed = '';
       let countTokens = 0;
+      let tempConfirmed = 0;
+      let tempUnConfirmed = '';
       
+      // check through every token we own..
       res.response.balance.forEach(element => {
         countTokens++;
 
+        // if token === Minima then return that on top of our list.
         if(element.tokenid === this.MINIMA_TOKEN_ID) {
-          let tempConfirmed = (Math.round(element.confirmed * 100)/100);
-          let tempUnConfirmed = ''; 
+          
+          // round up our confirmed amount and add it into tempConfirmed
+          tempConfirmed = (Math.round(element.confirmed * 100)/100);
+          tempUnConfirmed = ''; 
           
           if(element.unconfirmed > 0){
-            this.strUnconfirmed = 'Unconfirmed';
             tempUnConfirmed = (Math.round(element.unconfirmed * 100)/100).toString();
           } else {
             tempUnConfirmed = '';
           }
-        
+          // create a temporary array.. push it into our global array
           let temp = new Tokens(
              element.tokenid,
              element.token,
@@ -82,43 +87,41 @@ export class BalancePage implements OnInit {
 
           
           this.tokenArr.push(temp);
+
           
-          //this.tokenArr[0] = temp;
-         
         }
-        
-        this.strUnconfirmed = '';
-        
       });
       
+      // check through every token we have..
       res.response.balance.forEach(element => {
+        
+        // if it's not Minima once again add the rest of the tokens..
         if(element.tokenid != this.MINIMA_TOKEN_ID) {
-          let tempConfirmed = (Math.round(element.confirmed * 100)/100);
-          let tempUnConfirmed = ''; 
+          
+          tempConfirmed = (Math.round(element.confirmed * 100)/100);
+          tempUnConfirmed = ''; 
           
           if(element.unconfirmed > 0){
-            this.strUnconfirmed = 'Unconfirmed';
             tempUnConfirmed = (Math.round(element.unconfirmed * 100)/100).toString();
           } else {
             tempUnConfirmed = '';
           }
         
+          // Create another temporary array
           let temp = new Tokens(
-            element.tokenid,
+             element.tokenid,
              element.token,
              tempConfirmed,
              tempUnConfirmed,
              element.total);
              
+             // push it into..
              this.tokenArr.push(temp);
-          
+             
         }
-        
-        this.strUnconfirmed = '';
         
       });
     });
-
     this.tokenArr = new Array;
   }
 
@@ -146,7 +149,7 @@ export class BalancePage implements OnInit {
       if(res.status === true) {
         console.log("Result is true" + res);
         this.presentAlert('A transfer of 50 is on the way...', 'Minima');
-        this.doRefresh(self.event);
+        this.pullInTokens();
       } else {
         console.log("Result is false " + res)
         this.presentAlert(res.error,'Error');
@@ -158,18 +161,17 @@ export class BalancePage implements OnInit {
     console.log('Refreshing page..');
     //window.location.reload();
     this.pullInTokens();
-    
     setTimeout( () => {
       event.target.complete();
       console.log('refreshing completed.');
-    }, 200);
+    }, 0);
   }
 
   async presentPopover(ev: any, data:any) {
     const popover = await this.popoverController.create({
       component: PopOverComponent,
       event: ev,
-      cssClass: 'popover',
+      cssClass: 'balance-popover',
       translucent: false,
       componentProps:{tokenid: data},
     });

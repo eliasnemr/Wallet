@@ -71,6 +71,8 @@
 - (void)setAutoConnectHostPortWithNSString:(NSString *)zHost
                                    withInt:(jint)zPort;
 
+- (void)setMiFiProxyWithNSString:(NSString *)zProxy;
+
 - (void)setNewRelCoinWithNSString:(NSString *)zPostURL;
 
 - (void)setNewTxnCommandWithNSString:(NSString *)zExec;

@@ -1,0 +1,36 @@
+.pop-lbl {
+    font-weight: lighter; 
+    font-family: 'Aeonik-light';
+    font-size: 12px;
+}
+
+.date-lbl {
+    font-size: 10px;
+    color: #00768A;
+}
+
+ion-icon {
+    color: #FF671D;
+}
+
+.pop-info-lbl {
+    font-size: 12px;
+    
+}
+.pop-amount-h2 {
+    text-align: center;
+    
+}
+.pop-title-activity {
+    text-align: center;
+    font-size: medium;
+}
+
+
+//desktop
+
+@media only screen and (min-width: 992px) {
+    .date-lbl {
+        font-size: 14px;
+    }
+}

@@ -19,21 +19,41 @@ ion-item:active {
     color:white;
 }
 
-.menu-logo {
-    font-size: 22px;
+// .menu-logo {
+//     font-size: 18px;
+//     margin: auto;
     
-}
-.menu-badge {
-    color: #FF671D;
-    font-size: 8px;
-    background-color: white;
+// }
+// .menu-badge {
+//     color: #FF671D;
+//     font-size: 8px;
+//     background-color: white;
+//     display: inline-block;
 
-}
-.menu-minima {
-    font-family: 'Ridley-normal';
-    font-weight: normal;
-    font-size: 12px;
+// }
+// .menu-minima {
+//     font-family: 'Ridley-normal';
+//     font-weight: normal;
+//     font-size: 12px;
+//     padding-bottom: 5px;
+//     margin: auto;
+// }
+.menu-logo {
+    height: auto;
+    width: 190px;
     margin: auto;
+    margin-bottom: 10px;
+    position: relative;
+    padding: 10px 70px 0px 0;
+}
+
+.menu-badge {
+    position: fixed;
+    left: 250px;
+    bottom: 5px;
+    font-size: 8px;
+    color: #FF671D;
+    background-color: white;
 }
 
 @media only screen and (min-width: 992px) {
@@ -48,25 +68,20 @@ ion-item:active {
         background-image: url('../assets/miniTiles.png');
     }
     .menu-logo {
-        font-size: 35px;
+        height: auto;
+        width: 150px;
+        margin: auto;
+        position: relative;
+        padding: 10px 20px 15px 0px;
     }
     
-    ion-note {
-        padding-right: 50px;
-        font-weight: bolder;
-        font-size: 12px;
-        font-family: 'Aeonik';
-        color: #929396;
-    }
     .menu-badge {
+        position: fixed;
+        left: 180px;
+        bottom: 5px;
+        font-size: 8px;
         color: #FF671D;
         background-color: white;
-    }
-    .menu-minima {
-        font-family: 'Ridley-normal';
-        font-weight: normal;
-        font-size: 22px;
-        margin: auto;
     }
 }
 

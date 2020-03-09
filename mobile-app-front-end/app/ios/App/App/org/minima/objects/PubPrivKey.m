@@ -53,7 +53,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (NSString *)description {
-  return [((OrgMinimaObjectsBaseMiniData *) nil_chk(mPublicKey_)) description];
+  return [((OrgMinimaObjectsBaseMiniData *) nil_chk(mPublicKey_)) to0xString];
 }
 
 - (void)writeDataStreamWithJavaIoDataOutputStream:(JavaIoDataOutputStream *)zOut {

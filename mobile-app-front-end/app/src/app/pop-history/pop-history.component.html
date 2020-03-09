@@ -1,0 +1,69 @@
+<ion-list>
+  
+  <h2 class="pop-title-activity">{{ checkTransType(transAmount)}} Minima 
+  </h2>
+  <h2 class="pop-amount-h2">
+    {{ transAmount }} MINI
+  </h2>
+  
+  <ion-item>
+    <ion-label class="pop-lbl">
+      To
+    </ion-label>
+    <ion-label class="pop-info-lbl" text-right (click)="copyToClipboard(receivingAddress)">
+      {{ receivingAddress }}
+    </ion-label>
+  </ion-item>
+
+  <ion-item>
+    <ion-label class="pop-lbl">
+      TxPow Block
+    </ion-label>
+    <ion-label class="pop-info-lbl" text-right>
+      {{ blockNumber }}
+    </ion-label>
+  </ion-item>
+
+  <ion-item>
+    <ion-label class="pop-lbl">
+      TxPow Id
+    </ion-label>
+    <ion-label class="pop-info-lbl" text-right>
+      {{ txpowid }}
+    </ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label class="pop-lbl">
+      Parent
+    </ion-label>
+    <ion-label class="pop-info-lbl" text-right>
+      {{ parent }}
+    </ion-label>
+  </ion-item>
+  <ion-item lines="none">
+    <ion-label class="pop-lbl">
+      isBlock
+    </ion-label>
+    <ion-label class="pop-info-lbl" text-right>
+      {{ isBlock }}
+    </ion-label>
+  </ion-item>
+
+
+
+</ion-list>
+<ion-footer>
+    <ion-item lines="none" class="date-item">
+
+    
+    <ion-icon name="checkmark" style="font-size: 22px; padding-right: 20px;" text-left></ion-icon>
+    
+    <ion-label class="date-lbl">
+      {{  'Completed at ' + date.substring(7,15)}}
+    </ion-label>
+
+
+  </ion-item>
+  
+
+</ion-footer>

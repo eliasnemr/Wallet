@@ -175,6 +175,7 @@ NSString *OrgMinimaSystemBrainsConsensusHandler_CONSENSUS_STRESS_TRANS = @"CONSE
     NSString *tokenid = [zMessage getStringWithNSString:@"tokenid"];
     OrgMinimaObjectsBaseMiniHash *tok = create_OrgMinimaObjectsBaseMiniHash_initWithNSString_(tokenid);
     OrgMinimaObjectsBaseMiniHash *changetok = create_OrgMinimaObjectsBaseMiniHash_initWithNSString_(tokenid);
+    tokenid = [tok to0xString];
     OrgMinimaObjectsTokenDetails *tokendets = nil;
     if (![tok isExactlyEqualWithOrgMinimaObjectsBaseMiniData:JreLoadStatic(OrgMinimaObjectsCoin, MINIMA_TOKENID)]) {
       OrgMinimaObjectsBaseMiniNumber *samount = create_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(amount);
@@ -322,6 +323,7 @@ NSString *OrgMinimaSystemBrainsConsensusHandler_CONSENSUS_STRESS_TRANS = @"CONSE
     OrgMinimaUtilsMessagesMessage *upd = [create_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemBrainsConsensusHandler_CONSENSUS_NOTIFY_BALANCE) addStringWithNSString:@"change" withNSString:[((OrgMinimaObjectsBaseMiniNumber *) nil_chk(tot)) description]];
     OrgMinimaSystemInputInputHandler_addResponseMesageWithOrgMinimaUtilsMessagesMessage_withOrgMinimaUtilsMessagesMessage_(upd, zOriginal);
     [self updateListenersWithOrgMinimaUtilsMessagesMessage:upd];
+    [((id<OrgMinimaDatabaseUserdbUserDB>) nil_chk([((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusHandler_getMainDB(self))) getUserDB])) addToHistoryWithOrgMinimaObjectsTxPOW:zTxPOW withOrgMinimaObjectsBaseMiniNumber:tot];
     OrgMinimaUtilsMessagesMessage *command = [((OrgMinimaUtilsMessagesMessage *) nil_chk([((OrgMinimaUtilsMessagesMessage *) nil_chk([((OrgMinimaUtilsMessagesMessage *) nil_chk([create_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemExternalProcessManager_PROCESS_TXNCALL) addObjectWithNSString:@"transaction" withId:trans])) addObjectWithNSString:@"transid" withId:transhash])) addObjectWithNSString:@"txpowid" withId:[zTxPOW getTxPowID]])) addObjectWithNSString:@"total" withId:tot];
     OrgMinimaSystemInputInputHandler_addResponseMesageWithOrgMinimaUtilsMessagesMessage_withOrgMinimaUtilsMessagesMessage_(command, zOriginal);
     [((OrgMinimaSystemExternalProcessManager *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getProcessManager])) PostMessageWithOrgMinimaUtilsMessagesMessage:command];

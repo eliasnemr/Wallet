@@ -414,7 +414,7 @@ NSString *OrgMinimaMiniscriptContract_cleanScriptWithNSString_(NSString *zScript
 
 void OrgMinimaMiniscriptContract_mainWithNSStringArray_(IOSObjectArray *zArgs) {
   OrgMinimaMiniscriptContract_initialize();
-  NSString *RamScript = @"let t = 1 let y=t+1 let y=t+2 if y GT 3 then return false endif return true";
+  NSString *RamScript = @"let gg = [hello] let ff = 0x45678 let t = CONCAT ( gg [if signedby] SCRIPT(ff) [and @blknum gt 12345])";
   OrgMinimaObjectsTransaction *tt = create_OrgMinimaObjectsTransaction_init();
   OrgMinimaMiniscriptContract *ctr = create_OrgMinimaMiniscriptContract_initWithNSString_withNSString_withOrgMinimaObjectsTransaction_withBoolean_(RamScript, @"0x1234,0x00FF", tt, true);
   [ctr setGlobalVariableWithNSString:@"@SCRIPT" withOrgMinimaMiniscriptValuesValue:create_OrgMinimaMiniscriptValuesScriptValue_initWithNSString_(RamScript)];

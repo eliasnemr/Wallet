@@ -49,6 +49,11 @@ inline NSString *OrgMinimaSystemBrainsConsensusUser_get_CONSENSUS_PREFIX(void);
 FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusUser_CONSENSUS_PREFIX;
 J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBrainsConsensusUser, CONSENSUS_PREFIX, NSString *)
 
+inline NSString *OrgMinimaSystemBrainsConsensusUser_get_CONSENSUS_NEWKEY(void);
+/*! INTERNAL ONLY - Use accessor function from above. */
+FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusUser_CONSENSUS_NEWKEY;
+J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBrainsConsensusUser, CONSENSUS_NEWKEY, NSString *)
+
 inline NSString *OrgMinimaSystemBrainsConsensusUser_get_CONSENSUS_NEWSIMPLE(void);
 /*! INTERNAL ONLY - Use accessor function from above. */
 FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusUser_CONSENSUS_NEWSIMPLE;

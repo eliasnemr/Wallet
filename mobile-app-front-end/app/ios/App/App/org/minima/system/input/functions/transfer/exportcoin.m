@@ -24,7 +24,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 - (void)doFunctionWithNSStringArray:(IOSObjectArray *)zInput {
   NSString *pubks = IOSObjectArray_Get(nil_chk(zInput), 1);
-  OrgMinimaUtilsMessagesMessage *export_ = [create_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemBrainsConsensusUser_CONSENSUS_EXPORTCOIN) addObjectWithNSString:@"coinid" withId:create_OrgMinimaObjectsBaseMiniHash_initWithNSString_(pubks)];
+  OrgMinimaUtilsMessagesMessage *export_ = [((OrgMinimaUtilsMessagesMessage *) nil_chk([self getResponseMessageWithNSString:OrgMinimaSystemBrainsConsensusUser_CONSENSUS_EXPORTCOIN])) addObjectWithNSString:@"coinid" withId:create_OrgMinimaObjectsBaseMiniHash_initWithNSString_(pubks)];
   [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getConsensusHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:export_];
 }
 
@@ -54,6 +54,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 void OrgMinimaSystemInputFunctionsTransferexportcoin_init(OrgMinimaSystemInputFunctionsTransferexportcoin *self) {
   OrgMinimaSystemInputCommandFunction_initWithNSString_(self, @"exportcoin");
+  [self setHelpWithNSString:@"[coinid]" withNSString:@"export the proof of a single coin. Share it." withNSString:@"Never worry about losing your coin proofs. Share the details with friends, they can't spend the coins, and retrieve them when you need them."];
 }
 
 OrgMinimaSystemInputFunctionsTransferexportcoin *new_OrgMinimaSystemInputFunctionsTransferexportcoin_init() {

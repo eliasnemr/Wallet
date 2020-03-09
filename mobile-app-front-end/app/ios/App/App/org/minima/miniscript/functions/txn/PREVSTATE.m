@@ -21,8 +21,8 @@ J2OBJC_IGNORE_DESIGNATED_BEGIN
 J2OBJC_IGNORE_DESIGNATED_END
 
 - (OrgMinimaMiniscriptValuesValue *)runFunctionWithOrgMinimaMiniscriptContract:(OrgMinimaMiniscriptContract *)zContract {
-  jint statenum = [((OrgMinimaObjectsBaseMiniNumber *) nil_chk([((OrgMinimaMiniscriptValuesValue *) nil_chk([((id<OrgMinimaMiniscriptExpressionsExpression>) nil_chk([self getParameterWithInt:0])) getValueWithOrgMinimaMiniscriptContract:zContract])) getNumber])) getAsInt];
-  return [((OrgMinimaMiniscriptContract *) nil_chk(zContract)) getPrevStateWithOrgMinimaObjectsBaseMiniNumber:create_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(JreStrcat("I", statenum))];
+  OrgMinimaObjectsBaseMiniNumber *statenum = [((OrgMinimaMiniscriptValuesValue *) nil_chk([((id<OrgMinimaMiniscriptExpressionsExpression>) nil_chk([self getParameterWithInt:0])) getValueWithOrgMinimaMiniscriptContract:zContract])) getNumber];
+  return [((OrgMinimaMiniscriptContract *) nil_chk(zContract)) getPrevStateWithOrgMinimaObjectsBaseMiniNumber:statenum];
 }
 
 - (OrgMinimaMiniscriptFunctionsMinimaFunction *)getNewFunction {

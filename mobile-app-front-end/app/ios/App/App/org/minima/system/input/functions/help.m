@@ -14,6 +14,7 @@
 #include "org/minima/system/input/functions/disconnect.h"
 #include "org/minima/system/input/functions/gimme50.h"
 #include "org/minima/system/input/functions/help.h"
+#include "org/minima/system/input/functions/history.h"
 #include "org/minima/system/input/functions/keys.h"
 #include "org/minima/system/input/functions/minetrans.h"
 #include "org/minima/system/input/functions/newaddress.h"
@@ -74,6 +75,7 @@ J2OBJC_IGNORE_DESIGNATED_END
     [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionshelp_init()];
     [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionstutorial_init()];
     [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionsstatus_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionshistory_init()];
     [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionsprintchain_init()];
     [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionsprinttree_init()];
     [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionstrace_init()];
@@ -111,7 +113,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 - (void)addJSONDescWithOrgMinimaSystemInputCommandFunction:(OrgMinimaSystemInputCommandFunction *)zFunc {
   NSString *params = [((NSString *) nil_chk([((NSString *) nil_chk([((NSString *) nil_chk([((OrgMinimaSystemInputCommandFunction *) nil_chk(zFunc)) getParams])) java_replaceAll:@"\\{" withReplacement:@"\\("])) java_replaceAll:@"\\}" withReplacement:@"\\)"])) java_trim];
-  NSString *name = [self getStrOfLengthWithInt:12 withNSString:[zFunc getName]];
+  NSString *name = [self getStrOfLengthWithInt:14 withNSString:[zFunc getName]];
   if ([((NSString *) nil_chk(params)) isEqual:@""]) {
     [((OrgMinimaUtilsJsonJSONObject *) nil_chk([((OrgMinimaUtilsResponseStream *) nil_chk([self getResponseStream])) getDataJSON])) putWithId:name withId:[zFunc getSimple]];
   }

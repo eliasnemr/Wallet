@@ -3,8 +3,15 @@
 //  source: ./org/minima/system/input/functions/transfer/importcoin.java
 //
 
+#include "IOSObjectArray.h"
 #include "J2ObjC_source.h"
+#include "org/minima/objects/base/MiniData.h"
+#include "org/minima/system/Main.h"
+#include "org/minima/system/brains/ConsensusHandler.h"
+#include "org/minima/system/brains/ConsensusUser.h"
+#include "org/minima/system/input/CommandFunction.h"
 #include "org/minima/system/input/functions/transfer/importcoin.h"
+#include "org/minima/utils/messages/Message.h"
 
 @implementation OrgMinimaSystemInputFunctionsTransferimportcoin
 
@@ -15,23 +22,38 @@ J2OBJC_IGNORE_DESIGNATED_BEGIN
 }
 J2OBJC_IGNORE_DESIGNATED_END
 
+- (void)doFunctionWithNSStringArray:(IOSObjectArray *)zInput {
+  NSString *data = IOSObjectArray_Get(nil_chk(zInput), 1);
+  OrgMinimaUtilsMessagesMessage *importmsg = [((OrgMinimaUtilsMessagesMessage *) nil_chk([self getResponseMessageWithNSString:OrgMinimaSystemBrainsConsensusUser_CONSENSUS_IMPORTCOIN])) addObjectWithNSString:@"proof" withId:create_OrgMinimaObjectsBaseMiniData_initWithNSString_(data)];
+  [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getConsensusHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:importmsg];
+}
+
+- (OrgMinimaSystemInputCommandFunction *)getNewFunction {
+  return create_OrgMinimaSystemInputFunctionsTransferimportcoin_init();
+}
+
 + (const J2ObjcClassInfo *)__metadata {
   static J2ObjcMethodInfo methods[] = {
     { NULL, NULL, 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 0, 1, 2, -1, -1, -1 },
+    { NULL, "LOrgMinimaSystemInputCommandFunction;", 0x1, -1, -1, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
   #pragma clang diagnostic ignored "-Wundeclared-selector"
   methods[0].selector = @selector(init);
+  methods[1].selector = @selector(doFunctionWithNSStringArray:);
+  methods[2].selector = @selector(getNewFunction);
   #pragma clang diagnostic pop
-  static const J2ObjcClassInfo _OrgMinimaSystemInputFunctionsTransferimportcoin = { "importcoin", "org.minima.system.input.functions.transfer", NULL, methods, NULL, 7, 0x1, 1, 0, -1, -1, -1, -1, -1 };
+  static const void *ptrTable[] = { "doFunction", "[LNSString;", "LJavaLangException;" };
+  static const J2ObjcClassInfo _OrgMinimaSystemInputFunctionsTransferimportcoin = { "importcoin", "org.minima.system.input.functions.transfer", ptrTable, methods, NULL, 7, 0x1, 3, 0, -1, -1, -1, -1, -1 };
   return &_OrgMinimaSystemInputFunctionsTransferimportcoin;
 }
 
 @end
 
 void OrgMinimaSystemInputFunctionsTransferimportcoin_init(OrgMinimaSystemInputFunctionsTransferimportcoin *self) {
-  NSObject_init(self);
+  OrgMinimaSystemInputCommandFunction_initWithNSString_(self, @"importcoin");
 }
 
 OrgMinimaSystemInputFunctionsTransferimportcoin *new_OrgMinimaSystemInputFunctionsTransferimportcoin_init() {

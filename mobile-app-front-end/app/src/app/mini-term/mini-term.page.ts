@@ -18,7 +18,7 @@ export class MiniTermPage implements OnInit {
   @ViewChild(IonContent, {static : false} ) ionContent: IonContent;
   @ViewChild('terminal', {static: false}) terminal: ElementRef;
   
-  public size: number = 8;
+  public size: number = 12;
   private host = '';
   public lastLine = '';
   public isEnabled: boolean; 
@@ -156,7 +156,6 @@ export class MiniTermPage implements OnInit {
   return await popover.present();
 
   }
-//End of MinimaApiService
 
 }
 

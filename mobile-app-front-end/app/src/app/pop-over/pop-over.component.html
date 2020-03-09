@@ -1,15 +1,17 @@
 
-<ion-list>
-    <ion-list-header style="background-image:url('../../assets/minimatile.png'); color:black; font-weight: bolder; font-family: 'Aeonik'">
-        Token ID 
+<ion-list lines="none">
+    <ion-list-header>
+        Token ID: 
+          
+        <ion-item class="token-lbl">{{refTokenid.substring(0, 10)}}</ion-item>        
+            
     </ion-list-header>
-    <ion-label>
-    {{refTokenid}}
-    </ion-label>
-    <ion-button (click)="copyToClipboard()"style="width: 100%" expand="full">
+    <ion-item style="width: 100%;">
+    <ion-button (click)="copyToClipboard()" class="popover-btn" fill="clear" size="small" expand="full" style="width: 100%;" >
         <ion-icon name="copy"></ion-icon> 
-        Copy
-    </ion-button>
+            Copy
+        </ion-button>
+    </ion-item>
 </ion-list>
 
 

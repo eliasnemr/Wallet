@@ -43,7 +43,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 + (void)initialize {
   if (self == [OrgMinimaGlobalParams class]) {
-    JreStrongAssignAndConsume(&OrgMinimaGlobalParams_MINIMA_CONFIRM_DEPTH, new_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(@"3"));
+    JreStrongAssignAndConsume(&OrgMinimaGlobalParams_MINIMA_CONFIRM_DEPTH, new_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(@"1"));
     J2OBJC_SET_INITIALIZED(OrgMinimaGlobalParams)
   }
 }

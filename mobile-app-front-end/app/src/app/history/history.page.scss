@@ -1,0 +1,49 @@
+.date {
+    display: block;
+}
+.amount {
+    margin-left: 120px;
+}
+.ios .amount {
+    margin-left: 0px;
+}
+.md .amount {
+    margin-left: 0px;
+}
+.activity {
+    width: 100%;
+}
+
+.activity:hover {
+    background-color: grey;
+}
+.activity div h1 {
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+.amount {
+    text-align: center;
+}
+
+#month {
+    font-size: 12px;
+    color: #00AAC7;
+}
+#day {
+    font-size: 14px;
+    color: #FF671D;
+
+}
+.h2-type {
+    font-size: 14px;
+}
+.p-tokenid {
+    font-size: 12px;
+}   
+.amount-p {
+    font-size: 14px;
+}
+.amount-h2 {
+    font-size: 14px;
+}

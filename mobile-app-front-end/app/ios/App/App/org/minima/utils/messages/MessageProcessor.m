@@ -12,6 +12,7 @@
 #include "java/util/ArrayList.h"
 #include "java/util/Date.h"
 #include "java/util/LinkedList.h"
+#include "org/minima/system/input/InputHandler.h"
 #include "org/minima/utils/MinimaLogger.h"
 #include "org/minima/utils/messages/Message.h"
 #include "org/minima/utils/messages/MessageProcessor.h"
@@ -71,6 +72,7 @@ __attribute__((unused)) static void OrgMinimaUtilsMessagesMessageProcessor_check
       @catch (JavaLangException *exc) {
         OrgMinimaUtilsMinimaLogger_logWithNSString_(JreStrcat("$@", @"Error processing message : ", msg));
         [exc printStackTrace];
+        OrgMinimaSystemInputInputHandler_endResponseWithOrgMinimaUtilsMessagesMessage_withBoolean_withNSString_(msg, false, JreStrcat("$@$@", @"SYSTEM ERROR PROCESSING : ", msg, @" exception:", exc));
       }
       OrgMinimaUtilsMessagesMessageProcessor_checkTimerMessages(self);
       msg = [self getNextMessage];

@@ -39,11 +39,11 @@
 
 - (NSString *)getHost;
 
-- (NSString *)getIPAddress;
-
 - (jint)getPort;
 
 - (void)run;
+
+- (NSString *)getIPAddress;
 
 - (void)stop;
 

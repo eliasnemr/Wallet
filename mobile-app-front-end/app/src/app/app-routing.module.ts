@@ -16,6 +16,7 @@ const routes: Routes = [
   { path: 'create-token', loadChildren: './create-token/create-token.module#CreateTokenPageModule' },
   { path: 'web-scanner', loadChildren: './web-scanner/web-scanner.module#WebScannerPageModule' },
   { path: 'community', loadChildren: './community/community.module#CommunityPageModule' },
+  { path: 'history', loadChildren: './history/history.module#HistoryPageModule' },
 ];
 
 

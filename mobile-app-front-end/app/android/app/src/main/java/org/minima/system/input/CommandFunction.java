@@ -10,6 +10,7 @@ import org.minima.system.input.functions.createtoken;
 import org.minima.system.input.functions.disconnect;
 import org.minima.system.input.functions.gimme50;
 import org.minima.system.input.functions.help;
+import org.minima.system.input.functions.history;
 import org.minima.system.input.functions.intro;
 import org.minima.system.input.functions.keys;
 import org.minima.system.input.functions.minetrans;
@@ -27,7 +28,9 @@ import org.minima.system.input.functions.trace;
 import org.minima.system.input.functions.tutorial;
 import org.minima.system.input.functions.txpowinfo;
 import org.minima.system.input.functions.weblink;
+import org.minima.system.input.functions.transfer.exportcoin;
 import org.minima.system.input.functions.transfer.exportkey;
+import org.minima.system.input.functions.transfer.importcoin;
 import org.minima.system.input.functions.transfer.importkey;
 import org.minima.system.input.functions.txns.txncreate;
 import org.minima.system.input.functions.txns.txndelete;
@@ -51,8 +54,8 @@ public abstract class CommandFunction {
 			new backup(), new balance(), new connect(), new createtoken(), new disconnect(), new weblink(),
 			new gimme50(), new help(), new intro(), new minetrans(), new newaddress(), new coins(), new txpowinfo(), new keys(),
 			new newscript(), new printchain(), new printtree(), new quit(),new reconnect(), new runscript(), 
-			new send(), new status(), new test(), new trace(), new tutorial(),
-			new exportkey(), new importkey(), 
+			new send(), new status(), new test(), new trace(), new tutorial(), new history(), 
+			new exportkey(), new importkey(), new exportcoin(), new importcoin(),
 			new txncreate(), new txndelete(), new txninput(), new txnlist(), new txnstatevar(), 
 			new txnoutput(), new txnpost(), new txnsign(), new txnvalidate()
 		};  

@@ -57,7 +57,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 void OrgMinimaSystemInputFunctionsTxnstxnsign_init(OrgMinimaSystemInputFunctionsTxnstxnsign *self) {
   OrgMinimaSystemInputCommandFunction_initWithNSString_(self, @"txnsign");
-  [self setHelpWithNSString:@"[txn_num] [public key]" withNSString:@"Sign the Transaction with the chosen Public Key" withNSString:@""];
+  [self setHelpWithNSString:@"[id] [public key]" withNSString:@"Sign the Transaction with the chosen Public Key" withNSString:@""];
 }
 
 OrgMinimaSystemInputFunctionsTxnstxnsign *new_OrgMinimaSystemInputFunctionsTxnstxnsign_init() {

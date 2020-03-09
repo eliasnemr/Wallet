@@ -31,7 +31,6 @@
 #include "org/minima/utils/messages/Message.h"
 #import "App-Swift.h"
 
-
 @interface OrgMinimaStart_1 : NSObject < JavaLangRunnable >
 
 - (instancetype)init;
@@ -136,6 +135,7 @@ void OrgMinimaStart_mainWithNSStringArray_(IOSObjectArray *zArgs) {
   jboolean connect = true;
   NSString *connecthost = @"34.90.172.118";
   jint connectport = 9001;
+  NSString *mifiProxy = @"http://mifi.minima.global:9000/";
   jboolean clean = false;
   jboolean genesis = false;
   jboolean daemon = false;
@@ -160,6 +160,7 @@ void OrgMinimaStart_mainWithNSStringArray_(IOSObjectArray *zArgs) {
         OrgMinimaUtilsMinimaLogger_logWithNSString_(@"        -private               : Run a private chain. Don't connect to MainNet. Create a genesis tx-pow. Simulate some users.");
         OrgMinimaUtilsMinimaLogger_logWithNSString_(@"        -noconnect             : Don't connect to MainNet. Can then connect to private chains.");
         OrgMinimaUtilsMinimaLogger_logWithNSString_(@"        -connect [host] [port] : Don't connect to MainNet. Connect to this node.");
+        OrgMinimaUtilsMinimaLogger_logWithNSString_(@"        -mifiproxy [host:port] : Use this address for MiFi proxy requests and not the default.");
         OrgMinimaUtilsMinimaLogger_logWithNSString_(@"        -clean                 : Wipe user files and chain backup. Start afresh.");
         OrgMinimaUtilsMinimaLogger_logWithNSString_(@"        -daemon                : Accepts no input from STDIN. Can run in background process.");
         OrgMinimaUtilsMinimaLogger_logWithNSString_(@"        -help                  : Show this help");
@@ -182,6 +183,9 @@ void OrgMinimaStart_mainWithNSStringArray_(IOSObjectArray *zArgs) {
         connect = true;
         connecthost = IOSObjectArray_Get(zArgs, counter++);
         connectport = JavaLangInteger_parseIntWithNSString_(IOSObjectArray_Get(zArgs, counter++));
+      }
+      else if ([arg isEqual:@"-mifiproxy"]) {
+        mifiProxy = IOSObjectArray_Get(zArgs, counter++);
       }
       else if ([arg isEqual:@"-clean"]) {
         clean = true;
@@ -209,6 +213,7 @@ void OrgMinimaStart_mainWithNSStringArray_(IOSObjectArray *zArgs) {
   [rcmainserver setAutoConnectWithBoolean:connect];
   JreStrongAssign(&rcmainserver->mAutoHost_, connecthost);
   rcmainserver->mAutoPort_ = connectport;
+  [rcmainserver setMiFiProxyWithNSString:mifiProxy];
   if (![((NSString *) nil_chk(txnfunction)) isEqual:@""]) {
     OrgMinimaUtilsMinimaLogger_logWithNSString_(JreStrcat("$$", @"New Txn function : ", txnfunction));
     [rcmainserver setNewTxnCommandWithNSString:txnfunction];
@@ -236,8 +241,8 @@ void OrgMinimaStart_mainWithNSStringArray_(IOSObjectArray *zArgs) {
     while ([rcmainserver isRunning]) {
       @try {
         NSString *input = [((NSString *) nil_chk([bis readLine])) java_trim];
-        OrgMinimaUtilsResponseStream *response = create_OrgMinimaUtilsResponseStream_init();
         if (input != nil && ![input isEqual:@""]) {
+          OrgMinimaUtilsResponseStream *response = create_OrgMinimaUtilsResponseStream_init();
           OrgMinimaSystemInputInputMessage *inmsg = create_OrgMinimaSystemInputInputMessage_initWithNSString_withOrgMinimaUtilsResponseStream_(input, response);
           [((OrgMinimaSystemInputInputHandler *) nil_chk([rcmainserver getInputHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:inmsg];
           if ([((NSString *) nil_chk([input lowercaseString])) isEqual:@"quit"]) {
@@ -279,14 +284,9 @@ J2OBJC_IGNORE_DESIGNATED_END
 - (void)run {
   [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out))) printlnWithNSString:@"Minima Started.."];
   JavaUtilArrayList *vars = create_JavaUtilArrayList_init();
-    [vars addWithId:@"-private"];
-    [vars addWithId:@"-daemon"];
-//    [vars addWithId:@"-clean"];
-//  [vars addWithId:@"-port"];
-//  [vars addWithId:@"9001"];
-//  [vars addWithId:@"-connect"];
-//  [vars addWithId:@"34.65.19.123"];
-//  [vars addWithId:@"9001"];
+  [vars addWithId:@"-private"];
+  [vars addWithId:@"-daemon"];
+  [vars addWithId:@"-clean"];
   OrgMinimaStart_mainWithNSStringArray_([vars toArrayWithNSObjectArray:[IOSObjectArray arrayWithLength:0 type:NSString_class_()]]);
 }
 
@@ -336,9 +336,9 @@ J2OBJC_IGNORE_DESIGNATED_END
         TestClass *insta = [[TestClass alloc] init];
         
         
-        [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out)))printlnWithNSString:JreStrcat("$@", @"You just received some money. ", zMessage)];
+        [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out)))printlnWithNSString:JreStrcat("$@", @"You just received some Minima. ", zMessage)];
     }
-    
+
 }
 
 + (const J2ObjcClassInfo *)__metadata {

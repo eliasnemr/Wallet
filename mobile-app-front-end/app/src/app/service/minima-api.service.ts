@@ -76,21 +76,24 @@ export class MinimaApiService {
     return this.request('balance');
   }
 
+  getHistory() {
+    return this.request('history');
+  }
+  clearMyHistory() {
+    return this.request('history clear')
+  }
   getStatus() {
     return this.request('status');
   }
 
   request(route: any) {
     const self = this;
-    // self.showLoader();
     console.log(route);
     return new Promise((resolve, reject) => {
       self.http.get(self.host + route, { responseType: 'json' }).subscribe(( d: any ) => {
-        // setTimeout(() => { self.hideLoader(); }, 500);
         console.log(d);
         resolve(d);
       }, (err) => {
-        self.hideLoader();
         console.log('Error ' + err );
         reject(err);
       });
@@ -101,7 +104,6 @@ export class MinimaApiService {
   // request$(route: any): Observable<string> {
   //   const self = this;
   //   return this.http.get(self.host + route, {responseType: 'json'})
-  //   .map(res => ) {
       
 
       
@@ -110,6 +112,8 @@ export class MinimaApiService {
 
 
   // }
+
+
 
 
 

@@ -146,7 +146,7 @@ IOSObjectArray *OrgMinimaMiniscriptTokensToken_TOKENS_OPERATOR;
 
 + (void)initialize {
   if (self == [OrgMinimaMiniscriptTokensToken class]) {
-    JreStrongAssignAndConsume(&OrgMinimaMiniscriptTokensToken_TOKENS_COMMAND, [IOSObjectArray newArrayWithObjects:(id[]){ @"LET", @"IF", @"THEN", @"ELSEIF", @"ELSE", @"ENDIF", @"RETURN", @"WHILE", @"DO", @"ENDWHILE", @"EXEC", @"MAST", @"MASTOR", @"MASTEND" } count:14 type:NSString_class_()]);
+    JreStrongAssignAndConsume(&OrgMinimaMiniscriptTokensToken_TOKENS_COMMAND, [IOSObjectArray newArrayWithObjects:(id[]){ @"LET", @"IF", @"THEN", @"ELSEIF", @"ELSE", @"ENDIF", @"RETURN", @"ASSERT", @"WHILE", @"DO", @"ENDWHILE", @"EXEC", @"MAST", @"MASTOR", @"MASTEND" } count:15 type:NSString_class_()]);
     JreStrongAssignAndConsume(&OrgMinimaMiniscriptTokensToken_TOKENS_OPERATOR, [IOSObjectArray newArrayWithObjects:(id[]){ @"+", @"-", @"/", @"*", @"%", @"&", @"|", @"^", @">>", @"<<", @"=", @"LT", @"GT", @"GTE", @"LTE", @"EQ", @"NEQ", @"NEG", @"XOR", @"AND", @"OR", @"NXOR", @"NAND", @"NOR", @"NOT" } count:25 type:NSString_class_()]);
     J2OBJC_SET_INITIALIZED(OrgMinimaMiniscriptTokensToken)
   }

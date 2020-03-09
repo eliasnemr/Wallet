@@ -46,7 +46,7 @@ FOUNDATION_EXPORT OrgMinimaObjectsBaseMiniNumber *OrgMinimaGlobalParams_MINIMA_C
 J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaGlobalParams, MINIMA_CONFIRM_DEPTH, OrgMinimaObjectsBaseMiniNumber *)
 
 inline jint OrgMinimaGlobalParams_get_MINIMA_CASCADE_DEPTH(void);
-#define OrgMinimaGlobalParams_MINIMA_CASCADE_DEPTH 256
+#define OrgMinimaGlobalParams_MINIMA_CASCADE_DEPTH 8
 J2OBJC_STATIC_FIELD_CONSTANT(OrgMinimaGlobalParams, MINIMA_CASCADE_DEPTH, jint)
 
 FOUNDATION_EXPORT void OrgMinimaGlobalParams_init(OrgMinimaGlobalParams *self);

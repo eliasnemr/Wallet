@@ -21,6 +21,7 @@
 #include "org/minima/objects/base/MiniNumber.h"
 #include "org/minima/utils/Crypto.h"
 #include "org/minima/utils/SuperBlockLevels.h"
+#include "org/minima/utils/json/JSONArray.h"
 #include "org/minima/utils/json/JSONObject.h"
 
 @interface OrgMinimaObjectsTxPOW () {
@@ -68,6 +69,22 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 - (void)setNonceWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zNonce {
   JreStrongAssign(&mNonce_, zNonce);
+}
+
+- (void)setChainIDWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zChainID {
+  JreStrongAssign(&mChainID_, zChainID);
+}
+
+- (OrgMinimaObjectsBaseMiniHash *)getChainID {
+  return mChainID_;
+}
+
+- (void)setCustomWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zCustom {
+  JreStrongAssign(&mCustom_, zCustom);
+}
+
+- (OrgMinimaObjectsBaseMiniHash *)getCustom {
+  return mCustom_;
 }
 
 - (void)setTxDifficultyWithInt:(jint)zDifficulty {
@@ -152,9 +169,14 @@ J2OBJC_IGNORE_DESIGNATED_END
   [txpow putWithId:@"txndiff" withId:mTxnDifficulty_];
   [txpow putWithId:@"txn" withId:[((OrgMinimaObjectsTransaction *) nil_chk(mTransaction_)) toJSON]];
   [txpow putWithId:@"witness" withId:[((OrgMinimaObjectsWitness *) nil_chk(mWitness_)) toJSON]];
-  [txpow putWithId:@"witness" withId:[((OrgMinimaObjectsWitness *) nil_chk(mWitness_)) toJSON]];
-  [txpow putWithId:@"txnlist" withId:mTxPowIDList_];
+  OrgMinimaUtilsJsonJSONArray *txns = create_OrgMinimaUtilsJsonJSONArray_init();
+  for (OrgMinimaObjectsBaseMiniHash * __strong txn in nil_chk(mTxPowIDList_)) {
+    [txns addWithId:[((OrgMinimaObjectsBaseMiniHash *) nil_chk(txn)) to0xString]];
+  }
+  [txpow putWithId:@"txnlist" withId:txns];
   [txpow putWithId:@"magic" withId:[((OrgMinimaObjectsBaseMiniHash *) nil_chk(mMagic_)) description]];
+  [txpow putWithId:@"chainid" withId:[((OrgMinimaObjectsBaseMiniHash *) nil_chk(mChainID_)) description]];
+  [txpow putWithId:@"custom" withId:[((OrgMinimaObjectsBaseMiniHash *) nil_chk(mCustom_)) description]];
   [txpow putWithId:@"nonce" withId:[((OrgMinimaObjectsBaseMiniNumber *) nil_chk(mNonce_)) description]];
   [txpow putWithId:@"mmr" withId:[((OrgMinimaObjectsBaseMiniHash *) nil_chk(mMMRRoot_)) description]];
   [txpow putWithId:@"timemilli" withId:[((OrgMinimaObjectsBaseMiniNumber *) nil_chk(mTimeMilli_)) description]];
@@ -169,6 +191,8 @@ J2OBJC_IGNORE_DESIGNATED_END
 - (void)writeDataStreamWithJavaIoDataOutputStream:(JavaIoDataOutputStream *)zOut {
   [((OrgMinimaObjectsBaseMiniNumber *) nil_chk(mNonce_)) writeDataStreamWithJavaIoDataOutputStream:zOut];
   [((OrgMinimaObjectsBaseMiniHash *) nil_chk(mMagic_)) writeDataStreamWithJavaIoDataOutputStream:zOut];
+  [((OrgMinimaObjectsBaseMiniHash *) nil_chk(mChainID_)) writeDataStreamWithJavaIoDataOutputStream:zOut];
+  [((OrgMinimaObjectsBaseMiniHash *) nil_chk(mCustom_)) writeDataStreamWithJavaIoDataOutputStream:zOut];
   [((OrgMinimaObjectsBaseMiniNumber *) nil_chk(mTimeMilli_)) writeDataStreamWithJavaIoDataOutputStream:zOut];
   [((OrgMinimaObjectsBaseMiniByte *) nil_chk(mTxnDifficulty_)) writeDataStreamWithJavaIoDataOutputStream:zOut];
   [((OrgMinimaObjectsTransaction *) nil_chk(mTransaction_)) writeDataStreamWithJavaIoDataOutputStream:zOut];
@@ -214,6 +238,8 @@ J2OBJC_IGNORE_DESIGNATED_END
 - (void)readDataStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn {
   [((OrgMinimaObjectsBaseMiniNumber *) nil_chk(mNonce_)) readDataStreamWithJavaIoDataInputStream:zIn];
   [((OrgMinimaObjectsBaseMiniHash *) nil_chk(mMagic_)) readDataStreamWithJavaIoDataInputStream:zIn];
+  [((OrgMinimaObjectsBaseMiniHash *) nil_chk(mChainID_)) readDataStreamWithJavaIoDataInputStream:zIn];
+  [((OrgMinimaObjectsBaseMiniHash *) nil_chk(mCustom_)) readDataStreamWithJavaIoDataInputStream:zIn];
   [((OrgMinimaObjectsBaseMiniNumber *) nil_chk(mTimeMilli_)) readDataStreamWithJavaIoDataInputStream:zIn];
   JreStrongAssign(&mTxnDifficulty_, OrgMinimaObjectsBaseMiniByte_ReadFromStreamWithJavaIoDataInputStream_(zIn));
   [((OrgMinimaObjectsTransaction *) nil_chk(mTransaction_)) readDataStreamWithJavaIoDataInputStream:zIn];
@@ -288,6 +314,8 @@ J2OBJC_IGNORE_DESIGNATED_END
   RELEASE_(mSuperParents_);
   RELEASE_(mMMRRoot_);
   RELEASE_(mMagic_);
+  RELEASE_(mChainID_);
+  RELEASE_(mCustom_);
   RELEASE_(_mTxPOWID_);
   [super dealloc];
 }
@@ -297,27 +325,31 @@ J2OBJC_IGNORE_DESIGNATED_END
     { NULL, NULL, 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 0, 1, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 2, 3, -1, -1, -1, -1 },
-    { NULL, "I", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 4, 1, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsTransaction;", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMiniHash;", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 4, 3, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMiniHash;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 5, 6, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 7, 8, -1, -1, -1, -1 },
-    { NULL, "LJavaUtilArrayList;", 0x1, -1, -1, -1, 9, -1, -1 },
     { NULL, "I", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 10, 3, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 11, 12, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 7, 1, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsTransaction;", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 8, 9, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 10, 11, -1, -1, -1, -1 },
+    { NULL, "LJavaUtilArrayList;", 0x1, -1, -1, -1, 12, -1, -1 },
+    { NULL, "I", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 13, 6, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 14, 3, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaObjectsBaseMiniHash;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 13, 1, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 15, 1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 14, 15, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 16, 17, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaObjectsWitness;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaObjectsBaseMiniHash;", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 16, 12, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 18, 3, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaUtilsJsonJSONObject;", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LNSString;", 0x1, 17, -1, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 18, 19, 20, -1, -1, -1 },
-    { NULL, "V", 0x1, 21, 22, 20, -1, -1, -1 },
+    { NULL, "LNSString;", 0x1, 19, -1, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 20, 21, 22, -1, -1, -1 },
+    { NULL, "V", 0x1, 23, 24, 22, -1, -1, -1 },
     { NULL, "LOrgMinimaObjectsBaseMiniHash;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "I", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "Z", 0x1, -1, -1, -1, -1, -1, -1 },
@@ -329,33 +361,37 @@ J2OBJC_IGNORE_DESIGNATED_END
   #pragma clang diagnostic ignored "-Wundeclared-selector"
   methods[0].selector = @selector(init);
   methods[1].selector = @selector(setNonceWithOrgMinimaObjectsBaseMiniNumber:);
-  methods[2].selector = @selector(setTxDifficultyWithInt:);
-  methods[3].selector = @selector(getTxnDifficulty);
-  methods[4].selector = @selector(setTimeMilliWithOrgMinimaObjectsBaseMiniNumber:);
-  methods[5].selector = @selector(getTransaction);
-  methods[6].selector = @selector(setTransactionWithOrgMinimaObjectsTransaction:);
-  methods[7].selector = @selector(addBlockTxPOWWithOrgMinimaObjectsTxPOW:);
-  methods[8].selector = @selector(getBlockTxns);
-  methods[9].selector = @selector(getBlockDifficulty);
-  methods[10].selector = @selector(setBlockDifficultyWithInt:);
-  methods[11].selector = @selector(setParentWithOrgMinimaObjectsBaseMiniHash:);
-  methods[12].selector = @selector(getParentID);
-  methods[13].selector = @selector(getTimeMilli);
-  methods[14].selector = @selector(setBlockNumberWithOrgMinimaObjectsBaseMiniNumber:);
-  methods[15].selector = @selector(getBlockNumber);
-  methods[16].selector = @selector(setWitnessWithOrgMinimaObjectsWitness:);
-  methods[17].selector = @selector(getWitness);
-  methods[18].selector = @selector(getMMRRoot);
-  methods[19].selector = @selector(setMMRRootWithOrgMinimaObjectsBaseMiniHash:);
-  methods[20].selector = @selector(toJSON);
-  methods[21].selector = @selector(description);
-  methods[22].selector = @selector(writeDataStreamWithJavaIoDataOutputStream:);
-  methods[23].selector = @selector(readDataStreamWithJavaIoDataInputStream:);
-  methods[24].selector = @selector(getTxPowID);
-  methods[25].selector = @selector(getSuperLevel);
-  methods[26].selector = @selector(isBlock);
-  methods[27].selector = @selector(isTransaction);
-  methods[28].selector = @selector(calculateTXPOWID);
+  methods[2].selector = @selector(setChainIDWithOrgMinimaObjectsBaseMiniHash:);
+  methods[3].selector = @selector(getChainID);
+  methods[4].selector = @selector(setCustomWithOrgMinimaObjectsBaseMiniHash:);
+  methods[5].selector = @selector(getCustom);
+  methods[6].selector = @selector(setTxDifficultyWithInt:);
+  methods[7].selector = @selector(getTxnDifficulty);
+  methods[8].selector = @selector(setTimeMilliWithOrgMinimaObjectsBaseMiniNumber:);
+  methods[9].selector = @selector(getTransaction);
+  methods[10].selector = @selector(setTransactionWithOrgMinimaObjectsTransaction:);
+  methods[11].selector = @selector(addBlockTxPOWWithOrgMinimaObjectsTxPOW:);
+  methods[12].selector = @selector(getBlockTxns);
+  methods[13].selector = @selector(getBlockDifficulty);
+  methods[14].selector = @selector(setBlockDifficultyWithInt:);
+  methods[15].selector = @selector(setParentWithOrgMinimaObjectsBaseMiniHash:);
+  methods[16].selector = @selector(getParentID);
+  methods[17].selector = @selector(getTimeMilli);
+  methods[18].selector = @selector(setBlockNumberWithOrgMinimaObjectsBaseMiniNumber:);
+  methods[19].selector = @selector(getBlockNumber);
+  methods[20].selector = @selector(setWitnessWithOrgMinimaObjectsWitness:);
+  methods[21].selector = @selector(getWitness);
+  methods[22].selector = @selector(getMMRRoot);
+  methods[23].selector = @selector(setMMRRootWithOrgMinimaObjectsBaseMiniHash:);
+  methods[24].selector = @selector(toJSON);
+  methods[25].selector = @selector(description);
+  methods[26].selector = @selector(writeDataStreamWithJavaIoDataOutputStream:);
+  methods[27].selector = @selector(readDataStreamWithJavaIoDataInputStream:);
+  methods[28].selector = @selector(getTxPowID);
+  methods[29].selector = @selector(getSuperLevel);
+  methods[30].selector = @selector(isBlock);
+  methods[31].selector = @selector(isTransaction);
+  methods[32].selector = @selector(calculateTXPOWID);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
     { "mNonce_", "LOrgMinimaObjectsBaseMiniNumber;", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
@@ -366,19 +402,21 @@ J2OBJC_IGNORE_DESIGNATED_END
     { "mBlockNumber_", "LOrgMinimaObjectsBaseMiniNumber;", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
     { "mParent_", "LOrgMinimaObjectsBaseMiniHash;", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
     { "mBlockDifficulty_", "LOrgMinimaObjectsBaseMiniByte;", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
-    { "mTxPowIDList_", "LJavaUtilArrayList;", .constantValue.asLong = 0, 0x2, -1, -1, 23, -1 },
+    { "mTxPowIDList_", "LJavaUtilArrayList;", .constantValue.asLong = 0, 0x2, -1, -1, 25, -1 },
     { "SUPERPARENT_NUM", "I", .constantValue.asInt = OrgMinimaObjectsTxPOW_SUPERPARENT_NUM, 0x19, -1, -1, -1, -1 },
     { "mSuperParents_", "[LOrgMinimaObjectsBaseMiniHash;", .constantValue.asLong = 0, 0x1, -1, -1, -1, -1 },
     { "mMMRRoot_", "LOrgMinimaObjectsBaseMiniHash;", .constantValue.asLong = 0, 0x1, -1, -1, -1, -1 },
     { "mMagic_", "LOrgMinimaObjectsBaseMiniHash;", .constantValue.asLong = 0, 0x1, -1, -1, -1, -1 },
+    { "mChainID_", "LOrgMinimaObjectsBaseMiniHash;", .constantValue.asLong = 0, 0x1, -1, -1, -1, -1 },
+    { "mCustom_", "LOrgMinimaObjectsBaseMiniHash;", .constantValue.asLong = 0, 0x1, -1, -1, -1, -1 },
     { "_mTxPOWID_", "LOrgMinimaObjectsBaseMiniHash;", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
     { "_mIsBlockPOW_", "Z", .constantValue.asLong = 0, 0x4, -1, -1, -1, -1 },
     { "_mIsTxnPOW_", "Z", .constantValue.asLong = 0, 0x4, -1, -1, -1, -1 },
     { "_mSuperBlock_", "I", .constantValue.asLong = 0, 0x4, -1, -1, -1, -1 },
-    { "mSDF", "LJavaTextSimpleDateFormat;", .constantValue.asLong = 0, 0xa, -1, 24, -1, -1 },
+    { "mSDF", "LJavaTextSimpleDateFormat;", .constantValue.asLong = 0, 0xa, -1, 26, -1, -1 },
   };
-  static const void *ptrTable[] = { "setNonce", "LOrgMinimaObjectsBaseMiniNumber;", "setTxDifficulty", "I", "setTimeMilli", "setTransaction", "LOrgMinimaObjectsTransaction;", "addBlockTxPOW", "LOrgMinimaObjectsTxPOW;", "()Ljava/util/ArrayList<Lorg/minima/objects/base/MiniHash;>;", "setBlockDifficulty", "setParent", "LOrgMinimaObjectsBaseMiniHash;", "setBlockNumber", "setWitness", "LOrgMinimaObjectsWitness;", "setMMRRoot", "toString", "writeDataStream", "LJavaIoDataOutputStream;", "LJavaIoIOException;", "readDataStream", "LJavaIoDataInputStream;", "Ljava/util/ArrayList<Lorg/minima/objects/base/MiniHash;>;", &OrgMinimaObjectsTxPOW_mSDF };
-  static const J2ObjcClassInfo _OrgMinimaObjectsTxPOW = { "TxPOW", "org.minima.objects", ptrTable, methods, fields, 7, 0x1, 29, 18, -1, -1, -1, -1, -1 };
+  static const void *ptrTable[] = { "setNonce", "LOrgMinimaObjectsBaseMiniNumber;", "setChainID", "LOrgMinimaObjectsBaseMiniHash;", "setCustom", "setTxDifficulty", "I", "setTimeMilli", "setTransaction", "LOrgMinimaObjectsTransaction;", "addBlockTxPOW", "LOrgMinimaObjectsTxPOW;", "()Ljava/util/ArrayList<Lorg/minima/objects/base/MiniHash;>;", "setBlockDifficulty", "setParent", "setBlockNumber", "setWitness", "LOrgMinimaObjectsWitness;", "setMMRRoot", "toString", "writeDataStream", "LJavaIoDataOutputStream;", "LJavaIoIOException;", "readDataStream", "LJavaIoDataInputStream;", "Ljava/util/ArrayList<Lorg/minima/objects/base/MiniHash;>;", &OrgMinimaObjectsTxPOW_mSDF };
+  static const J2ObjcClassInfo _OrgMinimaObjectsTxPOW = { "TxPOW", "org.minima.objects", ptrTable, methods, fields, 7, 0x1, 33, 20, -1, -1, -1, -1, -1 };
   return &_OrgMinimaObjectsTxPOW;
 }
 
@@ -404,6 +442,8 @@ void OrgMinimaObjectsTxPOW_init(OrgMinimaObjectsTxPOW *self) {
   JreStrongAssignAndConsume(&self->mSuperParents_, [IOSObjectArray newArrayWithLength:OrgMinimaObjectsTxPOW_SUPERPARENT_NUM type:OrgMinimaObjectsBaseMiniHash_class_()]);
   JreStrongAssignAndConsume(&self->mMMRRoot_, new_OrgMinimaObjectsBaseMiniHash_init());
   JreStrongAssign(&self->mMagic_, OrgMinimaObjectsBaseMiniHash_getRandomData());
+  JreStrongAssignAndConsume(&self->mChainID_, new_OrgMinimaObjectsBaseMiniHash_initWithNSString_(@"0x00"));
+  JreStrongAssignAndConsume(&self->mCustom_, new_OrgMinimaObjectsBaseMiniHash_initWithNSString_(@"0x00"));
   JreStrongAssignAndConsume(&self->_mTxPOWID_, new_OrgMinimaObjectsBaseMiniHash_init());
   JreStrongAssignAndConsume(&self->mTxPowIDList_, new_JavaUtilArrayList_init());
   for (jint i = 0; i < OrgMinimaObjectsTxPOW_SUPERPARENT_NUM; i++) {

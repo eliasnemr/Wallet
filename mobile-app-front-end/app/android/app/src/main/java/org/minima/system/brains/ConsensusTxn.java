@@ -1,6 +1,7 @@
 package org.minima.system.brains;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import org.minima.database.MinimaDB;
 import org.minima.database.coindb.CoinDBRow;
@@ -80,7 +81,21 @@ public class ConsensusTxn {
 		 * Custom Transactions
 		 */
 		if(zMessage.isMessageType(CONSENSUS_TXNCREATE)) {
-			getMainDB().getUserDB().addUserRow();
+			//Get a new Random ID
+			int id = new Random().nextInt();
+			while(getMainDB().getUserDB().getUserRow(id)!=null) {
+				id = new Random().nextInt();
+			}
+			
+			//Now see if one is specified..
+			if(zMessage.exists("id")) {
+				id = zMessage.getInteger("id");
+				
+				//Delete if exists..
+				getMainDB().getUserDB().deleteUserRow(id);
+			}
+			
+			getMainDB().getUserDB().addUserRow(id);
 			
 			listTransactions(zMessage);
 		
@@ -250,7 +265,9 @@ public class ConsensusTxn {
 			MiniNumber ins  = trx.sumInputs();
 			MiniNumber outs = trx.sumOutputs();
 			MiniNumber burn = ins.sub(outs);
-					
+			
+			boolean vamounts = outs.isLessEqual(ins);
+			
 			resp.put("inputs_sum", ins.toString());
 			resp.put("outputs_sum", outs.toString());
 			resp.put("burn", burn.toString());
@@ -259,10 +276,11 @@ public class ConsensusTxn {
 			//Create a complete transaction
 			Witness newwit = getMainDB().createValidWitness(trx, wit);
 			
-			//Null valu means there is something wrong
+			//Null value means there is something wrong
 			if(newwit == null) {
 				resp.put("mmr_proof", false);
-				resp.put("mmr_check", false);
+				resp.put("script_check", false);
+				resp.put("txnvalid", false);
 				InputHandler.endResponse(zMessage, true, "");
 				return;
 			}else {
@@ -274,7 +292,10 @@ public class ConsensusTxn {
 					getMainDB().getTopBlock(),
 					getMainDB().getMainTree().getChainTip().getMMRSet(),false);
 			
-			resp.put("mmr_check", checkok);
+			resp.put("script_check", checkok);
+			
+			//Final full check..
+			resp.put("txnvalid", vamounts && checkok);
 			
 			InputHandler.endResponse(zMessage, true, "");
 			

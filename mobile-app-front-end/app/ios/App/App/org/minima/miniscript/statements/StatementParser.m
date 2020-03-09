@@ -12,6 +12,7 @@
 #include "org/minima/miniscript/expressions/ExpressionParser.h"
 #include "org/minima/miniscript/statements/StatementBlock.h"
 #include "org/minima/miniscript/statements/StatementParser.h"
+#include "org/minima/miniscript/statements/commands/ASSERTstatement.h"
 #include "org/minima/miniscript/statements/commands/EXECstatement.h"
 #include "org/minima/miniscript/statements/commands/IFstatement.h"
 #include "org/minima/miniscript/statements/commands/LETstatement.h"
@@ -179,6 +180,12 @@ OrgMinimaMiniscriptStatementsStatementBlock *OrgMinimaMiniscriptStatementsStatem
       OrgMinimaMiniscriptStatementsStatementBlock *WHILEaction = OrgMinimaMiniscriptStatementsStatementParser_parseTokensWithJavaUtilList_(actiontokens);
       OrgMinimaMiniscriptStatementsCommandsWHILEstatement *ws = create_OrgMinimaMiniscriptStatementsCommandsWHILEstatement_initWithOrgMinimaMiniscriptExpressionsExpression_withOrgMinimaMiniscriptStatementsStatementBlock_(WHILEcondition, WHILEaction);
       [stats addWithId:ws];
+    }
+    else if ([token java_equalsIgnoreCase:@"ASSERT"]) {
+      id<JavaUtilList> returntokens = OrgMinimaMiniscriptStatementsStatementParser_getTokensToNextCommandWithJavaUtilList_withInt_(zTokens, currentPosition);
+      currentPosition += [((id<JavaUtilList>) nil_chk(returntokens)) size];
+      id<OrgMinimaMiniscriptExpressionsExpression> exp = OrgMinimaMiniscriptExpressionsExpressionParser_getExpressionWithJavaUtilList_(returntokens);
+      [stats addWithId:create_OrgMinimaMiniscriptStatementsCommandsASSERTstatement_initWithOrgMinimaMiniscriptExpressionsExpression_(exp)];
     }
     else if ([token java_equalsIgnoreCase:@"RETURN"]) {
       id<JavaUtilList> returntokens = OrgMinimaMiniscriptStatementsStatementParser_getTokensToNextCommandWithJavaUtilList_withInt_(zTokens, currentPosition);

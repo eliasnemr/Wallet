@@ -34,6 +34,7 @@
   OrgMinimaSystemNetworkWebProxyManager *mProxyManager_;
   JavaUtilArrayList *mClients_;
   jboolean mGlobalReconnect_;
+  NSString *mMifiProxy_;
 }
 
 #pragma mark Public
@@ -47,6 +48,8 @@
 - (OrgMinimaSystemNetworkMultiServer *)getServer;
 
 - (void)setGlobalReconnectWithBoolean:(jboolean)zGlobalReconnect;
+
+- (void)setProxyWithNSString:(NSString *)zProxy;
 
 #pragma mark Protected
 
@@ -65,6 +68,7 @@ J2OBJC_FIELD_SETTER(OrgMinimaSystemNetworkNetworkHandler, mServer_, OrgMinimaSys
 J2OBJC_FIELD_SETTER(OrgMinimaSystemNetworkNetworkHandler, mRPCServer_, OrgMinimaSystemNetworkRpcRPCServer *)
 J2OBJC_FIELD_SETTER(OrgMinimaSystemNetworkNetworkHandler, mProxyManager_, OrgMinimaSystemNetworkWebProxyManager *)
 J2OBJC_FIELD_SETTER(OrgMinimaSystemNetworkNetworkHandler, mClients_, JavaUtilArrayList *)
+J2OBJC_FIELD_SETTER(OrgMinimaSystemNetworkNetworkHandler, mMifiProxy_, NSString *)
 
 inline NSString *OrgMinimaSystemNetworkNetworkHandler_get_NETWORK_STARTUP(void);
 /*! INTERNAL ONLY - Use accessor function from above. */

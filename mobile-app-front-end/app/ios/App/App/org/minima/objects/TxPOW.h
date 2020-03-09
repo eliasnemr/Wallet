@@ -35,6 +35,8 @@
   IOSObjectArray *mSuperParents_;
   OrgMinimaObjectsBaseMiniHash *mMMRRoot_;
   OrgMinimaObjectsBaseMiniHash *mMagic_;
+  OrgMinimaObjectsBaseMiniHash *mChainID_;
+  OrgMinimaObjectsBaseMiniHash *mCustom_;
   jboolean _mIsBlockPOW_;
   jboolean _mIsTxnPOW_;
   jint _mSuperBlock_;
@@ -53,6 +55,10 @@
 - (OrgMinimaObjectsBaseMiniNumber *)getBlockNumber;
 
 - (JavaUtilArrayList *)getBlockTxns;
+
+- (OrgMinimaObjectsBaseMiniHash *)getChainID;
+
+- (OrgMinimaObjectsBaseMiniHash *)getCustom;
 
 - (OrgMinimaObjectsBaseMiniHash *)getMMRRoot;
 
@@ -79,6 +85,10 @@
 - (void)setBlockDifficultyWithInt:(jint)zBlockDifficulty;
 
 - (void)setBlockNumberWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zBlockNum;
+
+- (void)setChainIDWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zChainID;
+
+- (void)setCustomWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zCustom;
 
 - (void)setMMRRootWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zRoot;
 
@@ -107,6 +117,8 @@ J2OBJC_STATIC_INIT(OrgMinimaObjectsTxPOW)
 J2OBJC_FIELD_SETTER(OrgMinimaObjectsTxPOW, mSuperParents_, IOSObjectArray *)
 J2OBJC_FIELD_SETTER(OrgMinimaObjectsTxPOW, mMMRRoot_, OrgMinimaObjectsBaseMiniHash *)
 J2OBJC_FIELD_SETTER(OrgMinimaObjectsTxPOW, mMagic_, OrgMinimaObjectsBaseMiniHash *)
+J2OBJC_FIELD_SETTER(OrgMinimaObjectsTxPOW, mChainID_, OrgMinimaObjectsBaseMiniHash *)
+J2OBJC_FIELD_SETTER(OrgMinimaObjectsTxPOW, mCustom_, OrgMinimaObjectsBaseMiniHash *)
 
 inline jint OrgMinimaObjectsTxPOW_get_SUPERPARENT_NUM(void);
 #define OrgMinimaObjectsTxPOW_SUPERPARENT_NUM 256
