@@ -39,10 +39,16 @@
     },
     "cordova-plugin-whitelist": {
       "PACKAGE_NAME": "global.minima.telco"
+    },
+    "cordova-plugin-advanced-http": {
+      "PACKAGE_NAME": "global.minima.telco"
     }
   },
   "dependent_plugins": {
     "cordova-plugin-badge": {
+      "PACKAGE_NAME": "global.minima.telco"
+    },
+    "cordova-plugin-file": {
       "PACKAGE_NAME": "global.minima.telco"
     }
   }

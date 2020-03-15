@@ -613,6 +613,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic-native/splash-screen/ngx */ "./node_modules/@ionic-native/splash-screen/ngx/index.js");
 /* harmony import */ var _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic-native/status-bar/ngx */ "./node_modules/@ionic-native/status-bar/ngx/index.js");
+/* harmony import */ var _ionic_native_local_notifications_ngx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic-native/local-notifications/ngx */ "./node_modules/@ionic-native/local-notifications/ngx/index.js");
+
 
 
 
@@ -621,13 +623,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var AppComponent = /** @class */ (function () {
-    function AppComponent(platform, splashScreen, statusBar, menu, router, api) {
+    function AppComponent(platform, splashScreen, statusBar, menu, router, api, localNotifications) {
         this.platform = platform;
         this.splashScreen = splashScreen;
         this.statusBar = statusBar;
         this.menu = menu;
         this.router = router;
         this.api = api;
+        this.localNotifications = localNotifications;
         this.currentRoute = '';
         this.currentVersion = 0;
         //this.getPlatform();
@@ -678,18 +681,16 @@ var AppComponent = /** @class */ (function () {
                 console.log('Minima Page loaded..');
                 window.addEventListener('MinimaEvent', function (evt) {
                     console.log('Event connection successful!');
-                    console.log(' ');
                     if (evt.detail.event === 'connected') {
                         console.log('We are now connected with host -> ' + Minima.host);
                         _this.api.setHost('http://' + Minima.host + '/');
                     }
-                });
-                window.addEventListener('newbalance', function (evt) {
-                    console.log('Balance update ->' + Minima.global_balance);
-                });
-                window.addEventListener('newblock', function (evt) {
-                    console.log('Block update ->');
-                    alert('New Block');
+                    else if (evt.detail.event === 'newbalance') {
+                        _this.notifyMe();
+                    }
+                    else if (evt.detail.event === 'newblock') {
+                        console.log("New block");
+                    }
                 });
                 Minima.init();
             });
@@ -705,19 +706,47 @@ var AppComponent = /** @class */ (function () {
             _this.currentVersion = res.response.version;
         });
     };
-    AppComponent.prototype.ionRouteWillChange = function () {
-    };
     AppComponent.prototype.betaTap = function () {
         alert("Minima Node Version 0.4");
     };
-    AppComponent.prototype.Notifier = function () { };
+    AppComponent.prototype.notifyMe = function () {
+        var notificationIcon = '../assets/icon/minima.svg';
+        var notificationBody = 'You just received some tokens';
+        // Let's check if the browser supports notifications
+        if (!("Notification" in window)) {
+            alert("This browser does not support desktop notification");
+        }
+        // Let's check whether notification permissions have already been granted
+        else if (Notification.permission === "granted") {
+            // If it's okay let's create a notification
+            var notification = new Notification("Minima", {
+                icon: notificationIcon,
+                body: notificationBody
+            });
+        }
+        // Otherwise, we need to ask the user for permission
+        else if (Notification.permission !== "denied") {
+            Notification.requestPermission().then(function (permission) {
+                // If the user accepts, let's create a notification
+                if (permission === "granted") {
+                    var notification = new Notification("Minima", {
+                        icon: notificationIcon,
+                        body: notificationBody
+                    });
+                }
+            });
+        }
+        // At last, if the user has denied notifications, and you 
+        // want to be respectful there is no need to bother them any more.
+    };
     AppComponent.ctorParameters = function () { return [
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["Platform"] },
         { type: _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_5__["SplashScreen"] },
         { type: _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__["StatusBar"] },
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["MenuController"] },
         { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
-        { type: _service_minima_api_service__WEBPACK_IMPORTED_MODULE_1__["MinimaApiService"] }
+        { type: _service_minima_api_service__WEBPACK_IMPORTED_MODULE_1__["MinimaApiService"] },
+        { type: _ionic_native_local_notifications_ngx__WEBPACK_IMPORTED_MODULE_7__["LocalNotifications"] }
     ]; };
     AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Component"])({
@@ -730,7 +759,8 @@ var AppComponent = /** @class */ (function () {
             _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__["StatusBar"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["MenuController"],
             _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"],
-            _service_minima_api_service__WEBPACK_IMPORTED_MODULE_1__["MinimaApiService"]])
+            _service_minima_api_service__WEBPACK_IMPORTED_MODULE_1__["MinimaApiService"],
+            _ionic_native_local_notifications_ngx__WEBPACK_IMPORTED_MODULE_7__["LocalNotifications"]])
     ], AppComponent);
     return AppComponent;
 }());
@@ -750,22 +780,24 @@ var AppComponent = /** @class */ (function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppModule", function() { return AppModule; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
-/* harmony import */ var _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic-native/splash-screen/ngx */ "./node_modules/@ionic-native/splash-screen/ngx/index.js");
-/* harmony import */ var _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic-native/status-bar/ngx */ "./node_modules/@ionic-native/status-bar/ngx/index.js");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
-/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
-/* harmony import */ var _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @ionic-native/clipboard/ngx */ "./node_modules/@ionic-native/clipboard/ngx/index.js");
-/* harmony import */ var _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @ionic-native/qr-scanner/ngx */ "./node_modules/@ionic-native/qr-scanner/ngx/index.js");
-/* harmony import */ var _pop_over_pop_over_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./pop-over/pop-over.component */ "./src/app/pop-over/pop-over.component.ts");
-/* harmony import */ var _pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./pop-term/pop-term.component */ "./src/app/pop-term/pop-term.component.ts");
-/* harmony import */ var _pop_history_pop_history_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./pop-history/pop-history.component */ "./src/app/pop-history/pop-history.component.ts");
-/* harmony import */ var _service_userterminal_service__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./service/userterminal.service */ "./src/app/service/userterminal.service.ts");
+/* harmony import */ var _ionic_native_local_notifications_ngx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ionic-native/local-notifications/ngx */ "./node_modules/@ionic-native/local-notifications/ngx/index.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic-native/splash-screen/ngx */ "./node_modules/@ionic-native/splash-screen/ngx/index.js");
+/* harmony import */ var _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ionic-native/status-bar/ngx */ "./node_modules/@ionic-native/status-bar/ngx/index.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
+/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
+/* harmony import */ var _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @ionic-native/clipboard/ngx */ "./node_modules/@ionic-native/clipboard/ngx/index.js");
+/* harmony import */ var _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @ionic-native/qr-scanner/ngx */ "./node_modules/@ionic-native/qr-scanner/ngx/index.js");
+/* harmony import */ var _pop_over_pop_over_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./pop-over/pop-over.component */ "./src/app/pop-over/pop-over.component.ts");
+/* harmony import */ var _pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./pop-term/pop-term.component */ "./src/app/pop-term/pop-term.component.ts");
+/* harmony import */ var _pop_history_pop_history_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./pop-history/pop-history.component */ "./src/app/pop-history/pop-history.component.ts");
+/* harmony import */ var _service_userterminal_service__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./service/userterminal.service */ "./src/app/service/userterminal.service.ts");
+
 
 
 
@@ -787,22 +819,23 @@ var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-            declarations: [_app_component__WEBPACK_IMPORTED_MODULE_9__["AppComponent"], _pop_over_pop_over_component__WEBPACK_IMPORTED_MODULE_13__["PopOverComponent"], _pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_14__["PopTermComponent"], _pop_history_pop_history_component__WEBPACK_IMPORTED_MODULE_15__["PopHistoryComponent"]],
-            entryComponents: [_pop_over_pop_over_component__WEBPACK_IMPORTED_MODULE_13__["PopOverComponent"], _pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_14__["PopTermComponent"], _pop_history_pop_history_component__WEBPACK_IMPORTED_MODULE_15__["PopHistoryComponent"]],
-            imports: [_angular_forms__WEBPACK_IMPORTED_MODULE_8__["FormsModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClientModule"], _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"], _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonicModule"].forRoot(), _app_routing_module__WEBPACK_IMPORTED_MODULE_10__["AppRoutingModule"]],
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["NgModule"])({
+            declarations: [_app_component__WEBPACK_IMPORTED_MODULE_10__["AppComponent"], _pop_over_pop_over_component__WEBPACK_IMPORTED_MODULE_14__["PopOverComponent"], _pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_15__["PopTermComponent"], _pop_history_pop_history_component__WEBPACK_IMPORTED_MODULE_16__["PopHistoryComponent"]],
+            entryComponents: [_pop_over_pop_over_component__WEBPACK_IMPORTED_MODULE_14__["PopOverComponent"], _pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_15__["PopTermComponent"], _pop_history_pop_history_component__WEBPACK_IMPORTED_MODULE_16__["PopHistoryComponent"]],
+            imports: [_angular_forms__WEBPACK_IMPORTED_MODULE_9__["FormsModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HttpClientModule"], _angular_platform_browser__WEBPACK_IMPORTED_MODULE_3__["BrowserModule"], _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["IonicModule"].forRoot(), _app_routing_module__WEBPACK_IMPORTED_MODULE_11__["AppRoutingModule"]],
             providers: [
-                _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_7__["StatusBar"],
-                _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_6__["SplashScreen"],
-                _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_11__["Clipboard"],
-                _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_12__["QRScanner"],
-                { provide: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouteReuseStrategy"], useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonicRouteStrategy"] },
-                _pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_14__["PopTermComponent"],
-                _pop_over_pop_over_component__WEBPACK_IMPORTED_MODULE_13__["PopOverComponent"],
-                _pop_history_pop_history_component__WEBPACK_IMPORTED_MODULE_15__["PopHistoryComponent"],
-                _service_userterminal_service__WEBPACK_IMPORTED_MODULE_16__["UserTerminal"]
+                _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_8__["StatusBar"],
+                _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_7__["SplashScreen"],
+                _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_12__["Clipboard"],
+                _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_13__["QRScanner"],
+                { provide: _angular_router__WEBPACK_IMPORTED_MODULE_4__["RouteReuseStrategy"], useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["IonicRouteStrategy"] },
+                _pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_15__["PopTermComponent"],
+                _pop_over_pop_over_component__WEBPACK_IMPORTED_MODULE_14__["PopOverComponent"],
+                _pop_history_pop_history_component__WEBPACK_IMPORTED_MODULE_16__["PopHistoryComponent"],
+                _service_userterminal_service__WEBPACK_IMPORTED_MODULE_17__["UserTerminal"],
+                _ionic_native_local_notifications_ngx__WEBPACK_IMPORTED_MODULE_1__["LocalNotifications"]
             ],
-            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_9__["AppComponent"]]
+            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_10__["AppComponent"]]
         })
     ], AppModule);
     return AppModule;

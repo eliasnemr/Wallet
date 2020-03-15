@@ -86,8 +86,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic-native/clipboard/ngx */ "./node_modules/@ionic-native/clipboard/ngx/index.js");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var _service_minima_api_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../service/minima-api.service */ "./src/app/service/minima-api.service.ts");
-/* harmony import */ var _MiniObjects_tokens__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../MiniObjects/tokens */ "./src/app/MiniObjects/tokens.ts");
-
 
 
 
@@ -253,8 +251,13 @@ let SendFundsPage = class SendFundsPage {
                     else {
                         tempUnConfirmed = '';
                     }
-                    const temp = new _MiniObjects_tokens__WEBPACK_IMPORTED_MODULE_6__["Tokens"](element.tokenid, element.token, tempConfirmed, tempUnConfirmed, element.total);
-                    this.tokenArr.push(temp);
+                    // const temp = new Tokens(
+                    //    element.tokenid,
+                    //    element.token,
+                    //    tempConfirmed,
+                    //    tempUnConfirmed,
+                    //    element.total);
+                    // this.tokenArr.push(temp);
                     //this.tokenArr[0] = temp;
                 }
                 this.strUnconfirmed = '';
@@ -270,8 +273,13 @@ let SendFundsPage = class SendFundsPage {
                     else {
                         tempUnConfirmed = '';
                     }
-                    const temp = new _MiniObjects_tokens__WEBPACK_IMPORTED_MODULE_6__["Tokens"](element.tokenid, element.token, tempConfirmed, tempUnConfirmed, element.total);
-                    this.tokenArr.push(temp);
+                    // const temp = new Tokens(
+                    //    element.tokenid,
+                    //    element.token,
+                    //    tempConfirmed,
+                    //    tempUnConfirmed,
+                    //    element.total);
+                    //    this.tokenArr.push(temp);
                 }
                 this.strUnconfirmed = '';
             });

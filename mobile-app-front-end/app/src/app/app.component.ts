@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Platform, MenuController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 
 declare var Minima: any;
 @Component({
@@ -21,7 +22,8 @@ export class AppComponent {
     private statusBar: StatusBar,
     private menu: MenuController,
     private router: Router,
-    private api: MinimaApiService
+    private api: MinimaApiService,
+    private localNotifications: LocalNotifications
   ) {
     //this.getPlatform();
     this.initializeApp();
@@ -68,28 +70,23 @@ export class AppComponent {
     //Minima.logout();
     /*  If on desktop do this.. */
     if(this.platform.is('desktop') || this.platform.is('pwa')) {
+
       console.log('Running Mini Desktop/Pwa');
+
       window.addEventListener('load', (ev: Event) => {
         console.log('Minima Page loaded..');
         window.addEventListener('MinimaEvent', (evt: any)=> {
           console.log('Event connection successful!');
-          console.log(' ');
           if(evt.detail.event === 'connected') {
             console.log('We are now connected with host -> ' + Minima.host);
             this.api.setHost('http://'+ Minima.host + '/');
+          } else if(evt.detail.event === 'newbalance') {
+            
+            this.notifyMe();
+
+          } else if(evt.detail.event === 'newblock') {
+            console.log("New block");
           }
-        });
-
-        window.addEventListener('newbalance', (evt: any)=> {
-          console.log('Balance update ->' + Minima.global_balance);
-
-          
-        });
-
-        window.addEventListener('newblock', (evt: any)=> {
-          console.log('Block update ->');
-          alert('New Block');
-          
         });
         
         Minima.init();
@@ -107,13 +104,48 @@ export class AppComponent {
       
     });
   }
-  ionRouteWillChange() {
-
-  }
 
   betaTap() {
     alert("Minima Node Version 0.4");
   }
 
- Notifier() {}
+  notifyMe() {
+    let notificationIcon = '../assets/icon/minima.svg';
+    let notificationBody = 'You just received some tokens';
+    // Let's check if the browser supports notifications
+  if (!("Notification" in window)) {
+    alert("This browser does not support desktop notification");
+  }
+
+  // Let's check whether notification permissions have already been granted
+  else if (Notification.permission === "granted") {
+    // If it's okay let's create a notification
+    
+    var notification = new Notification("Minima",
+    {
+      icon: notificationIcon,
+      body: notificationBody
+    });
+  }
+
+  // Otherwise, we need to ask the user for permission
+  else if (Notification.permission !== "denied") {
+    Notification.requestPermission().then(function (permission) {
+      // If the user accepts, let's create a notification
+      if (permission === "granted") {
+        
+        var notification = new Notification("Minima", 
+        {
+          icon: notificationIcon,
+          body: notificationBody
+        } );
+        
+      }
+    });
+  }
+
+  // At last, if the user has denied notifications, and you 
+  // want to be respectful there is no need to bother them any more.
+  }
+
 }

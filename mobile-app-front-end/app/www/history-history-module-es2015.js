@@ -7,55 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-app>\n  <ion-header>\n    <ion-toolbar>\n      <ion-buttons slot=\"start\">\n        <ion-menu-button></ion-menu-button>\n        </ion-buttons>\n      <ion-title color=\"primary\">Transaction History</ion-title>\n    </ion-toolbar>\n  </ion-header>\n  \n  <ion-content>\n    <ion-card>\n      <ion-card-header>\n        Recent Activity\n      </ion-card-header>\n      <ion-card-content>\n  \n        <ion-item *ngIf=\"t_summaryArr.length < 1\" lines=\"none\">\n        <ion-text>No activities to display.</ion-text>\n        </ion-item>\n        <ion-list *ngFor=\"let trans of t_summaryArr.slice().reverse();\">\n      \n        <ion-grid><ion-row>\n        <ion-item *ngIf=\"t_summaryArr.length >= 1;\" detail class=\"activity\"\n           (click)=\"presentHistoryInfo($event, trans.receivingAddress,\n                                     trans.blockNumber, trans.transAmount, trans.isBlock, \n                                     trans.txpowid, trans.parent, trans.blockdiff, trans.date)\">\n          <ion-col class=\"col-month\" fixed=\"true\">\n          <ion-label>\n          <h1 id=\"month\">\n            {{ trans.transMonth }} \n          </h1>\n          <p id=\"day\">\n            {{ trans.transDay }}\n          </p>\n        </ion-label>\n        </ion-col>\n        <!-- Maybe add icon here -->\n  \n        <ion-col class=\"col-transtype\" fixed=\"true\">\n        <ion-label id=\"transaction\">\n          <h2 class=\"h2-type\">\n            {{ checkTransType(trans.transAmount) }} {{ trans.transTokenName }}\n          </h2>\n          <p class=\"p-tokenid\">\n            Token Id: {{ trans.transTokenId }}\n          </p>\n        </ion-label>\n        </ion-col>\n  \n        <ion-col class=\"col-transamnt\" fixed=\"true\">\n        <ion-label class=\"amount\">\n          <h2 class=\"amount-h2\">\n            {{ trans.transAmount }} MINI\n          </h2>\n          <p class=\"amount-p\">\n            +$11.09\n          </p>\n        </ion-label> \n       \n      </ion-col>\n        </ion-item>\n          \n      </ion-row></ion-grid>\n      </ion-list>\n  \n  \n      </ion-card-content>\n    </ion-card>\n  \n  </ion-content>\n  </ion-app>"
-
-/***/ }),
-
-/***/ "./src/app/MiniObjects/t_summary.ts":
-/*!******************************************!*\
-  !*** ./src/app/MiniObjects/t_summary.ts ***!
-  \******************************************/
-/*! exports provided: T_Summary */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "T_Summary", function() { return T_Summary; });
-class T_Summary {
-    constructor(id, month, day, tknId, tknName, tknAmount, tknConvert, addr, blkNum, isBlock, txpowid, parent, blockdiff, date) {
-        this.transId = id;
-        this.transMonth = month;
-        this.transDay = day;
-        this.transTokenId = tknId;
-        this.transTokenName = tknName;
-        this.transAmount = tknAmount;
-        this.transConversion = tknConvert;
-        this.receivingAddress = addr;
-        this.blockNumber = blkNum;
-        this.isBlock = isBlock;
-        this.txpowid = txpowid;
-        this.parent = parent;
-        this.blockdiff = blockdiff;
-        this.date = date;
-    }
-}
-T_Summary.ctorParameters = () => [
-    { type: Number },
-    { type: String },
-    { type: Number },
-    { type: undefined },
-    { type: String },
-    { type: Number },
-    { type: Number },
-    { type: undefined },
-    { type: undefined },
-    { type: Boolean },
-    { type: String },
-    { type: String },
-    { type: Number },
-    { type: String }
-];
-
+module.exports = "<ion-app>\n  <ion-header>\n    <ion-toolbar>\n      <ion-buttons slot=\"start\">\n        <ion-menu-button></ion-menu-button>\n        </ion-buttons>\n      <ion-title color=\"primary\">Transaction History</ion-title>\n    </ion-toolbar>\n  </ion-header>\n  \n  <ion-content>\n    <ion-card>\n      <ion-card-header>\n        Recent Activity\n      </ion-card-header>\n      <ion-card-content>\n  \n        <ion-item *ngIf=\"t_summaryArr.length < 1\" lines=\"none\">\n        <ion-text>No activities to display.</ion-text>\n        </ion-item>\n        <ion-list *ngFor=\"let trans of t_summaryArr.slice().reverse();\">\n      \n        <ion-grid><ion-row>\n        <ion-item *ngIf=\"t_summaryArr.length >= 1;\" detail class=\"activity\"\n           (click)=\"presentHistoryInfo($event, trans.receivingAddress,\n                                     trans.blockNumber, trans.transAmount, trans.isBlock, \n                                     trans.txpowid, trans.parent, trans.blockdiff, trans.date)\">\n          <ion-col class=\"col-month\" fixed=\"true\">\n          <ion-label>\n          <h1 id=\"month\">\n            {{ trans.transMonth }} \n          </h1>\n          <p id=\"day\">\n            {{ trans.transDay }}\n          </p>\n        </ion-label>\n        </ion-col>\n        <!-- Maybe add icon here -->\n  \n        <ion-col class=\"col-transtype\" fixed=\"true\">\n        <ion-label id=\"transaction\">\n          <h2 class=\"h2-type\">\n            {{ checkTransType(trans.transAmount) }} {{ trans.transTokenName }}\n          </h2>\n          <p class=\"p-tokenid\">\n            Token Id: {{ trans.transTokenId }}\n          </p>\n        </ion-label>\n        </ion-col>\n  \n        <ion-col class=\"col-transamnt\" fixed=\"true\">\n        <ion-label class=\"amount\">\n          <h2 class=\"amount-h2\">\n            {{ trans.transAmount }} MINI\n          </h2>\n          <!-- <p class=\"amount-p\">\n            +$11.09\n          </p> -->\n        </ion-label> \n       \n      </ion-col>\n        </ion-item>\n          \n      </ion-row></ion-grid>\n      </ion-list>\n  \n  \n      </ion-card-content>\n    </ion-card>\n  \n  </ion-content>\n  </ion-app>"
 
 /***/ }),
 
@@ -129,12 +81,10 @@ module.exports = ".date {\n  display: block;\n}\n\n.amount {\n  margin-left: 120
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HistoryPage", function() { return HistoryPage; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _MiniObjects_t_summary__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../MiniObjects/t_summary */ "./src/app/MiniObjects/t_summary.ts");
-/* harmony import */ var _service_minima_api_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../service/minima-api.service */ "./src/app/service/minima-api.service.ts");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
-/* harmony import */ var _pop_history_pop_history_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../pop-history/pop-history.component */ "./src/app/pop-history/pop-history.component.ts");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-
+/* harmony import */ var _service_minima_api_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../service/minima-api.service */ "./src/app/service/minima-api.service.ts");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var _pop_history_pop_history_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../pop-history/pop-history.component */ "./src/app/pop-history/pop-history.component.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 
 
 
@@ -154,7 +104,7 @@ let HistoryPage = class HistoryPage {
     presentHistoryInfo(ev, _addr, _blkNumber, _amnt, _isBlock, _txpowid, _parent, _blockdiff, _date) {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
             const popover = yield this.popHistoryController.create({
-                component: _pop_history_pop_history_component__WEBPACK_IMPORTED_MODULE_4__["PopHistoryComponent"],
+                component: _pop_history_pop_history_component__WEBPACK_IMPORTED_MODULE_3__["PopHistoryComponent"],
                 cssClass: 'history-popover',
                 event: ev,
                 translucent: true,
@@ -212,7 +162,6 @@ let HistoryPage = class HistoryPage {
                     let parent = activity.txpow.parent;
                     let blockdiff = activity.txpow.blockdiff;
                     let date = activity.txpow.date.substring(4);
-                    console.log("Is this txpow a block -> " + isBlock);
                     //let tokenName = activity.tokenName;
                     // Loop in inputs and get required key indexes to create our summary obj
                     InputsArr.forEach(element => {
@@ -222,8 +171,9 @@ let HistoryPage = class HistoryPage {
                         Address = element.address;
                     });
                     //create t_summary(transaction_summary) Object to push into Array
-                    let transSummary = new _MiniObjects_t_summary__WEBPACK_IMPORTED_MODULE_1__["T_Summary"](countActivity, Month, Day, Tokenid, "Minima", Amount, 10, Address, blockNumber, isBlock, txpowid, parent, blockdiff, date);
-                    this.t_summaryArr.push(transSummary);
+                    // let transSummary = new T_Summary(countActivity, Month, Day, Tokenid, 
+                    //           "Minima", Amount, 10, Address, blockNumber, isBlock, txpowid, parent, blockdiff, date);
+                    // this.t_summaryArr.push(transSummary);
                 });
             }
         });
@@ -231,16 +181,16 @@ let HistoryPage = class HistoryPage {
     }
 };
 HistoryPage.ctorParameters = () => [
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["PopoverController"] },
-    { type: _service_minima_api_service__WEBPACK_IMPORTED_MODULE_2__["MinimaApiService"] }
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["PopoverController"] },
+    { type: _service_minima_api_service__WEBPACK_IMPORTED_MODULE_1__["MinimaApiService"] }
 ];
 HistoryPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_5__["Component"])({
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Component"])({
         selector: 'app-history',
         template: __webpack_require__(/*! raw-loader!./history.page.html */ "./node_modules/raw-loader/index.js!./src/app/history/history.page.html"),
         styles: [__webpack_require__(/*! ./history.page.scss */ "./src/app/history/history.page.scss")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_3__["PopoverController"], _service_minima_api_service__WEBPACK_IMPORTED_MODULE_2__["MinimaApiService"]])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["PopoverController"], _service_minima_api_service__WEBPACK_IMPORTED_MODULE_1__["MinimaApiService"]])
 ], HistoryPage);
 
 

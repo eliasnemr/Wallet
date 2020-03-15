@@ -1,10 +1,8 @@
-import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpEvent, HttpErrorResponse, HttpEventType } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { LoadingController } from '@ionic/angular';
 import { environment } from '../../environments/environment';
-import { BalanceService } from './balance.service';
-import { Observable } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
@@ -14,9 +12,12 @@ export class MinimaApiService {
   private host = '';
   private loader: any = null;
 
-  constructor(private http: HttpClient, public loadingController: LoadingController, public balanceService: BalanceService) {
+  constructor(private http: HttpClient, 
+    public loadingController: LoadingController) {
+
     this.host = environment.defaultNode;
     this.host = this.getHost();
+
   }
 
   async showLoader() {
@@ -79,42 +80,36 @@ export class MinimaApiService {
   getHistory() {
     return this.request('history');
   }
+
   clearMyHistory() {
     return this.request('history clear')
   }
+
   getStatus() {
     return this.request('status');
   }
 
   request(route: any) {
-    const self = this;
-    console.log(route);
-    return new Promise((resolve, reject) => {
-      self.http.get(self.host + route, { responseType: 'json' }).subscribe(( d: any ) => {
-        console.log(d);
-        resolve(d);
-      }, (err) => {
-        console.log('Error ' + err );
-        reject(err);
-      });
+    let apiUrl = this.host + route; // this.host = "127.0.0.1:8999/" ** route = "balance" (for example)
+    let promise = new Promise((resolve, reject) => {
+      this.http.get(apiUrl, {responseType: 'json'})
+        .subscribe(data => {
+          console.log(data);
+          resolve(data);
+        });
     });
+    return promise;
+
+    // const self = this;
+    // console.log(route);
+    // return new Promise((resolve, reject) => {
+    //   self.http.get(self.host + route, { responseType: 'json' }).subscribe(( d: any ) => {
+    //     resolve(d);
+    //   }, (err) => {
+    //     console.log('Error ' + err );
+    //     reject(err);
+    //   });
+    // });
   }
-
-  /* Creating an Observable for http requests... */
-  // request$(route: any): Observable<string> {
-  //   const self = this;
-  //   return this.http.get(self.host + route, {responseType: 'json'})
-      
-
-      
-  //   }
-
-
-
-  // }
-
-
-
-
 
 }

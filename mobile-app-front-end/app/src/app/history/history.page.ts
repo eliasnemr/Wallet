@@ -1,9 +1,8 @@
-import { T_Summary } from './../MiniObjects/t_summary';
+import { T_Summary } from '../MinimaModels/t_summary';
 import { MinimaApiService } from './../service/minima-api.service';
 import { PopoverController } from '@ionic/angular';
 import { PopHistoryComponent } from './../pop-history/pop-history.component';
 import { Component, OnInit } from '@angular/core';
-import { ɵangular_packages_core_testing_testing_a } from '@angular/core/testing';
 
 @Component({
   selector: 'app-history',
@@ -100,7 +99,6 @@ export class HistoryPage implements OnInit {
           let blockdiff = activity.txpow.blockdiff;
           let date = activity.txpow.date.substring(4);
 
-          console.log("Is this txpow a block -> " + isBlock);
           //let tokenName = activity.tokenName;
           // Loop in inputs and get required key indexes to create our summary obj
           InputsArr.forEach(element => {

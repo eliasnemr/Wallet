@@ -1,9 +1,10 @@
+import { BalanceService } from './../service/balance.service';
 import { Component, OnInit, NgZone, NgModule} from '@angular/core';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 import { Clipboard } from '@ionic-native/clipboard/ngx';
 import { AlertController, Platform } from '@ionic/angular';
 import { MinimaApiService } from '../service/minima-api.service';
-import { Tokens } from '../MiniObjects/tokens';
+import { Tokens } from '../MinimaModels/tokens.model';
 
 @Component({
   selector: 'app-send-funds',
@@ -26,7 +27,9 @@ export class SendFundsPage implements OnInit {
 
   constructor(private qrScanner: QRScanner, private clipboard: Clipboard, 
     public alertController: AlertController, private zone: NgZone, 
-    private api: MinimaApiService, private platform: Platform) { }
+    private api: MinimaApiService,
+    private balanceService: BalanceService,
+    private platform: Platform) { }
 
   ngOnInit() {}
 
@@ -167,69 +170,11 @@ export class SendFundsPage implements OnInit {
   }
 
   pullInTokens() {
-    this.api.getBalance().then((res : any) => {
-      console.log(res);
-
-      this.strUnconfirmed = '';
-      let countTokens = 0;
+    this.balanceService.getBalance().then((res : any) => {
+      this.tokenArr = res;
+      return this.tokenArr;
       
-      res.response.balance.forEach(element => {
-        countTokens++;
-
-        if(element.tokenid === this.MINIMA_TOKEN_ID) {
-          const tempConfirmed = (Math.round(element.confirmed * 100)/100);
-          let tempUnConfirmed = ''; 
-          
-          if(element.unconfirmed > 0){
-            this.strUnconfirmed = 'Unconfirmed';
-            tempUnConfirmed = (Math.round(element.unconfirmed * 100)/100).toString();
-          } else {
-            tempUnConfirmed = '';
-          }
-          
-          const temp = new Tokens(
-             element.tokenid,
-             element.token,
-             tempConfirmed,
-             tempUnConfirmed,
-             element.total);
-
-          this.tokenArr.push(temp);
-          
-          //this.tokenArr[0] = temp;
-        }
-        this.strUnconfirmed = '';
-      });
-      
-      res.response.balance.forEach(element => {
-        if(element.tokenid != this.MINIMA_TOKEN_ID) {
-          let tempConfirmed = (Math.round(element.confirmed * 100)/100);
-          let tempUnConfirmed = ''; 
-          
-
-          if(element.unconfirmed > 0){
-            this.strUnconfirmed = 'Unconfirmed';
-            tempUnConfirmed = (Math.round(element.unconfirmed * 100)/100).toString();
-          } else {
-            tempUnConfirmed = '';
-          }
-        
-          const temp = new Tokens(
-             element.tokenid,
-             element.token,
-             tempConfirmed,
-             tempUnConfirmed,
-             element.total);
-             
-             this.tokenArr.push(temp);
-        }
-        
-        this.strUnconfirmed = '';
-        
-      });
     });
-
-    this.tokenArr = new Array;
   }
 
   sendFunds(){
