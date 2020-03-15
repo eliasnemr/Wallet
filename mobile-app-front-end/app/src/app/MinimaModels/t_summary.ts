@@ -1,6 +1,6 @@
 // create a model/interface for transaction summary
 export class T_Summary {
-    id?: string;
+    id?: number;
     transMonth: string;
     transDay: number;
     transTokenId: any;
@@ -15,7 +15,7 @@ export class T_Summary {
     blockdiff: number;
     date: string;
 
-    constructor(id: string, month: string, day: number, tokenid: any,
+    constructor(id: number, month: string, day: number, tokenid: any,
         tknName: string, amount: number, conv: number, receiving: any,
         blkNum: number, isBlock: boolean, txpowid: string, parent: string,
         blkdiff: number, date: string){
