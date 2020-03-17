@@ -167,5 +167,11 @@
   }
 
   ion-refresher-content {
-    opacity: 0.8;
+    padding-bottom: 200px;
+    background-color: white;
+  
+    .refresher-pulling {
+      position: fixed;
+      top: 50px;
+    }
   }

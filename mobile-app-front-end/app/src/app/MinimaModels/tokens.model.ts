@@ -4,5 +4,5 @@ export interface Tokens {
     token: string;
     confirmed: number;
     unconfirmed: any;
-    total: number;
+    total: number; 
 }

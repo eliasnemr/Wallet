@@ -11,6 +11,57 @@ module.exports = "<ion-app>\n  <ion-header>\n    <ion-toolbar>\n      <ion-butto
 
 /***/ }),
 
+/***/ "./src/app/MinimaModels/t_summary.ts":
+/*!*******************************************!*\
+  !*** ./src/app/MinimaModels/t_summary.ts ***!
+  \*******************************************/
+/*! exports provided: T_Summary */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "T_Summary", function() { return T_Summary; });
+// create a model/interface for transaction summary
+var T_Summary = /** @class */ (function () {
+    function T_Summary(id, month, day, tokenid, tknName, amount, conv, receiving, blkNum, isBlock, txpowid, parent, blkdiff, date) {
+        this.id = id;
+        this.transMonth = month;
+        this.transDay = day;
+        this.transTokenId = tokenid;
+        this.transTokenName = tknName;
+        this.transAmount = amount;
+        this.transConversion = conv;
+        this.receivingAddress = receiving;
+        this.blockNumber = blkNum;
+        this.isBlock = isBlock;
+        this.txpowid = txpowid;
+        this.parent = parent;
+        this.blockdiff = blkdiff;
+        this.date = date;
+    }
+    T_Summary.ctorParameters = function () { return [
+        { type: Number },
+        { type: String },
+        { type: Number },
+        { type: undefined },
+        { type: String },
+        { type: Number },
+        { type: Number },
+        { type: undefined },
+        { type: Number },
+        { type: Boolean },
+        { type: String },
+        { type: String },
+        { type: Number },
+        { type: String }
+    ]; };
+    return T_Summary;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/history/history.module.ts":
 /*!*******************************************!*\
   !*** ./src/app/history/history.module.ts ***!
@@ -84,10 +135,12 @@ module.exports = ".date {\n  display: block;\n}\n\n.amount {\n  margin-left: 120
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HistoryPage", function() { return HistoryPage; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _service_minima_api_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../service/minima-api.service */ "./src/app/service/minima-api.service.ts");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
-/* harmony import */ var _pop_history_pop_history_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../pop-history/pop-history.component */ "./src/app/pop-history/pop-history.component.ts");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _MinimaModels_t_summary__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../MinimaModels/t_summary */ "./src/app/MinimaModels/t_summary.ts");
+/* harmony import */ var _service_minima_api_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../service/minima-api.service */ "./src/app/service/minima-api.service.ts");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var _pop_history_pop_history_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../pop-history/pop-history.component */ "./src/app/pop-history/pop-history.component.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+
 
 
 
@@ -110,7 +163,7 @@ var HistoryPage = /** @class */ (function () {
             return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.popHistoryController.create({
-                            component: _pop_history_pop_history_component__WEBPACK_IMPORTED_MODULE_3__["PopHistoryComponent"],
+                            component: _pop_history_pop_history_component__WEBPACK_IMPORTED_MODULE_4__["PopHistoryComponent"],
                             cssClass: 'history-popover',
                             event: ev,
                             translucent: true,
@@ -151,6 +204,7 @@ var HistoryPage = /** @class */ (function () {
     };
     // Get all users transaction history
     HistoryPage.prototype.pullInHistorySummary = function () {
+        var _this = this;
         this.api.getHistory().then(function (res) {
             if (res.status === true) {
                 console.log('Pulling in history ->' + res);
@@ -182,25 +236,24 @@ var HistoryPage = /** @class */ (function () {
                         Address = element.address;
                     });
                     //create t_summary(transaction_summary) Object to push into Array
-                    // let transSummary = new T_Summary(countActivity, Month, Day, Tokenid, 
-                    //           "Minima", Amount, 10, Address, blockNumber, isBlock, txpowid, parent, blockdiff, date);
-                    // this.t_summaryArr.push(transSummary);
+                    var transSummary = new _MinimaModels_t_summary__WEBPACK_IMPORTED_MODULE_1__["T_Summary"](countActivity_1, Month, Day, Tokenid, "Minima", Amount, 10, Address, blockNumber, isBlock, txpowid, parent, blockdiff, date);
+                    _this.t_summaryArr.push(transSummary);
                 });
             }
         });
         this.t_summaryArr = new Array;
     };
     HistoryPage.ctorParameters = function () { return [
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["PopoverController"] },
-        { type: _service_minima_api_service__WEBPACK_IMPORTED_MODULE_1__["MinimaApiService"] }
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["PopoverController"] },
+        { type: _service_minima_api_service__WEBPACK_IMPORTED_MODULE_2__["MinimaApiService"] }
     ]; };
     HistoryPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Component"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_5__["Component"])({
             selector: 'app-history',
             template: __webpack_require__(/*! raw-loader!./history.page.html */ "./node_modules/raw-loader/index.js!./src/app/history/history.page.html"),
             styles: [__webpack_require__(/*! ./history.page.scss */ "./src/app/history/history.page.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["PopoverController"], _service_minima_api_service__WEBPACK_IMPORTED_MODULE_1__["MinimaApiService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_3__["PopoverController"], _service_minima_api_service__WEBPACK_IMPORTED_MODULE_2__["MinimaApiService"]])
     ], HistoryPage);
     return HistoryPage;
 }());
