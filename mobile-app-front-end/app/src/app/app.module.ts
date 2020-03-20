@@ -1,5 +1,5 @@
 import { BalanceService } from './service/balance.service';
-import { BalancePage } from './balance/balance.page';
+import { BalancePage } from './pages/balance/balance.page';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -13,9 +13,9 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { Clipboard } from '@ionic-native/clipboard/ngx';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
-import { PopOverComponent } from './pop-over/pop-over.component';
-import { PopTermComponent } from './pop-term/pop-term.component';
-import { PopHistoryComponent } from './pop-history/pop-history.component';
+import { PopOverComponent } from './components/pop-over/pop-over.component';
+import { PopTermComponent } from './components/pop-term/pop-term.component';
+import { PopHistoryComponent } from './components/pop-history/pop-history.component';
 import { UserTerminal } from './service/userterminal.service';
 import * as MifiJS from '../assets/JS/minimajs.js';
 

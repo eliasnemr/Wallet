@@ -1,4 +1,4 @@
-import { Tokens } from '../MinimaModels/tokens.model';
+import { Tokens } from '../models/tokens.model';
 import { environment } from './../../environments/environment.prod';
 import { HttpClient } from '@angular/common/http';
 import { Injectable, ChangeDetectorRef } from '@angular/core';
@@ -13,12 +13,6 @@ export class BalanceService {
 
   public polledBalance$: Observable<any>;
   manualRefresh = new Subject();
-
-  public loadedTokens: Tokens[];
-  public tokensArrService: any;
-  public balanceSubscription: Subscription;
-
-  private MINI_TOKENID = '0x0000000000000000000000000000000000000000000000000000000000000000';
   private host = '';
   private loader: any = null;
 
@@ -74,7 +68,5 @@ export class BalanceService {
     (a.length > 5) && a.length--
     return a;
   };
-
-    
 
 }

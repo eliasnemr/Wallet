@@ -8,45 +8,45 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
-	"./balance/balance.module": [
-		"./src/app/balance/balance.module.ts",
-		"balance-balance-module"
+	"./pages/balance/balance.module": [
+		"./src/app/pages/balance/balance.module.ts",
+		"pages-balance-balance-module"
 	],
-	"./community/community.module": [
-		"./src/app/community/community.module.ts",
-		"community-community-module"
+	"./pages/community/community.module": [
+		"./src/app/pages/community/community.module.ts",
+		"pages-community-community-module"
 	],
-	"./create-token/create-token.module": [
-		"./src/app/create-token/create-token.module.ts",
-		"create-token-create-token-module"
+	"./pages/create-token/create-token.module": [
+		"./src/app/pages/create-token/create-token.module.ts",
+		"pages-create-token-create-token-module"
 	],
-	"./history/history.module": [
-		"./src/app/history/history.module.ts",
-		"history-history-module"
+	"./pages/history/history.module": [
+		"./src/app/pages/history/history.module.ts",
+		"pages-history-history-module"
 	],
-	"./mini-status/mini-status.module": [
-		"./src/app/mini-status/mini-status.module.ts",
-		"mini-status-mini-status-module"
+	"./pages/mini-status/mini-status.module": [
+		"./src/app/pages/mini-status/mini-status.module.ts",
+		"pages-mini-status-mini-status-module"
 	],
-	"./mini-term/mini-term.module": [
-		"./src/app/mini-term/mini-term.module.ts",
-		"mini-term-mini-term-module"
+	"./pages/mini-term/mini-term.module": [
+		"./src/app/pages/mini-term/mini-term.module.ts",
+		"pages-mini-term-mini-term-module"
 	],
-	"./my-address/my-address.module": [
-		"./src/app/my-address/my-address.module.ts",
-		"my-address-my-address-module"
+	"./pages/my-address/my-address.module": [
+		"./src/app/pages/my-address/my-address.module.ts",
+		"pages-my-address-my-address-module"
 	],
-	"./send-funds/send-funds.module": [
-		"./src/app/send-funds/send-funds.module.ts",
-		"send-funds-send-funds-module"
+	"./pages/send-funds/send-funds.module": [
+		"./src/app/pages/send-funds/send-funds.module.ts",
+		"pages-send-funds-send-funds-module"
 	],
-	"./settings/settings.module": [
-		"./src/app/settings/settings.module.ts",
-		"settings-settings-module"
+	"./pages/settings/settings.module": [
+		"./src/app/pages/settings/settings.module.ts",
+		"pages-settings-settings-module"
 	],
-	"./web-scanner/web-scanner.module": [
-		"./src/app/web-scanner/web-scanner.module.ts",
-		"web-scanner-web-scanner-module"
+	"./pages/web-scanner/web-scanner.module": [
+		"./src/app/pages/web-scanner/web-scanner.module.ts",
+		"pages-web-scanner-web-scanner-module"
 	]
 };
 function webpackAsyncContext(req) {
@@ -493,10 +493,10 @@ module.exports = "<ion-app>\n  <ion-split-pane when=\"lg\" contentId=\"mainMenu\
 
 /***/ }),
 
-/***/ "./node_modules/raw-loader/index.js!./src/app/pop-history/pop-history.component.html":
-/*!**********************************************************************************!*\
-  !*** ./node_modules/raw-loader!./src/app/pop-history/pop-history.component.html ***!
-  \**********************************************************************************/
+/***/ "./node_modules/raw-loader/index.js!./src/app/components/pop-history/pop-history.component.html":
+/*!*********************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/components/pop-history/pop-history.component.html ***!
+  \*********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -504,10 +504,10 @@ module.exports = "<ion-list>\n  \n  <h2 class=\"pop-title-activity\">{{ checkTra
 
 /***/ }),
 
-/***/ "./node_modules/raw-loader/index.js!./src/app/pop-over/pop-over.component.html":
-/*!****************************************************************************!*\
-  !*** ./node_modules/raw-loader!./src/app/pop-over/pop-over.component.html ***!
-  \****************************************************************************/
+/***/ "./node_modules/raw-loader/index.js!./src/app/components/pop-over/pop-over.component.html":
+/*!***************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/components/pop-over/pop-over.component.html ***!
+  \***************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -515,10 +515,10 @@ module.exports = "\n<ion-list lines=\"none\">\n    <ion-list-header>\n        To
 
 /***/ }),
 
-/***/ "./node_modules/raw-loader/index.js!./src/app/pop-term/pop-term.component.html":
-/*!****************************************************************************!*\
-  !*** ./node_modules/raw-loader!./src/app/pop-term/pop-term.component.html ***!
-  \****************************************************************************/
+/***/ "./node_modules/raw-loader/index.js!./src/app/components/pop-term/pop-term.component.html":
+/*!***************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/components/pop-term/pop-term.component.html ***!
+  \***************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -543,21 +543,21 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const routes = [
-    { path: '', loadChildren: './balance/balance.module#BalancePageModule' },
+    { path: '', loadChildren: './pages/balance/balance.module#BalancePageModule' },
     { path: '', redirectTo: 'balance', pathMatch: 'full' },
-    { path: 'balance', loadChildren: () => __webpack_require__.e(/*! import() | balance-balance-module */ "balance-balance-module").then(__webpack_require__.bind(null, /*! ./balance/balance.module */ "./src/app/balance/balance.module.ts")).then(m => m.BalancePageModule) },
-    { path: 'send-funds', loadChildren: './send-funds/send-funds.module#SendFundsPageModule' },
-    { path: 'create-token', loadChildren: './create-token/create-token.module#CreateTokenPageModule' },
-    { path: 'status', loadChildren: './mini-status/mini-status.module#MiniStatusPageModule' },
-    { path: 'my-address', loadChildren: './my-address/my-address.module#MyAddressPageModule' },
-    { path: 'code', loadChildren: './send-funds/send-funds.module#SendFundsPageModule' },
-    { path: 'settings', loadChildren: './settings/settings.module#SettingsPageModule' },
-    { path: 'mini-term', loadChildren: './mini-term/mini-term.module#MiniTermPageModule' },
-    { path: 'mini-status', loadChildren: './mini-status/mini-status.module#MiniStatusPageModule' },
-    { path: 'create-token', loadChildren: './create-token/create-token.module#CreateTokenPageModule' },
-    { path: 'web-scanner', loadChildren: './web-scanner/web-scanner.module#WebScannerPageModule' },
-    { path: 'community', loadChildren: './community/community.module#CommunityPageModule' },
-    { path: 'history', loadChildren: './history/history.module#HistoryPageModule' },
+    { path: 'balance', loadChildren: () => __webpack_require__.e(/*! import() | pages-balance-balance-module */ "pages-balance-balance-module").then(__webpack_require__.bind(null, /*! ./pages/balance/balance.module */ "./src/app/pages/balance/balance.module.ts")).then(m => m.BalancePageModule) },
+    { path: 'send-funds', loadChildren: './pages/send-funds/send-funds.module#SendFundsPageModule' },
+    { path: 'create-token', loadChildren: './pages/create-token/create-token.module#CreateTokenPageModule' },
+    { path: 'status', loadChildren: './pages/mini-status/mini-status.module#MiniStatusPageModule' },
+    { path: 'my-address', loadChildren: './pages/my-address/my-address.module#MyAddressPageModule' },
+    { path: 'code', loadChildren: './pages/send-funds/send-funds.module#SendFundsPageModule' },
+    { path: 'settings', loadChildren: './pages/settings/settings.module#SettingsPageModule' },
+    { path: 'mini-term', loadChildren: './pages/mini-term/mini-term.module#MiniTermPageModule' },
+    { path: 'mini-status', loadChildren: './pages/mini-status/mini-status.module#MiniStatusPageModule' },
+    { path: 'create-token', loadChildren: './pages/create-token/create-token.module#CreateTokenPageModule' },
+    { path: 'web-scanner', loadChildren: './pages/web-scanner/web-scanner.module#WebScannerPageModule' },
+    { path: 'community', loadChildren: './pages/community/community.module#CommunityPageModule' },
+    { path: 'history', loadChildren: './pages/history/history.module#HistoryPageModule' },
 ];
 let AppRoutingModule = class AppRoutingModule {
 };
@@ -779,9 +779,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
 /* harmony import */ var _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @ionic-native/clipboard/ngx */ "./node_modules/@ionic-native/clipboard/ngx/index.js");
 /* harmony import */ var _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @ionic-native/qr-scanner/ngx */ "./node_modules/@ionic-native/qr-scanner/ngx/index.js");
-/* harmony import */ var _pop_over_pop_over_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./pop-over/pop-over.component */ "./src/app/pop-over/pop-over.component.ts");
-/* harmony import */ var _pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./pop-term/pop-term.component */ "./src/app/pop-term/pop-term.component.ts");
-/* harmony import */ var _pop_history_pop_history_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./pop-history/pop-history.component */ "./src/app/pop-history/pop-history.component.ts");
+/* harmony import */ var _components_pop_over_pop_over_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/pop-over/pop-over.component */ "./src/app/components/pop-over/pop-over.component.ts");
+/* harmony import */ var _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/pop-term/pop-term.component */ "./src/app/components/pop-term/pop-term.component.ts");
+/* harmony import */ var _components_pop_history_pop_history_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/pop-history/pop-history.component */ "./src/app/components/pop-history/pop-history.component.ts");
 /* harmony import */ var _service_userterminal_service__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./service/userterminal.service */ "./src/app/service/userterminal.service.ts");
 
 
@@ -806,8 +806,8 @@ let AppModule = class AppModule {
 };
 AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["NgModule"])({
-        declarations: [_app_component__WEBPACK_IMPORTED_MODULE_11__["AppComponent"], _pop_over_pop_over_component__WEBPACK_IMPORTED_MODULE_15__["PopOverComponent"], _pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_16__["PopTermComponent"], _pop_history_pop_history_component__WEBPACK_IMPORTED_MODULE_17__["PopHistoryComponent"]],
-        entryComponents: [_pop_over_pop_over_component__WEBPACK_IMPORTED_MODULE_15__["PopOverComponent"], _pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_16__["PopTermComponent"], _pop_history_pop_history_component__WEBPACK_IMPORTED_MODULE_17__["PopHistoryComponent"]],
+        declarations: [_app_component__WEBPACK_IMPORTED_MODULE_11__["AppComponent"], _components_pop_over_pop_over_component__WEBPACK_IMPORTED_MODULE_15__["PopOverComponent"], _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_16__["PopTermComponent"], _components_pop_history_pop_history_component__WEBPACK_IMPORTED_MODULE_17__["PopHistoryComponent"]],
+        entryComponents: [_components_pop_over_pop_over_component__WEBPACK_IMPORTED_MODULE_15__["PopOverComponent"], _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_16__["PopTermComponent"], _components_pop_history_pop_history_component__WEBPACK_IMPORTED_MODULE_17__["PopHistoryComponent"]],
         imports: [_angular_forms__WEBPACK_IMPORTED_MODULE_10__["FormsModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_6__["HttpClientModule"], _angular_platform_browser__WEBPACK_IMPORTED_MODULE_4__["BrowserModule"], _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["IonicModule"].forRoot(), _app_routing_module__WEBPACK_IMPORTED_MODULE_12__["AppRoutingModule"]],
         providers: [
             _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_9__["StatusBar"],
@@ -815,9 +815,9 @@ AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
             _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_13__["Clipboard"],
             _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_14__["QRScanner"],
             { provide: _angular_router__WEBPACK_IMPORTED_MODULE_5__["RouteReuseStrategy"], useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["IonicRouteStrategy"] },
-            _pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_16__["PopTermComponent"],
-            _pop_over_pop_over_component__WEBPACK_IMPORTED_MODULE_15__["PopOverComponent"],
-            _pop_history_pop_history_component__WEBPACK_IMPORTED_MODULE_17__["PopHistoryComponent"],
+            _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_16__["PopTermComponent"],
+            _components_pop_over_pop_over_component__WEBPACK_IMPORTED_MODULE_15__["PopOverComponent"],
+            _components_pop_history_pop_history_component__WEBPACK_IMPORTED_MODULE_17__["PopHistoryComponent"],
             _service_userterminal_service__WEBPACK_IMPORTED_MODULE_18__["UserTerminal"],
             _ionic_native_local_notifications_ngx__WEBPACK_IMPORTED_MODULE_2__["LocalNotifications"],
             _service_balance_service__WEBPACK_IMPORTED_MODULE_1__["BalanceService"]
@@ -830,21 +830,21 @@ AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 
 /***/ }),
 
-/***/ "./src/app/pop-history/pop-history.component.scss":
-/*!********************************************************!*\
-  !*** ./src/app/pop-history/pop-history.component.scss ***!
-  \********************************************************/
+/***/ "./src/app/components/pop-history/pop-history.component.scss":
+/*!*******************************************************************!*\
+  !*** ./src/app/components/pop-history/pop-history.component.scss ***!
+  \*******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".pop-lbl {\n  font-weight: lighter;\n  font-family: \"Aeonik-light\";\n  font-size: 12px;\n}\n\n.date-lbl {\n  font-size: 10px;\n  color: #00768A;\n}\n\nion-icon {\n  color: #FF671D;\n}\n\n.pop-info-lbl {\n  font-size: 12px;\n}\n\n.pop-amount-h2 {\n  text-align: center;\n}\n\n.pop-title-activity {\n  text-align: center;\n  font-size: medium;\n}\n\n@media only screen and (min-width: 992px) {\n  .date-lbl {\n    font-size: 14px;\n  }\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9lbGlhcy9Qcm9qZWN0cy9taW5pbWFjb3JlL21vYmlsZS1hcHAtZnJvbnQtZW5kL2FwcC9zcmMvYXBwL3BvcC1oaXN0b3J5L3BvcC1oaXN0b3J5LmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9wb3AtaGlzdG9yeS9wb3AtaGlzdG9yeS5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLG9CQUFBO0VBQ0EsMkJBQUE7RUFDQSxlQUFBO0FDQ0o7O0FERUE7RUFDSSxlQUFBO0VBQ0EsY0FBQTtBQ0NKOztBREVBO0VBQ0ksY0FBQTtBQ0NKOztBREVBO0VBQ0ksZUFBQTtBQ0NKOztBREVBO0VBQ0ksa0JBQUE7QUNDSjs7QURFQTtFQUNJLGtCQUFBO0VBQ0EsaUJBQUE7QUNDSjs7QURLQTtFQUNJO0lBQ0ksZUFBQTtFQ0ZOO0FBQ0YiLCJmaWxlIjoic3JjL2FwcC9wb3AtaGlzdG9yeS9wb3AtaGlzdG9yeS5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5wb3AtbGJsIHtcbiAgICBmb250LXdlaWdodDogbGlnaHRlcjsgXG4gICAgZm9udC1mYW1pbHk6ICdBZW9uaWstbGlnaHQnO1xuICAgIGZvbnQtc2l6ZTogMTJweDtcbn1cblxuLmRhdGUtbGJsIHtcbiAgICBmb250LXNpemU6IDEwcHg7XG4gICAgY29sb3I6ICMwMDc2OEE7XG59XG5cbmlvbi1pY29uIHtcbiAgICBjb2xvcjogI0ZGNjcxRDtcbn1cblxuLnBvcC1pbmZvLWxibCB7XG4gICAgZm9udC1zaXplOiAxMnB4O1xuICAgIFxufVxuLnBvcC1hbW91bnQtaDIge1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgICBcbn1cbi5wb3AtdGl0bGUtYWN0aXZpdHkge1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgICBmb250LXNpemU6IG1lZGl1bTtcbn1cblxuXG4vL2Rlc2t0b3BcblxuQG1lZGlhIG9ubHkgc2NyZWVuIGFuZCAobWluLXdpZHRoOiA5OTJweCkge1xuICAgIC5kYXRlLWxibCB7XG4gICAgICAgIGZvbnQtc2l6ZTogMTRweDtcbiAgICB9XG59IiwiLnBvcC1sYmwge1xuICBmb250LXdlaWdodDogbGlnaHRlcjtcbiAgZm9udC1mYW1pbHk6IFwiQWVvbmlrLWxpZ2h0XCI7XG4gIGZvbnQtc2l6ZTogMTJweDtcbn1cblxuLmRhdGUtbGJsIHtcbiAgZm9udC1zaXplOiAxMHB4O1xuICBjb2xvcjogIzAwNzY4QTtcbn1cblxuaW9uLWljb24ge1xuICBjb2xvcjogI0ZGNjcxRDtcbn1cblxuLnBvcC1pbmZvLWxibCB7XG4gIGZvbnQtc2l6ZTogMTJweDtcbn1cblxuLnBvcC1hbW91bnQtaDIge1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59XG5cbi5wb3AtdGl0bGUtYWN0aXZpdHkge1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIGZvbnQtc2l6ZTogbWVkaXVtO1xufVxuXG5AbWVkaWEgb25seSBzY3JlZW4gYW5kIChtaW4td2lkdGg6IDk5MnB4KSB7XG4gIC5kYXRlLWxibCB7XG4gICAgZm9udC1zaXplOiAxNHB4O1xuICB9XG59Il19 */"
+module.exports = ".pop-lbl {\n  font-weight: lighter;\n  font-family: \"Aeonik-light\";\n  font-size: 12px;\n}\n\n.date-lbl {\n  font-size: 10px;\n  color: #00768A;\n}\n\nion-icon {\n  color: #FF671D;\n}\n\n.pop-info-lbl {\n  font-size: 12px;\n}\n\n.pop-amount-h2 {\n  text-align: center;\n}\n\n.pop-title-activity {\n  text-align: center;\n  font-size: medium;\n}\n\n@media only screen and (min-width: 992px) {\n  .date-lbl {\n    font-size: 14px;\n  }\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9lbGlhcy9Qcm9qZWN0cy9taW5pbWFjb3JlL21vYmlsZS1hcHAtZnJvbnQtZW5kL2FwcC9zcmMvYXBwL2NvbXBvbmVudHMvcG9wLWhpc3RvcnkvcG9wLWhpc3RvcnkuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL2NvbXBvbmVudHMvcG9wLWhpc3RvcnkvcG9wLWhpc3RvcnkuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxvQkFBQTtFQUNBLDJCQUFBO0VBQ0EsZUFBQTtBQ0NKOztBREVBO0VBQ0ksZUFBQTtFQUNBLGNBQUE7QUNDSjs7QURFQTtFQUNJLGNBQUE7QUNDSjs7QURFQTtFQUNJLGVBQUE7QUNDSjs7QURFQTtFQUNJLGtCQUFBO0FDQ0o7O0FERUE7RUFDSSxrQkFBQTtFQUNBLGlCQUFBO0FDQ0o7O0FES0E7RUFDSTtJQUNJLGVBQUE7RUNGTjtBQUNGIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9wb3AtaGlzdG9yeS9wb3AtaGlzdG9yeS5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5wb3AtbGJsIHtcbiAgICBmb250LXdlaWdodDogbGlnaHRlcjsgXG4gICAgZm9udC1mYW1pbHk6ICdBZW9uaWstbGlnaHQnO1xuICAgIGZvbnQtc2l6ZTogMTJweDtcbn1cblxuLmRhdGUtbGJsIHtcbiAgICBmb250LXNpemU6IDEwcHg7XG4gICAgY29sb3I6ICMwMDc2OEE7XG59XG5cbmlvbi1pY29uIHtcbiAgICBjb2xvcjogI0ZGNjcxRDtcbn1cblxuLnBvcC1pbmZvLWxibCB7XG4gICAgZm9udC1zaXplOiAxMnB4O1xuICAgIFxufVxuLnBvcC1hbW91bnQtaDIge1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgICBcbn1cbi5wb3AtdGl0bGUtYWN0aXZpdHkge1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgICBmb250LXNpemU6IG1lZGl1bTtcbn1cblxuXG4vL2Rlc2t0b3BcblxuQG1lZGlhIG9ubHkgc2NyZWVuIGFuZCAobWluLXdpZHRoOiA5OTJweCkge1xuICAgIC5kYXRlLWxibCB7XG4gICAgICAgIGZvbnQtc2l6ZTogMTRweDtcbiAgICB9XG59IiwiLnBvcC1sYmwge1xuICBmb250LXdlaWdodDogbGlnaHRlcjtcbiAgZm9udC1mYW1pbHk6IFwiQWVvbmlrLWxpZ2h0XCI7XG4gIGZvbnQtc2l6ZTogMTJweDtcbn1cblxuLmRhdGUtbGJsIHtcbiAgZm9udC1zaXplOiAxMHB4O1xuICBjb2xvcjogIzAwNzY4QTtcbn1cblxuaW9uLWljb24ge1xuICBjb2xvcjogI0ZGNjcxRDtcbn1cblxuLnBvcC1pbmZvLWxibCB7XG4gIGZvbnQtc2l6ZTogMTJweDtcbn1cblxuLnBvcC1hbW91bnQtaDIge1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59XG5cbi5wb3AtdGl0bGUtYWN0aXZpdHkge1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIGZvbnQtc2l6ZTogbWVkaXVtO1xufVxuXG5AbWVkaWEgb25seSBzY3JlZW4gYW5kIChtaW4td2lkdGg6IDk5MnB4KSB7XG4gIC5kYXRlLWxibCB7XG4gICAgZm9udC1zaXplOiAxNHB4O1xuICB9XG59Il19 */"
 
 /***/ }),
 
-/***/ "./src/app/pop-history/pop-history.component.ts":
-/*!******************************************************!*\
-  !*** ./src/app/pop-history/pop-history.component.ts ***!
-  \******************************************************/
+/***/ "./src/app/components/pop-history/pop-history.component.ts":
+/*!*****************************************************************!*\
+  !*** ./src/app/components/pop-history/pop-history.component.ts ***!
+  \*****************************************************************/
 /*! exports provided: PopHistoryComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -896,8 +896,8 @@ PopHistoryComponent.ctorParameters = () => [
 PopHistoryComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Component"])({
         selector: 'app-pop-history',
-        template: __webpack_require__(/*! raw-loader!./pop-history.component.html */ "./node_modules/raw-loader/index.js!./src/app/pop-history/pop-history.component.html"),
-        styles: [__webpack_require__(/*! ./pop-history.component.scss */ "./src/app/pop-history/pop-history.component.scss")]
+        template: __webpack_require__(/*! raw-loader!./pop-history.component.html */ "./node_modules/raw-loader/index.js!./src/app/components/pop-history/pop-history.component.html"),
+        styles: [__webpack_require__(/*! ./pop-history.component.scss */ "./src/app/components/pop-history/pop-history.component.scss")]
     }),
     tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_1__["NavParams"], _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_3__["Clipboard"]])
 ], PopHistoryComponent);
@@ -906,21 +906,21 @@ PopHistoryComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 
 /***/ }),
 
-/***/ "./src/app/pop-over/pop-over.component.scss":
-/*!**************************************************!*\
-  !*** ./src/app/pop-over/pop-over.component.scss ***!
-  \**************************************************/
+/***/ "./src/app/components/pop-over/pop-over.component.scss":
+/*!*************************************************************!*\
+  !*** ./src/app/components/pop-over/pop-over.component.scss ***!
+  \*************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".token-lbl {\n  font-size: 14px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9lbGlhcy9Qcm9qZWN0cy9taW5pbWFjb3JlL21vYmlsZS1hcHAtZnJvbnQtZW5kL2FwcC9zcmMvYXBwL3BvcC1vdmVyL3BvcC1vdmVyLmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9wb3Atb3Zlci9wb3Atb3Zlci5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFPQTtFQUNJLGVBQUE7QUNOSiIsImZpbGUiOiJzcmMvYXBwL3BvcC1vdmVyL3BvcC1vdmVyLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLy8gQG1lZGlhIG9ubHkgc2NyZWVuIGFuZCAobWluLXdpZHRoOiA5OTJweCkge1xuLy8gICAgIGlvbi1saXN0IHtcbi8vICAgICAgICAgYmFja2dyb3VuZC1pbWFnZTogdXJsKCcuLi8uLi9hc3NldHMvbWluaW1hdGlsZS5wbmcnKTtcbiAgICAgICAgXG4vLyAgICAgfVxuLy8gfVxuXG4udG9rZW4tbGJsIHtcbiAgICBmb250LXNpemU6IDE0cHg7XG59IiwiLnRva2VuLWxibCB7XG4gIGZvbnQtc2l6ZTogMTRweDtcbn0iXX0= */"
+module.exports = ".token-lbl {\n  font-size: 14px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9lbGlhcy9Qcm9qZWN0cy9taW5pbWFjb3JlL21vYmlsZS1hcHAtZnJvbnQtZW5kL2FwcC9zcmMvYXBwL2NvbXBvbmVudHMvcG9wLW92ZXIvcG9wLW92ZXIuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL2NvbXBvbmVudHMvcG9wLW92ZXIvcG9wLW92ZXIuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBT0E7RUFDSSxlQUFBO0FDTkoiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL3BvcC1vdmVyL3BvcC1vdmVyLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLy8gQG1lZGlhIG9ubHkgc2NyZWVuIGFuZCAobWluLXdpZHRoOiA5OTJweCkge1xuLy8gICAgIGlvbi1saXN0IHtcbi8vICAgICAgICAgYmFja2dyb3VuZC1pbWFnZTogdXJsKCcuLi8uLi9hc3NldHMvbWluaW1hdGlsZS5wbmcnKTtcbiAgICAgICAgXG4vLyAgICAgfVxuLy8gfVxuXG4udG9rZW4tbGJsIHtcbiAgICBmb250LXNpemU6IDE0cHg7XG59IiwiLnRva2VuLWxibCB7XG4gIGZvbnQtc2l6ZTogMTRweDtcbn0iXX0= */"
 
 /***/ }),
 
-/***/ "./src/app/pop-over/pop-over.component.ts":
-/*!************************************************!*\
-  !*** ./src/app/pop-over/pop-over.component.ts ***!
-  \************************************************/
+/***/ "./src/app/components/pop-over/pop-over.component.ts":
+/*!***********************************************************!*\
+  !*** ./src/app/components/pop-over/pop-over.component.ts ***!
+  \***********************************************************/
 /*! exports provided: PopOverComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -977,8 +977,8 @@ tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 PopOverComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
         selector: 'app-pop-over',
-        template: __webpack_require__(/*! raw-loader!./pop-over.component.html */ "./node_modules/raw-loader/index.js!./src/app/pop-over/pop-over.component.html"),
-        styles: [__webpack_require__(/*! ./pop-over.component.scss */ "./src/app/pop-over/pop-over.component.scss")]
+        template: __webpack_require__(/*! raw-loader!./pop-over.component.html */ "./node_modules/raw-loader/index.js!./src/app/components/pop-over/pop-over.component.html"),
+        styles: [__webpack_require__(/*! ./pop-over.component.scss */ "./src/app/components/pop-over/pop-over.component.scss")]
     }),
     tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavParams"], _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_3__["Clipboard"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"]])
 ], PopOverComponent);
@@ -987,21 +987,21 @@ PopOverComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 
 /***/ }),
 
-/***/ "./src/app/pop-term/pop-term.component.scss":
-/*!**************************************************!*\
-  !*** ./src/app/pop-term/pop-term.component.scss ***!
-  \**************************************************/
+/***/ "./src/app/components/pop-term/pop-term.component.scss":
+/*!*************************************************************!*\
+  !*** ./src/app/components/pop-term/pop-term.component.scss ***!
+  \*************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".activate-btn-minus {\n  color: #929396;\n  text-align: centre;\n  font-size: 12px;\n}\n\n.activate-btn-add {\n  color: #929396;\n  text-align: center;\n  font-size: 20px;\n}\n\n.ios ion-button {\n  margin: auto;\n}\n\n.ios .pop-term-col {\n  width: 100%;\n  height: auto;\n}\n\n.ios .activate-btn-minus {\n  color: #929396;\n  padding-top: 18px;\n  font-size: 14px;\n  text-align: center;\n}\n\n.ios .activate-btn-add {\n  color: #929396;\n  font-size: 20px;\n  text-align: center;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9lbGlhcy9Qcm9qZWN0cy9taW5pbWFjb3JlL21vYmlsZS1hcHAtZnJvbnQtZW5kL2FwcC9zcmMvYXBwL3BvcC10ZXJtL3BvcC10ZXJtLmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9wb3AtdGVybS9wb3AtdGVybS5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLGNBQUE7RUFDQSxrQkFBQTtFQUNBLGVBQUE7QUNDSjs7QURDQTtFQUNJLGNBQUE7RUFDQSxrQkFBQTtFQUNBLGVBQUE7QUNFSjs7QURHQTtFQUNJLFlBQUE7QUNBSjs7QURFQTtFQUNJLFdBQUE7RUFDQSxZQUFBO0FDQ0o7O0FEQ0E7RUFDSSxjQUFBO0VBQ0EsaUJBQUE7RUFDQSxlQUFBO0VBQ0Esa0JBQUE7QUNFSjs7QURBQTtFQUNJLGNBQUE7RUFDQSxlQUFBO0VBQ0Esa0JBQUE7QUNHSiIsImZpbGUiOiJzcmMvYXBwL3BvcC10ZXJtL3BvcC10ZXJtLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmFjdGl2YXRlLWJ0bi1taW51cyB7XG4gICAgY29sb3I6ICM5MjkzOTY7XG4gICAgdGV4dC1hbGlnbjogY2VudHJlO1xuICAgIGZvbnQtc2l6ZTogMTJweDtcbn1cbi5hY3RpdmF0ZS1idG4tYWRkIHtcbiAgICBjb2xvcjogIzkyOTM5NjtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gICAgZm9udC1zaXplOiAyMHB4O1xufVxuXG5cbi8vIGlPUyBlZGl0LlxuLmlvcyBpb24tYnV0dG9uIHtcbiAgICBtYXJnaW46IGF1dG87XG59XG4uaW9zIC5wb3AtdGVybS1jb2wge1xuICAgIHdpZHRoOiAxMDAlO1xuICAgIGhlaWdodDogYXV0bzsgIFxufVxuLmlvcyAuYWN0aXZhdGUtYnRuLW1pbnVzIHtcbiAgICBjb2xvcjogIzkyOTM5NjtcbiAgICBwYWRkaW5nLXRvcDogMThweDtcbiAgICBmb250LXNpemU6IDE0cHg7XG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xufVxuLmlvcyAuYWN0aXZhdGUtYnRuLWFkZCB7XG4gICAgY29sb3I6ICM5MjkzOTY7XG4gICAgZm9udC1zaXplOiAyMHB4O1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbn1cbiIsIi5hY3RpdmF0ZS1idG4tbWludXMge1xuICBjb2xvcjogIzkyOTM5NjtcbiAgdGV4dC1hbGlnbjogY2VudHJlO1xuICBmb250LXNpemU6IDEycHg7XG59XG5cbi5hY3RpdmF0ZS1idG4tYWRkIHtcbiAgY29sb3I6ICM5MjkzOTY7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgZm9udC1zaXplOiAyMHB4O1xufVxuXG4uaW9zIGlvbi1idXR0b24ge1xuICBtYXJnaW46IGF1dG87XG59XG5cbi5pb3MgLnBvcC10ZXJtLWNvbCB7XG4gIHdpZHRoOiAxMDAlO1xuICBoZWlnaHQ6IGF1dG87XG59XG5cbi5pb3MgLmFjdGl2YXRlLWJ0bi1taW51cyB7XG4gIGNvbG9yOiAjOTI5Mzk2O1xuICBwYWRkaW5nLXRvcDogMThweDtcbiAgZm9udC1zaXplOiAxNHB4O1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59XG5cbi5pb3MgLmFjdGl2YXRlLWJ0bi1hZGQge1xuICBjb2xvcjogIzkyOTM5NjtcbiAgZm9udC1zaXplOiAyMHB4O1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59Il19 */"
+module.exports = ".activate-btn-minus {\n  color: #929396;\n  text-align: centre;\n  font-size: 12px;\n}\n\n.activate-btn-add {\n  color: #929396;\n  text-align: center;\n  font-size: 20px;\n}\n\n.ios ion-button {\n  margin: auto;\n}\n\n.ios .pop-term-col {\n  width: 100%;\n  height: auto;\n}\n\n.ios .activate-btn-minus {\n  color: #929396;\n  padding-top: 18px;\n  font-size: 14px;\n  text-align: center;\n}\n\n.ios .activate-btn-add {\n  color: #929396;\n  font-size: 20px;\n  text-align: center;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9lbGlhcy9Qcm9qZWN0cy9taW5pbWFjb3JlL21vYmlsZS1hcHAtZnJvbnQtZW5kL2FwcC9zcmMvYXBwL2NvbXBvbmVudHMvcG9wLXRlcm0vcG9wLXRlcm0uY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL2NvbXBvbmVudHMvcG9wLXRlcm0vcG9wLXRlcm0uY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxjQUFBO0VBQ0Esa0JBQUE7RUFDQSxlQUFBO0FDQ0o7O0FEQ0E7RUFDSSxjQUFBO0VBQ0Esa0JBQUE7RUFDQSxlQUFBO0FDRUo7O0FER0E7RUFDSSxZQUFBO0FDQUo7O0FERUE7RUFDSSxXQUFBO0VBQ0EsWUFBQTtBQ0NKOztBRENBO0VBQ0ksY0FBQTtFQUNBLGlCQUFBO0VBQ0EsZUFBQTtFQUNBLGtCQUFBO0FDRUo7O0FEQUE7RUFDSSxjQUFBO0VBQ0EsZUFBQTtFQUNBLGtCQUFBO0FDR0oiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL3BvcC10ZXJtL3BvcC10ZXJtLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmFjdGl2YXRlLWJ0bi1taW51cyB7XG4gICAgY29sb3I6ICM5MjkzOTY7XG4gICAgdGV4dC1hbGlnbjogY2VudHJlO1xuICAgIGZvbnQtc2l6ZTogMTJweDtcbn1cbi5hY3RpdmF0ZS1idG4tYWRkIHtcbiAgICBjb2xvcjogIzkyOTM5NjtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gICAgZm9udC1zaXplOiAyMHB4O1xufVxuXG5cbi8vIGlPUyBlZGl0LlxuLmlvcyBpb24tYnV0dG9uIHtcbiAgICBtYXJnaW46IGF1dG87XG59XG4uaW9zIC5wb3AtdGVybS1jb2wge1xuICAgIHdpZHRoOiAxMDAlO1xuICAgIGhlaWdodDogYXV0bzsgIFxufVxuLmlvcyAuYWN0aXZhdGUtYnRuLW1pbnVzIHtcbiAgICBjb2xvcjogIzkyOTM5NjtcbiAgICBwYWRkaW5nLXRvcDogMThweDtcbiAgICBmb250LXNpemU6IDE0cHg7XG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xufVxuLmlvcyAuYWN0aXZhdGUtYnRuLWFkZCB7XG4gICAgY29sb3I6ICM5MjkzOTY7XG4gICAgZm9udC1zaXplOiAyMHB4O1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbn1cbiIsIi5hY3RpdmF0ZS1idG4tbWludXMge1xuICBjb2xvcjogIzkyOTM5NjtcbiAgdGV4dC1hbGlnbjogY2VudHJlO1xuICBmb250LXNpemU6IDEycHg7XG59XG5cbi5hY3RpdmF0ZS1idG4tYWRkIHtcbiAgY29sb3I6ICM5MjkzOTY7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgZm9udC1zaXplOiAyMHB4O1xufVxuXG4uaW9zIGlvbi1idXR0b24ge1xuICBtYXJnaW46IGF1dG87XG59XG5cbi5pb3MgLnBvcC10ZXJtLWNvbCB7XG4gIHdpZHRoOiAxMDAlO1xuICBoZWlnaHQ6IGF1dG87XG59XG5cbi5pb3MgLmFjdGl2YXRlLWJ0bi1taW51cyB7XG4gIGNvbG9yOiAjOTI5Mzk2O1xuICBwYWRkaW5nLXRvcDogMThweDtcbiAgZm9udC1zaXplOiAxNHB4O1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59XG5cbi5pb3MgLmFjdGl2YXRlLWJ0bi1hZGQge1xuICBjb2xvcjogIzkyOTM5NjtcbiAgZm9udC1zaXplOiAyMHB4O1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59Il19 */"
 
 /***/ }),
 
-/***/ "./src/app/pop-term/pop-term.component.ts":
-/*!************************************************!*\
-  !*** ./src/app/pop-term/pop-term.component.ts ***!
-  \************************************************/
+/***/ "./src/app/components/pop-term/pop-term.component.ts":
+/*!***********************************************************!*\
+  !*** ./src/app/components/pop-term/pop-term.component.ts ***!
+  \***********************************************************/
 /*! exports provided: PopTermComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1009,7 +1009,7 @@ module.exports = ".activate-btn-minus {\n  color: #929396;\n  text-align: centre
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PopTermComponent", function() { return PopTermComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _service_userterminal_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../service/userterminal.service */ "./src/app/service/userterminal.service.ts");
+/* harmony import */ var _service_userterminal_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../service/userterminal.service */ "./src/app/service/userterminal.service.ts");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 
 
@@ -1033,8 +1033,8 @@ PopTermComponent.ctorParameters = () => [
 PopTermComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Component"])({
         selector: 'app-pop-term',
-        template: __webpack_require__(/*! raw-loader!./pop-term.component.html */ "./node_modules/raw-loader/index.js!./src/app/pop-term/pop-term.component.html"),
-        styles: [__webpack_require__(/*! ./pop-term.component.scss */ "./src/app/pop-term/pop-term.component.scss")]
+        template: __webpack_require__(/*! raw-loader!./pop-term.component.html */ "./node_modules/raw-loader/index.js!./src/app/components/pop-term/pop-term.component.html"),
+        styles: [__webpack_require__(/*! ./pop-term.component.scss */ "./src/app/components/pop-term/pop-term.component.scss")]
     }),
     tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_service_userterminal_service__WEBPACK_IMPORTED_MODULE_1__["UserTerminal"]])
 ], PopTermComponent);
@@ -1072,7 +1072,6 @@ let BalanceService = class BalanceService {
         this.http = http;
         this.ref = ref;
         this.manualRefresh = new rxjs__WEBPACK_IMPORTED_MODULE_4__["Subject"]();
-        this.MINI_TOKENID = '0x0000000000000000000000000000000000000000000000000000000000000000';
         this.host = '';
         this.loader = null;
         // take in tokenArr and the element you'd like to add to front of array

@@ -1,4 +1,4 @@
-import { Tokens } from '../MinimaModels/tokens.model';
+import { Tokens } from '../models/tokens.model';
 import { environment } from './../../environments/environment.prod';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
