@@ -1,15 +1,16 @@
+import { Tokens } from './../MinimaModels/tokens.model';
 import { BalanceService } from './../service/balance.service';
-import { Component, OnInit, NgZone, NgModule} from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 import { Clipboard } from '@ionic-native/clipboard/ngx';
 import { AlertController, Platform } from '@ionic/angular';
 import { MinimaApiService } from '../service/minima-api.service';
-import { Tokens } from '../MinimaModels/tokens.model';
 
 @Component({
   selector: 'app-send-funds',
   templateUrl: './send-funds.page.html',
   styleUrls: ['./send-funds.page.scss'],
+  providers: [ BalanceService ],
 })
 export class SendFundsPage implements OnInit {
 
@@ -29,7 +30,7 @@ export class SendFundsPage implements OnInit {
     public alertController: AlertController, private zone: NgZone, 
     private api: MinimaApiService,
     private balanceService: BalanceService,
-    private platform: Platform) { }
+    private platform: Platform) {}
 
   ngOnInit() {}
 
@@ -170,8 +171,10 @@ export class SendFundsPage implements OnInit {
   }
 
   pullInTokens() {
-    this.balanceService.getBalance().then((res : any) => {
-      this.tokenArr = res;
+    this.balanceService.getBalance().subscribe((res: { status: boolean, minifunc: string, response: {balance: Tokens}}) => {
+      for(const key in res.response){
+        this.tokenArr = res.response[key];
+      }
       return this.tokenArr;
       
     });

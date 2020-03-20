@@ -11,31 +11,32 @@ module.exports = "<ion-app>\n  <ion-header>\n    <ion-toolbar>\n      <ion-butto
 
 /***/ }),
 
-/***/ "./src/app/MiniObjects/t_summary.ts":
-/*!******************************************!*\
-  !*** ./src/app/MiniObjects/t_summary.ts ***!
-  \******************************************/
+/***/ "./src/app/MinimaModels/t_summary.ts":
+/*!*******************************************!*\
+  !*** ./src/app/MinimaModels/t_summary.ts ***!
+  \*******************************************/
 /*! exports provided: T_Summary */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "T_Summary", function() { return T_Summary; });
+// create a model/interface for transaction summary
 var T_Summary = /** @class */ (function () {
-    function T_Summary(id, month, day, tknId, tknName, tknAmount, tknConvert, addr, blkNum, isBlock, txpowid, parent, blockdiff, date) {
-        this.transId = id;
+    function T_Summary(id, month, day, tokenid, tknName, amount, conv, receiving, blkNum, isBlock, txpowid, parent, blkdiff, date) {
+        this.id = id;
         this.transMonth = month;
         this.transDay = day;
-        this.transTokenId = tknId;
+        this.transTokenId = tokenid;
         this.transTokenName = tknName;
-        this.transAmount = tknAmount;
-        this.transConversion = tknConvert;
-        this.receivingAddress = addr;
+        this.transAmount = amount;
+        this.transConversion = conv;
+        this.receivingAddress = receiving;
         this.blockNumber = blkNum;
         this.isBlock = isBlock;
         this.txpowid = txpowid;
         this.parent = parent;
-        this.blockdiff = blockdiff;
+        this.blockdiff = blkdiff;
         this.date = date;
     }
     T_Summary.ctorParameters = function () { return [
@@ -47,7 +48,7 @@ var T_Summary = /** @class */ (function () {
         { type: Number },
         { type: Number },
         { type: undefined },
-        { type: undefined },
+        { type: Number },
         { type: Boolean },
         { type: String },
         { type: String },
@@ -134,7 +135,7 @@ module.exports = ".date {\n  display: block;\n}\n\n.amount {\n  margin-left: 120
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HistoryPage", function() { return HistoryPage; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _MiniObjects_t_summary__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../MiniObjects/t_summary */ "./src/app/MiniObjects/t_summary.ts");
+/* harmony import */ var _MinimaModels_t_summary__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../MinimaModels/t_summary */ "./src/app/MinimaModels/t_summary.ts");
 /* harmony import */ var _service_minima_api_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../service/minima-api.service */ "./src/app/service/minima-api.service.ts");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var _pop_history_pop_history_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../pop-history/pop-history.component */ "./src/app/pop-history/pop-history.component.ts");
@@ -235,7 +236,7 @@ var HistoryPage = /** @class */ (function () {
                         Address = element.address;
                     });
                     //create t_summary(transaction_summary) Object to push into Array
-                    var transSummary = new _MiniObjects_t_summary__WEBPACK_IMPORTED_MODULE_1__["T_Summary"](countActivity_1, Month, Day, Tokenid, "Minima", Amount, 10, Address, blockNumber, isBlock, txpowid, parent, blockdiff, date);
+                    var transSummary = new _MinimaModels_t_summary__WEBPACK_IMPORTED_MODULE_1__["T_Summary"](countActivity_1, Month, Day, Tokenid, "Minima", Amount, 10, Address, blockNumber, isBlock, txpowid, parent, blockdiff, date);
                     _this.t_summaryArr.push(transSummary);
                 });
             }

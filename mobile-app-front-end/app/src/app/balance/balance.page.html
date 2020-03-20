@@ -11,7 +11,7 @@
   </ion-header>
 
   <ion-content>
-    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher slot="fixed" (ionRefresh)="this.service.doRefresh($event)">
       <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
 
@@ -31,15 +31,15 @@
               <ion-item-option color="danger" routerLink="/send-funds">Send</ion-item-option>
             </ion-item-options>
 
-            <ion-item *ngIf="tokenArr.length >= 1" lines="full" style="padding: 0px;">
+            <ion-item lines="full" style="padding: 0px;">
               <ion-label class="logo-names">
                 <ion-icon class="balance-token" src="../../assets/icon/minima.svg"></ion-icon>
                 <ion-note class="balance-tokenname"> {{ token.token }} </ion-note>
               </ion-label>
-              <ion-label class="confirmed-amount">
+              <ion-label  class="confirmed-amount">
                 {{ token.confirmed }}
               </ion-label>
-              <ion-label  *ngIf='token.unconfirmed != 0' class="unconfirmed-amount" color="black">
+              <ion-label *ngIf='token.unconfirmed != 0' class="unconfirmed-amount" color="black">
                 {{ token.unconfirmed }}
               </ion-label>
             </ion-item>

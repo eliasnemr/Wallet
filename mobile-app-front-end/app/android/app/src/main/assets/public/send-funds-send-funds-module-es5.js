@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-app>\n<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    <ion-title color=\"primary\">\n      Send\n    </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content *ngIf=\"isCameraOpen==false\">\n  <ion-card>\n    <ion-card-header>\n      <ion-card-title>\n        <ion-item lines=\"none\">\n          <ion-icon style=\" font-size:2.0rem;\" slot=\"start\" name=\"send\" class=\"icon-head\" ></ion-icon>\n        </ion-item>\n      </ion-card-title>\n    </ion-card-header>\n\n    <ion-card-content>\n        <ion-item>\n          <ion-label position=\"floating\">Tokens</ion-label>\n          <ion-select \n              class=\"token-select\"\n              name=\"token\"\n              cancelText=\"Dismiss\"\n              okText=\"Ok\"\n              [(ngModel)]= \"data.tokenid\"\n              placeholder=\"Select your token\">\n            <ion-select-option  *ngFor=\"let token of tokenArr\" [value]=\"token.tokenid\">\n              {{ token.token  + '->' + token.tokenid  }} \n            </ion-select-option>\n        </ion-select>\n        </ion-item>\n\n        <ion-item>\n          <ion-label position=\"floating\">Address</ion-label>\n          <ion-input name=\"address\" [(ngModel)]=\"data.address\"></ion-input>\n          \n        </ion-item>\n        <ion-item lines=\"none\" slot=\"end\">\n          <ion-button type=\"button\" class=\"util-btns\" size=\"small\" (click)=\"scanQR()\">\n            <ion-label slot=\"start\" style=\"padding:2px\">SCAN QR</ion-label>\n            <ion-icon  name=\"qr-scanner\" ></ion-icon>\n          </ion-button>\n          <ion-button type=\"button\" size=\"small\" class=\"util-btns\" (click)=\"pasteFromClipboard()\">\n            <ion-label slot=\"start\" style=\"padding:5px\">CLIPBOARD</ion-label>\n            <ion-icon name=\"clipboard\" ></ion-icon>\n          </ion-button>\n        </ion-item>\n        <ion-item>\n          <ion-label position=\"floating\">Amount</ion-label>\n          <ion-input type=\"number\" name=\"amount\" [(ngModel)]=\"data.amount\"></ion-input>\n        </ion-item>\n    </ion-card-content>\n    \n  </ion-card>\n</ion-content>\n<ion-footer>\n  <ion-toolbar>\n    <ion-buttons> \n      <ion-button class=\"action-btn\" expand=\"block\" (click)=\"stopCamera()\"  *ngIf=\"isCameraOpen==true\">\n        Stop scanning\n       </ion-button>\n      <ion-button class=\"action-btn\" expand=\"block\" (click)=\"sendFunds()\" *ngIf=\"isCameraOpen==false\">\n        <ion-icon name=\"send\" slot=\"start\"></ion-icon> Send\n      </ion-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-footer>\n</ion-app>"
+module.exports = "<ion-app>\n<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    <ion-title color=\"primary\">\n      Send\n    </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content *ngIf=\"isCameraOpen==false\">\n  <ion-card>\n    <ion-card-header>\n      <ion-card-title>\n        <ion-item lines=\"none\">\n          <ion-icon style=\" font-size:2.0rem;\" slot=\"start\" name=\"send\" class=\"icon-head\" ></ion-icon>\n        </ion-item>\n      </ion-card-title>\n    </ion-card-header>\n\n    <ion-card-content>\n        <ion-item>\n          <ion-label position=\"floating\">Tokens</ion-label>\n          <ion-select \n              class=\"token-select\"\n              name=\"token\"\n              cancelText=\"Dismiss\"\n              okText=\"Ok\"\n              [(ngModel)]= \"data.tokenid\"\n              placeholder=\"Select your token\">\n            <ion-select-option  *ngFor=\"let token of tokenArr\" [value]=\"token.tokenid\">\n              {{ token.token  + '->' + token.id  }} \n            </ion-select-option>\n        </ion-select>\n        </ion-item>\n\n        <ion-item>\n          <ion-label position=\"floating\">Address</ion-label>\n          <ion-input name=\"address\" [(ngModel)]=\"data.address\"></ion-input>\n          \n        </ion-item>\n        <ion-item lines=\"none\" slot=\"end\">\n          <ion-button type=\"button\" class=\"util-btns\" size=\"small\" (click)=\"scanQR()\">\n            <ion-label slot=\"start\" style=\"padding:2px\">SCAN QR</ion-label>\n            <ion-icon  name=\"qr-scanner\" ></ion-icon>\n          </ion-button>\n          <ion-button type=\"button\" size=\"small\" class=\"util-btns\" (click)=\"pasteFromClipboard()\">\n            <ion-label slot=\"start\" style=\"padding:5px\">CLIPBOARD</ion-label>\n            <ion-icon name=\"clipboard\" ></ion-icon>\n          </ion-button>\n        </ion-item>\n        <ion-item>\n          <ion-label position=\"floating\">Amount</ion-label>\n          <ion-input type=\"number\" name=\"amount\" [(ngModel)]=\"data.amount\"></ion-input>\n        </ion-item>\n    </ion-card-content>\n    \n  </ion-card>\n</ion-content>\n<ion-footer>\n  <ion-toolbar>\n    <ion-buttons> \n      <ion-button class=\"action-btn\" expand=\"block\" (click)=\"stopCamera()\"  *ngIf=\"isCameraOpen==true\">\n        Stop scanning\n       </ion-button>\n      <ion-button class=\"action-btn\" expand=\"block\" (click)=\"sendFunds()\" *ngIf=\"isCameraOpen==false\">\n        <ion-icon name=\"send\" slot=\"start\"></ion-icon> Send\n      </ion-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-footer>\n</ion-app>"
 
 /***/ }),
 
@@ -84,12 +84,12 @@ module.exports = "ion-card {\n  border-radius: 15px;\n}\n\nion-footer ion-toolba
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SendFundsPage", function() { return SendFundsPage; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic-native/qr-scanner/ngx */ "./node_modules/@ionic-native/qr-scanner/ngx/index.js");
-/* harmony import */ var _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic-native/clipboard/ngx */ "./node_modules/@ionic-native/clipboard/ngx/index.js");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
-/* harmony import */ var _service_minima_api_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../service/minima-api.service */ "./src/app/service/minima-api.service.ts");
-/* harmony import */ var _MiniObjects_tokens__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../MiniObjects/tokens */ "./src/app/MiniObjects/tokens.ts");
+/* harmony import */ var _service_balance_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../service/balance.service */ "./src/app/service/balance.service.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic-native/qr-scanner/ngx */ "./node_modules/@ionic-native/qr-scanner/ngx/index.js");
+/* harmony import */ var _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic-native/clipboard/ngx */ "./node_modules/@ionic-native/clipboard/ngx/index.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var _service_minima_api_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../service/minima-api.service */ "./src/app/service/minima-api.service.ts");
 
 
 
@@ -98,12 +98,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var SendFundsPage = /** @class */ (function () {
-    function SendFundsPage(qrScanner, clipboard, alertController, zone, api, platform) {
+    function SendFundsPage(qrScanner, clipboard, alertController, zone, api, balanceService, platform) {
         this.qrScanner = qrScanner;
         this.clipboard = clipboard;
         this.alertController = alertController;
         this.zone = zone;
         this.api = api;
+        this.balanceService = balanceService;
         this.platform = platform;
         this.data = {};
         this.isCameraOpen = false;
@@ -252,47 +253,10 @@ var SendFundsPage = /** @class */ (function () {
         });
     };
     SendFundsPage.prototype.pullInTokens = function () {
-        var _this = this;
-        this.api.getBalance().then(function (res) {
-            console.log(res);
-            _this.strUnconfirmed = '';
-            var countTokens = 0;
-            res.response.balance.forEach(function (element) {
-                countTokens++;
-                if (element.tokenid === _this.MINIMA_TOKEN_ID) {
-                    var tempConfirmed = (Math.round(element.confirmed * 100) / 100);
-                    var tempUnConfirmed = '';
-                    if (element.unconfirmed > 0) {
-                        _this.strUnconfirmed = 'Unconfirmed';
-                        tempUnConfirmed = (Math.round(element.unconfirmed * 100) / 100).toString();
-                    }
-                    else {
-                        tempUnConfirmed = '';
-                    }
-                    var temp = new _MiniObjects_tokens__WEBPACK_IMPORTED_MODULE_6__["Tokens"](element.tokenid, element.token, tempConfirmed, tempUnConfirmed, element.total);
-                    _this.tokenArr.push(temp);
-                    //this.tokenArr[0] = temp;
-                }
-                _this.strUnconfirmed = '';
-            });
-            res.response.balance.forEach(function (element) {
-                if (element.tokenid != _this.MINIMA_TOKEN_ID) {
-                    var tempConfirmed = (Math.round(element.confirmed * 100) / 100);
-                    var tempUnConfirmed = '';
-                    if (element.unconfirmed > 0) {
-                        _this.strUnconfirmed = 'Unconfirmed';
-                        tempUnConfirmed = (Math.round(element.unconfirmed * 100) / 100).toString();
-                    }
-                    else {
-                        tempUnConfirmed = '';
-                    }
-                    var temp = new _MiniObjects_tokens__WEBPACK_IMPORTED_MODULE_6__["Tokens"](element.tokenid, element.token, tempConfirmed, tempUnConfirmed, element.total);
-                    _this.tokenArr.push(temp);
-                }
-                _this.strUnconfirmed = '';
-            });
-        });
-        this.tokenArr = new Array;
+        // this.balanceService.getBalance().then((res : any) => {
+        //   this.tokenArr = res;
+        //   return this.tokenArr;
+        // });
     };
     SendFundsPage.prototype.sendFunds = function () {
         var _this = this;
@@ -314,22 +278,25 @@ var SendFundsPage = /** @class */ (function () {
         }
     };
     SendFundsPage.ctorParameters = function () { return [
-        { type: _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_2__["QRScanner"] },
-        { type: _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_3__["Clipboard"] },
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["AlertController"] },
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["NgZone"] },
-        { type: _service_minima_api_service__WEBPACK_IMPORTED_MODULE_5__["MinimaApiService"] },
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["Platform"] }
+        { type: _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_3__["QRScanner"] },
+        { type: _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_4__["Clipboard"] },
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["AlertController"] },
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_2__["NgZone"] },
+        { type: _service_minima_api_service__WEBPACK_IMPORTED_MODULE_6__["MinimaApiService"] },
+        { type: _service_balance_service__WEBPACK_IMPORTED_MODULE_1__["BalanceService"] },
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["Platform"] }
     ]; };
     SendFundsPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Component"])({
             selector: 'app-send-funds',
             template: __webpack_require__(/*! raw-loader!./send-funds.page.html */ "./node_modules/raw-loader/index.js!./src/app/send-funds/send-funds.page.html"),
             styles: [__webpack_require__(/*! ./send-funds.page.scss */ "./src/app/send-funds/send-funds.page.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_2__["QRScanner"], _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_3__["Clipboard"],
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["AlertController"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["NgZone"],
-            _service_minima_api_service__WEBPACK_IMPORTED_MODULE_5__["MinimaApiService"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["Platform"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_3__["QRScanner"], _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_4__["Clipboard"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["AlertController"], _angular_core__WEBPACK_IMPORTED_MODULE_2__["NgZone"],
+            _service_minima_api_service__WEBPACK_IMPORTED_MODULE_6__["MinimaApiService"],
+            _service_balance_service__WEBPACK_IMPORTED_MODULE_1__["BalanceService"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["Platform"]])
     ], SendFundsPage);
     return SendFundsPage;
 }());

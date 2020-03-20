@@ -1,7 +1,6 @@
-import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
-import * as HighCharts from 'highcharts';
+import { Component, OnInit, ChangeDetectorRef, Input } from '@angular/core';
 import { MinimaApiService } from '../service/minima-api.service';
-import { Url } from 'url';
+
 
 @Component({
   selector: 'app-mini-status',
@@ -29,8 +28,21 @@ export class MiniStatusPage implements OnInit {
   private host = '';
   private loader: any = null;
 
-  constructor(private api: MinimaApiService) { }
 
+
+  constructor(private api: MinimaApiService, private ref: ChangeDetectorRef) {
+    setInterval(() => { this.ref.markForCheck(); console.log('change occurred');}, 5000);
+   }
+
+   @Input()
+   set live(value: boolean) {
+     if (value) {
+       this.ref.reattach();
+     } else {
+       this.ref.detach();
+     }
+   }
+ 
   ngOnInit() { }
 
   ionViewWillEnter() {

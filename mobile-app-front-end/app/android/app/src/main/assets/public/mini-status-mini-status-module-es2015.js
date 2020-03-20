@@ -87,10 +87,20 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let MiniStatusPage = class MiniStatusPage {
-    constructor(api) {
+    constructor(api, ref) {
         this.api = api;
+        this.ref = ref;
         this.host = '';
         this.loader = null;
+        setInterval(() => { this.ref.markForCheck(); console.log('change occurred'); }, 5000);
+    }
+    set live(value) {
+        if (value) {
+            this.ref.reattach();
+        }
+        else {
+            this.ref.detach();
+        }
     }
     ngOnInit() { }
     ionViewWillEnter() {
@@ -143,15 +153,21 @@ let MiniStatusPage = class MiniStatusPage {
     }
 };
 MiniStatusPage.ctorParameters = () => [
-    { type: _service_minima_api_service__WEBPACK_IMPORTED_MODULE_2__["MinimaApiService"] }
+    { type: _service_minima_api_service__WEBPACK_IMPORTED_MODULE_2__["MinimaApiService"] },
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"] }
 ];
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Boolean),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Boolean])
+], MiniStatusPage.prototype, "live", null);
 MiniStatusPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
         selector: 'app-mini-status',
         template: __webpack_require__(/*! raw-loader!./mini-status.page.html */ "./node_modules/raw-loader/index.js!./src/app/mini-status/mini-status.page.html"),
         styles: [__webpack_require__(/*! ./mini-status.page.scss */ "./src/app/mini-status/mini-status.page.scss")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_service_minima_api_service__WEBPACK_IMPORTED_MODULE_2__["MinimaApiService"]])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_service_minima_api_service__WEBPACK_IMPORTED_MODULE_2__["MinimaApiService"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"]])
 ], MiniStatusPage);
 
 

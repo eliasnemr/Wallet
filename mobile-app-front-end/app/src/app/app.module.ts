@@ -1,6 +1,6 @@
+import { BalanceService } from './service/balance.service';
 import { BalancePage } from './balance/balance.page';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
-import { MiniTermPage } from './mini-term/mini-term.page';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
@@ -35,7 +35,7 @@ import * as MifiJS from '../assets/JS/minimajs.js';
     PopHistoryComponent,
     UserTerminal,
     LocalNotifications,
-    BalancePage
+    BalanceService
   ],
   bootstrap: [AppComponent]
 })

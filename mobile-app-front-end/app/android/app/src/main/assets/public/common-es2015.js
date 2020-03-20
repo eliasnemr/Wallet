@@ -679,36 +679,6 @@ const findCheckedOption = (el, tagName) => {
 
 
 
-/***/ }),
-
-/***/ "./src/app/MiniObjects/tokens.ts":
-/*!***************************************!*\
-  !*** ./src/app/MiniObjects/tokens.ts ***!
-  \***************************************/
-/*! exports provided: Tokens */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Tokens", function() { return Tokens; });
-class Tokens {
-    constructor(id, tkn, conf, unconf, ttl) {
-        this.tokenid = id;
-        this.token = tkn;
-        this.confirmed = conf;
-        this.unconfirmed = unconf;
-        this.total = ttl;
-    }
-}
-Tokens.ctorParameters = () => [
-    { type: String },
-    { type: String },
-    { type: Number },
-    { type: undefined },
-    { type: Number }
-];
-
-
 /***/ })
 
 }]);

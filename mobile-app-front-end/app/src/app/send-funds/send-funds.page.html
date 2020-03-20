@@ -31,7 +31,7 @@
               [(ngModel)]= "data.tokenid"
               placeholder="Select your token">
             <ion-select-option  *ngFor="let token of tokenArr" [value]="token.tokenid">
-              {{ token.token  + '->' + token.id  }} 
+              {{ token.token  + ' <' + token.tokenid.substring(0, 12) + '>'  }} 
             </ion-select-option>
         </ion-select>
         </ion-item>

@@ -90,11 +90,26 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var MiniStatusPage = /** @class */ (function () {
-    function MiniStatusPage(api) {
+    function MiniStatusPage(api, ref) {
+        var _this = this;
         this.api = api;
+        this.ref = ref;
         this.host = '';
         this.loader = null;
+        setInterval(function () { _this.ref.markForCheck(); console.log('change occurred'); }, 5000);
     }
+    Object.defineProperty(MiniStatusPage.prototype, "live", {
+        set: function (value) {
+            if (value) {
+                this.ref.reattach();
+            }
+            else {
+                this.ref.detach();
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
     MiniStatusPage.prototype.ngOnInit = function () { };
     MiniStatusPage.prototype.ionViewWillEnter = function () {
         this.updateStatus();
@@ -147,15 +162,21 @@ var MiniStatusPage = /** @class */ (function () {
         }
     };
     MiniStatusPage.ctorParameters = function () { return [
-        { type: _service_minima_api_service__WEBPACK_IMPORTED_MODULE_2__["MinimaApiService"] }
+        { type: _service_minima_api_service__WEBPACK_IMPORTED_MODULE_2__["MinimaApiService"] },
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"] }
     ]; };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Boolean),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Boolean])
+    ], MiniStatusPage.prototype, "live", null);
     MiniStatusPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-mini-status',
             template: __webpack_require__(/*! raw-loader!./mini-status.page.html */ "./node_modules/raw-loader/index.js!./src/app/mini-status/mini-status.page.html"),
             styles: [__webpack_require__(/*! ./mini-status.page.scss */ "./src/app/mini-status/mini-status.page.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_service_minima_api_service__WEBPACK_IMPORTED_MODULE_2__["MinimaApiService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_service_minima_api_service__WEBPACK_IMPORTED_MODULE_2__["MinimaApiService"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"]])
     ], MiniStatusPage);
     return MiniStatusPage;
 }());
