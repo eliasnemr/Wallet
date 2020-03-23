@@ -14,7 +14,10 @@ declare var Minima: any;
 })
 export class AppComponent {
   private currentRoute:string='';
-  public currentVersion = 0;
+  currentVersion = 0;
+  activePage: any;
+  basic: {title: string, routerLink: string, icon: string, line: string, hidden: boolean}[];
+  advanced: {title: string, routerLink: string, icon: string, line: string, hidden: boolean}[];
 
   constructor(
     private platform: Platform,
@@ -23,14 +26,16 @@ export class AppComponent {
     private menu: MenuController,
     private router: Router,
     private api: MinimaApiService,
-    private localNotifications: LocalNotifications
+    private localNotifications: LocalNotifications,
   ) {
+    this.getPages();
     //this.getPlatform();
     this.initializeApp();
   }
 
   ionViewWillEnter(){
    this.initializeApp();
+   
   }
 
   initializeApp() {
@@ -38,15 +43,43 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       setTimeout(() => {this.splashScreen.hide()}, 2000);
-
       this.getVersion();
-      /*this.router.events.subscribe((val:any) => {
-        if(val.route&&val.route.path){
-          this.currentRoute=val.route.path;
-        }
-       //this.menu.close();
-      });*/
+      
+      
+      // this.router.events.subscribe((val:any) => {
+      //   if(val.route&&val.route.path){
+      //     this.currentRoute=val.route.path;
+      //   }
+      //  this.menu.close();
+      // });
     });
+  }
+
+
+  getPages() {
+    this.basic =
+    [
+      { title:'Balance', routerLink: '/balance', icon: 'card', line: 'none', hidden: false},
+      { title:'Send', routerLink: '/send-funds', icon: 'send', line: 'none', hidden: false},
+      { title:'Receive', routerLink: '/my-address', icon: 'arrow-down', line: 'none', hidden: false},
+      { title:'History', routerLink: '/history', icon: 'book', line: 'full', hidden: false},
+      
+    ]
+
+    this.advanced =
+    [
+      { title:'Token', routerLink: '/create-token', icon: 'brush', line: 'none', hidden: false},
+      { title:'Status', routerLink: '/status', icon: 'analytics', line: 'none', hidden: false},
+      { title:'Terminal', routerLink: '/mini-term', icon: 'code', line: 'full', hidden: false},
+      { title:'Web', routerLink: '/web-scanner', icon: 'desktop', line: 'full', hidden: this.isThisDesktop()},
+      { title:'Settings', routerLink: '/settings', icon: 'build', line: 'none', hidden: false},
+    ]
+
+    
+  }
+
+  checkPage() {
+
   }
 
   getImg() {
@@ -65,7 +98,12 @@ export class AppComponent {
     }
   }
 
-  /* Get platform type to see if should be MiniWeb or not */
+  // userPreferences local storage
+  createUserPrefFile() {
+
+  }
+
+  // return platform to assert Minima Web or Minima Native
   getPlatform() {
     //Minima.logout();
     /*  If on desktop do this.. */

@@ -106,6 +106,7 @@ var BalancePage = /** @class */ (function () {
         this.balanceService = balanceService;
         this.ref = ref;
         // - vars
+        this.lastJSON = '';
         this.host = '';
         this.MINI_TOKENID = '0x0000000000000000000000000000000000000000000000000000000000000000';
     }
@@ -212,7 +213,11 @@ var BalancePage = /** @class */ (function () {
             return tokenArr;
         }))
             .subscribe(function (responseData) {
-            _this.tokenArr = responseData.slice();
+            //check if changed
+            if (_this.lastJSON !== JSON.stringify(responseData)) {
+                _this.tokenArr = responseData.slice();
+                _this.lastJSON = JSON.stringify(responseData);
+            }
         });
     };
     BalancePage.ctorParameters = function () { return [

@@ -11,42 +11,6 @@ var map = {
 	"./pages/balance/balance.module": [
 		"./src/app/pages/balance/balance.module.ts",
 		"pages-balance-balance-module"
-	],
-	"./pages/community/community.module": [
-		"./src/app/pages/community/community.module.ts",
-		"pages-community-community-module"
-	],
-	"./pages/create-token/create-token.module": [
-		"./src/app/pages/create-token/create-token.module.ts",
-		"pages-create-token-create-token-module"
-	],
-	"./pages/history/history.module": [
-		"./src/app/pages/history/history.module.ts",
-		"pages-history-history-module"
-	],
-	"./pages/mini-status/mini-status.module": [
-		"./src/app/pages/mini-status/mini-status.module.ts",
-		"pages-mini-status-mini-status-module"
-	],
-	"./pages/mini-term/mini-term.module": [
-		"./src/app/pages/mini-term/mini-term.module.ts",
-		"pages-mini-term-mini-term-module"
-	],
-	"./pages/my-address/my-address.module": [
-		"./src/app/pages/my-address/my-address.module.ts",
-		"pages-my-address-my-address-module"
-	],
-	"./pages/send-funds/send-funds.module": [
-		"./src/app/pages/send-funds/send-funds.module.ts",
-		"pages-send-funds-send-funds-module"
-	],
-	"./pages/settings/settings.module": [
-		"./src/app/pages/settings/settings.module.ts",
-		"pages-settings-settings-module"
-	],
-	"./pages/web-scanner/web-scanner.module": [
-		"./src/app/pages/web-scanner/web-scanner.module.ts",
-		"pages-web-scanner-web-scanner-module"
 	]
 };
 function webpackAsyncContext(req) {
@@ -495,7 +459,7 @@ module.exports = webpackAsyncContext;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-app>\n  <ion-split-pane when=\"lg\" contentId=\"mainMenu\" class=\"splitpane\" >\n  <ion-menu side=\"start\" contentId=\"mainMenu\">\n    <ion-header>\n      <ion-toolbar class=\"menu-toolbar\">\n    <ion-title>    \n    <ion-label>\n\n      <ion-img class=\"menu-logo\" [src]=\"getImg()\"></ion-img> \n       <!-- <ion-label class=\"menu-minima\">MINIMA</ion-label> -->\n      <!-- <ion-badge class=\"menu-badge\" (click)=\"betaTap()\">BETA</ion-badge> -->\n    </ion-label>   \n    </ion-title>      \n    </ion-toolbar>\n    </ion-header>\n    \n    <ion-content>\n        <ion-menu-toggle auto-hide=\"false\">\n          <ion-list main lines=\"none\">\n            \n            <ion-item routerLink=\"/balance\">\n              <ion-icon name=\"card\" slot=\"start\"></ion-icon> Balance\n            </ion-item>\n            <ion-item routerLink=\"/send-funds\">\n              <ion-icon name=\"send\" slot=\"start\"></ion-icon> Send\n            </ion-item>\n            <ion-item routerLink=\"/my-address\">\n              <ion-icon name=\"arrow-down\" slot=\"start\"></ion-icon> Receive\n            </ion-item>\n            <ion-item lines=\"none\" routerLink=\"/history\">\n              <ion-icon name=\"book\" slot=\"start\"></ion-icon> History\n            </ion-item>\n            <ion-item lines=\"full\" routerLink=\"/create-token\">\n              <ion-icon name=\"brush\" slot=\"start\"></ion-icon> Token\n            </ion-item>\n            \n            <ion-item routerLink=\"/status\">\n              <ion-icon name=\"analytics\" slot=\"start\"></ion-icon> Status\n            </ion-item>\n            <ion-item routerLink=\"/mini-term\">\n              <ion-icon name=\"code\" slot=\"start\"></ion-icon> Terminal\n            </ion-item>\n            <ion-item [hidden]=\"isThisDesktop()\" lines=\"full\" routerLink=\"/web-scanner\">\n              <ion-icon name=\"desktop\" slot=\"start\"></ion-icon> Web\n            </ion-item>\n            \n            <ion-item lines=\"none\" routerLink=\"/settings\">\n              <ion-icon name=\"build\" slot=\"start\"></ion-icon> Settings\n            </ion-item>\n        </ion-list>\n        </ion-menu-toggle>\n\n    </ion-content>\n    <ion-menu-toggle auto-hide=\"false\" >\n    <ion-footer class=\"ion-padding\">\n      <ion-item routerLink=\"/community\" lines=\"none\">\n        <ion-icon name=\"share\" slot=\"start\"></ion-icon> Join Community\n      </ion-item>\n    </ion-footer>\n  </ion-menu-toggle>\n  </ion-menu>\n        <ion-router-outlet main id=\"mainMenu\"></ion-router-outlet>\n  </ion-split-pane>\n\n</ion-app>"
+module.exports = "<ion-app>\n  <ion-split-pane when=\"lg\" contentId=\"mainMenu\" class=\"splitpane\" >\n  <ion-menu side=\"start\" contentId=\"mainMenu\">\n    <ion-header>\n      <ion-toolbar class=\"menu-toolbar\">\n      <ion-title> \n        <ion-img class=\"menu-logo\" [src]=\"getImg()\"></ion-img>\n      </ion-title>      \n      </ion-toolbar>\n    </ion-header>\n    \n    <ion-content>\n      <ion-list main>\n        <ion-list-header>\n        Basic\n        </ion-list-header>\n        <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let p of basic; let i = index\">\n          \n            <ion-item \n            detail=\"false\"\n            routerLinkActive=\"selected\"\n            routerDirection=\"root\"\n            [hidden] = \"p.hidden\" \n            [routerLink]=\"p.routerLink\"\n            lines=\"{{ p.line }}\">\n\n            <ion-icon name=\"{{ p.icon }}\" slot=\"start\"></ion-icon> {{ p.title }}\n\n            </ion-item>\n        </ion-menu-toggle>\n      </ion-list>\n\n      <ion-list main>\n        <ion-list-header>\n        Advanced\n        </ion-list-header>\n        <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let p of advanced; let i = index\">\n          \n            <ion-item \n            detail=\"false\"\n            routerLinkActive=\"selected\"\n            routerDirection=\"root\"\n            [hidden] = \"p.hidden\" \n            routerLink=\"{{ p.routerLink }}\"\n            lines=\"{{ p.line }}\">\n\n            <ion-icon name=\"{{ p.icon }}\" slot=\"start\"></ion-icon> {{ p.title }}\n\n            </ion-item>\n        </ion-menu-toggle>\n      </ion-list>\n\n    \n\n    \n    \n  </ion-content>\n  <ion-menu-toggle auto-hide=\"false\">\n      <ion-footer class=\"ion-padding\">\n        <ion-item routerLink=\"/community\" lines=\"none\">\n          <ion-icon name=\"share\" slot=\"start\"></ion-icon> Join Community\n        </ion-item>\n      </ion-footer>\n  </ion-menu-toggle>\n  </ion-menu>\n\n  <ion-router-outlet main id=\"mainMenu\"></ion-router-outlet>\n  </ion-split-pane>\n  \n</ion-app>"
 
 /***/ }),
 
@@ -517,7 +481,7 @@ module.exports = "<ion-list>\n  \n  <h2 class=\"pop-title-activity\">{{ checkTra
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n<ion-list lines=\"none\">\n    <ion-list-header>\n        Token ID: \n          \n        <ion-item class=\"token-lbl\">{{refTokenid.substring(0, 10)}}</ion-item>        \n            \n    </ion-list-header>\n    <ion-item style=\"width: 100%;\">\n    <ion-button (click)=\"copyToClipboard()\" class=\"popover-btn\" fill=\"clear\" size=\"small\" expand=\"full\" style=\"width: 100%;\" >\n        <ion-icon name=\"copy\"></ion-icon> \n            Copy\n        </ion-button>\n    </ion-item>\n</ion-list>\n\n\n"
+module.exports = "\n<ion-list lines=\"none\">\n    <ion-list-header>\n        Token ID: \n          \n        <ion-item class=\"token-lbl\" id=\"copythis\">{{refTokenid.substring(0, 10)}}</ion-item>        \n            \n    </ion-list-header>\n    <ion-item style=\"width: 100%;\">\n    <ion-button (click)=\"copyToClipboard()\" class=\"popover-btn\" fill=\"clear\" size=\"small\" expand=\"full\" style=\"width: 100%;\" >\n        <ion-icon name=\"copy\"></ion-icon> \n            Copy\n        </ion-button>\n    </ion-item>\n</ion-list>\n\n\n"
 
 /***/ }),
 
@@ -552,18 +516,18 @@ var routes = [
     { path: '', loadChildren: './pages/balance/balance.module#BalancePageModule' },
     { path: '', redirectTo: 'balance', pathMatch: 'full' },
     { path: 'balance', loadChildren: function () { return __webpack_require__.e(/*! import() | pages-balance-balance-module */ "pages-balance-balance-module").then(__webpack_require__.bind(null, /*! ./pages/balance/balance.module */ "./src/app/pages/balance/balance.module.ts")).then(function (m) { return m.BalancePageModule; }); } },
-    { path: 'send-funds', loadChildren: './pages/send-funds/send-funds.module#SendFundsPageModule' },
-    { path: 'create-token', loadChildren: './pages/create-token/create-token.module#CreateTokenPageModule' },
-    { path: 'status', loadChildren: './pages/mini-status/mini-status.module#MiniStatusPageModule' },
-    { path: 'my-address', loadChildren: './pages/my-address/my-address.module#MyAddressPageModule' },
-    { path: 'code', loadChildren: './pages/send-funds/send-funds.module#SendFundsPageModule' },
-    { path: 'settings', loadChildren: './pages/settings/settings.module#SettingsPageModule' },
-    { path: 'mini-term', loadChildren: './pages/mini-term/mini-term.module#MiniTermPageModule' },
-    { path: 'mini-status', loadChildren: './pages/mini-status/mini-status.module#MiniStatusPageModule' },
-    { path: 'create-token', loadChildren: './pages/create-token/create-token.module#CreateTokenPageModule' },
-    { path: 'web-scanner', loadChildren: './pages/web-scanner/web-scanner.module#WebScannerPageModule' },
-    { path: 'community', loadChildren: './pages/community/community.module#CommunityPageModule' },
-    { path: 'history', loadChildren: './pages/history/history.module#HistoryPageModule' },
+    { path: 'send-funds', loadChildren: function () { return __webpack_require__.e(/*! import() | pages-send-funds-send-funds-module */ "pages-send-funds-send-funds-module").then(__webpack_require__.bind(null, /*! ./pages/send-funds/send-funds.module */ "./src/app/pages/send-funds/send-funds.module.ts")).then(function (m) { return m.SendFundsPageModule; }); } },
+    { path: 'create-token', loadChildren: function () { return __webpack_require__.e(/*! import() | pages-create-token-create-token-module */ "pages-create-token-create-token-module").then(__webpack_require__.bind(null, /*! ./pages/create-token/create-token.module */ "./src/app/pages/create-token/create-token.module.ts")).then(function (m) { return m.CreateTokenPageModule; }); } },
+    { path: 'status', loadChildren: function () { return __webpack_require__.e(/*! import() | pages-mini-status-mini-status-module */ "pages-mini-status-mini-status-module").then(__webpack_require__.bind(null, /*! ./pages/mini-status/mini-status.module */ "./src/app/pages/mini-status/mini-status.module.ts")).then(function (m) { return m.MiniStatusPageModule; }); } },
+    { path: 'my-address', loadChildren: function () { return __webpack_require__.e(/*! import() | pages-my-address-my-address-module */ "pages-my-address-my-address-module").then(__webpack_require__.bind(null, /*! ./pages/my-address/my-address.module */ "./src/app/pages/my-address/my-address.module.ts")).then(function (m) { return m.MyAddressPageModule; }); } },
+    { path: 'code', loadChildren: function () { return __webpack_require__.e(/*! import() | pages-send-funds-send-funds-module */ "pages-send-funds-send-funds-module").then(__webpack_require__.bind(null, /*! ./pages/send-funds/send-funds.module */ "./src/app/pages/send-funds/send-funds.module.ts")).then(function (m) { return m.SendFundsPageModule; }); } },
+    { path: 'settings', loadChildren: function () { return __webpack_require__.e(/*! import() | pages-settings-settings-module */ "pages-settings-settings-module").then(__webpack_require__.bind(null, /*! ./pages/settings/settings.module */ "./src/app/pages/settings/settings.module.ts")).then(function (m) { return m.SettingsPageModule; }); } },
+    { path: 'mini-term', loadChildren: function () { return __webpack_require__.e(/*! import() | pages-mini-term-mini-term-module */ "pages-mini-term-mini-term-module").then(__webpack_require__.bind(null, /*! ./pages/mini-term/mini-term.module */ "./src/app/pages/mini-term/mini-term.module.ts")).then(function (m) { return m.MiniTermPageModule; }); } },
+    { path: 'mini-status', loadChildren: function () { return __webpack_require__.e(/*! import() | pages-mini-status-mini-status-module */ "pages-mini-status-mini-status-module").then(__webpack_require__.bind(null, /*! ./pages/mini-status/mini-status.module */ "./src/app/pages/mini-status/mini-status.module.ts")).then(function (m) { return m.MiniStatusPageModule; }); } },
+    { path: 'create-token', loadChildren: function () { return __webpack_require__.e(/*! import() | pages-create-token-create-token-module */ "pages-create-token-create-token-module").then(__webpack_require__.bind(null, /*! ./pages/create-token/create-token.module */ "./src/app/pages/create-token/create-token.module.ts")).then(function (m) { return m.CreateTokenPageModule; }); } },
+    { path: 'web-scanner', loadChildren: function () { return __webpack_require__.e(/*! import() | pages-web-scanner-web-scanner-module */ "pages-web-scanner-web-scanner-module").then(__webpack_require__.bind(null, /*! ./pages/web-scanner/web-scanner.module */ "./src/app/pages/web-scanner/web-scanner.module.ts")).then(function (m) { return m.WebScannerPageModule; }); } },
+    { path: 'community', loadChildren: function () { return __webpack_require__.e(/*! import() | pages-community-community-module */ "pages-community-community-module").then(__webpack_require__.bind(null, /*! ./pages/community/community.module */ "./src/app/pages/community/community.module.ts")).then(function (m) { return m.CommunityPageModule; }); } },
+    { path: 'history', loadChildren: function () { return __webpack_require__.e(/*! import() | pages-history-history-module */ "pages-history-history-module").then(__webpack_require__.bind(null, /*! ./pages/history/history.module */ "./src/app/pages/history/history.module.ts")).then(function (m) { return m.HistoryPageModule; }); } },
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
@@ -590,7 +554,7 @@ var AppRoutingModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "ion-icon {\n  color: #FF671D;\n}\n\nion-item:hover {\n  background-color: #0ad1e7;\n}\n\nion-icon:hover {\n  color: #ffffff;\n}\n\nion-item:active {\n  background-color: #0ad1e7;\n}\n\n.social-web {\n  margin: auto;\n}\n\n.social-lbl {\n  color: white;\n}\n\n.menu-logo {\n  height: auto;\n  width: 190px;\n  margin: auto;\n  margin-bottom: 10px;\n  position: relative;\n  padding: 10px 70px 0px 0;\n}\n\n.menu-badge {\n  position: fixed;\n  left: 250px;\n  bottom: 5px;\n  font-size: 8px;\n  color: #FF671D;\n  background-color: white;\n}\n\n@media only screen and (min-width: 992px) {\n  .splitpane {\n    margin-left: 180px;\n    margin-right: 180px;\n    margin-top: 100px;\n    margin-bottom: 100px;\n    box-shadow: 2px 2px 5px grey;\n  }\n\n  ion-app {\n    background-image: url('miniTiles.png');\n  }\n\n  .menu-logo {\n    height: auto;\n    width: 150px;\n    margin: auto;\n    position: relative;\n    padding: 10px 20px 15px 0px;\n  }\n\n  .menu-badge {\n    position: fixed;\n    left: 180px;\n    bottom: 5px;\n    font-size: 8px;\n    color: #FF671D;\n    background-color: white;\n  }\n}\n\n.ios .menu-logo-title {\n  font-family: \"Ridley-normal\";\n  font-weight: normal;\n  font-size: 12px;\n  padding-bottom: 2px;\n}\n\n.ios ion-note ion-badge {\n  margin: auto;\n  color: #FF671E;\n  font-size: 8px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9lbGlhcy9Qcm9qZWN0cy9taW5pbWFjb3JlL21vYmlsZS1hcHAtZnJvbnQtZW5kL2FwcC9zcmMvYXBwL2FwcC5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvYXBwLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksY0FBQTtBQ0NKOztBRENBO0VBQ0kseUJBQUE7QUNFSjs7QURBQTtFQUNJLGNBQUE7QUNHSjs7QURBQTtFQUNJLHlCQUFBO0FDR0o7O0FEQUE7RUFDSSxZQUFBO0FDR0o7O0FEREE7RUFDSSxZQUFBO0FDSUo7O0FEa0JBO0VBQ0ksWUFBQTtFQUNBLFlBQUE7RUFDQSxZQUFBO0VBQ0EsbUJBQUE7RUFDQSxrQkFBQTtFQUNBLHdCQUFBO0FDZko7O0FEa0JBO0VBQ0ksZUFBQTtFQUNBLFdBQUE7RUFDQSxXQUFBO0VBQ0EsY0FBQTtFQUNBLGNBQUE7RUFDQSx1QkFBQTtBQ2ZKOztBRGtCQTtFQUNJO0lBQ0ksa0JBQUE7SUFDQSxtQkFBQTtJQUNBLGlCQUFBO0lBQ0Esb0JBQUE7SUFDQSw0QkFBQTtFQ2ZOOztFRGlCRTtJQUNJLHNDQUFBO0VDZE47O0VEZ0JFO0lBQ0ksWUFBQTtJQUNBLFlBQUE7SUFDQSxZQUFBO0lBQ0Esa0JBQUE7SUFDQSwyQkFBQTtFQ2JOOztFRGdCRTtJQUNJLGVBQUE7SUFDQSxXQUFBO0lBQ0EsV0FBQTtJQUNBLGNBQUE7SUFDQSxjQUFBO0lBQ0EsdUJBQUE7RUNiTjtBQUNGOztBRGlCSTtFQUNJLDRCQUFBO0VBQ0EsbUJBQUE7RUFDQSxlQUFBO0VBQ0EsbUJBQUE7QUNmUjs7QURrQkk7RUFDSSxZQUFBO0VBQ0EsY0FBQTtFQUNBLGNBQUE7QUNmUiIsImZpbGUiOiJzcmMvYXBwL2FwcC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImlvbi1pY29uIHtcbiAgICBjb2xvcjogI0ZGNjcxRDtcbn1cbmlvbi1pdGVtOmhvdmVyIHtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiByZ2IoMTAsMjA5LDIzMSk7XG59XG5pb24taWNvbjpob3ZlciB7XG4gICAgY29sb3I6ICNmZmZmZmY7XG59XG5cbmlvbi1pdGVtOmFjdGl2ZSB7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogcmdiKDEwLDIwOSwyMzEpO1xufVxuXG4uc29jaWFsLXdlYiB7XG4gICAgbWFyZ2luOiBhdXRvO1xufVxuLnNvY2lhbC1sYmwge1xuICAgIGNvbG9yOndoaXRlO1xufVxuXG4vLyAubWVudS1sb2dvIHtcbi8vICAgICBmb250LXNpemU6IDE4cHg7XG4vLyAgICAgbWFyZ2luOiBhdXRvO1xuICAgIFxuLy8gfVxuLy8gLm1lbnUtYmFkZ2Uge1xuLy8gICAgIGNvbG9yOiAjRkY2NzFEO1xuLy8gICAgIGZvbnQtc2l6ZTogOHB4O1xuLy8gICAgIGJhY2tncm91bmQtY29sb3I6IHdoaXRlO1xuLy8gICAgIGRpc3BsYXk6IGlubGluZS1ibG9jaztcblxuLy8gfVxuLy8gLm1lbnUtbWluaW1hIHtcbi8vICAgICBmb250LWZhbWlseTogJ1JpZGxleS1ub3JtYWwnO1xuLy8gICAgIGZvbnQtd2VpZ2h0OiBub3JtYWw7XG4vLyAgICAgZm9udC1zaXplOiAxMnB4O1xuLy8gICAgIHBhZGRpbmctYm90dG9tOiA1cHg7XG4vLyAgICAgbWFyZ2luOiBhdXRvO1xuLy8gfVxuLm1lbnUtbG9nbyB7XG4gICAgaGVpZ2h0OiBhdXRvO1xuICAgIHdpZHRoOiAxOTBweDtcbiAgICBtYXJnaW46IGF1dG87XG4gICAgbWFyZ2luLWJvdHRvbTogMTBweDtcbiAgICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gICAgcGFkZGluZzogMTBweCA3MHB4IDBweCAwO1xufVxuXG4ubWVudS1iYWRnZSB7XG4gICAgcG9zaXRpb246IGZpeGVkO1xuICAgIGxlZnQ6IDI1MHB4O1xuICAgIGJvdHRvbTogNXB4O1xuICAgIGZvbnQtc2l6ZTogOHB4O1xuICAgIGNvbG9yOiAjRkY2NzFEO1xuICAgIGJhY2tncm91bmQtY29sb3I6IHdoaXRlO1xufVxuXG5AbWVkaWEgb25seSBzY3JlZW4gYW5kIChtaW4td2lkdGg6IDk5MnB4KSB7XG4gICAgLnNwbGl0cGFuZSB7XG4gICAgICAgIG1hcmdpbi1sZWZ0OiAxODBweDtcbiAgICAgICAgbWFyZ2luLXJpZ2h0OiAxODBweDtcbiAgICAgICAgbWFyZ2luLXRvcDogMTAwcHg7XG4gICAgICAgIG1hcmdpbi1ib3R0b206IDEwMHB4O1xuICAgICAgICBib3gtc2hhZG93OiAycHggMnB4IDVweCBncmV5O1xuICAgIH1cbiAgICBpb24tYXBwIHtcbiAgICAgICAgYmFja2dyb3VuZC1pbWFnZTogdXJsKCcuLi9hc3NldHMvbWluaVRpbGVzLnBuZycpO1xuICAgIH1cbiAgICAubWVudS1sb2dvIHtcbiAgICAgICAgaGVpZ2h0OiBhdXRvO1xuICAgICAgICB3aWR0aDogMTUwcHg7XG4gICAgICAgIG1hcmdpbjogYXV0bztcbiAgICAgICAgcG9zaXRpb246IHJlbGF0aXZlO1xuICAgICAgICBwYWRkaW5nOiAxMHB4IDIwcHggMTVweCAwcHg7XG4gICAgfVxuICAgIFxuICAgIC5tZW51LWJhZGdlIHtcbiAgICAgICAgcG9zaXRpb246IGZpeGVkO1xuICAgICAgICBsZWZ0OiAxODBweDtcbiAgICAgICAgYm90dG9tOiA1cHg7XG4gICAgICAgIGZvbnQtc2l6ZTogOHB4O1xuICAgICAgICBjb2xvcjogI0ZGNjcxRDtcbiAgICAgICAgYmFja2dyb3VuZC1jb2xvcjogd2hpdGU7XG4gICAgfVxufVxuXG4vLyBpT1MgbGF5b3V0XG4gICAgLmlvcyAubWVudS1sb2dvLXRpdGxlIHtcbiAgICAgICAgZm9udC1mYW1pbHk6ICdSaWRsZXktbm9ybWFsJztcbiAgICAgICAgZm9udC13ZWlnaHQ6IG5vcm1hbDtcbiAgICAgICAgZm9udC1zaXplOiAxMnB4O1xuICAgICAgICBwYWRkaW5nLWJvdHRvbTogMnB4O1xuICAgICAgICBcbiAgICB9XG4gICAgLmlvcyBpb24tbm90ZSBpb24tYmFkZ2Uge1xuICAgICAgICBtYXJnaW46IGF1dG87XG4gICAgICAgIGNvbG9yOiAjRkY2NzFFO1xuICAgICAgICBmb250LXNpemU6IDhweDtcbiAgICB9XG4gICAgXG4iLCJpb24taWNvbiB7XG4gIGNvbG9yOiAjRkY2NzFEO1xufVxuXG5pb24taXRlbTpob3ZlciB7XG4gIGJhY2tncm91bmQtY29sb3I6ICMwYWQxZTc7XG59XG5cbmlvbi1pY29uOmhvdmVyIHtcbiAgY29sb3I6ICNmZmZmZmY7XG59XG5cbmlvbi1pdGVtOmFjdGl2ZSB7XG4gIGJhY2tncm91bmQtY29sb3I6ICMwYWQxZTc7XG59XG5cbi5zb2NpYWwtd2ViIHtcbiAgbWFyZ2luOiBhdXRvO1xufVxuXG4uc29jaWFsLWxibCB7XG4gIGNvbG9yOiB3aGl0ZTtcbn1cblxuLm1lbnUtbG9nbyB7XG4gIGhlaWdodDogYXV0bztcbiAgd2lkdGg6IDE5MHB4O1xuICBtYXJnaW46IGF1dG87XG4gIG1hcmdpbi1ib3R0b206IDEwcHg7XG4gIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgcGFkZGluZzogMTBweCA3MHB4IDBweCAwO1xufVxuXG4ubWVudS1iYWRnZSB7XG4gIHBvc2l0aW9uOiBmaXhlZDtcbiAgbGVmdDogMjUwcHg7XG4gIGJvdHRvbTogNXB4O1xuICBmb250LXNpemU6IDhweDtcbiAgY29sb3I6ICNGRjY3MUQ7XG4gIGJhY2tncm91bmQtY29sb3I6IHdoaXRlO1xufVxuXG5AbWVkaWEgb25seSBzY3JlZW4gYW5kIChtaW4td2lkdGg6IDk5MnB4KSB7XG4gIC5zcGxpdHBhbmUge1xuICAgIG1hcmdpbi1sZWZ0OiAxODBweDtcbiAgICBtYXJnaW4tcmlnaHQ6IDE4MHB4O1xuICAgIG1hcmdpbi10b3A6IDEwMHB4O1xuICAgIG1hcmdpbi1ib3R0b206IDEwMHB4O1xuICAgIGJveC1zaGFkb3c6IDJweCAycHggNXB4IGdyZXk7XG4gIH1cblxuICBpb24tYXBwIHtcbiAgICBiYWNrZ3JvdW5kLWltYWdlOiB1cmwoXCIuLi9hc3NldHMvbWluaVRpbGVzLnBuZ1wiKTtcbiAgfVxuXG4gIC5tZW51LWxvZ28ge1xuICAgIGhlaWdodDogYXV0bztcbiAgICB3aWR0aDogMTUwcHg7XG4gICAgbWFyZ2luOiBhdXRvO1xuICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgICBwYWRkaW5nOiAxMHB4IDIwcHggMTVweCAwcHg7XG4gIH1cblxuICAubWVudS1iYWRnZSB7XG4gICAgcG9zaXRpb246IGZpeGVkO1xuICAgIGxlZnQ6IDE4MHB4O1xuICAgIGJvdHRvbTogNXB4O1xuICAgIGZvbnQtc2l6ZTogOHB4O1xuICAgIGNvbG9yOiAjRkY2NzFEO1xuICAgIGJhY2tncm91bmQtY29sb3I6IHdoaXRlO1xuICB9XG59XG4uaW9zIC5tZW51LWxvZ28tdGl0bGUge1xuICBmb250LWZhbWlseTogXCJSaWRsZXktbm9ybWFsXCI7XG4gIGZvbnQtd2VpZ2h0OiBub3JtYWw7XG4gIGZvbnQtc2l6ZTogMTJweDtcbiAgcGFkZGluZy1ib3R0b206IDJweDtcbn1cblxuLmlvcyBpb24tbm90ZSBpb24tYmFkZ2Uge1xuICBtYXJnaW46IGF1dG87XG4gIGNvbG9yOiAjRkY2NzFFO1xuICBmb250LXNpemU6IDhweDtcbn0iXX0= */"
+module.exports = "ion-menu ion-content {\n  --padding-top: 20px;\n  --padding-bottom: 20px;\n  --background: var(--ion-item-background, var(--ion-background-color, #fff));\n}\n\nion-icon {\n  color: #FF671D;\n}\n\nion-item.selected {\n  --color: var(--ion-color-primary);\n}\n\nion-menu ion-item {\n  --transition: none;\n}\n\n.social-web {\n  margin: auto;\n}\n\n.social-lbl {\n  color: white;\n}\n\n.menu-logo {\n  height: auto;\n  width: 190px;\n  margin: auto;\n  margin-bottom: 10px;\n  position: relative;\n  padding: 10px 70px 0px 0;\n}\n\n@media only screen and (min-width: 992px) {\n  .splitpane {\n    margin-left: 180px;\n    margin-right: 180px;\n    margin-top: 100px;\n    margin-bottom: 100px;\n    box-shadow: 2px 2px 5px grey;\n  }\n\n  ion-app {\n    background-image: url('miniTiles.png');\n  }\n\n  .menu-logo {\n    height: auto;\n    width: 150px;\n    margin: auto;\n    position: relative;\n    padding: 10px 20px 15px 0px;\n  }\n}\n\n/*\n * Material Design Menu\n*/\n\nion-menu.md ion-list {\n  padding: 0px 0;\n}\n\nion-menu.md ion-list-header {\n  padding-left: 18px;\n  padding-right: 18px;\n  text-transform: uppercase;\n  letter-spacing: 0.1em;\n  font-weight: 450;\n}\n\nion-menu.md ion-item {\n  --padding-start: 18px;\n  margin-right: 10px;\n  border-radius: 0 50px 50px 0;\n  font-weight: 500;\n}\n\nion-menu.md ion-item.selected {\n  --color: var(--ion-color-primary);\n  --background: var(--ion-background-color, #fff);\n}\n\nion-menu.md ion-list {\n  padding-bottom: 0px !important;\n}\n\n/*\n * iOS Design Menu\n*/\n\nion-menu.ios ion-list-header {\n  padding-left: 16px;\n  padding-right: 16px;\n  margin-bottom: 0px;\n}\n\nion-menu.ios ion-list {\n  padding: 0px 0 0;\n}\n\nion-menu.ios ion-item {\n  --padding-start: 16px;\n  --min-height: 50px;\n}\n\n.ios .menu-logo-title {\n  font-family: \"Ridley-normal\";\n  font-weight: normal;\n  font-size: 12px;\n  padding-bottom: 2px;\n}\n\n.ios ion-note ion-badge {\n  margin: auto;\n  color: #FF671E;\n  font-size: 8px;\n}\n\nion-menu.ios ion-item.selected {\n  --color: var(--ion-color-primary);\n  --background: var(--ion-item-background, var(--ion-background-color, #fff));\n}\n\nion-menu.ios ion-list {\n  padding-bottom: 0px !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9lbGlhcy9Qcm9qZWN0cy9taW5pbWFjb3JlL21vYmlsZS1hcHAtZnJvbnQtZW5kL2FwcC9zcmMvYXBwL2FwcC5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvYXBwLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUNBO0VBQ0ksbUJBQUE7RUFDQSxzQkFBQTtFQUVBLDJFQUFBO0FDREo7O0FESUE7RUFDSSxjQUFBO0FDREo7O0FESUE7RUFDSSxpQ0FBQTtBQ0RKOztBREdBO0VBQ0ksa0JBQUE7QUNBSjs7QURFQTtFQUNJLFlBQUE7QUNDSjs7QURDQTtFQUNJLFlBQUE7QUNFSjs7QURDQTtFQUNJLFlBQUE7RUFDQSxZQUFBO0VBQ0EsWUFBQTtFQUNBLG1CQUFBO0VBQ0Esa0JBQUE7RUFDQSx3QkFBQTtBQ0VKOztBREVBO0VBRUk7SUFDSSxrQkFBQTtJQUNBLG1CQUFBO0lBQ0EsaUJBQUE7SUFDQSxvQkFBQTtJQUNBLDRCQUFBO0VDQU47O0VERUU7SUFDSSxzQ0FBQTtFQ0NOOztFRENFO0lBQ0ksWUFBQTtJQUNBLFlBQUE7SUFDQSxZQUFBO0lBQ0Esa0JBQUE7SUFDQSwyQkFBQTtFQ0VOO0FBQ0Y7O0FERUE7O0NBQUE7O0FBR0E7RUFDSSxjQUFBO0FDQUo7O0FER0U7RUFDRSxrQkFBQTtFQUNBLG1CQUFBO0VBRUEseUJBQUE7RUFDQSxxQkFBQTtFQUNBLGdCQUFBO0FDREo7O0FESUU7RUFDRSxxQkFBQTtFQUVBLGtCQUFBO0VBRUEsNEJBQUE7RUFFQSxnQkFBQTtBQ0pKOztBRE1BO0VBQ0ksaUNBQUE7RUFDQSwrQ0FBQTtBQ0hKOztBREtBO0VBQ0ksOEJBQUE7QUNGSjs7QURLQTs7Q0FBQTs7QUFHQTtFQUNJLGtCQUFBO0VBQ0EsbUJBQUE7RUFFQSxrQkFBQTtBQ0hKOztBRE1FO0VBQ0UsZ0JBQUE7QUNISjs7QURNRTtFQUNFLHFCQUFBO0VBQ0Esa0JBQUE7QUNISjs7QURLQTtFQUNJLDRCQUFBO0VBQ0EsbUJBQUE7RUFDQSxlQUFBO0VBQ0EsbUJBQUE7QUNGSjs7QURLQTtFQUNJLFlBQUE7RUFDQSxjQUFBO0VBQ0EsY0FBQTtBQ0ZKOztBREtBO0VBQ0ksaUNBQUE7RUFDQSwyRUFBQTtBQ0ZKOztBRElBO0VBQ0ksOEJBQUE7QUNESiIsImZpbGUiOiJzcmMvYXBwL2FwcC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIlxuaW9uLW1lbnUgaW9uLWNvbnRlbnQge1xuICAgIC0tcGFkZGluZy10b3A6IDIwcHg7XG4gICAgLS1wYWRkaW5nLWJvdHRvbTogMjBweDtcbiAgXG4gICAgLS1iYWNrZ3JvdW5kOiB2YXIoLS1pb24taXRlbS1iYWNrZ3JvdW5kLCB2YXIoLS1pb24tYmFja2dyb3VuZC1jb2xvciwgI2ZmZikpO1xuICB9XG5cbmlvbi1pY29uIHtcbiAgICBjb2xvcjogI0ZGNjcxRDtcbn1cblxuaW9uLWl0ZW0uc2VsZWN0ZWQge1xuICAgIC0tY29sb3I6IHZhcigtLWlvbi1jb2xvci1wcmltYXJ5KTtcbn1cbmlvbi1tZW51IGlvbi1pdGVtIHtcbiAgICAtLXRyYW5zaXRpb246IG5vbmU7XG4gIH1cbi5zb2NpYWwtd2ViIHtcbiAgICBtYXJnaW46IGF1dG87XG59XG4uc29jaWFsLWxibCB7XG4gICAgY29sb3I6d2hpdGU7XG59XG5cbi5tZW51LWxvZ28ge1xuICAgIGhlaWdodDogYXV0bztcbiAgICB3aWR0aDogMTkwcHg7XG4gICAgbWFyZ2luOiBhdXRvO1xuICAgIG1hcmdpbi1ib3R0b206IDEwcHg7XG4gICAgcG9zaXRpb246IHJlbGF0aXZlO1xuICAgIHBhZGRpbmc6IDEwcHggNzBweCAwcHggMDtcbn1cblxuXG5AbWVkaWEgb25seSBzY3JlZW4gYW5kIChtaW4td2lkdGg6IDk5MnB4KSB7XG5cbiAgICAuc3BsaXRwYW5lIHtcbiAgICAgICAgbWFyZ2luLWxlZnQ6IDE4MHB4O1xuICAgICAgICBtYXJnaW4tcmlnaHQ6IDE4MHB4O1xuICAgICAgICBtYXJnaW4tdG9wOiAxMDBweDtcbiAgICAgICAgbWFyZ2luLWJvdHRvbTogMTAwcHg7XG4gICAgICAgIGJveC1zaGFkb3c6IDJweCAycHggNXB4IGdyZXk7XG4gICAgfVxuICAgIGlvbi1hcHAge1xuICAgICAgICBiYWNrZ3JvdW5kLWltYWdlOiB1cmwoJy4uL2Fzc2V0cy9taW5pVGlsZXMucG5nJyk7XG4gICAgfVxuICAgIC5tZW51LWxvZ28ge1xuICAgICAgICBoZWlnaHQ6IGF1dG87XG4gICAgICAgIHdpZHRoOiAxNTBweDtcbiAgICAgICAgbWFyZ2luOiBhdXRvO1xuICAgICAgICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gICAgICAgIHBhZGRpbmc6IDEwcHggMjBweCAxNXB4IDBweDtcbiAgICB9XG5cbn1cblxuLypcbiAqIE1hdGVyaWFsIERlc2lnbiBNZW51XG4qL1xuaW9uLW1lbnUubWQgaW9uLWxpc3Qge1xuICAgIHBhZGRpbmc6IDBweCAwO1xuICB9XG4gIFxuICBpb24tbWVudS5tZCBpb24tbGlzdC1oZWFkZXIge1xuICAgIHBhZGRpbmctbGVmdDogMThweDtcbiAgICBwYWRkaW5nLXJpZ2h0OiAxOHB4O1xuICBcbiAgICB0ZXh0LXRyYW5zZm9ybTogdXBwZXJjYXNlO1xuICAgIGxldHRlci1zcGFjaW5nOiAuMWVtO1xuICAgIGZvbnQtd2VpZ2h0OiA0NTA7XG4gIH1cbiAgXG4gIGlvbi1tZW51Lm1kIGlvbi1pdGVtIHtcbiAgICAtLXBhZGRpbmctc3RhcnQ6IDE4cHg7XG4gIFxuICAgIG1hcmdpbi1yaWdodDogMTBweDtcbiAgXG4gICAgYm9yZGVyLXJhZGl1czogMCA1MHB4IDUwcHggMDtcbiAgXG4gICAgZm9udC13ZWlnaHQ6IDUwMDtcbiAgfVxuaW9uLW1lbnUubWQgaW9uLWl0ZW0uc2VsZWN0ZWQge1xuICAgIC0tY29sb3I6IHZhcigtLWlvbi1jb2xvci1wcmltYXJ5KTtcbiAgICAtLWJhY2tncm91bmQ6IHZhcigtLWlvbi1iYWNrZ3JvdW5kLWNvbG9yLCAjZmZmKTtcbn1cbmlvbi1tZW51Lm1kIGlvbi1saXN0IHtcbiAgICBwYWRkaW5nLWJvdHRvbTogMHB4ICFpbXBvcnRhbnQ7XG59XG5cbi8qXG4gKiBpT1MgRGVzaWduIE1lbnVcbiovXG5pb24tbWVudS5pb3MgaW9uLWxpc3QtaGVhZGVyIHtcbiAgICBwYWRkaW5nLWxlZnQ6IDE2cHg7XG4gICAgcGFkZGluZy1yaWdodDogMTZweDtcbiAgXG4gICAgbWFyZ2luLWJvdHRvbTogMHB4O1xuICB9XG4gIFxuICBpb24tbWVudS5pb3MgaW9uLWxpc3Qge1xuICAgIHBhZGRpbmc6IDBweCAwIDA7XG4gIH1cbiAgXG4gIGlvbi1tZW51LmlvcyBpb24taXRlbSB7XG4gICAgLS1wYWRkaW5nLXN0YXJ0OiAxNnB4O1xuICAgIC0tbWluLWhlaWdodDogNTBweDtcbiAgfVxuLmlvcyAubWVudS1sb2dvLXRpdGxlIHtcbiAgICBmb250LWZhbWlseTogJ1JpZGxleS1ub3JtYWwnO1xuICAgIGZvbnQtd2VpZ2h0OiBub3JtYWw7XG4gICAgZm9udC1zaXplOiAxMnB4O1xuICAgIHBhZGRpbmctYm90dG9tOiAycHg7XG4gICAgICAgIFxufVxuLmlvcyBpb24tbm90ZSBpb24tYmFkZ2Uge1xuICAgIG1hcmdpbjogYXV0bztcbiAgICBjb2xvcjogI0ZGNjcxRTtcbiAgICBmb250LXNpemU6IDhweDtcbn1cbiAgICBcbmlvbi1tZW51LmlvcyBpb24taXRlbS5zZWxlY3RlZCB7XG4gICAgLS1jb2xvcjogdmFyKC0taW9uLWNvbG9yLXByaW1hcnkpO1xuICAgIC0tYmFja2dyb3VuZDogdmFyKC0taW9uLWl0ZW0tYmFja2dyb3VuZCwgdmFyKC0taW9uLWJhY2tncm91bmQtY29sb3IsICNmZmYpKTtcbn1cbmlvbi1tZW51LmlvcyBpb24tbGlzdCB7XG4gICAgcGFkZGluZy1ib3R0b206IDBweCAhaW1wb3J0YW50O1xufVxuLy8iLCJpb24tbWVudSBpb24tY29udGVudCB7XG4gIC0tcGFkZGluZy10b3A6IDIwcHg7XG4gIC0tcGFkZGluZy1ib3R0b206IDIwcHg7XG4gIC0tYmFja2dyb3VuZDogdmFyKC0taW9uLWl0ZW0tYmFja2dyb3VuZCwgdmFyKC0taW9uLWJhY2tncm91bmQtY29sb3IsICNmZmYpKTtcbn1cblxuaW9uLWljb24ge1xuICBjb2xvcjogI0ZGNjcxRDtcbn1cblxuaW9uLWl0ZW0uc2VsZWN0ZWQge1xuICAtLWNvbG9yOiB2YXIoLS1pb24tY29sb3ItcHJpbWFyeSk7XG59XG5cbmlvbi1tZW51IGlvbi1pdGVtIHtcbiAgLS10cmFuc2l0aW9uOiBub25lO1xufVxuXG4uc29jaWFsLXdlYiB7XG4gIG1hcmdpbjogYXV0bztcbn1cblxuLnNvY2lhbC1sYmwge1xuICBjb2xvcjogd2hpdGU7XG59XG5cbi5tZW51LWxvZ28ge1xuICBoZWlnaHQ6IGF1dG87XG4gIHdpZHRoOiAxOTBweDtcbiAgbWFyZ2luOiBhdXRvO1xuICBtYXJnaW4tYm90dG9tOiAxMHB4O1xuICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gIHBhZGRpbmc6IDEwcHggNzBweCAwcHggMDtcbn1cblxuQG1lZGlhIG9ubHkgc2NyZWVuIGFuZCAobWluLXdpZHRoOiA5OTJweCkge1xuICAuc3BsaXRwYW5lIHtcbiAgICBtYXJnaW4tbGVmdDogMTgwcHg7XG4gICAgbWFyZ2luLXJpZ2h0OiAxODBweDtcbiAgICBtYXJnaW4tdG9wOiAxMDBweDtcbiAgICBtYXJnaW4tYm90dG9tOiAxMDBweDtcbiAgICBib3gtc2hhZG93OiAycHggMnB4IDVweCBncmV5O1xuICB9XG5cbiAgaW9uLWFwcCB7XG4gICAgYmFja2dyb3VuZC1pbWFnZTogdXJsKFwiLi4vYXNzZXRzL21pbmlUaWxlcy5wbmdcIik7XG4gIH1cblxuICAubWVudS1sb2dvIHtcbiAgICBoZWlnaHQ6IGF1dG87XG4gICAgd2lkdGg6IDE1MHB4O1xuICAgIG1hcmdpbjogYXV0bztcbiAgICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gICAgcGFkZGluZzogMTBweCAyMHB4IDE1cHggMHB4O1xuICB9XG59XG4vKlxuICogTWF0ZXJpYWwgRGVzaWduIE1lbnVcbiovXG5pb24tbWVudS5tZCBpb24tbGlzdCB7XG4gIHBhZGRpbmc6IDBweCAwO1xufVxuXG5pb24tbWVudS5tZCBpb24tbGlzdC1oZWFkZXIge1xuICBwYWRkaW5nLWxlZnQ6IDE4cHg7XG4gIHBhZGRpbmctcmlnaHQ6IDE4cHg7XG4gIHRleHQtdHJhbnNmb3JtOiB1cHBlcmNhc2U7XG4gIGxldHRlci1zcGFjaW5nOiAwLjFlbTtcbiAgZm9udC13ZWlnaHQ6IDQ1MDtcbn1cblxuaW9uLW1lbnUubWQgaW9uLWl0ZW0ge1xuICAtLXBhZGRpbmctc3RhcnQ6IDE4cHg7XG4gIG1hcmdpbi1yaWdodDogMTBweDtcbiAgYm9yZGVyLXJhZGl1czogMCA1MHB4IDUwcHggMDtcbiAgZm9udC13ZWlnaHQ6IDUwMDtcbn1cblxuaW9uLW1lbnUubWQgaW9uLWl0ZW0uc2VsZWN0ZWQge1xuICAtLWNvbG9yOiB2YXIoLS1pb24tY29sb3ItcHJpbWFyeSk7XG4gIC0tYmFja2dyb3VuZDogdmFyKC0taW9uLWJhY2tncm91bmQtY29sb3IsICNmZmYpO1xufVxuXG5pb24tbWVudS5tZCBpb24tbGlzdCB7XG4gIHBhZGRpbmctYm90dG9tOiAwcHggIWltcG9ydGFudDtcbn1cblxuLypcbiAqIGlPUyBEZXNpZ24gTWVudVxuKi9cbmlvbi1tZW51LmlvcyBpb24tbGlzdC1oZWFkZXIge1xuICBwYWRkaW5nLWxlZnQ6IDE2cHg7XG4gIHBhZGRpbmctcmlnaHQ6IDE2cHg7XG4gIG1hcmdpbi1ib3R0b206IDBweDtcbn1cblxuaW9uLW1lbnUuaW9zIGlvbi1saXN0IHtcbiAgcGFkZGluZzogMHB4IDAgMDtcbn1cblxuaW9uLW1lbnUuaW9zIGlvbi1pdGVtIHtcbiAgLS1wYWRkaW5nLXN0YXJ0OiAxNnB4O1xuICAtLW1pbi1oZWlnaHQ6IDUwcHg7XG59XG5cbi5pb3MgLm1lbnUtbG9nby10aXRsZSB7XG4gIGZvbnQtZmFtaWx5OiBcIlJpZGxleS1ub3JtYWxcIjtcbiAgZm9udC13ZWlnaHQ6IG5vcm1hbDtcbiAgZm9udC1zaXplOiAxMnB4O1xuICBwYWRkaW5nLWJvdHRvbTogMnB4O1xufVxuXG4uaW9zIGlvbi1ub3RlIGlvbi1iYWRnZSB7XG4gIG1hcmdpbjogYXV0bztcbiAgY29sb3I6ICNGRjY3MUU7XG4gIGZvbnQtc2l6ZTogOHB4O1xufVxuXG5pb24tbWVudS5pb3MgaW9uLWl0ZW0uc2VsZWN0ZWQge1xuICAtLWNvbG9yOiB2YXIoLS1pb24tY29sb3ItcHJpbWFyeSk7XG4gIC0tYmFja2dyb3VuZDogdmFyKC0taW9uLWl0ZW0tYmFja2dyb3VuZCwgdmFyKC0taW9uLWJhY2tncm91bmQtY29sb3IsICNmZmYpKTtcbn1cblxuaW9uLW1lbnUuaW9zIGlvbi1saXN0IHtcbiAgcGFkZGluZy1ib3R0b206IDBweCAhaW1wb3J0YW50O1xufSJdfQ== */"
 
 /***/ }),
 
@@ -631,6 +595,7 @@ var AppComponent = /** @class */ (function () {
         this.localNotifications = localNotifications;
         this.currentRoute = '';
         this.currentVersion = 0;
+        this.getPages();
         //this.getPlatform();
         this.initializeApp();
     }
@@ -644,13 +609,32 @@ var AppComponent = /** @class */ (function () {
             _this.statusBar.styleDefault();
             setTimeout(function () { _this.splashScreen.hide(); }, 2000);
             _this.getVersion();
-            /*this.router.events.subscribe((val:any) => {
-              if(val.route&&val.route.path){
-                this.currentRoute=val.route.path;
-              }
-             //this.menu.close();
-            });*/
+            // this.router.events.subscribe((val:any) => {
+            //   if(val.route&&val.route.path){
+            //     this.currentRoute=val.route.path;
+            //   }
+            //  this.menu.close();
+            // });
         });
+    };
+    AppComponent.prototype.getPages = function () {
+        this.basic =
+            [
+                { title: 'Balance', routerLink: '/balance', icon: 'card', line: 'none', hidden: false },
+                { title: 'Send', routerLink: '/send-funds', icon: 'send', line: 'none', hidden: false },
+                { title: 'Receive', routerLink: '/my-address', icon: 'arrow-down', line: 'none', hidden: false },
+                { title: 'History', routerLink: '/history', icon: 'book', line: 'full', hidden: false },
+            ];
+        this.advanced =
+            [
+                { title: 'Token', routerLink: '/create-token', icon: 'brush', line: 'none', hidden: false },
+                { title: 'Status', routerLink: '/status', icon: 'analytics', line: 'none', hidden: false },
+                { title: 'Terminal', routerLink: '/mini-term', icon: 'code', line: 'full', hidden: false },
+                { title: 'Web', routerLink: '/web-scanner', icon: 'desktop', line: 'full', hidden: this.isThisDesktop() },
+                { title: 'Settings', routerLink: '/settings', icon: 'build', line: 'none', hidden: false },
+            ];
+    };
+    AppComponent.prototype.checkPage = function () {
     };
     AppComponent.prototype.getImg = function () {
         if (document.body.classList.value === 'dark') {
@@ -668,7 +652,10 @@ var AppComponent = /** @class */ (function () {
             return false;
         }
     };
-    /* Get platform type to see if should be MiniWeb or not */
+    // userPreferences local storage
+    AppComponent.prototype.createUserPrefFile = function () {
+    };
+    // return platform to assert Minima Web or Minima Native
     AppComponent.prototype.getPlatform = function () {
         var _this = this;
         //Minima.logout();
@@ -953,10 +940,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var PopOverComponent = /** @class */ (function () {
-    function PopOverComponent(navParams, clipboard, alertController) {
+    function PopOverComponent(navParams, clipboard, alertController, platform, toastCtrl) {
         this.navParams = navParams;
         this.clipboard = clipboard;
         this.alertController = alertController;
+        this.platform = platform;
+        this.toastCtrl = toastCtrl;
         this.refTokenid = '';
     }
     PopOverComponent.prototype.ngOnInit = function () {
@@ -964,8 +953,23 @@ var PopOverComponent = /** @class */ (function () {
     };
     PopOverComponent.prototype.ionViewWillEnter = function () { };
     PopOverComponent.prototype.copyToClipboard = function () {
-        this.clipboard.copy(this.refTokenid);
-        this.presentAlert("Copied to clipboard", "Clipboard");
+        if (this.platform.is('desktop') || this.platform.is('pwa')) {
+            this.copyToClipPWA();
+            this.presentAlert("Copied to clipboard.", "Success");
+        }
+        else {
+            this.clipboard.copy(this.refTokenid);
+            this.presentAlert("Copied to clipboard", "Success");
+        }
+    };
+    PopOverComponent.prototype.copyToClipPWA = function () {
+        var _this = this;
+        document.addEventListener('copy', function (e) {
+            e.clipboardData.setData('text/plain', _this.refTokenid);
+            e.preventDefault();
+            document.removeEventListener('copy', null);
+        });
+        document.execCommand('copy');
     };
     PopOverComponent.prototype.presentAlert = function (msg, header) {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
@@ -990,7 +994,9 @@ var PopOverComponent = /** @class */ (function () {
     PopOverComponent.ctorParameters = function () { return [
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavParams"] },
         { type: _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_3__["Clipboard"] },
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"] }
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"] },
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Platform"] },
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"] }
     ]; };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])("tokenName"),
@@ -1000,13 +1006,21 @@ var PopOverComponent = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])("tokenId"),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
     ], PopOverComponent.prototype, "tokenId", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])('textToCopy'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], PopOverComponent.prototype, "textToCopy", void 0);
     PopOverComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-pop-over',
             template: __webpack_require__(/*! raw-loader!./pop-over.component.html */ "./node_modules/raw-loader/index.js!./src/app/components/pop-over/pop-over.component.html"),
             styles: [__webpack_require__(/*! ./pop-over.component.scss */ "./src/app/components/pop-over/pop-over.component.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavParams"], _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_3__["Clipboard"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavParams"],
+            _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_3__["Clipboard"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Platform"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"]])
     ], PopOverComponent);
     return PopOverComponent;
 }());

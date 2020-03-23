@@ -7,6 +7,7 @@ import { AlertController, PopoverController } from '@ionic/angular';
 import { Tokens } from '../../models/tokens.model';
 import { PopOverComponent } from '../../components/pop-over/pop-over.component';
 import { BalanceService } from '../../service/balance.service';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-balance',
@@ -23,6 +24,7 @@ export class BalancePage implements OnInit {
   balanceSubscription: Subscription;
 
   // - vars
+  private lastJSON = '';
   private host: any = '';
   private MINI_TOKENID = '0x0000000000000000000000000000000000000000000000000000000000000000';
 
@@ -131,9 +133,12 @@ export class BalancePage implements OnInit {
       })
     )
     .subscribe(responseData => {
-    
-      this.tokenArr = [...responseData];
-
+      
+      //check if changed
+      if(this.lastJSON !== JSON.stringify(responseData)){
+        this.tokenArr = [...responseData];
+        this.lastJSON = JSON.stringify(responseData);
+      }
 
     });
 

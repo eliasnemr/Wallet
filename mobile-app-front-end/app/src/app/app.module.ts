@@ -17,6 +17,7 @@ import { PopOverComponent } from './components/pop-over/pop-over.component';
 import { PopTermComponent } from './components/pop-term/pop-term.component';
 import { PopHistoryComponent } from './components/pop-history/pop-history.component';
 import { UserTerminal } from './service/userterminal.service';
+import { IonicStorageModule } from '@ionic/storage';
 import * as MifiJS from '../assets/JS/minimajs.js';
 
 

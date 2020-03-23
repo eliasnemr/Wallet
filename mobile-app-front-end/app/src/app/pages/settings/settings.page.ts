@@ -10,23 +10,18 @@ import {MinimaApiService } from '../../service/minima-api.service';
 export class SettingsPage implements OnInit {
 
   host = '';
-  public shouldEnable: boolean;
+  shouldEnable: boolean;
   toggle = document.querySelector('#darkToggle');
 
   constructor(private api: MinimaApiService, public alertController: AlertController) {}
 
-  ngOnInit() {
-    // const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
-    // this.enableDarkTheme(prefersDark.matches);
-    // prefersDark.addListener((mediaQuery) => this.enableDarkTheme(mediaQuery.matches));
-
-  }
+  ngOnInit() {}
   
   ionViewWillEnter() {
     this.host = this.api.getHost();
   }
 
-  enableDarkTheme(shouldEnable) {
+  enableDarkTheme(shouldEnable: boolean) {
     console.log("Dark Mode activated.");
     document.body.classList.toggle("dark", shouldEnable);
   }

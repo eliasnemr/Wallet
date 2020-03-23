@@ -221,11 +221,26 @@ let SendFundsPage = class SendFundsPage {
         this.qrScanner.destroy();
     }
     pasteFromClipboard() {
-        this.clipboard.paste().then((resolve) => {
-            this.data.address = resolve;
-        }, (reject) => {
-            console.log('Error: ' + reject);
+        if (this.platform.is('desktop') || this.platform.is('pwa')) {
+            this.pasteFromPWA();
+        }
+        else {
+            this.clipboard.paste().then((resolve) => {
+                this.data.address = resolve;
+            }, (reject) => {
+                console.log('Error: ' + reject);
+            });
+        }
+    }
+    pasteFromPWA() {
+        document.addEventListener('paste', (e) => {
+            console.log('Paste is here');
+            this.data.address = e.clipboardData.getData('text');
+            e.preventDefault();
+            document.removeEventListener('paste', null);
         });
+        document.execCommand('paste');
+        console.log('executed paste command');
     }
     presentAlert(msg, header) {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {

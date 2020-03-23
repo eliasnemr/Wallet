@@ -1,4 +1,4 @@
-import { Platform } from '@ionic/angular';
+import { Platform, AlertController } from '@ionic/angular';
 import { Component, OnInit, ViewChild, ElementRef} from '@angular/core';
 import { Clipboard } from '@ionic-native/clipboard/ngx';
 import { MinimaApiService } from '../../service/minima-api.service';
@@ -21,7 +21,8 @@ export class MyAddressPage implements OnInit {
   constructor(private clipboard: Clipboard, 
     private qrScanner: QRScanner, 
     private api: MinimaApiService,
-    private platform : Platform) {
+    private platform : Platform,
+    private alertController: AlertController) {
 
       this.platform.ready().then((readySource) => {
         if(this.platform.width() < 900){
@@ -35,11 +36,6 @@ export class MyAddressPage implements OnInit {
   ngOnInit() {}
 
   ionViewWillEnter() {
-
-    
-
-    console.log("Canvas size: " + this.canvasSize);
-
     this.api.newAddress().then((res: any) => {
       if (res.response.address) {
         // setTimeout(() => {
@@ -52,10 +48,35 @@ export class MyAddressPage implements OnInit {
   }
 
   copyToClipboard() {
-    this.clipboard.copy(this.qrCode);
-    alert('Copied Clipboard Successfully.');
+
+    if(this.platform.is('desktop') || this.platform.is('pwa')) {
+      this.copyToClipPWA();
+      this.presentAlert("Copied to clipboard.", "Success");
+    } else {
+      this.clipboard.copy(this.qrCode);
+      this.presentAlert("Copied to clipboard.", "Success");
+    }
+
   }
 
+  copyToClipPWA() {
+    document.addEventListener('copy', (e: ClipboardEvent) => {
+      e.clipboardData.setData('text/plain', this.qrCode);
+      e.preventDefault();
+      document.removeEventListener('copy', null);
+    });
+    document.execCommand('copy');
 
+  }
+  
+  async presentAlert(msg:string,header:string) {
+    const alert = await this.alertController.create({
+      header: header,
+      message: msg,
+      buttons: ['Cancel', 'Ok']
+    });
+
+    await alert.present();
+  }
 
 }

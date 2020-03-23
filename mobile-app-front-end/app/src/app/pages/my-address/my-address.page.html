@@ -23,8 +23,13 @@
                       *ngIf="qrCode!==''">
                 </qrcode> 
         </ion-toolbar>
+
         <ion-card-subtitle text-center text-xl-capitalize>
-          This address can be used for any Minima or Token transaction
+          <a href="/my-address" style="text-decoration: none;">{{ qrCode }}</a>
+          <hr>
+          This address can be used for any Minima or Token transaction.
+          
+          
         </ion-card-subtitle>
     </ion-card-header>
       <ion-card-content fullscreen> 

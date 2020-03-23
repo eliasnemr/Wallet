@@ -869,7 +869,7 @@ var QRCode;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-app>\n<ion-header >\n  <ion-toolbar >\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    <ion-title color=\"primary\">\n      Receive\n    </ion-title>\n  </ion-toolbar>\n</ion-header >\n\n<ion-content fullscreen>\n  <ion-card  class=\"welcome-card\" color=\"white\">\n    <ion-card-header translucent=\"true\" color=\"white\">\n        <ion-toolbar>\n                <qrcode\n                      [qrdata]=\"qrCode\"\n                      [size]=\"canvasSize\"\n                      [level]=\"'Q'\"\n                      colorlight=\"#e9ecef\"\n                      colorDark=\"#000000\"\n                      *ngIf=\"qrCode!==''\">\n                </qrcode> \n        </ion-toolbar>\n        <ion-card-subtitle text-center text-xl-capitalize>\n          This address can be used for any Minima or Token transaction\n        </ion-card-subtitle>\n    </ion-card-header>\n      <ion-card-content fullscreen> \n                \n                  \n    </ion-card-content>\n  </ion-card>\n</ion-content>\n\n<ion-footer>\n  <ion-toolbar>\n    <ion-buttons>\n      <ion-button     class=\"action-btn\"\n                      shape=\"round\"\n                      expand=\"full\"\n                      (click)=\"copyToClipboard()\"\n                      [disabled]=\"!isEmpty\">\n                  <ion-icon\n                        name=\"copy\" \n                        slot=\"start\">\n                  </ion-icon> Copy to clipboard\n                </ion-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-footer>\n</ion-app>"
+module.exports = "<ion-app>\n<ion-header >\n  <ion-toolbar >\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    <ion-title color=\"primary\">\n      Receive\n    </ion-title>\n  </ion-toolbar>\n</ion-header >\n\n<ion-content fullscreen>\n  <ion-card  class=\"welcome-card\" color=\"white\">\n    <ion-card-header translucent=\"true\" color=\"white\">\n        <ion-toolbar>\n                <qrcode\n                      [qrdata]=\"qrCode\"\n                      [size]=\"canvasSize\"\n                      [level]=\"'Q'\"\n                      colorlight=\"#e9ecef\"\n                      colorDark=\"#000000\"\n                      *ngIf=\"qrCode!==''\">\n                </qrcode> \n        </ion-toolbar>\n\n        <ion-card-subtitle text-center text-xl-capitalize>\n          <a href=\"/my-address\" style=\"text-decoration: none;\">{{ qrCode }}</a>\n          <hr>\n          This address can be used for any Minima or Token transaction.\n          \n          \n        </ion-card-subtitle>\n    </ion-card-header>\n      <ion-card-content fullscreen> \n                \n                  \n    </ion-card-content>\n  </ion-card>\n</ion-content>\n\n<ion-footer>\n  <ion-toolbar>\n    <ion-buttons>\n      <ion-button     class=\"action-btn\"\n                      shape=\"round\"\n                      expand=\"full\"\n                      (click)=\"copyToClipboard()\"\n                      [disabled]=\"!isEmpty\">\n                  <ion-icon\n                        name=\"copy\" \n                        slot=\"start\">\n                  </ion-icon> Copy to clipboard\n                </ion-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-footer>\n</ion-app>"
 
 /***/ }),
 
@@ -958,11 +958,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let MyAddressPage = class MyAddressPage {
-    constructor(clipboard, qrScanner, api, platform) {
+    constructor(clipboard, qrScanner, api, platform, alertController) {
         this.clipboard = clipboard;
         this.qrScanner = qrScanner;
         this.api = api;
         this.platform = platform;
+        this.alertController = alertController;
         this.qrCode = '';
         this.canvasSize = 309;
         this.platform.ready().then((readySource) => {
@@ -976,7 +977,6 @@ let MyAddressPage = class MyAddressPage {
     }
     ngOnInit() { }
     ionViewWillEnter() {
-        console.log("Canvas size: " + this.canvasSize);
         this.api.newAddress().then((res) => {
             if (res.response.address) {
                 // setTimeout(() => {
@@ -988,15 +988,40 @@ let MyAddressPage = class MyAddressPage {
         });
     }
     copyToClipboard() {
-        this.clipboard.copy(this.qrCode);
-        alert('Copied Clipboard Successfully.');
+        if (this.platform.is('desktop') || this.platform.is('pwa')) {
+            this.copyToClipPWA();
+            this.presentAlert("Copied to clipboard.", "Success");
+        }
+        else {
+            this.clipboard.copy(this.qrCode);
+            this.presentAlert("Copied to clipboard.", "Success");
+        }
+    }
+    copyToClipPWA() {
+        document.addEventListener('copy', (e) => {
+            e.clipboardData.setData('text/plain', this.qrCode);
+            e.preventDefault();
+            document.removeEventListener('copy', null);
+        });
+        document.execCommand('copy');
+    }
+    presentAlert(msg, header) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            const alert = yield this.alertController.create({
+                header: header,
+                message: msg,
+                buttons: ['Cancel', 'Ok']
+            });
+            yield alert.present();
+        });
     }
 };
 MyAddressPage.ctorParameters = () => [
     { type: _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_3__["Clipboard"] },
     { type: _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_5__["QRScanner"] },
     { type: _service_minima_api_service__WEBPACK_IMPORTED_MODULE_4__["MinimaApiService"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["Platform"] }
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["Platform"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["AlertController"] }
 ];
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ViewChild"])('canvasDimension', { static: false }),
@@ -1011,7 +1036,8 @@ MyAddressPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_3__["Clipboard"],
         _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_5__["QRScanner"],
         _service_minima_api_service__WEBPACK_IMPORTED_MODULE_4__["MinimaApiService"],
-        _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["Platform"]])
+        _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["Platform"],
+        _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["AlertController"]])
 ], MyAddressPage);
 
 

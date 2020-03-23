@@ -150,14 +150,36 @@ export class SendFundsPage implements OnInit {
   }
 
   pasteFromClipboard() {
-    this.clipboard.paste().then(
-      (resolve: string) => {
-        this.data.address = resolve;
-      },
-      (reject: string) => {
-        console.log('Error: ' + reject);
-      }
-    );
+
+    if(this.platform.is('desktop') || this.platform.is('pwa')) {
+      this.pasteFromPWA();
+      
+      
+    } else {
+      this.clipboard.paste().then(
+        (resolve: string) => {
+          this.data.address = resolve;
+        },
+        (reject: string) => {
+          console.log('Error: ' + reject);
+        }
+      );
+    }
+  
+  }
+
+  pasteFromPWA() {
+    document.addEventListener('paste', (e: ClipboardEvent) => {
+      console.log('Paste is here');
+      this.data.address = e.clipboardData.getData('text');
+      
+      
+      e.preventDefault();
+      document.removeEventListener('paste', null);
+    });
+    document.execCommand('paste');
+    console.log('executed paste command');
+
   }
 
   async presentAlert(msg:string,header:string) {

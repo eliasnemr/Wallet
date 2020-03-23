@@ -103,6 +103,7 @@ let BalancePage = class BalancePage {
         this.balanceService = balanceService;
         this.ref = ref;
         // - vars
+        this.lastJSON = '';
         this.host = '';
         this.MINI_TOKENID = '0x0000000000000000000000000000000000000000000000000000000000000000';
     }
@@ -189,7 +190,11 @@ let BalancePage = class BalancePage {
             return tokenArr;
         }))
             .subscribe(responseData => {
-            this.tokenArr = [...responseData];
+            //check if changed
+            if (this.lastJSON !== JSON.stringify(responseData)) {
+                this.tokenArr = [...responseData];
+                this.lastJSON = JSON.stringify(responseData);
+            }
         });
     }
 };

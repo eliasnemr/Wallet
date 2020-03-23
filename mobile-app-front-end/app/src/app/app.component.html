@@ -3,63 +3,68 @@
   <ion-menu side="start" contentId="mainMenu">
     <ion-header>
       <ion-toolbar class="menu-toolbar">
-    <ion-title>    
-    <ion-label>
-
-      <ion-img class="menu-logo" [src]="getImg()"></ion-img> 
-       <!-- <ion-label class="menu-minima">MINIMA</ion-label> -->
-      <!-- <ion-badge class="menu-badge" (click)="betaTap()">BETA</ion-badge> -->
-    </ion-label>   
-    </ion-title>      
-    </ion-toolbar>
+      <ion-title> 
+        <ion-img class="menu-logo" [src]="getImg()"></ion-img>
+      </ion-title>      
+      </ion-toolbar>
     </ion-header>
     
     <ion-content>
-        <ion-menu-toggle auto-hide="false">
-          <ion-list main lines="none">
-            
-            <ion-item routerLink="/balance">
-              <ion-icon name="card" slot="start"></ion-icon> Balance
-            </ion-item>
-            <ion-item routerLink="/send-funds">
-              <ion-icon name="send" slot="start"></ion-icon> Send
-            </ion-item>
-            <ion-item routerLink="/my-address">
-              <ion-icon name="arrow-down" slot="start"></ion-icon> Receive
-            </ion-item>
-            <ion-item lines="none" routerLink="/history">
-              <ion-icon name="book" slot="start"></ion-icon> History
-            </ion-item>
-            <ion-item lines="full" routerLink="/create-token">
-              <ion-icon name="brush" slot="start"></ion-icon> Token
-            </ion-item>
-            
-            <ion-item routerLink="/status">
-              <ion-icon name="analytics" slot="start"></ion-icon> Status
-            </ion-item>
-            <ion-item routerLink="/mini-term">
-              <ion-icon name="code" slot="start"></ion-icon> Terminal
-            </ion-item>
-            <ion-item [hidden]="isThisDesktop()" lines="full" routerLink="/web-scanner">
-              <ion-icon name="desktop" slot="start"></ion-icon> Web
-            </ion-item>
-            
-            <ion-item lines="none" routerLink="/settings">
-              <ion-icon name="build" slot="start"></ion-icon> Settings
-            </ion-item>
-        </ion-list>
-        </ion-menu-toggle>
+      <ion-list main>
+        <ion-list-header>
+        Basic
+        </ion-list-header>
+        <ion-menu-toggle auto-hide="false" *ngFor="let p of basic; let i = index">
+          
+            <ion-item 
+            detail="false"
+            routerLinkActive="selected"
+            routerDirection="root"
+            [hidden] = "p.hidden" 
+            [routerLink]="p.routerLink"
+            lines="{{ p.line }}">
 
-    </ion-content>
-    <ion-menu-toggle auto-hide="false" >
-    <ion-footer class="ion-padding">
-      <ion-item routerLink="/community" lines="none">
-        <ion-icon name="share" slot="start"></ion-icon> Join Community
-      </ion-item>
-    </ion-footer>
+            <ion-icon name="{{ p.icon }}" slot="start"></ion-icon> {{ p.title }}
+
+            </ion-item>
+        </ion-menu-toggle>
+      </ion-list>
+
+      <ion-list main>
+        <ion-list-header>
+        Advanced
+        </ion-list-header>
+        <ion-menu-toggle auto-hide="false" *ngFor="let p of advanced; let i = index">
+          
+            <ion-item 
+            detail="false"
+            routerLinkActive="selected"
+            routerDirection="root"
+            [hidden] = "p.hidden" 
+            routerLink="{{ p.routerLink }}"
+            lines="{{ p.line }}">
+
+            <ion-icon name="{{ p.icon }}" slot="start"></ion-icon> {{ p.title }}
+
+            </ion-item>
+        </ion-menu-toggle>
+      </ion-list>
+
+    
+
+    
+    
+  </ion-content>
+  <ion-menu-toggle auto-hide="false">
+      <ion-footer class="ion-padding">
+        <ion-item routerLink="/community" lines="none">
+          <ion-icon name="share" slot="start"></ion-icon> Join Community
+        </ion-item>
+      </ion-footer>
   </ion-menu-toggle>
   </ion-menu>
-        <ion-router-outlet main id="mainMenu"></ion-router-outlet>
-  </ion-split-pane>
 
+  <ion-router-outlet main id="mainMenu"></ion-router-outlet>
+  </ion-split-pane>
+  
 </ion-app>
