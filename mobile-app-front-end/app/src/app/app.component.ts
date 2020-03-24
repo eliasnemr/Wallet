@@ -26,10 +26,9 @@ export class AppComponent {
     private menu: MenuController,
     private router: Router,
     private api: MinimaApiService,
-    private localNotifications: LocalNotifications,
-  ) {
+    private localNotifications: LocalNotifications) {
     this.getPages();
-    //this.getPlatform();
+    this.getPlatform();
     this.initializeApp();
   }
 
@@ -57,30 +56,47 @@ export class AppComponent {
 
 
   getPages() {
-    this.basic =
-    [
-      { title:'Balance', routerLink: '/balance', icon: 'card', line: 'none', hidden: false},
-      { title:'Send', routerLink: '/send-funds', icon: 'send', line: 'none', hidden: false},
-      { title:'Receive', routerLink: '/my-address', icon: 'arrow-down', line: 'none', hidden: false},
-      { title:'History', routerLink: '/history', icon: 'book', line: 'full', hidden: false},
-      
-    ]
 
-    this.advanced =
-    [
-      { title:'Token', routerLink: '/create-token', icon: 'brush', line: 'none', hidden: false},
-      { title:'Status', routerLink: '/status', icon: 'analytics', line: 'none', hidden: false},
-      { title:'Terminal', routerLink: '/mini-term', icon: 'code', line: 'full', hidden: false},
-      { title:'Web', routerLink: '/web-scanner', icon: 'desktop', line: 'full', hidden: this.isThisDesktop()},
-      { title:'Settings', routerLink: '/settings', icon: 'build', line: 'none', hidden: false},
-    ]
-
-    
+    if(this.platform.is('desktop') || this.platform.is('pwa')) {
+      this.basic =
+      [
+        { title:'Balance', routerLink: '/balance', icon: 'card', line: 'none', hidden: false},
+        { title:'Send', routerLink: '/send-funds', icon: 'send', line: 'none', hidden: false},
+        { title:'Receive', routerLink: '/my-address', icon: 'arrow-down', line: 'none', hidden: false},
+        { title:'History', routerLink: '/history', icon: 'book', line: 'full', hidden: false},
+        
+      ]
+  
+      this.advanced =
+      [
+        { title:'Token', routerLink: '/create-token', icon: 'brush', line: 'none', hidden: false},
+        { title:'Status', routerLink: '/status', icon: 'analytics', line: 'none', hidden: false},
+        { title:'Terminal', routerLink: '/mini-term', icon: 'code', line: 'full', hidden: false},
+        { title:'Web', routerLink: '/web-scanner', icon: 'desktop', line: 'full', hidden: this.isThisDesktop()},
+        { title:'Settings', routerLink: '/settings', icon: 'build', line: 'none', hidden: false},
+      ]
+    } else {
+      this.basic =
+      [
+        { title:'Balance', routerLink: '/balance', icon: 'card', line: 'none', hidden: false},
+        { title:'Send', routerLink: '/send-funds', icon: 'send', line: 'none', hidden: false},
+        { title:'Receive', routerLink: '/my-address', icon: 'arrow-down', line: 'none', hidden: false},
+        { title:'History', routerLink: '/history', icon: 'book', line: 'full', hidden: false},
+        
+      ]
+  
+      this.advanced =
+      [
+        { title:'Token', routerLink: '/create-token', icon: 'brush', line: 'none', hidden: false},
+        { title:'Status', routerLink: '/status', icon: 'analytics', line: 'none', hidden: false},
+        { title:'Terminal', routerLink: '/mini-term', icon: 'code', line: 'none', hidden: false},
+        { title:'Web', routerLink: '/web-scanner', icon: 'desktop', line: 'full', hidden: this.isThisDesktop()},
+        { title:'Settings', routerLink: '/settings', icon: 'build', line: 'none', hidden: false},
+      ]
+    }
   }
 
-  checkPage() {
-
-  }
+  checkPage() {}
 
   getImg() {
     if(document.body.classList.value === 'dark'){
