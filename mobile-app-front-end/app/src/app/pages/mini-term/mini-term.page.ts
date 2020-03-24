@@ -76,12 +76,14 @@ export class MiniTermPage implements OnInit {
         if([13].indexOf(e.keyCode) > -1) {
           // get the whole textarea text..
           var msg = this.terminal.nativeElement.value;
-
+          
           // get the last line...
           this.lastLine = msg.substr(msg.lastIndexOf("\n")+1);
-
+          if(this.lastLine.length > 1){
           // get the json call
           this.request(this.lastLine);
+          }
+          
         }
     });
 

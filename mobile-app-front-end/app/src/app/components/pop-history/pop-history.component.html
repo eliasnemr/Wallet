@@ -1,11 +1,13 @@
+
 <ion-list>
   
+  <div>
   <h2 class="pop-title-activity">{{ checkTransType(transAmount)}} Minima 
   </h2>
   <h2 class="pop-amount-h2">
     {{ transAmount }} MINI
   </h2>
-  
+  </div>
   <ion-item>
     <ion-label class="pop-lbl">
       To
@@ -53,17 +55,16 @@
 
 </ion-list>
 <ion-footer>
+<ion-toolbar>
     <ion-item lines="none" class="date-item">
 
+    <div class="box">
     
-    <ion-icon name="checkmark" style="font-size: 22px; padding-right: 20px;" text-left></ion-icon>
-    
-    <ion-label class="date-lbl">
+    <ion-icon name="checkmark" size="small"></ion-icon> 
       {{  'Completed at ' + date.substring(7,15)}}
-    </ion-label>
-
+    </div>
 
   </ion-item>
-  
+</ion-toolbar>
 
 </ion-footer>

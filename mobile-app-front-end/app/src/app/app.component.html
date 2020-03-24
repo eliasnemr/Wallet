@@ -11,9 +11,7 @@
     
     <ion-content>
       <ion-list main>
-        <ion-list-header>
-        Basic
-        </ion-list-header>
+        
         <ion-menu-toggle auto-hide="false" *ngFor="let p of basic; let i = index">
           
             <ion-item 
@@ -31,9 +29,7 @@
       </ion-list>
 
       <ion-list main>
-        <ion-list-header>
-        Advanced
-        </ion-list-header>
+        
         <ion-menu-toggle auto-hide="false" *ngFor="let p of advanced; let i = index">
           
             <ion-item 
@@ -57,7 +53,7 @@
   </ion-content>
   <ion-menu-toggle auto-hide="false">
       <ion-footer class="ion-padding">
-        <ion-item routerLink="/community" lines="none">
+        <ion-item routerLink="/community" routerLinkActive="selected" lines="none">
           <ion-icon name="share" slot="start"></ion-icon> Join Community
         </ion-item>
       </ion-footer>

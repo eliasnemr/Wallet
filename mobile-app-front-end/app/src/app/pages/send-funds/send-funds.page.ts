@@ -5,6 +5,8 @@ import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 import { Clipboard } from '@ionic-native/clipboard/ngx';
 import { AlertController, Platform } from '@ionic/angular';
 import { MinimaApiService } from '../../service/minima-api.service';
+import { map } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-send-funds',
@@ -14,9 +16,12 @@ import { MinimaApiService } from '../../service/minima-api.service';
 })
 export class SendFundsPage implements OnInit {
 
+  selected_minima: any;
+  private lastJSON: string = '';
   public data: any = {};
   isCameraOpen: boolean = false;
   private scanSub:any=null;
+  balanceSubscription: Subscription;
   ionApp = <HTMLElement>document.getElementsByTagName('ion-app')[0];
 
   // Pull in tokens vars
@@ -35,12 +40,14 @@ export class SendFundsPage implements OnInit {
   ngOnInit() {}
 
   ionViewWillEnter() {
+    this.selected_minima = this.MINIMA_TOKEN_ID;
     this.pullInTokens();
     this.isCameraOpen = false;
   }
 
   ionViewWillLeave() {
     this.stopCamera();
+    this.balanceSubscription.unsubscribe();
   }
 
   identifyPlatformToScan_Add(){
@@ -193,12 +200,52 @@ export class SendFundsPage implements OnInit {
   }
 
   pullInTokens() {
-    this.balanceService.getBalance().subscribe((res: { status: boolean, minifunc: string, response: {balance: Tokens}}) => {
-      for(const key in res.response){
-        this.tokenArr = res.response[key];
-      }
-      return this.tokenArr;
+    this.balanceSubscription =this.balanceService.getBalance().pipe(map(responseData => {
+      const tokenArr: Tokens[] = [];
+      for(const key in responseData.response.balance){
+        if(responseData.response.balance.hasOwnProperty(key)){
+          let element = responseData.response.balance[key];
+          // round up confirmed && unconfirmed
+          
+          let tempConfirmed = (Math.round(element.confirmed * 100)/100);
+          let tempUnconfirmed = (Math.round(element.unconfirmed * 100)/100);
+
+          tokenArr.push({
+              id: element.tokenid,
+              token: element.token,
+              confirmed: tempConfirmed,
+              unconfirmed: tempUnconfirmed,
+              total: element.total
+          });
+
+          // add Minima always to the top
+          if(element.tokenid === this.MINIMA_TOKEN_ID){
+            tokenArr.pop(); // pop it
+            this.balanceService.update(
+            tokenArr,
+            {
+                id: element.tokenid,
+                token: element.token,
+                confirmed: tempConfirmed,
+                unconfirmed: tempUnconfirmed,
+                total: element.total
+            });
+          }
+
+          }
+        }
+        return tokenArr;
+        
+      })
+    )
+    .subscribe(responseData => {
       
+      //check if changed
+      if(this.lastJSON !== JSON.stringify(responseData)){
+        this.tokenArr = [...responseData];
+        this.lastJSON = JSON.stringify(responseData);
+      }
+
     });
   }
 

@@ -1,6 +1,14 @@
-
+ion-menu {
+  --background: var(--ion-background-color, #f2f2f2);
+}
+ion-menu ion-header {
+  --background: var(--ion-background-color, #f2f2f2);
+}
+ion-menu ion-header ion-toolbar {
+  --background: var(--ion-background-color, #f2f2f2);
+}
 ion-menu ion-content {
-    --padding-top: 20px;
+    --padding-top: 12px;
     --padding-bottom: 20px;
   
     --background: var(--ion-item-background, var(--ion-background-color, #fff));
@@ -9,10 +17,10 @@ ion-menu ion-content {
 ion-icon {
     color: #FF671D;
 }
-
-ion-item.selected {
-    --color: var(--ion-color-primary);
+ion-menu ion-item.selected{
+  --background: var(--ion-background-color, #f2f2f2);
 }
+
 ion-menu ion-item {
     --transition: none;
   }
@@ -62,15 +70,6 @@ ion-menu.md ion-list {
     padding: 0px 0;
   }
   
-  ion-menu.md ion-list-header {
-    padding-left: 18px;
-    padding-right: 18px;
-  
-    text-transform: uppercase;
-    letter-spacing: .1em;
-    font-weight: 450;
-  }
-  
   ion-menu.md ion-item {
     --padding-start: 18px;
   
@@ -81,8 +80,8 @@ ion-menu.md ion-list {
     font-weight: 500;
   }
 ion-menu.md ion-item.selected {
+  --background: var(--ion-background-color, #f2f2f2);
     --color: var(--ion-color-primary);
-    --background: var(--ion-background-color, #fff);
 }
 ion-menu.md ion-list {
     padding-bottom: 0px !important;
@@ -91,39 +90,31 @@ ion-menu.md ion-list {
 /*
  * iOS Design Menu
 */
-ion-menu.ios ion-list-header {
-    padding-left: 16px;
-    padding-right: 16px;
-  
-    margin-bottom: 0px;
-  }
-  
   ion-menu.ios ion-list {
     padding: 0px 0 0;
   }
-  
   ion-menu.ios ion-item {
     --padding-start: 16px;
     --min-height: 50px;
   }
-.ios .menu-logo-title {
+  .ios .menu-logo-title {
     font-family: 'Ridley-normal';
     font-weight: normal;
     font-size: 12px;
     padding-bottom: 2px;
         
-}
-.ios ion-note ion-badge {
+  }
+  .ios ion-note ion-badge {
     margin: auto;
     color: #FF671E;
     font-size: 8px;
-}
+  }
     
-ion-menu.ios ion-item.selected {
+  ion-menu.ios ion-item.selected {
+    --background: var(--ion-background-color, #f2f2f2);
     --color: var(--ion-color-primary);
-    --background: var(--ion-item-background, var(--ion-background-color, #fff));
-}
-ion-menu.ios ion-list {
+  }
+  ion-menu.ios ion-list {
     padding-bottom: 0px !important;
-}
+  }
 //

@@ -161,22 +161,8 @@ var SettingsPage = /** @class */ (function () {
         });
     };
     SettingsPage.prototype.saveHost = function () {
-        var _this = this;
         if (this.host !== '') {
             this.api.setHost(this.host);
-            this.api.getBalance().then(function (res) {
-                if (res.balance) {
-                    console.log("Save Accepted");
-                    //this.balance = Math.round(res.res.response*100)/100;
-                    _this.presentAlert('Saved', 'Success');
-                }
-            }).catch(function (err) {
-                console.log('save error', err);
-                _this.presentAlert('Check the host', 'Error');
-            });
-        }
-        else {
-            this.presentAlert('Check the host', 'Error');
         }
     };
     SettingsPage.ctorParameters = function () { return [

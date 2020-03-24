@@ -15,6 +15,9 @@
     text-transform: none;
 }
 
+.no-scroll {
+    --overflow: hidden;
+}
 
 textarea:hover, 
 input:hover, 

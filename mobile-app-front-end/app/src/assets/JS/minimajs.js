@@ -273,9 +273,9 @@ function setInitPage(){
 	"	\n" + 
 	
 	"	<tr>\n" + 
-	"		<td height=50 width='50px' style='text-align:left;vertical-align:middle;'><img width=50 src='../logo.png'></td>\n" + 
+	"		<td height=50 width='50px' style='text-align:left;vertical-align:middle;'><img width=50 src='assets/icon/icon.png'></td>\n" + 
 	"		<td height=50 width='250px' style='text-align:center;vertical-align:middle;'><br><h3>MINIMA MIFI</h3></td>\n" + 
-	"		<td height=50 width='50px' style='text-align:right;vertical-align:middle;'><img width=50 src='../logo.png'></td>\n" + 
+	"		<td height=50 width='50px' style='text-align:right;vertical-align:middle;'><img width=50 src='assets/icon/icon.png'></td>\n" + 
 	"	</tr>\n" + 
 	
 	"	\n" + 
@@ -326,9 +326,9 @@ function setHelpPage(){
 	"	\n" + 
 	
 	"	<tr>\n" + 
-	"		<td height=50 width='50px' style='text-align:left;vertical-align:middle;'><img width=50 src='../logo.png'></td>\n" + 
+	"		<td height=50 width='50px' style='text-align:left;vertical-align:middle;'><img width=50 src='assets/icon/icon.png'></td>\n" + 
 	"		<td height=50 width='250px' style='text-align:center;vertical-align:middle;'><br><h3>MINIMA MIFI</h3></td>\n" + 
-	"		<td height=50 width='50px' style='text-align:right;vertical-align:middle;'><img width=50 src='../logo.png'></td>\n" + 
+	"		<td height=50 width='50px' style='text-align:right;vertical-align:middle;'><img width=50 src='assets/icon/icon.png'></td>\n" + 
 	"	</tr>\n" + 
 	
 	"	\n" + 
@@ -380,9 +380,9 @@ function setAdvancedPage(){
 	"	\n" + 
 	
 	"	<tr>\n" + 
-	"		<td height=50 width='50px' style='text-align:left;vertical-align:middle;'><img width=50 src='../logo.png'></td>\n" + 
+	"		<td height=50 width='50px' style='text-align:left;vertical-align:middle;'><img width=50 src='assets/icon/icon.png'></td>\n" + 
 	"		<td height=50 width='250px' style='text-align:center;vertical-align:middle;'><br><h3>MINIMA MIFI</h3></td>\n" + 
-	"		<td height=50 width='50px' style='text-align:right;vertical-align:middle;'><img width=50 src='../logo.png'></td>\n" + 
+	"		<td height=50 width='50px' style='text-align:right;vertical-align:middle;'><img width=50 src='assets/icon/icon.png'></td>\n" + 
 	"	</tr>\n" + 
 	
 	"	<tr>" + 
@@ -438,9 +438,9 @@ function setQRPage(){
 	"	\n" + 
 	
 	"	<tr>\n" + 
-	"		<td height=50 width='50px' style='text-align:left;vertical-align:middle;'><img width=50 src='../logo.png'></td>\n" + 
+	"		<td height=50 width='50px' style='text-align:left;vertical-align:middle;'><img width=50 src='assets/icon/icon.png'></td>\n" + 
 	"		<td height=50 width='250px' style='text-align:center;vertical-align:middle;'><br><h3>MINIMA MIFI</h3></td>\n" + 
-	"		<td height=50 width='50px' style='text-align:right;vertical-align:middle;'><img width=50 src='../logo.png'></td>\n" + 
+	"		<td height=50 width='50px' style='text-align:right;vertical-align:middle;'><img width=50 src='assets/icon/icon.png'></td>\n" + 
 	"	</tr>\n" + 
 	
 	"	\n" + 
@@ -539,7 +539,7 @@ function createOverlayDivs(){
 	
 	button.innerHTML 		= "<table>\n" + 
 	"	<tr>\n" + 
-	"		<td align=center><img width=50 src='../logo.png'></td>\n" + 
+	"		<td align=center><img width=50 src='assets/icon/icon.png'></td>\n" + 
 	"	</tr>\n" + 
 	"	<tr>\n" + 
 	"		<td style='font-size:16;text-align:left;vertical-align:middle;'>MIFI LOGOUT</td>\n" + 

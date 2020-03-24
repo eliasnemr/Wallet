@@ -139,19 +139,6 @@ let SettingsPage = class SettingsPage {
     saveHost() {
         if (this.host !== '') {
             this.api.setHost(this.host);
-            this.api.getBalance().then((res) => {
-                if (res.balance) {
-                    console.log("Save Accepted");
-                    //this.balance = Math.round(res.res.response*100)/100;
-                    this.presentAlert('Saved', 'Success');
-                }
-            }).catch((err) => {
-                console.log('save error', err);
-                this.presentAlert('Check the host', 'Error');
-            });
-        }
-        else {
-            this.presentAlert('Check the host', 'Error');
         }
     }
 };

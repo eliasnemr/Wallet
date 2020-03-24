@@ -1,16 +1,18 @@
+ion-footer ion-toolbar ion-item {
+    --background: var(--ion-background-color, #f2f2f2);
+
+}
+ion-footer ion-toolbar {
+    --background: var(--ion-background-color, #f2f2f2);
+
+}
 .pop-lbl {
     font-weight: lighter; 
     font-family: 'Aeonik-light';
     font-size: 12px;
 }
-
-.date-lbl {
-    font-size: 10px;
-    color: #00768A;
-}
-
 ion-icon {
-    color: #FF671D;
+    color: #3D9970;
 }
 
 .pop-info-lbl {
@@ -25,7 +27,14 @@ ion-icon {
     text-align: center;
     font-size: medium;
 }
+.box {
+    margin-left: auto;
+    margin-right: auto;
+    white-space: nowrap;
+    font-size: 16px;
+    
 
+}
 
 //desktop
 
