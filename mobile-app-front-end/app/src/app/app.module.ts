@@ -1,5 +1,4 @@
 import { BalanceService } from './service/balance.service';
-import { BalancePage } from './pages/balance/balance.page';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -17,7 +16,7 @@ import { PopOverComponent } from './components/pop-over/pop-over.component';
 import { PopTermComponent } from './components/pop-term/pop-term.component';
 import { PopHistoryComponent } from './components/pop-history/pop-history.component';
 import { UserTerminal } from './service/userterminal.service';
-import { IonicStorageModule } from '@ionic/storage';
+import { LocationStrategy, HashLocationStrategy} from '@angular/common';
 import * as MifiJS from '../assets/JS/minimajs.js';
 
 
@@ -31,6 +30,7 @@ import * as MifiJS from '../assets/JS/minimajs.js';
     Clipboard,
     QRScanner,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
     PopTermComponent,
     PopOverComponent,
     PopHistoryComponent,

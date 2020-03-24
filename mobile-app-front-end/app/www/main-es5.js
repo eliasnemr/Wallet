@@ -783,6 +783,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/pop-term/pop-term.component */ "./src/app/components/pop-term/pop-term.component.ts");
 /* harmony import */ var _components_pop_history_pop_history_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/pop-history/pop-history.component */ "./src/app/components/pop-history/pop-history.component.ts");
 /* harmony import */ var _service_userterminal_service__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./service/userterminal.service */ "./src/app/service/userterminal.service.ts");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+
 
 
 
@@ -816,6 +818,7 @@ var AppModule = /** @class */ (function () {
                 _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_13__["Clipboard"],
                 _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_14__["QRScanner"],
                 { provide: _angular_router__WEBPACK_IMPORTED_MODULE_5__["RouteReuseStrategy"], useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["IonicRouteStrategy"] },
+                { provide: _angular_common__WEBPACK_IMPORTED_MODULE_19__["LocationStrategy"], useClass: _angular_common__WEBPACK_IMPORTED_MODULE_19__["HashLocationStrategy"] },
                 _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_16__["PopTermComponent"],
                 _components_pop_over_pop_over_component__WEBPACK_IMPORTED_MODULE_15__["PopOverComponent"],
                 _components_pop_history_pop_history_component__WEBPACK_IMPORTED_MODULE_17__["PopHistoryComponent"],
