@@ -17,13 +17,15 @@ import { PopTermComponent } from './components/pop-term/pop-term.component';
 import { PopHistoryComponent } from './components/pop-history/pop-history.component';
 import { UserTerminal } from './service/userterminal.service';
 import { LocationStrategy, HashLocationStrategy} from '@angular/common';
+import { IonicStorageModule } from '@ionic/storage';
+import { darkMode } from './service/darkMode.service';
 import * as MifiJS from '../assets/JS/minimajs.js';
 
 
 @NgModule({
   declarations: [AppComponent, PopOverComponent, PopTermComponent, PopHistoryComponent],
   entryComponents: [PopOverComponent, PopTermComponent, PopHistoryComponent],
-  imports: [FormsModule, HttpClientModule, BrowserModule, IonicModule.forRoot(), AppRoutingModule],
+  imports: [FormsModule, HttpClientModule, BrowserModule, IonicModule.forRoot(), AppRoutingModule, IonicStorageModule.forRoot()],
   providers: [
     StatusBar,
     SplashScreen,
@@ -36,7 +38,8 @@ import * as MifiJS from '../assets/JS/minimajs.js';
     PopHistoryComponent,
     UserTerminal,
     LocalNotifications,
-    BalanceService
+    BalanceService,
+    darkMode
   ],
   bootstrap: [AppComponent]
 })

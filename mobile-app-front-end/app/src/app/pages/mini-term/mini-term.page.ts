@@ -6,6 +6,8 @@ import { LoadingController, NavController, IonContent, PopoverController } from 
 import { environment } from '../../../environments/environment';
 import { map } from 'rxjs/operators';
 import { UserTerminal } from '../../service/userterminal.service';
+import { Storage } from '@ionic/storage';
+
 
 @Component({
   selector: 'app-mini-term',
@@ -30,7 +32,8 @@ export class MiniTermPage implements OnInit {
              public loadingController: LoadingController,
              public navCtrl: NavController, private renderer: Renderer2,
              public popoverController: PopoverController,
-             public userTerminal: UserTerminal) {
+             public userTerminal: UserTerminal,
+             private storage: Storage) {
 
       this.host = environment.defaultNode;
       this.host = this.getHost();
@@ -47,12 +50,20 @@ export class MiniTermPage implements OnInit {
   ngOnInit(){}
 
   ionViewWillEnter(){
+        this.storage.get('fontSize').then(fontSize => {
+          this.size = fontSize;
+        })
        // Stored subscription that watches if we activated button on PopTerm
        this.fontSubscription = 
        this.userTerminal.fontSizeEmitter.subscribe( didActivate => {
-         if(this.size > 0 && this.size <= 50){
-         this.size += didActivate;
-          }
+         if(this.size != didActivate){
+            if(this.size > 0 && this.size <= 50){
+            this.size += didActivate;
+            this.storage.set('fontSize', this.size);
+
+            console.log('fontSize Storage created');
+            }
+        }
      });
   }
   ionViewWillLeave(){
@@ -92,6 +103,7 @@ export class MiniTermPage implements OnInit {
  //PopTerm Editing methods
  getFontSize() {
   return this.size + 'px';
+  
 }
 
 //end of PopTerm Editing methods
@@ -118,19 +130,36 @@ export class MiniTermPage implements OnInit {
   request(route) {
     const self = this;
     console.log(route);
-    return new Promise((resolve, reject) => {
-      self.http.get(self.host + route, { responseType: 'json' }).subscribe(( d: any ) => {
+    if(route === 'tutorial' || route === 'Tutorial' || route === 'printchain' || route === 'printtree'){
+      return new Promise((resolve, reject) => {
+        self.http.get(self.host + route, { responseType: 'text' }).subscribe(( d: any ) => {
 
-        this.terminal.nativeElement.value += JSON.stringify(d, undefined, 2) + "\n";
+          this.terminal.nativeElement.value += JSON.stringify(d, undefined, 2) + "\n";
 
-        this.terminal.nativeElement.scrollTop = this.terminal.nativeElement.scrollHeight;
-        resolve(d);
-      }, (err) => {
-        self.hideLoader();
-        console.log('Error ' + err );
-        reject(err);
+          this.terminal.nativeElement.scrollTop = this.terminal.nativeElement.scrollHeight;
+          resolve(d);
+        }, (err) => {
+          self.hideLoader();
+          console.log('Error ' + err );
+          reject(err);
+        });
       });
-    });
+    }
+    else {
+      return new Promise((resolve, reject) => {
+        self.http.get(self.host + route, { responseType: 'json' }).subscribe(( d: any ) => {
+
+          this.terminal.nativeElement.value += JSON.stringify(d, undefined, 2) + "\n";
+
+          this.terminal.nativeElement.scrollTop = this.terminal.nativeElement.scrollHeight;
+          resolve(d);
+        }, (err) => {
+          self.hideLoader();
+          console.log('Error ' + err );
+          reject(err);
+        });
+      });
+    }
   }
 
   async showLoader() {

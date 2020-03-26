@@ -68,16 +68,20 @@ var Minima = {
 	
 	//Runs a function on the phone
 	cmd : function(minifunc, callback, logenabled){
+		//Encode ready for transmission..
+		var enc = encodeURIComponent(minifunc);
+		
 		//Create the string..
-		var rpc = "http://"+Minima.host+"/"+minifunc;
+		var rpcplain = "http://"+Minima.host+"/"+minifunc;
+		var rpc = "http://"+Minima.host+"/"+enc;
 
 		//log it..
 		if(logenabled !== undefined){
 			if(logenabled){
-				log("RPC call "+rpc);	
+				log("RPC : "+rpcplain);	
 			}
 		}else{
-			log("RPC call "+rpc);
+			log("RPC : "+rpcplain);
 		}
 		
 		//And Call it..
@@ -95,7 +99,7 @@ var Minima = {
 };
 
 function postMinimaMessage(event, info){
-   log("Event Dispatch "+event+" "+info);
+//   log("Event Dispatch "+event+" "+info);
 	
    //And finally..
    var data = { "event": event, "info" : info }
@@ -117,7 +121,7 @@ function initialStatus(){
 	   var json = JSON.parse(resp);
 
 	   //Store this..
-	   Minima.block   = json.response.lastblock;
+	   Minima.block   = parseInt(json.response.lastblock,10);
 	   Minima.txpowid = json.response.tip.txpowid;
 	   
 	   //Hide the Divs..
@@ -126,7 +130,7 @@ function initialStatus(){
 	   show(LOGOUT_BUTTON);
 	   
 	   //Start Polling..
-	   startPolling();
+	   startMinimaPolling();
 	   
 	   MINIMACONNECTED = true;
 	   
@@ -210,53 +214,47 @@ function closeWebSocket(){
 }
 
 /**
- * Start polling to see if something has changed.. Should be a websocket but the iPhone version not working..
+ * Start polling to see if something has changed.. 
  */
 var global_balance = "";
-function startPolling(){
-	//Check it instantly first..
-	pollBalance();
-	
+function startMinimaPolling(){
 	//Check Balance every second
-	setInterval(function(){pollStatus();pollBalance();},5000);
+	pollMinimaFunction();
+	
+	//Check every 5 secs
+	setInterval(function(){pollMinimaFunction();},5000);
 }
 
-function pollStatus(){
+function pollMinimaFunction(){	
 	//Check the Status
-	Minima.cmd("status",function(resp){
-		//And set the block
+	Minima.cmd("status;balance",function(resp){
+		//Convert to JSON
 		var json = JSON.parse(resp);
 
-		//Store..
-		Minima.status = json;
+		//Status is first..
+		Minima.status  = json[0];
+		Minima.balance = json[1];
 		
-		//Check for a change
-		if(json.response.tip.txpowid !== Minima.txpowid){
+		//Check for new block
+		if(Minima.status.response.tip.txpowid !== Minima.txpowid){
 			//Store the details
-			Minima.block   = json.response.lastblock;
-			Minima.txpowid = json.response.tip.txpowid;
+			Minima.block   = parseInt(Minima.status.response.lastblock,10);
+			Minima.txpowid = Minima.status.response.tip.txpowid;
 			
 			//Tell-tale..
-			postMinimaMessage("newblock",json);
+			postMinimaMessage("newblock",Minima.status);
 		}
-	},false);
-}
-
-function pollBalance(){
-	Minima.cmd("balance",function(resp){
-		//Make a json
-		var balancejson = JSON.parse(resp);
-
-		//Store
-		Minima.balance = balancejson;
+		
+		//Check balance..
+		var balstr = JSON.stringify(Minima.balance);
 		
 		//Simple string check for change
-		if(resp !== global_balance){
-			postMinimaMessage("newbalance",balancejson);
+		if(balstr !== global_balance){
+			postMinimaMessage("newbalance",Minima.balance);
 		}
 		
 		//Store it
-		global_balance = resp;
+		global_balance = balstr;
 	},false);
 }
 
@@ -275,15 +273,16 @@ function setInitPage(){
 	"	\n" + 
 	
 	"	<tr>\n" + 
-	"		<td height=50 width='50px' style='text-align:left;vertical-align:middle;'><img width=50 src='../assets/logo.png'></td>\n" + 
+	"		<td height=50 width='50px' style='text-align:left;vertical-align:middle;'><img width=50 src='assets/icon/icon.png'></td>\n" + 
 	"		<td height=50 width='250px' style='text-align:center;vertical-align:middle;'><br><h3>MINIMA MIFI</h3></td>\n" + 
-	"		<td height=50 width='50px' style='text-align:right;vertical-align:middle;'><img width=50 src='../assets/logo.png'></td>\n" + 
+	"		<td height=50 width='50px' style='text-align:right;vertical-align:middle;'><img width=50 src='assets/icon/icon.png'></td>\n" + 
 	"	</tr>\n" + 
 	
 	"	\n" + 
 	"	<tr>\n" + 
-	"		<td style='vertical-align:top;font-size:14;' colspan=3>\n" + 
+	"		<td height=100% style='vertical-align:top;font-size:14;' colspan=3>\n" + 
 	"<br>\n" + 
+	
 	"Welcome..<br>\n" + 
 	"<br>\n" + 
 	window.location.host+" would like to access the Minima Network.<br>\n" + 
@@ -298,20 +297,71 @@ function setInitPage(){
 	"<br>\n" + 
 	"		</td>\n" + 
 	"	</tr>\n" + 
-	"	\n" + 
+	
 	"	<tr>\n" + 
 	"		<td height=10 colspan=3 align=center><button onclick='setQRPage();'>P R O C E E D &GT;&GT;</button></td>\n" + 
 	"	</tr>\n" + 
 	
-	"    <tr>\n" + 
-	"		<td width=80 height=40 onclick='setHelpPage();' style='cursor: pointer;color:#0000ff;font-size:12;text-align:left;vertical-align:bottom;'>\n" + 
-	"			<div>HELP</div>\n" + 
+	"    <tr>" + 
+	"		<td width=80 height=40 onclick='setHelpPage();' style='cursor: pointer;color:#0000ff;font-size:12;text-align:left;vertical-align:bottom;'>" + 
+	"			HELP" + 
+	"		</td>" + 
+	"		<td>&nbsp</td>" + 
+	"		<td width=80 height=40 onclick='setAdvancedPage();' style='cursor: pointer;color:#0000ff;font-size:12;text-align:right;vertical-align:bottom;'>" + 
+	"			ADVANCED" + 
+	"		</td>" + 
+	"	</tr>"+ 
+	
+	"</table>"
+	
+	setMainDiv(text);
+}
+
+function setHelpPage(){
+	//Close the WebSocket
+	closeWebSocket();
+	
+	//Set the Text
+	var text = "<table border=0 width=350px height=100%>\n" + 
+	"	\n" + 
+	
+	"	<tr>\n" + 
+	"		<td height=50 width='50px' style='text-align:left;vertical-align:middle;'><img width=50 src='assets/icon/icon.png'></td>\n" + 
+	"		<td height=50 width='250px' style='text-align:center;vertical-align:middle;'><br><h3>MINIMA MIFI</h3></td>\n" + 
+	"		<td height=50 width='50px' style='text-align:right;vertical-align:middle;'><img width=50 src='assets/icon/icon.png'></td>\n" + 
+	"	</tr>\n" + 
+	
+	"	\n" + 
+	"	<tr>\n" + 
+	"		<td height=100% style='vertical-align:top;font-size:14;' colspan=3>\n" + 
+	"<br>\n" + 
+	
+	
+	"Help<br>" +
+	"<br>" +
+	"Trying to connect this webpage and your phone or instance of Minima can be tricky.<br>" +
+	"<br>" +
+	"If you are having issues it is probably because your WiFi is restricting your outbound and inbound traffic. Office WiFi normally does this.<br>" +
+	"<br>" +
+	"To get round this you can start a WiFi hotspot on your phone and then connect the computer you are sitting at to that WiFi." + 
+	"\n" +
+	"<br>" +
+	"<br>Home WiFi networks generally do not have these restrictions." + 
+	
 	"		</td>\n" + 
-	"		\n" + 
+	"	</tr>\n" + 
+	
+	"	<tr>\n" + 
+	"		<td height=10 colspan=3 align=center>&nbsp;</td>\n" + 
+	"	</tr>\n" + 
+	
+	"    <tr>\n" + 
+	"		<td width=80 height=40 onclick='setInitPage();' style='cursor: pointer;color:#0000ff;font-size:12;text-align:left;vertical-align:bottom;'>\n" + 
+	"			HOME\n" + 
+	"		</td>\n" + 
 	"		<td>&nbsp</td>\n" + 
-	"		\n" + 
 	"		<td width=80 height=40 onclick='setAdvancedPage();' style='cursor: pointer;color:#0000ff;font-size:12;text-align:right;vertical-align:bottom;'>\n" + 
-	"			<div>ADVANCED</div>\n" + 
+	"			ADVANCED\n" + 
 	"		</td>\n" + 
 	"	</tr>"+ 
 	
@@ -325,20 +375,20 @@ function setAdvancedPage(){
 	//Close the WebSocket
 	closeWebSocket();
 	
-	var text = "<table border=0 width=100% height=100%>\n" + 
+	//Set the Text
+	var text = "<table border=0 width=350px height=100%>\n" + 
 	"	\n" + 
 	
 	"	<tr>\n" + 
-	"		<td height=50 width='50px' style='text-align:left;vertical-align:middle;'><img width=50 src='../assets/logo.png'></td>\n" + 
+	"		<td height=50 width='50px' style='text-align:left;vertical-align:middle;'><img width=50 src='assets/icon/icon.png'></td>\n" + 
 	"		<td height=50 width='250px' style='text-align:center;vertical-align:middle;'><br><h3>MINIMA MIFI</h3></td>\n" + 
-	"		<td height=50 width='50px' style='text-align:right;vertical-align:middle;'><img width=50 src='../assets/logo.png'></td>\n" + 
+	"		<td height=50 width='50px' style='text-align:right;vertical-align:middle;'><img width=50 src='assets/icon/icon.png'></td>\n" + 
 	"	</tr>\n" + 
-	 
-	 
-	"	\n" + 
-	"	<tr>\n" + 
-	"		<td style='vertical-align:top;font-size:14;' colspan=3>\n" + 
-	"<br>\n" +
+	
+	"	<tr>" + 
+	"		<td height=100% style='vertical-align:top;font-size:14;' colspan=3>" + 
+	"<br>" + 
+	
 	"Advanced<br>" +
 	"<br>" + 
 	"Here you can directly specify the address of the Minima instance you wish to connect to.<br>\n" + 
@@ -349,24 +399,27 @@ function setAdvancedPage(){
 	"<br><br>\n" + 
 	"<center>\n" + 
 	"	<input placeholder='127.0.0.1:8999' type=text id='minimaconnect'>\n" + 
-	"\n" + 
 	"</center>\n" + 
-	"\n" + 
+
 	"		</td>\n" + 
 	"	</tr>\n" + 
-	"	\n" + 
+	
+
 	"	<tr>\n" + 
 	"		<td height=10 colspan=3 align=center><button onclick='advancedConnect();'>C O N N E C T &GT;&GT;</button></td>\n" + 
 	"	</tr>\n" + 
-	"	\n" + 
-	"	<tr>\n" + 
-	"		<td height=40 onclick='setInitPage();' colspan=3 style='cursor: pointer;color:#0000ff;font-size:12;text-align:right;vertical-align:bottom;'>\n" + 
-	"			<div>BACK</div>\n" + 
-	"		</td>\n" + 
-	"	</tr>\n" + 
-	"	\n" + 
-	"</table>\n" + 
-	"";
+	
+	
+	"    <tr>" + 
+	"		<td width=80 height=40 onclick='setHelpPage();' style='cursor: pointer;color:#0000ff;font-size:12;text-align:left;vertical-align:bottom;'>" + 
+	"			HELP" + 
+	"		</td>" + 
+	"		<td>&nbsp</td>" + 
+	"		<td width=80 height=40 onclick='setInitPage();' style='cursor: pointer;color:#0000ff;font-size:12;text-align:right;vertical-align:bottom;'>" + 
+	"			HOME" + 
+	"		</td>" + 
+	"	</tr>"+ 
+	"</table>";
 	
 	setMainDiv(text);
 }
@@ -385,9 +438,9 @@ function setQRPage(){
 	"	\n" + 
 	
 	"	<tr>\n" + 
-	"		<td height=50 width='50px' style='text-align:left;vertical-align:middle;'><img width=50 src='../assets/logo.png'></td>\n" + 
+	"		<td height=50 width='50px' style='text-align:left;vertical-align:middle;'><img width=50 src='assets/icon/icon.png'></td>\n" + 
 	"		<td height=50 width='250px' style='text-align:center;vertical-align:middle;'><br><h3>MINIMA MIFI</h3></td>\n" + 
-	"		<td height=50 width='50px' style='text-align:right;vertical-align:middle;'><img width=50 src='../assets/logo.png'></td>\n" + 
+	"		<td height=50 width='50px' style='text-align:right;vertical-align:middle;'><img width=50 src='assets/icon/icon.png'></td>\n" + 
 	"	</tr>\n" + 
 	
 	"	\n" + 
@@ -407,7 +460,7 @@ function setQRPage(){
 	
 	"	<tr>\n" + 
 	"		<td height=20 onclick='setInitPage();' colspan=3 style='cursor: pointer;color:#0000ff;font-size:12;text-align:right;vertical-align:bottom;'>\n" + 
-	"			<div>BACK</div>\n" + 
+	"			<div>HOME</div>\n" + 
 	"		</td>\n" + 
 	"	</tr>\n" + 
 	
@@ -436,55 +489,7 @@ function setQRPage(){
 	 }, 120000);
 }
 
-function setHelpPage(){
-	//Close the WebSocket
-	closeWebSocket();
-	
-	var text = "<table border=0 width=100% height=100%>\n" + 
-	"	\n" + 
-	
-	"	<tr>\n" + 
-	"		<td height=50 width='50px' style='text-align:left;vertical-align:middle;'><img width=50 src='../assets/logo.png'></td>\n" + 
-	"		<td height=50 width='250px' style='text-align:center;vertical-align:middle;'><br><h3>MINIMA MIFI</h3></td>\n" + 
-	"		<td height=50 width='50px' style='text-align:right;vertical-align:middle;'><img width=50 src='../assets/logo.png'></td>\n" + 
-	"	</tr>\n" + 
-	 
-	
-	"	\n" + 
-	"	<tr>\n" + 
-	"		<td style='vertical-align:top;font-size:14;' colspan=3>\n" + 
-	"<br>\n" +
-	"Help<br>" +
-	"<br>" +
-	"Trying to connect this webpage and your phone or instance of Minima can be tricky.<br>" +
-	"<br>" +
-	"If you are having issues it is probably because your WiFi is restricting your outbound and inbound traffic. Office WiFi normally does this.<br>" +
-	"<br>" +
-	"To get round this you can start a WiFi hotspot on your phone and then connect the computer you are sitting at to that WiFi." + 
-	"\n" +
-	"<br>" +
-	"<br>Home WiFi networks generally do not have these restrictions." +
-	"		</td>\n" + 
-	"	</tr>\n" + 
-	
-	
-	"    <tr>\n" + 
-	"		<td width=80 height=40 onclick='setInitPage();' style='cursor: pointer;color:#0000ff;font-size:12;text-align:left;vertical-align:bottom;'>\n" + 
-	"			<div>HOME</div>\n" + 
-	"		</td>\n" + 
-	"		\n" + 
-	"		<td>&nbsp</td>\n" + 
-	"		\n" + 
-	"		<td width=80 height=40 style='color:#0000ff;font-size:12;text-align:right;vertical-align:bottom;'>\n" + 
-	"			&nbsp;" + 
-	"		</td>\n" + 
-	"	</tr>"+ 
-	
-	"</table>\n" + 
-	"";
-	
-	setMainDiv(text);
-}
+
 
 /**
  * Add the Overlay DIVS - but do not show them 
@@ -532,12 +537,20 @@ function createOverlayDivs(){
 	var button = document.createElement("button");
 	button.id  = LOGOUT_BUTTON;
 	
-	button.innerHTML 		= "MiFi Logout";
+	button.innerHTML 		= "<table>\n" + 
+	"	<tr>\n" + 
+	"		<td align=center><img width=50 src='assets/icon/icon.png'></td>\n" + 
+	"	</tr>\n" + 
+	"	<tr>\n" + 
+	"		<td style='font-size:16;text-align:left;vertical-align:middle;'>MIFI LOGOUT</td>\n" + 
+	"	</tr>\n" + 
+	"</table>";
+	
 	button.style.position 	= "absolute";
 	button.style.padding 	= "5px";
-	button.style.top 		= 10;
-	button.style.left 		= 10;
-	button.style.background = "#AAAAAA";
+	button.style.top 		= "10px";
+	button.style.left 		= "10px";
+	button.style.fontFamily = "monospace";
 	
 	button.addEventListener ("click", function() {
 		  Minima.logout();
@@ -581,7 +594,7 @@ function log(info){
  * @returns
  */
 function httpGetAsync(theUrl, callback)
-{
+{	
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function() { 
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200){

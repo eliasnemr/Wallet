@@ -87,6 +87,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../environments/environment */ "./src/environments/environment.ts");
 /* harmony import */ var _service_userterminal_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../service/userterminal.service */ "./src/app/service/userterminal.service.ts");
+/* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm2015/ionic-storage.js");
+
 
 
 
@@ -95,13 +97,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let MiniTermPage = class MiniTermPage {
-    constructor(http, loadingController, navCtrl, renderer, popoverController, userTerminal) {
+    constructor(http, loadingController, navCtrl, renderer, popoverController, userTerminal, storage) {
         this.http = http;
         this.loadingController = loadingController;
         this.navCtrl = navCtrl;
         this.renderer = renderer;
         this.popoverController = popoverController;
         this.userTerminal = userTerminal;
+        this.storage = storage;
         this.size = 12;
         this.host = '';
         this.lastLine = '';
@@ -117,11 +120,18 @@ let MiniTermPage = class MiniTermPage {
     }
     ngOnInit() { }
     ionViewWillEnter() {
+        this.storage.get('fontSize').then(fontSize => {
+            this.size = fontSize;
+        });
         // Stored subscription that watches if we activated button on PopTerm
         this.fontSubscription =
             this.userTerminal.fontSizeEmitter.subscribe(didActivate => {
-                if (this.size > 0 && this.size <= 50) {
-                    this.size += didActivate;
+                if (this.size != didActivate) {
+                    if (this.size > 0 && this.size <= 50) {
+                        this.size += didActivate;
+                        this.storage.set('fontSize', this.size);
+                        console.log('fontSize Storage created');
+                    }
                 }
             });
     }
@@ -176,17 +186,32 @@ let MiniTermPage = class MiniTermPage {
     request(route) {
         const self = this;
         console.log(route);
-        return new Promise((resolve, reject) => {
-            self.http.get(self.host + route, { responseType: 'json' }).subscribe((d) => {
-                this.terminal.nativeElement.value += JSON.stringify(d, undefined, 2) + "\n";
-                this.terminal.nativeElement.scrollTop = this.terminal.nativeElement.scrollHeight;
-                resolve(d);
-            }, (err) => {
-                self.hideLoader();
-                console.log('Error ' + err);
-                reject(err);
+        if (route === 'tutorial' || route === 'Tutorial' || route === 'printchain' || route === 'printtree') {
+            return new Promise((resolve, reject) => {
+                self.http.get(self.host + route, { responseType: 'text' }).subscribe((d) => {
+                    this.terminal.nativeElement.value += JSON.stringify(d, undefined, 2) + "\n";
+                    this.terminal.nativeElement.scrollTop = this.terminal.nativeElement.scrollHeight;
+                    resolve(d);
+                }, (err) => {
+                    self.hideLoader();
+                    console.log('Error ' + err);
+                    reject(err);
+                });
             });
-        });
+        }
+        else {
+            return new Promise((resolve, reject) => {
+                self.http.get(self.host + route, { responseType: 'json' }).subscribe((d) => {
+                    this.terminal.nativeElement.value += JSON.stringify(d, undefined, 2) + "\n";
+                    this.terminal.nativeElement.scrollTop = this.terminal.nativeElement.scrollHeight;
+                    resolve(d);
+                }, (err) => {
+                    self.hideLoader();
+                    console.log('Error ' + err);
+                    reject(err);
+                });
+            });
+        }
     }
     showLoader() {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
@@ -224,7 +249,8 @@ MiniTermPage.ctorParameters = () => [
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["NavController"] },
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_2__["Renderer2"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["PopoverController"] },
-    { type: _service_userterminal_service__WEBPACK_IMPORTED_MODULE_6__["UserTerminal"] }
+    { type: _service_userterminal_service__WEBPACK_IMPORTED_MODULE_6__["UserTerminal"] },
+    { type: _ionic_storage__WEBPACK_IMPORTED_MODULE_7__["Storage"] }
 ];
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ViewChild"])(_ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonContent"], { static: false }),
@@ -244,7 +270,8 @@ MiniTermPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"],
         _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["NavController"], _angular_core__WEBPACK_IMPORTED_MODULE_2__["Renderer2"],
         _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["PopoverController"],
-        _service_userterminal_service__WEBPACK_IMPORTED_MODULE_6__["UserTerminal"]])
+        _service_userterminal_service__WEBPACK_IMPORTED_MODULE_6__["UserTerminal"],
+        _ionic_storage__WEBPACK_IMPORTED_MODULE_7__["Storage"]])
 ], MiniTermPage);
 
 

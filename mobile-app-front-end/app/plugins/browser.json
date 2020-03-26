@@ -42,6 +42,9 @@
     },
     "cordova-plugin-advanced-http": {
       "PACKAGE_NAME": "global.minima.telco"
+    },
+    "cordova-sqlite-storage": {
+      "PACKAGE_NAME": "global.minima.telco"
     }
   },
   "dependent_plugins": {

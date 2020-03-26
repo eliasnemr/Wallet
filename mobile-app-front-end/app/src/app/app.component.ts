@@ -5,6 +5,9 @@ import { Platform, MenuController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+import { darkMode } from './service/darkMode.service';
+import { Storage } from '@ionic/storage';
+
 
 declare var Minima: any;
 @Component({
@@ -13,7 +16,11 @@ declare var Minima: any;
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
+
+  
+
   private currentRoute:string='';
+  currentMode: boolean = false;
   currentVersion = 0;
   activePage: any;
   basic: {title: string, routerLink: string, icon: string, line: string, hidden: boolean}[];
@@ -26,12 +33,29 @@ export class AppComponent {
     private menu: MenuController,
     private router: Router,
     private api: MinimaApiService,
-    private localNotifications: LocalNotifications) {
-    this.getPages();
-    this.getPlatform();
+    private localNotifications: LocalNotifications,
+    private darkMode: darkMode,
+    private storage: Storage) {
+    
+    this.getPages();  /** this returns pages if on mobile or desktop, (different layouts) */ 
+    //this.getPlatform(); /** Turn getPlatform() off if you want to use desktop version with desktop node */ 
     this.initializeApp();
+
+    // Use matchMedia to check the user preference
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+    //darkMode.toggleDarkTheme(prefersDark.matches);
+
+    // Listen for changes to the prefers-color-scheme media query
+    prefersDark.addListener((mediaQuery) => darkMode.toggleDarkTheme(mediaQuery.matches)); 
+
+    this.storage.get('toggleVal').then(toggleVal => {
+      this.darkMode.toggleDarkTheme(toggleVal);
+    });    
+
+
   }
 
+  /** LIFECYCLES */
   ionViewWillEnter(){
    this.initializeApp();
    
@@ -96,27 +120,24 @@ export class AppComponent {
     }
   }
 
-  checkPage() {}
-
+  // returns logo that should be used with dark mode/light 
   getImg() {
-    if(document.body.classList.value === 'dark'){
+    if(document.body.classList.contains('dark')){
       return '../../assets/fulllogodark.svg';
-    } else {
+    } else if(this.currentMode === false) {
       return '../../assets/fulllogo.svg';
+    } else {
+      return '';
     }
   }
 
+  // checking if desktop
   isThisDesktop() {
     if(this.platform.is('desktop')) {
       return true;
     } else {
       return false;
     }
-  }
-
-  // userPreferences local storage
-  createUserPrefFile() {
-
   }
 
   // return platform to assert Minima Web or Minima Native

@@ -372,6 +372,14 @@ module.exports = [
         "id": "cordova-plugin-advanced-http.http-proxy",
         "pluginId": "cordova-plugin-advanced-http",
         "runs": true
+    },
+    {
+        "file": "plugins/cordova-sqlite-storage/www/SQLitePlugin.js",
+        "id": "cordova-sqlite-storage.SQLitePlugin",
+        "pluginId": "cordova-sqlite-storage",
+        "clobbers": [
+            "SQLitePlugin"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -390,7 +398,8 @@ module.exports.metadata =
     "cordova-plugin-statusbar": "2.4.2",
     "cordova-plugin-whitelist": "1.3.3",
     "cordova-plugin-file": "6.0.2",
-    "cordova-plugin-advanced-http": "2.4.1"
+    "cordova-plugin-advanced-http": "2.4.1",
+    "cordova-sqlite-storage": "5.0.0"
 }
 // BOTTOM OF METADATA
 });

@@ -32,7 +32,7 @@
     <ion-item lines="none">
       <ion-icon slot="start" name="moon" style="padding: 10px;" color="primary"></ion-icon>
       <ion-label style="font-style:normal;" color="tertiary">Night Mode</ion-label>
-      <ion-toggle #darkToggle color="primary" (ionChange)= "enableDarkTheme(shouldEnable)"></ion-toggle>
+      <ion-toggle #darkToggle color="primary" [(ngModel)]="toggleValue" (ionChange)="checkToggle($event)"></ion-toggle>
     </ion-item>
     
 </ion-content>
@@ -41,7 +41,7 @@
     <ion-buttons>
       
     
-    <ion-button class="action-btn" expand="block" (click)="saveHost()">
+    <ion-button class="action-btn" expand="block" (click)="saveUserPreferences()">
       <ion-icon name="save"></ion-icon>
      Save
     </ion-button>   

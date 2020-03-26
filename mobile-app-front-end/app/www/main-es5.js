@@ -459,7 +459,7 @@ module.exports = webpackAsyncContext;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-app>\n  <ion-split-pane when=\"lg\" contentId=\"mainMenu\" class=\"splitpane\" >\n  <ion-menu side=\"start\" contentId=\"mainMenu\">\n    <ion-header>\n      <ion-toolbar class=\"menu-toolbar\">\n      <ion-title> \n        <ion-img class=\"menu-logo\" [src]=\"getImg()\"></ion-img>\n      </ion-title>      \n      </ion-toolbar>\n    </ion-header>\n    \n    <ion-content>\n      <ion-list main>\n        \n        <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let p of basic; let i = index\">\n          \n            <ion-item \n            detail=\"false\"\n            routerLinkActive=\"selected\"\n            routerDirection=\"root\"\n            [hidden] = \"p.hidden\" \n            [routerLink]=\"p.routerLink\"\n            lines=\"{{ p.line }}\">\n\n            <ion-icon name=\"{{ p.icon }}\" slot=\"start\"></ion-icon> {{ p.title }}\n\n            </ion-item>\n        </ion-menu-toggle>\n      </ion-list>\n\n      <ion-list main>\n        \n        <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let p of advanced; let i = index\">\n          \n            <ion-item \n            detail=\"false\"\n            routerLinkActive=\"selected\"\n            routerDirection=\"root\"\n            [hidden] = \"p.hidden\" \n            routerLink=\"{{ p.routerLink }}\"\n            lines=\"{{ p.line }}\">\n\n            <ion-icon name=\"{{ p.icon }}\" slot=\"start\"></ion-icon> {{ p.title }}\n\n            </ion-item>\n        </ion-menu-toggle>\n      </ion-list>\n\n    \n\n    \n    \n  </ion-content>\n  <ion-menu-toggle auto-hide=\"false\">\n      <ion-footer class=\"ion-padding\">\n        <ion-item routerLink=\"/community\" routerLinkActive=\"selected\" lines=\"none\">\n          <ion-icon name=\"share\" slot=\"start\"></ion-icon> Join Community\n        </ion-item>\n      </ion-footer>\n  </ion-menu-toggle>\n  </ion-menu>\n\n  <ion-router-outlet main id=\"mainMenu\"></ion-router-outlet>\n  </ion-split-pane>\n  \n</ion-app>"
+module.exports = "<ion-app>\n  <ion-split-pane when=\"lg\" contentId=\"mainMenu\" class=\"splitpane\" >\n  <ion-menu side=\"start\" contentId=\"mainMenu\">\n    <ion-header>\n      <ion-toolbar class=\"menu-toolbar\">\n      <ion-title> \n        <ion-img class=\"menu-logo\" [src]=\"getImg()\"></ion-img>\n      </ion-title>      \n      </ion-toolbar>\n    </ion-header>\n    \n    <ion-content>\n      <ion-list main>\n        \n        <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let p of basic; let i = index\">\n          \n            <ion-item \n            detail=\"false\"\n            routerLinkActive=\"selected\"\n            routerDirection=\"root\"\n            [hidden] = \"p.hidden\" \n            [routerLink]=\"p.routerLink\"\n            lines=\"{{ p.line }}\">\n\n            <ion-icon name=\"{{ p.icon }}\" slot=\"start\"></ion-icon> {{ p.title }}\n\n            </ion-item>\n        </ion-menu-toggle>\n      </ion-list>\n\n      <ion-list main>\n        \n        <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let p of advanced; let i = index\">\n          \n            <ion-item \n            detail=\"false\"\n            routerLinkActive=\"selected\"\n            routerDirection=\"root\"\n            [hidden] = \"p.hidden\" \n            routerLink=\"{{ p.routerLink }}\"\n            lines=\"{{ p.line }}\">\n\n            <ion-icon name=\"{{ p.icon }}\" slot=\"start\"></ion-icon> {{ p.title }}\n\n            </ion-item>\n        </ion-menu-toggle>\n      </ion-list>\n\n    \n\n    \n    \n  </ion-content>\n  <ion-menu-toggle auto-hide=\"false\">\n      <ion-footer class=\"ion-padding\">\n        <ion-item routerLink=\"/community\" routerLinkActive=\"selected\" lines=\"none\">\n          <ion-icon name=\"share\" slot=\"start\"></ion-icon> Join Community\n        </ion-item>\n      </ion-footer>\n  </ion-menu-toggle>\n  </ion-menu>\n\n  <ion-router-outlet main id=\"mainMenu\"></ion-router-outlet>\n  </ion-split-pane>\n  \n</ion-app>\n"
 
 /***/ }),
 
@@ -576,6 +576,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic-native/splash-screen/ngx */ "./node_modules/@ionic-native/splash-screen/ngx/index.js");
 /* harmony import */ var _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic-native/status-bar/ngx */ "./node_modules/@ionic-native/status-bar/ngx/index.js");
 /* harmony import */ var _ionic_native_local_notifications_ngx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic-native/local-notifications/ngx */ "./node_modules/@ionic-native/local-notifications/ngx/index.js");
+/* harmony import */ var _service_darkMode_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./service/darkMode.service */ "./src/app/service/darkMode.service.ts");
+/* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm5/ionic-storage.js");
+
+
 
 
 
@@ -585,7 +589,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var AppComponent = /** @class */ (function () {
-    function AppComponent(platform, splashScreen, statusBar, menu, router, api, localNotifications) {
+    function AppComponent(platform, splashScreen, statusBar, menu, router, api, localNotifications, darkMode, storage) {
+        var _this = this;
         this.platform = platform;
         this.splashScreen = splashScreen;
         this.statusBar = statusBar;
@@ -593,12 +598,25 @@ var AppComponent = /** @class */ (function () {
         this.router = router;
         this.api = api;
         this.localNotifications = localNotifications;
+        this.darkMode = darkMode;
+        this.storage = storage;
         this.currentRoute = '';
+        this.currentMode = false;
         this.currentVersion = 0;
-        this.getPages();
-        this.getPlatform();
+        this.getPages(); /** this returns pages if on mobile or desktop, (different layouts) */
+        //this.getPlatform(); /** Turn getPlatform() off if you want to use desktop version with desktop node */ 
         this.initializeApp();
+        // Use matchMedia to check the user preference
+        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+        //darkMode.toggleDarkTheme(prefersDark.matches);
+        // Listen for changes to the prefers-color-scheme media query
+        prefersDark.addListener(function (mediaQuery) { return darkMode.toggleDarkTheme(mediaQuery.matches); });
+        this.storage.get('toggleVal').then(function (toggleVal) {
+            _this.darkMode.toggleDarkTheme(toggleVal);
+            _this.currentMode = toggleVal;
+        });
     }
+    /** LIFECYCLES */
     AppComponent.prototype.ionViewWillEnter = function () {
         this.initializeApp();
     };
@@ -653,15 +671,19 @@ var AppComponent = /** @class */ (function () {
                 ];
         }
     };
-    AppComponent.prototype.checkPage = function () { };
+    // returns logo that should be used with dark mode/light 
     AppComponent.prototype.getImg = function () {
-        if (document.body.classList.value === 'dark') {
+        if (this.currentMode === true) {
             return '../../assets/fulllogodark.svg';
         }
-        else {
+        else if (this.currentMode === false) {
             return '../../assets/fulllogo.svg';
         }
+        else {
+            return '';
+        }
     };
+    // checking if desktop
     AppComponent.prototype.isThisDesktop = function () {
         if (this.platform.is('desktop')) {
             return true;
@@ -669,9 +691,6 @@ var AppComponent = /** @class */ (function () {
         else {
             return false;
         }
-    };
-    // userPreferences local storage
-    AppComponent.prototype.createUserPrefFile = function () {
     };
     // return platform to assert Minima Web or Minima Native
     AppComponent.prototype.getPlatform = function () {
@@ -749,7 +768,9 @@ var AppComponent = /** @class */ (function () {
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["MenuController"] },
         { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
         { type: _service_minima_api_service__WEBPACK_IMPORTED_MODULE_1__["MinimaApiService"] },
-        { type: _ionic_native_local_notifications_ngx__WEBPACK_IMPORTED_MODULE_7__["LocalNotifications"] }
+        { type: _ionic_native_local_notifications_ngx__WEBPACK_IMPORTED_MODULE_7__["LocalNotifications"] },
+        { type: _service_darkMode_service__WEBPACK_IMPORTED_MODULE_8__["darkMode"] },
+        { type: _ionic_storage__WEBPACK_IMPORTED_MODULE_9__["Storage"] }
     ]; };
     AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Component"])({
@@ -763,7 +784,9 @@ var AppComponent = /** @class */ (function () {
             _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["MenuController"],
             _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"],
             _service_minima_api_service__WEBPACK_IMPORTED_MODULE_1__["MinimaApiService"],
-            _ionic_native_local_notifications_ngx__WEBPACK_IMPORTED_MODULE_7__["LocalNotifications"]])
+            _ionic_native_local_notifications_ngx__WEBPACK_IMPORTED_MODULE_7__["LocalNotifications"],
+            _service_darkMode_service__WEBPACK_IMPORTED_MODULE_8__["darkMode"],
+            _ionic_storage__WEBPACK_IMPORTED_MODULE_9__["Storage"]])
     ], AppComponent);
     return AppComponent;
 }());
@@ -802,6 +825,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_pop_history_pop_history_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/pop-history/pop-history.component */ "./src/app/components/pop-history/pop-history.component.ts");
 /* harmony import */ var _service_userterminal_service__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./service/userterminal.service */ "./src/app/service/userterminal.service.ts");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm5/ionic-storage.js");
+/* harmony import */ var _service_darkMode_service__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./service/darkMode.service */ "./src/app/service/darkMode.service.ts");
+
+
 
 
 
@@ -829,7 +856,7 @@ var AppModule = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["NgModule"])({
             declarations: [_app_component__WEBPACK_IMPORTED_MODULE_11__["AppComponent"], _components_pop_over_pop_over_component__WEBPACK_IMPORTED_MODULE_15__["PopOverComponent"], _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_16__["PopTermComponent"], _components_pop_history_pop_history_component__WEBPACK_IMPORTED_MODULE_17__["PopHistoryComponent"]],
             entryComponents: [_components_pop_over_pop_over_component__WEBPACK_IMPORTED_MODULE_15__["PopOverComponent"], _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_16__["PopTermComponent"], _components_pop_history_pop_history_component__WEBPACK_IMPORTED_MODULE_17__["PopHistoryComponent"]],
-            imports: [_angular_forms__WEBPACK_IMPORTED_MODULE_10__["FormsModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_6__["HttpClientModule"], _angular_platform_browser__WEBPACK_IMPORTED_MODULE_4__["BrowserModule"], _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["IonicModule"].forRoot(), _app_routing_module__WEBPACK_IMPORTED_MODULE_12__["AppRoutingModule"]],
+            imports: [_angular_forms__WEBPACK_IMPORTED_MODULE_10__["FormsModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_6__["HttpClientModule"], _angular_platform_browser__WEBPACK_IMPORTED_MODULE_4__["BrowserModule"], _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["IonicModule"].forRoot(), _app_routing_module__WEBPACK_IMPORTED_MODULE_12__["AppRoutingModule"], _ionic_storage__WEBPACK_IMPORTED_MODULE_20__["IonicStorageModule"].forRoot()],
             providers: [
                 _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_9__["StatusBar"],
                 _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_8__["SplashScreen"],
@@ -842,7 +869,8 @@ var AppModule = /** @class */ (function () {
                 _components_pop_history_pop_history_component__WEBPACK_IMPORTED_MODULE_17__["PopHistoryComponent"],
                 _service_userterminal_service__WEBPACK_IMPORTED_MODULE_18__["UserTerminal"],
                 _ionic_native_local_notifications_ngx__WEBPACK_IMPORTED_MODULE_2__["LocalNotifications"],
-                _service_balance_service__WEBPACK_IMPORTED_MODULE_1__["BalanceService"]
+                _service_balance_service__WEBPACK_IMPORTED_MODULE_1__["BalanceService"],
+                _service_darkMode_service__WEBPACK_IMPORTED_MODULE_21__["darkMode"]
             ],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_11__["AppComponent"]]
         })
@@ -1187,6 +1215,39 @@ var BalanceService = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"], _angular_core__WEBPACK_IMPORTED_MODULE_3__["ChangeDetectorRef"]])
     ], BalanceService);
     return BalanceService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/service/darkMode.service.ts":
+/*!*********************************************!*\
+  !*** ./src/app/service/darkMode.service.ts ***!
+  \*********************************************/
+/*! exports provided: darkMode */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "darkMode", function() { return darkMode; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+
+
+var darkMode = /** @class */ (function () {
+    function darkMode() {
+    }
+    darkMode.prototype.toggleDarkTheme = function (shouldAdd) {
+        document.body.classList.toggle('dark', shouldAdd);
+    };
+    darkMode = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], darkMode);
+    return darkMode;
 }());
 
 
