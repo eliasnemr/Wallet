@@ -25,9 +25,9 @@
           <ion-label position="floating">Tokens</ion-label>
           <ion-select 
               class="token-select"
-              [(ngModel)]="MINIMA_TOKEN_ID"
+              [(ngModel)]="data.tokenid"
               placeholder = "Select your token">
-          <ion-select-option *ngFor="let token of tokenArr; let i = index" [value]="token.id" [selected]="MINIMA_TOKEN_ID === token.id">
+          <ion-select-option *ngFor="let token of tokenArr; let i = index" [value]="token.id" [selected]="MINIMA_TOKEN_ID === data.tokenid">
             {{ token.token  + ' <' + token.id.substring(0, 12) + '>'  }} 
           </ion-select-option>
         </ion-select>

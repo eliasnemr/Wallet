@@ -613,7 +613,6 @@ var AppComponent = /** @class */ (function () {
         prefersDark.addListener(function (mediaQuery) { return darkMode.toggleDarkTheme(mediaQuery.matches); });
         this.storage.get('toggleVal').then(function (toggleVal) {
             _this.darkMode.toggleDarkTheme(toggleVal);
-            _this.currentMode = toggleVal;
         });
     }
     /** LIFECYCLES */
@@ -673,7 +672,7 @@ var AppComponent = /** @class */ (function () {
     };
     // returns logo that should be used with dark mode/light 
     AppComponent.prototype.getImg = function () {
-        if (this.currentMode === true) {
+        if (document.body.classList.contains('dark')) {
             return '../../assets/fulllogodark.svg';
         }
         else if (this.currentMode === false) {

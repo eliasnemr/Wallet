@@ -19,7 +19,7 @@ import { JsonPipe } from '@angular/common';
 export class BalancePage implements OnInit {
 
   polledBalance$: Observable<any>;
-  tokenArr: Tokens[];
+  tokenArr: Tokens[] = [];
   
   balanceSubscription: Subscription;
 
@@ -37,7 +37,9 @@ export class BalancePage implements OnInit {
     private ref: ChangeDetectorRef) {}
 
   ionViewWillEnter() {
-    this.pullInTokens(); // subscribes & polls balance
+    setTimeout(() => {
+      this.pullInTokens(); // subscribes & polls balance
+    }, 1000);
   }
   ngOnInit(){}
   

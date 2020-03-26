@@ -19,7 +19,6 @@
       <ion-card-content>
 
         <ion-icon style=" font-size:2.0rem; padding-left:10px;" name="card" slot="start" class="icon-head"></ion-icon>
-
         <ion-list *ngFor="let token of tokenArr;">
           
           <ion-item-sliding>
@@ -48,6 +47,53 @@
           </ion-item-sliding>
          
         </ion-list>
+
+
+        <!-- SKELETON UX FOR LOADING -->
+        <div *ngIf="tokenArr.length < 1">
+        <ion-list>
+            <ion-item lines="full">
+              <ion-label class="logo-names">
+                
+              <div class="wrapper">
+                <div slot="start" class="skeleton-icon">
+                  <ion-skeleton-text></ion-skeleton-text>
+                </div> 
+
+                <div class="skeleton-name"><ion-skeleton-text animated style="width:100%"></ion-skeleton-text> </div>
+              </div>
+              </ion-label>
+              
+              <ion-label class="skeleton-amount" color="black">
+                <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+              </ion-label>
+            </ion-item>
+
+        </ion-list>
+        </div>
+        <!-- SKELETON UX FOR LOADING -->
+        <div *ngIf="tokenArr.length < 1">
+        <ion-list>
+            <ion-item lines="full" style="padding: 0px;">
+              <ion-label class="logo-names">
+                
+              <div style="width: 500px; overflow: hidden;">
+                <div slot="start" style="width: 25px;height:20px; border-radius: 50%; display:inline-block; float:left; ">
+                  <ion-skeleton-text></ion-skeleton-text>
+                </div> 
+
+                <div style="margin-left: 30px; margin-top: 12px;"><ion-skeleton-text animated style="width:50%"></ion-skeleton-text> </div>
+              </div>
+              </ion-label>
+              
+              <ion-label style="margin-left: 90%"color="black">
+                <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+              </ion-label>
+            </ion-item>
+
+        </ion-list>
+        </div>
+
       </ion-card-content>
     </ion-card>
 

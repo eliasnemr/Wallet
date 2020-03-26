@@ -603,7 +603,6 @@ let AppComponent = class AppComponent {
         prefersDark.addListener((mediaQuery) => darkMode.toggleDarkTheme(mediaQuery.matches));
         this.storage.get('toggleVal').then(toggleVal => {
             this.darkMode.toggleDarkTheme(toggleVal);
-            this.currentMode = toggleVal;
         });
     }
     /** LIFECYCLES */
@@ -662,7 +661,7 @@ let AppComponent = class AppComponent {
     }
     // returns logo that should be used with dark mode/light 
     getImg() {
-        if (this.currentMode === true) {
+        if (document.body.classList.contains('dark')) {
             return '../../assets/fulllogodark.svg';
         }
         else if (this.currentMode === false) {
