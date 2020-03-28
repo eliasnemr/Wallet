@@ -39,32 +39,28 @@ export class MiniTermPage implements OnInit {
       this.host = this.getHost();
       
     // Disable up and down keys.
-          window.addEventListener("keydown", function(e) {
-            if([37, 38, 39, 40].indexOf(e.keyCode) > -1) {
-                e.preventDefault();
-            }
-        }, false);
-
-    }
+      window.addEventListener("keydown", function(e) {
+        if([37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+          e.preventDefault();
+        }
+      }, false);
+  }
 
   ngOnInit(){}
 
   ionViewWillEnter(){
-        this.storage.get('fontSize').then(fontSize => {
-          this.size = fontSize;
-        })
-       // Stored subscription that watches if we activated button on PopTerm
-       this.fontSubscription = 
-       this.userTerminal.fontSizeEmitter.subscribe( didActivate => {
-         if(this.size != didActivate){
-            if(this.size > 0 && this.size <= 50){
+    // Stored subscription that watches if we activated button on PopTerm
+    this.fontSubscription = 
+    this.userTerminal.fontSizeEmitter.subscribe( didActivate => {
+      if(this.size != didActivate){
+          if(this.size > 0 && this.size <= 50){
             this.size += didActivate;
             this.storage.set('fontSize', this.size);
 
-            console.log('fontSize Storage created');
-            }
-        }
-     });
+            
+          }
+      }
+    });
   }
   ionViewWillLeave(){
    this.fontSubscription.unsubscribe();
@@ -101,61 +97,70 @@ export class MiniTermPage implements OnInit {
  }
 
  //PopTerm Editing methods
- getFontSize() {
+getFontSize() {
+
   return this.size + 'px';
-  
 }
 
 //end of PopTerm Editing methods
 
-  scrollToBottomOnInit() {
-    console.log("scrolling");
-    setTimeout(() => {
-      this.ionContent.scrollToBottom(300);
-    }, 200);
-    console.log("scrolled.") 
-  }
+scrollToBottomOnInit() {
+  //scrolling
+  setTimeout(() => {
+
+    this.ionContent.scrollToBottom(300);
+
+  }, 200);
+}
 
   //Minima Api Service
-  getHost() {
-    if (localStorage.getItem('minima_host') == null) {
-      localStorage.setItem('minima_host', this.host);
-      return this.host;
-    } else {
-      return localStorage.getItem('minima_host');
+getHost() {
+  if (localStorage.getItem('minima_host') == null) {
+    localStorage.setItem('minima_host', this.host);
+    return this.host;
+  } else {
+    return localStorage.getItem('minima_host');
     }
   }
 
   //api calls
-  request(route) {
-    const self = this;
-    console.log(route);
-    if(route === 'tutorial' || route === 'Tutorial' || route === 'printchain' || route === 'printtree'){
+request(route) {
+    if(route === 'tutorial' || route === 'Tutorial' || route === 'printchain'){
       return new Promise((resolve, reject) => {
-        self.http.get(self.host + route, { responseType: 'text' }).subscribe(( d: any ) => {
+        this.http.get(this.host + route, { responseType: 'text' }).subscribe(( d: any ) => {
+          
+          const regex = d.replace(environment.newLine, "\\n"); // replace \n with <br/> has all 3 \n|\r|\r\n
 
-          this.terminal.nativeElement.value += JSON.stringify(d, undefined, 2) + "\n";
+          this.terminal.nativeElement.value += regex;
 
           this.terminal.nativeElement.scrollTop = this.terminal.nativeElement.scrollHeight;
+
           resolve(d);
         }, (err) => {
-          self.hideLoader();
+
+          this.hideLoader();
+
           console.log('Error ' + err );
+
           reject(err);
         });
       });
     }
     else {
       return new Promise((resolve, reject) => {
-        self.http.get(self.host + route, { responseType: 'json' }).subscribe(( d: any ) => {
+        this.http.get(this.host + route, { responseType: 'json' }).subscribe(( d: any ) => {
 
           this.terminal.nativeElement.value += JSON.stringify(d, undefined, 2) + "\n";
 
           this.terminal.nativeElement.scrollTop = this.terminal.nativeElement.scrollHeight;
+
           resolve(d);
         }, (err) => {
-          self.hideLoader();
+
+          this.hideLoader();
+          
           console.log('Error ' + err );
+
           reject(err);
         });
       });

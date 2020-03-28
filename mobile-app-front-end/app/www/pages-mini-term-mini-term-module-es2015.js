@@ -120,9 +120,6 @@ let MiniTermPage = class MiniTermPage {
     }
     ngOnInit() { }
     ionViewWillEnter() {
-        this.storage.get('fontSize').then(fontSize => {
-            this.size = fontSize;
-        });
         // Stored subscription that watches if we activated button on PopTerm
         this.fontSubscription =
             this.userTerminal.fontSizeEmitter.subscribe(didActivate => {
@@ -184,16 +181,16 @@ let MiniTermPage = class MiniTermPage {
     }
     //api calls
     request(route) {
-        const self = this;
         console.log(route);
-        if (route === 'tutorial' || route === 'Tutorial' || route === 'printchain' || route === 'printtree') {
+        if (route === 'tutorial' || route === 'Tutorial' || route === 'printchain') {
             return new Promise((resolve, reject) => {
-                self.http.get(self.host + route, { responseType: 'text' }).subscribe((d) => {
-                    this.terminal.nativeElement.value += JSON.stringify(d, undefined, 2) + "\n";
+                this.http.get(this.host + route, { responseType: 'text' }).subscribe((d) => {
+                    const regex = d.replace(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].newLine, "\\n"); // replace \n with <br/> has all 3 \n|\r|\r\n
+                    this.terminal.nativeElement.value += regex;
                     this.terminal.nativeElement.scrollTop = this.terminal.nativeElement.scrollHeight;
                     resolve(d);
                 }, (err) => {
-                    self.hideLoader();
+                    this.hideLoader();
                     console.log('Error ' + err);
                     reject(err);
                 });
@@ -201,12 +198,12 @@ let MiniTermPage = class MiniTermPage {
         }
         else {
             return new Promise((resolve, reject) => {
-                self.http.get(self.host + route, { responseType: 'json' }).subscribe((d) => {
+                this.http.get(this.host + route, { responseType: 'json' }).subscribe((d) => {
                     this.terminal.nativeElement.value += JSON.stringify(d, undefined, 2) + "\n";
                     this.terminal.nativeElement.scrollTop = this.terminal.nativeElement.scrollHeight;
                     resolve(d);
                 }, (err) => {
-                    self.hideLoader();
+                    this.hideLoader();
                     console.log('Error ' + err);
                     reject(err);
                 });

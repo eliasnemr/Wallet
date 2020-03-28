@@ -16,6 +16,8 @@ export class MiniStatusPage implements OnInit {
   status: { status: boolean, minifunc: string, response: Status};
   statusSubscription: Subscription;
 
+  statusOfStatus: string = 'empty';
+
   // - vars
   private host = '';
   private loader: any = null;
@@ -25,7 +27,10 @@ export class MiniStatusPage implements OnInit {
   ngOnInit() { }
 
   ionViewWillEnter() {
-    this.updateStatus(); // subscribes & polls status
+    setTimeout(() => {
+      this.updateStatus(); // subscribes & polls status
+      this.statusOfStatus = 'updated';
+    }, 500);
   }
 
   ionViewWillLeave(){
@@ -52,7 +57,7 @@ export class MiniStatusPage implements OnInit {
     )
     .subscribe((res : any) => {
       this.status = res;
-      console.log(this.status.status);
+      
       
     
     });

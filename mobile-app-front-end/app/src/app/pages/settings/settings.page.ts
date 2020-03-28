@@ -12,14 +12,17 @@ import { Storage } from '@ionic/storage';
 })
 export class SettingsPage implements OnInit {
 
-  toggleValue: boolean;
+  toggleValue: boolean = false;
   host = '';
 
   constructor(private api: MinimaApiService, public alertController: AlertController,
     public toastController: ToastController, private darkMode: darkMode, private storage: Storage) {
-      this.storage.get('toggleVal').then(toggleVal => {
-        this.toggleValue = toggleVal;
-      });
+      storage.ready().then(() => {
+        // get a key/value pair
+        this.getObject('toggleVal').then(toggleVal => {
+          this.toggleValue = toggleVal;
+        });
+     }); 
     }
     
   /** LIFE CYCLES */
@@ -34,10 +37,13 @@ export class SettingsPage implements OnInit {
 
   /** MISCELLANEOUS */
   saveUserPreferences() {
-    // get toggleVal
-    this.storage.get('toggleVal').then(toggleVal => {
-      this.toggleValue = toggleVal;
-    });
+
+    this.storage.ready().then(() => {
+      // get a key/value pair
+      this.getObject('toggleVal').then(toggleVal => {
+        this.toggleValue = toggleVal;
+      });
+   });
     // save host used.
     if (this.host!=='') {      
       this.api.setHost(this.host);
@@ -48,34 +54,44 @@ export class SettingsPage implements OnInit {
 
   checkToggle(e: Event) {
     if(this.toggleValue === false) {
-      this.storage.set('toggleVal', this.toggleValue);
-      document.body.classList.toggle('dark', this.toggleValue);
+      this.setObject('toggleVal', 'false');
+      document.body.classList.toggle('dark', false);
     } else {
-      this.storage.set('toggleVal', this.toggleValue);
-      document.body.classList.toggle('dark', this.toggleValue);
+      this.setObject('toggleVal', 'true');
+      document.body.classList.toggle('dark', true);
     }
-    
 
-    
-    // if(this.isToggled === false){
-    //   this.isToggled = true;
-    //   document.body.classList.toggle("dark", true);
-      
-    // } else {
-    //   this.isToggled = false;
-    //   document.body.classList.toggle("dark", false);
-    // }
-    // console.log("Toggled: "+ this.isToggled); 
-
-    
   }
+  // set async storage key pair
+  async setObject(key: string, object: Object) {
+    try {
+    const result = await this.storage.set(key, JSON.stringify(object));
+    
+    return true;
+    } catch (reason) {
+    console.log(reason);
+    return false;
+    }
+    }
+
+    // get a key/value object
+  async getObject(key: string): Promise<any> {
+    try {
+    const result = await this.storage.get(key);
+    if (result != null) {
+    return JSON.parse(result);
+    }
+    return null;
+    } catch (reason) {
+    console.log(reason);
+    return null;
+    }
+    }
   
   /** API SERVICE CALLS */
   giveMe50() {
     this.api.giveMe50().then((res:any)=>{  
-      console.log("Testing giveMe50() " + res)
       if(res.status == true) {
-        console.log("Result is true" + res);
         this.presentAlert('You get 50', 'Info');
       } else {
         console.log("Result is false " + res)

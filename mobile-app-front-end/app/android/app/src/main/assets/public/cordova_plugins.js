@@ -58,6 +58,14 @@
         ]
         },
       {
+          "id": "cordova-sqlite-storage.SQLitePlugin",
+          "file": "plugins/cordova-sqlite-storage/www/SQLitePlugin.js",
+          "pluginId": "cordova-sqlite-storage",
+        "clobbers": [
+          "SQLitePlugin"
+        ]
+        },
+      {
           "id": "cordova-plugin-file.DirectoryEntry",
           "file": "plugins/cordova-plugin-file/www/DirectoryEntry.js",
           "pluginId": "cordova-plugin-file",
@@ -319,6 +327,7 @@
       "cordova-plugin-file": "6.0.2",
       "cordova-plugin-local-notification": "0.9.0-beta.3",
       "cordova-plugin-qrscanner": "3.0.1",
+      "cordova-sqlite-storage": "5.0.0",
       "cordova-plugin-device": "2.0.3",
       "cordova-plugin-statusbar": "2.4.3",
       "cordova-plugin-whitelist": "1.3.4"

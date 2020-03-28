@@ -23,6 +23,12 @@ ion-footer ion-toolbar ion-buttons ion-button{
   font-family: Aeonik;
   color: #1FB4CD;
   font-weight: bolder;
+  max-width: 100% !important;
+  width: 100% !important;
+  padding-left: 0 !important;
+}
+.token-select .alert-wrapper.sc-ion-alert-md {
+  max-width: 50% !important;
 }
 .transparentBody {
 	background: none transparent !important;

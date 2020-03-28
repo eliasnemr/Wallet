@@ -18,13 +18,20 @@ export class PopOverComponent implements OnInit {
     private clipboard: Clipboard,
     private alertController: AlertController,
     private platform: Platform,
-    private toastCtrl: ToastController) {}
+    private toastCtrl: ToastController) {
+    }
 
   ngOnInit() {
     this.refTokenid = this.navParams.get('tokenid');
   }
 
-  ionViewWillEnter() {}
+  ionViewWillEnter() {
+    document.getElementsByTagName("ion-app").item(0).classList.add("disable-scroll"); //ATTACH .disable-scroll css
+  }
+  ionViewWillLeave(){
+    if ( document.getElementsByTagName("ion-app").item(0).classList.contains("disable-scroll") )
+    document.getElementsByTagName("ion-app").item(0).classList.remove("disable-scroll");//DETACH .disable-scroll css
+  }
 
   copyToClipboard() {
     
@@ -52,6 +59,7 @@ export class PopOverComponent implements OnInit {
     const alert = await this.alertController.create({
       header: header,
       message: msg,
+      cssClass: "no-scroll",
       buttons: ['Cancel', 'Ok']
     });
 

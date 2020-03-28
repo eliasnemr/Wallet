@@ -6,6 +6,7 @@ const routes: Routes = [
   { path: '', redirectTo: 'balance', pathMatch: 'full' },
   { path: 'balance', loadChildren: () => import('./pages/balance/balance.module').then( m => m.BalancePageModule) },
   { path: 'send-funds', loadChildren: () => import('./pages/send-funds/send-funds.module').then(m => m.SendFundsPageModule) },
+  { path: 'send-funds/:id', loadChildren: () => import('./pages/send-funds/send-funds.module').then(m => m.SendFundsPageModule) },
   { path: 'create-token', loadChildren: () => import('./pages/create-token/create-token.module').then(m => m.CreateTokenPageModule) },
   { path: 'status', loadChildren: () => import('./pages/mini-status/mini-status.module').then(m => m.MiniStatusPageModule) },
   { path: 'my-address', loadChildren: () => import('./pages/my-address/my-address.module').then(m => m.MyAddressPageModule)},

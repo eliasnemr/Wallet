@@ -8,3 +8,10 @@
 .token-lbl {
     font-size: 14px;
 }
+
+/** no scrolling on pop-over */
+ion-app.disable-scroll {
+    ion-content>.scroll-content {
+        overflow: hidden;
+    }
+  }

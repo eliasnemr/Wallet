@@ -2,12 +2,13 @@ import { Observable, Subscription, Subject, interval } from 'rxjs';
 import { map, concatMap } from 'rxjs/operators';
 import { timer } from 'rxjs/Observable/timer';
 import { MinimaApiService } from '../../service/minima-api.service';
-import { Component, ChangeDetectorRef, AfterContentChecked, OnInit } from '@angular/core';
-import { AlertController, PopoverController } from '@ionic/angular';
+import { Component, ChangeDetectorRef, AfterContentChecked, OnInit, Input} from '@angular/core';
+import { AlertController, PopoverController, NavController } from '@ionic/angular';
 import { Tokens } from '../../models/tokens.model';
 import { PopOverComponent } from '../../components/pop-over/pop-over.component';
 import { BalanceService } from '../../service/balance.service';
 import { JsonPipe } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-balance',
@@ -17,6 +18,9 @@ import { JsonPipe } from '@angular/common';
 })
 
 export class BalancePage implements OnInit {
+
+  //@Input('referringToken') referringToken: string;
+
 
   polledBalance$: Observable<any>;
   tokenArr: Tokens[] = [];
@@ -34,7 +38,8 @@ export class BalancePage implements OnInit {
     public alertController: AlertController,
     public popoverController: PopoverController,
     public balanceService: BalanceService,
-    private ref: ChangeDetectorRef) {}
+    private ref: ChangeDetectorRef,
+    private route: Router) {}
 
   ionViewWillEnter() {
     setTimeout(() => {
@@ -57,12 +62,16 @@ export class BalancePage implements OnInit {
     await alert.present();
   }
 
+  public sendTokenOver(id: string) {
+    this.route.navigate(['/send-funds/'+id]);
+  }
+
   giveMe50() {
     this.service.giveMe50().subscribe((res:any)=> {  
       if(res.status === true) {
-        console.log("Result is true" + res);
+
         this.pullInTokens();
-        
+  
         setTimeout(() => {
           this.presentAlert('A transfer of 50 is on the way...', 'Minima');
         }, 600);
@@ -73,13 +82,12 @@ export class BalancePage implements OnInit {
     });
   }
 
+  // currently unavailable
   doRefresh(event) {
-    console.log('Refreshing page..');
-    
-    setTimeout( () => {
-      event.target.complete();
-      console.log('refreshing completed.');
-    }, 1000);
+    // setTimeout( () => {
+    //   event.target.complete();
+    //   console.log('refreshing completed.');
+    // }, 1000);
   }
 
   async presentPopover(ev: any, data:any) {
@@ -95,8 +103,7 @@ export class BalancePage implements OnInit {
   }
 
   pullInTokens() {
-   
-    this.balanceSubscription =this.service.getBalance().pipe(map(responseData => {
+    this.balanceSubscription = this.service.getBalance().pipe(map(responseData => {
       const tokenArr: Tokens[] = [];
       for(const key in responseData.response.balance){
         if(responseData.response.balance.hasOwnProperty(key)){

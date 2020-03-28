@@ -11,7 +11,7 @@
 </ion-header>
 
 <ion-content>
-        <ion-list>
+        <ion-list *ngIf="statusOfStatus === 'updated' ">
         <ion-list-header>
         Minima Node Status
         </ion-list-header>
@@ -58,6 +58,57 @@
             </ion-label>
           </ion-item>
         </ion-list>
+
+        <!-- SKELETON UX FOR LOADING -->
+        <div *ngIf="statusOfStatus === 'empty'">
+        <ion-list>
+        <ion-list-header>
+        Minima Node Status
+        </ion-list-header>
+          <ion-item>
+            <ion-icon name="checkmark-circle" slot="start"></ion-icon>
+            <ion-label>
+            <h2>Status</h2>
+            <p> <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text></p>
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-icon name="checkmark-circle" slot="start"></ion-icon>
+            <ion-label>
+            <h2>Node uptime</h2>
+            <p> <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text></p>
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-icon name="checkmark-circle" slot="start"></ion-icon>
+            <ion-label>
+            <h2>Configuration path</h2>
+            <p> <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text></p>
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-icon name="checkmark-circle" slot="start"></ion-icon>
+            <ion-label>
+            <h2>Hosting IP</h2>
+            <p> <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text></p>
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-icon name="checkmark-circle" slot="start"></ion-icon>
+            <ion-label>
+            <h2>RPC Port</h2>
+            <p> <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text></p>
+            </ion-label>
+          </ion-item>
+          <ion-item lines="none">
+            <ion-icon name="checkmark-circle" slot="start"></ion-icon>
+            <ion-label>
+            <h2>Last block number</h2>
+            <p> <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text></p>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+        </div>
 
 </ion-content>
 

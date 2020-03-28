@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n    <ion-toolbar>\n      <ion-buttons slot=\"start\">\n        <ion-menu-button></ion-menu-button>\n      </ion-buttons>\n      <ion-title color=\"primary\">\n        Balance\n      </ion-title>\n    </ion-toolbar>\n\n  </ion-header>\n\n  <ion-content>\n\n    <ion-card color=\"white\">\n      <ion-card-header color=\"white\">\n\n      </ion-card-header>\n      <ion-card-content>\n\n        <ion-icon style=\" font-size:2.0rem; padding-left:10px;\" name=\"card\" slot=\"start\" class=\"icon-head\"></ion-icon>\n        <ion-list *ngFor=\"let token of tokenArr;\">\n          \n          <ion-item-sliding>\n            <ion-item-options side=\"start\">\n              <ion-item-option routerLink=\"/my-address\">Receive</ion-item-option>\n              <ion-item-option color=\"danger\" routerLink=\"/send-funds\">Send</ion-item-option>\n            </ion-item-options>\n\n            <ion-item lines=\"full\" style=\"padding: 0px;\">\n              <ion-label class=\"logo-names\">\n                <ion-icon class=\"balance-token\" src=\"../../assets/icon/minima.svg\"></ion-icon>\n                <ion-note class=\"balance-tokenname\"> {{ token.token }} </ion-note>\n              </ion-label>\n              <ion-label  class=\"confirmed-amount\">\n                {{ token.confirmed }}\n              </ion-label>\n              <ion-label *ngIf='token.unconfirmed != 0' class=\"unconfirmed-amount\" color=\"black\">\n                {{ token.unconfirmed }}\n              </ion-label>\n            </ion-item>\n\n            \n            <ion-item-options side=\"end\">\n              <ion-item-option (click)=\"presentPopover($event, token.id)\">Token ID</ion-item-option>\n            </ion-item-options>\n          </ion-item-sliding>\n         \n        </ion-list>\n\n\n        <!-- SKELETON UX FOR LOADING -->\n        <div *ngIf=\"tokenArr.length < 1\">\n        <ion-list>\n            <ion-item lines=\"full\">\n              <ion-label class=\"logo-names\">\n                \n              <div class=\"wrapper\">\n                <div slot=\"start\" class=\"skeleton-icon\">\n                  <ion-skeleton-text></ion-skeleton-text>\n                </div> \n\n                <div class=\"skeleton-name\"><ion-skeleton-text animated style=\"width:100%\"></ion-skeleton-text> </div>\n              </div>\n              </ion-label>\n              \n              <ion-label class=\"skeleton-amount\" color=\"black\">\n                <ion-skeleton-text animated style=\"width: 100%;\"></ion-skeleton-text>\n              </ion-label>\n            </ion-item>\n\n        </ion-list>\n        </div>\n        <!-- SKELETON UX FOR LOADING -->\n        <div *ngIf=\"tokenArr.length < 1\">\n        <ion-list>\n            <ion-item lines=\"full\" style=\"padding: 0px;\">\n              <ion-label class=\"logo-names\">\n                \n              <div style=\"width: 500px; overflow: hidden;\">\n                <div slot=\"start\" style=\"width: 25px;height:20px; border-radius: 50%; display:inline-block; float:left; \">\n                  <ion-skeleton-text></ion-skeleton-text>\n                </div> \n\n                <div style=\"margin-left: 30px; margin-top: 12px;\"><ion-skeleton-text animated style=\"width:50%\"></ion-skeleton-text> </div>\n              </div>\n              </ion-label>\n              \n              <ion-label style=\"margin-left: 90%\"color=\"black\">\n                <ion-skeleton-text animated style=\"width: 100%;\"></ion-skeleton-text>\n              </ion-label>\n            </ion-item>\n\n        </ion-list>\n        </div>\n\n      </ion-card-content>\n    </ion-card>\n\n  </ion-content>\n\n  <ion-footer>\n    <ion-toolbar>\n      <ion-buttons>\n        <ion-button class=\"action-btn\" shape=\"\" expand=\"block\" type=\"button\" (click)=\"giveMe50()\">\n          <ion-icon name=\"cash\" slot=\"start\"></ion-icon> Gimme 50\n        </ion-button>\n      </ion-buttons>\n    </ion-toolbar>\n  </ion-footer>"
+module.exports = "<ion-header>\n    <ion-toolbar>\n      <ion-buttons slot=\"start\">\n        <ion-menu-button></ion-menu-button>\n      </ion-buttons>\n      <ion-title color=\"primary\">\n        Balance\n      </ion-title>\n    </ion-toolbar>\n\n  </ion-header>\n\n  <ion-content>\n\n    <ion-card color=\"white\">\n      <ion-card-header color=\"white\">\n\n      </ion-card-header>\n      <ion-card-content>\n\n        <ion-icon style=\" font-size:2.0rem; padding-left:10px;\" name=\"card\" slot=\"start\" class=\"icon-head\"></ion-icon>\n        <ion-list *ngFor=\"let token of tokenArr;\">\n          \n          <ion-item-sliding>\n            <ion-item-options side=\"start\" *ngFor=\"let token of tokenArr\">\n              <ion-item-option routerLink=\"/my-address\">Receive</ion-item-option>\n              <ion-item-option color=\"danger\" (click)=\"sendTokenOver($event, token.id)\">Send</ion-item-option>\n            </ion-item-options>\n               \n            <ion-item lines=\"full\" style=\"padding: 0px;\">\n              <ion-label class=\"logo-names\">\n                <ion-icon class=\"balance-token\" src=\"../../assets/icon/minima.svg\"></ion-icon>\n                <ion-note class=\"balance-tokenname\"> {{ token.token }} </ion-note>\n              </ion-label>\n              <ion-label class=\"confirmed-amount\">\n                {{ token.confirmed }}\n              </ion-label>\n              <ion-label *ngIf='token.unconfirmed != 0' class=\"unconfirmed-amount\" color=\"black\">\n                {{ token.unconfirmed }}\n              </ion-label>\n            </ion-item>\n\n            \n            <ion-item-options side=\"end\">\n              <ion-item-option (click)=\"presentPopover($event, token.id)\">Token ID</ion-item-option>\n            </ion-item-options>\n          </ion-item-sliding>\n         \n        </ion-list>\n\n\n        <!-- SKELETON UX FOR LOADING -->\n        <div *ngIf=\"tokenArr.length < 1\" >\n        <ion-list>\n            <ion-item lines=\"full\">\n              <ion-label class=\"logo-names\">\n                \n              <div class=\"wrapper\">\n                <div slot=\"start\" class=\"skeleton-icon\">\n                  <ion-skeleton-text></ion-skeleton-text>\n                </div> \n\n                <div class=\"skeleton-name\"><ion-skeleton-text animated style=\"width:100%\"></ion-skeleton-text> </div>\n              </div>\n              </ion-label>\n              \n              <ion-label class=\"skeleton-amount\" color=\"black\">\n                <ion-skeleton-text animated style=\"width: 100%;\"></ion-skeleton-text>\n              </ion-label>\n            </ion-item>\n\n        </ion-list>\n        </div>\n        <!-- SKELETON UX FOR LOADING -->\n        <div *ngIf=\"tokenArr.length < 1\">\n        <ion-list>\n            <ion-item lines=\"full\" style=\"padding: 0px;\">\n              <ion-label class=\"logo-names\">\n                \n              <div style=\"width: 500px; overflow: hidden;\">\n                <div slot=\"start\" style=\"width: 25px;height:20px; border-radius: 50%; display:inline-block; float:left; \">\n                  <ion-skeleton-text></ion-skeleton-text>\n                </div> \n\n                <div style=\"margin-left: 30px; margin-top: 12px;\"><ion-skeleton-text animated style=\"width:50%\"></ion-skeleton-text> </div>\n              </div>\n              </ion-label>\n              \n              <ion-label style=\"margin-left: 90%\"color=\"black\">\n                <ion-skeleton-text animated style=\"width: 100%;\"></ion-skeleton-text>\n              </ion-label>\n            </ion-item>\n\n        </ion-list>\n        </div>\n\n      </ion-card-content>\n    </ion-card>\n\n  </ion-content>\n\n  <ion-footer>\n    <ion-toolbar>\n      <ion-buttons>\n        <ion-button class=\"action-btn\" shape=\"\" expand=\"block\" type=\"button\" (click)=\"giveMe50()\">\n          <ion-icon name=\"cash\" slot=\"start\"></ion-icon> Gimme 50\n        </ion-button>\n      </ion-buttons>\n    </ion-toolbar>\n  </ion-footer>"
 
 /***/ }),
 
@@ -87,6 +87,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var _components_pop_over_pop_over_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../components/pop-over/pop-over.component */ "./src/app/components/pop-over/pop-over.component.ts");
 /* harmony import */ var _service_balance_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../service/balance.service */ "./src/app/service/balance.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+
 
 
 
@@ -95,13 +97,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let BalancePage = class BalancePage {
-    constructor(service, api, alertController, popoverController, balanceService, ref) {
+    constructor(service, api, alertController, popoverController, balanceService, ref, route) {
         this.service = service;
         this.api = api;
         this.alertController = alertController;
         this.popoverController = popoverController;
         this.balanceService = balanceService;
         this.ref = ref;
+        this.route = route;
         this.tokenArr = [];
         // - vars
         this.lastJSON = '';
@@ -126,6 +129,9 @@ let BalancePage = class BalancePage {
             });
             yield alert.present();
         });
+    }
+    sendTokenOver(ev, id) {
+        this.route.navigate(['/send-funds/' + id]);
     }
     giveMe50() {
         this.service.giveMe50().subscribe((res) => {
@@ -207,7 +213,8 @@ BalancePage.ctorParameters = () => [
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["AlertController"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["PopoverController"] },
     { type: _service_balance_service__WEBPACK_IMPORTED_MODULE_6__["BalanceService"] },
-    { type: _angular_core__WEBPACK_IMPORTED_MODULE_3__["ChangeDetectorRef"] }
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_3__["ChangeDetectorRef"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_7__["Router"] }
 ];
 BalancePage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
@@ -221,7 +228,8 @@ BalancePage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["AlertController"],
         _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["PopoverController"],
         _service_balance_service__WEBPACK_IMPORTED_MODULE_6__["BalanceService"],
-        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ChangeDetectorRef"]])
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ChangeDetectorRef"],
+        _angular_router__WEBPACK_IMPORTED_MODULE_7__["Router"]])
 ], BalancePage);
 
 

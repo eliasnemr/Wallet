@@ -77,6 +77,18 @@
     --ion-color-light-contrast-rgb: 0, 0, 0;
     --ion-color-light-shade: #d7d8da;
     --ion-color-light-tint: #f5f6f9;
+
+    $alert-ios-content-max-height:700px !default;
+    $alert-md-content-max-height:400px !default;
+  }
+  // FIX POP UP IN SEND-FUNDS.. WON'T WORK OTHERWISE
+  .alert-wrapper.sc-ion-alert-md {
+    max-width: 20% !important;
+    width: 50% !important;
+  }
+  .ios .alert-wrapper.sc-ion-alert-md {
+    max-width: 20% !important;
+    width: 50% !important;
   }
 
 // @media (prefers-color-scheme: dark) {

@@ -44,7 +44,6 @@ export class WebScannerPage implements OnInit {
 
   identifyPlatformToScan_Add(){
     if(this.platform.is('ios')){
-      console.log('iOS Qr Code.')
       setTimeout( () => {
         window.document.querySelectorAll('ion-content')
           .forEach(element => {
@@ -67,7 +66,6 @@ export class WebScannerPage implements OnInit {
   }
   identifyPlatformToScan_Remove(){
     if(this.platform.is('ios')){
-      console.log('iOS Qr Code.')
       setTimeout( () => {
         window.document.querySelectorAll('ion-content')
           .forEach(element => {
@@ -93,9 +91,7 @@ export class WebScannerPage implements OnInit {
     this.qrScanner.prepare()
       .then((status: QRScannerStatus) => {
         if (status.authorized) {
-          // camera permission was granted
-          console.log('scanQR', status);
-        
+        // camera permission was granted
         this.identifyPlatformToScan_Add();
 
         this.qrScanner.show();
@@ -134,7 +130,6 @@ export class WebScannerPage implements OnInit {
     this.data.url = text;
     if(this.data.url!==''){
     this.api.webLink(this.data).then((res : any) => {
-      console.log("weblink " + JSON.stringify(res));
         if(res.status === true){
           this.presentAlert('Success!', 'You are now connected.');
         } else {

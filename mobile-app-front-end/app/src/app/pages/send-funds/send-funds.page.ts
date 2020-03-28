@@ -1,12 +1,14 @@
 import { Tokens } from '../../models/tokens.model';
 import { BalanceService } from '../../service/balance.service';
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit, NgZone, Input} from '@angular/core';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 import { Clipboard } from '@ionic-native/clipboard/ngx';
 import { AlertController, Platform } from '@ionic/angular';
 import { MinimaApiService } from '../../service/minima-api.service';
 import { map } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
+import { Token } from '@angular/compiler/src/ml_parser/lexer';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-send-funds',
@@ -18,6 +20,7 @@ export class SendFundsPage implements OnInit {
 
   selected_minima: any;
   private lastJSON: string = '';
+  public minimaToken: any;
   public data: any = {};
   isCameraOpen: boolean = false;
   private scanSub:any=null;
@@ -35,14 +38,24 @@ export class SendFundsPage implements OnInit {
     public alertController: AlertController, private zone: NgZone, 
     private api: MinimaApiService,
     private balanceService: BalanceService,
-    private platform: Platform) {}
+    private platform: Platform,
+    private route: ActivatedRoute) {
+      
+    }
 
   ngOnInit() {}
 
   ionViewWillEnter() {
-    this.selected_minima = this.MINIMA_TOKEN_ID;
-    this.pullInTokens();
-    this.isCameraOpen = false;
+    const empty = undefined;
+    if(this.route.snapshot.params['id'] === empty){
+      this.selected_minima = this.MINIMA_TOKEN_ID;
+      this.pullInTokens();
+      this.isCameraOpen = false;
+    } else {
+      this.selected_minima = this.route.snapshot.params['id'];
+      this.pullInTokens();
+      this.isCameraOpen = false;
+    }
   }
 
   ionViewWillLeave() {
@@ -50,9 +63,13 @@ export class SendFundsPage implements OnInit {
     this.balanceSubscription.unsubscribe();
   }
 
+  ionViewDidLoad() {
+    this.data.tokenid = this.MINIMA_TOKEN_ID;
+  }
+
   identifyPlatformToScan_Add(){
     if(this.platform.is('ios')){
-      console.log('iOS Qr Code.')
+      
       setTimeout( () => {
         window.document.querySelectorAll('ion-content')
           .forEach(element => {
@@ -75,7 +92,7 @@ export class SendFundsPage implements OnInit {
   }
   identifyPlatformToScan_Remove(){
     if(this.platform.is('ios')){
-      console.log('iOS Qr Code.')
+      
       setTimeout( () => {
         window.document.querySelectorAll('ion-content')
           .forEach(element => {
@@ -102,9 +119,7 @@ export class SendFundsPage implements OnInit {
     this.qrScanner.prepare()
       .then((status: QRScannerStatus) => {
         if (status.authorized) {
-          // camera permission was granted
-          console.log('scanQR', status);
-
+          
           // Which class adding should I use?
           this.identifyPlatformToScan_Add();
 
@@ -112,9 +127,7 @@ export class SendFundsPage implements OnInit {
           this.isCameraOpen = true;
 
           this.scanSub = this.qrScanner.scan().subscribe((text: string) => {
-            console.log('Scanned something', text);
             this.zone.run(()=>{
-              console.log('Scanned something', text);
               this.data.address = text;
               this.stopCamera();
 
@@ -131,11 +144,9 @@ export class SendFundsPage implements OnInit {
           // camera permission was permanently denied
           // you must use QRScanner.openSettings() method to guide the user to the settings page
           // then they can grant the permission from there
-          console.log('error permission needed');
           this.presentAlert('Please check camera permission','Error');
         } else {
           // permission was denied, but not permanently. You can ask for permission again at a later time.
-          console.log('error permission needed');
           this.presentAlert('Please check camera permission','Error');
         }
       })
@@ -143,15 +154,12 @@ export class SendFundsPage implements OnInit {
   }
 
   stopCamera() {
-    console.log('stop camera',this.scanSub);
     if(this.scanSub!==null){
-      console.log("stopCamera - is not null..")
       this.qrScanner.hide();
       this.scanSub.unsubscribe();
     }
     this.scanSub = null;
     this.identifyPlatformToScan_Remove();
-    //this.ionApp.style.display = 'block';
     this.isCameraOpen = false;
     this.qrScanner.destroy();
   }
@@ -177,7 +185,6 @@ export class SendFundsPage implements OnInit {
 
   pasteFromPWA() {
     document.addEventListener('paste', (e: ClipboardEvent) => {
-      console.log('Paste is here');
       this.data.address = e.clipboardData.getData('text');
       
       
@@ -185,8 +192,6 @@ export class SendFundsPage implements OnInit {
       document.removeEventListener('paste', null);
     });
     document.execCommand('paste');
-    console.log('executed paste command');
-
   }
 
   async presentAlert(msg:string,header:string) {
@@ -210,6 +215,9 @@ export class SendFundsPage implements OnInit {
           let tempConfirmed = (Math.round(element.confirmed * 100)/100);
           let tempUnconfirmed = (Math.round(element.unconfirmed * 100)/100);
 
+          if(this.MINIMA_TOKEN_ID === element.tokenid){
+            this.minimaToken = element.tokenid;
+          }
           tokenArr.push({
               id: element.tokenid,
               token: element.token,
@@ -250,11 +258,10 @@ export class SendFundsPage implements OnInit {
   }
 
   sendFunds(){
+    this.data.tokenid = this.selected_minima;
     if(this.data.address&&this.data.address!==''&&this.data.amount&&this.data.amount>0&&
     this.data.tokenid&&this.data.tokenid!==''){
-      console.log('sendFunds',this.data);
       this.api.sendFunds(this.data).then((res:any)=>{
-        console.log("Send " + JSON.stringify(res));
         if(res.status == true) {
           this.presentAlert('Sent successfully!', 'Info');
         } else {
@@ -263,6 +270,14 @@ export class SendFundsPage implements OnInit {
       })
     } else {
       this.presentAlert('Please check the input fields', 'Error');
+    }
+  }
+
+  checkPlatform() {
+    if(this.platform.is('desktop') || this.platform.is('pwa')) {
+      return false;
+    } else {
+      return true;
     }
   }
 

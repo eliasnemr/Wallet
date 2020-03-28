@@ -27,20 +27,30 @@ export class CreateTokenPage implements OnInit {
   ngOnInit() {}
 
   createToken() {
+
     this.data.token = this.tokenName;
     this.data.amount = this.tokenAmount;
+
     if(this.data.token&&this.data.token!==''&&this.data.amount&&this.data.amount>0){
     this.api.createToken(this.data).then((res : any) => {
+
       console.log("Send " + JSON.stringify(res));
-        if(res.status == true){
-          this.presentAlert('Success! '+this.tokenName+' has been created.', this.tokenName);
-          this.resetForm();
-        } else {
-          this.presentAlert(res.error, 'Error');
-        }
-      });
+      if(res.status == true){
+
+        this.presentAlert('Success! '+this.tokenName+' has been created.', this.tokenName);
+
+        this.resetForm();
+
+      }else{
+
+        this.presentAlert(res.error, 'Error');
+
+      }
+    });
     } else {
+
       this.presentAlert('Please check the input fields', 'Error');
+      
     }
   }
 

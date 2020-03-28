@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-app>\n<ion-header>\n  <ion-toolbar>\n\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n\n    <ion-title color=\"primary\">\n      Settings\n    </ion-title>\n\n    <ion-buttons slot=\"end\">\n      <ion-button (click)= \"presentQuitAlert()\">\n          <ion-icon name=\"power\" color=\"danger\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n    <form>\n      <ion-item>\n        <ion-icon slot=\"start\" name=\"link\" style=\"padding: 10px;\" color=\"primary\"></ion-icon>\n        <ion-label style=\"font-style: normal;\" position=\"floating\" color=\"primary\">Host</ion-label>\n        <ion-input name=\"host\" [(ngModel)]=\"host\"></ion-input>\n      </ion-item>\n    </form>\n   \n    <ion-item lines=\"none\">\n      <ion-icon slot=\"start\" name=\"moon\" style=\"padding: 10px;\" color=\"primary\"></ion-icon>\n      <ion-label style=\"font-style:normal;\" color=\"tertiary\">Night Mode</ion-label>\n      <ion-toggle #darkToggle color=\"primary\" [(ngModel)]=\"toggleValue\" (ionChange)=\"checkToggle($event)\"></ion-toggle>\n    </ion-item>\n    \n</ion-content>\n<ion-footer>\n  <ion-toolbar>\n    <ion-buttons>\n      \n    \n    <ion-button class=\"action-btn\" expand=\"block\" (click)=\"saveUserPreferences()\">\n      <ion-icon name=\"save\"></ion-icon>\n     Save\n    </ion-button>   \n  </ion-buttons>\n  </ion-toolbar>\n</ion-footer>\n</ion-app>\n"
+module.exports = "<ion-app>\n<ion-header>\n  <ion-toolbar>\n\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n\n    <ion-title color=\"primary\">\n      Settings\n    </ion-title>\n\n    <ion-buttons slot=\"end\">\n      <ion-button (click)= \"presentQuitAlert()\">\n          <ion-icon name=\"power\" color=\"danger\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n    <form>\n      <ion-item>\n        <ion-icon slot=\"start\" name=\"link\" style=\"padding: 10px;\" color=\"primary\"></ion-icon>\n        <ion-label style=\"font-style: normal;\" position=\"floating\" color=\"primary\">Host</ion-label>\n        <ion-input name=\"host\" [(ngModel)]=\"host\"></ion-input>\n      </ion-item>\n    </form>\n   \n    <ion-item lines=\"none\">\n      <ion-icon slot=\"start\" name=\"moon\" style=\"padding: 10px;\" color=\"primary\"></ion-icon>\n      <ion-label style=\"font-style:normal;\" color=\"tertiary\">Night Mode</ion-label>\n      <ion-toggle #darkToggle color=\"primary\" [(ngModel)]=\"toggleValue\" (ionChange)=\"checkToggle()\"></ion-toggle>\n    </ion-item>\n    \n</ion-content>\n<ion-footer>\n  <ion-toolbar>\n    <ion-buttons>\n      \n    \n    <ion-button class=\"action-btn\" expand=\"block\" (click)=\"saveUserPreferences()\">\n      <ion-icon name=\"save\"></ion-icon>\n     Save\n    </ion-button>   \n  </ion-buttons>\n  </ion-toolbar>\n</ion-footer>\n</ion-app>\n"
 
 /***/ }),
 
@@ -104,9 +104,13 @@ var SettingsPage = /** @class */ (function () {
         this.toastController = toastController;
         this.darkMode = darkMode;
         this.storage = storage;
+        this.toggleValue = false;
         this.host = '';
-        this.storage.get('toggleVal').then(function (toggleVal) {
-            _this.toggleValue = toggleVal;
+        storage.ready().then(function () {
+            // get a key/value pair
+            _this.getObject('toggleVal').then(function (toggleVal) {
+                _this.toggleValue = toggleVal;
+            });
         });
     }
     /** LIFE CYCLES */
@@ -120,9 +124,11 @@ var SettingsPage = /** @class */ (function () {
     /** MISCELLANEOUS */
     SettingsPage.prototype.saveUserPreferences = function () {
         var _this = this;
-        // get toggleVal
-        this.storage.get('toggleVal').then(function (toggleVal) {
-            _this.toggleValue = toggleVal;
+        this.storage.ready().then(function () {
+            // get a key/value pair
+            _this.getObject('toggleVal').then(function (toggleVal) {
+                _this.toggleValue = toggleVal;
+            });
         });
         // save host used.
         if (this.host !== '') {
@@ -132,21 +138,59 @@ var SettingsPage = /** @class */ (function () {
     };
     SettingsPage.prototype.checkToggle = function (e) {
         if (this.toggleValue === false) {
-            this.storage.set('toggleVal', this.toggleValue);
-            document.body.classList.toggle('dark', this.toggleValue);
+            this.setObject('toggleVal', 'false');
+            document.body.classList.toggle('dark', false);
         }
         else {
-            this.storage.set('toggleVal', this.toggleValue);
-            document.body.classList.toggle('dark', this.toggleValue);
+            this.setObject('toggleVal', 'true');
+            document.body.classList.toggle('dark', true);
         }
-        // if(this.isToggled === false){
-        //   this.isToggled = true;
-        //   document.body.classList.toggle("dark", true);
-        // } else {
-        //   this.isToggled = false;
-        //   document.body.classList.toggle("dark", false);
-        // }
-        // console.log("Toggled: "+ this.isToggled); 
+    };
+    // set async storage key pair
+    SettingsPage.prototype.setObject = function (key, object) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var result, reason_1;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, this.storage.set(key, JSON.stringify(object))];
+                    case 1:
+                        result = _a.sent();
+                        console.log('set Object in storage: ' + result);
+                        return [2 /*return*/, true];
+                    case 2:
+                        reason_1 = _a.sent();
+                        console.log(reason_1);
+                        return [2 /*return*/, false];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    // get a key/value object
+    SettingsPage.prototype.getObject = function (key) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var result, reason_2;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, this.storage.get(key)];
+                    case 1:
+                        result = _a.sent();
+                        if (result != null) {
+                            return [2 /*return*/, JSON.parse(result)];
+                        }
+                        return [2 /*return*/, null];
+                    case 2:
+                        reason_2 = _a.sent();
+                        console.log(reason_2);
+                        return [2 /*return*/, null];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
     };
     /** API SERVICE CALLS */
     SettingsPage.prototype.giveMe50 = function () {

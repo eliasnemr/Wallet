@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-app>\n<ion-header>\n  <ion-toolbar>\n\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n\n    <ion-title color=\"primary\">\n      Settings\n    </ion-title>\n\n    <ion-buttons slot=\"end\">\n      <ion-button (click)= \"presentQuitAlert()\">\n          <ion-icon name=\"power\" color=\"danger\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n    <form>\n      <ion-item>\n        <ion-icon slot=\"start\" name=\"link\" style=\"padding: 10px;\" color=\"primary\"></ion-icon>\n        <ion-label style=\"font-style: normal;\" position=\"floating\" color=\"primary\">Host</ion-label>\n        <ion-input name=\"host\" [(ngModel)]=\"host\"></ion-input>\n      </ion-item>\n    </form>\n   \n    <ion-item lines=\"none\">\n      <ion-icon slot=\"start\" name=\"moon\" style=\"padding: 10px;\" color=\"primary\"></ion-icon>\n      <ion-label style=\"font-style:normal;\" color=\"tertiary\">Night Mode</ion-label>\n      <ion-toggle #darkToggle color=\"primary\" [(ngModel)]=\"toggleValue\" (ionChange)=\"checkToggle($event)\"></ion-toggle>\n    </ion-item>\n    \n</ion-content>\n<ion-footer>\n  <ion-toolbar>\n    <ion-buttons>\n      \n    \n    <ion-button class=\"action-btn\" expand=\"block\" (click)=\"saveUserPreferences()\">\n      <ion-icon name=\"save\"></ion-icon>\n     Save\n    </ion-button>   \n  </ion-buttons>\n  </ion-toolbar>\n</ion-footer>\n</ion-app>\n"
+module.exports = "<ion-app>\n<ion-header>\n  <ion-toolbar>\n\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n\n    <ion-title color=\"primary\">\n      Settings\n    </ion-title>\n\n    <ion-buttons slot=\"end\">\n      <ion-button (click)= \"presentQuitAlert()\">\n          <ion-icon name=\"power\" color=\"danger\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n    <form>\n      <ion-item>\n        <ion-icon slot=\"start\" name=\"link\" style=\"padding: 10px;\" color=\"primary\"></ion-icon>\n        <ion-label style=\"font-style: normal;\" position=\"floating\" color=\"primary\">Host</ion-label>\n        <ion-input name=\"host\" [(ngModel)]=\"host\"></ion-input>\n      </ion-item>\n    </form>\n   \n    <ion-item lines=\"none\">\n      <ion-icon slot=\"start\" name=\"moon\" style=\"padding: 10px;\" color=\"primary\"></ion-icon>\n      <ion-label style=\"font-style:normal;\" color=\"tertiary\">Night Mode</ion-label>\n      <ion-toggle #darkToggle color=\"primary\" [(ngModel)]=\"toggleValue\" (ionChange)=\"checkToggle()\"></ion-toggle>\n    </ion-item>\n    \n</ion-content>\n<ion-footer>\n  <ion-toolbar>\n    <ion-buttons>\n      \n    \n    <ion-button class=\"action-btn\" expand=\"block\" (click)=\"saveUserPreferences()\">\n      <ion-icon name=\"save\"></ion-icon>\n     Save\n    </ion-button>   \n  </ion-buttons>\n  </ion-toolbar>\n</ion-footer>\n</ion-app>\n"
 
 /***/ }),
 
@@ -100,9 +100,13 @@ let SettingsPage = class SettingsPage {
         this.toastController = toastController;
         this.darkMode = darkMode;
         this.storage = storage;
+        this.toggleValue = false;
         this.host = '';
-        this.storage.get('toggleVal').then(toggleVal => {
-            this.toggleValue = toggleVal;
+        storage.ready().then(() => {
+            // get a key/value pair
+            this.getObject('toggleVal').then(toggleVal => {
+                this.toggleValue = toggleVal;
+            });
         });
     }
     /** LIFE CYCLES */
@@ -115,9 +119,11 @@ let SettingsPage = class SettingsPage {
     }
     /** MISCELLANEOUS */
     saveUserPreferences() {
-        // get toggleVal
-        this.storage.get('toggleVal').then(toggleVal => {
-            this.toggleValue = toggleVal;
+        this.storage.ready().then(() => {
+            // get a key/value pair
+            this.getObject('toggleVal').then(toggleVal => {
+                this.toggleValue = toggleVal;
+            });
         });
         // save host used.
         if (this.host !== '') {
@@ -127,21 +133,43 @@ let SettingsPage = class SettingsPage {
     }
     checkToggle(e) {
         if (this.toggleValue === false) {
-            this.storage.set('toggleVal', this.toggleValue);
-            document.body.classList.toggle('dark', this.toggleValue);
+            this.setObject('toggleVal', 'false');
+            document.body.classList.toggle('dark', false);
         }
         else {
-            this.storage.set('toggleVal', this.toggleValue);
-            document.body.classList.toggle('dark', this.toggleValue);
+            this.setObject('toggleVal', 'true');
+            document.body.classList.toggle('dark', true);
         }
-        // if(this.isToggled === false){
-        //   this.isToggled = true;
-        //   document.body.classList.toggle("dark", true);
-        // } else {
-        //   this.isToggled = false;
-        //   document.body.classList.toggle("dark", false);
-        // }
-        // console.log("Toggled: "+ this.isToggled); 
+    }
+    // set async storage key pair
+    setObject(key, object) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            try {
+                const result = yield this.storage.set(key, JSON.stringify(object));
+                console.log('set Object in storage: ' + result);
+                return true;
+            }
+            catch (reason) {
+                console.log(reason);
+                return false;
+            }
+        });
+    }
+    // get a key/value object
+    getObject(key) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            try {
+                const result = yield this.storage.get(key);
+                if (result != null) {
+                    return JSON.parse(result);
+                }
+                return null;
+            }
+            catch (reason) {
+                console.log(reason);
+                return null;
+            }
+        });
     }
     /** API SERVICE CALLS */
     giveMe50() {

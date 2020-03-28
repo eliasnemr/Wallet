@@ -17,8 +17,6 @@ declare var Minima: any;
 })
 export class AppComponent {
 
-  
-
   private currentRoute:string='';
   currentMode: boolean = false;
   currentVersion = 0;
@@ -40,6 +38,7 @@ export class AppComponent {
     this.getPages();  /** this returns pages if on mobile or desktop, (different layouts) */ 
     //this.getPlatform(); /** Turn getPlatform() off if you want to use desktop version with desktop node */ 
     this.initializeApp();
+    this.whatPlatformIsThis();
 
     // Use matchMedia to check the user preference
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
@@ -48,10 +47,13 @@ export class AppComponent {
     // Listen for changes to the prefers-color-scheme media query
     prefersDark.addListener((mediaQuery) => darkMode.toggleDarkTheme(mediaQuery.matches)); 
 
-    this.storage.get('toggleVal').then(toggleVal => {
-      this.darkMode.toggleDarkTheme(toggleVal);
-    });    
-
+    // async return value of toggleVal from storage when storage ready
+    storage.ready().then(() => {
+      // get a key/value pair
+      this.getObject('toggleVal').then(toggleVal => {
+        this.darkMode.toggleDarkTheme(toggleVal);
+      });
+   });
 
   }
 
@@ -62,7 +64,7 @@ export class AppComponent {
   }
 
   initializeApp() {
-    console.log('App initialized');
+    console.log('Minima initialized');
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       setTimeout(() => {this.splashScreen.hide()}, 2000);
@@ -80,7 +82,6 @@ export class AppComponent {
 
 
   getPages() {
-
     if(this.platform.is('desktop') || this.platform.is('pwa')) {
       this.basic =
       [
@@ -120,6 +121,20 @@ export class AppComponent {
     }
   }
 
+  // get a key/value object
+  async getObject(key: string): Promise<any> {
+    try {
+    const result = await this.storage.get(key);
+    if (result != null) {
+    return JSON.parse(result);
+    }
+    return null;
+    } catch (reason) {
+    console.log(reason);
+    return null;
+    }
+    }
+
   // returns logo that should be used with dark mode/light 
   getImg() {
     if(document.body.classList.contains('dark')){
@@ -143,24 +158,22 @@ export class AppComponent {
   // return platform to assert Minima Web or Minima Native
   getPlatform() {
     //Minima.logout();
+    
     /*  If on desktop do this.. */
     if(this.platform.is('desktop') || this.platform.is('pwa')) {
-
-      console.log('Running Mini Desktop/Pwa');
-
       window.addEventListener('load', (ev: Event) => {
-        console.log('Minima Page loaded..');
+        // Page loaded
         window.addEventListener('MinimaEvent', (evt: any)=> {
-          console.log('Event connection successful!');
+          // Event connection success
           if(evt.detail.event === 'connected') {
-            console.log('We are now connected with host -> ' + Minima.host);
+            // now connected with host minima.host
             this.api.setHost('http://'+ Minima.host + '/');
           } else if(evt.detail.event === 'newbalance') {
             
             this.notifyMe();
 
           } else if(evt.detail.event === 'newblock') {
-            console.log("New block");
+            
           }
         });
         
@@ -168,6 +181,20 @@ export class AppComponent {
       });
     } else {
       console.log('Running Minima on mobile. :)');
+    }
+  }
+
+  whatPlatformIsThis() {
+    if(this.platform.is('desktop') || this.platform.is('pwa')){
+      console.log('You are on desktop');
+    } else if (this.platform.is('android') || this.platform.is('ios')) {
+      console.log('You are on mobile.');
+    } else if (this.platform.is('mobileweb')) {
+      console.log('You are on -mobile-');
+    } else if (this.platform.is('phablet') || this.platform.is('tablet')) {
+      console.log('You are on a phablet or table');
+    } else if (this.platform.is('mobileweb')) {
+      console.log('You are on mobile web');
     }
   }
 

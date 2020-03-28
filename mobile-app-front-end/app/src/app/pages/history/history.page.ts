@@ -78,7 +78,7 @@ export class HistoryPage implements OnInit {
 
     this.api.getHistory().then((res: any) => {
       if(res.status === true) {
-        console.log('Pulling in history ->'+res);
+      
         let countActivity = 0;
 
         // loop through every transaction there is..
