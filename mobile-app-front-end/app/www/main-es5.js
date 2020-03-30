@@ -591,7 +591,6 @@ __webpack_require__.r(__webpack_exports__);
 
 var AppComponent = /** @class */ (function () {
     function AppComponent(platform, splashScreen, statusBar, menu, router, api, localNotifications, darkMode, storage) {
-        var _this = this;
         this.platform = platform;
         this.splashScreen = splashScreen;
         this.statusBar = statusBar;
@@ -605,7 +604,7 @@ var AppComponent = /** @class */ (function () {
         this.currentMode = false;
         this.currentVersion = 0;
         this.getPages(); /** this returns pages if on mobile or desktop, (different layouts) */
-        //this.getPlatform(); /** Turn getPlatform() off if you want to use desktop version with desktop node */ 
+        this.getPlatform(); /** Turn getPlatform() off if you want to use desktop version with desktop node */
         this.initializeApp();
         this.whatPlatformIsThis();
         // Use matchMedia to check the user preference
@@ -613,13 +612,6 @@ var AppComponent = /** @class */ (function () {
         //darkMode.toggleDarkTheme(prefersDark.matches);
         // Listen for changes to the prefers-color-scheme media query
         prefersDark.addListener(function (mediaQuery) { return darkMode.toggleDarkTheme(mediaQuery.matches); });
-        // async return value of toggleVal from storage when storage ready
-        storage.ready().then(function () {
-            // get a key/value pair
-            _this.getObject('toggleVal').then(function (toggleVal) {
-                _this.darkMode.toggleDarkTheme(toggleVal);
-            });
-        });
     }
     /** LIFECYCLES */
     AppComponent.prototype.ionViewWillEnter = function () {
@@ -726,7 +718,7 @@ var AppComponent = /** @class */ (function () {
         //Minima.logout();
         var _this = this;
         /*  If on desktop do this.. */
-        if (this.platform.is('desktop') || this.platform.is('pwa')) {
+        if (this.platform.is('desktop') || this.platform.is('pwa') || this.platform.is('mobileweb')) {
             window.addEventListener('load', function (ev) {
                 // Page loaded
                 window.addEventListener('MinimaEvent', function (evt) {

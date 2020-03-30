@@ -56,10 +56,9 @@ export class MiniStatusPage implements OnInit {
     })
     )
     .subscribe((res : any) => {
+
       this.status = res;
       
-      
-    
     });
   }
   

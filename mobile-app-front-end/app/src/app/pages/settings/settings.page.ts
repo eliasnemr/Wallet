@@ -54,6 +54,25 @@ export class SettingsPage implements OnInit {
 
     //this.presentToast();
   }
+  /** MISCELLANEOUS */
+  savePreferencesBtn() {
+
+    this.storage.ready().then(() => {
+      // get a key/value pair
+      setTimeout(() => {
+        this.getObject('toggleVal').then(toggleVal => {
+          this.toggleValue = toggleVal;
+        });
+      }, 2000);
+      
+   });
+    // save host used.
+    if (this.host!=='') {      
+      this.api.setHost(this.host);
+    }
+
+    this.presentToast();
+  }
 
   checkToggle(e: Event) {
     if(this.toggleValue === false) {

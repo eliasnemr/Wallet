@@ -36,7 +36,7 @@ export class AppComponent {
     private storage: Storage) {
     
     this.getPages();  /** this returns pages if on mobile or desktop, (different layouts) */ 
-    //this.getPlatform(); /** Turn getPlatform() off if you want to use desktop version with desktop node */ 
+    this.getPlatform(); /** Turn getPlatform() off if you want to use desktop version with desktop node */ 
     this.initializeApp();
     this.whatPlatformIsThis();
 
@@ -46,14 +46,6 @@ export class AppComponent {
 
     // Listen for changes to the prefers-color-scheme media query
     prefersDark.addListener((mediaQuery) => darkMode.toggleDarkTheme(mediaQuery.matches)); 
-
-    // async return value of toggleVal from storage when storage ready
-    storage.ready().then(() => {
-      // get a key/value pair
-      this.getObject('toggleVal').then(toggleVal => {
-        this.darkMode.toggleDarkTheme(toggleVal);
-      });
-   });
 
   }
 
@@ -160,7 +152,7 @@ export class AppComponent {
     //Minima.logout();
     
     /*  If on desktop do this.. */
-    if(this.platform.is('desktop') || this.platform.is('pwa')) {
+    if(this.platform.is('desktop') || this.platform.is('pwa') || this.platform.is('mobileweb')) {
       window.addEventListener('load', (ev: Event) => {
         // Page loaded
         window.addEventListener('MinimaEvent', (evt: any)=> {
