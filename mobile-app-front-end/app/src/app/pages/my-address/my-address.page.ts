@@ -16,6 +16,8 @@ export class MyAddressPage implements OnInit {
 
   public qrCode = '';
   public canvasSize = 309;
+  public canvasLength: number;
+  public canvasWidth: number;
   isEmpty: boolean;
 
   constructor(private clipboard: Clipboard, 
@@ -36,15 +38,15 @@ export class MyAddressPage implements OnInit {
   ngOnInit() {}
 
   ionViewWillEnter() {
-    this.api.newAddress().then((res: any) => {
-      if (res.response.address) {
-        // setTimeout(() => {
-        //   this.isEmpty = true;
-        // }, 1000);
-        this.qrCode = res.response.address;
-        this.isEmpty = true;
-      }
-    });
+    setTimeout(() => {
+      this.api.newAddress().then((res: any) => {
+        if (res.response.address) {
+          this.qrCode = res.response.address;
+          this.isEmpty = true;
+        }
+      });
+    }, 1000);
+    
   }
 
   copyToClipboard() {

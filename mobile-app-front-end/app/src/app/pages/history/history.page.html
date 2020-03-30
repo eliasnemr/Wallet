@@ -15,165 +15,119 @@
       </ion-card-header>
     <ion-card-content>
   
-      <ion-item *ngIf="t_summaryArr.length < 1" lines="none">
-          <ion-text style="font-family: Aeonik-light;">No activities to display.</ion-text>
-        </ion-item>
-        
-        <ion-list *ngFor="let trans of t_summaryArr.slice().reverse();">
-        <ion-grid>
-          <ion-row>
-        <ion-item *ngIf="t_summaryArr.length >= 1;" detail class="activity"
-           (click)="presentHistoryInfo($event, trans.receivingAddress,
-                                     trans.blockNumber, trans.transAmount, trans.isBlock, 
-                                     trans.txpowid, trans.parent, trans.blockdiff, trans.date)">
-          <ion-col class="col-month" fixed="true">
-          <ion-label>
-          <h1 id="month">
-            {{ trans.transMonth }} 
-          </h1>
-          <p id="day">
-            {{ trans.transDay }}
-          </p>
-        </ion-label>
-        </ion-col>
-        <!-- Maybe add icon here -->
+<ion-item *ngIf="t_summaryArr.length < 1" lines="none">
+<ion-text style="font-family: Aeonik-light;">No activities to display.</ion-text>
+</ion-item>
+
+  <ion-list *ngFor="let transaction of t_summaryArr;">
+    <a *ngFor="let trans of transaction.txpow.txn.outputs">
+  <ion-grid><ion-row>
+  <ion-item *ngIf="t_summaryArr.length >= 1;" detail class="activity"
+  (click)="presentHistoryInfo($event, 
+              trans.address,
+              transaction.txpow.block, 
+              transaction.value, 
+              transaction.txpow.isblock, 
+              transaction.txpow.txpowid, 
+              transaction.txpow.parent, 
+              transaction.txpow.blkdiff, 
+              transaction.txpow.date.substring(11,16))">
+
+  <ion-col class="col-month" fixed="true">
+
+  <ion-label>
+  <h1 id="month">
+  {{ transaction.txpow.date.substring(4, 7) }} 
+  </h1>
+  <p id="day">
+  {{ transaction.txpow.date.substring(8, 10) }}
+  </p>
+  </ion-label>
+
+  </ion-col>
+
+  <ion-col class="col-transtype" fixed="true">
+
+  <ion-label id="transaction">
+  <h2 class="h2-type">
+  {{ checkTransType(transaction.value) }} Minima
+  </h2>
+
+  <a *ngFor="let input of transaction.txpow.txn.inputs">
+
+  <p class="p-tokenid">
+  Token Id: {{ input.tokenid.substring(0, 10) }}
+  </p>
+
+  </a>
+
+  </ion-label>
+
+  </ion-col>
+
+  <ion-col class="col-transamnt" fixed="true">
+
+  <ion-label class="amount">
+  <h2 class="amount-h2">
+  {{ transaction.value + " " }} MINI
+  </h2>
+  </ion-label>
+
+  </ion-col>
+
+  </ion-item>
+
+
   
-        <ion-col class="col-transtype" fixed="true">
-        <ion-label id="transaction">
-          <h2 class="h2-type">
-            {{ checkTransType(trans.transAmount) }} {{ trans.transTokenName }}
-          </h2>
-          <p class="p-tokenid">
-            Token Id: {{ trans.transTokenId }}
-          </p>
-        </ion-label>
-        </ion-col>
-  
-        <ion-col class="col-transamnt" fixed="true">
-        <ion-label class="amount">
-          <h2 class="amount-h2">
-            {{ trans.transAmount }} MINI
-          </h2>
-          <!-- <p class="amount-p">
-            +$11.09
-          </p> -->
-        </ion-label> 
-       
-      </ion-col>
-      </ion-item>
-          
-      </ion-row></ion-grid>
-      </ion-list>
+  </ion-row></ion-grid>
+  </a>
+  </ion-list>
 
 
 
   <!-- SKELETON FOR UX LOADING -->
-      <div *ngIf="t_summaryArr.length < 1">
-      <ion-list>
-        <ion-grid><ion-row>
-        <ion-item detail class="activity">
-          <ion-col class="col-month" fixed="true">
-          <ion-label>
-          <h1 id="month">
-            <ion-skeleton-text animated style="width: 10%; height: 10%;"></ion-skeleton-text>
-          </h1>
-          <p id="day">
-            <ion-skeleton-text animated style="width: 5%"></ion-skeleton-text>
-          </p>
-        </ion-label>
-        </ion-col>
+<div *ngIf="t_summaryArr.length < 1">
+<ion-list *ngFor="let length of t_summarySpoof">
+  <ion-grid><ion-row>
+  <ion-item detail class="activity">
   
-        <ion-col class="col-transtype" fixed="true">
-        <ion-label id="transaction">
-          <h2 class="h2-type">
-            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
-          </h2>
-          <p class="p-tokenid">
-            <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
-          </p>
-        </ion-label>
-        </ion-col>
-  
-        <ion-col class="col-transamnt" fixed="true">
-        <ion-label class="amount">
-          <h2 class="amount-h2">
-            <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
-          </h2>
-        </ion-label> 
-       
-      </ion-col>
-      </ion-item>
-      <ion-item detail class="activity">
-          <ion-col class="col-month" fixed="true">
-          <ion-label>
-          <h1 id="month">
-            <ion-skeleton-text animated style="width: 10%; height: 10%;"></ion-skeleton-text>
-          </h1>
-          <p id="day">
-            <ion-skeleton-text animated style="width: 5%"></ion-skeleton-text>
-          </p>
-        </ion-label>
-        </ion-col>
-  
-        <ion-col class="col-transtype" fixed="true">
-        <ion-label id="transaction">
-          <h2 class="h2-type">
-            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
-          </h2>
-          <p class="p-tokenid">
-            <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
-          </p>
-        </ion-label>
-        </ion-col>
-  
-        <ion-col class="col-transamnt" fixed="true">
-        <ion-label class="amount">
-          <h2 class="amount-h2">
-            <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
-          </h2>
-        </ion-label> 
-       
-      </ion-col>
-      </ion-item>
-      <ion-item detail class="activity">
-          <ion-col class="col-month" fixed="true">
-          <ion-label>
-          <h1 id="month">
-            <ion-skeleton-text animated style="width: 10%; height: 10%;"></ion-skeleton-text>
-          </h1>
-          <p id="day">
-            <ion-skeleton-text animated style="width: 5%"></ion-skeleton-text>
-          </p>
-        </ion-label>
-        </ion-col>
-  
-        <ion-col class="col-transtype" fixed="true">
-        <ion-label id="transaction">
-          <h2 class="h2-type">
-            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
-          </h2>
-          <p class="p-tokenid">
-            <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
-          </p>
-        </ion-label>
-        </ion-col>
-  
-        <ion-col class="col-transamnt" fixed="true">
-        <ion-label class="amount">
-          <h2 class="amount-h2">
-            <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
-          </h2>
-        </ion-label> 
-       
-      </ion-col>
-      </ion-item>
-          
-      </ion-row></ion-grid>
-      </ion-list>
-      </div>
-  
-      </ion-card-content>
-    </ion-card>
+  <ion-col class="col-month" fixed="true">
+    <ion-label>
+    <h1 id="month">
+      <ion-skeleton-text animated style="width: 10%; height: 10%;"></ion-skeleton-text>
+    </h1>
+    <p id="day">
+      <ion-skeleton-text animated style="width: 5%"></ion-skeleton-text>
+    </p>
+    </ion-label>
+  </ion-col>
+
+<ion-col class="col-transtype" fixed="true">
+  <ion-label id="transaction">
+    <h2 class="h2-type">
+      <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+    </h2>
+    <p class="p-tokenid">
+      <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+    </p>
+  </ion-label>
+</ion-col>
+
+<ion-col class="col-transamnt" fixed="true">
+  <ion-label class="amount">
+    <h2 class="amount-h2">
+      <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+    </h2>
+  </ion-label> 
+</ion-col>
+</ion-item>
+
+</ion-row></ion-grid>
+</ion-list>
+</div>
+
+</ion-card-content>
+</ion-card>
   
   </ion-content>
   </ion-app>

@@ -33,8 +33,6 @@ export class CreateTokenPage implements OnInit {
 
     if(this.data.token&&this.data.token!==''&&this.data.amount&&this.data.amount>0){
     this.api.createToken(this.data).then((res : any) => {
-
-      console.log("Send " + JSON.stringify(res));
       if(res.status == true){
 
         this.presentAlert('Success! '+this.tokenName+' has been created.', this.tokenName);

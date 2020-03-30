@@ -126,15 +126,17 @@ var SettingsPage = /** @class */ (function () {
         var _this = this;
         this.storage.ready().then(function () {
             // get a key/value pair
-            _this.getObject('toggleVal').then(function (toggleVal) {
-                _this.toggleValue = toggleVal;
-            });
+            setTimeout(function () {
+                _this.getObject('toggleVal').then(function (toggleVal) {
+                    _this.toggleValue = toggleVal;
+                });
+            }, 2000);
         });
         // save host used.
         if (this.host !== '') {
             this.api.setHost(this.host);
         }
-        this.presentToast();
+        //this.presentToast();
     };
     SettingsPage.prototype.checkToggle = function (e) {
         if (this.toggleValue === false) {
@@ -157,7 +159,6 @@ var SettingsPage = /** @class */ (function () {
                         return [4 /*yield*/, this.storage.set(key, JSON.stringify(object))];
                     case 1:
                         result = _a.sent();
-                        console.log('set Object in storage: ' + result);
                         return [2 /*return*/, true];
                     case 2:
                         reason_1 = _a.sent();
@@ -196,9 +197,7 @@ var SettingsPage = /** @class */ (function () {
     SettingsPage.prototype.giveMe50 = function () {
         var _this = this;
         this.api.giveMe50().then(function (res) {
-            console.log("Testing giveMe50() " + res);
             if (res.status == true) {
-                console.log("Result is true" + res);
                 _this.presentAlert('You get 50', 'Info');
             }
             else {

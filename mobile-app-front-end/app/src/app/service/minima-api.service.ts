@@ -21,19 +21,15 @@ export class MinimaApiService {
   }
 
   async showLoader() {
-    console.log('Showloader called. ' + this);
     if (this.loader == null) {
-      console.log('Loader called');
       this.loader = await this.loadingController.create({
         message: 'Loading'
       });
       this.loader.present();
-      console.log('After showloader finished.');
     }
   }
   async hideLoader() {
     if (this.loader !== null) {
-      console.log('Hideloader passed.');
       await this.loader.dismiss();
       this.loader = null;
     } else {}
@@ -94,7 +90,6 @@ export class MinimaApiService {
     let promise = new Promise((resolve, reject) => {
       this.http.get(apiUrl, {responseType: 'json'})
         .subscribe(data => {
-          console.log(data);
           resolve(data);
         });
     });

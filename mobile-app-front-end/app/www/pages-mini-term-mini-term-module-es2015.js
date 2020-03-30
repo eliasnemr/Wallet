@@ -127,7 +127,6 @@ let MiniTermPage = class MiniTermPage {
                     if (this.size > 0 && this.size <= 50) {
                         this.size += didActivate;
                         this.storage.set('fontSize', this.size);
-                        console.log('fontSize Storage created');
                     }
                 }
             });
@@ -163,11 +162,10 @@ let MiniTermPage = class MiniTermPage {
     }
     //end of PopTerm Editing methods
     scrollToBottomOnInit() {
-        console.log("scrolling");
+        //scrolling
         setTimeout(() => {
             this.ionContent.scrollToBottom(300);
         }, 200);
-        console.log("scrolled.");
     }
     //Minima Api Service
     getHost() {
@@ -181,7 +179,6 @@ let MiniTermPage = class MiniTermPage {
     }
     //api calls
     request(route) {
-        console.log(route);
         if (route === 'tutorial' || route === 'Tutorial' || route === 'printchain') {
             return new Promise((resolve, reject) => {
                 this.http.get(this.host + route, { responseType: 'text' }).subscribe((d) => {

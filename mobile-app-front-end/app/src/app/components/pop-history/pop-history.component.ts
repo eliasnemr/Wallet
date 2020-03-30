@@ -21,24 +21,20 @@ export class PopHistoryComponent implements OnInit {
   public blockdiff: number;  
   public date: string;
 
-  constructor(public navParams: NavParams, private clipboard: Clipboard) {
-    this.receivingAddress = this.navParams.get('address');
-    this.blockNumber = this.navParams.get('blockNumber');
-    this.transAmount = this.navParams.get('transAmount');
-    this.isBlock = this.navParams.get('isBlock');
-    this.txpowid = this.navParams.get('txpowid');
-    this.parent = this.navParams.get('parent');
-    this.blockdiff = this.navParams.get('blockdiff');
-    this.date = this.navParams.get('date');
+constructor(public navParams: NavParams, private clipboard: Clipboard) {
 
+  this.receivingAddress = this.navParams.get('address');
+  this.blockNumber = this.navParams.get('blockNumber');
+  this.transAmount = this.navParams.get('transAmount');
+  this.isBlock = this.navParams.get('isBlock');
+  this.txpowid = this.navParams.get('txpowid');
+  this.parent = this.navParams.get('parent');
+  this.blockdiff = this.navParams.get('blockdiff');
+  this.date = this.navParams.get('date');
+  
+}
 
-
-
-   }
-
-  ngOnInit() {
-    console.log('receivingAddress -> '+ this.receivingAddress);
-  }
+ngOnInit() {}
 
 // Check if we're receiving or sending
 checkTransType(amount: any) {
@@ -53,9 +49,5 @@ copyToClipboard(data: any) {
   this.clipboard.copy(data);
   alert('Copied Clipboard Successfully.');
 }
-
-
-  
-
 
 }

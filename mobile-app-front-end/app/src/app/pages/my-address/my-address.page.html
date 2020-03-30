@@ -11,7 +11,7 @@
 </ion-header >
 
 <ion-content fullscreen>
-  <ion-card  class="welcome-card" color="white">
+  <ion-card class="welcome-card" color="white" *ngIf="this.qrCode.length > 0">
     <ion-card-header translucent="true" color="white">
         <ion-toolbar>
                 <qrcode
@@ -28,8 +28,24 @@
           <a style="text-decoration: none; color:##3F88BF;">{{ qrCode }}</a>
           <hr>
           This address can be used for any Minima or Token transaction.
-          
-          
+        </ion-card-subtitle>
+    </ion-card-header>
+      <ion-card-content fullscreen> 
+                
+                  
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card class="welcome-card" color="white" *ngIf="this.qrCode===''">
+    <ion-card-header translucent="true" color="white">
+        <ion-toolbar>
+          <ion-skeleton-text animated class="skeleton-address"></ion-skeleton-text>
+        </ion-toolbar>
+
+        <ion-card-subtitle text-center text-xl-capitalize>
+          <a style="text-decoration: none; color:##3F88BF;">{{ qrCode }}</a>
+          <hr>
+          This address can be used for any Minima or Token transaction.
         </ion-card-subtitle>
     </ion-card-header>
       <ion-card-content fullscreen> 
@@ -42,16 +58,17 @@
 <ion-footer>
   <ion-toolbar>
     <ion-buttons>
-      <ion-button     class="action-btn"
-                      shape="round"
-                      expand="full"
-                      (click)="copyToClipboard()"
-                      [disabled]="!isEmpty">
-                  <ion-icon
-                        name="copy" 
-                        slot="start">
-                  </ion-icon> Copy to clipboard
-                </ion-button>
+      <ion-button     
+          class="action-btn"
+          shape="round"
+          expand="full"
+          (click)="copyToClipboard()"
+          [disabled]="!isEmpty">
+      <ion-icon
+            name="copy" 
+            slot="start">
+      </ion-icon> Copy to clipboard
+    </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-footer>

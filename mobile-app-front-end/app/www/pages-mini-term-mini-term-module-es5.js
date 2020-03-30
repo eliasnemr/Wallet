@@ -131,7 +131,6 @@ var MiniTermPage = /** @class */ (function () {
                     if (_this.size > 0 && _this.size <= 50) {
                         _this.size += didActivate;
                         _this.storage.set('fontSize', _this.size);
-                        console.log('fontSize Storage created');
                     }
                 }
             });
@@ -169,11 +168,10 @@ var MiniTermPage = /** @class */ (function () {
     //end of PopTerm Editing methods
     MiniTermPage.prototype.scrollToBottomOnInit = function () {
         var _this = this;
-        console.log("scrolling");
+        //scrolling
         setTimeout(function () {
             _this.ionContent.scrollToBottom(300);
         }, 200);
-        console.log("scrolled.");
     };
     //Minima Api Service
     MiniTermPage.prototype.getHost = function () {
@@ -188,7 +186,6 @@ var MiniTermPage = /** @class */ (function () {
     //api calls
     MiniTermPage.prototype.request = function (route) {
         var _this = this;
-        console.log(route);
         if (route === 'tutorial' || route === 'Tutorial' || route === 'printchain') {
             return new Promise(function (resolve, reject) {
                 _this.http.get(_this.host + route, { responseType: 'text' }).subscribe(function (d) {

@@ -464,7 +464,7 @@ module.exports = "<ion-app>\n  <ion-split-pane when=\"lg\" contentId=\"mainMenu\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n<ion-list>\n  \n  <div>\n  <h2 class=\"pop-title-activity\">{{ checkTransType(transAmount)}} Minima \n  </h2>\n  <h2 class=\"pop-amount-h2\">\n    {{ transAmount }} MINI\n  </h2>\n  </div>\n  <ion-item>\n    <ion-label class=\"pop-lbl\">\n      To\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right (click)=\"copyToClipboard(receivingAddress)\">\n      {{ receivingAddress }}\n    </ion-label>\n  </ion-item>\n\n  <ion-item>\n    <ion-label class=\"pop-lbl\">\n      TxPow Block\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right>\n      {{ blockNumber }}\n    </ion-label>\n  </ion-item>\n\n  <ion-item>\n    <ion-label class=\"pop-lbl\">\n      TxPow Id\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right>\n      {{ txpowid }}\n    </ion-label>\n  </ion-item>\n  <ion-item>\n    <ion-label class=\"pop-lbl\">\n      Parent\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right>\n      {{ parent }}\n    </ion-label>\n  </ion-item>\n  <ion-item lines=\"none\">\n    <ion-label class=\"pop-lbl\">\n      isBlock\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right>\n      {{ isBlock }}\n    </ion-label>\n  </ion-item>\n\n\n\n</ion-list>\n<ion-footer>\n<ion-toolbar>\n    <ion-item lines=\"none\" class=\"date-item\">\n\n    <div class=\"box\">\n    \n    <ion-icon name=\"checkmark\" size=\"small\"></ion-icon> \n      {{  'Completed at ' + date.substring(7,15)}}\n    </div>\n\n  </ion-item>\n</ion-toolbar>\n\n</ion-footer>\n"
+module.exports = "\n<ion-list>\n  \n  <div>\n  <h2 class=\"pop-title-activity\">{{ checkTransType(transAmount)}} Minima \n  </h2>\n  <h2 class=\"pop-amount-h2\">\n    {{ transAmount }} MINI\n  </h2>\n  </div>\n  <ion-item>\n    <ion-label class=\"pop-lbl\">\n      To\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right (click)=\"copyToClipboard(receivingAddress)\">\n      {{ receivingAddress }}\n    </ion-label>\n  </ion-item>\n\n  <ion-item>\n    <ion-label class=\"pop-lbl\">\n      TxPow Block\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right>\n      {{ blockNumber }}\n    </ion-label>\n  </ion-item>\n\n  <ion-item>\n    <ion-label class=\"pop-lbl\">\n      TxPow Id\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right>\n      {{ txpowid }}\n    </ion-label>\n  </ion-item>\n  <ion-item>\n    <ion-label class=\"pop-lbl\">\n      Parent\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right>\n      {{ parent }}\n    </ion-label>\n  </ion-item>\n  <ion-item lines=\"none\">\n    <ion-label class=\"pop-lbl\">\n      isBlock\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right>\n      {{ isBlock }}\n    </ion-label>\n  </ion-item>\n\n\n\n</ion-list>\n<ion-footer>\n<ion-toolbar>\n    <ion-item lines=\"none\" class=\"date-item\">\n\n    <div class=\"box\">\n    \n    <ion-icon name=\"checkmark\" size=\"small\"></ion-icon> \n      {{  'Completed at ' + date }}\n    </div>\n\n  </ion-item>\n</ion-toolbar>\n\n</ion-footer>\n"
 
 /***/ }),
 
@@ -616,7 +616,7 @@ let AppComponent = class AppComponent {
         this.initializeApp();
     }
     initializeApp() {
-        console.log('App initialized');
+        console.log('Minima initialized');
         this.platform.ready().then(() => {
             this.statusBar.styleDefault();
             setTimeout(() => { this.splashScreen.hide(); }, 2000);
@@ -707,20 +707,18 @@ let AppComponent = class AppComponent {
         //Minima.logout();
         /*  If on desktop do this.. */
         if (this.platform.is('desktop') || this.platform.is('pwa')) {
-            console.log('Running Mini Desktop/Pwa');
             window.addEventListener('load', (ev) => {
-                console.log('Minima Page loaded..');
+                // Page loaded
                 window.addEventListener('MinimaEvent', (evt) => {
-                    console.log('Event connection successful!');
+                    // Event connection success
                     if (evt.detail.event === 'connected') {
-                        console.log('We are now connected with host -> ' + Minima.host);
+                        // now connected with host minima.host
                         this.api.setHost('http://' + Minima.host + '/');
                     }
                     else if (evt.detail.event === 'newbalance') {
                         this.notifyMe();
                     }
                     else if (evt.detail.event === 'newblock') {
-                        console.log("New block");
                     }
                 });
                 Minima.init();
@@ -945,9 +943,7 @@ let PopHistoryComponent = class PopHistoryComponent {
         this.blockdiff = this.navParams.get('blockdiff');
         this.date = this.navParams.get('date');
     }
-    ngOnInit() {
-        console.log('receivingAddress -> ' + this.receivingAddress);
-    }
+    ngOnInit() { }
     // Check if we're receiving or sending
     checkTransType(amount) {
         if (amount.toString().substring(0, 1) === "-") {
@@ -1296,21 +1292,17 @@ let MinimaApiService = class MinimaApiService {
     }
     showLoader() {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
-            console.log('Showloader called. ' + this);
             if (this.loader == null) {
-                console.log('Loader called');
                 this.loader = yield this.loadingController.create({
                     message: 'Loading'
                 });
                 this.loader.present();
-                console.log('After showloader finished.');
             }
         });
     }
     hideLoader() {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
             if (this.loader !== null) {
-                console.log('Hideloader passed.');
                 yield this.loader.dismiss();
                 this.loader = null;
             }
@@ -1362,7 +1354,6 @@ let MinimaApiService = class MinimaApiService {
         let promise = new Promise((resolve, reject) => {
             this.http.get(apiUrl, { responseType: 'json' })
                 .subscribe(data => {
-                console.log(data);
                 resolve(data);
             });
         });

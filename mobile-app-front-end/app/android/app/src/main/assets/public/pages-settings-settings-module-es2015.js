@@ -100,6 +100,7 @@ let SettingsPage = class SettingsPage {
         this.toastController = toastController;
         this.darkMode = darkMode;
         this.storage = storage;
+        this.toggleValue = false;
         this.host = '';
         storage.ready().then(() => {
             // get a key/value pair
@@ -120,15 +121,17 @@ let SettingsPage = class SettingsPage {
     saveUserPreferences() {
         this.storage.ready().then(() => {
             // get a key/value pair
-            this.getObject('toggleVal').then(toggleVal => {
-                this.toggleValue = toggleVal;
-            });
+            setTimeout(() => {
+                this.getObject('toggleVal').then(toggleVal => {
+                    this.toggleValue = toggleVal;
+                });
+            }, 2000);
         });
         // save host used.
         if (this.host !== '') {
             this.api.setHost(this.host);
         }
-        this.presentToast();
+        //this.presentToast();
     }
     checkToggle(e) {
         if (this.toggleValue === false) {
@@ -145,7 +148,6 @@ let SettingsPage = class SettingsPage {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
             try {
                 const result = yield this.storage.set(key, JSON.stringify(object));
-                console.log('set Object in storage: ' + result);
                 return true;
             }
             catch (reason) {
@@ -173,9 +175,7 @@ let SettingsPage = class SettingsPage {
     /** API SERVICE CALLS */
     giveMe50() {
         this.api.giveMe50().then((res) => {
-            console.log("Testing giveMe50() " + res);
             if (res.status == true) {
-                console.log("Result is true" + res);
                 this.presentAlert('You get 50', 'Info');
             }
             else {

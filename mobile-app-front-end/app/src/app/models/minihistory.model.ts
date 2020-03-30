@@ -88,6 +88,7 @@ export interface MiniHistory {
         timemilli: string,
         date: string,
     },
+    
     value: number;
 
 

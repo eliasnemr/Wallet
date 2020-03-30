@@ -210,7 +210,6 @@ var HistoryPage = /** @class */ (function () {
         var _this = this;
         this.api.getHistory().then(function (res) {
             if (res.status === true) {
-                console.log('Pulling in history ->' + res);
                 var countActivity_1 = 0;
                 // loop through every transaction there is..
                 res.response.history.forEach(function (activity) {

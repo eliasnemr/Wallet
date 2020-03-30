@@ -62,20 +62,33 @@ ion-footer ion-toolbar ion-buttons ion-button{
 
   /** SKELETON CSS */
   .wrapper {
-      width: 250px;
-      overflow: hidden;
+    width: 250px;
+    overflow: hidden;
   }
   .skeleton-icon {
-    width: 25px;
-    height: 20px;
-    border-radius: 50%;
-    display: inline-block;
-    float: left;
+    size: 0.5rem;
   }
   .skeleton-name {
-    margin-left: 30px;
-    margin-top: 12px;
+    margin-left: 2px;
+    width: 5%;
   }
   .skeleton-amount {
     margin-left: 90%;
+    width: 10%;
   }
+
+  //iOS 
+  .ios .skeleton-amount {
+    margin-left: 10%;
+  }
+  .ios .skeleton-name {
+    width: 20%;
+  }
+  //Material Design
+  .md .skeleton-amount {
+    margin-left: 10%;
+  }
+  .md .skeleton-name {
+    width: 20%;
+  }
+  

@@ -1,8 +1,11 @@
-import { T_Summary } from '../../models/t_summary';
 import { MinimaApiService } from '../../service/minima-api.service';
 import { PopoverController } from '@ionic/angular';
 import { PopHistoryComponent } from '../../components/pop-history/pop-history.component';
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { HistoryService } from '../../service/history.service';
+import { map } from 'rxjs/operators';
+import { MiniHistory } from '../../models/minihistory.model';
 
 @Component({
   selector: 'app-history',
@@ -12,22 +15,30 @@ import { Component, OnInit } from '@angular/core';
 export class HistoryPage implements OnInit {
 
   // + vars
-  public transactions: [];
-  public t_summaryArr = [];
-  public t_txpow: [];
-  public t_inputs: [];
-  public t_outputs: [];
+  public t_summaryArr: MiniHistory[] = [];
+  public t_summarySpoof: MiniHistory[] = [];
 
+  polledHistorySubscription: Subscription;
 
-  constructor(public popHistoryController: PopoverController, private api: MinimaApiService ) { }
+  // - vars
+  private lastJSON: string = '';
+
+  constructor(public popHistoryController: PopoverController,
+             private api: MinimaApiService,
+             private historyService: HistoryService) {}
 
   ngOnInit() {}
 
   ionViewDidEnter(){
+    this.pullInHistoryLength();
     setTimeout(() => {
-      this.pullInHistorySummary();
+      this.pullInHistorySummary(); // subscribe and polls history
     }, 1000);
    
+  }
+
+  ionViewDidLeave(){
+   this.polledHistorySubscription.unsubscribe();
   }
 
   // Present history details popover when tapped/clicked
@@ -72,56 +83,38 @@ export class HistoryPage implements OnInit {
     return 't_summaryArr';
   }
   }
-  
-  // Get all users transaction history
-   pullInHistorySummary() {
-
-    this.api.getHistory().then((res: any) => {
-      if(res.status === true) {
-      
-        let countActivity = 0;
-
-        // loop through every transaction there is..
-        res.response.history.forEach((activity: any) => {
-          countActivity++;
-
-          // get the information of summary
-          let Month = activity.txpow.date.substring(4,7);
-          let Day = activity.txpow.date.substring(8, 10);
-          let Tokenid = activity.txpow.txn.inputs.tokenid;
-          let Amount = activity.value;
-          let InputsArr = activity.txpow.txn.inputs;
-          let OutputsArr = activity.txpow.txn.outputs;
-          let Address = '';
-
-          // get information of Details
-          let blockNumber = activity.txpow.block;
-          let isBlock = activity.txpow.isblock;
-          let txpowid = activity.txpow.txpowid;
-          let parent = activity.txpow.parent;
-          let blockdiff = activity.txpow.blockdiff;
-          let date = activity.txpow.date.substring(4);
-
-          //let tokenName = activity.tokenName;
-          // Loop in inputs and get required key indexes to create our summary obj
-          InputsArr.forEach(element => {
-            Tokenid = element.tokenid.substring(0, 10);
-          });
-          OutputsArr.forEach(element => {
-            Address = element.address;
-          });
-          
-          //create t_summary(transaction_summary) Object to push into Array
-          let transSummary = new T_Summary(countActivity, Month, Day, Tokenid, 
-                    "Minima", Amount, 10, Address, blockNumber, isBlock, txpowid, parent, blockdiff, date);
-          this.t_summaryArr.push(transSummary);
-
-        });
+  // get length of history
+  pullInHistoryLength() {
+    this.historyService.getHistory().subscribe(res => {
+      for(const i in res.response.history){
+      this.t_summarySpoof.push(res.response.history[i]);
       }
     });
-    this.t_summaryArr = new Array;
+  }
+  
+  // Get all users transaction history
+  pullInHistorySummary() {
+  this.polledHistorySubscription = this.historyService.getHistory().pipe(map(responseData => {
+    let historyArr: MiniHistory[] = [];
+    for(const key in responseData.response){
+      let history = responseData.response;
+        if(history[key]){
 
+          //Transaction description summary
+          historyArr = history[key];
+          
+        }
+        return historyArr;
+    }
+  })).subscribe(responseData => {
+    
+    if(this.lastJSON !== JSON.stringify(responseData)){
+      this.t_summaryArr = responseData;
+      this.lastJSON = JSON.stringify(responseData);
+    }
 
+  });
+    
   }
 
 }

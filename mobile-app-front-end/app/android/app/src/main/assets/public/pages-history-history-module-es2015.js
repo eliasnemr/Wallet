@@ -195,7 +195,6 @@ let HistoryPage = class HistoryPage {
     pullInHistorySummary() {
         this.api.getHistory().then((res) => {
             if (res.status === true) {
-                console.log('Pulling in history ->' + res);
                 let countActivity = 0;
                 // loop through every transaction there is..
                 res.response.history.forEach((activity) => {

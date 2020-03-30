@@ -124,7 +124,6 @@ var WebScannerPage = /** @class */ (function () {
     };
     WebScannerPage.prototype.identifyPlatformToScan_Add = function () {
         if (this.platform.is('ios')) {
-            console.log('iOS Qr Code.');
             setTimeout(function () {
                 window.document.querySelectorAll('ion-content')
                     .forEach(function (element) {
@@ -148,7 +147,6 @@ var WebScannerPage = /** @class */ (function () {
     };
     WebScannerPage.prototype.identifyPlatformToScan_Remove = function () {
         if (this.platform.is('ios')) {
-            console.log('iOS Qr Code.');
             setTimeout(function () {
                 window.document.querySelectorAll('ion-content')
                     .forEach(function (element) {
@@ -176,7 +174,6 @@ var WebScannerPage = /** @class */ (function () {
             .then(function (status) {
             if (status.authorized) {
                 // camera permission was granted
-                console.log('scanQR', status);
                 _this.identifyPlatformToScan_Add();
                 _this.qrScanner.show();
                 _this.isCameraOpen = true;
@@ -213,7 +210,6 @@ var WebScannerPage = /** @class */ (function () {
         this.data.url = text;
         if (this.data.url !== '') {
             this.api.webLink(this.data).then(function (res) {
-                console.log("weblink " + JSON.stringify(res));
                 if (res.status === true) {
                     _this.presentAlert('Success!', 'You are now connected.');
                 }

@@ -128,7 +128,6 @@ var MiniStatusPage = /** @class */ (function () {
         }))
             .subscribe(function (res) {
             _this.status = res;
-            console.log(_this.status.status);
         });
     };
     MiniStatusPage.ctorParameters = function () { return [

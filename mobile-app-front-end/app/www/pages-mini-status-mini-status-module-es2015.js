@@ -123,7 +123,6 @@ let MiniStatusPage = class MiniStatusPage {
         }))
             .subscribe((res) => {
             this.status = res;
-            console.log(this.status.status);
         });
     }
 };

@@ -470,7 +470,7 @@ module.exports = "<ion-app>\n  <ion-split-pane when=\"lg\" contentId=\"mainMenu\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n<ion-list>\n  \n  <div>\n  <h2 class=\"pop-title-activity\">{{ checkTransType(transAmount)}} Minima \n  </h2>\n  <h2 class=\"pop-amount-h2\">\n    {{ transAmount }} MINI\n  </h2>\n  </div>\n  <ion-item>\n    <ion-label class=\"pop-lbl\">\n      To\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right (click)=\"copyToClipboard(receivingAddress)\">\n      {{ receivingAddress }}\n    </ion-label>\n  </ion-item>\n\n  <ion-item>\n    <ion-label class=\"pop-lbl\">\n      TxPow Block\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right>\n      {{ blockNumber }}\n    </ion-label>\n  </ion-item>\n\n  <ion-item>\n    <ion-label class=\"pop-lbl\">\n      TxPow Id\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right>\n      {{ txpowid }}\n    </ion-label>\n  </ion-item>\n  <ion-item>\n    <ion-label class=\"pop-lbl\">\n      Parent\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right>\n      {{ parent }}\n    </ion-label>\n  </ion-item>\n  <ion-item lines=\"none\">\n    <ion-label class=\"pop-lbl\">\n      isBlock\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right>\n      {{ isBlock }}\n    </ion-label>\n  </ion-item>\n\n\n\n</ion-list>\n<ion-footer>\n<ion-toolbar>\n    <ion-item lines=\"none\" class=\"date-item\">\n\n    <div class=\"box\">\n    \n    <ion-icon name=\"checkmark\" size=\"small\"></ion-icon> \n      {{  'Completed at ' + date.substring(7,15)}}\n    </div>\n\n  </ion-item>\n</ion-toolbar>\n\n</ion-footer>\n"
+module.exports = "\n<ion-list>\n  \n  <div>\n  <h2 class=\"pop-title-activity\">{{ checkTransType(transAmount)}} Minima \n  </h2>\n  <h2 class=\"pop-amount-h2\">\n    {{ transAmount }} MINI\n  </h2>\n  </div>\n  <ion-item>\n    <ion-label class=\"pop-lbl\">\n      To\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right (click)=\"copyToClipboard(receivingAddress)\">\n      {{ receivingAddress }}\n    </ion-label>\n  </ion-item>\n\n  <ion-item>\n    <ion-label class=\"pop-lbl\">\n      TxPow Block\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right>\n      {{ blockNumber }}\n    </ion-label>\n  </ion-item>\n\n  <ion-item>\n    <ion-label class=\"pop-lbl\">\n      TxPow Id\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right>\n      {{ txpowid }}\n    </ion-label>\n  </ion-item>\n  <ion-item>\n    <ion-label class=\"pop-lbl\">\n      Parent\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right>\n      {{ parent }}\n    </ion-label>\n  </ion-item>\n  <ion-item lines=\"none\">\n    <ion-label class=\"pop-lbl\">\n      isBlock\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right>\n      {{ isBlock }}\n    </ion-label>\n  </ion-item>\n\n\n\n</ion-list>\n<ion-footer>\n<ion-toolbar>\n    <ion-item lines=\"none\" class=\"date-item\">\n\n    <div class=\"box\">\n    \n    <ion-icon name=\"checkmark\" size=\"small\"></ion-icon> \n      {{  'Completed at ' + date }}\n    </div>\n\n  </ion-item>\n</ion-toolbar>\n\n</ion-footer>\n"
 
 /***/ }),
 
@@ -627,7 +627,7 @@ var AppComponent = /** @class */ (function () {
     };
     AppComponent.prototype.initializeApp = function () {
         var _this = this;
-        console.log('App initialized');
+        console.log('Minima initialized');
         this.platform.ready().then(function () {
             _this.statusBar.styleDefault();
             setTimeout(function () { _this.splashScreen.hide(); }, 2000);
@@ -727,20 +727,18 @@ var AppComponent = /** @class */ (function () {
         var _this = this;
         /*  If on desktop do this.. */
         if (this.platform.is('desktop') || this.platform.is('pwa')) {
-            console.log('Running Mini Desktop/Pwa');
             window.addEventListener('load', function (ev) {
-                console.log('Minima Page loaded..');
+                // Page loaded
                 window.addEventListener('MinimaEvent', function (evt) {
-                    console.log('Event connection successful!');
+                    // Event connection success
                     if (evt.detail.event === 'connected') {
-                        console.log('We are now connected with host -> ' + Minima.host);
+                        // now connected with host minima.host
                         _this.api.setHost('http://' + Minima.host + '/');
                     }
                     else if (evt.detail.event === 'newbalance') {
                         _this.notifyMe();
                     }
                     else if (evt.detail.event === 'newblock') {
-                        console.log("New block");
                     }
                 });
                 Minima.init();
@@ -970,9 +968,7 @@ var PopHistoryComponent = /** @class */ (function () {
         this.blockdiff = this.navParams.get('blockdiff');
         this.date = this.navParams.get('date');
     }
-    PopHistoryComponent.prototype.ngOnInit = function () {
-        console.log('receivingAddress -> ' + this.receivingAddress);
-    };
+    PopHistoryComponent.prototype.ngOnInit = function () { };
     // Check if we're receiving or sending
     PopHistoryComponent.prototype.checkTransType = function (amount) {
         if (amount.toString().substring(0, 1) === "-") {
@@ -1342,9 +1338,7 @@ var MinimaApiService = /** @class */ (function () {
             return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        console.log('Showloader called. ' + this);
                         if (!(this.loader == null)) return [3 /*break*/, 2];
-                        console.log('Loader called');
                         _a = this;
                         return [4 /*yield*/, this.loadingController.create({
                                 message: 'Loading'
@@ -1352,7 +1346,6 @@ var MinimaApiService = /** @class */ (function () {
                     case 1:
                         _a.loader = _b.sent();
                         this.loader.present();
-                        console.log('After showloader finished.');
                         _b.label = 2;
                     case 2: return [2 /*return*/];
                 }
@@ -1365,7 +1358,6 @@ var MinimaApiService = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         if (!(this.loader !== null)) return [3 /*break*/, 2];
-                        console.log('Hideloader passed.');
                         return [4 /*yield*/, this.loader.dismiss()];
                     case 1:
                         _a.sent();
@@ -1422,7 +1414,6 @@ var MinimaApiService = /** @class */ (function () {
         var promise = new Promise(function (resolve, reject) {
             _this.http.get(apiUrl, { responseType: 'json' })
                 .subscribe(function (data) {
-                console.log(data);
                 resolve(data);
             });
         });

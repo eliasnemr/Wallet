@@ -124,9 +124,6 @@ var MiniTermPage = /** @class */ (function () {
     MiniTermPage.prototype.ngOnInit = function () { };
     MiniTermPage.prototype.ionViewWillEnter = function () {
         var _this = this;
-        this.storage.get('fontSize').then(function (fontSize) {
-            _this.size = fontSize;
-        });
         // Stored subscription that watches if we activated button on PopTerm
         this.fontSubscription =
             this.userTerminal.fontSizeEmitter.subscribe(function (didActivate) {
@@ -134,7 +131,6 @@ var MiniTermPage = /** @class */ (function () {
                     if (_this.size > 0 && _this.size <= 50) {
                         _this.size += didActivate;
                         _this.storage.set('fontSize', _this.size);
-                        console.log('fontSize Storage created');
                     }
                 }
             });
@@ -172,11 +168,10 @@ var MiniTermPage = /** @class */ (function () {
     //end of PopTerm Editing methods
     MiniTermPage.prototype.scrollToBottomOnInit = function () {
         var _this = this;
-        console.log("scrolling");
+        //scrolling
         setTimeout(function () {
             _this.ionContent.scrollToBottom(300);
         }, 200);
-        console.log("scrolled.");
     };
     //Minima Api Service
     MiniTermPage.prototype.getHost = function () {
@@ -191,16 +186,15 @@ var MiniTermPage = /** @class */ (function () {
     //api calls
     MiniTermPage.prototype.request = function (route) {
         var _this = this;
-        var self = this;
-        console.log(route);
-        if (route === 'tutorial' || route === 'Tutorial' || route === 'printchain' || route === 'printtree') {
+        if (route === 'tutorial' || route === 'Tutorial' || route === 'printchain') {
             return new Promise(function (resolve, reject) {
-                self.http.get(self.host + route, { responseType: 'text' }).subscribe(function (d) {
-                    _this.terminal.nativeElement.value += JSON.stringify(d, undefined, 2) + "\n";
+                _this.http.get(_this.host + route, { responseType: 'text' }).subscribe(function (d) {
+                    var regex = d.replace(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].newLine, "\\n"); // replace \n with <br/> has all 3 \n|\r|\r\n
+                    _this.terminal.nativeElement.value += regex;
                     _this.terminal.nativeElement.scrollTop = _this.terminal.nativeElement.scrollHeight;
                     resolve(d);
                 }, function (err) {
-                    self.hideLoader();
+                    _this.hideLoader();
                     console.log('Error ' + err);
                     reject(err);
                 });
@@ -208,12 +202,12 @@ var MiniTermPage = /** @class */ (function () {
         }
         else {
             return new Promise(function (resolve, reject) {
-                self.http.get(self.host + route, { responseType: 'json' }).subscribe(function (d) {
+                _this.http.get(_this.host + route, { responseType: 'json' }).subscribe(function (d) {
                     _this.terminal.nativeElement.value += JSON.stringify(d, undefined, 2) + "\n";
                     _this.terminal.nativeElement.scrollTop = _this.terminal.nativeElement.scrollHeight;
                     resolve(d);
                 }, function (err) {
-                    self.hideLoader();
+                    _this.hideLoader();
                     console.log('Error ' + err);
                     reject(err);
                 });

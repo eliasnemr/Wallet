@@ -19,11 +19,8 @@ import { Router } from '@angular/router';
 
 export class BalancePage implements OnInit {
 
-  //@Input('referringToken') referringToken: string;
-
-
-  polledBalance$: Observable<any>;
   tokenArr: Tokens[] = [];
+  tokenSpoof: Tokens[] = [];
   
   balanceSubscription: Subscription;
 
@@ -42,6 +39,7 @@ export class BalancePage implements OnInit {
     private route: Router) {}
 
   ionViewWillEnter() {
+    this.pullArrLength();
     setTimeout(() => {
       this.pullInTokens(); // subscribes & polls balance
     }, 1000);
@@ -100,6 +98,15 @@ export class BalancePage implements OnInit {
     });
     return await popover.present();
 
+  }
+
+  pullArrLength() {
+    this.service.getBalance().subscribe(res => {
+      for(const i in res.response.balance){
+      this.tokenSpoof.push(res.response.balance[i].confirmed)
+      }
+      
+    });
   }
 
   pullInTokens() {
