@@ -3,6 +3,7 @@
         font-size: 10px;
     }
 }
+
 ion-card {
     border-radius: 30px;
     background-color: #FFFFFF;
@@ -69,12 +70,10 @@ ion-footer ion-toolbar ion-buttons ion-button{
     size: 0.5rem;
   }
   .skeleton-name {
-    margin-left: 2px;
-    width: 5%;
+    width: 20%;
   }
   .skeleton-amount {
-    margin-left: 90%;
-    width: 10%;
+    width: 5%;
   }
 
   //iOS 
@@ -84,11 +83,18 @@ ion-footer ion-toolbar ion-buttons ion-button{
   .ios .skeleton-name {
     width: 20%;
   }
-  //Material Design
-  .md .skeleton-amount {
-    margin-left: 10%;
-  }
-  .md .skeleton-name {
-    width: 20%;
-  }
+
+@media screen and (max-width: 900px) {
+    .skeleton-icon {
+      size: 0.5rem;
+    }
+    .skeleton-name {
+      width: 20%;
+    }
+    .skeleton-amount {
+      margin-left: 90%;
+      width: 5%;
+    }
+}
+ 
   
