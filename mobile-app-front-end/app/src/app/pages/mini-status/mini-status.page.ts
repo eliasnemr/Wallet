@@ -3,6 +3,7 @@ import { map } from 'rxjs/operators';
 import { StatusService } from './../../service/status.service';
 import { Component, OnInit, ChangeDetectorRef, Input } from '@angular/core';
 import { Status } from '../../models/status.model';
+import { Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-mini-status',
@@ -22,7 +23,7 @@ export class MiniStatusPage implements OnInit {
   private host = '';
   private loader: any = null;
 
-  constructor(private service: StatusService, private ref: ChangeDetectorRef) {}
+  constructor(private service: StatusService, private ref: ChangeDetectorRef, private plat: Platform) {}
  
   ngOnInit() { }
 
@@ -42,6 +43,14 @@ export class MiniStatusPage implements OnInit {
       return '../../assets/fulllogodark.svg';
     } else {
       return '../../assets/fulllogo.svg';
+    }
+  }
+
+  checkPlatform(): Boolean {
+    if(this.plat.is('ios') || this.plat.is('android')){
+      return false;
+    } else {
+      return true;
     }
   }
 

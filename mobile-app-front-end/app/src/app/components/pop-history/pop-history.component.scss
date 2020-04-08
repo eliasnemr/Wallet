@@ -32,14 +32,29 @@ ion-icon {
     margin-right: auto;
     white-space: nowrap;
     font-size: 16px;
-    
-
 }
-
+.box-icon {
+    font-size: 30px;
+    padding-right: 15px;
+}
 //desktop
 
 @media only screen and (min-width: 992px) {
     .date-lbl {
         font-size: 14px;
     }
+}
+
+
+//iOS Box
+
+.ios .box {
+    margin-left: auto;
+    margin-right: auto;
+    white-space: nowrap;
+    font-size: 16px;
+}
+.ios .box-icon {
+    font-size: 20px;
+    padding-right: 3px;
 }

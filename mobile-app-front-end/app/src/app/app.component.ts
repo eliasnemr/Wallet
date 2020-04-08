@@ -27,7 +27,6 @@ export class AppComponent {
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar,
     private menu: MenuController,
     private router: Router,
     private api: MinimaApiService,
@@ -36,7 +35,7 @@ export class AppComponent {
     private storage: Storage) {
     
     this.getPages();  /** this returns pages if on mobile or desktop, (different layouts) */ 
-    this.getPlatform(); /** Turn getPlatform() off if you want to use desktop version with desktop node */ 
+    //this.getPlatform(); /** Turn getPlatform() off if you want to use desktop version with desktop node */ 
     this.initializeApp();
     this.whatPlatformIsThis();
 
@@ -58,10 +57,8 @@ export class AppComponent {
   initializeApp() {
     console.log('Minima initialized');
     this.platform.ready().then(() => {
-      this.statusBar.styleDefault();
       setTimeout(() => {this.splashScreen.hide()}, 2000);
       this.getVersion();
-      
       
       // this.router.events.subscribe((val:any) => {
       //   if(val.route&&val.route.path){

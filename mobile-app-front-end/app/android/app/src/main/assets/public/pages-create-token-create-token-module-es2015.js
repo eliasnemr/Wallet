@@ -106,7 +106,6 @@ let CreateTokenPage = class CreateTokenPage {
         this.data.amount = this.tokenAmount;
         if (this.data.token && this.data.token !== '' && this.data.amount && this.data.amount > 0) {
             this.api.createToken(this.data).then((res) => {
-                console.log("Send " + JSON.stringify(res));
                 if (res.status == true) {
                     this.presentAlert('Success! ' + this.tokenName + ' has been created.', this.tokenName);
                     this.resetForm();
