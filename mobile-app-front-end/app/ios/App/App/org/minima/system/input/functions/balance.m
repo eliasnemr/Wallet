@@ -23,6 +23,9 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 - (void)doFunctionWithNSStringArray:(IOSObjectArray *)zInput {
   OrgMinimaUtilsMessagesMessage *msg = [self getResponseMessageWithNSString:OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_BALANCE];
+  if (((IOSObjectArray *) nil_chk(zInput))->size_ > 1) {
+    [((OrgMinimaUtilsMessagesMessage *) nil_chk(msg)) addStringWithNSString:@"address" withNSString:IOSObjectArray_Get(zInput, 1)];
+  }
   [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getConsensusHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:msg];
 }
 
@@ -52,7 +55,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 void OrgMinimaSystemInputFunctionsbalance_init(OrgMinimaSystemInputFunctionsbalance *self) {
   OrgMinimaSystemInputCommandFunction_initWithNSString_(self, @"balance");
-  [self setHelpWithNSString:@"" withNSString:@"Return the current Minima balance" withNSString:@""];
+  [self setHelpWithNSString:@"(address)" withNSString:@"Return the global Minima balance for all coins or just a specific address" withNSString:@""];
 }
 
 OrgMinimaSystemInputFunctionsbalance *new_OrgMinimaSystemInputFunctionsbalance_init() {

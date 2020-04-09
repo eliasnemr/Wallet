@@ -17,7 +17,8 @@ export class MiniStatusPage implements OnInit {
   status: { status: boolean, minifunc: string, response: Status};
   statusSubscription: Subscription;
 
-  statusOfStatus: string = 'empty';
+  public statusOfStatus: string = 'empty';
+  public lastJSON: string;
 
   // - vars
   private host = '';
@@ -65,8 +66,13 @@ export class MiniStatusPage implements OnInit {
     })
     )
     .subscribe((res : any) => {
-
-      this.status = res;
+      
+      if(this.lastJSON != JSON.stringify(res)){
+        this.status = res;
+        this.statusOfStatus = 'updated';
+        this.lastJSON = JSON.stringify(res);
+      } 
+      
       
     });
   }

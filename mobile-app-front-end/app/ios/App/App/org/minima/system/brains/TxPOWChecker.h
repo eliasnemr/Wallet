@@ -22,6 +22,7 @@
 @class OrgMinimaObjectsTransaction;
 @class OrgMinimaObjectsTxPOW;
 @class OrgMinimaObjectsWitness;
+@class OrgMinimaUtilsJsonJSONArray;
 
 @interface OrgMinimaSystemBrainsTxPOWChecker : NSObject
 
@@ -38,8 +39,22 @@
                                 withOrgMinimaDatabaseMmrMMRSet:(OrgMinimaDatabaseMmrMMRSet *)zMMRSet
                                                    withBoolean:(jboolean)zTouchMMR;
 
++ (jboolean)checkTransactionMMRWithOrgMinimaObjectsTransaction:(OrgMinimaObjectsTransaction *)zTrans
+                                   withOrgMinimaObjectsWitness:(OrgMinimaObjectsWitness *)zWit
+                                 withOrgMinimaDatabaseMinimaDB:(OrgMinimaDatabaseMinimaDB *)zDB
+                            withOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zBlockNumber
+                                withOrgMinimaDatabaseMmrMMRSet:(OrgMinimaDatabaseMmrMMRSet *)zMMRSet
+                                                   withBoolean:(jboolean)zTouchMMR
+                               withOrgMinimaUtilsJsonJSONArray:(OrgMinimaUtilsJsonJSONArray *)zContractLog;
+
 + (jboolean)checkTransactionMMRWithOrgMinimaObjectsTxPOW:(OrgMinimaObjectsTxPOW *)zTxPOW
                            withOrgMinimaDatabaseMinimaDB:(OrgMinimaDatabaseMinimaDB *)zDB;
+
++ (jboolean)checkTransactionMMRWithOrgMinimaObjectsTxPOW:(OrgMinimaObjectsTxPOW *)zTxPOW
+                           withOrgMinimaDatabaseMinimaDB:(OrgMinimaDatabaseMinimaDB *)zDB
+                      withOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zBlockNumber
+                          withOrgMinimaDatabaseMmrMMRSet:(OrgMinimaDatabaseMmrMMRSet *)zMMRSet
+                                             withBoolean:(jboolean)zTouchMMR;
 
 @end
 
@@ -55,7 +70,11 @@ FOUNDATION_EXPORT jboolean OrgMinimaSystemBrainsTxPOWChecker_checkSigsWithOrgMin
 
 FOUNDATION_EXPORT jboolean OrgMinimaSystemBrainsTxPOWChecker_checkTransactionMMRWithOrgMinimaObjectsTxPOW_withOrgMinimaDatabaseMinimaDB_(OrgMinimaObjectsTxPOW *zTxPOW, OrgMinimaDatabaseMinimaDB *zDB);
 
+FOUNDATION_EXPORT jboolean OrgMinimaSystemBrainsTxPOWChecker_checkTransactionMMRWithOrgMinimaObjectsTxPOW_withOrgMinimaDatabaseMinimaDB_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaDatabaseMmrMMRSet_withBoolean_(OrgMinimaObjectsTxPOW *zTxPOW, OrgMinimaDatabaseMinimaDB *zDB, OrgMinimaObjectsBaseMiniNumber *zBlockNumber, OrgMinimaDatabaseMmrMMRSet *zMMRSet, jboolean zTouchMMR);
+
 FOUNDATION_EXPORT jboolean OrgMinimaSystemBrainsTxPOWChecker_checkTransactionMMRWithOrgMinimaObjectsTransaction_withOrgMinimaObjectsWitness_withOrgMinimaDatabaseMinimaDB_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaDatabaseMmrMMRSet_withBoolean_(OrgMinimaObjectsTransaction *zTrans, OrgMinimaObjectsWitness *zWit, OrgMinimaDatabaseMinimaDB *zDB, OrgMinimaObjectsBaseMiniNumber *zBlockNumber, OrgMinimaDatabaseMmrMMRSet *zMMRSet, jboolean zTouchMMR);
+
+FOUNDATION_EXPORT jboolean OrgMinimaSystemBrainsTxPOWChecker_checkTransactionMMRWithOrgMinimaObjectsTransaction_withOrgMinimaObjectsWitness_withOrgMinimaDatabaseMinimaDB_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaDatabaseMmrMMRSet_withBoolean_withOrgMinimaUtilsJsonJSONArray_(OrgMinimaObjectsTransaction *zTrans, OrgMinimaObjectsWitness *zWit, OrgMinimaDatabaseMinimaDB *zDB, OrgMinimaObjectsBaseMiniNumber *zBlockNumber, OrgMinimaDatabaseMmrMMRSet *zMMRSet, jboolean zTouchMMR, OrgMinimaUtilsJsonJSONArray *zContractLog);
 
 J2OBJC_TYPE_LITERAL_HEADER(OrgMinimaSystemBrainsTxPOWChecker)
 

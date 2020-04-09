@@ -54,6 +54,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 void OrgMinimaSystemInputFunctionsTransferimportcoin_init(OrgMinimaSystemInputFunctionsTransferimportcoin *self) {
   OrgMinimaSystemInputCommandFunction_initWithNSString_(self, @"importcoin");
+  [self setHelpWithNSString:@"[data]" withNSString:@"Import the proof of a coin." withNSString:@""];
 }
 
 OrgMinimaSystemInputFunctionsTransferimportcoin *new_OrgMinimaSystemInputFunctionsTransferimportcoin_init() {

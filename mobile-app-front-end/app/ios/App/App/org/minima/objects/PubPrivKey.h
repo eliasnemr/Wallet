@@ -23,21 +23,24 @@
 @class JavaIoDataInputStream;
 @class JavaIoDataOutputStream;
 @class OrgMinimaObjectsBaseMiniData;
-@class OrgMinimaObjectsBaseMiniHash;
+@class OrgMinimaUtilsJsonJSONObject;
 
 @interface OrgMinimaObjectsPubPrivKey : NSObject < OrgMinimaUtilsStreamable > {
  @public
   OrgMinimaObjectsBaseMiniData *mPrivateSeed_;
   OrgMinimaObjectsBaseMiniData *mPublicKey_;
+  jint mBitLength_;
 }
 
 #pragma mark Public
 
 - (instancetype)init;
 
-- (instancetype)initWithBoolean:(jboolean)empty;
+- (instancetype)initWithInt:(jint)zBitLength;
 
 - (instancetype)initWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zPrivateSeed;
+
+- (jint)getBitLength;
 
 - (OrgMinimaObjectsBaseMiniData *)getPrivateSeed;
 
@@ -45,15 +48,17 @@
 
 - (void)readDataStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn;
 
-- (OrgMinimaObjectsBaseMiniData *)signWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zData;
+- (OrgMinimaObjectsBaseMiniData *)signWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zData;
+
+- (OrgMinimaUtilsJsonJSONObject *)toJSON;
 
 - (NSString *)description;
 
-+ (jboolean)verifyWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zPubKey
-                  withOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zData
+- (jboolean)verifyWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zData
                   withOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zSignature;
 
-- (jboolean)verifyWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zData
++ (jboolean)verifyWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zPubKey
+                  withOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zData
                   withOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zSignature;
 
 - (void)writeDataStreamWithJavaIoDataOutputStream:(JavaIoDataOutputStream *)zOut;
@@ -65,11 +70,11 @@ J2OBJC_EMPTY_STATIC_INIT(OrgMinimaObjectsPubPrivKey)
 J2OBJC_FIELD_SETTER(OrgMinimaObjectsPubPrivKey, mPrivateSeed_, OrgMinimaObjectsBaseMiniData *)
 J2OBJC_FIELD_SETTER(OrgMinimaObjectsPubPrivKey, mPublicKey_, OrgMinimaObjectsBaseMiniData *)
 
-FOUNDATION_EXPORT void OrgMinimaObjectsPubPrivKey_init(OrgMinimaObjectsPubPrivKey *self);
+FOUNDATION_EXPORT void OrgMinimaObjectsPubPrivKey_initWithInt_(OrgMinimaObjectsPubPrivKey *self, jint zBitLength);
 
-FOUNDATION_EXPORT OrgMinimaObjectsPubPrivKey *new_OrgMinimaObjectsPubPrivKey_init(void) NS_RETURNS_RETAINED;
+FOUNDATION_EXPORT OrgMinimaObjectsPubPrivKey *new_OrgMinimaObjectsPubPrivKey_initWithInt_(jint zBitLength) NS_RETURNS_RETAINED;
 
-FOUNDATION_EXPORT OrgMinimaObjectsPubPrivKey *create_OrgMinimaObjectsPubPrivKey_init(void);
+FOUNDATION_EXPORT OrgMinimaObjectsPubPrivKey *create_OrgMinimaObjectsPubPrivKey_initWithInt_(jint zBitLength);
 
 FOUNDATION_EXPORT void OrgMinimaObjectsPubPrivKey_initWithOrgMinimaObjectsBaseMiniData_(OrgMinimaObjectsPubPrivKey *self, OrgMinimaObjectsBaseMiniData *zPrivateSeed);
 
@@ -77,13 +82,13 @@ FOUNDATION_EXPORT OrgMinimaObjectsPubPrivKey *new_OrgMinimaObjectsPubPrivKey_ini
 
 FOUNDATION_EXPORT OrgMinimaObjectsPubPrivKey *create_OrgMinimaObjectsPubPrivKey_initWithOrgMinimaObjectsBaseMiniData_(OrgMinimaObjectsBaseMiniData *zPrivateSeed);
 
-FOUNDATION_EXPORT void OrgMinimaObjectsPubPrivKey_initWithBoolean_(OrgMinimaObjectsPubPrivKey *self, jboolean empty);
+FOUNDATION_EXPORT void OrgMinimaObjectsPubPrivKey_init(OrgMinimaObjectsPubPrivKey *self);
 
-FOUNDATION_EXPORT OrgMinimaObjectsPubPrivKey *new_OrgMinimaObjectsPubPrivKey_initWithBoolean_(jboolean empty) NS_RETURNS_RETAINED;
+FOUNDATION_EXPORT OrgMinimaObjectsPubPrivKey *new_OrgMinimaObjectsPubPrivKey_init(void) NS_RETURNS_RETAINED;
 
-FOUNDATION_EXPORT OrgMinimaObjectsPubPrivKey *create_OrgMinimaObjectsPubPrivKey_initWithBoolean_(jboolean empty);
+FOUNDATION_EXPORT OrgMinimaObjectsPubPrivKey *create_OrgMinimaObjectsPubPrivKey_init(void);
 
-FOUNDATION_EXPORT jboolean OrgMinimaObjectsPubPrivKey_verifyWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniHash_withOrgMinimaObjectsBaseMiniData_(OrgMinimaObjectsBaseMiniData *zPubKey, OrgMinimaObjectsBaseMiniHash *zData, OrgMinimaObjectsBaseMiniData *zSignature);
+FOUNDATION_EXPORT jboolean OrgMinimaObjectsPubPrivKey_verifyWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniData_(OrgMinimaObjectsBaseMiniData *zPubKey, OrgMinimaObjectsBaseMiniData *zData, OrgMinimaObjectsBaseMiniData *zSignature);
 
 J2OBJC_TYPE_LITERAL_HEADER(OrgMinimaObjectsPubPrivKey)
 

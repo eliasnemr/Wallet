@@ -70,7 +70,6 @@ __attribute__((unused)) static void OrgMinimaUtilsMessagesMessageProcessor_check
         [self processMessageWithOrgMinimaUtilsMessagesMessage:msg];
       }
       @catch (JavaLangException *exc) {
-        OrgMinimaUtilsMinimaLogger_logWithNSString_(JreStrcat("$@", @"Error processing message : ", msg));
         [exc printStackTrace];
         OrgMinimaSystemInputInputHandler_endResponseWithOrgMinimaUtilsMessagesMessage_withBoolean_withNSString_(msg, false, JreStrcat("$@$@", @"SYSTEM ERROR PROCESSING : ", msg, @" exception:", exc));
       }

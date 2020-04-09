@@ -17,6 +17,8 @@
 #define OrgMinimaSystemBrainsConsensusUser_
 
 @class OrgMinimaDatabaseMinimaDB;
+@class OrgMinimaDatabaseMmrMMRProof;
+@class OrgMinimaObjectsBaseMiniData;
 @class OrgMinimaSystemBrainsConsensusHandler;
 @class OrgMinimaUtilsMessagesMessage;
 
@@ -30,6 +32,12 @@
 
 - (instancetype)initWithOrgMinimaDatabaseMinimaDB:(OrgMinimaDatabaseMinimaDB *)zDB
         withOrgMinimaSystemBrainsConsensusHandler:(OrgMinimaSystemBrainsConsensusHandler *)zHandler;
+
++ (OrgMinimaObjectsBaseMiniData *)exportCoinWithOrgMinimaDatabaseMinimaDB:(OrgMinimaDatabaseMinimaDB *)zDB
+                                         withOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zCoinID;
+
++ (jboolean)importCoinWithOrgMinimaDatabaseMinimaDB:(OrgMinimaDatabaseMinimaDB *)zDB
+                   withOrgMinimaDatabaseMmrMMRProof:(OrgMinimaDatabaseMmrMMRProof *)zProof;
 
 - (void)processMessageWithOrgMinimaUtilsMessagesMessage:(OrgMinimaUtilsMessagesMessage *)zMessage;
 
@@ -69,6 +77,16 @@ inline NSString *OrgMinimaSystemBrainsConsensusUser_get_CONSENSUS_RUNSCRIPT(void
 FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusUser_CONSENSUS_RUNSCRIPT;
 J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBrainsConsensusUser, CONSENSUS_RUNSCRIPT, NSString *)
 
+inline NSString *OrgMinimaSystemBrainsConsensusUser_get_CONSENSUS_CLEANSCRIPT(void);
+/*! INTERNAL ONLY - Use accessor function from above. */
+FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusUser_CONSENSUS_CLEANSCRIPT;
+J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBrainsConsensusUser, CONSENSUS_CLEANSCRIPT, NSString *)
+
+inline NSString *OrgMinimaSystemBrainsConsensusUser_get_CONSENSUS_KEEPCOIN(void);
+/*! INTERNAL ONLY - Use accessor function from above. */
+FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusUser_CONSENSUS_KEEPCOIN;
+J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBrainsConsensusUser, CONSENSUS_KEEPCOIN, NSString *)
+
 inline NSString *OrgMinimaSystemBrainsConsensusUser_get_CONSENSUS_EXPORTKEY(void);
 /*! INTERNAL ONLY - Use accessor function from above. */
 FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusUser_CONSENSUS_EXPORTKEY;
@@ -89,11 +107,20 @@ inline NSString *OrgMinimaSystemBrainsConsensusUser_get_CONSENSUS_IMPORTCOIN(voi
 FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusUser_CONSENSUS_IMPORTCOIN;
 J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBrainsConsensusUser, CONSENSUS_IMPORTCOIN, NSString *)
 
+inline NSString *OrgMinimaSystemBrainsConsensusUser_get_CONSENSUS_MMRTREE(void);
+/*! INTERNAL ONLY - Use accessor function from above. */
+FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusUser_CONSENSUS_MMRTREE;
+J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBrainsConsensusUser, CONSENSUS_MMRTREE, NSString *)
+
 FOUNDATION_EXPORT void OrgMinimaSystemBrainsConsensusUser_initWithOrgMinimaDatabaseMinimaDB_withOrgMinimaSystemBrainsConsensusHandler_(OrgMinimaSystemBrainsConsensusUser *self, OrgMinimaDatabaseMinimaDB *zDB, OrgMinimaSystemBrainsConsensusHandler *zHandler);
 
 FOUNDATION_EXPORT OrgMinimaSystemBrainsConsensusUser *new_OrgMinimaSystemBrainsConsensusUser_initWithOrgMinimaDatabaseMinimaDB_withOrgMinimaSystemBrainsConsensusHandler_(OrgMinimaDatabaseMinimaDB *zDB, OrgMinimaSystemBrainsConsensusHandler *zHandler) NS_RETURNS_RETAINED;
 
 FOUNDATION_EXPORT OrgMinimaSystemBrainsConsensusUser *create_OrgMinimaSystemBrainsConsensusUser_initWithOrgMinimaDatabaseMinimaDB_withOrgMinimaSystemBrainsConsensusHandler_(OrgMinimaDatabaseMinimaDB *zDB, OrgMinimaSystemBrainsConsensusHandler *zHandler);
+
+FOUNDATION_EXPORT jboolean OrgMinimaSystemBrainsConsensusUser_importCoinWithOrgMinimaDatabaseMinimaDB_withOrgMinimaDatabaseMmrMMRProof_(OrgMinimaDatabaseMinimaDB *zDB, OrgMinimaDatabaseMmrMMRProof *zProof);
+
+FOUNDATION_EXPORT OrgMinimaObjectsBaseMiniData *OrgMinimaSystemBrainsConsensusUser_exportCoinWithOrgMinimaDatabaseMinimaDB_withOrgMinimaObjectsBaseMiniData_(OrgMinimaDatabaseMinimaDB *zDB, OrgMinimaObjectsBaseMiniData *zCoinID);
 
 J2OBJC_TYPE_LITERAL_HEADER(OrgMinimaSystemBrainsConsensusUser)
 

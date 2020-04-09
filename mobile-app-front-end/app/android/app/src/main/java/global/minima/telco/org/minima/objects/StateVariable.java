@@ -4,12 +4,12 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-import org.minima.miniscript.Contract;
-import org.minima.miniscript.values.Value;
+import org.minima.kissvm.Contract;
+import org.minima.kissvm.values.Value;
 import org.minima.objects.base.MiniByte;
 import org.minima.objects.base.MiniData;
 import org.minima.objects.base.MiniNumber;
-import org.minima.objects.base.MiniString;
+import org.minima.objects.base.MiniScript;
 import org.minima.utils.Streamable;
 import org.minima.utils.json.JSONObject;
 
@@ -25,7 +25,7 @@ public class StateVariable implements Streamable {
 	 * The data can represent any of the value types used in script..
 	 * HEX, Number or Script
 	 */
-	MiniString mData; 
+	MiniScript mData; 
 	
 	/**
 	 * Port and Data..
@@ -35,16 +35,16 @@ public class StateVariable implements Streamable {
 	 */
 	public StateVariable(int zPort, String zData) {
 		mPort	  = new MiniByte(zPort);
-		mData     = new MiniString(Contract.cleanScript(zData));
+		mData     = new MiniScript(zData);
 	}
 	
 	private StateVariable() {}
 	
-	public void resetData(MiniString zData) {
+	public void resetData(MiniScript zData) {
 		mData = zData;
 	}
 	
-	public MiniString getData() {
+	public MiniScript getData() {
 		return mData;
 	}
 	
@@ -73,7 +73,7 @@ public class StateVariable implements Streamable {
 	@Override
 	public void readDataStream(DataInputStream zIn) throws IOException {
 		mPort = MiniByte.ReadFromStream(zIn);
-		mData = MiniString.ReadFromStream(zIn);
+		mData = MiniScript.ReadFromStream(zIn);
 	}
 	
 	public static StateVariable ReadFromStream(DataInputStream zIn){
@@ -82,7 +82,6 @@ public class StateVariable implements Streamable {
 		try {
 			statevar.readDataStream(zIn);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}

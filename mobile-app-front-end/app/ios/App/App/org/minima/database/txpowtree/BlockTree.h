@@ -16,9 +16,10 @@
 #if !defined (OrgMinimaDatabaseTxpowtreeBlockTree_) && (INCLUDE_ALL_OrgMinimaDatabaseTxpowtreeBlockTree || defined(INCLUDE_OrgMinimaDatabaseTxpowtreeBlockTree))
 #define OrgMinimaDatabaseTxpowtreeBlockTree_
 
+@class JavaMathBigInteger;
 @class JavaUtilArrayList;
 @class OrgMinimaDatabaseTxpowtreeBlockTreeNode;
-@class OrgMinimaObjectsBaseMiniHash;
+@class OrgMinimaObjectsBaseMiniData;
 @class OrgMinimaObjectsBaseMiniNumber;
 
 @interface OrgMinimaDatabaseTxpowtreeBlockTree : NSObject {
@@ -35,19 +36,19 @@
 
 - (jboolean)addNodeWithOrgMinimaDatabaseTxpowtreeBlockTreeNode:(OrgMinimaDatabaseTxpowtreeBlockTreeNode *)zNode;
 
-- (OrgMinimaDatabaseTxpowtreeBlockTreeNode *)findNodeWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zTxPOWID;
+- (OrgMinimaDatabaseTxpowtreeBlockTreeNode *)findNodeWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zTxPOWID;
 
 - (JavaUtilArrayList *)getAsList;
 
 - (JavaUtilArrayList *)getAsListWithBoolean:(jboolean)zReverse;
 
-- (OrgMinimaObjectsBaseMiniNumber *)getAvgChainDifficulty;
+- (JavaMathBigInteger *)getAvgChainDifficulty;
 
 - (OrgMinimaDatabaseTxpowtreeBlockTreeNode *)getCascadeNode;
 
 - (OrgMinimaDatabaseTxpowtreeBlockTreeNode *)getChainRoot;
 
-- (jdouble)getChainSpeed;
+- (OrgMinimaObjectsBaseMiniNumber *)getChainSpeed;
 
 - (OrgMinimaDatabaseTxpowtreeBlockTreeNode *)getChainTip;
 

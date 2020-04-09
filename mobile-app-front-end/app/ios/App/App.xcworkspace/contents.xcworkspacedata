@@ -1,6 +1,1768 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Workspace
    version = "1.0">
+   <Group
+      location = "group:/Users/elias/Projects/minimacore/mobile-app-front-end/app/ios/App/App/org"
+      name = "org">
+      <Group
+         location = "group:minima"
+         name = "minima">
+         <Group
+            location = "group:database"
+            name = "database">
+            <FileRef
+               location = "group:MinimaDB.h">
+            </FileRef>
+            <Group
+               location = "group:userdb"
+               name = "userdb">
+               <Group
+                  location = "group:java"
+                  name = "java">
+                  <FileRef
+                     location = "group:JavaUserDB.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:JavaUserDBRow.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:reltxpow.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:JavaUserDB.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:reltxpow.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:JavaUserDBRow.h">
+                  </FileRef>
+               </Group>
+               <FileRef
+                  location = "group:UserDB.h">
+               </FileRef>
+               <FileRef
+                  location = "group:UserDBRow.h">
+               </FileRef>
+               <FileRef
+                  location = "group:UserDBRow.m">
+               </FileRef>
+               <FileRef
+                  location = "group:UserDB.m">
+               </FileRef>
+               <Group
+                  location = "group:sql"
+                  name = "sql">
+                  <FileRef
+                     location = "group:SQLUserDB.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:SQLUserDB.h">
+                  </FileRef>
+               </Group>
+            </Group>
+            <Group
+               location = "group:txpowtree"
+               name = "txpowtree">
+               <FileRef
+                  location = "group:MultiLevelCascadeTree.h">
+               </FileRef>
+               <FileRef
+                  location = "group:BlockTree.h">
+               </FileRef>
+               <FileRef
+                  location = "group:SimpleBlockTreePrinter.m">
+               </FileRef>
+               <FileRef
+                  location = "group:BlockTreeNode.h">
+               </FileRef>
+               <FileRef
+                  location = "group:BlockTree.m">
+               </FileRef>
+               <FileRef
+                  location = "group:MultiLevelCascadeTree.m">
+               </FileRef>
+               <FileRef
+                  location = "group:BlockTreeNode.m">
+               </FileRef>
+               <FileRef
+                  location = "group:SimpleBlockTreePrinter.h">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:mmr"
+               name = "mmr">
+               <FileRef
+                  location = "group:MMREntry.m">
+               </FileRef>
+               <FileRef
+                  location = "group:MMRPrint.h">
+               </FileRef>
+               <FileRef
+                  location = "group:MMRSet.m">
+               </FileRef>
+               <FileRef
+                  location = "group:MMRData.m">
+               </FileRef>
+               <FileRef
+                  location = "group:MMRProof.h">
+               </FileRef>
+               <FileRef
+                  location = "group:MMREntry.h">
+               </FileRef>
+               <FileRef
+                  location = "group:MMRSet.h">
+               </FileRef>
+               <FileRef
+                  location = "group:MMRPrint.m">
+               </FileRef>
+               <FileRef
+                  location = "group:MMRProof.m">
+               </FileRef>
+               <FileRef
+                  location = "group:MMRData.h">
+               </FileRef>
+            </Group>
+            <FileRef
+               location = "group:MinimaDB.m">
+            </FileRef>
+            <Group
+               location = "group:coindb"
+               name = "coindb">
+               <FileRef
+                  location = "group:CoinDBPrinter.h">
+               </FileRef>
+               <FileRef
+                  location = "group:CoinDBRow.m">
+               </FileRef>
+               <FileRef
+                  location = "group:CoinDB.m">
+               </FileRef>
+               <Group
+                  location = "group:java"
+                  name = "java">
+                  <FileRef
+                     location = "group:JavaCoinDBRow.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:JavaCoinDB.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:JavaCoinDBRow.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:JavaCoinDB.m">
+                  </FileRef>
+               </Group>
+               <FileRef
+                  location = "group:CoinDBPrinter.m">
+               </FileRef>
+               <FileRef
+                  location = "group:CoinDBRow.h">
+               </FileRef>
+               <FileRef
+                  location = "group:CoinDB.h">
+               </FileRef>
+               <Group
+                  location = "group:sql"
+                  name = "sql">
+                  <FileRef
+                     location = "group:SQLCoinDB.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:SQLCoinDB.m">
+                  </FileRef>
+               </Group>
+            </Group>
+            <Group
+               location = "group:txpowdb"
+               name = "txpowdb">
+               <FileRef
+                  location = "group:TxPowDB.h">
+               </FileRef>
+               <FileRef
+                  location = "group:TxPOWDBRow.m">
+               </FileRef>
+               <Group
+                  location = "group:java"
+                  name = "java">
+                  <FileRef
+                     location = "group:JavaDBRow.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:JavaDB.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:JavaDBRow.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:JavaDB.m">
+                  </FileRef>
+               </Group>
+               <FileRef
+                  location = "group:TxPowDBPrinter.m">
+               </FileRef>
+               <FileRef
+                  location = "group:TxPowDB.m">
+               </FileRef>
+               <FileRef
+                  location = "group:TxPOWDBRow.h">
+               </FileRef>
+               <FileRef
+                  location = "group:TxPowDBPrinter.h">
+               </FileRef>
+               <Group
+                  location = "group:sql"
+                  name = "sql">
+                  <FileRef
+                     location = "group:SQLTxPoWDB.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:SQLTxPoWDB.m">
+                  </FileRef>
+               </Group>
+            </Group>
+         </Group>
+         <Group
+            location = "group:kissvm"
+            name = "kissvm">
+            <FileRef
+               location = "group:Contract.m">
+            </FileRef>
+            <Group
+               location = "group:values"
+               name = "values">
+               <FileRef
+                  location = "group:ScriptValue.h">
+               </FileRef>
+               <FileRef
+                  location = "group:HEXValue.h">
+               </FileRef>
+               <FileRef
+                  location = "group:NumberValue.m">
+               </FileRef>
+               <FileRef
+                  location = "group:BooleanValue.h">
+               </FileRef>
+               <FileRef
+                  location = "group:Value.h">
+               </FileRef>
+               <FileRef
+                  location = "group:ScriptValue.m">
+               </FileRef>
+               <FileRef
+                  location = "group:HEXValue.m">
+               </FileRef>
+               <FileRef
+                  location = "group:BooleanValue.m">
+               </FileRef>
+               <FileRef
+                  location = "group:NumberValue.h">
+               </FileRef>
+               <FileRef
+                  location = "group:Value.m">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:exceptions"
+               name = "exceptions">
+               <FileRef
+                  location = "group:MinimaException.m">
+               </FileRef>
+               <FileRef
+                  location = "group:VariableException.h">
+               </FileRef>
+               <FileRef
+                  location = "group:ExecutionException.m">
+               </FileRef>
+               <FileRef
+                  location = "group:MinimaParseException.h">
+               </FileRef>
+               <FileRef
+                  location = "group:MinimaException.h">
+               </FileRef>
+               <FileRef
+                  location = "group:VariableException.m">
+               </FileRef>
+               <FileRef
+                  location = "group:MinimaParseException.m">
+               </FileRef>
+               <FileRef
+                  location = "group:ExecutionException.h">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:statements"
+               name = "statements">
+               <FileRef
+                  location = "group:StatementBlock.m">
+               </FileRef>
+               <FileRef
+                  location = "group:StatementParser.m">
+               </FileRef>
+               <FileRef
+                  location = "group:Statement.h">
+               </FileRef>
+               <FileRef
+                  location = "group:StatementBlock.h">
+               </FileRef>
+               <Group
+                  location = "group:commands"
+                  name = "commands">
+                  <FileRef
+                     location = "group:RETURNstatement.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:IFstatement.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:LETstatement.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:MASTstatement.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:EXECstatement.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:ASSERTstatement.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:WHILEstatement.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:LETstatement.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:IFstatement.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:RETURNstatement.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:EXECstatement.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:MASTstatement.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:WHILEstatement.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:ASSERTstatement.m">
+                  </FileRef>
+               </Group>
+               <FileRef
+                  location = "group:StatementParser.h">
+               </FileRef>
+               <FileRef
+                  location = "group:Statement.m">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:expressions"
+               name = "expressions">
+               <FileRef
+                  location = "group:VariableExpression.h">
+               </FileRef>
+               <FileRef
+                  location = "group:Expression.m">
+               </FileRef>
+               <FileRef
+                  location = "group:ExpressionParser.h">
+               </FileRef>
+               <FileRef
+                  location = "group:BooleanExpression.h">
+               </FileRef>
+               <FileRef
+                  location = "group:ConstantExpression.h">
+               </FileRef>
+               <FileRef
+                  location = "group:OperatorExpression.h">
+               </FileRef>
+               <FileRef
+                  location = "group:FunctionExpression.h">
+               </FileRef>
+               <FileRef
+                  location = "group:GlobalExpression.h">
+               </FileRef>
+               <FileRef
+                  location = "group:ExpressionParser.m">
+               </FileRef>
+               <FileRef
+                  location = "group:Expression.h">
+               </FileRef>
+               <FileRef
+                  location = "group:VariableExpression.m">
+               </FileRef>
+               <FileRef
+                  location = "group:BooleanExpression.m">
+               </FileRef>
+               <FileRef
+                  location = "group:OperatorExpression.m">
+               </FileRef>
+               <FileRef
+                  location = "group:ConstantExpression.m">
+               </FileRef>
+               <FileRef
+                  location = "group:GlobalExpression.m">
+               </FileRef>
+               <FileRef
+                  location = "group:FunctionExpression.m">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:functions"
+               name = "functions">
+               <Group
+                  location = "group:txn"
+                  name = "txn">
+                  <Group
+                     location = "group:input"
+                     name = "input">
+                     <FileRef
+                        location = "group:GETINTOK.h">
+                     </FileRef>
+                     <FileRef
+                        location = "group:GETINAMT.m">
+                     </FileRef>
+                     <FileRef
+                        location = "group:VERIFYIN.m">
+                     </FileRef>
+                     <FileRef
+                        location = "group:GETINID.m">
+                     </FileRef>
+                     <FileRef
+                        location = "group:GETINADDR.h">
+                     </FileRef>
+                     <FileRef
+                        location = "group:GETINTOK.m">
+                     </FileRef>
+                     <FileRef
+                        location = "group:GETINAMT.h">
+                     </FileRef>
+                     <FileRef
+                        location = "group:GETINID.h">
+                     </FileRef>
+                     <FileRef
+                        location = "group:VERIFYIN.h">
+                     </FileRef>
+                     <FileRef
+                        location = "group:GETINADDR.m">
+                     </FileRef>
+                  </Group>
+                  <Group
+                     location = "group:output"
+                     name = "output">
+                     <FileRef
+                        location = "group:GETOUTADDR.h">
+                     </FileRef>
+                     <FileRef
+                        location = "group:GETOUTTOK.m">
+                     </FileRef>
+                     <FileRef
+                        location = "group:GETOUTAMT.h">
+                     </FileRef>
+                     <FileRef
+                        location = "group:VERIFYOUT.h">
+                     </FileRef>
+                     <FileRef
+                        location = "group:GETOUTTOK.h">
+                     </FileRef>
+                     <FileRef
+                        location = "group:GETOUTADDR.m">
+                     </FileRef>
+                     <FileRef
+                        location = "group:GETOUTAMT.m">
+                     </FileRef>
+                     <FileRef
+                        location = "group:VERIFYOUT.m">
+                     </FileRef>
+                  </Group>
+               </Group>
+               <FileRef
+                  location = "group:MinimaFunction.m">
+               </FileRef>
+               <Group
+                  location = "group:cast"
+                  name = "cast">
+                  <FileRef
+                     location = "group:HEX.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:ASCII.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:SCRIPT.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:BOOL.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:NUMBER.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:ASCII.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:HEX.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:SCRIPT.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:NUMBER.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:BOOL.m">
+                  </FileRef>
+               </Group>
+               <Group
+                  location = "group:state"
+                  name = "state">
+                  <FileRef
+                     location = "group:PREVSTATE.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:STATE.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:DYNSTATE.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:SAMESTATE.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:PREVSTATE.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:DYNSTATE.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:STATE.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:SAMESTATE.m">
+                  </FileRef>
+               </Group>
+               <FileRef
+                  location = "group:MinimaFunction.h">
+               </FileRef>
+               <Group
+                  location = "group:maths"
+                  name = "maths">
+                  <FileRef
+                     location = "group:BITGET.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:DEC.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:BITSET.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:MIN.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:INC.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:MAX.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:SIGDIG.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:CEIL.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:ABS.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:FLOOR.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:POW.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:INC.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:MIN.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:BITSET.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:DEC.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:BITGET.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:MAX.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:SIGDIG.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:POW.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:FLOOR.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:ABS.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:CEIL.m">
+                  </FileRef>
+               </Group>
+               <Group
+                  location = "group:sha"
+                  name = "sha">
+                  <FileRef
+                     location = "group:SHA2.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:SHA3.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:CHAINSHA.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:SHA2.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:CHAINSHA.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:SHA3.m">
+                  </FileRef>
+               </Group>
+               <Group
+                  location = "group:base"
+                  name = "base">
+                  <FileRef
+                     location = "group:HEXCAT.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:LEN.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:STRCAT.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:SUBSET.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:RPLVAR.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:GET.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:REV.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:CONCAT.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:LEN.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:HEXCAT.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:STRCAT.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:CONCAT.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:REV.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:GET.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:RPLVAR.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:SUBSET.m">
+                  </FileRef>
+               </Group>
+               <Group
+                  location = "group:sigs"
+                  name = "sigs">
+                  <FileRef
+                     location = "group:SIGNEDBY.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:MULTISIG.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:CHECKSIG.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:SIGNEDBY.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:MULTISIG.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:CHECKSIG.h">
+                  </FileRef>
+               </Group>
+            </Group>
+            <FileRef
+               location = "group:Contract.h">
+            </FileRef>
+            <Group
+               location = "group:tokens"
+               name = "tokens">
+               <FileRef
+                  location = "group:QuotedString.h">
+               </FileRef>
+               <FileRef
+                  location = "group:Token.m">
+               </FileRef>
+               <FileRef
+                  location = "group:LexicalTokenizer.m">
+               </FileRef>
+               <FileRef
+                  location = "group:QuotedString.m">
+               </FileRef>
+               <FileRef
+                  location = "group:Token.h">
+               </FileRef>
+               <FileRef
+                  location = "group:LexicalTokenizer.h">
+               </FileRef>
+            </Group>
+         </Group>
+         <FileRef
+            location = "group:GlobalParams.h">
+         </FileRef>
+         <FileRef
+            location = "group:NativeListener.m">
+         </FileRef>
+         <Group
+            location = "group:objects"
+            name = "objects">
+            <FileRef
+               location = "group:PubPrivKey.m">
+            </FileRef>
+            <FileRef
+               location = "group:StateVariable.h">
+            </FileRef>
+            <FileRef
+               location = "group:Coin.h">
+            </FileRef>
+            <FileRef
+               location = "group:Witness.m">
+            </FileRef>
+            <FileRef
+               location = "group:Address.h">
+            </FileRef>
+            <FileRef
+               location = "group:TxPOW.h">
+            </FileRef>
+            <Group
+               location = "group:proofs"
+               name = "proofs">
+               <FileRef
+                  location = "group:Proof.m">
+               </FileRef>
+               <FileRef
+                  location = "group:TokenProof.m">
+               </FileRef>
+               <FileRef
+                  location = "group:ScriptProof.m">
+               </FileRef>
+               <FileRef
+                  location = "group:SignatureProof.m">
+               </FileRef>
+               <FileRef
+                  location = "group:Proof.h">
+               </FileRef>
+               <FileRef
+                  location = "group:TokenProof.h">
+               </FileRef>
+               <FileRef
+                  location = "group:SignatureProof.h">
+               </FileRef>
+               <FileRef
+                  location = "group:ScriptProof.h">
+               </FileRef>
+            </Group>
+            <FileRef
+               location = "group:Transaction.m">
+            </FileRef>
+            <FileRef
+               location = "group:PubPrivKey.h">
+            </FileRef>
+            <FileRef
+               location = "group:StateVariable.m">
+            </FileRef>
+            <FileRef
+               location = "group:Witness.h">
+            </FileRef>
+            <FileRef
+               location = "group:Coin.m">
+            </FileRef>
+            <FileRef
+               location = "group:TxPOW.m">
+            </FileRef>
+            <FileRef
+               location = "group:Address.m">
+            </FileRef>
+            <FileRef
+               location = "group:Transaction.h">
+            </FileRef>
+            <Group
+               location = "group:base"
+               name = "base">
+               <FileRef
+                  location = "group:MiniNumber.m">
+               </FileRef>
+               <FileRef
+                  location = "group:MiniInteger.m">
+               </FileRef>
+               <FileRef
+                  location = "group:MMRSumNumber.h">
+               </FileRef>
+               <FileRef
+                  location = "group:MiniByte.m">
+               </FileRef>
+               <FileRef
+                  location = "group:MiniData.h">
+               </FileRef>
+               <FileRef
+                  location = "group:MiniScript.h">
+               </FileRef>
+               <FileRef
+                  location = "group:MiniInteger.h">
+               </FileRef>
+               <FileRef
+                  location = "group:MiniNumber.h">
+               </FileRef>
+               <FileRef
+                  location = "group:MiniByte.h">
+               </FileRef>
+               <FileRef
+                  location = "group:MMRSumNumber.m">
+               </FileRef>
+               <FileRef
+                  location = "group:MiniScript.m">
+               </FileRef>
+               <FileRef
+                  location = "group:MiniData.m">
+               </FileRef>
+            </Group>
+         </Group>
+         <Group
+            location = "group:utils"
+            name = "utils">
+            <FileRef
+               location = "group:Maths.m">
+            </FileRef>
+            <FileRef
+               location = "group:MiniFormat.m">
+            </FileRef>
+            <FileRef
+               location = "group:SeedPhrase.m">
+            </FileRef>
+            <Group
+               location = "group:messages"
+               name = "messages">
+               <FileRef
+                  location = "group:MessageProcessor.h">
+               </FileRef>
+               <FileRef
+                  location = "group:TimerMessage.h">
+               </FileRef>
+               <FileRef
+                  location = "group:Message.h">
+               </FileRef>
+               <FileRef
+                  location = "group:MessageStack.m">
+               </FileRef>
+               <FileRef
+                  location = "group:MessageProcessor.m">
+               </FileRef>
+               <FileRef
+                  location = "group:TimerMessage.m">
+               </FileRef>
+               <FileRef
+                  location = "group:MessageStack.h">
+               </FileRef>
+               <FileRef
+                  location = "group:Message.m">
+               </FileRef>
+            </Group>
+            <FileRef
+               location = "group:MinimaLogger.m">
+            </FileRef>
+            <FileRef
+               location = "group:Streamable.m">
+            </FileRef>
+            <FileRef
+               location = "group:ResponseStream.m">
+            </FileRef>
+            <Group
+               location = "group:digest"
+               name = "digest">
+               <FileRef
+                  location = "group:tester.h">
+               </FileRef>
+               <FileRef
+                  location = "group:ExtendedDigest.m">
+               </FileRef>
+               <FileRef
+                  location = "group:Arrays.m">
+               </FileRef>
+               <FileRef
+                  location = "group:WinternitzOTSVerify.m">
+               </FileRef>
+               <FileRef
+                  location = "group:Pack.h">
+               </FileRef>
+               <FileRef
+                  location = "group:WinternitzOTSignature.h">
+               </FileRef>
+               <FileRef
+                  location = "group:Memoable.m">
+               </FileRef>
+               <FileRef
+                  location = "group:EncodableDigest.m">
+               </FileRef>
+               <FileRef
+                  location = "group:Digest.h">
+               </FileRef>
+               <FileRef
+                  location = "group:GeneralDigest.h">
+               </FileRef>
+               <FileRef
+                  location = "group:GMSSRandom.h">
+               </FileRef>
+               <FileRef
+                  location = "group:KeccakDigest.h">
+               </FileRef>
+               <FileRef
+                  location = "group:SHA256Digest.h">
+               </FileRef>
+               <FileRef
+                  location = "group:Objects.h">
+               </FileRef>
+               <FileRef
+                  location = "group:Pack.m">
+               </FileRef>
+               <FileRef
+                  location = "group:WinternitzOTSVerify.h">
+               </FileRef>
+               <FileRef
+                  location = "group:Arrays.h">
+               </FileRef>
+               <FileRef
+                  location = "group:ExtendedDigest.h">
+               </FileRef>
+               <FileRef
+                  location = "group:tester.m">
+               </FileRef>
+               <FileRef
+                  location = "group:EncodableDigest.h">
+               </FileRef>
+               <FileRef
+                  location = "group:Memoable.h">
+               </FileRef>
+               <FileRef
+                  location = "group:WinternitzOTSignature.m">
+               </FileRef>
+               <FileRef
+                  location = "group:GMSSRandom.m">
+               </FileRef>
+               <FileRef
+                  location = "group:GeneralDigest.m">
+               </FileRef>
+               <FileRef
+                  location = "group:Digest.m">
+               </FileRef>
+               <FileRef
+                  location = "group:SHA256Digest.m">
+               </FileRef>
+               <FileRef
+                  location = "group:Objects.m">
+               </FileRef>
+               <FileRef
+                  location = "group:KeccakDigest.m">
+               </FileRef>
+            </Group>
+            <FileRef
+               location = "group:PostReqEx.h">
+            </FileRef>
+            <FileRef
+               location = "group:SuperBlockLevels.h">
+            </FileRef>
+            <FileRef
+               location = "group:BaseConverter.m">
+            </FileRef>
+            <FileRef
+               location = "group:Crypto.h">
+            </FileRef>
+            <FileRef
+               location = "group:SeedPhrase.h">
+            </FileRef>
+            <FileRef
+               location = "group:MiniFormat.h">
+            </FileRef>
+            <FileRef
+               location = "group:Maths.h">
+            </FileRef>
+            <Group
+               location = "group:json"
+               name = "json">
+               <FileRef
+                  location = "group:JSONObject.m">
+               </FileRef>
+               <FileRef
+                  location = "group:JSONArray.m">
+               </FileRef>
+               <FileRef
+                  location = "group:ItemList.m">
+               </FileRef>
+               <FileRef
+                  location = "group:JSONAware.h">
+               </FileRef>
+               <FileRef
+                  location = "group:JSONStreamAware.m">
+               </FileRef>
+               <Group
+                  location = "group:parser"
+                  name = "parser">
+                  <FileRef
+                     location = "group:ContainerFactory.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:Yylex.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:ContentHandler.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:Yytoken.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:ParseException.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:JSONParser.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:Yylex.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:ContainerFactory.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:Yytoken.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:ContentHandler.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:ParseException.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:JSONParser.m">
+                  </FileRef>
+               </Group>
+               <FileRef
+                  location = "group:JSONValue.h">
+               </FileRef>
+               <FileRef
+                  location = "group:JSONObject.h">
+               </FileRef>
+               <FileRef
+                  location = "group:ItemList.h">
+               </FileRef>
+               <FileRef
+                  location = "group:JSONArray.h">
+               </FileRef>
+               <FileRef
+                  location = "group:JSONValue.m">
+               </FileRef>
+               <FileRef
+                  location = "group:JSONAware.m">
+               </FileRef>
+               <FileRef
+                  location = "group:JSONStreamAware.h">
+               </FileRef>
+            </Group>
+            <FileRef
+               location = "group:Streamable.h">
+            </FileRef>
+            <FileRef
+               location = "group:ResponseStream.h">
+            </FileRef>
+            <Group
+               location = "group:bretty"
+               name = "bretty">
+               <FileRef
+                  location = "group:TreeNode.m">
+               </FileRef>
+               <FileRef
+                  location = "group:PrintableTreeNode.h">
+               </FileRef>
+               <FileRef
+                  location = "group:maintree.m">
+               </FileRef>
+               <FileRef
+                  location = "group:TreePrinter.h">
+               </FileRef>
+               <FileRef
+                  location = "group:StandardTreeNodeConverters.h">
+               </FileRef>
+               <FileRef
+                  location = "group:TreeNodeConverter.m">
+               </FileRef>
+               <FileRef
+                  location = "group:TreeNode.h">
+               </FileRef>
+               <FileRef
+                  location = "group:TreePrinter.m">
+               </FileRef>
+               <FileRef
+                  location = "group:maintree.h">
+               </FileRef>
+               <FileRef
+                  location = "group:PrintableTreeNode.m">
+               </FileRef>
+               <FileRef
+                  location = "group:TreeNodeConverter.h">
+               </FileRef>
+               <FileRef
+                  location = "group:StandardTreeNodeConverters.m">
+               </FileRef>
+            </Group>
+            <FileRef
+               location = "group:MinimaLogger.h">
+            </FileRef>
+            <FileRef
+               location = "group:SuperBlockLevels.m">
+            </FileRef>
+            <FileRef
+               location = "group:PostReqEx.m">
+            </FileRef>
+            <FileRef
+               location = "group:Crypto.m">
+            </FileRef>
+            <FileRef
+               location = "group:BaseConverter.h">
+            </FileRef>
+         </Group>
+         <FileRef
+            location = "group:Start.h">
+         </FileRef>
+         <Group
+            location = "group:system"
+            name = "system">
+            <FileRef
+               location = "group:Main.h">
+            </FileRef>
+            <Group
+               location = "group:brains"
+               name = "brains">
+               <FileRef
+                  location = "group:ConsensusPrint.h">
+               </FileRef>
+               <FileRef
+                  location = "group:ConsensusUser.h">
+               </FileRef>
+               <FileRef
+                  location = "group:TxPOWChecker.h">
+               </FileRef>
+               <FileRef
+                  location = "group:ConsensusBackup.h">
+               </FileRef>
+               <FileRef
+                  location = "group:ConsensusNet.h">
+               </FileRef>
+               <FileRef
+                  location = "group:ConsensusHandler.h">
+               </FileRef>
+               <FileRef
+                  location = "group:ConsensusTxn.h">
+               </FileRef>
+               <FileRef
+                  location = "group:ConsensusUser.m">
+               </FileRef>
+               <FileRef
+                  location = "group:TxPOWChecker.m">
+               </FileRef>
+               <FileRef
+                  location = "group:ConsensusPrint.m">
+               </FileRef>
+               <FileRef
+                  location = "group:ConsensusHandler.m">
+               </FileRef>
+               <FileRef
+                  location = "group:ConsensusNet.m">
+               </FileRef>
+               <FileRef
+                  location = "group:ConsensusBackup.m">
+               </FileRef>
+               <FileRef
+                  location = "group:ConsensusTxn.m">
+               </FileRef>
+            </Group>
+            <FileRef
+               location = "group:SystemHandler.m">
+            </FileRef>
+            <Group
+               location = "group:bootstrap"
+               name = "bootstrap">
+               <FileRef
+                  location = "group:GenesisTxPOW.m">
+               </FileRef>
+               <FileRef
+                  location = "group:GenesisTransaction.m">
+               </FileRef>
+               <FileRef
+                  location = "group:GenesisTxPOW.h">
+               </FileRef>
+               <FileRef
+                  location = "group:GenesisTransaction.h">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:input"
+               name = "input">
+               <FileRef
+                  location = "group:InputHandler.m">
+               </FileRef>
+               <FileRef
+                  location = "group:InputMessage.h">
+               </FileRef>
+               <FileRef
+                  location = "group:CommandFunction.h">
+               </FileRef>
+               <FileRef
+                  location = "group:InputHandler.h">
+               </FileRef>
+               <FileRef
+                  location = "group:InputMessage.m">
+               </FileRef>
+               <Group
+                  location = "group:functions"
+                  name = "functions">
+                  <FileRef
+                     location = "group:help.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:keys.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:runscript.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:scripts.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:history.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:network.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:printtree.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:trace.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:quit.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:balance.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:intro.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:send.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:status.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:newaddress.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:newscript.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:createtoken.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:weblink.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:coins.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:automine.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:txpowinfo.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:reconnect.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:keepcoin.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:chart.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:gimme50.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:disconnect.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:chainsha.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:cleanscript.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:printchain.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:connect.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:test.h">
+                  </FileRef>
+                  <Group
+                     location = "group:transfer"
+                     name = "transfer">
+                     <FileRef
+                        location = "group:exportkey.m">
+                     </FileRef>
+                     <FileRef
+                        location = "group:importcoin.m">
+                     </FileRef>
+                     <FileRef
+                        location = "group:exportcoin.h">
+                     </FileRef>
+                     <FileRef
+                        location = "group:importkey.m">
+                     </FileRef>
+                     <FileRef
+                        location = "group:importcoin.h">
+                     </FileRef>
+                     <FileRef
+                        location = "group:exportkey.h">
+                     </FileRef>
+                     <FileRef
+                        location = "group:exportcoin.m">
+                     </FileRef>
+                     <FileRef
+                        location = "group:importkey.h">
+                     </FileRef>
+                  </Group>
+                  <FileRef
+                     location = "group:tokens.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:backup.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:tutorial.m">
+                  </FileRef>
+                  <Group
+                     location = "group:txns"
+                     name = "txns">
+                     <FileRef
+                        location = "group:txncreate.m">
+                     </FileRef>
+                     <FileRef
+                        location = "group:txnoutput.h">
+                     </FileRef>
+                     <FileRef
+                        location = "group:txnstate.h">
+                     </FileRef>
+                     <FileRef
+                        location = "group:txnimport.m">
+                     </FileRef>
+                     <FileRef
+                        location = "group:txndelete.h">
+                     </FileRef>
+                     <FileRef
+                        location = "group:txnlist.h">
+                     </FileRef>
+                     <FileRef
+                        location = "group:txnpost.m">
+                     </FileRef>
+                     <FileRef
+                        location = "group:txnvalidate.m">
+                     </FileRef>
+                     <FileRef
+                        location = "group:txninput.m">
+                     </FileRef>
+                     <FileRef
+                        location = "group:txnsign.h">
+                     </FileRef>
+                     <FileRef
+                        location = "group:txnexport.h">
+                     </FileRef>
+                     <FileRef
+                        location = "group:txnscript.h">
+                     </FileRef>
+                     <FileRef
+                        location = "group:txnstate.m">
+                     </FileRef>
+                     <FileRef
+                        location = "group:txnoutput.m">
+                     </FileRef>
+                     <FileRef
+                        location = "group:txncreate.h">
+                     </FileRef>
+                     <FileRef
+                        location = "group:txnpost.h">
+                     </FileRef>
+                     <FileRef
+                        location = "group:txnlist.m">
+                     </FileRef>
+                     <FileRef
+                        location = "group:txndelete.m">
+                     </FileRef>
+                     <FileRef
+                        location = "group:txnimport.h">
+                     </FileRef>
+                     <FileRef
+                        location = "group:txnexport.m">
+                     </FileRef>
+                     <FileRef
+                        location = "group:txnscript.m">
+                     </FileRef>
+                     <FileRef
+                        location = "group:txnsign.m">
+                     </FileRef>
+                     <FileRef
+                        location = "group:txninput.h">
+                     </FileRef>
+                     <FileRef
+                        location = "group:txnvalidate.h">
+                     </FileRef>
+                  </Group>
+                  <FileRef
+                     location = "group:search.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:balance.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:quit.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:trace.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:printtree.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:history.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:network.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:scripts.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:keys.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:runscript.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:help.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:txpowinfo.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:weblink.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:coins.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:automine.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:createtoken.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:newscript.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:newaddress.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:status.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:send.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:intro.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:test.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:connect.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:printchain.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:cleanscript.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:disconnect.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:gimme50.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:chainsha.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:chart.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:keepcoin.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:reconnect.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:search.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:tutorial.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:backup.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:tokens.m">
+                  </FileRef>
+               </Group>
+               <FileRef
+                  location = "group:CommandFunction.m">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:network"
+               name = "network">
+               <FileRef
+                  location = "group:MultiServer.h">
+               </FileRef>
+               <FileRef
+                  location = "group:WebProxyReader.m">
+               </FileRef>
+               <FileRef
+                  location = "group:NetClientReader.h">
+               </FileRef>
+               <FileRef
+                  location = "group:WebProxyManager.h">
+               </FileRef>
+               <Group
+                  location = "group:webproxy"
+                  name = "webproxy">
+                  <FileRef
+                     location = "group:RPCWebSocketServer.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:NIOServerHost.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:ProxyRPCHandler.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:MainProxyHandler.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:ProxyRPCServer.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:NIOServerHost.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:RPCWebSocketServer.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:ProxyRPCHandler.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:MainProxyHandler.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:ProxyRPCServer.m">
+                  </FileRef>
+               </Group>
+               <FileRef
+                  location = "group:NetworkHandler.m">
+               </FileRef>
+               <FileRef
+                  location = "group:NetClient.m">
+               </FileRef>
+               <FileRef
+                  location = "group:MultiServer.m">
+               </FileRef>
+               <FileRef
+                  location = "group:NetClientReader.m">
+               </FileRef>
+               <Group
+                  location = "group:nio"
+                  name = "nio">
+                  <FileRef
+                     location = "group:NIONetworkHandler.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:NIOClient.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:NIOMultiServer.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:NIOClient.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:NIONetworkHandler.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:NIOMultiServer.h">
+                  </FileRef>
+               </Group>
+               <FileRef
+                  location = "group:WebProxyReader.h">
+               </FileRef>
+               <FileRef
+                  location = "group:NetClient.h">
+               </FileRef>
+               <FileRef
+                  location = "group:NetworkHandler.h">
+               </FileRef>
+               <FileRef
+                  location = "group:WebProxyManager.m">
+               </FileRef>
+               <Group
+                  location = "group:rpc"
+                  name = "rpc">
+                  <FileRef
+                     location = "group:RPCClient.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:RPCHandler.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:RPCServer.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:RPCClient.m">
+                  </FileRef>
+                  <FileRef
+                     location = "group:RPCServer.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:RPCHandler.h">
+                  </FileRef>
+               </Group>
+            </Group>
+            <Group
+               location = "group:tx"
+               name = "tx">
+               <FileRef
+                  location = "group:TXMiner.h">
+               </FileRef>
+               <FileRef
+                  location = "group:TXMiner.m">
+               </FileRef>
+            </Group>
+            <FileRef
+               location = "group:Main.m">
+            </FileRef>
+            <FileRef
+               location = "group:SystemHandler.h">
+            </FileRef>
+            <Group
+               location = "group:external"
+               name = "external">
+               <FileRef
+                  location = "group:ProcessManager.h">
+               </FileRef>
+               <FileRef
+                  location = "group:ProcessManager.m">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:backup"
+               name = "backup">
+               <FileRef
+                  location = "group:SyncPackage.m">
+               </FileRef>
+               <FileRef
+                  location = "group:BackupManager.m">
+               </FileRef>
+               <FileRef
+                  location = "group:SyncPacket.h">
+               </FileRef>
+               <FileRef
+                  location = "group:BackupManager.h">
+               </FileRef>
+               <FileRef
+                  location = "group:SyncPackage.h">
+               </FileRef>
+               <FileRef
+                  location = "group:SyncPacket.m">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:maxima"
+               name = "maxima">
+               <FileRef
+                  location = "group:ThePulse.h">
+               </FileRef>
+               <FileRef
+                  location = "group:OffChainManager.h">
+               </FileRef>
+               <FileRef
+                  location = "group:ThePulse.m">
+               </FileRef>
+               <FileRef
+                  location = "group:OffChainManager.m">
+               </FileRef>
+            </Group>
+         </Group>
+         <FileRef
+            location = "group:GlobalParams.m">
+         </FileRef>
+         <FileRef
+            location = "group:Start.m">
+         </FileRef>
+         <FileRef
+            location = "group:NativeListener.h">
+         </FileRef>
+      </Group>
+   </Group>
    <FileRef
       location = "group:App.xcodeproj">
    </FileRef>

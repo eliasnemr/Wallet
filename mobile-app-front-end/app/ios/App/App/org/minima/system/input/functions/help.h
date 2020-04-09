@@ -28,6 +28,8 @@
 
 - (instancetype)init;
 
+- (void)addBlankLine;
+
 - (void)addJSONDescWithOrgMinimaSystemInputCommandFunction:(OrgMinimaSystemInputCommandFunction *)zFunc;
 
 - (void)doFunctionWithNSStringArray:(IOSObjectArray *)zInput;

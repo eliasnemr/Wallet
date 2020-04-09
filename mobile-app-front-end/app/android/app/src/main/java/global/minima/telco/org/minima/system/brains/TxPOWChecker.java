@@ -1,6 +1,5 @@
 package org.minima.system.brains;
 
-import java.time.temporal.IsoFields;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
@@ -10,11 +9,11 @@ import org.minima.database.mmr.MMREntry;
 import org.minima.database.mmr.MMRProof;
 import org.minima.database.mmr.MMRSet;
 import org.minima.database.txpowtree.BlockTreeNode;
-import org.minima.miniscript.Contract;
-import org.minima.miniscript.values.BooleanValue;
-import org.minima.miniscript.values.HEXValue;
-import org.minima.miniscript.values.NumberValue;
-import org.minima.miniscript.values.ScriptValue;
+import org.minima.kissvm.Contract;
+import org.minima.kissvm.values.BooleanValue;
+import org.minima.kissvm.values.HEXValue;
+import org.minima.kissvm.values.NumberValue;
+import org.minima.kissvm.values.ScriptValue;
 import org.minima.objects.Address;
 import org.minima.objects.Coin;
 import org.minima.objects.PubPrivKey;
@@ -23,9 +22,7 @@ import org.minima.objects.TxPOW;
 import org.minima.objects.Witness;
 import org.minima.objects.base.MiniByte;
 import org.minima.objects.base.MiniData;
-import org.minima.objects.base.MiniHash;
 import org.minima.objects.base.MiniNumber;
-import org.minima.objects.base.MiniString;
 import org.minima.objects.proofs.ScriptProof;
 import org.minima.objects.proofs.SignatureProof;
 import org.minima.objects.proofs.TokenProof;
@@ -47,7 +44,7 @@ public class TxPOWChecker {
 		Transaction trans = zTxPOW.getTransaction();
 		
 		//Get the Hash
-		MiniHash transhash = Crypto.getInstance().hashObject(trans);
+		MiniData transhash = zTxPOW.getTransID();
 		
 		//Now cycle
 		Witness wit = zTxPOW.getWitness();
@@ -58,10 +55,10 @@ public class TxPOWChecker {
 		//Check each one and add.. this is only done once..
 		for(SignatureProof sig : sigs) {
 			//This is the actual public key that is being represented..
-//			MiniHash finalPubKey = sig.getFinalHash();
+//			MiniData leafkey = sig.getFinalHash();
 			
 			//Now check the leaf of the tree
-			MiniHash leafkey   = sig.getData();
+			MiniData leafkey   = sig.getData();
 			MiniData signature = sig.getSignature();
 		
 			//Check it..
@@ -70,19 +67,6 @@ public class TxPOWChecker {
 				return false;
 			}
 		}
-		
-//		int len     = wit.getAllPubKeys().size();
-//		
-//		for(int i=0;i<len;i++) {
-//			MiniData pubk = wit.getPublicKey(i);
-//			MiniData sig  = wit.getSignature(i);
-//			
-//			//Check it..
-//			boolean ok = PubPrivKey.verify(pubk, transhash, sig);
-//			if(!ok) {
-//				return false;
-//			}
-//		}
 		
 		return true;
 	}
@@ -106,10 +90,10 @@ public class TxPOWChecker {
 		//Burn Transaction check!.. 
 		if(!zTxPOW.getBurnTransaction().isEmpty()) {
 			//Get MAIN Transaction Hash - make sure is correct in Burn Transaction
-			MiniHash transid = zTxPOW.getTransID();
+			MiniData transid = zTxPOW.getTransID();
 			
 			//Check is correct on Burn Transaction..
-			if(!zTxPOW.getBurnTransaction().getLinkHash().isExactlyEqual(transid)) {
+			if(!zTxPOW.getBurnTransaction().getLinkHash().isEqual(transid)) {
 				return false;
 			}
 			
@@ -120,6 +104,11 @@ public class TxPOWChecker {
 			if(!burntrans) {
 				return false;
 			}
+		}
+		
+		//Now Check the Transaction Link Hash..
+		if(!zTxPOW.getTransaction().getLinkHash().isEqual(new MiniData("0x00"))) {
+			return false;
 		}
 		
 		return checkTransactionMMR(zTxPOW.getTransaction(), zTxPOW.getWitness(), zDB, zBlockNumber, zMMRSet, zTouchMMR, new JSONArray());	
@@ -137,15 +126,6 @@ public class TxPOWChecker {
 		String[] DYNState = new String[256];
 		for(int i=0;i<256;i++) {
 			DYNState[i] = null;
-		}
-		
-		//Simplest check first.. valid amounts..
-		if(!trans.checkValidInOutPerToken()) {
-			//The contract execution log - will be updated later, but added now
-			JSONObject contractlog = new JSONObject();
-			zContractLog.add(contractlog);
-			contractlog.put("error", "Total Inputs are LESS than Total Outputs for certain Tokens");
-			return false;
 		}
 		
 		//Check the input scripts
@@ -179,7 +159,7 @@ public class TxPOWChecker {
 			contractlog.put("input", i);
 			contractlog.put("script", script);
 			
-			if(input.getCoinID().isExactlyEqual(gimme50.COINID_INPUT) && input.getAmount().isLessEqual(new MiniNumber("50"))){
+			if(input.getCoinID().isEqual(gimme50.COINID_INPUT) && input.getAmount().isLessEqual(new MiniNumber("50"))){
 				//We good.. TESTNET allows up to 50 printed..
 				//..
 				contractlog.put("isgimme50", true);
@@ -187,8 +167,8 @@ public class TxPOWChecker {
 				contractlog.put("isgimme50", false);
 				
 				//Check the Address is the hash of the SCRIPT
-				Address scraddr = new Address(script);
-				if(!scraddr.getAddressData().isExactlyEqual(input.getAddress())) {
+				Address scraddr = new Address(script,input.getAddress().getLength()*8);
+				if(!scraddr.isEqual(input.getAddress())) {
 					contractlog.put("error", "Serious - Invalid Address for script!");
 					return false;
 				}
@@ -249,7 +229,7 @@ public class TxPOWChecker {
 				
 				//Is this a Token ?
 				String tokscript = "";
-				if(!input.getTokenID().isExactlyEqual(Coin.MINIMA_TOKENID)) {
+				if(!input.getTokenID().isEqual(Coin.MINIMA_TOKENID)) {
 					//Do we have a token Script..
 					TokenProof tokdets = zWit.getTokenDetail(input.getTokenID());
 					
@@ -307,7 +287,7 @@ public class TxPOWChecker {
 				}
 				
 				//Is this a Token ?
-				if(!input.getTokenID().isExactlyEqual(Coin.MINIMA_TOKENID)) {
+				if(!input.getTokenID().isEqual(Coin.MINIMA_TOKENID)) {
 //					//Do we have a token Script..
 //					TokenProof tokdets = zWit.getTokenDetail(input.getTokenID());
 //					
@@ -384,12 +364,12 @@ public class TxPOWChecker {
 			//Now get all the Input Amounts...
 			Hashtable<String, MiniNumber> inamounts = new Hashtable<>();
 			for(String token : tokens) {
-				inamounts.put(token, trans.sumInputs(new MiniHash(token)));
+				inamounts.put(token, trans.sumInputs(new MiniData(token)));
 			}
 			
 			//Now get the output amounts..
 			for(String token : tokens) {
-				MiniHash tok = new MiniHash(token);
+				MiniData tok = new MiniData(token);
 				
 				//Summthe outputs for this token type
 				MiniNumber outamt = trans.sumOutputs(tok);
@@ -415,7 +395,7 @@ public class TxPOWChecker {
 		
 		//The HASH of the Transaction.. needed for coinid
 		//The transaction may have been altered by floating inputs..
-		MiniHash transhash = Crypto.getInstance().hashObject(trans);
+		MiniData transhash = Crypto.getInstance().hashObject(trans);
 				
 		//Get outputs - add them to the MMR also..
 		ArrayList<Coin> outputs  = trans.getAllOutputs();
@@ -425,15 +405,15 @@ public class TxPOWChecker {
 			Coin output = outputs.get(i);
 			
 			//Now calculate the CoinID / TokenID
-			MiniHash coinid = Crypto.getInstance().hashObjects(transhash, new MiniByte(i));
+			MiniData coinid = Crypto.getInstance().hashObjects(transhash, new MiniByte(i));
 			
 			//Is this a token create output..
-			MiniHash tokid 			= output.getTokenID();
+			MiniData tokid 			= output.getTokenID();
 			TokenProof newtoken 	= null;
 			
 			//Is this a token or are we creating a Token
 			TokenProof newtokdets = null;
-			if(tokid.isExactlyEqual(Coin.TOKENID_CREATE)) {
+			if(tokid.isEqual(Coin.TOKENID_CREATE)) {
 				//Make it the HASH ( CoinID | Total Amount..the token details )
 				TokenProof gentoken = trans.getTokenGenerationDetails();
 				newtokdets = new TokenProof(coinid, 
@@ -443,12 +423,16 @@ public class TxPOWChecker {
 				tokid = newtokdets.getTokenID();
 			
 				//Its a regular token transaction
-			}else if(!tokid.isExactlyEqual(Coin.MINIMA_TOKENID)) {
+			}else if(!tokid.isEqual(Coin.MINIMA_TOKENID)) {
 				//Get the token..
 				newtokdets = zWit.getTokenDetail(tokid);
 				
 				//Check it..
 				if(newtokdets == null) {
+					//The contract execution log - will be updated later, but added now
+					JSONObject errorlog = new JSONObject();
+					zContractLog.add(errorlog);
+					errorlog.put("error", "Total Details Missing for "+tokid);
 					return false;
 				}
 			}
@@ -477,6 +461,16 @@ public class TxPOWChecker {
 			}
 		}
 		
+		
+		//Now check after all that -  valid amounts..
+		if(!trans.checkValidInOutPerToken()) {
+			//The contract execution log - will be updated later, but added now
+			JSONObject errorlog = new JSONObject();
+			zContractLog.add(errorlog);
+			errorlog.put("error", "Total Inputs are LESS than Total Outputs for certain Tokens");
+			return false;
+		}
+				
 		//All OK!
 		return true;
 	}

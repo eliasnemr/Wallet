@@ -27,14 +27,12 @@
 @class JavaIoDataInputStream;
 @class JavaIoDataOutputStream;
 @class JavaUtilArrayList;
+@class JavaUtilHashtable;
 @class OrgMinimaObjectsAddress;
 @class OrgMinimaObjectsBaseMiniData;
-@class OrgMinimaObjectsBaseMiniHash;
-@class OrgMinimaObjectsBaseMiniNumber;
+@class OrgMinimaObjectsProofsTokenProof;
 @class OrgMinimaObjectsPubPrivKey;
-@class OrgMinimaObjectsTokenDetails;
 @class OrgMinimaObjectsTransaction;
-@class OrgMinimaObjectsTxPOW;
 @protocol OrgMinimaDatabaseUserdbUserDBRow;
 
 @interface OrgMinimaDatabaseUserdbJavaJavaUserDB : NSObject < OrgMinimaDatabaseUserdbUserDB, OrgMinimaUtilsStreamable > {
@@ -53,10 +51,10 @@
 
 - (instancetype)init;
 
-- (void)addToHistoryWithOrgMinimaObjectsTxPOW:(OrgMinimaObjectsTxPOW *)zTxPOW
-           withOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zValue;
+- (void)addToHistoryWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zTxPOWID
+                               withJavaUtilHashtable:(JavaUtilHashtable *)zValues;
 
-- (void)addTokenDetailsWithOrgMinimaObjectsTokenDetails:(OrgMinimaObjectsTokenDetails *)zToken;
+- (void)addTokenDetailsWithOrgMinimaObjectsProofsTokenProof:(OrgMinimaObjectsProofsTokenProof *)zToken;
 
 - (id<OrgMinimaDatabaseUserdbUserDBRow>)addUserRowWithInt:(jint)zID;
 
@@ -74,31 +72,33 @@
 
 - (JavaUtilArrayList *)getKeys;
 
-- (OrgMinimaObjectsBaseMiniData *)getPublicKeyWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zAddress;
+- (OrgMinimaObjectsBaseMiniData *)getPublicKeyWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zAddress;
 
 - (OrgMinimaObjectsPubPrivKey *)getPubPrivKeyWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zPubKey;
 
-- (NSString *)getScriptWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zAddress;
+- (NSString *)getScriptWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zAddress;
 
 - (JavaUtilArrayList *)getScriptAddresses;
 
 - (JavaUtilArrayList *)getSimpleAddresses;
 
-- (OrgMinimaObjectsTokenDetails *)getTokenDetailWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zTokenID;
+- (OrgMinimaObjectsProofsTokenProof *)getTokenDetailWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zTokenID;
 
 - (id<OrgMinimaDatabaseUserdbUserDBRow>)getUserRowWithInt:(jint)zID;
 
-- (jboolean)isAddressRelevantWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zAddress;
+- (jboolean)isAddressRelevantWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zAddress;
 
-- (jboolean)isSimpleAddressWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zAddress;
+- (jboolean)isSimpleAddressWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zAddress;
 
 - (jboolean)isTransactionRelevantWithOrgMinimaObjectsTransaction:(OrgMinimaObjectsTransaction *)zTrans;
 
-- (OrgMinimaObjectsPubPrivKey *)newPublicKey OBJC_METHOD_FAMILY_NONE;
+- (OrgMinimaObjectsPubPrivKey *)newPublicKeyWithInt:(jint)zBitLength OBJC_METHOD_FAMILY_NONE;
 
 - (OrgMinimaObjectsAddress *)newScriptAddressWithNSString:(NSString *)zScript OBJC_METHOD_FAMILY_NONE;
 
 - (OrgMinimaObjectsAddress *)newSimpleAddress OBJC_METHOD_FAMILY_NONE;
+
+- (OrgMinimaObjectsAddress *)newSimpleAddressWithInt:(jint)zBitLength OBJC_METHOD_FAMILY_NONE;
 
 - (OrgMinimaObjectsAddress *)newSimpleAddressWithOrgMinimaObjectsPubPrivKey:(OrgMinimaObjectsPubPrivKey *)zPubPriv OBJC_METHOD_FAMILY_NONE;
 

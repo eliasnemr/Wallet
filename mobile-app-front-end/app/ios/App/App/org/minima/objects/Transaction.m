@@ -3,16 +3,24 @@
 //  source: ./org/minima/objects/Transaction.java
 //
 
+#include "IOSPrimitiveArray.h"
 #include "J2ObjC_source.h"
+#include "java/io/ByteArrayInputStream.h"
+#include "java/io/ByteArrayOutputStream.h"
 #include "java/io/DataInputStream.h"
 #include "java/io/DataOutputStream.h"
+#include "java/io/IOException.h"
 #include "java/util/ArrayList.h"
+#include "java/util/Enumeration.h"
+#include "java/util/Hashtable.h"
 #include "org/minima/objects/Coin.h"
 #include "org/minima/objects/StateVariable.h"
 #include "org/minima/objects/Transaction.h"
 #include "org/minima/objects/base/MiniByte.h"
+#include "org/minima/objects/base/MiniData.h"
 #include "org/minima/objects/base/MiniNumber.h"
-#include "org/minima/objects/base/MiniString.h"
+#include "org/minima/objects/base/MiniScript.h"
+#include "org/minima/objects/proofs/TokenProof.h"
 #include "org/minima/utils/json/JSONArray.h"
 #include "org/minima/utils/json/JSONObject.h"
 
@@ -29,12 +37,12 @@ J2OBJC_IGNORE_DESIGNATED_END
   [((JavaUtilArrayList *) nil_chk(mInputs_)) addWithId:zCoin];
 }
 
-- (jboolean)isEmpty {
-  return [((JavaUtilArrayList *) nil_chk(mInputs_)) size] == 0 && [((JavaUtilArrayList *) nil_chk(mOutputs_)) size] == 0;
-}
-
 - (void)addOutputWithOrgMinimaObjectsCoin:(OrgMinimaObjectsCoin *)zCoin {
   [((JavaUtilArrayList *) nil_chk(mOutputs_)) addWithId:zCoin];
+}
+
+- (jboolean)isEmpty {
+  return [((JavaUtilArrayList *) nil_chk(mInputs_)) size] == 0 && [((JavaUtilArrayList *) nil_chk(mOutputs_)) size] == 0;
 }
 
 - (JavaUtilArrayList *)getAllInputs {
@@ -46,43 +54,100 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (OrgMinimaObjectsBaseMiniNumber *)sumInputs {
-  OrgMinimaObjectsBaseMiniNumber *tot = create_OrgMinimaObjectsBaseMiniNumber_init();
+  OrgMinimaObjectsBaseMiniNumber *tot = JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, ZERO);
   for (OrgMinimaObjectsCoin * __strong cc in nil_chk(mInputs_)) {
     tot = [((OrgMinimaObjectsBaseMiniNumber *) nil_chk(tot)) addWithOrgMinimaObjectsBaseMiniNumber:((OrgMinimaObjectsCoin *) nil_chk(cc))->mAmount_];
   }
   return tot;
 }
 
+- (OrgMinimaObjectsBaseMiniNumber *)sumInputsWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zTokenID {
+  OrgMinimaObjectsBaseMiniNumber *tot = JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, ZERO);
+  for (OrgMinimaObjectsCoin * __strong cc in nil_chk(mInputs_)) {
+    if ([((OrgMinimaObjectsBaseMiniData *) nil_chk([((OrgMinimaObjectsCoin *) nil_chk(cc)) getTokenID])) isEqualWithOrgMinimaObjectsBaseMiniData:zTokenID]) {
+      tot = [((OrgMinimaObjectsBaseMiniNumber *) nil_chk(tot)) addWithOrgMinimaObjectsBaseMiniNumber:cc->mAmount_];
+    }
+  }
+  return tot;
+}
+
 - (OrgMinimaObjectsBaseMiniNumber *)sumOutputs {
-  OrgMinimaObjectsBaseMiniNumber *tot = create_OrgMinimaObjectsBaseMiniNumber_init();
+  OrgMinimaObjectsBaseMiniNumber *tot = JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, ZERO);
   for (OrgMinimaObjectsCoin * __strong cc in nil_chk(mOutputs_)) {
     tot = [((OrgMinimaObjectsBaseMiniNumber *) nil_chk(tot)) addWithOrgMinimaObjectsBaseMiniNumber:((OrgMinimaObjectsCoin *) nil_chk(cc))->mAmount_];
   }
   return tot;
 }
 
+- (OrgMinimaObjectsBaseMiniNumber *)sumOutputsWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zTokenID {
+  OrgMinimaObjectsBaseMiniNumber *tot = JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, ZERO);
+  for (OrgMinimaObjectsCoin * __strong cc in nil_chk(mOutputs_)) {
+    if ([((OrgMinimaObjectsBaseMiniData *) nil_chk([((OrgMinimaObjectsCoin *) nil_chk(cc)) getTokenID])) isEqualWithOrgMinimaObjectsBaseMiniData:zTokenID]) {
+      tot = [((OrgMinimaObjectsBaseMiniNumber *) nil_chk(tot)) addWithOrgMinimaObjectsBaseMiniNumber:cc->mAmount_];
+    }
+  }
+  return tot;
+}
+
+- (OrgMinimaObjectsCoin *)getRemainderCoinWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zTokenID {
+  for (OrgMinimaObjectsCoin * __strong cc in nil_chk(mOutputs_)) {
+    if ([((OrgMinimaObjectsCoin *) nil_chk(cc)) isRemainder] && [((OrgMinimaObjectsBaseMiniData *) nil_chk([cc getTokenID])) isEqualWithOrgMinimaObjectsBaseMiniData:zTokenID]) {
+      return cc;
+    }
+  }
+  return nil;
+}
+
+- (jboolean)checkValidInOutPerToken {
+  JavaUtilArrayList *tokens = create_JavaUtilArrayList_init();
+  for (OrgMinimaObjectsCoin * __strong cc in nil_chk(mOutputs_)) {
+    OrgMinimaObjectsBaseMiniData *tokenhash = [((OrgMinimaObjectsCoin *) nil_chk(cc)) getTokenID];
+    if ([((OrgMinimaObjectsBaseMiniData *) nil_chk(tokenhash)) isEqualWithOrgMinimaObjectsBaseMiniData:JreLoadStatic(OrgMinimaObjectsCoin, TOKENID_CREATE)]) {
+      tokenhash = JreLoadStatic(OrgMinimaObjectsCoin, MINIMA_TOKENID);
+    }
+    NSString *tok = [((OrgMinimaObjectsBaseMiniData *) nil_chk(tokenhash)) to0xString];
+    if (![tokens containsWithId:tok]) {
+      [tokens addWithId:tok];
+    }
+  }
+  JavaUtilHashtable *outamounts = create_JavaUtilHashtable_init();
+  for (NSString * __strong token in tokens) {
+    [outamounts putWithId:token withId:[self sumOutputsWithOrgMinimaObjectsBaseMiniData:create_OrgMinimaObjectsBaseMiniData_initWithNSString_(token)]];
+  }
+  id<JavaUtilEnumeration> keys = [outamounts keys];
+  while ([((id<JavaUtilEnumeration>) nil_chk(keys)) hasMoreElements]) {
+    NSString *tok = [keys nextElement];
+    OrgMinimaObjectsBaseMiniNumber *outamt = [outamounts getWithId:tok];
+    OrgMinimaObjectsBaseMiniNumber *inamt = [self sumInputsWithOrgMinimaObjectsBaseMiniData:create_OrgMinimaObjectsBaseMiniData_initWithNSString_(tok)];
+    if ([((OrgMinimaObjectsBaseMiniNumber *) nil_chk(inamt)) isLessWithOrgMinimaObjectsBaseMiniNumber:outamt]) {
+      return false;
+    }
+  }
+  return true;
+}
+
 - (void)addStateVariableWithOrgMinimaObjectsStateVariable:(OrgMinimaObjectsStateVariable *)zValue {
-  OrgMinimaObjectsStateVariable *sv = [self getStateValueWithOrgMinimaObjectsBaseMiniNumber:[((OrgMinimaObjectsStateVariable *) nil_chk(zValue)) getPort]];
+  OrgMinimaObjectsStateVariable *sv = [self getStateValueWithInt:[((OrgMinimaObjectsStateVariable *) nil_chk(zValue)) getPort]];
   if (sv != nil) {
-    [sv resetDataWithOrgMinimaObjectsBaseMiniString:[zValue getData]];
+    [sv resetDataWithOrgMinimaObjectsBaseMiniScript:[zValue getData]];
   }
   else {
     [((JavaUtilArrayList *) nil_chk(mState_)) addWithId:zValue];
   }
 }
 
-- (OrgMinimaObjectsStateVariable *)getStateValueWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zStateNum {
+- (OrgMinimaObjectsStateVariable *)getStateValueWithInt:(jint)zStateNum {
   for (OrgMinimaObjectsStateVariable * __strong sv in nil_chk(mState_)) {
-    if ([((OrgMinimaObjectsBaseMiniNumber *) nil_chk([((OrgMinimaObjectsStateVariable *) nil_chk(sv)) getPort])) isEqualWithOrgMinimaObjectsBaseMiniNumber:zStateNum]) {
+    if ([((OrgMinimaObjectsStateVariable *) nil_chk(sv)) getPort] == zStateNum) {
       return sv;
     }
   }
   return nil;
 }
 
-- (jboolean)stateExistsWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zStateNum {
+- (jboolean)stateExistsWithInt:(jint)zStateNum {
   for (OrgMinimaObjectsStateVariable * __strong sv in nil_chk(mState_)) {
-    if ([((OrgMinimaObjectsBaseMiniNumber *) nil_chk([((OrgMinimaObjectsStateVariable *) nil_chk(sv)) getPort])) isEqualWithOrgMinimaObjectsBaseMiniNumber:zStateNum]) {
+    if ([((OrgMinimaObjectsStateVariable *) nil_chk(sv)) getPort] == zStateNum) {
       return true;
     }
   }
@@ -95,6 +160,18 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 - (JavaUtilArrayList *)getCompleteState {
   return mState_;
+}
+
+- (OrgMinimaObjectsBaseMiniData *)getLinkHash {
+  return mLinkHash_;
+}
+
+- (void)setTokenGenerationDetailsWithOrgMinimaObjectsProofsTokenProof:(OrgMinimaObjectsProofsTokenProof *)zTokenDetails {
+  JreStrongAssign(&mTokenGenDetails_, zTokenDetails);
+}
+
+- (OrgMinimaObjectsProofsTokenProof *)getTokenGenerationDetails {
+  return mTokenGenDetails_;
 }
 
 - (NSString *)description {
@@ -118,6 +195,10 @@ J2OBJC_IGNORE_DESIGNATED_END
     [outs addWithId:[((OrgMinimaObjectsStateVariable *) nil_chk(sv)) toJSON]];
   }
   [ret putWithId:@"state" withId:outs];
+  if (mTokenGenDetails_ != nil) {
+    [ret putWithId:@"tokengen" withId:[mTokenGenDetails_ toJSON]];
+  }
+  [ret putWithId:@"linkhash" withId:[((OrgMinimaObjectsBaseMiniData *) nil_chk(mLinkHash_)) to0xString]];
   return ret;
 }
 
@@ -137,37 +218,74 @@ J2OBJC_IGNORE_DESIGNATED_END
   for (OrgMinimaObjectsStateVariable * __strong sv in nil_chk(mState_)) {
     [((OrgMinimaObjectsStateVariable *) nil_chk(sv)) writeDataStreamWithJavaIoDataOutputStream:zOut];
   }
+  if (mTokenGenDetails_ == nil) {
+    [((OrgMinimaObjectsBaseMiniByte *) nil_chk(JreLoadStatic(OrgMinimaObjectsBaseMiniByte, FALSE))) writeDataStreamWithJavaIoDataOutputStream:zOut];
+  }
+  else {
+    [((OrgMinimaObjectsBaseMiniByte *) nil_chk(JreLoadStatic(OrgMinimaObjectsBaseMiniByte, TRUE))) writeDataStreamWithJavaIoDataOutputStream:zOut];
+    [((OrgMinimaObjectsProofsTokenProof *) nil_chk(mTokenGenDetails_)) writeDataStreamWithJavaIoDataOutputStream:zOut];
+  }
+  [((OrgMinimaObjectsBaseMiniData *) nil_chk(mLinkHash_)) writeDataStreamWithJavaIoDataOutputStream:zOut];
 }
 
 - (void)readDataStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn {
   JreStrongAssignAndConsume(&mInputs_, new_JavaUtilArrayList_init());
   JreStrongAssignAndConsume(&mOutputs_, new_JavaUtilArrayList_init());
   JreStrongAssignAndConsume(&mState_, new_JavaUtilArrayList_init());
-  OrgMinimaObjectsBaseMiniByte *ins = create_OrgMinimaObjectsBaseMiniByte_init();
-  [ins readDataStreamWithJavaIoDataInputStream:zIn];
-  jint len = [ins getValue];
+  OrgMinimaObjectsBaseMiniByte *ins = OrgMinimaObjectsBaseMiniByte_ReadFromStreamWithJavaIoDataInputStream_(zIn);
+  jint len = [((OrgMinimaObjectsBaseMiniByte *) nil_chk(ins)) getValue];
   for (jint i = 0; i < len; i++) {
     OrgMinimaObjectsCoin *coin = OrgMinimaObjectsCoin_ReadFromStreamWithJavaIoDataInputStream_(zIn);
     [((JavaUtilArrayList *) nil_chk(mInputs_)) addWithId:coin];
   }
-  OrgMinimaObjectsBaseMiniByte *outs = create_OrgMinimaObjectsBaseMiniByte_init();
-  [outs readDataStreamWithJavaIoDataInputStream:zIn];
-  len = [outs getValue];
+  OrgMinimaObjectsBaseMiniByte *outs = OrgMinimaObjectsBaseMiniByte_ReadFromStreamWithJavaIoDataInputStream_(zIn);
+  len = [((OrgMinimaObjectsBaseMiniByte *) nil_chk(outs)) getValue];
   for (jint i = 0; i < len; i++) {
     OrgMinimaObjectsCoin *coin = OrgMinimaObjectsCoin_ReadFromStreamWithJavaIoDataInputStream_(zIn);
     [((JavaUtilArrayList *) nil_chk(mOutputs_)) addWithId:coin];
   }
-  jint sl = [((JavaIoDataInputStream *) nil_chk(zIn)) readInt];
-  for (jint i = 0; i < sl; i++) {
+  len = [((JavaIoDataInputStream *) nil_chk(zIn)) readInt];
+  for (jint i = 0; i < len; i++) {
     OrgMinimaObjectsStateVariable *sv = OrgMinimaObjectsStateVariable_ReadFromStreamWithJavaIoDataInputStream_(zIn);
     [((JavaUtilArrayList *) nil_chk(mState_)) addWithId:sv];
   }
+  OrgMinimaObjectsBaseMiniByte *tokgen = OrgMinimaObjectsBaseMiniByte_ReadFromStreamWithJavaIoDataInputStream_(zIn);
+  if ([((OrgMinimaObjectsBaseMiniByte *) nil_chk(tokgen)) isTrue]) {
+    JreStrongAssign(&mTokenGenDetails_, OrgMinimaObjectsProofsTokenProof_ReadFromStreamWithJavaIoDataInputStream_(zIn));
+  }
+  else {
+    JreStrongAssign(&mTokenGenDetails_, nil);
+  }
+  JreStrongAssign(&mLinkHash_, OrgMinimaObjectsBaseMiniData_ReadFromStreamWithJavaIoDataInputStream_(zIn));
+}
+
+- (OrgMinimaObjectsTransaction *)deepCopy {
+  @try {
+    JavaIoByteArrayOutputStream *baos = create_JavaIoByteArrayOutputStream_init();
+    JavaIoDataOutputStream *dos = create_JavaIoDataOutputStream_initWithJavaIoOutputStream_(baos);
+    [self writeDataStreamWithJavaIoDataOutputStream:dos];
+    [dos flush];
+    [dos close];
+    IOSByteArray *transbytes = [baos toByteArray];
+    JavaIoByteArrayInputStream *bais = create_JavaIoByteArrayInputStream_initWithByteArray_(transbytes);
+    JavaIoDataInputStream *dis = create_JavaIoDataInputStream_initWithJavaIoInputStream_(bais);
+    OrgMinimaObjectsTransaction *deepcopy = create_OrgMinimaObjectsTransaction_init();
+    [deepcopy readDataStreamWithJavaIoDataInputStream:dis];
+    [dis close];
+    return deepcopy;
+  }
+  @catch (JavaIoIOException *e) {
+    [e printStackTrace];
+  }
+  return nil;
 }
 
 - (void)dealloc {
+  RELEASE_(mLinkHash_);
   RELEASE_(mInputs_);
   RELEASE_(mOutputs_);
   RELEASE_(mState_);
+  RELEASE_(mTokenGenDetails_);
   [super dealloc];
 }
 
@@ -175,50 +293,68 @@ J2OBJC_IGNORE_DESIGNATED_END
   static J2ObjcMethodInfo methods[] = {
     { NULL, NULL, 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 0, 1, -1, -1, -1, -1 },
-    { NULL, "Z", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 2, 1, -1, -1, -1, -1 },
+    { NULL, "Z", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LJavaUtilArrayList;", 0x1, -1, -1, -1, 3, -1, -1 },
     { NULL, "LJavaUtilArrayList;", 0x1, -1, -1, -1, 3, -1, -1 },
     { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, 4, 5, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 4, 5, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsStateVariable;", 0x1, 6, 7, -1, -1, -1, -1 },
-    { NULL, "Z", 0x1, 8, 7, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, 6, 5, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsCoin;", 0x1, 7, 5, -1, -1, -1, -1 },
+    { NULL, "Z", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 8, 9, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsStateVariable;", 0x1, 10, 11, -1, -1, -1, -1 },
+    { NULL, "Z", 0x1, 12, 11, -1, -1, -1, -1 },
     { NULL, "V", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LJavaUtilArrayList;", 0x1, -1, -1, -1, 9, -1, -1 },
-    { NULL, "LNSString;", 0x1, 10, -1, -1, -1, -1, -1 },
+    { NULL, "LJavaUtilArrayList;", 0x1, -1, -1, -1, 13, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMiniData;", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 14, 15, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsProofsTokenProof;", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "LNSString;", 0x1, 16, -1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaUtilsJsonJSONObject;", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 11, 12, 13, -1, -1, -1 },
-    { NULL, "V", 0x1, 14, 15, 13, -1, -1, -1 },
+    { NULL, "V", 0x1, 17, 18, 19, -1, -1, -1 },
+    { NULL, "V", 0x1, 20, 21, 19, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsTransaction;", 0x1, -1, -1, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
   #pragma clang diagnostic ignored "-Wundeclared-selector"
   methods[0].selector = @selector(init);
   methods[1].selector = @selector(addInputWithOrgMinimaObjectsCoin:);
-  methods[2].selector = @selector(isEmpty);
-  methods[3].selector = @selector(addOutputWithOrgMinimaObjectsCoin:);
+  methods[2].selector = @selector(addOutputWithOrgMinimaObjectsCoin:);
+  methods[3].selector = @selector(isEmpty);
   methods[4].selector = @selector(getAllInputs);
   methods[5].selector = @selector(getAllOutputs);
   methods[6].selector = @selector(sumInputs);
-  methods[7].selector = @selector(sumOutputs);
-  methods[8].selector = @selector(addStateVariableWithOrgMinimaObjectsStateVariable:);
-  methods[9].selector = @selector(getStateValueWithOrgMinimaObjectsBaseMiniNumber:);
-  methods[10].selector = @selector(stateExistsWithOrgMinimaObjectsBaseMiniNumber:);
-  methods[11].selector = @selector(clearState);
-  methods[12].selector = @selector(getCompleteState);
-  methods[13].selector = @selector(description);
-  methods[14].selector = @selector(toJSON);
-  methods[15].selector = @selector(writeDataStreamWithJavaIoDataOutputStream:);
-  methods[16].selector = @selector(readDataStreamWithJavaIoDataInputStream:);
+  methods[7].selector = @selector(sumInputsWithOrgMinimaObjectsBaseMiniData:);
+  methods[8].selector = @selector(sumOutputs);
+  methods[9].selector = @selector(sumOutputsWithOrgMinimaObjectsBaseMiniData:);
+  methods[10].selector = @selector(getRemainderCoinWithOrgMinimaObjectsBaseMiniData:);
+  methods[11].selector = @selector(checkValidInOutPerToken);
+  methods[12].selector = @selector(addStateVariableWithOrgMinimaObjectsStateVariable:);
+  methods[13].selector = @selector(getStateValueWithInt:);
+  methods[14].selector = @selector(stateExistsWithInt:);
+  methods[15].selector = @selector(clearState);
+  methods[16].selector = @selector(getCompleteState);
+  methods[17].selector = @selector(getLinkHash);
+  methods[18].selector = @selector(setTokenGenerationDetailsWithOrgMinimaObjectsProofsTokenProof:);
+  methods[19].selector = @selector(getTokenGenerationDetails);
+  methods[20].selector = @selector(description);
+  methods[21].selector = @selector(toJSON);
+  methods[22].selector = @selector(writeDataStreamWithJavaIoDataOutputStream:);
+  methods[23].selector = @selector(readDataStreamWithJavaIoDataInputStream:);
+  methods[24].selector = @selector(deepCopy);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
-    { "mInputs_", "LJavaUtilArrayList;", .constantValue.asLong = 0, 0x0, -1, -1, 16, -1 },
-    { "mOutputs_", "LJavaUtilArrayList;", .constantValue.asLong = 0, 0x0, -1, -1, 16, -1 },
-    { "mState_", "LJavaUtilArrayList;", .constantValue.asLong = 0, 0x0, -1, -1, 17, -1 },
+    { "mLinkHash_", "LOrgMinimaObjectsBaseMiniData;", .constantValue.asLong = 0, 0x4, -1, -1, -1, -1 },
+    { "mInputs_", "LJavaUtilArrayList;", .constantValue.asLong = 0, 0x4, -1, -1, 22, -1 },
+    { "mOutputs_", "LJavaUtilArrayList;", .constantValue.asLong = 0, 0x4, -1, -1, 22, -1 },
+    { "mState_", "LJavaUtilArrayList;", .constantValue.asLong = 0, 0x4, -1, -1, 23, -1 },
+    { "mTokenGenDetails_", "LOrgMinimaObjectsProofsTokenProof;", .constantValue.asLong = 0, 0x4, -1, -1, -1, -1 },
   };
-  static const void *ptrTable[] = { "addInput", "LOrgMinimaObjectsCoin;", "addOutput", "()Ljava/util/ArrayList<Lorg/minima/objects/Coin;>;", "addStateVariable", "LOrgMinimaObjectsStateVariable;", "getStateValue", "LOrgMinimaObjectsBaseMiniNumber;", "stateExists", "()Ljava/util/ArrayList<Lorg/minima/objects/StateVariable;>;", "toString", "writeDataStream", "LJavaIoDataOutputStream;", "LJavaIoIOException;", "readDataStream", "LJavaIoDataInputStream;", "Ljava/util/ArrayList<Lorg/minima/objects/Coin;>;", "Ljava/util/ArrayList<Lorg/minima/objects/StateVariable;>;" };
-  static const J2ObjcClassInfo _OrgMinimaObjectsTransaction = { "Transaction", "org.minima.objects", ptrTable, methods, fields, 7, 0x1, 17, 3, -1, -1, -1, -1, -1 };
+  static const void *ptrTable[] = { "addInput", "LOrgMinimaObjectsCoin;", "addOutput", "()Ljava/util/ArrayList<Lorg/minima/objects/Coin;>;", "sumInputs", "LOrgMinimaObjectsBaseMiniData;", "sumOutputs", "getRemainderCoin", "addStateVariable", "LOrgMinimaObjectsStateVariable;", "getStateValue", "I", "stateExists", "()Ljava/util/ArrayList<Lorg/minima/objects/StateVariable;>;", "setTokenGenerationDetails", "LOrgMinimaObjectsProofsTokenProof;", "toString", "writeDataStream", "LJavaIoDataOutputStream;", "LJavaIoIOException;", "readDataStream", "LJavaIoDataInputStream;", "Ljava/util/ArrayList<Lorg/minima/objects/Coin;>;", "Ljava/util/ArrayList<Lorg/minima/objects/StateVariable;>;" };
+  static const J2ObjcClassInfo _OrgMinimaObjectsTransaction = { "Transaction", "org.minima.objects", ptrTable, methods, fields, 7, 0x1, 25, 5, -1, -1, -1, -1, -1 };
   return &_OrgMinimaObjectsTransaction;
 }
 
@@ -226,9 +362,11 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 void OrgMinimaObjectsTransaction_init(OrgMinimaObjectsTransaction *self) {
   NSObject_init(self);
+  JreStrongAssignAndConsume(&self->mLinkHash_, new_OrgMinimaObjectsBaseMiniData_initWithNSString_(@"0x00"));
   JreStrongAssignAndConsume(&self->mInputs_, new_JavaUtilArrayList_init());
   JreStrongAssignAndConsume(&self->mOutputs_, new_JavaUtilArrayList_init());
   JreStrongAssignAndConsume(&self->mState_, new_JavaUtilArrayList_init());
+  JreStrongAssign(&self->mTokenGenDetails_, nil);
 }
 
 OrgMinimaObjectsTransaction *new_OrgMinimaObjectsTransaction_init() {

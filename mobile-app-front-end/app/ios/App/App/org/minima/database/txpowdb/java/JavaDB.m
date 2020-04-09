@@ -4,22 +4,29 @@
 //
 
 #include "J2ObjC_source.h"
+#include "java/lang/System.h"
 #include "java/util/ArrayList.h"
 #include "org/minima/database/txpowdb/TxPOWDBRow.h"
 #include "org/minima/database/txpowdb/java/JavaDB.h"
 #include "org/minima/database/txpowdb/java/JavaDBRow.h"
 #include "org/minima/objects/TxPOW.h"
-#include "org/minima/objects/base/MiniHash.h"
+#include "org/minima/objects/base/MiniData.h"
 #include "org/minima/objects/base/MiniNumber.h"
 
 @interface OrgMinimaDatabaseTxpowdbJavaJavaDB () {
  @public
   JavaUtilArrayList *mRows_;
+  JavaUtilArrayList *mDeletedRows_;
 }
+
+- (JavaUtilArrayList *)removeDeleted;
 
 @end
 
 J2OBJC_FIELD_SETTER(OrgMinimaDatabaseTxpowdbJavaJavaDB, mRows_, JavaUtilArrayList *)
+J2OBJC_FIELD_SETTER(OrgMinimaDatabaseTxpowdbJavaJavaDB, mDeletedRows_, JavaUtilArrayList *)
+
+__attribute__((unused)) static JavaUtilArrayList *OrgMinimaDatabaseTxpowdbJavaJavaDB_removeDeleted(OrgMinimaDatabaseTxpowdbJavaJavaDB *self);
 
 @implementation OrgMinimaDatabaseTxpowdbJavaJavaDB
 
@@ -31,7 +38,7 @@ J2OBJC_IGNORE_DESIGNATED_BEGIN
 J2OBJC_IGNORE_DESIGNATED_END
 
 - (id<OrgMinimaDatabaseTxpowdbTxPOWDBRow>)addTxPOWDBRowWithOrgMinimaObjectsTxPOW:(OrgMinimaObjectsTxPOW *)zTxPOW {
-  id<OrgMinimaDatabaseTxpowdbTxPOWDBRow> prev = [self findTxPOWDBRowWithOrgMinimaObjectsBaseMiniHash:[((OrgMinimaObjectsTxPOW *) nil_chk(zTxPOW)) getTxPowID]];
+  id<OrgMinimaDatabaseTxpowdbTxPOWDBRow> prev = [self findTxPOWDBRowWithOrgMinimaObjectsBaseMiniData:[((OrgMinimaObjectsTxPOW *) nil_chk(zTxPOW)) getTxPowID]];
   if (prev != nil) {
     return prev;
   }
@@ -40,9 +47,14 @@ J2OBJC_IGNORE_DESIGNATED_END
   return row;
 }
 
-- (id<OrgMinimaDatabaseTxpowdbTxPOWDBRow>)findTxPOWDBRowWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zTxPOWID {
+- (id<OrgMinimaDatabaseTxpowdbTxPOWDBRow>)findTxPOWDBRowWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zTxPOWID {
   for (OrgMinimaDatabaseTxpowdbJavaJavaDBRow * __strong row in nil_chk(mRows_)) {
-    if ([((OrgMinimaObjectsBaseMiniHash *) nil_chk([((OrgMinimaObjectsTxPOW *) nil_chk([((OrgMinimaDatabaseTxpowdbJavaJavaDBRow *) nil_chk(row)) getTxPOW])) getTxPowID])) isExactlyEqualWithOrgMinimaObjectsBaseMiniData:zTxPOWID]) {
+    if ([((OrgMinimaObjectsBaseMiniData *) nil_chk([((OrgMinimaObjectsTxPOW *) nil_chk([((OrgMinimaDatabaseTxpowdbJavaJavaDBRow *) nil_chk(row)) getTxPOW])) getTxPowID])) isEqualWithOrgMinimaObjectsBaseMiniData:zTxPOWID]) {
+      return row;
+    }
+  }
+  for (OrgMinimaDatabaseTxpowdbJavaJavaDBRow * __strong row in nil_chk(mDeletedRows_)) {
+    if ([((OrgMinimaObjectsBaseMiniData *) nil_chk([((OrgMinimaObjectsTxPOW *) nil_chk([((OrgMinimaDatabaseTxpowdbJavaJavaDBRow *) nil_chk(row)) getTxPOW])) getTxPowID])) isEqualWithOrgMinimaObjectsBaseMiniData:zTxPOWID]) {
       return row;
     }
   }
@@ -52,23 +64,30 @@ J2OBJC_IGNORE_DESIGNATED_END
 - (JavaUtilArrayList *)removeTxPOWInBlockLessThanWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zBlockNumber {
   JavaUtilArrayList *removed = create_JavaUtilArrayList_init();
   JavaUtilArrayList *newRows = create_JavaUtilArrayList_init();
+  OrgMinimaObjectsBaseMiniNumber *minblock = [((OrgMinimaObjectsBaseMiniNumber *) nil_chk(zBlockNumber)) addWithOrgMinimaObjectsBaseMiniNumber:JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, TEN)];
   for (OrgMinimaDatabaseTxpowdbJavaJavaDBRow * __strong row in nil_chk(mRows_)) {
     if ([((OrgMinimaDatabaseTxpowdbJavaJavaDBRow *) nil_chk(row)) isOnChainBlock]) {
       [newRows addWithId:row];
-      continue;
     }
-    if (![row isInBlock]) {
+    else if (![row isInBlock] && [((OrgMinimaObjectsBaseMiniNumber *) nil_chk([((OrgMinimaObjectsTxPOW *) nil_chk([row getTxPOW])) getBlockNumber])) isMoreWithOrgMinimaObjectsBaseMiniNumber:minblock]) {
       [newRows addWithId:row];
     }
-    else if ([((OrgMinimaObjectsBaseMiniNumber *) nil_chk([row getInBlockNumber])) isMoreEqualWithOrgMinimaObjectsBaseMiniNumber:zBlockNumber]) {
+    else if ([row isInBlock] && [((OrgMinimaObjectsBaseMiniNumber *) nil_chk([row getInBlockNumber])) isMoreEqualWithOrgMinimaObjectsBaseMiniNumber:zBlockNumber]) {
       [newRows addWithId:row];
     }
     else {
       [removed addWithId:row];
+      [row deleteRow];
+      [((JavaUtilArrayList *) nil_chk(mDeletedRows_)) addWithId:row];
     }
   }
   JreStrongAssign(&mRows_, newRows);
+  OrgMinimaDatabaseTxpowdbJavaJavaDB_removeDeleted(self);
   return removed;
+}
+
+- (JavaUtilArrayList *)removeDeleted {
+  return OrgMinimaDatabaseTxpowdbJavaJavaDB_removeDeleted(self);
 }
 
 - (JavaUtilArrayList *)getAllUnusedTxPOW {
@@ -81,24 +100,26 @@ J2OBJC_IGNORE_DESIGNATED_END
   return ret;
 }
 
-- (jint)getSize {
-  return [((JavaUtilArrayList *) nil_chk(mRows_)) size];
+- (jint)getCompleteSize {
+  return [((JavaUtilArrayList *) nil_chk(mRows_)) size] + [((JavaUtilArrayList *) nil_chk(mDeletedRows_)) size];
 }
 
-- (void)removeTxPOWWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zTxPOWID {
+- (void)removeTxPOWWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zTxPOWID {
   JavaUtilArrayList *newRows = create_JavaUtilArrayList_init();
   for (OrgMinimaDatabaseTxpowdbJavaJavaDBRow * __strong row in nil_chk(mRows_)) {
-    if (![((OrgMinimaObjectsBaseMiniHash *) nil_chk([((OrgMinimaObjectsTxPOW *) nil_chk([((OrgMinimaDatabaseTxpowdbJavaJavaDBRow *) nil_chk(row)) getTxPOW])) getTxPowID])) isExactlyEqualWithOrgMinimaObjectsBaseMiniData:zTxPOWID]) {
+    if (![((OrgMinimaObjectsBaseMiniData *) nil_chk([((OrgMinimaObjectsTxPOW *) nil_chk([((OrgMinimaDatabaseTxpowdbJavaJavaDBRow *) nil_chk(row)) getTxPOW])) getTxPowID])) isEqualWithOrgMinimaObjectsBaseMiniData:zTxPOWID]) {
       [newRows addWithId:row];
+      [row deleteRow];
+      [((JavaUtilArrayList *) nil_chk(mDeletedRows_)) addWithId:row];
     }
   }
   JreStrongAssign(&mRows_, newRows);
 }
 
-- (JavaUtilArrayList *)getChildBlocksTxPOWWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zParent {
+- (JavaUtilArrayList *)getChildBlocksTxPOWWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zParent {
   JavaUtilArrayList *ret = create_JavaUtilArrayList_init();
   for (OrgMinimaDatabaseTxpowdbJavaJavaDBRow * __strong row in nil_chk(mRows_)) {
-    if ([((OrgMinimaObjectsTxPOW *) nil_chk([((OrgMinimaDatabaseTxpowdbJavaJavaDBRow *) nil_chk(row)) getTxPOW])) isBlock] && [((OrgMinimaObjectsBaseMiniHash *) nil_chk([((OrgMinimaObjectsTxPOW *) nil_chk([row getTxPOW])) getParentID])) isExactlyEqualWithOrgMinimaObjectsBaseMiniData:zParent]) {
+    if ([((OrgMinimaObjectsTxPOW *) nil_chk([((OrgMinimaDatabaseTxpowdbJavaJavaDBRow *) nil_chk(row)) getTxPOW])) isBlock] && [((OrgMinimaObjectsBaseMiniData *) nil_chk([((OrgMinimaObjectsTxPOW *) nil_chk([row getTxPOW])) getParentID])) isEqualWithOrgMinimaObjectsBaseMiniData:zParent]) {
       [ret addWithId:row];
     }
   }
@@ -132,10 +153,12 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 - (void)ClearDB {
   JreStrongAssignAndConsume(&mRows_, new_JavaUtilArrayList_init());
+  JreStrongAssignAndConsume(&mDeletedRows_, new_JavaUtilArrayList_init());
 }
 
 - (void)dealloc {
   RELEASE_(mRows_);
+  RELEASE_(mDeletedRows_);
   [super dealloc];
 }
 
@@ -145,6 +168,7 @@ J2OBJC_IGNORE_DESIGNATED_END
     { NULL, "LOrgMinimaDatabaseTxpowdbTxPOWDBRow;", 0x1, 0, 1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaDatabaseTxpowdbTxPOWDBRow;", 0x1, 2, 3, -1, -1, -1, -1 },
     { NULL, "LJavaUtilArrayList;", 0x1, 4, 5, -1, 6, -1, -1 },
+    { NULL, "LJavaUtilArrayList;", 0x2, -1, -1, -1, 7, -1, -1 },
     { NULL, "LJavaUtilArrayList;", 0x1, -1, -1, -1, 7, -1, -1 },
     { NULL, "I", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 8, 3, -1, -1, -1, -1 },
@@ -159,22 +183,24 @@ J2OBJC_IGNORE_DESIGNATED_END
   #pragma clang diagnostic ignored "-Wundeclared-selector"
   methods[0].selector = @selector(init);
   methods[1].selector = @selector(addTxPOWDBRowWithOrgMinimaObjectsTxPOW:);
-  methods[2].selector = @selector(findTxPOWDBRowWithOrgMinimaObjectsBaseMiniHash:);
+  methods[2].selector = @selector(findTxPOWDBRowWithOrgMinimaObjectsBaseMiniData:);
   methods[3].selector = @selector(removeTxPOWInBlockLessThanWithOrgMinimaObjectsBaseMiniNumber:);
-  methods[4].selector = @selector(getAllUnusedTxPOW);
-  methods[5].selector = @selector(getSize);
-  methods[6].selector = @selector(removeTxPOWWithOrgMinimaObjectsBaseMiniHash:);
-  methods[7].selector = @selector(getChildBlocksTxPOWWithOrgMinimaObjectsBaseMiniHash:);
-  methods[8].selector = @selector(getAllTxPOWDBRow);
-  methods[9].selector = @selector(resetAllInBlocks);
-  methods[10].selector = @selector(getAllBlocksMissingTransactions);
-  methods[11].selector = @selector(ClearDB);
+  methods[4].selector = @selector(removeDeleted);
+  methods[5].selector = @selector(getAllUnusedTxPOW);
+  methods[6].selector = @selector(getCompleteSize);
+  methods[7].selector = @selector(removeTxPOWWithOrgMinimaObjectsBaseMiniData:);
+  methods[8].selector = @selector(getChildBlocksTxPOWWithOrgMinimaObjectsBaseMiniData:);
+  methods[9].selector = @selector(getAllTxPOWDBRow);
+  methods[10].selector = @selector(resetAllInBlocks);
+  methods[11].selector = @selector(getAllBlocksMissingTransactions);
+  methods[12].selector = @selector(ClearDB);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
     { "mRows_", "LJavaUtilArrayList;", .constantValue.asLong = 0, 0x2, -1, -1, 11, -1 },
+    { "mDeletedRows_", "LJavaUtilArrayList;", .constantValue.asLong = 0, 0x2, -1, -1, 11, -1 },
   };
-  static const void *ptrTable[] = { "addTxPOWDBRow", "LOrgMinimaObjectsTxPOW;", "findTxPOWDBRow", "LOrgMinimaObjectsBaseMiniHash;", "removeTxPOWInBlockLessThan", "LOrgMinimaObjectsBaseMiniNumber;", "(Lorg/minima/objects/base/MiniNumber;)Ljava/util/ArrayList<Lorg/minima/database/txpowdb/TxPOWDBRow;>;", "()Ljava/util/ArrayList<Lorg/minima/database/txpowdb/TxPOWDBRow;>;", "removeTxPOW", "getChildBlocksTxPOW", "(Lorg/minima/objects/base/MiniHash;)Ljava/util/ArrayList<Lorg/minima/database/txpowdb/TxPOWDBRow;>;", "Ljava/util/ArrayList<Lorg/minima/database/txpowdb/java/JavaDBRow;>;" };
-  static const J2ObjcClassInfo _OrgMinimaDatabaseTxpowdbJavaJavaDB = { "JavaDB", "org.minima.database.txpowdb.java", ptrTable, methods, fields, 7, 0x1, 12, 1, -1, -1, -1, -1, -1 };
+  static const void *ptrTable[] = { "addTxPOWDBRow", "LOrgMinimaObjectsTxPOW;", "findTxPOWDBRow", "LOrgMinimaObjectsBaseMiniData;", "removeTxPOWInBlockLessThan", "LOrgMinimaObjectsBaseMiniNumber;", "(Lorg/minima/objects/base/MiniNumber;)Ljava/util/ArrayList<Lorg/minima/database/txpowdb/TxPOWDBRow;>;", "()Ljava/util/ArrayList<Lorg/minima/database/txpowdb/TxPOWDBRow;>;", "removeTxPOW", "getChildBlocksTxPOW", "(Lorg/minima/objects/base/MiniData;)Ljava/util/ArrayList<Lorg/minima/database/txpowdb/TxPOWDBRow;>;", "Ljava/util/ArrayList<Lorg/minima/database/txpowdb/java/JavaDBRow;>;" };
+  static const J2ObjcClassInfo _OrgMinimaDatabaseTxpowdbJavaJavaDB = { "JavaDB", "org.minima.database.txpowdb.java", ptrTable, methods, fields, 7, 0x1, 13, 2, -1, -1, -1, -1, -1 };
   return &_OrgMinimaDatabaseTxpowdbJavaJavaDB;
 }
 
@@ -183,6 +209,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 void OrgMinimaDatabaseTxpowdbJavaJavaDB_init(OrgMinimaDatabaseTxpowdbJavaJavaDB *self) {
   NSObject_init(self);
   JreStrongAssignAndConsume(&self->mRows_, new_JavaUtilArrayList_init());
+  JreStrongAssignAndConsume(&self->mDeletedRows_, new_JavaUtilArrayList_init());
 }
 
 OrgMinimaDatabaseTxpowdbJavaJavaDB *new_OrgMinimaDatabaseTxpowdbJavaJavaDB_init() {
@@ -191,6 +218,25 @@ OrgMinimaDatabaseTxpowdbJavaJavaDB *new_OrgMinimaDatabaseTxpowdbJavaJavaDB_init(
 
 OrgMinimaDatabaseTxpowdbJavaJavaDB *create_OrgMinimaDatabaseTxpowdbJavaJavaDB_init() {
   J2OBJC_CREATE_IMPL(OrgMinimaDatabaseTxpowdbJavaJavaDB, init)
+}
+
+JavaUtilArrayList *OrgMinimaDatabaseTxpowdbJavaJavaDB_removeDeleted(OrgMinimaDatabaseTxpowdbJavaJavaDB *self) {
+  JavaUtilArrayList *removed = create_JavaUtilArrayList_init();
+  JavaUtilArrayList *newDeletedRows = create_JavaUtilArrayList_init();
+  jlong timedelete = JavaLangSystem_currentTimeMillis() - 1000 * 60 * 60;
+  for (OrgMinimaDatabaseTxpowdbJavaJavaDBRow * __strong row in nil_chk(self->mDeletedRows_)) {
+    if ([((OrgMinimaDatabaseTxpowdbJavaJavaDBRow *) nil_chk(row)) getDeleteTime] == 0) {
+      [newDeletedRows addWithId:row];
+    }
+    else if ([row getDeleteTime] > timedelete) {
+      [newDeletedRows addWithId:row];
+    }
+    else {
+      [removed addWithId:row];
+    }
+  }
+  JreStrongAssign(&self->mDeletedRows_, newDeletedRows);
+  return removed;
 }
 
 J2OBJC_CLASS_TYPE_LITERAL_SOURCE(OrgMinimaDatabaseTxpowdbJavaJavaDB)

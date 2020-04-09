@@ -22,12 +22,12 @@
 
 @class JavaIoDataInputStream;
 @class JavaIoDataOutputStream;
-@class OrgMinimaObjectsBaseMiniString;
+@class OrgMinimaObjectsBaseMiniScript;
 @class OrgMinimaUtilsJsonJSONObject;
 
 @interface OrgMinimaObjectsProofsScriptProof : OrgMinimaObjectsProofsProof {
  @public
-  OrgMinimaObjectsBaseMiniString *mScript_;
+  OrgMinimaObjectsBaseMiniScript *mScript_;
 }
 
 #pragma mark Public
@@ -35,9 +35,12 @@
 - (instancetype)initWithNSString:(NSString *)zScript;
 
 - (instancetype)initWithNSString:(NSString *)zScript
+                         withInt:(jint)zBitLength;
+
+- (instancetype)initWithNSString:(NSString *)zScript
                     withNSString:(NSString *)zChainSHAProof;
 
-- (OrgMinimaObjectsBaseMiniString *)getScript;
+- (OrgMinimaObjectsBaseMiniScript *)getScript;
 
 - (void)readDataStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn;
 
@@ -51,13 +54,19 @@
 
 J2OBJC_EMPTY_STATIC_INIT(OrgMinimaObjectsProofsScriptProof)
 
-J2OBJC_FIELD_SETTER(OrgMinimaObjectsProofsScriptProof, mScript_, OrgMinimaObjectsBaseMiniString *)
+J2OBJC_FIELD_SETTER(OrgMinimaObjectsProofsScriptProof, mScript_, OrgMinimaObjectsBaseMiniScript *)
 
 FOUNDATION_EXPORT void OrgMinimaObjectsProofsScriptProof_initWithNSString_(OrgMinimaObjectsProofsScriptProof *self, NSString *zScript);
 
 FOUNDATION_EXPORT OrgMinimaObjectsProofsScriptProof *new_OrgMinimaObjectsProofsScriptProof_initWithNSString_(NSString *zScript) NS_RETURNS_RETAINED;
 
 FOUNDATION_EXPORT OrgMinimaObjectsProofsScriptProof *create_OrgMinimaObjectsProofsScriptProof_initWithNSString_(NSString *zScript);
+
+FOUNDATION_EXPORT void OrgMinimaObjectsProofsScriptProof_initWithNSString_withInt_(OrgMinimaObjectsProofsScriptProof *self, NSString *zScript, jint zBitLength);
+
+FOUNDATION_EXPORT OrgMinimaObjectsProofsScriptProof *new_OrgMinimaObjectsProofsScriptProof_initWithNSString_withInt_(NSString *zScript, jint zBitLength) NS_RETURNS_RETAINED;
+
+FOUNDATION_EXPORT OrgMinimaObjectsProofsScriptProof *create_OrgMinimaObjectsProofsScriptProof_initWithNSString_withInt_(NSString *zScript, jint zBitLength);
 
 FOUNDATION_EXPORT void OrgMinimaObjectsProofsScriptProof_initWithNSString_withNSString_(OrgMinimaObjectsProofsScriptProof *self, NSString *zScript, NSString *zChainSHAProof);
 

@@ -23,9 +23,14 @@ J2OBJC_IGNORE_DESIGNATED_END
 - (void)doFunctionWithNSStringArray:(IOSObjectArray *)zInput {
   NSString *name = IOSObjectArray_Get(nil_chk(zInput), 1);
   NSString *amount = IOSObjectArray_Get(zInput, 2);
+  NSString *script = @"RETURN TRUE";
+  if (zInput->size_ > 3) {
+    script = IOSObjectArray_Get(zInput, 3);
+  }
   OrgMinimaUtilsMessagesMessage *msg = [self getResponseMessageWithNSString:OrgMinimaSystemBrainsConsensusHandler_CONSENSUS_CREATETOKEN];
   [((OrgMinimaUtilsMessagesMessage *) nil_chk(msg)) addStringWithNSString:@"name" withNSString:name];
   [msg addStringWithNSString:@"amount" withNSString:amount];
+  [msg addStringWithNSString:@"script" withNSString:script];
   [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getConsensusHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:msg];
 }
 
@@ -55,7 +60,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 void OrgMinimaSystemInputFunctionscreatetoken_init(OrgMinimaSystemInputFunctionscreatetoken *self) {
   OrgMinimaSystemInputCommandFunction_initWithNSString_(self, @"createtoken");
-  [self setHelpWithNSString:@"[name|description] [total tokens] (token script hash)" withNSString:@"Create a token with the given name or description, amount, and with the optional script. This currently colors upto 0.001 Minima. The TokenID generated is one time and globaly unique." withNSString:@""];
+  [self setHelpWithNSString:@"[name] [total] (token script hash)" withNSString:@"Create a token." withNSString:@""];
 }
 
 OrgMinimaSystemInputFunctionscreatetoken *new_OrgMinimaSystemInputFunctionscreatetoken_init() {

@@ -22,38 +22,57 @@
 
 @class JavaIoDataInputStream;
 @class JavaIoDataOutputStream;
-@class OrgMinimaObjectsBaseMiniHash;
+@class OrgMinimaObjectsBaseMiniData;
 @class OrgMinimaObjectsBaseMiniNumber;
 @class OrgMinimaUtilsJsonJSONObject;
 
 @interface OrgMinimaObjectsCoin : NSObject < OrgMinimaUtilsStreamable > {
  @public
-  OrgMinimaObjectsBaseMiniHash *mCoinID_;
-  OrgMinimaObjectsBaseMiniHash *mAddress_;
+  OrgMinimaObjectsBaseMiniData *mCoinID_;
+  OrgMinimaObjectsBaseMiniData *mAddress_;
   OrgMinimaObjectsBaseMiniNumber *mAmount_;
-  OrgMinimaObjectsBaseMiniHash *mTokenID_;
+  OrgMinimaObjectsBaseMiniData *mTokenID_;
+  jboolean mFloating_;
+  jboolean mRemainder_;
 }
 
 #pragma mark Public
 
-- (instancetype)initWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zCoinID
-                    withOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zAddress
+- (instancetype)initWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zCoinID
+                    withOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zAddress
                   withOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zAmount
-                    withOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zTokenID;
+                    withOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zTokenID;
 
-- (OrgMinimaObjectsBaseMiniHash *)getAddress;
+- (instancetype)initWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zCoinID
+                    withOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zAddress
+                  withOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zAmount
+                    withOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zTokenID
+                                         withBoolean:(jboolean)zFloating
+                                         withBoolean:(jboolean)zRemainder;
+
+- (OrgMinimaObjectsBaseMiniData *)getAddress;
 
 - (OrgMinimaObjectsBaseMiniNumber *)getAmount;
 
-- (OrgMinimaObjectsBaseMiniHash *)getCoinID;
+- (OrgMinimaObjectsBaseMiniData *)getCoinID;
 
-+ (OrgMinimaObjectsBaseMiniHash *)getTokenCreationIDWithInt:(jint)zDecimalPlaces;
+- (OrgMinimaObjectsBaseMiniData *)getTokenID;
 
-- (OrgMinimaObjectsBaseMiniHash *)getTokenID;
+- (jboolean)isFloating;
+
+- (jboolean)isRemainder;
 
 - (void)readDataStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn;
 
 + (OrgMinimaObjectsCoin *)ReadFromStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn;
+
+- (void)resetAmountWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zAmount;
+
+- (void)resetCoinIDWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zCoinID;
+
+- (void)setFloatingWithBoolean:(jboolean)zFloating;
+
+- (void)setRemainderWithBoolean:(jboolean)zRemainder;
 
 - (OrgMinimaUtilsJsonJSONObject *)toJSON;
 
@@ -65,33 +84,37 @@
 
 J2OBJC_STATIC_INIT(OrgMinimaObjectsCoin)
 
-J2OBJC_FIELD_SETTER(OrgMinimaObjectsCoin, mCoinID_, OrgMinimaObjectsBaseMiniHash *)
-J2OBJC_FIELD_SETTER(OrgMinimaObjectsCoin, mAddress_, OrgMinimaObjectsBaseMiniHash *)
+J2OBJC_FIELD_SETTER(OrgMinimaObjectsCoin, mCoinID_, OrgMinimaObjectsBaseMiniData *)
+J2OBJC_FIELD_SETTER(OrgMinimaObjectsCoin, mAddress_, OrgMinimaObjectsBaseMiniData *)
 J2OBJC_FIELD_SETTER(OrgMinimaObjectsCoin, mAmount_, OrgMinimaObjectsBaseMiniNumber *)
-J2OBJC_FIELD_SETTER(OrgMinimaObjectsCoin, mTokenID_, OrgMinimaObjectsBaseMiniHash *)
+J2OBJC_FIELD_SETTER(OrgMinimaObjectsCoin, mTokenID_, OrgMinimaObjectsBaseMiniData *)
 
-inline OrgMinimaObjectsBaseMiniHash *OrgMinimaObjectsCoin_get_MINIMA_TOKENID(void);
+inline OrgMinimaObjectsBaseMiniData *OrgMinimaObjectsCoin_get_MINIMA_TOKENID(void);
 /*! INTERNAL ONLY - Use accessor function from above. */
-FOUNDATION_EXPORT OrgMinimaObjectsBaseMiniHash *OrgMinimaObjectsCoin_MINIMA_TOKENID;
-J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaObjectsCoin, MINIMA_TOKENID, OrgMinimaObjectsBaseMiniHash *)
+FOUNDATION_EXPORT OrgMinimaObjectsBaseMiniData *OrgMinimaObjectsCoin_MINIMA_TOKENID;
+J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaObjectsCoin, MINIMA_TOKENID, OrgMinimaObjectsBaseMiniData *)
 
-inline OrgMinimaObjectsBaseMiniHash *OrgMinimaObjectsCoin_get_COINID_OUTPUT(void);
+inline OrgMinimaObjectsBaseMiniData *OrgMinimaObjectsCoin_get_COINID_OUTPUT(void);
 /*! INTERNAL ONLY - Use accessor function from above. */
-FOUNDATION_EXPORT OrgMinimaObjectsBaseMiniHash *OrgMinimaObjectsCoin_COINID_OUTPUT;
-J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaObjectsCoin, COINID_OUTPUT, OrgMinimaObjectsBaseMiniHash *)
+FOUNDATION_EXPORT OrgMinimaObjectsBaseMiniData *OrgMinimaObjectsCoin_COINID_OUTPUT;
+J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaObjectsCoin, COINID_OUTPUT, OrgMinimaObjectsBaseMiniData *)
 
-inline OrgMinimaObjectsBaseMiniHash *OrgMinimaObjectsCoin_get_TOKENID_CREATE(void);
+inline OrgMinimaObjectsBaseMiniData *OrgMinimaObjectsCoin_get_TOKENID_CREATE(void);
 /*! INTERNAL ONLY - Use accessor function from above. */
-FOUNDATION_EXPORT OrgMinimaObjectsBaseMiniHash *OrgMinimaObjectsCoin_TOKENID_CREATE;
-J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaObjectsCoin, TOKENID_CREATE, OrgMinimaObjectsBaseMiniHash *)
+FOUNDATION_EXPORT OrgMinimaObjectsBaseMiniData *OrgMinimaObjectsCoin_TOKENID_CREATE;
+J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaObjectsCoin, TOKENID_CREATE, OrgMinimaObjectsBaseMiniData *)
 
-FOUNDATION_EXPORT void OrgMinimaObjectsCoin_initWithOrgMinimaObjectsBaseMiniHash_withOrgMinimaObjectsBaseMiniHash_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniHash_(OrgMinimaObjectsCoin *self, OrgMinimaObjectsBaseMiniHash *zCoinID, OrgMinimaObjectsBaseMiniHash *zAddress, OrgMinimaObjectsBaseMiniNumber *zAmount, OrgMinimaObjectsBaseMiniHash *zTokenID);
+FOUNDATION_EXPORT void OrgMinimaObjectsCoin_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniData_(OrgMinimaObjectsCoin *self, OrgMinimaObjectsBaseMiniData *zCoinID, OrgMinimaObjectsBaseMiniData *zAddress, OrgMinimaObjectsBaseMiniNumber *zAmount, OrgMinimaObjectsBaseMiniData *zTokenID);
 
-FOUNDATION_EXPORT OrgMinimaObjectsCoin *new_OrgMinimaObjectsCoin_initWithOrgMinimaObjectsBaseMiniHash_withOrgMinimaObjectsBaseMiniHash_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniHash_(OrgMinimaObjectsBaseMiniHash *zCoinID, OrgMinimaObjectsBaseMiniHash *zAddress, OrgMinimaObjectsBaseMiniNumber *zAmount, OrgMinimaObjectsBaseMiniHash *zTokenID) NS_RETURNS_RETAINED;
+FOUNDATION_EXPORT OrgMinimaObjectsCoin *new_OrgMinimaObjectsCoin_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniData_(OrgMinimaObjectsBaseMiniData *zCoinID, OrgMinimaObjectsBaseMiniData *zAddress, OrgMinimaObjectsBaseMiniNumber *zAmount, OrgMinimaObjectsBaseMiniData *zTokenID) NS_RETURNS_RETAINED;
 
-FOUNDATION_EXPORT OrgMinimaObjectsCoin *create_OrgMinimaObjectsCoin_initWithOrgMinimaObjectsBaseMiniHash_withOrgMinimaObjectsBaseMiniHash_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniHash_(OrgMinimaObjectsBaseMiniHash *zCoinID, OrgMinimaObjectsBaseMiniHash *zAddress, OrgMinimaObjectsBaseMiniNumber *zAmount, OrgMinimaObjectsBaseMiniHash *zTokenID);
+FOUNDATION_EXPORT OrgMinimaObjectsCoin *create_OrgMinimaObjectsCoin_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniData_(OrgMinimaObjectsBaseMiniData *zCoinID, OrgMinimaObjectsBaseMiniData *zAddress, OrgMinimaObjectsBaseMiniNumber *zAmount, OrgMinimaObjectsBaseMiniData *zTokenID);
 
-FOUNDATION_EXPORT OrgMinimaObjectsBaseMiniHash *OrgMinimaObjectsCoin_getTokenCreationIDWithInt_(jint zDecimalPlaces);
+FOUNDATION_EXPORT void OrgMinimaObjectsCoin_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniData_withBoolean_withBoolean_(OrgMinimaObjectsCoin *self, OrgMinimaObjectsBaseMiniData *zCoinID, OrgMinimaObjectsBaseMiniData *zAddress, OrgMinimaObjectsBaseMiniNumber *zAmount, OrgMinimaObjectsBaseMiniData *zTokenID, jboolean zFloating, jboolean zRemainder);
+
+FOUNDATION_EXPORT OrgMinimaObjectsCoin *new_OrgMinimaObjectsCoin_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniData_withBoolean_withBoolean_(OrgMinimaObjectsBaseMiniData *zCoinID, OrgMinimaObjectsBaseMiniData *zAddress, OrgMinimaObjectsBaseMiniNumber *zAmount, OrgMinimaObjectsBaseMiniData *zTokenID, jboolean zFloating, jboolean zRemainder) NS_RETURNS_RETAINED;
+
+FOUNDATION_EXPORT OrgMinimaObjectsCoin *create_OrgMinimaObjectsCoin_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniData_withBoolean_withBoolean_(OrgMinimaObjectsBaseMiniData *zCoinID, OrgMinimaObjectsBaseMiniData *zAddress, OrgMinimaObjectsBaseMiniNumber *zAmount, OrgMinimaObjectsBaseMiniData *zTokenID, jboolean zFloating, jboolean zRemainder);
 
 FOUNDATION_EXPORT OrgMinimaObjectsCoin *OrgMinimaObjectsCoin_ReadFromStreamWithJavaIoDataInputStream_(JavaIoDataInputStream *zIn);
 

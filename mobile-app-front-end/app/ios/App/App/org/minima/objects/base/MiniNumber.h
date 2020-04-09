@@ -20,13 +20,11 @@
 #define INCLUDE_OrgMinimaUtilsStreamable 1
 #include "org/minima/utils/Streamable.h"
 
-@class IOSObjectArray;
 @class JavaIoDataInputStream;
 @class JavaIoDataOutputStream;
 @class JavaMathBigDecimal;
 @class JavaMathBigInteger;
 @class JavaMathMathContext;
-@class JavaTextDecimalFormat;
 
 @interface OrgMinimaObjectsBaseMiniNumber : NSObject < OrgMinimaUtilsStreamable >
 
@@ -37,6 +35,8 @@
 - (instancetype)initWithJavaMathBigDecimal:(JavaMathBigDecimal *)zBigD;
 
 - (instancetype)initWithJavaMathBigInteger:(JavaMathBigInteger *)zNumber;
+
+- (instancetype)initWithInt:(jint)zNumber;
 
 - (instancetype)initWithNSString:(NSString *)zNumber;
 
@@ -78,8 +78,6 @@
 
 - (jboolean)isMoreEqualWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zNumber;
 
-+ (void)mainWithNSStringArray:(IOSObjectArray *)zArgs;
-
 - (OrgMinimaObjectsBaseMiniNumber *)moduloWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zNumber;
 
 - (OrgMinimaObjectsBaseMiniNumber *)multWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zNumber;
@@ -89,6 +87,8 @@
 - (void)readDataStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn;
 
 + (OrgMinimaObjectsBaseMiniNumber *)ReadFromStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn;
+
+- (OrgMinimaObjectsBaseMiniNumber *)setSignificantDigitsWithInt:(jint)zSignificantDigits;
 
 - (OrgMinimaObjectsBaseMiniNumber *)subWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zNumber;
 
@@ -104,11 +104,6 @@ inline JavaMathMathContext *OrgMinimaObjectsBaseMiniNumber_get_mMathContext(void
 /*! INTERNAL ONLY - Use accessor function from above. */
 FOUNDATION_EXPORT JavaMathMathContext *OrgMinimaObjectsBaseMiniNumber_mMathContext;
 J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaObjectsBaseMiniNumber, mMathContext, JavaMathMathContext *)
-
-inline JavaTextDecimalFormat *OrgMinimaObjectsBaseMiniNumber_get_MINIMA_SIGNIFICANT_FORMAT(void);
-/*! INTERNAL ONLY - Use accessor function from above. */
-FOUNDATION_EXPORT JavaTextDecimalFormat *OrgMinimaObjectsBaseMiniNumber_MINIMA_SIGNIFICANT_FORMAT;
-J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaObjectsBaseMiniNumber, MINIMA_SIGNIFICANT_FORMAT, JavaTextDecimalFormat *)
 
 inline OrgMinimaObjectsBaseMiniNumber *OrgMinimaObjectsBaseMiniNumber_get_ZERO(void);
 /*! INTERNAL ONLY - Use accessor function from above. */
@@ -130,10 +125,30 @@ inline OrgMinimaObjectsBaseMiniNumber *OrgMinimaObjectsBaseMiniNumber_get_EIGHT(
 FOUNDATION_EXPORT OrgMinimaObjectsBaseMiniNumber *OrgMinimaObjectsBaseMiniNumber_EIGHT;
 J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaObjectsBaseMiniNumber, EIGHT, OrgMinimaObjectsBaseMiniNumber *)
 
+inline OrgMinimaObjectsBaseMiniNumber *OrgMinimaObjectsBaseMiniNumber_get_THIRTYTWO(void);
+/*! INTERNAL ONLY - Use accessor function from above. */
+FOUNDATION_EXPORT OrgMinimaObjectsBaseMiniNumber *OrgMinimaObjectsBaseMiniNumber_THIRTYTWO;
+J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaObjectsBaseMiniNumber, THIRTYTWO, OrgMinimaObjectsBaseMiniNumber *)
+
+inline OrgMinimaObjectsBaseMiniNumber *OrgMinimaObjectsBaseMiniNumber_get_SIXTYFOUR(void);
+/*! INTERNAL ONLY - Use accessor function from above. */
+FOUNDATION_EXPORT OrgMinimaObjectsBaseMiniNumber *OrgMinimaObjectsBaseMiniNumber_SIXTYFOUR;
+J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaObjectsBaseMiniNumber, SIXTYFOUR, OrgMinimaObjectsBaseMiniNumber *)
+
 inline OrgMinimaObjectsBaseMiniNumber *OrgMinimaObjectsBaseMiniNumber_get_TEN(void);
 /*! INTERNAL ONLY - Use accessor function from above. */
 FOUNDATION_EXPORT OrgMinimaObjectsBaseMiniNumber *OrgMinimaObjectsBaseMiniNumber_TEN;
 J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaObjectsBaseMiniNumber, TEN, OrgMinimaObjectsBaseMiniNumber *)
+
+inline OrgMinimaObjectsBaseMiniNumber *OrgMinimaObjectsBaseMiniNumber_get_HUNDRED(void);
+/*! INTERNAL ONLY - Use accessor function from above. */
+FOUNDATION_EXPORT OrgMinimaObjectsBaseMiniNumber *OrgMinimaObjectsBaseMiniNumber_HUNDRED;
+J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaObjectsBaseMiniNumber, HUNDRED, OrgMinimaObjectsBaseMiniNumber *)
+
+inline OrgMinimaObjectsBaseMiniNumber *OrgMinimaObjectsBaseMiniNumber_get_THOUSAND(void);
+/*! INTERNAL ONLY - Use accessor function from above. */
+FOUNDATION_EXPORT OrgMinimaObjectsBaseMiniNumber *OrgMinimaObjectsBaseMiniNumber_THOUSAND;
+J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaObjectsBaseMiniNumber, THOUSAND, OrgMinimaObjectsBaseMiniNumber *)
 
 inline OrgMinimaObjectsBaseMiniNumber *OrgMinimaObjectsBaseMiniNumber_get_MINUSONE(void);
 /*! INTERNAL ONLY - Use accessor function from above. */
@@ -145,6 +160,12 @@ FOUNDATION_EXPORT void OrgMinimaObjectsBaseMiniNumber_init(OrgMinimaObjectsBaseM
 FOUNDATION_EXPORT OrgMinimaObjectsBaseMiniNumber *new_OrgMinimaObjectsBaseMiniNumber_init(void) NS_RETURNS_RETAINED;
 
 FOUNDATION_EXPORT OrgMinimaObjectsBaseMiniNumber *create_OrgMinimaObjectsBaseMiniNumber_init(void);
+
+FOUNDATION_EXPORT void OrgMinimaObjectsBaseMiniNumber_initWithInt_(OrgMinimaObjectsBaseMiniNumber *self, jint zNumber);
+
+FOUNDATION_EXPORT OrgMinimaObjectsBaseMiniNumber *new_OrgMinimaObjectsBaseMiniNumber_initWithInt_(jint zNumber) NS_RETURNS_RETAINED;
+
+FOUNDATION_EXPORT OrgMinimaObjectsBaseMiniNumber *create_OrgMinimaObjectsBaseMiniNumber_initWithInt_(jint zNumber);
 
 FOUNDATION_EXPORT void OrgMinimaObjectsBaseMiniNumber_initWithJavaMathBigInteger_(OrgMinimaObjectsBaseMiniNumber *self, JavaMathBigInteger *zNumber);
 
@@ -165,8 +186,6 @@ FOUNDATION_EXPORT OrgMinimaObjectsBaseMiniNumber *new_OrgMinimaObjectsBaseMiniNu
 FOUNDATION_EXPORT OrgMinimaObjectsBaseMiniNumber *create_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(NSString *zNumber);
 
 FOUNDATION_EXPORT OrgMinimaObjectsBaseMiniNumber *OrgMinimaObjectsBaseMiniNumber_ReadFromStreamWithJavaIoDataInputStream_(JavaIoDataInputStream *zIn);
-
-FOUNDATION_EXPORT void OrgMinimaObjectsBaseMiniNumber_mainWithNSStringArray_(IOSObjectArray *zArgs);
 
 J2OBJC_TYPE_LITERAL_HEADER(OrgMinimaObjectsBaseMiniNumber)
 

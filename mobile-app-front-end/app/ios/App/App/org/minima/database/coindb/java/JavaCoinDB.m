@@ -9,7 +9,7 @@
 #include "org/minima/database/coindb/java/JavaCoinDB.h"
 #include "org/minima/database/coindb/java/JavaCoinDBRow.h"
 #include "org/minima/objects/Coin.h"
-#include "org/minima/objects/base/MiniHash.h"
+#include "org/minima/objects/base/MiniData.h"
 #include "org/minima/objects/base/MiniNumber.h"
 
 jlong OrgMinimaDatabaseCoindbJavaJavaCoinDB_COINDB_LIMIT = 1000;
@@ -31,19 +31,19 @@ J2OBJC_IGNORE_DESIGNATED_END
   return mRows_;
 }
 
-- (JavaUtilArrayList *)checkForRelevantCoinsWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zAddress {
+- (JavaUtilArrayList *)checkForRelevantCoinsWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zAddress {
   JavaUtilArrayList *ret = create_JavaUtilArrayList_init();
   for (id<OrgMinimaDatabaseCoindbCoinDBRow> __strong row in nil_chk(mRows_)) {
-    if ([((OrgMinimaObjectsBaseMiniHash *) nil_chk([((OrgMinimaObjectsCoin *) nil_chk([((id<OrgMinimaDatabaseCoindbCoinDBRow>) nil_chk(row)) getCoin])) getAddress])) isExactlyEqualWithOrgMinimaObjectsBaseMiniData:zAddress]) {
+    if ([((OrgMinimaObjectsBaseMiniData *) nil_chk([((OrgMinimaObjectsCoin *) nil_chk([((id<OrgMinimaDatabaseCoindbCoinDBRow>) nil_chk(row)) getCoin])) getAddress])) isEqualWithOrgMinimaObjectsBaseMiniData:zAddress]) {
       [ret addWithId:row];
     }
   }
   return ret;
 }
 
-- (id<OrgMinimaDatabaseCoindbCoinDBRow>)getCoinRowWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zCoinID {
+- (id<OrgMinimaDatabaseCoindbCoinDBRow>)getCoinRowWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zCoinID {
   for (id<OrgMinimaDatabaseCoindbCoinDBRow> __strong row in nil_chk(mRows_)) {
-    if ([((OrgMinimaObjectsBaseMiniHash *) nil_chk([((OrgMinimaObjectsCoin *) nil_chk([((id<OrgMinimaDatabaseCoindbCoinDBRow>) nil_chk(row)) getCoin])) getCoinID])) isNumericallyEqualWithOrgMinimaObjectsBaseMiniData:zCoinID]) {
+    if ([((OrgMinimaObjectsBaseMiniData *) nil_chk([((OrgMinimaObjectsCoin *) nil_chk([((id<OrgMinimaDatabaseCoindbCoinDBRow>) nil_chk(row)) getCoin])) getCoinID])) isEqualWithOrgMinimaObjectsBaseMiniData:zCoinID]) {
       return row;
     }
   }
@@ -51,7 +51,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (id<OrgMinimaDatabaseCoindbCoinDBRow>)addCoinRowWithOrgMinimaObjectsCoin:(OrgMinimaObjectsCoin *)zCoin {
-  id<OrgMinimaDatabaseCoindbCoinDBRow> row = [self getCoinRowWithOrgMinimaObjectsBaseMiniHash:[((OrgMinimaObjectsCoin *) nil_chk(zCoin)) getCoinID]];
+  id<OrgMinimaDatabaseCoindbCoinDBRow> row = [self getCoinRowWithOrgMinimaObjectsBaseMiniData:[((OrgMinimaObjectsCoin *) nil_chk(zCoin)) getCoinID]];
   if (row != nil) {
     return row;
   }
@@ -94,8 +94,8 @@ J2OBJC_IGNORE_DESIGNATED_END
   methods[0].selector = @selector(init);
   methods[1].selector = @selector(clearDB);
   methods[2].selector = @selector(getComplete);
-  methods[3].selector = @selector(checkForRelevantCoinsWithOrgMinimaObjectsBaseMiniHash:);
-  methods[4].selector = @selector(getCoinRowWithOrgMinimaObjectsBaseMiniHash:);
+  methods[3].selector = @selector(checkForRelevantCoinsWithOrgMinimaObjectsBaseMiniData:);
+  methods[4].selector = @selector(getCoinRowWithOrgMinimaObjectsBaseMiniData:);
   methods[5].selector = @selector(addCoinRowWithOrgMinimaObjectsCoin:);
   methods[6].selector = @selector(removeOldSpentCoinsWithOrgMinimaObjectsBaseMiniNumber:);
   #pragma clang diagnostic pop
@@ -103,7 +103,7 @@ J2OBJC_IGNORE_DESIGNATED_END
     { "COINDB_LIMIT", "J", .constantValue.asLong = 0, 0x9, -1, 9, -1, -1 },
     { "mRows_", "LJavaUtilArrayList;", .constantValue.asLong = 0, 0x0, -1, -1, 10, -1 },
   };
-  static const void *ptrTable[] = { "()Ljava/util/ArrayList<Lorg/minima/database/coindb/CoinDBRow;>;", "checkForRelevantCoins", "LOrgMinimaObjectsBaseMiniHash;", "(Lorg/minima/objects/base/MiniHash;)Ljava/util/ArrayList<Lorg/minima/database/coindb/CoinDBRow;>;", "getCoinRow", "addCoinRow", "LOrgMinimaObjectsCoin;", "removeOldSpentCoins", "LOrgMinimaObjectsBaseMiniNumber;", &OrgMinimaDatabaseCoindbJavaJavaCoinDB_COINDB_LIMIT, "Ljava/util/ArrayList<Lorg/minima/database/coindb/CoinDBRow;>;" };
+  static const void *ptrTable[] = { "()Ljava/util/ArrayList<Lorg/minima/database/coindb/CoinDBRow;>;", "checkForRelevantCoins", "LOrgMinimaObjectsBaseMiniData;", "(Lorg/minima/objects/base/MiniData;)Ljava/util/ArrayList<Lorg/minima/database/coindb/CoinDBRow;>;", "getCoinRow", "addCoinRow", "LOrgMinimaObjectsCoin;", "removeOldSpentCoins", "LOrgMinimaObjectsBaseMiniNumber;", &OrgMinimaDatabaseCoindbJavaJavaCoinDB_COINDB_LIMIT, "Ljava/util/ArrayList<Lorg/minima/database/coindb/CoinDBRow;>;" };
   static const J2ObjcClassInfo _OrgMinimaDatabaseCoindbJavaJavaCoinDB = { "JavaCoinDB", "org.minima.database.coindb.java", ptrTable, methods, fields, 7, 0x1, 7, 2, -1, -1, -1, -1, -1 };
   return &_OrgMinimaDatabaseCoindbJavaJavaCoinDB;
 }

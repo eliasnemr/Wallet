@@ -1,21 +1,13 @@
 package org.minima.database.mmr;
 
-import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import org.minima.objects.Coin;
-import org.minima.objects.base.MiniByte;
-import org.minima.objects.base.MiniData;
-import org.minima.objects.base.MiniHash;
+import org.minima.objects.base.MiniInteger;
 import org.minima.objects.base.MiniNumber;
 import org.minima.objects.proofs.Proof;
-import org.minima.objects.proofs.Proof.ProofChunk;
-import org.minima.utils.Crypto;
-import org.minima.utils.Streamable;
-import org.minima.utils.json.JSONArray;
 import org.minima.utils.json.JSONObject;
 
 public class MMRProof extends Proof {
@@ -23,12 +15,12 @@ public class MMRProof extends Proof {
 	/**
 	 * The block time this proof points to
 	 */
-	MiniNumber mBlockTime = MiniNumber.ZERO;
+	MiniNumber mBlockTime = new MiniNumber(0);
 	
 	/**
 	 * The Entry number in the MMR
 	 */
-	MiniNumber mEntryNumber = MiniNumber.ZERO;
+	MiniInteger mEntryNumber = new MiniInteger(0);
 	
 	/**
 	 * The Provable data
@@ -39,7 +31,7 @@ public class MMRProof extends Proof {
 		super();
 	}
 		
-	public MMRProof(MiniNumber zEntryNumber, MMRData zInitialData, MiniNumber zBlockTime) {
+	public MMRProof(MiniInteger zEntryNumber, MMRData zInitialData, MiniNumber zBlockTime) {
 		mEntryNumber = zEntryNumber;
 		mData        = zInitialData;
 		mBlockTime   = zBlockTime;
@@ -51,7 +43,7 @@ public class MMRProof extends Proof {
 		return mBlockTime;
 	}
 	
-	public MiniNumber getEntryNumber() {
+	public MiniInteger getEntryNumber() {
 		return mEntryNumber;
 	}
 	
@@ -70,10 +62,10 @@ public class MMRProof extends Proof {
 		Coin cc = getMMRData().getCoin();
 		
 		//Is this input for the correct details..
-		boolean coinidcheck  = cc.getCoinID().isExactlyEqual(zCoin.getCoinID());
+		boolean coinidcheck  = cc.getCoinID().isEqual(zCoin.getCoinID());
 		boolean amountcheck  = cc.getAmount().isEqual(zCoin.getAmount());
-		boolean addresscheck = cc.getAddress().isExactlyEqual(zCoin.getAddress());
-		boolean tokencheck   = cc.getTokenID().isExactlyEqual(zCoin.getTokenID());
+		boolean addresscheck = cc.getAddress().isEqual(zCoin.getAddress());
+		boolean tokencheck   = cc.getTokenID().isEqual(zCoin.getTokenID());
 		
 		return coinidcheck && amountcheck && addresscheck && tokencheck;
 	}
@@ -89,15 +81,6 @@ public class MMRProof extends Proof {
 		
 		return obj;
 	}
-	
-//	public JSONObject toProofChainJSONOnly() {
-//		JSONObject json = new JSONObject();
-//		
-//		json.put("data", mData);
-//		json.put("chainsha", getChainSHAProof().to0xString());
-//		
-//		return json;
-//	}
 	
 	@Override
 	public String toString() {
@@ -116,7 +99,7 @@ public class MMRProof extends Proof {
 	@Override
 	public void readDataStream(DataInputStream zIn) throws IOException {
 		mBlockTime   = MiniNumber.ReadFromStream(zIn);
-		mEntryNumber = MiniNumber.ReadFromStream(zIn);
+		mEntryNumber = MiniInteger.ReadFromStream(zIn);
 		mData        = MMRData.ReadFromStream(zIn);
 		
 		super.readDataStream(zIn);

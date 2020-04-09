@@ -5,14 +5,11 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.Hashtable;
 
 import org.minima.objects.Coin;
 import org.minima.objects.StateVariable;
 import org.minima.objects.base.MiniByte;
 import org.minima.objects.base.MiniData;
-import org.minima.objects.base.MiniHash;
 import org.minima.objects.base.MiniNumber;
 import org.minima.utils.Crypto;
 import org.minima.utils.Streamable;
@@ -44,7 +41,12 @@ public class MMRData implements Streamable{
 	/**
 	 * The final Hash this represents in the MMR tree
 	 */
-	MiniHash mFinalHash;
+	MiniData mFinalHash;
+	
+	/**
+	 * The Amount of this Output - used for the Sum Tree
+	 */
+	MiniNumber mValueSum;
 	
 	/**
 	 * Is this a HASH only affair
@@ -61,9 +63,12 @@ public class MMRData implements Streamable{
 	 * 
 	 * @param zData
 	 */
-	public MMRData(MiniHash zData) {
+	public MMRData(MiniData zData, MiniNumber zValueSum) {
 		//Only the final hash
 		mFinalHash = zData;
+		
+		//The COmbined Value of the Children
+		mValueSum = zValueSum;
 		
 		//It is ONLY the HASH
 		mHashOnly  = true; 
@@ -86,6 +91,13 @@ public class MMRData implements Streamable{
 		//Full  Data
 		mHashOnly = false;
 		
+		//The Sum Value
+		if(zSpent.isTrue()) {
+			mValueSum = MiniNumber.ZERO;	
+		}else {
+			mValueSum = zCoin.getAmount();	
+		}
+		
 		//Calculate the hash
 		calculateDataHash();
 	}
@@ -105,8 +117,8 @@ public class MMRData implements Streamable{
 			//Get the data
 			MiniData data = new MiniData( baos.toByteArray() );
 			
-			//And Hash IT..
-			mFinalHash = Crypto.getInstance().hashObject(data);
+			//And Hash IT.. ALWYS 512
+			mFinalHash = Crypto.getInstance().hashObject(data,512);
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -114,8 +126,12 @@ public class MMRData implements Streamable{
 		}
 	}
 	
-	public MiniHash getFinalHash() {
+	public MiniData getFinalHash() {
 		return mFinalHash;
+	}
+	
+	public MiniNumber getValueSum() {
+		return mValueSum;
 	}
 	
 	//Must be NOT hashonly
@@ -143,9 +159,10 @@ public class MMRData implements Streamable{
 		JSONObject obj = new JSONObject();
 		
 		obj.put("hashonly", mHashOnly);
+		obj.put("value", mValueSum.toString());
 		
 		if(mHashOnly) {
-			obj.put("finalhash", mFinalHash.toString());	
+			obj.put("finalhash", mFinalHash.toString());
 		}else {
 			obj.put("finalhash", mFinalHash.toString());
 			obj.put("spent", isSpent());
@@ -177,6 +194,8 @@ public class MMRData implements Streamable{
 			//Only write the hash
 			mFinalHash.writeDataStream(zOut);
 		
+			//And the SUM
+			mValueSum.writeDataStream(zOut);
 		}else {
 			MiniByte.FALSE.writeDataStream(zOut);
 		
@@ -203,7 +222,9 @@ public class MMRData implements Streamable{
 		mHashOnly         = hashonly.isTrue();
 		
 		if(mHashOnly) {
-			mFinalHash 	 = MiniHash.ReadFromStream(zIn);
+			mFinalHash 	 = MiniData.ReadFromStream(zIn);
+			mValueSum    = MiniNumber.ReadFromStream(zIn);
+			
 		}else {
 			mSpent   	 = MiniByte.ReadFromStream(zIn);
 			mCoin    	 = Coin.ReadFromStream(zIn);
@@ -218,6 +239,13 @@ public class MMRData implements Streamable{
 				
 				//Add it..
 				mPrevState.add(sv);
+			}
+			
+			//The Sum Value
+			if(mSpent.isTrue()) {
+				mValueSum = MiniNumber.ZERO;	
+			}else {
+				mValueSum = mCoin.getAmount();	
 			}
 			
 			//Calculate the Hash..

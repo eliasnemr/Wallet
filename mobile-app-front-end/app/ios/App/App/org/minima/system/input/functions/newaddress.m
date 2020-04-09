@@ -5,6 +5,7 @@
 
 #include "IOSObjectArray.h"
 #include "J2ObjC_source.h"
+#include "java/lang/Integer.h"
 #include "org/minima/system/Main.h"
 #include "org/minima/system/brains/ConsensusHandler.h"
 #include "org/minima/system/brains/ConsensusUser.h"
@@ -23,6 +24,10 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 - (void)doFunctionWithNSStringArray:(IOSObjectArray *)zInput {
   OrgMinimaUtilsMessagesMessage *msg = [self getResponseMessageWithNSString:OrgMinimaSystemBrainsConsensusUser_CONSENSUS_NEWSIMPLE];
+  if (((IOSObjectArray *) nil_chk(zInput))->size_ > 1) {
+    jint bits = JavaLangInteger_parseIntWithNSString_(IOSObjectArray_Get(zInput, 1));
+    [((OrgMinimaUtilsMessagesMessage *) nil_chk(msg)) addIntWithNSString:@"bitlength" withInt:bits];
+  }
   [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getConsensusHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:msg];
 }
 
@@ -52,7 +57,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 void OrgMinimaSystemInputFunctionsnewaddress_init(OrgMinimaSystemInputFunctionsnewaddress *self) {
   OrgMinimaSystemInputCommandFunction_initWithNSString_(self, @"newaddress");
-  [self setHelpWithNSString:@"" withNSString:@"Create a new address to receive funds" withNSString:@""];
+  [self setHelpWithNSString:@"(hashbits)" withNSString:@"Create a new address to receive funds" withNSString:@""];
 }
 
 OrgMinimaSystemInputFunctionsnewaddress *new_OrgMinimaSystemInputFunctionsnewaddress_init() {

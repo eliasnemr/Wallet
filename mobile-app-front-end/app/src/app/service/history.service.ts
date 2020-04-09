@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, concatMap, merge } from 'rxjs/operators';
 import { Observable, timer, Subject } from 'rxjs';
-import { MiniHistory } from '../models/minihistory.model';
+import { History } from '../models/history.model';
 
 @Injectable({
     providedIn: 'root'
@@ -41,7 +41,7 @@ export class HistoryService {
         
         merge(this.manualRefresh),
         concatMap(_ => history$),
-        map((res: {status: boolean, minifunc: string, message: string, response: {history: MiniHistory}}) => res)
+        map((res: {status: boolean, minifunc: string, message: string, response: {history: History}}) => res)
   
   
       );

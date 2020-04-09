@@ -16,11 +16,25 @@
 #if !defined (OrgMinimaSystemInputFunctionsTxnstxnimport_) && (INCLUDE_ALL_OrgMinimaSystemInputFunctionsTxnsTxnimport || defined(INCLUDE_OrgMinimaSystemInputFunctionsTxnstxnimport))
 #define OrgMinimaSystemInputFunctionsTxnstxnimport_
 
-@interface OrgMinimaSystemInputFunctionsTxnstxnimport : NSObject
+#define RESTRICT_OrgMinimaSystemInputCommandFunction 1
+#define INCLUDE_OrgMinimaSystemInputCommandFunction 1
+#include "org/minima/system/input/CommandFunction.h"
+
+@class IOSObjectArray;
+
+@interface OrgMinimaSystemInputFunctionsTxnstxnimport : OrgMinimaSystemInputCommandFunction
 
 #pragma mark Public
 
 - (instancetype)init;
+
+- (void)doFunctionWithNSStringArray:(IOSObjectArray *)zInput;
+
+- (OrgMinimaSystemInputCommandFunction *)getNewFunction;
+
+// Disallowed inherited constructors, do not use.
+
+- (instancetype)initWithNSString:(NSString *)arg0 NS_UNAVAILABLE;
 
 @end
 

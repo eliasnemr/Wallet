@@ -16,6 +16,7 @@
 #if !defined (OrgMinimaDatabaseCoindbCoinDBRow_) && (INCLUDE_ALL_OrgMinimaDatabaseCoindbCoinDBRow || defined(INCLUDE_OrgMinimaDatabaseCoindbCoinDBRow))
 #define OrgMinimaDatabaseCoindbCoinDBRow_
 
+@class OrgMinimaObjectsBaseMiniInteger;
 @class OrgMinimaObjectsBaseMiniNumber;
 @class OrgMinimaObjectsCoin;
 
@@ -35,9 +36,9 @@
 
 - (jboolean)isInBlock;
 
-- (void)setMMREntryWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zEntry;
+- (void)setMMREntryWithOrgMinimaObjectsBaseMiniInteger:(OrgMinimaObjectsBaseMiniInteger *)zEntry;
 
-- (OrgMinimaObjectsBaseMiniNumber *)getMMREntry;
+- (OrgMinimaObjectsBaseMiniInteger *)getMMREntry;
 
 @end
 

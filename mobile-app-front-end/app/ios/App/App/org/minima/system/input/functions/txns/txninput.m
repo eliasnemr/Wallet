@@ -6,7 +6,7 @@
 #include "IOSObjectArray.h"
 #include "J2ObjC_source.h"
 #include "java/lang/Integer.h"
-#include "org/minima/objects/base/MiniHash.h"
+#include "org/minima/objects/base/MiniData.h"
 #include "org/minima/system/Main.h"
 #include "org/minima/system/brains/ConsensusHandler.h"
 #include "org/minima/system/brains/ConsensusTxn.h"
@@ -26,7 +26,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 - (void)doFunctionWithNSStringArray:(IOSObjectArray *)zInput {
   jint txn = JavaLangInteger_parseIntWithNSString_(IOSObjectArray_Get(nil_chk(zInput), 1));
   NSString *coinid = IOSObjectArray_Get(zInput, 2);
-  OrgMinimaObjectsBaseMiniHash *cid = create_OrgMinimaObjectsBaseMiniHash_initWithNSString_(coinid);
+  OrgMinimaObjectsBaseMiniData *cid = create_OrgMinimaObjectsBaseMiniData_initWithNSString_(coinid);
   OrgMinimaUtilsMessagesMessage *msg = [self getResponseMessageWithNSString:OrgMinimaSystemBrainsConsensusTxn_CONSENSUS_TXNINPUT];
   [((OrgMinimaUtilsMessagesMessage *) nil_chk(msg)) addIntWithNSString:@"transaction" withInt:txn];
   [msg addObjectWithNSString:@"coinid" withId:cid];

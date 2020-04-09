@@ -3,24 +3,27 @@
 //  source: ./org/minima/utils/SuperBlockLevels.java
 //
 
-#include "IOSClass.h"
 #include "IOSObjectArray.h"
 #include "J2ObjC_source.h"
-#include "java/math/BigDecimal.h"
+#include "java/io/PrintStream.h"
+#include "java/lang/Math.h"
+#include "java/lang/System.h"
 #include "java/math/BigInteger.h"
-#include "org/minima/objects/base/MiniHash.h"
+#include "org/minima/GlobalParams.h"
+#include "org/minima/objects/base/MiniData.h"
+#include "org/minima/utils/Maths.h"
 #include "org/minima/utils/SuperBlockLevels.h"
 
-inline OrgMinimaUtilsSuperBlockLevels *OrgMinimaUtilsSuperBlockLevels_get_mSuperDuper(void);
-inline OrgMinimaUtilsSuperBlockLevels *OrgMinimaUtilsSuperBlockLevels_set_mSuperDuper(OrgMinimaUtilsSuperBlockLevels *value);
-static OrgMinimaUtilsSuperBlockLevels *OrgMinimaUtilsSuperBlockLevels_mSuperDuper;
-J2OBJC_STATIC_FIELD_OBJ(OrgMinimaUtilsSuperBlockLevels, mSuperDuper, OrgMinimaUtilsSuperBlockLevels *)
+inline JavaMathBigInteger *OrgMinimaUtilsSuperBlockLevels_get_TWO(void);
+inline JavaMathBigInteger *OrgMinimaUtilsSuperBlockLevels_set_TWO(JavaMathBigInteger *value);
+static JavaMathBigInteger *OrgMinimaUtilsSuperBlockLevels_TWO;
+J2OBJC_STATIC_FIELD_OBJ(OrgMinimaUtilsSuperBlockLevels, TWO, JavaMathBigInteger *)
+
+J2OBJC_INITIALIZED_DEFN(OrgMinimaUtilsSuperBlockLevels)
+
+OrgMinimaObjectsBaseMiniData *OrgMinimaUtilsSuperBlockLevels_GENESIS_HASH;
 
 @implementation OrgMinimaUtilsSuperBlockLevels
-
-+ (OrgMinimaUtilsSuperBlockLevels *)getSupers {
-  return OrgMinimaUtilsSuperBlockLevels_getSupers();
-}
 
 J2OBJC_IGNORE_DESIGNATED_BEGIN
 - (instancetype)init {
@@ -29,79 +32,49 @@ J2OBJC_IGNORE_DESIGNATED_BEGIN
 }
 J2OBJC_IGNORE_DESIGNATED_END
 
-- (JavaMathBigDecimal *)get2POWWithInt:(jint)zExponent {
-  return IOSObjectArray_Get(nil_chk(mPOW2_), zExponent);
++ (jint)getSuperLevelWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zDifficulty
+                     withOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zActual {
+  return OrgMinimaUtilsSuperBlockLevels_getSuperLevelWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniData_(zDifficulty, zActual);
 }
 
-- (jint)getSuperBlockLevelWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zData {
-  for (jint i = OrgMinimaUtilsSuperBlockLevels_MAX_LEVELS - 1; i >= 0; i--) {
-    NSString *hex = [((OrgMinimaObjectsBaseMiniHash *) nil_chk(zData)) toPureHexString];
-    JavaMathBigInteger *val = create_JavaMathBigInteger_initWithNSString_withInt_(hex, 16);
-    if ([val compareToWithId:IOSObjectArray_Get(nil_chk(mSuperLevels_), i)] <= 0) {
-      return i;
-    }
-  }
-  return -1;
-}
-
-- (JavaMathBigInteger *)getSuperValueWithInt:(jint)zLevel {
-  return IOSObjectArray_Get(nil_chk(mSuperLevels_), zLevel);
-}
-
-- (void)dealloc {
-  RELEASE_(mSuperLevels_);
-  RELEASE_(mPOW2_);
-  [super dealloc];
++ (void)mainWithNSStringArray:(IOSObjectArray *)zArgs {
+  OrgMinimaUtilsSuperBlockLevels_mainWithNSStringArray_(zArgs);
 }
 
 + (const J2ObjcClassInfo *)__metadata {
   static J2ObjcMethodInfo methods[] = {
-    { NULL, "LOrgMinimaUtilsSuperBlockLevels;", 0x9, -1, -1, -1, -1, -1, -1 },
     { NULL, NULL, 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LJavaMathBigDecimal;", 0x1, 0, 1, -1, -1, -1, -1 },
-    { NULL, "I", 0x1, 2, 3, -1, -1, -1, -1 },
-    { NULL, "LJavaMathBigInteger;", 0x1, 4, 1, -1, -1, -1, -1 },
+    { NULL, "I", 0x9, 0, 1, -1, -1, -1, -1 },
+    { NULL, "V", 0x9, 2, 3, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
   #pragma clang diagnostic ignored "-Wundeclared-selector"
-  methods[0].selector = @selector(getSupers);
-  methods[1].selector = @selector(init);
-  methods[2].selector = @selector(get2POWWithInt:);
-  methods[3].selector = @selector(getSuperBlockLevelWithOrgMinimaObjectsBaseMiniHash:);
-  methods[4].selector = @selector(getSuperValueWithInt:);
+  methods[0].selector = @selector(init);
+  methods[1].selector = @selector(getSuperLevelWithOrgMinimaObjectsBaseMiniData:withOrgMinimaObjectsBaseMiniData:);
+  methods[2].selector = @selector(mainWithNSStringArray:);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
-    { "mSuperDuper", "LOrgMinimaUtilsSuperBlockLevels;", .constantValue.asLong = 0, 0xa, -1, 5, -1, -1 },
-    { "MAX_LEVELS", "I", .constantValue.asInt = OrgMinimaUtilsSuperBlockLevels_MAX_LEVELS, 0x19, -1, -1, -1, -1 },
-    { "mSuperLevels_", "[LJavaMathBigInteger;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
-    { "mPOW2_", "[LJavaMathBigDecimal;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
+    { "GENESIS_HASH", "LOrgMinimaObjectsBaseMiniData;", .constantValue.asLong = 0, 0x9, -1, 4, -1, -1 },
+    { "TWO", "LJavaMathBigInteger;", .constantValue.asLong = 0, 0xa, -1, 5, -1, -1 },
   };
-  static const void *ptrTable[] = { "get2POW", "I", "getSuperBlockLevel", "LOrgMinimaObjectsBaseMiniHash;", "getSuperValue", &OrgMinimaUtilsSuperBlockLevels_mSuperDuper };
-  static const J2ObjcClassInfo _OrgMinimaUtilsSuperBlockLevels = { "SuperBlockLevels", "org.minima.utils", ptrTable, methods, fields, 7, 0x1, 5, 4, -1, -1, -1, -1, -1 };
+  static const void *ptrTable[] = { "getSuperLevel", "LOrgMinimaObjectsBaseMiniData;LOrgMinimaObjectsBaseMiniData;", "main", "[LNSString;", &OrgMinimaUtilsSuperBlockLevels_GENESIS_HASH, &OrgMinimaUtilsSuperBlockLevels_TWO };
+  static const J2ObjcClassInfo _OrgMinimaUtilsSuperBlockLevels = { "SuperBlockLevels", "org.minima.utils", ptrTable, methods, fields, 7, 0x1, 3, 2, -1, -1, -1, -1, -1 };
   return &_OrgMinimaUtilsSuperBlockLevels;
+}
+
++ (void)initialize {
+  if (self == [OrgMinimaUtilsSuperBlockLevels class]) {
+    JreStrongAssignAndConsume(&OrgMinimaUtilsSuperBlockLevels_GENESIS_HASH, new_OrgMinimaObjectsBaseMiniData_init());
+    JreStrongAssignAndConsume(&OrgMinimaUtilsSuperBlockLevels_TWO, new_JavaMathBigInteger_initWithNSString_(@"2"));
+    J2OBJC_SET_INITIALIZED(OrgMinimaUtilsSuperBlockLevels)
+  }
 }
 
 @end
 
-OrgMinimaUtilsSuperBlockLevels *OrgMinimaUtilsSuperBlockLevels_getSupers() {
-  OrgMinimaUtilsSuperBlockLevels_initialize();
-  if (OrgMinimaUtilsSuperBlockLevels_mSuperDuper == nil) {
-    JreStrongAssignAndConsume(&OrgMinimaUtilsSuperBlockLevels_mSuperDuper, new_OrgMinimaUtilsSuperBlockLevels_init());
-  }
-  return OrgMinimaUtilsSuperBlockLevels_mSuperDuper;
-}
-
 void OrgMinimaUtilsSuperBlockLevels_init(OrgMinimaUtilsSuperBlockLevels *self) {
   NSObject_init(self);
-  JreStrongAssignAndConsume(&self->mSuperLevels_, [IOSObjectArray newArrayWithLength:OrgMinimaUtilsSuperBlockLevels_MAX_LEVELS type:JavaMathBigInteger_class_()]);
-  JreStrongAssignAndConsume(&self->mPOW2_, [IOSObjectArray newArrayWithLength:OrgMinimaUtilsSuperBlockLevels_MAX_LEVELS type:JavaMathBigDecimal_class_()]);
-  JavaMathBigInteger *two = create_JavaMathBigInteger_initWithNSString_(@"2");
-  JavaMathBigDecimal *twodec = create_JavaMathBigDecimal_initWithNSString_(@"2");
-  for (jint i = 0; i < OrgMinimaUtilsSuperBlockLevels_MAX_LEVELS; i++) {
-    IOSObjectArray_Set(nil_chk(self->mSuperLevels_), i, [two powWithInt:256 - i]);
-    IOSObjectArray_Set(nil_chk(self->mPOW2_), i, [twodec powWithInt:i]);
-  }
 }
 
 OrgMinimaUtilsSuperBlockLevels *new_OrgMinimaUtilsSuperBlockLevels_init() {
@@ -110,6 +83,27 @@ OrgMinimaUtilsSuperBlockLevels *new_OrgMinimaUtilsSuperBlockLevels_init() {
 
 OrgMinimaUtilsSuperBlockLevels *create_OrgMinimaUtilsSuperBlockLevels_init() {
   J2OBJC_CREATE_IMPL(OrgMinimaUtilsSuperBlockLevels, init)
+}
+
+jint OrgMinimaUtilsSuperBlockLevels_getSuperLevelWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniData_(OrgMinimaObjectsBaseMiniData *zDifficulty, OrgMinimaObjectsBaseMiniData *zActual) {
+  OrgMinimaUtilsSuperBlockLevels_initialize();
+  JavaMathBigInteger *supbig = [((JavaMathBigInteger *) nil_chk([((OrgMinimaObjectsBaseMiniData *) nil_chk(zDifficulty)) getDataValue])) divideWithJavaMathBigInteger:[((OrgMinimaObjectsBaseMiniData *) nil_chk(zActual)) getDataValue]];
+  jint ll2 = JreFpToInt(OrgMinimaUtilsMaths_log2BIWithJavaMathBigInteger_(supbig));
+  if (ll2 < 0) {
+    ll2 = 0;
+  }
+  if (ll2 > OrgMinimaGlobalParams_MINIMA_CASCADE_LEVELS - 1) {
+    ll2 = OrgMinimaGlobalParams_MINIMA_CASCADE_LEVELS - 1;
+  }
+  return ll2;
+}
+
+void OrgMinimaUtilsSuperBlockLevels_mainWithNSStringArray_(IOSObjectArray *zArgs) {
+  OrgMinimaUtilsSuperBlockLevels_initialize();
+  jlong ll0 = JavaLangMath_roundWithDouble_(OrgMinimaUtilsMaths_log2BIWithJavaMathBigInteger_(JreLoadStatic(JavaMathBigInteger, ZERO)));
+  jlong ll1 = JavaLangMath_roundWithDouble_(OrgMinimaUtilsMaths_log2BIWithJavaMathBigInteger_(JreLoadStatic(JavaMathBigInteger, ONE)));
+  jlong ll2 = JavaLangMath_roundWithDouble_(OrgMinimaUtilsMaths_log2BIWithJavaMathBigInteger_(OrgMinimaUtilsSuperBlockLevels_TWO));
+  [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out))) printlnWithNSString:JreStrcat("JCJCJ", ll0, ' ', ll1, ' ', ll2)];
 }
 
 J2OBJC_CLASS_TYPE_LITERAL_SOURCE(OrgMinimaUtilsSuperBlockLevels)

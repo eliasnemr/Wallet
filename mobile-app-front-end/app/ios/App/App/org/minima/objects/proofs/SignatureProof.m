@@ -8,7 +8,6 @@
 #include "java/io/DataOutputStream.h"
 #include "java/io/IOException.h"
 #include "org/minima/objects/base/MiniData.h"
-#include "org/minima/objects/base/MiniHash.h"
 #include "org/minima/objects/proofs/Proof.h"
 #include "org/minima/objects/proofs/SignatureProof.h"
 #include "org/minima/utils/json/JSONObject.h"
@@ -34,9 +33,9 @@ J2OBJC_IGNORE_DESIGNATED_BEGIN
 }
 J2OBJC_IGNORE_DESIGNATED_END
 
-- (instancetype)initWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)mPublicKey
+- (instancetype)initWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)mPublicKey
                     withOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zSignature {
-  OrgMinimaObjectsProofsSignatureProof_initWithOrgMinimaObjectsBaseMiniHash_withOrgMinimaObjectsBaseMiniData_(self, mPublicKey, zSignature);
+  OrgMinimaObjectsProofsSignatureProof_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniData_(self, mPublicKey, zSignature);
   return self;
 }
 
@@ -84,7 +83,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
   #pragma clang diagnostic ignored "-Wundeclared-selector"
   methods[0].selector = @selector(init);
-  methods[1].selector = @selector(initWithOrgMinimaObjectsBaseMiniHash:withOrgMinimaObjectsBaseMiniData:);
+  methods[1].selector = @selector(initWithOrgMinimaObjectsBaseMiniData:withOrgMinimaObjectsBaseMiniData:);
   methods[2].selector = @selector(getSignature);
   methods[3].selector = @selector(toJSON);
   methods[4].selector = @selector(writeDataStreamWithJavaIoDataOutputStream:);
@@ -94,7 +93,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   static const J2ObjcFieldInfo fields[] = {
     { "mSignature_", "LOrgMinimaObjectsBaseMiniData;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
   };
-  static const void *ptrTable[] = { "LOrgMinimaObjectsBaseMiniHash;LOrgMinimaObjectsBaseMiniData;", "writeDataStream", "LJavaIoDataOutputStream;", "LJavaIoIOException;", "readDataStream", "LJavaIoDataInputStream;", "ReadFromStream" };
+  static const void *ptrTable[] = { "LOrgMinimaObjectsBaseMiniData;LOrgMinimaObjectsBaseMiniData;", "writeDataStream", "LJavaIoDataOutputStream;", "LJavaIoIOException;", "readDataStream", "LJavaIoDataInputStream;", "ReadFromStream" };
   static const J2ObjcClassInfo _OrgMinimaObjectsProofsSignatureProof = { "SignatureProof", "org.minima.objects.proofs", ptrTable, methods, fields, 7, 0x1, 7, 1, -1, -1, -1, -1, -1 };
   return &_OrgMinimaObjectsProofsSignatureProof;
 }
@@ -113,18 +112,18 @@ OrgMinimaObjectsProofsSignatureProof *create_OrgMinimaObjectsProofsSignatureProo
   J2OBJC_CREATE_IMPL(OrgMinimaObjectsProofsSignatureProof, init)
 }
 
-void OrgMinimaObjectsProofsSignatureProof_initWithOrgMinimaObjectsBaseMiniHash_withOrgMinimaObjectsBaseMiniData_(OrgMinimaObjectsProofsSignatureProof *self, OrgMinimaObjectsBaseMiniHash *mPublicKey, OrgMinimaObjectsBaseMiniData *zSignature) {
+void OrgMinimaObjectsProofsSignatureProof_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniData_(OrgMinimaObjectsProofsSignatureProof *self, OrgMinimaObjectsBaseMiniData *mPublicKey, OrgMinimaObjectsBaseMiniData *zSignature) {
   OrgMinimaObjectsProofsProof_init(self);
-  [self setDataWithOrgMinimaObjectsBaseMiniHash:mPublicKey];
+  [self setDataWithOrgMinimaObjectsBaseMiniData:mPublicKey];
   JreStrongAssign(&self->mSignature_, zSignature);
 }
 
-OrgMinimaObjectsProofsSignatureProof *new_OrgMinimaObjectsProofsSignatureProof_initWithOrgMinimaObjectsBaseMiniHash_withOrgMinimaObjectsBaseMiniData_(OrgMinimaObjectsBaseMiniHash *mPublicKey, OrgMinimaObjectsBaseMiniData *zSignature) {
-  J2OBJC_NEW_IMPL(OrgMinimaObjectsProofsSignatureProof, initWithOrgMinimaObjectsBaseMiniHash_withOrgMinimaObjectsBaseMiniData_, mPublicKey, zSignature)
+OrgMinimaObjectsProofsSignatureProof *new_OrgMinimaObjectsProofsSignatureProof_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniData_(OrgMinimaObjectsBaseMiniData *mPublicKey, OrgMinimaObjectsBaseMiniData *zSignature) {
+  J2OBJC_NEW_IMPL(OrgMinimaObjectsProofsSignatureProof, initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniData_, mPublicKey, zSignature)
 }
 
-OrgMinimaObjectsProofsSignatureProof *create_OrgMinimaObjectsProofsSignatureProof_initWithOrgMinimaObjectsBaseMiniHash_withOrgMinimaObjectsBaseMiniData_(OrgMinimaObjectsBaseMiniHash *mPublicKey, OrgMinimaObjectsBaseMiniData *zSignature) {
-  J2OBJC_CREATE_IMPL(OrgMinimaObjectsProofsSignatureProof, initWithOrgMinimaObjectsBaseMiniHash_withOrgMinimaObjectsBaseMiniData_, mPublicKey, zSignature)
+OrgMinimaObjectsProofsSignatureProof *create_OrgMinimaObjectsProofsSignatureProof_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniData_(OrgMinimaObjectsBaseMiniData *mPublicKey, OrgMinimaObjectsBaseMiniData *zSignature) {
+  J2OBJC_CREATE_IMPL(OrgMinimaObjectsProofsSignatureProof, initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniData_, mPublicKey, zSignature)
 }
 
 OrgMinimaObjectsProofsSignatureProof *OrgMinimaObjectsProofsSignatureProof_ReadFromStreamWithJavaIoDataInputStream_(JavaIoDataInputStream *zIn) {

@@ -4,20 +4,19 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Hashtable;
 
+import org.minima.GlobalParams;
 import org.minima.database.userdb.UserDB;
 import org.minima.database.userdb.UserDBRow;
-import org.minima.miniscript.Contract;
 import org.minima.objects.Address;
 import org.minima.objects.Coin;
 import org.minima.objects.PubPrivKey;
 import org.minima.objects.Transaction;
 import org.minima.objects.TxPOW;
 import org.minima.objects.base.MiniData;
-import org.minima.objects.base.MiniHash;
 import org.minima.objects.base.MiniNumber;
 import org.minima.objects.proofs.TokenProof;
-import org.minima.utils.MinimaLogger;
 import org.minima.utils.Streamable;
 
 public class JavaUserDB implements UserDB, Streamable{
@@ -68,8 +67,8 @@ public class JavaUserDB implements UserDB, Streamable{
 	}
 
 	@Override
-	public PubPrivKey newPublicKey() {
-		PubPrivKey pubkey = new PubPrivKey();
+	public PubPrivKey newPublicKey(int zBitLength) {
+		PubPrivKey pubkey = new PubPrivKey(zBitLength);
 		mPubPrivKeys.add(pubkey);
 		return pubkey;
 	}
@@ -109,7 +108,12 @@ public class JavaUserDB implements UserDB, Streamable{
 	
 	@Override
 	public Address newSimpleAddress() {
-		return newSimpleAddress(new PubPrivKey());
+		return newSimpleAddress(GlobalParams.MINIMA_HASH_STRENGTH);
+	}
+	
+	@Override
+	public Address newSimpleAddress(int zBitLength) {
+		return newSimpleAddress(new PubPrivKey(zBitLength));
 	}
 	
 	@Override
@@ -119,7 +123,7 @@ public class JavaUserDB implements UserDB, Streamable{
 		
 		//A simple script.. 
 		String script = "RETURN SIGNEDBY ( "+zPubPriv.getPublicKey()+" )";
-		Address addr  = new Address(script);
+		Address addr  = new Address(script, zPubPriv.getBitLength());
 		
 		//Add to the simple wallet
 		mAddresses.add(addr);
@@ -132,7 +136,7 @@ public class JavaUserDB implements UserDB, Streamable{
 	
 
 	@Override
-	public boolean isSimpleAddress(MiniHash zAddress) {
+	public boolean isSimpleAddress(MiniData zAddress) {
 		for(Address addr : mAddresses) {
 			if(addr.isEqual(zAddress)) {
 				return true;
@@ -145,7 +149,7 @@ public class JavaUserDB implements UserDB, Streamable{
 	@Override
 	public PubPrivKey getPubPrivKey(MiniData zPubKey) {
 		for(PubPrivKey key : mPubPrivKeys) {
-			if(key.getPublicKey().isExactlyEqual(zPubKey)) {
+			if(key.getPublicKey().isEqual(zPubKey)) {
 				return key;
 			}
 		}
@@ -164,7 +168,10 @@ public class JavaUserDB implements UserDB, Streamable{
 		Address addr = new Address(zScript);
 		
 		//Do we allready have it ?
-		//..
+		if(isAddressRelevant(addr.getAddressData())) {
+			//We have it..
+			return addr;
+		}
 		
 		//Add to the simple wallet
 		mScriptAddresses.add(addr);
@@ -174,10 +181,10 @@ public class JavaUserDB implements UserDB, Streamable{
 	}
 	
 	@Override
-	public String getScript(MiniHash zAddress) {
+	public String getScript(MiniData zAddress) {
 		//Check the Addresses
 		for(Address addr : mTotalAddresses) {
-			if(addr.getAddressData().isExactlyEqual(zAddress)) {
+			if(addr.isEqual(zAddress)) {
 				return addr.getScript();
 			}
 		}
@@ -187,9 +194,9 @@ public class JavaUserDB implements UserDB, Streamable{
 
 	
 	@Override
-	public boolean isAddressRelevant(MiniHash zAddress) {
+	public boolean isAddressRelevant(MiniData zAddress) {
 		for(Address addr : mTotalAddresses) {
-			if(addr.getAddressData().isExactlyEqual(zAddress)) {
+			if(addr.isEqual(zAddress)) {
 				return true;
 			}
 		}
@@ -220,7 +227,7 @@ public class JavaUserDB implements UserDB, Streamable{
 	}
 
 	@Override
-	public MiniHash getPublicKey(MiniHash zAddress) {
+	public MiniData getPublicKey(MiniData zAddress) {
 		for(Address addr : mAddresses) {
 			if(addr.isEqual(zAddress)) {
 				//What is the Public key!
@@ -230,7 +237,7 @@ public class JavaUserDB implements UserDB, Streamable{
 				
 				String pubk = script.substring(index, end);
 				
-				return new MiniHash(pubk);
+				return new MiniData(pubk);
 			}
 		}
 		return null;
@@ -299,7 +306,7 @@ public class JavaUserDB implements UserDB, Streamable{
 		//Pub Priv Keys
 		int len = zIn.readInt();
 		for(int i=0;i<len;i++) {
-			PubPrivKey pp = new PubPrivKey(true);
+			PubPrivKey pp = new PubPrivKey();
 			pp.readDataStream(zIn);
 			mPubPrivKeys.add(pp);
 		}
@@ -354,9 +361,9 @@ public class JavaUserDB implements UserDB, Streamable{
 	}
 
 	@Override
-	public TokenProof getTokenDetail(MiniHash zTokenID) {
+	public TokenProof getTokenDetail(MiniData zTokenID) {
 		for(TokenProof td : mAllTokens) {
-			if(td.getTokenID().isExactlyEqual(zTokenID)) {
+			if(td.getTokenID().isEqual(zTokenID)) {
 				return td;
 			}
 		}
@@ -382,12 +389,12 @@ public class JavaUserDB implements UserDB, Streamable{
 	}
 
 	@Override
-	public void addToHistory(TxPOW zTxPOW, MiniNumber zValue) {
-		mHistory.add(new reltxpow(zTxPOW, zValue));
+	public void addToHistory(MiniData zTxPOWID, Hashtable<String, MiniNumber> zValues) {
+		mHistory.add(new reltxpow( zTxPOWID, zValues));
 	}
 
 //	@Override
-//	public void removeHistory(MiniHash zTxPowID) {
+//	public void removeHistory(MiniData zTxPowID) {
 //		ArrayList<TxPOW> newhist = new ArrayList<TxPOW>();
 //		
 //		for(TxPOW txpow : mHistory) {

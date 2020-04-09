@@ -5,7 +5,7 @@
 
 #include "IOSObjectArray.h"
 #include "J2ObjC_source.h"
-#include "org/minima/objects/base/MiniHash.h"
+#include "org/minima/objects/base/MiniData.h"
 #include "org/minima/system/Main.h"
 #include "org/minima/system/brains/ConsensusHandler.h"
 #include "org/minima/system/input/CommandFunction.h"
@@ -14,7 +14,7 @@
 
 J2OBJC_INITIALIZED_DEFN(OrgMinimaSystemInputFunctionsgimme50)
 
-OrgMinimaObjectsBaseMiniHash *OrgMinimaSystemInputFunctionsgimme50_COINID_INPUT;
+OrgMinimaObjectsBaseMiniData *OrgMinimaSystemInputFunctionsgimme50_COINID_INPUT;
 
 @implementation OrgMinimaSystemInputFunctionsgimme50
 
@@ -48,7 +48,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   methods[2].selector = @selector(getNewFunction);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
-    { "COINID_INPUT", "LOrgMinimaObjectsBaseMiniHash;", .constantValue.asLong = 0, 0x9, -1, 3, -1, -1 },
+    { "COINID_INPUT", "LOrgMinimaObjectsBaseMiniData;", .constantValue.asLong = 0, 0x9, -1, 3, -1, -1 },
   };
   static const void *ptrTable[] = { "doFunction", "[LNSString;", "LJavaLangException;", &OrgMinimaSystemInputFunctionsgimme50_COINID_INPUT };
   static const J2ObjcClassInfo _OrgMinimaSystemInputFunctionsgimme50 = { "gimme50", "org.minima.system.input.functions", ptrTable, methods, fields, 7, 0x1, 3, 1, -1, -1, -1, -1, -1 };
@@ -57,7 +57,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 + (void)initialize {
   if (self == [OrgMinimaSystemInputFunctionsgimme50 class]) {
-    JreStrongAssignAndConsume(&OrgMinimaSystemInputFunctionsgimme50_COINID_INPUT, new_OrgMinimaObjectsBaseMiniHash_initWithNSString_(@"0xFEED50FEED50FEED50FEED50"));
+    JreStrongAssignAndConsume(&OrgMinimaSystemInputFunctionsgimme50_COINID_INPUT, new_OrgMinimaObjectsBaseMiniData_initWithNSString_(@"0xFEED50FEED50FEED50FEED50"));
     J2OBJC_SET_INITIALIZED(OrgMinimaSystemInputFunctionsgimme50)
   }
 }

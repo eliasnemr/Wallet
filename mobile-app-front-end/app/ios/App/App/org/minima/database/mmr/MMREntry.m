@@ -6,29 +6,19 @@
 #include "J2ObjC_source.h"
 #include "java/io/DataInputStream.h"
 #include "java/io/DataOutputStream.h"
-#include "java/math/BigDecimal.h"
 #include "java/math/BigInteger.h"
 #include "org/minima/database/mmr/MMRData.h"
 #include "org/minima/database/mmr/MMREntry.h"
-#include "org/minima/objects/base/MiniHash.h"
+#include "org/minima/objects/base/MiniData.h"
+#include "org/minima/objects/base/MiniInteger.h"
 #include "org/minima/objects/base/MiniNumber.h"
 #include "org/minima/utils/MinimaLogger.h"
-
-inline JavaMathBigInteger *OrgMinimaDatabaseMmrMMREntry_get_MMR_TWO(void);
-static JavaMathBigInteger *OrgMinimaDatabaseMmrMMREntry_MMR_TWO;
-J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaDatabaseMmrMMREntry, MMR_TWO, JavaMathBigInteger *)
-
-inline JavaMathBigDecimal *OrgMinimaDatabaseMmrMMREntry_get_MMR_TWO_DEC(void);
-static JavaMathBigDecimal *OrgMinimaDatabaseMmrMMREntry_MMR_TWO_DEC;
-J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaDatabaseMmrMMREntry, MMR_TWO_DEC, JavaMathBigDecimal *)
-
-J2OBJC_INITIALIZED_DEFN(OrgMinimaDatabaseMmrMMREntry)
 
 @implementation OrgMinimaDatabaseMmrMMREntry
 
 - (instancetype)initWithInt:(jint)zRow
-withOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zEntry {
-  OrgMinimaDatabaseMmrMMREntry_initWithInt_withOrgMinimaObjectsBaseMiniNumber_(self, zRow, zEntry);
+withOrgMinimaObjectsBaseMiniInteger:(OrgMinimaObjectsBaseMiniInteger *)zEntry {
+  OrgMinimaDatabaseMmrMMREntry_initWithInt_withOrgMinimaObjectsBaseMiniInteger_(self, zRow, zEntry);
   return self;
 }
 
@@ -37,12 +27,12 @@ withOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zEntry {
 }
 
 - (jboolean)checkPositionWithInt:(jint)zRow
-withOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zEntry {
-  return (zRow == mRow_) && [((OrgMinimaObjectsBaseMiniNumber *) nil_chk(zEntry)) isEqualWithOrgMinimaObjectsBaseMiniNumber:mEntryNumber_];
+withOrgMinimaObjectsBaseMiniInteger:(OrgMinimaObjectsBaseMiniInteger *)zEntry {
+  return (zRow == mRow_) && [((OrgMinimaObjectsBaseMiniInteger *) nil_chk(zEntry)) isEqualWithOrgMinimaObjectsBaseMiniInteger:mEntryNumber_];
 }
 
 - (jboolean)checkPositionWithOrgMinimaDatabaseMmrMMREntry:(OrgMinimaDatabaseMmrMMREntry *)zEntry {
-  return ([((OrgMinimaDatabaseMmrMMREntry *) nil_chk(zEntry)) getRow] == mRow_) && [((OrgMinimaObjectsBaseMiniNumber *) nil_chk([zEntry getEntry])) isEqualWithOrgMinimaObjectsBaseMiniNumber:mEntryNumber_];
+  return ([((OrgMinimaDatabaseMmrMMREntry *) nil_chk(zEntry)) getRow] == mRow_) && [((OrgMinimaObjectsBaseMiniInteger *) nil_chk([zEntry getEntry])) isEqualWithOrgMinimaObjectsBaseMiniInteger:mEntryNumber_];
 }
 
 - (void)setDataWithOrgMinimaDatabaseMmrMMRData:(OrgMinimaDatabaseMmrMMRData *)zData {
@@ -67,7 +57,7 @@ withOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zEntry {
   return mBlockTime_;
 }
 
-- (OrgMinimaObjectsBaseMiniHash *)getHashValue {
+- (OrgMinimaObjectsBaseMiniData *)getHashValue {
   if ([self isEmpty]) {
     OrgMinimaUtilsMinimaLogger_logWithNSString_(JreStrcat("$@", @"ERROR NULL Entry : ", self));
   }
@@ -78,7 +68,7 @@ withOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zEntry {
   return JreStrcat("$@$I$@$@", @"BLKTIME:", mBlockTime_, @" R:", mRow_, @" E:", mEntryNumber_, @" D:", mData_);
 }
 
-- (OrgMinimaObjectsBaseMiniNumber *)getEntry {
+- (OrgMinimaObjectsBaseMiniInteger *)getEntry {
   return mEntryNumber_;
 }
 
@@ -95,22 +85,22 @@ withOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zEntry {
 }
 
 - (jboolean)isLeft {
-  return [((OrgMinimaObjectsBaseMiniNumber *) nil_chk([((OrgMinimaObjectsBaseMiniNumber *) nil_chk(mEntryNumber_)) moduloWithOrgMinimaObjectsBaseMiniNumber:JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, TWO)])) isEqualWithOrgMinimaObjectsBaseMiniNumber:JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, ZERO)];
+  return [((OrgMinimaObjectsBaseMiniInteger *) nil_chk([((OrgMinimaObjectsBaseMiniInteger *) nil_chk(mEntryNumber_)) moduloWithOrgMinimaObjectsBaseMiniInteger:JreLoadStatic(OrgMinimaObjectsBaseMiniInteger, TWO)])) isEqualWithOrgMinimaObjectsBaseMiniInteger:JreLoadStatic(OrgMinimaObjectsBaseMiniInteger, ZERO)];
 }
 
 - (jboolean)isRight {
   return ![self isLeft];
 }
 
-- (OrgMinimaObjectsBaseMiniNumber *)getLeftSibling {
-  return [((OrgMinimaObjectsBaseMiniNumber *) nil_chk(mEntryNumber_)) subWithOrgMinimaObjectsBaseMiniNumber:JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, ONE)];
+- (OrgMinimaObjectsBaseMiniInteger *)getLeftSibling {
+  return [((OrgMinimaObjectsBaseMiniInteger *) nil_chk(mEntryNumber_)) subWithOrgMinimaObjectsBaseMiniInteger:JreLoadStatic(OrgMinimaObjectsBaseMiniInteger, ONE)];
 }
 
-- (OrgMinimaObjectsBaseMiniNumber *)getRightSibling {
-  return [((OrgMinimaObjectsBaseMiniNumber *) nil_chk(mEntryNumber_)) addWithOrgMinimaObjectsBaseMiniNumber:JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, ONE)];
+- (OrgMinimaObjectsBaseMiniInteger *)getRightSibling {
+  return [((OrgMinimaObjectsBaseMiniInteger *) nil_chk(mEntryNumber_)) addWithOrgMinimaObjectsBaseMiniInteger:JreLoadStatic(OrgMinimaObjectsBaseMiniInteger, ONE)];
 }
 
-- (OrgMinimaObjectsBaseMiniNumber *)getSibling {
+- (OrgMinimaObjectsBaseMiniInteger *)getSibling {
   if ([self isLeft]) {
     return [self getRightSibling];
   }
@@ -119,31 +109,31 @@ withOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zEntry {
   }
 }
 
-- (OrgMinimaObjectsBaseMiniNumber *)getParentEntry {
-  return [((OrgMinimaObjectsBaseMiniNumber *) nil_chk(mEntryNumber_)) divRoundDownWithOrgMinimaObjectsBaseMiniNumber:JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, TWO)];
+- (OrgMinimaObjectsBaseMiniInteger *)getParentEntry {
+  return [((OrgMinimaObjectsBaseMiniInteger *) nil_chk(mEntryNumber_)) divRoundDownWithOrgMinimaObjectsBaseMiniInteger:JreLoadStatic(OrgMinimaObjectsBaseMiniInteger, TWO)];
 }
 
-- (OrgMinimaObjectsBaseMiniNumber *)getLeftChildEntry {
-  return [((OrgMinimaObjectsBaseMiniNumber *) nil_chk(mEntryNumber_)) multWithOrgMinimaObjectsBaseMiniNumber:JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, TWO)];
+- (OrgMinimaObjectsBaseMiniInteger *)getLeftChildEntry {
+  return [((OrgMinimaObjectsBaseMiniInteger *) nil_chk(mEntryNumber_)) multWithOrgMinimaObjectsBaseMiniInteger:JreLoadStatic(OrgMinimaObjectsBaseMiniInteger, TWO)];
 }
 
-- (OrgMinimaObjectsBaseMiniNumber *)getRightChildEntry {
-  return [((OrgMinimaObjectsBaseMiniNumber *) nil_chk([self getLeftChildEntry])) addWithOrgMinimaObjectsBaseMiniNumber:JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, ONE)];
+- (OrgMinimaObjectsBaseMiniInteger *)getRightChildEntry {
+  return [((OrgMinimaObjectsBaseMiniInteger *) nil_chk([self getLeftChildEntry])) addWithOrgMinimaObjectsBaseMiniInteger:JreLoadStatic(OrgMinimaObjectsBaseMiniInteger, ONE)];
 }
 
 - (jint)compareToWithId:(OrgMinimaDatabaseMmrMMREntry *)zEntry {
   cast_chk(zEntry, [OrgMinimaDatabaseMmrMMREntry class]);
-  return [((OrgMinimaObjectsBaseMiniNumber *) nil_chk([((OrgMinimaDatabaseMmrMMREntry *) nil_chk(zEntry)) getEntry])) compareToWithOrgMinimaObjectsBaseMiniNumber:mEntryNumber_];
+  return [((JavaMathBigInteger *) nil_chk([((OrgMinimaObjectsBaseMiniInteger *) nil_chk([((OrgMinimaDatabaseMmrMMREntry *) nil_chk(zEntry)) getEntry])) getNumber])) compareToWithId:[((OrgMinimaObjectsBaseMiniInteger *) nil_chk(mEntryNumber_)) getNumber]];
 }
 
 - (void)writeDataStreamWithJavaIoDataOutputStream:(JavaIoDataOutputStream *)zOut {
-  [((OrgMinimaObjectsBaseMiniNumber *) nil_chk(mEntryNumber_)) writeDataStreamWithJavaIoDataOutputStream:zOut];
+  [((OrgMinimaObjectsBaseMiniInteger *) nil_chk(mEntryNumber_)) writeDataStreamWithJavaIoDataOutputStream:zOut];
   [((JavaIoDataOutputStream *) nil_chk(zOut)) writeIntWithInt:mRow_];
   [((OrgMinimaDatabaseMmrMMRData *) nil_chk(mData_)) writeDataStreamWithJavaIoDataOutputStream:zOut];
 }
 
 - (void)readDataStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn {
-  JreStrongAssign(&mEntryNumber_, OrgMinimaObjectsBaseMiniNumber_ReadFromStreamWithJavaIoDataInputStream_(zIn));
+  JreStrongAssign(&mEntryNumber_, OrgMinimaObjectsBaseMiniInteger_ReadFromStreamWithJavaIoDataInputStream_(zIn));
   mRow_ = [((JavaIoDataInputStream *) nil_chk(zIn)) readInt];
   JreStrongAssign(&mData_, OrgMinimaDatabaseMmrMMRData_ReadFromStreamWithJavaIoDataInputStream_(zIn));
   mIsEmpty_ = false;
@@ -167,20 +157,20 @@ withOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zEntry {
     { NULL, "LOrgMinimaDatabaseMmrMMRData;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 5, 6, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsBaseMiniHash;", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMiniData;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LNSString;", 0x1, 7, -1, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMiniInteger;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "I", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "I", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "I", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "Z", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "Z", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMiniInteger;", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMiniInteger;", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMiniInteger;", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMiniInteger;", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMiniInteger;", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMiniInteger;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "I", 0x1, 8, 2, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 9, 10, 11, -1, -1, -1 },
     { NULL, "V", 0x1, 12, 13, 11, -1, -1, -1 },
@@ -188,9 +178,9 @@ withOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zEntry {
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
   #pragma clang diagnostic ignored "-Wundeclared-selector"
-  methods[0].selector = @selector(initWithInt:withOrgMinimaObjectsBaseMiniNumber:);
+  methods[0].selector = @selector(initWithInt:withOrgMinimaObjectsBaseMiniInteger:);
   methods[1].selector = @selector(isEmpty);
-  methods[2].selector = @selector(checkPositionWithInt:withOrgMinimaObjectsBaseMiniNumber:);
+  methods[2].selector = @selector(checkPositionWithInt:withOrgMinimaObjectsBaseMiniInteger:);
   methods[3].selector = @selector(checkPositionWithOrgMinimaDatabaseMmrMMREntry:);
   methods[4].selector = @selector(setDataWithOrgMinimaDatabaseMmrMMRData:);
   methods[5].selector = @selector(clearData);
@@ -216,43 +206,33 @@ withOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zEntry {
   methods[25].selector = @selector(readDataStreamWithJavaIoDataInputStream:);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
-    { "MMR_TWO", "LJavaMathBigInteger;", .constantValue.asLong = 0, 0x1a, -1, 14, -1, -1 },
-    { "MMR_TWO_DEC", "LJavaMathBigDecimal;", .constantValue.asLong = 0, 0x1a, -1, 15, -1, -1 },
-    { "mEntryNumber_", "LOrgMinimaObjectsBaseMiniNumber;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
+    { "mEntryNumber_", "LOrgMinimaObjectsBaseMiniInteger;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mRow_", "I", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mBlockTime_", "LOrgMinimaObjectsBaseMiniNumber;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mData_", "LOrgMinimaDatabaseMmrMMRData;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mIsEmpty_", "Z", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
   };
-  static const void *ptrTable[] = { "ILOrgMinimaObjectsBaseMiniNumber;", "checkPosition", "LOrgMinimaDatabaseMmrMMREntry;", "setData", "LOrgMinimaDatabaseMmrMMRData;", "setBlockTime", "LOrgMinimaObjectsBaseMiniNumber;", "toString", "compareTo", "writeDataStream", "LJavaIoDataOutputStream;", "LJavaIoIOException;", "readDataStream", "LJavaIoDataInputStream;", &OrgMinimaDatabaseMmrMMREntry_MMR_TWO, &OrgMinimaDatabaseMmrMMREntry_MMR_TWO_DEC, "Ljava/lang/Object;Ljava/lang/Comparable<Lorg/minima/database/mmr/MMREntry;>;Lorg/minima/utils/Streamable;" };
-  static const J2ObjcClassInfo _OrgMinimaDatabaseMmrMMREntry = { "MMREntry", "org.minima.database.mmr", ptrTable, methods, fields, 7, 0x1, 26, 7, -1, -1, -1, 16, -1 };
+  static const void *ptrTable[] = { "ILOrgMinimaObjectsBaseMiniInteger;", "checkPosition", "LOrgMinimaDatabaseMmrMMREntry;", "setData", "LOrgMinimaDatabaseMmrMMRData;", "setBlockTime", "LOrgMinimaObjectsBaseMiniNumber;", "toString", "compareTo", "writeDataStream", "LJavaIoDataOutputStream;", "LJavaIoIOException;", "readDataStream", "LJavaIoDataInputStream;", "Ljava/lang/Object;Ljava/lang/Comparable<Lorg/minima/database/mmr/MMREntry;>;Lorg/minima/utils/Streamable;" };
+  static const J2ObjcClassInfo _OrgMinimaDatabaseMmrMMREntry = { "MMREntry", "org.minima.database.mmr", ptrTable, methods, fields, 7, 0x1, 26, 5, -1, -1, -1, 14, -1 };
   return &_OrgMinimaDatabaseMmrMMREntry;
-}
-
-+ (void)initialize {
-  if (self == [OrgMinimaDatabaseMmrMMREntry class]) {
-    JreStrongAssignAndConsume(&OrgMinimaDatabaseMmrMMREntry_MMR_TWO, new_JavaMathBigInteger_initWithNSString_(@"2"));
-    JreStrongAssignAndConsume(&OrgMinimaDatabaseMmrMMREntry_MMR_TWO_DEC, new_JavaMathBigDecimal_initWithNSString_(@"2"));
-    J2OBJC_SET_INITIALIZED(OrgMinimaDatabaseMmrMMREntry)
-  }
 }
 
 @end
 
-void OrgMinimaDatabaseMmrMMREntry_initWithInt_withOrgMinimaObjectsBaseMiniNumber_(OrgMinimaDatabaseMmrMMREntry *self, jint zRow, OrgMinimaObjectsBaseMiniNumber *zEntry) {
+void OrgMinimaDatabaseMmrMMREntry_initWithInt_withOrgMinimaObjectsBaseMiniInteger_(OrgMinimaDatabaseMmrMMREntry *self, jint zRow, OrgMinimaObjectsBaseMiniInteger *zEntry) {
   NSObject_init(self);
-  JreStrongAssign(&self->mBlockTime_, JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, ZERO));
+  JreStrongAssignAndConsume(&self->mBlockTime_, new_OrgMinimaObjectsBaseMiniNumber_initWithInt_(0));
   self->mRow_ = zRow;
   JreStrongAssign(&self->mEntryNumber_, zEntry);
   self->mIsEmpty_ = true;
 }
 
-OrgMinimaDatabaseMmrMMREntry *new_OrgMinimaDatabaseMmrMMREntry_initWithInt_withOrgMinimaObjectsBaseMiniNumber_(jint zRow, OrgMinimaObjectsBaseMiniNumber *zEntry) {
-  J2OBJC_NEW_IMPL(OrgMinimaDatabaseMmrMMREntry, initWithInt_withOrgMinimaObjectsBaseMiniNumber_, zRow, zEntry)
+OrgMinimaDatabaseMmrMMREntry *new_OrgMinimaDatabaseMmrMMREntry_initWithInt_withOrgMinimaObjectsBaseMiniInteger_(jint zRow, OrgMinimaObjectsBaseMiniInteger *zEntry) {
+  J2OBJC_NEW_IMPL(OrgMinimaDatabaseMmrMMREntry, initWithInt_withOrgMinimaObjectsBaseMiniInteger_, zRow, zEntry)
 }
 
-OrgMinimaDatabaseMmrMMREntry *create_OrgMinimaDatabaseMmrMMREntry_initWithInt_withOrgMinimaObjectsBaseMiniNumber_(jint zRow, OrgMinimaObjectsBaseMiniNumber *zEntry) {
-  J2OBJC_CREATE_IMPL(OrgMinimaDatabaseMmrMMREntry, initWithInt_withOrgMinimaObjectsBaseMiniNumber_, zRow, zEntry)
+OrgMinimaDatabaseMmrMMREntry *create_OrgMinimaDatabaseMmrMMREntry_initWithInt_withOrgMinimaObjectsBaseMiniInteger_(jint zRow, OrgMinimaObjectsBaseMiniInteger *zEntry) {
+  J2OBJC_CREATE_IMPL(OrgMinimaDatabaseMmrMMREntry, initWithInt_withOrgMinimaObjectsBaseMiniInteger_, zRow, zEntry)
 }
 
 J2OBJC_CLASS_TYPE_LITERAL_SOURCE(OrgMinimaDatabaseMmrMMREntry)

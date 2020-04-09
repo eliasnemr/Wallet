@@ -15,60 +15,62 @@
 + (const J2ObjcClassInfo *)__metadata {
   static J2ObjcMethodInfo methods[] = {
     { NULL, "LJavaUtilArrayList;", 0x401, -1, -1, -1, 0, -1, -1 },
-    { NULL, "LOrgMinimaObjectsPubPrivKey;", 0x401, -1, -1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaObjectsPubPrivKey;", 0x401, 1, 2, -1, -1, -1, -1 },
-    { NULL, "LJavaUtilArrayList;", 0x401, -1, -1, -1, 3, -1, -1 },
+    { NULL, "LOrgMinimaObjectsPubPrivKey;", 0x401, 3, 4, -1, -1, -1, -1 },
+    { NULL, "LJavaUtilArrayList;", 0x401, -1, -1, -1, 5, -1, -1 },
     { NULL, "LOrgMinimaObjectsAddress;", 0x401, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsAddress;", 0x401, 4, 5, -1, -1, -1, -1 },
-    { NULL, "Z", 0x401, 6, 7, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsBaseMiniData;", 0x401, 8, 7, -1, -1, -1, -1 },
-    { NULL, "LJavaUtilArrayList;", 0x401, -1, -1, -1, 3, -1, -1 },
-    { NULL, "LOrgMinimaObjectsAddress;", 0x401, 9, 10, -1, -1, -1, -1 },
-    { NULL, "LJavaUtilArrayList;", 0x401, -1, -1, -1, 3, -1, -1 },
-    { NULL, "LNSString;", 0x401, 11, 7, -1, -1, -1, -1 },
-    { NULL, "Z", 0x401, 12, 7, -1, -1, -1, -1 },
-    { NULL, "Z", 0x401, 13, 14, -1, -1, -1, -1 },
-    { NULL, "LJavaUtilArrayList;", 0x401, -1, -1, -1, 15, -1, -1 },
-    { NULL, "LOrgMinimaDatabaseUserdbUserDBRow;", 0x401, 16, 17, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaDatabaseUserdbUserDBRow;", 0x401, 18, 17, -1, -1, -1, -1 },
-    { NULL, "V", 0x401, 19, 17, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsAddress;", 0x401, 6, 2, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsAddress;", 0x401, 6, 7, -1, -1, -1, -1 },
+    { NULL, "Z", 0x401, 8, 4, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMiniData;", 0x401, 9, 4, -1, -1, -1, -1 },
+    { NULL, "LJavaUtilArrayList;", 0x401, -1, -1, -1, 5, -1, -1 },
+    { NULL, "LOrgMinimaObjectsAddress;", 0x401, 10, 11, -1, -1, -1, -1 },
+    { NULL, "LJavaUtilArrayList;", 0x401, -1, -1, -1, 5, -1, -1 },
+    { NULL, "LNSString;", 0x401, 12, 4, -1, -1, -1, -1 },
+    { NULL, "Z", 0x401, 13, 4, -1, -1, -1, -1 },
+    { NULL, "Z", 0x401, 14, 15, -1, -1, -1, -1 },
+    { NULL, "LJavaUtilArrayList;", 0x401, -1, -1, -1, 16, -1, -1 },
+    { NULL, "LOrgMinimaDatabaseUserdbUserDBRow;", 0x401, 17, 2, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaDatabaseUserdbUserDBRow;", 0x401, 18, 2, -1, -1, -1, -1 },
+    { NULL, "V", 0x401, 19, 2, -1, -1, -1, -1 },
     { NULL, "LJavaUtilArrayList;", 0x401, -1, -1, -1, 20, -1, -1 },
-    { NULL, "LOrgMinimaObjectsTokenDetails;", 0x401, 21, 7, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsProofsTokenProof;", 0x401, 21, 4, -1, -1, -1, -1 },
     { NULL, "V", 0x401, 22, 23, -1, -1, -1, -1 },
     { NULL, "LJavaUtilArrayList;", 0x401, -1, -1, -1, 24, -1, -1 },
-    { NULL, "V", 0x401, 25, 26, -1, -1, -1, -1 },
+    { NULL, "V", 0x401, 25, 26, -1, 27, -1, -1 },
     { NULL, "V", 0x401, -1, -1, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
   #pragma clang diagnostic ignored "-Wundeclared-selector"
   methods[0].selector = @selector(getKeys);
-  methods[1].selector = @selector(newPublicKey);
+  methods[1].selector = @selector(newPublicKeyWithInt:);
   methods[2].selector = @selector(getPubPrivKeyWithOrgMinimaObjectsBaseMiniData:);
   methods[3].selector = @selector(getSimpleAddresses);
   methods[4].selector = @selector(newSimpleAddress);
-  methods[5].selector = @selector(newSimpleAddressWithOrgMinimaObjectsPubPrivKey:);
-  methods[6].selector = @selector(isSimpleAddressWithOrgMinimaObjectsBaseMiniHash:);
-  methods[7].selector = @selector(getPublicKeyWithOrgMinimaObjectsBaseMiniHash:);
-  methods[8].selector = @selector(getScriptAddresses);
-  methods[9].selector = @selector(newScriptAddressWithNSString:);
-  methods[10].selector = @selector(getAllAddresses);
-  methods[11].selector = @selector(getScriptWithOrgMinimaObjectsBaseMiniHash:);
-  methods[12].selector = @selector(isAddressRelevantWithOrgMinimaObjectsBaseMiniHash:);
-  methods[13].selector = @selector(isTransactionRelevantWithOrgMinimaObjectsTransaction:);
-  methods[14].selector = @selector(getAllRows);
-  methods[15].selector = @selector(getUserRowWithInt:);
-  methods[16].selector = @selector(addUserRowWithInt:);
-  methods[17].selector = @selector(deleteUserRowWithInt:);
-  methods[18].selector = @selector(getAllKnownTokens);
-  methods[19].selector = @selector(getTokenDetailWithOrgMinimaObjectsBaseMiniHash:);
-  methods[20].selector = @selector(addTokenDetailsWithOrgMinimaObjectsTokenDetails:);
-  methods[21].selector = @selector(getHistory);
-  methods[22].selector = @selector(addToHistoryWithOrgMinimaObjectsTxPOW:withOrgMinimaObjectsBaseMiniNumber:);
-  methods[23].selector = @selector(clearHistory);
+  methods[5].selector = @selector(newSimpleAddressWithInt:);
+  methods[6].selector = @selector(newSimpleAddressWithOrgMinimaObjectsPubPrivKey:);
+  methods[7].selector = @selector(isSimpleAddressWithOrgMinimaObjectsBaseMiniData:);
+  methods[8].selector = @selector(getPublicKeyWithOrgMinimaObjectsBaseMiniData:);
+  methods[9].selector = @selector(getScriptAddresses);
+  methods[10].selector = @selector(newScriptAddressWithNSString:);
+  methods[11].selector = @selector(getAllAddresses);
+  methods[12].selector = @selector(getScriptWithOrgMinimaObjectsBaseMiniData:);
+  methods[13].selector = @selector(isAddressRelevantWithOrgMinimaObjectsBaseMiniData:);
+  methods[14].selector = @selector(isTransactionRelevantWithOrgMinimaObjectsTransaction:);
+  methods[15].selector = @selector(getAllRows);
+  methods[16].selector = @selector(getUserRowWithInt:);
+  methods[17].selector = @selector(addUserRowWithInt:);
+  methods[18].selector = @selector(deleteUserRowWithInt:);
+  methods[19].selector = @selector(getAllKnownTokens);
+  methods[20].selector = @selector(getTokenDetailWithOrgMinimaObjectsBaseMiniData:);
+  methods[21].selector = @selector(addTokenDetailsWithOrgMinimaObjectsProofsTokenProof:);
+  methods[22].selector = @selector(getHistory);
+  methods[23].selector = @selector(addToHistoryWithOrgMinimaObjectsBaseMiniData:withJavaUtilHashtable:);
+  methods[24].selector = @selector(clearHistory);
   #pragma clang diagnostic pop
-  static const void *ptrTable[] = { "()Ljava/util/ArrayList<Lorg/minima/objects/PubPrivKey;>;", "getPubPrivKey", "LOrgMinimaObjectsBaseMiniData;", "()Ljava/util/ArrayList<Lorg/minima/objects/Address;>;", "newSimpleAddress", "LOrgMinimaObjectsPubPrivKey;", "isSimpleAddress", "LOrgMinimaObjectsBaseMiniHash;", "getPublicKey", "newScriptAddress", "LNSString;", "getScript", "isAddressRelevant", "isTransactionRelevant", "LOrgMinimaObjectsTransaction;", "()Ljava/util/ArrayList<Lorg/minima/database/userdb/UserDBRow;>;", "getUserRow", "I", "addUserRow", "deleteUserRow", "()Ljava/util/ArrayList<Lorg/minima/objects/TokenDetails;>;", "getTokenDetail", "addTokenDetails", "LOrgMinimaObjectsTokenDetails;", "()Ljava/util/ArrayList<Lorg/minima/database/userdb/java/reltxpow;>;", "addToHistory", "LOrgMinimaObjectsTxPOW;LOrgMinimaObjectsBaseMiniNumber;" };
-  static const J2ObjcClassInfo _OrgMinimaDatabaseUserdbUserDB = { "UserDB", "org.minima.database.userdb", ptrTable, methods, NULL, 7, 0x609, 24, 0, -1, -1, -1, -1, -1 };
+  static const void *ptrTable[] = { "()Ljava/util/ArrayList<Lorg/minima/objects/PubPrivKey;>;", "newPublicKey", "I", "getPubPrivKey", "LOrgMinimaObjectsBaseMiniData;", "()Ljava/util/ArrayList<Lorg/minima/objects/Address;>;", "newSimpleAddress", "LOrgMinimaObjectsPubPrivKey;", "isSimpleAddress", "getPublicKey", "newScriptAddress", "LNSString;", "getScript", "isAddressRelevant", "isTransactionRelevant", "LOrgMinimaObjectsTransaction;", "()Ljava/util/ArrayList<Lorg/minima/database/userdb/UserDBRow;>;", "getUserRow", "addUserRow", "deleteUserRow", "()Ljava/util/ArrayList<Lorg/minima/objects/proofs/TokenProof;>;", "getTokenDetail", "addTokenDetails", "LOrgMinimaObjectsProofsTokenProof;", "()Ljava/util/ArrayList<Lorg/minima/database/userdb/java/reltxpow;>;", "addToHistory", "LOrgMinimaObjectsBaseMiniData;LJavaUtilHashtable;", "(Lorg/minima/objects/base/MiniData;Ljava/util/Hashtable<Ljava/lang/String;Lorg/minima/objects/base/MiniNumber;>;)V" };
+  static const J2ObjcClassInfo _OrgMinimaDatabaseUserdbUserDB = { "UserDB", "org.minima.database.userdb", ptrTable, methods, NULL, 7, 0x609, 25, 0, -1, -1, -1, -1, -1 };
   return &_OrgMinimaDatabaseUserdbUserDB;
 }
 

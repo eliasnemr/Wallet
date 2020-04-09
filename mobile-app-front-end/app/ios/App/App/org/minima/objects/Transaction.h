@@ -23,16 +23,20 @@
 @class JavaIoDataInputStream;
 @class JavaIoDataOutputStream;
 @class JavaUtilArrayList;
+@class OrgMinimaObjectsBaseMiniData;
 @class OrgMinimaObjectsBaseMiniNumber;
 @class OrgMinimaObjectsCoin;
+@class OrgMinimaObjectsProofsTokenProof;
 @class OrgMinimaObjectsStateVariable;
 @class OrgMinimaUtilsJsonJSONObject;
 
 @interface OrgMinimaObjectsTransaction : NSObject < OrgMinimaUtilsStreamable > {
  @public
+  OrgMinimaObjectsBaseMiniData *mLinkHash_;
   JavaUtilArrayList *mInputs_;
   JavaUtilArrayList *mOutputs_;
   JavaUtilArrayList *mState_;
+  OrgMinimaObjectsProofsTokenProof *mTokenGenDetails_;
 }
 
 #pragma mark Public
@@ -45,7 +49,11 @@
 
 - (void)addStateVariableWithOrgMinimaObjectsStateVariable:(OrgMinimaObjectsStateVariable *)zValue;
 
+- (jboolean)checkValidInOutPerToken;
+
 - (void)clearState;
+
+- (OrgMinimaObjectsTransaction *)deepCopy;
 
 - (JavaUtilArrayList *)getAllInputs;
 
@@ -53,17 +61,29 @@
 
 - (JavaUtilArrayList *)getCompleteState;
 
-- (OrgMinimaObjectsStateVariable *)getStateValueWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zStateNum;
+- (OrgMinimaObjectsBaseMiniData *)getLinkHash;
+
+- (OrgMinimaObjectsCoin *)getRemainderCoinWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zTokenID;
+
+- (OrgMinimaObjectsStateVariable *)getStateValueWithInt:(jint)zStateNum;
+
+- (OrgMinimaObjectsProofsTokenProof *)getTokenGenerationDetails;
 
 - (jboolean)isEmpty;
 
 - (void)readDataStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn;
 
-- (jboolean)stateExistsWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zStateNum;
+- (void)setTokenGenerationDetailsWithOrgMinimaObjectsProofsTokenProof:(OrgMinimaObjectsProofsTokenProof *)zTokenDetails;
+
+- (jboolean)stateExistsWithInt:(jint)zStateNum;
 
 - (OrgMinimaObjectsBaseMiniNumber *)sumInputs;
 
+- (OrgMinimaObjectsBaseMiniNumber *)sumInputsWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zTokenID;
+
 - (OrgMinimaObjectsBaseMiniNumber *)sumOutputs;
+
+- (OrgMinimaObjectsBaseMiniNumber *)sumOutputsWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zTokenID;
 
 - (OrgMinimaUtilsJsonJSONObject *)toJSON;
 
@@ -75,9 +95,11 @@
 
 J2OBJC_EMPTY_STATIC_INIT(OrgMinimaObjectsTransaction)
 
+J2OBJC_FIELD_SETTER(OrgMinimaObjectsTransaction, mLinkHash_, OrgMinimaObjectsBaseMiniData *)
 J2OBJC_FIELD_SETTER(OrgMinimaObjectsTransaction, mInputs_, JavaUtilArrayList *)
 J2OBJC_FIELD_SETTER(OrgMinimaObjectsTransaction, mOutputs_, JavaUtilArrayList *)
 J2OBJC_FIELD_SETTER(OrgMinimaObjectsTransaction, mState_, JavaUtilArrayList *)
+J2OBJC_FIELD_SETTER(OrgMinimaObjectsTransaction, mTokenGenDetails_, OrgMinimaObjectsProofsTokenProof *)
 
 FOUNDATION_EXPORT void OrgMinimaObjectsTransaction_init(OrgMinimaObjectsTransaction *self);
 

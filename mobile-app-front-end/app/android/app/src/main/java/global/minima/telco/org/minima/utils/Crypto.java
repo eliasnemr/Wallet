@@ -5,10 +5,11 @@ package org.minima.utils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
+import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import org.minima.objects.base.MiniHash;
+import org.minima.objects.base.MiniData;
 import org.minima.utils.digest.Digest;
 import org.minima.utils.digest.KeccakDigest;
 import org.minima.utils.digest.SHA256Digest;
@@ -19,6 +20,25 @@ import org.minima.utils.digest.SHA256Digest;
  */
 public class Crypto {
 
+	public static final BigInteger MAX_VAL = new BigInteger(
+					  "FFFFFFFFFFFFFFFFFFFF"+
+					  "FFFFFFFFFFFFFFFFFFFF"+
+					  "FFFFFFFFFFFFFFFFFFFF"+
+					  "FFFF"+
+					  "FFFFFFFFFFFFFFFFFFFF"+
+					  "FFFFFFFFFFFFFFFFFFFF"+
+					  "FFFFFFFFFFFFFFFFFFFF"+
+					  "FFFF", 16); 
+	
+	public static final MiniData MAX_HASH = new MiniData(
+					"0xFFFFFFFFFFFFFFFFFFFF"+
+					  "FFFFFFFFFFFFFFFFFFFF"+
+					  "FFFFFFFFFFFFFFFFFFFF"+
+					  "FFFF"+
+					  "FFFFFFFFFFFFFFFFFFFF"+
+					  "FFFFFFFFFFFFFFFFFFFF"+
+					  "FFFFFFFFFFFFFFFFFFFF"+
+					  "FFFF");
 	
 	/**
 	 * Get the default instance..
@@ -53,16 +73,17 @@ public class Crypto {
 //	}
 	
 	public byte[] hashData(byte[] zData){
+		return hashData(zData, 512);
+	}
+	
+	public byte[] hashData(byte[] zData, int zBitLength){
 		try {
 			//Bouncy..
-			Digest keccak = new KeccakDigest(256);
+			Digest keccak = new KeccakDigest(zBitLength);
 			byte[] output = new byte[keccak.getDigestSize()];
 			keccak.update(zData, 0, zData.length);
 			keccak.doFinal(output, 0);
 			return output;
-			
-			//Do it..
-//			return getDigest().digest(zData);
 		}catch(Exception exc) {
 			exc.printStackTrace();
 		}
@@ -99,7 +120,11 @@ public class Crypto {
 		return null;
 	}
 
-	public MiniHash hashObject(Streamable zObject) {
+	public MiniData hashObject(Streamable zObject) {
+		return hashObject(zObject, 512);
+	}
+	
+	public MiniData hashObject(Streamable zObject, int zBitLength) {
 		try {
 			//Get the Data..
 			ByteArrayOutputStream baos 	= new ByteArrayOutputStream();
@@ -115,9 +140,9 @@ public class Crypto {
 			byte[] objdata = baos.toByteArray();
 			
 			//Hash That
-			byte[] hashdata = hashData(objdata);
+			byte[] hashdata = hashData(objdata,zBitLength);
 			
-			return new MiniHash(hashdata);
+			return new MiniData(hashdata);
 		
 		}catch (Exception e) {
 			//Error Hashing!?
@@ -127,7 +152,11 @@ public class Crypto {
 		return null;
 	}
 	
-	public MiniHash hashObjects(Streamable zLeftObject, Streamable zRightObject2) {
+	public MiniData hashObjects(Streamable zLeftObject, Streamable zRightObject2) {
+		return hashObjects(zLeftObject, zRightObject2, 512);
+	}
+	
+	public MiniData hashObjects(Streamable zLeftObject, Streamable zRightObject2, int zBitLength) {
 		try {
 			//Get the Data..
 			ByteArrayOutputStream baos 	= new ByteArrayOutputStream();
@@ -146,10 +175,10 @@ public class Crypto {
 			byte[] objdata = baos.toByteArray();
 			
 			//Hash That
-			byte[] hashdata = hashData(objdata);
+			byte[] hashdata = hashData(objdata,zBitLength);
 		
 			//Final Answer
-			return new MiniHash(hashdata);
+			return new MiniData(hashdata);
 		
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -160,7 +189,7 @@ public class Crypto {
 		return null;
 	}
 	
-	public MiniHash hashAllObjects(Streamable... zObjects) {
+	public MiniData hashAllObjects(Streamable... zObjects) {
 		try {
 			//Get the Data..
 			ByteArrayOutputStream baos 	= new ByteArrayOutputStream();
@@ -181,7 +210,7 @@ public class Crypto {
 			byte[] hashdata = hashData(objdata);
 		
 			//Final Answer
-			return new MiniHash(hashdata);
+			return new MiniData(hashdata);
 		
 		}catch (Exception e) {
 			e.printStackTrace();

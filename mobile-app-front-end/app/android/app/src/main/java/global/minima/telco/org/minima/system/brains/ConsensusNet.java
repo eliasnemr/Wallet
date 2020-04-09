@@ -8,7 +8,7 @@ import org.minima.database.txpowdb.TxPOWDBRow;
 import org.minima.database.txpowtree.BlockTreeNode;
 import org.minima.objects.TxPOW;
 import org.minima.objects.base.MiniByte;
-import org.minima.objects.base.MiniHash;
+import org.minima.objects.base.MiniData;
 import org.minima.objects.base.MiniNumber;
 import org.minima.system.backup.SyncPackage;
 import org.minima.system.backup.SyncPacket;
@@ -129,7 +129,7 @@ public class ConsensusNet {
 				
 				//Do we intersect.. 
 				if(cross.isEqual(MiniNumber.ZERO)) {
-					MinimaLogger.log("IRREGULAR POW INTRO CHAIN. NO CROSSOVER BLOCK.. "+sp);
+					MinimaLogger.log("IRREGULAR POW INTRO CHAIN. NO CROSSOVER BLOCK.. !");
 					return;
 				}
 				
@@ -137,38 +137,34 @@ public class ConsensusNet {
 				
 				//Otherwise.. 
 				ArrayList<SyncPacket> intro = sp.getAllNodes();
-				boolean requeston= false;
 				int totalreq = 0;
 				for(SyncPacket spack : intro) {
-					//Is this the crossover..
 					if(spack.getTxPOW().getBlockNumber().isMoreEqual(cross)) {
-						//OK - from here on we ASK for the TXPOW..!
-						requeston = true;
-					}
-					
-					if(requeston) {
 						//Request all the TXPOW required.. txn first then block..
 						TxPOW txpow = spack.getTxPOW();
-						
-						//Get the NetClient...
-						NetClient client = (NetClient) zMessage.getObject("netclient");
-//						System.out.println("Netclient sync "+client);
-						
-						//Post it as a normal TxPOW..
-						Message msg = new Message(CONSENSUS_NET_TXPOW);
-						msg.addObject("txpow", txpow);
-						
-						//Add the client as requests will be made for TXPOWs we don't have
-						msg.addObject("netclient", client);
-						
-						mHandler.PostMessage(msg);
-						
-						totalreq++;
+					
+						//Do we have it..
+						if(getMainDB().getTxPOW(txpow.getTxPowID()) == null){
+							//Get the NetClient...
+							NetClient client = (NetClient) zMessage.getObject("netclient");
+	//						System.out.println("Netclient sync "+client);
+							
+							//Post it as a normal TxPOW..
+							Message msg = new Message(CONSENSUS_NET_TXPOW);
+							msg.addObject("txpow", txpow);
+							
+							//Add the client as requests will be made for TXPOWs we don't have
+							msg.addObject("netclient", client);
+							
+							mHandler.PostMessage(msg);
+							
+							totalreq++;
+						}
 						
 						//SIMPLE - JUST ASK AGAIN INNEFFICIENT
 //						//Txns
-//						ArrayList<MiniHash> txns = txpow.getBlockTxns();
-//						for(MiniHash txn : txns) {
+//						ArrayList<MiniData> txns = txpow.getBlockTxns();
+//						for(MiniData txn : txns) {
 //							if(!getMainDB().isTxPOWFound(txn)) {
 //								//Request it!
 //								sendNetMessage(zMessage, NetClientReader.NETMESSAGE_TXPOW_REQUEST, txn);
@@ -191,7 +187,7 @@ public class ConsensusNet {
 			
 		}else if ( zMessage.isMessageType(CONSENSUS_NET_TXPOWID)) {
 			//Get the ID
-			MiniHash txpowid = (MiniHash) zMessage.getObject("txpowid");
+			MiniData txpowid = (MiniData) zMessage.getObject("txpowid");
 			
 			//Do we have it..?
 			TxPOW txpow = getMainDB().getTxPOW(txpowid);
@@ -202,7 +198,7 @@ public class ConsensusNet {
 		
 		}else if(zMessage.isMessageType(CONSENSUS_NET_TXPOWREQUEST)) {
 			//Request for a previously sent txpowid
-			MiniHash txpowid = (MiniHash) zMessage.getObject("txpowid");
+			MiniData txpowid = (MiniData) zMessage.getObject("txpowid");
 			
 			//Get it..
 			TxPOW txpow = getMainDB().getTxPOW(txpowid);
@@ -264,9 +260,11 @@ public class ConsensusNet {
 			}
 
 			//And now check the Txn list.. basically a mempool sync
-			ArrayList<MiniHash> txns = txpow.getBlockTxns();
-			for(MiniHash txn : txns) {
+			ArrayList<MiniData> txns = txpow.getBlockTxns();
+			for(MiniData txn : txns) {
 				if(getMainDB().getTxPOW(txn) == null) {
+					MinimaLogger.log("REQUEST MISSING TXPOW IN BLOCK ("+txpow.getBlockNumber()+") "+txn);
+					
 					//We don't have it, get it..
 					sendNetMessage(zMessage, NetClientReader.NETMESSAGE_TXPOW_REQUEST, txn);
 				}
@@ -322,16 +320,22 @@ public class ConsensusNet {
 		
 		//Cycle..
 		for(BlockTreeNode block : chain) {
-			MiniNumber bnum = block.getTxPow().getBlockNumber();
+			//BLock number and hash.. BOTH have to match
+			MiniNumber bnum  = block.getTxPow().getBlockNumber();
+			MiniData txpowid = block.getTxPowID();
+			
 			//only use nodes after our cascade..
 			if(bnum.isMore(maincascade)) {
 				//Run through the intro chain..
 				for(SyncPacket spack : introchain) {
 					if(spack.getTxPOW().getBlockNumber().isEqual(bnum)) {
-						//Crossover!
-						found = true;
-						crossover = bnum;
-						break;
+						//Check the TxPOWID..
+						if(spack.getTxPOW().getTxPowID().isEqual(txpowid)) {
+							//Crossover!
+							found = true;
+							crossover = bnum;
+							break;
+						}
 					}
 				}
 			}

@@ -1,7 +1,8 @@
 package org.minima.system.tx;
 
 import org.minima.objects.TxPOW;
-import org.minima.objects.base.MiniHash;
+import org.minima.objects.base.MiniData;
+import org.minima.objects.base.MiniInteger;
 import org.minima.objects.base.MiniNumber;
 import org.minima.system.Main;
 import org.minima.system.SystemHandler;
@@ -9,12 +10,11 @@ import org.minima.system.brains.ConsensusHandler;
 import org.minima.utils.Crypto;
 import org.minima.utils.MinimaLogger;
 import org.minima.utils.messages.Message;
-import org.minima.utils.messages.TimerMessage;
 
 public class TXMiner extends SystemHandler{
-
-	public static final MiniHash BASE_TXN 	= MiniHash.MAX_HASH;
-	public static final MiniHash BASE_BLOCK = MiniHash.MAX_HASH;
+	
+	public static final MiniData BASE_TXN 	= Crypto.MAX_HASH;
+	public static final MiniData BASE_BLOCK = Crypto.MAX_HASH;
 	
 	public static final String TXMINER_TESTHASHING = "MINE_TESTHASHING";
 	public static final String TXMINER_MINETXPOW   = "MINE_MINETXPOW";
@@ -41,17 +41,17 @@ public class TXMiner extends SystemHandler{
 			//Get TXPOW..
 			TxPOW txpow = (TxPOW) zMessage.getObject("txpow");
 			
-			MiniNumber nonce = MiniNumber.ZERO;
+			MiniInteger nonce = new MiniInteger(0);
 			
 			//And now start hashing.. 
-			MiniHash hash = null;
+			MiniData hash = null;
 			boolean mining 	= true;
 			
 			//Do so many then recalculate.. to have the latest block data
 			long currentTime  = System.currentTimeMillis();
 			
 			//should be about 10..
-			long maxTime  	  = currentTime + 10000;
+			long maxTime  	  = currentTime + 2000;
 			
 			while(mining && currentTime < maxTime) {
 				//Set the Nonce..
@@ -105,11 +105,11 @@ public class TXMiner extends SystemHandler{
 			long currentTime  = System.currentTimeMillis();
 			
 			//should be about 10..
-			long maxTime  	  = currentTime + 1000;
+			long maxTime  	  = currentTime + 2000;
 			
 			//Keep cycling until it is ready 
 			boolean mining = true;
-			MiniHash hash = null;
+			MiniData hash = null;
 			while(mining && currentTime<maxTime && isRunning()) {
 				//Now Hash it..
 				hash = Crypto.getInstance().hashObject(txpow);

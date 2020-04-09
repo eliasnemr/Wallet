@@ -17,21 +17,19 @@
 #define OrgMinimaDatabaseUserdbUserDB_
 
 @class JavaUtilArrayList;
+@class JavaUtilHashtable;
 @class OrgMinimaObjectsAddress;
 @class OrgMinimaObjectsBaseMiniData;
-@class OrgMinimaObjectsBaseMiniHash;
-@class OrgMinimaObjectsBaseMiniNumber;
+@class OrgMinimaObjectsProofsTokenProof;
 @class OrgMinimaObjectsPubPrivKey;
-@class OrgMinimaObjectsTokenDetails;
 @class OrgMinimaObjectsTransaction;
-@class OrgMinimaObjectsTxPOW;
 @protocol OrgMinimaDatabaseUserdbUserDBRow;
 
 @protocol OrgMinimaDatabaseUserdbUserDB < JavaObject >
 
 - (JavaUtilArrayList *)getKeys;
 
-- (OrgMinimaObjectsPubPrivKey *)newPublicKey OBJC_METHOD_FAMILY_NONE;
+- (OrgMinimaObjectsPubPrivKey *)newPublicKeyWithInt:(jint)zBitLength OBJC_METHOD_FAMILY_NONE;
 
 - (OrgMinimaObjectsPubPrivKey *)getPubPrivKeyWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zPubKey;
 
@@ -39,11 +37,13 @@
 
 - (OrgMinimaObjectsAddress *)newSimpleAddress OBJC_METHOD_FAMILY_NONE;
 
+- (OrgMinimaObjectsAddress *)newSimpleAddressWithInt:(jint)zBitLength OBJC_METHOD_FAMILY_NONE;
+
 - (OrgMinimaObjectsAddress *)newSimpleAddressWithOrgMinimaObjectsPubPrivKey:(OrgMinimaObjectsPubPrivKey *)zPubPriv OBJC_METHOD_FAMILY_NONE;
 
-- (jboolean)isSimpleAddressWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zAddress;
+- (jboolean)isSimpleAddressWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zAddress;
 
-- (OrgMinimaObjectsBaseMiniData *)getPublicKeyWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zAddress;
+- (OrgMinimaObjectsBaseMiniData *)getPublicKeyWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zAddress;
 
 - (JavaUtilArrayList *)getScriptAddresses;
 
@@ -51,9 +51,9 @@
 
 - (JavaUtilArrayList *)getAllAddresses;
 
-- (NSString *)getScriptWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zAddress;
+- (NSString *)getScriptWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zAddress;
 
-- (jboolean)isAddressRelevantWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zAddress;
+- (jboolean)isAddressRelevantWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zAddress;
 
 - (jboolean)isTransactionRelevantWithOrgMinimaObjectsTransaction:(OrgMinimaObjectsTransaction *)zTrans;
 
@@ -67,14 +67,14 @@
 
 - (JavaUtilArrayList *)getAllKnownTokens;
 
-- (OrgMinimaObjectsTokenDetails *)getTokenDetailWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zTokenID;
+- (OrgMinimaObjectsProofsTokenProof *)getTokenDetailWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zTokenID;
 
-- (void)addTokenDetailsWithOrgMinimaObjectsTokenDetails:(OrgMinimaObjectsTokenDetails *)zToken;
+- (void)addTokenDetailsWithOrgMinimaObjectsProofsTokenProof:(OrgMinimaObjectsProofsTokenProof *)zToken;
 
 - (JavaUtilArrayList *)getHistory;
 
-- (void)addToHistoryWithOrgMinimaObjectsTxPOW:(OrgMinimaObjectsTxPOW *)zTxPOW
-           withOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zValue;
+- (void)addToHistoryWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zTxPOWID
+                               withJavaUtilHashtable:(JavaUtilHashtable *)zValues;
 
 - (void)clearHistory;
 

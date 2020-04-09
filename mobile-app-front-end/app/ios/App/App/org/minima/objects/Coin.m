@@ -3,13 +3,13 @@
 //  source: ./org/minima/objects/Coin.java
 //
 
-#include "IOSPrimitiveArray.h"
 #include "J2ObjC_source.h"
 #include "java/io/DataInputStream.h"
 #include "java/io/DataOutputStream.h"
+#include "java/lang/Boolean.h"
 #include "org/minima/objects/Coin.h"
 #include "org/minima/objects/base/MiniByte.h"
-#include "org/minima/objects/base/MiniHash.h"
+#include "org/minima/objects/base/MiniData.h"
 #include "org/minima/objects/base/MiniNumber.h"
 #include "org/minima/utils/json/JSONObject.h"
 
@@ -27,17 +27,27 @@ __attribute__((unused)) static OrgMinimaObjectsCoin *create_OrgMinimaObjectsCoin
 
 J2OBJC_INITIALIZED_DEFN(OrgMinimaObjectsCoin)
 
-OrgMinimaObjectsBaseMiniHash *OrgMinimaObjectsCoin_MINIMA_TOKENID;
-OrgMinimaObjectsBaseMiniHash *OrgMinimaObjectsCoin_COINID_OUTPUT;
-OrgMinimaObjectsBaseMiniHash *OrgMinimaObjectsCoin_TOKENID_CREATE;
+OrgMinimaObjectsBaseMiniData *OrgMinimaObjectsCoin_MINIMA_TOKENID;
+OrgMinimaObjectsBaseMiniData *OrgMinimaObjectsCoin_COINID_OUTPUT;
+OrgMinimaObjectsBaseMiniData *OrgMinimaObjectsCoin_TOKENID_CREATE;
 
 @implementation OrgMinimaObjectsCoin
 
-- (instancetype)initWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zCoinID
-                    withOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zAddress
+- (instancetype)initWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zCoinID
+                    withOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zAddress
                   withOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zAmount
-                    withOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zTokenID {
-  OrgMinimaObjectsCoin_initWithOrgMinimaObjectsBaseMiniHash_withOrgMinimaObjectsBaseMiniHash_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniHash_(self, zCoinID, zAddress, zAmount, zTokenID);
+                    withOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zTokenID {
+  OrgMinimaObjectsCoin_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniData_(self, zCoinID, zAddress, zAmount, zTokenID);
+  return self;
+}
+
+- (instancetype)initWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zCoinID
+                    withOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zAddress
+                  withOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zAmount
+                    withOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zTokenID
+                                         withBoolean:(jboolean)zFloating
+                                         withBoolean:(jboolean)zRemainder {
+  OrgMinimaObjectsCoin_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniData_withBoolean_withBoolean_(self, zCoinID, zAddress, zAmount, zTokenID, zFloating, zRemainder);
   return self;
 }
 
@@ -48,11 +58,35 @@ J2OBJC_IGNORE_DESIGNATED_BEGIN
 }
 J2OBJC_IGNORE_DESIGNATED_END
 
-- (OrgMinimaObjectsBaseMiniHash *)getCoinID {
+- (void)setFloatingWithBoolean:(jboolean)zFloating {
+  mFloating_ = zFloating;
+}
+
+- (jboolean)isFloating {
+  return mFloating_;
+}
+
+- (void)setRemainderWithBoolean:(jboolean)zRemainder {
+  mRemainder_ = zRemainder;
+}
+
+- (jboolean)isRemainder {
+  return mRemainder_;
+}
+
+- (void)resetCoinIDWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zCoinID {
+  JreStrongAssign(&mCoinID_, zCoinID);
+}
+
+- (void)resetAmountWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zAmount {
+  JreStrongAssign(&mAmount_, zAmount);
+}
+
+- (OrgMinimaObjectsBaseMiniData *)getCoinID {
   return mCoinID_;
 }
 
-- (OrgMinimaObjectsBaseMiniHash *)getAddress {
+- (OrgMinimaObjectsBaseMiniData *)getAddress {
   return mAddress_;
 }
 
@@ -60,12 +94,8 @@ J2OBJC_IGNORE_DESIGNATED_END
   return mAmount_;
 }
 
-- (OrgMinimaObjectsBaseMiniHash *)getTokenID {
+- (OrgMinimaObjectsBaseMiniData *)getTokenID {
   return mTokenID_;
-}
-
-+ (OrgMinimaObjectsBaseMiniHash *)getTokenCreationIDWithInt:(jint)zDecimalPlaces {
-  return OrgMinimaObjectsCoin_getTokenCreationIDWithInt_(zDecimalPlaces);
 }
 
 - (NSString *)description {
@@ -74,25 +104,41 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 - (OrgMinimaUtilsJsonJSONObject *)toJSON {
   OrgMinimaUtilsJsonJSONObject *obj = create_OrgMinimaUtilsJsonJSONObject_init();
-  [obj putWithId:@"coinid" withId:[((OrgMinimaObjectsBaseMiniHash *) nil_chk(mCoinID_)) description]];
-  [obj putWithId:@"address" withId:[((OrgMinimaObjectsBaseMiniHash *) nil_chk(mAddress_)) description]];
+  [obj putWithId:@"coinid" withId:[((OrgMinimaObjectsBaseMiniData *) nil_chk(mCoinID_)) description]];
+  [obj putWithId:@"address" withId:[((OrgMinimaObjectsBaseMiniData *) nil_chk(mAddress_)) description]];
   [obj putWithId:@"amount" withId:[((OrgMinimaObjectsBaseMiniNumber *) nil_chk(mAmount_)) description]];
-  [obj putWithId:@"tokenid" withId:[((OrgMinimaObjectsBaseMiniHash *) nil_chk(mTokenID_)) description]];
+  [obj putWithId:@"tokenid" withId:[((OrgMinimaObjectsBaseMiniData *) nil_chk(mTokenID_)) description]];
+  [obj putWithId:@"floating" withId:JavaLangBoolean_valueOfWithBoolean_(mFloating_)];
+  [obj putWithId:@"remainder" withId:JavaLangBoolean_valueOfWithBoolean_(mRemainder_)];
   return obj;
 }
 
 - (void)writeDataStreamWithJavaIoDataOutputStream:(JavaIoDataOutputStream *)zOut {
-  [((OrgMinimaObjectsBaseMiniHash *) nil_chk(mCoinID_)) writeDataStreamWithJavaIoDataOutputStream:zOut];
-  [((OrgMinimaObjectsBaseMiniHash *) nil_chk(mAddress_)) writeDataStreamWithJavaIoDataOutputStream:zOut];
+  [((OrgMinimaObjectsBaseMiniData *) nil_chk(mCoinID_)) writeDataStreamWithJavaIoDataOutputStream:zOut];
+  [((OrgMinimaObjectsBaseMiniData *) nil_chk(mAddress_)) writeDataStreamWithJavaIoDataOutputStream:zOut];
   [((OrgMinimaObjectsBaseMiniNumber *) nil_chk(mAmount_)) writeDataStreamWithJavaIoDataOutputStream:zOut];
-  [((OrgMinimaObjectsBaseMiniHash *) nil_chk(mTokenID_)) writeDataStreamWithJavaIoDataOutputStream:zOut];
+  [((OrgMinimaObjectsBaseMiniData *) nil_chk(mTokenID_)) writeDataStreamWithJavaIoDataOutputStream:zOut];
+  if (mFloating_) {
+    [((OrgMinimaObjectsBaseMiniByte *) nil_chk(JreLoadStatic(OrgMinimaObjectsBaseMiniByte, TRUE))) writeDataStreamWithJavaIoDataOutputStream:zOut];
+  }
+  else {
+    [((OrgMinimaObjectsBaseMiniByte *) nil_chk(JreLoadStatic(OrgMinimaObjectsBaseMiniByte, FALSE))) writeDataStreamWithJavaIoDataOutputStream:zOut];
+  }
+  if (mRemainder_) {
+    [((OrgMinimaObjectsBaseMiniByte *) nil_chk(JreLoadStatic(OrgMinimaObjectsBaseMiniByte, TRUE))) writeDataStreamWithJavaIoDataOutputStream:zOut];
+  }
+  else {
+    [((OrgMinimaObjectsBaseMiniByte *) nil_chk(JreLoadStatic(OrgMinimaObjectsBaseMiniByte, FALSE))) writeDataStreamWithJavaIoDataOutputStream:zOut];
+  }
 }
 
 - (void)readDataStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn {
-  JreStrongAssign(&mCoinID_, OrgMinimaObjectsBaseMiniHash_ReadFromStreamWithJavaIoDataInputStream_(zIn));
-  JreStrongAssign(&mAddress_, OrgMinimaObjectsBaseMiniHash_ReadFromStreamWithJavaIoDataInputStream_(zIn));
+  JreStrongAssign(&mCoinID_, OrgMinimaObjectsBaseMiniData_ReadFromStreamWithJavaIoDataInputStream_(zIn));
+  JreStrongAssign(&mAddress_, OrgMinimaObjectsBaseMiniData_ReadFromStreamWithJavaIoDataInputStream_(zIn));
   JreStrongAssign(&mAmount_, OrgMinimaObjectsBaseMiniNumber_ReadFromStreamWithJavaIoDataInputStream_(zIn));
-  JreStrongAssign(&mTokenID_, OrgMinimaObjectsBaseMiniHash_ReadFromStreamWithJavaIoDataInputStream_(zIn));
+  JreStrongAssign(&mTokenID_, OrgMinimaObjectsBaseMiniData_ReadFromStreamWithJavaIoDataInputStream_(zIn));
+  mFloating_ = [((OrgMinimaObjectsBaseMiniByte *) nil_chk(OrgMinimaObjectsBaseMiniByte_ReadFromStreamWithJavaIoDataInputStream_(zIn))) isTrue];
+  mRemainder_ = [((OrgMinimaObjectsBaseMiniByte *) nil_chk(OrgMinimaObjectsBaseMiniByte_ReadFromStreamWithJavaIoDataInputStream_(zIn))) isTrue];
 }
 
 + (OrgMinimaObjectsCoin *)ReadFromStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn {
@@ -110,77 +156,109 @@ J2OBJC_IGNORE_DESIGNATED_END
 + (const J2ObjcClassInfo *)__metadata {
   static J2ObjcMethodInfo methods[] = {
     { NULL, NULL, 0x1, -1, 0, -1, -1, -1, -1 },
+    { NULL, NULL, 0x1, -1, 1, -1, -1, -1, -1 },
     { NULL, NULL, 0x2, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsBaseMiniHash;", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsBaseMiniHash;", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 2, 3, -1, -1, -1, -1 },
+    { NULL, "Z", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 4, 3, -1, -1, -1, -1 },
+    { NULL, "Z", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 5, 6, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 7, 8, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMiniData;", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMiniData;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsBaseMiniHash;", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsBaseMiniHash;", 0x9, 1, 2, -1, -1, -1, -1 },
-    { NULL, "LNSString;", 0x1, 3, -1, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMiniData;", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "LNSString;", 0x1, 9, -1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaUtilsJsonJSONObject;", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 4, 5, 6, -1, -1, -1 },
-    { NULL, "V", 0x1, 7, 8, 6, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsCoin;", 0x9, 9, 8, 6, -1, -1, -1 },
+    { NULL, "V", 0x1, 10, 11, 12, -1, -1, -1 },
+    { NULL, "V", 0x1, 13, 14, 12, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsCoin;", 0x9, 15, 14, 12, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
   #pragma clang diagnostic ignored "-Wundeclared-selector"
-  methods[0].selector = @selector(initWithOrgMinimaObjectsBaseMiniHash:withOrgMinimaObjectsBaseMiniHash:withOrgMinimaObjectsBaseMiniNumber:withOrgMinimaObjectsBaseMiniHash:);
-  methods[1].selector = @selector(init);
-  methods[2].selector = @selector(getCoinID);
-  methods[3].selector = @selector(getAddress);
-  methods[4].selector = @selector(getAmount);
-  methods[5].selector = @selector(getTokenID);
-  methods[6].selector = @selector(getTokenCreationIDWithInt:);
-  methods[7].selector = @selector(description);
-  methods[8].selector = @selector(toJSON);
-  methods[9].selector = @selector(writeDataStreamWithJavaIoDataOutputStream:);
-  methods[10].selector = @selector(readDataStreamWithJavaIoDataInputStream:);
-  methods[11].selector = @selector(ReadFromStreamWithJavaIoDataInputStream:);
+  methods[0].selector = @selector(initWithOrgMinimaObjectsBaseMiniData:withOrgMinimaObjectsBaseMiniData:withOrgMinimaObjectsBaseMiniNumber:withOrgMinimaObjectsBaseMiniData:);
+  methods[1].selector = @selector(initWithOrgMinimaObjectsBaseMiniData:withOrgMinimaObjectsBaseMiniData:withOrgMinimaObjectsBaseMiniNumber:withOrgMinimaObjectsBaseMiniData:withBoolean:withBoolean:);
+  methods[2].selector = @selector(init);
+  methods[3].selector = @selector(setFloatingWithBoolean:);
+  methods[4].selector = @selector(isFloating);
+  methods[5].selector = @selector(setRemainderWithBoolean:);
+  methods[6].selector = @selector(isRemainder);
+  methods[7].selector = @selector(resetCoinIDWithOrgMinimaObjectsBaseMiniData:);
+  methods[8].selector = @selector(resetAmountWithOrgMinimaObjectsBaseMiniNumber:);
+  methods[9].selector = @selector(getCoinID);
+  methods[10].selector = @selector(getAddress);
+  methods[11].selector = @selector(getAmount);
+  methods[12].selector = @selector(getTokenID);
+  methods[13].selector = @selector(description);
+  methods[14].selector = @selector(toJSON);
+  methods[15].selector = @selector(writeDataStreamWithJavaIoDataOutputStream:);
+  methods[16].selector = @selector(readDataStreamWithJavaIoDataInputStream:);
+  methods[17].selector = @selector(ReadFromStreamWithJavaIoDataInputStream:);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
-    { "MINIMA_TOKENID", "LOrgMinimaObjectsBaseMiniHash;", .constantValue.asLong = 0, 0x19, -1, 10, -1, -1 },
-    { "COINID_OUTPUT", "LOrgMinimaObjectsBaseMiniHash;", .constantValue.asLong = 0, 0x19, -1, 11, -1, -1 },
-    { "TOKENID_CREATE", "LOrgMinimaObjectsBaseMiniHash;", .constantValue.asLong = 0, 0x19, -1, 12, -1, -1 },
-    { "mCoinID_", "LOrgMinimaObjectsBaseMiniHash;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
-    { "mAddress_", "LOrgMinimaObjectsBaseMiniHash;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
+    { "MINIMA_TOKENID", "LOrgMinimaObjectsBaseMiniData;", .constantValue.asLong = 0, 0x19, -1, 16, -1, -1 },
+    { "COINID_OUTPUT", "LOrgMinimaObjectsBaseMiniData;", .constantValue.asLong = 0, 0x19, -1, 17, -1, -1 },
+    { "TOKENID_CREATE", "LOrgMinimaObjectsBaseMiniData;", .constantValue.asLong = 0, 0x19, -1, 18, -1, -1 },
+    { "mCoinID_", "LOrgMinimaObjectsBaseMiniData;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
+    { "mAddress_", "LOrgMinimaObjectsBaseMiniData;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mAmount_", "LOrgMinimaObjectsBaseMiniNumber;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
-    { "mTokenID_", "LOrgMinimaObjectsBaseMiniHash;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
+    { "mTokenID_", "LOrgMinimaObjectsBaseMiniData;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
+    { "mFloating_", "Z", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
+    { "mRemainder_", "Z", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
   };
-  static const void *ptrTable[] = { "LOrgMinimaObjectsBaseMiniHash;LOrgMinimaObjectsBaseMiniHash;LOrgMinimaObjectsBaseMiniNumber;LOrgMinimaObjectsBaseMiniHash;", "getTokenCreationID", "I", "toString", "writeDataStream", "LJavaIoDataOutputStream;", "LJavaIoIOException;", "readDataStream", "LJavaIoDataInputStream;", "ReadFromStream", &OrgMinimaObjectsCoin_MINIMA_TOKENID, &OrgMinimaObjectsCoin_COINID_OUTPUT, &OrgMinimaObjectsCoin_TOKENID_CREATE };
-  static const J2ObjcClassInfo _OrgMinimaObjectsCoin = { "Coin", "org.minima.objects", ptrTable, methods, fields, 7, 0x1, 12, 7, -1, -1, -1, -1, -1 };
+  static const void *ptrTable[] = { "LOrgMinimaObjectsBaseMiniData;LOrgMinimaObjectsBaseMiniData;LOrgMinimaObjectsBaseMiniNumber;LOrgMinimaObjectsBaseMiniData;", "LOrgMinimaObjectsBaseMiniData;LOrgMinimaObjectsBaseMiniData;LOrgMinimaObjectsBaseMiniNumber;LOrgMinimaObjectsBaseMiniData;ZZ", "setFloating", "Z", "setRemainder", "resetCoinID", "LOrgMinimaObjectsBaseMiniData;", "resetAmount", "LOrgMinimaObjectsBaseMiniNumber;", "toString", "writeDataStream", "LJavaIoDataOutputStream;", "LJavaIoIOException;", "readDataStream", "LJavaIoDataInputStream;", "ReadFromStream", &OrgMinimaObjectsCoin_MINIMA_TOKENID, &OrgMinimaObjectsCoin_COINID_OUTPUT, &OrgMinimaObjectsCoin_TOKENID_CREATE };
+  static const J2ObjcClassInfo _OrgMinimaObjectsCoin = { "Coin", "org.minima.objects", ptrTable, methods, fields, 7, 0x1, 18, 9, -1, -1, -1, -1, -1 };
   return &_OrgMinimaObjectsCoin;
 }
 
 + (void)initialize {
   if (self == [OrgMinimaObjectsCoin class]) {
-    JreStrongAssignAndConsume(&OrgMinimaObjectsCoin_MINIMA_TOKENID, new_OrgMinimaObjectsBaseMiniHash_initWithNSString_(@"0x00"));
-    JreStrongAssignAndConsume(&OrgMinimaObjectsCoin_COINID_OUTPUT, new_OrgMinimaObjectsBaseMiniHash_initWithNSString_(@"0x00"));
-    JreStrongAssignAndConsume(&OrgMinimaObjectsCoin_TOKENID_CREATE, new_OrgMinimaObjectsBaseMiniHash_initWithNSString_(@"0xFF"));
+    JreStrongAssignAndConsume(&OrgMinimaObjectsCoin_MINIMA_TOKENID, new_OrgMinimaObjectsBaseMiniData_initWithNSString_(@"0x00"));
+    JreStrongAssignAndConsume(&OrgMinimaObjectsCoin_COINID_OUTPUT, new_OrgMinimaObjectsBaseMiniData_initWithNSString_(@"0x00"));
+    JreStrongAssignAndConsume(&OrgMinimaObjectsCoin_TOKENID_CREATE, new_OrgMinimaObjectsBaseMiniData_initWithNSString_(@"0xFF"));
     J2OBJC_SET_INITIALIZED(OrgMinimaObjectsCoin)
   }
 }
 
 @end
 
-void OrgMinimaObjectsCoin_initWithOrgMinimaObjectsBaseMiniHash_withOrgMinimaObjectsBaseMiniHash_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniHash_(OrgMinimaObjectsCoin *self, OrgMinimaObjectsBaseMiniHash *zCoinID, OrgMinimaObjectsBaseMiniHash *zAddress, OrgMinimaObjectsBaseMiniNumber *zAmount, OrgMinimaObjectsBaseMiniHash *zTokenID) {
+void OrgMinimaObjectsCoin_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniData_(OrgMinimaObjectsCoin *self, OrgMinimaObjectsBaseMiniData *zCoinID, OrgMinimaObjectsBaseMiniData *zAddress, OrgMinimaObjectsBaseMiniNumber *zAmount, OrgMinimaObjectsBaseMiniData *zTokenID) {
+  OrgMinimaObjectsCoin_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniData_withBoolean_withBoolean_(self, zCoinID, zAddress, zAmount, zTokenID, false, false);
+}
+
+OrgMinimaObjectsCoin *new_OrgMinimaObjectsCoin_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniData_(OrgMinimaObjectsBaseMiniData *zCoinID, OrgMinimaObjectsBaseMiniData *zAddress, OrgMinimaObjectsBaseMiniNumber *zAmount, OrgMinimaObjectsBaseMiniData *zTokenID) {
+  J2OBJC_NEW_IMPL(OrgMinimaObjectsCoin, initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniData_, zCoinID, zAddress, zAmount, zTokenID)
+}
+
+OrgMinimaObjectsCoin *create_OrgMinimaObjectsCoin_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniData_(OrgMinimaObjectsBaseMiniData *zCoinID, OrgMinimaObjectsBaseMiniData *zAddress, OrgMinimaObjectsBaseMiniNumber *zAmount, OrgMinimaObjectsBaseMiniData *zTokenID) {
+  J2OBJC_CREATE_IMPL(OrgMinimaObjectsCoin, initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniData_, zCoinID, zAddress, zAmount, zTokenID)
+}
+
+void OrgMinimaObjectsCoin_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniData_withBoolean_withBoolean_(OrgMinimaObjectsCoin *self, OrgMinimaObjectsBaseMiniData *zCoinID, OrgMinimaObjectsBaseMiniData *zAddress, OrgMinimaObjectsBaseMiniNumber *zAmount, OrgMinimaObjectsBaseMiniData *zTokenID, jboolean zFloating, jboolean zRemainder) {
   NSObject_init(self);
+  self->mFloating_ = false;
+  self->mRemainder_ = false;
   JreStrongAssign(&self->mCoinID_, zCoinID);
   JreStrongAssign(&self->mAddress_, zAddress);
   JreStrongAssign(&self->mAmount_, zAmount);
   JreStrongAssign(&self->mTokenID_, zTokenID);
+  self->mFloating_ = zFloating;
+  self->mRemainder_ = zRemainder;
 }
 
-OrgMinimaObjectsCoin *new_OrgMinimaObjectsCoin_initWithOrgMinimaObjectsBaseMiniHash_withOrgMinimaObjectsBaseMiniHash_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniHash_(OrgMinimaObjectsBaseMiniHash *zCoinID, OrgMinimaObjectsBaseMiniHash *zAddress, OrgMinimaObjectsBaseMiniNumber *zAmount, OrgMinimaObjectsBaseMiniHash *zTokenID) {
-  J2OBJC_NEW_IMPL(OrgMinimaObjectsCoin, initWithOrgMinimaObjectsBaseMiniHash_withOrgMinimaObjectsBaseMiniHash_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniHash_, zCoinID, zAddress, zAmount, zTokenID)
+OrgMinimaObjectsCoin *new_OrgMinimaObjectsCoin_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniData_withBoolean_withBoolean_(OrgMinimaObjectsBaseMiniData *zCoinID, OrgMinimaObjectsBaseMiniData *zAddress, OrgMinimaObjectsBaseMiniNumber *zAmount, OrgMinimaObjectsBaseMiniData *zTokenID, jboolean zFloating, jboolean zRemainder) {
+  J2OBJC_NEW_IMPL(OrgMinimaObjectsCoin, initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniData_withBoolean_withBoolean_, zCoinID, zAddress, zAmount, zTokenID, zFloating, zRemainder)
 }
 
-OrgMinimaObjectsCoin *create_OrgMinimaObjectsCoin_initWithOrgMinimaObjectsBaseMiniHash_withOrgMinimaObjectsBaseMiniHash_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniHash_(OrgMinimaObjectsBaseMiniHash *zCoinID, OrgMinimaObjectsBaseMiniHash *zAddress, OrgMinimaObjectsBaseMiniNumber *zAmount, OrgMinimaObjectsBaseMiniHash *zTokenID) {
-  J2OBJC_CREATE_IMPL(OrgMinimaObjectsCoin, initWithOrgMinimaObjectsBaseMiniHash_withOrgMinimaObjectsBaseMiniHash_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniHash_, zCoinID, zAddress, zAmount, zTokenID)
+OrgMinimaObjectsCoin *create_OrgMinimaObjectsCoin_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniData_withBoolean_withBoolean_(OrgMinimaObjectsBaseMiniData *zCoinID, OrgMinimaObjectsBaseMiniData *zAddress, OrgMinimaObjectsBaseMiniNumber *zAmount, OrgMinimaObjectsBaseMiniData *zTokenID, jboolean zFloating, jboolean zRemainder) {
+  J2OBJC_CREATE_IMPL(OrgMinimaObjectsCoin, initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniData_withBoolean_withBoolean_, zCoinID, zAddress, zAmount, zTokenID, zFloating, zRemainder)
 }
 
 void OrgMinimaObjectsCoin_init(OrgMinimaObjectsCoin *self) {
   NSObject_init(self);
+  self->mFloating_ = false;
+  self->mRemainder_ = false;
 }
 
 OrgMinimaObjectsCoin *new_OrgMinimaObjectsCoin_init() {
@@ -189,18 +267,6 @@ OrgMinimaObjectsCoin *new_OrgMinimaObjectsCoin_init() {
 
 OrgMinimaObjectsCoin *create_OrgMinimaObjectsCoin_init() {
   J2OBJC_CREATE_IMPL(OrgMinimaObjectsCoin, init)
-}
-
-OrgMinimaObjectsBaseMiniHash *OrgMinimaObjectsCoin_getTokenCreationIDWithInt_(jint zDecimalPlaces) {
-  OrgMinimaObjectsCoin_initialize();
-  jint totplaces = zDecimalPlaces;
-  if (totplaces > 255) {
-    totplaces = 255;
-  }
-  OrgMinimaObjectsBaseMiniByte *tot = create_OrgMinimaObjectsBaseMiniByte_initWithInt_(totplaces);
-  IOSByteArray *data = [IOSByteArray arrayWithLength:1];
-  *IOSByteArray_GetRef(data, 0) = [tot getByteValue];
-  return create_OrgMinimaObjectsBaseMiniHash_initWithByteArray_(data);
 }
 
 OrgMinimaObjectsCoin *OrgMinimaObjectsCoin_ReadFromStreamWithJavaIoDataInputStream_(JavaIoDataInputStream *zIn) {

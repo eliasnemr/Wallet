@@ -3,19 +3,15 @@
 //  source: ./org/minima/objects/base/MiniNumber.java
 //
 
-#include "IOSObjectArray.h"
 #include "IOSPrimitiveArray.h"
 #include "J2ObjC_source.h"
 #include "java/io/DataInputStream.h"
 #include "java/io/DataOutputStream.h"
 #include "java/io/IOException.h"
-#include "java/io/PrintStream.h"
-#include "java/lang/System.h"
 #include "java/math/BigDecimal.h"
 #include "java/math/BigInteger.h"
 #include "java/math/MathContext.h"
 #include "java/math/RoundingMode.h"
-#include "java/text/DecimalFormat.h"
 #include "org/minima/objects/base/MiniNumber.h"
 
 @interface OrgMinimaObjectsBaseMiniNumber () {
@@ -30,12 +26,15 @@ J2OBJC_FIELD_SETTER(OrgMinimaObjectsBaseMiniNumber, mNumber_, JavaMathBigDecimal
 J2OBJC_INITIALIZED_DEFN(OrgMinimaObjectsBaseMiniNumber)
 
 JavaMathMathContext *OrgMinimaObjectsBaseMiniNumber_mMathContext;
-JavaTextDecimalFormat *OrgMinimaObjectsBaseMiniNumber_MINIMA_SIGNIFICANT_FORMAT;
 OrgMinimaObjectsBaseMiniNumber *OrgMinimaObjectsBaseMiniNumber_ZERO;
 OrgMinimaObjectsBaseMiniNumber *OrgMinimaObjectsBaseMiniNumber_ONE;
 OrgMinimaObjectsBaseMiniNumber *OrgMinimaObjectsBaseMiniNumber_TWO;
 OrgMinimaObjectsBaseMiniNumber *OrgMinimaObjectsBaseMiniNumber_EIGHT;
+OrgMinimaObjectsBaseMiniNumber *OrgMinimaObjectsBaseMiniNumber_THIRTYTWO;
+OrgMinimaObjectsBaseMiniNumber *OrgMinimaObjectsBaseMiniNumber_SIXTYFOUR;
 OrgMinimaObjectsBaseMiniNumber *OrgMinimaObjectsBaseMiniNumber_TEN;
+OrgMinimaObjectsBaseMiniNumber *OrgMinimaObjectsBaseMiniNumber_HUNDRED;
+OrgMinimaObjectsBaseMiniNumber *OrgMinimaObjectsBaseMiniNumber_THOUSAND;
 OrgMinimaObjectsBaseMiniNumber *OrgMinimaObjectsBaseMiniNumber_MINUSONE;
 
 @implementation OrgMinimaObjectsBaseMiniNumber
@@ -46,6 +45,11 @@ J2OBJC_IGNORE_DESIGNATED_BEGIN
   return self;
 }
 J2OBJC_IGNORE_DESIGNATED_END
+
+- (instancetype)initWithInt:(jint)zNumber {
+  OrgMinimaObjectsBaseMiniNumber_initWithInt_(self, zNumber);
+  return self;
+}
 
 - (instancetype)initWithJavaMathBigInteger:(JavaMathBigInteger *)zNumber {
   OrgMinimaObjectsBaseMiniNumber_initWithJavaMathBigInteger_(self, zNumber);
@@ -118,6 +122,14 @@ J2OBJC_IGNORE_DESIGNATED_END
   return create_OrgMinimaObjectsBaseMiniNumber_initWithJavaMathBigDecimal_([((JavaMathBigDecimal *) nil_chk(mNumber_)) setScaleWithInt:0 withJavaMathRoundingMode:JreLoadEnum(JavaMathRoundingMode, CEILING)]);
 }
 
+- (OrgMinimaObjectsBaseMiniNumber *)setSignificantDigitsWithInt:(jint)zSignificantDigits {
+  jint sigdig = zSignificantDigits;
+  if (sigdig > 18) {
+    sigdig = 18;
+  }
+  return create_OrgMinimaObjectsBaseMiniNumber_initWithJavaMathBigDecimal_([((JavaMathBigDecimal *) nil_chk(mNumber_)) roundWithJavaMathMathContext:create_JavaMathMathContext_initWithInt_withJavaMathRoundingMode_(sigdig, JreLoadEnum(JavaMathRoundingMode, DOWN))]);
+}
+
 - (OrgMinimaObjectsBaseMiniNumber *)abs {
   return create_OrgMinimaObjectsBaseMiniNumber_initWithJavaMathBigDecimal_([((JavaMathBigDecimal *) nil_chk(mNumber_)) abs]);
 }
@@ -155,7 +167,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (NSString *)description {
-  return [((JavaMathBigDecimal *) nil_chk(mNumber_)) toPlainString];
+  return [((JavaMathBigDecimal *) nil_chk([((JavaMathBigDecimal *) nil_chk(mNumber_)) stripTrailingZeros])) toPlainString];
 }
 
 - (void)writeDataStreamWithJavaIoDataOutputStream:(JavaIoDataOutputStream *)zOut {
@@ -179,10 +191,6 @@ J2OBJC_IGNORE_DESIGNATED_END
   return OrgMinimaObjectsBaseMiniNumber_ReadFromStreamWithJavaIoDataInputStream_(zIn);
 }
 
-+ (void)mainWithNSStringArray:(IOSObjectArray *)zArgs {
-  OrgMinimaObjectsBaseMiniNumber_mainWithNSStringArray_(zArgs);
-}
-
 - (void)dealloc {
   RELEASE_(mNumber_);
   [super dealloc];
@@ -194,96 +202,104 @@ J2OBJC_IGNORE_DESIGNATED_END
     { NULL, NULL, 0x1, -1, 0, -1, -1, -1, -1 },
     { NULL, NULL, 0x1, -1, 1, -1, -1, -1, -1 },
     { NULL, NULL, 0x1, -1, 2, -1, -1, -1, -1 },
+    { NULL, NULL, 0x1, -1, 3, -1, -1, -1, -1 },
     { NULL, "LJavaMathBigDecimal;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LJavaMathBigInteger;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "D", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "J", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "I", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, 3, 4, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, 5, 4, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, 6, 4, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, 7, 4, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, 8, 4, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, 9, 10, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, 11, 4, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, 4, 5, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, 6, 5, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, 7, 5, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, 8, 5, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, 9, 5, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, 10, 0, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, 11, 5, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, 12, 0, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "I", 0x1, 12, 4, -1, -1, -1, -1 },
-    { NULL, "Z", 0x1, 13, 4, -1, -1, -1, -1 },
-    { NULL, "Z", 0x1, 14, 4, -1, -1, -1, -1 },
-    { NULL, "Z", 0x1, 15, 4, -1, -1, -1, -1 },
-    { NULL, "Z", 0x1, 16, 4, -1, -1, -1, -1 },
-    { NULL, "Z", 0x1, 17, 4, -1, -1, -1, -1 },
-    { NULL, "LNSString;", 0x1, 18, -1, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 19, 20, 21, -1, -1, -1 },
-    { NULL, "V", 0x1, 22, 23, 21, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x9, 24, 23, -1, -1, -1, -1 },
-    { NULL, "V", 0x9, 25, 26, -1, -1, -1, -1 },
+    { NULL, "I", 0x1, 13, 5, -1, -1, -1, -1 },
+    { NULL, "Z", 0x1, 14, 5, -1, -1, -1, -1 },
+    { NULL, "Z", 0x1, 15, 5, -1, -1, -1, -1 },
+    { NULL, "Z", 0x1, 16, 5, -1, -1, -1, -1 },
+    { NULL, "Z", 0x1, 17, 5, -1, -1, -1, -1 },
+    { NULL, "Z", 0x1, 18, 5, -1, -1, -1, -1 },
+    { NULL, "LNSString;", 0x1, 19, -1, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 20, 21, 22, -1, -1, -1 },
+    { NULL, "V", 0x1, 23, 24, 22, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x9, 25, 24, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
   #pragma clang diagnostic ignored "-Wundeclared-selector"
   methods[0].selector = @selector(init);
-  methods[1].selector = @selector(initWithJavaMathBigInteger:);
-  methods[2].selector = @selector(initWithJavaMathBigDecimal:);
-  methods[3].selector = @selector(initWithNSString:);
-  methods[4].selector = @selector(getAsBigDecimal);
-  methods[5].selector = @selector(getAsBigInteger);
-  methods[6].selector = @selector(getAsDouble);
-  methods[7].selector = @selector(getAsLong);
-  methods[8].selector = @selector(getAsInt);
-  methods[9].selector = @selector(addWithOrgMinimaObjectsBaseMiniNumber:);
-  methods[10].selector = @selector(subWithOrgMinimaObjectsBaseMiniNumber:);
-  methods[11].selector = @selector(divWithOrgMinimaObjectsBaseMiniNumber:);
-  methods[12].selector = @selector(divRoundDownWithOrgMinimaObjectsBaseMiniNumber:);
-  methods[13].selector = @selector(multWithOrgMinimaObjectsBaseMiniNumber:);
-  methods[14].selector = @selector(powWithInt:);
-  methods[15].selector = @selector(moduloWithOrgMinimaObjectsBaseMiniNumber:);
-  methods[16].selector = @selector(floor);
-  methods[17].selector = @selector(ceil);
-  methods[18].selector = @selector(abs);
-  methods[19].selector = @selector(increment);
-  methods[20].selector = @selector(decrement);
-  methods[21].selector = @selector(compareToWithOrgMinimaObjectsBaseMiniNumber:);
-  methods[22].selector = @selector(isEqualWithOrgMinimaObjectsBaseMiniNumber:);
-  methods[23].selector = @selector(isLessWithOrgMinimaObjectsBaseMiniNumber:);
-  methods[24].selector = @selector(isLessEqualWithOrgMinimaObjectsBaseMiniNumber:);
-  methods[25].selector = @selector(isMoreWithOrgMinimaObjectsBaseMiniNumber:);
-  methods[26].selector = @selector(isMoreEqualWithOrgMinimaObjectsBaseMiniNumber:);
-  methods[27].selector = @selector(description);
-  methods[28].selector = @selector(writeDataStreamWithJavaIoDataOutputStream:);
-  methods[29].selector = @selector(readDataStreamWithJavaIoDataInputStream:);
-  methods[30].selector = @selector(ReadFromStreamWithJavaIoDataInputStream:);
-  methods[31].selector = @selector(mainWithNSStringArray:);
+  methods[1].selector = @selector(initWithInt:);
+  methods[2].selector = @selector(initWithJavaMathBigInteger:);
+  methods[3].selector = @selector(initWithJavaMathBigDecimal:);
+  methods[4].selector = @selector(initWithNSString:);
+  methods[5].selector = @selector(getAsBigDecimal);
+  methods[6].selector = @selector(getAsBigInteger);
+  methods[7].selector = @selector(getAsDouble);
+  methods[8].selector = @selector(getAsLong);
+  methods[9].selector = @selector(getAsInt);
+  methods[10].selector = @selector(addWithOrgMinimaObjectsBaseMiniNumber:);
+  methods[11].selector = @selector(subWithOrgMinimaObjectsBaseMiniNumber:);
+  methods[12].selector = @selector(divWithOrgMinimaObjectsBaseMiniNumber:);
+  methods[13].selector = @selector(divRoundDownWithOrgMinimaObjectsBaseMiniNumber:);
+  methods[14].selector = @selector(multWithOrgMinimaObjectsBaseMiniNumber:);
+  methods[15].selector = @selector(powWithInt:);
+  methods[16].selector = @selector(moduloWithOrgMinimaObjectsBaseMiniNumber:);
+  methods[17].selector = @selector(floor);
+  methods[18].selector = @selector(ceil);
+  methods[19].selector = @selector(setSignificantDigitsWithInt:);
+  methods[20].selector = @selector(abs);
+  methods[21].selector = @selector(increment);
+  methods[22].selector = @selector(decrement);
+  methods[23].selector = @selector(compareToWithOrgMinimaObjectsBaseMiniNumber:);
+  methods[24].selector = @selector(isEqualWithOrgMinimaObjectsBaseMiniNumber:);
+  methods[25].selector = @selector(isLessWithOrgMinimaObjectsBaseMiniNumber:);
+  methods[26].selector = @selector(isLessEqualWithOrgMinimaObjectsBaseMiniNumber:);
+  methods[27].selector = @selector(isMoreWithOrgMinimaObjectsBaseMiniNumber:);
+  methods[28].selector = @selector(isMoreEqualWithOrgMinimaObjectsBaseMiniNumber:);
+  methods[29].selector = @selector(description);
+  methods[30].selector = @selector(writeDataStreamWithJavaIoDataOutputStream:);
+  methods[31].selector = @selector(readDataStreamWithJavaIoDataInputStream:);
+  methods[32].selector = @selector(ReadFromStreamWithJavaIoDataInputStream:);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
-    { "mMathContext", "LJavaMathMathContext;", .constantValue.asLong = 0, 0x19, -1, 27, -1, -1 },
-    { "MINIMA_SIGNIFICANT_FORMAT", "LJavaTextDecimalFormat;", .constantValue.asLong = 0, 0x19, -1, 28, -1, -1 },
-    { "ZERO", "LOrgMinimaObjectsBaseMiniNumber;", .constantValue.asLong = 0, 0x19, -1, 29, -1, -1 },
-    { "ONE", "LOrgMinimaObjectsBaseMiniNumber;", .constantValue.asLong = 0, 0x19, -1, 30, -1, -1 },
-    { "TWO", "LOrgMinimaObjectsBaseMiniNumber;", .constantValue.asLong = 0, 0x19, -1, 31, -1, -1 },
-    { "EIGHT", "LOrgMinimaObjectsBaseMiniNumber;", .constantValue.asLong = 0, 0x19, -1, 32, -1, -1 },
+    { "mMathContext", "LJavaMathMathContext;", .constantValue.asLong = 0, 0x19, -1, 26, -1, -1 },
+    { "ZERO", "LOrgMinimaObjectsBaseMiniNumber;", .constantValue.asLong = 0, 0x19, -1, 27, -1, -1 },
+    { "ONE", "LOrgMinimaObjectsBaseMiniNumber;", .constantValue.asLong = 0, 0x19, -1, 28, -1, -1 },
+    { "TWO", "LOrgMinimaObjectsBaseMiniNumber;", .constantValue.asLong = 0, 0x19, -1, 29, -1, -1 },
+    { "EIGHT", "LOrgMinimaObjectsBaseMiniNumber;", .constantValue.asLong = 0, 0x19, -1, 30, -1, -1 },
+    { "THIRTYTWO", "LOrgMinimaObjectsBaseMiniNumber;", .constantValue.asLong = 0, 0x19, -1, 31, -1, -1 },
+    { "SIXTYFOUR", "LOrgMinimaObjectsBaseMiniNumber;", .constantValue.asLong = 0, 0x19, -1, 32, -1, -1 },
     { "TEN", "LOrgMinimaObjectsBaseMiniNumber;", .constantValue.asLong = 0, 0x19, -1, 33, -1, -1 },
-    { "MINUSONE", "LOrgMinimaObjectsBaseMiniNumber;", .constantValue.asLong = 0, 0x19, -1, 34, -1, -1 },
+    { "HUNDRED", "LOrgMinimaObjectsBaseMiniNumber;", .constantValue.asLong = 0, 0x19, -1, 34, -1, -1 },
+    { "THOUSAND", "LOrgMinimaObjectsBaseMiniNumber;", .constantValue.asLong = 0, 0x19, -1, 35, -1, -1 },
+    { "MINUSONE", "LOrgMinimaObjectsBaseMiniNumber;", .constantValue.asLong = 0, 0x19, -1, 36, -1, -1 },
     { "mNumber_", "LJavaMathBigDecimal;", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
   };
-  static const void *ptrTable[] = { "LJavaMathBigInteger;", "LJavaMathBigDecimal;", "LNSString;", "add", "LOrgMinimaObjectsBaseMiniNumber;", "sub", "div", "divRoundDown", "mult", "pow", "I", "modulo", "compareTo", "isEqual", "isLess", "isLessEqual", "isMore", "isMoreEqual", "toString", "writeDataStream", "LJavaIoDataOutputStream;", "LJavaIoIOException;", "readDataStream", "LJavaIoDataInputStream;", "ReadFromStream", "main", "[LNSString;", &OrgMinimaObjectsBaseMiniNumber_mMathContext, &OrgMinimaObjectsBaseMiniNumber_MINIMA_SIGNIFICANT_FORMAT, &OrgMinimaObjectsBaseMiniNumber_ZERO, &OrgMinimaObjectsBaseMiniNumber_ONE, &OrgMinimaObjectsBaseMiniNumber_TWO, &OrgMinimaObjectsBaseMiniNumber_EIGHT, &OrgMinimaObjectsBaseMiniNumber_TEN, &OrgMinimaObjectsBaseMiniNumber_MINUSONE };
-  static const J2ObjcClassInfo _OrgMinimaObjectsBaseMiniNumber = { "MiniNumber", "org.minima.objects.base", ptrTable, methods, fields, 7, 0x1, 32, 9, -1, -1, -1, -1, -1 };
+  static const void *ptrTable[] = { "I", "LJavaMathBigInteger;", "LJavaMathBigDecimal;", "LNSString;", "add", "LOrgMinimaObjectsBaseMiniNumber;", "sub", "div", "divRoundDown", "mult", "pow", "modulo", "setSignificantDigits", "compareTo", "isEqual", "isLess", "isLessEqual", "isMore", "isMoreEqual", "toString", "writeDataStream", "LJavaIoDataOutputStream;", "LJavaIoIOException;", "readDataStream", "LJavaIoDataInputStream;", "ReadFromStream", &OrgMinimaObjectsBaseMiniNumber_mMathContext, &OrgMinimaObjectsBaseMiniNumber_ZERO, &OrgMinimaObjectsBaseMiniNumber_ONE, &OrgMinimaObjectsBaseMiniNumber_TWO, &OrgMinimaObjectsBaseMiniNumber_EIGHT, &OrgMinimaObjectsBaseMiniNumber_THIRTYTWO, &OrgMinimaObjectsBaseMiniNumber_SIXTYFOUR, &OrgMinimaObjectsBaseMiniNumber_TEN, &OrgMinimaObjectsBaseMiniNumber_HUNDRED, &OrgMinimaObjectsBaseMiniNumber_THOUSAND, &OrgMinimaObjectsBaseMiniNumber_MINUSONE };
+  static const J2ObjcClassInfo _OrgMinimaObjectsBaseMiniNumber = { "MiniNumber", "org.minima.objects.base", ptrTable, methods, fields, 7, 0x1, 33, 12, -1, -1, -1, -1, -1 };
   return &_OrgMinimaObjectsBaseMiniNumber;
 }
 
 + (void)initialize {
   if (self == [OrgMinimaObjectsBaseMiniNumber class]) {
-    JreStrongAssignAndConsume(&OrgMinimaObjectsBaseMiniNumber_mMathContext, new_JavaMathMathContext_initWithInt_withJavaMathRoundingMode_(18, JreLoadEnum(JavaMathRoundingMode, DOWN)));
-    JreStrongAssignAndConsume(&OrgMinimaObjectsBaseMiniNumber_MINIMA_SIGNIFICANT_FORMAT, new_JavaTextDecimalFormat_initWithNSString_(@"0.#################E0"));
+    JreStrongAssignAndConsume(&OrgMinimaObjectsBaseMiniNumber_mMathContext, new_JavaMathMathContext_initWithInt_withJavaMathRoundingMode_(20, JreLoadEnum(JavaMathRoundingMode, DOWN)));
     JreStrongAssignAndConsume(&OrgMinimaObjectsBaseMiniNumber_ZERO, new_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(@"0"));
     JreStrongAssignAndConsume(&OrgMinimaObjectsBaseMiniNumber_ONE, new_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(@"1"));
     JreStrongAssignAndConsume(&OrgMinimaObjectsBaseMiniNumber_TWO, new_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(@"2"));
     JreStrongAssignAndConsume(&OrgMinimaObjectsBaseMiniNumber_EIGHT, new_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(@"8"));
+    JreStrongAssignAndConsume(&OrgMinimaObjectsBaseMiniNumber_THIRTYTWO, new_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(@"32"));
+    JreStrongAssignAndConsume(&OrgMinimaObjectsBaseMiniNumber_SIXTYFOUR, new_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(@"64"));
     JreStrongAssignAndConsume(&OrgMinimaObjectsBaseMiniNumber_TEN, new_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(@"10"));
+    JreStrongAssignAndConsume(&OrgMinimaObjectsBaseMiniNumber_HUNDRED, new_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(@"100"));
+    JreStrongAssignAndConsume(&OrgMinimaObjectsBaseMiniNumber_THOUSAND, new_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(@"1000"));
     JreStrongAssignAndConsume(&OrgMinimaObjectsBaseMiniNumber_MINUSONE, new_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(@"-1"));
     J2OBJC_SET_INITIALIZED(OrgMinimaObjectsBaseMiniNumber)
   }
@@ -302,6 +318,19 @@ OrgMinimaObjectsBaseMiniNumber *new_OrgMinimaObjectsBaseMiniNumber_init() {
 
 OrgMinimaObjectsBaseMiniNumber *create_OrgMinimaObjectsBaseMiniNumber_init() {
   J2OBJC_CREATE_IMPL(OrgMinimaObjectsBaseMiniNumber, init)
+}
+
+void OrgMinimaObjectsBaseMiniNumber_initWithInt_(OrgMinimaObjectsBaseMiniNumber *self, jint zNumber) {
+  NSObject_init(self);
+  JreStrongAssignAndConsume(&self->mNumber_, new_JavaMathBigDecimal_initWithInt_withJavaMathMathContext_(zNumber, OrgMinimaObjectsBaseMiniNumber_mMathContext));
+}
+
+OrgMinimaObjectsBaseMiniNumber *new_OrgMinimaObjectsBaseMiniNumber_initWithInt_(jint zNumber) {
+  J2OBJC_NEW_IMPL(OrgMinimaObjectsBaseMiniNumber, initWithInt_, zNumber)
+}
+
+OrgMinimaObjectsBaseMiniNumber *create_OrgMinimaObjectsBaseMiniNumber_initWithInt_(jint zNumber) {
+  J2OBJC_CREATE_IMPL(OrgMinimaObjectsBaseMiniNumber, initWithInt_, zNumber)
 }
 
 void OrgMinimaObjectsBaseMiniNumber_initWithJavaMathBigInteger_(OrgMinimaObjectsBaseMiniNumber *self, JavaMathBigInteger *zNumber) {
@@ -354,12 +383,6 @@ OrgMinimaObjectsBaseMiniNumber *OrgMinimaObjectsBaseMiniNumber_ReadFromStreamWit
     return nil;
   }
   return data;
-}
-
-void OrgMinimaObjectsBaseMiniNumber_mainWithNSStringArray_(IOSObjectArray *zArgs) {
-  OrgMinimaObjectsBaseMiniNumber_initialize();
-  OrgMinimaObjectsBaseMiniNumber *num = create_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(@"10000.001");
-  [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out))) printlnWithId:num];
 }
 
 J2OBJC_CLASS_TYPE_LITERAL_SOURCE(OrgMinimaObjectsBaseMiniNumber)

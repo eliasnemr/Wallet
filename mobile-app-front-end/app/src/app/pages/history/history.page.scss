@@ -27,23 +27,84 @@
 }
 
 #month {
-    font-size: 12px;
+    font-size: 20px;
     color: #00AAC7;
 }
 #day {
-    font-size: 14px;
+    font-size: 22px;
     color: #FF671D;
-
 }
+
 .h2-type {
-    font-size: 14px;
+    font-size: 20px;
 }
 .p-tokenid {
-    font-size: 12px;
+    font-size: 18px;
 }   
 .amount-p {
-    font-size: 14px;
+    font-size: 20px;
 }
 .amount-h2 {
+    font-size: 20px;
+}
+
+.category-seg {
+    padding: 0px 40px 0px 40px;
+}
+
+/** @@@@@@@@@@@@@@@@@ iOS @@@@@@@@@@@@@@@@@@@ */
+.ios ion-card-content {
+    padding-inline-start: 0px;
+    padding-inline-end: 0px;
+}
+.ios #month {
+    font-size: 13px;
+    color: #00AAC7;
+}
+.ios #day {
+    font-size: 12px;
+    color: #FF671D;
+}
+
+.ios .h2-type {
     font-size: 14px;
+}
+.ios .p-tokenid {
+    font-size: 12px;
+}   
+.ios .amount-p {
+    font-size: 14px;
+}
+.ios .amount-h2 {
+    font-size: 14px;
+}
+
+/** @@@@@@@@@@@@@@@@@ Material Design @@@@@@@@@@@@@@@@@@@ */
+.md ion-card-content {
+    padding-inline-start: 0px;
+    padding-inline-end: 0px;
+}
+.md #month {
+    font-size: 14px;
+    color: #00AAC7;
+}
+.md #day {
+    font-size: 12px;
+    color: #FF671D;
+}
+
+.md .h2-type {
+    font-size: 14px;
+}
+.md .p-tokenid {
+    font-size: 12px;
+}   
+.md .amount-p {
+    font-size: 14px;
+}
+.md .amount-h2 {
+    font-size: 14px;
+}
+.md .seg {
+    font-size: 12px;
 }

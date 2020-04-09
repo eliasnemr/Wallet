@@ -2,7 +2,9 @@
 export interface Tokens {
     id?: string;
     token: string;
+    total: number; 
     confirmed: number;
     unconfirmed: any;
-    total: number; 
+    mempool: string;
+    sendable: string;
 }

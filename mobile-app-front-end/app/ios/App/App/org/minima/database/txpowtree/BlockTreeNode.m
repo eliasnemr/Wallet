@@ -4,14 +4,16 @@
 //
 
 #include "J2ObjC_source.h"
+#include "java/math/BigDecimal.h"
 #include "java/math/BigInteger.h"
+#include "java/math/MathContext.h"
 #include "java/util/ArrayList.h"
 #include "java/util/Collections.h"
 #include "org/minima/database/mmr/MMRSet.h"
 #include "org/minima/database/txpowtree/BlockTreeNode.h"
 #include "org/minima/objects/TxPOW.h"
-#include "org/minima/objects/base/MiniHash.h"
-#include "org/minima/utils/Maths.h"
+#include "org/minima/objects/base/MiniData.h"
+#include "org/minima/utils/Crypto.h"
 
 @interface OrgMinimaDatabaseTxpowtreeBlockTreeNode () {
  @public
@@ -24,6 +26,7 @@
   jboolean mCascade_;
   JavaMathBigInteger *mTotalWeight_;
   JavaMathBigInteger *mWeight_;
+  JavaMathBigDecimal *mRealWeight_;
 }
 
 - (void)init__WithOrgMinimaObjectsTxPOW:(OrgMinimaObjectsTxPOW *)zTxPow OBJC_METHOD_FAMILY_NONE;
@@ -35,8 +38,14 @@ J2OBJC_FIELD_SETTER(OrgMinimaDatabaseTxpowtreeBlockTreeNode, mChildren_, JavaUti
 J2OBJC_FIELD_SETTER(OrgMinimaDatabaseTxpowtreeBlockTreeNode, mParent_, OrgMinimaDatabaseTxpowtreeBlockTreeNode *)
 J2OBJC_FIELD_SETTER(OrgMinimaDatabaseTxpowtreeBlockTreeNode, mTotalWeight_, JavaMathBigInteger *)
 J2OBJC_FIELD_SETTER(OrgMinimaDatabaseTxpowtreeBlockTreeNode, mWeight_, JavaMathBigInteger *)
+J2OBJC_FIELD_SETTER(OrgMinimaDatabaseTxpowtreeBlockTreeNode, mRealWeight_, JavaMathBigDecimal *)
 
 __attribute__((unused)) static void OrgMinimaDatabaseTxpowtreeBlockTreeNode_init__WithOrgMinimaObjectsTxPOW_(OrgMinimaDatabaseTxpowtreeBlockTreeNode *self, OrgMinimaObjectsTxPOW *zTxPow);
+
+J2OBJC_INITIALIZED_DEFN(OrgMinimaDatabaseTxpowtreeBlockTreeNode)
+
+JavaMathBigInteger *OrgMinimaDatabaseTxpowtreeBlockTreeNode_BIG_TWO;
+JavaMathBigDecimal *OrgMinimaDatabaseTxpowtreeBlockTreeNode_MAX_VALDEC;
 
 @implementation OrgMinimaDatabaseTxpowtreeBlockTreeNode
 
@@ -86,7 +95,8 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (void)resetCurrentWeight {
-  JreStrongAssign(&mWeight_, [((JavaMathBigInteger *) nil_chk(JreLoadStatic(OrgMinimaUtilsMaths, BI_TWO))) powWithInt:[self getCurrentLevel]]);
+  JavaMathBigDecimal *factor = create_JavaMathBigDecimal_initWithJavaMathBigInteger_withJavaMathMathContext_([((JavaMathBigInteger *) nil_chk(OrgMinimaDatabaseTxpowtreeBlockTreeNode_BIG_TWO)) powWithInt:[self getCurrentLevel]], JreLoadStatic(JavaMathMathContext, DECIMAL128));
+  JreStrongAssign(&mWeight_, [((JavaMathBigDecimal *) nil_chk([((JavaMathBigDecimal *) nil_chk(mRealWeight_)) multiplyWithJavaMathBigDecimal:factor withJavaMathMathContext:JreLoadStatic(JavaMathMathContext, DECIMAL128)])) toBigInteger]);
   JreStrongAssign(&mTotalWeight_, mWeight_);
 }
 
@@ -119,7 +129,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   [self resetCurrentWeight];
 }
 
-- (OrgMinimaObjectsBaseMiniHash *)getTxPowID {
+- (OrgMinimaObjectsBaseMiniData *)getTxPowID {
   return [((OrgMinimaObjectsTxPOW *) nil_chk([self getTxPow])) getTxPowID];
 }
 
@@ -149,14 +159,9 @@ J2OBJC_IGNORE_DESIGNATED_END
   return [((JavaUtilArrayList *) nil_chk(mChildren_)) getWithInt:zChild];
 }
 
-- (void)resetNode {
-  JreStrongAssign(&mParent_, nil);
-  [((JavaUtilArrayList *) nil_chk(mChildren_)) clear];
-}
-
 - (jint)compareToWithId:(OrgMinimaDatabaseTxpowtreeBlockTreeNode *)o {
   cast_chk(o, [OrgMinimaDatabaseTxpowtreeBlockTreeNode class]);
-  return [((OrgMinimaObjectsBaseMiniHash *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk(o)) getTxPowID])) compareWithOrgMinimaObjectsBaseMiniData:[self getTxPowID]];
+  return [((OrgMinimaObjectsBaseMiniData *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk(o)) getTxPowID])) compareWithOrgMinimaObjectsBaseMiniData:[self getTxPowID]];
 }
 
 - (NSString *)description {
@@ -169,6 +174,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   RELEASE_(mParent_);
   RELEASE_(mTotalWeight_);
   RELEASE_(mWeight_);
+  RELEASE_(mRealWeight_);
   RELEASE_(mMMRSet_);
   [super dealloc];
 }
@@ -193,14 +199,13 @@ J2OBJC_IGNORE_DESIGNATED_END
     { NULL, "I", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "I", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 11, 4, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsBaseMiniHash;", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMiniData;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 12, 2, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaDatabaseTxpowtreeBlockTreeNode;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 13, 2, -1, -1, -1, -1 },
     { NULL, "LJavaUtilArrayList;", 0x1, -1, -1, -1, 14, -1, -1 },
     { NULL, "I", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaDatabaseTxpowtreeBlockTreeNode;", 0x1, 15, 4, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "I", 0x1, 16, 2, -1, -1, -1, -1 },
     { NULL, "LNSString;", 0x1, 17, -1, -1, -1, -1, -1 },
   };
@@ -232,11 +237,12 @@ J2OBJC_IGNORE_DESIGNATED_END
   methods[22].selector = @selector(getChildren);
   methods[23].selector = @selector(getNumberChildren);
   methods[24].selector = @selector(getChildWithInt:);
-  methods[25].selector = @selector(resetNode);
-  methods[26].selector = @selector(compareToWithId:);
-  methods[27].selector = @selector(description);
+  methods[25].selector = @selector(compareToWithId:);
+  methods[26].selector = @selector(description);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
+    { "BIG_TWO", "LJavaMathBigInteger;", .constantValue.asLong = 0, 0x19, -1, 18, -1, -1 },
+    { "MAX_VALDEC", "LJavaMathBigDecimal;", .constantValue.asLong = 0, 0x19, -1, 19, -1, -1 },
     { "BLOCKSTATE_BASIC", "I", .constantValue.asInt = OrgMinimaDatabaseTxpowtreeBlockTreeNode_BLOCKSTATE_BASIC, 0x19, -1, -1, -1, -1 },
     { "BLOCKSTATE_VALID", "I", .constantValue.asInt = OrgMinimaDatabaseTxpowtreeBlockTreeNode_BLOCKSTATE_VALID, 0x19, -1, -1, -1, -1 },
     { "BLOCKSTATE_INVALID", "I", .constantValue.asInt = OrgMinimaDatabaseTxpowtreeBlockTreeNode_BLOCKSTATE_INVALID, 0x19, -1, -1, -1, -1 },
@@ -244,16 +250,25 @@ J2OBJC_IGNORE_DESIGNATED_END
     { "mTXPOW_", "LOrgMinimaObjectsTxPOW;", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
     { "mSuperBlockLevel_", "I", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
     { "mCurrentLevel_", "I", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
-    { "mChildren_", "LJavaUtilArrayList;", .constantValue.asLong = 0, 0x2, -1, -1, 18, -1 },
+    { "mChildren_", "LJavaUtilArrayList;", .constantValue.asLong = 0, 0x2, -1, -1, 20, -1 },
     { "mParent_", "LOrgMinimaDatabaseTxpowtreeBlockTreeNode;", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
     { "mCascade_", "Z", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
     { "mTotalWeight_", "LJavaMathBigInteger;", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
     { "mWeight_", "LJavaMathBigInteger;", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
+    { "mRealWeight_", "LJavaMathBigDecimal;", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
     { "mMMRSet_", "LOrgMinimaDatabaseMmrMMRSet;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
   };
-  static const void *ptrTable[] = { "LOrgMinimaObjectsTxPOW;", "init", "LOrgMinimaDatabaseTxpowtreeBlockTreeNode;", "setState", "I", "setMMRset", "LOrgMinimaDatabaseMmrMMRSet;", "setCascade", "Z", "addToTotalWeight", "LJavaMathBigInteger;", "setCurrentLevel", "setParent", "addChild", "()Ljava/util/ArrayList<Lorg/minima/database/txpowtree/BlockTreeNode;>;", "getChild", "compareTo", "toString", "Ljava/util/ArrayList<Lorg/minima/database/txpowtree/BlockTreeNode;>;", "Ljava/lang/Object;Ljava/lang/Comparable<Lorg/minima/database/txpowtree/BlockTreeNode;>;" };
-  static const J2ObjcClassInfo _OrgMinimaDatabaseTxpowtreeBlockTreeNode = { "BlockTreeNode", "org.minima.database.txpowtree", ptrTable, methods, fields, 7, 0x1, 28, 13, -1, -1, -1, 19, -1 };
+  static const void *ptrTable[] = { "LOrgMinimaObjectsTxPOW;", "init", "LOrgMinimaDatabaseTxpowtreeBlockTreeNode;", "setState", "I", "setMMRset", "LOrgMinimaDatabaseMmrMMRSet;", "setCascade", "Z", "addToTotalWeight", "LJavaMathBigInteger;", "setCurrentLevel", "setParent", "addChild", "()Ljava/util/ArrayList<Lorg/minima/database/txpowtree/BlockTreeNode;>;", "getChild", "compareTo", "toString", &OrgMinimaDatabaseTxpowtreeBlockTreeNode_BIG_TWO, &OrgMinimaDatabaseTxpowtreeBlockTreeNode_MAX_VALDEC, "Ljava/util/ArrayList<Lorg/minima/database/txpowtree/BlockTreeNode;>;", "Ljava/lang/Object;Ljava/lang/Comparable<Lorg/minima/database/txpowtree/BlockTreeNode;>;" };
+  static const J2ObjcClassInfo _OrgMinimaDatabaseTxpowtreeBlockTreeNode = { "BlockTreeNode", "org.minima.database.txpowtree", ptrTable, methods, fields, 7, 0x1, 27, 16, -1, -1, -1, 21, -1 };
   return &_OrgMinimaDatabaseTxpowtreeBlockTreeNode;
+}
+
++ (void)initialize {
+  if (self == [OrgMinimaDatabaseTxpowtreeBlockTreeNode class]) {
+    JreStrongAssignAndConsume(&OrgMinimaDatabaseTxpowtreeBlockTreeNode_BIG_TWO, new_JavaMathBigInteger_initWithNSString_(@"2"));
+    JreStrongAssignAndConsume(&OrgMinimaDatabaseTxpowtreeBlockTreeNode_MAX_VALDEC, new_JavaMathBigDecimal_initWithJavaMathBigInteger_([((OrgMinimaObjectsBaseMiniData *) nil_chk(JreLoadStatic(OrgMinimaUtilsCrypto, MAX_HASH))) getDataValue]));
+    J2OBJC_SET_INITIALIZED(OrgMinimaDatabaseTxpowtreeBlockTreeNode)
+  }
 }
 
 @end
@@ -264,8 +279,9 @@ void OrgMinimaDatabaseTxpowtreeBlockTreeNode_init(OrgMinimaDatabaseTxpowtreeBloc
   JreStrongAssignAndConsume(&self->mChildren_, new_JavaUtilArrayList_init());
   JreStrongAssign(&self->mParent_, nil);
   self->mCascade_ = false;
-  JreStrongAssignAndConsume(&self->mTotalWeight_, new_JavaMathBigInteger_initWithNSString_(@"0"));
-  JreStrongAssignAndConsume(&self->mWeight_, new_JavaMathBigInteger_initWithNSString_(@"0"));
+  JreStrongAssign(&self->mTotalWeight_, JreLoadStatic(JavaMathBigInteger, ZERO));
+  JreStrongAssign(&self->mWeight_, JreLoadStatic(JavaMathBigInteger, ZERO));
+  JreStrongAssign(&self->mRealWeight_, JreLoadStatic(JavaMathBigDecimal, ZERO));
   JreStrongAssignAndConsume(&self->mMMRSet_, new_OrgMinimaDatabaseMmrMMRSet_init());
 }
 
@@ -283,8 +299,9 @@ void OrgMinimaDatabaseTxpowtreeBlockTreeNode_initWithOrgMinimaObjectsTxPOW_(OrgM
   JreStrongAssignAndConsume(&self->mChildren_, new_JavaUtilArrayList_init());
   JreStrongAssign(&self->mParent_, nil);
   self->mCascade_ = false;
-  JreStrongAssignAndConsume(&self->mTotalWeight_, new_JavaMathBigInteger_initWithNSString_(@"0"));
-  JreStrongAssignAndConsume(&self->mWeight_, new_JavaMathBigInteger_initWithNSString_(@"0"));
+  JreStrongAssign(&self->mTotalWeight_, JreLoadStatic(JavaMathBigInteger, ZERO));
+  JreStrongAssign(&self->mWeight_, JreLoadStatic(JavaMathBigInteger, ZERO));
+  JreStrongAssign(&self->mRealWeight_, JreLoadStatic(JavaMathBigDecimal, ZERO));
   JreStrongAssignAndConsume(&self->mMMRSet_, new_OrgMinimaDatabaseMmrMMRSet_init());
   OrgMinimaDatabaseTxpowtreeBlockTreeNode_init__WithOrgMinimaObjectsTxPOW_(self, zTxPow);
 }
@@ -300,7 +317,8 @@ OrgMinimaDatabaseTxpowtreeBlockTreeNode *create_OrgMinimaDatabaseTxpowtreeBlockT
 void OrgMinimaDatabaseTxpowtreeBlockTreeNode_init__WithOrgMinimaObjectsTxPOW_(OrgMinimaDatabaseTxpowtreeBlockTreeNode *self, OrgMinimaObjectsTxPOW *zTxPow) {
   JreStrongAssign(&self->mTXPOW_, zTxPow);
   self->mSuperBlockLevel_ = [((OrgMinimaObjectsTxPOW *) nil_chk(self->mTXPOW_)) getSuperLevel];
-  self->mCurrentLevel_ = [((OrgMinimaObjectsTxPOW *) nil_chk(self->mTXPOW_)) getBlockDifficulty];
+  self->mCurrentLevel_ = 0;
+  JreStrongAssign(&self->mRealWeight_, [((JavaMathBigDecimal *) nil_chk(OrgMinimaDatabaseTxpowtreeBlockTreeNode_MAX_VALDEC)) divideWithJavaMathBigDecimal:[((OrgMinimaObjectsBaseMiniData *) nil_chk([((OrgMinimaObjectsTxPOW *) nil_chk([self getTxPow])) getBlockDifficulty])) getDataValueDecimal] withJavaMathMathContext:JreLoadStatic(JavaMathMathContext, DECIMAL128)]);
   [self resetCurrentWeight];
 }
 
@@ -310,12 +328,14 @@ void OrgMinimaDatabaseTxpowtreeBlockTreeNode_initWithOrgMinimaDatabaseTxpowtreeB
   JreStrongAssignAndConsume(&self->mChildren_, new_JavaUtilArrayList_init());
   JreStrongAssign(&self->mParent_, nil);
   self->mCascade_ = false;
-  JreStrongAssignAndConsume(&self->mTotalWeight_, new_JavaMathBigInteger_initWithNSString_(@"0"));
-  JreStrongAssignAndConsume(&self->mWeight_, new_JavaMathBigInteger_initWithNSString_(@"0"));
+  JreStrongAssign(&self->mTotalWeight_, JreLoadStatic(JavaMathBigInteger, ZERO));
+  JreStrongAssign(&self->mWeight_, JreLoadStatic(JavaMathBigInteger, ZERO));
+  JreStrongAssign(&self->mRealWeight_, JreLoadStatic(JavaMathBigDecimal, ZERO));
   JreStrongAssignAndConsume(&self->mMMRSet_, new_OrgMinimaDatabaseMmrMMRSet_init());
   JreStrongAssign(&self->mTXPOW_, [((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk(zNode)) getTxPow]);
   self->mSuperBlockLevel_ = [zNode getSuperBlockLevel];
   self->mCurrentLevel_ = [zNode getCurrentLevel];
+  JreStrongAssign(&self->mRealWeight_, [((JavaMathBigDecimal *) nil_chk(OrgMinimaDatabaseTxpowtreeBlockTreeNode_MAX_VALDEC)) divideWithJavaMathBigDecimal:[((OrgMinimaObjectsBaseMiniData *) nil_chk([((OrgMinimaObjectsTxPOW *) nil_chk([self getTxPow])) getBlockDifficulty])) getDataValueDecimal] withJavaMathMathContext:JreLoadStatic(JavaMathMathContext, DECIMAL128)]);
   [self setMMRsetWithOrgMinimaDatabaseMmrMMRSet:[zNode getMMRSet]];
   [self setCascadeWithBoolean:[zNode isCascade]];
   [self setStateWithInt:[zNode getState]];

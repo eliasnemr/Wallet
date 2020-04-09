@@ -4,7 +4,8 @@ import org.minima.system.input.CommandFunction;
 
 public class tutorial extends CommandFunction{
 
-	public static String TUTORIAL_TEXT = "Minima transactions are a series of inputs, a series of outputs and a variable list known as the state, which you can access from the script with STATE. The state can be accessed by all the input scripts, and is stored in the MMR database, so can be accessed by PREVSTATE in the next transaction the outputs are added to, as inputs. \n" + 
+	public static String TUTORIAL_TEXT = "\n" + 
+			"Minima transactions are a series of inputs, a series of outputs and a variable list known as the state, which you can access from the script with STATE. The state can be accessed by all the input scripts, and is stored in the MMR database, so can be accessed by PREVSTATE in the next transaction the outputs are added to, as inputs. \n" + 
 			"\n" + 
 			"The sum of the outputs must be less than or equal to the sum of the inputs, for every tokenid used. The difference in raw minima is the Burn. \n" + 
 			"\n" + 
@@ -14,13 +15,13 @@ public class tutorial extends CommandFunction{
 			"\n" + 
 			"Minima allows input scripts to have perfect knowledge of the entire transaction. How many, token type, amount and the address of all inputs and outputs are available. An input knows it's own script ( @SCRIPT ) and can ensure an output of a similar address exists in the outputs. \n" + 
 			"\n" + 
-			"Using RPLVAR new addresses can be created by replacing existing variables in the current  or pre-existing scripts, and checking of complex addresses can be achieved by using MAST and a list a variables before the main bulk of the hashed script.\n" + 
+			"A script can run for 512 instructions. An instruction is any operation or function.\n" + 
 			"\n" + 
 			"The addition of the state variables in the MMR Proof DB, allow for complex scripts with knowledge of their past to be created. A simple state mechanic for transactional history rather than a global state for ALL transactions.\n" + 
 			"\n" + 
 			"Minima transactions are scriptable Logic Gates, with analogue inputs and outputs, a simple yet powerful control language, and a previous history state mechanic.\n" + 
 			"\n" + 
-			"I think of them as \"Script Gates\".    \n" + 
+			"I think of them as \"Script Gates\".\n" + 
 			"\n" + 
 			"Grammar\n" + 
 			"-------\n" + 
@@ -64,12 +65,12 @@ public class tutorial extends CommandFunction{
 			"FUNCTION    ::= FUNC ( EXPRESSION_1 EXPRESSION_2 .. EXPRESSION_n ) \n" + 
 			"FUNC        ::= HEXCAT | STRCAT | LEN | REV | SUBSET | RPLVAR | GET |\n" + 
 			"                ASCII | BOOL | HEX | NUMBER | SCRIPT |\n" + 
-			"                ABS | CEIL | FLOOR | MIN | MAX | INC | DEC | SIGDIG |\n" + 
+			"                ABS | CEIL | FLOOR | MIN | MAX | INC | DEC | SIGDIG | POW |\n" + 
 			"                BITSET | BITGET | PROOF | SHA3 | SHA2 |\n" + 
 			"                SIGNEDBY | MULTISIG | CHECKSIG |\n" + 
 			"                GETOUTADDR | GETOUTAMT | GETOUTTOK | VERIFYOUT |\n" + 
 			"                GETINADDR | GETINAMT | GETINTOK | GETINID | VERIFYIN |\n" + 
-			"                STATE | PREVSTATE | SAMESTATE\n" + 
+			"                STATE | PREVSTATE | SAMESTATE | DYNSTATE\n" + 
 			"\n" + 
 			"Globals\n" + 
 			"-------\n" + 
@@ -149,7 +150,7 @@ public class tutorial extends CommandFunction{
 			"Decrement a number\n" + 
 			"\n" + 
 			"POW ( NUMBER NUMBER )\n" + 
-			"Returns the power of N of the number\n" + 
+			"Returns the power of N of a number. N must be a whole number.\n" + 
 			"\n" + 
 			"SIGDIG ( NUMBER NUMBER )\n" + 
 			"Set the significant digits of the number\n" + 
@@ -161,14 +162,13 @@ public class tutorial extends CommandFunction{
 			"Get the BINARY value of the bit at the position.\n" + 
 			"\n" + 
 			"CHAINSHA ( HEX HEX ) \n" + 
-			"Recursively hash the first HEX value with the proof provided in the second. A proof is a BYTE denoting left or right with a hex data value. \n" + 
-			"Returns the final result that can be checked in script. Use the 'mmrtree' function in Minima to construct Hash Trees.   \n" + 
+			"Recursively SHA3 hash the first HEX value with the merkle proof provided in the second. Returns the final result that can be checked in script. Use the 'chainsha' function in Minima to construct Hash Trees proofs for MAST and Signature Public Keys.   \n" + 
 			"\n" + 
-			"SHA3 ( HEX ) \n" + 
-			"Returns the SHA3 value of the HEX value\n" + 
+			"SHA3 ( NUMBER HEX ) \n" + 
+			"Returns the SHA3 value of bitlength NUMBER of the HEX value. The SHA3 bitlength can be 160, 256 or 512.\n" + 
 			"\n" + 
 			"SHA2 ( HEX ) \n" + 
-			"Returns the SHA2 value of the HEX value\n" + 
+			"Returns the SHA2 value of the HEX value. 256 bits.\n" + 
 			"\n" + 
 			"SIGNEDBY ( HEX )\n" + 
 			"Returns true if the transaction is signed by this public key\n" + 

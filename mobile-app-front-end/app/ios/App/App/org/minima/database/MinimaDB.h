@@ -17,17 +17,20 @@
 #define OrgMinimaDatabaseMinimaDB_
 
 @class JavaUtilArrayList;
+@class JavaUtilHashtable;
 @class OrgMinimaDatabaseMmrMMRSet;
 @class OrgMinimaDatabaseTxpowtreeBlockTree;
 @class OrgMinimaDatabaseTxpowtreeBlockTreeNode;
 @class OrgMinimaDatabaseUserdbJavaJavaUserDB;
 @class OrgMinimaObjectsAddress;
-@class OrgMinimaObjectsBaseMiniHash;
+@class OrgMinimaObjectsBaseMiniData;
 @class OrgMinimaObjectsBaseMiniNumber;
+@class OrgMinimaObjectsProofsTokenProof;
 @class OrgMinimaObjectsTransaction;
 @class OrgMinimaObjectsTxPOW;
 @class OrgMinimaObjectsWitness;
 @class OrgMinimaSystemBackupBackupManager;
+@class OrgMinimaUtilsJsonJSONArray;
 @class OrgMinimaUtilsMessagesMessage;
 @protocol OrgMinimaDatabaseCoindbCoinDB;
 @protocol OrgMinimaDatabaseTxpowdbTxPOWDBRow;
@@ -49,36 +52,44 @@
                                                            withOrgMinimaObjectsAddress:(OrgMinimaObjectsAddress *)zToAddress
                                                            withOrgMinimaObjectsAddress:(OrgMinimaObjectsAddress *)zChangeAddress
                                                                  withJavaUtilArrayList:(JavaUtilArrayList *)zConfirmed
-                                                      withOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zTokenID
-                                                      withOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zChangeTokenID;
+                                                      withOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zTokenID
+                                                      withOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zChangeTokenID
+                                                  withOrgMinimaObjectsProofsTokenProof:(OrgMinimaObjectsProofsTokenProof *)zTokenGen;
 
-- (OrgMinimaObjectsWitness *)createValidWitnessWithOrgMinimaObjectsTransaction:(OrgMinimaObjectsTransaction *)zTransaction
-                                                   withOrgMinimaObjectsWitness:(OrgMinimaObjectsWitness *)zWitness;
+- (OrgMinimaObjectsWitness *)createValidMMRPRoofsWithOrgMinimaObjectsTransaction:(OrgMinimaObjectsTransaction *)zTransaction
+                                                     withOrgMinimaObjectsWitness:(OrgMinimaObjectsWitness *)zWitness;
 
 - (void)DoGenesis;
 
 - (OrgMinimaSystemBackupBackupManager *)getBackup;
 
-- (OrgMinimaDatabaseTxpowtreeBlockTreeNode *)getBlockTreeNodeWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zTxPowID;
+- (OrgMinimaDatabaseTxpowtreeBlockTreeNode *)getBlockTreeNodeWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zTxPowID;
 
 - (id<OrgMinimaDatabaseCoindbCoinDB>)getCoinDB;
 
 - (OrgMinimaObjectsTxPOW *)getCurrentTxPowWithOrgMinimaObjectsTransaction:(OrgMinimaObjectsTransaction *)zTrans
-                                              withOrgMinimaObjectsWitness:(OrgMinimaObjectsWitness *)zWitness;
+                                              withOrgMinimaObjectsWitness:(OrgMinimaObjectsWitness *)zWitness
+                                          withOrgMinimaUtilsJsonJSONArray:(OrgMinimaUtilsJsonJSONArray *)zContractLogs;
 
 - (jint)getIntroSyncSize;
 
 - (OrgMinimaDatabaseTxpowtreeBlockTree *)getMainTree;
 
+- (JavaUtilArrayList *)getMempoolCoins;
+
 - (OrgMinimaObjectsBaseMiniNumber *)getTopBlock;
 
-- (JavaUtilArrayList *)getTotalSimpleSpendableCoinsWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zTokenID;
+- (JavaUtilArrayList *)getTotalSimpleSpendableCoinsWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zTokenID;
 
-- (OrgMinimaObjectsTxPOW *)getTxPOWWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zTxPOWID;
+- (JavaUtilHashtable *)getTotalUnusedAmount;
+
+- (JavaUtilHashtable *)getTransactionTokenAmountsWithOrgMinimaObjectsTxPOW:(OrgMinimaObjectsTxPOW *)zTxPOW;
+
+- (OrgMinimaObjectsTxPOW *)getTxPOWWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zTxPOWID;
 
 - (id<OrgMinimaDatabaseTxpowdbTxPowDB>)getTxPowDB;
 
-- (id<OrgMinimaDatabaseTxpowdbTxPOWDBRow>)getTxPOWRowWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zTxPOWID;
+- (id<OrgMinimaDatabaseTxpowdbTxPOWDBRow>)getTxPOWRowWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zTxPOWID;
 
 - (id<OrgMinimaDatabaseUserdbUserDB>)getUserDB;
 
@@ -92,7 +103,7 @@
 
 - (jboolean)isChainRoot;
 
-- (jboolean)isTxPOWFoundWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zTxPOWID;
+- (jboolean)isTxPOWFoundWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zTxPOWID;
 
 - (void)processTxPOWWithOrgMinimaObjectsTxPOW:(OrgMinimaObjectsTxPOW *)zTxPow;
 

@@ -20,17 +20,22 @@
 #define INCLUDE_OrgMinimaSystemSystemHandler 1
 #include "org/minima/system/SystemHandler.h"
 
-@class IOSObjectArray;
+@class OrgMinimaObjectsBaseMiniData;
 @class OrgMinimaSystemMain;
 @class OrgMinimaUtilsMessagesMessage;
 
-@interface OrgMinimaSystemTxTXMiner : OrgMinimaSystemSystemHandler
+@interface OrgMinimaSystemTxTXMiner : OrgMinimaSystemSystemHandler {
+ @public
+  jboolean mAutoMining_;
+}
 
 #pragma mark Public
 
 - (instancetype)initWithOrgMinimaSystemMain:(OrgMinimaSystemMain *)zMain;
 
-+ (void)mainWithNSStringArray:(IOSObjectArray *)zArgs;
+- (jboolean)isAutoMining;
+
+- (void)setAutoMiningWithBoolean:(jboolean)zMining;
 
 #pragma mark Protected
 
@@ -43,15 +48,17 @@
 
 @end
 
-J2OBJC_EMPTY_STATIC_INIT(OrgMinimaSystemTxTXMiner)
+J2OBJC_STATIC_INIT(OrgMinimaSystemTxTXMiner)
 
-inline jint OrgMinimaSystemTxTXMiner_get_BASE_TXN(void);
-#define OrgMinimaSystemTxTXMiner_BASE_TXN 0
-J2OBJC_STATIC_FIELD_CONSTANT(OrgMinimaSystemTxTXMiner, BASE_TXN, jint)
+inline OrgMinimaObjectsBaseMiniData *OrgMinimaSystemTxTXMiner_get_BASE_TXN(void);
+/*! INTERNAL ONLY - Use accessor function from above. */
+FOUNDATION_EXPORT OrgMinimaObjectsBaseMiniData *OrgMinimaSystemTxTXMiner_BASE_TXN;
+J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemTxTXMiner, BASE_TXN, OrgMinimaObjectsBaseMiniData *)
 
-inline jint OrgMinimaSystemTxTXMiner_get_BASE_BLOCK(void);
-#define OrgMinimaSystemTxTXMiner_BASE_BLOCK 0
-J2OBJC_STATIC_FIELD_CONSTANT(OrgMinimaSystemTxTXMiner, BASE_BLOCK, jint)
+inline OrgMinimaObjectsBaseMiniData *OrgMinimaSystemTxTXMiner_get_BASE_BLOCK(void);
+/*! INTERNAL ONLY - Use accessor function from above. */
+FOUNDATION_EXPORT OrgMinimaObjectsBaseMiniData *OrgMinimaSystemTxTXMiner_BASE_BLOCK;
+J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemTxTXMiner, BASE_BLOCK, OrgMinimaObjectsBaseMiniData *)
 
 inline NSString *OrgMinimaSystemTxTXMiner_get_TXMINER_TESTHASHING(void);
 /*! INTERNAL ONLY - Use accessor function from above. */
@@ -63,13 +70,16 @@ inline NSString *OrgMinimaSystemTxTXMiner_get_TXMINER_MINETXPOW(void);
 FOUNDATION_EXPORT NSString *OrgMinimaSystemTxTXMiner_TXMINER_MINETXPOW;
 J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemTxTXMiner, TXMINER_MINETXPOW, NSString *)
 
+inline NSString *OrgMinimaSystemTxTXMiner_get_TXMINER_MEGAMINER(void);
+/*! INTERNAL ONLY - Use accessor function from above. */
+FOUNDATION_EXPORT NSString *OrgMinimaSystemTxTXMiner_TXMINER_MEGAMINER;
+J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemTxTXMiner, TXMINER_MEGAMINER, NSString *)
+
 FOUNDATION_EXPORT void OrgMinimaSystemTxTXMiner_initWithOrgMinimaSystemMain_(OrgMinimaSystemTxTXMiner *self, OrgMinimaSystemMain *zMain);
 
 FOUNDATION_EXPORT OrgMinimaSystemTxTXMiner *new_OrgMinimaSystemTxTXMiner_initWithOrgMinimaSystemMain_(OrgMinimaSystemMain *zMain) NS_RETURNS_RETAINED;
 
 FOUNDATION_EXPORT OrgMinimaSystemTxTXMiner *create_OrgMinimaSystemTxTXMiner_initWithOrgMinimaSystemMain_(OrgMinimaSystemMain *zMain);
-
-FOUNDATION_EXPORT void OrgMinimaSystemTxTXMiner_mainWithNSStringArray_(IOSObjectArray *zArgs);
 
 J2OBJC_TYPE_LITERAL_HEADER(OrgMinimaSystemTxTXMiner)
 

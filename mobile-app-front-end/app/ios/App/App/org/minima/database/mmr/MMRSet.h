@@ -27,33 +27,40 @@
 @class OrgMinimaDatabaseMmrMMRData;
 @class OrgMinimaDatabaseMmrMMREntry;
 @class OrgMinimaDatabaseMmrMMRProof;
-@class OrgMinimaObjectsBaseMiniHash;
+@class OrgMinimaObjectsBaseMiniData;
+@class OrgMinimaObjectsBaseMiniInteger;
 @class OrgMinimaObjectsBaseMiniNumber;
 
 @interface OrgMinimaDatabaseMmrMMRSet : NSObject < OrgMinimaUtilsStreamable > {
  @public
   OrgMinimaObjectsBaseMiniNumber *mBlockTime_;
   OrgMinimaDatabaseMmrMMRSet *mParent_;
-  OrgMinimaObjectsBaseMiniNumber *mEntryNumber_;
+  OrgMinimaObjectsBaseMiniInteger *mEntryNumber_;
   JavaUtilArrayList *mEntries_;
   jint mMaxRow_;
   IOSObjectArray *mMaxEntries_;
   JavaUtilArrayList *mKeepers_;
   jboolean mFinalized_;
-  OrgMinimaObjectsBaseMiniHash *mFinalizedRoot_;
+  OrgMinimaDatabaseMmrMMRData *mFinalizedRoot_;
   JavaUtilArrayList *mFinalizedPeaks_;
   JavaUtilArrayList *mFinalizedZeroRow_;
+  jint MMR_HASH_BITS_;
 }
 
 #pragma mark Public
 
 - (instancetype)init;
 
+- (instancetype)initWithInt:(jint)zBitLength;
+
 - (instancetype)initWithOrgMinimaDatabaseMmrMMRSet:(OrgMinimaDatabaseMmrMMRSet *)zParent;
+
+- (instancetype)initWithOrgMinimaDatabaseMmrMMRSet:(OrgMinimaDatabaseMmrMMRSet *)zParent
+                                           withInt:(jint)zBitLength;
 
 - (OrgMinimaDatabaseMmrMMREntry *)addExternalUnspentCoinWithOrgMinimaDatabaseMmrMMRProof:(OrgMinimaDatabaseMmrMMRProof *)zProof;
 
-- (void)addKeeperWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zEntry;
+- (void)addKeeperWithOrgMinimaObjectsBaseMiniInteger:(OrgMinimaObjectsBaseMiniInteger *)zEntry;
 
 - (OrgMinimaDatabaseMmrMMREntry *)addUnspentCoinWithOrgMinimaDatabaseMmrMMRData:(OrgMinimaDatabaseMmrMMRData *)zData;
 
@@ -63,9 +70,12 @@
 
 - (void)finalizeSet;
 
-- (OrgMinimaDatabaseMmrMMREntry *)findEntryWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zCoinID;
+- (OrgMinimaDatabaseMmrMMREntry *)findEntryWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zCoinID
+                                                                withBoolean:(jboolean)zSearchParent;
 
 - (OrgMinimaObjectsBaseMiniNumber *)getBlockTime;
+
+- (OrgMinimaDatabaseMmrMMRProof *)getFullProofToRootWithOrgMinimaObjectsBaseMiniInteger:(OrgMinimaObjectsBaseMiniInteger *)zEntry;
 
 - (JavaUtilArrayList *)getKeepers;
 
@@ -75,7 +85,7 @@
 
 - (JavaUtilArrayList *)getMMRPeaks;
 
-- (OrgMinimaObjectsBaseMiniHash *)getMMRRoot;
+- (OrgMinimaDatabaseMmrMMRData *)getMMRRoot;
 
 - (OrgMinimaDatabaseMmrMMRSet *)getParent;
 
@@ -85,7 +95,7 @@
 
 - (OrgMinimaDatabaseMmrMMRSet *)getPenultimateParent;
 
-- (OrgMinimaDatabaseMmrMMRProof *)getProofWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zEntryNumber;
+- (OrgMinimaDatabaseMmrMMRProof *)getProofWithOrgMinimaObjectsBaseMiniInteger:(OrgMinimaObjectsBaseMiniInteger *)zEntryNumber;
 
 - (OrgMinimaDatabaseMmrMMRSet *)getRootParent;
 
@@ -95,9 +105,13 @@
 
 - (jboolean)isFinalized;
 
-- (jboolean)isKeptAllreadyWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zNumber;
+- (jboolean)isKeptAllreadyWithOrgMinimaObjectsBaseMiniInteger:(OrgMinimaObjectsBaseMiniInteger *)zNumber;
 
 - (void)readDataStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn;
+
+- (OrgMinimaDatabaseMmrMMREntry *)searchAddressWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zAddress
+                                             withOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zAmount
+                                               withOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zTokenID;
 
 - (void)setBlockTimeWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zTime;
 
@@ -113,11 +127,11 @@ J2OBJC_EMPTY_STATIC_INIT(OrgMinimaDatabaseMmrMMRSet)
 
 J2OBJC_FIELD_SETTER(OrgMinimaDatabaseMmrMMRSet, mBlockTime_, OrgMinimaObjectsBaseMiniNumber *)
 J2OBJC_FIELD_SETTER(OrgMinimaDatabaseMmrMMRSet, mParent_, OrgMinimaDatabaseMmrMMRSet *)
-J2OBJC_FIELD_SETTER(OrgMinimaDatabaseMmrMMRSet, mEntryNumber_, OrgMinimaObjectsBaseMiniNumber *)
+J2OBJC_FIELD_SETTER(OrgMinimaDatabaseMmrMMRSet, mEntryNumber_, OrgMinimaObjectsBaseMiniInteger *)
 J2OBJC_FIELD_SETTER(OrgMinimaDatabaseMmrMMRSet, mEntries_, JavaUtilArrayList *)
 J2OBJC_FIELD_SETTER(OrgMinimaDatabaseMmrMMRSet, mMaxEntries_, IOSObjectArray *)
 J2OBJC_FIELD_SETTER(OrgMinimaDatabaseMmrMMRSet, mKeepers_, JavaUtilArrayList *)
-J2OBJC_FIELD_SETTER(OrgMinimaDatabaseMmrMMRSet, mFinalizedRoot_, OrgMinimaObjectsBaseMiniHash *)
+J2OBJC_FIELD_SETTER(OrgMinimaDatabaseMmrMMRSet, mFinalizedRoot_, OrgMinimaDatabaseMmrMMRData *)
 J2OBJC_FIELD_SETTER(OrgMinimaDatabaseMmrMMRSet, mFinalizedPeaks_, JavaUtilArrayList *)
 J2OBJC_FIELD_SETTER(OrgMinimaDatabaseMmrMMRSet, mFinalizedZeroRow_, JavaUtilArrayList *)
 
@@ -127,11 +141,23 @@ FOUNDATION_EXPORT OrgMinimaDatabaseMmrMMRSet *new_OrgMinimaDatabaseMmrMMRSet_ini
 
 FOUNDATION_EXPORT OrgMinimaDatabaseMmrMMRSet *create_OrgMinimaDatabaseMmrMMRSet_init(void);
 
+FOUNDATION_EXPORT void OrgMinimaDatabaseMmrMMRSet_initWithInt_(OrgMinimaDatabaseMmrMMRSet *self, jint zBitLength);
+
+FOUNDATION_EXPORT OrgMinimaDatabaseMmrMMRSet *new_OrgMinimaDatabaseMmrMMRSet_initWithInt_(jint zBitLength) NS_RETURNS_RETAINED;
+
+FOUNDATION_EXPORT OrgMinimaDatabaseMmrMMRSet *create_OrgMinimaDatabaseMmrMMRSet_initWithInt_(jint zBitLength);
+
 FOUNDATION_EXPORT void OrgMinimaDatabaseMmrMMRSet_initWithOrgMinimaDatabaseMmrMMRSet_(OrgMinimaDatabaseMmrMMRSet *self, OrgMinimaDatabaseMmrMMRSet *zParent);
 
 FOUNDATION_EXPORT OrgMinimaDatabaseMmrMMRSet *new_OrgMinimaDatabaseMmrMMRSet_initWithOrgMinimaDatabaseMmrMMRSet_(OrgMinimaDatabaseMmrMMRSet *zParent) NS_RETURNS_RETAINED;
 
 FOUNDATION_EXPORT OrgMinimaDatabaseMmrMMRSet *create_OrgMinimaDatabaseMmrMMRSet_initWithOrgMinimaDatabaseMmrMMRSet_(OrgMinimaDatabaseMmrMMRSet *zParent);
+
+FOUNDATION_EXPORT void OrgMinimaDatabaseMmrMMRSet_initWithOrgMinimaDatabaseMmrMMRSet_withInt_(OrgMinimaDatabaseMmrMMRSet *self, OrgMinimaDatabaseMmrMMRSet *zParent, jint zBitLength);
+
+FOUNDATION_EXPORT OrgMinimaDatabaseMmrMMRSet *new_OrgMinimaDatabaseMmrMMRSet_initWithOrgMinimaDatabaseMmrMMRSet_withInt_(OrgMinimaDatabaseMmrMMRSet *zParent, jint zBitLength) NS_RETURNS_RETAINED;
+
+FOUNDATION_EXPORT OrgMinimaDatabaseMmrMMRSet *create_OrgMinimaDatabaseMmrMMRSet_initWithOrgMinimaDatabaseMmrMMRSet_withInt_(OrgMinimaDatabaseMmrMMRSet *zParent, jint zBitLength);
 
 J2OBJC_TYPE_LITERAL_HEADER(OrgMinimaDatabaseMmrMMRSet)
 

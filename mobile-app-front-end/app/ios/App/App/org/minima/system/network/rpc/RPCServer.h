@@ -41,9 +41,9 @@
 
 - (jint)getPort;
 
-- (void)run;
-
 - (NSString *)getIPAddress;
+
+- (void)run;
 
 - (void)stop;
 

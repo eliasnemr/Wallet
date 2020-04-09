@@ -28,6 +28,11 @@
 
 J2OBJC_STATIC_INIT(OrgMinimaGlobalParams)
 
+inline NSString *OrgMinimaGlobalParams_get_MINIMA_VERSION(void);
+/*! INTERNAL ONLY - Use accessor function from above. */
+FOUNDATION_EXPORT NSString *OrgMinimaGlobalParams_MINIMA_VERSION;
+J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaGlobalParams, MINIMA_VERSION, NSString *)
+
 inline jint OrgMinimaGlobalParams_get_USER_PULSE_FREQ(void);
 #define OrgMinimaGlobalParams_USER_PULSE_FREQ 600
 J2OBJC_STATIC_FIELD_CONSTANT(OrgMinimaGlobalParams, USER_PULSE_FREQ, jint)
@@ -36,18 +41,36 @@ inline jboolean OrgMinimaGlobalParams_get_MINIMA_ZERO_DIFF_BLK(void);
 #define OrgMinimaGlobalParams_MINIMA_ZERO_DIFF_BLK false
 J2OBJC_STATIC_FIELD_CONSTANT(OrgMinimaGlobalParams, MINIMA_ZERO_DIFF_BLK, jboolean)
 
-inline jdouble OrgMinimaGlobalParams_get_MINIMA_BLOCK_SPEED(void);
-#define OrgMinimaGlobalParams_MINIMA_BLOCK_SPEED 0.1
-J2OBJC_STATIC_FIELD_CONSTANT(OrgMinimaGlobalParams, MINIMA_BLOCK_SPEED, jdouble)
+inline OrgMinimaObjectsBaseMiniNumber *OrgMinimaGlobalParams_get_MINIMA_BLOCK_SPEED(void);
+/*! INTERNAL ONLY - Use accessor function from above. */
+FOUNDATION_EXPORT OrgMinimaObjectsBaseMiniNumber *OrgMinimaGlobalParams_MINIMA_BLOCK_SPEED;
+J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaGlobalParams, MINIMA_BLOCK_SPEED, OrgMinimaObjectsBaseMiniNumber *)
 
 inline OrgMinimaObjectsBaseMiniNumber *OrgMinimaGlobalParams_get_MINIMA_CONFIRM_DEPTH(void);
 /*! INTERNAL ONLY - Use accessor function from above. */
 FOUNDATION_EXPORT OrgMinimaObjectsBaseMiniNumber *OrgMinimaGlobalParams_MINIMA_CONFIRM_DEPTH;
 J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaGlobalParams, MINIMA_CONFIRM_DEPTH, OrgMinimaObjectsBaseMiniNumber *)
 
-inline jint OrgMinimaGlobalParams_get_MINIMA_CASCADE_DEPTH(void);
-#define OrgMinimaGlobalParams_MINIMA_CASCADE_DEPTH 8
-J2OBJC_STATIC_FIELD_CONSTANT(OrgMinimaGlobalParams, MINIMA_CASCADE_DEPTH, jint)
+inline jint OrgMinimaGlobalParams_get_MINIMA_CASCADE_START_DEPTH(void);
+#define OrgMinimaGlobalParams_MINIMA_CASCADE_START_DEPTH 256
+J2OBJC_STATIC_FIELD_CONSTANT(OrgMinimaGlobalParams, MINIMA_CASCADE_START_DEPTH, jint)
+
+inline jint OrgMinimaGlobalParams_get_MINIMA_MINUMUM_CASCADE_LEVEL_NODES(void);
+#define OrgMinimaGlobalParams_MINIMA_MINUMUM_CASCADE_LEVEL_NODES 64
+J2OBJC_STATIC_FIELD_CONSTANT(OrgMinimaGlobalParams, MINIMA_MINUMUM_CASCADE_LEVEL_NODES, jint)
+
+inline jint OrgMinimaGlobalParams_get_MINIMA_CASCADE_LEVELS(void);
+#define OrgMinimaGlobalParams_MINIMA_CASCADE_LEVELS 21
+J2OBJC_STATIC_FIELD_CONSTANT(OrgMinimaGlobalParams, MINIMA_CASCADE_LEVELS, jint)
+
+inline NSString *OrgMinimaGlobalParams_get_MINIMA_CASCADE_RATIO(void);
+/*! INTERNAL ONLY - Use accessor function from above. */
+FOUNDATION_EXPORT NSString *OrgMinimaGlobalParams_MINIMA_CASCADE_RATIO;
+J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaGlobalParams, MINIMA_CASCADE_RATIO, NSString *)
+
+inline jint OrgMinimaGlobalParams_get_MINIMA_HASH_STRENGTH(void);
+#define OrgMinimaGlobalParams_MINIMA_HASH_STRENGTH 256
+J2OBJC_STATIC_FIELD_CONSTANT(OrgMinimaGlobalParams, MINIMA_HASH_STRENGTH, jint)
 
 FOUNDATION_EXPORT void OrgMinimaGlobalParams_init(OrgMinimaGlobalParams *self);
 

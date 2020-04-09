@@ -22,30 +22,30 @@
 
 @class JavaIoDataInputStream;
 @class JavaIoDataOutputStream;
-@class OrgMinimaObjectsBaseMiniNumber;
-@class OrgMinimaObjectsBaseMiniString;
+@class OrgMinimaObjectsBaseMiniByte;
+@class OrgMinimaObjectsBaseMiniScript;
 @class OrgMinimaUtilsJsonJSONObject;
 
 @interface OrgMinimaObjectsStateVariable : NSObject < OrgMinimaUtilsStreamable > {
  @public
-  OrgMinimaObjectsBaseMiniString *mData_;
-  OrgMinimaObjectsBaseMiniNumber *mPort_;
+  OrgMinimaObjectsBaseMiniByte *mPort_;
+  OrgMinimaObjectsBaseMiniScript *mData_;
 }
 
 #pragma mark Public
 
-- (instancetype)initWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zPort
-                                          withNSString:(NSString *)zData;
+- (instancetype)initWithInt:(jint)zPort
+               withNSString:(NSString *)zData;
 
-- (OrgMinimaObjectsBaseMiniString *)getData;
+- (OrgMinimaObjectsBaseMiniScript *)getData;
 
-- (OrgMinimaObjectsBaseMiniNumber *)getPort;
+- (jint)getPort;
 
 - (void)readDataStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn;
 
 + (OrgMinimaObjectsStateVariable *)ReadFromStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn;
 
-- (void)resetDataWithOrgMinimaObjectsBaseMiniString:(OrgMinimaObjectsBaseMiniString *)zData;
+- (void)resetDataWithOrgMinimaObjectsBaseMiniScript:(OrgMinimaObjectsBaseMiniScript *)zData;
 
 - (OrgMinimaUtilsJsonJSONObject *)toJSON;
 
@@ -57,14 +57,14 @@
 
 J2OBJC_EMPTY_STATIC_INIT(OrgMinimaObjectsStateVariable)
 
-J2OBJC_FIELD_SETTER(OrgMinimaObjectsStateVariable, mData_, OrgMinimaObjectsBaseMiniString *)
-J2OBJC_FIELD_SETTER(OrgMinimaObjectsStateVariable, mPort_, OrgMinimaObjectsBaseMiniNumber *)
+J2OBJC_FIELD_SETTER(OrgMinimaObjectsStateVariable, mPort_, OrgMinimaObjectsBaseMiniByte *)
+J2OBJC_FIELD_SETTER(OrgMinimaObjectsStateVariable, mData_, OrgMinimaObjectsBaseMiniScript *)
 
-FOUNDATION_EXPORT void OrgMinimaObjectsStateVariable_initWithOrgMinimaObjectsBaseMiniNumber_withNSString_(OrgMinimaObjectsStateVariable *self, OrgMinimaObjectsBaseMiniNumber *zPort, NSString *zData);
+FOUNDATION_EXPORT void OrgMinimaObjectsStateVariable_initWithInt_withNSString_(OrgMinimaObjectsStateVariable *self, jint zPort, NSString *zData);
 
-FOUNDATION_EXPORT OrgMinimaObjectsStateVariable *new_OrgMinimaObjectsStateVariable_initWithOrgMinimaObjectsBaseMiniNumber_withNSString_(OrgMinimaObjectsBaseMiniNumber *zPort, NSString *zData) NS_RETURNS_RETAINED;
+FOUNDATION_EXPORT OrgMinimaObjectsStateVariable *new_OrgMinimaObjectsStateVariable_initWithInt_withNSString_(jint zPort, NSString *zData) NS_RETURNS_RETAINED;
 
-FOUNDATION_EXPORT OrgMinimaObjectsStateVariable *create_OrgMinimaObjectsStateVariable_initWithOrgMinimaObjectsBaseMiniNumber_withNSString_(OrgMinimaObjectsBaseMiniNumber *zPort, NSString *zData);
+FOUNDATION_EXPORT OrgMinimaObjectsStateVariable *create_OrgMinimaObjectsStateVariable_initWithInt_withNSString_(jint zPort, NSString *zData);
 
 FOUNDATION_EXPORT OrgMinimaObjectsStateVariable *OrgMinimaObjectsStateVariable_ReadFromStreamWithJavaIoDataInputStream_(JavaIoDataInputStream *zIn);
 

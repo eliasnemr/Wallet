@@ -51,6 +51,9 @@ J2OBJC_IGNORE_DESIGNATED_END
   if (!zValid) {
     [((OrgMinimaUtilsJsonJSONObject *) nil_chk(mJSON_)) putWithId:@"error" withId:zError];
   }
+  else {
+    [((OrgMinimaUtilsJsonJSONObject *) nil_chk(mJSON_)) putWithId:@"message" withId:zError];
+  }
   [((OrgMinimaUtilsJsonJSONObject *) nil_chk(mJSON_)) putWithId:@"response" withId:mDataJSON_];
   JreStrongAssign(&mFinalResponse_, [((NSString *) nil_chk([((OrgMinimaUtilsJsonJSONObject *) nil_chk(mJSON_)) description])) java_replaceAll:@"\\\\/" withReplacement:@"/"]);
   mFinished_ = true;

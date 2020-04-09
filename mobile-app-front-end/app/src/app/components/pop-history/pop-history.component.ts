@@ -12,6 +12,7 @@ import { Clipboard } from '@ionic-native/clipboard/ngx';
 export class PopHistoryComponent implements OnInit {
 
   // + params
+  public name: string;
   public receivingAddress: any;
   public blockNumber: number;
   public transAmount: number;
@@ -23,6 +24,7 @@ export class PopHistoryComponent implements OnInit {
 
 constructor(public navParams: NavParams, private clipboard: Clipboard) {
 
+  this.name = this.navParams.get('name');
   this.receivingAddress = this.navParams.get('address');
   this.blockNumber = this.navParams.get('blockNumber');
   this.transAmount = this.navParams.get('transAmount');

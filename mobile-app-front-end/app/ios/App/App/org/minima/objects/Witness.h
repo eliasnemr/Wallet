@@ -25,18 +25,17 @@
 @class JavaUtilArrayList;
 @class OrgMinimaDatabaseMmrMMRProof;
 @class OrgMinimaObjectsBaseMiniData;
-@class OrgMinimaObjectsBaseMiniHash;
-@class OrgMinimaObjectsTokenDetails;
+@class OrgMinimaObjectsProofsScriptProof;
+@class OrgMinimaObjectsProofsSignatureProof;
+@class OrgMinimaObjectsProofsTokenProof;
 @class OrgMinimaUtilsJsonJSONObject;
 
 @interface OrgMinimaObjectsWitness : NSObject < OrgMinimaUtilsStreamable > {
  @public
-  JavaUtilArrayList *mPublicKeys_;
-  JavaUtilArrayList *mSignatures_;
-  JavaUtilArrayList *mProofs_;
-  JavaUtilArrayList *mScripts_;
-  OrgMinimaObjectsTokenDetails *mTokenGenDetails_;
-  JavaUtilArrayList *mTokenDetails_;
+  JavaUtilArrayList *mMMRProofs_;
+  JavaUtilArrayList *mSignatureProofs_;
+  JavaUtilArrayList *mTokenProofs_;
+  JavaUtilArrayList *mScriptProofs_;
 }
 
 #pragma mark Public
@@ -45,18 +44,21 @@
 
 - (void)addMMRProofWithOrgMinimaDatabaseMmrMMRProof:(OrgMinimaDatabaseMmrMMRProof *)zProof;
 
-- (void)addScriptWithNSString:(NSString *)zScript;
+- (jboolean)addScriptWithOrgMinimaObjectsProofsScriptProof:(OrgMinimaObjectsProofsScriptProof *)zScriptProof;
 
-- (void)addSignatureWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zPublicKey
-                    withOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zSig;
+- (jboolean)addScriptWithNSString:(NSString *)zScript
+                          withInt:(jint)zBitLength;
 
-- (void)addTokenDetailsWithOrgMinimaObjectsTokenDetails:(OrgMinimaObjectsTokenDetails *)zDetails;
+- (void)addSignatureWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zPubKey
+                    withOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zSignature;
+
+- (void)addSignatureWithOrgMinimaObjectsProofsSignatureProof:(OrgMinimaObjectsProofsSignatureProof *)zSigProof;
+
+- (void)addTokenDetailsWithOrgMinimaObjectsProofsTokenProof:(OrgMinimaObjectsProofsTokenProof *)zDetails;
 
 - (void)clearProofs;
 
-- (JavaUtilArrayList *)getAllProofs;
-
-- (JavaUtilArrayList *)getAllPubKeys;
+- (JavaUtilArrayList *)getAllMMRProofs;
 
 - (NSString *)getAllPubKeysCSV;
 
@@ -64,19 +66,13 @@
 
 - (JavaUtilArrayList *)getAllTokenDetails;
 
-- (OrgMinimaObjectsBaseMiniData *)getPublicKeyWithInt:(jint)zPubk;
+- (OrgMinimaObjectsProofsScriptProof *)getScriptWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zAddress;
 
-- (NSString *)getScriptWithInt:(jint)zScript;
-
-- (OrgMinimaObjectsBaseMiniData *)getSignatureWithInt:(jint)zSig;
-
-- (OrgMinimaObjectsTokenDetails *)getTokenDetailWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zTokenID;
-
-- (OrgMinimaObjectsTokenDetails *)getTokenGenDetails;
+- (OrgMinimaObjectsProofsTokenProof *)getTokenDetailWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zTokenID;
 
 - (void)readDataStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn;
 
-- (void)setTokenGenDetailsWithOrgMinimaObjectsTokenDetails:(OrgMinimaObjectsTokenDetails *)zTokGenDetails;
+- (jboolean)scriptExistsWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zHash;
 
 - (OrgMinimaUtilsJsonJSONObject *)toJSON;
 
@@ -88,12 +84,10 @@
 
 J2OBJC_EMPTY_STATIC_INIT(OrgMinimaObjectsWitness)
 
-J2OBJC_FIELD_SETTER(OrgMinimaObjectsWitness, mPublicKeys_, JavaUtilArrayList *)
-J2OBJC_FIELD_SETTER(OrgMinimaObjectsWitness, mSignatures_, JavaUtilArrayList *)
-J2OBJC_FIELD_SETTER(OrgMinimaObjectsWitness, mProofs_, JavaUtilArrayList *)
-J2OBJC_FIELD_SETTER(OrgMinimaObjectsWitness, mScripts_, JavaUtilArrayList *)
-J2OBJC_FIELD_SETTER(OrgMinimaObjectsWitness, mTokenGenDetails_, OrgMinimaObjectsTokenDetails *)
-J2OBJC_FIELD_SETTER(OrgMinimaObjectsWitness, mTokenDetails_, JavaUtilArrayList *)
+J2OBJC_FIELD_SETTER(OrgMinimaObjectsWitness, mMMRProofs_, JavaUtilArrayList *)
+J2OBJC_FIELD_SETTER(OrgMinimaObjectsWitness, mSignatureProofs_, JavaUtilArrayList *)
+J2OBJC_FIELD_SETTER(OrgMinimaObjectsWitness, mTokenProofs_, JavaUtilArrayList *)
+J2OBJC_FIELD_SETTER(OrgMinimaObjectsWitness, mScriptProofs_, JavaUtilArrayList *)
 
 FOUNDATION_EXPORT void OrgMinimaObjectsWitness_init(OrgMinimaObjectsWitness *self);
 

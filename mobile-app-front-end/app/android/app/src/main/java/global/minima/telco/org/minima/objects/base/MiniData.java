@@ -3,16 +3,16 @@
  */
 package org.minima.objects.base;
 
+import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.nio.charset.Charset;
-import java.util.Arrays;
+import java.security.SecureRandom;
 import java.util.Random;
 
-import org.minima.miniscript.Contract;
+import org.minima.utils.BaseConverter;
 import org.minima.utils.MinimaLogger;
 import org.minima.utils.Streamable;
 
@@ -21,48 +21,6 @@ import org.minima.utils.Streamable;
  *
  */
 public class MiniData implements Streamable {
-
-	/**
-	 * Utility HEX conversion functions
-	 * 
-	 * @param zHex
-	 * @return
-	 */
-	private static byte[] hexStringToByteArray(String zHex) {
-		String hex = zHex;
-		if(hex.startsWith("0x")) {
-			hex = zHex.substring(2);
-		}		
-		
-		//Go Upper case - make sure always the same
-		hex = hex.toUpperCase();
-		int len = hex.length();
-	
-		//Must be 2 digits per byte
-		if(len % 2 != 0) {
-			//Need a leading zero
-			hex="0"+hex;
-			len = hex.length();
-		}
-		
-		byte[] data = new byte[len / 2];
-	    for (int i = 0; i < len; i += 2) {
-	        data[i / 2] = (byte) ((Character.digit(hex.charAt(i), 16) << 4) + Character.digit(hex.charAt(i+1), 16));
-	    }
-	    
-	    return data;
-	}
-	
-	private final static char[] hexArray = "0123456789ABCDEF".toCharArray();
-	private static String bytesToHex(byte[] bytes) {
-	    char[] hexChars = new char[bytes.length * 2];
-	    for ( int j = 0; j < bytes.length; j++ ) {
-	        int v = bytes[j] & 0xFF;
-	        hexChars[j * 2] = hexArray[v >>> 4];
-	        hexChars[j * 2 + 1] = hexArray[v & 0x0F];
-	    }
-	    return new String(hexChars);
-	}
 	
 	/**
 	 * The byte data
@@ -75,16 +33,20 @@ public class MiniData implements Streamable {
 	protected BigInteger mDataVal;
 	
 	public MiniData() {
-		this("");
+		this(new byte[0]);
 	}
 	
 	public MiniData(String zHexString) {
-		this(hexStringToByteArray(zHexString));
+		this(BaseConverter.decode16(zHexString));
 	}
 	
 	public MiniData(byte[] zData) {
 		mData = zData;
 		setDataValue();
+	}
+	
+	private void setDataValue() {
+		mDataVal = new BigInteger(1,mData);
 	}
 	
 	public int getLength() {
@@ -93,10 +55,6 @@ public class MiniData implements Streamable {
 	
 	public byte[] getData() {
 		return mData;
-	}
-	
-	protected void setDataValue() {
-		mDataVal = new BigInteger(1,mData);
 	}
 	
 	public BigInteger getDataValue() {
@@ -109,19 +67,13 @@ public class MiniData implements Streamable {
 	
 	@Override
 	public boolean equals(Object o) {
-		MiniData data = (MiniData)o;
-		return isExactlyEqual(data);
+		return isEqual((MiniData)o);
 	}
 	
-	public boolean isExactlyEqual(MiniData zCompare) {
+	public boolean isEqual(MiniData zCompare) {
 		if(getLength() != zCompare.getLength()) {
 			return false;
 		}
-		
-		return mDataVal.compareTo(zCompare.getDataValue()) == 0;
-	}
-	
-	public boolean isNumericallyEqual(MiniData zCompare) {
 		return mDataVal.compareTo(zCompare.getDataValue()) == 0;
 	}
 	
@@ -174,36 +126,17 @@ public class MiniData implements Streamable {
 		return to0xString();
 	}
 	
-	/**
-	 * Remove the 0x at the beginning
-	 * @return
-	 */
-	public String toPureHexString() {
-		return toString().substring(2);
+	public String to0xString() {
+		return BaseConverter.encode16(mData);
 	}
 	
-	public String toShort0xString() {
-		return toShort0xString(8);
-	}
-	
-	public String toShort0xString(int zLen) {
+	public String to0xString(int zLen) {
 		String data = to0xString();
 		int len = data.length();
 		if(len > zLen) {
 			len = zLen;
 		}
 		return data.substring(0, len).concat("..");
-	}
-
-	public String to0xString() {
-		String hex = bytesToHex(mData);
-		
-		//Always show full byte
-		if(hex.length() % 2 != 0) {
-			hex = "0"+hex;
-		}
-		
-		return "0x"+hex;
 	}
 	
 	@Override
@@ -237,6 +170,20 @@ public class MiniData implements Streamable {
 		return data;
 	}
 
+	public static MiniData getMiniDataVersion(Streamable zObject) {
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		DataOutputStream dos = new DataOutputStream(baos);
+		
+		try {
+			zObject.writeDataStream(dos);
+			dos.flush();
+		} catch (IOException e) {
+			return null;
+		}
+		
+		return new MiniData(baos.toByteArray());
+	}
+	
 	/**
 	 * Get a random chunk of data
 	 * 
@@ -244,46 +191,15 @@ public class MiniData implements Streamable {
 	 * @return
 	 */
 	public static MiniData getRandomData(int len) {
-		Random rand = new Random();
+		SecureRandom rand = new SecureRandom();
+//		Random rand = new Random();
 		byte[] data = new byte[len];
 		rand.nextBytes(data);
 		return new MiniData(data);
 	}
 	
-	/**
-	 * Convert any string data into a byte array
-	 * 
-	 * @param zInput
-	 * @return
-	 */
-	public static MiniData convertValueToData(String zInput) {
-		//Its HEX
-		if(zInput.startsWith("0x")) {
-			return new MiniData(zInput);
-			
-		//It's SCRIPT	
-		}else if(zInput.startsWith("[")) {
-			//Nothing isn;t a script in Minima
-			String clean = Contract.cleanScript(zInput.substring(1,zInput.length()-1));
-			
-			//Convert to s nice string..
-			MiniString ms = new MiniString(clean);
-			
-			//Now get the data..
-			return new MiniData(ms.getData());
-		
-		//It's a NUMBER
-		}else{
-			//Convert to s nice string..
-			MiniString ms = new MiniString(zInput);
-			
-			//Now get the data..
-			return new MiniData(ms.getData());
-		}
-	}
-	
 	public static void main(String[] zArgs) {
-		MiniData data = new MiniData("00000FFF");
+		MiniData data = new MiniData();
 		
 		MinimaLogger.log("data    : "+data.toString());
 		MinimaLogger.log("value   : "+data.getDataValue().toString());

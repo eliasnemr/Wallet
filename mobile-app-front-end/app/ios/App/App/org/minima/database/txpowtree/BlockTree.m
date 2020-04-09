@@ -10,7 +10,7 @@
 #include "org/minima/database/txpowtree/BlockTree.h"
 #include "org/minima/database/txpowtree/BlockTreeNode.h"
 #include "org/minima/objects/TxPOW.h"
-#include "org/minima/objects/base/MiniHash.h"
+#include "org/minima/objects/base/MiniData.h"
 #include "org/minima/objects/base/MiniNumber.h"
 #include "org/minima/utils/MinimaLogger.h"
 
@@ -23,7 +23,7 @@
 - (OrgMinimaDatabaseTxpowtreeBlockTreeNode *)getHeaviestBranchTipWithOrgMinimaDatabaseTxpowtreeBlockTreeNode:(OrgMinimaDatabaseTxpowtreeBlockTreeNode *)zStartNode;
 
 - (OrgMinimaDatabaseTxpowtreeBlockTreeNode *)_findNodeWithOrgMinimaDatabaseTxpowtreeBlockTreeNode:(OrgMinimaDatabaseTxpowtreeBlockTreeNode *)zRoot
-                                                                 withOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zTxPOWID;
+                                                                 withOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zTxPOWID;
 
 @end
 
@@ -33,7 +33,7 @@ __attribute__((unused)) static void OrgMinimaDatabaseTxpowtreeBlockTree__cascade
 
 __attribute__((unused)) static OrgMinimaDatabaseTxpowtreeBlockTreeNode *OrgMinimaDatabaseTxpowtreeBlockTree_getHeaviestBranchTipWithOrgMinimaDatabaseTxpowtreeBlockTreeNode_(OrgMinimaDatabaseTxpowtreeBlockTree *self, OrgMinimaDatabaseTxpowtreeBlockTreeNode *zStartNode);
 
-__attribute__((unused)) static OrgMinimaDatabaseTxpowtreeBlockTreeNode *OrgMinimaDatabaseTxpowtreeBlockTree__findNodeWithOrgMinimaDatabaseTxpowtreeBlockTreeNode_withOrgMinimaObjectsBaseMiniHash_(OrgMinimaDatabaseTxpowtreeBlockTree *self, OrgMinimaDatabaseTxpowtreeBlockTreeNode *zRoot, OrgMinimaObjectsBaseMiniHash *zTxPOWID);
+__attribute__((unused)) static OrgMinimaDatabaseTxpowtreeBlockTreeNode *OrgMinimaDatabaseTxpowtreeBlockTree__findNodeWithOrgMinimaDatabaseTxpowtreeBlockTreeNode_withOrgMinimaObjectsBaseMiniData_(OrgMinimaDatabaseTxpowtreeBlockTree *self, OrgMinimaDatabaseTxpowtreeBlockTreeNode *zRoot, OrgMinimaObjectsBaseMiniData *zTxPOWID);
 
 @implementation OrgMinimaDatabaseTxpowtreeBlockTree
 
@@ -68,12 +68,12 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (jboolean)addNodeWithOrgMinimaDatabaseTxpowtreeBlockTreeNode:(OrgMinimaDatabaseTxpowtreeBlockTreeNode *)zNode {
-  OrgMinimaDatabaseTxpowtreeBlockTreeNode *exists = [self findNodeWithOrgMinimaObjectsBaseMiniHash:[((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk(zNode)) getTxPowID]];
+  OrgMinimaDatabaseTxpowtreeBlockTreeNode *exists = [self findNodeWithOrgMinimaObjectsBaseMiniData:[((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk(zNode)) getTxPowID]];
   if (exists != nil) {
     return false;
   }
-  OrgMinimaObjectsBaseMiniHash *prevblock = [((OrgMinimaObjectsTxPOW *) nil_chk([zNode getTxPow])) getParentID];
-  OrgMinimaDatabaseTxpowtreeBlockTreeNode *parent = [self findNodeWithOrgMinimaObjectsBaseMiniHash:prevblock];
+  OrgMinimaObjectsBaseMiniData *prevblock = [((OrgMinimaObjectsTxPOW *) nil_chk([zNode getTxPow])) getParentID];
+  OrgMinimaDatabaseTxpowtreeBlockTreeNode *parent = [self findNodeWithOrgMinimaObjectsBaseMiniData:prevblock];
   if (parent == nil) {
     return false;
   }
@@ -95,12 +95,12 @@ J2OBJC_IGNORE_DESIGNATED_END
   [((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk(mTip_)) addChildWithOrgMinimaDatabaseTxpowtreeBlockTreeNode:zNode];
   if ([((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk(zNode)) getMMRSet] != nil) {
     if (zLinkAll) {
-      if ([((OrgMinimaObjectsBaseMiniHash *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk(mTip_)) getTxPowID])) isExactlyEqualWithOrgMinimaObjectsBaseMiniData:[((OrgMinimaObjectsTxPOW *) nil_chk([zNode getTxPow])) getParentID]]) {
+      if ([((OrgMinimaObjectsBaseMiniData *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk(mTip_)) getTxPowID])) isEqualWithOrgMinimaObjectsBaseMiniData:[((OrgMinimaObjectsTxPOW *) nil_chk([zNode getTxPow])) getParentID]]) {
         [((OrgMinimaDatabaseMmrMMRSet *) nil_chk([zNode getMMRSet])) setParentWithOrgMinimaDatabaseMmrMMRSet:[((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk(mTip_)) getMMRSet]];
       }
     }
     else {
-      if (![((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk(mTip_)) isCascade] && [((OrgMinimaObjectsBaseMiniHash *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk(mTip_)) getTxPowID])) isExactlyEqualWithOrgMinimaObjectsBaseMiniData:[((OrgMinimaObjectsTxPOW *) nil_chk([zNode getTxPow])) getParentID]]) {
+      if (![((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk(mTip_)) isCascade] && [((OrgMinimaObjectsBaseMiniData *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk(mTip_)) getTxPowID])) isEqualWithOrgMinimaObjectsBaseMiniData:[((OrgMinimaObjectsTxPOW *) nil_chk([zNode getTxPow])) getParentID]]) {
         [((OrgMinimaDatabaseMmrMMRSet *) nil_chk([zNode getMMRSet])) setParentWithOrgMinimaDatabaseMmrMMRSet:[((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk(mTip_)) getMMRSet]];
       }
     }
@@ -130,16 +130,16 @@ J2OBJC_IGNORE_DESIGNATED_END
   return OrgMinimaDatabaseTxpowtreeBlockTree_getHeaviestBranchTipWithOrgMinimaDatabaseTxpowtreeBlockTreeNode_(self, zStartNode);
 }
 
-- (OrgMinimaDatabaseTxpowtreeBlockTreeNode *)findNodeWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zTxPOWID {
+- (OrgMinimaDatabaseTxpowtreeBlockTreeNode *)findNodeWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zTxPOWID {
   if ([self getChainRoot] == nil) {
     return nil;
   }
-  return OrgMinimaDatabaseTxpowtreeBlockTree__findNodeWithOrgMinimaDatabaseTxpowtreeBlockTreeNode_withOrgMinimaObjectsBaseMiniHash_(self, [self getChainRoot], zTxPOWID);
+  return OrgMinimaDatabaseTxpowtreeBlockTree__findNodeWithOrgMinimaDatabaseTxpowtreeBlockTreeNode_withOrgMinimaObjectsBaseMiniData_(self, [self getChainRoot], zTxPOWID);
 }
 
 - (OrgMinimaDatabaseTxpowtreeBlockTreeNode *)_findNodeWithOrgMinimaDatabaseTxpowtreeBlockTreeNode:(OrgMinimaDatabaseTxpowtreeBlockTreeNode *)zRoot
-                                                                 withOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zTxPOWID {
-  return OrgMinimaDatabaseTxpowtreeBlockTree__findNodeWithOrgMinimaDatabaseTxpowtreeBlockTreeNode_withOrgMinimaObjectsBaseMiniHash_(self, zRoot, zTxPOWID);
+                                                                 withOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zTxPOWID {
+  return OrgMinimaDatabaseTxpowtreeBlockTree__findNodeWithOrgMinimaDatabaseTxpowtreeBlockTreeNode_withOrgMinimaObjectsBaseMiniData_(self, zRoot, zTxPOWID);
 }
 
 - (JavaUtilArrayList *)getAsList {
@@ -165,39 +165,37 @@ J2OBJC_IGNORE_DESIGNATED_END
   return nodes;
 }
 
-- (jdouble)getChainSpeed {
-  jlong millistart = [((OrgMinimaObjectsBaseMiniNumber *) nil_chk([((OrgMinimaObjectsTxPOW *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk(mCascadeNode_)) getTxPow])) getTimeMilli])) getAsLong];
-  jlong milliend = [((OrgMinimaObjectsBaseMiniNumber *) nil_chk([((OrgMinimaObjectsTxPOW *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk(mTip_)) getTxPow])) getTimeMilli])) getAsLong];
-  jlong timediff = milliend - millistart;
-  jlong blockstart = [((OrgMinimaObjectsBaseMiniNumber *) nil_chk([((OrgMinimaObjectsTxPOW *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk(mCascadeNode_)) getTxPow])) getBlockNumber])) getAsLong];
-  jlong blockend = [((OrgMinimaObjectsBaseMiniNumber *) nil_chk([((OrgMinimaObjectsTxPOW *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk(mTip_)) getTxPow])) getBlockNumber])) getAsLong];
-  jlong blockdiff = blockend - blockstart;
-  jdouble timesecs = (jdouble) timediff / (jdouble) 1000;
-  jdouble speed = (jdouble) blockdiff / timesecs;
+- (OrgMinimaObjectsBaseMiniNumber *)getChainSpeed {
+  OrgMinimaObjectsBaseMiniNumber *start = [((OrgMinimaObjectsTxPOW *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk(mCascadeNode_)) getTxPow])) getTimeSecs];
+  OrgMinimaObjectsBaseMiniNumber *end = [((OrgMinimaObjectsTxPOW *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk(mTip_)) getTxPow])) getTimeSecs];
+  OrgMinimaObjectsBaseMiniNumber *timediff = [((OrgMinimaObjectsBaseMiniNumber *) nil_chk(end)) subWithOrgMinimaObjectsBaseMiniNumber:start];
+  OrgMinimaObjectsBaseMiniNumber *blockstart = [((OrgMinimaObjectsTxPOW *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk(mCascadeNode_)) getTxPow])) getBlockNumber];
+  OrgMinimaObjectsBaseMiniNumber *blockend = [((OrgMinimaObjectsTxPOW *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk(mTip_)) getTxPow])) getBlockNumber];
+  OrgMinimaObjectsBaseMiniNumber *blockdiff = [((OrgMinimaObjectsBaseMiniNumber *) nil_chk(blockend)) subWithOrgMinimaObjectsBaseMiniNumber:blockstart];
+  if ([((OrgMinimaObjectsBaseMiniNumber *) nil_chk(timediff)) isEqualWithOrgMinimaObjectsBaseMiniNumber:JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, ZERO)]) {
+    return JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, ONE);
+  }
+  OrgMinimaObjectsBaseMiniNumber *speed = [((OrgMinimaObjectsBaseMiniNumber *) nil_chk(blockdiff)) divWithOrgMinimaObjectsBaseMiniNumber:timediff];
   return speed;
 }
 
-- (OrgMinimaObjectsBaseMiniNumber *)getAvgChainDifficulty {
-  JavaMathBigInteger *two = create_JavaMathBigInteger_initWithNSString_(@"2");
+- (JavaMathBigInteger *)getAvgChainDifficulty {
   JavaMathBigInteger *total = create_JavaMathBigInteger_initWithNSString_(@"0");
-  OrgMinimaObjectsBaseMiniHash *casc = [((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk(mCascadeNode_)) getTxPowID];
+  OrgMinimaObjectsBaseMiniData *casc = [((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk(mCascadeNode_)) getTxPowID];
   OrgMinimaDatabaseTxpowtreeBlockTreeNode *current = mTip_;
   jint num = 0;
   while (current != nil) {
-    if ([((OrgMinimaObjectsBaseMiniHash *) nil_chk([current getTxPowID])) isEqual:casc]) {
+    total = [((JavaMathBigInteger *) nil_chk(total)) addWithJavaMathBigInteger:[((OrgMinimaObjectsBaseMiniData *) nil_chk([((OrgMinimaObjectsTxPOW *) nil_chk([current getTxPow])) getBlockDifficulty])) getDataValue]];
+    num++;
+    if ([((OrgMinimaObjectsBaseMiniData *) nil_chk([current getTxPowID])) isEqualWithOrgMinimaObjectsBaseMiniData:casc]) {
       break;
     }
-    jint diff = [((OrgMinimaObjectsTxPOW *) nil_chk([current getTxPow])) getBlockDifficulty];
-    JavaMathBigInteger *rval = [two powWithInt:diff];
-    total = [((JavaMathBigInteger *) nil_chk(total)) addWithJavaMathBigInteger:rval];
-    num++;
     current = [current getParent];
   }
   if (num == 0) {
-    return JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, ZERO);
+    return JreLoadStatic(JavaMathBigInteger, ZERO);
   }
-  OrgMinimaObjectsBaseMiniNumber *totram = create_OrgMinimaObjectsBaseMiniNumber_initWithJavaMathBigInteger_(total);
-  OrgMinimaObjectsBaseMiniNumber *avg = [totram divWithOrgMinimaObjectsBaseMiniNumber:create_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(JreStrcat("I", num))];
+  JavaMathBigInteger *avg = [((JavaMathBigInteger *) nil_chk(total)) divideWithJavaMathBigInteger:create_JavaMathBigInteger_initWithNSString_(JreStrcat("I", num))];
   return avg;
 }
 
@@ -228,8 +226,8 @@ J2OBJC_IGNORE_DESIGNATED_END
     { NULL, "LOrgMinimaDatabaseTxpowtreeBlockTreeNode;", 0x2, 11, 12, -1, -1, -1, -1 },
     { NULL, "LJavaUtilArrayList;", 0x1, -1, -1, -1, 13, -1, -1 },
     { NULL, "LJavaUtilArrayList;", 0x1, 14, 15, -1, 16, -1, -1 },
-    { NULL, "D", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "LJavaMathBigInteger;", 0x1, -1, -1, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
@@ -247,8 +245,8 @@ J2OBJC_IGNORE_DESIGNATED_END
   methods[10].selector = @selector(_zeroWeightsWithOrgMinimaDatabaseTxpowtreeBlockTreeNode:);
   methods[11].selector = @selector(_cascadeWeightsWithOrgMinimaDatabaseTxpowtreeBlockTreeNode:);
   methods[12].selector = @selector(getHeaviestBranchTipWithOrgMinimaDatabaseTxpowtreeBlockTreeNode:);
-  methods[13].selector = @selector(findNodeWithOrgMinimaObjectsBaseMiniHash:);
-  methods[14].selector = @selector(_findNodeWithOrgMinimaDatabaseTxpowtreeBlockTreeNode:withOrgMinimaObjectsBaseMiniHash:);
+  methods[13].selector = @selector(findNodeWithOrgMinimaObjectsBaseMiniData:);
+  methods[14].selector = @selector(_findNodeWithOrgMinimaDatabaseTxpowtreeBlockTreeNode:withOrgMinimaObjectsBaseMiniData:);
   methods[15].selector = @selector(getAsList);
   methods[16].selector = @selector(getAsListWithBoolean:);
   methods[17].selector = @selector(getChainSpeed);
@@ -260,7 +258,7 @@ J2OBJC_IGNORE_DESIGNATED_END
     { "mCascadeNode_", "LOrgMinimaDatabaseTxpowtreeBlockTreeNode;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mLastNode_", "LOrgMinimaDatabaseTxpowtreeBlockTreeNode;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
   };
-  static const void *ptrTable[] = { "setTreeRoot", "LOrgMinimaDatabaseTxpowtreeBlockTreeNode;", "addNode", "hardAddNode", "LOrgMinimaDatabaseTxpowtreeBlockTreeNode;Z", "hardSetCascadeNode", "_zeroWeights", "_cascadeWeights", "getHeaviestBranchTip", "findNode", "LOrgMinimaObjectsBaseMiniHash;", "_findNode", "LOrgMinimaDatabaseTxpowtreeBlockTreeNode;LOrgMinimaObjectsBaseMiniHash;", "()Ljava/util/ArrayList<Lorg/minima/database/txpowtree/BlockTreeNode;>;", "getAsList", "Z", "(Z)Ljava/util/ArrayList<Lorg/minima/database/txpowtree/BlockTreeNode;>;" };
+  static const void *ptrTable[] = { "setTreeRoot", "LOrgMinimaDatabaseTxpowtreeBlockTreeNode;", "addNode", "hardAddNode", "LOrgMinimaDatabaseTxpowtreeBlockTreeNode;Z", "hardSetCascadeNode", "_zeroWeights", "_cascadeWeights", "getHeaviestBranchTip", "findNode", "LOrgMinimaObjectsBaseMiniData;", "_findNode", "LOrgMinimaDatabaseTxpowtreeBlockTreeNode;LOrgMinimaObjectsBaseMiniData;", "()Ljava/util/ArrayList<Lorg/minima/database/txpowtree/BlockTreeNode;>;", "getAsList", "Z", "(Z)Ljava/util/ArrayList<Lorg/minima/database/txpowtree/BlockTreeNode;>;" };
   static const J2ObjcClassInfo _OrgMinimaDatabaseTxpowtreeBlockTree = { "BlockTree", "org.minima.database.txpowtree", ptrTable, methods, fields, 7, 0x1, 19, 4, -1, -1, -1, -1, -1 };
   return &_OrgMinimaDatabaseTxpowtreeBlockTree;
 }
@@ -308,27 +306,31 @@ OrgMinimaDatabaseTxpowtreeBlockTreeNode *OrgMinimaDatabaseTxpowtreeBlockTree_get
     OrgMinimaDatabaseTxpowtreeBlockTreeNode *max = nil;
     JavaUtilArrayList *children = [zStartNode getChildren];
     for (OrgMinimaDatabaseTxpowtreeBlockTreeNode * __strong node in nil_chk(children)) {
-      if (max == nil) {
-        max = node;
-      }
-      else {
-        if ([((JavaMathBigInteger *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk(node)) getTotalWeight])) compareToWithId:[max getTotalWeight]] > 0) {
+      if ([((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk(node)) getState] == OrgMinimaDatabaseTxpowtreeBlockTreeNode_BLOCKSTATE_VALID) {
+        if (max == nil) {
           max = node;
+        }
+        else {
+          if ([((JavaMathBigInteger *) nil_chk([node getTotalWeight])) compareToWithId:[max getTotalWeight]] > 0) {
+            max = node;
+          }
         }
       }
     }
-    return OrgMinimaDatabaseTxpowtreeBlockTree_getHeaviestBranchTipWithOrgMinimaDatabaseTxpowtreeBlockTreeNode_(self, max);
+    if (max != nil) {
+      return OrgMinimaDatabaseTxpowtreeBlockTree_getHeaviestBranchTipWithOrgMinimaDatabaseTxpowtreeBlockTreeNode_(self, max);
+    }
   }
   return zStartNode;
 }
 
-OrgMinimaDatabaseTxpowtreeBlockTreeNode *OrgMinimaDatabaseTxpowtreeBlockTree__findNodeWithOrgMinimaDatabaseTxpowtreeBlockTreeNode_withOrgMinimaObjectsBaseMiniHash_(OrgMinimaDatabaseTxpowtreeBlockTree *self, OrgMinimaDatabaseTxpowtreeBlockTreeNode *zRoot, OrgMinimaObjectsBaseMiniHash *zTxPOWID) {
-  if ([((OrgMinimaObjectsBaseMiniHash *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk(zRoot)) getTxPowID])) isExactlyEqualWithOrgMinimaObjectsBaseMiniData:zTxPOWID]) {
+OrgMinimaDatabaseTxpowtreeBlockTreeNode *OrgMinimaDatabaseTxpowtreeBlockTree__findNodeWithOrgMinimaDatabaseTxpowtreeBlockTreeNode_withOrgMinimaObjectsBaseMiniData_(OrgMinimaDatabaseTxpowtreeBlockTree *self, OrgMinimaDatabaseTxpowtreeBlockTreeNode *zRoot, OrgMinimaObjectsBaseMiniData *zTxPOWID) {
+  if ([((OrgMinimaObjectsBaseMiniData *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk(zRoot)) getTxPowID])) isEqualWithOrgMinimaObjectsBaseMiniData:zTxPOWID]) {
     return zRoot;
   }
   JavaUtilArrayList *children = [zRoot getChildren];
   for (OrgMinimaDatabaseTxpowtreeBlockTreeNode * __strong child in nil_chk(children)) {
-    OrgMinimaDatabaseTxpowtreeBlockTreeNode *found = OrgMinimaDatabaseTxpowtreeBlockTree__findNodeWithOrgMinimaDatabaseTxpowtreeBlockTreeNode_withOrgMinimaObjectsBaseMiniHash_(self, child, zTxPOWID);
+    OrgMinimaDatabaseTxpowtreeBlockTreeNode *found = OrgMinimaDatabaseTxpowtreeBlockTree__findNodeWithOrgMinimaDatabaseTxpowtreeBlockTreeNode_withOrgMinimaObjectsBaseMiniData_(self, child, zTxPOWID);
     if (found != nil) {
       return found;
     }

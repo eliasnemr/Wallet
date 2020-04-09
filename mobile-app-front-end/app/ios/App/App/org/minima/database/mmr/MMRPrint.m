@@ -8,10 +8,10 @@
 #include "java/lang/System.h"
 #include "java/util/ArrayList.h"
 #include "java/util/Collections.h"
+#include "org/minima/database/mmr/MMRData.h"
 #include "org/minima/database/mmr/MMREntry.h"
 #include "org/minima/database/mmr/MMRPrint.h"
 #include "org/minima/database/mmr/MMRSet.h"
-#include "org/minima/objects/base/MiniHash.h"
 #include "org/minima/objects/base/MiniNumber.h"
 
 @interface OrgMinimaDatabaseMmrMMRPrint ()

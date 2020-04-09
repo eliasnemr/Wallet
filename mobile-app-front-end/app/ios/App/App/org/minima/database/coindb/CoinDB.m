@@ -26,12 +26,12 @@
   #pragma clang diagnostic ignored "-Wundeclared-selector"
   methods[0].selector = @selector(clearDB);
   methods[1].selector = @selector(getComplete);
-  methods[2].selector = @selector(checkForRelevantCoinsWithOrgMinimaObjectsBaseMiniHash:);
-  methods[3].selector = @selector(getCoinRowWithOrgMinimaObjectsBaseMiniHash:);
+  methods[2].selector = @selector(checkForRelevantCoinsWithOrgMinimaObjectsBaseMiniData:);
+  methods[3].selector = @selector(getCoinRowWithOrgMinimaObjectsBaseMiniData:);
   methods[4].selector = @selector(addCoinRowWithOrgMinimaObjectsCoin:);
   methods[5].selector = @selector(removeOldSpentCoinsWithOrgMinimaObjectsBaseMiniNumber:);
   #pragma clang diagnostic pop
-  static const void *ptrTable[] = { "()Ljava/util/ArrayList<Lorg/minima/database/coindb/CoinDBRow;>;", "checkForRelevantCoins", "LOrgMinimaObjectsBaseMiniHash;", "(Lorg/minima/objects/base/MiniHash;)Ljava/util/ArrayList<Lorg/minima/database/coindb/CoinDBRow;>;", "getCoinRow", "addCoinRow", "LOrgMinimaObjectsCoin;", "removeOldSpentCoins", "LOrgMinimaObjectsBaseMiniNumber;" };
+  static const void *ptrTable[] = { "()Ljava/util/ArrayList<Lorg/minima/database/coindb/CoinDBRow;>;", "checkForRelevantCoins", "LOrgMinimaObjectsBaseMiniData;", "(Lorg/minima/objects/base/MiniData;)Ljava/util/ArrayList<Lorg/minima/database/coindb/CoinDBRow;>;", "getCoinRow", "addCoinRow", "LOrgMinimaObjectsCoin;", "removeOldSpentCoins", "LOrgMinimaObjectsBaseMiniNumber;" };
   static const J2ObjcClassInfo _OrgMinimaDatabaseCoindbCoinDB = { "CoinDB", "org.minima.database.coindb", ptrTable, methods, NULL, 7, 0x609, 6, 0, -1, -1, -1, -1, -1 };
   return &_OrgMinimaDatabaseCoindbCoinDB;
 }

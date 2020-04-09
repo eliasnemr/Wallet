@@ -16,7 +16,6 @@
 #if !defined (OrgMinimaUtilsMaths_) && (INCLUDE_ALL_OrgMinimaUtilsMaths || defined(INCLUDE_OrgMinimaUtilsMaths))
 #define OrgMinimaUtilsMaths_
 
-@class IOSByteArray;
 @class JavaMathBigDecimal;
 @class JavaMathBigInteger;
 
@@ -27,8 +26,6 @@
 - (instancetype)init;
 
 + (NSString *)ConvertMilliToTimeWithLong:(jlong)zMilli;
-
-+ (NSString *)getDataAsStringWithByteArray:(IOSByteArray *)zData;
 
 + (jdouble)log2WithDouble:(jdouble)zDD;
 
@@ -55,8 +52,6 @@ FOUNDATION_EXPORT OrgMinimaUtilsMaths *new_OrgMinimaUtilsMaths_init(void) NS_RET
 FOUNDATION_EXPORT OrgMinimaUtilsMaths *create_OrgMinimaUtilsMaths_init(void);
 
 FOUNDATION_EXPORT jdouble OrgMinimaUtilsMaths_log2WithDouble_(jdouble zDD);
-
-FOUNDATION_EXPORT NSString *OrgMinimaUtilsMaths_getDataAsStringWithByteArray_(IOSByteArray *zData);
 
 FOUNDATION_EXPORT jdouble OrgMinimaUtilsMaths_log2BIWithJavaMathBigInteger_(JavaMathBigInteger *val);
 

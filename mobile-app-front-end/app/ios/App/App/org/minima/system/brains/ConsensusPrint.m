@@ -3,13 +3,20 @@
 //  source: ./org/minima/system/brains/ConsensusPrint.java
 //
 
+#include "IOSClass.h"
+#include "IOSObjectArray.h"
 #include "J2ObjC_source.h"
+#include "java/io/File.h"
+#include "java/io/PrintWriter.h"
+#include "java/lang/Boolean.h"
+#include "java/lang/Character.h"
 #include "java/lang/Double.h"
 #include "java/lang/Integer.h"
 #include "java/lang/Long.h"
 #include "java/lang/System.h"
 #include "java/math/BigInteger.h"
 #include "java/util/ArrayList.h"
+#include "java/util/Date.h"
 #include "java/util/Enumeration.h"
 #include "java/util/Hashtable.h"
 #include "org/minima/GlobalParams.h"
@@ -17,6 +24,8 @@
 #include "org/minima/database/coindb/CoinDB.h"
 #include "org/minima/database/coindb/CoinDBPrinter.h"
 #include "org/minima/database/coindb/CoinDBRow.h"
+#include "org/minima/database/mmr/MMRData.h"
+#include "org/minima/database/mmr/MMREntry.h"
 #include "org/minima/database/mmr/MMRPrint.h"
 #include "org/minima/database/mmr/MMRProof.h"
 #include "org/minima/database/mmr/MMRSet.h"
@@ -24,17 +33,18 @@
 #include "org/minima/database/txpowdb/TxPowDBPrinter.h"
 #include "org/minima/database/txpowtree/BlockTree.h"
 #include "org/minima/database/txpowtree/BlockTreeNode.h"
-#include "org/minima/database/txpowtree/BlockTreePrinter.h"
+#include "org/minima/database/txpowtree/SimpleBlockTreePrinter.h"
 #include "org/minima/database/userdb/UserDB.h"
 #include "org/minima/database/userdb/java/reltxpow.h"
 #include "org/minima/objects/Address.h"
 #include "org/minima/objects/Coin.h"
 #include "org/minima/objects/PubPrivKey.h"
-#include "org/minima/objects/TokenDetails.h"
 #include "org/minima/objects/TxPOW.h"
-#include "org/minima/objects/base/MiniHash.h"
+#include "org/minima/objects/base/MiniData.h"
+#include "org/minima/objects/base/MiniInteger.h"
 #include "org/minima/objects/base/MiniNumber.h"
-#include "org/minima/objects/base/MiniString.h"
+#include "org/minima/objects/base/MiniScript.h"
+#include "org/minima/objects/proofs/TokenProof.h"
 #include "org/minima/system/Main.h"
 #include "org/minima/system/backup/BackupManager.h"
 #include "org/minima/system/brains/ConsensusHandler.h"
@@ -44,6 +54,7 @@
 #include "org/minima/system/network/NetClient.h"
 #include "org/minima/system/network/NetworkHandler.h"
 #include "org/minima/system/network/rpc/RPCServer.h"
+#include "org/minima/system/tx/TXMiner.h"
 #include "org/minima/utils/Maths.h"
 #include "org/minima/utils/MinimaLogger.h"
 #include "org/minima/utils/json/JSONArray.h"
@@ -56,26 +67,28 @@
 
 - (OrgMinimaSystemBrainsConsensusHandler *)getHandler;
 
-- (OrgMinimaObjectsBaseMiniNumber *)getIfExistsWithJavaUtilHashtable:(JavaUtilHashtable *)zHashTable
-                                    withOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zToken;
-
 @end
 
 __attribute__((unused)) static OrgMinimaDatabaseMinimaDB *OrgMinimaSystemBrainsConsensusPrint_getMainDB(OrgMinimaSystemBrainsConsensusPrint *self);
 
 __attribute__((unused)) static OrgMinimaSystemBrainsConsensusHandler *OrgMinimaSystemBrainsConsensusPrint_getHandler(OrgMinimaSystemBrainsConsensusPrint *self);
 
-__attribute__((unused)) static OrgMinimaObjectsBaseMiniNumber *OrgMinimaSystemBrainsConsensusPrint_getIfExistsWithJavaUtilHashtable_withOrgMinimaObjectsBaseMiniHash_(OrgMinimaSystemBrainsConsensusPrint *self, JavaUtilHashtable *zHashTable, OrgMinimaObjectsBaseMiniHash *zToken);
-
 NSString *OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_PREFIX = @"CONSENSUSPRINT_";
 NSString *OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_BALANCE = @"CONSENSUSPRINT_BALANCE";
 NSString *OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_COINS = @"CONSENSUSPRINT_COINS";
 NSString *OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_TXPOW = @"CONSENSUSPRINT_TXPOW";
 NSString *OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_KEYS = @"CONSENSUSPRINT_KEYS";
+NSString *OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_ADDRESSES = @"CONSENSUSPRINT_ADDRESSES";
+NSString *OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_SEARCH = @"CONSENSUSPRINT_SEARCH";
 NSString *OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_HISTORY = @"CONSENSUSPRINT_HISTORY";
+NSString *OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_TOKENS = @"CONSENSUSPRINT_TOKENS";
 NSString *OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_STATUS = @"CONSENSUSPRINT_STATUS";
 NSString *OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_PRINTCHAIN = @"CONSENSUSPRINT_PRINTCHAIN";
+NSString *OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_NETWORK = @"CONSENSUSPRINT_NETWORK";
 NSString *OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_PRINTCHAIN_TREE = @"CONSENSUSPRINT_PRINTCHAIN_TREE";
+NSString *OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_ADDCHARTPOINT = @"CONSENSUSPRINT_ADDCHARTPOINT";
+NSString *OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_OUTPUTCHART = @"CONSENSUSPRINT_OUTPUTCHART";
+NSString *OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_CLEARCHART = @"CONSENSUSPRINT_CLEARCHART";
 
 @implementation OrgMinimaSystemBrainsConsensusPrint
 
@@ -95,8 +108,6 @@ NSString *OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_PRINTCHAIN_TREE = @"CONS
 
 - (void)processMessageWithOrgMinimaUtilsMessagesMessage:(OrgMinimaUtilsMessagesMessage *)zMessage {
   if ([((OrgMinimaUtilsMessagesMessage *) nil_chk(zMessage)) isMessageTypeWithNSString:OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_PRINTCHAIN]) {
-    OrgMinimaDatabaseTxpowtreeBlockTreePrinter *treeprint = create_OrgMinimaDatabaseTxpowtreeBlockTreePrinter_initWithOrgMinimaDatabaseTxpowtreeBlockTree_withBoolean_([((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusPrint_getMainDB(self))) getMainTree], false);
-    [treeprint printtree];
     OrgMinimaDatabaseTxpowdbTxPowDBPrinter_PrintDBWithOrgMinimaDatabaseTxpowdbTxPowDB_([((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusPrint_getMainDB(self))) getTxPowDB]);
     OrgMinimaDatabaseCoindbCoinDBPrinter_PrintWithOrgMinimaDatabaseCoindbCoinDB_([((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusPrint_getMainDB(self))) getCoinDB]);
     if ([((OrgMinimaDatabaseTxpowtreeBlockTree *) nil_chk([((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusPrint_getMainDB(self))) getMainTree])) getChainRoot] == nil) {
@@ -109,31 +120,125 @@ NSString *OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_PRINTCHAIN_TREE = @"CONS
     OrgMinimaDatabaseMmrMMRSet *set = [((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTree *) nil_chk([((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusPrint_getMainDB(self))) getMainTree])) getChainTip])) getMMRSet];
     OrgMinimaDatabaseMmrMMRPrint_PrintWithOrgMinimaDatabaseMmrMMRSet_(set);
   }
+  else if ([zMessage isMessageTypeWithNSString:OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_ADDCHARTPOINT]) {
+    jlong block = JavaLangLong_parseLongWithNSString_([zMessage getStringWithNSString:@"block"]);
+    jlong weight = JavaLangLong_parseLongWithNSString_([zMessage getStringWithNSString:@"weight"]);
+    [((JavaUtilArrayList *) nil_chk(mChart_)) addWithId:create_OrgMinimaSystemBrainsConsensusPrint_chartpoint_initWithOrgMinimaSystemBrainsConsensusPrint_withLong_withLong_(self, block, weight)];
+  }
+  else if ([zMessage isMessageTypeWithNSString:OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_OUTPUTCHART]) {
+    NSString *filename = @"chart.csv";
+    JavaIoFile *chart = create_JavaIoFile_initWithNSString_withNSString_(JavaLangSystem_getPropertyWithNSString_(@"user.home"), filename);
+    if ([chart exists]) {
+      [chart delete__];
+    }
+    JavaIoPrintWriter *pw = create_JavaIoPrintWriter_initWithJavaIoFile_(chart);
+    [pw printlnWithNSString:@"Block,Weight,"];
+    for (OrgMinimaSystemBrainsConsensusPrint_chartpoint * __strong point in nil_chk(mChart_)) {
+      [pw printlnWithNSString:JreStrcat("JCJC", ((OrgMinimaSystemBrainsConsensusPrint_chartpoint *) nil_chk(point))->mBlock_, ',', point->mTotalWeight_, ',')];
+    }
+    [pw flush];
+    [pw close];
+    OrgMinimaSystemInputInputHandler_endResponseWithOrgMinimaUtilsMessagesMessage_withBoolean_withNSString_(zMessage, true, JreStrcat("$$", @"Chart output to ", [chart getAbsolutePath]));
+  }
+  else if ([zMessage isMessageTypeWithNSString:OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_CLEARCHART]) {
+    [((JavaUtilArrayList *) nil_chk(mChart_)) clear];
+  }
   else if ([zMessage isMessageTypeWithNSString:OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_PRINTCHAIN_TREE]) {
-    OrgMinimaDatabaseTxpowtreeBlockTreePrinter *treeprint = create_OrgMinimaDatabaseTxpowtreeBlockTreePrinter_initWithOrgMinimaDatabaseTxpowtreeBlockTree_withBoolean_([((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusPrint_getMainDB(self))) getMainTree], true);
-    [treeprint printtree];
+    if ([zMessage existsWithNSString:@"auto"]) {
+      ((OrgMinimaSystemBrainsConsensusHandler *) nil_chk([((OrgMinimaSystemMain *) nil_chk([((OrgMinimaSystemBrainsConsensusHandler *) nil_chk(OrgMinimaSystemBrainsConsensusPrint_getHandler(self))) getMainHandler])) getConsensusHandler]))->mPrintChain_ = [zMessage getBooleanWithNSString:@"auto"];
+    }
+    OrgMinimaDatabaseTxpowtreeSimpleBlockTreePrinter *treeprint = create_OrgMinimaDatabaseTxpowtreeSimpleBlockTreePrinter_initWithOrgMinimaDatabaseTxpowtreeBlockTree_([((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusPrint_getMainDB(self))) getMainTree]);
+    NSString *treeinfo = [treeprint printtree];
+    OrgMinimaDatabaseTxpowtreeBlockTree *tree = [((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusPrint_getMainDB(self))) getMainTree];
+    if ([zMessage existsWithNSString:@"systemout"]) {
+      JreStrAppend(&treeinfo, "$@$", @"\n\nSpeed              : ", [((OrgMinimaDatabaseTxpowtreeBlockTree *) nil_chk(tree)) getChainSpeed], @" blocks / sec");
+      JreStrAppend(&treeinfo, "$$", @"\nCurrent Difficulty : ", [((OrgMinimaObjectsBaseMiniData *) nil_chk([((OrgMinimaObjectsTxPOW *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk([tree getChainTip])) getTxPow])) getBlockDifficulty])) to0xString]);
+      JreStrAppend(&treeinfo, "$@", @"\nTotal Weight       : ", [((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk([tree getChainRoot])) getTotalWeight]);
+      OrgMinimaUtilsMinimaLogger_logWithNSString_(treeinfo);
+    }
+    else {
+      OrgMinimaUtilsJsonJSONObject *dets = OrgMinimaSystemInputInputHandler_getResponseJSONWithOrgMinimaUtilsMessagesMessage_(zMessage);
+      [((OrgMinimaUtilsJsonJSONObject *) nil_chk(dets)) putWithId:@"tree" withId:treeinfo];
+      [dets putWithId:@"length" withId:JavaLangInteger_valueOfWithInt_([((JavaUtilArrayList *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTree *) nil_chk(tree)) getAsList])) size])];
+      [dets putWithId:@"speed" withId:[tree getChainSpeed]];
+      [dets putWithId:@"difficulty" withId:[((OrgMinimaObjectsBaseMiniData *) nil_chk([((OrgMinimaObjectsTxPOW *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk([tree getChainTip])) getTxPow])) getBlockDifficulty])) to0xString]];
+      [dets putWithId:@"weight" withId:[((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk([tree getChainRoot])) getTotalWeight]];
+      OrgMinimaSystemInputInputHandler_endResponseWithOrgMinimaUtilsMessagesMessage_withBoolean_withNSString_(zMessage, true, @"");
+    }
+  }
+  else if ([zMessage isMessageTypeWithNSString:OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_SEARCH]) {
+    NSString *address = [zMessage getStringWithNSString:@"address"];
+    OrgMinimaObjectsBaseMiniData *addr = create_OrgMinimaObjectsBaseMiniData_initWithNSString_(address);
+    OrgMinimaDatabaseTxpowtreeBlockTreeNode *topblk = [((OrgMinimaDatabaseTxpowtreeBlockTree *) nil_chk([((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusPrint_getMainDB(self))) getMainTree])) getChainTip];
+    OrgMinimaUtilsJsonJSONArray *allcoins = create_OrgMinimaUtilsJsonJSONArray_init();
+    OrgMinimaDatabaseMmrMMRSet *topmmr = [((OrgMinimaDatabaseMmrMMRSet *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk(topblk)) getMMRSet])) getParentAtTimeWithOrgMinimaObjectsBaseMiniNumber:[((OrgMinimaObjectsBaseMiniNumber *) nil_chk([((OrgMinimaObjectsTxPOW *) nil_chk([topblk getTxPow])) getBlockNumber])) subWithOrgMinimaObjectsBaseMiniNumber:JreLoadStatic(OrgMinimaGlobalParams, MINIMA_CONFIRM_DEPTH)]];
+    OrgMinimaDatabaseMmrMMRSet *mmrset = topmmr;
+    JavaUtilArrayList *addedcoins = create_JavaUtilArrayList_init();
+    while (mmrset != nil) {
+      JavaUtilArrayList *zero = [mmrset getZeroRow];
+      for (OrgMinimaDatabaseMmrMMREntry * __strong coinmmr in nil_chk(zero)) {
+        if (![((OrgMinimaDatabaseMmrMMRData *) nil_chk([((OrgMinimaDatabaseMmrMMREntry *) nil_chk(coinmmr)) getData])) isHashOnly]) {
+          if (![((OrgMinimaDatabaseMmrMMRData *) nil_chk([coinmmr getData])) isSpent] && [((OrgMinimaObjectsBaseMiniData *) nil_chk([((OrgMinimaObjectsCoin *) nil_chk([((OrgMinimaDatabaseMmrMMRData *) nil_chk([coinmmr getData])) getCoin])) getAddress])) isEqualWithOrgMinimaObjectsBaseMiniData:addr]) {
+            NSString *entry_ = [((OrgMinimaObjectsBaseMiniInteger *) nil_chk([coinmmr getEntry])) description];
+            if (![addedcoins containsWithId:entry_]) {
+              [addedcoins addWithId:entry_];
+              [allcoins addWithId:[((OrgMinimaDatabaseMmrMMRSet *) nil_chk(topmmr)) getProofWithOrgMinimaObjectsBaseMiniInteger:[coinmmr getEntry]]];
+            }
+          }
+        }
+      }
+      mmrset = [mmrset getParent];
+    }
+    OrgMinimaUtilsJsonJSONObject *dets = OrgMinimaSystemInputInputHandler_getResponseJSONWithOrgMinimaUtilsMessagesMessage_(zMessage);
+    [((OrgMinimaUtilsJsonJSONObject *) nil_chk(dets)) putWithId:@"coins" withId:allcoins];
+    OrgMinimaSystemInputInputHandler_endResponseWithOrgMinimaUtilsMessagesMessage_withBoolean_withNSString_(zMessage, true, @"");
+  }
+  else if ([zMessage isMessageTypeWithNSString:OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_TOKENS]) {
+    JavaUtilArrayList *tokens = [((id<OrgMinimaDatabaseUserdbUserDB>) nil_chk([((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusPrint_getMainDB(self))) getUserDB])) getAllKnownTokens];
+    OrgMinimaUtilsJsonJSONArray *tokarray = create_OrgMinimaUtilsJsonJSONArray_init();
+    OrgMinimaUtilsJsonJSONObject *baseobj = create_OrgMinimaUtilsJsonJSONObject_init();
+    [baseobj putWithId:@"tokenid" withId:[((OrgMinimaObjectsBaseMiniData *) nil_chk(JreLoadStatic(OrgMinimaObjectsCoin, MINIMA_TOKENID))) to0xString]];
+    [baseobj putWithId:@"token" withId:@"Minima"];
+    [baseobj putWithId:@"total" withId:@"1000000000"];
+    [tokarray addWithId:baseobj];
+    for (OrgMinimaObjectsProofsTokenProof * __strong tok in nil_chk(tokens)) {
+      [tokarray addWithId:[((OrgMinimaObjectsProofsTokenProof *) nil_chk(tok)) toJSON]];
+    }
+    OrgMinimaUtilsJsonJSONObject *dets = OrgMinimaSystemInputInputHandler_getResponseJSONWithOrgMinimaUtilsMessagesMessage_(zMessage);
+    [((OrgMinimaUtilsJsonJSONObject *) nil_chk(dets)) putWithId:@"tokens" withId:tokarray];
+    OrgMinimaSystemInputInputHandler_endResponseWithOrgMinimaUtilsMessagesMessage_withBoolean_withNSString_(zMessage, true, @"");
   }
   else if ([zMessage isMessageTypeWithNSString:OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_BALANCE]) {
+    NSString *onlyaddress = @"";
+    if ([zMessage existsWithNSString:@"address"]) {
+      onlyaddress = [create_OrgMinimaObjectsBaseMiniData_initWithNSString_([zMessage getStringWithNSString:@"address"]) to0xString];
+    }
     OrgMinimaObjectsBaseMiniNumber *top = [((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusPrint_getMainDB(self))) getTopBlock];
     JavaUtilHashtable *full_details = create_JavaUtilHashtable_init();
     OrgMinimaUtilsJsonJSONObject *basejobj = create_OrgMinimaUtilsJsonJSONObject_init();
-    [basejobj putWithId:@"tokenid" withId:[((OrgMinimaObjectsBaseMiniHash *) nil_chk(JreLoadStatic(OrgMinimaObjectsCoin, MINIMA_TOKENID))) to0xString]];
+    [basejobj putWithId:@"tokenid" withId:[((OrgMinimaObjectsBaseMiniData *) nil_chk(JreLoadStatic(OrgMinimaObjectsCoin, MINIMA_TOKENID))) to0xString]];
     [basejobj putWithId:@"token" withId:@"Minima"];
     [basejobj putWithId:@"total" withId:@"1000000000"];
     [basejobj putWithId:@"confirmed" withId:JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, ZERO)];
     [basejobj putWithId:@"unconfirmed" withId:JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, ZERO)];
+    [basejobj putWithId:@"mempool" withId:[((OrgMinimaObjectsBaseMiniNumber *) nil_chk(JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, ZERO))) description]];
+    [basejobj putWithId:@"sendable" withId:[JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, ZERO) description]];
     [full_details putWithId:[JreLoadStatic(OrgMinimaObjectsCoin, MINIMA_TOKENID) to0xString] withId:basejobj];
     JavaUtilHashtable *totals_confirmed = create_JavaUtilHashtable_init();
     JavaUtilHashtable *totals_unconfirmed = create_JavaUtilHashtable_init();
     id<OrgMinimaDatabaseUserdbUserDB> userdb = [((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusPrint_getMainDB(self))) getUserDB];
     JavaUtilArrayList *coins = [((id<OrgMinimaDatabaseCoindbCoinDB>) nil_chk([((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusPrint_getMainDB(self))) getCoinDB])) getComplete];
     for (id<OrgMinimaDatabaseCoindbCoinDBRow> __strong coin in nil_chk(coins)) {
-      jboolean rel = [((id<OrgMinimaDatabaseUserdbUserDB>) nil_chk(userdb)) isAddressRelevantWithOrgMinimaObjectsBaseMiniHash:[((OrgMinimaObjectsCoin *) nil_chk([((id<OrgMinimaDatabaseCoindbCoinDBRow>) nil_chk(coin)) getCoin])) getAddress]];
+      jboolean rel = [((id<OrgMinimaDatabaseUserdbUserDB>) nil_chk(userdb)) isAddressRelevantWithOrgMinimaObjectsBaseMiniData:[((OrgMinimaObjectsCoin *) nil_chk([((id<OrgMinimaDatabaseCoindbCoinDBRow>) nil_chk(coin)) getCoin])) getAddress]];
+      if (![((NSString *) nil_chk(onlyaddress)) isEqual:@""]) {
+        rel = (rel && ([((NSString *) nil_chk([((OrgMinimaObjectsBaseMiniData *) nil_chk([((OrgMinimaObjectsCoin *) nil_chk([coin getCoin])) getAddress])) to0xString])) isEqual:onlyaddress]));
+      }
       if ([coin isInBlock] && rel) {
-        NSString *tokid = [((OrgMinimaObjectsBaseMiniHash *) nil_chk([((OrgMinimaObjectsCoin *) nil_chk([coin getCoin])) getTokenID])) to0xString];
-        OrgMinimaObjectsBaseMiniHash *tokhash = create_OrgMinimaObjectsBaseMiniHash_initWithNSString_(tokid);
-        OrgMinimaObjectsBaseMiniNumber *depth = [((OrgMinimaObjectsBaseMiniNumber *) nil_chk(top)) subWithOrgMinimaObjectsBaseMiniNumber:[coin getInBlockNumber]];
-        OrgMinimaObjectsTokenDetails *td = [((id<OrgMinimaDatabaseUserdbUserDB>) nil_chk([((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusPrint_getMainDB(self))) getUserDB])) getTokenDetailWithOrgMinimaObjectsBaseMiniHash:tokhash];
+        NSString *tokid = [((OrgMinimaObjectsBaseMiniData *) nil_chk([((OrgMinimaObjectsCoin *) nil_chk([coin getCoin])) getTokenID])) to0xString];
+        OrgMinimaObjectsBaseMiniData *tokhash = create_OrgMinimaObjectsBaseMiniData_initWithNSString_(tokid);
+        OrgMinimaObjectsBaseMiniNumber *blknum = [coin getInBlockNumber];
+        OrgMinimaObjectsBaseMiniNumber *depth = [((OrgMinimaObjectsBaseMiniNumber *) nil_chk(top)) subWithOrgMinimaObjectsBaseMiniNumber:blknum];
+        OrgMinimaObjectsProofsTokenProof *td = [((id<OrgMinimaDatabaseUserdbUserDB>) nil_chk([((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusPrint_getMainDB(self))) getUserDB])) getTokenDetailWithOrgMinimaObjectsBaseMiniData:tokhash];
         OrgMinimaUtilsJsonJSONObject *jobj = nil;
         if ([full_details containsKeyWithId:tokid]) {
           jobj = [full_details getWithId:tokid];
@@ -145,7 +250,7 @@ NSString *OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_PRINTCHAIN_TREE = @"CONS
             [jobj putWithId:@"token" withId:@"Minima"];
           }
           else {
-            [jobj putWithId:@"token" withId:[((OrgMinimaObjectsBaseMiniString *) nil_chk([((OrgMinimaObjectsTokenDetails *) nil_chk(td)) getName])) description]];
+            [jobj putWithId:@"token" withId:[((OrgMinimaObjectsBaseMiniScript *) nil_chk([((OrgMinimaObjectsProofsTokenProof *) nil_chk(td)) getName])) description]];
           }
           [jobj putWithId:@"confirmed" withId:JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, ZERO)];
           [jobj putWithId:@"unconfirmed" withId:JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, ZERO)];
@@ -157,7 +262,7 @@ NSString *OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_PRINTCHAIN_TREE = @"CONS
             if (curr == nil) {
               curr = JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, ZERO);
             }
-            curr = [((OrgMinimaObjectsBaseMiniNumber *) nil_chk(curr)) addWithOrgMinimaObjectsBaseMiniNumber:[((OrgMinimaObjectsCoin *) nil_chk([coin getCoin])) getAmount]];
+            curr = [curr addWithOrgMinimaObjectsBaseMiniNumber:[((OrgMinimaObjectsCoin *) nil_chk([coin getCoin])) getAmount]];
             [totals_confirmed putWithId:tokid withId:curr];
             [((OrgMinimaUtilsJsonJSONObject *) nil_chk(jobj)) putWithId:@"confirmed" withId:curr];
           }
@@ -166,13 +271,14 @@ NSString *OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_PRINTCHAIN_TREE = @"CONS
             if (curr == nil) {
               curr = JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, ZERO);
             }
-            curr = [((OrgMinimaObjectsBaseMiniNumber *) nil_chk(curr)) addWithOrgMinimaObjectsBaseMiniNumber:[((OrgMinimaObjectsCoin *) nil_chk([coin getCoin])) getAmount]];
+            curr = [curr addWithOrgMinimaObjectsBaseMiniNumber:[((OrgMinimaObjectsCoin *) nil_chk([coin getCoin])) getAmount]];
             [totals_unconfirmed putWithId:tokid withId:curr];
             [((OrgMinimaUtilsJsonJSONObject *) nil_chk(jobj)) putWithId:@"unconfirmed" withId:curr];
           }
         }
       }
     }
+    JavaUtilHashtable *mempool = [((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusPrint_getMainDB(self))) getTotalUnusedAmount];
     OrgMinimaUtilsJsonJSONObject *allbal = OrgMinimaSystemInputInputHandler_getResponseJSONWithOrgMinimaUtilsMessagesMessage_(zMessage);
     OrgMinimaUtilsJsonJSONArray *totbal = create_OrgMinimaUtilsJsonJSONArray_init();
     id<JavaUtilEnumeration> fulls = [full_details keys];
@@ -180,24 +286,47 @@ NSString *OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_PRINTCHAIN_TREE = @"CONS
       NSString *full = [fulls nextElement];
       OrgMinimaUtilsJsonJSONObject *jobj = [full_details getWithId:full];
       NSString *tokenid = (NSString *) cast_chk([((OrgMinimaUtilsJsonJSONObject *) nil_chk(jobj)) getWithId:@"tokenid"], [NSString class]);
-      OrgMinimaObjectsBaseMiniHash *tok = create_OrgMinimaObjectsBaseMiniHash_initWithNSString_(tokenid);
-      if ([tok isExactlyEqualWithOrgMinimaObjectsBaseMiniData:JreLoadStatic(OrgMinimaObjectsCoin, MINIMA_TOKENID)]) {
+      OrgMinimaObjectsBaseMiniData *tok = create_OrgMinimaObjectsBaseMiniData_initWithNSString_(tokenid);
+      if ([tok isEqualWithOrgMinimaObjectsBaseMiniData:JreLoadStatic(OrgMinimaObjectsCoin, MINIMA_TOKENID)]) {
         OrgMinimaObjectsBaseMiniNumber *tot_conf = (OrgMinimaObjectsBaseMiniNumber *) cast_chk([jobj getWithId:@"confirmed"], [OrgMinimaObjectsBaseMiniNumber class]);
         OrgMinimaObjectsBaseMiniNumber *tot_unconf = (OrgMinimaObjectsBaseMiniNumber *) cast_chk([jobj getWithId:@"unconfirmed"], [OrgMinimaObjectsBaseMiniNumber class]);
         [jobj putWithId:@"confirmed" withId:[((OrgMinimaObjectsBaseMiniNumber *) nil_chk(tot_conf)) description]];
         [jobj putWithId:@"unconfirmed" withId:[((OrgMinimaObjectsBaseMiniNumber *) nil_chk(tot_unconf)) description]];
         [jobj putWithId:@"total" withId:@"1000000000"];
+        OrgMinimaObjectsBaseMiniNumber *memp = [((JavaUtilHashtable *) nil_chk(mempool)) getWithId:[JreLoadStatic(OrgMinimaObjectsCoin, MINIMA_TOKENID) to0xString]];
+        if (memp == nil) {
+          memp = JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, ZERO);
+        }
+        [jobj putWithId:@"mempool" withId:[memp description]];
+        OrgMinimaObjectsBaseMiniNumber *tot_simple = JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, ZERO);
+        JavaUtilArrayList *confirmed = [((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusPrint_getMainDB(self))) getTotalSimpleSpendableCoinsWithOrgMinimaObjectsBaseMiniData:JreLoadStatic(OrgMinimaObjectsCoin, MINIMA_TOKENID)];
+        for (OrgMinimaObjectsCoin * __strong confc in nil_chk(confirmed)) {
+          tot_simple = [((OrgMinimaObjectsBaseMiniNumber *) nil_chk(tot_simple)) addWithOrgMinimaObjectsBaseMiniNumber:[((OrgMinimaObjectsCoin *) nil_chk(confc)) getAmount]];
+        }
+        [jobj putWithId:@"sendable" withId:[tot_simple description]];
       }
       else {
-        OrgMinimaObjectsTokenDetails *td = [((id<OrgMinimaDatabaseUserdbUserDB>) nil_chk([((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusPrint_getMainDB(self))) getUserDB])) getTokenDetailWithOrgMinimaObjectsBaseMiniHash:tok];
+        OrgMinimaObjectsProofsTokenProof *td = [((id<OrgMinimaDatabaseUserdbUserDB>) nil_chk([((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusPrint_getMainDB(self))) getUserDB])) getTokenDetailWithOrgMinimaObjectsBaseMiniData:tok];
         OrgMinimaObjectsBaseMiniNumber *tot_conf = (OrgMinimaObjectsBaseMiniNumber *) cast_chk([jobj getWithId:@"confirmed"], [OrgMinimaObjectsBaseMiniNumber class]);
-        OrgMinimaObjectsBaseMiniNumber *tot_scconf = [((OrgMinimaObjectsBaseMiniNumber *) nil_chk(tot_conf)) multWithOrgMinimaObjectsBaseMiniNumber:[((OrgMinimaObjectsTokenDetails *) nil_chk(td)) getScaleFactor]];
+        OrgMinimaObjectsBaseMiniNumber *tot_scconf = [((OrgMinimaObjectsBaseMiniNumber *) nil_chk(tot_conf)) multWithOrgMinimaObjectsBaseMiniNumber:[((OrgMinimaObjectsProofsTokenProof *) nil_chk(td)) getScaleFactor]];
         OrgMinimaObjectsBaseMiniNumber *tot_unconf = (OrgMinimaObjectsBaseMiniNumber *) cast_chk([jobj getWithId:@"unconfirmed"], [OrgMinimaObjectsBaseMiniNumber class]);
         OrgMinimaObjectsBaseMiniNumber *tot_scunconf = [((OrgMinimaObjectsBaseMiniNumber *) nil_chk(tot_unconf)) multWithOrgMinimaObjectsBaseMiniNumber:[td getScaleFactor]];
         OrgMinimaObjectsBaseMiniNumber *tot_toks = [((OrgMinimaObjectsBaseMiniNumber *) nil_chk([td getAmount])) multWithOrgMinimaObjectsBaseMiniNumber:[td getScaleFactor]];
         [jobj putWithId:@"confirmed" withId:[((OrgMinimaObjectsBaseMiniNumber *) nil_chk(tot_scconf)) description]];
         [jobj putWithId:@"unconfirmed" withId:[((OrgMinimaObjectsBaseMiniNumber *) nil_chk(tot_scunconf)) description]];
+        [jobj putWithId:@"script" withId:[((OrgMinimaObjectsBaseMiniScript *) nil_chk([td getTokenScript])) description]];
         [jobj putWithId:@"total" withId:[((OrgMinimaObjectsBaseMiniNumber *) nil_chk(tot_toks)) description]];
+        OrgMinimaObjectsBaseMiniNumber *memp = [((JavaUtilHashtable *) nil_chk(mempool)) getWithId:[tok to0xString]];
+        if (memp == nil) {
+          memp = JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, ZERO);
+        }
+        [jobj putWithId:@"mempool" withId:[((OrgMinimaObjectsBaseMiniNumber *) nil_chk([memp multWithOrgMinimaObjectsBaseMiniNumber:[td getScaleFactor]])) description]];
+        OrgMinimaObjectsBaseMiniNumber *tot_simple = JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, ZERO);
+        JavaUtilArrayList *confirmed = [((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusPrint_getMainDB(self))) getTotalSimpleSpendableCoinsWithOrgMinimaObjectsBaseMiniData:tok];
+        for (OrgMinimaObjectsCoin * __strong confc in nil_chk(confirmed)) {
+          tot_simple = [((OrgMinimaObjectsBaseMiniNumber *) nil_chk(tot_simple)) addWithOrgMinimaObjectsBaseMiniNumber:[((OrgMinimaObjectsCoin *) nil_chk(confc)) getAmount]];
+        }
+        [jobj putWithId:@"sendable" withId:[((OrgMinimaObjectsBaseMiniNumber *) nil_chk([tot_simple multWithOrgMinimaObjectsBaseMiniNumber:[td getScaleFactor]])) description]];
       }
       [totbal addWithId:jobj];
     }
@@ -207,7 +336,7 @@ NSString *OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_PRINTCHAIN_TREE = @"CONS
   else if ([zMessage isMessageTypeWithNSString:OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_COINS]) {
     NSString *address = @"";
     if ([zMessage existsWithNSString:@"address"]) {
-      address = [zMessage getStringWithNSString:@"address"];
+      address = [create_OrgMinimaObjectsBaseMiniData_initWithNSString_([zMessage getStringWithNSString:@"address"]) to0xString];
     }
     OrgMinimaDatabaseTxpowtreeBlockTreeNode *tip = [((OrgMinimaDatabaseTxpowtreeBlockTree *) nil_chk([((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusPrint_getMainDB(self))) getMainTree])) getChainTip];
     OrgMinimaDatabaseMmrMMRSet *baseset = [((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk(tip)) getMMRSet];
@@ -217,10 +346,10 @@ NSString *OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_PRINTCHAIN_TREE = @"CONS
     for (id<OrgMinimaDatabaseCoindbCoinDBRow> __strong coin in nil_chk(coins)) {
       if (![((id<OrgMinimaDatabaseCoindbCoinDBRow>) nil_chk(coin)) isSpent]) {
         if ([((NSString *) nil_chk(address)) isEqual:@""]) {
-          [totcoins addWithId:[((OrgMinimaDatabaseMmrMMRProof *) nil_chk([((OrgMinimaDatabaseMmrMMRSet *) nil_chk(baseset)) getProofWithOrgMinimaObjectsBaseMiniNumber:[coin getMMREntry]])) toJSON]];
+          [totcoins addWithId:[((OrgMinimaDatabaseMmrMMRProof *) nil_chk([((OrgMinimaDatabaseMmrMMRSet *) nil_chk(baseset)) getProofWithOrgMinimaObjectsBaseMiniInteger:[coin getMMREntry]])) toJSON]];
         }
-        else if ([address isEqual:[((OrgMinimaObjectsBaseMiniHash *) nil_chk([((OrgMinimaObjectsCoin *) nil_chk([coin getCoin])) getAddress])) to0xString]]) {
-          [totcoins addWithId:[((OrgMinimaDatabaseMmrMMRProof *) nil_chk([((OrgMinimaDatabaseMmrMMRSet *) nil_chk(baseset)) getProofWithOrgMinimaObjectsBaseMiniNumber:[coin getMMREntry]])) toJSON]];
+        else if ([address isEqual:[((OrgMinimaObjectsBaseMiniData *) nil_chk([((OrgMinimaObjectsCoin *) nil_chk([coin getCoin])) getAddress])) to0xString]]) {
+          [totcoins addWithId:[((OrgMinimaDatabaseMmrMMRProof *) nil_chk([((OrgMinimaDatabaseMmrMMRSet *) nil_chk(baseset)) getProofWithOrgMinimaObjectsBaseMiniInteger:[coin getMMREntry]])) toJSON]];
         }
       }
     }
@@ -235,15 +364,15 @@ NSString *OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_PRINTCHAIN_TREE = @"CONS
     OrgMinimaUtilsJsonJSONObject *allbal = OrgMinimaSystemInputInputHandler_getResponseJSONWithOrgMinimaUtilsMessagesMessage_(zMessage);
     OrgMinimaUtilsJsonJSONArray *totbal = create_OrgMinimaUtilsJsonJSONArray_init();
     for (OrgMinimaDatabaseUserdbJavareltxpow * __strong rpow in nil_chk(history)) {
-      [totbal addWithId:[((OrgMinimaDatabaseUserdbJavareltxpow *) nil_chk(rpow)) toJSON]];
+      [totbal addWithId:[((OrgMinimaDatabaseUserdbJavareltxpow *) nil_chk(rpow)) toJSONWithOrgMinimaDatabaseMinimaDB:OrgMinimaSystemBrainsConsensusPrint_getMainDB(self)]];
     }
     [((OrgMinimaUtilsJsonJSONObject *) nil_chk(allbal)) putWithId:@"history" withId:totbal];
     OrgMinimaSystemInputInputHandler_endResponseWithOrgMinimaUtilsMessagesMessage_withBoolean_withNSString_(zMessage, true, @"");
   }
   else if ([zMessage isMessageTypeWithNSString:OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_TXPOW]) {
     NSString *txpow = [zMessage getStringWithNSString:@"txpow"];
-    OrgMinimaObjectsBaseMiniHash *txp = create_OrgMinimaObjectsBaseMiniHash_initWithNSString_(txpow);
-    OrgMinimaObjectsTxPOW *pow = [((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusPrint_getMainDB(self))) getTxPOWWithOrgMinimaObjectsBaseMiniHash:txp];
+    OrgMinimaObjectsBaseMiniData *txp = create_OrgMinimaObjectsBaseMiniData_initWithNSString_(txpow);
+    OrgMinimaObjectsTxPOW *pow = [((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusPrint_getMainDB(self))) getTxPOWWithOrgMinimaObjectsBaseMiniData:txp];
     if (pow == nil) {
       OrgMinimaSystemInputInputHandler_endResponseWithOrgMinimaUtilsMessagesMessage_withBoolean_withNSString_(zMessage, false, JreStrcat("$$", @"No TxPOW found for ", txpow));
     }
@@ -252,19 +381,22 @@ NSString *OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_PRINTCHAIN_TREE = @"CONS
       OrgMinimaSystemInputInputHandler_endResponseWithOrgMinimaUtilsMessagesMessage_withBoolean_withNSString_(zMessage, true, @"");
     }
   }
-  else if ([zMessage isMessageTypeWithNSString:OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_KEYS]) {
-    JavaUtilArrayList *keys = [((id<OrgMinimaDatabaseUserdbUserDB>) nil_chk([((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusPrint_getMainDB(self))) getUserDB])) getKeys];
-    OrgMinimaUtilsJsonJSONArray *arrpub = create_OrgMinimaUtilsJsonJSONArray_init();
-    for (OrgMinimaObjectsPubPrivKey * __strong key in nil_chk(keys)) {
-      [arrpub addWithId:[((OrgMinimaObjectsPubPrivKey *) nil_chk(key)) description]];
-    }
-    [((OrgMinimaUtilsJsonJSONObject *) nil_chk(OrgMinimaSystemInputInputHandler_getResponseJSONWithOrgMinimaUtilsMessagesMessage_(zMessage))) putWithId:@"publickeys" withId:arrpub];
+  else if ([zMessage isMessageTypeWithNSString:OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_ADDRESSES]) {
     JavaUtilArrayList *addresses = [((id<OrgMinimaDatabaseUserdbUserDB>) nil_chk([((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusPrint_getMainDB(self))) getUserDB])) getAllAddresses];
     OrgMinimaUtilsJsonJSONArray *arraddr = create_OrgMinimaUtilsJsonJSONArray_init();
     for (OrgMinimaObjectsAddress * __strong addr in nil_chk(addresses)) {
       [arraddr addWithId:[((OrgMinimaObjectsAddress *) nil_chk(addr)) toJSON]];
     }
     [((OrgMinimaUtilsJsonJSONObject *) nil_chk(OrgMinimaSystemInputInputHandler_getResponseJSONWithOrgMinimaUtilsMessagesMessage_(zMessage))) putWithId:@"addresses" withId:arraddr];
+    OrgMinimaSystemInputInputHandler_endResponseWithOrgMinimaUtilsMessagesMessage_withBoolean_withNSString_(zMessage, true, @"");
+  }
+  else if ([zMessage isMessageTypeWithNSString:OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_KEYS]) {
+    JavaUtilArrayList *keys = [((id<OrgMinimaDatabaseUserdbUserDB>) nil_chk([((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusPrint_getMainDB(self))) getUserDB])) getKeys];
+    OrgMinimaUtilsJsonJSONArray *arrpub = create_OrgMinimaUtilsJsonJSONArray_init();
+    for (OrgMinimaObjectsPubPrivKey * __strong key in nil_chk(keys)) {
+      [arrpub addWithId:[((OrgMinimaObjectsPubPrivKey *) nil_chk(key)) toJSON]];
+    }
+    [((OrgMinimaUtilsJsonJSONObject *) nil_chk(OrgMinimaSystemInputInputHandler_getResponseJSONWithOrgMinimaUtilsMessagesMessage_(zMessage))) putWithId:@"publickeys" withId:arrpub];
     OrgMinimaSystemInputInputHandler_endResponseWithOrgMinimaUtilsMessagesMessage_withBoolean_withNSString_(zMessage, true, @"");
   }
   else if ([zMessage isMessageTypeWithNSString:OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_STATUS]) {
@@ -277,42 +409,53 @@ NSString *OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_PRINTCHAIN_TREE = @"CONS
     OrgMinimaDatabaseTxpowtreeBlockTreeNode *root = [((OrgMinimaDatabaseTxpowtreeBlockTree *) nil_chk([((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusPrint_getMainDB(self))) getMainTree])) getChainRoot];
     OrgMinimaObjectsBaseMiniNumber *lastblock = [((OrgMinimaObjectsTxPOW *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk(tip)) getTxPow])) getBlockNumber];
     OrgMinimaUtilsJsonJSONObject *status = OrgMinimaSystemInputInputHandler_getResponseJSONWithOrgMinimaUtilsMessagesMessage_(zMessage);
-    [((OrgMinimaUtilsJsonJSONObject *) nil_chk(status)) putWithId:@"version" withId:JavaLangDouble_valueOfWithDouble_(0.4)];
+    [((OrgMinimaUtilsJsonJSONObject *) nil_chk(status)) putWithId:@"version" withId:OrgMinimaGlobalParams_MINIMA_VERSION];
+    [status putWithId:@"time" withId:[create_JavaUtilDate_init() description]];
     jlong timediff = JavaLangSystem_currentTimeMillis() - [((OrgMinimaSystemMain *) nil_chk([((OrgMinimaSystemBrainsConsensusHandler *) nil_chk(OrgMinimaSystemBrainsConsensusPrint_getHandler(self))) getMainHandler])) getNodeStartTime];
     NSString *uptime = OrgMinimaUtilsMaths_ConvertMilliToTimeWithLong_(timediff);
-    [status putWithId:@"milliuptime" withId:JavaLangLong_valueOfWithLong_(timediff)];
-    [status putWithId:@"stringuptime" withId:uptime];
+    [status putWithId:@"uptime" withId:uptime];
     [status putWithId:@"conf" withId:[((OrgMinimaSystemBackupBackupManager *) nil_chk([((OrgMinimaSystemMain *) nil_chk(main)) getBackupManager])) getRootFolder]];
     [status putWithId:@"host" withId:[((OrgMinimaSystemNetworkRpcRPCServer *) nil_chk([((OrgMinimaSystemNetworkNetworkHandler *) nil_chk([main getNetworkHandler])) getRPCServer])) getHost]];
     [status putWithId:@"port" withId:JavaLangInteger_valueOfWithInt_([((OrgMinimaSystemNetworkMultiServer *) nil_chk([((OrgMinimaSystemNetworkNetworkHandler *) nil_chk([main getNetworkHandler])) getServer])) getPort])];
     [status putWithId:@"rpcport" withId:JavaLangInteger_valueOfWithInt_([((OrgMinimaSystemNetworkRpcRPCServer *) nil_chk([((OrgMinimaSystemNetworkNetworkHandler *) nil_chk([main getNetworkHandler])) getRPCServer])) getPort])];
-    [status putWithId:@"root" withId:[((OrgMinimaObjectsTxPOW *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk(root)) getTxPow])) toJSON]];
-    [status putWithId:@"tip" withId:[((OrgMinimaObjectsTxPOW *) nil_chk([tip getTxPow])) toJSON]];
-    [status putWithId:@"chainspeed" withId:JavaLangDouble_valueOfWithDouble_([((OrgMinimaDatabaseTxpowtreeBlockTree *) nil_chk([((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusPrint_getMainDB(self))) getMainTree])) getChainSpeed])];
-    [status putWithId:@"lastblock" withId:[((OrgMinimaObjectsBaseMiniNumber *) nil_chk(lastblock)) description]];
-    [status putWithId:@"totalpow" withId:[((JavaMathBigInteger *) nil_chk([root getTotalWeight])) description]];
-    [status putWithId:@"IBD " withId:JavaLangInteger_valueOfWithInt_(+[((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusPrint_getMainDB(self))) getIntroSyncSize])];
+    [status putWithId:@"automine" withId:JavaLangBoolean_valueOfWithBoolean_([((OrgMinimaSystemTxTXMiner *) nil_chk([main getMiner])) isAutoMining])];
+    [status putWithId:@"root" withId:[((OrgMinimaObjectsBaseMiniData *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk(root)) getTxPowID])) to0xString]];
+    [status putWithId:@"tip" withId:[((OrgMinimaObjectsBaseMiniData *) nil_chk([tip getTxPowID])) to0xString]];
+    [status putWithId:@"total" withId:[((OrgMinimaObjectsTxPOW *) nil_chk([tip getTxPow])) getMMRTotal]];
+    [status putWithId:@"lastblock" withId:[((OrgMinimaObjectsTxPOW *) nil_chk([tip getTxPow])) getBlockNumber]];
+    [status putWithId:@"lasttime" withId:[create_JavaUtilDate_initWithLong_([((OrgMinimaObjectsBaseMiniNumber *) nil_chk([((OrgMinimaObjectsTxPOW *) nil_chk([tip getTxPow])) getTimeSecs])) getAsLong] * 1000) description]];
+    [status putWithId:@"difficulty" withId:[((OrgMinimaObjectsBaseMiniData *) nil_chk([((OrgMinimaObjectsTxPOW *) nil_chk([tip getTxPow])) getBlockDifficulty])) to0xString]];
+    [status putWithId:@"txpowdb" withId:JavaLangInteger_valueOfWithInt_([((id<OrgMinimaDatabaseTxpowdbTxPowDB>) nil_chk([((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusPrint_getMainDB(self))) getTxPowDB])) getCompleteSize])];
+    [status putWithId:@"chainlength" withId:JavaLangInteger_valueOfWithInt_([((JavaUtilArrayList *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTree *) nil_chk([((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusPrint_getMainDB(self))) getMainTree])) getAsList])) size])];
+    [status putWithId:@"chainspeed" withId:[((OrgMinimaDatabaseTxpowtreeBlockTree *) nil_chk([((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusPrint_getMainDB(self))) getMainTree])) getChainSpeed]];
+    [status putWithId:@"chainweight" withId:[((JavaMathBigInteger *) nil_chk([root getTotalWeight])) description]];
+    jint ibd = [((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusPrint_getMainDB(self))) getIntroSyncSize];
+    [status putWithId:@"IBD" withId:OrgMinimaSystemBrainsConsensusPrint_formatSizeWithLong_(ibd)];
     JavaUtilArrayList *nets = [((OrgMinimaSystemNetworkNetworkHandler *) nil_chk([main getNetworkHandler])) getNetClients];
+    [status putWithId:@"connections" withId:JavaLangInteger_valueOfWithInt_([((JavaUtilArrayList *) nil_chk(nets)) size])];
+    OrgMinimaSystemInputInputHandler_endResponseWithOrgMinimaUtilsMessagesMessage_withBoolean_withNSString_(zMessage, true, @"");
+  }
+  else if ([zMessage isMessageTypeWithNSString:OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_NETWORK]) {
+    OrgMinimaUtilsJsonJSONObject *network = OrgMinimaSystemInputInputHandler_getResponseJSONWithOrgMinimaUtilsMessagesMessage_(zMessage);
+    JavaUtilArrayList *nets = [((OrgMinimaSystemNetworkNetworkHandler *) nil_chk([((OrgMinimaSystemMain *) nil_chk([((OrgMinimaSystemBrainsConsensusHandler *) nil_chk(OrgMinimaSystemBrainsConsensusPrint_getHandler(self))) getMainHandler])) getNetworkHandler])) getNetClients];
+    [((OrgMinimaUtilsJsonJSONObject *) nil_chk(network)) putWithId:@"connections" withId:JavaLangInteger_valueOfWithInt_([((JavaUtilArrayList *) nil_chk(nets)) size])];
     OrgMinimaUtilsJsonJSONArray *netarr = create_OrgMinimaUtilsJsonJSONArray_init();
-    if ([((JavaUtilArrayList *) nil_chk(nets)) size] > 0) {
+    if ([nets size] > 0) {
       for (OrgMinimaSystemNetworkNetClient * __strong net in nets) {
         [netarr addWithId:[((OrgMinimaSystemNetworkNetClient *) nil_chk(net)) toJSON]];
       }
     }
-    [status putWithId:@"network" withId:netarr];
+    [network putWithId:@"network" withId:netarr];
     OrgMinimaSystemInputInputHandler_endResponseWithOrgMinimaUtilsMessagesMessage_withBoolean_withNSString_(zMessage, true, @"");
-    {
-      return;
-    }
   }
 }
 
-- (OrgMinimaObjectsBaseMiniNumber *)getIfExistsWithJavaUtilHashtable:(JavaUtilHashtable *)zHashTable
-                                    withOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zToken {
-  return OrgMinimaSystemBrainsConsensusPrint_getIfExistsWithJavaUtilHashtable_withOrgMinimaObjectsBaseMiniHash_(self, zHashTable, zToken);
++ (NSString *)formatSizeWithLong:(jlong)v {
+  return OrgMinimaSystemBrainsConsensusPrint_formatSizeWithLong_(v);
 }
 
 - (void)dealloc {
+  RELEASE_(mChart_);
   RELEASE_(mDB_);
   RELEASE_(mHandler_);
   [super dealloc];
@@ -324,7 +467,7 @@ NSString *OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_PRINTCHAIN_TREE = @"CONS
     { NULL, "LOrgMinimaDatabaseMinimaDB;", 0x2, -1, -1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaSystemBrainsConsensusHandler;", 0x2, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 1, 2, 3, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x2, 4, 5, -1, 6, -1, -1 },
+    { NULL, "LNSString;", 0x9, 4, 5, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
@@ -333,23 +476,31 @@ NSString *OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_PRINTCHAIN_TREE = @"CONS
   methods[1].selector = @selector(getMainDB);
   methods[2].selector = @selector(getHandler);
   methods[3].selector = @selector(processMessageWithOrgMinimaUtilsMessagesMessage:);
-  methods[4].selector = @selector(getIfExistsWithJavaUtilHashtable:withOrgMinimaObjectsBaseMiniHash:);
+  methods[4].selector = @selector(formatSizeWithLong:);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
+    { "mChart_", "LJavaUtilArrayList;", .constantValue.asLong = 0, 0x0, -1, -1, 6, -1 },
     { "CONSENSUS_PREFIX", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 7, -1, -1 },
     { "CONSENSUS_BALANCE", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 8, -1, -1 },
     { "CONSENSUS_COINS", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 9, -1, -1 },
     { "CONSENSUS_TXPOW", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 10, -1, -1 },
     { "CONSENSUS_KEYS", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 11, -1, -1 },
-    { "CONSENSUS_HISTORY", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 12, -1, -1 },
-    { "CONSENSUS_STATUS", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 13, -1, -1 },
-    { "CONSENSUS_PRINTCHAIN", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 14, -1, -1 },
-    { "CONSENSUS_PRINTCHAIN_TREE", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 15, -1, -1 },
+    { "CONSENSUS_ADDRESSES", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 12, -1, -1 },
+    { "CONSENSUS_SEARCH", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 13, -1, -1 },
+    { "CONSENSUS_HISTORY", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 14, -1, -1 },
+    { "CONSENSUS_TOKENS", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 15, -1, -1 },
+    { "CONSENSUS_STATUS", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 16, -1, -1 },
+    { "CONSENSUS_PRINTCHAIN", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 17, -1, -1 },
+    { "CONSENSUS_NETWORK", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 18, -1, -1 },
+    { "CONSENSUS_PRINTCHAIN_TREE", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 19, -1, -1 },
+    { "CONSENSUS_ADDCHARTPOINT", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 20, -1, -1 },
+    { "CONSENSUS_OUTPUTCHART", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 21, -1, -1 },
+    { "CONSENSUS_CLEARCHART", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 22, -1, -1 },
     { "mDB_", "LOrgMinimaDatabaseMinimaDB;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mHandler_", "LOrgMinimaSystemBrainsConsensusHandler;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
   };
-  static const void *ptrTable[] = { "LOrgMinimaDatabaseMinimaDB;LOrgMinimaSystemBrainsConsensusHandler;", "processMessage", "LOrgMinimaUtilsMessagesMessage;", "LJavaLangException;", "getIfExists", "LJavaUtilHashtable;LOrgMinimaObjectsBaseMiniHash;", "(Ljava/util/Hashtable<Lorg/minima/objects/base/MiniHash;Lorg/minima/objects/base/MiniNumber;>;Lorg/minima/objects/base/MiniHash;)Lorg/minima/objects/base/MiniNumber;", &OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_PREFIX, &OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_BALANCE, &OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_COINS, &OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_TXPOW, &OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_KEYS, &OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_HISTORY, &OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_STATUS, &OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_PRINTCHAIN, &OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_PRINTCHAIN_TREE };
-  static const J2ObjcClassInfo _OrgMinimaSystemBrainsConsensusPrint = { "ConsensusPrint", "org.minima.system.brains", ptrTable, methods, fields, 7, 0x1, 5, 11, -1, -1, -1, -1, -1 };
+  static const void *ptrTable[] = { "LOrgMinimaDatabaseMinimaDB;LOrgMinimaSystemBrainsConsensusHandler;", "processMessage", "LOrgMinimaUtilsMessagesMessage;", "LJavaLangException;", "formatSize", "J", "Ljava/util/ArrayList<Lorg/minima/system/brains/ConsensusPrint$chartpoint;>;", &OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_PREFIX, &OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_BALANCE, &OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_COINS, &OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_TXPOW, &OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_KEYS, &OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_ADDRESSES, &OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_SEARCH, &OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_HISTORY, &OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_TOKENS, &OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_STATUS, &OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_PRINTCHAIN, &OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_NETWORK, &OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_PRINTCHAIN_TREE, &OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_ADDCHARTPOINT, &OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_OUTPUTCHART, &OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_CLEARCHART, "LOrgMinimaSystemBrainsConsensusPrint_chartpoint;" };
+  static const J2ObjcClassInfo _OrgMinimaSystemBrainsConsensusPrint = { "ConsensusPrint", "org.minima.system.brains", ptrTable, methods, fields, 7, 0x1, 5, 19, -1, 23, -1, -1, -1 };
   return &_OrgMinimaSystemBrainsConsensusPrint;
 }
 
@@ -357,6 +508,7 @@ NSString *OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_PRINTCHAIN_TREE = @"CONS
 
 void OrgMinimaSystemBrainsConsensusPrint_initWithOrgMinimaDatabaseMinimaDB_withOrgMinimaSystemBrainsConsensusHandler_(OrgMinimaSystemBrainsConsensusPrint *self, OrgMinimaDatabaseMinimaDB *zDB, OrgMinimaSystemBrainsConsensusHandler *zHandler) {
   NSObject_init(self);
+  JreStrongAssignAndConsume(&self->mChart_, new_JavaUtilArrayList_init());
   JreStrongAssign(&self->mDB_, zDB);
   JreStrongAssign(&self->mHandler_, zHandler);
 }
@@ -377,15 +529,56 @@ OrgMinimaSystemBrainsConsensusHandler *OrgMinimaSystemBrainsConsensusPrint_getHa
   return self->mHandler_;
 }
 
-OrgMinimaObjectsBaseMiniNumber *OrgMinimaSystemBrainsConsensusPrint_getIfExistsWithJavaUtilHashtable_withOrgMinimaObjectsBaseMiniHash_(OrgMinimaSystemBrainsConsensusPrint *self, JavaUtilHashtable *zHashTable, OrgMinimaObjectsBaseMiniHash *zToken) {
-  id<JavaUtilEnumeration> keys = [((JavaUtilHashtable *) nil_chk(zHashTable)) keys];
-  while ([((id<JavaUtilEnumeration>) nil_chk(keys)) hasMoreElements]) {
-    OrgMinimaObjectsBaseMiniHash *key = [keys nextElement];
-    if ([((OrgMinimaObjectsBaseMiniHash *) nil_chk(key)) isExactlyEqualWithOrgMinimaObjectsBaseMiniData:zToken]) {
-      return [zHashTable getWithId:key];
-    }
-  }
-  return nil;
+NSString *OrgMinimaSystemBrainsConsensusPrint_formatSizeWithLong_(jlong v) {
+  OrgMinimaSystemBrainsConsensusPrint_initialize();
+  if (v < 1024) return JreStrcat("J$", v, @" bytes");
+  jint z = (63 - JavaLangLong_numberOfLeadingZerosWithLong_(v)) / 10;
+  return NSString_java_formatWithNSString_withNSObjectArray_(@"%.1f %sB", [IOSObjectArray arrayWithObjects:(id[]){ JavaLangDouble_valueOfWithDouble_((jdouble) v / (JreLShift64(1LL, (z * 10)))), JavaLangCharacter_valueOfWithChar_([@" KMGTPE" charAtWithInt:z]) } count:2 type:NSObject_class_()]);
 }
 
 J2OBJC_CLASS_TYPE_LITERAL_SOURCE(OrgMinimaSystemBrainsConsensusPrint)
+
+@implementation OrgMinimaSystemBrainsConsensusPrint_chartpoint
+
+- (instancetype)initWithOrgMinimaSystemBrainsConsensusPrint:(OrgMinimaSystemBrainsConsensusPrint *)outer$
+                                                   withLong:(jlong)zBlock
+                                                   withLong:(jlong)zWeight {
+  OrgMinimaSystemBrainsConsensusPrint_chartpoint_initWithOrgMinimaSystemBrainsConsensusPrint_withLong_withLong_(self, outer$, zBlock, zWeight);
+  return self;
+}
+
++ (const J2ObjcClassInfo *)__metadata {
+  static J2ObjcMethodInfo methods[] = {
+    { NULL, NULL, 0x1, -1, 0, -1, -1, -1, -1 },
+  };
+  #pragma clang diagnostic push
+  #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
+  #pragma clang diagnostic ignored "-Wundeclared-selector"
+  methods[0].selector = @selector(initWithOrgMinimaSystemBrainsConsensusPrint:withLong:withLong:);
+  #pragma clang diagnostic pop
+  static const J2ObjcFieldInfo fields[] = {
+    { "mBlock_", "J", .constantValue.asLong = 0, 0x1, -1, -1, -1, -1 },
+    { "mTotalWeight_", "J", .constantValue.asLong = 0, 0x1, -1, -1, -1, -1 },
+  };
+  static const void *ptrTable[] = { "JJ", "LOrgMinimaSystemBrainsConsensusPrint;" };
+  static const J2ObjcClassInfo _OrgMinimaSystemBrainsConsensusPrint_chartpoint = { "chartpoint", "org.minima.system.brains", ptrTable, methods, fields, 7, 0x1, 1, 2, 1, -1, -1, -1, -1 };
+  return &_OrgMinimaSystemBrainsConsensusPrint_chartpoint;
+}
+
+@end
+
+void OrgMinimaSystemBrainsConsensusPrint_chartpoint_initWithOrgMinimaSystemBrainsConsensusPrint_withLong_withLong_(OrgMinimaSystemBrainsConsensusPrint_chartpoint *self, OrgMinimaSystemBrainsConsensusPrint *outer$, jlong zBlock, jlong zWeight) {
+  NSObject_init(self);
+  self->mBlock_ = zBlock;
+  self->mTotalWeight_ = zWeight;
+}
+
+OrgMinimaSystemBrainsConsensusPrint_chartpoint *new_OrgMinimaSystemBrainsConsensusPrint_chartpoint_initWithOrgMinimaSystemBrainsConsensusPrint_withLong_withLong_(OrgMinimaSystemBrainsConsensusPrint *outer$, jlong zBlock, jlong zWeight) {
+  J2OBJC_NEW_IMPL(OrgMinimaSystemBrainsConsensusPrint_chartpoint, initWithOrgMinimaSystemBrainsConsensusPrint_withLong_withLong_, outer$, zBlock, zWeight)
+}
+
+OrgMinimaSystemBrainsConsensusPrint_chartpoint *create_OrgMinimaSystemBrainsConsensusPrint_chartpoint_initWithOrgMinimaSystemBrainsConsensusPrint_withLong_withLong_(OrgMinimaSystemBrainsConsensusPrint *outer$, jlong zBlock, jlong zWeight) {
+  J2OBJC_CREATE_IMPL(OrgMinimaSystemBrainsConsensusPrint_chartpoint, initWithOrgMinimaSystemBrainsConsensusPrint_withLong_withLong_, outer$, zBlock, zWeight)
+}
+
+J2OBJC_CLASS_TYPE_LITERAL_SOURCE(OrgMinimaSystemBrainsConsensusPrint_chartpoint)

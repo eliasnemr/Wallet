@@ -1,7 +1,7 @@
 package org.minima.system.input.functions.txns;
 
 import org.minima.objects.Address;
-import org.minima.objects.base.MiniHash;
+import org.minima.objects.base.MiniData;
 import org.minima.objects.base.MiniNumber;
 import org.minima.system.brains.ConsensusTxn;
 import org.minima.system.input.CommandFunction;
@@ -27,8 +27,17 @@ public class txnoutput extends CommandFunction {
 			return;
 		}
 		
+		//Check the Address for Minima Address
 		String address = zInput[3];
-		Address addr = new Address(new MiniHash(address));
+		if(address.startsWith("0x")) {
+			//It's a regular HASH address
+			address = new MiniData(address).to0xString();
+		}else if(address.startsWith("Mx")) {
+			//It's a Minima Address!
+			address = Address.convertMinimAddress(address).to0xString();
+		}
+		
+		Address addr = new Address(new MiniData(address));
 
 		// is there a TokenID
 		String tokenid = "0x00";

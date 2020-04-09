@@ -51,7 +51,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 void OrgMinimaSystemInputFunctionstrace_init(OrgMinimaSystemInputFunctionstrace *self) {
   OrgMinimaSystemInputCommandFunction_initWithNSString_(self, @"trace");
-  [self setHelpWithNSString:@"[on|off]" withNSString:@"Turn ON|OFF debug info as new transaction and block are found" withNSString:@""];
+  [self setHelpWithNSString:@"[on|off]" withNSString:@"Turn ON|OFF full debug info as messages are processed" withNSString:@""];
 }
 
 OrgMinimaSystemInputFunctionstrace *new_OrgMinimaSystemInputFunctionstrace_init() {

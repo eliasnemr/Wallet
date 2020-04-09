@@ -5,7 +5,6 @@
 
 #include "IOSClass.h"
 #include "IOSObjectArray.h"
-#include "IOSPrimitiveArray.h"
 #include "J2ObjC_source.h"
 #include "java/lang/Long.h"
 #include "java/lang/Math.h"
@@ -32,10 +31,6 @@ J2OBJC_IGNORE_DESIGNATED_END
   return OrgMinimaUtilsMaths_log2WithDouble_(zDD);
 }
 
-+ (NSString *)getDataAsStringWithByteArray:(IOSByteArray *)zData {
-  return OrgMinimaUtilsMaths_getDataAsStringWithByteArray_(zData);
-}
-
 + (jdouble)log2BIWithJavaMathBigInteger:(JavaMathBigInteger *)val {
   return OrgMinimaUtilsMaths_log2BIWithJavaMathBigInteger_(val);
 }
@@ -48,25 +43,23 @@ J2OBJC_IGNORE_DESIGNATED_END
   static J2ObjcMethodInfo methods[] = {
     { NULL, NULL, 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "D", 0x9, 0, 1, -1, -1, -1, -1 },
-    { NULL, "LNSString;", 0x9, 2, 3, -1, -1, -1, -1 },
-    { NULL, "D", 0x9, 4, 5, -1, -1, -1, -1 },
-    { NULL, "LNSString;", 0x9, 6, 7, -1, -1, -1, -1 },
+    { NULL, "D", 0x9, 2, 3, -1, -1, -1, -1 },
+    { NULL, "LNSString;", 0x9, 4, 5, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
   #pragma clang diagnostic ignored "-Wundeclared-selector"
   methods[0].selector = @selector(init);
   methods[1].selector = @selector(log2WithDouble:);
-  methods[2].selector = @selector(getDataAsStringWithByteArray:);
-  methods[3].selector = @selector(log2BIWithJavaMathBigInteger:);
-  methods[4].selector = @selector(ConvertMilliToTimeWithLong:);
+  methods[2].selector = @selector(log2BIWithJavaMathBigInteger:);
+  methods[3].selector = @selector(ConvertMilliToTimeWithLong:);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
-    { "BI_TWO", "LJavaMathBigInteger;", .constantValue.asLong = 0, 0x19, -1, 8, -1, -1 },
-    { "BD_TWO", "LJavaMathBigDecimal;", .constantValue.asLong = 0, 0x19, -1, 9, -1, -1 },
+    { "BI_TWO", "LJavaMathBigInteger;", .constantValue.asLong = 0, 0x19, -1, 6, -1, -1 },
+    { "BD_TWO", "LJavaMathBigDecimal;", .constantValue.asLong = 0, 0x19, -1, 7, -1, -1 },
   };
-  static const void *ptrTable[] = { "log2", "D", "getDataAsString", "[B", "log2BI", "LJavaMathBigInteger;", "ConvertMilliToTime", "J", &OrgMinimaUtilsMaths_BI_TWO, &OrgMinimaUtilsMaths_BD_TWO };
-  static const J2ObjcClassInfo _OrgMinimaUtilsMaths = { "Maths", "org.minima.utils", ptrTable, methods, fields, 7, 0x1, 5, 2, -1, -1, -1, -1, -1 };
+  static const void *ptrTable[] = { "log2", "D", "log2BI", "LJavaMathBigInteger;", "ConvertMilliToTime", "J", &OrgMinimaUtilsMaths_BI_TWO, &OrgMinimaUtilsMaths_BD_TWO };
+  static const J2ObjcClassInfo _OrgMinimaUtilsMaths = { "Maths", "org.minima.utils", ptrTable, methods, fields, 7, 0x1, 4, 2, -1, -1, -1, -1, -1 };
   return &_OrgMinimaUtilsMaths;
 }
 
@@ -95,11 +88,6 @@ OrgMinimaUtilsMaths *create_OrgMinimaUtilsMaths_init() {
 jdouble OrgMinimaUtilsMaths_log2WithDouble_(jdouble zDD) {
   OrgMinimaUtilsMaths_initialize();
   return JavaLangMath_log10WithDouble_(zDD) / JavaLangMath_log10WithDouble_(2);
-}
-
-NSString *OrgMinimaUtilsMaths_getDataAsStringWithByteArray_(IOSByteArray *zData) {
-  OrgMinimaUtilsMaths_initialize();
-  return JreStrcat("$$", @"0x", [((NSString *) nil_chk([create_JavaMathBigInteger_initWithInt_withByteArray_(1, zData) toStringWithInt:16])) uppercaseString]);
 }
 
 jdouble OrgMinimaUtilsMaths_log2BIWithJavaMathBigInteger_(JavaMathBigInteger *val) {

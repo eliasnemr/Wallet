@@ -20,6 +20,7 @@
 #define INCLUDE_OrgMinimaDatabaseCoindbCoinDBRow 1
 #include "org/minima/database/coindb/CoinDBRow.h"
 
+@class OrgMinimaObjectsBaseMiniInteger;
 @class OrgMinimaObjectsBaseMiniNumber;
 @class OrgMinimaObjectsCoin;
 
@@ -29,7 +30,7 @@
   jboolean mIsSpent_;
   jboolean mIsInBlock_;
   OrgMinimaObjectsBaseMiniNumber *mInBlockNumber_;
-  OrgMinimaObjectsBaseMiniNumber *mEntryNumber_;
+  OrgMinimaObjectsBaseMiniInteger *mEntryNumber_;
 }
 
 #pragma mark Public
@@ -40,7 +41,7 @@
 
 - (OrgMinimaObjectsBaseMiniNumber *)getInBlockNumber;
 
-- (OrgMinimaObjectsBaseMiniNumber *)getMMREntry;
+- (OrgMinimaObjectsBaseMiniInteger *)getMMREntry;
 
 - (jboolean)isInBlock;
 
@@ -52,7 +53,7 @@
 
 - (void)setIsSpentWithBoolean:(jboolean)zSpent;
 
-- (void)setMMREntryWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zEntry;
+- (void)setMMREntryWithOrgMinimaObjectsBaseMiniInteger:(OrgMinimaObjectsBaseMiniInteger *)zEntry;
 
 - (NSString *)description;
 
@@ -66,7 +67,7 @@ J2OBJC_EMPTY_STATIC_INIT(OrgMinimaDatabaseCoindbJavaJavaCoinDBRow)
 
 J2OBJC_FIELD_SETTER(OrgMinimaDatabaseCoindbJavaJavaCoinDBRow, mCoin_, OrgMinimaObjectsCoin *)
 J2OBJC_FIELD_SETTER(OrgMinimaDatabaseCoindbJavaJavaCoinDBRow, mInBlockNumber_, OrgMinimaObjectsBaseMiniNumber *)
-J2OBJC_FIELD_SETTER(OrgMinimaDatabaseCoindbJavaJavaCoinDBRow, mEntryNumber_, OrgMinimaObjectsBaseMiniNumber *)
+J2OBJC_FIELD_SETTER(OrgMinimaDatabaseCoindbJavaJavaCoinDBRow, mEntryNumber_, OrgMinimaObjectsBaseMiniInteger *)
 
 FOUNDATION_EXPORT void OrgMinimaDatabaseCoindbJavaJavaCoinDBRow_initWithOrgMinimaObjectsCoin_(OrgMinimaDatabaseCoindbJavaJavaCoinDBRow *self, OrgMinimaObjectsCoin *zCoin);
 

@@ -17,13 +17,10 @@
 #include "org/minima/objects/TxPOW.h"
 #include "org/minima/objects/Witness.h"
 #include "org/minima/objects/base/MiniData.h"
-#include "org/minima/objects/base/MiniHash.h"
+#include "org/minima/objects/base/MiniInteger.h"
 #include "org/minima/objects/base/MiniNumber.h"
 #include "org/minima/system/bootstrap/GenesisTxPOW.h"
-
-J2OBJC_INITIALIZED_DEFN(OrgMinimaSystemBootstrapGenesisTxPOW)
-
-OrgMinimaObjectsBaseMiniHash *OrgMinimaSystemBootstrapGenesisTxPOW_GENESIS_INPUT;
+#include "org/minima/utils/Crypto.h"
 
 @implementation OrgMinimaSystemBootstrapGenesisTxPOW
 
@@ -49,36 +46,25 @@ J2OBJC_IGNORE_DESIGNATED_END
   methods[0].selector = @selector(init);
   methods[1].selector = @selector(mainWithNSStringArray:);
   #pragma clang diagnostic pop
-  static const J2ObjcFieldInfo fields[] = {
-    { "GENESIS_INPUT", "LOrgMinimaObjectsBaseMiniHash;", .constantValue.asLong = 0, 0x9, -1, 2, -1, -1 },
-  };
-  static const void *ptrTable[] = { "main", "[LNSString;", &OrgMinimaSystemBootstrapGenesisTxPOW_GENESIS_INPUT };
-  static const J2ObjcClassInfo _OrgMinimaSystemBootstrapGenesisTxPOW = { "GenesisTxPOW", "org.minima.system.bootstrap", ptrTable, methods, fields, 7, 0x1, 2, 1, -1, -1, -1, -1, -1 };
+  static const void *ptrTable[] = { "main", "[LNSString;" };
+  static const J2ObjcClassInfo _OrgMinimaSystemBootstrapGenesisTxPOW = { "GenesisTxPOW", "org.minima.system.bootstrap", ptrTable, methods, NULL, 7, 0x1, 2, 0, -1, -1, -1, -1, -1 };
   return &_OrgMinimaSystemBootstrapGenesisTxPOW;
-}
-
-+ (void)initialize {
-  if (self == [OrgMinimaSystemBootstrapGenesisTxPOW class]) {
-    JreStrongAssignAndConsume(&OrgMinimaSystemBootstrapGenesisTxPOW_GENESIS_INPUT, new_OrgMinimaObjectsBaseMiniHash_initWithNSString_(@"0xFFEEDDCCBBAA998877665544332211"));
-    J2OBJC_SET_INITIALIZED(OrgMinimaSystemBootstrapGenesisTxPOW)
-  }
 }
 
 @end
 
 void OrgMinimaSystemBootstrapGenesisTxPOW_init(OrgMinimaSystemBootstrapGenesisTxPOW *self) {
   OrgMinimaObjectsTxPOW_init(self);
-  [self setTxDifficultyWithInt:0];
-  [self setNonceWithOrgMinimaObjectsBaseMiniNumber:create_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(@"256")];
-  [self setTimeMilliWithOrgMinimaObjectsBaseMiniNumber:create_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(JreStrcat("J", JavaLangSystem_currentTimeMillis()))];
-  [self setBlockNumberWithOrgMinimaObjectsBaseMiniNumber:create_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(@"0")];
-  [self setBlockDifficultyWithInt:0];
-  [self setParentWithOrgMinimaObjectsBaseMiniHash:create_OrgMinimaObjectsBaseMiniHash_init()];
+  [self setTxDifficultyWithOrgMinimaObjectsBaseMiniData:JreLoadStatic(OrgMinimaUtilsCrypto, MAX_HASH)];
+  [self setNonceWithOrgMinimaObjectsBaseMiniInteger:create_OrgMinimaObjectsBaseMiniInteger_initWithInt_(256)];
+  [self setTimeSecsWithOrgMinimaObjectsBaseMiniNumber:create_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(JreStrcat("J", (JavaLangSystem_currentTimeMillis() / 1000)))];
+  [self setBlockNumberWithOrgMinimaObjectsBaseMiniNumber:JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, ZERO)];
+  [self setBlockDifficultyWithOrgMinimaObjectsBaseMiniData:JreLoadStatic(OrgMinimaUtilsCrypto, MAX_HASH)];
+  [self setParentWithOrgMinimaObjectsBaseMiniData:create_OrgMinimaObjectsBaseMiniData_init()];
   OrgMinimaObjectsTransaction *trans = create_OrgMinimaObjectsTransaction_init();
   OrgMinimaObjectsWitness *wit = create_OrgMinimaObjectsWitness_init();
   [self setTransactionWithOrgMinimaObjectsTransaction:trans];
   [self setWitnessWithOrgMinimaObjectsWitness:wit];
-  IOSObjectArray_SetAndConsume(nil_chk(self->mSuperParents_), 0, new_OrgMinimaObjectsBaseMiniHash_initWithByteArray_([((OrgMinimaObjectsBaseMiniData *) nil_chk(OrgMinimaObjectsBaseMiniData_getRandomDataWithInt_(32))) getData]));
   [self calculateTXPOWID];
   self->_mIsBlockPOW_ = true;
   self->_mIsTxnPOW_ = false;

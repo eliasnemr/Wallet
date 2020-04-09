@@ -22,28 +22,37 @@
 
 @class JavaIoDataInputStream;
 @class JavaIoDataOutputStream;
-@class OrgMinimaObjectsBaseMiniHash;
+@class OrgMinimaObjectsBaseMiniData;
+@class OrgMinimaObjectsBaseMiniScript;
 @class OrgMinimaUtilsJsonJSONObject;
 
 @interface OrgMinimaObjectsAddress : NSObject < OrgMinimaUtilsStreamable > {
  @public
-  NSString *mScript_;
-  OrgMinimaObjectsBaseMiniHash *mAddressData_;
+  OrgMinimaObjectsBaseMiniScript *mScript_;
+  OrgMinimaObjectsBaseMiniData *mAddressData_;
+  NSString *mMinimaAddress_;
 }
 
 #pragma mark Public
 
 - (instancetype)init;
 
-- (instancetype)initWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zAddressData;
+- (instancetype)initWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zAddressData;
 
 - (instancetype)initWithNSString:(NSString *)zScript;
 
-- (OrgMinimaObjectsBaseMiniHash *)getAddressData;
+- (instancetype)initWithNSString:(NSString *)zScript
+                         withInt:(jint)zBitLength;
+
++ (OrgMinimaObjectsBaseMiniData *)convertMinimAddressWithNSString:(NSString *)zMinimaAddress;
+
+- (OrgMinimaObjectsBaseMiniData *)getAddressData;
 
 - (NSString *)getScript;
 
-- (jboolean)isEqualWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zAddress;
+- (jboolean)isEqualWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zAddress;
+
++ (NSString *)makeMinimaAddressWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zAddress;
 
 - (void)readDataStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn;
 
@@ -59,8 +68,9 @@
 
 J2OBJC_STATIC_INIT(OrgMinimaObjectsAddress)
 
-J2OBJC_FIELD_SETTER(OrgMinimaObjectsAddress, mScript_, NSString *)
-J2OBJC_FIELD_SETTER(OrgMinimaObjectsAddress, mAddressData_, OrgMinimaObjectsBaseMiniHash *)
+J2OBJC_FIELD_SETTER(OrgMinimaObjectsAddress, mScript_, OrgMinimaObjectsBaseMiniScript *)
+J2OBJC_FIELD_SETTER(OrgMinimaObjectsAddress, mAddressData_, OrgMinimaObjectsBaseMiniData *)
+J2OBJC_FIELD_SETTER(OrgMinimaObjectsAddress, mMinimaAddress_, NSString *)
 
 inline OrgMinimaObjectsAddress *OrgMinimaObjectsAddress_get_TRUE_ADDRESS(void);
 inline OrgMinimaObjectsAddress *OrgMinimaObjectsAddress_set_TRUE_ADDRESS(OrgMinimaObjectsAddress *value);
@@ -80,11 +90,21 @@ FOUNDATION_EXPORT OrgMinimaObjectsAddress *new_OrgMinimaObjectsAddress_initWithN
 
 FOUNDATION_EXPORT OrgMinimaObjectsAddress *create_OrgMinimaObjectsAddress_initWithNSString_(NSString *zScript);
 
-FOUNDATION_EXPORT void OrgMinimaObjectsAddress_initWithOrgMinimaObjectsBaseMiniHash_(OrgMinimaObjectsAddress *self, OrgMinimaObjectsBaseMiniHash *zAddressData);
+FOUNDATION_EXPORT void OrgMinimaObjectsAddress_initWithNSString_withInt_(OrgMinimaObjectsAddress *self, NSString *zScript, jint zBitLength);
 
-FOUNDATION_EXPORT OrgMinimaObjectsAddress *new_OrgMinimaObjectsAddress_initWithOrgMinimaObjectsBaseMiniHash_(OrgMinimaObjectsBaseMiniHash *zAddressData) NS_RETURNS_RETAINED;
+FOUNDATION_EXPORT OrgMinimaObjectsAddress *new_OrgMinimaObjectsAddress_initWithNSString_withInt_(NSString *zScript, jint zBitLength) NS_RETURNS_RETAINED;
 
-FOUNDATION_EXPORT OrgMinimaObjectsAddress *create_OrgMinimaObjectsAddress_initWithOrgMinimaObjectsBaseMiniHash_(OrgMinimaObjectsBaseMiniHash *zAddressData);
+FOUNDATION_EXPORT OrgMinimaObjectsAddress *create_OrgMinimaObjectsAddress_initWithNSString_withInt_(NSString *zScript, jint zBitLength);
+
+FOUNDATION_EXPORT void OrgMinimaObjectsAddress_initWithOrgMinimaObjectsBaseMiniData_(OrgMinimaObjectsAddress *self, OrgMinimaObjectsBaseMiniData *zAddressData);
+
+FOUNDATION_EXPORT OrgMinimaObjectsAddress *new_OrgMinimaObjectsAddress_initWithOrgMinimaObjectsBaseMiniData_(OrgMinimaObjectsBaseMiniData *zAddressData) NS_RETURNS_RETAINED;
+
+FOUNDATION_EXPORT OrgMinimaObjectsAddress *create_OrgMinimaObjectsAddress_initWithOrgMinimaObjectsBaseMiniData_(OrgMinimaObjectsBaseMiniData *zAddressData);
+
+FOUNDATION_EXPORT NSString *OrgMinimaObjectsAddress_makeMinimaAddressWithOrgMinimaObjectsBaseMiniData_(OrgMinimaObjectsBaseMiniData *zAddress);
+
+FOUNDATION_EXPORT OrgMinimaObjectsBaseMiniData *OrgMinimaObjectsAddress_convertMinimAddressWithNSString_(NSString *zMinimaAddress);
 
 J2OBJC_TYPE_LITERAL_HEADER(OrgMinimaObjectsAddress)
 

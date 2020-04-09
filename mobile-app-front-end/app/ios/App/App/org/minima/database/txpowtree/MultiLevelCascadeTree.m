@@ -85,14 +85,9 @@ __attribute__((unused)) static OrgMinimaDatabaseTxpowtreeBlockTreeNode *OrgMinim
       [node setCurrentLevelWithInt:casclevel];
       [finalnodes addWithInt:0 withId:node];
       totlevel++;
-      if (totlevel > OrgMinimaGlobalParams_MINIMA_MINUMUM_CASCADE_LEVEL_NODES) {
-        moveup = true;
-      }
-      if (moveup && (superlev > casclevel)) {
+      if (totlevel >= OrgMinimaGlobalParams_MINIMA_MINUMUM_CASCADE_LEVEL_NODES) {
         casclevel++;
-        [node setCurrentLevelWithInt:casclevel];
-        totlevel = 1;
-        moveup = false;
+        totlevel = 0;
       }
     }
     else {

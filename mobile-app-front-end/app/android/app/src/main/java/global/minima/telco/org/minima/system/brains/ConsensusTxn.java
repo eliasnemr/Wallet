@@ -11,7 +11,6 @@ import org.minima.database.MinimaDB;
 import org.minima.database.coindb.CoinDBRow;
 import org.minima.database.mmr.MMRProof;
 import org.minima.database.userdb.UserDBRow;
-import org.minima.miniscript.Contract;
 import org.minima.objects.Address;
 import org.minima.objects.Coin;
 import org.minima.objects.PubPrivKey;
@@ -19,14 +18,10 @@ import org.minima.objects.StateVariable;
 import org.minima.objects.Transaction;
 import org.minima.objects.Witness;
 import org.minima.objects.base.MiniData;
-import org.minima.objects.base.MiniHash;
 import org.minima.objects.base.MiniNumber;
-import org.minima.objects.proofs.Proof;
 import org.minima.objects.proofs.ScriptProof;
-import org.minima.objects.proofs.SignatureProof;
 import org.minima.objects.proofs.TokenProof;
 import org.minima.system.input.InputHandler;
-import org.minima.system.network.NetworkHandler;
 import org.minima.utils.Crypto;
 import org.minima.utils.MinimaLogger;
 import org.minima.utils.json.JSONArray;
@@ -137,7 +132,7 @@ public class ConsensusTxn {
 			//Add input to a custom transaction
 			int trans 			= zMessage.getInteger("transaction");
 			String script 	    = zMessage.getString("script");
-			String proof  = "";
+			String proof        = "0x0200";
 			if(zMessage.exists("proof")) {
 				proof = zMessage.getString("proof");
 			}
@@ -162,7 +157,7 @@ public class ConsensusTxn {
 		}else if(zMessage.isMessageType(CONSENSUS_TXNINPUT)) {
 			//Add input to a custom transaction
 			int trans 			= zMessage.getInteger("transaction");
-			MiniHash coinid 	= (MiniHash) zMessage.getObject("coinid");
+			MiniData coinid 	= (MiniData) zMessage.getObject("coinid");
 			
 			//Check valid..
 			if(!checkTransactionValid(trans)) {
@@ -183,7 +178,7 @@ public class ConsensusTxn {
 			Coin cc = crow.getCoin();
 			
 			//Is it a Token ? 
-			if(!cc.getTokenID().isExactlyEqual(Coin.MINIMA_TOKENID)) {
+			if(!cc.getTokenID().isEqual(Coin.MINIMA_TOKENID)) {
 				//Add the Token details..
 				TokenProof tokendets = getMainDB().getUserDB().getTokenDetail(cc.getTokenID());
 				
@@ -207,7 +202,7 @@ public class ConsensusTxn {
 				JSONObject resp = InputHandler.getResponseJSON(zMessage);
 				resp.put("info", "UNKNOWN ADDRESS "+cc.getAddress()+" not in Script database..");
 			}else {
-				wit.addScript(script);
+				wit.addScript(script, cc.getAddress().getLength()*8);
 			}
 			
 			listTransactions(zMessage);
@@ -232,14 +227,14 @@ public class ConsensusTxn {
 			String tokenid = zMessage.getString("tokenid");
 			
 			//Create a coin
-			Coin out = new Coin(Coin.COINID_OUTPUT,addr.getAddressData(),new MiniNumber(value), new MiniHash(tokenid));
+			Coin out = new Coin(Coin.COINID_OUTPUT,addr.getAddressData(),new MiniNumber(value), new MiniData(tokenid));
 			
 			//Get the Transaction..
 			Transaction trx = getMainDB().getUserDB().getUserRow(trans).getTransaction();
 			Witness wit     =  getMainDB().getUserDB().getUserRow(trans).getWitness();
 			
 			//Is it a Token ? 
-			if(!out.getTokenID().isExactlyEqual(Coin.MINIMA_TOKENID)) {
+			if(!out.getTokenID().isEqual(Coin.MINIMA_TOKENID)) {
 				//Add the Token details..
 				TokenProof tokendets = getMainDB().getUserDB().getTokenDetail(out.getTokenID());
 				
@@ -297,7 +292,7 @@ public class ConsensusTxn {
 			Witness wit     =  getMainDB().getUserDB().getUserRow(trans).getWitness();
 			
 			//Create the correct MMR Proofs
-			Witness newwit = getMainDB().createValidWitness(trx, wit);
+			Witness newwit = getMainDB().createValidMMRPRoofs(trx, wit);
 			if(newwit == null) {
 				InputHandler.endResponse(zMessage, false, "ERROR creating valid Witness. MMR Proofs wrong..");
 				return;
@@ -346,7 +341,7 @@ public class ConsensusTxn {
 			resp.put("valid_amounts", vamounts);
 			
 			//Create a complete transaction
-			Witness newwit = getMainDB().createValidWitness(trx, wit);
+			Witness newwit = getMainDB().createValidMMRPRoofs(trx, wit);
 			
 			//Null value means there is something wrong
 			if(newwit == null) {
@@ -395,7 +390,7 @@ public class ConsensusTxn {
 			Transaction trx =  row.getTransaction();
 			Witness wit     = row.getWitness();
 			
-			MiniHash transhash = Crypto.getInstance().hashObject(trx);
+			MiniData transhash = Crypto.getInstance().hashObject(trx);
 			
 			MiniData signature = key.sign(transhash);
 			
@@ -422,7 +417,7 @@ public class ConsensusTxn {
 			Witness wit     = row.getWitness();
 			
 			//Create the Correct Proofs..
-			getMainDB().createValidWitness(trx, wit);
+			getMainDB().createValidMMRPRoofs(trx, wit);
 			
 			//Output data stream
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();

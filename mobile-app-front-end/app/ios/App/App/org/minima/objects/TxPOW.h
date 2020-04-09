@@ -24,7 +24,8 @@
 @class JavaIoDataInputStream;
 @class JavaIoDataOutputStream;
 @class JavaUtilArrayList;
-@class OrgMinimaObjectsBaseMiniHash;
+@class OrgMinimaObjectsBaseMiniData;
+@class OrgMinimaObjectsBaseMiniInteger;
 @class OrgMinimaObjectsBaseMiniNumber;
 @class OrgMinimaObjectsTransaction;
 @class OrgMinimaObjectsWitness;
@@ -33,10 +34,12 @@
 @interface OrgMinimaObjectsTxPOW : NSObject < OrgMinimaUtilsStreamable > {
  @public
   IOSObjectArray *mSuperParents_;
-  OrgMinimaObjectsBaseMiniHash *mMMRRoot_;
-  OrgMinimaObjectsBaseMiniHash *mMagic_;
-  OrgMinimaObjectsBaseMiniHash *mChainID_;
-  OrgMinimaObjectsBaseMiniHash *mCustom_;
+  OrgMinimaObjectsBaseMiniData *mMMRRoot_;
+  OrgMinimaObjectsBaseMiniNumber *mMMRTotal_;
+  OrgMinimaObjectsBaseMiniData *mMagic_;
+  OrgMinimaObjectsBaseMiniData *mChainID_;
+  OrgMinimaObjectsBaseMiniData *mParentChainID_;
+  OrgMinimaObjectsBaseMiniData *mCustom_;
   jboolean _mIsBlockPOW_;
   jboolean _mIsTxnPOW_;
   jint _mSuperBlock_;
@@ -50,29 +53,43 @@
 
 - (void)calculateTXPOWID;
 
-- (jint)getBlockDifficulty;
+- (OrgMinimaObjectsBaseMiniData *)getBlockDifficulty;
 
 - (OrgMinimaObjectsBaseMiniNumber *)getBlockNumber;
 
 - (JavaUtilArrayList *)getBlockTxns;
 
-- (OrgMinimaObjectsBaseMiniHash *)getChainID;
+- (OrgMinimaObjectsTransaction *)getBurnTransaction;
 
-- (OrgMinimaObjectsBaseMiniHash *)getCustom;
+- (OrgMinimaObjectsWitness *)getBurnWitness;
 
-- (OrgMinimaObjectsBaseMiniHash *)getMMRRoot;
+- (OrgMinimaObjectsBaseMiniData *)getChainID;
 
-- (OrgMinimaObjectsBaseMiniHash *)getParentID;
+- (OrgMinimaObjectsBaseMiniData *)getCustom;
+
+- (OrgMinimaObjectsBaseMiniData *)getMMRRoot;
+
+- (OrgMinimaObjectsBaseMiniNumber *)getMMRTotal;
+
+- (OrgMinimaObjectsBaseMiniInteger *)getNonce;
+
+- (OrgMinimaObjectsBaseMiniData *)getParentChainID;
+
+- (OrgMinimaObjectsBaseMiniData *)getParentID;
 
 - (jint)getSuperLevel;
 
-- (OrgMinimaObjectsBaseMiniNumber *)getTimeMilli;
+- (OrgMinimaObjectsBaseMiniData *)getSuperParentWithInt:(jint)zLevel;
+
+- (OrgMinimaObjectsBaseMiniNumber *)getTimeSecs;
 
 - (OrgMinimaObjectsTransaction *)getTransaction;
 
-- (jint)getTxnDifficulty;
+- (OrgMinimaObjectsBaseMiniData *)getTransID;
 
-- (OrgMinimaObjectsBaseMiniHash *)getTxPowID;
+- (OrgMinimaObjectsBaseMiniData *)getTxnDifficulty;
+
+- (OrgMinimaObjectsBaseMiniData *)getTxPowID;
 
 - (OrgMinimaObjectsWitness *)getWitness;
 
@@ -82,25 +99,29 @@
 
 - (void)readDataStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn;
 
-- (void)setBlockDifficultyWithInt:(jint)zBlockDifficulty;
+- (void)setBlockDifficultyWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zBlockDifficulty;
 
 - (void)setBlockNumberWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zBlockNum;
 
-- (void)setChainIDWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zChainID;
+- (void)setChainIDWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zChainID;
 
-- (void)setCustomWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zCustom;
+- (void)setCustomWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zCustom;
 
-- (void)setMMRRootWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zRoot;
+- (void)setMMRRootWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zRoot;
 
-- (void)setNonceWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zNonce;
+- (void)setMMRTotalWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zTotal;
 
-- (void)setParentWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zData;
+- (void)setNonceWithOrgMinimaObjectsBaseMiniInteger:(OrgMinimaObjectsBaseMiniInteger *)zNonce;
 
-- (void)setTimeMilliWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zMilli;
+- (void)setParentWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zData;
+
+- (void)setParentChainIDWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zChainID;
+
+- (void)setTimeSecsWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zSecs;
 
 - (void)setTransactionWithOrgMinimaObjectsTransaction:(OrgMinimaObjectsTransaction *)zTran;
 
-- (void)setTxDifficultyWithInt:(jint)zDifficulty;
+- (void)setTxDifficultyWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zDifficulty;
 
 - (void)setWitnessWithOrgMinimaObjectsWitness:(OrgMinimaObjectsWitness *)zWitness;
 
@@ -115,14 +136,12 @@
 J2OBJC_STATIC_INIT(OrgMinimaObjectsTxPOW)
 
 J2OBJC_FIELD_SETTER(OrgMinimaObjectsTxPOW, mSuperParents_, IOSObjectArray *)
-J2OBJC_FIELD_SETTER(OrgMinimaObjectsTxPOW, mMMRRoot_, OrgMinimaObjectsBaseMiniHash *)
-J2OBJC_FIELD_SETTER(OrgMinimaObjectsTxPOW, mMagic_, OrgMinimaObjectsBaseMiniHash *)
-J2OBJC_FIELD_SETTER(OrgMinimaObjectsTxPOW, mChainID_, OrgMinimaObjectsBaseMiniHash *)
-J2OBJC_FIELD_SETTER(OrgMinimaObjectsTxPOW, mCustom_, OrgMinimaObjectsBaseMiniHash *)
-
-inline jint OrgMinimaObjectsTxPOW_get_SUPERPARENT_NUM(void);
-#define OrgMinimaObjectsTxPOW_SUPERPARENT_NUM 256
-J2OBJC_STATIC_FIELD_CONSTANT(OrgMinimaObjectsTxPOW, SUPERPARENT_NUM, jint)
+J2OBJC_FIELD_SETTER(OrgMinimaObjectsTxPOW, mMMRRoot_, OrgMinimaObjectsBaseMiniData *)
+J2OBJC_FIELD_SETTER(OrgMinimaObjectsTxPOW, mMMRTotal_, OrgMinimaObjectsBaseMiniNumber *)
+J2OBJC_FIELD_SETTER(OrgMinimaObjectsTxPOW, mMagic_, OrgMinimaObjectsBaseMiniData *)
+J2OBJC_FIELD_SETTER(OrgMinimaObjectsTxPOW, mChainID_, OrgMinimaObjectsBaseMiniData *)
+J2OBJC_FIELD_SETTER(OrgMinimaObjectsTxPOW, mParentChainID_, OrgMinimaObjectsBaseMiniData *)
+J2OBJC_FIELD_SETTER(OrgMinimaObjectsTxPOW, mCustom_, OrgMinimaObjectsBaseMiniData *)
 
 FOUNDATION_EXPORT void OrgMinimaObjectsTxPOW_init(OrgMinimaObjectsTxPOW *self);
 

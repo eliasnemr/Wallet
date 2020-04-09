@@ -20,10 +20,11 @@
 #define INCLUDE_JavaLangComparable 1
 #include "java/lang/Comparable.h"
 
+@class JavaMathBigDecimal;
 @class JavaMathBigInteger;
 @class JavaUtilArrayList;
 @class OrgMinimaDatabaseMmrMMRSet;
-@class OrgMinimaObjectsBaseMiniHash;
+@class OrgMinimaObjectsBaseMiniData;
 @class OrgMinimaObjectsTxPOW;
 
 @interface OrgMinimaDatabaseTxpowtreeBlockTreeNode : NSObject < JavaLangComparable > {
@@ -65,15 +66,13 @@
 
 - (OrgMinimaObjectsTxPOW *)getTxPow;
 
-- (OrgMinimaObjectsBaseMiniHash *)getTxPowID;
+- (OrgMinimaObjectsBaseMiniData *)getTxPowID;
 
 - (JavaMathBigInteger *)getWeight;
 
 - (jboolean)isCascade;
 
 - (void)resetCurrentWeight;
-
-- (void)resetNode;
 
 - (void)setCascadeWithBoolean:(jboolean)zCascade;
 
@@ -89,9 +88,19 @@
 
 @end
 
-J2OBJC_EMPTY_STATIC_INIT(OrgMinimaDatabaseTxpowtreeBlockTreeNode)
+J2OBJC_STATIC_INIT(OrgMinimaDatabaseTxpowtreeBlockTreeNode)
 
 J2OBJC_FIELD_SETTER(OrgMinimaDatabaseTxpowtreeBlockTreeNode, mMMRSet_, OrgMinimaDatabaseMmrMMRSet *)
+
+inline JavaMathBigInteger *OrgMinimaDatabaseTxpowtreeBlockTreeNode_get_BIG_TWO(void);
+/*! INTERNAL ONLY - Use accessor function from above. */
+FOUNDATION_EXPORT JavaMathBigInteger *OrgMinimaDatabaseTxpowtreeBlockTreeNode_BIG_TWO;
+J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaDatabaseTxpowtreeBlockTreeNode, BIG_TWO, JavaMathBigInteger *)
+
+inline JavaMathBigDecimal *OrgMinimaDatabaseTxpowtreeBlockTreeNode_get_MAX_VALDEC(void);
+/*! INTERNAL ONLY - Use accessor function from above. */
+FOUNDATION_EXPORT JavaMathBigDecimal *OrgMinimaDatabaseTxpowtreeBlockTreeNode_MAX_VALDEC;
+J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaDatabaseTxpowtreeBlockTreeNode, MAX_VALDEC, JavaMathBigDecimal *)
 
 inline jint OrgMinimaDatabaseTxpowtreeBlockTreeNode_get_BLOCKSTATE_BASIC(void);
 #define OrgMinimaDatabaseTxpowtreeBlockTreeNode_BLOCKSTATE_BASIC 10

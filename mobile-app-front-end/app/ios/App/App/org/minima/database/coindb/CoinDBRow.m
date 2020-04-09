@@ -21,8 +21,8 @@
     { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x401, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x401, 4, 1, -1, -1, -1, -1 },
     { NULL, "Z", 0x401, -1, -1, -1, -1, -1, -1 },
-    { NULL, "V", 0x401, 5, 3, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x401, -1, -1, -1, -1, -1, -1 },
+    { NULL, "V", 0x401, 5, 6, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMiniInteger;", 0x401, -1, -1, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
@@ -34,10 +34,10 @@
   methods[4].selector = @selector(getInBlockNumber);
   methods[5].selector = @selector(setIsInBlockWithBoolean:);
   methods[6].selector = @selector(isInBlock);
-  methods[7].selector = @selector(setMMREntryWithOrgMinimaObjectsBaseMiniNumber:);
+  methods[7].selector = @selector(setMMREntryWithOrgMinimaObjectsBaseMiniInteger:);
   methods[8].selector = @selector(getMMREntry);
   #pragma clang diagnostic pop
-  static const void *ptrTable[] = { "setIsSpent", "Z", "setInBlockNumber", "LOrgMinimaObjectsBaseMiniNumber;", "setIsInBlock", "setMMREntry" };
+  static const void *ptrTable[] = { "setIsSpent", "Z", "setInBlockNumber", "LOrgMinimaObjectsBaseMiniNumber;", "setIsInBlock", "setMMREntry", "LOrgMinimaObjectsBaseMiniInteger;" };
   static const J2ObjcClassInfo _OrgMinimaDatabaseCoindbCoinDBRow = { "CoinDBRow", "org.minima.database.coindb", ptrTable, methods, NULL, 7, 0x609, 9, 0, -1, -1, -1, -1, -1 };
   return &_OrgMinimaDatabaseCoindbCoinDBRow;
 }

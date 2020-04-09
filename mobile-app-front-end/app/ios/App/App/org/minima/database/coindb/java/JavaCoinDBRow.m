@@ -6,6 +6,7 @@
 #include "J2ObjC_source.h"
 #include "org/minima/database/coindb/java/JavaCoinDBRow.h"
 #include "org/minima/objects/Coin.h"
+#include "org/minima/objects/base/MiniInteger.h"
 #include "org/minima/objects/base/MiniNumber.h"
 
 @implementation OrgMinimaDatabaseCoindbJavaJavaCoinDBRow
@@ -47,11 +48,11 @@
   return mIsInBlock_;
 }
 
-- (void)setMMREntryWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zEntry {
+- (void)setMMREntryWithOrgMinimaObjectsBaseMiniInteger:(OrgMinimaObjectsBaseMiniInteger *)zEntry {
   JreStrongAssign(&mEntryNumber_, zEntry);
 }
 
-- (OrgMinimaObjectsBaseMiniNumber *)getMMREntry {
+- (OrgMinimaObjectsBaseMiniInteger *)getMMREntry {
   return mEntryNumber_;
 }
 
@@ -73,8 +74,8 @@
     { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 6, 3, -1, -1, -1, -1 },
     { NULL, "Z", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 7, 5, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 7, 8, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMiniInteger;", 0x1, -1, -1, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
@@ -88,7 +89,7 @@
   methods[6].selector = @selector(getInBlockNumber);
   methods[7].selector = @selector(setIsInBlockWithBoolean:);
   methods[8].selector = @selector(isInBlock);
-  methods[9].selector = @selector(setMMREntryWithOrgMinimaObjectsBaseMiniNumber:);
+  methods[9].selector = @selector(setMMREntryWithOrgMinimaObjectsBaseMiniInteger:);
   methods[10].selector = @selector(getMMREntry);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
@@ -96,9 +97,9 @@
     { "mIsSpent_", "Z", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mIsInBlock_", "Z", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mInBlockNumber_", "LOrgMinimaObjectsBaseMiniNumber;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
-    { "mEntryNumber_", "LOrgMinimaObjectsBaseMiniNumber;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
+    { "mEntryNumber_", "LOrgMinimaObjectsBaseMiniInteger;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
   };
-  static const void *ptrTable[] = { "LOrgMinimaObjectsCoin;", "toString", "setIsSpent", "Z", "setInBlockNumber", "LOrgMinimaObjectsBaseMiniNumber;", "setIsInBlock", "setMMREntry" };
+  static const void *ptrTable[] = { "LOrgMinimaObjectsCoin;", "toString", "setIsSpent", "Z", "setInBlockNumber", "LOrgMinimaObjectsBaseMiniNumber;", "setIsInBlock", "setMMREntry", "LOrgMinimaObjectsBaseMiniInteger;" };
   static const J2ObjcClassInfo _OrgMinimaDatabaseCoindbJavaJavaCoinDBRow = { "JavaCoinDBRow", "org.minima.database.coindb.java", ptrTable, methods, fields, 7, 0x1, 11, 5, -1, -1, -1, -1, -1 };
   return &_OrgMinimaDatabaseCoindbJavaJavaCoinDBRow;
 }
@@ -107,8 +108,8 @@
 
 void OrgMinimaDatabaseCoindbJavaJavaCoinDBRow_initWithOrgMinimaObjectsCoin_(OrgMinimaDatabaseCoindbJavaJavaCoinDBRow *self, OrgMinimaObjectsCoin *zCoin) {
   NSObject_init(self);
-  JreStrongAssign(&self->mInBlockNumber_, JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, ZERO));
-  JreStrongAssign(&self->mEntryNumber_, JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, ZERO));
+  JreStrongAssignAndConsume(&self->mInBlockNumber_, new_OrgMinimaObjectsBaseMiniNumber_initWithInt_(0));
+  JreStrongAssignAndConsume(&self->mEntryNumber_, new_OrgMinimaObjectsBaseMiniInteger_initWithInt_(0));
   JreStrongAssign(&self->mCoin_, zCoin);
   self->mIsSpent_ = false;
   self->mIsInBlock_ = false;

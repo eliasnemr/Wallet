@@ -7,10 +7,9 @@
 #include "java/io/DataInputStream.h"
 #include "java/io/DataOutputStream.h"
 #include "java/io/IOException.h"
-#include "org/minima/miniscript/Contract.h"
 #include "org/minima/objects/StateVariable.h"
-#include "org/minima/objects/base/MiniNumber.h"
-#include "org/minima/objects/base/MiniString.h"
+#include "org/minima/objects/base/MiniByte.h"
+#include "org/minima/objects/base/MiniScript.h"
 #include "org/minima/utils/json/JSONObject.h"
 
 @interface OrgMinimaObjectsStateVariable ()
@@ -27,9 +26,9 @@ __attribute__((unused)) static OrgMinimaObjectsStateVariable *create_OrgMinimaOb
 
 @implementation OrgMinimaObjectsStateVariable
 
-- (instancetype)initWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zPort
-                                          withNSString:(NSString *)zData {
-  OrgMinimaObjectsStateVariable_initWithOrgMinimaObjectsBaseMiniNumber_withNSString_(self, zPort, zData);
+- (instancetype)initWithInt:(jint)zPort
+               withNSString:(NSString *)zData {
+  OrgMinimaObjectsStateVariable_initWithInt_withNSString_(self, zPort, zData);
   return self;
 }
 
@@ -40,22 +39,22 @@ J2OBJC_IGNORE_DESIGNATED_BEGIN
 }
 J2OBJC_IGNORE_DESIGNATED_END
 
-- (void)resetDataWithOrgMinimaObjectsBaseMiniString:(OrgMinimaObjectsBaseMiniString *)zData {
+- (void)resetDataWithOrgMinimaObjectsBaseMiniScript:(OrgMinimaObjectsBaseMiniScript *)zData {
   JreStrongAssign(&mData_, zData);
 }
 
-- (OrgMinimaObjectsBaseMiniString *)getData {
+- (OrgMinimaObjectsBaseMiniScript *)getData {
   return mData_;
 }
 
-- (OrgMinimaObjectsBaseMiniNumber *)getPort {
-  return mPort_;
+- (jint)getPort {
+  return [((OrgMinimaObjectsBaseMiniByte *) nil_chk(mPort_)) getValue];
 }
 
 - (OrgMinimaUtilsJsonJSONObject *)toJSON {
   OrgMinimaUtilsJsonJSONObject *ret = create_OrgMinimaUtilsJsonJSONObject_init();
-  [ret putWithId:@"port" withId:[((OrgMinimaObjectsBaseMiniNumber *) nil_chk(mPort_)) description]];
-  [ret putWithId:@"data" withId:[((OrgMinimaObjectsBaseMiniString *) nil_chk(mData_)) description]];
+  [ret putWithId:@"port" withId:[((OrgMinimaObjectsBaseMiniByte *) nil_chk(mPort_)) description]];
+  [ret putWithId:@"data" withId:[((OrgMinimaObjectsBaseMiniScript *) nil_chk(mData_)) description]];
   return ret;
 }
 
@@ -64,13 +63,13 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (void)writeDataStreamWithJavaIoDataOutputStream:(JavaIoDataOutputStream *)zOut {
-  [((OrgMinimaObjectsBaseMiniNumber *) nil_chk(mPort_)) writeDataStreamWithJavaIoDataOutputStream:zOut];
-  [((OrgMinimaObjectsBaseMiniString *) nil_chk(mData_)) writeDataStreamWithJavaIoDataOutputStream:zOut];
+  [((OrgMinimaObjectsBaseMiniByte *) nil_chk(mPort_)) writeDataStreamWithJavaIoDataOutputStream:zOut];
+  [((OrgMinimaObjectsBaseMiniScript *) nil_chk(mData_)) writeDataStreamWithJavaIoDataOutputStream:zOut];
 }
 
 - (void)readDataStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn {
-  JreStrongAssign(&mPort_, OrgMinimaObjectsBaseMiniNumber_ReadFromStreamWithJavaIoDataInputStream_(zIn));
-  JreStrongAssign(&mData_, OrgMinimaObjectsBaseMiniString_ReadFromStreamWithJavaIoDataInputStream_(zIn));
+  JreStrongAssign(&mPort_, OrgMinimaObjectsBaseMiniByte_ReadFromStreamWithJavaIoDataInputStream_(zIn));
+  JreStrongAssign(&mData_, OrgMinimaObjectsBaseMiniScript_ReadFromStreamWithJavaIoDataInputStream_(zIn));
 }
 
 + (OrgMinimaObjectsStateVariable *)ReadFromStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn {
@@ -78,8 +77,8 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (void)dealloc {
-  RELEASE_(mData_);
   RELEASE_(mPort_);
+  RELEASE_(mData_);
   [super dealloc];
 }
 
@@ -88,8 +87,8 @@ J2OBJC_IGNORE_DESIGNATED_END
     { NULL, NULL, 0x1, -1, 0, -1, -1, -1, -1 },
     { NULL, NULL, 0x2, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 1, 2, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsBaseMiniString;", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMiniScript;", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "I", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaUtilsJsonJSONObject;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LNSString;", 0x1, 3, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 4, 5, 6, -1, -1, -1 },
@@ -99,9 +98,9 @@ J2OBJC_IGNORE_DESIGNATED_END
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
   #pragma clang diagnostic ignored "-Wundeclared-selector"
-  methods[0].selector = @selector(initWithOrgMinimaObjectsBaseMiniNumber:withNSString:);
+  methods[0].selector = @selector(initWithInt:withNSString:);
   methods[1].selector = @selector(init);
-  methods[2].selector = @selector(resetDataWithOrgMinimaObjectsBaseMiniString:);
+  methods[2].selector = @selector(resetDataWithOrgMinimaObjectsBaseMiniScript:);
   methods[3].selector = @selector(getData);
   methods[4].selector = @selector(getPort);
   methods[5].selector = @selector(toJSON);
@@ -111,29 +110,28 @@ J2OBJC_IGNORE_DESIGNATED_END
   methods[9].selector = @selector(ReadFromStreamWithJavaIoDataInputStream:);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
-    { "mData_", "LOrgMinimaObjectsBaseMiniString;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
-    { "mPort_", "LOrgMinimaObjectsBaseMiniNumber;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
+    { "mPort_", "LOrgMinimaObjectsBaseMiniByte;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
+    { "mData_", "LOrgMinimaObjectsBaseMiniScript;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
   };
-  static const void *ptrTable[] = { "LOrgMinimaObjectsBaseMiniNumber;LNSString;", "resetData", "LOrgMinimaObjectsBaseMiniString;", "toString", "writeDataStream", "LJavaIoDataOutputStream;", "LJavaIoIOException;", "readDataStream", "LJavaIoDataInputStream;", "ReadFromStream" };
+  static const void *ptrTable[] = { "ILNSString;", "resetData", "LOrgMinimaObjectsBaseMiniScript;", "toString", "writeDataStream", "LJavaIoDataOutputStream;", "LJavaIoIOException;", "readDataStream", "LJavaIoDataInputStream;", "ReadFromStream" };
   static const J2ObjcClassInfo _OrgMinimaObjectsStateVariable = { "StateVariable", "org.minima.objects", ptrTable, methods, fields, 7, 0x1, 10, 2, -1, -1, -1, -1, -1 };
   return &_OrgMinimaObjectsStateVariable;
 }
 
 @end
 
-void OrgMinimaObjectsStateVariable_initWithOrgMinimaObjectsBaseMiniNumber_withNSString_(OrgMinimaObjectsStateVariable *self, OrgMinimaObjectsBaseMiniNumber *zPort, NSString *zData) {
+void OrgMinimaObjectsStateVariable_initWithInt_withNSString_(OrgMinimaObjectsStateVariable *self, jint zPort, NSString *zData) {
   NSObject_init(self);
-  NSString *cleanvar = OrgMinimaMiniscriptContract_cleanScriptWithNSString_(zData);
-  JreStrongAssignAndConsume(&self->mData_, new_OrgMinimaObjectsBaseMiniString_initWithNSString_(cleanvar));
-  JreStrongAssign(&self->mPort_, zPort);
+  JreStrongAssignAndConsume(&self->mPort_, new_OrgMinimaObjectsBaseMiniByte_initWithInt_(zPort));
+  JreStrongAssignAndConsume(&self->mData_, new_OrgMinimaObjectsBaseMiniScript_initWithNSString_(zData));
 }
 
-OrgMinimaObjectsStateVariable *new_OrgMinimaObjectsStateVariable_initWithOrgMinimaObjectsBaseMiniNumber_withNSString_(OrgMinimaObjectsBaseMiniNumber *zPort, NSString *zData) {
-  J2OBJC_NEW_IMPL(OrgMinimaObjectsStateVariable, initWithOrgMinimaObjectsBaseMiniNumber_withNSString_, zPort, zData)
+OrgMinimaObjectsStateVariable *new_OrgMinimaObjectsStateVariable_initWithInt_withNSString_(jint zPort, NSString *zData) {
+  J2OBJC_NEW_IMPL(OrgMinimaObjectsStateVariable, initWithInt_withNSString_, zPort, zData)
 }
 
-OrgMinimaObjectsStateVariable *create_OrgMinimaObjectsStateVariable_initWithOrgMinimaObjectsBaseMiniNumber_withNSString_(OrgMinimaObjectsBaseMiniNumber *zPort, NSString *zData) {
-  J2OBJC_CREATE_IMPL(OrgMinimaObjectsStateVariable, initWithOrgMinimaObjectsBaseMiniNumber_withNSString_, zPort, zData)
+OrgMinimaObjectsStateVariable *create_OrgMinimaObjectsStateVariable_initWithInt_withNSString_(jint zPort, NSString *zData) {
+  J2OBJC_CREATE_IMPL(OrgMinimaObjectsStateVariable, initWithInt_withNSString_, zPort, zData)
 }
 
 void OrgMinimaObjectsStateVariable_init(OrgMinimaObjectsStateVariable *self) {

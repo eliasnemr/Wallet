@@ -32,7 +32,7 @@ withOrgMinimaUtilsResponseStream:(OrgMinimaUtilsResponseStream *)zResponseStream
 
 + (void)mainWithNSStringArray:(IOSObjectArray *)zArgs;
 
-+ (IOSObjectArray *)splitStringWithNSString:(NSString *)zString;
++ (IOSObjectArray *)splitStringWithNSString:(NSString *)zInput;
 
 // Disallowed inherited constructors, do not use.
 
@@ -50,7 +50,7 @@ FOUNDATION_EXPORT OrgMinimaSystemInputInputMessage *new_OrgMinimaSystemInputInpu
 
 FOUNDATION_EXPORT OrgMinimaSystemInputInputMessage *create_OrgMinimaSystemInputInputMessage_initWithNSString_withOrgMinimaUtilsResponseStream_(NSString *zInput, OrgMinimaUtilsResponseStream *zResponseStream);
 
-FOUNDATION_EXPORT IOSObjectArray *OrgMinimaSystemInputInputMessage_splitStringWithNSString_(NSString *zString);
+FOUNDATION_EXPORT IOSObjectArray *OrgMinimaSystemInputInputMessage_splitStringWithNSString_(NSString *zInput);
 
 FOUNDATION_EXPORT void OrgMinimaSystemInputInputMessage_mainWithNSStringArray_(IOSObjectArray *zArgs);
 

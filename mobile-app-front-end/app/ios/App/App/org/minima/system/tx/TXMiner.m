@@ -3,18 +3,15 @@
 //  source: ./org/minima/system/tx/TXMiner.java
 //
 
-#include "IOSObjectArray.h"
 #include "IOSPrimitiveArray.h"
 #include "J2ObjC_source.h"
-#include "java/io/PrintStream.h"
 #include "java/lang/System.h"
-#include "java/util/Random.h"
-#include "org/minima/objects/Difficulty.h"
+#include "java/lang/Thread.h"
 #include "org/minima/objects/Transaction.h"
 #include "org/minima/objects/TxPOW.h"
 #include "org/minima/objects/Witness.h"
-#include "org/minima/objects/base/MiniHash.h"
-#include "org/minima/objects/base/MiniNumber.h"
+#include "org/minima/objects/base/MiniData.h"
+#include "org/minima/objects/base/MiniInteger.h"
 #include "org/minima/system/Main.h"
 #include "org/minima/system/SystemHandler.h"
 #include "org/minima/system/brains/ConsensusHandler.h"
@@ -23,8 +20,13 @@
 #include "org/minima/utils/MinimaLogger.h"
 #include "org/minima/utils/messages/Message.h"
 
+J2OBJC_INITIALIZED_DEFN(OrgMinimaSystemTxTXMiner)
+
+OrgMinimaObjectsBaseMiniData *OrgMinimaSystemTxTXMiner_BASE_TXN;
+OrgMinimaObjectsBaseMiniData *OrgMinimaSystemTxTXMiner_BASE_BLOCK;
 NSString *OrgMinimaSystemTxTXMiner_TXMINER_TESTHASHING = @"MINE_TESTHASHING";
-NSString *OrgMinimaSystemTxTXMiner_TXMINER_MINETXPOW = @"MINE_TXPOW";
+NSString *OrgMinimaSystemTxTXMiner_TXMINER_MINETXPOW = @"MINE_MINETXPOW";
+NSString *OrgMinimaSystemTxTXMiner_TXMINER_MEGAMINER = @"MINE_MEGAMINER";
 
 @implementation OrgMinimaSystemTxTXMiner
 
@@ -33,34 +35,67 @@ NSString *OrgMinimaSystemTxTXMiner_TXMINER_MINETXPOW = @"MINE_TXPOW";
   return self;
 }
 
+- (void)setAutoMiningWithBoolean:(jboolean)zMining {
+  mAutoMining_ = zMining;
+}
+
+- (jboolean)isAutoMining {
+  return mAutoMining_;
+}
+
 - (void)processMessageWithOrgMinimaUtilsMessagesMessage:(OrgMinimaUtilsMessagesMessage *)zMessage {
   if ([((OrgMinimaUtilsMessagesMessage *) nil_chk(zMessage)) isMessageTypeWithNSString:OrgMinimaSystemTxTXMiner_TXMINER_MINETXPOW]) {
     OrgMinimaObjectsTxPOW *txpow = (OrgMinimaObjectsTxPOW *) cast_chk([zMessage getObjectWithNSString:@"txpow"], [OrgMinimaObjectsTxPOW class]);
-    OrgMinimaObjectsDifficulty *txdiff = create_OrgMinimaObjectsDifficulty_initWithInt_([((OrgMinimaObjectsTxPOW *) nil_chk(txpow)) getTxnDifficulty]);
-    JavaUtilRandom *rand = create_JavaUtilRandom_init();
-    OrgMinimaObjectsBaseMiniNumber *nonce = JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, ZERO);
-    OrgMinimaObjectsBaseMiniHash *hash_ = nil;
+    OrgMinimaObjectsBaseMiniInteger *nonce = create_OrgMinimaObjectsBaseMiniInteger_initWithInt_(0);
+    OrgMinimaObjectsBaseMiniData *hash_ = nil;
     jboolean mining = true;
     jlong currentTime = JavaLangSystem_currentTimeMillis();
-    jlong maxTime = currentTime + 10000;
+    jlong maxTime = currentTime + 2000;
     while (mining && currentTime < maxTime) {
-      [txpow setNonceWithOrgMinimaObjectsBaseMiniNumber:nonce];
+      [((OrgMinimaObjectsTxPOW *) nil_chk(txpow)) setNonceWithOrgMinimaObjectsBaseMiniInteger:nonce];
       hash_ = [((OrgMinimaUtilsCrypto *) nil_chk(OrgMinimaUtilsCrypto_getInstance())) hashObjectWithOrgMinimaUtilsStreamable:txpow];
-      if ([txdiff isOKWithOrgMinimaObjectsBaseMiniHash:hash_]) {
+      if ([((OrgMinimaObjectsBaseMiniData *) nil_chk(hash_)) isLessWithOrgMinimaObjectsBaseMiniData:[txpow getTxnDifficulty]]) {
         mining = false;
       }
-      nonce = [((OrgMinimaObjectsBaseMiniNumber *) nil_chk(nonce)) increment];
+      nonce = [((OrgMinimaObjectsBaseMiniInteger *) nil_chk(nonce)) increment];
       currentTime = JavaLangSystem_currentTimeMillis();
     }
     if (mining) {
-      OrgMinimaUtilsMessagesMessage *sametr = [((OrgMinimaUtilsMessagesMessage *) nil_chk([create_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemBrainsConsensusHandler_CONSENSUS_SENDTRANS) addObjectWithNSString:@"transaction" withId:[txpow getTransaction]])) addObjectWithNSString:@"witness" withId:[txpow getWitness]];
+      OrgMinimaUtilsMessagesMessage *sametr = [((OrgMinimaUtilsMessagesMessage *) nil_chk([create_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemBrainsConsensusHandler_CONSENSUS_SENDTRANS) addObjectWithNSString:@"transaction" withId:[((OrgMinimaObjectsTxPOW *) nil_chk(txpow)) getTransaction]])) addObjectWithNSString:@"witness" withId:[txpow getWitness]];
       [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getConsensusHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:sametr];
     }
     else {
-      [txpow calculateTXPOWID];
+      [((OrgMinimaObjectsTxPOW *) nil_chk(txpow)) calculateTXPOWID];
       OrgMinimaUtilsMessagesMessage *msg = [create_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemBrainsConsensusHandler_CONSENSUS_PRE_PROCESSTXPOW) addObjectWithNSString:@"txpow" withId:txpow];
       [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getConsensusHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:msg];
     }
+  }
+  else if ([zMessage isMessageTypeWithNSString:OrgMinimaSystemTxTXMiner_TXMINER_MEGAMINER]) {
+    OrgMinimaObjectsTxPOW *txpow = (OrgMinimaObjectsTxPOW *) cast_chk([zMessage getObjectWithNSString:@"txpow"], [OrgMinimaObjectsTxPOW class]);
+    jlong currentTime = JavaLangSystem_currentTimeMillis();
+    jlong maxTime = currentTime + 2000;
+    jboolean mining = true;
+    OrgMinimaObjectsBaseMiniData *hash_ = nil;
+    while (mining && currentTime < maxTime && [self isRunning]) {
+      hash_ = [((OrgMinimaUtilsCrypto *) nil_chk(OrgMinimaUtilsCrypto_getInstance())) hashObjectWithOrgMinimaUtilsStreamable:txpow];
+      if ([((OrgMinimaObjectsBaseMiniData *) nil_chk(hash_)) isLessWithOrgMinimaObjectsBaseMiniData:[((OrgMinimaObjectsTxPOW *) nil_chk(txpow)) getBlockDifficulty]]) {
+        mining = false;
+      }
+      else {
+        [txpow setNonceWithOrgMinimaObjectsBaseMiniInteger:[((OrgMinimaObjectsBaseMiniInteger *) nil_chk([txpow getNonce])) increment]];
+      }
+      currentTime = JavaLangSystem_currentTimeMillis();
+    }
+    if (![self isRunning]) {
+      return;
+    }
+    [((OrgMinimaObjectsTxPOW *) nil_chk(txpow)) calculateTXPOWID];
+    if ([txpow isBlock]) {
+      OrgMinimaUtilsMessagesMessage *msg = [create_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemBrainsConsensusHandler_CONSENSUS_PRE_PROCESSTXPOW) addObjectWithNSString:@"txpow" withId:txpow];
+      [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getConsensusHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:msg];
+    }
+    JavaLangThread_sleepWithLong_(200);
+    [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getConsensusHandler])) PostMessageWithNSString:OrgMinimaSystemBrainsConsensusHandler_CONSENSUS_MINEBLOCK];
   }
   else if ([zMessage isMessageTypeWithNSString:OrgMinimaSystemTxTXMiner_TXMINER_TESTHASHING]) {
     jlong timenow = JavaLangSystem_currentTimeMillis();
@@ -76,38 +111,47 @@ NSString *OrgMinimaSystemTxTXMiner_TXMINER_MINETXPOW = @"MINE_TXPOW";
   }
 }
 
-+ (void)mainWithNSStringArray:(IOSObjectArray *)zArgs {
-  OrgMinimaSystemTxTXMiner_mainWithNSStringArray_(zArgs);
-}
-
 + (const J2ObjcClassInfo *)__metadata {
   static J2ObjcMethodInfo methods[] = {
     { NULL, NULL, 0x1, -1, 0, -1, -1, -1, -1 },
-    { NULL, "V", 0x4, 1, 2, 3, -1, -1, -1 },
-    { NULL, "V", 0x9, 4, 5, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 1, 2, -1, -1, -1, -1 },
+    { NULL, "Z", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "V", 0x4, 3, 4, 5, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
   #pragma clang diagnostic ignored "-Wundeclared-selector"
   methods[0].selector = @selector(initWithOrgMinimaSystemMain:);
-  methods[1].selector = @selector(processMessageWithOrgMinimaUtilsMessagesMessage:);
-  methods[2].selector = @selector(mainWithNSStringArray:);
+  methods[1].selector = @selector(setAutoMiningWithBoolean:);
+  methods[2].selector = @selector(isAutoMining);
+  methods[3].selector = @selector(processMessageWithOrgMinimaUtilsMessagesMessage:);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
-    { "BASE_TXN", "I", .constantValue.asInt = OrgMinimaSystemTxTXMiner_BASE_TXN, 0x19, -1, -1, -1, -1 },
-    { "BASE_BLOCK", "I", .constantValue.asInt = OrgMinimaSystemTxTXMiner_BASE_BLOCK, 0x19, -1, -1, -1, -1 },
-    { "TXMINER_TESTHASHING", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 6, -1, -1 },
-    { "TXMINER_MINETXPOW", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 7, -1, -1 },
+    { "BASE_TXN", "LOrgMinimaObjectsBaseMiniData;", .constantValue.asLong = 0, 0x19, -1, 6, -1, -1 },
+    { "BASE_BLOCK", "LOrgMinimaObjectsBaseMiniData;", .constantValue.asLong = 0, 0x19, -1, 7, -1, -1 },
+    { "TXMINER_TESTHASHING", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 8, -1, -1 },
+    { "TXMINER_MINETXPOW", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 9, -1, -1 },
+    { "TXMINER_MEGAMINER", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 10, -1, -1 },
+    { "mAutoMining_", "Z", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
   };
-  static const void *ptrTable[] = { "LOrgMinimaSystemMain;", "processMessage", "LOrgMinimaUtilsMessagesMessage;", "LJavaLangException;", "main", "[LNSString;", &OrgMinimaSystemTxTXMiner_TXMINER_TESTHASHING, &OrgMinimaSystemTxTXMiner_TXMINER_MINETXPOW };
-  static const J2ObjcClassInfo _OrgMinimaSystemTxTXMiner = { "TXMiner", "org.minima.system.tx", ptrTable, methods, fields, 7, 0x1, 3, 4, -1, -1, -1, -1, -1 };
+  static const void *ptrTable[] = { "LOrgMinimaSystemMain;", "setAutoMining", "Z", "processMessage", "LOrgMinimaUtilsMessagesMessage;", "LJavaLangException;", &OrgMinimaSystemTxTXMiner_BASE_TXN, &OrgMinimaSystemTxTXMiner_BASE_BLOCK, &OrgMinimaSystemTxTXMiner_TXMINER_TESTHASHING, &OrgMinimaSystemTxTXMiner_TXMINER_MINETXPOW, &OrgMinimaSystemTxTXMiner_TXMINER_MEGAMINER };
+  static const J2ObjcClassInfo _OrgMinimaSystemTxTXMiner = { "TXMiner", "org.minima.system.tx", ptrTable, methods, fields, 7, 0x1, 4, 6, -1, -1, -1, -1, -1 };
   return &_OrgMinimaSystemTxTXMiner;
+}
+
++ (void)initialize {
+  if (self == [OrgMinimaSystemTxTXMiner class]) {
+    JreStrongAssign(&OrgMinimaSystemTxTXMiner_BASE_TXN, JreLoadStatic(OrgMinimaUtilsCrypto, MAX_HASH));
+    JreStrongAssign(&OrgMinimaSystemTxTXMiner_BASE_BLOCK, JreLoadStatic(OrgMinimaUtilsCrypto, MAX_HASH));
+    J2OBJC_SET_INITIALIZED(OrgMinimaSystemTxTXMiner)
+  }
 }
 
 @end
 
 void OrgMinimaSystemTxTXMiner_initWithOrgMinimaSystemMain_(OrgMinimaSystemTxTXMiner *self, OrgMinimaSystemMain *zMain) {
   OrgMinimaSystemSystemHandler_initWithOrgMinimaSystemMain_withNSString_(self, zMain, @"TXMINER");
+  self->mAutoMining_ = false;
 }
 
 OrgMinimaSystemTxTXMiner *new_OrgMinimaSystemTxTXMiner_initWithOrgMinimaSystemMain_(OrgMinimaSystemMain *zMain) {
@@ -116,13 +160,6 @@ OrgMinimaSystemTxTXMiner *new_OrgMinimaSystemTxTXMiner_initWithOrgMinimaSystemMa
 
 OrgMinimaSystemTxTXMiner *create_OrgMinimaSystemTxTXMiner_initWithOrgMinimaSystemMain_(OrgMinimaSystemMain *zMain) {
   J2OBJC_CREATE_IMPL(OrgMinimaSystemTxTXMiner, initWithOrgMinimaSystemMain_, zMain)
-}
-
-void OrgMinimaSystemTxTXMiner_mainWithNSStringArray_(IOSObjectArray *zArgs) {
-  OrgMinimaSystemTxTXMiner_initialize();
-  for (jint i = 0; i < 256; i++) {
-    [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out))) printlnWithNSString:JreStrcat("I$@", i, @" \t: ", create_OrgMinimaObjectsDifficulty_initWithInt_(i))];
-  }
 }
 
 J2OBJC_CLASS_TYPE_LITERAL_SOURCE(OrgMinimaSystemTxTXMiner)

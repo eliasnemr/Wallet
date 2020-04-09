@@ -17,46 +17,38 @@
 #define OrgMinimaUtilsSuperBlockLevels_
 
 @class IOSObjectArray;
-@class JavaMathBigDecimal;
-@class JavaMathBigInteger;
-@class OrgMinimaObjectsBaseMiniHash;
+@class OrgMinimaObjectsBaseMiniData;
 
-@interface OrgMinimaUtilsSuperBlockLevels : NSObject {
- @public
-  IOSObjectArray *mSuperLevels_;
-  IOSObjectArray *mPOW2_;
-}
+@interface OrgMinimaUtilsSuperBlockLevels : NSObject
 
 #pragma mark Public
 
 - (instancetype)init;
 
-- (JavaMathBigDecimal *)get2POWWithInt:(jint)zExponent;
++ (jint)getSuperLevelWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zDifficulty
+                     withOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zActual;
 
-- (jint)getSuperBlockLevelWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zData;
-
-+ (OrgMinimaUtilsSuperBlockLevels *)getSupers;
-
-- (JavaMathBigInteger *)getSuperValueWithInt:(jint)zLevel;
++ (void)mainWithNSStringArray:(IOSObjectArray *)zArgs;
 
 @end
 
-J2OBJC_EMPTY_STATIC_INIT(OrgMinimaUtilsSuperBlockLevels)
+J2OBJC_STATIC_INIT(OrgMinimaUtilsSuperBlockLevels)
 
-J2OBJC_FIELD_SETTER(OrgMinimaUtilsSuperBlockLevels, mSuperLevels_, IOSObjectArray *)
-J2OBJC_FIELD_SETTER(OrgMinimaUtilsSuperBlockLevels, mPOW2_, IOSObjectArray *)
-
-inline jint OrgMinimaUtilsSuperBlockLevels_get_MAX_LEVELS(void);
-#define OrgMinimaUtilsSuperBlockLevels_MAX_LEVELS 256
-J2OBJC_STATIC_FIELD_CONSTANT(OrgMinimaUtilsSuperBlockLevels, MAX_LEVELS, jint)
-
-FOUNDATION_EXPORT OrgMinimaUtilsSuperBlockLevels *OrgMinimaUtilsSuperBlockLevels_getSupers(void);
+inline OrgMinimaObjectsBaseMiniData *OrgMinimaUtilsSuperBlockLevels_get_GENESIS_HASH(void);
+inline OrgMinimaObjectsBaseMiniData *OrgMinimaUtilsSuperBlockLevels_set_GENESIS_HASH(OrgMinimaObjectsBaseMiniData *value);
+/*! INTERNAL ONLY - Use accessor function from above. */
+FOUNDATION_EXPORT OrgMinimaObjectsBaseMiniData *OrgMinimaUtilsSuperBlockLevels_GENESIS_HASH;
+J2OBJC_STATIC_FIELD_OBJ(OrgMinimaUtilsSuperBlockLevels, GENESIS_HASH, OrgMinimaObjectsBaseMiniData *)
 
 FOUNDATION_EXPORT void OrgMinimaUtilsSuperBlockLevels_init(OrgMinimaUtilsSuperBlockLevels *self);
 
 FOUNDATION_EXPORT OrgMinimaUtilsSuperBlockLevels *new_OrgMinimaUtilsSuperBlockLevels_init(void) NS_RETURNS_RETAINED;
 
 FOUNDATION_EXPORT OrgMinimaUtilsSuperBlockLevels *create_OrgMinimaUtilsSuperBlockLevels_init(void);
+
+FOUNDATION_EXPORT jint OrgMinimaUtilsSuperBlockLevels_getSuperLevelWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniData_(OrgMinimaObjectsBaseMiniData *zDifficulty, OrgMinimaObjectsBaseMiniData *zActual);
+
+FOUNDATION_EXPORT void OrgMinimaUtilsSuperBlockLevels_mainWithNSStringArray_(IOSObjectArray *zArgs);
 
 J2OBJC_TYPE_LITERAL_HEADER(OrgMinimaUtilsSuperBlockLevels)
 

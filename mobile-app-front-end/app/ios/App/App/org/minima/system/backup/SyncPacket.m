@@ -75,7 +75,6 @@ J2OBJC_IGNORE_DESIGNATED_END
   if ([((OrgMinimaObjectsBaseMiniByte *) nil_chk(mmr)) isTrue]) {
     JreStrongAssignAndConsume(&mMMR_, new_OrgMinimaDatabaseMmrMMRSet_init());
     [mMMR_ readDataStreamWithJavaIoDataInputStream:zIn];
-    [((OrgMinimaDatabaseMmrMMRSet *) nil_chk(mMMR_)) finalizeSet];
   }
 }
 

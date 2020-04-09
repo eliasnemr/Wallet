@@ -336,16 +336,13 @@ OrgMinimaUtilsDigestKeccakDigest *create_OrgMinimaUtilsDigestKeccakDigest_initWi
 
 void OrgMinimaUtilsDigestKeccakDigest_init__WithInt_(OrgMinimaUtilsDigestKeccakDigest *self, jint bitLength) {
   switch (bitLength) {
-    case 128:
-    case 224:
+    case 160:
     case 256:
-    case 288:
-    case 384:
     case 512:
     OrgMinimaUtilsDigestKeccakDigest_initSpongeWithInt_(self, 1600 - (JreLShift32(bitLength, 1)));
     break;
     default:
-    @throw create_JavaLangIllegalArgumentException_initWithNSString_(@"bitLength must be one of 128, 224, 256, 288, 384, or 512.");
+    @throw create_JavaLangIllegalArgumentException_initWithNSString_(@"bitLength must be one of 160, 256, or 512.");
   }
 }
 

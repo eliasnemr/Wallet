@@ -9,11 +9,9 @@
 #include "java/io/DataInputStream.h"
 #include "java/io/DataOutputStream.h"
 #include "java/io/IOException.h"
-#include "org/minima/miniscript/Contract.h"
 #include "org/minima/objects/base/MiniData.h"
-#include "org/minima/objects/base/MiniHash.h"
 #include "org/minima/objects/base/MiniNumber.h"
-#include "org/minima/objects/base/MiniString.h"
+#include "org/minima/objects/base/MiniScript.h"
 #include "org/minima/objects/proofs/TokenProof.h"
 #include "org/minima/utils/Crypto.h"
 #include "org/minima/utils/json/JSONObject.h"
@@ -43,20 +41,20 @@ J2OBJC_IGNORE_DESIGNATED_BEGIN
 }
 J2OBJC_IGNORE_DESIGNATED_END
 
-- (instancetype)initWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zCoindID
+- (instancetype)initWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zCoindID
                   withOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zScale
                   withOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zAmount
-                  withOrgMinimaObjectsBaseMiniString:(OrgMinimaObjectsBaseMiniString *)zName {
-  OrgMinimaObjectsProofsTokenProof_initWithOrgMinimaObjectsBaseMiniHash_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniString_(self, zCoindID, zScale, zAmount, zName);
+                  withOrgMinimaObjectsBaseMiniScript:(OrgMinimaObjectsBaseMiniScript *)zName {
+  OrgMinimaObjectsProofsTokenProof_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniScript_(self, zCoindID, zScale, zAmount, zName);
   return self;
 }
 
-- (instancetype)initWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zCoindID
+- (instancetype)initWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zCoindID
                   withOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zScale
                   withOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zAmount
-                  withOrgMinimaObjectsBaseMiniString:(OrgMinimaObjectsBaseMiniString *)zName
-                  withOrgMinimaObjectsBaseMiniString:(OrgMinimaObjectsBaseMiniString *)zTokenScript {
-  OrgMinimaObjectsProofsTokenProof_initWithOrgMinimaObjectsBaseMiniHash_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniString_withOrgMinimaObjectsBaseMiniString_(self, zCoindID, zScale, zAmount, zName, zTokenScript);
+                  withOrgMinimaObjectsBaseMiniScript:(OrgMinimaObjectsBaseMiniScript *)zName
+                  withOrgMinimaObjectsBaseMiniScript:(OrgMinimaObjectsBaseMiniScript *)zTokenScript {
+  OrgMinimaObjectsProofsTokenProof_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniScript_withOrgMinimaObjectsBaseMiniScript_(self, zCoindID, zScale, zAmount, zName, zTokenScript);
   return self;
 }
 
@@ -72,30 +70,32 @@ J2OBJC_IGNORE_DESIGNATED_END
   return mTokenTotalAmount_;
 }
 
-- (OrgMinimaObjectsBaseMiniString *)getName {
+- (OrgMinimaObjectsBaseMiniScript *)getName {
   return mTokenName_;
 }
 
-- (OrgMinimaObjectsBaseMiniString *)getTokenScript {
+- (OrgMinimaObjectsBaseMiniScript *)getTokenScript {
   return mTokenScript_;
 }
 
-- (OrgMinimaObjectsBaseMiniHash *)getCoinID {
+- (OrgMinimaObjectsBaseMiniData *)getCoinID {
   return mCoinID_;
 }
 
-- (OrgMinimaObjectsBaseMiniHash *)getTokenID {
+- (OrgMinimaObjectsBaseMiniData *)getTokenID {
   return mTokenID_;
 }
 
 - (OrgMinimaUtilsJsonJSONObject *)toJSON {
   OrgMinimaUtilsJsonJSONObject *obj = create_OrgMinimaUtilsJsonJSONObject_init();
-  [obj putWithId:@"coinid" withId:[((OrgMinimaObjectsBaseMiniHash *) nil_chk(mCoinID_)) to0xString]];
-  [obj putWithId:@"name" withId:[((OrgMinimaObjectsBaseMiniString *) nil_chk(mTokenName_)) description]];
-  [obj putWithId:@"script" withId:[((OrgMinimaObjectsBaseMiniString *) nil_chk(mTokenScript_)) description]];
-  [obj putWithId:@"scale" withId:[((OrgMinimaObjectsBaseMiniNumber *) nil_chk(mTokenScale_)) description]];
+  [obj putWithId:@"tokenid" withId:[((OrgMinimaObjectsBaseMiniData *) nil_chk(mTokenID_)) to0xString]];
+  [obj putWithId:@"name" withId:[((OrgMinimaObjectsBaseMiniScript *) nil_chk(mTokenName_)) description]];
+  OrgMinimaObjectsBaseMiniNumber *total = [((OrgMinimaObjectsBaseMiniNumber *) nil_chk(mTokenTotalAmount_)) multWithOrgMinimaObjectsBaseMiniNumber:[self getScaleFactor]];
+  [obj putWithId:@"total" withId:total];
+  [obj putWithId:@"script" withId:[((OrgMinimaObjectsBaseMiniScript *) nil_chk(mTokenScript_)) description]];
+  [obj putWithId:@"coinid" withId:[((OrgMinimaObjectsBaseMiniData *) nil_chk(mCoinID_)) to0xString]];
   [obj putWithId:@"totalamount" withId:[((OrgMinimaObjectsBaseMiniNumber *) nil_chk(mTokenTotalAmount_)) description]];
-  [obj putWithId:@"tokenid" withId:[((OrgMinimaObjectsBaseMiniHash *) nil_chk(mTokenID_)) to0xString]];
+  [obj putWithId:@"scale" withId:[((OrgMinimaObjectsBaseMiniNumber *) nil_chk(mTokenScale_)) description]];
   return obj;
 }
 
@@ -104,19 +104,19 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (void)writeDataStreamWithJavaIoDataOutputStream:(JavaIoDataOutputStream *)zOut {
-  [((OrgMinimaObjectsBaseMiniHash *) nil_chk(mCoinID_)) writeDataStreamWithJavaIoDataOutputStream:zOut];
-  [((OrgMinimaObjectsBaseMiniString *) nil_chk(mTokenScript_)) writeDataStreamWithJavaIoDataOutputStream:zOut];
+  [((OrgMinimaObjectsBaseMiniData *) nil_chk(mCoinID_)) writeDataStreamWithJavaIoDataOutputStream:zOut];
+  [((OrgMinimaObjectsBaseMiniScript *) nil_chk(mTokenScript_)) writeDataStreamWithJavaIoDataOutputStream:zOut];
   [((OrgMinimaObjectsBaseMiniNumber *) nil_chk(mTokenScale_)) writeDataStreamWithJavaIoDataOutputStream:zOut];
   [((OrgMinimaObjectsBaseMiniNumber *) nil_chk(mTokenTotalAmount_)) writeDataStreamWithJavaIoDataOutputStream:zOut];
-  [((OrgMinimaObjectsBaseMiniString *) nil_chk(mTokenName_)) writeDataStreamWithJavaIoDataOutputStream:zOut];
+  [((OrgMinimaObjectsBaseMiniScript *) nil_chk(mTokenName_)) writeDataStreamWithJavaIoDataOutputStream:zOut];
 }
 
 - (void)readDataStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn {
-  JreStrongAssign(&mCoinID_, OrgMinimaObjectsBaseMiniHash_ReadFromStreamWithJavaIoDataInputStream_(zIn));
-  JreStrongAssign(&mTokenScript_, OrgMinimaObjectsBaseMiniString_ReadFromStreamWithJavaIoDataInputStream_(zIn));
+  JreStrongAssign(&mCoinID_, OrgMinimaObjectsBaseMiniData_ReadFromStreamWithJavaIoDataInputStream_(zIn));
+  JreStrongAssign(&mTokenScript_, OrgMinimaObjectsBaseMiniScript_ReadFromStreamWithJavaIoDataInputStream_(zIn));
   JreStrongAssign(&mTokenScale_, OrgMinimaObjectsBaseMiniNumber_ReadFromStreamWithJavaIoDataInputStream_(zIn));
   JreStrongAssign(&mTokenTotalAmount_, OrgMinimaObjectsBaseMiniNumber_ReadFromStreamWithJavaIoDataInputStream_(zIn));
-  JreStrongAssign(&mTokenName_, OrgMinimaObjectsBaseMiniString_ReadFromStreamWithJavaIoDataInputStream_(zIn));
+  JreStrongAssign(&mTokenName_, OrgMinimaObjectsBaseMiniScript_ReadFromStreamWithJavaIoDataInputStream_(zIn));
   OrgMinimaObjectsProofsTokenProof_calculateTokenID(self);
 }
 
@@ -142,10 +142,10 @@ J2OBJC_IGNORE_DESIGNATED_END
     { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsBaseMiniString;", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsBaseMiniString;", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsBaseMiniHash;", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsBaseMiniHash;", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMiniScript;", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMiniScript;", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMiniData;", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMiniData;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaUtilsJsonJSONObject;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x2, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 2, 3, 4, -1, -1, -1 },
@@ -156,8 +156,8 @@ J2OBJC_IGNORE_DESIGNATED_END
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
   #pragma clang diagnostic ignored "-Wundeclared-selector"
   methods[0].selector = @selector(init);
-  methods[1].selector = @selector(initWithOrgMinimaObjectsBaseMiniHash:withOrgMinimaObjectsBaseMiniNumber:withOrgMinimaObjectsBaseMiniNumber:withOrgMinimaObjectsBaseMiniString:);
-  methods[2].selector = @selector(initWithOrgMinimaObjectsBaseMiniHash:withOrgMinimaObjectsBaseMiniNumber:withOrgMinimaObjectsBaseMiniNumber:withOrgMinimaObjectsBaseMiniString:withOrgMinimaObjectsBaseMiniString:);
+  methods[1].selector = @selector(initWithOrgMinimaObjectsBaseMiniData:withOrgMinimaObjectsBaseMiniNumber:withOrgMinimaObjectsBaseMiniNumber:withOrgMinimaObjectsBaseMiniScript:);
+  methods[2].selector = @selector(initWithOrgMinimaObjectsBaseMiniData:withOrgMinimaObjectsBaseMiniNumber:withOrgMinimaObjectsBaseMiniNumber:withOrgMinimaObjectsBaseMiniScript:withOrgMinimaObjectsBaseMiniScript:);
   methods[3].selector = @selector(getScaleFactor);
   methods[4].selector = @selector(getScale);
   methods[5].selector = @selector(getAmount);
@@ -172,14 +172,14 @@ J2OBJC_IGNORE_DESIGNATED_END
   methods[14].selector = @selector(ReadFromStreamWithJavaIoDataInputStream:);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
-    { "mCoinID_", "LOrgMinimaObjectsBaseMiniHash;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
+    { "mCoinID_", "LOrgMinimaObjectsBaseMiniData;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mTokenScale_", "LOrgMinimaObjectsBaseMiniNumber;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mTokenTotalAmount_", "LOrgMinimaObjectsBaseMiniNumber;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
-    { "mTokenName_", "LOrgMinimaObjectsBaseMiniString;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
-    { "mTokenScript_", "LOrgMinimaObjectsBaseMiniString;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
-    { "mTokenID_", "LOrgMinimaObjectsBaseMiniHash;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
+    { "mTokenName_", "LOrgMinimaObjectsBaseMiniScript;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
+    { "mTokenScript_", "LOrgMinimaObjectsBaseMiniScript;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
+    { "mTokenID_", "LOrgMinimaObjectsBaseMiniData;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
   };
-  static const void *ptrTable[] = { "LOrgMinimaObjectsBaseMiniHash;LOrgMinimaObjectsBaseMiniNumber;LOrgMinimaObjectsBaseMiniNumber;LOrgMinimaObjectsBaseMiniString;", "LOrgMinimaObjectsBaseMiniHash;LOrgMinimaObjectsBaseMiniNumber;LOrgMinimaObjectsBaseMiniNumber;LOrgMinimaObjectsBaseMiniString;LOrgMinimaObjectsBaseMiniString;", "writeDataStream", "LJavaIoDataOutputStream;", "LJavaIoIOException;", "readDataStream", "LJavaIoDataInputStream;", "ReadFromStream" };
+  static const void *ptrTable[] = { "LOrgMinimaObjectsBaseMiniData;LOrgMinimaObjectsBaseMiniNumber;LOrgMinimaObjectsBaseMiniNumber;LOrgMinimaObjectsBaseMiniScript;", "LOrgMinimaObjectsBaseMiniData;LOrgMinimaObjectsBaseMiniNumber;LOrgMinimaObjectsBaseMiniNumber;LOrgMinimaObjectsBaseMiniScript;LOrgMinimaObjectsBaseMiniScript;", "writeDataStream", "LJavaIoDataOutputStream;", "LJavaIoIOException;", "readDataStream", "LJavaIoDataInputStream;", "ReadFromStream" };
   static const J2ObjcClassInfo _OrgMinimaObjectsProofsTokenProof = { "TokenProof", "org.minima.objects.proofs", ptrTable, methods, fields, 7, 0x1, 15, 6, -1, -1, -1, -1, -1 };
   return &_OrgMinimaObjectsProofsTokenProof;
 }
@@ -198,34 +198,34 @@ OrgMinimaObjectsProofsTokenProof *create_OrgMinimaObjectsProofsTokenProof_init()
   J2OBJC_CREATE_IMPL(OrgMinimaObjectsProofsTokenProof, init)
 }
 
-void OrgMinimaObjectsProofsTokenProof_initWithOrgMinimaObjectsBaseMiniHash_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniString_(OrgMinimaObjectsProofsTokenProof *self, OrgMinimaObjectsBaseMiniHash *zCoindID, OrgMinimaObjectsBaseMiniNumber *zScale, OrgMinimaObjectsBaseMiniNumber *zAmount, OrgMinimaObjectsBaseMiniString *zName) {
-  OrgMinimaObjectsProofsTokenProof_initWithOrgMinimaObjectsBaseMiniHash_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniString_withOrgMinimaObjectsBaseMiniString_(self, zCoindID, zScale, zAmount, zName, create_OrgMinimaObjectsBaseMiniString_initWithNSString_(@"RETURN TRUE"));
+void OrgMinimaObjectsProofsTokenProof_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniScript_(OrgMinimaObjectsProofsTokenProof *self, OrgMinimaObjectsBaseMiniData *zCoindID, OrgMinimaObjectsBaseMiniNumber *zScale, OrgMinimaObjectsBaseMiniNumber *zAmount, OrgMinimaObjectsBaseMiniScript *zName) {
+  OrgMinimaObjectsProofsTokenProof_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniScript_withOrgMinimaObjectsBaseMiniScript_(self, zCoindID, zScale, zAmount, zName, create_OrgMinimaObjectsBaseMiniScript_initWithNSString_(@"RETURN TRUE"));
 }
 
-OrgMinimaObjectsProofsTokenProof *new_OrgMinimaObjectsProofsTokenProof_initWithOrgMinimaObjectsBaseMiniHash_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniString_(OrgMinimaObjectsBaseMiniHash *zCoindID, OrgMinimaObjectsBaseMiniNumber *zScale, OrgMinimaObjectsBaseMiniNumber *zAmount, OrgMinimaObjectsBaseMiniString *zName) {
-  J2OBJC_NEW_IMPL(OrgMinimaObjectsProofsTokenProof, initWithOrgMinimaObjectsBaseMiniHash_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniString_, zCoindID, zScale, zAmount, zName)
+OrgMinimaObjectsProofsTokenProof *new_OrgMinimaObjectsProofsTokenProof_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniScript_(OrgMinimaObjectsBaseMiniData *zCoindID, OrgMinimaObjectsBaseMiniNumber *zScale, OrgMinimaObjectsBaseMiniNumber *zAmount, OrgMinimaObjectsBaseMiniScript *zName) {
+  J2OBJC_NEW_IMPL(OrgMinimaObjectsProofsTokenProof, initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniScript_, zCoindID, zScale, zAmount, zName)
 }
 
-OrgMinimaObjectsProofsTokenProof *create_OrgMinimaObjectsProofsTokenProof_initWithOrgMinimaObjectsBaseMiniHash_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniString_(OrgMinimaObjectsBaseMiniHash *zCoindID, OrgMinimaObjectsBaseMiniNumber *zScale, OrgMinimaObjectsBaseMiniNumber *zAmount, OrgMinimaObjectsBaseMiniString *zName) {
-  J2OBJC_CREATE_IMPL(OrgMinimaObjectsProofsTokenProof, initWithOrgMinimaObjectsBaseMiniHash_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniString_, zCoindID, zScale, zAmount, zName)
+OrgMinimaObjectsProofsTokenProof *create_OrgMinimaObjectsProofsTokenProof_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniScript_(OrgMinimaObjectsBaseMiniData *zCoindID, OrgMinimaObjectsBaseMiniNumber *zScale, OrgMinimaObjectsBaseMiniNumber *zAmount, OrgMinimaObjectsBaseMiniScript *zName) {
+  J2OBJC_CREATE_IMPL(OrgMinimaObjectsProofsTokenProof, initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniScript_, zCoindID, zScale, zAmount, zName)
 }
 
-void OrgMinimaObjectsProofsTokenProof_initWithOrgMinimaObjectsBaseMiniHash_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniString_withOrgMinimaObjectsBaseMiniString_(OrgMinimaObjectsProofsTokenProof *self, OrgMinimaObjectsBaseMiniHash *zCoindID, OrgMinimaObjectsBaseMiniNumber *zScale, OrgMinimaObjectsBaseMiniNumber *zAmount, OrgMinimaObjectsBaseMiniString *zName, OrgMinimaObjectsBaseMiniString *zTokenScript) {
+void OrgMinimaObjectsProofsTokenProof_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniScript_withOrgMinimaObjectsBaseMiniScript_(OrgMinimaObjectsProofsTokenProof *self, OrgMinimaObjectsBaseMiniData *zCoindID, OrgMinimaObjectsBaseMiniNumber *zScale, OrgMinimaObjectsBaseMiniNumber *zAmount, OrgMinimaObjectsBaseMiniScript *zName, OrgMinimaObjectsBaseMiniScript *zTokenScript) {
   NSObject_init(self);
   JreStrongAssign(&self->mTokenScale_, zScale);
   JreStrongAssign(&self->mTokenTotalAmount_, zAmount);
   JreStrongAssign(&self->mTokenName_, zName);
   JreStrongAssign(&self->mCoinID_, zCoindID);
-  JreStrongAssignAndConsume(&self->mTokenScript_, new_OrgMinimaObjectsBaseMiniString_initWithNSString_(OrgMinimaMiniscriptContract_cleanScriptWithNSString_([((OrgMinimaObjectsBaseMiniString *) nil_chk(zTokenScript)) description])));
+  JreStrongAssignAndConsume(&self->mTokenScript_, new_OrgMinimaObjectsBaseMiniScript_initWithNSString_([((OrgMinimaObjectsBaseMiniScript *) nil_chk(zTokenScript)) description]));
   OrgMinimaObjectsProofsTokenProof_calculateTokenID(self);
 }
 
-OrgMinimaObjectsProofsTokenProof *new_OrgMinimaObjectsProofsTokenProof_initWithOrgMinimaObjectsBaseMiniHash_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniString_withOrgMinimaObjectsBaseMiniString_(OrgMinimaObjectsBaseMiniHash *zCoindID, OrgMinimaObjectsBaseMiniNumber *zScale, OrgMinimaObjectsBaseMiniNumber *zAmount, OrgMinimaObjectsBaseMiniString *zName, OrgMinimaObjectsBaseMiniString *zTokenScript) {
-  J2OBJC_NEW_IMPL(OrgMinimaObjectsProofsTokenProof, initWithOrgMinimaObjectsBaseMiniHash_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniString_withOrgMinimaObjectsBaseMiniString_, zCoindID, zScale, zAmount, zName, zTokenScript)
+OrgMinimaObjectsProofsTokenProof *new_OrgMinimaObjectsProofsTokenProof_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniScript_withOrgMinimaObjectsBaseMiniScript_(OrgMinimaObjectsBaseMiniData *zCoindID, OrgMinimaObjectsBaseMiniNumber *zScale, OrgMinimaObjectsBaseMiniNumber *zAmount, OrgMinimaObjectsBaseMiniScript *zName, OrgMinimaObjectsBaseMiniScript *zTokenScript) {
+  J2OBJC_NEW_IMPL(OrgMinimaObjectsProofsTokenProof, initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniScript_withOrgMinimaObjectsBaseMiniScript_, zCoindID, zScale, zAmount, zName, zTokenScript)
 }
 
-OrgMinimaObjectsProofsTokenProof *create_OrgMinimaObjectsProofsTokenProof_initWithOrgMinimaObjectsBaseMiniHash_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniString_withOrgMinimaObjectsBaseMiniString_(OrgMinimaObjectsBaseMiniHash *zCoindID, OrgMinimaObjectsBaseMiniNumber *zScale, OrgMinimaObjectsBaseMiniNumber *zAmount, OrgMinimaObjectsBaseMiniString *zName, OrgMinimaObjectsBaseMiniString *zTokenScript) {
-  J2OBJC_CREATE_IMPL(OrgMinimaObjectsProofsTokenProof, initWithOrgMinimaObjectsBaseMiniHash_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniString_withOrgMinimaObjectsBaseMiniString_, zCoindID, zScale, zAmount, zName, zTokenScript)
+OrgMinimaObjectsProofsTokenProof *create_OrgMinimaObjectsProofsTokenProof_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniScript_withOrgMinimaObjectsBaseMiniScript_(OrgMinimaObjectsBaseMiniData *zCoindID, OrgMinimaObjectsBaseMiniNumber *zScale, OrgMinimaObjectsBaseMiniNumber *zAmount, OrgMinimaObjectsBaseMiniScript *zName, OrgMinimaObjectsBaseMiniScript *zTokenScript) {
+  J2OBJC_CREATE_IMPL(OrgMinimaObjectsProofsTokenProof, initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniScript_withOrgMinimaObjectsBaseMiniScript_, zCoindID, zScale, zAmount, zName, zTokenScript)
 }
 
 void OrgMinimaObjectsProofsTokenProof_calculateTokenID(OrgMinimaObjectsProofsTokenProof *self) {

@@ -8,21 +8,13 @@ import java.util.Collections;
 
 import org.minima.database.mmr.MMRSet;
 import org.minima.objects.TxPOW;
-import org.minima.objects.base.MiniHash;
-import org.minima.utils.Maths;
+import org.minima.objects.base.MiniData;
+import org.minima.utils.Crypto;
 
 public class BlockTreeNode implements Comparable<BlockTreeNode> {
 
-	public static final BigInteger BIG_TWO = new BigInteger("2");
-	
-	public static final BigInteger MAX_VAL = new BigInteger(
-								  "FFFFFFFFFFFFFFFFFFFF"+
-								  "FFFFFFFFFFFFFFFFFFFF"+
-								  "FFFFFFFFFFFFFFFFFFFF"+
-								  "FFFF", 16); 
-	
-	public static final BigDecimal MAX_VALDEC = new BigDecimal(MAX_VAL); 
-	
+	public static final BigInteger BIG_TWO    = new BigInteger("2");
+	public static final BigDecimal MAX_VALDEC = new BigDecimal(Crypto.MAX_HASH.getDataValue()); 
 	
 	/**
 	 * Block States
@@ -184,7 +176,7 @@ public class BlockTreeNode implements Comparable<BlockTreeNode> {
 		resetCurrentWeight();
 	}
 	
-	public MiniHash getTxPowID() {
+	public MiniData getTxPowID() {
 		return getTxPow().getTxPowID();
 	}
 	

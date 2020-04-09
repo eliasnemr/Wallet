@@ -18,7 +18,8 @@
 
 @class IOSByteArray;
 @class IOSObjectArray;
-@class OrgMinimaObjectsBaseMiniHash;
+@class JavaMathBigInteger;
+@class OrgMinimaObjectsBaseMiniData;
 @protocol OrgMinimaUtilsStreamable;
 
 @interface OrgMinimaUtilsCrypto : NSObject
@@ -29,14 +30,24 @@
 
 + (OrgMinimaUtilsCrypto *)getInstance;
 
-- (OrgMinimaObjectsBaseMiniHash *)hashAllObjectsWithOrgMinimaUtilsStreamableArray:(IOSObjectArray *)zObjects;
+- (OrgMinimaObjectsBaseMiniData *)hashAllObjectsWithOrgMinimaUtilsStreamableArray:(IOSObjectArray *)zObjects;
 
 - (IOSByteArray *)hashDataWithByteArray:(IOSByteArray *)zData;
 
-- (OrgMinimaObjectsBaseMiniHash *)hashObjectWithOrgMinimaUtilsStreamable:(id<OrgMinimaUtilsStreamable>)zObject;
+- (IOSByteArray *)hashDataWithByteArray:(IOSByteArray *)zData
+                                withInt:(jint)zBitLength;
 
-- (OrgMinimaObjectsBaseMiniHash *)hashObjectsWithOrgMinimaUtilsStreamable:(id<OrgMinimaUtilsStreamable>)zLeftObject
+- (OrgMinimaObjectsBaseMiniData *)hashObjectWithOrgMinimaUtilsStreamable:(id<OrgMinimaUtilsStreamable>)zObject;
+
+- (OrgMinimaObjectsBaseMiniData *)hashObjectWithOrgMinimaUtilsStreamable:(id<OrgMinimaUtilsStreamable>)zObject
+                                                                 withInt:(jint)zBitLength;
+
+- (OrgMinimaObjectsBaseMiniData *)hashObjectsWithOrgMinimaUtilsStreamable:(id<OrgMinimaUtilsStreamable>)zLeftObject
                                              withOrgMinimaUtilsStreamable:(id<OrgMinimaUtilsStreamable>)zRightObject2;
+
+- (OrgMinimaObjectsBaseMiniData *)hashObjectsWithOrgMinimaUtilsStreamable:(id<OrgMinimaUtilsStreamable>)zLeftObject
+                                             withOrgMinimaUtilsStreamable:(id<OrgMinimaUtilsStreamable>)zRightObject2
+                                                                  withInt:(jint)zBitLength;
 
 - (IOSByteArray *)hashSHA2WithByteArray:(IOSByteArray *)zData;
 
@@ -44,14 +55,17 @@
 
 @end
 
-J2OBJC_EMPTY_STATIC_INIT(OrgMinimaUtilsCrypto)
+J2OBJC_STATIC_INIT(OrgMinimaUtilsCrypto)
 
-inline jboolean OrgMinimaUtilsCrypto_get_USE_KECCAK(void);
-inline jboolean OrgMinimaUtilsCrypto_set_USE_KECCAK(jboolean value);
-inline jboolean *OrgMinimaUtilsCrypto_getRef_USE_KECCAK(void);
+inline JavaMathBigInteger *OrgMinimaUtilsCrypto_get_MAX_VAL(void);
 /*! INTERNAL ONLY - Use accessor function from above. */
-FOUNDATION_EXPORT jboolean OrgMinimaUtilsCrypto_USE_KECCAK;
-J2OBJC_STATIC_FIELD_PRIMITIVE(OrgMinimaUtilsCrypto, USE_KECCAK, jboolean)
+FOUNDATION_EXPORT JavaMathBigInteger *OrgMinimaUtilsCrypto_MAX_VAL;
+J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaUtilsCrypto, MAX_VAL, JavaMathBigInteger *)
+
+inline OrgMinimaObjectsBaseMiniData *OrgMinimaUtilsCrypto_get_MAX_HASH(void);
+/*! INTERNAL ONLY - Use accessor function from above. */
+FOUNDATION_EXPORT OrgMinimaObjectsBaseMiniData *OrgMinimaUtilsCrypto_MAX_HASH;
+J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaUtilsCrypto, MAX_HASH, OrgMinimaObjectsBaseMiniData *)
 
 FOUNDATION_EXPORT OrgMinimaUtilsCrypto *OrgMinimaUtilsCrypto_getInstance(void);
 

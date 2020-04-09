@@ -2,6 +2,7 @@ package org.minima.system.brains;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 import org.minima.NativeListener;
 import org.minima.database.MinimaDB;
@@ -12,9 +13,8 @@ import org.minima.objects.TxPOW;
 import org.minima.objects.Witness;
 import org.minima.objects.base.MiniByte;
 import org.minima.objects.base.MiniData;
-import org.minima.objects.base.MiniHash;
 import org.minima.objects.base.MiniNumber;
-import org.minima.objects.base.MiniString;
+import org.minima.objects.base.MiniScript;
 import org.minima.objects.proofs.TokenProof;
 import org.minima.system.Main;
 import org.minima.system.SystemHandler;
@@ -66,7 +66,7 @@ public class ConsensusHandler extends SystemHandler {
 	
 	//DEBUG FUNCTION
 	public static final String CONSENSUS_GIMME50 			= "CONSENSUS_GIMME50";
-	public static final String CONSENSUS_STRESS_TRANS 		= "CONSENSUS_STRESS_TRANS";
+//	public static final String CONSENSUS_STRESS_TRANS 		= "CONSENSUS_STRESS_TRANS";
 	
 		
 	/**
@@ -334,7 +334,7 @@ public class ConsensusHandler extends SystemHandler {
 		}else if ( zMessage.isMessageType(CONSENSUS_MINEBLOCK) ) {
 			//Are we Mining..
 			if(!getMainHandler().getMiner().isAutoMining()) {
-				PostTimerMessage(new TimerMessage(1000, CONSENSUS_MINEBLOCK));
+				PostTimerMessage(new TimerMessage(5000, CONSENSUS_MINEBLOCK));
 				return;
 			}
 			
@@ -349,25 +349,33 @@ public class ConsensusHandler extends SystemHandler {
 			
 		}else if ( zMessage.isMessageType(CONSENSUS_CREATETRANS) ) {
 			//How much to who ?
-			String address 		= new MiniHash(zMessage.getString("address")).to0xString();
-			String tokenid 	   	= new MiniHash(zMessage.getString("tokenid")).to0xString();
+			String address 	= zMessage.getString("address");
+			if(address.startsWith("0x")) {
+				//It's a regular HASH address
+				address = new MiniData(address).to0xString();
+			}else if(address.startsWith("Mx")) {
+				//It's a Minima Address!
+				address = Address.convertMinimAddress(address).to0xString();
+			}
+			
+			String tokenid 	   	= new MiniData(zMessage.getString("tokenid")).to0xString();
 			String amount  		= zMessage.getString("amount");
 			
 			//The Token Hash
-			MiniHash tok       		= new MiniHash(tokenid);
-			MiniHash changetok 		= new MiniHash(tokenid);
+			MiniData tok       		= new MiniData(tokenid);
+			MiniData changetok 		= new MiniData(tokenid);
 			
 			//Replace with the HASH value.. 
 			tokenid = tok.to0xString();
 			
 			//Is this a token amount or a minima amount
 			TokenProof tokendets = null;
-			if(!tok.isExactlyEqual(Coin.MINIMA_TOKENID)) {
+			if(!tok.isEqual(Coin.MINIMA_TOKENID)) {
 				//It's a token.. scale it..
 				MiniNumber samount = new MiniNumber(amount);
 				
 				//Now divide by the scale factor..
-				tokendets = getMainDB().getUserDB().getTokenDetail(new MiniHash(tokenid));
+				tokendets = getMainDB().getUserDB().getTokenDetail(new MiniData(tokenid));
 				
 				//Do we have it,.
 				if(tokendets == null) {
@@ -389,7 +397,7 @@ public class ConsensusHandler extends SystemHandler {
 			//How much do we have..
 			MiniNumber total = new MiniNumber(); 
 			ArrayList<Coin> confirmed = null;
-			if(tok.isExactlyEqual(Coin.TOKENID_CREATE)) {
+			if(tok.isEqual(Coin.TOKENID_CREATE)) {
 				confirmed = getMainDB().getTotalSimpleSpendableCoins(Coin.MINIMA_TOKENID);
 				changetok = Coin.MINIMA_TOKENID;
 			}else {
@@ -414,7 +422,7 @@ public class ConsensusHandler extends SystemHandler {
 				
 			}else {
 				//Continue constructing the transaction - outputs don't need scripts
-				Address recipient= new Address(new MiniHash(address));
+				Address recipient= new Address(new MiniData(address));
 				
 				//Blank address - check change is non-null
 				Address change = new Address(); 
@@ -423,7 +431,7 @@ public class ConsensusHandler extends SystemHandler {
 				}
 				
 				//Create the Transaction
-				Message ret = getMainDB().createTransaction(sendamount, recipient, change, confirmed, tok, changetok);
+				Message ret = getMainDB().createTransaction(sendamount, recipient, change, confirmed, tok, changetok,null);
 				
 				//Is this a token transaction
 				if(tokendets != null) {
@@ -444,28 +452,29 @@ public class ConsensusHandler extends SystemHandler {
 		/**
 		 * Other Functions
 		 */
-		}else if(zMessage.isMessageType(CONSENSUS_STRESS_TRANS)) {
-			//Send a random transaction!
-			Transaction trans = new Transaction();
-			Witness wit = new Witness();
+//		}else if(zMessage.isMessageType(CONSENSUS_STRESS_TRANS)) {
+//			//Send a random transaction!
+//			Transaction trans = new Transaction();
+//			Witness wit = new Witness();
+//			
+//			Coin in = new Coin(gimme50.COINID_INPUT,Address.TRUE_ADDRESS.getAddressData(),new MiniNumber("1"), MiniData.ZERO32);
+//			trans.addInput(in);
+//			wit.addScript(Address.TRUE_ADDRESS.getScript());
+//			
+//			//And send to the new address
+//			Address outaddr = new Address(new MiniData(MiniData.getRandomData(32).getData()));
+//			Coin out = new Coin(Coin.COINID_OUTPUT,outaddr.getAddressData(),new MiniNumber("1"), MiniData.ZERO32);
+//			trans.addOutput(out);
+//			
+//			//Now send it..
+//			Message mine = new Message(ConsensusHandler.CONSENSUS_SENDTRANS)
+//								.addObject("transaction", trans)
+//								.addObject("witness", wit);
+//			InputHandler.addResponseMesage(mine, zMessage);
+//			
+//			PostMessage(mine);
+//		
 			
-			Coin in = new Coin(gimme50.COINID_INPUT,Address.TRUE_ADDRESS.getAddressData(),new MiniNumber("1"), MiniHash.ZERO32);
-			trans.addInput(in);
-			wit.addScript(Address.TRUE_ADDRESS.getScript());
-			
-			//And send to the new address
-			Address outaddr = new Address(new MiniHash(MiniData.getRandomData(32).getData()));
-			Coin out = new Coin(Coin.COINID_OUTPUT,outaddr.getAddressData(),new MiniNumber("1"), MiniHash.ZERO32);
-			trans.addOutput(out);
-			
-			//Now send it..
-			Message mine = new Message(ConsensusHandler.CONSENSUS_SENDTRANS)
-								.addObject("transaction", trans)
-								.addObject("witness", wit);
-			InputHandler.addResponseMesage(mine, zMessage);
-			
-			PostMessage(mine);
-		
 		}else if(zMessage.isMessageType(CONSENSUS_GIMME50)) {
 			//construct a special transaction that pays 50 mini to an address this user controls..
 			Address addr = getMainDB().getUserDB().newSimpleAddress();
@@ -477,14 +486,14 @@ public class ConsensusHandler extends SystemHandler {
 			Witness wit = new Witness();
 					
 			//Create the correct inputs..
-			Coin in = new Coin(gimme50.COINID_INPUT,Address.TRUE_ADDRESS.getAddressData(),new MiniNumber("50"), MiniHash.ZERO32);
+			Coin in = new Coin(gimme50.COINID_INPUT,Address.TRUE_ADDRESS.getAddressData(),new MiniNumber("50"), Coin.MINIMA_TOKENID);
 			
 			//Add to the transaction
 			trans.addInput(in);
-			wit.addScript(Address.TRUE_ADDRESS.getScript());
+			wit.addScript(Address.TRUE_ADDRESS.getScript(), in.getAddress().getLength()*8);
 			
 			//And send to the new address
-			Coin out = new Coin(Coin.COINID_OUTPUT,addr.getAddressData(),new MiniNumber("50"), MiniHash.ZERO32);
+			Coin out = new Coin(Coin.COINID_OUTPUT,addr.getAddressData(),new MiniNumber("50"), Coin.MINIMA_TOKENID);
 			trans .addOutput(out);
 			
 			//Now send it..
@@ -501,8 +510,8 @@ public class ConsensusHandler extends SystemHandler {
 			String name  	 	= zMessage.getString("name");
 			String script       = zMessage.getString("script");
 			
-			MiniHash tok  		= Coin.TOKENID_CREATE;
-			MiniHash changetok 	= Coin.MINIMA_TOKENID;
+			MiniData tok  		= Coin.TOKENID_CREATE;
+			MiniData changetok 	= Coin.MINIMA_TOKENID;
 			
 			//Get a new address to receive the tokens..
 			Address recipient = getMainDB().getUserDB().newSimpleAddress();
@@ -544,22 +553,15 @@ public class ConsensusHandler extends SystemHandler {
 					change = getMainDB().getUserDB().newSimpleAddress();
 				}
 				
-				//Create the Transaction
-				Message ret = getMainDB().createTransaction(sendamount, recipient, change, confirmed, tok, changetok);
-				
-				//Get the witness and add relevant info..
-//				Witness wit     = (Witness) ret.getObject("witness");
-				Transaction trx = (Transaction) ret.getObject("transaction");
-				
 				//Create the token gen details
-				TokenProof tgen = new TokenProof(Coin.COINID_OUTPUT, 
+				TokenProof tokengen = new TokenProof(Coin.COINID_OUTPUT, 
 													 new MiniNumber(scale+""), 
 													 sendamount, 
-													 new MiniString(name),
-													 new MiniString(script));
+													 new MiniScript(name),
+													 new MiniScript(script));
 				
-				//Set it
-				trx.setTokenGenerationDetails(tgen);
+				//Create the Transaction
+				Message ret = getMainDB().createTransaction(sendamount, recipient, change, confirmed, tok, changetok,tokengen);
 				
 				//Continue the log output trail
 				InputHandler.addResponseMesage(ret, zMessage);
@@ -584,7 +586,7 @@ public class ConsensusHandler extends SystemHandler {
 		ArrayList<Coin> outs = trans.getAllOutputs();
 		
 		//The HASH of the Transaction.. needed for coinid
-		MiniHash transhash = Crypto.getInstance().hashObject(trans);
+		MiniData transhash = Crypto.getInstance().hashObject(trans);
 		
 		//Check them - adding the script to outputs we own
 		boolean rel = false;
@@ -617,7 +619,7 @@ public class ConsensusHandler extends SystemHandler {
 				rel = true;
 				
 				//Now calculate the CoinID / TokenID
-				MiniHash coinid = Crypto.getInstance().hashObjects(transhash, new MiniByte(i));
+				MiniData coinid = Crypto.getInstance().hashObjects(transhash, new MiniByte(i));
 				
 				//Create a new Coin..
 				Coin fullcoin = new Coin(coinid, out.getAddress(), out.getAmount(), out.getTokenID());
@@ -644,8 +646,11 @@ public class ConsensusHandler extends SystemHandler {
 			InputHandler.addResponseMesage(upd, zOriginal);
 			updateListeners(upd);
 			
+			//Get the Token Amounts..
+			Hashtable<String, MiniNumber> tokamt = getMainDB().getTransactionTokenAmounts(zTxPOW);
+			
 			//Store ion the database..
-			getMainDB().getUserDB().addToHistory(zTxPOW,tot);
+			getMainDB().getUserDB().addToHistory(zTxPOW.getTxPowID(),tokamt);
 			
 			//And do we need to call a local function..
 			Message command = new Message(ProcessManager.PROCESS_TXNCALL)

@@ -15,11 +15,12 @@ import org.minima.database.mmr.MMRData;
 import org.minima.database.mmr.MMREntry;
 import org.minima.database.mmr.MMRProof;
 import org.minima.database.mmr.MMRSet;
-import org.minima.miniscript.Contract;
-import org.minima.miniscript.values.HEXValue;
-import org.minima.miniscript.values.NumberValue;
-import org.minima.miniscript.values.ScriptValue;
-import org.minima.miniscript.values.Value;
+import org.minima.kissvm.Contract;
+import org.minima.kissvm.values.BooleanValue;
+import org.minima.kissvm.values.HEXValue;
+import org.minima.kissvm.values.NumberValue;
+import org.minima.kissvm.values.ScriptValue;
+import org.minima.kissvm.values.Value;
 import org.minima.objects.Address;
 import org.minima.objects.Coin;
 import org.minima.objects.PubPrivKey;
@@ -27,10 +28,9 @@ import org.minima.objects.StateVariable;
 import org.minima.objects.Transaction;
 import org.minima.objects.Witness;
 import org.minima.objects.base.MiniData;
-import org.minima.objects.base.MiniHash;
+import org.minima.objects.base.MiniInteger;
 import org.minima.objects.base.MiniNumber;
-import org.minima.objects.base.MiniString;
-import org.minima.objects.proofs.Proof;
+import org.minima.objects.base.MiniScript;
 import org.minima.objects.proofs.ScriptProof;
 import org.minima.system.input.InputHandler;
 import org.minima.utils.Crypto;
@@ -76,12 +76,16 @@ public class ConsensusUser {
 	public void processMessage(Message zMessage) throws Exception {
 		
 		if(zMessage.isMessageType(CONSENSUS_NEWSIMPLE)) {
+			int bitlength = GlobalParams.MINIMA_HASH_STRENGTH;
+			if(zMessage.exists("bitlength")) {
+				bitlength = zMessage.getInteger("bitlength");
+			}
+			
 			//Create a new simple address
-			Address addr = getMainDB().getUserDB().newSimpleAddress();
+			Address addr = getMainDB().getUserDB().newSimpleAddress(bitlength);
 			
 			JSONObject resp = InputHandler.getResponseJSON(zMessage);
-			resp.put("address", addr.getAddressData().toString());
-			resp.put("script", addr.getScript().toString());
+			resp.put("address", addr.toJSON());
 			InputHandler.endResponse(zMessage, true, "");
 			
 		}else if(zMessage.isMessageType(CONSENSUS_NEWSCRIPT)) {
@@ -101,45 +105,74 @@ public class ConsensusUser {
 			InputHandler.endResponse(zMessage, true, "");
 		
 		}else if(zMessage.isMessageType(CONSENSUS_NEWKEY)) {
+			//Get the bitlength
+			int bitl = zMessage.getInteger("bitlength");
+			
 			//Create a new key pair..
-			PubPrivKey key = getMainDB().getUserDB().newPublicKey();
+			PubPrivKey key = getMainDB().getUserDB().newPublicKey(bitl);
 			
 			//return to sender!
 			JSONObject resp = InputHandler.getResponseJSON(zMessage);
-			resp.put("key", key.toString());
+			resp.put("key", key.toJSON());
 			InputHandler.endResponse(zMessage, true, "");
 			
 		
 		}else if(zMessage.isMessageType(CONSENSUS_MMRTREE)) {
 			//What type SCRIPT or HASHES
-			String type = zMessage.getString("type");
+			int bitlength = zMessage.getInteger("bitlength");
 			
 			//Create an MMR TREE from the array of inputs..
-			ArrayList<MiniString> leaves = (ArrayList<MiniString>) zMessage.getObject("leaves");
+			ArrayList<MiniScript> leaves = (ArrayList<MiniScript>) zMessage.getObject("leaves");
 		
 			//First create an MMR Tree..
-			MMRSet mmr = new MMRSet();
+			MMRSet mmr = new MMRSet(bitlength);
 			
 			//Now add each 
 			JSONArray nodearray = new JSONArray();
-			for(MiniString leaf : leaves) {
+			for(MiniScript leaf : leaves) {
+				String leafstr = leaf.toString();
 				JSONObject mmrnode = new JSONObject();
+				MiniData finaldata = null;
 				
-				MiniHash finalhash = null;
-				if(type.equals("hash")) {
-					finalhash = new MiniHash(leaf.toString());
-					mmrnode.put("data",leaf.toString());
+				//What type of data..
+				int valtype = Value.getValueType(leafstr);
+				if(valtype == HEXValue.VALUE_HEX ) {
+					finaldata = new MiniData(leafstr);
+					mmrnode.put("data",finaldata.toString());
+					
+				}else if(valtype == BooleanValue.VALUE_BOOLEAN ) {
+					MiniNumber num = MiniNumber.ZERO;
+					if(leaf.toString().equals("TRUE")) {
+						num = MiniNumber.ONE;	
+					}
+					finaldata = MiniData.getMiniDataVersion(num);
+					mmrnode.put("data",num.toString());
+					
+				}else if(valtype == NumberValue.VALUE_NUMBER) {
+					MiniNumber num = new MiniNumber(leaf.toString());
+					finaldata = MiniData.getMiniDataVersion(num);
+					mmrnode.put("data",num.toString());
+					
+					
 				}else{
-					byte[] hash = Crypto.getInstance().hashData(leaf.getData());
-					finalhash = new MiniHash(hash);
-					mmrnode.put("data","[ "+leaf.toString()+" ]");
+					//DEFAULT IS SCRIPT
+					finaldata = new MiniData(leaf.getData());
+					mmrnode.put("data",leafstr);
 				}
+				
+				
+				//Now HASH what we have..
+				byte[] hash = Crypto.getInstance().hashData(finaldata.getData(), bitlength);
+				MiniData finalhash = new MiniData(hash);
+				
+				//That hash is the actual leaf node of the tree
 				mmrnode.put("leaf", finalhash.to0xString());
 				
+				//Add to the complete array
 				nodearray.add(mmrnode);
 				
 				//Add to the MMR
-				mmr.addUnspentCoin(new MMRData(finalhash));
+				mmr.addUnspentCoin(new MMRData(finalhash,MiniNumber.ZERO));
 			}
 
 			//Now finalize..
@@ -151,7 +184,10 @@ public class ConsensusUser {
 				JSONObject node = (JSONObject) nodearray.get(i);
 				
 				//Get the proof..
-				MMRProof proof = mmr.getFullProofToRoot(new MiniNumber(i));
+				MMRProof proof = mmr.getFullProofToRoot(new MiniInteger(i));
+				
+				//Set the Bits
+				proof.setHashBitLength(bitlength);
 				
 				//Calculate the CHAINSHA proof..
 				node.put("chainsha", proof.getChainSHAProof().to0xString());
@@ -160,7 +196,7 @@ public class ConsensusUser {
 			//return to sender!
 			JSONObject resp = InputHandler.getResponseJSON(zMessage);
 			resp.put("nodes", nodearray);
-			resp.put("root", mmr.getMMRRoot().to0xString());
+			resp.put("root", mmr.getMMRRoot().getFinalHash().to0xString());
 			InputHandler.endResponse(zMessage, true, "");
 			
 		}else if(zMessage.isMessageType(CONSENSUS_CLEANSCRIPT)) {
@@ -215,10 +251,10 @@ public class ConsensusUser {
 						String tokenid = tok.substring(index+1).trim();
 						
 						//Create this coin
-						Coin outcoin = new Coin(MiniHash.ZERO32, 
-												new MiniHash(address), 
+						Coin outcoin = new Coin(new MiniData("0x00"), 
+												new MiniData(address), 
 												new MiniNumber(amount), 
-												new MiniHash(tokenid));
+												new MiniData(tokenid));
 						
 						//Add this output to the transaction..
 						trans.addOutput(outcoin);
@@ -280,11 +316,7 @@ public class ConsensusUser {
 						String chainsha   = tok.substring(split+1).trim();
 						
 						//Set it..
-						if(chainsha.length()<=32) {
-							wit.addScript(new ScriptProof(mastscript));
-						}else {
-							wit.addScript(new ScriptProof(mastscript, chainsha));	
-						}
+						wit.addScript(new ScriptProof(mastscript, chainsha));
 					}
 				}
 			}
@@ -307,8 +339,8 @@ public class ConsensusUser {
 			cc.setGlobalVariable("@INPUT", new NumberValue(0));
 			cc.setGlobalVariable("@INBLKNUM", new NumberValue(0));
 			cc.setGlobalVariable("@AMOUNT", new NumberValue(0));
-			cc.setGlobalVariable("@TOKENID", new HEXValue(MiniHash.ZERO32));
-			cc.setGlobalVariable("@COINID", new HEXValue(MiniHash.ZERO32));
+			cc.setGlobalVariable("@TOKENID", new HEXValue("0x00"));
+			cc.setGlobalVariable("@COINID", new HEXValue("0x00"));
 			cc.setGlobalVariable("@TOTIN", new NumberValue(1));
 			cc.setGlobalVariable("@TOTOUT", new NumberValue(trans.getAllOutputs().size()));
 			
@@ -360,7 +392,7 @@ public class ConsensusUser {
 			MMRSet basemmr = getMainDB().getMainTree().getChainTip().getMMRSet();
 			
 			//Search for the coin..
-			MiniHash coinid = new MiniHash(cid);
+			MiniData coinid = new MiniData(cid);
 			MMREntry entry =  basemmr.findEntry(coinid, true);
 			
 			//Now ask to keep it..
@@ -441,7 +473,7 @@ public class ConsensusUser {
 			InputHandler.endResponse(zMessage, true, "");
 			
 		}else if(zMessage.isMessageType(CONSENSUS_EXPORTCOIN)) {
-			MiniHash coinid = (MiniHash)zMessage.getObject("coinid");
+			MiniData coinid = (MiniData)zMessage.getObject("coinid");
 			
 			//The Base current MMRSet
 			MMRSet basemmr  = getMainDB().getMainTree().getChainTip().getMMRSet();
@@ -538,7 +570,7 @@ public class ConsensusUser {
 		return true;
 	}
 	
-	public static MiniData exportCoin(MinimaDB zDB, MiniHash zCoinID) throws IOException {
+	public static MiniData exportCoin(MinimaDB zDB, MiniData zCoinID) throws IOException {
 		//The Base current MMRSet
 		MMRSet basemmr  = zDB.getMainTree().getChainTip().getMMRSet();
 		

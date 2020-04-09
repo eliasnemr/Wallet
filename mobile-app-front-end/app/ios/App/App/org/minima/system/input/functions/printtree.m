@@ -10,7 +10,7 @@
 #include "org/minima/system/brains/ConsensusPrint.h"
 #include "org/minima/system/input/CommandFunction.h"
 #include "org/minima/system/input/functions/printtree.h"
-#include "org/minima/utils/ResponseStream.h"
+#include "org/minima/utils/messages/Message.h"
 
 @implementation OrgMinimaSystemInputFunctionsprinttree
 
@@ -22,8 +22,19 @@ J2OBJC_IGNORE_DESIGNATED_BEGIN
 J2OBJC_IGNORE_DESIGNATED_END
 
 - (void)doFunctionWithNSStringArray:(IOSObjectArray *)zInput {
-  [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getConsensusHandler])) PostMessageWithNSString:OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_PRINTCHAIN_TREE];
-  [((OrgMinimaUtilsResponseStream *) nil_chk([self getResponseStream])) endStatusWithBoolean:true withNSString:@""];
+  OrgMinimaUtilsMessagesMessage *msg = [self getResponseMessageWithNSString:OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_PRINTCHAIN_TREE];
+  if (((IOSObjectArray *) nil_chk(zInput))->size_ > 1) {
+    if ([((NSString *) nil_chk(IOSObjectArray_Get(zInput, 1))) isEqual:@"on"]) {
+      [((OrgMinimaUtilsMessagesMessage *) nil_chk(msg)) addBooleanWithNSString:@"auto" withBoolean:true];
+    }
+    else {
+      [((OrgMinimaUtilsMessagesMessage *) nil_chk(msg)) addBooleanWithNSString:@"auto" withBoolean:false];
+    }
+  }
+  else {
+    [((OrgMinimaUtilsMessagesMessage *) nil_chk(msg)) addBooleanWithNSString:@"auto" withBoolean:false];
+  }
+  [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getConsensusHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:msg];
 }
 
 - (OrgMinimaSystemInputCommandFunction *)getNewFunction {
@@ -52,7 +63,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 void OrgMinimaSystemInputFunctionsprinttree_init(OrgMinimaSystemInputFunctionsprinttree *self) {
   OrgMinimaSystemInputCommandFunction_initWithNSString_(self, @"printtree");
-  [self setHelpWithNSString:@"" withNSString:@"Print just a stripped down tree of the current chain" withNSString:@""];
+  [self setHelpWithNSString:@"" withNSString:@"Print a tree version of the current chain" withNSString:@""];
 }
 
 OrgMinimaSystemInputFunctionsprinttree *new_OrgMinimaSystemInputFunctionsprinttree_init() {

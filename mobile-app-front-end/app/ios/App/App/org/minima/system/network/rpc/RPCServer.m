@@ -178,7 +178,7 @@ void OrgMinimaSystemNetworkRpcRPCServer_initWithOrgMinimaSystemInputInputHandler
   [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out))) printlnWithNSString:JreStrcat("$$CI", @"RPC Server started on ", self->mHost_, ':', self->mPort_)]; */
 }
 
-
+@end
 OrgMinimaSystemNetworkRpcRPCServer *new_OrgMinimaSystemNetworkRpcRPCServer_initWithOrgMinimaSystemInputInputHandler_withInt_(OrgMinimaSystemInputInputHandler *zInput, jint zPort) {
   J2OBJC_NEW_IMPL(OrgMinimaSystemNetworkRpcRPCServer, initWithOrgMinimaSystemInputInputHandler_withInt_, zInput, zPort)
 }
@@ -188,5 +188,3 @@ OrgMinimaSystemNetworkRpcRPCServer *create_OrgMinimaSystemNetworkRpcRPCServer_in
 }
 
 J2OBJC_CLASS_TYPE_LITERAL_SOURCE(OrgMinimaSystemNetworkRpcRPCServer)
-
-@end

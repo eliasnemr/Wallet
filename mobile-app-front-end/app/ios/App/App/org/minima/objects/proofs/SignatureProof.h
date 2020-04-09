@@ -23,7 +23,6 @@
 @class JavaIoDataInputStream;
 @class JavaIoDataOutputStream;
 @class OrgMinimaObjectsBaseMiniData;
-@class OrgMinimaObjectsBaseMiniHash;
 @class OrgMinimaUtilsJsonJSONObject;
 
 @interface OrgMinimaObjectsProofsSignatureProof : OrgMinimaObjectsProofsProof {
@@ -33,7 +32,7 @@
 
 #pragma mark Public
 
-- (instancetype)initWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)mPublicKey
+- (instancetype)initWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)mPublicKey
                     withOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zSignature;
 
 - (OrgMinimaObjectsBaseMiniData *)getSignature;
@@ -52,11 +51,11 @@ J2OBJC_EMPTY_STATIC_INIT(OrgMinimaObjectsProofsSignatureProof)
 
 J2OBJC_FIELD_SETTER(OrgMinimaObjectsProofsSignatureProof, mSignature_, OrgMinimaObjectsBaseMiniData *)
 
-FOUNDATION_EXPORT void OrgMinimaObjectsProofsSignatureProof_initWithOrgMinimaObjectsBaseMiniHash_withOrgMinimaObjectsBaseMiniData_(OrgMinimaObjectsProofsSignatureProof *self, OrgMinimaObjectsBaseMiniHash *mPublicKey, OrgMinimaObjectsBaseMiniData *zSignature);
+FOUNDATION_EXPORT void OrgMinimaObjectsProofsSignatureProof_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniData_(OrgMinimaObjectsProofsSignatureProof *self, OrgMinimaObjectsBaseMiniData *mPublicKey, OrgMinimaObjectsBaseMiniData *zSignature);
 
-FOUNDATION_EXPORT OrgMinimaObjectsProofsSignatureProof *new_OrgMinimaObjectsProofsSignatureProof_initWithOrgMinimaObjectsBaseMiniHash_withOrgMinimaObjectsBaseMiniData_(OrgMinimaObjectsBaseMiniHash *mPublicKey, OrgMinimaObjectsBaseMiniData *zSignature) NS_RETURNS_RETAINED;
+FOUNDATION_EXPORT OrgMinimaObjectsProofsSignatureProof *new_OrgMinimaObjectsProofsSignatureProof_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniData_(OrgMinimaObjectsBaseMiniData *mPublicKey, OrgMinimaObjectsBaseMiniData *zSignature) NS_RETURNS_RETAINED;
 
-FOUNDATION_EXPORT OrgMinimaObjectsProofsSignatureProof *create_OrgMinimaObjectsProofsSignatureProof_initWithOrgMinimaObjectsBaseMiniHash_withOrgMinimaObjectsBaseMiniData_(OrgMinimaObjectsBaseMiniHash *mPublicKey, OrgMinimaObjectsBaseMiniData *zSignature);
+FOUNDATION_EXPORT OrgMinimaObjectsProofsSignatureProof *create_OrgMinimaObjectsProofsSignatureProof_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniData_(OrgMinimaObjectsBaseMiniData *mPublicKey, OrgMinimaObjectsBaseMiniData *zSignature);
 
 FOUNDATION_EXPORT OrgMinimaObjectsProofsSignatureProof *OrgMinimaObjectsProofsSignatureProof_ReadFromStreamWithJavaIoDataInputStream_(JavaIoDataInputStream *zIn);
 

@@ -29,6 +29,8 @@
 #include "org/minima/utils/MinimaLogger.h"
 #include "org/minima/utils/ResponseStream.h"
 #include "org/minima/utils/messages/Message.h"
+
+// import to bridge Swift to Obj C
 #import "App-Swift.h"
 
 @interface OrgMinimaStart_1 : NSObject < JavaLangRunnable >
@@ -253,6 +255,7 @@ void OrgMinimaStart_mainWithNSStringArray_(IOSObjectArray *zArgs) {
           if ([((NSString *) nil_chk(resp)) java_hasPrefix:@"{"] || [resp java_hasPrefix:@"["]) {
             resp = OrgMinimaUtilsMiniFormat_PrettyJSONWithNSString_(resp);
           }
+          resp = [((NSString *) nil_chk(resp)) java_replaceAll:@"\\\\n" withReplacement:@"\n"];
           [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out))) printlnWithNSString:resp];
         }
       }
@@ -284,9 +287,13 @@ J2OBJC_IGNORE_DESIGNATED_END
 - (void)run {
   [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out))) printlnWithNSString:@"Minima Started.."];
   JavaUtilArrayList *vars = create_JavaUtilArrayList_init();
-  [vars addWithId:@"-private"];
   [vars addWithId:@"-daemon"];
   [vars addWithId:@"-clean"];
+  [vars addWithId:@"-port"];
+  [vars addWithId:@"9001"];
+  [vars addWithId:@"-connect"];
+  [vars addWithId:@"34.90.172.118"];
+  [vars addWithId:@"9001"];
   OrgMinimaStart_mainWithNSStringArray_([vars toArrayWithNSObjectArray:[IOSObjectArray arrayWithLength:0 type:NSString_class_()]]);
 }
 
@@ -336,9 +343,9 @@ J2OBJC_IGNORE_DESIGNATED_END
         TestClass *insta = [[TestClass alloc] init];
         
         
-        [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out)))printlnWithNSString:JreStrcat("$@", @"You just received some Minima. ", zMessage)];
+        [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out)))printlnWithNSString:JreStrcat("$@", @"You just received some money. ", zMessage)];
     }
-
+    
 }
 
 + (const J2ObjcClassInfo *)__metadata {

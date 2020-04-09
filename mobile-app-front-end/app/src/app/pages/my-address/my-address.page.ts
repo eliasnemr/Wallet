@@ -38,17 +38,32 @@ export class MyAddressPage implements OnInit {
   ngOnInit() {}
 
   ionViewWillEnter() {
+    // return new address on enter
+    this.newAddress();
+  }
+
+  /** API CALLS */
+  public newAddress() {
     setTimeout(() => {
-      this.api.newAddress().then((res: any) => {
-        if (res.response.address) {
-          this.qrCode = res.response.address;
+      this.api.newAddress().then((res: {status: boolean, minifunc: string, message: string, response: {address: {script: string, hexaddress: string, miniaddress: string}}}) => {
+        if (res.response.address.miniaddress) {
+          this.qrCode = res.response.address.miniaddress;
           this.isEmpty = true;
         }
       });
     }, 1000);
-    
+  }
+  /** Alerts */
+  async presentAlert(msg:string,header:string) {
+    const alert = await this.alertController.create({
+      header: header,
+      message: msg,
+      buttons: ['Cancel', 'Ok']
+    });
+    await alert.present();
   }
 
+  /** MISC Functions */
   copyToClipboard() {
 
     if(this.platform.is('desktop') || this.platform.is('pwa')) {
@@ -71,14 +86,6 @@ export class MyAddressPage implements OnInit {
 
   }
   
-  async presentAlert(msg:string,header:string) {
-    const alert = await this.alertController.create({
-      header: header,
-      message: msg,
-      buttons: ['Cancel', 'Ok']
-    });
-
-    await alert.present();
-  }
+  
 
 }

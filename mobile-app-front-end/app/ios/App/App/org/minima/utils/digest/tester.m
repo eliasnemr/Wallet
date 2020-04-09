@@ -67,10 +67,7 @@ void OrgMinimaUtilsDigesttester_mainWithNSStringArray_(IOSObjectArray *zArgs) {
   IOSByteArray *seed = [IOSByteArray arrayWithLength:64];
   JavaUtilRandom *rand = create_JavaUtilRandom_init();
   [rand nextBytesWithByteArray:seed];
-  for (jint i = 0; i < seed->size_; i++) {
-    *IOSByteArray_GetRef(seed, i) = (jbyte) i;
-  }
-  id<OrgMinimaUtilsDigestDigest> digest = create_OrgMinimaUtilsDigestKeccakDigest_initWithInt_(256);
+  id<OrgMinimaUtilsDigestDigest> digest = create_OrgMinimaUtilsDigestKeccakDigest_initWithInt_(160);
   OrgMinimaUtilsDigestWinternitzOTSignature *wots = create_OrgMinimaUtilsDigestWinternitzOTSignature_initWithByteArray_withOrgMinimaUtilsDigestDigest_withInt_(seed, digest, 12);
   IOSByteArray *pubk = [wots getPublicKey];
   OrgMinimaObjectsBaseMiniData *pubkey = create_OrgMinimaObjectsBaseMiniData_initWithByteArray_(pubk);

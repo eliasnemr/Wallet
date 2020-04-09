@@ -22,47 +22,47 @@
 
 @class JavaIoDataInputStream;
 @class JavaIoDataOutputStream;
-@class OrgMinimaObjectsBaseMiniHash;
+@class OrgMinimaObjectsBaseMiniData;
 @class OrgMinimaObjectsBaseMiniNumber;
-@class OrgMinimaObjectsBaseMiniString;
+@class OrgMinimaObjectsBaseMiniScript;
 @class OrgMinimaUtilsJsonJSONObject;
 
 @interface OrgMinimaObjectsProofsTokenProof : NSObject < OrgMinimaUtilsStreamable > {
  @public
-  OrgMinimaObjectsBaseMiniHash *mCoinID_;
+  OrgMinimaObjectsBaseMiniData *mCoinID_;
   OrgMinimaObjectsBaseMiniNumber *mTokenScale_;
   OrgMinimaObjectsBaseMiniNumber *mTokenTotalAmount_;
-  OrgMinimaObjectsBaseMiniString *mTokenName_;
-  OrgMinimaObjectsBaseMiniString *mTokenScript_;
-  OrgMinimaObjectsBaseMiniHash *mTokenID_;
+  OrgMinimaObjectsBaseMiniScript *mTokenName_;
+  OrgMinimaObjectsBaseMiniScript *mTokenScript_;
+  OrgMinimaObjectsBaseMiniData *mTokenID_;
 }
 
 #pragma mark Public
 
-- (instancetype)initWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zCoindID
+- (instancetype)initWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zCoindID
                   withOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zScale
                   withOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zAmount
-                  withOrgMinimaObjectsBaseMiniString:(OrgMinimaObjectsBaseMiniString *)zName;
+                  withOrgMinimaObjectsBaseMiniScript:(OrgMinimaObjectsBaseMiniScript *)zName;
 
-- (instancetype)initWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zCoindID
+- (instancetype)initWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zCoindID
                   withOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zScale
                   withOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zAmount
-                  withOrgMinimaObjectsBaseMiniString:(OrgMinimaObjectsBaseMiniString *)zName
-                  withOrgMinimaObjectsBaseMiniString:(OrgMinimaObjectsBaseMiniString *)zTokenScript;
+                  withOrgMinimaObjectsBaseMiniScript:(OrgMinimaObjectsBaseMiniScript *)zName
+                  withOrgMinimaObjectsBaseMiniScript:(OrgMinimaObjectsBaseMiniScript *)zTokenScript;
 
 - (OrgMinimaObjectsBaseMiniNumber *)getAmount;
 
-- (OrgMinimaObjectsBaseMiniHash *)getCoinID;
+- (OrgMinimaObjectsBaseMiniData *)getCoinID;
 
-- (OrgMinimaObjectsBaseMiniString *)getName;
+- (OrgMinimaObjectsBaseMiniScript *)getName;
 
 - (OrgMinimaObjectsBaseMiniNumber *)getScale;
 
 - (OrgMinimaObjectsBaseMiniNumber *)getScaleFactor;
 
-- (OrgMinimaObjectsBaseMiniHash *)getTokenID;
+- (OrgMinimaObjectsBaseMiniData *)getTokenID;
 
-- (OrgMinimaObjectsBaseMiniString *)getTokenScript;
+- (OrgMinimaObjectsBaseMiniScript *)getTokenScript;
 
 - (void)readDataStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn;
 
@@ -76,24 +76,24 @@
 
 J2OBJC_EMPTY_STATIC_INIT(OrgMinimaObjectsProofsTokenProof)
 
-J2OBJC_FIELD_SETTER(OrgMinimaObjectsProofsTokenProof, mCoinID_, OrgMinimaObjectsBaseMiniHash *)
+J2OBJC_FIELD_SETTER(OrgMinimaObjectsProofsTokenProof, mCoinID_, OrgMinimaObjectsBaseMiniData *)
 J2OBJC_FIELD_SETTER(OrgMinimaObjectsProofsTokenProof, mTokenScale_, OrgMinimaObjectsBaseMiniNumber *)
 J2OBJC_FIELD_SETTER(OrgMinimaObjectsProofsTokenProof, mTokenTotalAmount_, OrgMinimaObjectsBaseMiniNumber *)
-J2OBJC_FIELD_SETTER(OrgMinimaObjectsProofsTokenProof, mTokenName_, OrgMinimaObjectsBaseMiniString *)
-J2OBJC_FIELD_SETTER(OrgMinimaObjectsProofsTokenProof, mTokenScript_, OrgMinimaObjectsBaseMiniString *)
-J2OBJC_FIELD_SETTER(OrgMinimaObjectsProofsTokenProof, mTokenID_, OrgMinimaObjectsBaseMiniHash *)
+J2OBJC_FIELD_SETTER(OrgMinimaObjectsProofsTokenProof, mTokenName_, OrgMinimaObjectsBaseMiniScript *)
+J2OBJC_FIELD_SETTER(OrgMinimaObjectsProofsTokenProof, mTokenScript_, OrgMinimaObjectsBaseMiniScript *)
+J2OBJC_FIELD_SETTER(OrgMinimaObjectsProofsTokenProof, mTokenID_, OrgMinimaObjectsBaseMiniData *)
 
-FOUNDATION_EXPORT void OrgMinimaObjectsProofsTokenProof_initWithOrgMinimaObjectsBaseMiniHash_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniString_(OrgMinimaObjectsProofsTokenProof *self, OrgMinimaObjectsBaseMiniHash *zCoindID, OrgMinimaObjectsBaseMiniNumber *zScale, OrgMinimaObjectsBaseMiniNumber *zAmount, OrgMinimaObjectsBaseMiniString *zName);
+FOUNDATION_EXPORT void OrgMinimaObjectsProofsTokenProof_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniScript_(OrgMinimaObjectsProofsTokenProof *self, OrgMinimaObjectsBaseMiniData *zCoindID, OrgMinimaObjectsBaseMiniNumber *zScale, OrgMinimaObjectsBaseMiniNumber *zAmount, OrgMinimaObjectsBaseMiniScript *zName);
 
-FOUNDATION_EXPORT OrgMinimaObjectsProofsTokenProof *new_OrgMinimaObjectsProofsTokenProof_initWithOrgMinimaObjectsBaseMiniHash_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniString_(OrgMinimaObjectsBaseMiniHash *zCoindID, OrgMinimaObjectsBaseMiniNumber *zScale, OrgMinimaObjectsBaseMiniNumber *zAmount, OrgMinimaObjectsBaseMiniString *zName) NS_RETURNS_RETAINED;
+FOUNDATION_EXPORT OrgMinimaObjectsProofsTokenProof *new_OrgMinimaObjectsProofsTokenProof_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniScript_(OrgMinimaObjectsBaseMiniData *zCoindID, OrgMinimaObjectsBaseMiniNumber *zScale, OrgMinimaObjectsBaseMiniNumber *zAmount, OrgMinimaObjectsBaseMiniScript *zName) NS_RETURNS_RETAINED;
 
-FOUNDATION_EXPORT OrgMinimaObjectsProofsTokenProof *create_OrgMinimaObjectsProofsTokenProof_initWithOrgMinimaObjectsBaseMiniHash_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniString_(OrgMinimaObjectsBaseMiniHash *zCoindID, OrgMinimaObjectsBaseMiniNumber *zScale, OrgMinimaObjectsBaseMiniNumber *zAmount, OrgMinimaObjectsBaseMiniString *zName);
+FOUNDATION_EXPORT OrgMinimaObjectsProofsTokenProof *create_OrgMinimaObjectsProofsTokenProof_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniScript_(OrgMinimaObjectsBaseMiniData *zCoindID, OrgMinimaObjectsBaseMiniNumber *zScale, OrgMinimaObjectsBaseMiniNumber *zAmount, OrgMinimaObjectsBaseMiniScript *zName);
 
-FOUNDATION_EXPORT void OrgMinimaObjectsProofsTokenProof_initWithOrgMinimaObjectsBaseMiniHash_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniString_withOrgMinimaObjectsBaseMiniString_(OrgMinimaObjectsProofsTokenProof *self, OrgMinimaObjectsBaseMiniHash *zCoindID, OrgMinimaObjectsBaseMiniNumber *zScale, OrgMinimaObjectsBaseMiniNumber *zAmount, OrgMinimaObjectsBaseMiniString *zName, OrgMinimaObjectsBaseMiniString *zTokenScript);
+FOUNDATION_EXPORT void OrgMinimaObjectsProofsTokenProof_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniScript_withOrgMinimaObjectsBaseMiniScript_(OrgMinimaObjectsProofsTokenProof *self, OrgMinimaObjectsBaseMiniData *zCoindID, OrgMinimaObjectsBaseMiniNumber *zScale, OrgMinimaObjectsBaseMiniNumber *zAmount, OrgMinimaObjectsBaseMiniScript *zName, OrgMinimaObjectsBaseMiniScript *zTokenScript);
 
-FOUNDATION_EXPORT OrgMinimaObjectsProofsTokenProof *new_OrgMinimaObjectsProofsTokenProof_initWithOrgMinimaObjectsBaseMiniHash_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniString_withOrgMinimaObjectsBaseMiniString_(OrgMinimaObjectsBaseMiniHash *zCoindID, OrgMinimaObjectsBaseMiniNumber *zScale, OrgMinimaObjectsBaseMiniNumber *zAmount, OrgMinimaObjectsBaseMiniString *zName, OrgMinimaObjectsBaseMiniString *zTokenScript) NS_RETURNS_RETAINED;
+FOUNDATION_EXPORT OrgMinimaObjectsProofsTokenProof *new_OrgMinimaObjectsProofsTokenProof_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniScript_withOrgMinimaObjectsBaseMiniScript_(OrgMinimaObjectsBaseMiniData *zCoindID, OrgMinimaObjectsBaseMiniNumber *zScale, OrgMinimaObjectsBaseMiniNumber *zAmount, OrgMinimaObjectsBaseMiniScript *zName, OrgMinimaObjectsBaseMiniScript *zTokenScript) NS_RETURNS_RETAINED;
 
-FOUNDATION_EXPORT OrgMinimaObjectsProofsTokenProof *create_OrgMinimaObjectsProofsTokenProof_initWithOrgMinimaObjectsBaseMiniHash_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniString_withOrgMinimaObjectsBaseMiniString_(OrgMinimaObjectsBaseMiniHash *zCoindID, OrgMinimaObjectsBaseMiniNumber *zScale, OrgMinimaObjectsBaseMiniNumber *zAmount, OrgMinimaObjectsBaseMiniString *zName, OrgMinimaObjectsBaseMiniString *zTokenScript);
+FOUNDATION_EXPORT OrgMinimaObjectsProofsTokenProof *create_OrgMinimaObjectsProofsTokenProof_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniScript_withOrgMinimaObjectsBaseMiniScript_(OrgMinimaObjectsBaseMiniData *zCoindID, OrgMinimaObjectsBaseMiniNumber *zScale, OrgMinimaObjectsBaseMiniNumber *zAmount, OrgMinimaObjectsBaseMiniScript *zName, OrgMinimaObjectsBaseMiniScript *zTokenScript);
 
 FOUNDATION_EXPORT OrgMinimaObjectsProofsTokenProof *OrgMinimaObjectsProofsTokenProof_ReadFromStreamWithJavaIoDataInputStream_(JavaIoDataInputStream *zIn);
 

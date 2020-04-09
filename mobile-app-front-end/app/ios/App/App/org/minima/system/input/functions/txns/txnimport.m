@@ -3,8 +3,15 @@
 //  source: ./org/minima/system/input/functions/txns/txnimport.java
 //
 
+#include "IOSObjectArray.h"
 #include "J2ObjC_source.h"
+#include "java/lang/Integer.h"
+#include "org/minima/system/Main.h"
+#include "org/minima/system/brains/ConsensusHandler.h"
+#include "org/minima/system/brains/ConsensusTxn.h"
+#include "org/minima/system/input/CommandFunction.h"
 #include "org/minima/system/input/functions/txns/txnimport.h"
+#include "org/minima/utils/messages/Message.h"
 
 @implementation OrgMinimaSystemInputFunctionsTxnstxnimport
 
@@ -15,23 +22,42 @@ J2OBJC_IGNORE_DESIGNATED_BEGIN
 }
 J2OBJC_IGNORE_DESIGNATED_END
 
+- (void)doFunctionWithNSStringArray:(IOSObjectArray *)zInput {
+  jint id_ = JavaLangInteger_parseIntWithNSString_(IOSObjectArray_Get(nil_chk(zInput), 1));
+  NSString *data = IOSObjectArray_Get(zInput, 2);
+  OrgMinimaUtilsMessagesMessage *msg = [self getResponseMessageWithNSString:OrgMinimaSystemBrainsConsensusTxn_CONSENSUS_TXNIMPORT];
+  [((OrgMinimaUtilsMessagesMessage *) nil_chk(msg)) addIntWithNSString:@"transaction" withInt:id_];
+  [msg addStringWithNSString:@"data" withNSString:data];
+  [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getConsensusHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:msg];
+}
+
+- (OrgMinimaSystemInputCommandFunction *)getNewFunction {
+  return create_OrgMinimaSystemInputFunctionsTxnstxnimport_init();
+}
+
 + (const J2ObjcClassInfo *)__metadata {
   static J2ObjcMethodInfo methods[] = {
     { NULL, NULL, 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 0, 1, 2, -1, -1, -1 },
+    { NULL, "LOrgMinimaSystemInputCommandFunction;", 0x1, -1, -1, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
   #pragma clang diagnostic ignored "-Wundeclared-selector"
   methods[0].selector = @selector(init);
+  methods[1].selector = @selector(doFunctionWithNSStringArray:);
+  methods[2].selector = @selector(getNewFunction);
   #pragma clang diagnostic pop
-  static const J2ObjcClassInfo _OrgMinimaSystemInputFunctionsTxnstxnimport = { "txnimport", "org.minima.system.input.functions.txns", NULL, methods, NULL, 7, 0x1, 1, 0, -1, -1, -1, -1, -1 };
+  static const void *ptrTable[] = { "doFunction", "[LNSString;", "LJavaLangException;" };
+  static const J2ObjcClassInfo _OrgMinimaSystemInputFunctionsTxnstxnimport = { "txnimport", "org.minima.system.input.functions.txns", ptrTable, methods, NULL, 7, 0x1, 3, 0, -1, -1, -1, -1, -1 };
   return &_OrgMinimaSystemInputFunctionsTxnstxnimport;
 }
 
 @end
 
 void OrgMinimaSystemInputFunctionsTxnstxnimport_init(OrgMinimaSystemInputFunctionsTxnstxnimport *self) {
-  NSObject_init(self);
+  OrgMinimaSystemInputCommandFunction_initWithNSString_(self, @"txnimport");
+  [self setHelpWithNSString:@"[id] [data]" withNSString:@"Import a transasction. Can then sign, edit and post it." withNSString:@""];
 }
 
 OrgMinimaSystemInputFunctionsTxnstxnimport *new_OrgMinimaSystemInputFunctionsTxnstxnimport_init() {

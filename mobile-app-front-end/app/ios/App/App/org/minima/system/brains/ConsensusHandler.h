@@ -94,6 +94,16 @@ inline NSString *OrgMinimaSystemBrainsConsensusHandler_get_CONSENSUS_PRE_PROCESS
 FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusHandler_CONSENSUS_PRE_PROCESSTXPOW;
 J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBrainsConsensusHandler, CONSENSUS_PRE_PROCESSTXPOW, NSString *)
 
+inline NSString *OrgMinimaSystemBrainsConsensusHandler_get_CONSENSUS_ACTIVATEMINE(void);
+/*! INTERNAL ONLY - Use accessor function from above. */
+FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusHandler_CONSENSUS_ACTIVATEMINE;
+J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBrainsConsensusHandler, CONSENSUS_ACTIVATEMINE, NSString *)
+
+inline NSString *OrgMinimaSystemBrainsConsensusHandler_get_CONSENSUS_MINEBLOCK(void);
+/*! INTERNAL ONLY - Use accessor function from above. */
+FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusHandler_CONSENSUS_MINEBLOCK;
+J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBrainsConsensusHandler, CONSENSUS_MINEBLOCK, NSString *)
+
 inline NSString *OrgMinimaSystemBrainsConsensusHandler_get_CONSENSUS_SENDTRANS(void);
 /*! INTERNAL ONLY - Use accessor function from above. */
 FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusHandler_CONSENSUS_SENDTRANS;
@@ -143,11 +153,6 @@ inline NSString *OrgMinimaSystemBrainsConsensusHandler_get_CONSENSUS_GIMME50(voi
 /*! INTERNAL ONLY - Use accessor function from above. */
 FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusHandler_CONSENSUS_GIMME50;
 J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBrainsConsensusHandler, CONSENSUS_GIMME50, NSString *)
-
-inline NSString *OrgMinimaSystemBrainsConsensusHandler_get_CONSENSUS_STRESS_TRANS(void);
-/*! INTERNAL ONLY - Use accessor function from above. */
-FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusHandler_CONSENSUS_STRESS_TRANS;
-J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBrainsConsensusHandler, CONSENSUS_STRESS_TRANS, NSString *)
 
 FOUNDATION_EXPORT void OrgMinimaSystemBrainsConsensusHandler_initWithOrgMinimaSystemMain_(OrgMinimaSystemBrainsConsensusHandler *self, OrgMinimaSystemMain *zMain);
 

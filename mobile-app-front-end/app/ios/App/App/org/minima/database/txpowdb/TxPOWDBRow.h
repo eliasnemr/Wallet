@@ -39,6 +39,10 @@
 
 - (void)setBlockStateWithInt:(jint)zState;
 
+- (void)deleteRow;
+
+- (jlong)getDeleteTime;
+
 @end
 
 J2OBJC_EMPTY_STATIC_INIT(OrgMinimaDatabaseTxpowdbTxPOWDBRow)

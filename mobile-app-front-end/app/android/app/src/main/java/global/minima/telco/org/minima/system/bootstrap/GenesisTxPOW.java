@@ -9,27 +9,29 @@ import org.minima.objects.Transaction;
 import org.minima.objects.TxPOW;
 import org.minima.objects.Witness;
 import org.minima.objects.base.MiniData;
-import org.minima.objects.base.MiniHash;
+import org.minima.objects.base.MiniInteger;
+import org.minima.objects.base.MiniData;
 import org.minima.objects.base.MiniNumber;
+import org.minima.system.tx.TXMiner;
+import org.minima.utils.Crypto;
+import org.minima.utils.SuperBlockLevels;
 
 public class GenesisTxPOW extends TxPOW{
-	
-	public static MiniHash GENESIS_INPUT = new MiniHash("0xFFEEDDCCBBAA998877665544332211");
 	
 	public GenesisTxPOW() {
 		super();
 		
-		setTxDifficulty(MiniHash.MAX_HASH);
+		setTxDifficulty(Crypto.MAX_HASH);
 		
-		setNonce(new MiniNumber("256"));
+		setNonce(new MiniInteger(256));
 		 
 		setTimeSecs(new MiniNumber(""+(System.currentTimeMillis()/1000)));
 		
-		setBlockNumber(new MiniNumber("0"));
+		setBlockNumber(MiniNumber.ZERO);
 		
-		setBlockDifficulty(MiniHash.MAX_HASH);
+		setBlockDifficulty(Crypto.MAX_HASH);
 		
-		setParent(new MiniHash());
+		setParent(new MiniData());
 		
 		//Set Transaction and Witness..
 		Transaction trans = new Transaction();
@@ -66,7 +68,7 @@ public class GenesisTxPOW extends TxPOW{
 //		//Now add to the TXPOW..
 //		setMMRState(mmrstate);
 		
-		mSuperParents[0] = new MiniHash(MiniData.getRandomData(32).getData());
+//		mSuperParents[0] = new MiniData(MiniData.getRandomData(32).getData());
 		
 		//Set the TXPOW
 		calculateTXPOWID();

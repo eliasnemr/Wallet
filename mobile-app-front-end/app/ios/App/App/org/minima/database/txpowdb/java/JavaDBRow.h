@@ -29,7 +29,11 @@
 
 - (instancetype)initWithOrgMinimaObjectsTxPOW:(OrgMinimaObjectsTxPOW *)zTxPOW;
 
+- (void)deleteRow;
+
 - (jint)getBlockState;
+
+- (jlong)getDeleteTime;
 
 - (OrgMinimaObjectsBaseMiniNumber *)getInBlockNumber;
 

@@ -4,15 +4,15 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-import org.minima.miniscript.Contract;
+import org.minima.kissvm.Contract;
 import org.minima.objects.Address;
 import org.minima.objects.base.MiniData;
-import org.minima.objects.base.MiniString;
+import org.minima.objects.base.MiniScript;
 import org.minima.utils.json.JSONObject;
 
 public class ScriptProof extends Proof {
 
-	MiniString mScript;
+	MiniScript mScript;
 	
 	private ScriptProof() {
 		super();
@@ -21,24 +21,48 @@ public class ScriptProof extends Proof {
 	/**
 	 * Create a simple one hash Proof for a script
 	 * @param zScript
+	 * @throws Exception 
 	 */
-	public ScriptProof(String zScript) {
-		this(zScript,"");
+	public ScriptProof(String zScript) throws Exception {
+		super();
+		init(zScript,"0x0200");
 	}
 	
-	public ScriptProof(String zScript, String zChainSHAProof) {
-		mScript = new MiniString(Contract.cleanScript(zScript));
+	public ScriptProof(String zScript, int zBitLength) throws Exception {
+		super();
+		
+		if(zBitLength == 512) {
+			init(zScript,"0x0200");
+		}else if(zBitLength == 256) {
+			init(zScript,"0x0100");
+		}else if(zBitLength == 160) {
+			init(zScript,"0x00A0");
+		} 
+	}
+	
+	public ScriptProof(String zScript, String zChainSHAProof) throws Exception {
+		super();
+		init(zScript,zChainSHAProof);
+	}
+	
+	private void init(String zScript, String zChainSHAProof) throws Exception {
+		mScript = new MiniScript(zScript);
+		
+		//How many Bits in HASH
+		int bits = Proof.getChainSHABits(zChainSHAProof);
 		
 		//Create an address
-		Address addr = new Address(mScript.toString());
-		
+		Address addr = new Address(mScript.toString(),bits);
 		setData(addr.getAddressData());
+		setHashBitLength(bits);
+		
 		setProof(new MiniData(zChainSHAProof));
 		
 		finalizeHash();
 	}
 	
-	public MiniString getScript() {
+	
+	public MiniScript getScript() {
 		return mScript;
 	}
 	
@@ -58,7 +82,7 @@ public class ScriptProof extends Proof {
 
 	@Override
 	public void readDataStream(DataInputStream zIn) throws IOException {
-		mScript = MiniString.ReadFromStream(zIn);
+		mScript = MiniScript.ReadFromStream(zIn);
 		super.readDataStream(zIn);
 	}
 	

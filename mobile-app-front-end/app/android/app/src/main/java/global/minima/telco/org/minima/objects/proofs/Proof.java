@@ -7,10 +7,9 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import org.minima.database.mmr.MMRProof;
 import org.minima.objects.base.MiniByte;
 import org.minima.objects.base.MiniData;
-import org.minima.objects.base.MiniHash;
+import org.minima.objects.base.MiniNumber;
 import org.minima.utils.Crypto;
 import org.minima.utils.Streamable;
 import org.minima.utils.json.JSONArray;
@@ -19,42 +18,51 @@ import org.minima.utils.json.JSONObject;
 public class Proof implements Streamable {
 
 	public class ProofChunk {
-		MiniHash mHash;
+		MiniData mHash;
+		MiniNumber mValue;
 		MiniByte mLeftRight;
-		public ProofChunk(MiniByte zLeft, MiniHash zHash) {
+		
+		public ProofChunk(MiniByte zLeft, MiniData zHash, MiniNumber zValue) {
 			mLeftRight = zLeft;
 			mHash = zHash;
+			mValue = zValue;
 		}
 		
 		public MiniByte getLeft() {
 			return mLeftRight;
 		}
 		
-		public MiniHash getHash() {
+		public MiniData getHash() {
 			return mHash;
+		}
+		
+		public MiniNumber getValue() {
+			return mValue;
 		}
 	}
 	
 	//The data you are trying to prove..
-	protected MiniHash mData;
+	protected MiniData mData;
 	
 	//The Merkle Branch that when applied to the data gives the final proof;
 	protected ArrayList<ProofChunk> mProofChain;
 	
 	//Calculate this once
-	protected MiniHash mFinalHash;
+	protected MiniData mFinalHash;
 	protected MiniData mChainSHA;
 	protected boolean mFinalized;
 		
+	private int HASH_BITS = 512;
+	
 	public Proof(){
 		mProofChain = new ArrayList<>();
 	}
 
-	public void setData(MiniHash zData) {
+	public void setData(MiniData zData) {
 		mData = zData;
 	}
 	
-	public MiniHash getData() {
+	public MiniData getData() {
 		return mData;
 	}
 	
@@ -69,14 +77,26 @@ public class Proof implements Streamable {
 		
 		int len  = chdata.length;  
 		int read = 0;
+		
+		//The HASH_BITS is first
+		try {
+			HASH_BITS = dis.readShort();
+			read += 2;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		while(read<len) {
 			//Is it to the left or the right 
 			MiniByte leftrigt = MiniByte.ReadFromStream(dis);
 			read++;
 			
 			//What data to hash
-			MiniHash data = MiniHash.ReadFromStream(dis);
-			read += data.getLength();
+			MiniData data = MiniData.ReadFromStream(dis);
+			
+			//4 bytes for the len and the data itself..
+			read += 4 + data.getLength();
 			
 			//Add to the Proof..
 			addProofChunk(leftrigt, data);
@@ -85,8 +105,16 @@ public class Proof implements Streamable {
 		finalizeHash();
 	}
 	
-	public void addProofChunk(MiniByte zLeft, MiniHash zHash) {
-		mProofChain.add(new ProofChunk(zLeft, zHash));
+	public void setHashBitLength(int zBitLength) {
+		HASH_BITS = zBitLength;
+	}
+	
+	public void addProofChunk(MiniByte zLeft, MiniData zHash) {
+		addProofChunk(zLeft, zHash, MiniNumber.ZERO);
+	}
+	
+	public void addProofChunk(MiniByte zLeft, MiniData zHash, MiniNumber zValue) {
+		mProofChain.add(new ProofChunk(zLeft, zHash, zValue));
 	}
 	
 	public int getProofLen() {
@@ -118,6 +146,10 @@ public class Proof implements Streamable {
 		DataOutputStream dos = new DataOutputStream(baos);
 		
 		try {
+			//First write out the HASH_BITS
+			dos.writeShort(HASH_BITS);
+			
+			//Now write out the data..
 			int len = mProofChain.size();
 			for(int i=0;i<len;i++){
 				ProofChunk chunk = mProofChain.get(i);
@@ -132,22 +164,22 @@ public class Proof implements Streamable {
 		return new MiniData(baos.toByteArray());
 	}
 	
-	public MiniHash getFinalHash() {
+	public MiniData getFinalHash() {
 		if(mFinalized) {
 			return mFinalHash;
 		}
 		
 		//Get the Final Hash of the Data
-		MiniHash current = mData;
+		MiniData current = mData;
 		
 		int len = getProofLen();
 		for(int i=0;i<len;i++) {
 			ProofChunk chunk = mProofChain.get(i);
 			
 			if(chunk.getLeft().isTrue()) {
-				current = Crypto.getInstance().hashObjects(chunk.getHash(), current);
+				current = Crypto.getInstance().hashObjects(chunk.getHash(), current, HASH_BITS);
 			}else {
-				current = Crypto.getInstance().hashObjects(current, chunk.getHash());
+				current = Crypto.getInstance().hashObjects(current, chunk.getHash(), HASH_BITS);
 			}
 		}
 		
@@ -165,12 +197,16 @@ public class Proof implements Streamable {
 			ProofChunk chunk = mProofChain.get(i);
 			jsonchunk.put("left", chunk.getLeft().isTrue());
 			jsonchunk.put("hash", chunk.getHash().to0xString());
+			jsonchunk.put("value", chunk.getValue().toString());
+			
 			proof.add(jsonchunk);
 		}
 		
 		json.put("data", mData.to0xString());
+		json.put("hashbits", HASH_BITS);
 		json.put("proofchain", proof);
 		json.put("chainsha", getChainSHAProof().to0xString());
+		
 		json.put("finalhash", getFinalHash().to0xString());
 		
 		return json;
@@ -178,6 +214,7 @@ public class Proof implements Streamable {
 	
 	@Override
 	public void writeDataStream(DataOutputStream zOut) throws IOException {
+		zOut.writeInt(HASH_BITS);
 		mData.writeDataStream(zOut);
 		int len = mProofChain.size();
 		zOut.writeInt(len);
@@ -185,18 +222,22 @@ public class Proof implements Streamable {
 			ProofChunk chunk = mProofChain.get(i);
 			chunk.getLeft().writeDataStream(zOut);
 			chunk.getHash().writeDataStream(zOut);
+			chunk.getValue().writeDataStream(zOut);
 		}
 	}
 
 	@Override
 	public void readDataStream(DataInputStream zIn) throws IOException {
-		mData = MiniHash.ReadFromStream(zIn);
+		HASH_BITS = zIn.readInt();
+		mData = MiniData.ReadFromStream(zIn);
 		mProofChain = new ArrayList<>();
 		int len = zIn.readInt();
 		for(int i=0;i<len;i++) {
-			MiniByte left = MiniByte.ReadFromStream(zIn);
-			MiniHash hash = MiniHash.ReadFromStream(zIn);
-			mProofChain.add(new ProofChunk(left, hash));
+			MiniByte left  = MiniByte.ReadFromStream(zIn);
+			MiniData hash  = MiniData.ReadFromStream(zIn);
+			MiniNumber val = MiniNumber.ReadFromStream(zIn);
+			
+			mProofChain.add(new ProofChunk(left, hash, val));
 		}
 		
 		finalizeHash();
@@ -212,5 +253,18 @@ public class Proof implements Streamable {
 		}
 		
 		return proof;
+	}
+	
+	public static int getChainSHABits(String zChainSHA) throws Exception {
+		if(zChainSHA.startsWith("0x0200")) {
+			return 512;
+		}else if(zChainSHA.startsWith("0x0100")) {
+			return 256;
+		}else if(zChainSHA.startsWith("0x00A0")) {
+			return 160;
+		}
+		
+		//ERROR
+		throw new Exception("Invalid ChainSHA.. must be 160, 256 or 512");
 	}
 }

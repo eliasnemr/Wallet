@@ -55,7 +55,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 void OrgMinimaSystemInputFunctionscoins_init(OrgMinimaSystemInputFunctionscoins *self) {
   OrgMinimaSystemInputCommandFunction_initWithNSString_(self, @"coins");
-  [self setHelpWithNSString:@"" withNSString:@"(address) Either return all coins or all coins of a given address" withNSString:@""];
+  [self setHelpWithNSString:@"" withNSString:@"(address) Either return all your coins or all your coins of a given address" withNSString:@""];
 }
 
 OrgMinimaSystemInputFunctionscoins *new_OrgMinimaSystemInputFunctionscoins_init() {

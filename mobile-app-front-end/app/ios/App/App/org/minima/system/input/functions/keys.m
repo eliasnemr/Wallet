@@ -5,6 +5,7 @@
 
 #include "IOSObjectArray.h"
 #include "J2ObjC_source.h"
+#include "java/lang/Integer.h"
 #include "org/minima/system/Main.h"
 #include "org/minima/system/brains/ConsensusHandler.h"
 #include "org/minima/system/brains/ConsensusPrint.h"
@@ -24,7 +25,15 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 - (void)doFunctionWithNSStringArray:(IOSObjectArray *)zInput {
   if (((IOSObjectArray *) nil_chk(zInput))->size_ > 1) {
-    [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getConsensusHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:[self getResponseMessageWithNSString:OrgMinimaSystemBrainsConsensusUser_CONSENSUS_NEWKEY]];
+    OrgMinimaUtilsMessagesMessage *newkey = [self getResponseMessageWithNSString:OrgMinimaSystemBrainsConsensusUser_CONSENSUS_NEWKEY];
+    if (zInput->size_ > 2) {
+      jint bitl = JavaLangInteger_parseIntWithNSString_(IOSObjectArray_Get(zInput, 2));
+      [((OrgMinimaUtilsMessagesMessage *) nil_chk(newkey)) addIntWithNSString:@"bitlength" withInt:bitl];
+    }
+    else {
+      [((OrgMinimaUtilsMessagesMessage *) nil_chk(newkey)) addIntWithNSString:@"bitlength" withInt:256];
+    }
+    [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getConsensusHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:newkey];
     return;
   }
   [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getConsensusHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:[self getResponseMessageWithNSString:OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_KEYS]];
@@ -56,7 +65,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 void OrgMinimaSystemInputFunctionskeys_init(OrgMinimaSystemInputFunctionskeys *self) {
   OrgMinimaSystemInputCommandFunction_initWithNSString_(self, @"keys");
-  [self setHelpWithNSString:@"(new)" withNSString:@"Create a new key pair or return a list of all the addresses and public keys in this account" withNSString:@""];
+  [self setHelpWithNSString:@"(new) (bitlength)" withNSString:@"List all your public keys or create a new one. Default is 256 bits can specify." withNSString:@""];
 }
 
 OrgMinimaSystemInputFunctionskeys *new_OrgMinimaSystemInputFunctionskeys_init() {

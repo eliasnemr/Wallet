@@ -4,6 +4,7 @@
 //
 
 #include "J2ObjC_source.h"
+#include "java/lang/System.h"
 #include "org/minima/database/txpowdb/TxPOWDBRow.h"
 #include "org/minima/database/txpowdb/java/JavaDBRow.h"
 #include "org/minima/objects/TxPOW.h"
@@ -16,6 +17,7 @@
   jboolean mIsInBlock_;
   OrgMinimaObjectsBaseMiniNumber *mInBlocknumber_;
   jint mBlockState_;
+  jlong mDeleteTime_;
 }
 
 @end
@@ -81,6 +83,16 @@ J2OBJC_FIELD_SETTER(OrgMinimaDatabaseTxpowdbJavaJavaDBRow, mInBlocknumber_, OrgM
   mBlockState_ = zState;
 }
 
+- (void)deleteRow {
+  if (mDeleteTime_ == 0) {
+    mDeleteTime_ = JavaLangSystem_currentTimeMillis();
+  }
+}
+
+- (jlong)getDeleteTime {
+  return mDeleteTime_;
+}
+
 - (void)dealloc {
   RELEASE_(mTxPOW_);
   RELEASE_(mInBlocknumber_);
@@ -101,6 +113,8 @@ J2OBJC_FIELD_SETTER(OrgMinimaDatabaseTxpowdbJavaJavaDBRow, mInBlocknumber_, OrgM
     { NULL, "V", 0x1, 6, 2, -1, -1, -1, -1 },
     { NULL, "I", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 7, 8, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "J", 0x1, -1, -1, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
@@ -117,6 +131,8 @@ J2OBJC_FIELD_SETTER(OrgMinimaDatabaseTxpowdbJavaJavaDBRow, mInBlocknumber_, OrgM
   methods[9].selector = @selector(setOnChainBlockWithBoolean:);
   methods[10].selector = @selector(getBlockState);
   methods[11].selector = @selector(setBlockStateWithInt:);
+  methods[12].selector = @selector(deleteRow);
+  methods[13].selector = @selector(getDeleteTime);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
     { "mTxPOW_", "LOrgMinimaObjectsTxPOW;", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
@@ -124,9 +140,10 @@ J2OBJC_FIELD_SETTER(OrgMinimaDatabaseTxpowdbJavaJavaDBRow, mInBlocknumber_, OrgM
     { "mIsInBlock_", "Z", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
     { "mInBlocknumber_", "LOrgMinimaObjectsBaseMiniNumber;", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
     { "mBlockState_", "I", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
+    { "mDeleteTime_", "J", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
   };
   static const void *ptrTable[] = { "LOrgMinimaObjectsTxPOW;", "setIsInBlock", "Z", "setInBlockNumber", "LOrgMinimaObjectsBaseMiniNumber;", "toString", "setOnChainBlock", "setBlockState", "I" };
-  static const J2ObjcClassInfo _OrgMinimaDatabaseTxpowdbJavaJavaDBRow = { "JavaDBRow", "org.minima.database.txpowdb.java", ptrTable, methods, fields, 7, 0x1, 12, 5, -1, -1, -1, -1, -1 };
+  static const J2ObjcClassInfo _OrgMinimaDatabaseTxpowdbJavaJavaDBRow = { "JavaDBRow", "org.minima.database.txpowdb.java", ptrTable, methods, fields, 7, 0x1, 14, 6, -1, -1, -1, -1, -1 };
   return &_OrgMinimaDatabaseTxpowdbJavaJavaDBRow;
 }
 
@@ -138,6 +155,7 @@ void OrgMinimaDatabaseTxpowdbJavaJavaDBRow_initWithOrgMinimaObjectsTxPOW_(OrgMin
   self->mIsInBlock_ = false;
   self->mIsOnChainBlock_ = false;
   self->mBlockState_ = OrgMinimaDatabaseTxpowdbTxPOWDBRow_TXPOWDBROW_STATE_BASIC;
+  self->mDeleteTime_ = 0;
 }
 
 OrgMinimaDatabaseTxpowdbJavaJavaDBRow *new_OrgMinimaDatabaseTxpowdbJavaJavaDBRow_initWithOrgMinimaObjectsTxPOW_(OrgMinimaObjectsTxPOW *zTxPOW) {

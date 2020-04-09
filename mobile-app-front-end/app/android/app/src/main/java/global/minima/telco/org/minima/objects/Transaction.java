@@ -10,7 +10,7 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 
 import org.minima.objects.base.MiniByte;
-import org.minima.objects.base.MiniHash;
+import org.minima.objects.base.MiniData;
 import org.minima.objects.base.MiniNumber;
 import org.minima.objects.proofs.TokenProof;
 import org.minima.utils.Streamable;
@@ -29,9 +29,9 @@ public class Transaction implements Streamable {
 
 	/**
 	 * The Hash of a prior transaction if this is a burn transaction
-	 * Or a custom or random valuevalue
+	 * MUST Be 0x00 to be a normal transaction.
 	 */
-	protected MiniHash mLinkHash = new MiniHash("0x00");
+	protected MiniData mLinkHash = new MiniData("0x00");
 	
 	/**
 	 * The Inputs that make up the Transaction
@@ -87,10 +87,10 @@ public class Transaction implements Streamable {
 		return tot;
 	}
 	
-	public MiniNumber sumInputs(MiniHash zTokenID) {
+	public MiniNumber sumInputs(MiniData zTokenID) {
 		MiniNumber tot = MiniNumber.ZERO;
 		for(Coin cc : mInputs) {
-			if(cc.getTokenID().isExactlyEqual(zTokenID)) {
+			if(cc.getTokenID().isEqual(zTokenID)) {
 				tot = tot.add(cc.mAmount);	
 			}
 		}
@@ -105,22 +105,22 @@ public class Transaction implements Streamable {
 		return tot;
 	}
 	
-	public MiniNumber sumOutputs(MiniHash zTokenID) {
+	public MiniNumber sumOutputs(MiniData zTokenID) {
 		MiniNumber tot = MiniNumber.ZERO;
 		for(Coin cc : mOutputs) {
-			if(cc.getTokenID().isExactlyEqual(zTokenID)) {
+			if(cc.getTokenID().isEqual(zTokenID)) {
 				tot = tot.add(cc.mAmount);	
 			}
 		}
 		return tot;
 	}
-
+	
 	/**
 	 * Get the Remainder Output Coin for a specific token..
 	 */
-	public Coin getRemainderCoin(MiniHash zTokenID) {
+	public Coin getRemainderCoin(MiniData zTokenID) {
 		for(Coin cc : mOutputs) {
-			if(cc.isRemainder() && cc.getTokenID().isExactlyEqual(zTokenID)) {
+			if(cc.isRemainder() && cc.getTokenID().isEqual(zTokenID)) {
 				return cc;
 			}
 		}
@@ -136,8 +136,8 @@ public class Transaction implements Streamable {
 		//First get a list of all the Ouput tokens..
 		ArrayList<String> tokens = new ArrayList<>();
 		for(Coin cc : mOutputs) {
-			MiniHash tokenhash = cc.getTokenID();
-			if(tokenhash.isExactlyEqual(Coin.TOKENID_CREATE)){
+			MiniData tokenhash = cc.getTokenID();
+			if(tokenhash.isEqual(Coin.TOKENID_CREATE)){
 				tokenhash = Coin.MINIMA_TOKENID;
 			}
 			
@@ -150,7 +150,7 @@ public class Transaction implements Streamable {
 		//Now get all the Output Amounts...
 		Hashtable<String, MiniNumber> outamounts = new Hashtable<>();
 		for(String token : tokens) {
-			outamounts.put(token, sumOutputs(new MiniHash(token)));
+			outamounts.put(token, sumOutputs(new MiniData(token)));
 		}
 		
 		//Now cycle through and check there is enough inputs..
@@ -163,7 +163,7 @@ public class Transaction implements Streamable {
 			MiniNumber outamt = outamounts.get(tok);
 			
 			//The input total amount
-			MiniNumber inamt = sumInputs(new MiniHash(tok));
+			MiniNumber inamt = sumInputs(new MiniData(tok));
 			
 			//Do the check..
 			if(inamt.isLess(outamt)) {
@@ -236,7 +236,7 @@ public class Transaction implements Streamable {
 	/**
 	 * The Link Hash - for the Burn Transaction
 	 */
-	public MiniHash getLinkHash() {
+	public MiniData getLinkHash() {
 		return mLinkHash;
 	}
 	
@@ -332,8 +332,7 @@ public class Transaction implements Streamable {
 		mState 	 = new  ArrayList<>();
 		
 		//Inputs
-		MiniByte ins = new MiniByte();
-		ins.readDataStream(zIn);
+		MiniByte ins = MiniByte.ReadFromStream(zIn);
 		
 		int len = ins.getValue();
 		for(int i=0;i<len;i++) {
@@ -342,8 +341,7 @@ public class Transaction implements Streamable {
 		}
 		
 		//Outputs
-		MiniByte outs = new MiniByte();
-		outs.readDataStream(zIn);
+		MiniByte outs = MiniByte.ReadFromStream(zIn);
 		
 		len = outs.getValue();
 		for(int i=0;i<len;i++) {
@@ -366,7 +364,7 @@ public class Transaction implements Streamable {
 			mTokenGenDetails = null;
 		}
 		
-		mLinkHash = MiniHash.ReadFromStream(zIn);
+		mLinkHash = MiniData.ReadFromStream(zIn);
 	}
 	
 	/**

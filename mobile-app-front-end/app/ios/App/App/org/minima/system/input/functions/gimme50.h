@@ -21,7 +21,7 @@
 #include "org/minima/system/input/CommandFunction.h"
 
 @class IOSObjectArray;
-@class OrgMinimaObjectsBaseMiniHash;
+@class OrgMinimaObjectsBaseMiniData;
 
 @interface OrgMinimaSystemInputFunctionsgimme50 : OrgMinimaSystemInputCommandFunction
 
@@ -41,11 +41,11 @@
 
 J2OBJC_STATIC_INIT(OrgMinimaSystemInputFunctionsgimme50)
 
-inline OrgMinimaObjectsBaseMiniHash *OrgMinimaSystemInputFunctionsgimme50_get_COINID_INPUT(void);
-inline OrgMinimaObjectsBaseMiniHash *OrgMinimaSystemInputFunctionsgimme50_set_COINID_INPUT(OrgMinimaObjectsBaseMiniHash *value);
+inline OrgMinimaObjectsBaseMiniData *OrgMinimaSystemInputFunctionsgimme50_get_COINID_INPUT(void);
+inline OrgMinimaObjectsBaseMiniData *OrgMinimaSystemInputFunctionsgimme50_set_COINID_INPUT(OrgMinimaObjectsBaseMiniData *value);
 /*! INTERNAL ONLY - Use accessor function from above. */
-FOUNDATION_EXPORT OrgMinimaObjectsBaseMiniHash *OrgMinimaSystemInputFunctionsgimme50_COINID_INPUT;
-J2OBJC_STATIC_FIELD_OBJ(OrgMinimaSystemInputFunctionsgimme50, COINID_INPUT, OrgMinimaObjectsBaseMiniHash *)
+FOUNDATION_EXPORT OrgMinimaObjectsBaseMiniData *OrgMinimaSystemInputFunctionsgimme50_COINID_INPUT;
+J2OBJC_STATIC_FIELD_OBJ(OrgMinimaSystemInputFunctionsgimme50, COINID_INPUT, OrgMinimaObjectsBaseMiniData *)
 
 FOUNDATION_EXPORT void OrgMinimaSystemInputFunctionsgimme50_init(OrgMinimaSystemInputFunctionsgimme50 *self);
 

@@ -16,55 +16,40 @@
 #if !defined (OrgMinimaDatabaseMmrMMRProof_) && (INCLUDE_ALL_OrgMinimaDatabaseMmrMMRProof || defined(INCLUDE_OrgMinimaDatabaseMmrMMRProof))
 #define OrgMinimaDatabaseMmrMMRProof_
 
-#define RESTRICT_OrgMinimaUtilsStreamable 1
-#define INCLUDE_OrgMinimaUtilsStreamable 1
-#include "org/minima/utils/Streamable.h"
+#define RESTRICT_OrgMinimaObjectsProofsProof 1
+#define INCLUDE_OrgMinimaObjectsProofsProof 1
+#include "org/minima/objects/proofs/Proof.h"
 
 @class JavaIoDataInputStream;
 @class JavaIoDataOutputStream;
-@class JavaUtilArrayList;
 @class OrgMinimaDatabaseMmrMMRData;
-@class OrgMinimaObjectsBaseMiniByte;
-@class OrgMinimaObjectsBaseMiniHash;
+@class OrgMinimaObjectsBaseMiniInteger;
 @class OrgMinimaObjectsBaseMiniNumber;
 @class OrgMinimaObjectsCoin;
 @class OrgMinimaUtilsJsonJSONObject;
 
-@interface OrgMinimaDatabaseMmrMMRProof : NSObject < OrgMinimaUtilsStreamable > {
+@interface OrgMinimaDatabaseMmrMMRProof : OrgMinimaObjectsProofsProof {
  @public
   OrgMinimaObjectsBaseMiniNumber *mBlockTime_;
-  OrgMinimaObjectsBaseMiniNumber *mEntryNumber_;
-  OrgMinimaDatabaseMmrMMRData *mData_;
-  JavaUtilArrayList *mProofChain_;
-  JavaUtilArrayList *mLeftHash_;
+  OrgMinimaObjectsBaseMiniInteger *mEntryNumber_;
+  OrgMinimaDatabaseMmrMMRData *mData_MMRProof_;
 }
 
 #pragma mark Public
 
 - (instancetype)init;
 
-- (instancetype)initWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zEntryNumber
-                       withOrgMinimaDatabaseMmrMMRData:(OrgMinimaDatabaseMmrMMRData *)zInitialData
-                    withOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zBlockTime;
-
-- (void)addHashWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zHash
-                                    withBoolean:(jboolean)zLeft;
-
-- (OrgMinimaObjectsBaseMiniHash *)calculateProof;
+- (instancetype)initWithOrgMinimaObjectsBaseMiniInteger:(OrgMinimaObjectsBaseMiniInteger *)zEntryNumber
+                        withOrgMinimaDatabaseMmrMMRData:(OrgMinimaDatabaseMmrMMRData *)zInitialData
+                     withOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zBlockTime;
 
 - (jboolean)checkCoinWithOrgMinimaObjectsCoin:(OrgMinimaObjectsCoin *)zCoin;
 
 - (OrgMinimaObjectsBaseMiniNumber *)getBlockTime;
 
-- (OrgMinimaObjectsBaseMiniNumber *)getEntryNumber;
-
-- (OrgMinimaObjectsBaseMiniByte *)getLeftHashWithInt:(jint)zProof;
+- (OrgMinimaObjectsBaseMiniInteger *)getEntryNumber;
 
 - (OrgMinimaDatabaseMmrMMRData *)getMMRData;
-
-- (OrgMinimaObjectsBaseMiniHash *)getProofWithInt:(jint)zProof;
-
-- (jint)getProofLen;
 
 - (void)readDataStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn;
 
@@ -81,10 +66,8 @@
 J2OBJC_EMPTY_STATIC_INIT(OrgMinimaDatabaseMmrMMRProof)
 
 J2OBJC_FIELD_SETTER(OrgMinimaDatabaseMmrMMRProof, mBlockTime_, OrgMinimaObjectsBaseMiniNumber *)
-J2OBJC_FIELD_SETTER(OrgMinimaDatabaseMmrMMRProof, mEntryNumber_, OrgMinimaObjectsBaseMiniNumber *)
-J2OBJC_FIELD_SETTER(OrgMinimaDatabaseMmrMMRProof, mData_, OrgMinimaDatabaseMmrMMRData *)
-J2OBJC_FIELD_SETTER(OrgMinimaDatabaseMmrMMRProof, mProofChain_, JavaUtilArrayList *)
-J2OBJC_FIELD_SETTER(OrgMinimaDatabaseMmrMMRProof, mLeftHash_, JavaUtilArrayList *)
+J2OBJC_FIELD_SETTER(OrgMinimaDatabaseMmrMMRProof, mEntryNumber_, OrgMinimaObjectsBaseMiniInteger *)
+J2OBJC_FIELD_SETTER(OrgMinimaDatabaseMmrMMRProof, mData_MMRProof_, OrgMinimaDatabaseMmrMMRData *)
 
 FOUNDATION_EXPORT void OrgMinimaDatabaseMmrMMRProof_init(OrgMinimaDatabaseMmrMMRProof *self);
 
@@ -92,11 +75,11 @@ FOUNDATION_EXPORT OrgMinimaDatabaseMmrMMRProof *new_OrgMinimaDatabaseMmrMMRProof
 
 FOUNDATION_EXPORT OrgMinimaDatabaseMmrMMRProof *create_OrgMinimaDatabaseMmrMMRProof_init(void);
 
-FOUNDATION_EXPORT void OrgMinimaDatabaseMmrMMRProof_initWithOrgMinimaObjectsBaseMiniNumber_withOrgMinimaDatabaseMmrMMRData_withOrgMinimaObjectsBaseMiniNumber_(OrgMinimaDatabaseMmrMMRProof *self, OrgMinimaObjectsBaseMiniNumber *zEntryNumber, OrgMinimaDatabaseMmrMMRData *zInitialData, OrgMinimaObjectsBaseMiniNumber *zBlockTime);
+FOUNDATION_EXPORT void OrgMinimaDatabaseMmrMMRProof_initWithOrgMinimaObjectsBaseMiniInteger_withOrgMinimaDatabaseMmrMMRData_withOrgMinimaObjectsBaseMiniNumber_(OrgMinimaDatabaseMmrMMRProof *self, OrgMinimaObjectsBaseMiniInteger *zEntryNumber, OrgMinimaDatabaseMmrMMRData *zInitialData, OrgMinimaObjectsBaseMiniNumber *zBlockTime);
 
-FOUNDATION_EXPORT OrgMinimaDatabaseMmrMMRProof *new_OrgMinimaDatabaseMmrMMRProof_initWithOrgMinimaObjectsBaseMiniNumber_withOrgMinimaDatabaseMmrMMRData_withOrgMinimaObjectsBaseMiniNumber_(OrgMinimaObjectsBaseMiniNumber *zEntryNumber, OrgMinimaDatabaseMmrMMRData *zInitialData, OrgMinimaObjectsBaseMiniNumber *zBlockTime) NS_RETURNS_RETAINED;
+FOUNDATION_EXPORT OrgMinimaDatabaseMmrMMRProof *new_OrgMinimaDatabaseMmrMMRProof_initWithOrgMinimaObjectsBaseMiniInteger_withOrgMinimaDatabaseMmrMMRData_withOrgMinimaObjectsBaseMiniNumber_(OrgMinimaObjectsBaseMiniInteger *zEntryNumber, OrgMinimaDatabaseMmrMMRData *zInitialData, OrgMinimaObjectsBaseMiniNumber *zBlockTime) NS_RETURNS_RETAINED;
 
-FOUNDATION_EXPORT OrgMinimaDatabaseMmrMMRProof *create_OrgMinimaDatabaseMmrMMRProof_initWithOrgMinimaObjectsBaseMiniNumber_withOrgMinimaDatabaseMmrMMRData_withOrgMinimaObjectsBaseMiniNumber_(OrgMinimaObjectsBaseMiniNumber *zEntryNumber, OrgMinimaDatabaseMmrMMRData *zInitialData, OrgMinimaObjectsBaseMiniNumber *zBlockTime);
+FOUNDATION_EXPORT OrgMinimaDatabaseMmrMMRProof *create_OrgMinimaDatabaseMmrMMRProof_initWithOrgMinimaObjectsBaseMiniInteger_withOrgMinimaDatabaseMmrMMRData_withOrgMinimaObjectsBaseMiniNumber_(OrgMinimaObjectsBaseMiniInteger *zEntryNumber, OrgMinimaDatabaseMmrMMRData *zInitialData, OrgMinimaObjectsBaseMiniNumber *zBlockTime);
 
 FOUNDATION_EXPORT OrgMinimaDatabaseMmrMMRProof *OrgMinimaDatabaseMmrMMRProof_ReadFromStreamWithJavaIoDataInputStream_(JavaIoDataInputStream *zIn);
 

@@ -6,15 +6,10 @@
 #include "J2ObjC_source.h"
 #include "java/io/DataInputStream.h"
 #include "java/io/DataOutputStream.h"
-#include "java/math/BigInteger.h"
 #include "java/util/ArrayList.h"
-#include "org/minima/GlobalParams.h"
-#include "org/minima/objects/TxPOW.h"
 #include "org/minima/objects/base/MiniNumber.h"
 #include "org/minima/system/backup/SyncPackage.h"
 #include "org/minima/system/backup/SyncPacket.h"
-#include "org/minima/utils/Maths.h"
-#include "org/minima/utils/MinimaLogger.h"
 
 @implementation OrgMinimaSystemBackupSyncPackage
 
@@ -35,50 +30,6 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 - (JavaUtilArrayList *)getAllNodes {
   return mNodes_;
-}
-
-- (JavaMathBigInteger *)calculateWeight {
-  JavaUtilArrayList *rev = create_JavaUtilArrayList_init();
-  OrgMinimaObjectsBaseMiniNumber *lastblock = JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, ONE);
-  for (OrgMinimaSystemBackupSyncPacket * __strong spack in nil_chk(mNodes_)) {
-    [rev addWithInt:0 withId:spack];
-    lastblock = [((OrgMinimaObjectsTxPOW *) nil_chk([((OrgMinimaSystemBackupSyncPacket *) nil_chk(spack)) getTxPOW])) getBlockNumber];
-  }
-  lastblock = [((OrgMinimaObjectsBaseMiniNumber *) nil_chk(lastblock)) increment];
-  JavaMathBigInteger *totalweight = JreLoadStatic(JavaMathBigInteger, ZERO);
-  jboolean cascadestarted = false;
-  jint lastdiff = 0;
-  jint lastsup = 0;
-  jint num = 0;
-  for (OrgMinimaSystemBackupSyncPacket * __strong spack in rev) {
-    OrgMinimaObjectsTxPOW *txpow = [((OrgMinimaSystemBackupSyncPacket *) nil_chk(spack)) getTxPOW];
-    JavaMathBigInteger *normweight = [((JavaMathBigInteger *) nil_chk(JreLoadStatic(OrgMinimaUtilsMaths, BI_TWO))) powWithInt:[((OrgMinimaObjectsTxPOW *) nil_chk(txpow)) getBlockDifficulty]];
-    JavaMathBigInteger *supweight = [JreLoadStatic(OrgMinimaUtilsMaths, BI_TWO) powWithInt:[txpow getSuperLevel]];
-    if (num > OrgMinimaGlobalParams_MINIMA_CASCADE_DEPTH) {
-      cascadestarted = true;
-    }
-    if (!cascadestarted && [((OrgMinimaObjectsBaseMiniNumber *) nil_chk([txpow getBlockNumber])) isEqualWithOrgMinimaObjectsBaseMiniNumber:[((OrgMinimaObjectsBaseMiniNumber *) nil_chk(lastblock)) decrement]]) {
-      totalweight = [((JavaMathBigInteger *) nil_chk(totalweight)) addWithJavaMathBigInteger:normweight];
-      OrgMinimaUtilsMinimaLogger_logWithNSString_(JreStrcat("I$ICI$@$@C@", num, @") [", [txpow getBlockDifficulty], '/', [txpow getSuperLevel], @"] ", [txpow getBlockNumber], @" *", normweight, ' ', supweight));
-      lastdiff = [txpow getBlockDifficulty];
-      lastsup = [txpow getSuperLevel];
-    }
-    else {
-      if (!cascadestarted) {
-        JavaMathBigInteger *weight = [JreLoadStatic(OrgMinimaUtilsMaths, BI_TWO) powWithInt:lastdiff];
-        totalweight = [((JavaMathBigInteger *) nil_chk(totalweight)) subtractWithJavaMathBigInteger:weight];
-        weight = [JreLoadStatic(OrgMinimaUtilsMaths, BI_TWO) powWithInt:lastsup];
-        totalweight = [((JavaMathBigInteger *) nil_chk(totalweight)) addWithJavaMathBigInteger:weight];
-        cascadestarted = true;
-      }
-      totalweight = [((JavaMathBigInteger *) nil_chk(totalweight)) addWithJavaMathBigInteger:supweight];
-      OrgMinimaUtilsMinimaLogger_logWithNSString_(JreStrcat("I$@C@$@", num, @") ", [txpow getBlockNumber], ' ', normweight, @" *", supweight));
-    }
-    num++;
-    lastblock = [txpow getBlockNumber];
-  }
-  OrgMinimaUtilsMinimaLogger_logWithNSString_(JreStrcat("$@", @"Total : ", totalweight));
-  return totalweight;
 }
 
 - (void)writeDataStreamWithJavaIoDataOutputStream:(JavaIoDataOutputStream *)zOut {
@@ -120,7 +71,6 @@ J2OBJC_IGNORE_DESIGNATED_END
     { NULL, "V", 0x1, 0, 1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LJavaUtilArrayList;", 0x1, -1, -1, -1, 2, -1, -1 },
-    { NULL, "LJavaMathBigInteger;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 3, 4, 5, -1, -1, -1 },
     { NULL, "V", 0x1, 6, 7, 5, -1, -1, -1 },
     { NULL, "LNSString;", 0x1, 8, -1, -1, -1, -1, -1 },
@@ -132,17 +82,16 @@ J2OBJC_IGNORE_DESIGNATED_END
   methods[1].selector = @selector(setCascadeNodeWithOrgMinimaObjectsBaseMiniNumber:);
   methods[2].selector = @selector(getCascadeNode);
   methods[3].selector = @selector(getAllNodes);
-  methods[4].selector = @selector(calculateWeight);
-  methods[5].selector = @selector(writeDataStreamWithJavaIoDataOutputStream:);
-  methods[6].selector = @selector(readDataStreamWithJavaIoDataInputStream:);
-  methods[7].selector = @selector(description);
+  methods[4].selector = @selector(writeDataStreamWithJavaIoDataOutputStream:);
+  methods[5].selector = @selector(readDataStreamWithJavaIoDataInputStream:);
+  methods[6].selector = @selector(description);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
     { "mCascadeNode_", "LOrgMinimaObjectsBaseMiniNumber;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mNodes_", "LJavaUtilArrayList;", .constantValue.asLong = 0, 0x0, -1, -1, 9, -1 },
   };
   static const void *ptrTable[] = { "setCascadeNode", "LOrgMinimaObjectsBaseMiniNumber;", "()Ljava/util/ArrayList<Lorg/minima/system/backup/SyncPacket;>;", "writeDataStream", "LJavaIoDataOutputStream;", "LJavaIoIOException;", "readDataStream", "LJavaIoDataInputStream;", "toString", "Ljava/util/ArrayList<Lorg/minima/system/backup/SyncPacket;>;" };
-  static const J2ObjcClassInfo _OrgMinimaSystemBackupSyncPackage = { "SyncPackage", "org.minima.system.backup", ptrTable, methods, fields, 7, 0x1, 8, 2, -1, -1, -1, -1, -1 };
+  static const J2ObjcClassInfo _OrgMinimaSystemBackupSyncPackage = { "SyncPackage", "org.minima.system.backup", ptrTable, methods, fields, 7, 0x1, 7, 2, -1, -1, -1, -1, -1 };
   return &_OrgMinimaSystemBackupSyncPackage;
 }
 

@@ -1,11 +1,11 @@
 import { MinimaApiService } from '../../service/minima-api.service';
-import { PopoverController } from '@ionic/angular';
+import { PopoverController, IonSlides } from '@ionic/angular';
 import { PopHistoryComponent } from '../../components/pop-history/pop-history.component';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { HistoryService } from '../../service/history.service';
 import { map } from 'rxjs/operators';
-import { MiniHistory } from '../../models/minihistory.model';
+import { History } from '../../models/history.model';
 
 @Component({
   selector: 'app-history',
@@ -14,9 +14,16 @@ import { MiniHistory } from '../../models/minihistory.model';
 })
 export class HistoryPage implements OnInit {
 
+  selectedSlide: any;
+  categories: number = 0;
+  sliderOptions = {
+    initialSlide: 0,
+    slidesPerView: 1,
+    speed: 400
+  }
   // + vars
-  public t_summaryArr: MiniHistory[] = [];
-  public t_summarySpoof: MiniHistory[] = [];
+  public transactions: History[] = [];
+  public t_summarySpoof: History[] = [];
 
   polledHistorySubscription: Subscription;
 
@@ -29,20 +36,20 @@ export class HistoryPage implements OnInit {
 
   ngOnInit() {}
 
-  ionViewDidEnter(){
+  ionViewDidEnter(){ 
     this.pullInHistoryLength();
     setTimeout(() => {
       this.pullInHistorySummary(); // subscribe and polls history
-    }, 1000);
-   
+    }, 500);
   }
 
   ionViewDidLeave(){
    this.polledHistorySubscription.unsubscribe();
   }
 
+  /** ALERTS */
   // Present history details popover when tapped/clicked
-  async presentHistoryInfo(ev: any, _addr: any, _blkNumber: any, _amnt: any,
+  async presentHistoryInfo(ev: any, _name: string, _addr: any, _blkNumber: any, _amnt: any,
                        _isBlock: boolean, _txpowid: string, _parent: string,
                         _blockdiff: number, _date: string ) {
     const popover = await this.popHistoryController.create({
@@ -52,6 +59,7 @@ export class HistoryPage implements OnInit {
       translucent: true,
       componentProps: {
 
+           name: _name,
            address: _addr,
            blockNumber: _blkNumber,
            transAmount: _amnt,
@@ -66,9 +74,10 @@ export class HistoryPage implements OnInit {
     return await popover.present();
   }
 
+  /** MISC Functions */
   // Check if we're receiving or sending
-  checkTransType(amount: any) {
-    if(amount.toString().substring(0,1) === "-"){
+  checkTransType(amount: string) {
+    if(amount.substring(0,1) === "-"){
       return "Sent";
     } else {
       return "Received";
@@ -83,6 +92,22 @@ export class HistoryPage implements OnInit {
     return 't_summaryArr';
   }
   }
+
+  // Categories Segment
+  async segmentChanged(ev: Event, slides: IonSlides){
+    this.selectedSlide = slides;
+    await this.selectedSlide.slideTo(this.categories);
+  }
+  // Slide, after segment button clicked..
+  async slideChanged(slides: IonSlides){
+    this.selectedSlide = slides;
+    slides.getActiveIndex().then(selectedValue => {
+      this.categories = selectedValue;
+    });
+  
+  }
+
+  /** API CALLS */
   // get length of history
   pullInHistoryLength() {
     this.historyService.getHistory().subscribe(res => {
@@ -95,7 +120,7 @@ export class HistoryPage implements OnInit {
   // Get all users transaction history
   pullInHistorySummary() {
   this.polledHistorySubscription = this.historyService.getHistory().pipe(map(responseData => {
-    let historyArr: MiniHistory[] = [];
+    let historyArr: History[] = [];
     for(const key in responseData.response){
       let history = responseData.response;
         if(history[key]){
@@ -109,7 +134,7 @@ export class HistoryPage implements OnInit {
   })).subscribe(responseData => {
     
     if(this.lastJSON !== JSON.stringify(responseData)){
-      this.t_summaryArr = responseData;
+      this.transactions = responseData;
       this.lastJSON = JSON.stringify(responseData);
     }
 

@@ -5,15 +5,17 @@ import java.util.ArrayList;
 import org.minima.database.txpowdb.TxPOWDBRow;
 import org.minima.database.txpowdb.TxPowDB;
 import org.minima.objects.TxPOW;
-import org.minima.objects.base.MiniHash;
+import org.minima.objects.base.MiniData;
 import org.minima.objects.base.MiniNumber;
 
 public class JavaDB implements TxPowDB{
 
 	private ArrayList<JavaDBRow> mRows;
+	private ArrayList<JavaDBRow> mDeletedRows;
 	
 	public JavaDB() {
 		mRows = new ArrayList<>();
+		mDeletedRows = new ArrayList<>();
 	}
 
 	@Override
@@ -33,13 +35,23 @@ public class JavaDB implements TxPowDB{
 		return row;
 	}
 
+	/**
+	 * Searched the Deleted Rows TOO!
+	 */
 	@Override
-	public TxPOWDBRow findTxPOWDBRow(MiniHash zTxPOWID) {
+	public TxPOWDBRow findTxPOWDBRow(MiniData zTxPOWID) {
 		for(JavaDBRow row : mRows) {
-			if(row.getTxPOW().getTxPowID().isExactlyEqual(zTxPOWID)) {
+			if(row.getTxPOW().getTxPowID().isEqual(zTxPOWID)) {
 				return row;
 			}
 		}
+		
+		for(JavaDBRow row : mDeletedRows) {
+			if(row.getTxPOW().getTxPowID().isEqual(zTxPOWID)) {
+				return row;
+			}
+		}
+		
 		return null;
 	}
 
@@ -48,44 +60,64 @@ public class JavaDB implements TxPowDB{
 		ArrayList<TxPOWDBRow> removed = new ArrayList<>();
 		ArrayList<JavaDBRow> newRows = new ArrayList<>();
 		
+		//The minimum block before its too late
+		MiniNumber minblock = zBlockNumber.add(MiniNumber.TEN);
+		
 		for(JavaDBRow row : mRows) {
-			//Kepp ALL the onchain blocks
+			
 			if(row.isOnChainBlock()) {
 				newRows.add(row);
-				continue;
-			}
+				
+				//Other wise the proofs are too old..
+			}else if(!row.isInBlock() && row.getTxPOW().getBlockNumber().isMore(minblock)) {
+					newRows.add(row);
 			
-			//First check.. is it used?
-			if(!row.isInBlock()) {
-				//is the proof still valid ? - will run out. need a new txpow..
-//				MiniNumber prrofblk = row.getTxPOW()
-				
-				//Keep it until we add it..
-				newRows.add(row);
-				
-			}else if(row.getInBlockNumber().isMoreEqual(zBlockNumber)) {
+				//It's in the chain
+			}else if(row.isInBlock() && row.getInBlockNumber().isMoreEqual(zBlockNumber)) {
 				newRows.add(row);
 			
 			}else {
+				//Remove it..
 				removed.add(row);
+				
+				//Add to the deleted rows
+				row.deleteRow();
+				mDeletedRows.add(row);
 			}
 		}
 		
 		//re-assign
 		mRows = newRows;
 		
+		//Remove the deleted.. called periodically
+		removeDeleted();
+		
 		//Return the removed..
 		return removed;
 	}
 
-//	@Override
-//	public void resetTxPOWRowsInBlockAfter(long zBlockNumber) {
-//		for(JavaDBRow row : mRows) {
-//			if(row.isInBlock() && row.getInBlockNumber()>=zBlockNumber) {
-//				row.setIsInBlock(false);
-//			}
-//		}
-//	}
+	private ArrayList<TxPOWDBRow> removeDeleted() {
+		ArrayList<TxPOWDBRow> removed = new ArrayList<>();
+		ArrayList<JavaDBRow> newDeletedRows = new ArrayList<>();
+
+		//Keep for 1 HR in the past
+		long timedelete = System.currentTimeMillis() - 1000*60*60;
+		
+		for(JavaDBRow row : mDeletedRows) {
+			if(row.getDeleteTime() == 0) {
+				newDeletedRows.add(row);
+			}else if(row.getDeleteTime() > timedelete) {
+				newDeletedRows.add(row);
+			}else {
+				removed.add(row);
+			}
+		}
+		
+		//Reset
+		mDeletedRows = newDeletedRows;
+		
+		return removed;
+	}
 
 	@Override
 	public ArrayList<TxPOWDBRow> getAllUnusedTxPOW() {
@@ -101,17 +133,21 @@ public class JavaDB implements TxPowDB{
 	}
 
 	@Override
-	public int getSize() {
-		return mRows.size();
+	public int getCompleteSize() {
+		return mRows.size()+ mDeletedRows.size();
 	}
 
 	@Override
-	public void removeTxPOW(MiniHash zTxPOWID) {
+	public void removeTxPOW(MiniData zTxPOWID) {
 		ArrayList<JavaDBRow> newRows = new ArrayList<>();
 		
 		for(JavaDBRow row : mRows) {
-			if( !row.getTxPOW().getTxPowID().isExactlyEqual(zTxPOWID)) {
+			if( !row.getTxPOW().getTxPowID().isEqual(zTxPOWID)) {
 				newRows.add(row);
+				
+				//Add to the deleted rows..
+				row.deleteRow();
+				mDeletedRows.add(row);
 			}
 		}
 		
@@ -120,11 +156,11 @@ public class JavaDB implements TxPowDB{
 	}
 
 	@Override
-	public ArrayList<TxPOWDBRow> getChildBlocksTxPOW(MiniHash zParent) {
+	public ArrayList<TxPOWDBRow> getChildBlocksTxPOW(MiniData zParent) {
 		ArrayList<TxPOWDBRow> ret = new ArrayList<>();
 		
 		for(JavaDBRow row : mRows) {
-			if(row.getTxPOW().isBlock() && row.getTxPOW().getParentID().isExactlyEqual(zParent)) {
+			if(row.getTxPOW().isBlock() && row.getTxPOW().getParentID().isEqual(zParent)) {
 				ret.add(row);
 			}
 		}
@@ -165,6 +201,7 @@ public class JavaDB implements TxPowDB{
 	@Override
 	public void ClearDB() {
 		mRows = new ArrayList<>();
+		mDeletedRows = new ArrayList<>();
 	}
 	
 }

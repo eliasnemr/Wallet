@@ -5,6 +5,11 @@ import org.minima.objects.base.MiniNumber;
 public class GlobalParams {
 
 	/**
+	 * Which Version
+	 */
+	public static final String MINIMA_VERSION = "0.85";
+	
+	/**
 	 * Number of seconds before sending a pulse message
 	 */
 	public static final int USER_PULSE_FREQ      = 10 * 60;
@@ -24,7 +29,7 @@ public class GlobalParams {
 	/**
 	 * How deep before we think confirmed..
 	 */
-	public static final MiniNumber MINIMA_CONFIRM_DEPTH  = new MiniNumber("2");
+	public static final MiniNumber MINIMA_CONFIRM_DEPTH  = new MiniNumber("3");
 	
 	/**
 	 * Depth before we cascade..
@@ -34,7 +39,7 @@ public class GlobalParams {
 	/**
 	 * Minimum number of blocks at each cascade level 
 	 */
-	public static final int MINIMA_MINUMUM_CASCADE_LEVEL_NODES  = 32;
+	public static final int MINIMA_MINUMUM_CASCADE_LEVEL_NODES  = 64;
 	
 	/**
 	 * How Many Cascade Levels are there
@@ -46,5 +51,10 @@ public class GlobalParams {
 	 */
 	public static final String MINIMA_CASCADE_RATIO  = "0.9";
 	
-	
+	/**
+	 * Current default HASH_Strength Used. Can be upto 512.
+	 * All the MMR data automatically uses 512. But addresses, scripts, and public keys..
+	 * can be set to less. This way signatures and addresses are shorter.
+	 */
+	public static final int MINIMA_HASH_STRENGTH = 256;
 }

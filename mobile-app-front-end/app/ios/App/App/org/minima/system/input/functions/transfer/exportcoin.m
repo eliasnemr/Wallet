@@ -5,7 +5,7 @@
 
 #include "IOSObjectArray.h"
 #include "J2ObjC_source.h"
-#include "org/minima/objects/base/MiniHash.h"
+#include "org/minima/objects/base/MiniData.h"
 #include "org/minima/system/Main.h"
 #include "org/minima/system/brains/ConsensusHandler.h"
 #include "org/minima/system/brains/ConsensusUser.h"
@@ -24,7 +24,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 - (void)doFunctionWithNSStringArray:(IOSObjectArray *)zInput {
   NSString *pubks = IOSObjectArray_Get(nil_chk(zInput), 1);
-  OrgMinimaUtilsMessagesMessage *export_ = [((OrgMinimaUtilsMessagesMessage *) nil_chk([self getResponseMessageWithNSString:OrgMinimaSystemBrainsConsensusUser_CONSENSUS_EXPORTCOIN])) addObjectWithNSString:@"coinid" withId:create_OrgMinimaObjectsBaseMiniHash_initWithNSString_(pubks)];
+  OrgMinimaUtilsMessagesMessage *export_ = [((OrgMinimaUtilsMessagesMessage *) nil_chk([self getResponseMessageWithNSString:OrgMinimaSystemBrainsConsensusUser_CONSENSUS_EXPORTCOIN])) addObjectWithNSString:@"coinid" withId:create_OrgMinimaObjectsBaseMiniData_initWithNSString_(pubks)];
   [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getConsensusHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:export_];
 }
 

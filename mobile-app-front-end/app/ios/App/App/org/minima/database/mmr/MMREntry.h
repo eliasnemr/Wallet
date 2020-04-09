@@ -27,12 +27,13 @@
 @class JavaIoDataInputStream;
 @class JavaIoDataOutputStream;
 @class OrgMinimaDatabaseMmrMMRData;
-@class OrgMinimaObjectsBaseMiniHash;
+@class OrgMinimaObjectsBaseMiniData;
+@class OrgMinimaObjectsBaseMiniInteger;
 @class OrgMinimaObjectsBaseMiniNumber;
 
 @interface OrgMinimaDatabaseMmrMMREntry : NSObject < JavaLangComparable, OrgMinimaUtilsStreamable > {
  @public
-  OrgMinimaObjectsBaseMiniNumber *mEntryNumber_;
+  OrgMinimaObjectsBaseMiniInteger *mEntryNumber_;
   jint mRow_;
   OrgMinimaObjectsBaseMiniNumber *mBlockTime_;
   OrgMinimaDatabaseMmrMMRData *mData_;
@@ -42,10 +43,10 @@
 #pragma mark Public
 
 - (instancetype)initWithInt:(jint)zRow
-withOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zEntry;
+withOrgMinimaObjectsBaseMiniInteger:(OrgMinimaObjectsBaseMiniInteger *)zEntry;
 
 - (jboolean)checkPositionWithInt:(jint)zRow
-withOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zEntry;
+withOrgMinimaObjectsBaseMiniInteger:(OrgMinimaObjectsBaseMiniInteger *)zEntry;
 
 - (jboolean)checkPositionWithOrgMinimaDatabaseMmrMMREntry:(OrgMinimaDatabaseMmrMMREntry *)zEntry;
 
@@ -59,25 +60,25 @@ withOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zEntry;
 
 - (OrgMinimaDatabaseMmrMMRData *)getData;
 
-- (OrgMinimaObjectsBaseMiniNumber *)getEntry;
+- (OrgMinimaObjectsBaseMiniInteger *)getEntry;
 
-- (OrgMinimaObjectsBaseMiniHash *)getHashValue;
+- (OrgMinimaObjectsBaseMiniData *)getHashValue;
 
-- (OrgMinimaObjectsBaseMiniNumber *)getLeftChildEntry;
+- (OrgMinimaObjectsBaseMiniInteger *)getLeftChildEntry;
 
-- (OrgMinimaObjectsBaseMiniNumber *)getLeftSibling;
+- (OrgMinimaObjectsBaseMiniInteger *)getLeftSibling;
 
-- (OrgMinimaObjectsBaseMiniNumber *)getParentEntry;
+- (OrgMinimaObjectsBaseMiniInteger *)getParentEntry;
 
 - (jint)getParentRow;
 
-- (OrgMinimaObjectsBaseMiniNumber *)getRightChildEntry;
+- (OrgMinimaObjectsBaseMiniInteger *)getRightChildEntry;
 
-- (OrgMinimaObjectsBaseMiniNumber *)getRightSibling;
+- (OrgMinimaObjectsBaseMiniInteger *)getRightSibling;
 
 - (jint)getRow;
 
-- (OrgMinimaObjectsBaseMiniNumber *)getSibling;
+- (OrgMinimaObjectsBaseMiniInteger *)getSibling;
 
 - (jboolean)isEmpty;
 
@@ -101,17 +102,17 @@ withOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zEntry;
 
 @end
 
-J2OBJC_STATIC_INIT(OrgMinimaDatabaseMmrMMREntry)
+J2OBJC_EMPTY_STATIC_INIT(OrgMinimaDatabaseMmrMMREntry)
 
-J2OBJC_FIELD_SETTER(OrgMinimaDatabaseMmrMMREntry, mEntryNumber_, OrgMinimaObjectsBaseMiniNumber *)
+J2OBJC_FIELD_SETTER(OrgMinimaDatabaseMmrMMREntry, mEntryNumber_, OrgMinimaObjectsBaseMiniInteger *)
 J2OBJC_FIELD_SETTER(OrgMinimaDatabaseMmrMMREntry, mBlockTime_, OrgMinimaObjectsBaseMiniNumber *)
 J2OBJC_FIELD_SETTER(OrgMinimaDatabaseMmrMMREntry, mData_, OrgMinimaDatabaseMmrMMRData *)
 
-FOUNDATION_EXPORT void OrgMinimaDatabaseMmrMMREntry_initWithInt_withOrgMinimaObjectsBaseMiniNumber_(OrgMinimaDatabaseMmrMMREntry *self, jint zRow, OrgMinimaObjectsBaseMiniNumber *zEntry);
+FOUNDATION_EXPORT void OrgMinimaDatabaseMmrMMREntry_initWithInt_withOrgMinimaObjectsBaseMiniInteger_(OrgMinimaDatabaseMmrMMREntry *self, jint zRow, OrgMinimaObjectsBaseMiniInteger *zEntry);
 
-FOUNDATION_EXPORT OrgMinimaDatabaseMmrMMREntry *new_OrgMinimaDatabaseMmrMMREntry_initWithInt_withOrgMinimaObjectsBaseMiniNumber_(jint zRow, OrgMinimaObjectsBaseMiniNumber *zEntry) NS_RETURNS_RETAINED;
+FOUNDATION_EXPORT OrgMinimaDatabaseMmrMMREntry *new_OrgMinimaDatabaseMmrMMREntry_initWithInt_withOrgMinimaObjectsBaseMiniInteger_(jint zRow, OrgMinimaObjectsBaseMiniInteger *zEntry) NS_RETURNS_RETAINED;
 
-FOUNDATION_EXPORT OrgMinimaDatabaseMmrMMREntry *create_OrgMinimaDatabaseMmrMMREntry_initWithInt_withOrgMinimaObjectsBaseMiniNumber_(jint zRow, OrgMinimaObjectsBaseMiniNumber *zEntry);
+FOUNDATION_EXPORT OrgMinimaDatabaseMmrMMREntry *create_OrgMinimaDatabaseMmrMMREntry_initWithInt_withOrgMinimaObjectsBaseMiniInteger_(jint zRow, OrgMinimaObjectsBaseMiniInteger *zEntry);
 
 J2OBJC_TYPE_LITERAL_HEADER(OrgMinimaDatabaseMmrMMREntry)
 

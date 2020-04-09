@@ -6,43 +6,28 @@
 #include "IOSObjectArray.h"
 #include "IOSPrimitiveArray.h"
 #include "J2ObjC_source.h"
+#include "java/io/ByteArrayOutputStream.h"
 #include "java/io/DataInputStream.h"
 #include "java/io/DataOutputStream.h"
 #include "java/io/IOException.h"
-#include "java/lang/Character.h"
 #include "java/lang/System.h"
+#include "java/math/BigDecimal.h"
 #include "java/math/BigInteger.h"
-#include "java/util/Random.h"
+#include "java/security/SecureRandom.h"
 #include "org/minima/objects/base/MiniData.h"
+#include "org/minima/utils/BaseConverter.h"
 #include "org/minima/utils/MinimaLogger.h"
+#include "org/minima/utils/Streamable.h"
 
 @interface OrgMinimaObjectsBaseMiniData ()
 
-+ (IOSByteArray *)hexStringToByteArrayWithNSString:(NSString *)zHex;
-
-+ (NSString *)bytesToHexWithByteArray:(IOSByteArray *)bytes;
+- (void)setDataValue;
 
 @end
 
-inline IOSCharArray *OrgMinimaObjectsBaseMiniData_get_hexArray(void);
-static IOSCharArray *OrgMinimaObjectsBaseMiniData_hexArray;
-J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaObjectsBaseMiniData, hexArray, IOSCharArray *)
-
-__attribute__((unused)) static IOSByteArray *OrgMinimaObjectsBaseMiniData_hexStringToByteArrayWithNSString_(NSString *zHex);
-
-__attribute__((unused)) static NSString *OrgMinimaObjectsBaseMiniData_bytesToHexWithByteArray_(IOSByteArray *bytes);
-
-J2OBJC_INITIALIZED_DEFN(OrgMinimaObjectsBaseMiniData)
+__attribute__((unused)) static void OrgMinimaObjectsBaseMiniData_setDataValue(OrgMinimaObjectsBaseMiniData *self);
 
 @implementation OrgMinimaObjectsBaseMiniData
-
-+ (IOSByteArray *)hexStringToByteArrayWithNSString:(NSString *)zHex {
-  return OrgMinimaObjectsBaseMiniData_hexStringToByteArrayWithNSString_(zHex);
-}
-
-+ (NSString *)bytesToHexWithByteArray:(IOSByteArray *)bytes {
-  return OrgMinimaObjectsBaseMiniData_bytesToHexWithByteArray_(bytes);
-}
 
 J2OBJC_IGNORE_DESIGNATED_BEGIN
 - (instancetype)init {
@@ -61,6 +46,10 @@ J2OBJC_IGNORE_DESIGNATED_END
   return self;
 }
 
+- (void)setDataValue {
+  OrgMinimaObjectsBaseMiniData_setDataValue(self);
+}
+
 - (jint)getLength {
   return ((IOSByteArray *) nil_chk(mData_))->size_;
 }
@@ -69,44 +58,39 @@ J2OBJC_IGNORE_DESIGNATED_END
   return mData_;
 }
 
-- (void)setDataValue {
-  JreStrongAssignAndConsume(&mDataVal_, new_JavaMathBigInteger_initWithInt_withByteArray_(1, mData_));
-}
-
-- (JavaMathBigInteger *)getDataVaue {
+- (JavaMathBigInteger *)getDataValue {
   return mDataVal_;
 }
 
-- (jboolean)isEqual:(id)o {
-  OrgMinimaObjectsBaseMiniData *data = (OrgMinimaObjectsBaseMiniData *) cast_chk(o, [OrgMinimaObjectsBaseMiniData class]);
-  return [self isExactlyEqualWithOrgMinimaObjectsBaseMiniData:data];
+- (JavaMathBigDecimal *)getDataValueDecimal {
+  return create_JavaMathBigDecimal_initWithJavaMathBigInteger_(mDataVal_);
 }
 
-- (jboolean)isExactlyEqualWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zCompare {
+- (jboolean)isEqual:(id)o {
+  return [self isEqualWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *) cast_chk(o, [OrgMinimaObjectsBaseMiniData class])];
+}
+
+- (jboolean)isEqualWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zCompare {
   if ([self getLength] != [((OrgMinimaObjectsBaseMiniData *) nil_chk(zCompare)) getLength]) {
     return false;
   }
-  return [((JavaMathBigInteger *) nil_chk(mDataVal_)) compareToWithId:[zCompare getDataVaue]] == 0;
-}
-
-- (jboolean)isNumericallyEqualWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zCompare {
-  return [((JavaMathBigInteger *) nil_chk(mDataVal_)) compareToWithId:[((OrgMinimaObjectsBaseMiniData *) nil_chk(zCompare)) getDataVaue]] == 0;
+  return [((JavaMathBigInteger *) nil_chk(mDataVal_)) compareToWithId:[zCompare getDataValue]] == 0;
 }
 
 - (jboolean)isLessWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zCompare {
-  return [((JavaMathBigInteger *) nil_chk(mDataVal_)) compareToWithId:[((OrgMinimaObjectsBaseMiniData *) nil_chk(zCompare)) getDataVaue]] < 0;
+  return [((JavaMathBigInteger *) nil_chk(mDataVal_)) compareToWithId:[((OrgMinimaObjectsBaseMiniData *) nil_chk(zCompare)) getDataValue]] < 0;
 }
 
 - (jboolean)isLessEqualWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zCompare {
-  return [((JavaMathBigInteger *) nil_chk(mDataVal_)) compareToWithId:[((OrgMinimaObjectsBaseMiniData *) nil_chk(zCompare)) getDataVaue]] <= 0;
+  return [((JavaMathBigInteger *) nil_chk(mDataVal_)) compareToWithId:[((OrgMinimaObjectsBaseMiniData *) nil_chk(zCompare)) getDataValue]] <= 0;
 }
 
 - (jboolean)isMoreWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zCompare {
-  return [((JavaMathBigInteger *) nil_chk(mDataVal_)) compareToWithId:[((OrgMinimaObjectsBaseMiniData *) nil_chk(zCompare)) getDataVaue]] > 0;
+  return [((JavaMathBigInteger *) nil_chk(mDataVal_)) compareToWithId:[((OrgMinimaObjectsBaseMiniData *) nil_chk(zCompare)) getDataValue]] > 0;
 }
 
 - (jboolean)isMoreEqualWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zCompare {
-  return [((JavaMathBigInteger *) nil_chk(mDataVal_)) compareToWithId:[((OrgMinimaObjectsBaseMiniData *) nil_chk(zCompare)) getDataVaue]] >= 0;
+  return [((JavaMathBigInteger *) nil_chk(mDataVal_)) compareToWithId:[((OrgMinimaObjectsBaseMiniData *) nil_chk(zCompare)) getDataValue]] >= 0;
 }
 
 - (OrgMinimaObjectsBaseMiniData *)shiftrWithInt:(jint)zNumber {
@@ -118,7 +102,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (jint)compareWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zCompare {
-  return [((JavaMathBigInteger *) nil_chk(mDataVal_)) compareToWithId:[((OrgMinimaObjectsBaseMiniData *) nil_chk(zCompare)) getDataVaue]];
+  return [((JavaMathBigInteger *) nil_chk(mDataVal_)) compareToWithId:[((OrgMinimaObjectsBaseMiniData *) nil_chk(zCompare)) getDataValue]];
 }
 
 - (OrgMinimaObjectsBaseMiniData *)concatWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zConcat {
@@ -135,25 +119,17 @@ J2OBJC_IGNORE_DESIGNATED_END
   return [self to0xString];
 }
 
-- (NSString *)toPureHexString {
-  return [((NSString *) nil_chk([self description])) java_substring:2];
+- (NSString *)to0xString {
+  return OrgMinimaUtilsBaseConverter_encode16WithByteArray_(mData_);
 }
 
-- (NSString *)toShort0xString {
+- (NSString *)to0xStringWithInt:(jint)zLen {
   NSString *data = [self to0xString];
   jint len = [((NSString *) nil_chk(data)) java_length];
-  if (len > 8) {
-    len = 8;
+  if (len > zLen) {
+    len = zLen;
   }
   return [((NSString *) nil_chk([data java_substring:0 endIndex:len])) java_concat:@".."];
-}
-
-- (NSString *)to0xString {
-  NSString *hex = OrgMinimaObjectsBaseMiniData_bytesToHexWithByteArray_(mData_);
-  if ([((NSString *) nil_chk(hex)) java_length] % 2 != 0) {
-    hex = JreStrcat("C$", '0', hex);
-  }
-  return JreStrcat("$$", @"0x", hex);
 }
 
 - (void)writeDataStreamWithJavaIoDataOutputStream:(JavaIoDataOutputStream *)zOut {
@@ -165,11 +141,15 @@ J2OBJC_IGNORE_DESIGNATED_END
   jint len = [((JavaIoDataInputStream *) nil_chk(zIn)) readInt];
   JreStrongAssignAndConsume(&mData_, [IOSByteArray newArrayWithLength:len]);
   [zIn readFullyWithByteArray:mData_];
-  [self setDataValue];
+  OrgMinimaObjectsBaseMiniData_setDataValue(self);
 }
 
 + (OrgMinimaObjectsBaseMiniData *)ReadFromStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn {
   return OrgMinimaObjectsBaseMiniData_ReadFromStreamWithJavaIoDataInputStream_(zIn);
+}
+
++ (OrgMinimaObjectsBaseMiniData *)getMiniDataVersionWithOrgMinimaUtilsStreamable:(id<OrgMinimaUtilsStreamable>)zObject {
+  return OrgMinimaObjectsBaseMiniData_getMiniDataVersionWithOrgMinimaUtilsStreamable_(zObject);
 }
 
 + (OrgMinimaObjectsBaseMiniData *)getRandomDataWithInt:(jint)len {
@@ -188,120 +168,78 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 + (const J2ObjcClassInfo *)__metadata {
   static J2ObjcMethodInfo methods[] = {
-    { NULL, "[B", 0xa, 0, 1, -1, -1, -1, -1 },
-    { NULL, "LNSString;", 0xa, 2, 3, -1, -1, -1, -1 },
     { NULL, NULL, 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, NULL, 0x1, -1, 0, -1, -1, -1, -1 },
     { NULL, NULL, 0x1, -1, 1, -1, -1, -1, -1 },
-    { NULL, NULL, 0x1, -1, 3, -1, -1, -1, -1 },
+    { NULL, "V", 0x2, -1, -1, -1, -1, -1, -1 },
     { NULL, "I", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "[B", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "V", 0x4, -1, -1, -1, -1, -1, -1 },
     { NULL, "LJavaMathBigInteger;", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "LJavaMathBigDecimal;", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "Z", 0x1, 2, 3, -1, -1, -1, -1 },
     { NULL, "Z", 0x1, 4, 5, -1, -1, -1, -1 },
-    { NULL, "Z", 0x1, 6, 7, -1, -1, -1, -1 },
-    { NULL, "Z", 0x1, 8, 7, -1, -1, -1, -1 },
-    { NULL, "Z", 0x1, 9, 7, -1, -1, -1, -1 },
-    { NULL, "Z", 0x1, 10, 7, -1, -1, -1, -1 },
-    { NULL, "Z", 0x1, 11, 7, -1, -1, -1, -1 },
-    { NULL, "Z", 0x1, 12, 7, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsBaseMiniData;", 0x1, 13, 14, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsBaseMiniData;", 0x1, 15, 14, -1, -1, -1, -1 },
-    { NULL, "I", 0x1, 16, 7, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsBaseMiniData;", 0x1, 17, 7, -1, -1, -1, -1 },
-    { NULL, "LNSString;", 0x1, 18, -1, -1, -1, -1, -1 },
+    { NULL, "Z", 0x1, 6, 5, -1, -1, -1, -1 },
+    { NULL, "Z", 0x1, 7, 5, -1, -1, -1, -1 },
+    { NULL, "Z", 0x1, 8, 5, -1, -1, -1, -1 },
+    { NULL, "Z", 0x1, 9, 5, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMiniData;", 0x1, 10, 11, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMiniData;", 0x1, 12, 11, -1, -1, -1, -1 },
+    { NULL, "I", 0x1, 13, 5, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMiniData;", 0x1, 14, 5, -1, -1, -1, -1 },
+    { NULL, "LNSString;", 0x1, 15, -1, -1, -1, -1, -1 },
     { NULL, "LNSString;", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LNSString;", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LNSString;", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 19, 20, 21, -1, -1, -1 },
-    { NULL, "V", 0x1, 22, 23, 21, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsBaseMiniData;", 0x9, 24, 23, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsBaseMiniData;", 0x9, 25, 14, -1, -1, -1, -1 },
+    { NULL, "LNSString;", 0x1, 16, 11, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 17, 18, 19, -1, -1, -1 },
+    { NULL, "V", 0x1, 20, 21, 19, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMiniData;", 0x9, 22, 21, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMiniData;", 0x9, 23, 24, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMiniData;", 0x9, 25, 11, -1, -1, -1, -1 },
     { NULL, "V", 0x9, 26, 27, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
   #pragma clang diagnostic ignored "-Wundeclared-selector"
-  methods[0].selector = @selector(hexStringToByteArrayWithNSString:);
-  methods[1].selector = @selector(bytesToHexWithByteArray:);
-  methods[2].selector = @selector(init);
-  methods[3].selector = @selector(initWithNSString:);
-  methods[4].selector = @selector(initWithByteArray:);
-  methods[5].selector = @selector(getLength);
-  methods[6].selector = @selector(getData);
-  methods[7].selector = @selector(setDataValue);
-  methods[8].selector = @selector(getDataVaue);
-  methods[9].selector = @selector(isEqual:);
-  methods[10].selector = @selector(isExactlyEqualWithOrgMinimaObjectsBaseMiniData:);
-  methods[11].selector = @selector(isNumericallyEqualWithOrgMinimaObjectsBaseMiniData:);
-  methods[12].selector = @selector(isLessWithOrgMinimaObjectsBaseMiniData:);
-  methods[13].selector = @selector(isLessEqualWithOrgMinimaObjectsBaseMiniData:);
-  methods[14].selector = @selector(isMoreWithOrgMinimaObjectsBaseMiniData:);
-  methods[15].selector = @selector(isMoreEqualWithOrgMinimaObjectsBaseMiniData:);
-  methods[16].selector = @selector(shiftrWithInt:);
-  methods[17].selector = @selector(shiftlWithInt:);
-  methods[18].selector = @selector(compareWithOrgMinimaObjectsBaseMiniData:);
-  methods[19].selector = @selector(concatWithOrgMinimaObjectsBaseMiniData:);
-  methods[20].selector = @selector(description);
-  methods[21].selector = @selector(toPureHexString);
-  methods[22].selector = @selector(toShort0xString);
-  methods[23].selector = @selector(to0xString);
-  methods[24].selector = @selector(writeDataStreamWithJavaIoDataOutputStream:);
-  methods[25].selector = @selector(readDataStreamWithJavaIoDataInputStream:);
-  methods[26].selector = @selector(ReadFromStreamWithJavaIoDataInputStream:);
-  methods[27].selector = @selector(getRandomDataWithInt:);
-  methods[28].selector = @selector(mainWithNSStringArray:);
+  methods[0].selector = @selector(init);
+  methods[1].selector = @selector(initWithNSString:);
+  methods[2].selector = @selector(initWithByteArray:);
+  methods[3].selector = @selector(setDataValue);
+  methods[4].selector = @selector(getLength);
+  methods[5].selector = @selector(getData);
+  methods[6].selector = @selector(getDataValue);
+  methods[7].selector = @selector(getDataValueDecimal);
+  methods[8].selector = @selector(isEqual:);
+  methods[9].selector = @selector(isEqualWithOrgMinimaObjectsBaseMiniData:);
+  methods[10].selector = @selector(isLessWithOrgMinimaObjectsBaseMiniData:);
+  methods[11].selector = @selector(isLessEqualWithOrgMinimaObjectsBaseMiniData:);
+  methods[12].selector = @selector(isMoreWithOrgMinimaObjectsBaseMiniData:);
+  methods[13].selector = @selector(isMoreEqualWithOrgMinimaObjectsBaseMiniData:);
+  methods[14].selector = @selector(shiftrWithInt:);
+  methods[15].selector = @selector(shiftlWithInt:);
+  methods[16].selector = @selector(compareWithOrgMinimaObjectsBaseMiniData:);
+  methods[17].selector = @selector(concatWithOrgMinimaObjectsBaseMiniData:);
+  methods[18].selector = @selector(description);
+  methods[19].selector = @selector(to0xString);
+  methods[20].selector = @selector(to0xStringWithInt:);
+  methods[21].selector = @selector(writeDataStreamWithJavaIoDataOutputStream:);
+  methods[22].selector = @selector(readDataStreamWithJavaIoDataInputStream:);
+  methods[23].selector = @selector(ReadFromStreamWithJavaIoDataInputStream:);
+  methods[24].selector = @selector(getMiniDataVersionWithOrgMinimaUtilsStreamable:);
+  methods[25].selector = @selector(getRandomDataWithInt:);
+  methods[26].selector = @selector(mainWithNSStringArray:);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
-    { "hexArray", "[C", .constantValue.asLong = 0, 0x1a, -1, 28, -1, -1 },
     { "mData_", "[B", .constantValue.asLong = 0, 0x4, -1, -1, -1, -1 },
     { "mDataVal_", "LJavaMathBigInteger;", .constantValue.asLong = 0, 0x4, -1, -1, -1, -1 },
   };
-  static const void *ptrTable[] = { "hexStringToByteArray", "LNSString;", "bytesToHex", "[B", "equals", "LNSObject;", "isExactlyEqual", "LOrgMinimaObjectsBaseMiniData;", "isNumericallyEqual", "isLess", "isLessEqual", "isMore", "isMoreEqual", "shiftr", "I", "shiftl", "compare", "concat", "toString", "writeDataStream", "LJavaIoDataOutputStream;", "LJavaIoIOException;", "readDataStream", "LJavaIoDataInputStream;", "ReadFromStream", "getRandomData", "main", "[LNSString;", &OrgMinimaObjectsBaseMiniData_hexArray };
-  static const J2ObjcClassInfo _OrgMinimaObjectsBaseMiniData = { "MiniData", "org.minima.objects.base", ptrTable, methods, fields, 7, 0x1, 29, 3, -1, -1, -1, -1, -1 };
+  static const void *ptrTable[] = { "LNSString;", "[B", "equals", "LNSObject;", "isEqual", "LOrgMinimaObjectsBaseMiniData;", "isLess", "isLessEqual", "isMore", "isMoreEqual", "shiftr", "I", "shiftl", "compare", "concat", "toString", "to0xString", "writeDataStream", "LJavaIoDataOutputStream;", "LJavaIoIOException;", "readDataStream", "LJavaIoDataInputStream;", "ReadFromStream", "getMiniDataVersion", "LOrgMinimaUtilsStreamable;", "getRandomData", "main", "[LNSString;" };
+  static const J2ObjcClassInfo _OrgMinimaObjectsBaseMiniData = { "MiniData", "org.minima.objects.base", ptrTable, methods, fields, 7, 0x1, 27, 2, -1, -1, -1, -1, -1 };
   return &_OrgMinimaObjectsBaseMiniData;
-}
-
-+ (void)initialize {
-  if (self == [OrgMinimaObjectsBaseMiniData class]) {
-    JreStrongAssign(&OrgMinimaObjectsBaseMiniData_hexArray, [@"0123456789ABCDEF" java_toCharArray]);
-    J2OBJC_SET_INITIALIZED(OrgMinimaObjectsBaseMiniData)
-  }
 }
 
 @end
 
-IOSByteArray *OrgMinimaObjectsBaseMiniData_hexStringToByteArrayWithNSString_(NSString *zHex) {
-  OrgMinimaObjectsBaseMiniData_initialize();
-  NSString *hex = zHex;
-  if ([((NSString *) nil_chk(hex)) java_hasPrefix:@"0x"]) {
-    hex = [((NSString *) nil_chk(zHex)) java_substring:2];
-  }
-  hex = [((NSString *) nil_chk(hex)) uppercaseString];
-  jint len = [((NSString *) nil_chk(hex)) java_length];
-  if (len % 2 != 0) {
-    hex = JreStrcat("C$", '0', hex);
-    len = [hex java_length];
-  }
-  IOSByteArray *data = [IOSByteArray arrayWithLength:len / 2];
-  for (jint i = 0; i < len; i += 2) {
-    *IOSByteArray_GetRef(data, i / 2) = (jbyte) ((JreLShift32(JavaLangCharacter_digitWithChar_withInt_([hex charAtWithInt:i], 16), 4)) + JavaLangCharacter_digitWithChar_withInt_([hex charAtWithInt:i + 1], 16));
-  }
-  return data;
-}
-
-NSString *OrgMinimaObjectsBaseMiniData_bytesToHexWithByteArray_(IOSByteArray *bytes) {
-  OrgMinimaObjectsBaseMiniData_initialize();
-  IOSCharArray *hexChars = [IOSCharArray arrayWithLength:((IOSByteArray *) nil_chk(bytes))->size_ * 2];
-  for (jint j = 0; j < bytes->size_; j++) {
-    jint v = IOSByteArray_Get(bytes, j) & (jint) 0xFF;
-    *IOSCharArray_GetRef(hexChars, j * 2) = IOSCharArray_Get(nil_chk(OrgMinimaObjectsBaseMiniData_hexArray), JreURShift32(v, 4));
-    *IOSCharArray_GetRef(hexChars, j * 2 + 1) = IOSCharArray_Get(OrgMinimaObjectsBaseMiniData_hexArray, v & (jint) 0x0F);
-  }
-  return [NSString java_stringWithCharacters:hexChars];
-}
-
 void OrgMinimaObjectsBaseMiniData_init(OrgMinimaObjectsBaseMiniData *self) {
-  OrgMinimaObjectsBaseMiniData_initWithNSString_(self, @"00");
+  OrgMinimaObjectsBaseMiniData_initWithByteArray_(self, [IOSByteArray arrayWithLength:0]);
 }
 
 OrgMinimaObjectsBaseMiniData *new_OrgMinimaObjectsBaseMiniData_init() {
@@ -313,7 +251,7 @@ OrgMinimaObjectsBaseMiniData *create_OrgMinimaObjectsBaseMiniData_init() {
 }
 
 void OrgMinimaObjectsBaseMiniData_initWithNSString_(OrgMinimaObjectsBaseMiniData *self, NSString *zHexString) {
-  OrgMinimaObjectsBaseMiniData_initWithByteArray_(self, OrgMinimaObjectsBaseMiniData_hexStringToByteArrayWithNSString_(zHexString));
+  OrgMinimaObjectsBaseMiniData_initWithByteArray_(self, OrgMinimaUtilsBaseConverter_decode16WithNSString_(zHexString));
 }
 
 OrgMinimaObjectsBaseMiniData *new_OrgMinimaObjectsBaseMiniData_initWithNSString_(NSString *zHexString) {
@@ -327,7 +265,7 @@ OrgMinimaObjectsBaseMiniData *create_OrgMinimaObjectsBaseMiniData_initWithNSStri
 void OrgMinimaObjectsBaseMiniData_initWithByteArray_(OrgMinimaObjectsBaseMiniData *self, IOSByteArray *zData) {
   NSObject_init(self);
   JreStrongAssign(&self->mData_, zData);
-  [self setDataValue];
+  OrgMinimaObjectsBaseMiniData_setDataValue(self);
 }
 
 OrgMinimaObjectsBaseMiniData *new_OrgMinimaObjectsBaseMiniData_initWithByteArray_(IOSByteArray *zData) {
@@ -336,6 +274,10 @@ OrgMinimaObjectsBaseMiniData *new_OrgMinimaObjectsBaseMiniData_initWithByteArray
 
 OrgMinimaObjectsBaseMiniData *create_OrgMinimaObjectsBaseMiniData_initWithByteArray_(IOSByteArray *zData) {
   J2OBJC_CREATE_IMPL(OrgMinimaObjectsBaseMiniData, initWithByteArray_, zData)
+}
+
+void OrgMinimaObjectsBaseMiniData_setDataValue(OrgMinimaObjectsBaseMiniData *self) {
+  JreStrongAssignAndConsume(&self->mDataVal_, new_JavaMathBigInteger_initWithInt_withByteArray_(1, self->mData_));
 }
 
 OrgMinimaObjectsBaseMiniData *OrgMinimaObjectsBaseMiniData_ReadFromStreamWithJavaIoDataInputStream_(JavaIoDataInputStream *zIn) {
@@ -351,9 +293,23 @@ OrgMinimaObjectsBaseMiniData *OrgMinimaObjectsBaseMiniData_ReadFromStreamWithJav
   return data;
 }
 
+OrgMinimaObjectsBaseMiniData *OrgMinimaObjectsBaseMiniData_getMiniDataVersionWithOrgMinimaUtilsStreamable_(id<OrgMinimaUtilsStreamable> zObject) {
+  OrgMinimaObjectsBaseMiniData_initialize();
+  JavaIoByteArrayOutputStream *baos = create_JavaIoByteArrayOutputStream_init();
+  JavaIoDataOutputStream *dos = create_JavaIoDataOutputStream_initWithJavaIoOutputStream_(baos);
+  @try {
+    [((id<OrgMinimaUtilsStreamable>) nil_chk(zObject)) writeDataStreamWithJavaIoDataOutputStream:dos];
+    [dos flush];
+  }
+  @catch (JavaIoIOException *e) {
+    return nil;
+  }
+  return create_OrgMinimaObjectsBaseMiniData_initWithByteArray_([baos toByteArray]);
+}
+
 OrgMinimaObjectsBaseMiniData *OrgMinimaObjectsBaseMiniData_getRandomDataWithInt_(jint len) {
   OrgMinimaObjectsBaseMiniData_initialize();
-  JavaUtilRandom *rand = create_JavaUtilRandom_init();
+  JavaSecuritySecureRandom *rand = create_JavaSecuritySecureRandom_init();
   IOSByteArray *data = [IOSByteArray arrayWithLength:len];
   [rand nextBytesWithByteArray:data];
   return create_OrgMinimaObjectsBaseMiniData_initWithByteArray_(data);
@@ -361,9 +317,9 @@ OrgMinimaObjectsBaseMiniData *OrgMinimaObjectsBaseMiniData_getRandomDataWithInt_
 
 void OrgMinimaObjectsBaseMiniData_mainWithNSStringArray_(IOSObjectArray *zArgs) {
   OrgMinimaObjectsBaseMiniData_initialize();
-  OrgMinimaObjectsBaseMiniData *data = create_OrgMinimaObjectsBaseMiniData_initWithNSString_(@"00000FFF");
+  OrgMinimaObjectsBaseMiniData *data = create_OrgMinimaObjectsBaseMiniData_init();
   OrgMinimaUtilsMinimaLogger_logWithNSString_(JreStrcat("$$", @"data    : ", [data description]));
-  OrgMinimaUtilsMinimaLogger_logWithNSString_(JreStrcat("$$", @"value   : ", [((JavaMathBigInteger *) nil_chk([data getDataVaue])) description]));
+  OrgMinimaUtilsMinimaLogger_logWithNSString_(JreStrcat("$$", @"value   : ", [((JavaMathBigInteger *) nil_chk([data getDataValue])) description]));
 }
 
 J2OBJC_CLASS_TYPE_LITERAL_SOURCE(OrgMinimaObjectsBaseMiniData)

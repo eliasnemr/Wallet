@@ -186,7 +186,7 @@ withOrgMinimaSystemNetworkNetworkHandler:(OrgMinimaSystemNetworkNetworkHandler *
     [((JavaIoDataOutputStream *) nil_chk(mOutput_)) flush];
   }
   @catch (JavaLangException *ec) {
-    OrgMinimaUtilsMinimaLogger_logWithNSString_(JreStrcat("$@C@", @"Error sending message : ", zMessage, ' ', ec));
+    OrgMinimaUtilsMinimaLogger_logWithNSString_(JreStrcat("$$C@", @"Error sending message : ", [zMessageType description], ' ', ec));
     [((OrgMinimaSystemNetworkNetworkHandler *) nil_chk(mNetworkMain_)) PostMessageWithOrgMinimaUtilsMessagesMessage:[create_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemNetworkNetworkHandler_NETWORK_CLIENTERROR) addObjectWithNSString:@"client" withId:self]];
   }
 }

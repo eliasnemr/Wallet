@@ -89,10 +89,25 @@ inline NSString *OrgMinimaSystemBrainsConsensusTxn_get_CONSENSUS_TXNVALIDATE(voi
 FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusTxn_CONSENSUS_TXNVALIDATE;
 J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBrainsConsensusTxn, CONSENSUS_TXNVALIDATE, NSString *)
 
+inline NSString *OrgMinimaSystemBrainsConsensusTxn_get_CONSENSUS_TXNSCRIPT(void);
+/*! INTERNAL ONLY - Use accessor function from above. */
+FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusTxn_CONSENSUS_TXNSCRIPT;
+J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBrainsConsensusTxn, CONSENSUS_TXNSCRIPT, NSString *)
+
 inline NSString *OrgMinimaSystemBrainsConsensusTxn_get_CONSENSUS_TXNPOST(void);
 /*! INTERNAL ONLY - Use accessor function from above. */
 FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusTxn_CONSENSUS_TXNPOST;
 J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBrainsConsensusTxn, CONSENSUS_TXNPOST, NSString *)
+
+inline NSString *OrgMinimaSystemBrainsConsensusTxn_get_CONSENSUS_TXNEXPORT(void);
+/*! INTERNAL ONLY - Use accessor function from above. */
+FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusTxn_CONSENSUS_TXNEXPORT;
+J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBrainsConsensusTxn, CONSENSUS_TXNEXPORT, NSString *)
+
+inline NSString *OrgMinimaSystemBrainsConsensusTxn_get_CONSENSUS_TXNIMPORT(void);
+/*! INTERNAL ONLY - Use accessor function from above. */
+FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusTxn_CONSENSUS_TXNIMPORT;
+J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBrainsConsensusTxn, CONSENSUS_TXNIMPORT, NSString *)
 
 FOUNDATION_EXPORT void OrgMinimaSystemBrainsConsensusTxn_initWithOrgMinimaDatabaseMinimaDB_withOrgMinimaSystemBrainsConsensusHandler_(OrgMinimaSystemBrainsConsensusTxn *self, OrgMinimaDatabaseMinimaDB *zDB, OrgMinimaSystemBrainsConsensusHandler *zHandler);
 

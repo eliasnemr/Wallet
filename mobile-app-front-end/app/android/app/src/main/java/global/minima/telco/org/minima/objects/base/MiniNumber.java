@@ -23,16 +23,16 @@ public class MiniNumber implements Streamable {
 	/**
 	 * The Math Context used for ALL real numbers
 	 * 
-	 * Can represent 1 billion with 8 zeros ( 10 + 8 ) digits with no loss of precision.. 
+	 * Can represent 1 billion with 10 zeros ( 10 + 10 ) digits with no loss of precision.. 
 	 * 
-	 * But all Minima values are actually in significant digit format anyway.. so semi-infinite precision..
+	 * But all Minima values are actually in significant digit format anyway.. so infinite precision..
 	 */
-	public static final MathContext mMathContext = new MathContext(18, RoundingMode.DOWN);
+	public static final MathContext mMathContext = new MathContext(20, RoundingMode.DOWN);
 	
 	/**
 	 * The decimal precision of the significant digits.
 	 */
-	public static final DecimalFormat MINIMA_SIGNIFICANT_FORMAT = new DecimalFormat("0.#################E0");
+//	public static final DecimalFormat MINIMA_SIGNIFICANT_FORMAT = new DecimalFormat("0.###################E0");
 	
 	/**
 	 * Useful numbers
@@ -41,6 +41,8 @@ public class MiniNumber implements Streamable {
 	public static final MiniNumber ONE 		    = new MiniNumber("1");
 	public static final MiniNumber TWO 		    = new MiniNumber("2");
 	public static final MiniNumber EIGHT        = new MiniNumber("8");
+	public static final MiniNumber THIRTYTWO    = new MiniNumber("32");
+	public static final MiniNumber SIXTYFOUR    = new MiniNumber("64");
 	
 	public static final MiniNumber TEN          = new MiniNumber("10");
 	public static final MiniNumber HUNDRED      = new MiniNumber("100");
@@ -64,14 +66,6 @@ public class MiniNumber implements Streamable {
 		mNumber = new BigDecimal(zNumber,mMathContext);
 	}
 
-//	public MiniNumber(long zNumber){
-//		mNumber = new BigDecimal(zNumber,mMathContext);
-//	}
-	
-//	public MiniNumber(double zNumber){
-//		mNumber = new BigDecimal(zNumber,mMathContext);
-//	}
-	
 	public MiniNumber(BigInteger zNumber){
 		mNumber = new BigDecimal(zNumber,mMathContext);
 	}
@@ -141,10 +135,11 @@ public class MiniNumber implements Streamable {
 	}
 	
 	public MiniNumber setSignificantDigits(int zSignificantDigits) {
-		if(zSignificantDigits>18) {
-			return this;	
+		int sigdig = zSignificantDigits;
+		if(sigdig>18) {
+			sigdig = 18;	
 		}
-		return new MiniNumber( mNumber.round(new MathContext(zSignificantDigits, RoundingMode.DOWN))) ;
+		return new MiniNumber( mNumber.round(new MathContext(sigdig, RoundingMode.DOWN))) ;
 	}
 	
 	public MiniNumber abs() {
@@ -185,7 +180,7 @@ public class MiniNumber implements Streamable {
 		
 	@Override
 	public String toString(){
-		return mNumber.toPlainString();
+		return mNumber.stripTrailingZeros().toPlainString();
 	}
 
 	/**
@@ -231,19 +226,10 @@ public class MiniNumber implements Streamable {
 		try {
 			data.readDataStream(zIn);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}
 		
 		return data;
-	}
-	
-	public static void main(String[] zArgs) {
-		
-		MiniNumber num = new MiniNumber("10000.001");
-		
-		System.out.println(num);
-		
 	}
 }

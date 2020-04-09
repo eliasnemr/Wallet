@@ -23,6 +23,8 @@
     { NULL, "V", 0x401, 4, 1, -1, -1, -1, -1 },
     { NULL, "I", 0x401, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x401, 5, 6, -1, -1, -1, -1 },
+    { NULL, "V", 0x401, -1, -1, -1, -1, -1, -1 },
+    { NULL, "J", 0x401, -1, -1, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
@@ -36,13 +38,15 @@
   methods[6].selector = @selector(setOnChainBlockWithBoolean:);
   methods[7].selector = @selector(getBlockState);
   methods[8].selector = @selector(setBlockStateWithInt:);
+  methods[9].selector = @selector(deleteRow);
+  methods[10].selector = @selector(getDeleteTime);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
     { "TXPOWDBROW_STATE_BASIC", "I", .constantValue.asInt = OrgMinimaDatabaseTxpowdbTxPOWDBRow_TXPOWDBROW_STATE_BASIC, 0x19, -1, -1, -1, -1 },
     { "TXPOWDBROW_STATE_FULL", "I", .constantValue.asInt = OrgMinimaDatabaseTxpowdbTxPOWDBRow_TXPOWDBROW_STATE_FULL, 0x19, -1, -1, -1, -1 },
   };
   static const void *ptrTable[] = { "setIsInBlock", "Z", "setInBlockNumber", "LOrgMinimaObjectsBaseMiniNumber;", "setOnChainBlock", "setBlockState", "I" };
-  static const J2ObjcClassInfo _OrgMinimaDatabaseTxpowdbTxPOWDBRow = { "TxPOWDBRow", "org.minima.database.txpowdb", ptrTable, methods, fields, 7, 0x609, 9, 2, -1, -1, -1, -1, -1 };
+  static const J2ObjcClassInfo _OrgMinimaDatabaseTxpowdbTxPOWDBRow = { "TxPOWDBRow", "org.minima.database.txpowdb", ptrTable, methods, fields, 7, 0x609, 11, 2, -1, -1, -1, -1, -1 };
   return &_OrgMinimaDatabaseTxpowdbTxPOWDBRow;
 }
 

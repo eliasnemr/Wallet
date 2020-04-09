@@ -21,8 +21,8 @@ withOrgMinimaUtilsResponseStream:(OrgMinimaUtilsResponseStream *)zResponseStream
   return self;
 }
 
-+ (IOSObjectArray *)splitStringWithNSString:(NSString *)zString {
-  return OrgMinimaSystemInputInputMessage_splitStringWithNSString_(zString);
++ (IOSObjectArray *)splitStringWithNSString:(NSString *)zInput {
+  return OrgMinimaSystemInputInputMessage_splitStringWithNSString_(zInput);
 }
 
 + (void)mainWithNSStringArray:(IOSObjectArray *)zArgs {
@@ -63,17 +63,20 @@ OrgMinimaSystemInputInputMessage *create_OrgMinimaSystemInputInputMessage_initWi
   J2OBJC_CREATE_IMPL(OrgMinimaSystemInputInputMessage, initWithNSString_withOrgMinimaUtilsResponseStream_, zInput, zResponseStream)
 }
 
-IOSObjectArray *OrgMinimaSystemInputInputMessage_splitStringWithNSString_(NSString *zString) {
+IOSObjectArray *OrgMinimaSystemInputInputMessage_splitStringWithNSString_(NSString *zInput) {
   OrgMinimaSystemInputInputMessage_initialize();
   JavaUtilArrayList *token = create_JavaUtilArrayList_init();
+  NSString *ss = [((NSString *) nil_chk(zInput)) java_trim];
   NSString *current = [NSString string];
   jboolean quoted = false;
-  jint len = [((NSString *) nil_chk(zString)) java_length];
+  jint len = [((NSString *) nil_chk(ss)) java_length];
   for (jint i = 0; i < len; i++) {
-    jchar cc = [zString charAtWithInt:i];
+    jchar cc = [ss charAtWithInt:i];
     if (cc == ' ') {
       if (!quoted) {
-        [token addWithId:current];
+        if (![current isEqual:@""]) {
+          [token addWithId:current];
+        }
         current = [NSString string];
       }
       else {
@@ -92,13 +95,15 @@ IOSObjectArray *OrgMinimaSystemInputInputMessage_splitStringWithNSString_(NSStri
       JreStrAppend(&current, "C", cc);
     }
   }
-  [token addWithId:current];
+  if (![current isEqual:@""]) {
+    [token addWithId:current];
+  }
   return [token toArrayWithNSObjectArray:[IOSObjectArray arrayWithLength:0 type:NSString_class_()]];
 }
 
 void OrgMinimaSystemInputInputMessage_mainWithNSStringArray_(IOSObjectArray *zArgs) {
   OrgMinimaSystemInputInputMessage_initialize();
-  NSString *tester = @"let there be \" the light of ages\"";
+  NSString *tester = @"  send   0   0xff  ";
   IOSObjectArray *tt = OrgMinimaSystemInputInputMessage_splitStringWithNSString_(tester);
   for (jint i = 0; i < ((IOSObjectArray *) nil_chk(tt))->size_; i++) {
     OrgMinimaUtilsMinimaLogger_logWithNSString_(IOSObjectArray_Get(tt, i));

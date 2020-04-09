@@ -22,7 +22,6 @@
 
 @class OrgMinimaObjectsBaseMiniNumber;
 @class OrgMinimaSystemBackupBackupManager;
-@class OrgMinimaSystemBootstrapUserSimulator;
 @class OrgMinimaSystemBrainsConsensusHandler;
 @class OrgMinimaSystemExternalProcessManager;
 @class OrgMinimaSystemInputInputHandler;
@@ -32,7 +31,6 @@
 
 @interface OrgMinimaSystemMain : OrgMinimaUtilsMessagesMessageProcessor {
  @public
-  OrgMinimaSystemBootstrapUserSimulator *mSim_;
   jboolean mGenesis_;
   jint mPort_;
   jint mRPCPort_;
@@ -64,8 +62,6 @@
 
 - (OrgMinimaSystemExternalProcessManager *)getProcessManager;
 
-- (OrgMinimaSystemBootstrapUserSimulator *)getsimulator;
-
 - (void)setAutoConnectWithBoolean:(jboolean)zAuto;
 
 - (void)setAutoConnectHostPortWithNSString:(NSString *)zHost
@@ -76,10 +72,6 @@
 - (void)setNewRelCoinWithNSString:(NSString *)zPostURL;
 
 - (void)setNewTxnCommandWithNSString:(NSString *)zExec;
-
-- (void)setSimulatorWithBoolean:(jboolean)zON
-                        withInt:(jint)zCount
-                    withBoolean:(jboolean)zStress;
 
 - (void)setTraceWithBoolean:(jboolean)zTraceON;
 
@@ -97,7 +89,6 @@
 
 J2OBJC_EMPTY_STATIC_INIT(OrgMinimaSystemMain)
 
-J2OBJC_FIELD_SETTER(OrgMinimaSystemMain, mSim_, OrgMinimaSystemBootstrapUserSimulator *)
 J2OBJC_FIELD_SETTER(OrgMinimaSystemMain, mAutoHost_, NSString *)
 J2OBJC_FIELD_SETTER(OrgMinimaSystemMain, mCurrentTopBlock_, OrgMinimaObjectsBaseMiniNumber *)
 

@@ -3,16 +3,18 @@
 //  source: ./org/minima/database/txpowtree/SimpleBlockTreePrinter.java
 //
 
+#include "IOSPrimitiveArray.h"
 #include "J2ObjC_source.h"
 #include "java/io/PrintStream.h"
 #include "java/lang/System.h"
 #include "java/math/BigInteger.h"
 #include "java/util/ArrayList.h"
+#include "org/minima/GlobalParams.h"
 #include "org/minima/database/txpowtree/BlockTree.h"
 #include "org/minima/database/txpowtree/BlockTreeNode.h"
 #include "org/minima/database/txpowtree/SimpleBlockTreePrinter.h"
 #include "org/minima/objects/TxPOW.h"
-#include "org/minima/objects/base/MiniHash.h"
+#include "org/minima/objects/base/MiniData.h"
 #include "org/minima/objects/base/MiniNumber.h"
 #include "org/minima/utils/bretty/TreeNode.h"
 #include "org/minima/utils/bretty/TreePrinter.h"
@@ -49,9 +51,61 @@ __attribute__((unused)) static void OrgMinimaDatabaseTxpowtreeSimpleBlockTreePri
   }
   mCascadeNode_ = [((OrgMinimaObjectsBaseMiniNumber *) nil_chk([((OrgMinimaObjectsTxPOW *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTree *) nil_chk(mTree_)) getCascadeNode])) getTxPow])) getBlockNumber])) getAsLong];
   JreStrongAssign(&mTipID_, [((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTree *) nil_chk(mTree_)) getChainTip])) getTxPowID]);
-  OrgMinimaUtilsBrettyTreeNode *mRoot = create_OrgMinimaUtilsBrettyTreeNode_initWithNSString_(OrgMinimaDatabaseTxpowtreeSimpleBlockTreePrinter_convertNodeToStringWithOrgMinimaDatabaseTxpowtreeBlockTreeNode_(self, root));
-  OrgMinimaDatabaseTxpowtreeSimpleBlockTreePrinter_drillNodeWithOrgMinimaDatabaseTxpowtreeBlockTreeNode_withOrgMinimaUtilsBrettyTreeNode_withInt_(self, root, mRoot, 1);
-  NSString *output = JreStrcat("C$", 0x000a, OrgMinimaUtilsBrettyTreePrinter_toStringWithOrgMinimaUtilsBrettyPrintableTreeNode_(mRoot));
+  OrgMinimaObjectsBaseMiniNumber *tip = [((OrgMinimaObjectsTxPOW *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTree *) nil_chk(mTree_)) getChainTip])) getTxPow])) getBlockNumber];
+  OrgMinimaObjectsBaseMiniNumber *starttree = [((OrgMinimaObjectsBaseMiniNumber *) nil_chk(tip)) subWithOrgMinimaObjectsBaseMiniNumber:JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, THIRTYTWO)];
+  if ([((OrgMinimaObjectsBaseMiniNumber *) nil_chk(starttree)) isLessWithOrgMinimaObjectsBaseMiniNumber:JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, ZERO)]) {
+    starttree = JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, ZERO);
+  }
+  IOSIntArray *alltots = [IOSIntArray arrayWithLength:OrgMinimaGlobalParams_MINIMA_CASCADE_LEVELS];
+  OrgMinimaUtilsBrettyTreeNode *rootnode = create_OrgMinimaUtilsBrettyTreeNode_initWithNSString_(OrgMinimaDatabaseTxpowtreeSimpleBlockTreePrinter_convertNodeToStringWithOrgMinimaDatabaseTxpowtreeBlockTreeNode_(self, root));
+  OrgMinimaUtilsBrettyTreeNode *treenode = rootnode;
+  OrgMinimaUtilsBrettyTreeNode *newnode = nil;
+  OrgMinimaDatabaseTxpowtreeBlockTreeNode *current = root;
+  jint currentlev = [current getCurrentLevel];
+  jint tot = 1;
+  (*IOSIntArray_GetRef(alltots, [current getSuperBlockLevel]))++;
+  while ([((OrgMinimaObjectsBaseMiniNumber *) nil_chk([((OrgMinimaObjectsTxPOW *) nil_chk([current getTxPow])) getBlockNumber])) isLessWithOrgMinimaObjectsBaseMiniNumber:starttree]) {
+    if ([((JavaUtilArrayList *) nil_chk([current getChildren])) size] < 1) {
+      break;
+    }
+    OrgMinimaDatabaseTxpowtreeBlockTreeNode *child = [current getChildWithInt:0];
+    jint clev = [((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk(child)) getCurrentLevel];
+    if (clev == currentlev) {
+      tot++;
+      (*IOSIntArray_GetRef(alltots, [child getSuperBlockLevel]))++;
+    }
+    else {
+      NSString *all = @"";
+      for (jint i = 0; i < OrgMinimaGlobalParams_MINIMA_CASCADE_LEVELS; i++) {
+        if (IOSIntArray_Get(alltots, i) != 0) {
+          JreStrAppend(&all, "ICIC", IOSIntArray_Get(alltots, i), '@', i, ' ');
+        }
+        *IOSIntArray_GetRef(alltots, i) = 0;
+      }
+      newnode = create_OrgMinimaUtilsBrettyTreeNode_initWithNSString_(JreStrcat("I$I$$", tot, @" @ ", currentlev, @" Super:", all));
+      [treenode addChildWithOrgMinimaUtilsBrettyTreeNode:newnode];
+      treenode = newnode;
+      newnode = create_OrgMinimaUtilsBrettyTreeNode_initWithNSString_(OrgMinimaDatabaseTxpowtreeSimpleBlockTreePrinter_convertNodeToStringWithOrgMinimaDatabaseTxpowtreeBlockTreeNode_(self, child));
+      [treenode addChildWithOrgMinimaUtilsBrettyTreeNode:newnode];
+      treenode = newnode;
+      (*IOSIntArray_GetRef(alltots, [child getSuperBlockLevel]))++;
+      tot = 1;
+    }
+    currentlev = clev;
+    current = child;
+  }
+  NSString *all = @"";
+  for (jint i = 0; i < OrgMinimaGlobalParams_MINIMA_CASCADE_LEVELS; i++) {
+    if (IOSIntArray_Get(alltots, i) != 0) {
+      JreStrAppend(&all, "ICIC", IOSIntArray_Get(alltots, i), '@', i, ' ');
+    }
+    *IOSIntArray_GetRef(alltots, i) = 0;
+  }
+  newnode = create_OrgMinimaUtilsBrettyTreeNode_initWithNSString_(JreStrcat("I$I$$", tot, @" @ ", currentlev, @" Super:", all));
+  [treenode addChildWithOrgMinimaUtilsBrettyTreeNode:newnode];
+  treenode = newnode;
+  OrgMinimaDatabaseTxpowtreeSimpleBlockTreePrinter_drillNodeWithOrgMinimaDatabaseTxpowtreeBlockTreeNode_withOrgMinimaUtilsBrettyTreeNode_withInt_(self, current, treenode, 1);
+  NSString *output = JreStrcat("C$", 0x000a, OrgMinimaUtilsBrettyTreePrinter_toStringWithOrgMinimaUtilsBrettyPrintableTreeNode_(rootnode));
   return output;
 }
 
@@ -101,7 +155,7 @@ __attribute__((unused)) static void OrgMinimaDatabaseTxpowtreeSimpleBlockTreePri
   static const J2ObjcFieldInfo fields[] = {
     { "mTree_", "LOrgMinimaDatabaseTxpowtreeBlockTree;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mCascadeNode_", "J", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
-    { "mTipID_", "LOrgMinimaObjectsBaseMiniHash;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
+    { "mTipID_", "LOrgMinimaObjectsBaseMiniData;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
   };
   static const void *ptrTable[] = { "LOrgMinimaDatabaseTxpowtreeBlockTree;", "convertNodeToString", "LOrgMinimaDatabaseTxpowtreeBlockTreeNode;", "getStarString", "I", "drillNode", "LOrgMinimaDatabaseTxpowtreeBlockTreeNode;LOrgMinimaUtilsBrettyTreeNode;I" };
   static const J2ObjcClassInfo _OrgMinimaDatabaseTxpowtreeSimpleBlockTreePrinter = { "SimpleBlockTreePrinter", "org.minima.database.txpowtree", ptrTable, methods, fields, 7, 0x1, 6, 3, -1, -1, -1, -1, -1 };
@@ -129,16 +183,10 @@ NSString *OrgMinimaDatabaseTxpowtreeSimpleBlockTreePrinter_convertNodeToStringWi
   jint clev = [zNode getCurrentLevel];
   NSString *weight = JreStrcat("$@C@$", @"{WEIGHT:", [zNode getWeight], '/', [zNode getTotalWeight], @"} ");
   OrgMinimaObjectsTxPOW *txpow = [zNode getTxPow];
-  OrgMinimaObjectsBaseMiniHash *parent = [((OrgMinimaObjectsTxPOW *) nil_chk(txpow)) getSuperParentWithInt:clev];
-  OrgMinimaObjectsBaseMiniHash *parent2 = [txpow getSuperParentWithInt:clev + 1];
-  NSString *parents = JreStrcat("$@$$$$$IC$$IC$", @"[blk:", [((OrgMinimaObjectsTxPOW *) nil_chk([zNode getTxPow])) getBlockNumber], @"] diff:", [((OrgMinimaObjectsBaseMiniHash *) nil_chk([((OrgMinimaObjectsTxPOW *) nil_chk([zNode getTxPow])) getBlockDifficulty])) toShort0xStringWithInt:16], @" txpowid:", [((OrgMinimaObjectsBaseMiniHash *) nil_chk([zNode getTxPowID])) toShort0xStringWithInt:16], @" [parent:", clev, ']', [((OrgMinimaObjectsBaseMiniHash *) nil_chk(parent)) toShort0xStringWithInt:16], @" [parent:", (clev + 1), ']', [((OrgMinimaObjectsBaseMiniHash *) nil_chk(parent2)) toShort0xStringWithInt:16]);
+  OrgMinimaObjectsBaseMiniData *parent = [((OrgMinimaObjectsTxPOW *) nil_chk(txpow)) getSuperParentWithInt:clev];
+  OrgMinimaObjectsBaseMiniData *parent2 = [txpow getSuperParentWithInt:clev + 1];
+  NSString *parents = JreStrcat("$@$$$IC$$IC$$IC", @"[blk:", [txpow getBlockNumber], @"] txpowid:", [((OrgMinimaObjectsBaseMiniData *) nil_chk([zNode getTxPowID])) to0xStringWithInt:16], @" [parent:", clev, ']', [((OrgMinimaObjectsBaseMiniData *) nil_chk(parent)) to0xStringWithInt:16], @" [parent:", (clev + 1), ']', [((OrgMinimaObjectsBaseMiniData *) nil_chk(parent2)) to0xStringWithInt:16], @"[txns:", [((JavaUtilArrayList *) nil_chk([txpow getBlockTxns])) size], ']');
   NSString *add = JreStrcat("$$$$$", parents, @" [", OrgMinimaDatabaseTxpowtreeSimpleBlockTreePrinter_getStarStringWithInt_(self, slev), @"] - ", OrgMinimaDatabaseTxpowtreeSimpleBlockTreePrinter_getStarStringWithInt_(self, clev));
-  if (self->mCascadeNode_ == [((OrgMinimaObjectsBaseMiniNumber *) nil_chk([((OrgMinimaObjectsTxPOW *) nil_chk([zNode getTxPow])) getBlockNumber])) getAsLong]) {
-    JreStrAppend(&add, "$", @" [++CASCADING++]");
-  }
-  if ([((OrgMinimaObjectsBaseMiniHash *) nil_chk([zNode getTxPowID])) isExactlyEqualWithOrgMinimaObjectsBaseMiniData:self->mTipID_]) {
-    JreStrAppend(&add, "$", @" [++THE TIP++]");
-  }
   return JreStrcat("$CI$I$$", weight, '[', clev, @" / ", slev, @"] ", add);
 }
 

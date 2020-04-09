@@ -45,6 +45,7 @@ NSString *OrgMinimaSystemInputInputHandler_INPUT_RESPONSE = @"_**outstream**_";
         [found doFunctionWithNSStringArray:inputs];
       }
       @catch (JavaLangException *exc) {
+        [((OrgMinimaUtilsJsonJSONObject *) nil_chk([output getDataJSON])) putWithId:@"help" withId:JreStrcat("$C$$$", [found getName], ' ', [found getParams], @" - ", [found getSimple])];
         [output endStatusWithBoolean:false withNSString:[exc description]];
       }
     }

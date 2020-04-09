@@ -11,14 +11,23 @@
 #include "java/io/DataOutputStream.h"
 #include "java/io/IOException.h"
 #include "java/lang/Boolean.h"
+#include "java/lang/Exception.h"
+#include "java/lang/Integer.h"
 #include "java/util/ArrayList.h"
 #include "org/minima/objects/base/MiniByte.h"
 #include "org/minima/objects/base/MiniData.h"
-#include "org/minima/objects/base/MiniHash.h"
+#include "org/minima/objects/base/MiniNumber.h"
 #include "org/minima/objects/proofs/Proof.h"
 #include "org/minima/utils/Crypto.h"
 #include "org/minima/utils/json/JSONArray.h"
 #include "org/minima/utils/json/JSONObject.h"
+
+@interface OrgMinimaObjectsProofsProof () {
+ @public
+  jint HASH_BITS_;
+}
+
+@end
 
 @implementation OrgMinimaObjectsProofsProof
 
@@ -29,11 +38,11 @@ J2OBJC_IGNORE_DESIGNATED_BEGIN
 }
 J2OBJC_IGNORE_DESIGNATED_END
 
-- (void)setDataWithOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zData {
+- (void)setDataWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zData {
   JreStrongAssign(&mData_, zData);
 }
 
-- (OrgMinimaObjectsBaseMiniHash *)getData {
+- (OrgMinimaObjectsBaseMiniData *)getData {
   return mData_;
 }
 
@@ -45,19 +54,36 @@ J2OBJC_IGNORE_DESIGNATED_END
   JavaIoDataInputStream *dis = create_JavaIoDataInputStream_initWithJavaIoInputStream_(bais);
   jint len = ((IOSByteArray *) nil_chk(chdata))->size_;
   jint read = 0;
+  @try {
+    HASH_BITS_ = [dis readShort];
+    read += 2;
+  }
+  @catch (JavaIoIOException *e) {
+    [e printStackTrace];
+  }
   while (read < len) {
     OrgMinimaObjectsBaseMiniByte *leftrigt = OrgMinimaObjectsBaseMiniByte_ReadFromStreamWithJavaIoDataInputStream_(dis);
     read++;
-    OrgMinimaObjectsBaseMiniHash *data = OrgMinimaObjectsBaseMiniHash_ReadFromStreamWithJavaIoDataInputStream_(dis);
-    read += [((OrgMinimaObjectsBaseMiniHash *) nil_chk(data)) getLength];
-    [self addProofChunkWithOrgMinimaObjectsBaseMiniByte:leftrigt withOrgMinimaObjectsBaseMiniHash:data];
+    OrgMinimaObjectsBaseMiniData *data = OrgMinimaObjectsBaseMiniData_ReadFromStreamWithJavaIoDataInputStream_(dis);
+    read += 4 + [((OrgMinimaObjectsBaseMiniData *) nil_chk(data)) getLength];
+    [self addProofChunkWithOrgMinimaObjectsBaseMiniByte:leftrigt withOrgMinimaObjectsBaseMiniData:data];
   }
   [self finalizeHash];
 }
 
+- (void)setHashBitLengthWithInt:(jint)zBitLength {
+  HASH_BITS_ = zBitLength;
+}
+
 - (void)addProofChunkWithOrgMinimaObjectsBaseMiniByte:(OrgMinimaObjectsBaseMiniByte *)zLeft
-                     withOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zHash {
-  [((JavaUtilArrayList *) nil_chk(mProofChain_)) addWithId:create_OrgMinimaObjectsProofsProof_ProofChunk_initWithOrgMinimaObjectsProofsProof_withOrgMinimaObjectsBaseMiniByte_withOrgMinimaObjectsBaseMiniHash_(self, zLeft, zHash)];
+                     withOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zHash {
+  [self addProofChunkWithOrgMinimaObjectsBaseMiniByte:zLeft withOrgMinimaObjectsBaseMiniData:zHash withOrgMinimaObjectsBaseMiniNumber:JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, ZERO)];
+}
+
+- (void)addProofChunkWithOrgMinimaObjectsBaseMiniByte:(OrgMinimaObjectsBaseMiniByte *)zLeft
+                     withOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zHash
+                   withOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zValue {
+  [((JavaUtilArrayList *) nil_chk(mProofChain_)) addWithId:create_OrgMinimaObjectsProofsProof_ProofChunk_initWithOrgMinimaObjectsProofsProof_withOrgMinimaObjectsBaseMiniByte_withOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_(self, zLeft, zHash, zValue)];
 }
 
 - (jint)getProofLen {
@@ -82,11 +108,12 @@ J2OBJC_IGNORE_DESIGNATED_END
   JavaIoByteArrayOutputStream *baos = create_JavaIoByteArrayOutputStream_init();
   JavaIoDataOutputStream *dos = create_JavaIoDataOutputStream_initWithJavaIoOutputStream_(baos);
   @try {
+    [dos writeShortWithInt:HASH_BITS_];
     jint len = [((JavaUtilArrayList *) nil_chk(mProofChain_)) size];
     for (jint i = 0; i < len; i++) {
       OrgMinimaObjectsProofsProof_ProofChunk *chunk = [((JavaUtilArrayList *) nil_chk(mProofChain_)) getWithInt:i];
       [((OrgMinimaObjectsBaseMiniByte *) nil_chk([((OrgMinimaObjectsProofsProof_ProofChunk *) nil_chk(chunk)) getLeft])) writeDataStreamWithJavaIoDataOutputStream:dos];
-      [((OrgMinimaObjectsBaseMiniHash *) nil_chk([chunk getHash])) writeDataStreamWithJavaIoDataOutputStream:dos];
+      [((OrgMinimaObjectsBaseMiniData *) nil_chk([chunk getHash])) writeDataStreamWithJavaIoDataOutputStream:dos];
     }
   }
   @catch (JavaIoIOException *e) {
@@ -95,19 +122,19 @@ J2OBJC_IGNORE_DESIGNATED_END
   return create_OrgMinimaObjectsBaseMiniData_initWithByteArray_([baos toByteArray]);
 }
 
-- (OrgMinimaObjectsBaseMiniHash *)getFinalHash {
+- (OrgMinimaObjectsBaseMiniData *)getFinalHash {
   if (mFinalized_) {
     return mFinalHash_;
   }
-  OrgMinimaObjectsBaseMiniHash *current = mData_;
+  OrgMinimaObjectsBaseMiniData *current = mData_;
   jint len = [self getProofLen];
   for (jint i = 0; i < len; i++) {
     OrgMinimaObjectsProofsProof_ProofChunk *chunk = [((JavaUtilArrayList *) nil_chk(mProofChain_)) getWithInt:i];
     if ([((OrgMinimaObjectsBaseMiniByte *) nil_chk([((OrgMinimaObjectsProofsProof_ProofChunk *) nil_chk(chunk)) getLeft])) isTrue]) {
-      current = [((OrgMinimaUtilsCrypto *) nil_chk(OrgMinimaUtilsCrypto_getInstance())) hashObjectsWithOrgMinimaUtilsStreamable:[chunk getHash] withOrgMinimaUtilsStreamable:current];
+      current = [((OrgMinimaUtilsCrypto *) nil_chk(OrgMinimaUtilsCrypto_getInstance())) hashObjectsWithOrgMinimaUtilsStreamable:[chunk getHash] withOrgMinimaUtilsStreamable:current withInt:HASH_BITS_];
     }
     else {
-      current = [((OrgMinimaUtilsCrypto *) nil_chk(OrgMinimaUtilsCrypto_getInstance())) hashObjectsWithOrgMinimaUtilsStreamable:current withOrgMinimaUtilsStreamable:[chunk getHash]];
+      current = [((OrgMinimaUtilsCrypto *) nil_chk(OrgMinimaUtilsCrypto_getInstance())) hashObjectsWithOrgMinimaUtilsStreamable:current withOrgMinimaUtilsStreamable:[chunk getHash] withInt:HASH_BITS_];
     }
   }
   return current;
@@ -121,41 +148,51 @@ J2OBJC_IGNORE_DESIGNATED_END
     OrgMinimaUtilsJsonJSONObject *jsonchunk = create_OrgMinimaUtilsJsonJSONObject_init();
     OrgMinimaObjectsProofsProof_ProofChunk *chunk = [((JavaUtilArrayList *) nil_chk(mProofChain_)) getWithInt:i];
     [jsonchunk putWithId:@"left" withId:JavaLangBoolean_valueOfWithBoolean_([((OrgMinimaObjectsBaseMiniByte *) nil_chk([((OrgMinimaObjectsProofsProof_ProofChunk *) nil_chk(chunk)) getLeft])) isTrue])];
-    [jsonchunk putWithId:@"hash" withId:[((OrgMinimaObjectsBaseMiniHash *) nil_chk([chunk getHash])) to0xString]];
+    [jsonchunk putWithId:@"hash" withId:[((OrgMinimaObjectsBaseMiniData *) nil_chk([chunk getHash])) to0xString]];
+    [jsonchunk putWithId:@"value" withId:[((OrgMinimaObjectsBaseMiniNumber *) nil_chk([chunk getValue])) description]];
     [proof addWithId:jsonchunk];
   }
-  [json putWithId:@"data" withId:[((OrgMinimaObjectsBaseMiniHash *) nil_chk(mData_)) to0xString]];
+  [json putWithId:@"data" withId:[((OrgMinimaObjectsBaseMiniData *) nil_chk(mData_)) to0xString]];
+  [json putWithId:@"hashbits" withId:JavaLangInteger_valueOfWithInt_(HASH_BITS_)];
   [json putWithId:@"proofchain" withId:proof];
   [json putWithId:@"chainsha" withId:[((OrgMinimaObjectsBaseMiniData *) nil_chk([self getChainSHAProof])) to0xString]];
-  [json putWithId:@"finalhash" withId:[((OrgMinimaObjectsBaseMiniHash *) nil_chk([self getFinalHash])) to0xString]];
+  [json putWithId:@"finalhash" withId:[((OrgMinimaObjectsBaseMiniData *) nil_chk([self getFinalHash])) to0xString]];
   return json;
 }
 
 - (void)writeDataStreamWithJavaIoDataOutputStream:(JavaIoDataOutputStream *)zOut {
-  [((OrgMinimaObjectsBaseMiniHash *) nil_chk(mData_)) writeDataStreamWithJavaIoDataOutputStream:zOut];
+  [((JavaIoDataOutputStream *) nil_chk(zOut)) writeIntWithInt:HASH_BITS_];
+  [((OrgMinimaObjectsBaseMiniData *) nil_chk(mData_)) writeDataStreamWithJavaIoDataOutputStream:zOut];
   jint len = [((JavaUtilArrayList *) nil_chk(mProofChain_)) size];
-  [((JavaIoDataOutputStream *) nil_chk(zOut)) writeIntWithInt:len];
+  [zOut writeIntWithInt:len];
   for (jint i = 0; i < len; i++) {
     OrgMinimaObjectsProofsProof_ProofChunk *chunk = [((JavaUtilArrayList *) nil_chk(mProofChain_)) getWithInt:i];
     [((OrgMinimaObjectsBaseMiniByte *) nil_chk([((OrgMinimaObjectsProofsProof_ProofChunk *) nil_chk(chunk)) getLeft])) writeDataStreamWithJavaIoDataOutputStream:zOut];
-    [((OrgMinimaObjectsBaseMiniHash *) nil_chk([chunk getHash])) writeDataStreamWithJavaIoDataOutputStream:zOut];
+    [((OrgMinimaObjectsBaseMiniData *) nil_chk([chunk getHash])) writeDataStreamWithJavaIoDataOutputStream:zOut];
+    [((OrgMinimaObjectsBaseMiniNumber *) nil_chk([chunk getValue])) writeDataStreamWithJavaIoDataOutputStream:zOut];
   }
 }
 
 - (void)readDataStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn {
-  JreStrongAssign(&mData_, OrgMinimaObjectsBaseMiniHash_ReadFromStreamWithJavaIoDataInputStream_(zIn));
+  HASH_BITS_ = [((JavaIoDataInputStream *) nil_chk(zIn)) readInt];
+  JreStrongAssign(&mData_, OrgMinimaObjectsBaseMiniData_ReadFromStreamWithJavaIoDataInputStream_(zIn));
   JreStrongAssignAndConsume(&mProofChain_, new_JavaUtilArrayList_init());
-  jint len = [((JavaIoDataInputStream *) nil_chk(zIn)) readInt];
+  jint len = [zIn readInt];
   for (jint i = 0; i < len; i++) {
     OrgMinimaObjectsBaseMiniByte *left = OrgMinimaObjectsBaseMiniByte_ReadFromStreamWithJavaIoDataInputStream_(zIn);
-    OrgMinimaObjectsBaseMiniHash *hash_ = OrgMinimaObjectsBaseMiniHash_ReadFromStreamWithJavaIoDataInputStream_(zIn);
-    [((JavaUtilArrayList *) nil_chk(mProofChain_)) addWithId:create_OrgMinimaObjectsProofsProof_ProofChunk_initWithOrgMinimaObjectsProofsProof_withOrgMinimaObjectsBaseMiniByte_withOrgMinimaObjectsBaseMiniHash_(self, left, hash_)];
+    OrgMinimaObjectsBaseMiniData *hash_ = OrgMinimaObjectsBaseMiniData_ReadFromStreamWithJavaIoDataInputStream_(zIn);
+    OrgMinimaObjectsBaseMiniNumber *val = OrgMinimaObjectsBaseMiniNumber_ReadFromStreamWithJavaIoDataInputStream_(zIn);
+    [((JavaUtilArrayList *) nil_chk(mProofChain_)) addWithId:create_OrgMinimaObjectsProofsProof_ProofChunk_initWithOrgMinimaObjectsProofsProof_withOrgMinimaObjectsBaseMiniByte_withOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_(self, left, hash_, val)];
   }
   [self finalizeHash];
 }
 
 + (OrgMinimaObjectsProofsProof *)ReadFromStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn {
   return OrgMinimaObjectsProofsProof_ReadFromStreamWithJavaIoDataInputStream_(zIn);
+}
+
++ (jint)getChainSHABitsWithNSString:(NSString *)zChainSHA {
+  return OrgMinimaObjectsProofsProof_getChainSHABitsWithNSString_(zChainSHA);
 }
 
 - (void)dealloc {
@@ -170,46 +207,53 @@ J2OBJC_IGNORE_DESIGNATED_END
   static J2ObjcMethodInfo methods[] = {
     { NULL, NULL, 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 0, 1, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsBaseMiniHash;", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 2, 3, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 4, 5, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMiniData;", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 2, 1, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 3, 4, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 5, 6, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 5, 7, -1, -1, -1, -1 },
     { NULL, "I", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsProofsProof_ProofChunk;", 0x1, 6, 7, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsProofsProof_ProofChunk;", 0x1, 8, 4, -1, -1, -1, -1 },
     { NULL, "V", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaObjectsBaseMiniData;", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsBaseMiniHash;", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMiniData;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaUtilsJsonJSONObject;", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 8, 9, 10, -1, -1, -1 },
-    { NULL, "V", 0x1, 11, 12, 10, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsProofsProof;", 0x9, 13, 12, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 9, 10, 11, -1, -1, -1 },
+    { NULL, "V", 0x1, 12, 13, 11, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsProofsProof;", 0x9, 14, 13, -1, -1, -1, -1 },
+    { NULL, "I", 0x9, 15, 16, 17, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
   #pragma clang diagnostic ignored "-Wundeclared-selector"
   methods[0].selector = @selector(init);
-  methods[1].selector = @selector(setDataWithOrgMinimaObjectsBaseMiniHash:);
+  methods[1].selector = @selector(setDataWithOrgMinimaObjectsBaseMiniData:);
   methods[2].selector = @selector(getData);
   methods[3].selector = @selector(setProofWithOrgMinimaObjectsBaseMiniData:);
-  methods[4].selector = @selector(addProofChunkWithOrgMinimaObjectsBaseMiniByte:withOrgMinimaObjectsBaseMiniHash:);
-  methods[5].selector = @selector(getProofLen);
-  methods[6].selector = @selector(getProofChunkWithInt:);
-  methods[7].selector = @selector(finalizeHash);
-  methods[8].selector = @selector(getChainSHAProof);
-  methods[9].selector = @selector(getFinalHash);
-  methods[10].selector = @selector(toJSON);
-  methods[11].selector = @selector(writeDataStreamWithJavaIoDataOutputStream:);
-  methods[12].selector = @selector(readDataStreamWithJavaIoDataInputStream:);
-  methods[13].selector = @selector(ReadFromStreamWithJavaIoDataInputStream:);
+  methods[4].selector = @selector(setHashBitLengthWithInt:);
+  methods[5].selector = @selector(addProofChunkWithOrgMinimaObjectsBaseMiniByte:withOrgMinimaObjectsBaseMiniData:);
+  methods[6].selector = @selector(addProofChunkWithOrgMinimaObjectsBaseMiniByte:withOrgMinimaObjectsBaseMiniData:withOrgMinimaObjectsBaseMiniNumber:);
+  methods[7].selector = @selector(getProofLen);
+  methods[8].selector = @selector(getProofChunkWithInt:);
+  methods[9].selector = @selector(finalizeHash);
+  methods[10].selector = @selector(getChainSHAProof);
+  methods[11].selector = @selector(getFinalHash);
+  methods[12].selector = @selector(toJSON);
+  methods[13].selector = @selector(writeDataStreamWithJavaIoDataOutputStream:);
+  methods[14].selector = @selector(readDataStreamWithJavaIoDataInputStream:);
+  methods[15].selector = @selector(ReadFromStreamWithJavaIoDataInputStream:);
+  methods[16].selector = @selector(getChainSHABitsWithNSString:);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
-    { "mData_", "LOrgMinimaObjectsBaseMiniHash;", .constantValue.asLong = 0, 0x4, -1, -1, -1, -1 },
-    { "mProofChain_", "LJavaUtilArrayList;", .constantValue.asLong = 0, 0x4, -1, -1, 14, -1 },
-    { "mFinalHash_", "LOrgMinimaObjectsBaseMiniHash;", .constantValue.asLong = 0, 0x4, -1, -1, -1, -1 },
+    { "mData_", "LOrgMinimaObjectsBaseMiniData;", .constantValue.asLong = 0, 0x4, -1, -1, -1, -1 },
+    { "mProofChain_", "LJavaUtilArrayList;", .constantValue.asLong = 0, 0x4, -1, -1, 18, -1 },
+    { "mFinalHash_", "LOrgMinimaObjectsBaseMiniData;", .constantValue.asLong = 0, 0x4, -1, -1, -1, -1 },
     { "mChainSHA_", "LOrgMinimaObjectsBaseMiniData;", .constantValue.asLong = 0, 0x4, -1, -1, -1, -1 },
     { "mFinalized_", "Z", .constantValue.asLong = 0, 0x4, -1, -1, -1, -1 },
+    { "HASH_BITS_", "I", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
   };
-  static const void *ptrTable[] = { "setData", "LOrgMinimaObjectsBaseMiniHash;", "setProof", "LOrgMinimaObjectsBaseMiniData;", "addProofChunk", "LOrgMinimaObjectsBaseMiniByte;LOrgMinimaObjectsBaseMiniHash;", "getProofChunk", "I", "writeDataStream", "LJavaIoDataOutputStream;", "LJavaIoIOException;", "readDataStream", "LJavaIoDataInputStream;", "ReadFromStream", "Ljava/util/ArrayList<Lorg/minima/objects/proofs/Proof$ProofChunk;>;", "LOrgMinimaObjectsProofsProof_ProofChunk;" };
-  static const J2ObjcClassInfo _OrgMinimaObjectsProofsProof = { "Proof", "org.minima.objects.proofs", ptrTable, methods, fields, 7, 0x1, 14, 5, -1, 15, -1, -1, -1 };
+  static const void *ptrTable[] = { "setData", "LOrgMinimaObjectsBaseMiniData;", "setProof", "setHashBitLength", "I", "addProofChunk", "LOrgMinimaObjectsBaseMiniByte;LOrgMinimaObjectsBaseMiniData;", "LOrgMinimaObjectsBaseMiniByte;LOrgMinimaObjectsBaseMiniData;LOrgMinimaObjectsBaseMiniNumber;", "getProofChunk", "writeDataStream", "LJavaIoDataOutputStream;", "LJavaIoIOException;", "readDataStream", "LJavaIoDataInputStream;", "ReadFromStream", "getChainSHABits", "LNSString;", "LJavaLangException;", "Ljava/util/ArrayList<Lorg/minima/objects/proofs/Proof$ProofChunk;>;", "LOrgMinimaObjectsProofsProof_ProofChunk;" };
+  static const J2ObjcClassInfo _OrgMinimaObjectsProofsProof = { "Proof", "org.minima.objects.proofs", ptrTable, methods, fields, 7, 0x1, 17, 6, -1, 19, -1, -1, -1 };
   return &_OrgMinimaObjectsProofsProof;
 }
 
@@ -217,6 +261,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 void OrgMinimaObjectsProofsProof_init(OrgMinimaObjectsProofsProof *self) {
   NSObject_init(self);
+  self->HASH_BITS_ = 512;
   JreStrongAssignAndConsume(&self->mProofChain_, new_JavaUtilArrayList_init());
 }
 
@@ -240,14 +285,29 @@ OrgMinimaObjectsProofsProof *OrgMinimaObjectsProofsProof_ReadFromStreamWithJavaI
   return proof;
 }
 
+jint OrgMinimaObjectsProofsProof_getChainSHABitsWithNSString_(NSString *zChainSHA) {
+  OrgMinimaObjectsProofsProof_initialize();
+  if ([((NSString *) nil_chk(zChainSHA)) java_hasPrefix:@"0x0200"]) {
+    return 512;
+  }
+  else if ([zChainSHA java_hasPrefix:@"0x0100"]) {
+    return 256;
+  }
+  else if ([zChainSHA java_hasPrefix:@"0x00A0"]) {
+    return 160;
+  }
+  @throw create_JavaLangException_initWithNSString_(@"Invalid ChainSHA.. must be 160, 256 or 512");
+}
+
 J2OBJC_CLASS_TYPE_LITERAL_SOURCE(OrgMinimaObjectsProofsProof)
 
 @implementation OrgMinimaObjectsProofsProof_ProofChunk
 
 - (instancetype)initWithOrgMinimaObjectsProofsProof:(OrgMinimaObjectsProofsProof *)outer$
                    withOrgMinimaObjectsBaseMiniByte:(OrgMinimaObjectsBaseMiniByte *)zLeft
-                   withOrgMinimaObjectsBaseMiniHash:(OrgMinimaObjectsBaseMiniHash *)zHash {
-  OrgMinimaObjectsProofsProof_ProofChunk_initWithOrgMinimaObjectsProofsProof_withOrgMinimaObjectsBaseMiniByte_withOrgMinimaObjectsBaseMiniHash_(self, outer$, zLeft, zHash);
+                   withOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zHash
+                 withOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zValue {
+  OrgMinimaObjectsProofsProof_ProofChunk_initWithOrgMinimaObjectsProofsProof_withOrgMinimaObjectsBaseMiniByte_withOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_(self, outer$, zLeft, zHash, zValue);
   return self;
 }
 
@@ -255,12 +315,17 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(OrgMinimaObjectsProofsProof)
   return mLeftRight_;
 }
 
-- (OrgMinimaObjectsBaseMiniHash *)getHash {
+- (OrgMinimaObjectsBaseMiniData *)getHash {
   return mHash_;
+}
+
+- (OrgMinimaObjectsBaseMiniNumber *)getValue {
+  return mValue_;
 }
 
 - (void)dealloc {
   RELEASE_(mHash_);
+  RELEASE_(mValue_);
   RELEASE_(mLeftRight_);
   [super dealloc];
 }
@@ -269,38 +334,42 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(OrgMinimaObjectsProofsProof)
   static J2ObjcMethodInfo methods[] = {
     { NULL, NULL, 0x1, -1, 0, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaObjectsBaseMiniByte;", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsBaseMiniHash;", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMiniData;", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, -1, -1, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
   #pragma clang diagnostic ignored "-Wundeclared-selector"
-  methods[0].selector = @selector(initWithOrgMinimaObjectsProofsProof:withOrgMinimaObjectsBaseMiniByte:withOrgMinimaObjectsBaseMiniHash:);
+  methods[0].selector = @selector(initWithOrgMinimaObjectsProofsProof:withOrgMinimaObjectsBaseMiniByte:withOrgMinimaObjectsBaseMiniData:withOrgMinimaObjectsBaseMiniNumber:);
   methods[1].selector = @selector(getLeft);
   methods[2].selector = @selector(getHash);
+  methods[3].selector = @selector(getValue);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
-    { "mHash_", "LOrgMinimaObjectsBaseMiniHash;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
+    { "mHash_", "LOrgMinimaObjectsBaseMiniData;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
+    { "mValue_", "LOrgMinimaObjectsBaseMiniNumber;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mLeftRight_", "LOrgMinimaObjectsBaseMiniByte;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
   };
-  static const void *ptrTable[] = { "LOrgMinimaObjectsBaseMiniByte;LOrgMinimaObjectsBaseMiniHash;", "LOrgMinimaObjectsProofsProof;" };
-  static const J2ObjcClassInfo _OrgMinimaObjectsProofsProof_ProofChunk = { "ProofChunk", "org.minima.objects.proofs", ptrTable, methods, fields, 7, 0x1, 3, 2, 1, -1, -1, -1, -1 };
+  static const void *ptrTable[] = { "LOrgMinimaObjectsBaseMiniByte;LOrgMinimaObjectsBaseMiniData;LOrgMinimaObjectsBaseMiniNumber;", "LOrgMinimaObjectsProofsProof;" };
+  static const J2ObjcClassInfo _OrgMinimaObjectsProofsProof_ProofChunk = { "ProofChunk", "org.minima.objects.proofs", ptrTable, methods, fields, 7, 0x1, 4, 3, 1, -1, -1, -1, -1 };
   return &_OrgMinimaObjectsProofsProof_ProofChunk;
 }
 
 @end
 
-void OrgMinimaObjectsProofsProof_ProofChunk_initWithOrgMinimaObjectsProofsProof_withOrgMinimaObjectsBaseMiniByte_withOrgMinimaObjectsBaseMiniHash_(OrgMinimaObjectsProofsProof_ProofChunk *self, OrgMinimaObjectsProofsProof *outer$, OrgMinimaObjectsBaseMiniByte *zLeft, OrgMinimaObjectsBaseMiniHash *zHash) {
+void OrgMinimaObjectsProofsProof_ProofChunk_initWithOrgMinimaObjectsProofsProof_withOrgMinimaObjectsBaseMiniByte_withOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_(OrgMinimaObjectsProofsProof_ProofChunk *self, OrgMinimaObjectsProofsProof *outer$, OrgMinimaObjectsBaseMiniByte *zLeft, OrgMinimaObjectsBaseMiniData *zHash, OrgMinimaObjectsBaseMiniNumber *zValue) {
   NSObject_init(self);
   JreStrongAssign(&self->mLeftRight_, zLeft);
   JreStrongAssign(&self->mHash_, zHash);
+  JreStrongAssign(&self->mValue_, zValue);
 }
 
-OrgMinimaObjectsProofsProof_ProofChunk *new_OrgMinimaObjectsProofsProof_ProofChunk_initWithOrgMinimaObjectsProofsProof_withOrgMinimaObjectsBaseMiniByte_withOrgMinimaObjectsBaseMiniHash_(OrgMinimaObjectsProofsProof *outer$, OrgMinimaObjectsBaseMiniByte *zLeft, OrgMinimaObjectsBaseMiniHash *zHash) {
-  J2OBJC_NEW_IMPL(OrgMinimaObjectsProofsProof_ProofChunk, initWithOrgMinimaObjectsProofsProof_withOrgMinimaObjectsBaseMiniByte_withOrgMinimaObjectsBaseMiniHash_, outer$, zLeft, zHash)
+OrgMinimaObjectsProofsProof_ProofChunk *new_OrgMinimaObjectsProofsProof_ProofChunk_initWithOrgMinimaObjectsProofsProof_withOrgMinimaObjectsBaseMiniByte_withOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_(OrgMinimaObjectsProofsProof *outer$, OrgMinimaObjectsBaseMiniByte *zLeft, OrgMinimaObjectsBaseMiniData *zHash, OrgMinimaObjectsBaseMiniNumber *zValue) {
+  J2OBJC_NEW_IMPL(OrgMinimaObjectsProofsProof_ProofChunk, initWithOrgMinimaObjectsProofsProof_withOrgMinimaObjectsBaseMiniByte_withOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_, outer$, zLeft, zHash, zValue)
 }
 
-OrgMinimaObjectsProofsProof_ProofChunk *create_OrgMinimaObjectsProofsProof_ProofChunk_initWithOrgMinimaObjectsProofsProof_withOrgMinimaObjectsBaseMiniByte_withOrgMinimaObjectsBaseMiniHash_(OrgMinimaObjectsProofsProof *outer$, OrgMinimaObjectsBaseMiniByte *zLeft, OrgMinimaObjectsBaseMiniHash *zHash) {
-  J2OBJC_CREATE_IMPL(OrgMinimaObjectsProofsProof_ProofChunk, initWithOrgMinimaObjectsProofsProof_withOrgMinimaObjectsBaseMiniByte_withOrgMinimaObjectsBaseMiniHash_, outer$, zLeft, zHash)
+OrgMinimaObjectsProofsProof_ProofChunk *create_OrgMinimaObjectsProofsProof_ProofChunk_initWithOrgMinimaObjectsProofsProof_withOrgMinimaObjectsBaseMiniByte_withOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_(OrgMinimaObjectsProofsProof *outer$, OrgMinimaObjectsBaseMiniByte *zLeft, OrgMinimaObjectsBaseMiniData *zHash, OrgMinimaObjectsBaseMiniNumber *zValue) {
+  J2OBJC_CREATE_IMPL(OrgMinimaObjectsProofsProof_ProofChunk, initWithOrgMinimaObjectsProofsProof_withOrgMinimaObjectsBaseMiniByte_withOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_, outer$, zLeft, zHash, zValue)
 }
 
 J2OBJC_CLASS_TYPE_LITERAL_SOURCE(OrgMinimaObjectsProofsProof_ProofChunk)

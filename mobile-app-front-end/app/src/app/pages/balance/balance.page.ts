@@ -27,7 +27,7 @@ export class BalancePage implements OnInit {
   // - vars
   private lastJSON = '';
   private host: any = '';
-  private MINI_TOKENID = '0x0000000000000000000000000000000000000000000000000000000000000000';
+  private MINI_TOKENID = '0x00';
 
   constructor(
     private service: BalanceService,
@@ -123,9 +123,11 @@ export class BalancePage implements OnInit {
           tokenArr.push({
               id: element.tokenid,
               token: element.token,
+              total: element.total,
               confirmed: tempConfirmed,
               unconfirmed: tempUnconfirmed,
-              total: element.total
+              mempool: element.mempool,
+              sendable: element.sendable
           });
 
           // add Minima always to the top
@@ -134,11 +136,13 @@ export class BalancePage implements OnInit {
             this.service.update(
             tokenArr,
             {
-                id: element.tokenid,
-                token: element.token,
-                confirmed: tempConfirmed,
-                unconfirmed: tempUnconfirmed,
-                total: element.total
+              id: element.tokenid,
+              token: element.token,
+              total: element.total,
+              confirmed: tempConfirmed,
+              unconfirmed: tempUnconfirmed,
+              mempool: element.mempool,
+              sendable: element.sendable
             });
           }
 

@@ -20,8 +20,6 @@
     word-wrap: normal;
 }
 
-
-
 ion-list ion-item h2 {
     color: #06AAC7;
 }
@@ -30,17 +28,12 @@ ion-list ion-item p {
     white-space: normal;
 }
 
- ion-list ion-icon {
-    padding-right: 4px;
-}
-
-
-ion-icon {
+.active-icons {
     color: #06AAC7;
-}
 
-ion-chip {
-    background-color: transparent;
+}
+.inactive-icons{
+    color: #FF671D;
 }
 
 ion-footer ion-list ion-item {
@@ -49,34 +42,11 @@ ion-footer ion-list ion-item {
     border-radius: 5px;
 }
 
-.status-logo {
-    font-size: 30px;
-}
-.sup {
-    border-radius: 10px;
-    font-size: 8px;
-    margin-bottom: 10px;
-    background-color: none;
-}
-ion-note {
-    font-family: 'Aeonik';
-    font-weight: bolder;
-    font-size: 22px;
-    padding-top: 23px;
-    color: #929396;
-}
-.status-logo-title {
-    font-family: 'Ridley-normal';
-    font-size: 22px;
-}
-.status-logo-title {
-    font-family: 'Ridley-normal';
-    margin-top:24px;
-    font-size: 20px;
-}
 ion-list-header {
     font-size: 1.0rem;
+    padding: 25px;
 }
+
 
 .status-on {
     color: #3FBF3F;
@@ -84,3 +54,5 @@ ion-list-header {
 .status-off {
     color: #f2f2f2
 }
+
+

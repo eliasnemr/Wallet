@@ -18,17 +18,17 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class SendFundsPage implements OnInit {
 
-  selected_minima: any;
+  public selected_minima: any;
   private lastJSON: string = '';
   public minimaToken: any;
   public data: any = {};
-  isCameraOpen: boolean = false;
+  public isCameraOpen: boolean = false;
   private scanSub:any=null;
-  balanceSubscription: Subscription;
-  ionApp = <HTMLElement>document.getElementsByTagName('ion-app')[0];
+  public balanceSubscription: Subscription;
+  public ionApp = <HTMLElement>document.getElementsByTagName('ion-app')[0];
 
   // Pull in tokens vars
-  public MINIMA_TOKEN_ID = '0x0000000000000000000000000000000000000000000000000000000000000000';
+  public MINIMA_TOKEN_ID = '0x00';
   public hideProgress = false;
   public progressShow = true;
   public strUnconfirmed: any;
@@ -39,9 +39,7 @@ export class SendFundsPage implements OnInit {
     private api: MinimaApiService,
     private balanceService: BalanceService,
     private platform: Platform,
-    private route: ActivatedRoute) {
-      
-    }
+    private route: ActivatedRoute) {}
 
   ngOnInit() {}
 
@@ -67,54 +65,8 @@ export class SendFundsPage implements OnInit {
     this.data.tokenid = this.MINIMA_TOKEN_ID;
   }
 
-  identifyPlatformToScan_Add(){
-    if(this.platform.is('ios')){
-      
-      setTimeout( () => {
-        window.document.querySelectorAll('ion-content')
-          .forEach(element => {
-            const element1 = element.shadowRoot.querySelector('style');
-            element1.innerHTML = element1.innerHTML
-          .replace('--background:var(--ion-background-color,#fff);', '--background: transparent');
-        });
-      }, 300);
-    } else if(this.platform.is('android')) {
-      // window.document.querySelector('ion-content').classList.add('transparentBody');
-      setTimeout( () => {
-      window.document.querySelectorAll('ion-content')
-          .forEach(element => {
-            const element1 = element.shadowRoot.querySelector('style');
-            element1.innerHTML = element1.innerHTML
-          .replace('--background:var(--ion-background-color,#fff);', '--background: transparent');
-        });
-      }, 300);
-    }
-  }
-  identifyPlatformToScan_Remove(){
-    if(this.platform.is('ios')){
-      
-      setTimeout( () => {
-        window.document.querySelectorAll('ion-content')
-          .forEach(element => {
-            const element1 = element.shadowRoot.querySelector('style');
-            element1.innerHTML = element1.innerHTML
-          .replace('--background: transparent', '--background:var(--ion-background-color,#fff);');
-        });
-      }, 300);
-    } else if(this.platform.is('android')) {
-      // window.document.querySelector('ion-content').classList.remove('transparentBody');
-      setTimeout( () => {
-        window.document.querySelectorAll('ion-content')
-          .forEach(element => {
-            const element1 = element.shadowRoot.querySelector('style');
-            element1.innerHTML = element1.innerHTML
-          .replace('--background: transparent', '--background:var(--ion-background-color,#fff);');
-        });
-      }, 300);
-    }
-  }
 
-
+  /** Camera Functions */
   scanQR() {
     this.qrScanner.prepare()
       .then((status: QRScannerStatus) => {
@@ -164,36 +116,8 @@ export class SendFundsPage implements OnInit {
     this.qrScanner.destroy();
   }
 
-  pasteFromClipboard() {
-
-    if(this.platform.is('desktop') || this.platform.is('pwa')) {
-      this.pasteFromPWA();
-      
-      
-    } else {
-      this.clipboard.paste().then(
-        (resolve: string) => {
-          this.data.address = resolve;
-        },
-        (reject: string) => {
-          console.log('Error: ' + reject);
-        }
-      );
-    }
   
-  }
-
-  pasteFromPWA() {
-    document.addEventListener('paste', (e: ClipboardEvent) => {
-      this.data.address = e.clipboardData.getData('text');
-      
-      
-      e.preventDefault();
-      document.removeEventListener('paste', null);
-    });
-    document.execCommand('paste');
-  }
-
+  /** ALERTS */
   async presentAlert(msg:string,header:string) {
     const alert = await this.alertController.create({
       header: header,
@@ -204,6 +128,7 @@ export class SendFundsPage implements OnInit {
     await alert.present();
   }
 
+  // API CALLS
   pullInTokens() {
     this.balanceSubscription =this.balanceService.getBalance().pipe(map(responseData => {
       const tokenArr: Tokens[] = [];
@@ -221,9 +146,11 @@ export class SendFundsPage implements OnInit {
           tokenArr.push({
               id: element.tokenid,
               token: element.token,
+              total: element.total,
               confirmed: tempConfirmed,
               unconfirmed: tempUnconfirmed,
-              total: element.total
+              mempool: element.mempool,
+              sendable: element.sendable
           });
 
           // add Minima always to the top
@@ -232,11 +159,13 @@ export class SendFundsPage implements OnInit {
             this.balanceService.update(
             tokenArr,
             {
-                id: element.tokenid,
-                token: element.token,
-                confirmed: tempConfirmed,
-                unconfirmed: tempUnconfirmed,
-                total: element.total
+              id: element.tokenid,
+              token: element.token,
+              total: element.total,
+              confirmed: tempConfirmed,
+              unconfirmed: tempUnconfirmed,
+              mempool: element.mempool,
+              sendable: element.sendable
             });
           }
 
@@ -273,12 +202,95 @@ export class SendFundsPage implements OnInit {
     }
   }
 
+  
+  /** MISC FUNCS */
+  identifyPlatformToScan_Add(){
+    document.addEventListener("DOMContentLoaded", function(event) { 
+      //Do work
+      if(this.platform.is('ios')){
+        setTimeout( () => {
+          window.document.querySelectorAll('ion-content')
+            .forEach(element => {
+              const element1 = element.shadowRoot.querySelector('style');
+              element1.innerHTML = element1.innerHTML
+            .replace('--background:var(--ion-background-color,#fff);', '--background: transparent');
+          });
+        }, 300);
+      } else if(this.platform.is('android')) {
+        // window.document.querySelector('ion-content').classList.add('transparentBody');
+        setTimeout( () => {
+        window.document.querySelectorAll('ion-content')
+            .forEach(element => {
+              const element1 = element.shadowRoot.querySelector('style');
+              element1.innerHTML = element1.innerHTML
+            .replace('--background:var(--ion-background-color,#fff);', '--background: transparent');
+          });
+        }, 300);
+      }
+    });
+  }
+  identifyPlatformToScan_Remove(){
+    document.addEventListener("DOMContentLoaded", function(event) {
+    if(this.platform.is('ios')){
+      
+      setTimeout( () => {
+        window.document.querySelectorAll('ion-content')
+          .forEach(element => {
+            const element1 = element.shadowRoot.querySelector('style');
+            element1.innerHTML = element1.innerHTML
+          .replace('--background: transparent', '--background:var(--ion-background-color,#fff);');
+        });
+      }, 300);
+    } else if(this.platform.is('android')) {
+      // window.document.querySelector('ion-content').classList.remove('transparentBody');
+      setTimeout( () => {
+        window.document.querySelectorAll('ion-content')
+          .forEach(element => {
+            const element1 = element.shadowRoot.querySelector('style');
+            element1.innerHTML = element1.innerHTML
+          .replace('--background: transparent', '--background:var(--ion-background-color,#fff);');
+        });
+      }, 300);
+    }
+
+    });
+  }
+  // Display/hide mobile buttons with this..
   checkPlatform() {
     if(this.platform.is('desktop') || this.platform.is('pwa')) {
       return false;
     } else {
       return true;
     }
+  }
+  
+  pasteFromClipboard() {
+    if(this.platform.is('desktop') || this.platform.is('pwa')) {
+
+      this.pasteFromPWA();
+
+    } else {
+      this.clipboard.paste().then(
+        (resolve: string) => {
+          this.data.address = resolve;
+        },
+        (reject: string) => {
+          console.log('Error: ' + reject);
+        }
+      );
+    }
+  
+  }
+
+  pasteFromPWA() {
+    document.addEventListener('paste', (e: ClipboardEvent) => {
+      this.data.address = e.clipboardData.getData('text');
+      
+      
+      e.preventDefault();
+      document.removeEventListener('paste', null);
+    });
+    document.execCommand('paste');
   }
 
 }

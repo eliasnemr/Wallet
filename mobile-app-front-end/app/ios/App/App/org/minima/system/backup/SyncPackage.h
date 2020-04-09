@@ -22,7 +22,6 @@
 
 @class JavaIoDataInputStream;
 @class JavaIoDataOutputStream;
-@class JavaMathBigInteger;
 @class JavaUtilArrayList;
 @class OrgMinimaObjectsBaseMiniNumber;
 
@@ -35,8 +34,6 @@
 #pragma mark Public
 
 - (instancetype)init;
-
-- (JavaMathBigInteger *)calculateWeight;
 
 - (JavaUtilArrayList *)getAllNodes;
 

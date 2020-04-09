@@ -24,6 +24,7 @@
 @class IOSObjectArray;
 @class JavaIoDataInputStream;
 @class JavaIoDataOutputStream;
+@class JavaMathBigDecimal;
 @class JavaMathBigInteger;
 
 @interface OrgMinimaObjectsBaseMiniData : NSObject < OrgMinimaUtilsStreamable > {
@@ -48,13 +49,17 @@
 
 - (IOSByteArray *)getData;
 
-- (JavaMathBigInteger *)getDataVaue;
+- (JavaMathBigInteger *)getDataValue;
+
+- (JavaMathBigDecimal *)getDataValueDecimal;
 
 - (jint)getLength;
 
++ (OrgMinimaObjectsBaseMiniData *)getMiniDataVersionWithOrgMinimaUtilsStreamable:(id<OrgMinimaUtilsStreamable>)zObject;
+
 + (OrgMinimaObjectsBaseMiniData *)getRandomDataWithInt:(jint)len;
 
-- (jboolean)isExactlyEqualWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zCompare;
+- (jboolean)isEqualWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zCompare;
 
 - (jboolean)isLessWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zCompare;
 
@@ -63,8 +68,6 @@
 - (jboolean)isMoreWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zCompare;
 
 - (jboolean)isMoreEqualWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zCompare;
-
-- (jboolean)isNumericallyEqualWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zCompare;
 
 + (void)mainWithNSStringArray:(IOSObjectArray *)zArgs;
 
@@ -78,21 +81,15 @@
 
 - (NSString *)to0xString;
 
-- (NSString *)toPureHexString;
-
-- (NSString *)toShort0xString;
+- (NSString *)to0xStringWithInt:(jint)zLen;
 
 - (NSString *)description;
 
 - (void)writeDataStreamWithJavaIoDataOutputStream:(JavaIoDataOutputStream *)zOut;
 
-#pragma mark Protected
-
-- (void)setDataValue;
-
 @end
 
-J2OBJC_STATIC_INIT(OrgMinimaObjectsBaseMiniData)
+J2OBJC_EMPTY_STATIC_INIT(OrgMinimaObjectsBaseMiniData)
 
 J2OBJC_FIELD_SETTER(OrgMinimaObjectsBaseMiniData, mData_, IOSByteArray *)
 J2OBJC_FIELD_SETTER(OrgMinimaObjectsBaseMiniData, mDataVal_, JavaMathBigInteger *)
@@ -116,6 +113,8 @@ FOUNDATION_EXPORT OrgMinimaObjectsBaseMiniData *new_OrgMinimaObjectsBaseMiniData
 FOUNDATION_EXPORT OrgMinimaObjectsBaseMiniData *create_OrgMinimaObjectsBaseMiniData_initWithByteArray_(IOSByteArray *zData);
 
 FOUNDATION_EXPORT OrgMinimaObjectsBaseMiniData *OrgMinimaObjectsBaseMiniData_ReadFromStreamWithJavaIoDataInputStream_(JavaIoDataInputStream *zIn);
+
+FOUNDATION_EXPORT OrgMinimaObjectsBaseMiniData *OrgMinimaObjectsBaseMiniData_getMiniDataVersionWithOrgMinimaUtilsStreamable_(id<OrgMinimaUtilsStreamable> zObject);
 
 FOUNDATION_EXPORT OrgMinimaObjectsBaseMiniData *OrgMinimaObjectsBaseMiniData_getRandomDataWithInt_(jint len);
 

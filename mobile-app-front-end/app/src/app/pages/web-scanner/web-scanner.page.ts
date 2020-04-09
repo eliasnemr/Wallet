@@ -43,6 +43,7 @@ export class WebScannerPage implements OnInit {
   }
 
   identifyPlatformToScan_Add(){
+    document.addEventListener("DOMContentLoaded", function(event) {
     if(this.platform.is('ios')){
       setTimeout( () => {
         window.document.querySelectorAll('ion-content')
@@ -63,8 +64,10 @@ export class WebScannerPage implements OnInit {
         });
       }, 300);
     }
+    });
   }
   identifyPlatformToScan_Remove(){
+    document.addEventListener("DOMContentLoaded", function(event) {
     if(this.platform.is('ios')){
       setTimeout( () => {
         window.document.querySelectorAll('ion-content')
@@ -85,6 +88,7 @@ export class WebScannerPage implements OnInit {
         });
       }, 300);
     }
+    });
   }
 
   scanQR() {
@@ -101,7 +105,7 @@ export class WebScannerPage implements OnInit {
           console.log('Scanned something', text);
           this.zone.run(()=>{
             //alert("Scanned this ->>>" + text);
-          
+            
             this.stopCamera();
             this.qrWebLink(text);
             this.identifyPlatformToScan_Remove();
@@ -137,12 +141,11 @@ export class WebScannerPage implements OnInit {
         }
       });
     } else {
-      this.presentAlert('Please rescan qr image.', 'Unsucessful!');
+      this.presentAlert('Please rescan qr image.', 'Unsuccessful!');
     }
   }
 
   stopCamera() {
-    console.log('stop camera', this.scanSub);
     if(this.scanSub!==null){
       console.log("stopCamera - is not null..")
       this.qrScanner.hide();
