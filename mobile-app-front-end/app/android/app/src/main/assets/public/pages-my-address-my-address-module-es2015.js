@@ -869,7 +869,7 @@ var QRCode;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-app>\n<ion-header >\n  <ion-toolbar >\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    <ion-title color=\"primary\">\n      Receive\n    </ion-title>\n  </ion-toolbar>\n</ion-header >\n\n<ion-content fullscreen>\n  <ion-card class=\"welcome-card\" color=\"white\" *ngIf=\"this.qrCode.length > 0\">\n    <ion-card-header translucent=\"true\" color=\"white\">\n        <ion-toolbar>\n                <qrcode\n                      [qrdata]=\"qrCode\"\n                      [size]=\"canvasSize\"\n                      [level]=\"'Q'\"\n                      colorlight=\"#e9ecef\"\n                      colorDark=\"#000000\"\n                      *ngIf=\"qrCode!==''\">\n                </qrcode> \n        </ion-toolbar>\n\n        <ion-card-subtitle text-center text-xl-capitalize>\n          <a style=\"text-decoration: none; color:##3F88BF;\">{{ qrCode }}</a>\n          <hr>\n          This address can be used for any Minima or Token transaction.\n        </ion-card-subtitle>\n    </ion-card-header>\n      <ion-card-content fullscreen> \n                \n                  \n    </ion-card-content>\n  </ion-card>\n\n  <ion-card class=\"welcome-card\" color=\"white\" *ngIf=\"this.qrCode===''\">\n    <ion-card-header translucent=\"true\" color=\"white\">\n        <ion-toolbar>\n          <ion-skeleton-text animated class=\"skeleton-address\"></ion-skeleton-text>\n        </ion-toolbar>\n\n        <ion-card-subtitle text-center text-xl-capitalize>\n          <a style=\"text-decoration: none; color:##3F88BF;\">{{ qrCode }}</a>\n          <hr>\n          This address can be used for any Minima or Token transaction.\n        </ion-card-subtitle>\n    </ion-card-header>\n      <ion-card-content fullscreen> \n                \n                  \n    </ion-card-content>\n  </ion-card>\n</ion-content>\n\n<ion-footer>\n  <ion-toolbar>\n    <ion-buttons>\n      <ion-button     \n          class=\"action-btn\"\n          shape=\"round\"\n          expand=\"full\"\n          (click)=\"copyToClipboard()\"\n          [disabled]=\"!isEmpty\">\n      <ion-icon\n            name=\"copy\" \n            slot=\"start\">\n      </ion-icon> Copy to clipboard\n    </ion-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-footer>\n</ion-app>"
+module.exports = "<ion-app>\n<ion-header >\n  <ion-toolbar >\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    <ion-title color=\"primary\">\n      Receive\n    </ion-title>\n  </ion-toolbar>\n</ion-header >\n\n<ion-content fullscreen>\n  <ion-card class=\"welcome-card\" color=\"white\" *ngIf=\"this.qrCode.length > 0\">\n    <ion-card-header translucent=\"true\" color=\"white\">\n        <ion-toolbar>\n                <qrcode\n                      [qrdata]=\"qrCode\"\n                      [size]=\"canvasSize\"\n                      [level]=\"'Q'\"\n                      colorlight=\"#e9ecef\"\n                      colorDark=\"#000000\"\n                      *ngIf=\"qrCode!==''\">\n                </qrcode> \n        </ion-toolbar>\n\n        <ion-card-subtitle style=\"text-align: center;\">\n          <a style=\"text-decoration: none; color:##3F88BF;\">{{ qrCode }}</a>\n          <hr>\n          This address can be used for any Minima or Token transaction.\n        </ion-card-subtitle>\n    </ion-card-header>\n      <ion-card-content fullscreen> \n                \n                  \n    </ion-card-content>\n  </ion-card>\n\n  <ion-card class=\"welcome-card\" color=\"white\" *ngIf=\"this.qrCode===''\">\n    <ion-card-header translucent=\"true\" color=\"white\">\n        <ion-toolbar>\n          <ion-skeleton-text animated class=\"skeleton-address\"></ion-skeleton-text>\n        </ion-toolbar>\n\n        <ion-card-subtitle style=\"text-align: center;\">\n          <a style=\"text-decoration: none; color:##3F88BF;\">{{ qrCode }}</a>\n          <hr>\n          This address can be used for any Minima or Token transaction.\n        </ion-card-subtitle>\n    </ion-card-header>\n      <ion-card-content fullscreen> \n                \n                  \n    </ion-card-content>\n  </ion-card>\n</ion-content>\n\n<ion-footer>\n  <ion-toolbar>\n    <ion-buttons>\n      <ion-button     \n          class=\"action-btn\"\n          shape=\"round\"\n          expand=\"full\"\n          (click)=\"copyToClipboard()\"\n          [disabled]=\"!isEmpty\">\n      <ion-icon\n            name=\"copy\" \n            slot=\"start\">\n      </ion-icon> Copy to clipboard\n    </ion-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-footer>\n</ion-app>"
 
 /***/ }),
 
@@ -966,6 +966,7 @@ let MyAddressPage = class MyAddressPage {
         this.alertController = alertController;
         this.qrCode = '';
         this.canvasSize = 309;
+        // Needed this to fix android's build wonky
         this.platform.ready().then((readySource) => {
             if (this.platform.width() < 900) {
                 this.canvasSize = this.platform.width() - 50;
@@ -977,15 +978,32 @@ let MyAddressPage = class MyAddressPage {
     }
     ngOnInit() { }
     ionViewWillEnter() {
+        // return new address on enter
+        this.newAddress();
+    }
+    /** API CALLS */
+    newAddress() {
         setTimeout(() => {
             this.api.newAddress().then((res) => {
-                if (res.response.address) {
-                    this.qrCode = res.response.address;
+                if (res.response.address.miniaddress) {
+                    this.qrCode = res.response.address.miniaddress;
                     this.isEmpty = true;
                 }
             });
-        }, 1000);
+        }, 500);
     }
+    /** Alerts */
+    presentAlert(msg, header) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            const alert = yield this.alertController.create({
+                header: header,
+                message: msg,
+                buttons: ['Cancel', 'Ok']
+            });
+            yield alert.present();
+        });
+    }
+    /** MISC Functions */
     copyToClipboard() {
         if (this.platform.is('desktop') || this.platform.is('pwa')) {
             this.copyToClipPWA();
@@ -1003,16 +1021,6 @@ let MyAddressPage = class MyAddressPage {
             document.removeEventListener('copy', null);
         });
         document.execCommand('copy');
-    }
-    presentAlert(msg, header) {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
-            const alert = yield this.alertController.create({
-                header: header,
-                message: msg,
-                buttons: ['Cancel', 'Ok']
-            });
-            yield alert.present();
-        });
     }
 };
 MyAddressPage.ctorParameters = () => [

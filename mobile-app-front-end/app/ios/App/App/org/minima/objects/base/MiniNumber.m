@@ -290,7 +290,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 + (void)initialize {
   if (self == [OrgMinimaObjectsBaseMiniNumber class]) {
-    JreStrongAssignAndConsume(&OrgMinimaObjectsBaseMiniNumber_mMathContext, new_JavaMathMathContext_initWithInt_withJavaMathRoundingMode_(20, JreLoadEnum(JavaMathRoundingMode, DOWN)));
+    JreStrongAssignAndConsume(&OrgMinimaObjectsBaseMiniNumber_mMathContext, new_JavaMathMathContext_initWithInt_withJavaMathRoundingMode_(18, JreLoadEnum(JavaMathRoundingMode, DOWN)));
     JreStrongAssignAndConsume(&OrgMinimaObjectsBaseMiniNumber_ZERO, new_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(@"0"));
     JreStrongAssignAndConsume(&OrgMinimaObjectsBaseMiniNumber_ONE, new_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(@"1"));
     JreStrongAssignAndConsume(&OrgMinimaObjectsBaseMiniNumber_TWO, new_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(@"2"));

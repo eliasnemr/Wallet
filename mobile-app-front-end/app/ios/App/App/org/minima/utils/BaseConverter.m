@@ -190,7 +190,8 @@ NSString *OrgMinimaUtilsBaseConverter_encode32WithByteArray_(IOSByteArray *zData
 
 IOSByteArray *OrgMinimaUtilsBaseConverter_decode32WithNSString_(NSString *zHex32) {
   OrgMinimaUtilsBaseConverter_initialize();
-  jint strlen = [((NSString *) nil_chk(zHex32)) java_length];
+  NSString *hex = [((NSString *) nil_chk(zHex32)) uppercaseString];
+  jint strlen = [((NSString *) nil_chk(hex)) java_length];
   if (strlen % 8 != 0) {
     @throw create_JavaLangArithmeticException_initWithNSString_(@"Minima Address Base 32 String must be multiple of 8 in length");
   }
@@ -198,7 +199,7 @@ IOSByteArray *OrgMinimaUtilsBaseConverter_decode32WithNSString_(NSString *zHex32
   jint bytelen = rounds * 5;
   IOSIntArray *digits = [IOSIntArray arrayWithLength:strlen];
   for (jint i = 0; i < strlen; i++) {
-    *IOSIntArray_GetRef(digits, i) = OrgMinimaUtilsBaseConverter_findChar32WithChar_([zHex32 charAtWithInt:i]);
+    *IOSIntArray_GetRef(digits, i) = OrgMinimaUtilsBaseConverter_findChar32WithChar_([hex charAtWithInt:i]);
   }
   IOSByteArray *redata = [IOSByteArray arrayWithLength:bytelen];
   for (jint i = 0; i < rounds; i++) {

@@ -23,9 +23,9 @@
 @class JavaIoDataInputStream;
 @class JavaIoDataOutputStream;
 @class JavaUtilArrayList;
+@class OrgMinimaObjectsBaseMMRSumNumber;
 @class OrgMinimaObjectsBaseMiniByte;
 @class OrgMinimaObjectsBaseMiniData;
-@class OrgMinimaObjectsBaseMiniNumber;
 @class OrgMinimaObjectsProofsProof_ProofChunk;
 @class OrgMinimaUtilsJsonJSONObject;
 
@@ -47,7 +47,7 @@
 
 - (void)addProofChunkWithOrgMinimaObjectsBaseMiniByte:(OrgMinimaObjectsBaseMiniByte *)zLeft
                      withOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zHash
-                   withOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zValue;
+                 withOrgMinimaObjectsBaseMMRSumNumber:(OrgMinimaObjectsBaseMMRSumNumber *)zValue;
 
 - (void)finalizeHash;
 
@@ -103,15 +103,15 @@ J2OBJC_TYPE_LITERAL_HEADER(OrgMinimaObjectsProofsProof)
 #if !defined (OrgMinimaObjectsProofsProof_ProofChunk_) && (INCLUDE_ALL_OrgMinimaObjectsProofsProof || defined(INCLUDE_OrgMinimaObjectsProofsProof_ProofChunk))
 #define OrgMinimaObjectsProofsProof_ProofChunk_
 
+@class OrgMinimaObjectsBaseMMRSumNumber;
 @class OrgMinimaObjectsBaseMiniByte;
 @class OrgMinimaObjectsBaseMiniData;
-@class OrgMinimaObjectsBaseMiniNumber;
 @class OrgMinimaObjectsProofsProof;
 
 @interface OrgMinimaObjectsProofsProof_ProofChunk : NSObject {
  @public
   OrgMinimaObjectsBaseMiniData *mHash_;
-  OrgMinimaObjectsBaseMiniNumber *mValue_;
+  OrgMinimaObjectsBaseMMRSumNumber *mValue_;
   OrgMinimaObjectsBaseMiniByte *mLeftRight_;
 }
 
@@ -120,13 +120,13 @@ J2OBJC_TYPE_LITERAL_HEADER(OrgMinimaObjectsProofsProof)
 - (instancetype)initWithOrgMinimaObjectsProofsProof:(OrgMinimaObjectsProofsProof *)outer$
                    withOrgMinimaObjectsBaseMiniByte:(OrgMinimaObjectsBaseMiniByte *)zLeft
                    withOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zHash
-                 withOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zValue;
+               withOrgMinimaObjectsBaseMMRSumNumber:(OrgMinimaObjectsBaseMMRSumNumber *)zValue;
 
 - (OrgMinimaObjectsBaseMiniData *)getHash;
 
 - (OrgMinimaObjectsBaseMiniByte *)getLeft;
 
-- (OrgMinimaObjectsBaseMiniNumber *)getValue;
+- (OrgMinimaObjectsBaseMMRSumNumber *)getValue;
 
 // Disallowed inherited constructors, do not use.
 
@@ -137,14 +137,14 @@ J2OBJC_TYPE_LITERAL_HEADER(OrgMinimaObjectsProofsProof)
 J2OBJC_EMPTY_STATIC_INIT(OrgMinimaObjectsProofsProof_ProofChunk)
 
 J2OBJC_FIELD_SETTER(OrgMinimaObjectsProofsProof_ProofChunk, mHash_, OrgMinimaObjectsBaseMiniData *)
-J2OBJC_FIELD_SETTER(OrgMinimaObjectsProofsProof_ProofChunk, mValue_, OrgMinimaObjectsBaseMiniNumber *)
+J2OBJC_FIELD_SETTER(OrgMinimaObjectsProofsProof_ProofChunk, mValue_, OrgMinimaObjectsBaseMMRSumNumber *)
 J2OBJC_FIELD_SETTER(OrgMinimaObjectsProofsProof_ProofChunk, mLeftRight_, OrgMinimaObjectsBaseMiniByte *)
 
-FOUNDATION_EXPORT void OrgMinimaObjectsProofsProof_ProofChunk_initWithOrgMinimaObjectsProofsProof_withOrgMinimaObjectsBaseMiniByte_withOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_(OrgMinimaObjectsProofsProof_ProofChunk *self, OrgMinimaObjectsProofsProof *outer$, OrgMinimaObjectsBaseMiniByte *zLeft, OrgMinimaObjectsBaseMiniData *zHash, OrgMinimaObjectsBaseMiniNumber *zValue);
+FOUNDATION_EXPORT void OrgMinimaObjectsProofsProof_ProofChunk_initWithOrgMinimaObjectsProofsProof_withOrgMinimaObjectsBaseMiniByte_withOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMMRSumNumber_(OrgMinimaObjectsProofsProof_ProofChunk *self, OrgMinimaObjectsProofsProof *outer$, OrgMinimaObjectsBaseMiniByte *zLeft, OrgMinimaObjectsBaseMiniData *zHash, OrgMinimaObjectsBaseMMRSumNumber *zValue);
 
-FOUNDATION_EXPORT OrgMinimaObjectsProofsProof_ProofChunk *new_OrgMinimaObjectsProofsProof_ProofChunk_initWithOrgMinimaObjectsProofsProof_withOrgMinimaObjectsBaseMiniByte_withOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_(OrgMinimaObjectsProofsProof *outer$, OrgMinimaObjectsBaseMiniByte *zLeft, OrgMinimaObjectsBaseMiniData *zHash, OrgMinimaObjectsBaseMiniNumber *zValue) NS_RETURNS_RETAINED;
+FOUNDATION_EXPORT OrgMinimaObjectsProofsProof_ProofChunk *new_OrgMinimaObjectsProofsProof_ProofChunk_initWithOrgMinimaObjectsProofsProof_withOrgMinimaObjectsBaseMiniByte_withOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMMRSumNumber_(OrgMinimaObjectsProofsProof *outer$, OrgMinimaObjectsBaseMiniByte *zLeft, OrgMinimaObjectsBaseMiniData *zHash, OrgMinimaObjectsBaseMMRSumNumber *zValue) NS_RETURNS_RETAINED;
 
-FOUNDATION_EXPORT OrgMinimaObjectsProofsProof_ProofChunk *create_OrgMinimaObjectsProofsProof_ProofChunk_initWithOrgMinimaObjectsProofsProof_withOrgMinimaObjectsBaseMiniByte_withOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_(OrgMinimaObjectsProofsProof *outer$, OrgMinimaObjectsBaseMiniByte *zLeft, OrgMinimaObjectsBaseMiniData *zHash, OrgMinimaObjectsBaseMiniNumber *zValue);
+FOUNDATION_EXPORT OrgMinimaObjectsProofsProof_ProofChunk *create_OrgMinimaObjectsProofsProof_ProofChunk_initWithOrgMinimaObjectsProofsProof_withOrgMinimaObjectsBaseMiniByte_withOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMMRSumNumber_(OrgMinimaObjectsProofsProof *outer$, OrgMinimaObjectsBaseMiniByte *zLeft, OrgMinimaObjectsBaseMiniData *zHash, OrgMinimaObjectsBaseMMRSumNumber *zValue);
 
 J2OBJC_TYPE_LITERAL_HEADER(OrgMinimaObjectsProofsProof_ProofChunk)
 

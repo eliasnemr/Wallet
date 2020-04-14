@@ -27,6 +27,7 @@ import org.minima.objects.PubPrivKey;
 import org.minima.objects.StateVariable;
 import org.minima.objects.Transaction;
 import org.minima.objects.Witness;
+import org.minima.objects.base.MMRSumNumber;
 import org.minima.objects.base.MiniData;
 import org.minima.objects.base.MiniInteger;
 import org.minima.objects.base.MiniNumber;
@@ -76,7 +77,7 @@ public class ConsensusUser {
 	public void processMessage(Message zMessage) throws Exception {
 		
 		if(zMessage.isMessageType(CONSENSUS_NEWSIMPLE)) {
-			int bitlength = GlobalParams.MINIMA_HASH_STRENGTH;
+			int bitlength = GlobalParams.MINIMA_DEFAULT_HASH_STRENGTH;
 			if(zMessage.exists("bitlength")) {
 				bitlength = zMessage.getInteger("bitlength");
 			}
@@ -100,8 +101,7 @@ public class ConsensusUser {
 			}
 			
 			JSONObject resp = InputHandler.getResponseJSON(zMessage);
-			resp.put("address", addrchk.getAddressData().toString());
-			resp.put("script", addrchk.getScript().toString());
+			resp.put("address", addrchk.toJSON());
 			InputHandler.endResponse(zMessage, true, "");
 		
 		}else if(zMessage.isMessageType(CONSENSUS_NEWKEY)) {
@@ -172,7 +172,7 @@ public class ConsensusUser {
 				nodearray.add(mmrnode);
 				
 				//Add to the MMR
-				mmr.addUnspentCoin(new MMRData(finalhash,MiniNumber.ZERO));
+				mmr.addUnspentCoin(new MMRData(finalhash,MMRSumNumber.ZERO));
 			}
 
 			//Now finalize..

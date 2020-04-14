@@ -55,7 +55,7 @@ export class MiniTermPage implements OnInit {
       if(this.size != didActivate){
           if(this.size > 0 && this.size <= 50){
             this.size += didActivate;
-            this.storage.set('fontSize', this.size);
+            //this.storage.set('fontSize', this.size);
 
             
           }

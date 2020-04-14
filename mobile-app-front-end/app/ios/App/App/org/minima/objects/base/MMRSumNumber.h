@@ -16,11 +16,16 @@
 #if !defined (OrgMinimaObjectsBaseMMRSumNumber_) && (INCLUDE_ALL_OrgMinimaObjectsBaseMMRSumNumber || defined(INCLUDE_OrgMinimaObjectsBaseMMRSumNumber))
 #define OrgMinimaObjectsBaseMMRSumNumber_
 
+#define RESTRICT_OrgMinimaUtilsStreamable 1
+#define INCLUDE_OrgMinimaUtilsStreamable 1
+#include "org/minima/utils/Streamable.h"
+
+@class JavaIoDataInputStream;
+@class JavaIoDataOutputStream;
 @class JavaMathBigDecimal;
-@class JavaMathMathContext;
 @class OrgMinimaObjectsBaseMiniNumber;
 
-@interface OrgMinimaObjectsBaseMMRSumNumber : NSObject
+@interface OrgMinimaObjectsBaseMMRSumNumber : NSObject < OrgMinimaUtilsStreamable >
 
 #pragma mark Public
 
@@ -32,24 +37,30 @@
 
 - (jboolean)isEqualWithOrgMinimaObjectsBaseMMRSumNumber:(OrgMinimaObjectsBaseMMRSumNumber *)zNumber;
 
-// Disallowed inherited constructors, do not use.
+- (void)readDataStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn;
 
-- (instancetype)init NS_UNAVAILABLE;
++ (OrgMinimaObjectsBaseMMRSumNumber *)ReadFromStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn;
+
+- (NSString *)description;
+
+- (void)writeDataStreamWithJavaIoDataOutputStream:(JavaIoDataOutputStream *)zOut;
 
 @end
 
 J2OBJC_STATIC_INIT(OrgMinimaObjectsBaseMMRSumNumber)
 
-inline JavaMathMathContext *OrgMinimaObjectsBaseMMRSumNumber_get_mMathContext(void);
+inline OrgMinimaObjectsBaseMMRSumNumber *OrgMinimaObjectsBaseMMRSumNumber_get_ZERO(void);
 /*! INTERNAL ONLY - Use accessor function from above. */
-FOUNDATION_EXPORT JavaMathMathContext *OrgMinimaObjectsBaseMMRSumNumber_mMathContext;
-J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaObjectsBaseMMRSumNumber, mMathContext, JavaMathMathContext *)
+FOUNDATION_EXPORT OrgMinimaObjectsBaseMMRSumNumber *OrgMinimaObjectsBaseMMRSumNumber_ZERO;
+J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaObjectsBaseMMRSumNumber, ZERO, OrgMinimaObjectsBaseMMRSumNumber *)
 
 FOUNDATION_EXPORT void OrgMinimaObjectsBaseMMRSumNumber_initWithOrgMinimaObjectsBaseMiniNumber_(OrgMinimaObjectsBaseMMRSumNumber *self, OrgMinimaObjectsBaseMiniNumber *zNumber);
 
 FOUNDATION_EXPORT OrgMinimaObjectsBaseMMRSumNumber *new_OrgMinimaObjectsBaseMMRSumNumber_initWithOrgMinimaObjectsBaseMiniNumber_(OrgMinimaObjectsBaseMiniNumber *zNumber) NS_RETURNS_RETAINED;
 
 FOUNDATION_EXPORT OrgMinimaObjectsBaseMMRSumNumber *create_OrgMinimaObjectsBaseMMRSumNumber_initWithOrgMinimaObjectsBaseMiniNumber_(OrgMinimaObjectsBaseMiniNumber *zNumber);
+
+FOUNDATION_EXPORT OrgMinimaObjectsBaseMMRSumNumber *OrgMinimaObjectsBaseMMRSumNumber_ReadFromStreamWithJavaIoDataInputStream_(JavaIoDataInputStream *zIn);
 
 J2OBJC_TYPE_LITERAL_HEADER(OrgMinimaObjectsBaseMMRSumNumber)
 

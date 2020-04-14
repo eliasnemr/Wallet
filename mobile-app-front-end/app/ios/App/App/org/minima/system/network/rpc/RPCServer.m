@@ -112,8 +112,6 @@
   return &_OrgMinimaSystemNetworkRpcRPCServer;
 }
 
-
-
 // Getting ip address for status + web
 
 - (NSString *)getIPAddress {
@@ -179,6 +177,7 @@ void OrgMinimaSystemNetworkRpcRPCServer_initWithOrgMinimaSystemInputInputHandler
 }
 
 @end
+
 OrgMinimaSystemNetworkRpcRPCServer *new_OrgMinimaSystemNetworkRpcRPCServer_initWithOrgMinimaSystemInputInputHandler_withInt_(OrgMinimaSystemInputInputHandler *zInput, jint zPort) {
   J2OBJC_NEW_IMPL(OrgMinimaSystemNetworkRpcRPCServer, initWithOrgMinimaSystemInputInputHandler_withInt_, zInput, zPort)
 }

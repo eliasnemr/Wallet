@@ -120,50 +120,54 @@ let WebScannerPage = class WebScannerPage {
         }
     }
     identifyPlatformToScan_Add() {
-        if (this.platform.is('ios')) {
-            setTimeout(() => {
-                window.document.querySelectorAll('ion-content')
-                    .forEach(element => {
-                    const element1 = element.shadowRoot.querySelector('style');
-                    element1.innerHTML = element1.innerHTML
-                        .replace('--background:var(--ion-background-color,#fff);', '--background: transparent');
-                });
-            }, 300);
-        }
-        else if (this.platform.is('android')) {
-            // window.document.querySelector('ion-content').classList.add('transparentBody');
-            setTimeout(() => {
-                window.document.querySelectorAll('ion-content')
-                    .forEach(element => {
-                    const element1 = element.shadowRoot.querySelector('style');
-                    element1.innerHTML = element1.innerHTML
-                        .replace('--background:var(--ion-background-color,#fff);', '--background: transparent');
-                });
-            }, 300);
-        }
+        document.addEventListener("DOMContentLoaded", function (event) {
+            if (this.platform.is('ios')) {
+                setTimeout(() => {
+                    window.document.querySelectorAll('ion-content')
+                        .forEach(element => {
+                        const element1 = element.shadowRoot.querySelector('style');
+                        element1.innerHTML = element1.innerHTML
+                            .replace('--background:var(--ion-background-color,#fff);', '--background: transparent');
+                    });
+                }, 300);
+            }
+            else if (this.platform.is('android')) {
+                // window.document.querySelector('ion-content').classList.add('transparentBody');
+                setTimeout(() => {
+                    window.document.querySelectorAll('ion-content')
+                        .forEach(element => {
+                        const element1 = element.shadowRoot.querySelector('style');
+                        element1.innerHTML = element1.innerHTML
+                            .replace('--background:var(--ion-background-color,#fff);', '--background: transparent');
+                    });
+                }, 300);
+            }
+        });
     }
     identifyPlatformToScan_Remove() {
-        if (this.platform.is('ios')) {
-            setTimeout(() => {
-                window.document.querySelectorAll('ion-content')
-                    .forEach(element => {
-                    const element1 = element.shadowRoot.querySelector('style');
-                    element1.innerHTML = element1.innerHTML
-                        .replace('--background: transparent', '--background:var(--ion-background-color,#fff);');
-                });
-            }, 300);
-        }
-        else if (this.platform.is('android')) {
-            // window.document.querySelector('ion-content').classList.remove('transparentBody');
-            setTimeout(() => {
-                window.document.querySelectorAll('ion-content')
-                    .forEach(element => {
-                    const element1 = element.shadowRoot.querySelector('style');
-                    element1.innerHTML = element1.innerHTML
-                        .replace('--background: transparent', '--background:var(--ion-background-color,#fff);');
-                });
-            }, 300);
-        }
+        document.addEventListener("DOMContentLoaded", function (event) {
+            if (this.platform.is('ios')) {
+                setTimeout(() => {
+                    window.document.querySelectorAll('ion-content')
+                        .forEach(element => {
+                        const element1 = element.shadowRoot.querySelector('style');
+                        element1.innerHTML = element1.innerHTML
+                            .replace('--background: transparent', '--background:var(--ion-background-color,#fff);');
+                    });
+                }, 300);
+            }
+            else if (this.platform.is('android')) {
+                // window.document.querySelector('ion-content').classList.remove('transparentBody');
+                setTimeout(() => {
+                    window.document.querySelectorAll('ion-content')
+                        .forEach(element => {
+                        const element1 = element.shadowRoot.querySelector('style');
+                        element1.innerHTML = element1.innerHTML
+                            .replace('--background: transparent', '--background:var(--ion-background-color,#fff);');
+                    });
+                }, 300);
+            }
+        });
     }
     scanQR() {
         this.qrScanner.prepare()
@@ -214,11 +218,10 @@ let WebScannerPage = class WebScannerPage {
             });
         }
         else {
-            this.presentAlert('Please rescan qr image.', 'Unsucessful!');
+            this.presentAlert('Please rescan qr image.', 'Unsuccessful!');
         }
     }
     stopCamera() {
-        console.log('stop camera', this.scanSub);
         if (this.scanSub !== null) {
             console.log("stopCamera - is not null..");
             this.qrScanner.hide();

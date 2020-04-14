@@ -11,6 +11,7 @@
 #include "org/minima/database/MinimaDB.h"
 #include "org/minima/database/userdb/UserDB.h"
 #include "org/minima/database/userdb/java/reltxpow.h"
+#include "org/minima/objects/TxPOW.h"
 #include "org/minima/objects/base/MiniData.h"
 #include "org/minima/objects/base/MiniNumber.h"
 #include "org/minima/objects/base/MiniScript.h"
@@ -27,15 +28,15 @@ J2OBJC_IGNORE_DESIGNATED_BEGIN
 }
 J2OBJC_IGNORE_DESIGNATED_END
 
-- (instancetype)initWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zTxPowID
-                               withJavaUtilHashtable:(JavaUtilHashtable *)zValues {
-  OrgMinimaDatabaseUserdbJavareltxpow_initWithOrgMinimaObjectsBaseMiniData_withJavaUtilHashtable_(self, zTxPowID, zValues);
+- (instancetype)initWithOrgMinimaObjectsTxPOW:(OrgMinimaObjectsTxPOW *)zTxPow
+                        withJavaUtilHashtable:(JavaUtilHashtable *)zValues {
+  OrgMinimaDatabaseUserdbJavareltxpow_initWithOrgMinimaObjectsTxPOW_withJavaUtilHashtable_(self, zTxPow, zValues);
   return self;
 }
 
 - (OrgMinimaUtilsJsonJSONObject *)toJSONWithOrgMinimaDatabaseMinimaDB:(OrgMinimaDatabaseMinimaDB *)zDB {
   OrgMinimaUtilsJsonJSONObject *ret = create_OrgMinimaUtilsJsonJSONObject_init();
-  [ret putWithId:@"txpowid" withId:[((OrgMinimaObjectsBaseMiniData *) nil_chk(mTxPowID_)) to0xString]];
+  [ret putWithId:@"txpow" withId:[((OrgMinimaObjectsTxPOW *) nil_chk(mTxPow_)) toJSON]];
   OrgMinimaUtilsJsonJSONArray *tokarray = create_OrgMinimaUtilsJsonJSONArray_init();
   id<JavaUtilEnumeration> tokens = [((JavaUtilHashtable *) nil_chk(mTokenValues_)) keys];
   while ([((id<JavaUtilEnumeration>) nil_chk(tokens)) hasMoreElements]) {
@@ -56,7 +57,7 @@ J2OBJC_IGNORE_DESIGNATED_END
         [json putWithId:@"name" withId:@"null"];
       }
       else {
-        [json putWithId:@"name" withId:[tp getName]];
+        [json putWithId:@"name" withId:[((OrgMinimaObjectsBaseMiniScript *) nil_chk([tp getName])) description]];
         scale_ = [tp getScaleFactor];
       }
     }
@@ -68,7 +69,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (void)writeDataStreamWithJavaIoDataOutputStream:(JavaIoDataOutputStream *)zOut {
-  [((OrgMinimaObjectsBaseMiniData *) nil_chk(mTxPowID_)) writeDataStreamWithJavaIoDataOutputStream:zOut];
+  [((OrgMinimaObjectsTxPOW *) nil_chk(mTxPow_)) writeDataStreamWithJavaIoDataOutputStream:zOut];
   jint len = [((JavaUtilHashtable *) nil_chk(mTokenValues_)) size];
   [((JavaIoDataOutputStream *) nil_chk(zOut)) writeIntWithInt:len];
   id<JavaUtilEnumeration> tokens = [((JavaUtilHashtable *) nil_chk(mTokenValues_)) keys];
@@ -81,7 +82,8 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (void)readDataStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn {
-  JreStrongAssign(&mTxPowID_, OrgMinimaObjectsBaseMiniData_ReadFromStreamWithJavaIoDataInputStream_(zIn));
+  JreStrongAssignAndConsume(&mTxPow_, new_OrgMinimaObjectsTxPOW_init());
+  [mTxPow_ readDataStreamWithJavaIoDataInputStream:zIn];
   JreStrongAssignAndConsume(&mTokenValues_, new_JavaUtilHashtable_init());
   jint len = [((JavaIoDataInputStream *) nil_chk(zIn)) readInt];
   for (jint i = 0; i < len; i++) {
@@ -92,7 +94,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (void)dealloc {
-  RELEASE_(mTxPowID_);
+  RELEASE_(mTxPow_);
   RELEASE_(mTokenValues_);
   [super dealloc];
 }
@@ -109,16 +111,16 @@ J2OBJC_IGNORE_DESIGNATED_END
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
   #pragma clang diagnostic ignored "-Wundeclared-selector"
   methods[0].selector = @selector(init);
-  methods[1].selector = @selector(initWithOrgMinimaObjectsBaseMiniData:withJavaUtilHashtable:);
+  methods[1].selector = @selector(initWithOrgMinimaObjectsTxPOW:withJavaUtilHashtable:);
   methods[2].selector = @selector(toJSONWithOrgMinimaDatabaseMinimaDB:);
   methods[3].selector = @selector(writeDataStreamWithJavaIoDataOutputStream:);
   methods[4].selector = @selector(readDataStreamWithJavaIoDataInputStream:);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
-    { "mTxPowID_", "LOrgMinimaObjectsBaseMiniData;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
+    { "mTxPow_", "LOrgMinimaObjectsTxPOW;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mTokenValues_", "LJavaUtilHashtable;", .constantValue.asLong = 0, 0x0, -1, -1, 9, -1 },
   };
-  static const void *ptrTable[] = { "LOrgMinimaObjectsBaseMiniData;LJavaUtilHashtable;", "(Lorg/minima/objects/base/MiniData;Ljava/util/Hashtable<Ljava/lang/String;Lorg/minima/objects/base/MiniNumber;>;)V", "toJSON", "LOrgMinimaDatabaseMinimaDB;", "writeDataStream", "LJavaIoDataOutputStream;", "LJavaIoIOException;", "readDataStream", "LJavaIoDataInputStream;", "Ljava/util/Hashtable<Ljava/lang/String;Lorg/minima/objects/base/MiniNumber;>;" };
+  static const void *ptrTable[] = { "LOrgMinimaObjectsTxPOW;LJavaUtilHashtable;", "(Lorg/minima/objects/TxPOW;Ljava/util/Hashtable<Ljava/lang/String;Lorg/minima/objects/base/MiniNumber;>;)V", "toJSON", "LOrgMinimaDatabaseMinimaDB;", "writeDataStream", "LJavaIoDataOutputStream;", "LJavaIoIOException;", "readDataStream", "LJavaIoDataInputStream;", "Ljava/util/Hashtable<Ljava/lang/String;Lorg/minima/objects/base/MiniNumber;>;" };
   static const J2ObjcClassInfo _OrgMinimaDatabaseUserdbJavareltxpow = { "reltxpow", "org.minima.database.userdb.java", ptrTable, methods, fields, 7, 0x1, 5, 2, -1, -1, -1, -1, -1 };
   return &_OrgMinimaDatabaseUserdbJavareltxpow;
 }
@@ -137,18 +139,18 @@ OrgMinimaDatabaseUserdbJavareltxpow *create_OrgMinimaDatabaseUserdbJavareltxpow_
   J2OBJC_CREATE_IMPL(OrgMinimaDatabaseUserdbJavareltxpow, init)
 }
 
-void OrgMinimaDatabaseUserdbJavareltxpow_initWithOrgMinimaObjectsBaseMiniData_withJavaUtilHashtable_(OrgMinimaDatabaseUserdbJavareltxpow *self, OrgMinimaObjectsBaseMiniData *zTxPowID, JavaUtilHashtable *zValues) {
+void OrgMinimaDatabaseUserdbJavareltxpow_initWithOrgMinimaObjectsTxPOW_withJavaUtilHashtable_(OrgMinimaDatabaseUserdbJavareltxpow *self, OrgMinimaObjectsTxPOW *zTxPow, JavaUtilHashtable *zValues) {
   NSObject_init(self);
-  JreStrongAssign(&self->mTxPowID_, zTxPowID);
+  JreStrongAssign(&self->mTxPow_, zTxPow);
   JreStrongAssign(&self->mTokenValues_, zValues);
 }
 
-OrgMinimaDatabaseUserdbJavareltxpow *new_OrgMinimaDatabaseUserdbJavareltxpow_initWithOrgMinimaObjectsBaseMiniData_withJavaUtilHashtable_(OrgMinimaObjectsBaseMiniData *zTxPowID, JavaUtilHashtable *zValues) {
-  J2OBJC_NEW_IMPL(OrgMinimaDatabaseUserdbJavareltxpow, initWithOrgMinimaObjectsBaseMiniData_withJavaUtilHashtable_, zTxPowID, zValues)
+OrgMinimaDatabaseUserdbJavareltxpow *new_OrgMinimaDatabaseUserdbJavareltxpow_initWithOrgMinimaObjectsTxPOW_withJavaUtilHashtable_(OrgMinimaObjectsTxPOW *zTxPow, JavaUtilHashtable *zValues) {
+  J2OBJC_NEW_IMPL(OrgMinimaDatabaseUserdbJavareltxpow, initWithOrgMinimaObjectsTxPOW_withJavaUtilHashtable_, zTxPow, zValues)
 }
 
-OrgMinimaDatabaseUserdbJavareltxpow *create_OrgMinimaDatabaseUserdbJavareltxpow_initWithOrgMinimaObjectsBaseMiniData_withJavaUtilHashtable_(OrgMinimaObjectsBaseMiniData *zTxPowID, JavaUtilHashtable *zValues) {
-  J2OBJC_CREATE_IMPL(OrgMinimaDatabaseUserdbJavareltxpow, initWithOrgMinimaObjectsBaseMiniData_withJavaUtilHashtable_, zTxPowID, zValues)
+OrgMinimaDatabaseUserdbJavareltxpow *create_OrgMinimaDatabaseUserdbJavareltxpow_initWithOrgMinimaObjectsTxPOW_withJavaUtilHashtable_(OrgMinimaObjectsTxPOW *zTxPow, JavaUtilHashtable *zValues) {
+  J2OBJC_CREATE_IMPL(OrgMinimaDatabaseUserdbJavareltxpow, initWithOrgMinimaObjectsTxPOW_withJavaUtilHashtable_, zTxPow, zValues)
 }
 
 J2OBJC_CLASS_TYPE_LITERAL_SOURCE(OrgMinimaDatabaseUserdbJavareltxpow)

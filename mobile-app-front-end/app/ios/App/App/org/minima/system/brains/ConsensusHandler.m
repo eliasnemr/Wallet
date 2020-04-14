@@ -174,7 +174,7 @@ NSString *OrgMinimaSystemBrainsConsensusHandler_CONSENSUS_GIMME50 = @"CONSENSUS_
     OrgMinimaSystemInputInputHandler_addResponseMesageWithOrgMinimaUtilsMessagesMessage_withOrgMinimaUtilsMessagesMessage_(mine, zMessage);
     [((OrgMinimaSystemTxTXMiner *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getMiner])) PostMessageWithOrgMinimaUtilsMessagesMessage:mine];
     [((OrgMinimaUtilsJsonJSONObject *) nil_chk(resp)) putWithId:@"txpow" withId:txpow];
-    OrgMinimaSystemInputInputHandler_endResponseWithOrgMinimaUtilsMessagesMessage_withBoolean_withNSString_(zMessage, true, @"");
+    OrgMinimaSystemInputInputHandler_endResponseWithOrgMinimaUtilsMessagesMessage_withBoolean_withNSString_(zMessage, true, @"Send Success");
   }
   else if ([zMessage isMessageTypeWithNSString:OrgMinimaSystemBrainsConsensusHandler_CONSENSUS_ACTIVATEMINE]) {
     jboolean mining = [zMessage getBooleanWithNSString:@"automining"];
@@ -274,7 +274,7 @@ NSString *OrgMinimaSystemBrainsConsensusHandler_CONSENSUS_GIMME50 = @"CONSENSUS_
     OrgMinimaObjectsBaseMiniData *tok = JreLoadStatic(OrgMinimaObjectsCoin, TOKENID_CREATE);
     OrgMinimaObjectsBaseMiniData *changetok = JreLoadStatic(OrgMinimaObjectsCoin, MINIMA_TOKENID);
     OrgMinimaObjectsAddress *recipient = [((id<OrgMinimaDatabaseUserdbUserDB>) nil_chk([((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusHandler_getMainDB(self))) getUserDB])) newSimpleAddress];
-    JavaMathBigDecimal *max = create_JavaMathBigDecimal_initWithNSString_(@"0.001");
+    JavaMathBigDecimal *max = create_JavaMathBigDecimal_initWithNSString_(@"0.01");
     JavaMathBigDecimal *num = create_JavaMathBigDecimal_initWithNSString_(amount);
     JavaMathBigDecimal *actnum = create_JavaMathBigDecimal_initWithNSString_(amount);
     jint scale_ = 0;
@@ -339,7 +339,7 @@ NSString *OrgMinimaSystemBrainsConsensusHandler_CONSENSUS_GIMME50 = @"CONSENSUS_
     OrgMinimaSystemInputInputHandler_addResponseMesageWithOrgMinimaUtilsMessagesMessage_withOrgMinimaUtilsMessagesMessage_(upd, zOriginal);
     [self updateListenersWithOrgMinimaUtilsMessagesMessage:upd];
     JavaUtilHashtable *tokamt = [((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusHandler_getMainDB(self))) getTransactionTokenAmountsWithOrgMinimaObjectsTxPOW:zTxPOW];
-    [((id<OrgMinimaDatabaseUserdbUserDB>) nil_chk([((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusHandler_getMainDB(self))) getUserDB])) addToHistoryWithOrgMinimaObjectsBaseMiniData:[zTxPOW getTxPowID] withJavaUtilHashtable:tokamt];
+    [((id<OrgMinimaDatabaseUserdbUserDB>) nil_chk([((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusHandler_getMainDB(self))) getUserDB])) addToHistoryWithOrgMinimaObjectsTxPOW:zTxPOW withJavaUtilHashtable:tokamt];
     OrgMinimaUtilsMessagesMessage *command = [((OrgMinimaUtilsMessagesMessage *) nil_chk([((OrgMinimaUtilsMessagesMessage *) nil_chk([((OrgMinimaUtilsMessagesMessage *) nil_chk([create_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemExternalProcessManager_PROCESS_TXNCALL) addObjectWithNSString:@"transaction" withId:trans])) addObjectWithNSString:@"transid" withId:transhash])) addObjectWithNSString:@"txpowid" withId:[zTxPOW getTxPowID]])) addObjectWithNSString:@"total" withId:tot];
     OrgMinimaSystemInputInputHandler_addResponseMesageWithOrgMinimaUtilsMessagesMessage_withOrgMinimaUtilsMessagesMessage_(command, zOriginal);
     [((OrgMinimaSystemExternalProcessManager *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getProcessManager])) PostMessageWithOrgMinimaUtilsMessagesMessage:command];

@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { HistoryService } from '../../service/history.service';
 import { map } from 'rxjs/operators';
 import { History } from '../../models/history.model';
+import { PopHistoryTokenComponent } from '../../components/pop-history-token/pop-history-token.component';
 
 @Component({
   selector: 'app-history',
@@ -30,9 +31,10 @@ export class HistoryPage implements OnInit {
   // - vars
   private lastJSON: string = '';
 
-  constructor(public popHistoryController: PopoverController,
-             private api: MinimaApiService,
-             private historyService: HistoryService) {}
+  constructor(
+    public popHistoryController: PopoverController,
+    private api: MinimaApiService,
+    private historyService: HistoryService) {}
 
   ngOnInit() {}
 
@@ -73,7 +75,30 @@ export class HistoryPage implements OnInit {
     });
     return await popover.present();
   }
+  // Present history details popover when tapped/clicked
+  async presentHistoryTokenInfo(ev: any, _addr: any, _blkNumber: any, _amnt: any,
+    _isBlock: boolean, _txpowid: string, _parent: string,
+    _blockdiff: number, _date: string ) {
+  const popover = await this.popHistoryController.create({
+        component: PopHistoryTokenComponent,
+        cssClass: 'history-popover',
+        event: ev,
+        translucent: true,
+        componentProps: {
 
+        address: _addr,
+        blockNumber: _blkNumber,
+        transAmount: _amnt,
+        isBlock: _isBlock,
+        txpowid: _txpowid,
+        parent: _parent,
+        blockdiff: _blockdiff,
+        date: _date,
+
+  },
+  });
+  return await popover.present();
+  }
   /** MISC Functions */
   // Check if we're receiving or sending
   checkTransType(amount: string) {
@@ -110,14 +135,12 @@ export class HistoryPage implements OnInit {
   /** API CALLS */
   // get length of history
   pullInHistoryLength() {
-    this.historyService.getHistory().subscribe(res => {
-      for(const i in res.response.history){
-      this.t_summarySpoof.push(res.response.history[i]);
-      }
+    this.historyService.getHistory().subscribe( (res: {status: boolean, minifunc: string, message: string, response: {history: History[]} })=> {
+      this.t_summarySpoof = res.response.history;
     });
   }
   
-  // Get all users transaction history
+  // Get all users activities+transactions history
   pullInHistorySummary() {
   this.polledHistorySubscription = this.historyService.getHistory().pipe(map(responseData => {
     let historyArr: History[] = [];

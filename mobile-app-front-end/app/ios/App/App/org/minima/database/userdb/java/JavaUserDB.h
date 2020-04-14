@@ -33,6 +33,7 @@
 @class OrgMinimaObjectsProofsTokenProof;
 @class OrgMinimaObjectsPubPrivKey;
 @class OrgMinimaObjectsTransaction;
+@class OrgMinimaObjectsTxPOW;
 @protocol OrgMinimaDatabaseUserdbUserDBRow;
 
 @interface OrgMinimaDatabaseUserdbJavaJavaUserDB : NSObject < OrgMinimaDatabaseUserdbUserDB, OrgMinimaUtilsStreamable > {
@@ -51,8 +52,8 @@
 
 - (instancetype)init;
 
-- (void)addToHistoryWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zTxPOWID
-                               withJavaUtilHashtable:(JavaUtilHashtable *)zValues;
+- (void)addToHistoryWithOrgMinimaObjectsTxPOW:(OrgMinimaObjectsTxPOW *)zTxPOW
+                        withJavaUtilHashtable:(JavaUtilHashtable *)zValues;
 
 - (void)addTokenDetailsWithOrgMinimaObjectsProofsTokenProof:(OrgMinimaObjectsProofsTokenProof *)zToken;
 

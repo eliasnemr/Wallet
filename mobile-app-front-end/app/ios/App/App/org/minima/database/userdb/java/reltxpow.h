@@ -24,12 +24,12 @@
 @class JavaIoDataOutputStream;
 @class JavaUtilHashtable;
 @class OrgMinimaDatabaseMinimaDB;
-@class OrgMinimaObjectsBaseMiniData;
+@class OrgMinimaObjectsTxPOW;
 @class OrgMinimaUtilsJsonJSONObject;
 
 @interface OrgMinimaDatabaseUserdbJavareltxpow : NSObject < OrgMinimaUtilsStreamable > {
  @public
-  OrgMinimaObjectsBaseMiniData *mTxPowID_;
+  OrgMinimaObjectsTxPOW *mTxPow_;
   JavaUtilHashtable *mTokenValues_;
 }
 
@@ -37,8 +37,8 @@
 
 - (instancetype)init;
 
-- (instancetype)initWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zTxPowID
-                               withJavaUtilHashtable:(JavaUtilHashtable *)zValues;
+- (instancetype)initWithOrgMinimaObjectsTxPOW:(OrgMinimaObjectsTxPOW *)zTxPow
+                        withJavaUtilHashtable:(JavaUtilHashtable *)zValues;
 
 - (void)readDataStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn;
 
@@ -50,7 +50,7 @@
 
 J2OBJC_EMPTY_STATIC_INIT(OrgMinimaDatabaseUserdbJavareltxpow)
 
-J2OBJC_FIELD_SETTER(OrgMinimaDatabaseUserdbJavareltxpow, mTxPowID_, OrgMinimaObjectsBaseMiniData *)
+J2OBJC_FIELD_SETTER(OrgMinimaDatabaseUserdbJavareltxpow, mTxPow_, OrgMinimaObjectsTxPOW *)
 J2OBJC_FIELD_SETTER(OrgMinimaDatabaseUserdbJavareltxpow, mTokenValues_, JavaUtilHashtable *)
 
 FOUNDATION_EXPORT void OrgMinimaDatabaseUserdbJavareltxpow_init(OrgMinimaDatabaseUserdbJavareltxpow *self);
@@ -59,11 +59,11 @@ FOUNDATION_EXPORT OrgMinimaDatabaseUserdbJavareltxpow *new_OrgMinimaDatabaseUser
 
 FOUNDATION_EXPORT OrgMinimaDatabaseUserdbJavareltxpow *create_OrgMinimaDatabaseUserdbJavareltxpow_init(void);
 
-FOUNDATION_EXPORT void OrgMinimaDatabaseUserdbJavareltxpow_initWithOrgMinimaObjectsBaseMiniData_withJavaUtilHashtable_(OrgMinimaDatabaseUserdbJavareltxpow *self, OrgMinimaObjectsBaseMiniData *zTxPowID, JavaUtilHashtable *zValues);
+FOUNDATION_EXPORT void OrgMinimaDatabaseUserdbJavareltxpow_initWithOrgMinimaObjectsTxPOW_withJavaUtilHashtable_(OrgMinimaDatabaseUserdbJavareltxpow *self, OrgMinimaObjectsTxPOW *zTxPow, JavaUtilHashtable *zValues);
 
-FOUNDATION_EXPORT OrgMinimaDatabaseUserdbJavareltxpow *new_OrgMinimaDatabaseUserdbJavareltxpow_initWithOrgMinimaObjectsBaseMiniData_withJavaUtilHashtable_(OrgMinimaObjectsBaseMiniData *zTxPowID, JavaUtilHashtable *zValues) NS_RETURNS_RETAINED;
+FOUNDATION_EXPORT OrgMinimaDatabaseUserdbJavareltxpow *new_OrgMinimaDatabaseUserdbJavareltxpow_initWithOrgMinimaObjectsTxPOW_withJavaUtilHashtable_(OrgMinimaObjectsTxPOW *zTxPow, JavaUtilHashtable *zValues) NS_RETURNS_RETAINED;
 
-FOUNDATION_EXPORT OrgMinimaDatabaseUserdbJavareltxpow *create_OrgMinimaDatabaseUserdbJavareltxpow_initWithOrgMinimaObjectsBaseMiniData_withJavaUtilHashtable_(OrgMinimaObjectsBaseMiniData *zTxPowID, JavaUtilHashtable *zValues);
+FOUNDATION_EXPORT OrgMinimaDatabaseUserdbJavareltxpow *create_OrgMinimaDatabaseUserdbJavareltxpow_initWithOrgMinimaObjectsTxPOW_withJavaUtilHashtable_(OrgMinimaObjectsTxPOW *zTxPow, JavaUtilHashtable *zValues);
 
 J2OBJC_TYPE_LITERAL_HEADER(OrgMinimaDatabaseUserdbJavareltxpow)
 

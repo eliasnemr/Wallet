@@ -23,6 +23,7 @@
 @class OrgMinimaObjectsProofsTokenProof;
 @class OrgMinimaObjectsPubPrivKey;
 @class OrgMinimaObjectsTransaction;
+@class OrgMinimaObjectsTxPOW;
 @protocol OrgMinimaDatabaseUserdbUserDBRow;
 
 @protocol OrgMinimaDatabaseUserdbUserDB < JavaObject >
@@ -73,8 +74,8 @@
 
 - (JavaUtilArrayList *)getHistory;
 
-- (void)addToHistoryWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zTxPOWID
-                               withJavaUtilHashtable:(JavaUtilHashtable *)zValues;
+- (void)addToHistoryWithOrgMinimaObjectsTxPOW:(OrgMinimaObjectsTxPOW *)zTxPOW
+                        withJavaUtilHashtable:(JavaUtilHashtable *)zValues;
 
 - (void)clearHistory;
 

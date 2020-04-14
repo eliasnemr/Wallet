@@ -117,7 +117,7 @@ var SendFundsPage = /** @class */ (function () {
         this.scanSub = null;
         this.ionApp = document.getElementsByTagName('ion-app')[0];
         // Pull in tokens vars
-        this.MINIMA_TOKEN_ID = '0x0000000000000000000000000000000000000000000000000000000000000000';
+        this.MINIMA_TOKEN_ID = '0x00';
         this.hideProgress = false;
         this.progressShow = true;
         this.tokenArr = [];
@@ -143,52 +143,7 @@ var SendFundsPage = /** @class */ (function () {
     SendFundsPage.prototype.ionViewDidLoad = function () {
         this.data.tokenid = this.MINIMA_TOKEN_ID;
     };
-    SendFundsPage.prototype.identifyPlatformToScan_Add = function () {
-        if (this.platform.is('ios')) {
-            setTimeout(function () {
-                window.document.querySelectorAll('ion-content')
-                    .forEach(function (element) {
-                    var element1 = element.shadowRoot.querySelector('style');
-                    element1.innerHTML = element1.innerHTML
-                        .replace('--background:var(--ion-background-color,#fff);', '--background: transparent');
-                });
-            }, 300);
-        }
-        else if (this.platform.is('android')) {
-            // window.document.querySelector('ion-content').classList.add('transparentBody');
-            setTimeout(function () {
-                window.document.querySelectorAll('ion-content')
-                    .forEach(function (element) {
-                    var element1 = element.shadowRoot.querySelector('style');
-                    element1.innerHTML = element1.innerHTML
-                        .replace('--background:var(--ion-background-color,#fff);', '--background: transparent');
-                });
-            }, 300);
-        }
-    };
-    SendFundsPage.prototype.identifyPlatformToScan_Remove = function () {
-        if (this.platform.is('ios')) {
-            setTimeout(function () {
-                window.document.querySelectorAll('ion-content')
-                    .forEach(function (element) {
-                    var element1 = element.shadowRoot.querySelector('style');
-                    element1.innerHTML = element1.innerHTML
-                        .replace('--background: transparent', '--background:var(--ion-background-color,#fff);');
-                });
-            }, 300);
-        }
-        else if (this.platform.is('android')) {
-            // window.document.querySelector('ion-content').classList.remove('transparentBody');
-            setTimeout(function () {
-                window.document.querySelectorAll('ion-content')
-                    .forEach(function (element) {
-                    var element1 = element.shadowRoot.querySelector('style');
-                    element1.innerHTML = element1.innerHTML
-                        .replace('--background: transparent', '--background:var(--ion-background-color,#fff);');
-                });
-            }, 300);
-        }
-    };
+    /** Camera Functions */
     SendFundsPage.prototype.scanQR = function () {
         var _this = this;
         this.qrScanner.prepare()
@@ -232,28 +187,7 @@ var SendFundsPage = /** @class */ (function () {
         this.isCameraOpen = false;
         this.qrScanner.destroy();
     };
-    SendFundsPage.prototype.pasteFromClipboard = function () {
-        var _this = this;
-        if (this.platform.is('desktop') || this.platform.is('pwa')) {
-            this.pasteFromPWA();
-        }
-        else {
-            this.clipboard.paste().then(function (resolve) {
-                _this.data.address = resolve;
-            }, function (reject) {
-                console.log('Error: ' + reject);
-            });
-        }
-    };
-    SendFundsPage.prototype.pasteFromPWA = function () {
-        var _this = this;
-        document.addEventListener('paste', function (e) {
-            _this.data.address = e.clipboardData.getData('text');
-            e.preventDefault();
-            document.removeEventListener('paste', null);
-        });
-        document.execCommand('paste');
-    };
+    /** ALERTS */
     SendFundsPage.prototype.presentAlert = function (msg, header) {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
             var alert;
@@ -274,6 +208,7 @@ var SendFundsPage = /** @class */ (function () {
             });
         });
     };
+    // API CALLS
     SendFundsPage.prototype.pullInTokens = function () {
         var _this = this;
         this.balanceSubscription = this.balanceService.getBalance().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["map"])(function (responseData) {
@@ -290,9 +225,11 @@ var SendFundsPage = /** @class */ (function () {
                     tokenArr.push({
                         id: element.tokenid,
                         token: element.token,
+                        total: element.total,
                         confirmed: tempConfirmed,
                         unconfirmed: tempUnconfirmed,
-                        total: element.total
+                        mempool: element.mempool,
+                        sendable: element.sendable
                     });
                     // add Minima always to the top
                     if (element.tokenid === _this.MINIMA_TOKEN_ID) {
@@ -300,9 +237,11 @@ var SendFundsPage = /** @class */ (function () {
                         _this.balanceService.update(tokenArr, {
                             id: element.tokenid,
                             token: element.token,
+                            total: element.total,
                             confirmed: tempConfirmed,
                             unconfirmed: tempUnconfirmed,
-                            total: element.total
+                            mempool: element.mempool,
+                            sendable: element.sendable
                         });
                     }
                 }
@@ -335,6 +274,59 @@ var SendFundsPage = /** @class */ (function () {
             this.presentAlert('Please check the input fields', 'Error');
         }
     };
+    /** MISC FUNCS */
+    SendFundsPage.prototype.identifyPlatformToScan_Add = function () {
+        document.addEventListener("DOMContentLoaded", function (event) {
+            //Do work
+            if (this.platform.is('ios')) {
+                setTimeout(function () {
+                    window.document.querySelectorAll('ion-content')
+                        .forEach(function (element) {
+                        var element1 = element.shadowRoot.querySelector('style');
+                        element1.innerHTML = element1.innerHTML
+                            .replace('--background:var(--ion-background-color,#fff);', '--background: transparent');
+                    });
+                }, 300);
+            }
+            else if (this.platform.is('android')) {
+                // window.document.querySelector('ion-content').classList.add('transparentBody');
+                setTimeout(function () {
+                    window.document.querySelectorAll('ion-content')
+                        .forEach(function (element) {
+                        var element1 = element.shadowRoot.querySelector('style');
+                        element1.innerHTML = element1.innerHTML
+                            .replace('--background:var(--ion-background-color,#fff);', '--background: transparent');
+                    });
+                }, 300);
+            }
+        });
+    };
+    SendFundsPage.prototype.identifyPlatformToScan_Remove = function () {
+        document.addEventListener("DOMContentLoaded", function (event) {
+            if (this.platform.is('ios')) {
+                setTimeout(function () {
+                    window.document.querySelectorAll('ion-content')
+                        .forEach(function (element) {
+                        var element1 = element.shadowRoot.querySelector('style');
+                        element1.innerHTML = element1.innerHTML
+                            .replace('--background: transparent', '--background:var(--ion-background-color,#fff);');
+                    });
+                }, 300);
+            }
+            else if (this.platform.is('android')) {
+                // window.document.querySelector('ion-content').classList.remove('transparentBody');
+                setTimeout(function () {
+                    window.document.querySelectorAll('ion-content')
+                        .forEach(function (element) {
+                        var element1 = element.shadowRoot.querySelector('style');
+                        element1.innerHTML = element1.innerHTML
+                            .replace('--background: transparent', '--background:var(--ion-background-color,#fff);');
+                    });
+                }, 300);
+            }
+        });
+    };
+    // Display/hide mobile buttons with this..
     SendFundsPage.prototype.checkPlatform = function () {
         if (this.platform.is('desktop') || this.platform.is('pwa')) {
             return false;
@@ -342,6 +334,28 @@ var SendFundsPage = /** @class */ (function () {
         else {
             return true;
         }
+    };
+    SendFundsPage.prototype.pasteFromClipboard = function () {
+        var _this = this;
+        if (this.platform.is('desktop') || this.platform.is('pwa')) {
+            this.pasteFromPWA();
+        }
+        else {
+            this.clipboard.paste().then(function (resolve) {
+                _this.data.address = resolve;
+            }, function (reject) {
+                console.log('Error: ' + reject);
+            });
+        }
+    };
+    SendFundsPage.prototype.pasteFromPWA = function () {
+        var _this = this;
+        document.addEventListener('paste', function (e) {
+            _this.data.address = e.clipboardData.getData('text');
+            e.preventDefault();
+            document.removeEventListener('paste', null);
+        });
+        document.execCommand('paste');
     };
     SendFundsPage.ctorParameters = function () { return [
         { type: _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_3__["QRScanner"] },

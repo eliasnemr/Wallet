@@ -56,8 +56,10 @@
   <preference name="SplashMaintainAspectRatio" value="true" />
   <preference name="FadeSplashScreenDuration" value="300" />
   <preference name="SplashShowOnlyFirstTime" value="false" />
+  <preference name="showSpinner" value="true" />
   <preference name="SplashScreen" value="screen" />
-  <preference name="SplashScreenDelay" value="3000" />
+  <preference name="launchAutoHide" value="false" />
+  <preference name="SplashScreenDelay" value="0" />
   <preference name="StatusBarStyle" value="blacktranslucent" />
   <preference name="Orientation" value="portrait" />
   <preference name="UseSwiftLanguageVersion" value="5" />

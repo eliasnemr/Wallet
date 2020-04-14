@@ -2,11 +2,13 @@ import { MinimaApiService } from './service/minima-api.service';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Platform, MenuController } from '@ionic/angular';
-import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { darkMode } from './service/darkMode.service';
 import { Storage } from '@ionic/storage';
+
+import { Plugins } from '@capacitor/core';
+const { SplashScreen } = Plugins;
 
 
 declare var Minima: any;
@@ -16,7 +18,6 @@ declare var Minima: any;
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
-
   private currentRoute:string='';
   currentMode: boolean = false;
   currentVersion = 0;
@@ -26,7 +27,6 @@ export class AppComponent {
 
   constructor(
     private platform: Platform,
-    private splashScreen: SplashScreen,
     private menu: MenuController,
     private router: Router,
     private api: MinimaApiService,
@@ -48,7 +48,7 @@ export class AppComponent {
 
   }
 
-  /** LIFECYCLES */
+  /** @@@@@@@@@@@@@ Lifecycle @@@@@@@@@@@@@@@ */
   ionViewWillEnter(){
    this.initializeApp();
    
@@ -57,19 +57,16 @@ export class AppComponent {
   initializeApp() {
     console.log('Minima initialized');
     this.platform.ready().then(() => {
-      setTimeout(() => {this.splashScreen.hide()}, 2000);
-      this.getVersion();
+
+      SplashScreen.show({
+        showDuration: 2000,
+        autoHide: true,
+      });
       
-      // this.router.events.subscribe((val:any) => {
-      //   if(val.route&&val.route.path){
-      //     this.currentRoute=val.route.path;
-      //   }
-      //  this.menu.close();
-      // });
     });
   }
 
-
+/** @@@@@@@@@@ Misc Functions @@@@@@@@@@@ */
   getPages() {
     if(this.platform.is('desktop') || this.platform.is('pwa')) {
       this.basic =

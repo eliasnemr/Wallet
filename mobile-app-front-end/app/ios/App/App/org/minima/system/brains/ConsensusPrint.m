@@ -40,6 +40,7 @@
 #include "org/minima/objects/Coin.h"
 #include "org/minima/objects/PubPrivKey.h"
 #include "org/minima/objects/TxPOW.h"
+#include "org/minima/objects/base/MMRSumNumber.h"
 #include "org/minima/objects/base/MiniData.h"
 #include "org/minima/objects/base/MiniInteger.h"
 #include "org/minima/objects/base/MiniNumber.h"
@@ -421,7 +422,7 @@ NSString *OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_CLEARCHART = @"CONSENSUS
     [status putWithId:@"automine" withId:JavaLangBoolean_valueOfWithBoolean_([((OrgMinimaSystemTxTXMiner *) nil_chk([main getMiner])) isAutoMining])];
     [status putWithId:@"root" withId:[((OrgMinimaObjectsBaseMiniData *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk(root)) getTxPowID])) to0xString]];
     [status putWithId:@"tip" withId:[((OrgMinimaObjectsBaseMiniData *) nil_chk([tip getTxPowID])) to0xString]];
-    [status putWithId:@"total" withId:[((OrgMinimaObjectsTxPOW *) nil_chk([tip getTxPow])) getMMRTotal]];
+    [status putWithId:@"total" withId:[((OrgMinimaObjectsBaseMMRSumNumber *) nil_chk([((OrgMinimaObjectsTxPOW *) nil_chk([tip getTxPow])) getMMRTotal])) description]];
     [status putWithId:@"lastblock" withId:[((OrgMinimaObjectsTxPOW *) nil_chk([tip getTxPow])) getBlockNumber]];
     [status putWithId:@"lasttime" withId:[create_JavaUtilDate_initWithLong_([((OrgMinimaObjectsBaseMiniNumber *) nil_chk([((OrgMinimaObjectsTxPOW *) nil_chk([tip getTxPow])) getTimeSecs])) getAsLong] * 1000) description]];
     [status putWithId:@"difficulty" withId:[((OrgMinimaObjectsBaseMiniData *) nil_chk([((OrgMinimaObjectsTxPOW *) nil_chk([tip getTxPow])) getBlockDifficulty])) to0xString]];

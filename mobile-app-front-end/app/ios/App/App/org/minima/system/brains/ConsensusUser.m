@@ -36,6 +36,7 @@
 #include "org/minima/objects/StateVariable.h"
 #include "org/minima/objects/Transaction.h"
 #include "org/minima/objects/Witness.h"
+#include "org/minima/objects/base/MMRSumNumber.h"
 #include "org/minima/objects/base/MiniData.h"
 #include "org/minima/objects/base/MiniInteger.h"
 #include "org/minima/objects/base/MiniNumber.h"
@@ -85,7 +86,7 @@ NSString *OrgMinimaSystemBrainsConsensusUser_CONSENSUS_MMRTREE = @"CONSENSUSUSER
 
 - (void)processMessageWithOrgMinimaUtilsMessagesMessage:(OrgMinimaUtilsMessagesMessage *)zMessage {
   if ([((OrgMinimaUtilsMessagesMessage *) nil_chk(zMessage)) isMessageTypeWithNSString:OrgMinimaSystemBrainsConsensusUser_CONSENSUS_NEWSIMPLE]) {
-    jint bitlength = OrgMinimaGlobalParams_MINIMA_HASH_STRENGTH;
+    jint bitlength = OrgMinimaGlobalParams_MINIMA_DEFAULT_HASH_STRENGTH;
     if ([zMessage existsWithNSString:@"bitlength"]) {
       bitlength = [zMessage getIntegerWithNSString:@"bitlength"];
     }
@@ -102,8 +103,7 @@ NSString *OrgMinimaSystemBrainsConsensusUser_CONSENSUS_MMRTREE = @"CONSENSUSUSER
       [((id<OrgMinimaDatabaseUserdbUserDB>) nil_chk([((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusUser_getMainDB(self))) getUserDB])) newScriptAddressWithNSString:script];
     }
     OrgMinimaUtilsJsonJSONObject *resp = OrgMinimaSystemInputInputHandler_getResponseJSONWithOrgMinimaUtilsMessagesMessage_(zMessage);
-    [((OrgMinimaUtilsJsonJSONObject *) nil_chk(resp)) putWithId:@"address" withId:[((OrgMinimaObjectsBaseMiniData *) nil_chk([addrchk getAddressData])) description]];
-    [resp putWithId:@"script" withId:[((NSString *) nil_chk([addrchk getScript])) description]];
+    [((OrgMinimaUtilsJsonJSONObject *) nil_chk(resp)) putWithId:@"address" withId:[addrchk toJSON]];
     OrgMinimaSystemInputInputHandler_endResponseWithOrgMinimaUtilsMessagesMessage_withBoolean_withNSString_(zMessage, true, @"");
   }
   else if ([zMessage isMessageTypeWithNSString:OrgMinimaSystemBrainsConsensusUser_CONSENSUS_NEWKEY]) {
@@ -148,7 +148,7 @@ NSString *OrgMinimaSystemBrainsConsensusUser_CONSENSUS_MMRTREE = @"CONSENSUSUSER
       OrgMinimaObjectsBaseMiniData *finalhash = create_OrgMinimaObjectsBaseMiniData_initWithByteArray_(hash_);
       [mmrnode putWithId:@"leaf" withId:[finalhash to0xString]];
       [nodearray addWithId:mmrnode];
-      [mmr addUnspentCoinWithOrgMinimaDatabaseMmrMMRData:create_OrgMinimaDatabaseMmrMMRData_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_(finalhash, JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, ZERO))];
+      [mmr addUnspentCoinWithOrgMinimaDatabaseMmrMMRData:create_OrgMinimaDatabaseMmrMMRData_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMMRSumNumber_(finalhash, JreLoadStatic(OrgMinimaObjectsBaseMMRSumNumber, ZERO))];
     }
     [mmr finalizeSet];
     jint size = [nodearray size];

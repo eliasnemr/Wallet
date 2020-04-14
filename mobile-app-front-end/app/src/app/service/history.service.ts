@@ -41,7 +41,7 @@ export class HistoryService {
         
         merge(this.manualRefresh),
         concatMap(_ => history$),
-        map((res: {status: boolean, minifunc: string, message: string, response: {history: History}}) => res)
+        map((res: {status: boolean, minifunc: string, message: string, response: {history: History[]}}) => res)
   
   
       );

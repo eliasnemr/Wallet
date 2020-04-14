@@ -25,7 +25,7 @@ export class MyAddressPage implements OnInit {
     private api: MinimaApiService,
     private platform : Platform,
     private alertController: AlertController) {
-
+      // Needed this to fix android's build wonky
       this.platform.ready().then((readySource) => {
         if(this.platform.width() < 900){
           this.canvasSize = this.platform.width() - 50;
@@ -51,7 +51,7 @@ export class MyAddressPage implements OnInit {
           this.isEmpty = true;
         }
       });
-    }, 1000);
+    }, 500);
   }
   /** Alerts */
   async presentAlert(msg:string,header:string) {

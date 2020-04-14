@@ -24,6 +24,7 @@
 @class JavaIoDataInputStream;
 @class JavaIoDataOutputStream;
 @class JavaUtilArrayList;
+@class OrgMinimaObjectsBaseMMRSumNumber;
 @class OrgMinimaObjectsBaseMiniData;
 @class OrgMinimaObjectsBaseMiniInteger;
 @class OrgMinimaObjectsBaseMiniNumber;
@@ -35,7 +36,7 @@
  @public
   IOSObjectArray *mSuperParents_;
   OrgMinimaObjectsBaseMiniData *mMMRRoot_;
-  OrgMinimaObjectsBaseMiniNumber *mMMRTotal_;
+  OrgMinimaObjectsBaseMMRSumNumber *mMMRTotal_;
   OrgMinimaObjectsBaseMiniData *mMagic_;
   OrgMinimaObjectsBaseMiniData *mChainID_;
   OrgMinimaObjectsBaseMiniData *mParentChainID_;
@@ -69,7 +70,7 @@
 
 - (OrgMinimaObjectsBaseMiniData *)getMMRRoot;
 
-- (OrgMinimaObjectsBaseMiniNumber *)getMMRTotal;
+- (OrgMinimaObjectsBaseMMRSumNumber *)getMMRTotal;
 
 - (OrgMinimaObjectsBaseMiniInteger *)getNonce;
 
@@ -109,7 +110,7 @@
 
 - (void)setMMRRootWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zRoot;
 
-- (void)setMMRTotalWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zTotal;
+- (void)setMMRTotalWithOrgMinimaObjectsBaseMMRSumNumber:(OrgMinimaObjectsBaseMMRSumNumber *)zTotal;
 
 - (void)setNonceWithOrgMinimaObjectsBaseMiniInteger:(OrgMinimaObjectsBaseMiniInteger *)zNonce;
 
@@ -133,11 +134,11 @@
 
 @end
 
-J2OBJC_STATIC_INIT(OrgMinimaObjectsTxPOW)
+J2OBJC_EMPTY_STATIC_INIT(OrgMinimaObjectsTxPOW)
 
 J2OBJC_FIELD_SETTER(OrgMinimaObjectsTxPOW, mSuperParents_, IOSObjectArray *)
 J2OBJC_FIELD_SETTER(OrgMinimaObjectsTxPOW, mMMRRoot_, OrgMinimaObjectsBaseMiniData *)
-J2OBJC_FIELD_SETTER(OrgMinimaObjectsTxPOW, mMMRTotal_, OrgMinimaObjectsBaseMiniNumber *)
+J2OBJC_FIELD_SETTER(OrgMinimaObjectsTxPOW, mMMRTotal_, OrgMinimaObjectsBaseMMRSumNumber *)
 J2OBJC_FIELD_SETTER(OrgMinimaObjectsTxPOW, mMagic_, OrgMinimaObjectsBaseMiniData *)
 J2OBJC_FIELD_SETTER(OrgMinimaObjectsTxPOW, mChainID_, OrgMinimaObjectsBaseMiniData *)
 J2OBJC_FIELD_SETTER(OrgMinimaObjectsTxPOW, mParentChainID_, OrgMinimaObjectsBaseMiniData *)

@@ -130,7 +130,7 @@ var MiniTermPage = /** @class */ (function () {
                 if (_this.size != didActivate) {
                     if (_this.size > 0 && _this.size <= 50) {
                         _this.size += didActivate;
-                        _this.storage.set('fontSize', _this.size);
+                        //this.storage.set('fontSize', this.size);
                     }
                 }
             });

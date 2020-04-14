@@ -321,7 +321,7 @@ public class ConsensusHandler extends SystemHandler {
 		
 			resp.put("txpow", txpow);
 			
-			InputHandler.endResponse(zMessage, true, "");
+			InputHandler.endResponse(zMessage, true, "Send Success");
 			
 		}else if ( zMessage.isMessageType(CONSENSUS_ACTIVATEMINE) ) {
 			boolean mining = zMessage.getBoolean("automining");
@@ -518,7 +518,7 @@ public class ConsensusHandler extends SystemHandler {
 			
 			//How much Minima will it take to colour.. for now lets stay under 0.001 minima
 			//This is not protocol specific and can change later
-			BigDecimal max    = new BigDecimal("0.001");
+			BigDecimal max    = new BigDecimal("0.01");
 			BigDecimal num    = new BigDecimal(amount);
 			BigDecimal actnum = new BigDecimal(amount);
 			
@@ -650,7 +650,7 @@ public class ConsensusHandler extends SystemHandler {
 			Hashtable<String, MiniNumber> tokamt = getMainDB().getTransactionTokenAmounts(zTxPOW);
 			
 			//Store ion the database..
-			getMainDB().getUserDB().addToHistory(zTxPOW.getTxPowID(),tokamt);
+			getMainDB().getUserDB().addToHistory(zTxPOW,tokamt);
 			
 			//And do we need to call a local function..
 			Message command = new Message(ProcessManager.PROCESS_TXNCALL)

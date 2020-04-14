@@ -23,6 +23,7 @@
 @class JavaIoDataInputStream;
 @class JavaIoDataOutputStream;
 @class JavaUtilArrayList;
+@class OrgMinimaObjectsBaseMMRSumNumber;
 @class OrgMinimaObjectsBaseMiniByte;
 @class OrgMinimaObjectsBaseMiniData;
 @class OrgMinimaObjectsBaseMiniNumber;
@@ -36,7 +37,6 @@
   OrgMinimaObjectsBaseMiniNumber *mBlockNumber_;
   JavaUtilArrayList *mPrevState_;
   OrgMinimaObjectsBaseMiniData *mFinalHash_;
-  OrgMinimaObjectsBaseMiniNumber *mValueSum_;
   jboolean mHashOnly_;
 }
 
@@ -48,7 +48,7 @@
                                withJavaUtilArrayList:(JavaUtilArrayList *)zState;
 
 - (instancetype)initWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zData
-                  withOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zValueSum;
+                withOrgMinimaObjectsBaseMMRSumNumber:(OrgMinimaObjectsBaseMMRSumNumber *)zValueSum;
 
 - (OrgMinimaObjectsCoin *)getCoin;
 
@@ -58,7 +58,7 @@
 
 - (JavaUtilArrayList *)getPrevState;
 
-- (OrgMinimaObjectsBaseMiniNumber *)getValueSum;
+- (OrgMinimaObjectsBaseMMRSumNumber *)getValueSum;
 
 - (jboolean)isHashOnly;
 
@@ -83,13 +83,12 @@ J2OBJC_FIELD_SETTER(OrgMinimaDatabaseMmrMMRData, mCoin_, OrgMinimaObjectsCoin *)
 J2OBJC_FIELD_SETTER(OrgMinimaDatabaseMmrMMRData, mBlockNumber_, OrgMinimaObjectsBaseMiniNumber *)
 J2OBJC_FIELD_SETTER(OrgMinimaDatabaseMmrMMRData, mPrevState_, JavaUtilArrayList *)
 J2OBJC_FIELD_SETTER(OrgMinimaDatabaseMmrMMRData, mFinalHash_, OrgMinimaObjectsBaseMiniData *)
-J2OBJC_FIELD_SETTER(OrgMinimaDatabaseMmrMMRData, mValueSum_, OrgMinimaObjectsBaseMiniNumber *)
 
-FOUNDATION_EXPORT void OrgMinimaDatabaseMmrMMRData_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_(OrgMinimaDatabaseMmrMMRData *self, OrgMinimaObjectsBaseMiniData *zData, OrgMinimaObjectsBaseMiniNumber *zValueSum);
+FOUNDATION_EXPORT void OrgMinimaDatabaseMmrMMRData_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMMRSumNumber_(OrgMinimaDatabaseMmrMMRData *self, OrgMinimaObjectsBaseMiniData *zData, OrgMinimaObjectsBaseMMRSumNumber *zValueSum);
 
-FOUNDATION_EXPORT OrgMinimaDatabaseMmrMMRData *new_OrgMinimaDatabaseMmrMMRData_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_(OrgMinimaObjectsBaseMiniData *zData, OrgMinimaObjectsBaseMiniNumber *zValueSum) NS_RETURNS_RETAINED;
+FOUNDATION_EXPORT OrgMinimaDatabaseMmrMMRData *new_OrgMinimaDatabaseMmrMMRData_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMMRSumNumber_(OrgMinimaObjectsBaseMiniData *zData, OrgMinimaObjectsBaseMMRSumNumber *zValueSum) NS_RETURNS_RETAINED;
 
-FOUNDATION_EXPORT OrgMinimaDatabaseMmrMMRData *create_OrgMinimaDatabaseMmrMMRData_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_(OrgMinimaObjectsBaseMiniData *zData, OrgMinimaObjectsBaseMiniNumber *zValueSum);
+FOUNDATION_EXPORT OrgMinimaDatabaseMmrMMRData *create_OrgMinimaDatabaseMmrMMRData_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMMRSumNumber_(OrgMinimaObjectsBaseMiniData *zData, OrgMinimaObjectsBaseMMRSumNumber *zValueSum);
 
 FOUNDATION_EXPORT void OrgMinimaDatabaseMmrMMRData_initWithOrgMinimaObjectsBaseMiniByte_withOrgMinimaObjectsCoin_withOrgMinimaObjectsBaseMiniNumber_withJavaUtilArrayList_(OrgMinimaDatabaseMmrMMRData *self, OrgMinimaObjectsBaseMiniByte *zSpent, OrgMinimaObjectsCoin *zCoin, OrgMinimaObjectsBaseMiniNumber *zInBlock, JavaUtilArrayList *zState);
 

@@ -12,11 +12,14 @@
       "SplashMaintainAspectRatio": "true",
       "FadeSplashScreenDuration": "300",
       "SplashShowOnlyFirstTime": "false",
+      "showSpinner": true,
       "SplashScreen": "screen",
-      "SplashScreenDelay": "3000",
+      "launchAutoHide": false,
+      "SplashScreenDelay": "0",
       "StatusBarStyle": "blacktranslucent",
       "Orientation": "portrait",
       "UseSwiftLanguageVersion": "5"
+      
     }
   }
 }

@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n    <ion-toolbar>\n      <ion-buttons slot=\"start\">\n        <ion-menu-button></ion-menu-button>\n      </ion-buttons>\n      <ion-title color=\"primary\">\n        Balance\n      </ion-title>\n    </ion-toolbar>\n\n  </ion-header>\n\n  <ion-content>\n\n    <ion-card color=\"white\">\n      <ion-card-header color=\"white\">\n\n      </ion-card-header>\n  <ion-card-content>\n\n  <ion-icon style=\" font-size:2.0rem; padding-left:10px;\" name=\"card\" slot=\"start\" class=\"icon-head\"></ion-icon>\n  <ion-list *ngFor=\"let token of tokenArr;\">\n\n  <ion-item-sliding>\n  <ion-item-options side=\"start\">\n  <ion-item-option routerLink=\"/my-address\">Receive</ion-item-option>\n  <ion-item-option color=\"danger\" (click)=\"sendTokenOver(token.id)\">Send</ion-item-option>\n  </ion-item-options>\n\n  <ion-item lines=\"full\" style=\"padding: 0px;\">\n  <ion-label class=\"logo-names\">\n  <ion-icon class=\"balance-token\" src=\"../../assets/icon/minima.svg\"></ion-icon>\n  <ion-note class=\"balance-tokenname\"> {{ token.token }} </ion-note>\n  </ion-label>\n  <ion-label class=\"confirmed-amount\">\n  {{ token.confirmed }}\n  </ion-label>\n  <ion-label *ngIf='token.unconfirmed != 0' class=\"unconfirmed-amount\" color=\"black\">\n  {{ token.unconfirmed }}\n  </ion-label>\n  </ion-item>\n\n\n  <ion-item-options side=\"end\">\n  <ion-item-option (click)=\"presentPopover($event, token.id)\">Token ID</ion-item-option>\n  </ion-item-options>\n  </ion-item-sliding>\n\n  </ion-list>\n\n  <!-- SKELETON UX FOR LOADING -->\n  <div *ngIf=\"tokenArr.length < 1\">\n  <ion-list *ngFor=\"let tkn of tokenSpoof\">\n    <ion-item lines=\"full\">\n\n\n    <ion-avatar slot=\"start\" class=\"skeleton-icon\">\n      <ion-skeleton-text animated></ion-skeleton-text>\n    </ion-avatar>\n\n\n    <p class=\"skeleton-name\"><ion-skeleton-text animated animated> </ion-skeleton-text></p>\n    \n    <ion-label slot=\"end\" class=\"skeleton-amount\"><ion-skeleton-text animated></ion-skeleton-text></ion-label>\n    </ion-item>\n    \n  </ion-list>\n  </div>\n\n  </ion-card-content>\n  </ion-card>\n\n  </ion-content>\n\n  <ion-footer>\n    <ion-toolbar>\n      <ion-buttons>\n        <ion-button class=\"action-btn\" shape=\"\" expand=\"block\" type=\"button\" (click)=\"giveMe50()\">\n          <ion-icon name=\"cash\" slot=\"start\"></ion-icon> Gimme 50\n        </ion-button>\n      </ion-buttons>\n    </ion-toolbar>\n  </ion-footer>"
+module.exports = "<ion-header>\n    <ion-toolbar>\n      <ion-buttons slot=\"start\">\n        <ion-menu-button></ion-menu-button>\n      </ion-buttons>\n      <ion-title color=\"primary\">\n        Balance\n      </ion-title>\n    </ion-toolbar>\n\n  </ion-header>\n\n  <ion-content>\n\n    <ion-card color=\"white\">\n      <ion-card-header color=\"white\">\n\n      </ion-card-header>\n  <ion-card-content>\n\n  <ion-icon style=\" font-size:2.0rem; padding-left:10px;\" name=\"card\" slot=\"start\" class=\"icon-head\"></ion-icon>\n  <ion-list *ngFor=\"let token of tokenArr;\">\n\n  <ion-item-sliding>\n  <ion-item-options side=\"start\">\n    <ion-item-option routerLink=\"/my-address\">Receive</ion-item-option>\n  <ion-item-option color=\"danger\" (click)=\"sendTokenOver(token.id)\">Send</ion-item-option>\n  </ion-item-options>\n\n  <ion-item lines=\"full\" style=\"width: 90%; left: 5%;\">\n  <ion-label class=\"logo-names\">\n    <ion-icon class=\"balance-token\" src=\"../../assets/icon/minima.svg\"></ion-icon>\n    <ion-note class=\"balance-tokenname\"> {{ token.token }} </ion-note>\n  </ion-label>\n  <ion-label class=\"confirmed-amount\">\n    {{ token.confirmed }}\n  </ion-label>\n  <ion-label *ngIf='token.unconfirmed != 0' class=\"unconfirmed-amount\" color=\"black\">\n    {{ token.unconfirmed }}\n  </ion-label>\n  </ion-item>\n\n  <ion-item-options side=\"end\">\n    <ion-item-option (click)=\"presentPopover($event, token.id)\">Token ID</ion-item-option>\n  </ion-item-options>\n  </ion-item-sliding>\n\n  </ion-list>\n\n  <!-- SKELETON UX FOR LOADING -->\n  <div *ngIf=\"tokenArr.length < 1\">\n  <ion-list *ngFor=\"let tkn of tokenSpoof\">\n    <ion-item lines=\"full\">\n\n\n    <ion-avatar slot=\"start\" class=\"skeleton-icon\">\n      <ion-skeleton-text animated></ion-skeleton-text>\n    </ion-avatar>\n\n\n    <p class=\"skeleton-name\"><ion-skeleton-text animated animated> </ion-skeleton-text></p>\n    \n    <ion-label slot=\"end\" class=\"skeleton-amount\"><ion-skeleton-text animated></ion-skeleton-text></ion-label>\n    </ion-item>\n    \n  </ion-list>\n  </div>\n\n  </ion-card-content>\n  </ion-card>\n  </ion-content>\n\n  <ion-footer>\n    <ion-toolbar>\n      <ion-buttons>\n        <ion-button class=\"action-btn\" shape=\"\" expand=\"block\" type=\"button\" (click)=\"giveMe50()\">\n          <ion-icon name=\"cash\" slot=\"start\"></ion-icon> Gimme 50\n        </ion-button>\n      </ion-buttons>\n    </ion-toolbar>\n  </ion-footer>"
 
 /***/ }),
 
@@ -110,7 +110,7 @@ let BalancePage = class BalancePage {
         // - vars
         this.lastJSON = '';
         this.host = '';
-        this.MINI_TOKENID = '0x0000000000000000000000000000000000000000000000000000000000000000';
+        this.MINI_TOKENID = '0x00';
     }
     ionViewWillEnter() {
         this.pullArrLength();
@@ -187,9 +187,11 @@ let BalancePage = class BalancePage {
                     tokenArr.push({
                         id: element.tokenid,
                         token: element.token,
+                        total: element.total,
                         confirmed: tempConfirmed,
                         unconfirmed: tempUnconfirmed,
-                        total: element.total
+                        mempool: element.mempool,
+                        sendable: element.sendable
                     });
                     // add Minima always to the top
                     if (element.tokenid === this.MINI_TOKENID) {
@@ -197,9 +199,11 @@ let BalancePage = class BalancePage {
                         this.service.update(tokenArr, {
                             id: element.tokenid,
                             token: element.token,
+                            total: element.total,
                             confirmed: tempConfirmed,
                             unconfirmed: tempUnconfirmed,
-                            total: element.total
+                            mempool: element.mempool,
+                            sendable: element.sendable
                         });
                     }
                 }

@@ -11,6 +11,10 @@ var map = {
 	"./pages/balance/balance.module": [
 		"./src/app/pages/balance/balance.module.ts",
 		"pages-balance-balance-module"
+	],
+	"./pages/splash-screen/splash-screen.module": [
+		"./src/app/pages/splash-screen/splash-screen.module.ts",
+		"pages-splash-screen-splash-screen-module"
 	]
 };
 function webpackAsyncContext(req) {
@@ -459,7 +463,18 @@ module.exports = webpackAsyncContext;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-app>\n  <ion-split-pane when=\"lg\" contentId=\"mainMenu\" class=\"splitpane\" >\n  <ion-menu side=\"start\" contentId=\"mainMenu\">\n    <ion-header>\n      <ion-toolbar class=\"menu-toolbar\">\n      <ion-title> \n        <ion-img class=\"menu-logo\" [src]=\"getImg()\"></ion-img>\n      </ion-title>      \n      </ion-toolbar>\n    </ion-header>\n    \n    <ion-content>\n      <ion-list main>\n        \n        <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let p of basic; let i = index\">\n          \n            <ion-item \n            detail=\"false\"\n            routerLinkActive=\"selected\"\n            routerDirection=\"root\"\n            [hidden] = \"p.hidden\" \n            [routerLink]=\"p.routerLink\"\n            lines=\"{{ p.line }}\">\n\n            <ion-icon name=\"{{ p.icon }}\" slot=\"start\"></ion-icon> {{ p.title }}\n\n            </ion-item>\n        </ion-menu-toggle>\n      </ion-list>\n\n      <ion-list main>\n        \n        <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let p of advanced; let i = index\">\n          \n            <ion-item \n            detail=\"false\"\n            routerLinkActive=\"selected\"\n            routerDirection=\"root\"\n            [hidden] = \"p.hidden\" \n            routerLink=\"{{ p.routerLink }}\"\n            lines=\"{{ p.line }}\">\n\n            <ion-icon name=\"{{ p.icon }}\" slot=\"start\"></ion-icon> {{ p.title }}\n\n            </ion-item>\n        </ion-menu-toggle>\n      </ion-list>\n\n    \n\n    \n    \n  </ion-content>\n  <ion-menu-toggle auto-hide=\"false\">\n      <ion-footer class=\"ion-padding\">\n        <ion-item routerLink=\"/community\" routerLinkActive=\"selected\" lines=\"none\">\n          <ion-icon name=\"share\" slot=\"start\"></ion-icon> Join Community\n        </ion-item>\n      </ion-footer>\n  </ion-menu-toggle>\n  </ion-menu>\n\n  <ion-router-outlet main id=\"mainMenu\"></ion-router-outlet>\n  </ion-split-pane>\n  \n</ion-app>\n"
+module.exports = "<ion-app>\n  <ion-split-pane when=\"lg\" contentId=\"mainMenu\" class=\"splitpane\" >\n  <ion-menu side=\"start\" contentId=\"mainMenu\">\n\n    <ion-header>\n      <ion-toolbar class=\"menu-toolbar\">\n      <ion-title> \n        <ion-img class=\"menu-logo\" [src]=\"getImg()\"></ion-img>\n      </ion-title>      \n      </ion-toolbar>\n    </ion-header>\n    \n    <ion-content>\n      <ion-list main>\n        \n        <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let p of basic; let i = index\">\n          \n            <ion-item \n            detail=\"false\"\n            routerLinkActive=\"selected\"\n            routerDirection=\"root\"\n            [hidden] = \"p.hidden\" \n            [routerLink]=\"p.routerLink\"\n            lines=\"{{ p.line }}\">\n\n            <ion-icon name=\"{{ p.icon }}\" slot=\"start\"></ion-icon> {{ p.title }}\n\n            </ion-item>\n        </ion-menu-toggle>\n      </ion-list>\n\n      <ion-list main>\n        \n        <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let p of advanced; let i = index\">\n          \n            <ion-item \n            detail=\"false\"\n            routerLinkActive=\"selected\"\n            routerDirection=\"root\"\n            [hidden] = \"p.hidden\" \n            routerLink=\"{{ p.routerLink }}\"\n            lines=\"{{ p.line }}\">\n\n            <ion-icon name=\"{{ p.icon }}\" slot=\"start\"></ion-icon> {{ p.title }}\n\n            </ion-item>\n        </ion-menu-toggle>\n      </ion-list>\n\n    \n\n    \n    \n  </ion-content>\n  <ion-menu-toggle auto-hide=\"false\">\n      <ion-footer class=\"ion-padding\">\n        <ion-item routerLink=\"/community\" routerLinkActive=\"selected\" lines=\"none\">\n          <ion-icon name=\"share\" slot=\"start\"></ion-icon> Join Community\n        </ion-item>\n      </ion-footer>\n  </ion-menu-toggle>\n  </ion-menu>\n\n  <ion-router-outlet main id=\"mainMenu\"></ion-router-outlet>\n  </ion-split-pane>\n  \n</ion-app>\n"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/components/pop-history-token/pop-history-token.component.html":
+/*!*********************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/components/pop-history-token/pop-history-token.component.html ***!
+  \*********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<ion-list>\n  \n  <div>\n  <h2 class=\"pop-title-activity\">Created a Token.\n  </h2>\n  <h2 class=\"pop-amount-h2\">\n    {{ transAmount }} Minima\n  </h2>\n  </div>\n  <ion-item>\n    <ion-label class=\"pop-lbl\">\n      To\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right (click)=\"copyToClipboard(receivingAddress)\">\n      {{ receivingAddress }}\n    </ion-label>\n  </ion-item>\n\n  <ion-item>\n    <ion-label class=\"pop-lbl\">\n      TxPow Block\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right>\n      {{ blockNumber }}\n    </ion-label>\n  </ion-item>\n\n  <ion-item>\n    <ion-label class=\"pop-lbl\">\n      TxPow Id\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right>\n      {{ txpowid }}\n    </ion-label>\n  </ion-item>\n  <ion-item>\n    <ion-label class=\"pop-lbl\">\n      Parent\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right>\n      {{ parent }}\n    </ion-label>\n  </ion-item>\n  <ion-item lines=\"none\">\n    <ion-label class=\"pop-lbl\">\n      isBlock\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right>\n      {{ isBlock }}\n    </ion-label>\n  </ion-item>\n\n\n\n</ion-list>\n<ion-footer>\n<ion-toolbar>\n    <ion-item lines=\"none\" class=\"box\">\n    \n    <ion-icon name=\"time\" class=\"box-icon\"></ion-icon>\n    {{  'Completed at ' + date }}\n\n  </ion-item>\n</ion-toolbar>\n\n</ion-footer>\n\n"
 
 /***/ }),
 
@@ -470,7 +485,7 @@ module.exports = "<ion-app>\n  <ion-split-pane when=\"lg\" contentId=\"mainMenu\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n<ion-list>\n  \n  <div>\n  <h2 class=\"pop-title-activity\">{{ checkTransType(transAmount)}} Minima \n  </h2>\n  <h2 class=\"pop-amount-h2\">\n    {{ transAmount }} MINI\n  </h2>\n  </div>\n  <ion-item>\n    <ion-label class=\"pop-lbl\">\n      To\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right (click)=\"copyToClipboard(receivingAddress)\">\n      {{ receivingAddress }}\n    </ion-label>\n  </ion-item>\n\n  <ion-item>\n    <ion-label class=\"pop-lbl\">\n      TxPow Block\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right>\n      {{ blockNumber }}\n    </ion-label>\n  </ion-item>\n\n  <ion-item>\n    <ion-label class=\"pop-lbl\">\n      TxPow Id\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right>\n      {{ txpowid }}\n    </ion-label>\n  </ion-item>\n  <ion-item>\n    <ion-label class=\"pop-lbl\">\n      Parent\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right>\n      {{ parent }}\n    </ion-label>\n  </ion-item>\n  <ion-item lines=\"none\">\n    <ion-label class=\"pop-lbl\">\n      isBlock\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right>\n      {{ isBlock }}\n    </ion-label>\n  </ion-item>\n\n\n\n</ion-list>\n<ion-footer>\n<ion-toolbar>\n    <ion-item lines=\"none\" class=\"box\">\n    \n    <ion-icon name=\"time\" class=\"box-icon\"></ion-icon>\n    {{  'Completed at ' + date }}\n\n  </ion-item>\n</ion-toolbar>\n\n</ion-footer>\n"
+module.exports = "\n<ion-list>\n  \n  <div>\n  <h2 class=\"pop-title-activity\">{{ checkTransType(transAmount)}} {{ name.substring(0, 10) }}\n  </h2>\n  <h2 class=\"pop-amount-h2\">\n    {{ transAmount }} {{ name.substring(0, 10) }}\n  </h2>\n  </div>\n  <ion-item>\n    <ion-label class=\"pop-lbl\">\n      To\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right (click)=\"copyToClipboard(receivingAddress)\">\n      {{ receivingAddress }}\n    </ion-label>\n  </ion-item>\n\n  <ion-item>\n    <ion-label class=\"pop-lbl\">\n      TxPow Block\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right>\n      {{ blockNumber }}\n    </ion-label>\n  </ion-item>\n\n  <ion-item>\n    <ion-label class=\"pop-lbl\">\n      TxPow Id\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right>\n      {{ txpowid }}\n    </ion-label>\n  </ion-item>\n  <ion-item>\n    <ion-label class=\"pop-lbl\">\n      Parent\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right>\n      {{ parent }}\n    </ion-label>\n  </ion-item>\n  <ion-item lines=\"none\">\n    <ion-label class=\"pop-lbl\">\n      isBlock\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right>\n      {{ isBlock }}\n    </ion-label>\n  </ion-item>\n\n\n\n</ion-list>\n<ion-footer>\n<ion-toolbar>\n    <ion-item lines=\"none\" class=\"box\">\n    \n    <ion-icon name=\"time\" class=\"box-icon\"></ion-icon>\n    {{  'Completed at ' + date }}\n\n  </ion-item>\n</ion-toolbar>\n\n</ion-footer>\n"
 
 /***/ }),
 
@@ -529,6 +544,7 @@ var routes = [
     { path: 'web-scanner', loadChildren: function () { return __webpack_require__.e(/*! import() | pages-web-scanner-web-scanner-module */ "pages-web-scanner-web-scanner-module").then(__webpack_require__.bind(null, /*! ./pages/web-scanner/web-scanner.module */ "./src/app/pages/web-scanner/web-scanner.module.ts")).then(function (m) { return m.WebScannerPageModule; }); } },
     { path: 'community', loadChildren: function () { return __webpack_require__.e(/*! import() | pages-community-community-module */ "pages-community-community-module").then(__webpack_require__.bind(null, /*! ./pages/community/community.module */ "./src/app/pages/community/community.module.ts")).then(function (m) { return m.CommunityPageModule; }); } },
     { path: 'history', loadChildren: function () { return __webpack_require__.e(/*! import() | pages-history-history-module */ "pages-history-history-module").then(__webpack_require__.bind(null, /*! ./pages/history/history.module */ "./src/app/pages/history/history.module.ts")).then(function (m) { return m.HistoryPageModule; }); } },
+    { path: 'splash-screen', loadChildren: './pages/splash-screen/splash-screen.module#SplashScreenPageModule' },
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
@@ -574,10 +590,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
-/* harmony import */ var _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic-native/splash-screen/ngx */ "./node_modules/@ionic-native/splash-screen/ngx/index.js");
-/* harmony import */ var _ionic_native_local_notifications_ngx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic-native/local-notifications/ngx */ "./node_modules/@ionic-native/local-notifications/ngx/index.js");
-/* harmony import */ var _service_darkMode_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./service/darkMode.service */ "./src/app/service/darkMode.service.ts");
-/* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm5/ionic-storage.js");
+/* harmony import */ var _ionic_native_local_notifications_ngx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic-native/local-notifications/ngx */ "./node_modules/@ionic-native/local-notifications/ngx/index.js");
+/* harmony import */ var _service_darkMode_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./service/darkMode.service */ "./src/app/service/darkMode.service.ts");
+/* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm5/ionic-storage.js");
+/* harmony import */ var _capacitor_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @capacitor/core */ "./node_modules/@capacitor/core/dist/esm/index.js");
 
 
 
@@ -587,10 +603,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+var SplashScreen = _capacitor_core__WEBPACK_IMPORTED_MODULE_8__["Plugins"].SplashScreen;
 var AppComponent = /** @class */ (function () {
-    function AppComponent(platform, splashScreen, menu, router, api, localNotifications, darkMode, storage) {
+    function AppComponent(platform, menu, router, api, localNotifications, darkMode, storage) {
         this.platform = platform;
-        this.splashScreen = splashScreen;
         this.menu = menu;
         this.router = router;
         this.api = api;
@@ -610,24 +626,20 @@ var AppComponent = /** @class */ (function () {
         // Listen for changes to the prefers-color-scheme media query
         prefersDark.addListener(function (mediaQuery) { return darkMode.toggleDarkTheme(mediaQuery.matches); });
     }
-    /** LIFECYCLES */
+    /** @@@@@@@@@@@@@ Lifecycle @@@@@@@@@@@@@@@ */
     AppComponent.prototype.ionViewWillEnter = function () {
         this.initializeApp();
     };
     AppComponent.prototype.initializeApp = function () {
-        var _this = this;
         console.log('Minima initialized');
         this.platform.ready().then(function () {
-            setTimeout(function () { _this.splashScreen.hide(); }, 2000);
-            _this.getVersion();
-            // this.router.events.subscribe((val:any) => {
-            //   if(val.route&&val.route.path){
-            //     this.currentRoute=val.route.path;
-            //   }
-            //  this.menu.close();
-            // });
+            SplashScreen.show({
+                showDuration: 2000,
+                autoHide: true,
+            });
         });
     };
+    /** @@@@@@@@@@ Misc Functions @@@@@@@@@@@ */
     AppComponent.prototype.getPages = function () {
         if (this.platform.is('desktop') || this.platform.is('pwa')) {
             this.basic =
@@ -795,13 +807,12 @@ var AppComponent = /** @class */ (function () {
     };
     AppComponent.ctorParameters = function () { return [
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["Platform"] },
-        { type: _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_5__["SplashScreen"] },
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["MenuController"] },
         { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
         { type: _service_minima_api_service__WEBPACK_IMPORTED_MODULE_1__["MinimaApiService"] },
-        { type: _ionic_native_local_notifications_ngx__WEBPACK_IMPORTED_MODULE_6__["LocalNotifications"] },
-        { type: _service_darkMode_service__WEBPACK_IMPORTED_MODULE_7__["darkMode"] },
-        { type: _ionic_storage__WEBPACK_IMPORTED_MODULE_8__["Storage"] }
+        { type: _ionic_native_local_notifications_ngx__WEBPACK_IMPORTED_MODULE_5__["LocalNotifications"] },
+        { type: _service_darkMode_service__WEBPACK_IMPORTED_MODULE_6__["darkMode"] },
+        { type: _ionic_storage__WEBPACK_IMPORTED_MODULE_7__["Storage"] }
     ]; };
     AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Component"])({
@@ -810,13 +821,12 @@ var AppComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./app.component.scss */ "./src/app/app.component.scss")]
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_4__["Platform"],
-            _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_5__["SplashScreen"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["MenuController"],
             _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"],
             _service_minima_api_service__WEBPACK_IMPORTED_MODULE_1__["MinimaApiService"],
-            _ionic_native_local_notifications_ngx__WEBPACK_IMPORTED_MODULE_6__["LocalNotifications"],
-            _service_darkMode_service__WEBPACK_IMPORTED_MODULE_7__["darkMode"],
-            _ionic_storage__WEBPACK_IMPORTED_MODULE_8__["Storage"]])
+            _ionic_native_local_notifications_ngx__WEBPACK_IMPORTED_MODULE_5__["LocalNotifications"],
+            _service_darkMode_service__WEBPACK_IMPORTED_MODULE_6__["darkMode"],
+            _ionic_storage__WEBPACK_IMPORTED_MODULE_7__["Storage"]])
     ], AppComponent);
     return AppComponent;
 }());
@@ -857,6 +867,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
 /* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm5/ionic-storage.js");
 /* harmony import */ var _service_darkMode_service__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./service/darkMode.service */ "./src/app/service/darkMode.service.ts");
+/* harmony import */ var _components_pop_history_token_pop_history_token_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/pop-history-token/pop-history-token.component */ "./src/app/components/pop-history-token/pop-history-token.component.ts");
+
 
 
 
@@ -884,11 +896,12 @@ var AppModule = /** @class */ (function () {
     }
     AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["NgModule"])({
-            declarations: [_app_component__WEBPACK_IMPORTED_MODULE_11__["AppComponent"], _components_pop_over_pop_over_component__WEBPACK_IMPORTED_MODULE_15__["PopOverComponent"], _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_16__["PopTermComponent"], _components_pop_history_pop_history_component__WEBPACK_IMPORTED_MODULE_17__["PopHistoryComponent"]],
-            entryComponents: [_components_pop_over_pop_over_component__WEBPACK_IMPORTED_MODULE_15__["PopOverComponent"], _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_16__["PopTermComponent"], _components_pop_history_pop_history_component__WEBPACK_IMPORTED_MODULE_17__["PopHistoryComponent"]],
+            declarations: [_app_component__WEBPACK_IMPORTED_MODULE_11__["AppComponent"], _components_pop_over_pop_over_component__WEBPACK_IMPORTED_MODULE_15__["PopOverComponent"], _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_16__["PopTermComponent"], _components_pop_history_pop_history_component__WEBPACK_IMPORTED_MODULE_17__["PopHistoryComponent"], _components_pop_history_token_pop_history_token_component__WEBPACK_IMPORTED_MODULE_22__["PopHistoryTokenComponent"]],
+            entryComponents: [_components_pop_over_pop_over_component__WEBPACK_IMPORTED_MODULE_15__["PopOverComponent"], _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_16__["PopTermComponent"], _components_pop_history_pop_history_component__WEBPACK_IMPORTED_MODULE_17__["PopHistoryComponent"], _components_pop_history_token_pop_history_token_component__WEBPACK_IMPORTED_MODULE_22__["PopHistoryTokenComponent"]],
             imports: [_angular_forms__WEBPACK_IMPORTED_MODULE_10__["FormsModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_6__["HttpClientModule"], _angular_platform_browser__WEBPACK_IMPORTED_MODULE_4__["BrowserModule"], _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["IonicModule"].forRoot(), _app_routing_module__WEBPACK_IMPORTED_MODULE_12__["AppRoutingModule"], _ionic_storage__WEBPACK_IMPORTED_MODULE_20__["IonicStorageModule"].forRoot()],
             providers: [
                 _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_9__["StatusBar"],
+                Storage,
                 _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_8__["SplashScreen"],
                 _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_13__["Clipboard"],
                 _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_14__["QRScanner"],
@@ -897,6 +910,7 @@ var AppModule = /** @class */ (function () {
                 _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_16__["PopTermComponent"],
                 _components_pop_over_pop_over_component__WEBPACK_IMPORTED_MODULE_15__["PopOverComponent"],
                 _components_pop_history_pop_history_component__WEBPACK_IMPORTED_MODULE_17__["PopHistoryComponent"],
+                _components_pop_history_token_pop_history_token_component__WEBPACK_IMPORTED_MODULE_22__["PopHistoryTokenComponent"],
                 _service_userterminal_service__WEBPACK_IMPORTED_MODULE_18__["UserTerminal"],
                 _ionic_native_local_notifications_ngx__WEBPACK_IMPORTED_MODULE_2__["LocalNotifications"],
                 _service_balance_service__WEBPACK_IMPORTED_MODULE_1__["BalanceService"],
@@ -906,6 +920,72 @@ var AppModule = /** @class */ (function () {
         })
     ], AppModule);
     return AppModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/components/pop-history-token/pop-history-token.component.scss":
+/*!*******************************************************************************!*\
+  !*** ./src/app/components/pop-history-token/pop-history-token.component.scss ***!
+  \*******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "ion-footer ion-toolbar ion-item {\n  --background: var(--ion-background-color, #f2f2f2);\n}\n\nion-footer ion-toolbar {\n  --background: var(--ion-background-color, #f2f2f2);\n}\n\n.pop-lbl {\n  font-weight: lighter;\n  font-family: \"Aeonik-light\";\n  font-size: 12px;\n}\n\nion-icon {\n  color: #3D9970;\n}\n\n.pop-info-lbl {\n  font-size: 12px;\n}\n\n.pop-amount-h2 {\n  text-align: center;\n}\n\n.pop-title-activity {\n  text-align: center;\n  font-size: medium;\n}\n\n.box {\n  margin-left: auto;\n  margin-right: auto;\n  white-space: nowrap;\n  font-size: 16px;\n}\n\n.box-icon {\n  font-size: 30px;\n  padding-right: 15px;\n}\n\n@media only screen and (min-width: 992px) {\n  .date-lbl {\n    font-size: 14px;\n  }\n}\n\n.ios .box {\n  margin-left: auto;\n  margin-right: auto;\n  white-space: nowrap;\n  font-size: 16px;\n}\n\n.ios .box-icon {\n  font-size: 20px;\n  padding-right: 3px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9lbGlhcy9Qcm9qZWN0cy9taW5pbWFjb3JlL21vYmlsZS1hcHAtZnJvbnQtZW5kL2FwcC9zcmMvYXBwL2NvbXBvbmVudHMvcG9wLWhpc3RvcnktdG9rZW4vcG9wLWhpc3RvcnktdG9rZW4uY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL2NvbXBvbmVudHMvcG9wLWhpc3RvcnktdG9rZW4vcG9wLWhpc3RvcnktdG9rZW4uY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxrREFBQTtBQ0NKOztBREVBO0VBQ0ksa0RBQUE7QUNDSjs7QURFQTtFQUNJLG9CQUFBO0VBQ0EsMkJBQUE7RUFDQSxlQUFBO0FDQ0o7O0FEQ0E7RUFDSSxjQUFBO0FDRUo7O0FEQ0E7RUFDSSxlQUFBO0FDRUo7O0FEQ0E7RUFDSSxrQkFBQTtBQ0VKOztBRENBO0VBQ0ksa0JBQUE7RUFDQSxpQkFBQTtBQ0VKOztBREFBO0VBQ0ksaUJBQUE7RUFDQSxrQkFBQTtFQUNBLG1CQUFBO0VBQ0EsZUFBQTtBQ0dKOztBRERBO0VBQ0ksZUFBQTtFQUNBLG1CQUFBO0FDSUo7O0FEQUE7RUFDSTtJQUNJLGVBQUE7RUNHTjtBQUNGOztBREdBO0VBQ0ksaUJBQUE7RUFDQSxrQkFBQTtFQUNBLG1CQUFBO0VBQ0EsZUFBQTtBQ0RKOztBREdBO0VBQ0ksZUFBQTtFQUNBLGtCQUFBO0FDQUoiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL3BvcC1oaXN0b3J5LXRva2VuL3BvcC1oaXN0b3J5LXRva2VuLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiaW9uLWZvb3RlciBpb24tdG9vbGJhciBpb24taXRlbSB7XG4gICAgLS1iYWNrZ3JvdW5kOiB2YXIoLS1pb24tYmFja2dyb3VuZC1jb2xvciwgI2YyZjJmMik7XG5cbn1cbmlvbi1mb290ZXIgaW9uLXRvb2xiYXIge1xuICAgIC0tYmFja2dyb3VuZDogdmFyKC0taW9uLWJhY2tncm91bmQtY29sb3IsICNmMmYyZjIpO1xuXG59XG4ucG9wLWxibCB7XG4gICAgZm9udC13ZWlnaHQ6IGxpZ2h0ZXI7IFxuICAgIGZvbnQtZmFtaWx5OiAnQWVvbmlrLWxpZ2h0JztcbiAgICBmb250LXNpemU6IDEycHg7XG59XG5pb24taWNvbiB7XG4gICAgY29sb3I6ICMzRDk5NzA7XG59XG5cbi5wb3AtaW5mby1sYmwge1xuICAgIGZvbnQtc2l6ZTogMTJweDtcbiAgICBcbn1cbi5wb3AtYW1vdW50LWgyIHtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gICAgXG59XG4ucG9wLXRpdGxlLWFjdGl2aXR5IHtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gICAgZm9udC1zaXplOiBtZWRpdW07XG59XG4uYm94IHtcbiAgICBtYXJnaW4tbGVmdDogYXV0bztcbiAgICBtYXJnaW4tcmlnaHQ6IGF1dG87XG4gICAgd2hpdGUtc3BhY2U6IG5vd3JhcDtcbiAgICBmb250LXNpemU6IDE2cHg7XG59XG4uYm94LWljb24ge1xuICAgIGZvbnQtc2l6ZTogMzBweDtcbiAgICBwYWRkaW5nLXJpZ2h0OiAxNXB4O1xufVxuLy9kZXNrdG9wXG5cbkBtZWRpYSBvbmx5IHNjcmVlbiBhbmQgKG1pbi13aWR0aDogOTkycHgpIHtcbiAgICAuZGF0ZS1sYmwge1xuICAgICAgICBmb250LXNpemU6IDE0cHg7XG4gICAgfVxufVxuXG5cbi8vaU9TIEJveFxuXG4uaW9zIC5ib3gge1xuICAgIG1hcmdpbi1sZWZ0OiBhdXRvO1xuICAgIG1hcmdpbi1yaWdodDogYXV0bztcbiAgICB3aGl0ZS1zcGFjZTogbm93cmFwO1xuICAgIGZvbnQtc2l6ZTogMTZweDtcbn1cbi5pb3MgLmJveC1pY29uIHtcbiAgICBmb250LXNpemU6IDIwcHg7XG4gICAgcGFkZGluZy1yaWdodDogM3B4O1xufSIsImlvbi1mb290ZXIgaW9uLXRvb2xiYXIgaW9uLWl0ZW0ge1xuICAtLWJhY2tncm91bmQ6IHZhcigtLWlvbi1iYWNrZ3JvdW5kLWNvbG9yLCAjZjJmMmYyKTtcbn1cblxuaW9uLWZvb3RlciBpb24tdG9vbGJhciB7XG4gIC0tYmFja2dyb3VuZDogdmFyKC0taW9uLWJhY2tncm91bmQtY29sb3IsICNmMmYyZjIpO1xufVxuXG4ucG9wLWxibCB7XG4gIGZvbnQtd2VpZ2h0OiBsaWdodGVyO1xuICBmb250LWZhbWlseTogXCJBZW9uaWstbGlnaHRcIjtcbiAgZm9udC1zaXplOiAxMnB4O1xufVxuXG5pb24taWNvbiB7XG4gIGNvbG9yOiAjM0Q5OTcwO1xufVxuXG4ucG9wLWluZm8tbGJsIHtcbiAgZm9udC1zaXplOiAxMnB4O1xufVxuXG4ucG9wLWFtb3VudC1oMiB7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbn1cblxuLnBvcC10aXRsZS1hY3Rpdml0eSB7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgZm9udC1zaXplOiBtZWRpdW07XG59XG5cbi5ib3gge1xuICBtYXJnaW4tbGVmdDogYXV0bztcbiAgbWFyZ2luLXJpZ2h0OiBhdXRvO1xuICB3aGl0ZS1zcGFjZTogbm93cmFwO1xuICBmb250LXNpemU6IDE2cHg7XG59XG5cbi5ib3gtaWNvbiB7XG4gIGZvbnQtc2l6ZTogMzBweDtcbiAgcGFkZGluZy1yaWdodDogMTVweDtcbn1cblxuQG1lZGlhIG9ubHkgc2NyZWVuIGFuZCAobWluLXdpZHRoOiA5OTJweCkge1xuICAuZGF0ZS1sYmwge1xuICAgIGZvbnQtc2l6ZTogMTRweDtcbiAgfVxufVxuLmlvcyAuYm94IHtcbiAgbWFyZ2luLWxlZnQ6IGF1dG87XG4gIG1hcmdpbi1yaWdodDogYXV0bztcbiAgd2hpdGUtc3BhY2U6IG5vd3JhcDtcbiAgZm9udC1zaXplOiAxNnB4O1xufVxuXG4uaW9zIC5ib3gtaWNvbiB7XG4gIGZvbnQtc2l6ZTogMjBweDtcbiAgcGFkZGluZy1yaWdodDogM3B4O1xufSJdfQ== */"
+
+/***/ }),
+
+/***/ "./src/app/components/pop-history-token/pop-history-token.component.ts":
+/*!*****************************************************************************!*\
+  !*** ./src/app/components/pop-history-token/pop-history-token.component.ts ***!
+  \*****************************************************************************/
+/*! exports provided: PopHistoryTokenComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PopHistoryTokenComponent", function() { return PopHistoryTokenComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic-native/clipboard/ngx */ "./node_modules/@ionic-native/clipboard/ngx/index.js");
+
+
+
+
+var PopHistoryTokenComponent = /** @class */ (function () {
+    function PopHistoryTokenComponent(navParams, clipboard) {
+        this.navParams = navParams;
+        this.clipboard = clipboard;
+        this.receivingAddress = this.navParams.get('address');
+        this.blockNumber = this.navParams.get('blockNumber');
+        this.transAmount = this.navParams.get('transAmount');
+        this.isBlock = this.navParams.get('isBlock');
+        this.txpowid = this.navParams.get('txpowid');
+        this.parent = this.navParams.get('parent');
+        this.blockdiff = this.navParams.get('blockdiff');
+        this.date = this.navParams.get('date');
+    }
+    PopHistoryTokenComponent.prototype.ngOnInit = function () { };
+    PopHistoryTokenComponent.prototype.copyToClipboard = function (data) {
+        this.clipboard.copy(data);
+        alert('Copied Clipboard Successfully.');
+    };
+    PopHistoryTokenComponent.ctorParameters = function () { return [
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavParams"] },
+        { type: _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_3__["Clipboard"] }
+    ]; };
+    PopHistoryTokenComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-pop-history-token',
+            template: __webpack_require__(/*! raw-loader!./pop-history-token.component.html */ "./node_modules/raw-loader/index.js!./src/app/components/pop-history-token/pop-history-token.component.html"),
+            styles: [__webpack_require__(/*! ./pop-history-token.component.scss */ "./src/app/components/pop-history-token/pop-history-token.component.scss")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavParams"], _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_3__["Clipboard"]])
+    ], PopHistoryTokenComponent);
+    return PopHistoryTokenComponent;
 }());
 
 
@@ -945,6 +1025,7 @@ var PopHistoryComponent = /** @class */ (function () {
     function PopHistoryComponent(navParams, clipboard) {
         this.navParams = navParams;
         this.clipboard = clipboard;
+        this.name = this.navParams.get('name');
         this.receivingAddress = this.navParams.get('address');
         this.blockNumber = this.navParams.get('blockNumber');
         this.transAmount = this.navParams.get('transAmount');
@@ -1120,7 +1201,7 @@ var PopOverComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".activate-btn-minus {\n  color: #929396;\n  text-align: centre;\n  font-size: 12px;\n}\n\n.activate-btn-add {\n  color: #929396;\n  text-align: center;\n  font-size: 20px;\n}\n\n.ios ion-button {\n  margin: auto;\n}\n\n.ios .pop-term-col {\n  width: 100%;\n  height: auto;\n}\n\n.ios .activate-btn-minus {\n  color: #929396;\n  padding-top: 18px;\n  font-size: 14px;\n  text-align: center;\n}\n\n.ios .activate-btn-add {\n  color: #929396;\n  font-size: 20px;\n  text-align: center;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9lbGlhcy9Qcm9qZWN0cy9taW5pbWFjb3JlL21vYmlsZS1hcHAtZnJvbnQtZW5kL2FwcC9zcmMvYXBwL2NvbXBvbmVudHMvcG9wLXRlcm0vcG9wLXRlcm0uY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL2NvbXBvbmVudHMvcG9wLXRlcm0vcG9wLXRlcm0uY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxjQUFBO0VBQ0Esa0JBQUE7RUFDQSxlQUFBO0FDQ0o7O0FEQ0E7RUFDSSxjQUFBO0VBQ0Esa0JBQUE7RUFDQSxlQUFBO0FDRUo7O0FER0E7RUFDSSxZQUFBO0FDQUo7O0FERUE7RUFDSSxXQUFBO0VBQ0EsWUFBQTtBQ0NKOztBRENBO0VBQ0ksY0FBQTtFQUNBLGlCQUFBO0VBQ0EsZUFBQTtFQUNBLGtCQUFBO0FDRUo7O0FEQUE7RUFDSSxjQUFBO0VBQ0EsZUFBQTtFQUNBLGtCQUFBO0FDR0oiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL3BvcC10ZXJtL3BvcC10ZXJtLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmFjdGl2YXRlLWJ0bi1taW51cyB7XG4gICAgY29sb3I6ICM5MjkzOTY7XG4gICAgdGV4dC1hbGlnbjogY2VudHJlO1xuICAgIGZvbnQtc2l6ZTogMTJweDtcbn1cbi5hY3RpdmF0ZS1idG4tYWRkIHtcbiAgICBjb2xvcjogIzkyOTM5NjtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gICAgZm9udC1zaXplOiAyMHB4O1xufVxuXG5cbi8vIGlPUyBlZGl0LlxuLmlvcyBpb24tYnV0dG9uIHtcbiAgICBtYXJnaW46IGF1dG87XG59XG4uaW9zIC5wb3AtdGVybS1jb2wge1xuICAgIHdpZHRoOiAxMDAlO1xuICAgIGhlaWdodDogYXV0bzsgIFxufVxuLmlvcyAuYWN0aXZhdGUtYnRuLW1pbnVzIHtcbiAgICBjb2xvcjogIzkyOTM5NjtcbiAgICBwYWRkaW5nLXRvcDogMThweDtcbiAgICBmb250LXNpemU6IDE0cHg7XG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xufVxuLmlvcyAuYWN0aXZhdGUtYnRuLWFkZCB7XG4gICAgY29sb3I6ICM5MjkzOTY7XG4gICAgZm9udC1zaXplOiAyMHB4O1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbn1cbiIsIi5hY3RpdmF0ZS1idG4tbWludXMge1xuICBjb2xvcjogIzkyOTM5NjtcbiAgdGV4dC1hbGlnbjogY2VudHJlO1xuICBmb250LXNpemU6IDEycHg7XG59XG5cbi5hY3RpdmF0ZS1idG4tYWRkIHtcbiAgY29sb3I6ICM5MjkzOTY7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgZm9udC1zaXplOiAyMHB4O1xufVxuXG4uaW9zIGlvbi1idXR0b24ge1xuICBtYXJnaW46IGF1dG87XG59XG5cbi5pb3MgLnBvcC10ZXJtLWNvbCB7XG4gIHdpZHRoOiAxMDAlO1xuICBoZWlnaHQ6IGF1dG87XG59XG5cbi5pb3MgLmFjdGl2YXRlLWJ0bi1taW51cyB7XG4gIGNvbG9yOiAjOTI5Mzk2O1xuICBwYWRkaW5nLXRvcDogMThweDtcbiAgZm9udC1zaXplOiAxNHB4O1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59XG5cbi5pb3MgLmFjdGl2YXRlLWJ0bi1hZGQge1xuICBjb2xvcjogIzkyOTM5NjtcbiAgZm9udC1zaXplOiAyMHB4O1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59Il19 */"
+module.exports = ".activate-btn-minus {\n  color: #929396;\n  text-align: centre;\n  font-size: 12px;\n}\n\n.activate-btn-add {\n  color: #929396;\n  text-align: center;\n  font-size: 20px;\n}\n\n.ios ion-button {\n  margin: auto;\n}\n\n.ios .pop-term-col {\n  width: 100%;\n  height: auto;\n}\n\n.ios .activate-btn-minus {\n  color: #929396;\n  padding-top: 18px;\n  font-size: 14px;\n  text-align: center;\n}\n\n.ios .activate-btn-add {\n  color: #929396;\n  font-size: 20px;\n  text-align: center;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9lbGlhcy9Qcm9qZWN0cy9taW5pbWFjb3JlL21vYmlsZS1hcHAtZnJvbnQtZW5kL2FwcC9zcmMvYXBwL2NvbXBvbmVudHMvcG9wLXRlcm0vcG9wLXRlcm0uY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL2NvbXBvbmVudHMvcG9wLXRlcm0vcG9wLXRlcm0uY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxjQUFBO0VBQ0Esa0JBQUE7RUFDQSxlQUFBO0FDQ0o7O0FEQ0E7RUFDSSxjQUFBO0VBQ0Esa0JBQUE7RUFDQSxlQUFBO0FDRUo7O0FERUE7RUFDSSxZQUFBO0FDQ0o7O0FEQ0E7RUFDSSxXQUFBO0VBQ0EsWUFBQTtBQ0VKOztBREFBO0VBQ0ksY0FBQTtFQUNBLGlCQUFBO0VBQ0EsZUFBQTtFQUNBLGtCQUFBO0FDR0o7O0FEREE7RUFDSSxjQUFBO0VBQ0EsZUFBQTtFQUNBLGtCQUFBO0FDSUoiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL3BvcC10ZXJtL3BvcC10ZXJtLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmFjdGl2YXRlLWJ0bi1taW51cyB7XG4gICAgY29sb3I6ICM5MjkzOTY7XG4gICAgdGV4dC1hbGlnbjogY2VudHJlO1xuICAgIGZvbnQtc2l6ZTogMTJweDtcbn1cbi5hY3RpdmF0ZS1idG4tYWRkIHtcbiAgICBjb2xvcjogIzkyOTM5NjtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gICAgZm9udC1zaXplOiAyMHB4O1xufVxuXG4vLyBpT1MgZWRpdC5cbi5pb3MgaW9uLWJ1dHRvbiB7XG4gICAgbWFyZ2luOiBhdXRvO1xufVxuLmlvcyAucG9wLXRlcm0tY29sIHtcbiAgICB3aWR0aDogMTAwJTtcbiAgICBoZWlnaHQ6IGF1dG87ICBcbn1cbi5pb3MgLmFjdGl2YXRlLWJ0bi1taW51cyB7XG4gICAgY29sb3I6ICM5MjkzOTY7XG4gICAgcGFkZGluZy10b3A6IDE4cHg7XG4gICAgZm9udC1zaXplOiAxNHB4O1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbn1cbi5pb3MgLmFjdGl2YXRlLWJ0bi1hZGQge1xuICAgIGNvbG9yOiAjOTI5Mzk2O1xuICAgIGZvbnQtc2l6ZTogMjBweDtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59XG4iLCIuYWN0aXZhdGUtYnRuLW1pbnVzIHtcbiAgY29sb3I6ICM5MjkzOTY7XG4gIHRleHQtYWxpZ246IGNlbnRyZTtcbiAgZm9udC1zaXplOiAxMnB4O1xufVxuXG4uYWN0aXZhdGUtYnRuLWFkZCB7XG4gIGNvbG9yOiAjOTI5Mzk2O1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIGZvbnQtc2l6ZTogMjBweDtcbn1cblxuLmlvcyBpb24tYnV0dG9uIHtcbiAgbWFyZ2luOiBhdXRvO1xufVxuXG4uaW9zIC5wb3AtdGVybS1jb2wge1xuICB3aWR0aDogMTAwJTtcbiAgaGVpZ2h0OiBhdXRvO1xufVxuXG4uaW9zIC5hY3RpdmF0ZS1idG4tbWludXMge1xuICBjb2xvcjogIzkyOTM5NjtcbiAgcGFkZGluZy10b3A6IDE4cHg7XG4gIGZvbnQtc2l6ZTogMTRweDtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xufVxuXG4uaW9zIC5hY3RpdmF0ZS1idG4tYWRkIHtcbiAgY29sb3I6ICM5MjkzOTY7XG4gIGZvbnQtc2l6ZTogMjBweDtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xufSJdfQ== */"
 
 /***/ }),
 

@@ -23,26 +23,25 @@
 
   <ion-item-sliding>
   <ion-item-options side="start">
-  <ion-item-option routerLink="/my-address">Receive</ion-item-option>
+    <ion-item-option routerLink="/my-address">Receive</ion-item-option>
   <ion-item-option color="danger" (click)="sendTokenOver(token.id)">Send</ion-item-option>
   </ion-item-options>
 
-  <ion-item lines="full" style="padding: 0px;">
+  <ion-item lines="full" style="width: 90%; left: 5%;">
   <ion-label class="logo-names">
-  <ion-icon class="balance-token" src="../../assets/icon/minima.svg"></ion-icon>
-  <ion-note class="balance-tokenname"> {{ token.token }} </ion-note>
+    <ion-icon class="balance-token" src="../../assets/icon/minima.svg"></ion-icon>
+    <ion-note class="balance-tokenname"> {{ token.token }} </ion-note>
   </ion-label>
   <ion-label class="confirmed-amount">
-  {{ token.confirmed }}
+    {{ token.confirmed }}
   </ion-label>
   <ion-label *ngIf='token.unconfirmed != 0' class="unconfirmed-amount" color="black">
-  {{ token.unconfirmed }}
+    {{ token.unconfirmed }}
   </ion-label>
   </ion-item>
 
-
   <ion-item-options side="end">
-  <ion-item-option (click)="presentPopover($event, token.id)">Token ID</ion-item-option>
+    <ion-item-option (click)="presentPopover($event, token.id)">Token ID</ion-item-option>
   </ion-item-options>
   </ion-item-sliding>
 
@@ -69,7 +68,6 @@
 
   </ion-card-content>
   </ion-card>
-
   </ion-content>
 
   <ion-footer>

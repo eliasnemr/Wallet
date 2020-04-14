@@ -68,9 +68,9 @@ inline NSString *OrgMinimaGlobalParams_get_MINIMA_CASCADE_RATIO(void);
 FOUNDATION_EXPORT NSString *OrgMinimaGlobalParams_MINIMA_CASCADE_RATIO;
 J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaGlobalParams, MINIMA_CASCADE_RATIO, NSString *)
 
-inline jint OrgMinimaGlobalParams_get_MINIMA_HASH_STRENGTH(void);
-#define OrgMinimaGlobalParams_MINIMA_HASH_STRENGTH 256
-J2OBJC_STATIC_FIELD_CONSTANT(OrgMinimaGlobalParams, MINIMA_HASH_STRENGTH, jint)
+inline jint OrgMinimaGlobalParams_get_MINIMA_DEFAULT_HASH_STRENGTH(void);
+#define OrgMinimaGlobalParams_MINIMA_DEFAULT_HASH_STRENGTH 256
+J2OBJC_STATIC_FIELD_CONSTANT(OrgMinimaGlobalParams, MINIMA_DEFAULT_HASH_STRENGTH, jint)
 
 FOUNDATION_EXPORT void OrgMinimaGlobalParams_init(OrgMinimaGlobalParams *self);
 

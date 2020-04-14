@@ -18,6 +18,7 @@ const routes: Routes = [
   { path: 'web-scanner', loadChildren: () => import('./pages/web-scanner/web-scanner.module').then(m => m.WebScannerPageModule) },
   { path: 'community', loadChildren: () => import('./pages/community/community.module').then(m => m.CommunityPageModule) },
   { path: 'history', loadChildren: () => import('./pages/history/history.module').then(m => m.HistoryPageModule) },
+  { path: 'splash-screen', loadChildren: './pages/splash-screen/splash-screen.module#SplashScreenPageModule' },
 ];
 
 

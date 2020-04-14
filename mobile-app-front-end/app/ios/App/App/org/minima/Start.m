@@ -347,7 +347,6 @@ J2OBJC_IGNORE_DESIGNATED_END
     }
     
 }
-
 + (const J2ObjcClassInfo *)__metadata {
   static J2ObjcMethodInfo methods[] = {
     { NULL, NULL, 0x0, -1, -1, -1, -1, -1, -1 },

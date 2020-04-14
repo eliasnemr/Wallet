@@ -1,3 +1,4 @@
+
 .date {
     display: block;
 }
@@ -11,11 +12,17 @@
     margin-left: 0px;
 }
 .activity {
-    width: 100%;
+    width: 90%;
+    left: 5%;
+    right: 5%;
 }
-
+.activity:hover{
+    
+    background-color: #d8dfe6 !important;
+}
 .activity:hover {
-    background-color: grey;
+    background-color: slategray;
+    box-shadow: inset 0px 0px 0px 1px red;
 }
 .activity div h1 {
     font-size: 14px;
@@ -107,4 +114,8 @@
 }
 .md .seg {
     font-size: 12px;
+}
+
+.no-activity-item {
+    padding-left: 2%;
 }

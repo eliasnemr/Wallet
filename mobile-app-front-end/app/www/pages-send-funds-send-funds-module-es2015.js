@@ -114,7 +114,7 @@ let SendFundsPage = class SendFundsPage {
         this.scanSub = null;
         this.ionApp = document.getElementsByTagName('ion-app')[0];
         // Pull in tokens vars
-        this.MINIMA_TOKEN_ID = '0x0000000000000000000000000000000000000000000000000000000000000000';
+        this.MINIMA_TOKEN_ID = '0x00';
         this.hideProgress = false;
         this.progressShow = true;
         this.tokenArr = [];
@@ -140,52 +140,7 @@ let SendFundsPage = class SendFundsPage {
     ionViewDidLoad() {
         this.data.tokenid = this.MINIMA_TOKEN_ID;
     }
-    identifyPlatformToScan_Add() {
-        if (this.platform.is('ios')) {
-            setTimeout(() => {
-                window.document.querySelectorAll('ion-content')
-                    .forEach(element => {
-                    const element1 = element.shadowRoot.querySelector('style');
-                    element1.innerHTML = element1.innerHTML
-                        .replace('--background:var(--ion-background-color,#fff);', '--background: transparent');
-                });
-            }, 300);
-        }
-        else if (this.platform.is('android')) {
-            // window.document.querySelector('ion-content').classList.add('transparentBody');
-            setTimeout(() => {
-                window.document.querySelectorAll('ion-content')
-                    .forEach(element => {
-                    const element1 = element.shadowRoot.querySelector('style');
-                    element1.innerHTML = element1.innerHTML
-                        .replace('--background:var(--ion-background-color,#fff);', '--background: transparent');
-                });
-            }, 300);
-        }
-    }
-    identifyPlatformToScan_Remove() {
-        if (this.platform.is('ios')) {
-            setTimeout(() => {
-                window.document.querySelectorAll('ion-content')
-                    .forEach(element => {
-                    const element1 = element.shadowRoot.querySelector('style');
-                    element1.innerHTML = element1.innerHTML
-                        .replace('--background: transparent', '--background:var(--ion-background-color,#fff);');
-                });
-            }, 300);
-        }
-        else if (this.platform.is('android')) {
-            // window.document.querySelector('ion-content').classList.remove('transparentBody');
-            setTimeout(() => {
-                window.document.querySelectorAll('ion-content')
-                    .forEach(element => {
-                    const element1 = element.shadowRoot.querySelector('style');
-                    element1.innerHTML = element1.innerHTML
-                        .replace('--background: transparent', '--background:var(--ion-background-color,#fff);');
-                });
-            }, 300);
-        }
-    }
+    /** Camera Functions */
     scanQR() {
         this.qrScanner.prepare()
             .then((status) => {
@@ -228,26 +183,7 @@ let SendFundsPage = class SendFundsPage {
         this.isCameraOpen = false;
         this.qrScanner.destroy();
     }
-    pasteFromClipboard() {
-        if (this.platform.is('desktop') || this.platform.is('pwa')) {
-            this.pasteFromPWA();
-        }
-        else {
-            this.clipboard.paste().then((resolve) => {
-                this.data.address = resolve;
-            }, (reject) => {
-                console.log('Error: ' + reject);
-            });
-        }
-    }
-    pasteFromPWA() {
-        document.addEventListener('paste', (e) => {
-            this.data.address = e.clipboardData.getData('text');
-            e.preventDefault();
-            document.removeEventListener('paste', null);
-        });
-        document.execCommand('paste');
-    }
+    /** ALERTS */
     presentAlert(msg, header) {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
             const alert = yield this.alertController.create({
@@ -258,6 +194,7 @@ let SendFundsPage = class SendFundsPage {
             yield alert.present();
         });
     }
+    // API CALLS
     pullInTokens() {
         this.balanceSubscription = this.balanceService.getBalance().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["map"])(responseData => {
             const tokenArr = [];
@@ -273,9 +210,11 @@ let SendFundsPage = class SendFundsPage {
                     tokenArr.push({
                         id: element.tokenid,
                         token: element.token,
+                        total: element.total,
                         confirmed: tempConfirmed,
                         unconfirmed: tempUnconfirmed,
-                        total: element.total
+                        mempool: element.mempool,
+                        sendable: element.sendable
                     });
                     // add Minima always to the top
                     if (element.tokenid === this.MINIMA_TOKEN_ID) {
@@ -283,9 +222,11 @@ let SendFundsPage = class SendFundsPage {
                         this.balanceService.update(tokenArr, {
                             id: element.tokenid,
                             token: element.token,
+                            total: element.total,
                             confirmed: tempConfirmed,
                             unconfirmed: tempUnconfirmed,
-                            total: element.total
+                            mempool: element.mempool,
+                            sendable: element.sendable
                         });
                     }
                 }
@@ -317,6 +258,59 @@ let SendFundsPage = class SendFundsPage {
             this.presentAlert('Please check the input fields', 'Error');
         }
     }
+    /** MISC FUNCS */
+    identifyPlatformToScan_Add() {
+        document.addEventListener("DOMContentLoaded", function (event) {
+            //Do work
+            if (this.platform.is('ios')) {
+                setTimeout(() => {
+                    window.document.querySelectorAll('ion-content')
+                        .forEach(element => {
+                        const element1 = element.shadowRoot.querySelector('style');
+                        element1.innerHTML = element1.innerHTML
+                            .replace('--background:var(--ion-background-color,#fff);', '--background: transparent');
+                    });
+                }, 300);
+            }
+            else if (this.platform.is('android')) {
+                // window.document.querySelector('ion-content').classList.add('transparentBody');
+                setTimeout(() => {
+                    window.document.querySelectorAll('ion-content')
+                        .forEach(element => {
+                        const element1 = element.shadowRoot.querySelector('style');
+                        element1.innerHTML = element1.innerHTML
+                            .replace('--background:var(--ion-background-color,#fff);', '--background: transparent');
+                    });
+                }, 300);
+            }
+        });
+    }
+    identifyPlatformToScan_Remove() {
+        document.addEventListener("DOMContentLoaded", function (event) {
+            if (this.platform.is('ios')) {
+                setTimeout(() => {
+                    window.document.querySelectorAll('ion-content')
+                        .forEach(element => {
+                        const element1 = element.shadowRoot.querySelector('style');
+                        element1.innerHTML = element1.innerHTML
+                            .replace('--background: transparent', '--background:var(--ion-background-color,#fff);');
+                    });
+                }, 300);
+            }
+            else if (this.platform.is('android')) {
+                // window.document.querySelector('ion-content').classList.remove('transparentBody');
+                setTimeout(() => {
+                    window.document.querySelectorAll('ion-content')
+                        .forEach(element => {
+                        const element1 = element.shadowRoot.querySelector('style');
+                        element1.innerHTML = element1.innerHTML
+                            .replace('--background: transparent', '--background:var(--ion-background-color,#fff);');
+                    });
+                }, 300);
+            }
+        });
+    }
+    // Display/hide mobile buttons with this..
     checkPlatform() {
         if (this.platform.is('desktop') || this.platform.is('pwa')) {
             return false;
@@ -324,6 +318,26 @@ let SendFundsPage = class SendFundsPage {
         else {
             return true;
         }
+    }
+    pasteFromClipboard() {
+        if (this.platform.is('desktop') || this.platform.is('pwa')) {
+            this.pasteFromPWA();
+        }
+        else {
+            this.clipboard.paste().then((resolve) => {
+                this.data.address = resolve;
+            }, (reject) => {
+                console.log('Error: ' + reject);
+            });
+        }
+    }
+    pasteFromPWA() {
+        document.addEventListener('paste', (e) => {
+            this.data.address = e.clipboardData.getData('text');
+            e.preventDefault();
+            document.removeEventListener('paste', null);
+        });
+        document.execCommand('paste');
     }
 };
 SendFundsPage.ctorParameters = () => [

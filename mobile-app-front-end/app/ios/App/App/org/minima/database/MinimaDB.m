@@ -40,6 +40,7 @@
 #include "org/minima/objects/Transaction.h"
 #include "org/minima/objects/TxPOW.h"
 #include "org/minima/objects/Witness.h"
+#include "org/minima/objects/base/MMRSumNumber.h"
 #include "org/minima/objects/base/MiniByte.h"
 #include "org/minima/objects/base/MiniData.h"
 #include "org/minima/objects/base/MiniInteger.h"
@@ -115,7 +116,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   OrgMinimaDatabaseMmrMMRData *gendata = create_OrgMinimaDatabaseMmrMMRData_initWithOrgMinimaObjectsBaseMiniByte_withOrgMinimaObjectsCoin_withOrgMinimaObjectsBaseMiniNumber_withJavaUtilArrayList_(JreLoadStatic(OrgMinimaObjectsBaseMiniByte, FALSE), gencoin, JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, ZERO), create_JavaUtilArrayList_init());
   [base addUnspentCoinWithOrgMinimaDatabaseMmrMMRData:gendata];
   [gen setMMRRootWithOrgMinimaObjectsBaseMiniData:[((OrgMinimaDatabaseMmrMMRData *) nil_chk([base getMMRRoot])) getFinalHash]];
-  [gen setMMRTotalWithOrgMinimaObjectsBaseMiniNumber:JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, ZERO)];
+  [gen setMMRTotalWithOrgMinimaObjectsBaseMMRSumNumber:JreLoadStatic(OrgMinimaObjectsBaseMMRSumNumber, ZERO)];
   [gen calculateTXPOWID];
   OrgMinimaDatabaseTxpowtreeBlockTreeNode *root = create_OrgMinimaDatabaseTxpowtreeBlockTreeNode_initWithOrgMinimaObjectsTxPOW_(gen);
   [root setStateWithInt:OrgMinimaDatabaseTxpowtreeBlockTreeNode_BLOCKSTATE_VALID];
@@ -580,7 +581,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   }
   OrgMinimaDatabaseMmrMMRData *root = [newset getMMRRoot];
   [txpow setMMRRootWithOrgMinimaObjectsBaseMiniData:[((OrgMinimaDatabaseMmrMMRData *) nil_chk(root)) getFinalHash]];
-  [txpow setMMRTotalWithOrgMinimaObjectsBaseMiniNumber:[root getValueSum]];
+  [txpow setMMRTotalWithOrgMinimaObjectsBaseMMRSumNumber:[root getValueSum]];
   return txpow;
 }
 

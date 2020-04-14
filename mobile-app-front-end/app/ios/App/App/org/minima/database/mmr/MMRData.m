@@ -14,6 +14,7 @@
 #include "org/minima/database/mmr/MMRData.h"
 #include "org/minima/objects/Coin.h"
 #include "org/minima/objects/StateVariable.h"
+#include "org/minima/objects/base/MMRSumNumber.h"
 #include "org/minima/objects/base/MiniByte.h"
 #include "org/minima/objects/base/MiniData.h"
 #include "org/minima/objects/base/MiniNumber.h"
@@ -21,13 +22,18 @@
 #include "org/minima/utils/json/JSONArray.h"
 #include "org/minima/utils/json/JSONObject.h"
 
-@interface OrgMinimaDatabaseMmrMMRData ()
+@interface OrgMinimaDatabaseMmrMMRData () {
+ @public
+  OrgMinimaObjectsBaseMMRSumNumber *mValueSum_;
+}
 
 - (instancetype)init;
 
 - (void)calculateDataHash;
 
 @end
+
+J2OBJC_FIELD_SETTER(OrgMinimaDatabaseMmrMMRData, mValueSum_, OrgMinimaObjectsBaseMMRSumNumber *)
 
 __attribute__((unused)) static void OrgMinimaDatabaseMmrMMRData_init(OrgMinimaDatabaseMmrMMRData *self);
 
@@ -47,8 +53,8 @@ J2OBJC_IGNORE_DESIGNATED_BEGIN
 J2OBJC_IGNORE_DESIGNATED_END
 
 - (instancetype)initWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zData
-                  withOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zValueSum {
-  OrgMinimaDatabaseMmrMMRData_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_(self, zData, zValueSum);
+                withOrgMinimaObjectsBaseMMRSumNumber:(OrgMinimaObjectsBaseMMRSumNumber *)zValueSum {
+  OrgMinimaDatabaseMmrMMRData_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMMRSumNumber_(self, zData, zValueSum);
   return self;
 }
 
@@ -68,7 +74,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   return mFinalHash_;
 }
 
-- (OrgMinimaObjectsBaseMiniNumber *)getValueSum {
+- (OrgMinimaObjectsBaseMMRSumNumber *)getValueSum {
   return mValueSum_;
 }
 
@@ -95,7 +101,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 - (OrgMinimaUtilsJsonJSONObject *)toJSON {
   OrgMinimaUtilsJsonJSONObject *obj = create_OrgMinimaUtilsJsonJSONObject_init();
   [obj putWithId:@"hashonly" withId:JavaLangBoolean_valueOfWithBoolean_(mHashOnly_)];
-  [obj putWithId:@"value" withId:[((OrgMinimaObjectsBaseMiniNumber *) nil_chk(mValueSum_)) description]];
+  [obj putWithId:@"value" withId:[((OrgMinimaObjectsBaseMMRSumNumber *) nil_chk(mValueSum_)) description]];
   if (mHashOnly_) {
     [obj putWithId:@"finalhash" withId:[((OrgMinimaObjectsBaseMiniData *) nil_chk(mFinalHash_)) description]];
   }
@@ -121,7 +127,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   if (mHashOnly_) {
     [((OrgMinimaObjectsBaseMiniByte *) nil_chk(JreLoadStatic(OrgMinimaObjectsBaseMiniByte, TRUE))) writeDataStreamWithJavaIoDataOutputStream:zOut];
     [((OrgMinimaObjectsBaseMiniData *) nil_chk(mFinalHash_)) writeDataStreamWithJavaIoDataOutputStream:zOut];
-    [((OrgMinimaObjectsBaseMiniNumber *) nil_chk(mValueSum_)) writeDataStreamWithJavaIoDataOutputStream:zOut];
+    [((OrgMinimaObjectsBaseMMRSumNumber *) nil_chk(mValueSum_)) writeDataStreamWithJavaIoDataOutputStream:zOut];
   }
   else {
     [((OrgMinimaObjectsBaseMiniByte *) nil_chk(JreLoadStatic(OrgMinimaObjectsBaseMiniByte, FALSE))) writeDataStreamWithJavaIoDataOutputStream:zOut];
@@ -141,7 +147,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   mHashOnly_ = [((OrgMinimaObjectsBaseMiniByte *) nil_chk(hashonly)) isTrue];
   if (mHashOnly_) {
     JreStrongAssign(&mFinalHash_, OrgMinimaObjectsBaseMiniData_ReadFromStreamWithJavaIoDataInputStream_(zIn));
-    JreStrongAssign(&mValueSum_, OrgMinimaObjectsBaseMiniNumber_ReadFromStreamWithJavaIoDataInputStream_(zIn));
+    JreStrongAssign(&mValueSum_, OrgMinimaObjectsBaseMMRSumNumber_ReadFromStreamWithJavaIoDataInputStream_(zIn));
   }
   else {
     JreStrongAssign(&mSpent_, OrgMinimaObjectsBaseMiniByte_ReadFromStreamWithJavaIoDataInputStream_(zIn));
@@ -153,11 +159,11 @@ J2OBJC_IGNORE_DESIGNATED_END
       OrgMinimaObjectsStateVariable *sv = OrgMinimaObjectsStateVariable_ReadFromStreamWithJavaIoDataInputStream_(zIn);
       [((JavaUtilArrayList *) nil_chk(mPrevState_)) addWithId:sv];
     }
-    if ([((OrgMinimaObjectsBaseMiniByte *) nil_chk(mSpent_)) isTrue]) {
-      JreStrongAssign(&mValueSum_, JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, ZERO));
+    if ([((OrgMinimaObjectsBaseMiniByte *) nil_chk(mSpent_)) isTrue] || ![((OrgMinimaObjectsBaseMiniData *) nil_chk([((OrgMinimaObjectsCoin *) nil_chk(mCoin_)) getTokenID])) isEqualWithOrgMinimaObjectsBaseMiniData:JreLoadStatic(OrgMinimaObjectsCoin, MINIMA_TOKENID)]) {
+      JreStrongAssign(&mValueSum_, JreLoadStatic(OrgMinimaObjectsBaseMMRSumNumber, ZERO));
     }
     else {
-      JreStrongAssign(&mValueSum_, [((OrgMinimaObjectsCoin *) nil_chk(mCoin_)) getAmount]);
+      JreStrongAssignAndConsume(&mValueSum_, new_OrgMinimaObjectsBaseMMRSumNumber_initWithOrgMinimaObjectsBaseMiniNumber_([((OrgMinimaObjectsCoin *) nil_chk(mCoin_)) getAmount]));
     }
     OrgMinimaDatabaseMmrMMRData_calculateDataHash(self);
   }
@@ -184,7 +190,7 @@ J2OBJC_IGNORE_DESIGNATED_END
     { NULL, NULL, 0x1, -1, 1, -1, 2, -1, -1 },
     { NULL, "V", 0x2, -1, -1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaObjectsBaseMiniData;", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMMRSumNumber;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "Z", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaObjectsCoin;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LJavaUtilArrayList;", 0x1, -1, -1, -1, 3, -1, -1 },
@@ -200,7 +206,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
   #pragma clang diagnostic ignored "-Wundeclared-selector"
   methods[0].selector = @selector(init);
-  methods[1].selector = @selector(initWithOrgMinimaObjectsBaseMiniData:withOrgMinimaObjectsBaseMiniNumber:);
+  methods[1].selector = @selector(initWithOrgMinimaObjectsBaseMiniData:withOrgMinimaObjectsBaseMMRSumNumber:);
   methods[2].selector = @selector(initWithOrgMinimaObjectsBaseMiniByte:withOrgMinimaObjectsCoin:withOrgMinimaObjectsBaseMiniNumber:withJavaUtilArrayList:);
   methods[3].selector = @selector(calculateDataHash);
   methods[4].selector = @selector(getFinalHash);
@@ -222,10 +228,10 @@ J2OBJC_IGNORE_DESIGNATED_END
     { "mBlockNumber_", "LOrgMinimaObjectsBaseMiniNumber;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mPrevState_", "LJavaUtilArrayList;", .constantValue.asLong = 0, 0x0, -1, -1, 11, -1 },
     { "mFinalHash_", "LOrgMinimaObjectsBaseMiniData;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
-    { "mValueSum_", "LOrgMinimaObjectsBaseMiniNumber;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
+    { "mValueSum_", "LOrgMinimaObjectsBaseMMRSumNumber;", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
     { "mHashOnly_", "Z", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
   };
-  static const void *ptrTable[] = { "LOrgMinimaObjectsBaseMiniData;LOrgMinimaObjectsBaseMiniNumber;", "LOrgMinimaObjectsBaseMiniByte;LOrgMinimaObjectsCoin;LOrgMinimaObjectsBaseMiniNumber;LJavaUtilArrayList;", "(Lorg/minima/objects/base/MiniByte;Lorg/minima/objects/Coin;Lorg/minima/objects/base/MiniNumber;Ljava/util/ArrayList<Lorg/minima/objects/StateVariable;>;)V", "()Ljava/util/ArrayList<Lorg/minima/objects/StateVariable;>;", "toString", "writeDataStream", "LJavaIoDataOutputStream;", "LJavaIoIOException;", "readDataStream", "LJavaIoDataInputStream;", "ReadFromStream", "Ljava/util/ArrayList<Lorg/minima/objects/StateVariable;>;" };
+  static const void *ptrTable[] = { "LOrgMinimaObjectsBaseMiniData;LOrgMinimaObjectsBaseMMRSumNumber;", "LOrgMinimaObjectsBaseMiniByte;LOrgMinimaObjectsCoin;LOrgMinimaObjectsBaseMiniNumber;LJavaUtilArrayList;", "(Lorg/minima/objects/base/MiniByte;Lorg/minima/objects/Coin;Lorg/minima/objects/base/MiniNumber;Ljava/util/ArrayList<Lorg/minima/objects/StateVariable;>;)V", "()Ljava/util/ArrayList<Lorg/minima/objects/StateVariable;>;", "toString", "writeDataStream", "LJavaIoDataOutputStream;", "LJavaIoIOException;", "readDataStream", "LJavaIoDataInputStream;", "ReadFromStream", "Ljava/util/ArrayList<Lorg/minima/objects/StateVariable;>;" };
   static const J2ObjcClassInfo _OrgMinimaDatabaseMmrMMRData = { "MMRData", "org.minima.database.mmr", ptrTable, methods, fields, 7, 0x1, 16, 7, -1, -1, -1, -1, -1 };
   return &_OrgMinimaDatabaseMmrMMRData;
 }
@@ -245,7 +251,7 @@ OrgMinimaDatabaseMmrMMRData *create_OrgMinimaDatabaseMmrMMRData_init() {
   J2OBJC_CREATE_IMPL(OrgMinimaDatabaseMmrMMRData, init)
 }
 
-void OrgMinimaDatabaseMmrMMRData_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_(OrgMinimaDatabaseMmrMMRData *self, OrgMinimaObjectsBaseMiniData *zData, OrgMinimaObjectsBaseMiniNumber *zValueSum) {
+void OrgMinimaDatabaseMmrMMRData_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMMRSumNumber_(OrgMinimaDatabaseMmrMMRData *self, OrgMinimaObjectsBaseMiniData *zData, OrgMinimaObjectsBaseMMRSumNumber *zValueSum) {
   NSObject_init(self);
   JreStrongAssignAndConsume(&self->mPrevState_, new_JavaUtilArrayList_init());
   JreStrongAssign(&self->mFinalHash_, zData);
@@ -253,12 +259,12 @@ void OrgMinimaDatabaseMmrMMRData_initWithOrgMinimaObjectsBaseMiniData_withOrgMin
   self->mHashOnly_ = true;
 }
 
-OrgMinimaDatabaseMmrMMRData *new_OrgMinimaDatabaseMmrMMRData_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_(OrgMinimaObjectsBaseMiniData *zData, OrgMinimaObjectsBaseMiniNumber *zValueSum) {
-  J2OBJC_NEW_IMPL(OrgMinimaDatabaseMmrMMRData, initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_, zData, zValueSum)
+OrgMinimaDatabaseMmrMMRData *new_OrgMinimaDatabaseMmrMMRData_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMMRSumNumber_(OrgMinimaObjectsBaseMiniData *zData, OrgMinimaObjectsBaseMMRSumNumber *zValueSum) {
+  J2OBJC_NEW_IMPL(OrgMinimaDatabaseMmrMMRData, initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMMRSumNumber_, zData, zValueSum)
 }
 
-OrgMinimaDatabaseMmrMMRData *create_OrgMinimaDatabaseMmrMMRData_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_(OrgMinimaObjectsBaseMiniData *zData, OrgMinimaObjectsBaseMiniNumber *zValueSum) {
-  J2OBJC_CREATE_IMPL(OrgMinimaDatabaseMmrMMRData, initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_, zData, zValueSum)
+OrgMinimaDatabaseMmrMMRData *create_OrgMinimaDatabaseMmrMMRData_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMMRSumNumber_(OrgMinimaObjectsBaseMiniData *zData, OrgMinimaObjectsBaseMMRSumNumber *zValueSum) {
+  J2OBJC_CREATE_IMPL(OrgMinimaDatabaseMmrMMRData, initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMMRSumNumber_, zData, zValueSum)
 }
 
 void OrgMinimaDatabaseMmrMMRData_initWithOrgMinimaObjectsBaseMiniByte_withOrgMinimaObjectsCoin_withOrgMinimaObjectsBaseMiniNumber_withJavaUtilArrayList_(OrgMinimaDatabaseMmrMMRData *self, OrgMinimaObjectsBaseMiniByte *zSpent, OrgMinimaObjectsCoin *zCoin, OrgMinimaObjectsBaseMiniNumber *zInBlock, JavaUtilArrayList *zState) {
@@ -271,11 +277,11 @@ void OrgMinimaDatabaseMmrMMRData_initWithOrgMinimaObjectsBaseMiniByte_withOrgMin
     [((JavaUtilArrayList *) nil_chk(self->mPrevState_)) addWithId:sv];
   }
   self->mHashOnly_ = false;
-  if ([((OrgMinimaObjectsBaseMiniByte *) nil_chk(zSpent)) isTrue]) {
-    JreStrongAssign(&self->mValueSum_, JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, ZERO));
+  if ([((OrgMinimaObjectsBaseMiniByte *) nil_chk(self->mSpent_)) isTrue] || ![((OrgMinimaObjectsBaseMiniData *) nil_chk([((OrgMinimaObjectsCoin *) nil_chk(self->mCoin_)) getTokenID])) isEqualWithOrgMinimaObjectsBaseMiniData:JreLoadStatic(OrgMinimaObjectsCoin, MINIMA_TOKENID)]) {
+    JreStrongAssign(&self->mValueSum_, JreLoadStatic(OrgMinimaObjectsBaseMMRSumNumber, ZERO));
   }
   else {
-    JreStrongAssign(&self->mValueSum_, [((OrgMinimaObjectsCoin *) nil_chk(zCoin)) getAmount]);
+    JreStrongAssignAndConsume(&self->mValueSum_, new_OrgMinimaObjectsBaseMMRSumNumber_initWithOrgMinimaObjectsBaseMiniNumber_([((OrgMinimaObjectsCoin *) nil_chk(self->mCoin_)) getAmount]));
   }
   OrgMinimaDatabaseMmrMMRData_calculateDataHash(self);
 }

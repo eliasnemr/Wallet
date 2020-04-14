@@ -46,8 +46,8 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 - (OrgMinimaUtilsJsonJSONObject *)toJSON {
   OrgMinimaUtilsJsonJSONObject *addr = create_OrgMinimaUtilsJsonJSONObject_init();
-  [addr putWithId:@"script" withId:mScript_];
-  [addr putWithId:@"address" withId:[((OrgMinimaObjectsBaseMiniData *) nil_chk(mAddressData_)) description]];
+  [addr putWithId:@"script" withId:[((OrgMinimaObjectsBaseMiniScript *) nil_chk(mScript_)) description]];
+  [addr putWithId:@"hexaddress" withId:[((OrgMinimaObjectsBaseMiniData *) nil_chk(mAddressData_)) description]];
   [addr putWithId:@"miniaddress" withId:mMinimaAddress_];
   return addr;
 }

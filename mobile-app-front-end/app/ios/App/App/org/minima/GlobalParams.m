@@ -9,7 +9,7 @@
 
 J2OBJC_INITIALIZED_DEFN(OrgMinimaGlobalParams)
 
-NSString *OrgMinimaGlobalParams_MINIMA_VERSION = @"0.85";
+NSString *OrgMinimaGlobalParams_MINIMA_VERSION = @"0.86.3";
 OrgMinimaObjectsBaseMiniNumber *OrgMinimaGlobalParams_MINIMA_BLOCK_SPEED;
 OrgMinimaObjectsBaseMiniNumber *OrgMinimaGlobalParams_MINIMA_CONFIRM_DEPTH;
 NSString *OrgMinimaGlobalParams_MINIMA_CASCADE_RATIO = @"0.9";
@@ -42,7 +42,7 @@ J2OBJC_IGNORE_DESIGNATED_END
     { "MINIMA_MINUMUM_CASCADE_LEVEL_NODES", "I", .constantValue.asInt = OrgMinimaGlobalParams_MINIMA_MINUMUM_CASCADE_LEVEL_NODES, 0x19, -1, -1, -1, -1 },
     { "MINIMA_CASCADE_LEVELS", "I", .constantValue.asInt = OrgMinimaGlobalParams_MINIMA_CASCADE_LEVELS, 0x19, -1, -1, -1, -1 },
     { "MINIMA_CASCADE_RATIO", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 3, -1, -1 },
-    { "MINIMA_HASH_STRENGTH", "I", .constantValue.asInt = OrgMinimaGlobalParams_MINIMA_HASH_STRENGTH, 0x19, -1, -1, -1, -1 },
+    { "MINIMA_DEFAULT_HASH_STRENGTH", "I", .constantValue.asInt = OrgMinimaGlobalParams_MINIMA_DEFAULT_HASH_STRENGTH, 0x19, -1, -1, -1, -1 },
   };
   static const void *ptrTable[] = { &OrgMinimaGlobalParams_MINIMA_VERSION, &OrgMinimaGlobalParams_MINIMA_BLOCK_SPEED, &OrgMinimaGlobalParams_MINIMA_CONFIRM_DEPTH, &OrgMinimaGlobalParams_MINIMA_CASCADE_RATIO };
   static const J2ObjcClassInfo _OrgMinimaGlobalParams = { "GlobalParams", "org.minima", ptrTable, methods, fields, 7, 0x1, 1, 10, -1, -1, -1, -1, -1 };

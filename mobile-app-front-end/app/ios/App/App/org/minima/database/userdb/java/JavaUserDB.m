@@ -17,6 +17,7 @@
 #include "org/minima/objects/Coin.h"
 #include "org/minima/objects/PubPrivKey.h"
 #include "org/minima/objects/Transaction.h"
+#include "org/minima/objects/TxPOW.h"
 #include "org/minima/objects/base/MiniData.h"
 #include "org/minima/objects/proofs/TokenProof.h"
 
@@ -72,7 +73,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (OrgMinimaObjectsAddress *)newSimpleAddress {
-  return [self newSimpleAddressWithInt:OrgMinimaGlobalParams_MINIMA_HASH_STRENGTH];
+  return [self newSimpleAddressWithInt:OrgMinimaGlobalParams_MINIMA_DEFAULT_HASH_STRENGTH];
 }
 
 - (OrgMinimaObjectsAddress *)newSimpleAddressWithInt:(jint)zBitLength {
@@ -274,9 +275,9 @@ J2OBJC_IGNORE_DESIGNATED_END
   return mHistory_;
 }
 
-- (void)addToHistoryWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zTxPOWID
-                               withJavaUtilHashtable:(JavaUtilHashtable *)zValues {
-  [((JavaUtilArrayList *) nil_chk(mHistory_)) addWithId:create_OrgMinimaDatabaseUserdbJavareltxpow_initWithOrgMinimaObjectsBaseMiniData_withJavaUtilHashtable_(zTxPOWID, zValues)];
+- (void)addToHistoryWithOrgMinimaObjectsTxPOW:(OrgMinimaObjectsTxPOW *)zTxPOW
+                        withJavaUtilHashtable:(JavaUtilHashtable *)zValues {
+  [((JavaUtilArrayList *) nil_chk(mHistory_)) addWithId:create_OrgMinimaDatabaseUserdbJavareltxpow_initWithOrgMinimaObjectsTxPOW_withJavaUtilHashtable_(zTxPOW, zValues)];
 }
 
 - (void)clearHistory {
@@ -354,7 +355,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   methods[23].selector = @selector(getTokenDetailWithOrgMinimaObjectsBaseMiniData:);
   methods[24].selector = @selector(addTokenDetailsWithOrgMinimaObjectsProofsTokenProof:);
   methods[25].selector = @selector(getHistory);
-  methods[26].selector = @selector(addToHistoryWithOrgMinimaObjectsBaseMiniData:withJavaUtilHashtable:);
+  methods[26].selector = @selector(addToHistoryWithOrgMinimaObjectsTxPOW:withJavaUtilHashtable:);
   methods[27].selector = @selector(clearHistory);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
@@ -367,7 +368,7 @@ J2OBJC_IGNORE_DESIGNATED_END
     { "mAllTokens_", "LJavaUtilArrayList;", .constantValue.asLong = 0, 0x0, -1, -1, 36, -1 },
     { "mHistory_", "LJavaUtilArrayList;", .constantValue.asLong = 0, 0x0, -1, -1, 37, -1 },
   };
-  static const void *ptrTable[] = { "()Ljava/util/ArrayList<Lorg/minima/objects/Address;>;", "()Ljava/util/ArrayList<Lorg/minima/objects/PubPrivKey;>;", "newPublicKey", "I", "()Ljava/util/ArrayList<Lorg/minima/database/userdb/UserDBRow;>;", "getUserRow", "addUserRow", "deleteUserRow", "newSimpleAddress", "LOrgMinimaObjectsPubPrivKey;", "isSimpleAddress", "LOrgMinimaObjectsBaseMiniData;", "getPubPrivKey", "newScriptAddress", "LNSString;", "getScript", "isAddressRelevant", "isTransactionRelevant", "LOrgMinimaObjectsTransaction;", "getPublicKey", "writeDataStream", "LJavaIoDataOutputStream;", "LJavaIoIOException;", "readDataStream", "LJavaIoDataInputStream;", "()Ljava/util/ArrayList<Lorg/minima/objects/proofs/TokenProof;>;", "getTokenDetail", "addTokenDetails", "LOrgMinimaObjectsProofsTokenProof;", "()Ljava/util/ArrayList<Lorg/minima/database/userdb/java/reltxpow;>;", "addToHistory", "LOrgMinimaObjectsBaseMiniData;LJavaUtilHashtable;", "(Lorg/minima/objects/base/MiniData;Ljava/util/Hashtable<Ljava/lang/String;Lorg/minima/objects/base/MiniNumber;>;)V", "Ljava/util/ArrayList<Lorg/minima/objects/PubPrivKey;>;", "Ljava/util/ArrayList<Lorg/minima/objects/Address;>;", "Ljava/util/ArrayList<Lorg/minima/database/userdb/UserDBRow;>;", "Ljava/util/ArrayList<Lorg/minima/objects/proofs/TokenProof;>;", "Ljava/util/ArrayList<Lorg/minima/database/userdb/java/reltxpow;>;" };
+  static const void *ptrTable[] = { "()Ljava/util/ArrayList<Lorg/minima/objects/Address;>;", "()Ljava/util/ArrayList<Lorg/minima/objects/PubPrivKey;>;", "newPublicKey", "I", "()Ljava/util/ArrayList<Lorg/minima/database/userdb/UserDBRow;>;", "getUserRow", "addUserRow", "deleteUserRow", "newSimpleAddress", "LOrgMinimaObjectsPubPrivKey;", "isSimpleAddress", "LOrgMinimaObjectsBaseMiniData;", "getPubPrivKey", "newScriptAddress", "LNSString;", "getScript", "isAddressRelevant", "isTransactionRelevant", "LOrgMinimaObjectsTransaction;", "getPublicKey", "writeDataStream", "LJavaIoDataOutputStream;", "LJavaIoIOException;", "readDataStream", "LJavaIoDataInputStream;", "()Ljava/util/ArrayList<Lorg/minima/objects/proofs/TokenProof;>;", "getTokenDetail", "addTokenDetails", "LOrgMinimaObjectsProofsTokenProof;", "()Ljava/util/ArrayList<Lorg/minima/database/userdb/java/reltxpow;>;", "addToHistory", "LOrgMinimaObjectsTxPOW;LJavaUtilHashtable;", "(Lorg/minima/objects/TxPOW;Ljava/util/Hashtable<Ljava/lang/String;Lorg/minima/objects/base/MiniNumber;>;)V", "Ljava/util/ArrayList<Lorg/minima/objects/PubPrivKey;>;", "Ljava/util/ArrayList<Lorg/minima/objects/Address;>;", "Ljava/util/ArrayList<Lorg/minima/database/userdb/UserDBRow;>;", "Ljava/util/ArrayList<Lorg/minima/objects/proofs/TokenProof;>;", "Ljava/util/ArrayList<Lorg/minima/database/userdb/java/reltxpow;>;" };
   static const J2ObjcClassInfo _OrgMinimaDatabaseUserdbJavaJavaUserDB = { "JavaUserDB", "org.minima.database.userdb.java", ptrTable, methods, fields, 7, 0x1, 28, 8, -1, -1, -1, -1, -1 };
   return &_OrgMinimaDatabaseUserdbJavaJavaUserDB;
 }
