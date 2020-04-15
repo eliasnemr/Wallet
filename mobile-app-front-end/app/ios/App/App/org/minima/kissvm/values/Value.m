@@ -121,7 +121,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 - (void)dealloc {
   RELEASE_(mNumber_);
   RELEASE_(mData_);
-  [super dealloc];
+
 }
 
 + (const J2ObjcClassInfo *)__metadata {

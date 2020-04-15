@@ -34,14 +34,6 @@
         ]
         },
       {
-          "id": "cordova-plugin-local-notification.LocalNotification",
-          "file": "plugins/cordova-plugin-local-notification/www/local-notification.js",
-          "pluginId": "cordova-plugin-local-notification",
-        "clobbers": [
-          "cordova.plugins.notification.local"
-        ]
-        },
-      {
           "id": "cordova-plugin-device.device",
           "file": "plugins/cordova-plugin-device/www/device.js",
           "pluginId": "cordova-plugin-device",
@@ -325,7 +317,6 @@
       "cordova-plugin-advanced-http": "2.4.1",
       "cordova-plugin-badge": "0.8.8",
       "cordova-plugin-file": "6.0.2",
-      "cordova-plugin-local-notification": "0.9.0-beta.3",
       "cordova-plugin-qrscanner": "3.0.1",
       "cordova-sqlite-storage": "5.0.0",
       "cordova-plugin-device": "2.0.3",

@@ -127,7 +127,7 @@ withOrgMinimaSystemNetworkNetworkHandler:(OrgMinimaSystemNetworkNetworkHandler *
   RELEASE_(mUID_);
   RELEASE_(mHost_);
   RELEASE_(mWebHostID_);
-  [super dealloc];
+  
 }
 
 + (const J2ObjcClassInfo *)__metadata {

@@ -85,8 +85,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var _service_minima_api_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../service/minima-api.service */ "./src/app/service/minima-api.service.ts");
 /* harmony import */ var _service_darkMode_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../service/darkMode.service */ "./src/app/service/darkMode.service.ts");
-/* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm2015/ionic-storage.js");
-
 
 
 
@@ -94,20 +92,19 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let SettingsPage = class SettingsPage {
-    constructor(api, alertController, toastController, darkMode, storage) {
+    constructor(api, alertController, toastController, darkMode) {
         this.api = api;
         this.alertController = alertController;
         this.toastController = toastController;
         this.darkMode = darkMode;
-        this.storage = storage;
         this.toggleValue = false;
         this.host = '';
-        storage.ready().then(() => {
-            // get a key/value pair
-            this.getObject('toggleVal').then(toggleVal => {
-                this.toggleValue = toggleVal;
-            });
-        });
+        if (localStorage.getItem('toggleVal') === 'true') {
+            this.toggleValue = true;
+        }
+        else {
+            this.toggleValue = false;
+        }
     }
     /** LIFE CYCLES */
     ngOnInit() { }
@@ -119,14 +116,12 @@ let SettingsPage = class SettingsPage {
     }
     /** MISCELLANEOUS */
     saveUserPreferences() {
-        this.storage.ready().then(() => {
-            // get a key/value pair
-            setTimeout(() => {
-                this.getObject('toggleVal').then(toggleVal => {
-                    this.toggleValue = toggleVal;
-                });
-            }, 2000);
-        });
+        if (localStorage.getItem('toggleVal') === 'true') {
+            this.toggleValue = true;
+        }
+        else {
+            this.toggleValue = false;
+        }
         // save host used.
         if (this.host !== '') {
             this.api.setHost(this.host);
@@ -135,14 +130,12 @@ let SettingsPage = class SettingsPage {
     }
     /** MISCELLANEOUS */
     savePreferencesBtn() {
-        this.storage.ready().then(() => {
-            // get a key/value pair
-            setTimeout(() => {
-                this.getObject('toggleVal').then(toggleVal => {
-                    this.toggleValue = toggleVal;
-                });
-            }, 2000);
-        });
+        if (localStorage.getItem('toggleVal') === 'true') {
+            this.toggleValue = true;
+        }
+        else {
+            this.toggleValue = false;
+        }
         // save host used.
         if (this.host !== '') {
             this.api.setHost(this.host);
@@ -151,42 +144,13 @@ let SettingsPage = class SettingsPage {
     }
     checkToggle(e) {
         if (this.toggleValue === false) {
-            this.setObject('toggleVal', 'false');
+            localStorage.setItem('toggleVal', 'false');
             document.body.classList.toggle('dark', false);
         }
         else {
-            this.setObject('toggleVal', 'true');
+            localStorage.setItem('toggleVal', 'true');
             document.body.classList.toggle('dark', true);
         }
-    }
-    // set async storage key pair
-    setObject(key, object) {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
-            try {
-                const result = yield this.storage.set(key, JSON.stringify(object));
-                return true;
-            }
-            catch (reason) {
-                console.log(reason);
-                return false;
-            }
-        });
-    }
-    // get a key/value object
-    getObject(key) {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
-            try {
-                const result = yield this.storage.get(key);
-                if (result != null) {
-                    return JSON.parse(result);
-                }
-                return null;
-            }
-            catch (reason) {
-                console.log(reason);
-                return null;
-            }
-        });
     }
     /** API SERVICE CALLS */
     giveMe50() {
@@ -239,8 +203,7 @@ SettingsPage.ctorParameters = () => [
     { type: _service_minima_api_service__WEBPACK_IMPORTED_MODULE_3__["MinimaApiService"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"] },
-    { type: _service_darkMode_service__WEBPACK_IMPORTED_MODULE_4__["darkMode"] },
-    { type: _ionic_storage__WEBPACK_IMPORTED_MODULE_5__["Storage"] }
+    { type: _service_darkMode_service__WEBPACK_IMPORTED_MODULE_4__["darkMode"] }
 ];
 SettingsPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -249,7 +212,7 @@ SettingsPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         styles: [__webpack_require__(/*! ./settings.page.scss */ "./src/app/pages/settings/settings.page.scss")]
     }),
     tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_service_minima_api_service__WEBPACK_IMPORTED_MODULE_3__["MinimaApiService"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"],
-        _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"], _service_darkMode_service__WEBPACK_IMPORTED_MODULE_4__["darkMode"], _ionic_storage__WEBPACK_IMPORTED_MODULE_5__["Storage"]])
+        _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"], _service_darkMode_service__WEBPACK_IMPORTED_MODULE_4__["darkMode"]])
 ], SettingsPage);
 
 

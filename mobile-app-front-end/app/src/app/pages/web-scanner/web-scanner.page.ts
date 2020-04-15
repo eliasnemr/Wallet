@@ -147,7 +147,7 @@ export class WebScannerPage implements OnInit {
 
   stopCamera() {
     if(this.scanSub!==null){
-      console.log("stopCamera - is not null..")
+      console.log("stopCamera - is not null..");
       this.qrScanner.hide();
       this.scanSub.unsubscribe();
     }

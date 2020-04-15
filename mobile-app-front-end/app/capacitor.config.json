@@ -16,7 +16,6 @@
       "SplashScreen": "screen",
       "launchAutoHide": false,
       "SplashScreenDelay": "0",
-      "StatusBarStyle": "blacktranslucent",
       "Orientation": "portrait",
       "UseSwiftLanguageVersion": "5"
       

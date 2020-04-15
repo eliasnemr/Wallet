@@ -41,7 +41,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 - (NSString *)getAllPubKeysCSV {
   NSString *ret = @"";
   for (OrgMinimaObjectsProofsSignatureProof * __strong sig in nil_chk(mSignatureProofs_)) {
-    JreStrAppend(&ret, "$C", [((OrgMinimaObjectsBaseMiniData *) nil_chk([((OrgMinimaObjectsProofsSignatureProof *) nil_chk(sig)) getFinalHash])) to0xString], '#');
+    //JreStrAppend(&ret, "$C", [((OrgMinimaObjectsBaseMiniData *) nil_chk([((OrgMinimaObjectsProofsSignatureProof *) nil_chk(sig)) getFinalHash])) to0xString], '#');
   }
   return [ret java_trim];
 }
@@ -185,7 +185,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   RELEASE_(mSignatureProofs_);
   RELEASE_(mTokenProofs_);
   RELEASE_(mScriptProofs_);
-  [super dealloc];
+
 }
 
 + (const J2ObjcClassInfo *)__metadata {

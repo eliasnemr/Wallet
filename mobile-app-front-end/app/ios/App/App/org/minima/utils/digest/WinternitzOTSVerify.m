@@ -242,7 +242,7 @@ J2OBJC_FIELD_SETTER(OrgMinimaUtilsDigestWinternitzOTSVerify, messDigestOTS_, id<
 
 - (void)dealloc {
   RELEASE_(messDigestOTS_);
-  [super dealloc];
+
 }
 
 + (const J2ObjcClassInfo *)__metadata {

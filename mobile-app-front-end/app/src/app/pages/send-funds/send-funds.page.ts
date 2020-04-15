@@ -57,8 +57,9 @@ export class SendFundsPage implements OnInit {
   }
 
   ionViewWillLeave() {
-    this.stopCamera();
     this.balanceSubscription.unsubscribe();
+    this.stopCamera();
+
   }
 
   ionViewDidLoad() {

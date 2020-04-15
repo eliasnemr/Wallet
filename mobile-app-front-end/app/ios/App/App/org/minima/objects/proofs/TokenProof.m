@@ -131,7 +131,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   RELEASE_(mTokenName_);
   RELEASE_(mTokenScript_);
   RELEASE_(mTokenID_);
-  [super dealloc];
+ 
 }
 
 + (const J2ObjcClassInfo *)__metadata {

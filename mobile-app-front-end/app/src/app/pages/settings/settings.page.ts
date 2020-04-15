@@ -3,7 +3,6 @@ import { AlertController } from '@ionic/angular';
 import {MinimaApiService } from '../../service/minima-api.service';
 import { ToastController } from '@ionic/angular';
 import { darkMode } from '../../service/darkMode.service';
-import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-settings',
@@ -16,13 +15,14 @@ export class SettingsPage implements OnInit {
   host = '';
 
   constructor(private api: MinimaApiService, public alertController: AlertController,
-    public toastController: ToastController, private darkMode: darkMode, private storage: Storage) {
-      storage.ready().then(() => {
-        // get a key/value pair
-        this.getObject('toggleVal').then(toggleVal => {
-          this.toggleValue = toggleVal;
-        });
-     }); 
+    public toastController: ToastController, private darkMode: darkMode) {
+      
+    if(localStorage.getItem('toggleVal') === 'true'){
+      this.toggleValue = true;
+    } else {
+      this.toggleValue = false;
+    }
+     
     }
     
   /** LIFE CYCLES */
@@ -38,15 +38,12 @@ export class SettingsPage implements OnInit {
   /** MISCELLANEOUS */
   saveUserPreferences() {
 
-    this.storage.ready().then(() => {
-      // get a key/value pair
-      setTimeout(() => {
-        this.getObject('toggleVal').then(toggleVal => {
-          this.toggleValue = toggleVal;
-        });
-      }, 2000);
+    if(localStorage.getItem('toggleVal') === 'true'){
+      this.toggleValue = true;
+    } else {
+      this.toggleValue = false;
+    }
       
-   });
     // save host used.
     if (this.host!=='') {      
       this.api.setHost(this.host);
@@ -57,15 +54,12 @@ export class SettingsPage implements OnInit {
   /** MISCELLANEOUS */
   savePreferencesBtn() {
 
-    this.storage.ready().then(() => {
-      // get a key/value pair
-      setTimeout(() => {
-        this.getObject('toggleVal').then(toggleVal => {
-          this.toggleValue = toggleVal;
-        });
-      }, 2000);
+    if(localStorage.getItem('toggleVal') === 'true'){
+      this.toggleValue = true;
+    } else {
+      this.toggleValue = false;
+    }
       
-   });
     // save host used.
     if (this.host!=='') {      
       this.api.setHost(this.host);
@@ -76,39 +70,14 @@ export class SettingsPage implements OnInit {
 
   checkToggle(e: Event) {
     if(this.toggleValue === false) {
-      this.setObject('toggleVal', 'false');
+      localStorage.setItem('toggleVal', 'false')
       document.body.classList.toggle('dark', false);
     } else {
-      this.setObject('toggleVal', 'true');
+      localStorage.setItem('toggleVal', 'true')
       document.body.classList.toggle('dark', true);
     }
 
   }
-  // set async storage key pair
-  async setObject(key: string, object: Object) {
-    try {
-    const result = await this.storage.set(key, JSON.stringify(object));
-    
-    return true;
-    } catch (reason) {
-    console.log(reason);
-    return false;
-    }
-    }
-
-    // get a key/value object
-  async getObject(key: string): Promise<any> {
-    try {
-    const result = await this.storage.get(key);
-    if (result != null) {
-    return JSON.parse(result);
-    }
-    return null;
-    } catch (reason) {
-    console.log(reason);
-    return null;
-    }
-    }
   
   /** API SERVICE CALLS */
   giveMe50() {

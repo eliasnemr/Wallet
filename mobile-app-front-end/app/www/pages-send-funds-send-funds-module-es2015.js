@@ -134,8 +134,8 @@ let SendFundsPage = class SendFundsPage {
         }
     }
     ionViewWillLeave() {
-        this.stopCamera();
         this.balanceSubscription.unsubscribe();
+        this.stopCamera();
     }
     ionViewDidLoad() {
         this.data.tokenid = this.MINIMA_TOKEN_ID;

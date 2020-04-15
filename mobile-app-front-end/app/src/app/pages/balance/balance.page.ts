@@ -65,7 +65,7 @@ export class BalancePage implements OnInit {
   }
 
   giveMe50() {
-    this.service.giveMe50().subscribe((res:any)=> {  
+    this.service.giveMe50().subscribe((res:{ status: boolean, minifunc: string, response: any})=> {  
       if(res.status === true) {
 
         this.pullInTokens();
@@ -75,7 +75,7 @@ export class BalancePage implements OnInit {
         }, 600);
       } else {
         console.log("Result is false " + res)
-        this.presentAlert(res.error,'Error');
+        
       }
     });
   }
@@ -117,8 +117,8 @@ export class BalancePage implements OnInit {
           let element = responseData.response.balance[key];
           // round up confirmed && unconfirmed
           
-          let tempConfirmed = (Math.round(element.confirmed * 100)/100);
-          let tempUnconfirmed = (Math.round(element.unconfirmed * 100)/100);
+          let tempConfirmed = (Math.round(element.confirmed * 1000)/1000);
+          let tempUnconfirmed = (Math.round(element.unconfirmed * 1000)/1000);
 
           tokenArr.push({
               id: element.tokenid,

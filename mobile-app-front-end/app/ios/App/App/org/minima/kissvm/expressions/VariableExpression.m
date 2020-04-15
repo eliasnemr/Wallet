@@ -30,7 +30,7 @@
 
 - (void)dealloc {
   RELEASE_(mVariableName_);
-  [super dealloc];
+
 }
 
 + (const J2ObjcClassInfo *)__metadata {

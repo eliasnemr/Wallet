@@ -1,12 +1,10 @@
 import { BalanceService } from './service/balance.service';
-import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { HttpClientModule} from '@angular/common/http';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
-import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -28,7 +26,6 @@ import { PopHistoryTokenComponent } from './components/pop-history-token/pop-his
   entryComponents: [PopOverComponent, PopTermComponent, PopHistoryComponent, PopHistoryTokenComponent],
   imports: [FormsModule, HttpClientModule, BrowserModule, IonicModule.forRoot(), AppRoutingModule, IonicStorageModule.forRoot()],
   providers: [
-    StatusBar,
     Storage,
     SplashScreen,
     Clipboard,
@@ -40,7 +37,6 @@ import { PopHistoryTokenComponent } from './components/pop-history-token/pop-his
     PopHistoryComponent,
     PopHistoryTokenComponent,
     UserTerminal,
-    LocalNotifications,
     BalanceService,
     darkMode
   ],

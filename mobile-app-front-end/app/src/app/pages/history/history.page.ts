@@ -20,10 +20,11 @@ export class HistoryPage implements OnInit {
   sliderOptions = {
     initialSlide: 0,
     slidesPerView: 1,
-    speed: 400
+    speed: 200
   }
   // + vars
   public transactions: History[] = [];
+  public tokens: History[] = [];
   public t_summarySpoof: History[] = [];
 
   polledHistorySubscription: Subscription;
@@ -150,6 +151,13 @@ export class HistoryPage implements OnInit {
 
           //Transaction description summary
           historyArr = history[key];
+
+          history.history.forEach(element => {
+            element.values.forEach(val => {
+              if(val.name === 'Create Token')
+              this.tokens.push(element);
+            })
+          })
           
         }
         return historyArr;

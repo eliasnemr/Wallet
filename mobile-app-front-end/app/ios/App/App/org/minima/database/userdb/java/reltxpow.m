@@ -96,7 +96,6 @@ J2OBJC_IGNORE_DESIGNATED_END
 - (void)dealloc {
   RELEASE_(mTxPow_);
   RELEASE_(mTokenValues_);
-  [super dealloc];
 }
 
 + (const J2ObjcClassInfo *)__metadata {

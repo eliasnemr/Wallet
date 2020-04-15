@@ -10,9 +10,6 @@
     "cordova-plugin-whitelist": {
       "PACKAGE_NAME": "global.minima.telco"
     },
-    "cordova-plugin-statusbar": {
-      "PACKAGE_NAME": "global.minima.telco"
-    },
     "cordova-plugin-device": {
       "PACKAGE_NAME": "global.minima.telco"
     },
@@ -36,10 +33,6 @@
       "PACKAGE_NAME": "global.minima.telco"
     },
     "cordova-base64-to-gallery": {
-      "PACKAGE_NAME": "global.minima.telco"
-    },
-    "cordova-plugin-local-notification": {
-      "ANDROID_SUPPORT_V4_VERSION": "26.+",
       "PACKAGE_NAME": "global.minima.telco"
     }
   },

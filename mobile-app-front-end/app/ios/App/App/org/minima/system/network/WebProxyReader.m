@@ -47,7 +47,7 @@
 
 - (void)dealloc {
   RELEASE_(mManager_);
-  [super dealloc];
+
 }
 
 + (const J2ObjcClassInfo *)__metadata {

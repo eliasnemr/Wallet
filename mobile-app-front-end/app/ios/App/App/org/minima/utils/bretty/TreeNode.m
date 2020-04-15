@@ -41,7 +41,7 @@ J2OBJC_FIELD_SETTER(OrgMinimaUtilsBrettyTreeNode, children_, id<JavaUtilList>)
 - (void)dealloc {
   RELEASE_(name_);
   RELEASE_(children_);
-  [super dealloc];
+  
 }
 
 + (const J2ObjcClassInfo *)__metadata {

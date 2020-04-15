@@ -484,7 +484,7 @@ J2OBJC_INITIALIZED_DEFN(OrgMinimaUtilsJsonParserYylex)
   RELEASE_(zzReader_);
   RELEASE_(zzBuffer_);
   RELEASE_(sb_);
-  [super dealloc];
+  
 }
 
 + (const J2ObjcClassInfo *)__metadata {

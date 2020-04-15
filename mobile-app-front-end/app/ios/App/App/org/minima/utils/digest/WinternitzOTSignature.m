@@ -260,7 +260,7 @@ J2OBJC_FIELD_SETTER(OrgMinimaUtilsDigestWinternitzOTSignature, gmssRandom_, OrgM
   RELEASE_(messDigestOTS_);
   RELEASE_(privateKeyOTS_);
   RELEASE_(gmssRandom_);
-  [super dealloc];
+
 }
 
 + (const J2ObjcClassInfo *)__metadata {

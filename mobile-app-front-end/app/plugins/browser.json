@@ -25,16 +25,10 @@
     "cordova-plugin-ionic-webview": {
       "PACKAGE_NAME": "global.minima.telco"
     },
-    "cordova-plugin-local-notification": {
-      "PACKAGE_NAME": "global.minima.telco"
-    },
     "cordova-plugin-qrscanner": {
       "PACKAGE_NAME": "global.minima.telco"
     },
     "cordova-plugin-splashscreen": {
-      "PACKAGE_NAME": "global.minima.telco"
-    },
-    "cordova-plugin-statusbar": {
       "PACKAGE_NAME": "global.minima.telco"
     },
     "cordova-plugin-whitelist": {

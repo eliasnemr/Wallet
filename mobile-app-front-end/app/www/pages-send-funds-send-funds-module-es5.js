@@ -137,8 +137,8 @@ var SendFundsPage = /** @class */ (function () {
         }
     };
     SendFundsPage.prototype.ionViewWillLeave = function () {
-        this.stopCamera();
         this.balanceSubscription.unsubscribe();
+        this.stopCamera();
     };
     SendFundsPage.prototype.ionViewDidLoad = function () {
         this.data.tokenid = this.MINIMA_TOKEN_ID;

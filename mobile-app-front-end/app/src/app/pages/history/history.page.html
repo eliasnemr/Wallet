@@ -41,12 +41,10 @@
     <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@ Transactions @@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
     
     <ion-slide class="swiper-slide">
-    <ion-card-content style="width: 100%; overflow-y:scroll; display:block;">
+    <ion-card-content style="width: 100%; text-align: center;">
 
-    <!-- Title-->
-    <ion-item *ngIf="transactions.length < 1" lines="none" class="no-activity-item">
-      <ion-text style="font-family: Aeonik-light;">No activities to display.</ion-text>
-    </ion-item>
+    <!-- Zero activities -->
+    <ion-text *ngIf="transactions.length < 1" style="font-family: Aeonik-light;">No activities to display.</ion-text>
 
     <ion-list *ngFor="let transaction of transactions;">
     <ion-grid><ion-row>
@@ -106,16 +104,14 @@
     </ion-slide>
     <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@ Token Creation @@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
     <ion-slide class="swiper-slide">
-    <ion-card-content style="width: 100%; overflow-y:scroll; display:block;">
-    <ion-item *ngIf="transactions.length < 1" lines="none">
-      <ion-text style="font-family: Aeonik-light;">No activities to display.</ion-text>
-    </ion-item>
-
+    <ion-card-content style="width: 100%; text-align: center !important;">
+    
+    <ion-text *ngIf="tokens.length < 1" style="font-family: 'Aeonik-light';"> No token activities to display. </ion-text>
+    
     
     <ion-list *ngFor="let transaction of transactions;">
-    <ion-grid><ion-row>
+    <ion-grid *ngIf="transactions.length >= 1 && transaction.values[0].name === 'Create Token';" ><ion-row>
     <ion-item 
-    *ngIf="transactions.length >= 1 && transaction.values[0].name === 'Create Token';" 
     class="activity"
     (click)="presentHistoryTokenInfo($event, 
               transaction.txpow.txn.inputs[0].address,
@@ -154,7 +150,7 @@
       <ion-col class="col-transamnt" fixed="true">
       <ion-label class="amount">
       <h2 class="amount-h2">
-      {{ transaction.values[1].amount.substring(0, 5) + " " }} MINI
+      {{ transaction.values[1].amount.substring(0, 8) + " " }} MINI
       </h2>
       </ion-label>
       </ion-col>
@@ -168,10 +164,10 @@
 
     <!-- @@@@@@@@@@@@@@@@@@@@@@@@@ All @@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
     <ion-slide class="swiper-slide">
-    <ion-card-content style="width: 100%; overflow-y:scroll; display:block;">
-    <ion-item *ngIf="transactions.length < 1" lines="none" style="padding-left: 50px;">
-      <ion-text style="font-family: Aeonik-light;">No activities to display.</ion-text>
-    </ion-item>
+    <ion-card-content style="width: 100%; text-align: center;">
+
+    <!-- Zero activities -->
+    <ion-text *ngIf="transactions.length < 1" style="font-family: Aeonik-light;">No activities to display.</ion-text>
 
     <ion-list *ngFor="let transaction of transactions;">
     <ion-grid *ngIf="transactions.length >= 1 && transaction.values[0].name !== 'Create Token';"><ion-row>
@@ -276,13 +272,6 @@
     </ion-card-content>
     </ion-slide>
   </ion-slides>
-
-
-  
-
-
-
-  
 
 
 

@@ -33,7 +33,7 @@
 - (void)dealloc {
   RELEASE_(mWhileCheck_);
   RELEASE_(mWhileBlock_);
-  [super dealloc];
+
 }
 
 + (const J2ObjcClassInfo *)__metadata {

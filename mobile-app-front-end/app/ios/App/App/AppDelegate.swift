@@ -19,7 +19,7 @@ import UserNotifications
         
         let content = UNMutableNotificationContent()
         content.title = "Minima"
-        content.body = "Minima is now running.."
+        content.body = "Minima node running..."
         
         let date = Date().addingTimeInterval(5)
         

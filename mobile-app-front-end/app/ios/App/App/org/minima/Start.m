@@ -287,13 +287,15 @@ J2OBJC_IGNORE_DESIGNATED_END
 - (void)run {
   [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out))) printlnWithNSString:@"Minima Started.."];
   JavaUtilArrayList *vars = create_JavaUtilArrayList_init();
-  [vars addWithId:@"-daemon"];
-  [vars addWithId:@"-clean"];
-  [vars addWithId:@"-port"];
-  [vars addWithId:@"9001"];
-  [vars addWithId:@"-connect"];
-  [vars addWithId:@"34.90.172.118"];
-  [vars addWithId:@"9001"];
+  
+    [vars addWithId:@"-private"];
+//  [vars addWithId:@"-daemon"];
+    [vars addWithId:@"-clean"];
+//  [vars addWithId:@"-port"];
+//  [vars addWithId:@"9001"];
+//  [vars addWithId:@"-connect"];
+//  [vars addWithId:@"34.90.172.118"];
+//  [vars addWithId:@"9001"];
   OrgMinimaStart_mainWithNSStringArray_([vars toArrayWithNSObjectArray:[IOSObjectArray arrayWithLength:0 type:NSString_class_()]]);
 }
 

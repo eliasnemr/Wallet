@@ -2,8 +2,6 @@ import { MinimaApiService } from './service/minima-api.service';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Platform, MenuController } from '@ionic/angular';
-import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { darkMode } from './service/darkMode.service';
 import { Storage } from '@ionic/storage';
 
@@ -30,7 +28,6 @@ export class AppComponent {
     private menu: MenuController,
     private router: Router,
     private api: MinimaApiService,
-    private localNotifications: LocalNotifications,
     private darkMode: darkMode,
     private storage: Storage) {
     
@@ -43,8 +40,13 @@ export class AppComponent {
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
     //darkMode.toggleDarkTheme(prefersDark.matches);
 
-    // Listen for changes to the prefers-color-scheme media query
-    prefersDark.addListener((mediaQuery) => darkMode.toggleDarkTheme(mediaQuery.matches)); 
+    //check cookies for theme
+    if(localStorage.getItem('toggleVal') === 'true'){
+      document.body.classList.toggle('dark', true);
+    
+    } else {
+      document.body.classList.toggle('dark', false);
+    }
 
   }
 
@@ -58,10 +60,10 @@ export class AppComponent {
     console.log('Minima initialized');
     this.platform.ready().then(() => {
 
-      SplashScreen.show({
-        showDuration: 2000,
-        autoHide: true,
-      });
+      // SplashScreen.show({
+      //   showDuration: 2000,
+      //   autoHide: true,
+      // });
       
     });
   }
@@ -146,7 +148,7 @@ export class AppComponent {
     //Minima.logout();
     
     /*  If on desktop do this.. */
-    if(this.platform.is('desktop') || this.platform.is('pwa') || this.platform.is('mobileweb')) {
+    if(this.platform.is('desktop') || this.platform.is('pwa')) {
       window.addEventListener('load', (ev: Event) => {
         // Page loaded
         window.addEventListener('MinimaEvent', (evt: any)=> {

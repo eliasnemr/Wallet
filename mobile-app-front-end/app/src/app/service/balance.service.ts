@@ -21,10 +21,10 @@ export class BalanceService {
     this.host = this.getHost();
    }
    
-  giveMe50(): Observable<{}> {
+  giveMe50(): Observable<{ status: boolean, minifunc: string, response: any}> {
     let apiUrl = this.host + 'gimme50';
     
-    return this.http.get<{}>(apiUrl);
+    return this.http.get<{ status: boolean, minifunc: string, response: any}>(apiUrl);
   }
 
   getBalance(): Observable<{ status: boolean, minifunc: string, response: {balance: Tokens}}> {
