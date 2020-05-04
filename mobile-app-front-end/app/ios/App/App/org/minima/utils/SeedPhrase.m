@@ -103,12 +103,12 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 + (void)initialize {
   if (self == [OrgMinimaUtilsSeedPhrase class]) {
-    JreStrongAssignAndConsume(&OrgMinimaUtilsSeedPhrase_ARTICLE, [IOSObjectArray newArrayWithObjects:(id[]){ @"THE", @"A" } count:2 type:NSString_class_()]);
-    JreStrongAssignAndConsume(&OrgMinimaUtilsSeedPhrase_ADJS, [IOSObjectArray newArrayWithObjects:(id[]){ @"QUICK", @"SLOW", @"SLY", @"FAST", @"FAT", @"THIN", @"GREEDY", @"WARM", @"TIRED", @"CUNNING", @"SAD", @"HAPPY", @"LAZY", @"HUNGRY", @"LOVELY", @"NICE", @"SHINY", @"SCALY", @"FURRY" } count:19 type:NSString_class_()]);
-    JreStrongAssignAndConsume(&OrgMinimaUtilsSeedPhrase_COLOUR, [IOSObjectArray newArrayWithObjects:(id[]){ @"RED", @"GREEN", @"BLUE", @"YELLOW", @"BLACK", @"WHITE", @"PINK", @"ORANGE", @"GREY", @"BRONZE", @"GOLDEN", @"SILVER", @"METAL" } count:13 type:NSString_class_()]);
-    JreStrongAssignAndConsume(&OrgMinimaUtilsSeedPhrase_NOUNS, [IOSObjectArray newArrayWithObjects:(id[]){ @"CAT", @"DOG", @"BIRD", @"FISH", @"LION", @"HIPPO", @"WOLF", @"COW", @"MOUSE", @"TIGER", @"FOX", @"RABBIT", @"ZEBRA", @"DEER", @"MONKEY", @"GORILLA", @"APE", @"PARROT", @"SLUG", @"WORM", @"ELEPHANT", @"RAT" } count:22 type:NSString_class_()]);
-    JreStrongAssignAndConsume(&OrgMinimaUtilsSeedPhrase_VERB, [IOSObjectArray newArrayWithObjects:(id[]){ @"LICKED", @"TOUCHED", @"KICKED", @"LIKED", @"ATE", @"EYED", @"SAW", @"SNIFFED", @"PUSHED", @"PULLED", @"DRAGGED", @"DROPPED", @"CHEWED", @"PUNCHED", @"TICKLED", @"FLICKED", @"WASHED", @"TOUCHED" } count:18 type:NSString_class_()]);
-    JreStrongAssignAndConsume(&OrgMinimaUtilsSeedPhrase_CONJ, [IOSObjectArray newArrayWithObjects:(id[]){ @"AND", @"AS", @"BUT", @"WHEN", @"AFTER", @"BEFORE" } count:6 type:NSString_class_()]);
+    OrgMinimaUtilsSeedPhrase_ARTICLE = [IOSObjectArray newArrayWithObjects:(id[]){ @"THE", @"A" } count:2 type:NSString_class_()];
+    OrgMinimaUtilsSeedPhrase_ADJS = [IOSObjectArray newArrayWithObjects:(id[]){ @"QUICK", @"SLOW", @"SLY", @"FAST", @"FAT", @"THIN", @"GREEDY", @"WARM", @"TIRED", @"CUNNING", @"SAD", @"HAPPY", @"LAZY", @"HUNGRY", @"LOVELY", @"NICE", @"SHINY", @"SCALY", @"FURRY" } count:19 type:NSString_class_()];
+    OrgMinimaUtilsSeedPhrase_COLOUR = [IOSObjectArray newArrayWithObjects:(id[]){ @"RED", @"GREEN", @"BLUE", @"YELLOW", @"BLACK", @"WHITE", @"PINK", @"ORANGE", @"GREY", @"BRONZE", @"GOLDEN", @"SILVER", @"METAL" } count:13 type:NSString_class_()];
+    OrgMinimaUtilsSeedPhrase_NOUNS = [IOSObjectArray newArrayWithObjects:(id[]){ @"CAT", @"DOG", @"BIRD", @"FISH", @"LION", @"HIPPO", @"WOLF", @"COW", @"MOUSE", @"TIGER", @"FOX", @"RABBIT", @"ZEBRA", @"DEER", @"MONKEY", @"GORILLA", @"APE", @"PARROT", @"SLUG", @"WORM", @"ELEPHANT", @"RAT" } count:22 type:NSString_class_()];
+    OrgMinimaUtilsSeedPhrase_VERB = [IOSObjectArray newArrayWithObjects:(id[]){ @"LICKED", @"TOUCHED", @"KICKED", @"LIKED", @"ATE", @"EYED", @"SAW", @"SNIFFED", @"PUSHED", @"PULLED", @"DRAGGED", @"DROPPED", @"CHEWED", @"PUNCHED", @"TICKLED", @"FLICKED", @"WASHED", @"TOUCHED" } count:18 type:NSString_class_()];
+    OrgMinimaUtilsSeedPhrase_CONJ = [IOSObjectArray newArrayWithObjects:(id[]){ @"AND", @"AS", @"BUT", @"WHEN", @"AFTER", @"BEFORE" } count:6 type:NSString_class_()];
     J2OBJC_SET_INITIALIZED(OrgMinimaUtilsSeedPhrase)
   }
 }
@@ -129,9 +129,9 @@ OrgMinimaUtilsSeedPhrase *create_OrgMinimaUtilsSeedPhrase_init() {
 
 void OrgMinimaUtilsSeedPhrase_mainWithNSStringArray_(IOSObjectArray *zArgs) {
   OrgMinimaUtilsSeedPhrase_initialize();
-  JreStrongAssignAndConsume(&OrgMinimaUtilsSeedPhrase_mSecRand, new_JavaSecuritySecureRandom_init());
-  JreStrongAssign(&OrgMinimaUtilsSeedPhrase_mFinalSentance, @"");
-  JreStrongAssign(&OrgMinimaUtilsSeedPhrase_mTotalCount, JreLoadStatic(JavaMathBigInteger, ONE));
+  OrgMinimaUtilsSeedPhrase_mSecRand = new_JavaSecuritySecureRandom_init();
+  OrgMinimaUtilsSeedPhrase_mFinalSentance = @"";
+  OrgMinimaUtilsSeedPhrase_mTotalCount = JreLoadStatic(JavaMathBigInteger, ONE);
   OrgMinimaUtilsSeedPhrase_addFullNoun();
   OrgMinimaUtilsSeedPhrase_addRandomWithNSStringArray_(OrgMinimaUtilsSeedPhrase_VERB);
   OrgMinimaUtilsSeedPhrase_addFullNoun();
@@ -155,8 +155,8 @@ void OrgMinimaUtilsSeedPhrase_addFullNoun() {
 
 void OrgMinimaUtilsSeedPhrase_addRandomWithNSStringArray_(IOSObjectArray *zWordBlock) {
   OrgMinimaUtilsSeedPhrase_initialize();
-  JreStrAppendStrong(&OrgMinimaUtilsSeedPhrase_mFinalSentance, "$C", IOSObjectArray_Get(zWordBlock, [((JavaSecuritySecureRandom *) nil_chk(OrgMinimaUtilsSeedPhrase_mSecRand)) nextIntWithInt:((IOSObjectArray *) nil_chk(zWordBlock))->size_]), ' ');
-  JreStrongAssign(&OrgMinimaUtilsSeedPhrase_mTotalCount, [((JavaMathBigInteger *) nil_chk(OrgMinimaUtilsSeedPhrase_mTotalCount)) multiplyWithJavaMathBigInteger:create_JavaMathBigInteger_initWithNSString_(JreStrcat("I", zWordBlock->size_))]);
+  (void) JreStrAppendStrong(&OrgMinimaUtilsSeedPhrase_mFinalSentance, "$C", IOSObjectArray_Get(zWordBlock, [((JavaSecuritySecureRandom *) nil_chk(OrgMinimaUtilsSeedPhrase_mSecRand)) nextIntWithInt:((IOSObjectArray *) nil_chk(zWordBlock))->size_]), ' ');
+  OrgMinimaUtilsSeedPhrase_mTotalCount = [((JavaMathBigInteger *) nil_chk(OrgMinimaUtilsSeedPhrase_mTotalCount)) multiplyWithJavaMathBigInteger:new_JavaMathBigInteger_initWithNSString_(JreStrcat("I", zWordBlock->size_))];
 }
 
 J2OBJC_CLASS_TYPE_LITERAL_SOURCE(OrgMinimaUtilsSeedPhrase)

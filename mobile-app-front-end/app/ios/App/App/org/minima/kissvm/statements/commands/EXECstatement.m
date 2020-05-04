@@ -28,21 +28,15 @@
   @try {
     id<JavaUtilList> tokens = OrgMinimaKissvmTokensToken_tokenizeWithNSString_([((OrgMinimaKissvmValuesScriptValue *) nil_chk(script)) description]);
     OrgMinimaKissvmStatementsStatementBlock *mBlock = OrgMinimaKissvmStatementsStatementParser_parseTokensWithJavaUtilList_(tokens);
-    [((OrgMinimaKissvmContract *) nil_chk(zContract)) traceLogWithNSString:JreStrcat("$$$", @"EXEC [ ", [script description], @" ]")];
     [((OrgMinimaKissvmStatementsStatementBlock *) nil_chk(mBlock)) runWithOrgMinimaKissvmContract:zContract];
   }
   @catch (JavaLangException *exc) {
-    @throw create_OrgMinimaKissvmExceptionsExecutionException_initWithNSString_([exc description]);
+    @throw new_OrgMinimaKissvmExceptionsExecutionException_initWithNSString_([exc description]);
   }
 }
 
 - (NSString *)description {
   return JreStrcat("$@", @"EXEC ", mScript_);
-}
-
-- (void)dealloc {
-  RELEASE_(mScript_);
-  [super dealloc];
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -70,7 +64,7 @@
 
 void OrgMinimaKissvmStatementsCommandsEXECstatement_initWithOrgMinimaKissvmExpressionsExpression_(OrgMinimaKissvmStatementsCommandsEXECstatement *self, id<OrgMinimaKissvmExpressionsExpression> zScript) {
   NSObject_init(self);
-  JreStrongAssign(&self->mScript_, zScript);
+  self->mScript_ = zScript;
 }
 
 OrgMinimaKissvmStatementsCommandsEXECstatement *new_OrgMinimaKissvmStatementsCommandsEXECstatement_initWithOrgMinimaKissvmExpressionsExpression_(id<OrgMinimaKissvmExpressionsExpression> zScript) {

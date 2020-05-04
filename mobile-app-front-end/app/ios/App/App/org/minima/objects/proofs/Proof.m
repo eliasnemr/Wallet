@@ -39,7 +39,7 @@ J2OBJC_IGNORE_DESIGNATED_BEGIN
 J2OBJC_IGNORE_DESIGNATED_END
 
 - (void)setDataWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zData {
-  JreStrongAssign(&mData_, zData);
+  mData_ = zData;
 }
 
 - (OrgMinimaObjectsBaseMiniData *)getData {
@@ -48,10 +48,10 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 - (void)setProofWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zChainSHAProof {
   mFinalized_ = false;
-  JreStrongAssignAndConsume(&mProofChain_, new_JavaUtilArrayList_init());
+  mProofChain_ = new_JavaUtilArrayList_init();
   IOSByteArray *chdata = [((OrgMinimaObjectsBaseMiniData *) nil_chk(zChainSHAProof)) getData];
-  JavaIoByteArrayInputStream *bais = create_JavaIoByteArrayInputStream_initWithByteArray_(chdata);
-  JavaIoDataInputStream *dis = create_JavaIoDataInputStream_initWithJavaIoInputStream_(bais);
+  JavaIoByteArrayInputStream *bais = new_JavaIoByteArrayInputStream_initWithByteArray_(chdata);
+  JavaIoDataInputStream *dis = new_JavaIoDataInputStream_initWithJavaIoInputStream_(bais);
   jint len = ((IOSByteArray *) nil_chk(chdata))->size_;
   jint read = 0;
   @try {
@@ -83,7 +83,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 - (void)addProofChunkWithOrgMinimaObjectsBaseMiniByte:(OrgMinimaObjectsBaseMiniByte *)zLeft
                      withOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zHash
                  withOrgMinimaObjectsBaseMMRSumNumber:(OrgMinimaObjectsBaseMMRSumNumber *)zValue {
-  [((JavaUtilArrayList *) nil_chk(mProofChain_)) addWithId:create_OrgMinimaObjectsProofsProof_ProofChunk_initWithOrgMinimaObjectsProofsProof_withOrgMinimaObjectsBaseMiniByte_withOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMMRSumNumber_(self, zLeft, zHash, zValue)];
+  [((JavaUtilArrayList *) nil_chk(mProofChain_)) addWithId:new_OrgMinimaObjectsProofsProof_ProofChunk_initWithOrgMinimaObjectsProofsProof_withOrgMinimaObjectsBaseMiniByte_withOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMMRSumNumber_(self, zLeft, zHash, zValue)];
 }
 
 - (jint)getProofLen {
@@ -96,8 +96,8 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 - (void)finalizeHash {
   mFinalized_ = false;
-  JreStrongAssign(&mFinalHash_, [self getFinalHash]);
-  JreStrongAssign(&mChainSHA_, [self getChainSHAProof]);
+  mFinalHash_ = [self getFinalHash];
+  mChainSHA_ = [self getChainSHAProof];
   mFinalized_ = true;
 }
 
@@ -105,8 +105,8 @@ J2OBJC_IGNORE_DESIGNATED_END
   if (mFinalized_) {
     return mChainSHA_;
   }
-  JavaIoByteArrayOutputStream *baos = create_JavaIoByteArrayOutputStream_init();
-  JavaIoDataOutputStream *dos = create_JavaIoDataOutputStream_initWithJavaIoOutputStream_(baos);
+  JavaIoByteArrayOutputStream *baos = new_JavaIoByteArrayOutputStream_init();
+  JavaIoDataOutputStream *dos = new_JavaIoDataOutputStream_initWithJavaIoOutputStream_(baos);
   @try {
     [dos writeShortWithInt:HASH_BITS_];
     jint len = [((JavaUtilArrayList *) nil_chk(mProofChain_)) size];
@@ -119,7 +119,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   @catch (JavaIoIOException *e) {
     [e printStackTrace];
   }
-  return create_OrgMinimaObjectsBaseMiniData_initWithByteArray_([baos toByteArray]);
+  return new_OrgMinimaObjectsBaseMiniData_initWithByteArray_([baos toByteArray]);
 }
 
 - (OrgMinimaObjectsBaseMiniData *)getFinalHash {
@@ -141,22 +141,22 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (OrgMinimaUtilsJsonJSONObject *)toJSON {
-  OrgMinimaUtilsJsonJSONObject *json = create_OrgMinimaUtilsJsonJSONObject_init();
-  OrgMinimaUtilsJsonJSONArray *proof = create_OrgMinimaUtilsJsonJSONArray_init();
+  OrgMinimaUtilsJsonJSONObject *json = new_OrgMinimaUtilsJsonJSONObject_init();
+  OrgMinimaUtilsJsonJSONArray *proof = new_OrgMinimaUtilsJsonJSONArray_init();
   jint len = [((JavaUtilArrayList *) nil_chk(mProofChain_)) size];
   for (jint i = 0; i < len; i++) {
-    OrgMinimaUtilsJsonJSONObject *jsonchunk = create_OrgMinimaUtilsJsonJSONObject_init();
+    OrgMinimaUtilsJsonJSONObject *jsonchunk = new_OrgMinimaUtilsJsonJSONObject_init();
     OrgMinimaObjectsProofsProof_ProofChunk *chunk = [((JavaUtilArrayList *) nil_chk(mProofChain_)) getWithInt:i];
-    [jsonchunk putWithId:@"left" withId:JavaLangBoolean_valueOfWithBoolean_([((OrgMinimaObjectsBaseMiniByte *) nil_chk([((OrgMinimaObjectsProofsProof_ProofChunk *) nil_chk(chunk)) getLeft])) isTrue])];
-    [jsonchunk putWithId:@"hash" withId:[((OrgMinimaObjectsBaseMiniData *) nil_chk([chunk getHash])) to0xString]];
-    [jsonchunk putWithId:@"value" withId:[((OrgMinimaObjectsBaseMMRSumNumber *) nil_chk([chunk getValue])) description]];
+    (void) [jsonchunk putWithId:@"left" withId:JavaLangBoolean_valueOfWithBoolean_([((OrgMinimaObjectsBaseMiniByte *) nil_chk([((OrgMinimaObjectsProofsProof_ProofChunk *) nil_chk(chunk)) getLeft])) isTrue])];
+    (void) [jsonchunk putWithId:@"hash" withId:[((OrgMinimaObjectsBaseMiniData *) nil_chk([chunk getHash])) to0xString]];
+    (void) [jsonchunk putWithId:@"value" withId:[((OrgMinimaObjectsBaseMMRSumNumber *) nil_chk([chunk getValue])) description]];
     [proof addWithId:jsonchunk];
   }
-  [json putWithId:@"data" withId:[((OrgMinimaObjectsBaseMiniData *) nil_chk(mData_)) to0xString]];
-  [json putWithId:@"hashbits" withId:JavaLangInteger_valueOfWithInt_(HASH_BITS_)];
-  [json putWithId:@"proofchain" withId:proof];
-  [json putWithId:@"chainsha" withId:[((OrgMinimaObjectsBaseMiniData *) nil_chk([self getChainSHAProof])) to0xString]];
-  [json putWithId:@"finalhash" withId:[((OrgMinimaObjectsBaseMiniData *) nil_chk([self getFinalHash])) to0xString]];
+  (void) [json putWithId:@"data" withId:[((OrgMinimaObjectsBaseMiniData *) nil_chk(mData_)) to0xString]];
+  (void) [json putWithId:@"hashbits" withId:JavaLangInteger_valueOfWithInt_(HASH_BITS_)];
+  (void) [json putWithId:@"proofchain" withId:proof];
+  (void) [json putWithId:@"chainsha" withId:[((OrgMinimaObjectsBaseMiniData *) nil_chk([self getChainSHAProof])) to0xString]];
+  (void) [json putWithId:@"finalhash" withId:[((OrgMinimaObjectsBaseMiniData *) nil_chk([self getFinalHash])) to0xString]];
   return json;
 }
 
@@ -175,14 +175,14 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 - (void)readDataStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn {
   HASH_BITS_ = [((JavaIoDataInputStream *) nil_chk(zIn)) readInt];
-  JreStrongAssign(&mData_, OrgMinimaObjectsBaseMiniData_ReadFromStreamWithJavaIoDataInputStream_(zIn));
-  JreStrongAssignAndConsume(&mProofChain_, new_JavaUtilArrayList_init());
+  mData_ = OrgMinimaObjectsBaseMiniData_ReadFromStreamWithJavaIoDataInputStream_(zIn);
+  mProofChain_ = new_JavaUtilArrayList_init();
   jint len = [zIn readInt];
   for (jint i = 0; i < len; i++) {
     OrgMinimaObjectsBaseMiniByte *left = OrgMinimaObjectsBaseMiniByte_ReadFromStreamWithJavaIoDataInputStream_(zIn);
     OrgMinimaObjectsBaseMiniData *hash_ = OrgMinimaObjectsBaseMiniData_ReadFromStreamWithJavaIoDataInputStream_(zIn);
     OrgMinimaObjectsBaseMMRSumNumber *val = OrgMinimaObjectsBaseMMRSumNumber_ReadFromStreamWithJavaIoDataInputStream_(zIn);
-    [((JavaUtilArrayList *) nil_chk(mProofChain_)) addWithId:create_OrgMinimaObjectsProofsProof_ProofChunk_initWithOrgMinimaObjectsProofsProof_withOrgMinimaObjectsBaseMiniByte_withOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMMRSumNumber_(self, left, hash_, val)];
+    [((JavaUtilArrayList *) nil_chk(mProofChain_)) addWithId:new_OrgMinimaObjectsProofsProof_ProofChunk_initWithOrgMinimaObjectsProofsProof_withOrgMinimaObjectsBaseMiniByte_withOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMMRSumNumber_(self, left, hash_, val)];
   }
   [self finalizeHash];
 }
@@ -193,14 +193,6 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 + (jint)getChainSHABitsWithNSString:(NSString *)zChainSHA {
   return OrgMinimaObjectsProofsProof_getChainSHABitsWithNSString_(zChainSHA);
-}
-
-- (void)dealloc {
-  RELEASE_(mData_);
-  RELEASE_(mProofChain_);
-  RELEASE_(mFinalHash_);
-  RELEASE_(mChainSHA_);
-  [super dealloc];
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -262,7 +254,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 void OrgMinimaObjectsProofsProof_init(OrgMinimaObjectsProofsProof *self) {
   NSObject_init(self);
   self->HASH_BITS_ = 512;
-  JreStrongAssignAndConsume(&self->mProofChain_, new_JavaUtilArrayList_init());
+  self->mProofChain_ = new_JavaUtilArrayList_init();
 }
 
 OrgMinimaObjectsProofsProof *new_OrgMinimaObjectsProofsProof_init() {
@@ -275,7 +267,7 @@ OrgMinimaObjectsProofsProof *create_OrgMinimaObjectsProofsProof_init() {
 
 OrgMinimaObjectsProofsProof *OrgMinimaObjectsProofsProof_ReadFromStreamWithJavaIoDataInputStream_(JavaIoDataInputStream *zIn) {
   OrgMinimaObjectsProofsProof_initialize();
-  OrgMinimaObjectsProofsProof *proof = create_OrgMinimaObjectsProofsProof_init();
+  OrgMinimaObjectsProofsProof *proof = new_OrgMinimaObjectsProofsProof_init();
   @try {
     [proof readDataStreamWithJavaIoDataInputStream:zIn];
   }
@@ -296,7 +288,7 @@ jint OrgMinimaObjectsProofsProof_getChainSHABitsWithNSString_(NSString *zChainSH
   else if ([zChainSHA java_hasPrefix:@"0x00A0"]) {
     return 160;
   }
-  @throw create_JavaLangException_initWithNSString_(@"Invalid ChainSHA.. must be 160, 256 or 512");
+  @throw new_JavaLangException_initWithNSString_(@"Invalid ChainSHA.. must be 160, 256 or 512");
 }
 
 J2OBJC_CLASS_TYPE_LITERAL_SOURCE(OrgMinimaObjectsProofsProof)
@@ -321,13 +313,6 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(OrgMinimaObjectsProofsProof)
 
 - (OrgMinimaObjectsBaseMMRSumNumber *)getValue {
   return mValue_;
-}
-
-- (void)dealloc {
-  RELEASE_(mHash_);
-  RELEASE_(mValue_);
-  RELEASE_(mLeftRight_);
-  [super dealloc];
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -359,9 +344,9 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(OrgMinimaObjectsProofsProof)
 
 void OrgMinimaObjectsProofsProof_ProofChunk_initWithOrgMinimaObjectsProofsProof_withOrgMinimaObjectsBaseMiniByte_withOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMMRSumNumber_(OrgMinimaObjectsProofsProof_ProofChunk *self, OrgMinimaObjectsProofsProof *outer$, OrgMinimaObjectsBaseMiniByte *zLeft, OrgMinimaObjectsBaseMiniData *zHash, OrgMinimaObjectsBaseMMRSumNumber *zValue) {
   NSObject_init(self);
-  JreStrongAssign(&self->mLeftRight_, zLeft);
-  JreStrongAssign(&self->mHash_, zHash);
-  JreStrongAssign(&self->mValue_, zValue);
+  self->mLeftRight_ = zLeft;
+  self->mHash_ = zHash;
+  self->mValue_ = zValue;
 }
 
 OrgMinimaObjectsProofsProof_ProofChunk *new_OrgMinimaObjectsProofsProof_ProofChunk_initWithOrgMinimaObjectsProofsProof_withOrgMinimaObjectsBaseMiniByte_withOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMMRSumNumber_(OrgMinimaObjectsProofsProof *outer$, OrgMinimaObjectsBaseMiniByte *zLeft, OrgMinimaObjectsBaseMiniData *zHash, OrgMinimaObjectsBaseMMRSumNumber *zValue) {

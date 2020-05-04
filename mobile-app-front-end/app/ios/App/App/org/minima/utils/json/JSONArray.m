@@ -255,13 +255,13 @@ void OrgMinimaUtilsJsonJSONArray_writeJSONStringWithJavaUtilCollection_withJavaI
 
 NSString *OrgMinimaUtilsJsonJSONArray_toJSONStringWithJavaUtilCollection_(id<JavaUtilCollection> collection) {
   OrgMinimaUtilsJsonJSONArray_initialize();
-  JavaIoStringWriter *writer = create_JavaIoStringWriter_init();
+  JavaIoStringWriter *writer = new_JavaIoStringWriter_init();
   @try {
     OrgMinimaUtilsJsonJSONArray_writeJSONStringWithJavaUtilCollection_withJavaIoWriter_(collection, writer);
     return [writer description];
   }
   @catch (JavaIoIOException *e) {
-    @throw create_JavaLangRuntimeException_initWithJavaLangThrowable_(e);
+    @throw new_JavaLangRuntimeException_initWithJavaLangThrowable_(e);
   }
 }
 
@@ -286,13 +286,13 @@ void OrgMinimaUtilsJsonJSONArray_writeJSONStringWithByteArray_withJavaIoWriter_(
 
 NSString *OrgMinimaUtilsJsonJSONArray_toJSONStringWithByteArray_(IOSByteArray *array) {
   OrgMinimaUtilsJsonJSONArray_initialize();
-  JavaIoStringWriter *writer = create_JavaIoStringWriter_init();
+  JavaIoStringWriter *writer = new_JavaIoStringWriter_init();
   @try {
     OrgMinimaUtilsJsonJSONArray_writeJSONStringWithByteArray_withJavaIoWriter_(array, writer);
     return [writer description];
   }
   @catch (JavaIoIOException *e) {
-    @throw create_JavaLangRuntimeException_initWithJavaLangThrowable_(e);
+    @throw new_JavaLangRuntimeException_initWithJavaLangThrowable_(e);
   }
 }
 
@@ -317,13 +317,13 @@ void OrgMinimaUtilsJsonJSONArray_writeJSONStringWithShortArray_withJavaIoWriter_
 
 NSString *OrgMinimaUtilsJsonJSONArray_toJSONStringWithShortArray_(IOSShortArray *array) {
   OrgMinimaUtilsJsonJSONArray_initialize();
-  JavaIoStringWriter *writer = create_JavaIoStringWriter_init();
+  JavaIoStringWriter *writer = new_JavaIoStringWriter_init();
   @try {
     OrgMinimaUtilsJsonJSONArray_writeJSONStringWithShortArray_withJavaIoWriter_(array, writer);
     return [writer description];
   }
   @catch (JavaIoIOException *e) {
-    @throw create_JavaLangRuntimeException_initWithJavaLangThrowable_(e);
+    @throw new_JavaLangRuntimeException_initWithJavaLangThrowable_(e);
   }
 }
 
@@ -348,13 +348,13 @@ void OrgMinimaUtilsJsonJSONArray_writeJSONStringWithIntArray_withJavaIoWriter_(I
 
 NSString *OrgMinimaUtilsJsonJSONArray_toJSONStringWithIntArray_(IOSIntArray *array) {
   OrgMinimaUtilsJsonJSONArray_initialize();
-  JavaIoStringWriter *writer = create_JavaIoStringWriter_init();
+  JavaIoStringWriter *writer = new_JavaIoStringWriter_init();
   @try {
     OrgMinimaUtilsJsonJSONArray_writeJSONStringWithIntArray_withJavaIoWriter_(array, writer);
     return [writer description];
   }
   @catch (JavaIoIOException *e) {
-    @throw create_JavaLangRuntimeException_initWithJavaLangThrowable_(e);
+    @throw new_JavaLangRuntimeException_initWithJavaLangThrowable_(e);
   }
 }
 
@@ -379,13 +379,13 @@ void OrgMinimaUtilsJsonJSONArray_writeJSONStringWithLongArray_withJavaIoWriter_(
 
 NSString *OrgMinimaUtilsJsonJSONArray_toJSONStringWithLongArray_(IOSLongArray *array) {
   OrgMinimaUtilsJsonJSONArray_initialize();
-  JavaIoStringWriter *writer = create_JavaIoStringWriter_init();
+  JavaIoStringWriter *writer = new_JavaIoStringWriter_init();
   @try {
     OrgMinimaUtilsJsonJSONArray_writeJSONStringWithLongArray_withJavaIoWriter_(array, writer);
     return [writer description];
   }
   @catch (JavaIoIOException *e) {
-    @throw create_JavaLangRuntimeException_initWithJavaLangThrowable_(e);
+    @throw new_JavaLangRuntimeException_initWithJavaLangThrowable_(e);
   }
 }
 
@@ -410,13 +410,13 @@ void OrgMinimaUtilsJsonJSONArray_writeJSONStringWithFloatArray_withJavaIoWriter_
 
 NSString *OrgMinimaUtilsJsonJSONArray_toJSONStringWithFloatArray_(IOSFloatArray *array) {
   OrgMinimaUtilsJsonJSONArray_initialize();
-  JavaIoStringWriter *writer = create_JavaIoStringWriter_init();
+  JavaIoStringWriter *writer = new_JavaIoStringWriter_init();
   @try {
     OrgMinimaUtilsJsonJSONArray_writeJSONStringWithFloatArray_withJavaIoWriter_(array, writer);
     return [writer description];
   }
   @catch (JavaIoIOException *e) {
-    @throw create_JavaLangRuntimeException_initWithJavaLangThrowable_(e);
+    @throw new_JavaLangRuntimeException_initWithJavaLangThrowable_(e);
   }
 }
 
@@ -441,13 +441,13 @@ void OrgMinimaUtilsJsonJSONArray_writeJSONStringWithDoubleArray_withJavaIoWriter
 
 NSString *OrgMinimaUtilsJsonJSONArray_toJSONStringWithDoubleArray_(IOSDoubleArray *array) {
   OrgMinimaUtilsJsonJSONArray_initialize();
-  JavaIoStringWriter *writer = create_JavaIoStringWriter_init();
+  JavaIoStringWriter *writer = new_JavaIoStringWriter_init();
   @try {
     OrgMinimaUtilsJsonJSONArray_writeJSONStringWithDoubleArray_withJavaIoWriter_(array, writer);
     return [writer description];
   }
   @catch (JavaIoIOException *e) {
-    @throw create_JavaLangRuntimeException_initWithJavaLangThrowable_(e);
+    @throw new_JavaLangRuntimeException_initWithJavaLangThrowable_(e);
   }
 }
 
@@ -472,13 +472,13 @@ void OrgMinimaUtilsJsonJSONArray_writeJSONStringWithBooleanArray_withJavaIoWrite
 
 NSString *OrgMinimaUtilsJsonJSONArray_toJSONStringWithBooleanArray_(IOSBooleanArray *array) {
   OrgMinimaUtilsJsonJSONArray_initialize();
-  JavaIoStringWriter *writer = create_JavaIoStringWriter_init();
+  JavaIoStringWriter *writer = new_JavaIoStringWriter_init();
   @try {
     OrgMinimaUtilsJsonJSONArray_writeJSONStringWithBooleanArray_withJavaIoWriter_(array, writer);
     return [writer description];
   }
   @catch (JavaIoIOException *e) {
-    @throw create_JavaLangRuntimeException_initWithJavaLangThrowable_(e);
+    @throw new_JavaLangRuntimeException_initWithJavaLangThrowable_(e);
   }
 }
 
@@ -503,13 +503,13 @@ void OrgMinimaUtilsJsonJSONArray_writeJSONStringWithCharArray_withJavaIoWriter_(
 
 NSString *OrgMinimaUtilsJsonJSONArray_toJSONStringWithCharArray_(IOSCharArray *array) {
   OrgMinimaUtilsJsonJSONArray_initialize();
-  JavaIoStringWriter *writer = create_JavaIoStringWriter_init();
+  JavaIoStringWriter *writer = new_JavaIoStringWriter_init();
   @try {
     OrgMinimaUtilsJsonJSONArray_writeJSONStringWithCharArray_withJavaIoWriter_(array, writer);
     return [writer description];
   }
   @catch (JavaIoIOException *e) {
-    @throw create_JavaLangRuntimeException_initWithJavaLangThrowable_(e);
+    @throw new_JavaLangRuntimeException_initWithJavaLangThrowable_(e);
   }
 }
 
@@ -534,13 +534,13 @@ void OrgMinimaUtilsJsonJSONArray_writeJSONStringWithNSObjectArray_withJavaIoWrit
 
 NSString *OrgMinimaUtilsJsonJSONArray_toJSONStringWithNSObjectArray_(IOSObjectArray *array) {
   OrgMinimaUtilsJsonJSONArray_initialize();
-  JavaIoStringWriter *writer = create_JavaIoStringWriter_init();
+  JavaIoStringWriter *writer = new_JavaIoStringWriter_init();
   @try {
     OrgMinimaUtilsJsonJSONArray_writeJSONStringWithNSObjectArray_withJavaIoWriter_(array, writer);
     return [writer description];
   }
   @catch (JavaIoIOException *e) {
-    @throw create_JavaLangRuntimeException_initWithJavaLangThrowable_(e);
+    @throw new_JavaLangRuntimeException_initWithJavaLangThrowable_(e);
   }
 }
 

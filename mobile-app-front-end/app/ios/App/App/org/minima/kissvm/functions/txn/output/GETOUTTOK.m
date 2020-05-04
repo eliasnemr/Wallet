@@ -31,14 +31,14 @@ J2OBJC_IGNORE_DESIGNATED_END
   OrgMinimaObjectsTransaction *trans = [((OrgMinimaKissvmContract *) nil_chk(zContract)) getTransaction];
   JavaUtilArrayList *outs = [((OrgMinimaObjectsTransaction *) nil_chk(trans)) getAllOutputs];
   if ([((JavaUtilArrayList *) nil_chk(outs)) size] <= output) {
-    @throw create_OrgMinimaKissvmExceptionsExecutionException_initWithNSString_(JreStrcat("$ICI", @"Output number too high ", output, '/', [outs size]));
+    @throw new_OrgMinimaKissvmExceptionsExecutionException_initWithNSString_(JreStrcat("$ICI", @"Output number too high ", output, '/', [outs size]));
   }
   OrgMinimaObjectsCoin *cc = [outs getWithInt:output];
-  return create_OrgMinimaKissvmValuesHEXValue_initWithOrgMinimaObjectsBaseMiniData_([((OrgMinimaObjectsCoin *) nil_chk(cc)) getTokenID]);
+  return new_OrgMinimaKissvmValuesHEXValue_initWithOrgMinimaObjectsBaseMiniData_([((OrgMinimaObjectsCoin *) nil_chk(cc)) getTokenID]);
 }
 
 - (OrgMinimaKissvmFunctionsMinimaFunction *)getNewFunction {
-  return create_OrgMinimaKissvmFunctionsTxnOutputGETOUTTOK_init();
+  return new_OrgMinimaKissvmFunctionsTxnOutputGETOUTTOK_init();
 }
 
 + (const J2ObjcClassInfo *)__metadata {

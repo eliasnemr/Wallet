@@ -75,11 +75,11 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (void)resetCoinIDWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zCoinID {
-  JreStrongAssign(&mCoinID_, zCoinID);
+  mCoinID_ = zCoinID;
 }
 
 - (void)resetAmountWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zAmount {
-  JreStrongAssign(&mAmount_, zAmount);
+  mAmount_ = zAmount;
 }
 
 - (OrgMinimaObjectsBaseMiniData *)getCoinID {
@@ -103,13 +103,13 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (OrgMinimaUtilsJsonJSONObject *)toJSON {
-  OrgMinimaUtilsJsonJSONObject *obj = create_OrgMinimaUtilsJsonJSONObject_init();
-  [obj putWithId:@"coinid" withId:[((OrgMinimaObjectsBaseMiniData *) nil_chk(mCoinID_)) description]];
-  [obj putWithId:@"address" withId:[((OrgMinimaObjectsBaseMiniData *) nil_chk(mAddress_)) description]];
-  [obj putWithId:@"amount" withId:[((OrgMinimaObjectsBaseMiniNumber *) nil_chk(mAmount_)) description]];
-  [obj putWithId:@"tokenid" withId:[((OrgMinimaObjectsBaseMiniData *) nil_chk(mTokenID_)) description]];
-  [obj putWithId:@"floating" withId:JavaLangBoolean_valueOfWithBoolean_(mFloating_)];
-  [obj putWithId:@"remainder" withId:JavaLangBoolean_valueOfWithBoolean_(mRemainder_)];
+  OrgMinimaUtilsJsonJSONObject *obj = new_OrgMinimaUtilsJsonJSONObject_init();
+  (void) [obj putWithId:@"coinid" withId:[((OrgMinimaObjectsBaseMiniData *) nil_chk(mCoinID_)) description]];
+  (void) [obj putWithId:@"address" withId:[((OrgMinimaObjectsBaseMiniData *) nil_chk(mAddress_)) description]];
+  (void) [obj putWithId:@"amount" withId:[((OrgMinimaObjectsBaseMiniNumber *) nil_chk(mAmount_)) description]];
+  (void) [obj putWithId:@"tokenid" withId:[((OrgMinimaObjectsBaseMiniData *) nil_chk(mTokenID_)) description]];
+  (void) [obj putWithId:@"floating" withId:JavaLangBoolean_valueOfWithBoolean_(mFloating_)];
+  (void) [obj putWithId:@"remainder" withId:JavaLangBoolean_valueOfWithBoolean_(mRemainder_)];
   return obj;
 }
 
@@ -133,24 +133,16 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (void)readDataStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn {
-  JreStrongAssign(&mCoinID_, OrgMinimaObjectsBaseMiniData_ReadFromStreamWithJavaIoDataInputStream_(zIn));
-  JreStrongAssign(&mAddress_, OrgMinimaObjectsBaseMiniData_ReadFromStreamWithJavaIoDataInputStream_(zIn));
-  JreStrongAssign(&mAmount_, OrgMinimaObjectsBaseMiniNumber_ReadFromStreamWithJavaIoDataInputStream_(zIn));
-  JreStrongAssign(&mTokenID_, OrgMinimaObjectsBaseMiniData_ReadFromStreamWithJavaIoDataInputStream_(zIn));
+  mCoinID_ = OrgMinimaObjectsBaseMiniData_ReadFromStreamWithJavaIoDataInputStream_(zIn);
+  mAddress_ = OrgMinimaObjectsBaseMiniData_ReadFromStreamWithJavaIoDataInputStream_(zIn);
+  mAmount_ = OrgMinimaObjectsBaseMiniNumber_ReadFromStreamWithJavaIoDataInputStream_(zIn);
+  mTokenID_ = OrgMinimaObjectsBaseMiniData_ReadFromStreamWithJavaIoDataInputStream_(zIn);
   mFloating_ = [((OrgMinimaObjectsBaseMiniByte *) nil_chk(OrgMinimaObjectsBaseMiniByte_ReadFromStreamWithJavaIoDataInputStream_(zIn))) isTrue];
   mRemainder_ = [((OrgMinimaObjectsBaseMiniByte *) nil_chk(OrgMinimaObjectsBaseMiniByte_ReadFromStreamWithJavaIoDataInputStream_(zIn))) isTrue];
 }
 
 + (OrgMinimaObjectsCoin *)ReadFromStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn {
   return OrgMinimaObjectsCoin_ReadFromStreamWithJavaIoDataInputStream_(zIn);
-}
-
-- (void)dealloc {
-  RELEASE_(mCoinID_);
-  RELEASE_(mAddress_);
-  RELEASE_(mAmount_);
-  RELEASE_(mTokenID_);
-  [super dealloc];
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -214,9 +206,9 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 + (void)initialize {
   if (self == [OrgMinimaObjectsCoin class]) {
-    JreStrongAssignAndConsume(&OrgMinimaObjectsCoin_MINIMA_TOKENID, new_OrgMinimaObjectsBaseMiniData_initWithNSString_(@"0x00"));
-    JreStrongAssignAndConsume(&OrgMinimaObjectsCoin_COINID_OUTPUT, new_OrgMinimaObjectsBaseMiniData_initWithNSString_(@"0x00"));
-    JreStrongAssignAndConsume(&OrgMinimaObjectsCoin_TOKENID_CREATE, new_OrgMinimaObjectsBaseMiniData_initWithNSString_(@"0xFF"));
+    OrgMinimaObjectsCoin_MINIMA_TOKENID = new_OrgMinimaObjectsBaseMiniData_initWithNSString_(@"0x00");
+    OrgMinimaObjectsCoin_COINID_OUTPUT = new_OrgMinimaObjectsBaseMiniData_initWithNSString_(@"0x00");
+    OrgMinimaObjectsCoin_TOKENID_CREATE = new_OrgMinimaObjectsBaseMiniData_initWithNSString_(@"0xFF");
     J2OBJC_SET_INITIALIZED(OrgMinimaObjectsCoin)
   }
 }
@@ -239,10 +231,10 @@ void OrgMinimaObjectsCoin_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObje
   NSObject_init(self);
   self->mFloating_ = false;
   self->mRemainder_ = false;
-  JreStrongAssign(&self->mCoinID_, zCoinID);
-  JreStrongAssign(&self->mAddress_, zAddress);
-  JreStrongAssign(&self->mAmount_, zAmount);
-  JreStrongAssign(&self->mTokenID_, zTokenID);
+  self->mCoinID_ = zCoinID;
+  self->mAddress_ = zAddress;
+  self->mAmount_ = zAmount;
+  self->mTokenID_ = zTokenID;
   self->mFloating_ = zFloating;
   self->mRemainder_ = zRemainder;
 }
@@ -271,7 +263,7 @@ OrgMinimaObjectsCoin *create_OrgMinimaObjectsCoin_init() {
 
 OrgMinimaObjectsCoin *OrgMinimaObjectsCoin_ReadFromStreamWithJavaIoDataInputStream_(JavaIoDataInputStream *zIn) {
   OrgMinimaObjectsCoin_initialize();
-  OrgMinimaObjectsCoin *coin = create_OrgMinimaObjectsCoin_init();
+  OrgMinimaObjectsCoin *coin = new_OrgMinimaObjectsCoin_init();
   [coin readDataStreamWithJavaIoDataInputStream:zIn];
   return coin;
 }

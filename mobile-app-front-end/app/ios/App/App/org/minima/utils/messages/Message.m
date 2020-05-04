@@ -36,7 +36,7 @@ J2OBJC_IGNORE_DESIGNATED_BEGIN
 J2OBJC_IGNORE_DESIGNATED_END
 
 - (void)setMessageTypeWithNSString:(NSString *)zMessageType {
-  JreStrongAssign(&mMessageType_, zMessageType);
+  mMessageType_ = zMessageType;
 }
 
 - (NSString *)getMessageType {
@@ -49,13 +49,13 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 - (OrgMinimaUtilsMessagesMessage *)addObjectWithNSString:(NSString *)zName
                                                   withId:(id)zObject {
-  [((JavaUtilHashMap *) nil_chk(mContents_)) putWithId:zName withId:zObject];
+  (void) [((JavaUtilHashMap *) nil_chk(mContents_)) putWithId:zName withId:zObject];
   return self;
 }
 
 - (OrgMinimaUtilsMessagesMessage *)addIntWithNSString:(NSString *)zName
                                               withInt:(jint)zValue {
-  return [self addObjectWithNSString:zName withId:create_JavaLangInteger_initWithInt_(zValue)];
+  return [self addObjectWithNSString:zName withId:new_JavaLangInteger_initWithInt_(zValue)];
 }
 
 - (OrgMinimaUtilsMessagesMessage *)addStringWithNSString:(NSString *)zName
@@ -65,7 +65,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 - (OrgMinimaUtilsMessagesMessage *)addBooleanWithNSString:(NSString *)zName
                                               withBoolean:(jboolean)zValue {
-  return [self addObjectWithNSString:zName withId:create_JavaLangBoolean_initWithBoolean_(zValue)];
+  return [self addObjectWithNSString:zName withId:new_JavaLangBoolean_initWithBoolean_(zValue)];
 }
 
 - (jboolean)existsWithNSString:(NSString *)zVariable {
@@ -98,19 +98,13 @@ J2OBJC_IGNORE_DESIGNATED_END
   for (NSString * __strong key in nil_chk(keys)) {
     id obj = [((JavaUtilHashMap *) nil_chk(mContents_)) getWithId:key];
     if (obj != nil) {
-      JreStrAppend(&contents, "$C$$", key, ':', [nil_chk([((JavaUtilHashMap *) nil_chk(mContents_)) getWithId:key]) description], @", ");
+      (void) JreStrAppendStrong(&contents, "$C$$", key, ':', [nil_chk([((JavaUtilHashMap *) nil_chk(mContents_)) getWithId:key]) description], @", ");
     }
     else {
-      JreStrAppend(&contents, "$$", key, @":null, ");
+      (void) JreStrAppendStrong(&contents, "$$", key, @":null, ");
     }
   }
   return JreStrcat("$$$$$", @"[ ", mMessageType_, @", ", contents, @" ]");
-}
-
-- (void)dealloc {
-  RELEASE_(mMessageType_);
-  RELEASE_(mContents_);
-  [super dealloc];
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -163,8 +157,8 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 void OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaUtilsMessagesMessage *self, NSString *zMessageType) {
   NSObject_init(self);
-  JreStrongAssign(&self->mMessageType_, zMessageType);
-  JreStrongAssignAndConsume(&self->mContents_, new_JavaUtilHashMap_init());
+  self->mMessageType_ = zMessageType;
+  self->mContents_ = new_JavaUtilHashMap_init();
 }
 
 OrgMinimaUtilsMessagesMessage *new_OrgMinimaUtilsMessagesMessage_initWithNSString_(NSString *zMessageType) {
@@ -177,8 +171,8 @@ OrgMinimaUtilsMessagesMessage *create_OrgMinimaUtilsMessagesMessage_initWithNSSt
 
 void OrgMinimaUtilsMessagesMessage_init(OrgMinimaUtilsMessagesMessage *self) {
   NSObject_init(self);
-  JreStrongAssign(&self->mMessageType_, @"");
-  JreStrongAssignAndConsume(&self->mContents_, new_JavaUtilHashMap_init());
+  self->mMessageType_ = @"";
+  self->mContents_ = new_JavaUtilHashMap_init();
 }
 
 OrgMinimaUtilsMessagesMessage *new_OrgMinimaUtilsMessagesMessage_init() {

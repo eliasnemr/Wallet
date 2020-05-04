@@ -28,16 +28,15 @@ withOrgMinimaKissvmExpressionsExpression:(id<OrgMinimaKissvmExpressionsExpressio
 }
 
 - (void)executeWithOrgMinimaKissvmContract:(OrgMinimaKissvmContract *)zContract {
-  [((OrgMinimaKissvmContract *) nil_chk(zContract)) traceLogWithNSString:[self description]];
   if (mLETType_ == OrgMinimaKissvmStatementsCommandsLETstatement_LET_VARIABLE) {
-    [zContract setVariableWithNSString:mName_ withOrgMinimaKissvmValuesValue:[((id<OrgMinimaKissvmExpressionsExpression>) nil_chk(mValue_)) getValueWithOrgMinimaKissvmContract:zContract]];
+    [((OrgMinimaKissvmContract *) nil_chk(zContract)) setVariableWithNSString:mName_ withOrgMinimaKissvmValuesValue:[((id<OrgMinimaKissvmExpressionsExpression>) nil_chk(mValue_)) getValueWithOrgMinimaKissvmContract:zContract]];
   }
   else {
     NSString *pos = @"";
     for (id<OrgMinimaKissvmExpressionsExpression> __strong exp in nil_chk(mArrayPos_)) {
-      JreStrAppend(&pos, "$C", [((NSString *) nil_chk([((OrgMinimaKissvmValuesValue *) nil_chk([((id<OrgMinimaKissvmExpressionsExpression>) nil_chk(exp)) getValueWithOrgMinimaKissvmContract:zContract])) description])) java_trim], ',');
+      (void) JreStrAppendStrong(&pos, "$C", [((NSString *) nil_chk([((OrgMinimaKissvmValuesValue *) nil_chk([((id<OrgMinimaKissvmExpressionsExpression>) nil_chk(exp)) getValueWithOrgMinimaKissvmContract:zContract])) description])) java_trim], ',');
     }
-    [zContract setVariableWithNSString:pos withOrgMinimaKissvmValuesValue:[((id<OrgMinimaKissvmExpressionsExpression>) nil_chk(mValue_)) getValueWithOrgMinimaKissvmContract:zContract]];
+    [((OrgMinimaKissvmContract *) nil_chk(zContract)) setVariableWithNSString:pos withOrgMinimaKissvmValuesValue:[((id<OrgMinimaKissvmExpressionsExpression>) nil_chk(mValue_)) getValueWithOrgMinimaKissvmContract:zContract]];
   }
 }
 
@@ -47,17 +46,10 @@ withOrgMinimaKissvmExpressionsExpression:(id<OrgMinimaKissvmExpressionsExpressio
   }
   NSString *let = @"LET ( ";
   for (id<OrgMinimaKissvmExpressionsExpression> __strong exp in nil_chk(mArrayPos_)) {
-    JreStrAppend(&let, "$C", [((NSString *) nil_chk([((id<OrgMinimaKissvmExpressionsExpression>) nil_chk(exp)) description])) java_trim], ' ');
+    (void) JreStrAppendStrong(&let, "$C", [((NSString *) nil_chk([((id<OrgMinimaKissvmExpressionsExpression>) nil_chk(exp)) description])) java_trim], ' ');
   }
   let = JreStrcat("$$@", [let java_trim], @" ) = ", mValue_);
   return let;
-}
-
-- (void)dealloc {
-  RELEASE_(mArrayPos_);
-  RELEASE_(mName_);
-  RELEASE_(mValue_);
-  [super dealloc];
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -93,8 +85,8 @@ withOrgMinimaKissvmExpressionsExpression:(id<OrgMinimaKissvmExpressionsExpressio
 void OrgMinimaKissvmStatementsCommandsLETstatement_initWithNSString_withOrgMinimaKissvmExpressionsExpression_(OrgMinimaKissvmStatementsCommandsLETstatement *self, NSString *zVariableName, id<OrgMinimaKissvmExpressionsExpression> zExpression) {
   NSObject_init(self);
   self->mLETType_ = OrgMinimaKissvmStatementsCommandsLETstatement_LET_VARIABLE;
-  JreStrongAssign(&self->mName_, zVariableName);
-  JreStrongAssign(&self->mValue_, zExpression);
+  self->mName_ = zVariableName;
+  self->mValue_ = zExpression;
 }
 
 OrgMinimaKissvmStatementsCommandsLETstatement *new_OrgMinimaKissvmStatementsCommandsLETstatement_initWithNSString_withOrgMinimaKissvmExpressionsExpression_(NSString *zVariableName, id<OrgMinimaKissvmExpressionsExpression> zExpression) {
@@ -108,8 +100,8 @@ OrgMinimaKissvmStatementsCommandsLETstatement *create_OrgMinimaKissvmStatementsC
 void OrgMinimaKissvmStatementsCommandsLETstatement_initWithJavaUtilArrayList_withOrgMinimaKissvmExpressionsExpression_(OrgMinimaKissvmStatementsCommandsLETstatement *self, JavaUtilArrayList *zArrayPos, id<OrgMinimaKissvmExpressionsExpression> zExpression) {
   NSObject_init(self);
   self->mLETType_ = OrgMinimaKissvmStatementsCommandsLETstatement_LET_ARRAY;
-  JreStrongAssign(&self->mArrayPos_, zArrayPos);
-  JreStrongAssign(&self->mValue_, zExpression);
+  self->mArrayPos_ = zArrayPos;
+  self->mValue_ = zExpression;
 }
 
 OrgMinimaKissvmStatementsCommandsLETstatement *new_OrgMinimaKissvmStatementsCommandsLETstatement_initWithJavaUtilArrayList_withOrgMinimaKissvmExpressionsExpression_(JavaUtilArrayList *zArrayPos, id<OrgMinimaKissvmExpressionsExpression> zExpression) {

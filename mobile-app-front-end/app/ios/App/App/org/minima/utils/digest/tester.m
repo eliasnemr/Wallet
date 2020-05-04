@@ -64,21 +64,21 @@ void OrgMinimaUtilsDigesttester_mainWithNSStringArray_(IOSObjectArray *zArgs) {
   OrgMinimaUtilsDigesttester_initialize();
   NSString *sdata = @"Hello from Minima!!";
   IOSByteArray *data = [sdata java_getBytes];
-  IOSByteArray *seed = [IOSByteArray arrayWithLength:64];
-  JavaUtilRandom *rand = create_JavaUtilRandom_init();
+  IOSByteArray *seed = [IOSByteArray newArrayWithLength:64];
+  JavaUtilRandom *rand = new_JavaUtilRandom_init();
   [rand nextBytesWithByteArray:seed];
-  id<OrgMinimaUtilsDigestDigest> digest = create_OrgMinimaUtilsDigestKeccakDigest_initWithInt_(160);
-  OrgMinimaUtilsDigestWinternitzOTSignature *wots = create_OrgMinimaUtilsDigestWinternitzOTSignature_initWithByteArray_withOrgMinimaUtilsDigestDigest_withInt_(seed, digest, 12);
+  id<OrgMinimaUtilsDigestDigest> digest = new_OrgMinimaUtilsDigestKeccakDigest_initWithInt_(160);
+  OrgMinimaUtilsDigestWinternitzOTSignature *wots = new_OrgMinimaUtilsDigestWinternitzOTSignature_initWithByteArray_withOrgMinimaUtilsDigestDigest_withInt_(seed, digest, 12);
   IOSByteArray *pubk = [wots getPublicKey];
-  OrgMinimaObjectsBaseMiniData *pubkey = create_OrgMinimaObjectsBaseMiniData_initWithByteArray_(pubk);
+  OrgMinimaObjectsBaseMiniData *pubkey = new_OrgMinimaObjectsBaseMiniData_initWithByteArray_(pubk);
   [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out))) printlnWithNSString:JreStrcat("$$", @"Public Key : ", [pubkey to0xString])];
   IOSByteArray *signature = [wots getSignatureWithByteArray:data];
-  OrgMinimaObjectsBaseMiniData *sig = create_OrgMinimaObjectsBaseMiniData_initWithByteArray_(signature);
+  OrgMinimaObjectsBaseMiniData *sig = new_OrgMinimaObjectsBaseMiniData_initWithByteArray_(signature);
   [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out))) printlnWithNSString:JreStrcat("$$", @"Signature : ", [sig to0xString])];
   [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out))) printlnWithNSString:JreStrcat("$I", @"Signature Length : ", [sig getLength])];
-  OrgMinimaUtilsDigestWinternitzOTSVerify *wver = create_OrgMinimaUtilsDigestWinternitzOTSVerify_initWithOrgMinimaUtilsDigestDigest_withInt_(digest, 12);
+  OrgMinimaUtilsDigestWinternitzOTSVerify *wver = new_OrgMinimaUtilsDigestWinternitzOTSVerify_initWithOrgMinimaUtilsDigestDigest_withInt_(digest, 12);
   IOSByteArray *key = [wver VerifyWithByteArray:data withByteArray:signature];
-  OrgMinimaObjectsBaseMiniData *pub = create_OrgMinimaObjectsBaseMiniData_initWithByteArray_(key);
+  OrgMinimaObjectsBaseMiniData *pub = new_OrgMinimaObjectsBaseMiniData_initWithByteArray_(key);
   if (OrgMinimaUtilsDigestArrays_areEqualWithByteArray_withByteArray_(pubk, key)) {
     [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out))) printlnWithNSString:JreStrcat("$I", @"Signature OK! ", [pub getLength])];
   }

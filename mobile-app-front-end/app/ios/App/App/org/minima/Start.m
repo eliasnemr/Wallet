@@ -29,7 +29,6 @@
 #include "org/minima/utils/MinimaLogger.h"
 #include "org/minima/utils/ResponseStream.h"
 #include "org/minima/utils/messages/Message.h"
-
 // import to bridge Swift to Obj C
 #import "App-Swift.h"
 
@@ -114,8 +113,8 @@ OrgMinimaSystemMain *OrgMinimaStart_getServer() {
 
 void OrgMinimaStart_init(OrgMinimaStart *self) {
   NSObject_init(self);
-  id<JavaLangRunnable> mainrunner = create_OrgMinimaStart_1_init();
-  JavaLangThread *mainthread = create_JavaLangThread_initWithJavaLangRunnable_(mainrunner);
+  id<JavaLangRunnable> mainrunner = new_OrgMinimaStart_1_init();
+  JavaLangThread *mainthread = new_JavaLangThread_initWithJavaLangRunnable_(mainrunner);
   [mainthread start];
 }
 
@@ -141,7 +140,7 @@ void OrgMinimaStart_mainWithNSStringArray_(IOSObjectArray *zArgs) {
   jboolean clean = false;
   jboolean genesis = false;
   jboolean daemon = false;
-  JavaIoFile *conf = create_JavaIoFile_initWithNSString_withNSString_(JavaLangSystem_getPropertyWithNSString_(@"user.home"), @".minima");
+  JavaIoFile *conf = new_JavaIoFile_initWithNSString_withNSString_(JavaLangSystem_getPropertyWithNSString_(@"user.home"), @".minima");
   NSString *conffolder = [conf getAbsolutePath];
   if (arglen > 0) {
     jint counter = 0;
@@ -208,12 +207,12 @@ void OrgMinimaStart_mainWithNSStringArray_(IOSObjectArray *zArgs) {
     }
   }
   if (clean) {
-    OrgMinimaSystemBackupBackupManager_deleteFolderWithJavaIoFile_(create_JavaIoFile_initWithNSString_(conffolder));
+    OrgMinimaSystemBackupBackupManager_deleteAllButMiniDAPPSWithJavaIoFile_(new_JavaIoFile_initWithNSString_(conffolder));
   }
-  OrgMinimaSystemMain *rcmainserver = create_OrgMinimaSystemMain_initWithInt_withInt_withBoolean_withNSString_(port, rpcport, genesis, conffolder);
-  JreStrongAssign(&OrgMinimaStart_mMainServer, rcmainserver);
+  OrgMinimaSystemMain *rcmainserver = new_OrgMinimaSystemMain_initWithInt_withInt_withBoolean_withNSString_(port, rpcport, genesis, conffolder);
+  OrgMinimaStart_mMainServer = rcmainserver;
   [rcmainserver setAutoConnectWithBoolean:connect];
-  JreStrongAssign(&rcmainserver->mAutoHost_, connecthost);
+  rcmainserver->mAutoHost_ = connecthost;
   rcmainserver->mAutoPort_ = connectport;
   [rcmainserver setMiFiProxyWithNSString:mifiProxy];
   if (![((NSString *) nil_chk(txnfunction)) isEqual:@""]) {
@@ -225,7 +224,7 @@ void OrgMinimaStart_mainWithNSStringArray_(IOSObjectArray *zArgs) {
     [rcmainserver setNewRelCoinWithNSString:relcoin];
   }
   [rcmainserver PostMessageWithNSString:OrgMinimaSystemMain_SYSTEM_STARTUP];
-  [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk([rcmainserver getConsensusHandler])) addListenerWithOrgMinimaNativeListener:create_OrgMinimaStart_2_init()];
+  [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk([rcmainserver getConsensusHandler])) addListenerWithOrgMinimaNativeListener:new_OrgMinimaStart_2_init()];
   if (daemon) {
     [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out))) printlnWithNSString:@"Daemon Started.."];
     while ([rcmainserver isRunning]) {
@@ -238,16 +237,17 @@ void OrgMinimaStart_mainWithNSStringArray_(IOSObjectArray *zArgs) {
     }
   }
   else {
-    JavaIoInputStreamReader *is = create_JavaIoInputStreamReader_initWithJavaIoInputStream_(JreLoadStatic(JavaLangSystem, in));
-    JavaIoBufferedReader *bis = create_JavaIoBufferedReader_initWithJavaIoReader_(is);
+    JavaIoInputStreamReader *is = new_JavaIoInputStreamReader_initWithJavaIoInputStream_(JreLoadStatic(JavaLangSystem, in));
+    JavaIoBufferedReader *bis = new_JavaIoBufferedReader_initWithJavaIoReader_(is);
     while ([rcmainserver isRunning]) {
       @try {
-        NSString *input = [((NSString *) nil_chk([bis readLine])) java_trim];
+        NSString *input = [bis readLine];
         if (input != nil && ![input isEqual:@""]) {
-          OrgMinimaUtilsResponseStream *response = create_OrgMinimaUtilsResponseStream_init();
-          OrgMinimaSystemInputInputMessage *inmsg = create_OrgMinimaSystemInputInputMessage_initWithNSString_withOrgMinimaUtilsResponseStream_(input, response);
+          input = [input java_trim];
+          OrgMinimaUtilsResponseStream *response = new_OrgMinimaUtilsResponseStream_init();
+          OrgMinimaSystemInputInputMessage *inmsg = new_OrgMinimaSystemInputInputMessage_initWithNSString_withOrgMinimaUtilsResponseStream_(input, response);
           [((OrgMinimaSystemInputInputHandler *) nil_chk([rcmainserver getInputHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:inmsg];
-          if ([((NSString *) nil_chk([input lowercaseString])) isEqual:@"quit"]) {
+          if ([((NSString *) nil_chk([((NSString *) nil_chk(input)) lowercaseString])) isEqual:@"quit"]) {
             break;
           }
           [response waitToFinish];
@@ -286,17 +286,16 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 - (void)run {
   [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out))) printlnWithNSString:@"Minima Started.."];
-  JavaUtilArrayList *vars = create_JavaUtilArrayList_init();
-  
-    [vars addWithId:@"-private"];
-//  [vars addWithId:@"-daemon"];
-    [vars addWithId:@"-clean"];
+  JavaUtilArrayList *vars = new_JavaUtilArrayList_init();
+  [vars addWithId:@"-private"];
+  [vars addWithId:@"-daemon"];
+//  [vars addWithId:@"-clean"];
 //  [vars addWithId:@"-port"];
 //  [vars addWithId:@"9001"];
 //  [vars addWithId:@"-connect"];
 //  [vars addWithId:@"34.90.172.118"];
 //  [vars addWithId:@"9001"];
-  OrgMinimaStart_mainWithNSStringArray_([vars toArrayWithNSObjectArray:[IOSObjectArray arrayWithLength:0 type:NSString_class_()]]);
+  OrgMinimaStart_mainWithNSStringArray_([vars toArrayWithNSObjectArray:[IOSObjectArray newArrayWithLength:0 type:NSString_class_()]]);
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -349,6 +348,8 @@ J2OBJC_IGNORE_DESIGNATED_END
     }
     
 }
+
+
 + (const J2ObjcClassInfo *)__metadata {
   static J2ObjcMethodInfo methods[] = {
     { NULL, NULL, 0x0, -1, -1, -1, -1, -1, -1 },

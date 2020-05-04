@@ -26,11 +26,11 @@ J2OBJC_IGNORE_DESIGNATED_END
 - (OrgMinimaKissvmValuesValue *)runFunctionWithOrgMinimaKissvmContract:(OrgMinimaKissvmContract *)zContract {
   OrgMinimaKissvmValuesHEXValue *ascii = (OrgMinimaKissvmValuesHEXValue *) cast_chk([((id<OrgMinimaKissvmExpressionsExpression>) nil_chk([self getParameterWithInt:0])) getValueWithOrgMinimaKissvmContract:zContract], [OrgMinimaKissvmValuesHEXValue class]);
   NSString *script = [NSString java_stringWithBytes:[((OrgMinimaKissvmValuesHEXValue *) nil_chk(ascii)) getRawData] charset:JavaNioCharsetCharset_forNameWithNSString_(@"US-ASCII")];
-  return create_OrgMinimaKissvmValuesScriptValue_initWithNSString_(script);
+  return new_OrgMinimaKissvmValuesScriptValue_initWithNSString_(script);
 }
 
 - (OrgMinimaKissvmFunctionsMinimaFunction *)getNewFunction {
-  return create_OrgMinimaKissvmFunctionsCastASCII_init();
+  return new_OrgMinimaKissvmFunctionsCastASCII_init();
 }
 
 + (const J2ObjcClassInfo *)__metadata {

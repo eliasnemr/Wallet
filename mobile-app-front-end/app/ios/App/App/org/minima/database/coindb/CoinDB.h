@@ -28,8 +28,6 @@
 
 - (JavaUtilArrayList *)getComplete;
 
-- (JavaUtilArrayList *)checkForRelevantCoinsWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zAddress;
-
 - (id<OrgMinimaDatabaseCoindbCoinDBRow>)getCoinRowWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zCoinID;
 
 - (id<OrgMinimaDatabaseCoindbCoinDBRow>)addCoinRowWithOrgMinimaObjectsCoin:(OrgMinimaObjectsCoin *)zCoin;

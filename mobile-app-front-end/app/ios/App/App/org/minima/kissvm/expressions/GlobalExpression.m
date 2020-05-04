@@ -23,11 +23,6 @@
   return JreStrcat("$$", @"global:", mGlobalType_);
 }
 
-- (void)dealloc {
-  RELEASE_(mGlobalType_);
-  [super dealloc];
-}
-
 + (const J2ObjcClassInfo *)__metadata {
   static J2ObjcMethodInfo methods[] = {
     { NULL, NULL, 0x1, -1, 0, -1, -1, -1, -1 },
@@ -53,7 +48,7 @@
 
 void OrgMinimaKissvmExpressionsGlobalExpression_initWithNSString_(OrgMinimaKissvmExpressionsGlobalExpression *self, NSString *zType) {
   NSObject_init(self);
-  JreStrongAssign(&self->mGlobalType_, zType);
+  self->mGlobalType_ = zType;
 }
 
 OrgMinimaKissvmExpressionsGlobalExpression *new_OrgMinimaKissvmExpressionsGlobalExpression_initWithNSString_(NSString *zType) {

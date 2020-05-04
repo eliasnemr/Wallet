@@ -24,15 +24,15 @@ J2OBJC_IGNORE_DESIGNATED_END
 - (OrgMinimaKissvmValuesValue *)runFunctionWithOrgMinimaKissvmContract:(OrgMinimaKissvmContract *)zContract {
   IOSByteArray *array = [((OrgMinimaKissvmValuesValue *) nil_chk([((id<OrgMinimaKissvmExpressionsExpression>) nil_chk([self getParameterWithInt:0])) getValueWithOrgMinimaKissvmContract:zContract])) getRawData];
   jint datalen = ((IOSByteArray *) nil_chk(array))->size_;
-  IOSByteArray *revdata = [IOSByteArray arrayWithLength:datalen];
+  IOSByteArray *revdata = [IOSByteArray newArrayWithLength:datalen];
   for (jint i = 0; i < datalen; i++) {
     *IOSByteArray_GetRef(revdata, i) = IOSByteArray_Get(array, array->size_ - i - 1);
   }
-  return create_OrgMinimaKissvmValuesHEXValue_initWithByteArray_(revdata);
+  return new_OrgMinimaKissvmValuesHEXValue_initWithByteArray_(revdata);
 }
 
 - (OrgMinimaKissvmFunctionsMinimaFunction *)getNewFunction {
-  return create_OrgMinimaKissvmFunctionsBaseREV_init();
+  return new_OrgMinimaKissvmFunctionsBaseREV_init();
 }
 
 + (const J2ObjcClassInfo *)__metadata {

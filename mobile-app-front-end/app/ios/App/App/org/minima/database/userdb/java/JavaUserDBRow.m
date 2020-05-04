@@ -38,6 +38,14 @@ J2OBJC_IGNORE_DESIGNATED_END
   return mTransaction_;
 }
 
+- (void)setTransactionWithOrgMinimaObjectsTransaction:(OrgMinimaObjectsTransaction *)zTrans {
+  mTransaction_ = zTrans;
+}
+
+- (void)setWitnessWithOrgMinimaObjectsWitness:(OrgMinimaObjectsWitness *)zWitness {
+  mWitness_ = zWitness;
+}
+
 - (NSString *)description {
   return JreStrcat("$I$@$@", @"ID:", mID_, @" Witness:", mWitness_, @" Txn:", mTransaction_);
 }
@@ -50,24 +58,18 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 - (void)readDataStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn {
   mID_ = [((JavaIoDataInputStream *) nil_chk(zIn)) readInt];
-  JreStrongAssignAndConsume(&mTransaction_, new_OrgMinimaObjectsTransaction_init());
+  mTransaction_ = new_OrgMinimaObjectsTransaction_init();
   [mTransaction_ readDataStreamWithJavaIoDataInputStream:zIn];
-  JreStrongAssignAndConsume(&mWitness_, new_OrgMinimaObjectsWitness_init());
+  mWitness_ = new_OrgMinimaObjectsWitness_init();
   [mWitness_ readDataStreamWithJavaIoDataInputStream:zIn];
 }
 
 - (OrgMinimaUtilsJsonJSONObject *)toJSON {
-  OrgMinimaUtilsJsonJSONObject *obj = create_OrgMinimaUtilsJsonJSONObject_init();
-  [obj putWithId:@"id" withId:JavaLangInteger_valueOfWithInt_(mID_)];
-  [obj putWithId:@"transaction" withId:[((OrgMinimaObjectsTransaction *) nil_chk(mTransaction_)) toJSON]];
-  [obj putWithId:@"witness" withId:[((OrgMinimaObjectsWitness *) nil_chk(mWitness_)) toJSON]];
+  OrgMinimaUtilsJsonJSONObject *obj = new_OrgMinimaUtilsJsonJSONObject_init();
+  (void) [obj putWithId:@"id" withId:JavaLangInteger_valueOfWithInt_(mID_)];
+  (void) [obj putWithId:@"transaction" withId:[((OrgMinimaObjectsTransaction *) nil_chk(mTransaction_)) toJSON]];
+  (void) [obj putWithId:@"witness" withId:[((OrgMinimaObjectsWitness *) nil_chk(mWitness_)) toJSON]];
   return obj;
-}
-
-- (void)dealloc {
-  RELEASE_(mTransaction_);
-  RELEASE_(mWitness_);
-  [super dealloc];
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -77,9 +79,11 @@ J2OBJC_IGNORE_DESIGNATED_END
     { NULL, "I", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaObjectsWitness;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaObjectsTransaction;", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LNSString;", 0x1, 1, -1, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 2, 3, 4, -1, -1, -1 },
-    { NULL, "V", 0x1, 5, 6, 4, -1, -1, -1 },
+    { NULL, "V", 0x1, 1, 2, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 3, 4, -1, -1, -1, -1 },
+    { NULL, "LNSString;", 0x1, 5, -1, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 6, 7, 8, -1, -1, -1 },
+    { NULL, "V", 0x1, 9, 10, 8, -1, -1, -1 },
     { NULL, "LOrgMinimaUtilsJsonJSONObject;", 0x1, -1, -1, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
@@ -90,18 +94,20 @@ J2OBJC_IGNORE_DESIGNATED_END
   methods[2].selector = @selector(getID);
   methods[3].selector = @selector(getWitness);
   methods[4].selector = @selector(getTransaction);
-  methods[5].selector = @selector(description);
-  methods[6].selector = @selector(writeDataStreamWithJavaIoDataOutputStream:);
-  methods[7].selector = @selector(readDataStreamWithJavaIoDataInputStream:);
-  methods[8].selector = @selector(toJSON);
+  methods[5].selector = @selector(setTransactionWithOrgMinimaObjectsTransaction:);
+  methods[6].selector = @selector(setWitnessWithOrgMinimaObjectsWitness:);
+  methods[7].selector = @selector(description);
+  methods[8].selector = @selector(writeDataStreamWithJavaIoDataOutputStream:);
+  methods[9].selector = @selector(readDataStreamWithJavaIoDataInputStream:);
+  methods[10].selector = @selector(toJSON);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
     { "mID_", "I", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mTransaction_", "LOrgMinimaObjectsTransaction;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mWitness_", "LOrgMinimaObjectsWitness;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
   };
-  static const void *ptrTable[] = { "I", "toString", "writeDataStream", "LJavaIoDataOutputStream;", "LJavaIoIOException;", "readDataStream", "LJavaIoDataInputStream;" };
-  static const J2ObjcClassInfo _OrgMinimaDatabaseUserdbJavaJavaUserDBRow = { "JavaUserDBRow", "org.minima.database.userdb.java", ptrTable, methods, fields, 7, 0x1, 9, 3, -1, -1, -1, -1, -1 };
+  static const void *ptrTable[] = { "I", "setTransaction", "LOrgMinimaObjectsTransaction;", "setWitness", "LOrgMinimaObjectsWitness;", "toString", "writeDataStream", "LJavaIoDataOutputStream;", "LJavaIoIOException;", "readDataStream", "LJavaIoDataInputStream;" };
+  static const J2ObjcClassInfo _OrgMinimaDatabaseUserdbJavaJavaUserDBRow = { "JavaUserDBRow", "org.minima.database.userdb.java", ptrTable, methods, fields, 7, 0x1, 11, 3, -1, -1, -1, -1, -1 };
   return &_OrgMinimaDatabaseUserdbJavaJavaUserDBRow;
 }
 
@@ -122,8 +128,8 @@ OrgMinimaDatabaseUserdbJavaJavaUserDBRow *create_OrgMinimaDatabaseUserdbJavaJava
 void OrgMinimaDatabaseUserdbJavaJavaUserDBRow_initWithInt_(OrgMinimaDatabaseUserdbJavaJavaUserDBRow *self, jint zID) {
   NSObject_init(self);
   self->mID_ = zID;
-  JreStrongAssignAndConsume(&self->mTransaction_, new_OrgMinimaObjectsTransaction_init());
-  JreStrongAssignAndConsume(&self->mWitness_, new_OrgMinimaObjectsWitness_init());
+  self->mTransaction_ = new_OrgMinimaObjectsTransaction_init();
+  self->mWitness_ = new_OrgMinimaObjectsWitness_init();
 }
 
 OrgMinimaDatabaseUserdbJavaJavaUserDBRow *new_OrgMinimaDatabaseUserdbJavaJavaUserDBRow_initWithInt_(jint zID) {

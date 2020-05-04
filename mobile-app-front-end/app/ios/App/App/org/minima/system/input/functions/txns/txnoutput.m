@@ -29,33 +29,33 @@ J2OBJC_IGNORE_DESIGNATED_END
 - (void)doFunctionWithNSStringArray:(IOSObjectArray *)zInput {
   jint txn = JavaLangInteger_parseIntWithNSString_(IOSObjectArray_Get(nil_chk(zInput), 1));
   NSString *value = IOSObjectArray_Get(zInput, 2);
-  OrgMinimaObjectsBaseMiniNumber *number = create_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(value);
+  OrgMinimaObjectsBaseMiniNumber *number = new_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(value);
   if ([number isLessWithOrgMinimaObjectsBaseMiniNumber:JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, ZERO)]) {
     [((OrgMinimaUtilsResponseStream *) nil_chk([self getResponseStream])) endStatusWithBoolean:false withNSString:@"Cannot have NEGATIVE outputs.."];
     return;
   }
   NSString *address = IOSObjectArray_Get(zInput, 3);
   if ([((NSString *) nil_chk(address)) java_hasPrefix:@"0x"]) {
-    address = [create_OrgMinimaObjectsBaseMiniData_initWithNSString_(address) to0xString];
+    address = [new_OrgMinimaObjectsBaseMiniData_initWithNSString_(address) to0xString];
   }
   else if ([address java_hasPrefix:@"Mx"]) {
-    address = [((OrgMinimaObjectsBaseMiniData *) nil_chk(OrgMinimaObjectsAddress_convertMinimAddressWithNSString_(address))) to0xString];
+    address = [((OrgMinimaObjectsBaseMiniData *) nil_chk(OrgMinimaObjectsAddress_convertMinimaAddressWithNSString_(address))) to0xString];
   }
-  OrgMinimaObjectsAddress *addr = create_OrgMinimaObjectsAddress_initWithOrgMinimaObjectsBaseMiniData_(create_OrgMinimaObjectsBaseMiniData_initWithNSString_(address));
+  OrgMinimaObjectsAddress *addr = new_OrgMinimaObjectsAddress_initWithOrgMinimaObjectsBaseMiniData_(new_OrgMinimaObjectsBaseMiniData_initWithNSString_(address));
   NSString *tokenid = @"0x00";
   if (zInput->size_ > 4) {
     tokenid = IOSObjectArray_Get(zInput, 4);
   }
   OrgMinimaUtilsMessagesMessage *msg = [self getResponseMessageWithNSString:OrgMinimaSystemBrainsConsensusTxn_CONSENSUS_TXNOUTPUT];
-  [((OrgMinimaUtilsMessagesMessage *) nil_chk(msg)) addIntWithNSString:@"transaction" withInt:txn];
-  [msg addStringWithNSString:@"value" withNSString:value];
-  [msg addObjectWithNSString:@"address" withId:addr];
-  [msg addStringWithNSString:@"tokenid" withNSString:tokenid];
+  (void) [((OrgMinimaUtilsMessagesMessage *) nil_chk(msg)) addIntWithNSString:@"transaction" withInt:txn];
+  (void) [msg addStringWithNSString:@"value" withNSString:value];
+  (void) [msg addObjectWithNSString:@"address" withId:addr];
+  (void) [msg addStringWithNSString:@"tokenid" withNSString:tokenid];
   [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getConsensusHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:msg];
 }
 
 - (OrgMinimaSystemInputCommandFunction *)getNewFunction {
-  return create_OrgMinimaSystemInputFunctionsTxnstxnoutput_init();
+  return new_OrgMinimaSystemInputFunctionsTxnstxnoutput_init();
 }
 
 + (const J2ObjcClassInfo *)__metadata {

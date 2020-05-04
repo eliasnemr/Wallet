@@ -69,26 +69,26 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (OrgMinimaObjectsBaseMiniInteger *)moduloWithOrgMinimaObjectsBaseMiniInteger:(OrgMinimaObjectsBaseMiniInteger *)zNumber {
-  return create_OrgMinimaObjectsBaseMiniInteger_initWithJavaMathBigInteger_([((JavaMathBigInteger *) nil_chk(mNumber_)) modWithJavaMathBigInteger:[((OrgMinimaObjectsBaseMiniInteger *) nil_chk(zNumber)) getNumber]]);
+  return new_OrgMinimaObjectsBaseMiniInteger_initWithJavaMathBigInteger_([((JavaMathBigInteger *) nil_chk(mNumber_)) modWithJavaMathBigInteger:[((OrgMinimaObjectsBaseMiniInteger *) nil_chk(zNumber)) getNumber]]);
 }
 
 - (OrgMinimaObjectsBaseMiniInteger *)addWithOrgMinimaObjectsBaseMiniInteger:(OrgMinimaObjectsBaseMiniInteger *)zNumber {
-  return create_OrgMinimaObjectsBaseMiniInteger_initWithJavaMathBigInteger_([((JavaMathBigInteger *) nil_chk(mNumber_)) addWithJavaMathBigInteger:[((OrgMinimaObjectsBaseMiniInteger *) nil_chk(zNumber)) getNumber]]);
+  return new_OrgMinimaObjectsBaseMiniInteger_initWithJavaMathBigInteger_([((JavaMathBigInteger *) nil_chk(mNumber_)) addWithJavaMathBigInteger:[((OrgMinimaObjectsBaseMiniInteger *) nil_chk(zNumber)) getNumber]]);
 }
 
 - (OrgMinimaObjectsBaseMiniInteger *)subWithOrgMinimaObjectsBaseMiniInteger:(OrgMinimaObjectsBaseMiniInteger *)zNumber {
-  return create_OrgMinimaObjectsBaseMiniInteger_initWithJavaMathBigInteger_([((JavaMathBigInteger *) nil_chk(mNumber_)) subtractWithJavaMathBigInteger:[((OrgMinimaObjectsBaseMiniInteger *) nil_chk(zNumber)) getNumber]]);
+  return new_OrgMinimaObjectsBaseMiniInteger_initWithJavaMathBigInteger_([((JavaMathBigInteger *) nil_chk(mNumber_)) subtractWithJavaMathBigInteger:[((OrgMinimaObjectsBaseMiniInteger *) nil_chk(zNumber)) getNumber]]);
 }
 
 - (OrgMinimaObjectsBaseMiniInteger *)divRoundDownWithOrgMinimaObjectsBaseMiniInteger:(OrgMinimaObjectsBaseMiniInteger *)zNumber {
-  JavaMathBigDecimal *bigd = create_JavaMathBigDecimal_initWithJavaMathBigInteger_(mNumber_);
-  JavaMathBigDecimal *bigddiv = create_JavaMathBigDecimal_initWithJavaMathBigInteger_([((OrgMinimaObjectsBaseMiniInteger *) nil_chk(zNumber)) getNumber]);
+  JavaMathBigDecimal *bigd = new_JavaMathBigDecimal_initWithJavaMathBigInteger_(mNumber_);
+  JavaMathBigDecimal *bigddiv = new_JavaMathBigDecimal_initWithJavaMathBigInteger_([((OrgMinimaObjectsBaseMiniInteger *) nil_chk(zNumber)) getNumber]);
   JavaMathBigDecimal *ans = [bigd divideWithJavaMathBigDecimal:bigddiv withJavaMathRoundingMode:JreLoadEnum(JavaMathRoundingMode, DOWN)];
-  return create_OrgMinimaObjectsBaseMiniInteger_initWithJavaMathBigInteger_([((JavaMathBigDecimal *) nil_chk(ans)) toBigInteger]);
+  return new_OrgMinimaObjectsBaseMiniInteger_initWithJavaMathBigInteger_([((JavaMathBigDecimal *) nil_chk(ans)) toBigInteger]);
 }
 
 - (OrgMinimaObjectsBaseMiniInteger *)multWithOrgMinimaObjectsBaseMiniInteger:(OrgMinimaObjectsBaseMiniInteger *)zNumber {
-  return create_OrgMinimaObjectsBaseMiniInteger_initWithJavaMathBigInteger_([((JavaMathBigInteger *) nil_chk(mNumber_)) multiplyWithJavaMathBigInteger:[((OrgMinimaObjectsBaseMiniInteger *) nil_chk(zNumber)) getNumber]]);
+  return new_OrgMinimaObjectsBaseMiniInteger_initWithJavaMathBigInteger_([((JavaMathBigInteger *) nil_chk(mNumber_)) multiplyWithJavaMathBigInteger:[((OrgMinimaObjectsBaseMiniInteger *) nil_chk(zNumber)) getNumber]]);
 }
 
 - (OrgMinimaObjectsBaseMiniInteger *)increment {
@@ -108,18 +108,13 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 - (void)readDataStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn {
   jint len = [((JavaIoDataInputStream *) nil_chk(zIn)) readInt];
-  IOSByteArray *data = [IOSByteArray arrayWithLength:len];
+  IOSByteArray *data = [IOSByteArray newArrayWithLength:len];
   [zIn readFullyWithByteArray:data];
-  JreStrongAssignAndConsume(&mNumber_, new_JavaMathBigInteger_initWithByteArray_(data));
+  mNumber_ = new_JavaMathBigInteger_initWithByteArray_(data);
 }
 
 + (OrgMinimaObjectsBaseMiniInteger *)ReadFromStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn {
   return OrgMinimaObjectsBaseMiniInteger_ReadFromStreamWithJavaIoDataInputStream_(zIn);
-}
-
-- (void)dealloc {
-  RELEASE_(mNumber_);
-  [super dealloc];
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -174,9 +169,9 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 + (void)initialize {
   if (self == [OrgMinimaObjectsBaseMiniInteger class]) {
-    JreStrongAssignAndConsume(&OrgMinimaObjectsBaseMiniInteger_ZERO, new_OrgMinimaObjectsBaseMiniInteger_initWithInt_(0));
-    JreStrongAssignAndConsume(&OrgMinimaObjectsBaseMiniInteger_ONE, new_OrgMinimaObjectsBaseMiniInteger_initWithInt_(1));
-    JreStrongAssignAndConsume(&OrgMinimaObjectsBaseMiniInteger_TWO, new_OrgMinimaObjectsBaseMiniInteger_initWithInt_(2));
+    OrgMinimaObjectsBaseMiniInteger_ZERO = new_OrgMinimaObjectsBaseMiniInteger_initWithInt_(0);
+    OrgMinimaObjectsBaseMiniInteger_ONE = new_OrgMinimaObjectsBaseMiniInteger_initWithInt_(1);
+    OrgMinimaObjectsBaseMiniInteger_TWO = new_OrgMinimaObjectsBaseMiniInteger_initWithInt_(2);
     J2OBJC_SET_INITIALIZED(OrgMinimaObjectsBaseMiniInteger)
   }
 }
@@ -197,7 +192,7 @@ OrgMinimaObjectsBaseMiniInteger *create_OrgMinimaObjectsBaseMiniInteger_init() {
 
 void OrgMinimaObjectsBaseMiniInteger_initWithJavaMathBigInteger_(OrgMinimaObjectsBaseMiniInteger *self, JavaMathBigInteger *zNumber) {
   NSObject_init(self);
-  JreStrongAssign(&self->mNumber_, zNumber);
+  self->mNumber_ = zNumber;
 }
 
 OrgMinimaObjectsBaseMiniInteger *new_OrgMinimaObjectsBaseMiniInteger_initWithJavaMathBigInteger_(JavaMathBigInteger *zNumber) {
@@ -210,7 +205,7 @@ OrgMinimaObjectsBaseMiniInteger *create_OrgMinimaObjectsBaseMiniInteger_initWith
 
 void OrgMinimaObjectsBaseMiniInteger_initWithInt_(OrgMinimaObjectsBaseMiniInteger *self, jint zNumber) {
   NSObject_init(self);
-  JreStrongAssignAndConsume(&self->mNumber_, new_JavaMathBigInteger_initWithNSString_(JavaLangInteger_toStringWithInt_(zNumber)));
+  self->mNumber_ = new_JavaMathBigInteger_initWithNSString_(JavaLangInteger_toStringWithInt_(zNumber));
 }
 
 OrgMinimaObjectsBaseMiniInteger *new_OrgMinimaObjectsBaseMiniInteger_initWithInt_(jint zNumber) {
@@ -223,7 +218,7 @@ OrgMinimaObjectsBaseMiniInteger *create_OrgMinimaObjectsBaseMiniInteger_initWith
 
 OrgMinimaObjectsBaseMiniInteger *OrgMinimaObjectsBaseMiniInteger_ReadFromStreamWithJavaIoDataInputStream_(JavaIoDataInputStream *zIn) {
   OrgMinimaObjectsBaseMiniInteger_initialize();
-  OrgMinimaObjectsBaseMiniInteger *data = create_OrgMinimaObjectsBaseMiniInteger_init();
+  OrgMinimaObjectsBaseMiniInteger *data = new_OrgMinimaObjectsBaseMiniInteger_init();
   @try {
     [data readDataStreamWithJavaIoDataInputStream:zIn];
   }

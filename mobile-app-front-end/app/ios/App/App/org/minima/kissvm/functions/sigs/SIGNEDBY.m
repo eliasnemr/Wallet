@@ -23,11 +23,11 @@ J2OBJC_IGNORE_DESIGNATED_END
 - (OrgMinimaKissvmValuesValue *)runFunctionWithOrgMinimaKissvmContract:(OrgMinimaKissvmContract *)zContract {
   OrgMinimaKissvmValuesValue *pubkey = [((id<OrgMinimaKissvmExpressionsExpression>) nil_chk([self getParameterWithInt:0])) getValueWithOrgMinimaKissvmContract:zContract];
   jboolean valid = [((OrgMinimaKissvmContract *) nil_chk(zContract)) checkSignatureWithOrgMinimaKissvmValuesValue:pubkey];
-  return create_OrgMinimaKissvmValuesBooleanValue_initWithBoolean_(valid);
+  return new_OrgMinimaKissvmValuesBooleanValue_initWithBoolean_(valid);
 }
 
 - (OrgMinimaKissvmFunctionsMinimaFunction *)getNewFunction {
-  return create_OrgMinimaKissvmFunctionsSigsSIGNEDBY_init();
+  return new_OrgMinimaKissvmFunctionsSigsSIGNEDBY_init();
 }
 
 + (const J2ObjcClassInfo *)__metadata {

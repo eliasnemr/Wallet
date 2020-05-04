@@ -23,15 +23,7 @@
     <ion-card-content>
         <ion-item>
           <ion-label position="floating">Tokens</ion-label>
-          <ion-select 
-              interface = 'alert'
-              class="token-select"
-              placeholder = "Select your token"
-              [(ngModel)]="selected_minima">
-          <ion-select-option *ngFor="let token of tokenArr; let i = index" value="{{token.id}}" class="token-option" >
-            {{ token.token  + ' <' + token.id.substring(0, 12) + '>'  }} 
-          </ion-select-option>
-        </ion-select>
+          
         </ion-item>
 
         <ion-item>
@@ -39,12 +31,12 @@
           <ion-input name="address" [(ngModel)]="data.address"></ion-input>
           
         </ion-item>
-        <ion-item lines="none" slot="end" [hidden]="!checkPlatform()">
+        <ion-item lines="none" slot="end">
           <ion-button type="button" class="util-btns" size="small" (click)="scanQR()">
             <ion-label slot="start" style="padding:2px">SCAN QR</ion-label>
             <ion-icon  name="qr-scanner" ></ion-icon>
           </ion-button>
-          <ion-button type="button" size="small" class="util-btns" (click)="pasteFromClipboard()" [hidden]="!checkPlatform()">
+          <ion-button type="button" size="small" class="util-btns" (click)="pasteFromClipboard()">
             <ion-label slot="start" style="padding:5px">CLIPBOARD</ion-label>
             <ion-icon name="clipboard" ></ion-icon>
           </ion-button>
@@ -53,8 +45,10 @@
           <ion-label position="floating">Amount</ion-label>
           <ion-input type="number" name="amount" [(ngModel)]="data.amount"></ion-input>
         </ion-item>
+        
     </ion-card-content>
     
+
   </ion-card>
 </ion-content>
 <ion-footer>

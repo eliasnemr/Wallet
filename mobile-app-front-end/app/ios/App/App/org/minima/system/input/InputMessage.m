@@ -51,8 +51,8 @@ withOrgMinimaUtilsResponseStream:(OrgMinimaUtilsResponseStream *)zResponseStream
 
 void OrgMinimaSystemInputInputMessage_initWithNSString_withOrgMinimaUtilsResponseStream_(OrgMinimaSystemInputInputMessage *self, NSString *zInput, OrgMinimaUtilsResponseStream *zResponseStream) {
   OrgMinimaUtilsMessagesMessage_initWithNSString_(self, OrgMinimaSystemInputInputHandler_INPUT_COMMAND);
-  [self addObjectWithNSString:OrgMinimaSystemInputInputHandler_INPUT_FUNCTION withId:[((NSString *) nil_chk(zInput)) java_trim]];
-  [self addObjectWithNSString:OrgMinimaSystemInputInputHandler_INPUT_RESPONSE withId:zResponseStream];
+  (void) [self addObjectWithNSString:OrgMinimaSystemInputInputHandler_INPUT_FUNCTION withId:[((NSString *) nil_chk(zInput)) java_trim]];
+  (void) [self addObjectWithNSString:OrgMinimaSystemInputInputHandler_INPUT_RESPONSE withId:zResponseStream];
 }
 
 OrgMinimaSystemInputInputMessage *new_OrgMinimaSystemInputInputMessage_initWithNSString_withOrgMinimaUtilsResponseStream_(NSString *zInput, OrgMinimaUtilsResponseStream *zResponseStream) {
@@ -65,7 +65,7 @@ OrgMinimaSystemInputInputMessage *create_OrgMinimaSystemInputInputMessage_initWi
 
 IOSObjectArray *OrgMinimaSystemInputInputMessage_splitStringWithNSString_(NSString *zInput) {
   OrgMinimaSystemInputInputMessage_initialize();
-  JavaUtilArrayList *token = create_JavaUtilArrayList_init();
+  JavaUtilArrayList *token = new_JavaUtilArrayList_init();
   NSString *ss = [((NSString *) nil_chk(zInput)) java_trim];
   NSString *current = [NSString string];
   jboolean quoted = false;
@@ -80,7 +80,7 @@ IOSObjectArray *OrgMinimaSystemInputInputMessage_splitStringWithNSString_(NSStri
         current = [NSString string];
       }
       else {
-        JreStrAppend(&current, "C", cc);
+        (void) JreStrAppendStrong(&current, "C", cc);
       }
     }
     else if (cc == '"') {
@@ -92,13 +92,13 @@ IOSObjectArray *OrgMinimaSystemInputInputMessage_splitStringWithNSString_(NSStri
       }
     }
     else {
-      JreStrAppend(&current, "C", cc);
+      (void) JreStrAppendStrong(&current, "C", cc);
     }
   }
   if (![current isEqual:@""]) {
     [token addWithId:current];
   }
-  return [token toArrayWithNSObjectArray:[IOSObjectArray arrayWithLength:0 type:NSString_class_()]];
+  return [token toArrayWithNSObjectArray:[IOSObjectArray newArrayWithLength:0 type:NSString_class_()]];
 }
 
 void OrgMinimaSystemInputInputMessage_mainWithNSStringArray_(IOSObjectArray *zArgs) {

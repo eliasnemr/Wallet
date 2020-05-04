@@ -88,26 +88,26 @@ NSString *OrgMinimaUtilsMiniFormat_PrettyJSONWithNSString_(NSString *zJSON) {
       if (cc == '{') {
         tabs++;
         tabstring = OrgMinimaUtilsMiniFormat_maketabstringWithInt_(tabs);
-        JreStrAppend(&ret, "$", @"{\n");
-        JreStrAppend(&ret, "$", tabstring);
+        (void) JreStrAppendStrong(&ret, "$", @"{\n");
+        (void) JreStrAppendStrong(&ret, "$", tabstring);
       }
       else if (cc == '}') {
         tabs--;
         tabstring = OrgMinimaUtilsMiniFormat_maketabstringWithInt_(tabs);
-        JreStrAppend(&ret, "$", @"\n");
-        JreStrAppend(&ret, "$", tabstring);
-        JreStrAppend(&ret, "$", @"}");
+        (void) JreStrAppendStrong(&ret, "$", @"\n");
+        (void) JreStrAppendStrong(&ret, "$", tabstring);
+        (void) JreStrAppendStrong(&ret, "$", @"}");
       }
       else if (cc == ',') {
-        JreStrAppend(&ret, "$", @",\n");
-        JreStrAppend(&ret, "$", tabstring);
+        (void) JreStrAppendStrong(&ret, "$", @",\n");
+        (void) JreStrAppendStrong(&ret, "$", tabstring);
       }
       else {
-        JreStrAppend(&ret, "C", cc);
+        (void) JreStrAppendStrong(&ret, "C", cc);
       }
     }
     else {
-      JreStrAppend(&ret, "C", cc);
+      (void) JreStrAppendStrong(&ret, "C", cc);
     }
   }
   return ret;
@@ -117,7 +117,7 @@ NSString *OrgMinimaUtilsMiniFormat_maketabstringWithInt_(jint zNum) {
   OrgMinimaUtilsMiniFormat_initialize();
   NSString *ret = @"";
   for (jint i = 0; i < zNum; i++) {
-    JreStrAppend(&ret, "$", @"  ");
+    (void) JreStrAppendStrong(&ret, "$", @"  ");
   }
   return ret;
 }

@@ -62,7 +62,7 @@ J2OBJC_IGNORE_DESIGNATED_END
               withBoolean:(jboolean)isMultiToken {
   if (s == nil || sp == nil) return;
   if (isMultiToken) {
-    JavaUtilStringTokenizer *tokens = create_JavaUtilStringTokenizer_initWithNSString_withNSString_(s, sp);
+    JavaUtilStringTokenizer *tokens = new_JavaUtilStringTokenizer_initWithNSString_withNSString_(s, sp);
     while ([tokens hasMoreTokens]) {
       [((id<JavaUtilList>) nil_chk(append)) addWithId:[((NSString *) nil_chk([tokens nextToken])) java_trim]];
     }
@@ -90,7 +90,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (void)setSPWithNSString:(NSString *)sp {
-  JreStrongAssign(&self->sp_, sp);
+  self->sp_ = sp;
 }
 
 - (void)addWithInt:(jint)i
@@ -136,12 +136,12 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (NSString *)toStringWithNSString:(NSString *)sp {
-  JavaLangStringBuffer *sb = create_JavaLangStringBuffer_init();
+  JavaLangStringBuffer *sb = new_JavaLangStringBuffer_init();
   for (jint i = 0; i < [((id<JavaUtilList>) nil_chk(items_)) size]; i++) {
-    if (i == 0) [sb appendWithId:[((id<JavaUtilList>) nil_chk(items_)) getWithInt:i]];
+    if (i == 0) (void) [sb appendWithId:[((id<JavaUtilList>) nil_chk(items_)) getWithInt:i]];
     else {
-      [sb appendWithNSString:sp];
-      [sb appendWithId:[((id<JavaUtilList>) nil_chk(items_)) getWithInt:i]];
+      (void) [sb appendWithNSString:sp];
+      (void) [sb appendWithId:[((id<JavaUtilList>) nil_chk(items_)) getWithInt:i]];
     }
   }
   return [sb description];
@@ -152,14 +152,8 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (void)reset {
-  JreStrongAssign(&sp_, @",");
+  sp_ = @",";
   [((id<JavaUtilList>) nil_chk(items_)) clear];
-}
-
-- (void)dealloc {
-  RELEASE_(sp_);
-  RELEASE_(items_);
-  [super dealloc];
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -224,8 +218,8 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 void OrgMinimaUtilsJsonItemList_init(OrgMinimaUtilsJsonItemList *self) {
   NSObject_init(self);
-  JreStrongAssign(&self->sp_, @",");
-  JreStrongAssignAndConsume(&self->items_, new_JavaUtilArrayList_init());
+  self->sp_ = @",";
+  self->items_ = new_JavaUtilArrayList_init();
 }
 
 OrgMinimaUtilsJsonItemList *new_OrgMinimaUtilsJsonItemList_init() {
@@ -238,8 +232,8 @@ OrgMinimaUtilsJsonItemList *create_OrgMinimaUtilsJsonItemList_init() {
 
 void OrgMinimaUtilsJsonItemList_initWithNSString_(OrgMinimaUtilsJsonItemList *self, NSString *s) {
   NSObject_init(self);
-  JreStrongAssign(&self->sp_, @",");
-  JreStrongAssignAndConsume(&self->items_, new_JavaUtilArrayList_init());
+  self->sp_ = @",";
+  self->items_ = new_JavaUtilArrayList_init();
   [self splitWithNSString:s withNSString:self->sp_ withJavaUtilList:self->items_];
 }
 
@@ -253,9 +247,9 @@ OrgMinimaUtilsJsonItemList *create_OrgMinimaUtilsJsonItemList_initWithNSString_(
 
 void OrgMinimaUtilsJsonItemList_initWithNSString_withNSString_(OrgMinimaUtilsJsonItemList *self, NSString *s, NSString *sp) {
   NSObject_init(self);
-  JreStrongAssign(&self->sp_, @",");
-  JreStrongAssignAndConsume(&self->items_, new_JavaUtilArrayList_init());
-  JreStrongAssign(&self->sp_, s);
+  self->sp_ = @",";
+  self->items_ = new_JavaUtilArrayList_init();
+  self->sp_ = s;
   [self splitWithNSString:s withNSString:sp withJavaUtilList:self->items_];
 }
 
@@ -269,8 +263,8 @@ OrgMinimaUtilsJsonItemList *create_OrgMinimaUtilsJsonItemList_initWithNSString_w
 
 void OrgMinimaUtilsJsonItemList_initWithNSString_withNSString_withBoolean_(OrgMinimaUtilsJsonItemList *self, NSString *s, NSString *sp, jboolean isMultiToken) {
   NSObject_init(self);
-  JreStrongAssign(&self->sp_, @",");
-  JreStrongAssignAndConsume(&self->items_, new_JavaUtilArrayList_init());
+  self->sp_ = @",";
+  self->items_ = new_JavaUtilArrayList_init();
   [self splitWithNSString:s withNSString:sp withJavaUtilList:self->items_ withBoolean:isMultiToken];
 }
 

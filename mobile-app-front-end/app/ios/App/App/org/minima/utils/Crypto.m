@@ -47,8 +47,8 @@ J2OBJC_IGNORE_DESIGNATED_END
 - (IOSByteArray *)hashDataWithByteArray:(IOSByteArray *)zData
                                 withInt:(jint)zBitLength {
   @try {
-    id<OrgMinimaUtilsDigestDigest> keccak = create_OrgMinimaUtilsDigestKeccakDigest_initWithInt_(zBitLength);
-    IOSByteArray *output = [IOSByteArray arrayWithLength:[keccak getDigestSize]];
+    id<OrgMinimaUtilsDigestDigest> keccak = new_OrgMinimaUtilsDigestKeccakDigest_initWithInt_(zBitLength);
+    IOSByteArray *output = [IOSByteArray newArrayWithLength:[keccak getDigestSize]];
     [keccak updateWithByteArray:zData withInt:0 withInt:((IOSByteArray *) nil_chk(zData))->size_];
     [keccak doFinalWithByteArray:output withInt:0];
     return output;
@@ -61,8 +61,8 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 - (IOSByteArray *)hashSHA2WithByteArray:(IOSByteArray *)zData {
   @try {
-    id<OrgMinimaUtilsDigestDigest> sha2 = create_OrgMinimaUtilsDigestSHA256Digest_init();
-    IOSByteArray *output = [IOSByteArray arrayWithLength:[sha2 getDigestSize]];
+    id<OrgMinimaUtilsDigestDigest> sha2 = new_OrgMinimaUtilsDigestSHA256Digest_init();
+    IOSByteArray *output = [IOSByteArray newArrayWithLength:[sha2 getDigestSize]];
     [sha2 updateWithByteArray:zData withInt:0 withInt:((IOSByteArray *) nil_chk(zData))->size_];
     [sha2 doFinalWithByteArray:output withInt:0];
     return output;
@@ -80,13 +80,13 @@ J2OBJC_IGNORE_DESIGNATED_END
 - (OrgMinimaObjectsBaseMiniData *)hashObjectWithOrgMinimaUtilsStreamable:(id<OrgMinimaUtilsStreamable>)zObject
                                                                  withInt:(jint)zBitLength {
   @try {
-    JavaIoByteArrayOutputStream *baos = create_JavaIoByteArrayOutputStream_init();
-    JavaIoDataOutputStream *dos = create_JavaIoDataOutputStream_initWithJavaIoOutputStream_(baos);
+    JavaIoByteArrayOutputStream *baos = new_JavaIoByteArrayOutputStream_init();
+    JavaIoDataOutputStream *dos = new_JavaIoDataOutputStream_initWithJavaIoOutputStream_(baos);
     [((id<OrgMinimaUtilsStreamable>) nil_chk(zObject)) writeDataStreamWithJavaIoDataOutputStream:dos];
     [dos flush];
     IOSByteArray *objdata = [baos toByteArray];
     IOSByteArray *hashdata = [self hashDataWithByteArray:objdata withInt:zBitLength];
-    return create_OrgMinimaObjectsBaseMiniData_initWithByteArray_(hashdata);
+    return new_OrgMinimaObjectsBaseMiniData_initWithByteArray_(hashdata);
   }
   @catch (JavaLangException *e) {
     [e printStackTrace];
@@ -103,14 +103,14 @@ J2OBJC_IGNORE_DESIGNATED_END
                                              withOrgMinimaUtilsStreamable:(id<OrgMinimaUtilsStreamable>)zRightObject2
                                                                   withInt:(jint)zBitLength {
   @try {
-    JavaIoByteArrayOutputStream *baos = create_JavaIoByteArrayOutputStream_init();
-    JavaIoDataOutputStream *dos = create_JavaIoDataOutputStream_initWithJavaIoOutputStream_(baos);
+    JavaIoByteArrayOutputStream *baos = new_JavaIoByteArrayOutputStream_init();
+    JavaIoDataOutputStream *dos = new_JavaIoDataOutputStream_initWithJavaIoOutputStream_(baos);
     [((id<OrgMinimaUtilsStreamable>) nil_chk(zLeftObject)) writeDataStreamWithJavaIoDataOutputStream:dos];
     [((id<OrgMinimaUtilsStreamable>) nil_chk(zRightObject2)) writeDataStreamWithJavaIoDataOutputStream:dos];
     [dos flush];
     IOSByteArray *objdata = [baos toByteArray];
     IOSByteArray *hashdata = [self hashDataWithByteArray:objdata withInt:zBitLength];
-    return create_OrgMinimaObjectsBaseMiniData_initWithByteArray_(hashdata);
+    return new_OrgMinimaObjectsBaseMiniData_initWithByteArray_(hashdata);
   }
   @catch (JavaLangException *e) {
     [e printStackTrace];
@@ -120,8 +120,8 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 - (OrgMinimaObjectsBaseMiniData *)hashAllObjectsWithOrgMinimaUtilsStreamableArray:(IOSObjectArray *)zObjects {
   @try {
-    JavaIoByteArrayOutputStream *baos = create_JavaIoByteArrayOutputStream_init();
-    JavaIoDataOutputStream *dos = create_JavaIoDataOutputStream_initWithJavaIoOutputStream_(baos);
+    JavaIoByteArrayOutputStream *baos = new_JavaIoByteArrayOutputStream_init();
+    JavaIoDataOutputStream *dos = new_JavaIoDataOutputStream_initWithJavaIoOutputStream_(baos);
     {
       IOSObjectArray *a__ = zObjects;
       id<OrgMinimaUtilsStreamable> const *b__ = ((IOSObjectArray *) nil_chk(a__))->buffer_;
@@ -134,7 +134,7 @@ J2OBJC_IGNORE_DESIGNATED_END
     [dos flush];
     IOSByteArray *objdata = [baos toByteArray];
     IOSByteArray *hashdata = [self hashDataWithByteArray:objdata];
-    return create_OrgMinimaObjectsBaseMiniData_initWithByteArray_(hashdata);
+    return new_OrgMinimaObjectsBaseMiniData_initWithByteArray_(hashdata);
   }
   @catch (JavaLangException *e) {
     [e printStackTrace];
@@ -187,8 +187,8 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 + (void)initialize {
   if (self == [OrgMinimaUtilsCrypto class]) {
-    JreStrongAssignAndConsume(&OrgMinimaUtilsCrypto_MAX_VAL, new_JavaMathBigInteger_initWithNSString_withInt_(@"FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", 16));
-    JreStrongAssignAndConsume(&OrgMinimaUtilsCrypto_MAX_HASH, new_OrgMinimaObjectsBaseMiniData_initWithNSString_(@"0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"));
+    OrgMinimaUtilsCrypto_MAX_VAL = new_JavaMathBigInteger_initWithNSString_withInt_(@"FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", 16);
+    OrgMinimaUtilsCrypto_MAX_HASH = new_OrgMinimaObjectsBaseMiniData_initWithNSString_(@"0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF");
     J2OBJC_SET_INITIALIZED(OrgMinimaUtilsCrypto)
   }
 }
@@ -198,7 +198,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 OrgMinimaUtilsCrypto *OrgMinimaUtilsCrypto_getInstance() {
   OrgMinimaUtilsCrypto_initialize();
   if (OrgMinimaUtilsCrypto_mCrypto == nil) {
-    JreStrongAssignAndConsume(&OrgMinimaUtilsCrypto_mCrypto, new_OrgMinimaUtilsCrypto_init());
+    OrgMinimaUtilsCrypto_mCrypto = new_OrgMinimaUtilsCrypto_init();
   }
   return OrgMinimaUtilsCrypto_mCrypto;
 }

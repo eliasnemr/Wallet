@@ -26,13 +26,13 @@ J2OBJC_IGNORE_DESIGNATED_END
   OrgMinimaUtilsMessagesMessage *msg = [self getResponseMessageWithNSString:OrgMinimaSystemBrainsConsensusUser_CONSENSUS_NEWSIMPLE];
   if (((IOSObjectArray *) nil_chk(zInput))->size_ > 1) {
     jint bits = JavaLangInteger_parseIntWithNSString_(IOSObjectArray_Get(zInput, 1));
-    [((OrgMinimaUtilsMessagesMessage *) nil_chk(msg)) addIntWithNSString:@"bitlength" withInt:bits];
+    (void) [((OrgMinimaUtilsMessagesMessage *) nil_chk(msg)) addIntWithNSString:@"bitlength" withInt:bits];
   }
   [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getConsensusHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:msg];
 }
 
 - (OrgMinimaSystemInputCommandFunction *)getNewFunction {
-  return create_OrgMinimaSystemInputFunctionsnewaddress_init();
+  return new_OrgMinimaSystemInputFunctionsnewaddress_init();
 }
 
 + (const J2ObjcClassInfo *)__metadata {

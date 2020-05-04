@@ -66,22 +66,16 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (void)readDataStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn {
-  JreStrongAssignAndConsume(&mTxPOW_, new_OrgMinimaObjectsTxPOW_init());
+  mTxPOW_ = new_OrgMinimaObjectsTxPOW_init();
   [mTxPOW_ readDataStreamWithJavaIoDataInputStream:zIn];
   OrgMinimaObjectsBaseMiniByte *casc = OrgMinimaObjectsBaseMiniByte_ReadFromStreamWithJavaIoDataInputStream_(zIn);
   mCascadeNode_ = [((OrgMinimaObjectsBaseMiniByte *) nil_chk(casc)) isTrue];
   OrgMinimaObjectsBaseMiniByte *mmr = OrgMinimaObjectsBaseMiniByte_ReadFromStreamWithJavaIoDataInputStream_(zIn);
-  JreStrongAssign(&mMMR_, nil);
+  mMMR_ = nil;
   if ([((OrgMinimaObjectsBaseMiniByte *) nil_chk(mmr)) isTrue]) {
-    JreStrongAssignAndConsume(&mMMR_, new_OrgMinimaDatabaseMmrMMRSet_init());
+    mMMR_ = new_OrgMinimaDatabaseMmrMMRSet_init();
     [mMMR_ readDataStreamWithJavaIoDataInputStream:zIn];
   }
-}
-
-- (void)dealloc {
-  RELEASE_(mTxPOW_);
-  RELEASE_(mMMR_);
-  [super dealloc];
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -147,13 +141,13 @@ OrgMinimaSystemBackupSyncPacket *create_OrgMinimaSystemBackupSyncPacket_initWith
 
 void OrgMinimaSystemBackupSyncPacket_initWithOrgMinimaDatabaseTxpowtreeBlockTreeNode_withBoolean_(OrgMinimaSystemBackupSyncPacket *self, OrgMinimaDatabaseTxpowtreeBlockTreeNode *zNode, jboolean zClearMMR) {
   NSObject_init(self);
-  JreStrongAssign(&self->mTxPOW_, [((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk(zNode)) getTxPow]);
+  self->mTxPOW_ = [((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk(zNode)) getTxPow];
   self->mCascadeNode_ = [zNode isCascade];
   if (zClearMMR) {
-    JreStrongAssign(&self->mMMR_, nil);
+    self->mMMR_ = nil;
   }
   else {
-    JreStrongAssign(&self->mMMR_, [zNode getMMRSet]);
+    self->mMMR_ = [zNode getMMRSet];
   }
 }
 

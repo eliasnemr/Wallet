@@ -42,7 +42,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   if (prev != nil) {
     return prev;
   }
-  OrgMinimaDatabaseTxpowdbJavaJavaDBRow *row = create_OrgMinimaDatabaseTxpowdbJavaJavaDBRow_initWithOrgMinimaObjectsTxPOW_(zTxPOW);
+  OrgMinimaDatabaseTxpowdbJavaJavaDBRow *row = new_OrgMinimaDatabaseTxpowdbJavaJavaDBRow_initWithOrgMinimaObjectsTxPOW_(zTxPOW);
   [((JavaUtilArrayList *) nil_chk(mRows_)) addWithId:row];
   return row;
 }
@@ -62,8 +62,8 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (JavaUtilArrayList *)removeTxPOWInBlockLessThanWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zBlockNumber {
-  JavaUtilArrayList *removed = create_JavaUtilArrayList_init();
-  JavaUtilArrayList *newRows = create_JavaUtilArrayList_init();
+  JavaUtilArrayList *removed = new_JavaUtilArrayList_init();
+  JavaUtilArrayList *newRows = new_JavaUtilArrayList_init();
   OrgMinimaObjectsBaseMiniNumber *minblock = [((OrgMinimaObjectsBaseMiniNumber *) nil_chk(zBlockNumber)) addWithOrgMinimaObjectsBaseMiniNumber:JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, TEN)];
   for (OrgMinimaDatabaseTxpowdbJavaJavaDBRow * __strong row in nil_chk(mRows_)) {
     if ([((OrgMinimaDatabaseTxpowdbJavaJavaDBRow *) nil_chk(row)) isOnChainBlock]) {
@@ -81,8 +81,8 @@ J2OBJC_IGNORE_DESIGNATED_END
       [((JavaUtilArrayList *) nil_chk(mDeletedRows_)) addWithId:row];
     }
   }
-  JreStrongAssign(&mRows_, newRows);
-  OrgMinimaDatabaseTxpowdbJavaJavaDB_removeDeleted(self);
+  mRows_ = newRows;
+  (void) OrgMinimaDatabaseTxpowdbJavaJavaDB_removeDeleted(self);
   return removed;
 }
 
@@ -91,7 +91,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (JavaUtilArrayList *)getAllUnusedTxPOW {
-  JavaUtilArrayList *ret = create_JavaUtilArrayList_init();
+  JavaUtilArrayList *ret = new_JavaUtilArrayList_init();
   for (OrgMinimaDatabaseTxpowdbJavaJavaDBRow * __strong row in nil_chk(mRows_)) {
     if (![((OrgMinimaDatabaseTxpowdbJavaJavaDBRow *) nil_chk(row)) isInBlock]) {
       [ret addWithId:row];
@@ -105,7 +105,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (void)removeTxPOWWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zTxPOWID {
-  JavaUtilArrayList *newRows = create_JavaUtilArrayList_init();
+  JavaUtilArrayList *newRows = new_JavaUtilArrayList_init();
   for (OrgMinimaDatabaseTxpowdbJavaJavaDBRow * __strong row in nil_chk(mRows_)) {
     if (![((OrgMinimaObjectsBaseMiniData *) nil_chk([((OrgMinimaObjectsTxPOW *) nil_chk([((OrgMinimaDatabaseTxpowdbJavaJavaDBRow *) nil_chk(row)) getTxPOW])) getTxPowID])) isEqualWithOrgMinimaObjectsBaseMiniData:zTxPOWID]) {
       [newRows addWithId:row];
@@ -113,11 +113,11 @@ J2OBJC_IGNORE_DESIGNATED_END
       [((JavaUtilArrayList *) nil_chk(mDeletedRows_)) addWithId:row];
     }
   }
-  JreStrongAssign(&mRows_, newRows);
+  mRows_ = newRows;
 }
 
 - (JavaUtilArrayList *)getChildBlocksTxPOWWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zParent {
-  JavaUtilArrayList *ret = create_JavaUtilArrayList_init();
+  JavaUtilArrayList *ret = new_JavaUtilArrayList_init();
   for (OrgMinimaDatabaseTxpowdbJavaJavaDBRow * __strong row in nil_chk(mRows_)) {
     if ([((OrgMinimaObjectsTxPOW *) nil_chk([((OrgMinimaDatabaseTxpowdbJavaJavaDBRow *) nil_chk(row)) getTxPOW])) isBlock] && [((OrgMinimaObjectsBaseMiniData *) nil_chk([((OrgMinimaObjectsTxPOW *) nil_chk([row getTxPOW])) getParentID])) isEqualWithOrgMinimaObjectsBaseMiniData:zParent]) {
       [ret addWithId:row];
@@ -127,7 +127,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (JavaUtilArrayList *)getAllTxPOWDBRow {
-  JavaUtilArrayList *copy_ = create_JavaUtilArrayList_init();
+  JavaUtilArrayList *copy_ = new_JavaUtilArrayList_init();
   for (id<OrgMinimaDatabaseTxpowdbTxPOWDBRow> __strong row in nil_chk(mRows_)) {
     [copy_ addWithId:row];
   }
@@ -142,7 +142,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (JavaUtilArrayList *)getAllBlocksMissingTransactions {
-  JavaUtilArrayList *ret = create_JavaUtilArrayList_init();
+  JavaUtilArrayList *ret = new_JavaUtilArrayList_init();
   for (OrgMinimaDatabaseTxpowdbJavaJavaDBRow * __strong row in nil_chk(mRows_)) {
     if ([((OrgMinimaObjectsTxPOW *) nil_chk([((OrgMinimaDatabaseTxpowdbJavaJavaDBRow *) nil_chk(row)) getTxPOW])) isBlock] && [row getBlockState] == OrgMinimaDatabaseTxpowdbTxPOWDBRow_TXPOWDBROW_STATE_BASIC) {
       [ret addWithId:row];
@@ -152,14 +152,8 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (void)ClearDB {
-  JreStrongAssignAndConsume(&mRows_, new_JavaUtilArrayList_init());
-  JreStrongAssignAndConsume(&mDeletedRows_, new_JavaUtilArrayList_init());
-}
-
-- (void)dealloc {
-  RELEASE_(mRows_);
-  RELEASE_(mDeletedRows_);
-  [super dealloc];
+  mRows_ = new_JavaUtilArrayList_init();
+  mDeletedRows_ = new_JavaUtilArrayList_init();
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -208,8 +202,8 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 void OrgMinimaDatabaseTxpowdbJavaJavaDB_init(OrgMinimaDatabaseTxpowdbJavaJavaDB *self) {
   NSObject_init(self);
-  JreStrongAssignAndConsume(&self->mRows_, new_JavaUtilArrayList_init());
-  JreStrongAssignAndConsume(&self->mDeletedRows_, new_JavaUtilArrayList_init());
+  self->mRows_ = new_JavaUtilArrayList_init();
+  self->mDeletedRows_ = new_JavaUtilArrayList_init();
 }
 
 OrgMinimaDatabaseTxpowdbJavaJavaDB *new_OrgMinimaDatabaseTxpowdbJavaJavaDB_init() {
@@ -221,8 +215,8 @@ OrgMinimaDatabaseTxpowdbJavaJavaDB *create_OrgMinimaDatabaseTxpowdbJavaJavaDB_in
 }
 
 JavaUtilArrayList *OrgMinimaDatabaseTxpowdbJavaJavaDB_removeDeleted(OrgMinimaDatabaseTxpowdbJavaJavaDB *self) {
-  JavaUtilArrayList *removed = create_JavaUtilArrayList_init();
-  JavaUtilArrayList *newDeletedRows = create_JavaUtilArrayList_init();
+  JavaUtilArrayList *removed = new_JavaUtilArrayList_init();
+  JavaUtilArrayList *newDeletedRows = new_JavaUtilArrayList_init();
   jlong timedelete = JavaLangSystem_currentTimeMillis() - 1000 * 60 * 60;
   for (OrgMinimaDatabaseTxpowdbJavaJavaDBRow * __strong row in nil_chk(self->mDeletedRows_)) {
     if ([((OrgMinimaDatabaseTxpowdbJavaJavaDBRow *) nil_chk(row)) getDeleteTime] == 0) {
@@ -235,7 +229,7 @@ JavaUtilArrayList *OrgMinimaDatabaseTxpowdbJavaJavaDB_removeDeleted(OrgMinimaDat
       [removed addWithId:row];
     }
   }
-  JreStrongAssign(&self->mDeletedRows_, newDeletedRows);
+  self->mDeletedRows_ = newDeletedRows;
   return removed;
 }
 

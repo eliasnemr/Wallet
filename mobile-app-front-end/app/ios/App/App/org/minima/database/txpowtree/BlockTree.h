@@ -27,7 +27,6 @@
   OrgMinimaDatabaseTxpowtreeBlockTreeNode *mRoot_;
   OrgMinimaDatabaseTxpowtreeBlockTreeNode *mTip_;
   OrgMinimaDatabaseTxpowtreeBlockTreeNode *mCascadeNode_;
-  OrgMinimaDatabaseTxpowtreeBlockTreeNode *mLastNode_;
 }
 
 #pragma mark Public
@@ -35,6 +34,8 @@
 - (instancetype)init;
 
 - (jboolean)addNodeWithOrgMinimaDatabaseTxpowtreeBlockTreeNode:(OrgMinimaDatabaseTxpowtreeBlockTreeNode *)zNode;
+
+- (void)clearTree;
 
 - (OrgMinimaDatabaseTxpowtreeBlockTreeNode *)findNodeWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zTxPOWID;
 
@@ -52,7 +53,7 @@
 
 - (OrgMinimaDatabaseTxpowtreeBlockTreeNode *)getChainTip;
 
-- (OrgMinimaDatabaseTxpowtreeBlockTreeNode *)getLastNode;
+- (OrgMinimaDatabaseTxpowtreeBlockTreeNode *)getOnChainBlockWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zBlockNumber;
 
 - (void)hardAddNodeWithOrgMinimaDatabaseTxpowtreeBlockTreeNode:(OrgMinimaDatabaseTxpowtreeBlockTreeNode *)zNode
                                                    withBoolean:(jboolean)zLinkAll;
@@ -70,7 +71,6 @@ J2OBJC_EMPTY_STATIC_INIT(OrgMinimaDatabaseTxpowtreeBlockTree)
 J2OBJC_FIELD_SETTER(OrgMinimaDatabaseTxpowtreeBlockTree, mRoot_, OrgMinimaDatabaseTxpowtreeBlockTreeNode *)
 J2OBJC_FIELD_SETTER(OrgMinimaDatabaseTxpowtreeBlockTree, mTip_, OrgMinimaDatabaseTxpowtreeBlockTreeNode *)
 J2OBJC_FIELD_SETTER(OrgMinimaDatabaseTxpowtreeBlockTree, mCascadeNode_, OrgMinimaDatabaseTxpowtreeBlockTreeNode *)
-J2OBJC_FIELD_SETTER(OrgMinimaDatabaseTxpowtreeBlockTree, mLastNode_, OrgMinimaDatabaseTxpowtreeBlockTreeNode *)
 
 FOUNDATION_EXPORT void OrgMinimaDatabaseTxpowtreeBlockTree_init(OrgMinimaDatabaseTxpowtreeBlockTree *self);
 

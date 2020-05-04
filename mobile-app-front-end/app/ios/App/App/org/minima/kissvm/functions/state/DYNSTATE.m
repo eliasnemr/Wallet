@@ -33,11 +33,11 @@ J2OBJC_IGNORE_DESIGNATED_END
   else {
     setsuccess = [((OrgMinimaKissvmContract *) nil_chk(zContract)) setDYNStateWithInt:statenum withNSString:[val description]];
   }
-  return create_OrgMinimaKissvmValuesBooleanValue_initWithBoolean_(setsuccess);
+  return new_OrgMinimaKissvmValuesBooleanValue_initWithBoolean_(setsuccess);
 }
 
 - (OrgMinimaKissvmFunctionsMinimaFunction *)getNewFunction {
-  return create_OrgMinimaKissvmFunctionsStateDYNSTATE_init();
+  return new_OrgMinimaKissvmFunctionsStateDYNSTATE_init();
 }
 
 + (const J2ObjcClassInfo *)__metadata {

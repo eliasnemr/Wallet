@@ -16,6 +16,9 @@
 
 - (instancetype)init;
 
++ (IOSByteArray *)initMiniScriptWithNSString:(NSString *)zString
+                                 withBoolean:(jboolean)zContractClean OBJC_METHOD_FAMILY_NONE;
+
 @end
 
 __attribute__((unused)) static void OrgMinimaObjectsBaseMiniScript_init(OrgMinimaObjectsBaseMiniScript *self);
@@ -23,6 +26,8 @@ __attribute__((unused)) static void OrgMinimaObjectsBaseMiniScript_init(OrgMinim
 __attribute__((unused)) static OrgMinimaObjectsBaseMiniScript *new_OrgMinimaObjectsBaseMiniScript_init(void) NS_RETURNS_RETAINED;
 
 __attribute__((unused)) static OrgMinimaObjectsBaseMiniScript *create_OrgMinimaObjectsBaseMiniScript_init(void);
+
+__attribute__((unused)) static IOSByteArray *OrgMinimaObjectsBaseMiniScript_initMiniScriptWithNSString_withBoolean_(NSString *zString, jboolean zContractClean);
 
 @implementation OrgMinimaObjectsBaseMiniScript
 
@@ -38,8 +43,23 @@ J2OBJC_IGNORE_DESIGNATED_END
   return self;
 }
 
+- (instancetype)initWithNSString:(NSString *)zString
+                     withBoolean:(jboolean)zContractClean {
+  OrgMinimaObjectsBaseMiniScript_initWithNSString_withBoolean_(self, zString, zContractClean);
+  return self;
+}
+
++ (IOSByteArray *)initMiniScriptWithNSString:(NSString *)zString
+                                 withBoolean:(jboolean)zContractClean {
+  return OrgMinimaObjectsBaseMiniScript_initMiniScriptWithNSString_withBoolean_(zString, zContractClean);
+}
+
 - (NSString *)description {
   return [NSString java_stringWithBytes:[self getData] charset:JavaNioCharsetCharset_forNameWithNSString_(@"US-ASCII")];
+}
+
+- (NSString *)to0xString {
+  return nil;
 }
 
 + (OrgMinimaObjectsBaseMiniScript *)ReadFromStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn {
@@ -50,19 +70,25 @@ J2OBJC_IGNORE_DESIGNATED_END
   static J2ObjcMethodInfo methods[] = {
     { NULL, NULL, 0x2, -1, -1, -1, -1, -1, -1 },
     { NULL, NULL, 0x1, -1, 0, -1, -1, -1, -1 },
-    { NULL, "LNSString;", 0x1, 1, -1, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsBaseMiniScript;", 0x9, 2, 3, -1, -1, -1, -1 },
+    { NULL, NULL, 0x1, -1, 1, -1, -1, -1, -1 },
+    { NULL, "[B", 0xa, 2, 1, -1, -1, -1, -1 },
+    { NULL, "LNSString;", 0x1, 3, -1, -1, -1, -1, -1 },
+    { NULL, "LNSString;", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMiniScript;", 0x9, 4, 5, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
   #pragma clang diagnostic ignored "-Wundeclared-selector"
   methods[0].selector = @selector(init);
   methods[1].selector = @selector(initWithNSString:);
-  methods[2].selector = @selector(description);
-  methods[3].selector = @selector(ReadFromStreamWithJavaIoDataInputStream:);
+  methods[2].selector = @selector(initWithNSString:withBoolean:);
+  methods[3].selector = @selector(initMiniScriptWithNSString:withBoolean:);
+  methods[4].selector = @selector(description);
+  methods[5].selector = @selector(to0xString);
+  methods[6].selector = @selector(ReadFromStreamWithJavaIoDataInputStream:);
   #pragma clang diagnostic pop
-  static const void *ptrTable[] = { "LNSString;", "toString", "ReadFromStream", "LJavaIoDataInputStream;" };
-  static const J2ObjcClassInfo _OrgMinimaObjectsBaseMiniScript = { "MiniScript", "org.minima.objects.base", ptrTable, methods, NULL, 7, 0x1, 4, 0, -1, -1, -1, -1, -1 };
+  static const void *ptrTable[] = { "LNSString;", "LNSString;Z", "initMiniScript", "toString", "ReadFromStream", "LJavaIoDataInputStream;" };
+  static const J2ObjcClassInfo _OrgMinimaObjectsBaseMiniScript = { "MiniScript", "org.minima.objects.base", ptrTable, methods, NULL, 7, 0x1, 7, 0, -1, -1, -1, -1, -1 };
   return &_OrgMinimaObjectsBaseMiniScript;
 }
 
@@ -81,7 +107,7 @@ OrgMinimaObjectsBaseMiniScript *create_OrgMinimaObjectsBaseMiniScript_init() {
 }
 
 void OrgMinimaObjectsBaseMiniScript_initWithNSString_(OrgMinimaObjectsBaseMiniScript *self, NSString *zString) {
-  OrgMinimaObjectsBaseMiniData_initWithByteArray_(self, [((NSString *) nil_chk(OrgMinimaKissvmContract_cleanScriptWithNSString_(zString))) java_getBytesWithCharset:JavaNioCharsetCharset_forNameWithNSString_(@"US-ASCII")]);
+  OrgMinimaObjectsBaseMiniScript_initWithNSString_withBoolean_(self, zString, true);
 }
 
 OrgMinimaObjectsBaseMiniScript *new_OrgMinimaObjectsBaseMiniScript_initWithNSString_(NSString *zString) {
@@ -92,9 +118,29 @@ OrgMinimaObjectsBaseMiniScript *create_OrgMinimaObjectsBaseMiniScript_initWithNS
   J2OBJC_CREATE_IMPL(OrgMinimaObjectsBaseMiniScript, initWithNSString_, zString)
 }
 
+void OrgMinimaObjectsBaseMiniScript_initWithNSString_withBoolean_(OrgMinimaObjectsBaseMiniScript *self, NSString *zString, jboolean zContractClean) {
+  OrgMinimaObjectsBaseMiniData_initWithByteArray_(self, OrgMinimaObjectsBaseMiniScript_initMiniScriptWithNSString_withBoolean_(zString, zContractClean));
+}
+
+OrgMinimaObjectsBaseMiniScript *new_OrgMinimaObjectsBaseMiniScript_initWithNSString_withBoolean_(NSString *zString, jboolean zContractClean) {
+  J2OBJC_NEW_IMPL(OrgMinimaObjectsBaseMiniScript, initWithNSString_withBoolean_, zString, zContractClean)
+}
+
+OrgMinimaObjectsBaseMiniScript *create_OrgMinimaObjectsBaseMiniScript_initWithNSString_withBoolean_(NSString *zString, jboolean zContractClean) {
+  J2OBJC_CREATE_IMPL(OrgMinimaObjectsBaseMiniScript, initWithNSString_withBoolean_, zString, zContractClean)
+}
+
+IOSByteArray *OrgMinimaObjectsBaseMiniScript_initMiniScriptWithNSString_withBoolean_(NSString *zString, jboolean zContractClean) {
+  OrgMinimaObjectsBaseMiniScript_initialize();
+  if (zContractClean) {
+    return [((NSString *) nil_chk(OrgMinimaKissvmContract_cleanScriptWithNSString_(zString))) java_getBytesWithCharset:JavaNioCharsetCharset_forNameWithNSString_(@"US-ASCII")];
+  }
+  return [((NSString *) nil_chk(zString)) java_getBytesWithCharset:JavaNioCharsetCharset_forNameWithNSString_(@"US-ASCII")];
+}
+
 OrgMinimaObjectsBaseMiniScript *OrgMinimaObjectsBaseMiniScript_ReadFromStreamWithJavaIoDataInputStream_(JavaIoDataInputStream *zIn) {
   OrgMinimaObjectsBaseMiniScript_initialize();
-  OrgMinimaObjectsBaseMiniScript *data = create_OrgMinimaObjectsBaseMiniScript_init();
+  OrgMinimaObjectsBaseMiniScript *data = new_OrgMinimaObjectsBaseMiniScript_init();
   @try {
     [data readDataStreamWithJavaIoDataInputStream:zIn];
   }

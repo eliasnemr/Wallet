@@ -51,6 +51,10 @@
 
 - (void)readDataStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn;
 
+- (void)setTransactionWithOrgMinimaObjectsTransaction:(OrgMinimaObjectsTransaction *)zTrans;
+
+- (void)setWitnessWithOrgMinimaObjectsWitness:(OrgMinimaObjectsWitness *)zWitness;
+
 - (OrgMinimaUtilsJsonJSONObject *)toJSON;
 
 - (NSString *)description;

@@ -42,11 +42,6 @@
 - (instancetype)initWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zCoindID
                   withOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zScale
                   withOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zAmount
-                  withOrgMinimaObjectsBaseMiniScript:(OrgMinimaObjectsBaseMiniScript *)zName;
-
-- (instancetype)initWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zCoindID
-                  withOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zScale
-                  withOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zAmount
                   withOrgMinimaObjectsBaseMiniScript:(OrgMinimaObjectsBaseMiniScript *)zName
                   withOrgMinimaObjectsBaseMiniScript:(OrgMinimaObjectsBaseMiniScript *)zTokenScript;
 
@@ -82,12 +77,6 @@ J2OBJC_FIELD_SETTER(OrgMinimaObjectsProofsTokenProof, mTokenTotalAmount_, OrgMin
 J2OBJC_FIELD_SETTER(OrgMinimaObjectsProofsTokenProof, mTokenName_, OrgMinimaObjectsBaseMiniScript *)
 J2OBJC_FIELD_SETTER(OrgMinimaObjectsProofsTokenProof, mTokenScript_, OrgMinimaObjectsBaseMiniScript *)
 J2OBJC_FIELD_SETTER(OrgMinimaObjectsProofsTokenProof, mTokenID_, OrgMinimaObjectsBaseMiniData *)
-
-FOUNDATION_EXPORT void OrgMinimaObjectsProofsTokenProof_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniScript_(OrgMinimaObjectsProofsTokenProof *self, OrgMinimaObjectsBaseMiniData *zCoindID, OrgMinimaObjectsBaseMiniNumber *zScale, OrgMinimaObjectsBaseMiniNumber *zAmount, OrgMinimaObjectsBaseMiniScript *zName);
-
-FOUNDATION_EXPORT OrgMinimaObjectsProofsTokenProof *new_OrgMinimaObjectsProofsTokenProof_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniScript_(OrgMinimaObjectsBaseMiniData *zCoindID, OrgMinimaObjectsBaseMiniNumber *zScale, OrgMinimaObjectsBaseMiniNumber *zAmount, OrgMinimaObjectsBaseMiniScript *zName) NS_RETURNS_RETAINED;
-
-FOUNDATION_EXPORT OrgMinimaObjectsProofsTokenProof *create_OrgMinimaObjectsProofsTokenProof_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniScript_(OrgMinimaObjectsBaseMiniData *zCoindID, OrgMinimaObjectsBaseMiniNumber *zScale, OrgMinimaObjectsBaseMiniNumber *zAmount, OrgMinimaObjectsBaseMiniScript *zName);
 
 FOUNDATION_EXPORT void OrgMinimaObjectsProofsTokenProof_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniScript_withOrgMinimaObjectsBaseMiniScript_(OrgMinimaObjectsProofsTokenProof *self, OrgMinimaObjectsBaseMiniData *zCoindID, OrgMinimaObjectsBaseMiniNumber *zScale, OrgMinimaObjectsBaseMiniNumber *zAmount, OrgMinimaObjectsBaseMiniScript *zName, OrgMinimaObjectsBaseMiniScript *zTokenScript);
 

@@ -44,13 +44,13 @@
 - (instancetype)initWithNSString:(NSString *)zScript
                          withInt:(jint)zBitLength;
 
-+ (OrgMinimaObjectsBaseMiniData *)convertMinimAddressWithNSString:(NSString *)zMinimaAddress;
++ (OrgMinimaObjectsBaseMiniData *)convertMinimaAddressWithNSString:(NSString *)zMinimaAddress;
 
 - (OrgMinimaObjectsBaseMiniData *)getAddressData;
 
 - (NSString *)getScript;
 
-- (jboolean)isEqualWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zAddress;
+- (jboolean)isEqualWithOrgMinimaObjectsAddress:(OrgMinimaObjectsAddress *)zAddress;
 
 + (NSString *)makeMinimaAddressWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zAddress;
 
@@ -104,7 +104,7 @@ FOUNDATION_EXPORT OrgMinimaObjectsAddress *create_OrgMinimaObjectsAddress_initWi
 
 FOUNDATION_EXPORT NSString *OrgMinimaObjectsAddress_makeMinimaAddressWithOrgMinimaObjectsBaseMiniData_(OrgMinimaObjectsBaseMiniData *zAddress);
 
-FOUNDATION_EXPORT OrgMinimaObjectsBaseMiniData *OrgMinimaObjectsAddress_convertMinimAddressWithNSString_(NSString *zMinimaAddress);
+FOUNDATION_EXPORT OrgMinimaObjectsBaseMiniData *OrgMinimaObjectsAddress_convertMinimaAddressWithNSString_(NSString *zMinimaAddress);
 
 J2OBJC_TYPE_LITERAL_HEADER(OrgMinimaObjectsAddress)
 

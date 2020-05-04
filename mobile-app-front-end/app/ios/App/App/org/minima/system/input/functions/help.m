@@ -15,6 +15,7 @@
 #include "org/minima/system/input/functions/connect.h"
 #include "org/minima/system/input/functions/createtoken.h"
 #include "org/minima/system/input/functions/disconnect.h"
+#include "org/minima/system/input/functions/extrascript.h"
 #include "org/minima/system/input/functions/gimme50.h"
 #include "org/minima/system/input/functions/help.h"
 #include "org/minima/system/input/functions/history.h"
@@ -30,6 +31,7 @@
 #include "org/minima/system/input/functions/scripts.h"
 #include "org/minima/system/input/functions/search.h"
 #include "org/minima/system/input/functions/send.h"
+#include "org/minima/system/input/functions/sign.h"
 #include "org/minima/system/input/functions/status.h"
 #include "org/minima/system/input/functions/tokens.h"
 #include "org/minima/system/input/functions/trace.h"
@@ -38,6 +40,7 @@
 #include "org/minima/system/input/functions/transfer/importcoin.h"
 #include "org/minima/system/input/functions/transfer/importkey.h"
 #include "org/minima/system/input/functions/tutorial.h"
+#include "org/minima/system/input/functions/txns/txnauto.h"
 #include "org/minima/system/input/functions/txns/txncreate.h"
 #include "org/minima/system/input/functions/txns/txndelete.h"
 #include "org/minima/system/input/functions/txns/txnexport.h"
@@ -74,61 +77,64 @@ J2OBJC_IGNORE_DESIGNATED_END
     else {
       NSString *desc = [((NSString *) nil_chk([found getDescription])) java_trim];
       if ([((NSString *) nil_chk(desc)) isEqual:@""]) {
-        [((OrgMinimaUtilsJsonJSONObject *) nil_chk([((OrgMinimaUtilsResponseStream *) nil_chk([self getResponseStream])) getDataJSON])) putWithId:@"description" withId:JreStrcat("$$$", [found getParams], @" - ", [found getSimple])];
+        (void) [((OrgMinimaUtilsJsonJSONObject *) nil_chk([((OrgMinimaUtilsResponseStream *) nil_chk([self getResponseStream])) getDataJSON])) putWithId:@"description" withId:JreStrcat("$$$", [found getParams], @" - ", [found getSimple])];
       }
       else {
-        [((OrgMinimaUtilsJsonJSONObject *) nil_chk([((OrgMinimaUtilsResponseStream *) nil_chk([self getResponseStream])) getDataJSON])) putWithId:@"description" withId:JreStrcat("$$$", [found getParams], @" - ", desc)];
+        (void) [((OrgMinimaUtilsJsonJSONObject *) nil_chk([((OrgMinimaUtilsResponseStream *) nil_chk([self getResponseStream])) getDataJSON])) putWithId:@"description" withId:JreStrcat("$$$", [found getParams], @" - ", desc)];
       }
       [((OrgMinimaUtilsResponseStream *) nil_chk([self getResponseStream])) endStatusWithBoolean:true withNSString:@""];
     }
   }
   else {
-    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionshelp_init()];
-    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionstutorial_init()];
-    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionsstatus_init()];
-    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionshistory_init()];
-    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionsbackup_init()];
-    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionsprinttree_init()];
-    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionsautomine_init()];
-    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionstrace_init()];
-    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionsnetwork_init()];
-    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionsconnect_init()];
-    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionsdisconnect_init()];
-    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionsreconnect_init()];
-    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionsweblink_init()];
-    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionsgimme50_init()];
-    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionssend_init()];
-    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionsnewaddress_init()];
-    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionsbalance_init()];
-    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionskeys_init()];
-    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionsTransferexportkey_init()];
-    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionsTransferimportkey_init()];
-    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionscoins_init()];
-    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionsTransferexportcoin_init()];
-    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionsTransferimportcoin_init()];
-    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionskeepcoin_init()];
-    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionssearch_init()];
-    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionstxpowinfo_init()];
-    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionsscripts_init()];
-    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionsnewscript_init()];
-    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionscleanscript_init()];
-    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionsrunscript_init()];
-    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionscreatetoken_init()];
-    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionstokens_init()];
-    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionschainsha_init()];
-    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionsTxnstxnlist_init()];
-    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionsTxnstxncreate_init()];
-    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionsTxnstxndelete_init()];
-    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionsTxnstxnexport_init()];
-    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionsTxnstxnimport_init()];
-    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionsTxnstxninput_init()];
-    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionsTxnstxnoutput_init()];
-    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionsTxnstxnstate_init()];
-    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionsTxnstxnscript_init()];
-    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionsTxnstxnsign_init()];
-    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionsTxnstxnvalidate_init()];
-    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionsTxnstxnpost_init()];
-    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:create_OrgMinimaSystemInputFunctionsquit_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionshelp_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionstutorial_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsstatus_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionshistory_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsbackup_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsprinttree_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsautomine_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionstrace_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsnetwork_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsconnect_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsdisconnect_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsreconnect_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsweblink_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsgimme50_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionssend_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsnewaddress_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsbalance_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionskeys_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsTransferexportkey_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsTransferimportkey_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionscoins_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsTransferexportcoin_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsTransferimportcoin_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionskeepcoin_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionssearch_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionstxpowinfo_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsscripts_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsnewscript_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsextrascript_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionscleanscript_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsrunscript_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionscreatetoken_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionstokens_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionssign_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionschainsha_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsTxnstxnlist_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsTxnstxncreate_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsTxnstxndelete_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsTxnstxnexport_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsTxnstxnimport_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsTxnstxnauto_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsTxnstxninput_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsTxnstxnoutput_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsTxnstxnstate_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsTxnstxnscript_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsTxnstxnsign_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsTxnstxnvalidate_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsTxnstxnpost_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsquit_init()];
     [((OrgMinimaUtilsResponseStream *) nil_chk([self getResponseStream])) endStatusWithBoolean:true withNSString:@""];
   }
 }
@@ -137,15 +143,15 @@ J2OBJC_IGNORE_DESIGNATED_END
   NSString *params = [((NSString *) nil_chk([((NSString *) nil_chk([((NSString *) nil_chk([((OrgMinimaSystemInputCommandFunction *) nil_chk(zFunc)) getParams])) java_replaceAll:@"\\{" withReplacement:@"\\("])) java_replaceAll:@"\\}" withReplacement:@"\\)"])) java_trim];
   NSString *name = [self getStrOfLengthWithInt:14 withNSString:[zFunc getName]];
   if ([((NSString *) nil_chk(params)) isEqual:@""]) {
-    [((OrgMinimaUtilsJsonJSONObject *) nil_chk([((OrgMinimaUtilsResponseStream *) nil_chk([self getResponseStream])) getDataJSON])) putWithId:name withId:[zFunc getSimple]];
+    (void) [((OrgMinimaUtilsJsonJSONObject *) nil_chk([((OrgMinimaUtilsResponseStream *) nil_chk([self getResponseStream])) getDataJSON])) putWithId:name withId:[zFunc getSimple]];
   }
   else {
-    [((OrgMinimaUtilsJsonJSONObject *) nil_chk([((OrgMinimaUtilsResponseStream *) nil_chk([self getResponseStream])) getDataJSON])) putWithId:name withId:JreStrcat("$$$", params, @" - ", [zFunc getSimple])];
+    (void) [((OrgMinimaUtilsJsonJSONObject *) nil_chk([((OrgMinimaUtilsResponseStream *) nil_chk([self getResponseStream])) getDataJSON])) putWithId:name withId:JreStrcat("$$$", params, @" - ", [zFunc getSimple])];
   }
 }
 
 - (void)addBlankLine {
-  [((OrgMinimaUtilsJsonJSONObject *) nil_chk([((OrgMinimaUtilsResponseStream *) nil_chk([self getResponseStream])) getDataJSON])) putWithId:@"---" withId:@""];
+  (void) [((OrgMinimaUtilsJsonJSONObject *) nil_chk([((OrgMinimaUtilsResponseStream *) nil_chk([self getResponseStream])) getDataJSON])) putWithId:@"---" withId:@""];
 }
 
 - (NSString *)getStrOfLengthWithInt:(jint)zDesiredLen
@@ -162,7 +168,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (OrgMinimaSystemInputCommandFunction *)getNewFunction {
-  return create_OrgMinimaSystemInputFunctionshelp_init();
+  return new_OrgMinimaSystemInputFunctionshelp_init();
 }
 
 + (const J2ObjcClassInfo *)__metadata {

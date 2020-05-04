@@ -31,10 +31,10 @@ J2OBJC_IGNORE_DESIGNATED_END
   jboolean set = [((OrgMinimaKissvmValuesValue *) nil_chk([((id<OrgMinimaKissvmExpressionsExpression>) nil_chk([self getParameterWithInt:2])) getValueWithOrgMinimaKissvmContract:zContract])) isTrue];
   jint reqbyte = JreFpToInt(JavaLangMath_floorWithDouble_(bit / 8));
   if (reqbyte >= datalen) {
-    @throw create_OrgMinimaKissvmExceptionsExecutionException_initWithNSString_(JreStrcat("$I$I", @"Overflow Bit set. Total Bytes ", datalen, @". Requested ", reqbyte));
+    @throw new_OrgMinimaKissvmExceptionsExecutionException_initWithNSString_(JreStrcat("$I$I", @"Overflow Bit set. Total Bytes ", datalen, @". Requested ", reqbyte));
   }
   jint bitbyte = bit - (reqbyte * 8);
-  IOSByteArray *copy_ = [IOSByteArray arrayWithLength:datalen];
+  IOSByteArray *copy_ = [IOSByteArray newArrayWithLength:datalen];
   for (jint i = 0; i < datalen; i++) {
     *IOSByteArray_GetRef(copy_, i) = IOSByteArray_Get(data, i);
     if (i == reqbyte) {
@@ -46,11 +46,11 @@ J2OBJC_IGNORE_DESIGNATED_END
       }
     }
   }
-  return create_OrgMinimaKissvmValuesHEXValue_initWithByteArray_(copy_);
+  return new_OrgMinimaKissvmValuesHEXValue_initWithByteArray_(copy_);
 }
 
 - (OrgMinimaKissvmFunctionsMinimaFunction *)getNewFunction {
-  return create_OrgMinimaKissvmFunctionsMathsBITSET_init();
+  return new_OrgMinimaKissvmFunctionsMathsBITSET_init();
 }
 
 + (const J2ObjcClassInfo *)__metadata {

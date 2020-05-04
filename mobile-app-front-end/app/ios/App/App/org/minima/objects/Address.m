@@ -45,10 +45,10 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (OrgMinimaUtilsJsonJSONObject *)toJSON {
-  OrgMinimaUtilsJsonJSONObject *addr = create_OrgMinimaUtilsJsonJSONObject_init();
-  [addr putWithId:@"script" withId:[((OrgMinimaObjectsBaseMiniScript *) nil_chk(mScript_)) description]];
-  [addr putWithId:@"hexaddress" withId:[((OrgMinimaObjectsBaseMiniData *) nil_chk(mAddressData_)) description]];
-  [addr putWithId:@"miniaddress" withId:mMinimaAddress_];
+  OrgMinimaUtilsJsonJSONObject *addr = new_OrgMinimaUtilsJsonJSONObject_init();
+  (void) [addr putWithId:@"script" withId:[((OrgMinimaObjectsBaseMiniScript *) nil_chk(mScript_)) description]];
+  (void) [addr putWithId:@"hexaddress" withId:[((OrgMinimaObjectsBaseMiniData *) nil_chk(mAddressData_)) description]];
+  (void) [addr putWithId:@"miniaddress" withId:mMinimaAddress_];
   return addr;
 }
 
@@ -68,8 +68,8 @@ J2OBJC_IGNORE_DESIGNATED_END
   return mAddressData_;
 }
 
-- (jboolean)isEqualWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zAddress {
-  return [((OrgMinimaObjectsBaseMiniData *) nil_chk(mAddressData_)) isEqualWithOrgMinimaObjectsBaseMiniData:zAddress];
+- (jboolean)isEqualWithOrgMinimaObjectsAddress:(OrgMinimaObjectsAddress *)zAddress {
+  return [((OrgMinimaObjectsBaseMiniData *) nil_chk(mAddressData_)) isEqualWithOrgMinimaObjectsBaseMiniData:[((OrgMinimaObjectsAddress *) nil_chk(zAddress)) getAddressData]];
 }
 
 - (void)writeDataStreamWithJavaIoDataOutputStream:(JavaIoDataOutputStream *)zOut {
@@ -78,13 +78,13 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (void)readDataStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn {
-  JreStrongAssign(&mAddressData_, OrgMinimaObjectsBaseMiniData_ReadFromStreamWithJavaIoDataInputStream_(zIn));
-  JreStrongAssign(&mScript_, OrgMinimaObjectsBaseMiniScript_ReadFromStreamWithJavaIoDataInputStream_(zIn));
+  mAddressData_ = OrgMinimaObjectsBaseMiniData_ReadFromStreamWithJavaIoDataInputStream_(zIn);
+  mScript_ = OrgMinimaObjectsBaseMiniScript_ReadFromStreamWithJavaIoDataInputStream_(zIn);
   if ([((NSString *) nil_chk([((OrgMinimaObjectsBaseMiniScript *) nil_chk(mScript_)) description])) isEqual:@""]) {
-    JreStrongAssign(&mMinimaAddress_, [((OrgMinimaObjectsBaseMiniData *) nil_chk(mAddressData_)) to0xString]);
+    mMinimaAddress_ = [((OrgMinimaObjectsBaseMiniData *) nil_chk(mAddressData_)) to0xString];
   }
   else {
-    JreStrongAssign(&mMinimaAddress_, OrgMinimaObjectsAddress_makeMinimaAddressWithOrgMinimaObjectsBaseMiniData_(mAddressData_));
+    mMinimaAddress_ = OrgMinimaObjectsAddress_makeMinimaAddressWithOrgMinimaObjectsBaseMiniData_(mAddressData_);
   }
 }
 
@@ -92,15 +92,8 @@ J2OBJC_IGNORE_DESIGNATED_END
   return OrgMinimaObjectsAddress_makeMinimaAddressWithOrgMinimaObjectsBaseMiniData_(zAddress);
 }
 
-+ (OrgMinimaObjectsBaseMiniData *)convertMinimAddressWithNSString:(NSString *)zMinimaAddress {
-  return OrgMinimaObjectsAddress_convertMinimAddressWithNSString_(zMinimaAddress);
-}
-
-- (void)dealloc {
-  RELEASE_(mScript_);
-  RELEASE_(mAddressData_);
-  RELEASE_(mMinimaAddress_);
-  [super dealloc];
++ (OrgMinimaObjectsBaseMiniData *)convertMinimaAddressWithNSString:(NSString *)zMinimaAddress {
+  return OrgMinimaObjectsAddress_convertMinimaAddressWithNSString_(zMinimaAddress);
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -114,11 +107,11 @@ J2OBJC_IGNORE_DESIGNATED_END
     { NULL, "LNSString;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LNSString;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaObjectsBaseMiniData;", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "Z", 0x1, 4, 2, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 5, 6, 7, -1, -1, -1 },
-    { NULL, "V", 0x1, 8, 9, 7, -1, -1, -1 },
-    { NULL, "LNSString;", 0x9, 10, 2, 11, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsBaseMiniData;", 0x9, 12, 0, 11, -1, -1, -1 },
+    { NULL, "Z", 0x1, 4, 5, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 6, 7, 8, -1, -1, -1 },
+    { NULL, "V", 0x1, 9, 10, 8, -1, -1, -1 },
+    { NULL, "LNSString;", 0x9, 11, 2, 12, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMiniData;", 0x9, 13, 0, 12, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
@@ -132,26 +125,26 @@ J2OBJC_IGNORE_DESIGNATED_END
   methods[6].selector = @selector(toFullString);
   methods[7].selector = @selector(getScript);
   methods[8].selector = @selector(getAddressData);
-  methods[9].selector = @selector(isEqualWithOrgMinimaObjectsBaseMiniData:);
+  methods[9].selector = @selector(isEqualWithOrgMinimaObjectsAddress:);
   methods[10].selector = @selector(writeDataStreamWithJavaIoDataOutputStream:);
   methods[11].selector = @selector(readDataStreamWithJavaIoDataInputStream:);
   methods[12].selector = @selector(makeMinimaAddressWithOrgMinimaObjectsBaseMiniData:);
-  methods[13].selector = @selector(convertMinimAddressWithNSString:);
+  methods[13].selector = @selector(convertMinimaAddressWithNSString:);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
-    { "TRUE_ADDRESS", "LOrgMinimaObjectsAddress;", .constantValue.asLong = 0, 0x9, -1, 13, -1, -1 },
+    { "TRUE_ADDRESS", "LOrgMinimaObjectsAddress;", .constantValue.asLong = 0, 0x9, -1, 14, -1, -1 },
     { "mScript_", "LOrgMinimaObjectsBaseMiniScript;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mAddressData_", "LOrgMinimaObjectsBaseMiniData;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mMinimaAddress_", "LNSString;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
   };
-  static const void *ptrTable[] = { "LNSString;", "LNSString;I", "LOrgMinimaObjectsBaseMiniData;", "toString", "isEqual", "writeDataStream", "LJavaIoDataOutputStream;", "LJavaIoIOException;", "readDataStream", "LJavaIoDataInputStream;", "makeMinimaAddress", "LJavaLangArithmeticException;", "convertMinimAddress", &OrgMinimaObjectsAddress_TRUE_ADDRESS };
+  static const void *ptrTable[] = { "LNSString;", "LNSString;I", "LOrgMinimaObjectsBaseMiniData;", "toString", "isEqual", "LOrgMinimaObjectsAddress;", "writeDataStream", "LJavaIoDataOutputStream;", "LJavaIoIOException;", "readDataStream", "LJavaIoDataInputStream;", "makeMinimaAddress", "LJavaLangArithmeticException;", "convertMinimaAddress", &OrgMinimaObjectsAddress_TRUE_ADDRESS };
   static const J2ObjcClassInfo _OrgMinimaObjectsAddress = { "Address", "org.minima.objects", ptrTable, methods, fields, 7, 0x1, 14, 4, -1, -1, -1, -1, -1 };
   return &_OrgMinimaObjectsAddress;
 }
 
 + (void)initialize {
   if (self == [OrgMinimaObjectsAddress class]) {
-    JreStrongAssignAndConsume(&OrgMinimaObjectsAddress_TRUE_ADDRESS, new_OrgMinimaObjectsAddress_initWithNSString_(@"RETURN TRUE"));
+    OrgMinimaObjectsAddress_TRUE_ADDRESS = new_OrgMinimaObjectsAddress_initWithNSString_(@"RETURN TRUE");
     J2OBJC_SET_INITIALIZED(OrgMinimaObjectsAddress)
   }
 }
@@ -184,9 +177,9 @@ OrgMinimaObjectsAddress *create_OrgMinimaObjectsAddress_initWithNSString_(NSStri
 
 void OrgMinimaObjectsAddress_initWithNSString_withInt_(OrgMinimaObjectsAddress *self, NSString *zScript, jint zBitLength) {
   NSObject_init(self);
-  JreStrongAssignAndConsume(&self->mScript_, new_OrgMinimaObjectsBaseMiniScript_initWithNSString_(zScript));
-  JreStrongAssignAndConsume(&self->mAddressData_, new_OrgMinimaObjectsBaseMiniData_initWithByteArray_([((OrgMinimaUtilsCrypto *) nil_chk(OrgMinimaUtilsCrypto_getInstance())) hashDataWithByteArray:[((OrgMinimaObjectsBaseMiniScript *) nil_chk(self->mScript_)) getData] withInt:zBitLength]));
-  JreStrongAssign(&self->mMinimaAddress_, OrgMinimaObjectsAddress_makeMinimaAddressWithOrgMinimaObjectsBaseMiniData_(self->mAddressData_));
+  self->mScript_ = new_OrgMinimaObjectsBaseMiniScript_initWithNSString_(zScript);
+  self->mAddressData_ = new_OrgMinimaObjectsBaseMiniData_initWithByteArray_([((OrgMinimaUtilsCrypto *) nil_chk(OrgMinimaUtilsCrypto_getInstance())) hashDataWithByteArray:[((OrgMinimaObjectsBaseMiniScript *) nil_chk(self->mScript_)) getData] withInt:zBitLength]);
+  self->mMinimaAddress_ = OrgMinimaObjectsAddress_makeMinimaAddressWithOrgMinimaObjectsBaseMiniData_(self->mAddressData_);
 }
 
 OrgMinimaObjectsAddress *new_OrgMinimaObjectsAddress_initWithNSString_withInt_(NSString *zScript, jint zBitLength) {
@@ -199,9 +192,9 @@ OrgMinimaObjectsAddress *create_OrgMinimaObjectsAddress_initWithNSString_withInt
 
 void OrgMinimaObjectsAddress_initWithOrgMinimaObjectsBaseMiniData_(OrgMinimaObjectsAddress *self, OrgMinimaObjectsBaseMiniData *zAddressData) {
   NSObject_init(self);
-  JreStrongAssign(&self->mAddressData_, zAddressData);
-  JreStrongAssign(&self->mMinimaAddress_, [((OrgMinimaObjectsBaseMiniData *) nil_chk(zAddressData)) to0xString]);
-  JreStrongAssignAndConsume(&self->mScript_, new_OrgMinimaObjectsBaseMiniScript_initWithNSString_(@""));
+  self->mAddressData_ = zAddressData;
+  self->mMinimaAddress_ = [((OrgMinimaObjectsBaseMiniData *) nil_chk(zAddressData)) to0xString];
+  self->mScript_ = new_OrgMinimaObjectsBaseMiniScript_initWithNSString_(@"");
 }
 
 OrgMinimaObjectsAddress *new_OrgMinimaObjectsAddress_initWithOrgMinimaObjectsBaseMiniData_(OrgMinimaObjectsBaseMiniData *zAddressData) {
@@ -228,10 +221,10 @@ NSString *OrgMinimaObjectsAddress_makeMinimaAddressWithOrgMinimaObjectsBaseMiniD
     newlen = 70;
   }
   else {
-    @throw create_JavaLangArithmeticException_initWithNSString_(@"ERROR - Make Minima Address : not a valid length address!");
+    @throw new_JavaLangArithmeticException_initWithNSString_(@"ERROR - Make Minima Address : not a valid length address!");
   }
   jint nbytes = newlen - len;
-  IOSByteArray *addr = [IOSByteArray arrayWithLength:len + nbytes];
+  IOSByteArray *addr = [IOSByteArray newArrayWithLength:len + nbytes];
   for (jint i = 0; i < len; i++) {
     *IOSByteArray_GetRef(addr, i) = IOSByteArray_Get(data, i);
   }
@@ -242,10 +235,10 @@ NSString *OrgMinimaObjectsAddress_makeMinimaAddressWithOrgMinimaObjectsBaseMiniD
   return JreStrcat("$$", @"Mx", b32);
 }
 
-OrgMinimaObjectsBaseMiniData *OrgMinimaObjectsAddress_convertMinimAddressWithNSString_(NSString *zMinimaAddress) {
+OrgMinimaObjectsBaseMiniData *OrgMinimaObjectsAddress_convertMinimaAddressWithNSString_(NSString *zMinimaAddress) {
   OrgMinimaObjectsAddress_initialize();
   if (![((NSString *) nil_chk(zMinimaAddress)) java_hasPrefix:@"Mx"]) {
-    @throw create_JavaLangArithmeticException_initWithNSString_(@"Minima Addresses must start with Mx");
+    @throw new_JavaLangArithmeticException_initWithNSString_(@"Minima Addresses must start with Mx");
   }
   IOSByteArray *data = OrgMinimaUtilsBaseConverter_decode32WithNSString_([zMinimaAddress java_substring:2]);
   jint len = ((IOSByteArray *) nil_chk(data))->size_;
@@ -260,20 +253,20 @@ OrgMinimaObjectsBaseMiniData *OrgMinimaObjectsAddress_convertMinimAddressWithNSS
     bitlen = 64;
   }
   else {
-    @throw create_JavaLangArithmeticException_initWithNSString_(JreStrcat("$I", @"Wrong length Minima Address ", len));
+    @throw new_JavaLangArithmeticException_initWithNSString_(JreStrcat("$I", @"Wrong length Minima Address ", len));
   }
   jint hashlen = len - bitlen;
-  IOSByteArray *newdata = [IOSByteArray arrayWithLength:bitlen];
+  IOSByteArray *newdata = [IOSByteArray newArrayWithLength:bitlen];
   for (jint i = 0; i < bitlen; i++) {
     *IOSByteArray_GetRef(newdata, i) = IOSByteArray_Get(data, i);
   }
   IOSByteArray *hash_ = [((OrgMinimaUtilsCrypto *) nil_chk(OrgMinimaUtilsCrypto_getInstance())) hashDataWithByteArray:newdata withInt:160];
   for (jint i = 0; i < hashlen; i++) {
     if (IOSByteArray_Get(nil_chk(hash_), i) != IOSByteArray_Get(data, i + bitlen)) {
-      @throw create_JavaLangArithmeticException_initWithNSString_(@"Minima Address Checksum Error");
+      @throw new_JavaLangArithmeticException_initWithNSString_(@"Minima Address Checksum Error");
     }
   }
-  return create_OrgMinimaObjectsBaseMiniData_initWithByteArray_(newdata);
+  return new_OrgMinimaObjectsBaseMiniData_initWithByteArray_(newdata);
 }
 
 J2OBJC_CLASS_TYPE_LITERAL_SOURCE(OrgMinimaObjectsAddress)

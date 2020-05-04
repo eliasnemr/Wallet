@@ -35,36 +35,36 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (OrgMinimaUtilsJsonJSONObject *)toJSONWithOrgMinimaDatabaseMinimaDB:(OrgMinimaDatabaseMinimaDB *)zDB {
-  OrgMinimaUtilsJsonJSONObject *ret = create_OrgMinimaUtilsJsonJSONObject_init();
-  [ret putWithId:@"txpow" withId:[((OrgMinimaObjectsTxPOW *) nil_chk(mTxPow_)) toJSON]];
-  OrgMinimaUtilsJsonJSONArray *tokarray = create_OrgMinimaUtilsJsonJSONArray_init();
+  OrgMinimaUtilsJsonJSONObject *ret = new_OrgMinimaUtilsJsonJSONObject_init();
+  (void) [ret putWithId:@"txpow" withId:[((OrgMinimaObjectsTxPOW *) nil_chk(mTxPow_)) toJSON]];
+  OrgMinimaUtilsJsonJSONArray *tokarray = new_OrgMinimaUtilsJsonJSONArray_init();
   id<JavaUtilEnumeration> tokens = [((JavaUtilHashtable *) nil_chk(mTokenValues_)) keys];
   while ([((id<JavaUtilEnumeration>) nil_chk(tokens)) hasMoreElements]) {
     NSString *token = [tokens nextElement];
     OrgMinimaObjectsBaseMiniNumber *amt = [((JavaUtilHashtable *) nil_chk(mTokenValues_)) getWithId:token];
-    OrgMinimaUtilsJsonJSONObject *json = create_OrgMinimaUtilsJsonJSONObject_init();
-    [json putWithId:@"token" withId:token];
+    OrgMinimaUtilsJsonJSONObject *json = new_OrgMinimaUtilsJsonJSONObject_init();
+    (void) [json putWithId:@"token" withId:token];
     OrgMinimaObjectsBaseMiniNumber *scale_ = JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, ONE);
     if ([((NSString *) nil_chk(token)) isEqual:@"0x00"]) {
-      [json putWithId:@"name" withId:@"Minima"];
+      (void) [json putWithId:@"name" withId:@"Minima"];
     }
     else if ([token isEqual:@"0xFF"]) {
-      [json putWithId:@"name" withId:@"Create Token"];
+      (void) [json putWithId:@"name" withId:@"Create Token"];
     }
     else {
-      OrgMinimaObjectsProofsTokenProof *tp = [((id<OrgMinimaDatabaseUserdbUserDB>) nil_chk([((OrgMinimaDatabaseMinimaDB *) nil_chk(zDB)) getUserDB])) getTokenDetailWithOrgMinimaObjectsBaseMiniData:create_OrgMinimaObjectsBaseMiniData_initWithNSString_(token)];
+      OrgMinimaObjectsProofsTokenProof *tp = [((id<OrgMinimaDatabaseUserdbUserDB>) nil_chk([((OrgMinimaDatabaseMinimaDB *) nil_chk(zDB)) getUserDB])) getTokenDetailWithOrgMinimaObjectsBaseMiniData:new_OrgMinimaObjectsBaseMiniData_initWithNSString_(token)];
       if (tp == nil) {
-        [json putWithId:@"name" withId:@"null"];
+        (void) [json putWithId:@"name" withId:@"null"];
       }
       else {
-        [json putWithId:@"name" withId:[((OrgMinimaObjectsBaseMiniScript *) nil_chk([tp getName])) description]];
+        (void) [json putWithId:@"name" withId:[((OrgMinimaObjectsBaseMiniScript *) nil_chk([tp getName])) description]];
         scale_ = [tp getScaleFactor];
       }
     }
-    [json putWithId:@"amount" withId:[((OrgMinimaObjectsBaseMiniNumber *) nil_chk([((OrgMinimaObjectsBaseMiniNumber *) nil_chk(amt)) multWithOrgMinimaObjectsBaseMiniNumber:scale_])) description]];
+    (void) [json putWithId:@"amount" withId:[((OrgMinimaObjectsBaseMiniNumber *) nil_chk([((OrgMinimaObjectsBaseMiniNumber *) nil_chk(amt)) multWithOrgMinimaObjectsBaseMiniNumber:scale_])) description]];
     [tokarray addWithId:json];
   }
-  [ret putWithId:@"values" withId:tokarray];
+  (void) [ret putWithId:@"values" withId:tokarray];
   return ret;
 }
 
@@ -82,20 +82,15 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (void)readDataStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn {
-  JreStrongAssignAndConsume(&mTxPow_, new_OrgMinimaObjectsTxPOW_init());
+  mTxPow_ = new_OrgMinimaObjectsTxPOW_init();
   [mTxPow_ readDataStreamWithJavaIoDataInputStream:zIn];
-  JreStrongAssignAndConsume(&mTokenValues_, new_JavaUtilHashtable_init());
+  mTokenValues_ = new_JavaUtilHashtable_init();
   jint len = [((JavaIoDataInputStream *) nil_chk(zIn)) readInt];
   for (jint i = 0; i < len; i++) {
     NSString *token = [zIn readUTF];
     OrgMinimaObjectsBaseMiniNumber *amt = OrgMinimaObjectsBaseMiniNumber_ReadFromStreamWithJavaIoDataInputStream_(zIn);
-    [((JavaUtilHashtable *) nil_chk(mTokenValues_)) putWithId:token withId:amt];
+    (void) [((JavaUtilHashtable *) nil_chk(mTokenValues_)) putWithId:token withId:amt];
   }
-}
-
-- (void)dealloc {
-  RELEASE_(mTxPow_);
-  RELEASE_(mTokenValues_);
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -140,8 +135,8 @@ OrgMinimaDatabaseUserdbJavareltxpow *create_OrgMinimaDatabaseUserdbJavareltxpow_
 
 void OrgMinimaDatabaseUserdbJavareltxpow_initWithOrgMinimaObjectsTxPOW_withJavaUtilHashtable_(OrgMinimaDatabaseUserdbJavareltxpow *self, OrgMinimaObjectsTxPOW *zTxPow, JavaUtilHashtable *zValues) {
   NSObject_init(self);
-  JreStrongAssign(&self->mTxPow_, zTxPow);
-  JreStrongAssign(&self->mTokenValues_, zValues);
+  self->mTxPow_ = zTxPow;
+  self->mTokenValues_ = zValues;
 }
 
 OrgMinimaDatabaseUserdbJavareltxpow *new_OrgMinimaDatabaseUserdbJavareltxpow_initWithOrgMinimaObjectsTxPOW_withJavaUtilHashtable_(OrgMinimaObjectsTxPOW *zTxPow, JavaUtilHashtable *zValues) {

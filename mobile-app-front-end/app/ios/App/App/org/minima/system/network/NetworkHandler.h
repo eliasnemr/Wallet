@@ -22,16 +22,16 @@
 
 @class JavaUtilArrayList;
 @class OrgMinimaSystemMain;
+@class OrgMinimaSystemNetworkMinidappsDAPPManager;
 @class OrgMinimaSystemNetworkMultiServer;
 @class OrgMinimaSystemNetworkRpcRPCServer;
-@class OrgMinimaSystemNetworkWebProxyManager;
 @class OrgMinimaUtilsMessagesMessage;
 
 @interface OrgMinimaSystemNetworkNetworkHandler : OrgMinimaSystemSystemHandler {
  @public
   OrgMinimaSystemNetworkMultiServer *mServer_;
   OrgMinimaSystemNetworkRpcRPCServer *mRPCServer_;
-  OrgMinimaSystemNetworkWebProxyManager *mProxyManager_;
+  OrgMinimaSystemNetworkMinidappsDAPPManager *mDAPPManager_;
   JavaUtilArrayList *mClients_;
   jboolean mGlobalReconnect_;
   NSString *mMifiProxy_;
@@ -66,7 +66,7 @@ J2OBJC_EMPTY_STATIC_INIT(OrgMinimaSystemNetworkNetworkHandler)
 
 J2OBJC_FIELD_SETTER(OrgMinimaSystemNetworkNetworkHandler, mServer_, OrgMinimaSystemNetworkMultiServer *)
 J2OBJC_FIELD_SETTER(OrgMinimaSystemNetworkNetworkHandler, mRPCServer_, OrgMinimaSystemNetworkRpcRPCServer *)
-J2OBJC_FIELD_SETTER(OrgMinimaSystemNetworkNetworkHandler, mProxyManager_, OrgMinimaSystemNetworkWebProxyManager *)
+J2OBJC_FIELD_SETTER(OrgMinimaSystemNetworkNetworkHandler, mDAPPManager_, OrgMinimaSystemNetworkMinidappsDAPPManager *)
 J2OBJC_FIELD_SETTER(OrgMinimaSystemNetworkNetworkHandler, mClients_, JavaUtilArrayList *)
 J2OBJC_FIELD_SETTER(OrgMinimaSystemNetworkNetworkHandler, mMifiProxy_, NSString *)
 

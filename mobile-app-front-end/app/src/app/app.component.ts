@@ -4,10 +4,8 @@ import { Router } from '@angular/router';
 import { Platform, MenuController } from '@ionic/angular';
 import { darkMode } from './service/darkMode.service';
 import { Storage } from '@ionic/storage';
-
-import { Plugins } from '@capacitor/core';
+import { Plugins, Toast } from '@capacitor/core';
 const { SplashScreen } = Plugins;
-
 
 declare var Minima: any;
 @Component({
@@ -16,6 +14,7 @@ declare var Minima: any;
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
+  overlayHidden: boolean = false;
   private currentRoute:string='';
   currentMode: boolean = false;
   currentVersion = 0;
@@ -34,7 +33,6 @@ export class AppComponent {
     this.getPages();  /** this returns pages if on mobile or desktop, (different layouts) */ 
     //this.getPlatform(); /** Turn getPlatform() off if you want to use desktop version with desktop node */ 
     this.initializeApp();
-    this.whatPlatformIsThis();
 
     // Use matchMedia to check the user preference
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
@@ -85,7 +83,7 @@ export class AppComponent {
         { title:'Token', routerLink: '/create-token', icon: 'brush', line: 'none', hidden: false},
         { title:'Status', routerLink: '/status', icon: 'analytics', line: 'none', hidden: false},
         { title:'Terminal', routerLink: '/mini-term', icon: 'code', line: 'full', hidden: false},
-        { title:'Web', routerLink: '/web-scanner', icon: 'desktop', line: 'full', hidden: this.isThisDesktop()},
+        { title:'Web', routerLink: '/web-scanner', icon: 'desktop', line: 'full', hidden: true},
         { title:'Settings', routerLink: '/settings', icon: 'build', line: 'none', hidden: false},
       ]
     } else {
@@ -103,11 +101,18 @@ export class AppComponent {
         { title:'Token', routerLink: '/create-token', icon: 'brush', line: 'none', hidden: false},
         { title:'Status', routerLink: '/status', icon: 'analytics', line: 'none', hidden: false},
         { title:'Terminal', routerLink: '/mini-term', icon: 'code', line: 'none', hidden: false},
-        { title:'Web', routerLink: '/web-scanner', icon: 'desktop', line: 'full', hidden: this.isThisDesktop()},
+        { title:'Web', routerLink: '/web-scanner', icon: 'desktop', line: 'full', hidden: true},
         { title:'Settings', routerLink: '/settings', icon: 'build', line: 'none', hidden: false},
       ]
     }
   }
+  // HIDE OVERLAY
+  public hideOverlay() {
+    setTimeout(() => {
+      this.overlayHidden = true;
+    }, 400);
+    
+}
 
   // get a key/value object
   async getObject(key: string): Promise<any> {
@@ -125,13 +130,17 @@ export class AppComponent {
 
   // returns logo that should be used with dark mode/light 
   getImg() {
-    if(document.body.classList.contains('dark')){
-      return '../../assets/fulllogodark.svg';
+
+  if(document.body.classList.contains('dark')){
+      return './assets/fulllogodark.svg';
     } else if(this.currentMode === false) {
-      return '../../assets/fulllogo.svg';
+      return './assets/fulllogo.svg';
     } else {
-      return '';
+      return './assets/fulllogo.svg';
     }
+    
+
+    
   }
 
   // checking if desktop
@@ -148,7 +157,7 @@ export class AppComponent {
     //Minima.logout();
     
     /*  If on desktop do this.. */
-    if(this.platform.is('desktop') || this.platform.is('pwa')) {
+    if(this.platform.is('desktop')) {
       window.addEventListener('load', (ev: Event) => {
         // Page loaded
         window.addEventListener('MinimaEvent', (evt: any)=> {
@@ -167,22 +176,10 @@ export class AppComponent {
         
         Minima.init();
       });
-    } else {
-      console.log('Running Minima on mobile. :)');
-    }
-  }
-
-  whatPlatformIsThis() {
-    if(this.platform.is('desktop') || this.platform.is('pwa')){
-      console.log('You are on desktop');
-    } else if (this.platform.is('android') || this.platform.is('ios')) {
-      console.log('You are on mobile.');
-    } else if (this.platform.is('mobileweb')) {
-      console.log('You are on -mobile-');
-    } else if (this.platform.is('phablet') || this.platform.is('tablet')) {
-      console.log('You are on a phablet or table');
-    } else if (this.platform.is('mobileweb')) {
-      console.log('You are on mobile web');
+    } else if (this.platform.is('ios')){
+      console.log('Running Minima on iOS');
+    } else if (this.platform.is('android')){
+      console.log('Running Minima on Android');
     }
   }
 

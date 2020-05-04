@@ -25,17 +25,17 @@ J2OBJC_IGNORE_DESIGNATED_END
   NSString *ps = @"";
   JavaUtilArrayList *params = [self getAllParameters];
   for (id<OrgMinimaKissvmExpressionsExpression> __strong exp in nil_chk(params)) {
-    JreStrAppend(&ps, "$C", [((NSString *) nil_chk([((OrgMinimaKissvmValuesValue *) nil_chk([((id<OrgMinimaKissvmExpressionsExpression>) nil_chk(exp)) getValueWithOrgMinimaKissvmContract:zContract])) description])) java_trim], ',');
+    (void) JreStrAppendStrong(&ps, "$C", [((NSString *) nil_chk([((OrgMinimaKissvmValuesValue *) nil_chk([((id<OrgMinimaKissvmExpressionsExpression>) nil_chk(exp)) getValueWithOrgMinimaKissvmContract:zContract])) description])) java_trim], ',');
   }
   OrgMinimaKissvmValuesValue *val = [((OrgMinimaKissvmContract *) nil_chk(zContract)) getVariableWithNSString:ps];
   if (val == nil) {
-    return create_OrgMinimaKissvmValuesNumberValue_initWithInt_(0);
+    return new_OrgMinimaKissvmValuesNumberValue_initWithInt_(0);
   }
   return val;
 }
 
 - (OrgMinimaKissvmFunctionsMinimaFunction *)getNewFunction {
-  return create_OrgMinimaKissvmFunctionsBaseGET_init();
+  return new_OrgMinimaKissvmFunctionsBaseGET_init();
 }
 
 + (const J2ObjcClassInfo *)__metadata {

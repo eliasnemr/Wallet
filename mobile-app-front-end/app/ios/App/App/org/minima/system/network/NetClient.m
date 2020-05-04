@@ -91,10 +91,10 @@ withOrgMinimaSystemNetworkNetworkHandler:(OrgMinimaSystemNetworkNetworkHandler *
 }
 
 - (OrgMinimaUtilsJsonJSONObject *)toJSON {
-  OrgMinimaUtilsJsonJSONObject *ret = create_OrgMinimaUtilsJsonJSONObject_init();
-  [ret putWithId:@"uid" withId:mUID_];
-  [ret putWithId:@"host" withId:[self getHost]];
-  [ret putWithId:@"port" withId:JavaLangInteger_valueOfWithInt_([self getPort])];
+  OrgMinimaUtilsJsonJSONObject *ret = new_OrgMinimaUtilsJsonJSONObject_init();
+  (void) [ret putWithId:@"uid" withId:mUID_];
+  (void) [ret putWithId:@"host" withId:[self getHost]];
+  (void) [ret putWithId:@"port" withId:JavaLangInteger_valueOfWithInt_([self getPort])];
   return ret;
 }
 
@@ -124,23 +124,23 @@ withOrgMinimaSystemNetworkNetworkHandler:(OrgMinimaSystemNetworkNetworkHandler *
 - (void)processMessageWithOrgMinimaUtilsMessagesMessage:(OrgMinimaUtilsMessagesMessage *)zMessage {
   if ([((OrgMinimaUtilsMessagesMessage *) nil_chk(zMessage)) isMessageTypeWithNSString:OrgMinimaSystemNetworkNetClient_NETCLIENT_INITCONNECT]) {
     @try {
-      JreStrongAssignAndConsume(&mSocket_, new_JavaNetSocket_init());
-      [mSocket_ connectWithJavaNetSocketAddress:create_JavaNetInetSocketAddress_initWithNSString_withInt_(mHost_, mPort_) withInt:10000];
+      mSocket_ = new_JavaNetSocket_init();
+      [mSocket_ connectWithJavaNetSocketAddress:new_JavaNetInetSocketAddress_initWithNSString_withInt_(mHost_, mPort_) withInt:10000];
     }
     @catch (JavaLangException *e) {
       OrgMinimaUtilsMinimaLogger_logWithNSString_(JreStrcat("$$CI", @"Error @ connection start : ", mHost_, ':', mPort_));
-      [((OrgMinimaSystemNetworkNetworkHandler *) nil_chk(mNetworkMain_)) PostMessageWithOrgMinimaUtilsMessagesMessage:[create_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemNetworkNetworkHandler_NETWORK_CLIENTERROR) addObjectWithNSString:@"client" withId:self]];
+      [((OrgMinimaSystemNetworkNetworkHandler *) nil_chk(mNetworkMain_)) PostMessageWithOrgMinimaUtilsMessagesMessage:[new_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemNetworkNetworkHandler_NETWORK_CLIENTERROR) addObjectWithNSString:@"client" withId:self]];
       return;
     }
     [self PostMessageWithNSString:OrgMinimaSystemNetworkNetClient_NETCLIENT_STARTUP];
   }
   else if ([zMessage isMessageTypeWithNSString:OrgMinimaSystemNetworkNetClient_NETCLIENT_STARTUP]) {
-    JreStrongAssignAndConsume(&mOutput_, new_JavaIoDataOutputStream_initWithJavaIoOutputStream_([((JavaNetSocket *) nil_chk(mSocket_)) getOutputStream]));
-    JreStrongAssignAndConsume(&mInputReader_, new_OrgMinimaSystemNetworkNetClientReader_initWithOrgMinimaSystemNetworkNetClient_(self));
-    JreStrongAssignAndConsume(&mInputThread_, new_JavaLangThread_initWithJavaLangRunnable_(mInputReader_));
+    mOutput_ = new_JavaIoDataOutputStream_initWithJavaIoOutputStream_([((JavaNetSocket *) nil_chk(mSocket_)) getOutputStream]);
+    mInputReader_ = new_OrgMinimaSystemNetworkNetClientReader_initWithOrgMinimaSystemNetworkNetClient_(self);
+    mInputThread_ = new_JavaLangThread_initWithJavaLangRunnable_(mInputReader_);
     [mInputThread_ start];
-    OrgMinimaUtilsMessagesMessage *init_ = create_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemBrainsConsensusNet_CONSENSUS_NET_INITIALISE);
-    [init_ addObjectWithNSString:@"netclient" withId:self];
+    OrgMinimaUtilsMessagesMessage *init_ = new_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemBrainsConsensusNet_CONSENSUS_NET_INITIALISE);
+    (void) [init_ addObjectWithNSString:@"netclient" withId:self];
     [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk([((OrgMinimaSystemMain *) nil_chk(OrgMinimaSystemNetworkNetClient_getMain(self))) getConsensusHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:init_];
   }
   else if ([zMessage isMessageTypeWithNSString:OrgMinimaSystemNetworkNetClient_NETCLIENT_SENDTXPOW]) {
@@ -187,19 +187,8 @@ withOrgMinimaSystemNetworkNetworkHandler:(OrgMinimaSystemNetworkNetworkHandler *
   }
   @catch (JavaLangException *ec) {
     OrgMinimaUtilsMinimaLogger_logWithNSString_(JreStrcat("$$C@", @"Error sending message : ", [zMessageType description], ' ', ec));
-    [((OrgMinimaSystemNetworkNetworkHandler *) nil_chk(mNetworkMain_)) PostMessageWithOrgMinimaUtilsMessagesMessage:[create_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemNetworkNetworkHandler_NETWORK_CLIENTERROR) addObjectWithNSString:@"client" withId:self]];
+    [((OrgMinimaSystemNetworkNetworkHandler *) nil_chk(mNetworkMain_)) PostMessageWithOrgMinimaUtilsMessagesMessage:[new_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemNetworkNetworkHandler_NETWORK_CLIENTERROR) addObjectWithNSString:@"client" withId:self]];
   }
-}
-
-- (void)dealloc {
-  RELEASE_(mNetworkMain_);
-  RELEASE_(mSocket_);
-  RELEASE_(mOutput_);
-  RELEASE_(mInputThread_);
-  RELEASE_(mInputReader_);
-  RELEASE_(mUID_);
-  RELEASE_(mHost_);
-  [super dealloc];
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -268,12 +257,12 @@ void OrgMinimaSystemNetworkNetClient_initWithNSString_withInt_withOrgMinimaSyste
   OrgMinimaUtilsMessagesMessageProcessor_initWithNSString_(self, @"NETCLIENT");
   self->mReconnect_ = false;
   self->mReconnectAttempts_ = 0;
-  JreStrongAssign(&self->mHost_, zHost);
+  self->mHost_ = zHost;
   self->mPort_ = zPort;
   self->mReconnect_ = true;
   self->mReconnectAttempts_ = 0;
-  JreStrongAssign(&self->mNetworkMain_, zNetwork);
-  JreStrongAssign(&self->mUID_, JreStrcat("I", JavaLangMath_absWithInt_([create_JavaUtilRandom_init() nextInt])));
+  self->mNetworkMain_ = zNetwork;
+  self->mUID_ = JreStrcat("I", JavaLangMath_absWithInt_([new_JavaUtilRandom_init() nextInt]));
   [self PostMessageWithNSString:OrgMinimaSystemNetworkNetClient_NETCLIENT_INITCONNECT];
 }
 
@@ -290,11 +279,11 @@ void OrgMinimaSystemNetworkNetClient_initWithJavaNetSocket_withOrgMinimaSystemNe
   self->mReconnect_ = false;
   self->mReconnectAttempts_ = 0;
   self->mReconnect_ = false;
-  JreStrongAssign(&self->mSocket_, zSock);
-  JreStrongAssign(&self->mHost_, [((JavaNetInetAddress *) nil_chk([((JavaNetSocket *) nil_chk(self->mSocket_)) getInetAddress])) getHostAddress]);
+  self->mSocket_ = zSock;
+  self->mHost_ = [((JavaNetInetAddress *) nil_chk([((JavaNetSocket *) nil_chk(self->mSocket_)) getInetAddress])) getHostAddress];
   self->mPort_ = [((JavaNetSocket *) nil_chk(self->mSocket_)) getPort];
-  JreStrongAssign(&self->mNetworkMain_, zNetwork);
-  JreStrongAssign(&self->mUID_, JreStrcat("I", JavaLangMath_absWithInt_([create_JavaUtilRandom_init() nextInt])));
+  self->mNetworkMain_ = zNetwork;
+  self->mUID_ = JreStrcat("I", JavaLangMath_absWithInt_([new_JavaUtilRandom_init() nextInt]));
   [self PostMessageWithNSString:OrgMinimaSystemNetworkNetClient_NETCLIENT_STARTUP];
 }
 

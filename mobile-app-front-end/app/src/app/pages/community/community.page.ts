@@ -14,16 +14,16 @@ export class CommunityPage implements OnInit {
 
   gitImgMode() {
     if(document.body.classList.value === 'dark') {
-      return '../assets/githubdark.svg';
+      return './assets/githubdark.svg';
     } else {
-      return '../assets/Github.svg';
+      return './assets/Github.svg';
     }
   }
   teleImgMode() {
     if(document.body.classList.value === 'dark') {
-      return '../assets/telegramdark.svg';
+      return './assets/telegramdark.svg';
     } else {
-      return '../assets/telegram.svg';
+      return './assets/telegram.svg';
     }
   }
 

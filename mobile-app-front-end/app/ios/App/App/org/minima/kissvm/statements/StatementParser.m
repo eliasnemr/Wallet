@@ -122,7 +122,7 @@ OrgMinimaKissvmStatementsStatementParser *create_OrgMinimaKissvmStatementsStatem
 
 OrgMinimaKissvmStatementsStatementBlock *OrgMinimaKissvmStatementsStatementParser_parseTokensWithJavaUtilList_(id<JavaUtilList> zTokens) {
   OrgMinimaKissvmStatementsStatementParser_initialize();
-  id<JavaUtilList> stats = create_JavaUtilArrayList_init();
+  id<JavaUtilList> stats = new_JavaUtilArrayList_init();
   jint currentPosition = 0;
   jint totaltokens = [((id<JavaUtilList>) nil_chk(zTokens)) size];
   while (currentPosition < totaltokens) {
@@ -130,7 +130,7 @@ OrgMinimaKissvmStatementsStatementBlock *OrgMinimaKissvmStatementsStatementParse
     NSString *token = [((OrgMinimaKissvmTokensToken *) nil_chk(tok)) getToken];
     jint type = [tok getTokenType];
     if (type != OrgMinimaKissvmTokensToken_TOKEN_COMMAND) {
-      @throw create_OrgMinimaKissvmExceptionsMinimaParseException_initWithNSString_(JreStrcat("$$", @"Invalid Token where there should be a COMMMAND - ", token));
+      @throw new_OrgMinimaKissvmExceptionsMinimaParseException_initWithNSString_(JreStrcat("$$", @"Invalid Token where there should be a COMMMAND - ", token));
     }
     if ([((NSString *) nil_chk(token)) java_equalsIgnoreCase:@"LET"]) {
       OrgMinimaKissvmTokensToken *var = [zTokens getWithInt:currentPosition++];
@@ -140,15 +140,15 @@ OrgMinimaKissvmStatementsStatementBlock *OrgMinimaKissvmStatementsStatementParse
         jint arrsize = [arraypos size];
         var = [arraypos getWithInt:arrsize - 1];
         if ([((OrgMinimaKissvmTokensToken *) nil_chk(var)) getTokenType] != OrgMinimaKissvmTokensToken_TOKEN_CLOSEBRACKET) {
-          @throw create_OrgMinimaKissvmExceptionsMinimaParseException_initWithNSString_(JreStrcat("$$C", @"Incorrect LET statement, missing ) .. ", [var getToken], ')'));
+          @throw new_OrgMinimaKissvmExceptionsMinimaParseException_initWithNSString_(JreStrcat("$$C", @"Incorrect LET statement, missing ) .. ", [var getToken], ')'));
         }
         var = [zTokens getWithInt:currentPosition++];
         if ([((OrgMinimaKissvmTokensToken *) nil_chk(var)) getTokenType] != OrgMinimaKissvmTokensToken_TOKEN_OPERATOR && ![((NSString *) nil_chk([var getToken])) isEqual:@"="]) {
-          @throw create_OrgMinimaKissvmExceptionsMinimaParseException_initWithNSString_(JreStrcat("$$C", @"Incorrect LET statement, missing = (..", [var getToken], ')'));
+          @throw new_OrgMinimaKissvmExceptionsMinimaParseException_initWithNSString_(JreStrcat("$$C", @"Incorrect LET statement, missing = (..", [var getToken], ')'));
         }
-        [arraypos removeWithInt:arrsize - 1];
-        OrgMinimaKissvmTokensLexicalTokenizer *lt = create_OrgMinimaKissvmTokensLexicalTokenizer_initWithJavaUtilList_(arraypos);
-        JavaUtilArrayList *exps = create_JavaUtilArrayList_init();
+        (void) [arraypos removeWithInt:arrsize - 1];
+        OrgMinimaKissvmTokensLexicalTokenizer *lt = new_OrgMinimaKissvmTokensLexicalTokenizer_initWithJavaUtilList_(arraypos);
+        JavaUtilArrayList *exps = new_JavaUtilArrayList_init();
         while (![lt checkAllTokensUsed]) {
           id<OrgMinimaKissvmExpressionsExpression> letexp = OrgMinimaKissvmExpressionsExpressionParser_getExpressionWithOrgMinimaKissvmTokensLexicalTokenizer_(lt);
           [exps addWithId:letexp];
@@ -156,37 +156,37 @@ OrgMinimaKissvmStatementsStatementBlock *OrgMinimaKissvmStatementsStatementParse
         id<JavaUtilList> lettokens = OrgMinimaKissvmStatementsStatementParser_getTokensToNextCommandWithJavaUtilList_withInt_(zTokens, currentPosition);
         currentPosition += [((id<JavaUtilList>) nil_chk(lettokens)) size];
         id<OrgMinimaKissvmExpressionsExpression> exp = OrgMinimaKissvmExpressionsExpressionParser_getExpressionWithJavaUtilList_(lettokens);
-        [stats addWithId:create_OrgMinimaKissvmStatementsCommandsLETstatement_initWithJavaUtilArrayList_withOrgMinimaKissvmExpressionsExpression_(exps, exp)];
+        [stats addWithId:new_OrgMinimaKissvmStatementsCommandsLETstatement_initWithJavaUtilArrayList_withOrgMinimaKissvmExpressionsExpression_(exps, exp)];
       }
       else if ([var getTokenType] == OrgMinimaKissvmTokensToken_TOKEN_VARIABLE) {
         NSString *varname = [var getToken];
         var = [zTokens getWithInt:currentPosition++];
         if ([((OrgMinimaKissvmTokensToken *) nil_chk(var)) getTokenType] != OrgMinimaKissvmTokensToken_TOKEN_OPERATOR && ![((NSString *) nil_chk([var getToken])) isEqual:@"="]) {
-          @throw create_OrgMinimaKissvmExceptionsMinimaParseException_initWithNSString_(JreStrcat("$$C", @"Incorrect LET statement, missing = (..", [var getToken], ')'));
+          @throw new_OrgMinimaKissvmExceptionsMinimaParseException_initWithNSString_(JreStrcat("$$C", @"Incorrect LET statement, missing = (..", [var getToken], ')'));
         }
         id<JavaUtilList> lettokens = OrgMinimaKissvmStatementsStatementParser_getTokensToNextCommandWithJavaUtilList_withInt_(zTokens, currentPosition);
         currentPosition += [((id<JavaUtilList>) nil_chk(lettokens)) size];
         id<OrgMinimaKissvmExpressionsExpression> exp = OrgMinimaKissvmExpressionsExpressionParser_getExpressionWithJavaUtilList_(lettokens);
-        [stats addWithId:create_OrgMinimaKissvmStatementsCommandsLETstatement_initWithNSString_withOrgMinimaKissvmExpressionsExpression_(varname, exp)];
+        [stats addWithId:new_OrgMinimaKissvmStatementsCommandsLETstatement_initWithNSString_withOrgMinimaKissvmExpressionsExpression_(varname, exp)];
       }
       else {
-        @throw create_OrgMinimaKissvmExceptionsMinimaParseException_initWithNSString_(JreStrcat("$$C", @"Not a variable or array after LET (..", [var getToken], ')'));
+        @throw new_OrgMinimaKissvmExceptionsMinimaParseException_initWithNSString_(JreStrcat("$$C", @"Not a variable or array after LET (..", [var getToken], ')'));
       }
     }
     else if ([token java_equalsIgnoreCase:@"EXEC"]) {
       id<JavaUtilList> exectokens = OrgMinimaKissvmStatementsStatementParser_getTokensToNextCommandWithJavaUtilList_withInt_(zTokens, currentPosition);
       currentPosition += [((id<JavaUtilList>) nil_chk(exectokens)) size];
       id<OrgMinimaKissvmExpressionsExpression> exp = OrgMinimaKissvmExpressionsExpressionParser_getExpressionWithJavaUtilList_(exectokens);
-      [stats addWithId:create_OrgMinimaKissvmStatementsCommandsEXECstatement_initWithOrgMinimaKissvmExpressionsExpression_(exp)];
+      [stats addWithId:new_OrgMinimaKissvmStatementsCommandsEXECstatement_initWithOrgMinimaKissvmExpressionsExpression_(exp)];
     }
     else if ([token java_equalsIgnoreCase:@"MAST"]) {
       id<JavaUtilList> masttokens = OrgMinimaKissvmStatementsStatementParser_getTokensToNextCommandWithJavaUtilList_withInt_(zTokens, currentPosition);
       currentPosition += [((id<JavaUtilList>) nil_chk(masttokens)) size];
       id<OrgMinimaKissvmExpressionsExpression> exp = OrgMinimaKissvmExpressionsExpressionParser_getExpressionWithJavaUtilList_(masttokens);
-      [stats addWithId:create_OrgMinimaKissvmStatementsCommandsMASTstatement_initWithOrgMinimaKissvmExpressionsExpression_(exp)];
+      [stats addWithId:new_OrgMinimaKissvmStatementsCommandsMASTstatement_initWithOrgMinimaKissvmExpressionsExpression_(exp)];
     }
     else if ([token java_equalsIgnoreCase:@"IF"]) {
-      OrgMinimaKissvmStatementsCommandsIFstatement *ifsx = create_OrgMinimaKissvmStatementsCommandsIFstatement_init();
+      OrgMinimaKissvmStatementsCommandsIFstatement *ifsx = new_OrgMinimaKissvmStatementsCommandsIFstatement_init();
       id<JavaUtilList> conditiontokens = OrgMinimaKissvmStatementsStatementParser_getTokensToNextCommandWithJavaUtilList_withInt_(zTokens, currentPosition);
       id<OrgMinimaKissvmExpressionsExpression> IFcondition = OrgMinimaKissvmExpressionsExpressionParser_getExpressionWithJavaUtilList_(conditiontokens);
       currentPosition += [((id<JavaUtilList>) nil_chk(conditiontokens)) size] + 1;
@@ -200,7 +200,7 @@ OrgMinimaKissvmStatementsStatementBlock *OrgMinimaKissvmStatementsStatementParse
         id<OrgMinimaKissvmExpressionsExpression> ELSEcondition = nil;
         OrgMinimaKissvmStatementsStatementBlock *ELSEaction = nil;
         if ([nexttok isEqual:@"ELSE"]) {
-          ELSEcondition = create_OrgMinimaKissvmExpressionsConstantExpression_initWithOrgMinimaKissvmValuesValue_(JreLoadStatic(OrgMinimaKissvmValuesBooleanValue, TRUE));
+          ELSEcondition = new_OrgMinimaKissvmExpressionsConstantExpression_initWithOrgMinimaKissvmValuesValue_(JreLoadStatic(OrgMinimaKissvmValuesBooleanValue, TRUE));
         }
         else {
           conditiontokens = OrgMinimaKissvmStatementsStatementParser_getTokensToNextCommandWithJavaUtilList_withInt_(zTokens, currentPosition);
@@ -224,31 +224,31 @@ OrgMinimaKissvmStatementsStatementBlock *OrgMinimaKissvmStatementsStatementParse
       currentPosition += [((id<JavaUtilList>) nil_chk(actiontokens)) size];
       actiontokens = [actiontokens subListWithInt:0 withInt:[actiontokens size] - 1];
       OrgMinimaKissvmStatementsStatementBlock *WHILEaction = OrgMinimaKissvmStatementsStatementParser_parseTokensWithJavaUtilList_(actiontokens);
-      OrgMinimaKissvmStatementsCommandsWHILEstatement *ws = create_OrgMinimaKissvmStatementsCommandsWHILEstatement_initWithOrgMinimaKissvmExpressionsExpression_withOrgMinimaKissvmStatementsStatementBlock_(WHILEcondition, WHILEaction);
+      OrgMinimaKissvmStatementsCommandsWHILEstatement *ws = new_OrgMinimaKissvmStatementsCommandsWHILEstatement_initWithOrgMinimaKissvmExpressionsExpression_withOrgMinimaKissvmStatementsStatementBlock_(WHILEcondition, WHILEaction);
       [stats addWithId:ws];
     }
     else if ([token java_equalsIgnoreCase:@"ASSERT"]) {
       id<JavaUtilList> returntokens = OrgMinimaKissvmStatementsStatementParser_getTokensToNextCommandWithJavaUtilList_withInt_(zTokens, currentPosition);
       currentPosition += [((id<JavaUtilList>) nil_chk(returntokens)) size];
       id<OrgMinimaKissvmExpressionsExpression> exp = OrgMinimaKissvmExpressionsExpressionParser_getExpressionWithJavaUtilList_(returntokens);
-      [stats addWithId:create_OrgMinimaKissvmStatementsCommandsASSERTstatement_initWithOrgMinimaKissvmExpressionsExpression_(exp)];
+      [stats addWithId:new_OrgMinimaKissvmStatementsCommandsASSERTstatement_initWithOrgMinimaKissvmExpressionsExpression_(exp)];
     }
     else if ([token java_equalsIgnoreCase:@"RETURN"]) {
       id<JavaUtilList> returntokens = OrgMinimaKissvmStatementsStatementParser_getTokensToNextCommandWithJavaUtilList_withInt_(zTokens, currentPosition);
       currentPosition += [((id<JavaUtilList>) nil_chk(returntokens)) size];
       id<OrgMinimaKissvmExpressionsExpression> exp = OrgMinimaKissvmExpressionsExpressionParser_getExpressionWithJavaUtilList_(returntokens);
-      [stats addWithId:create_OrgMinimaKissvmStatementsCommandsRETURNstatement_initWithOrgMinimaKissvmExpressionsExpression_(exp)];
+      [stats addWithId:new_OrgMinimaKissvmStatementsCommandsRETURNstatement_initWithOrgMinimaKissvmExpressionsExpression_(exp)];
     }
     else {
-      @throw create_OrgMinimaKissvmExceptionsMinimaParseException_initWithNSString_(JreStrcat("$$", @"Invalid Token where there should be a Command - ", token));
+      @throw new_OrgMinimaKissvmExceptionsMinimaParseException_initWithNSString_(JreStrcat("$$", @"Invalid Token where there should be a Command - ", token));
     }
   }
-  return create_OrgMinimaKissvmStatementsStatementBlock_initWithJavaUtilList_(stats);
+  return new_OrgMinimaKissvmStatementsStatementBlock_initWithJavaUtilList_(stats);
 }
 
 id<JavaUtilList> OrgMinimaKissvmStatementsStatementParser_getElseOrElseIfOrEndIFWithJavaUtilList_withInt_withBoolean_(id<JavaUtilList> zTokens, jint zCurrentPosition, jboolean zElseAlso) {
   OrgMinimaKissvmStatementsStatementParser_initialize();
-  id<JavaUtilList> rettokens = create_JavaUtilArrayList_init();
+  id<JavaUtilList> rettokens = new_JavaUtilArrayList_init();
   jint currentpos = zCurrentPosition;
   jint total = [((id<JavaUtilList>) nil_chk(zTokens)) size];
   while (currentpos < total) {
@@ -282,7 +282,7 @@ id<JavaUtilList> OrgMinimaKissvmStatementsStatementParser_getElseOrElseIfOrEndIF
 
 id<JavaUtilList> OrgMinimaKissvmStatementsStatementParser_getEndWHILEWithJavaUtilList_withInt_(id<JavaUtilList> zTokens, jint zCurrentPosition) {
   OrgMinimaKissvmStatementsStatementParser_initialize();
-  id<JavaUtilList> rettokens = create_JavaUtilArrayList_init();
+  id<JavaUtilList> rettokens = new_JavaUtilArrayList_init();
   jint currentpos = zCurrentPosition;
   jint total = [((id<JavaUtilList>) nil_chk(zTokens)) size];
   while (currentpos < total) {
@@ -308,7 +308,7 @@ id<JavaUtilList> OrgMinimaKissvmStatementsStatementParser_getEndWHILEWithJavaUti
 
 id<JavaUtilList> OrgMinimaKissvmStatementsStatementParser_getTokensToNextCommandWithJavaUtilList_withInt_(id<JavaUtilList> zTokens, jint zCurrentPosition) {
   OrgMinimaKissvmStatementsStatementParser_initialize();
-  id<JavaUtilList> rettokens = create_JavaUtilArrayList_init();
+  id<JavaUtilList> rettokens = new_JavaUtilArrayList_init();
   jint ret = zCurrentPosition;
   jint total = [((id<JavaUtilList>) nil_chk(zTokens)) size];
   while (ret < total) {
@@ -326,7 +326,7 @@ id<JavaUtilList> OrgMinimaKissvmStatementsStatementParser_getTokensToNextCommand
 
 id<JavaUtilList> OrgMinimaKissvmStatementsStatementParser_getTokensToNextEqualsWithJavaUtilList_withInt_(id<JavaUtilList> zTokens, jint zCurrentPosition) {
   OrgMinimaKissvmStatementsStatementParser_initialize();
-  id<JavaUtilList> rettokens = create_JavaUtilArrayList_init();
+  id<JavaUtilList> rettokens = new_JavaUtilArrayList_init();
   jint ret = zCurrentPosition;
   jint total = [((id<JavaUtilList>) nil_chk(zTokens)) size];
   while (ret < total) {

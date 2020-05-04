@@ -130,11 +130,6 @@ J2OBJC_IGNORE_DESIGNATED_END
   [self doesNotRecognizeSelector:_cmd];
 }
 
-- (void)dealloc {
-  RELEASE_(xBuf_);
-  [super dealloc];
-}
-
 + (const J2ObjcClassInfo *)__metadata {
   static J2ObjcMethodInfo methods[] = {
     { NULL, NULL, 0x4, -1, -1, -1, -1, -1, -1 },
@@ -183,19 +178,19 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 void OrgMinimaUtilsDigestGeneralDigest_init(OrgMinimaUtilsDigestGeneralDigest *self) {
   NSObject_init(self);
-  JreStrongAssignAndConsume(&self->xBuf_, [IOSByteArray newArrayWithLength:4]);
+  self->xBuf_ = [IOSByteArray newArrayWithLength:4];
   self->xBufOff_ = 0;
 }
 
 void OrgMinimaUtilsDigestGeneralDigest_initWithOrgMinimaUtilsDigestGeneralDigest_(OrgMinimaUtilsDigestGeneralDigest *self, OrgMinimaUtilsDigestGeneralDigest *t) {
   NSObject_init(self);
-  JreStrongAssignAndConsume(&self->xBuf_, [IOSByteArray newArrayWithLength:4]);
+  self->xBuf_ = [IOSByteArray newArrayWithLength:4];
   [self copyInWithOrgMinimaUtilsDigestGeneralDigest:t];
 }
 
 void OrgMinimaUtilsDigestGeneralDigest_initWithByteArray_(OrgMinimaUtilsDigestGeneralDigest *self, IOSByteArray *encodedState) {
   NSObject_init(self);
-  JreStrongAssignAndConsume(&self->xBuf_, [IOSByteArray newArrayWithLength:4]);
+  self->xBuf_ = [IOSByteArray newArrayWithLength:4];
   JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(encodedState, 0, self->xBuf_, 0, self->xBuf_->size_);
   self->xBufOff_ = OrgMinimaUtilsDigestPack_bigEndianToIntWithByteArray_withInt_(encodedState, 4);
   self->byteCount_ = OrgMinimaUtilsDigestPack_bigEndianToLongWithByteArray_withInt_(encodedState, 8);

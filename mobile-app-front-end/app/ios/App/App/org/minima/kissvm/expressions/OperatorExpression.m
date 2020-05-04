@@ -55,32 +55,33 @@
     break;
     case OrgMinimaKissvmExpressionsOperatorExpression_OPERATOR_DIV:
     if ([((OrgMinimaObjectsBaseMiniNumber *) nil_chk(right)) isEqualWithOrgMinimaObjectsBaseMiniNumber:JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, ZERO)]) {
-      @throw create_OrgMinimaKissvmExceptionsExecutionException_initWithNSString_(JreStrcat("$$", @"Divide By ZERO! ", [self description]));
+      @throw new_OrgMinimaKissvmExceptionsExecutionException_initWithNSString_(JreStrcat("$$", @"Divide By ZERO! ", [self description]));
     }
     ret = [lval divWithOrgMinimaKissvmValuesValue:rval];
     break;
     case OrgMinimaKissvmExpressionsOperatorExpression_OPERATOR_NEG:
-    ret = create_OrgMinimaKissvmValuesNumberValue_initWithOrgMinimaObjectsBaseMiniNumber_([((OrgMinimaObjectsBaseMiniNumber *) nil_chk(left)) multWithOrgMinimaObjectsBaseMiniNumber:JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, MINUSONE)]);
+    ret = new_OrgMinimaKissvmValuesNumberValue_initWithOrgMinimaObjectsBaseMiniNumber_([((OrgMinimaObjectsBaseMiniNumber *) nil_chk(left)) multWithOrgMinimaObjectsBaseMiniNumber:JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, MINUSONE)]);
     break;
     case OrgMinimaKissvmExpressionsOperatorExpression_OPERATOR_MODULO:
-    ret = create_OrgMinimaKissvmValuesNumberValue_initWithOrgMinimaObjectsBaseMiniNumber_([((OrgMinimaObjectsBaseMiniNumber *) nil_chk(left)) moduloWithOrgMinimaObjectsBaseMiniNumber:right]);
+    ret = new_OrgMinimaKissvmValuesNumberValue_initWithOrgMinimaObjectsBaseMiniNumber_([((OrgMinimaObjectsBaseMiniNumber *) nil_chk(left)) moduloWithOrgMinimaObjectsBaseMiniNumber:right]);
     break;
     case OrgMinimaKissvmExpressionsOperatorExpression_OPERATOR_SHIFTL:
-    ret = create_OrgMinimaKissvmValuesHEXValue_initWithNSString_([((OrgMinimaObjectsBaseMiniData *) nil_chk([ldata shiftlWithInt:[((OrgMinimaObjectsBaseMiniNumber *) nil_chk(right)) getAsInt]])) description]);
+    ret = new_OrgMinimaKissvmValuesHEXValue_initWithNSString_([((OrgMinimaObjectsBaseMiniData *) nil_chk([ldata shiftlWithInt:[((OrgMinimaObjectsBaseMiniNumber *) nil_chk(right)) getAsInt]])) description]);
     break;
     case OrgMinimaKissvmExpressionsOperatorExpression_OPERATOR_SHIFTR:
-    ret = create_OrgMinimaKissvmValuesHEXValue_initWithNSString_([((OrgMinimaObjectsBaseMiniData *) nil_chk([ldata shiftrWithInt:[((OrgMinimaObjectsBaseMiniNumber *) nil_chk(right)) getAsInt]])) description]);
+    ret = new_OrgMinimaKissvmValuesHEXValue_initWithNSString_([((OrgMinimaObjectsBaseMiniData *) nil_chk([ldata shiftrWithInt:[((OrgMinimaObjectsBaseMiniNumber *) nil_chk(right)) getAsInt]])) description]);
     break;
     case OrgMinimaKissvmExpressionsOperatorExpression_OPERATOR_AND:
-    ret = create_OrgMinimaKissvmValuesHEXValue_initWithNSString_([((JavaMathBigInteger *) nil_chk([((JavaMathBigInteger *) nil_chk(lbig)) and__WithJavaMathBigInteger:rbig])) toStringWithInt:16]);
+    ret = new_OrgMinimaKissvmValuesHEXValue_initWithNSString_([((JavaMathBigInteger *) nil_chk([((JavaMathBigInteger *) nil_chk(lbig)) and__WithJavaMathBigInteger:rbig])) toStringWithInt:16]);
     break;
     case OrgMinimaKissvmExpressionsOperatorExpression_OPERATOR_OR:
-    ret = create_OrgMinimaKissvmValuesHEXValue_initWithNSString_([((JavaMathBigInteger *) nil_chk([((JavaMathBigInteger *) nil_chk(lbig)) or__WithJavaMathBigInteger:rbig])) toStringWithInt:16]);
+    ret = new_OrgMinimaKissvmValuesHEXValue_initWithNSString_([((JavaMathBigInteger *) nil_chk([((JavaMathBigInteger *) nil_chk(lbig)) or__WithJavaMathBigInteger:rbig])) toStringWithInt:16]);
     break;
     case OrgMinimaKissvmExpressionsOperatorExpression_OPERATOR_XOR:
-    ret = create_OrgMinimaKissvmValuesHEXValue_initWithNSString_([((JavaMathBigInteger *) nil_chk([((JavaMathBigInteger *) nil_chk(lbig)) xor__WithJavaMathBigInteger:rbig])) toStringWithInt:16]);
+    ret = new_OrgMinimaKissvmValuesHEXValue_initWithNSString_([((JavaMathBigInteger *) nil_chk([((JavaMathBigInteger *) nil_chk(lbig)) xor__WithJavaMathBigInteger:rbig])) toStringWithInt:16]);
     break;
   }
+  [zContract traceLogWithNSString:JreStrcat("$$$", [self description], @" returns:", [((OrgMinimaKissvmValuesValue *) nil_chk(ret)) description])];
   return ret;
 }
 
@@ -123,12 +124,6 @@
   return JreStrcat("$@C$C@$", @"( ", mLeft_, ' ', ret, ' ', mRight_, @" )");
 }
 
-- (void)dealloc {
-  RELEASE_(mLeft_);
-  RELEASE_(mRight_);
-  [super dealloc];
-}
-
 + (const J2ObjcClassInfo *)__metadata {
   static J2ObjcMethodInfo methods[] = {
     { NULL, NULL, 0x1, -1, 0, -1, -1, -1, -1 },
@@ -168,7 +163,7 @@
 @end
 
 void OrgMinimaKissvmExpressionsOperatorExpression_initWithOrgMinimaKissvmExpressionsExpression_withInt_(OrgMinimaKissvmExpressionsOperatorExpression *self, id<OrgMinimaKissvmExpressionsExpression> zLeft, jint zOperator) {
-  OrgMinimaKissvmExpressionsOperatorExpression_initWithOrgMinimaKissvmExpressionsExpression_withOrgMinimaKissvmExpressionsExpression_withInt_(self, zLeft, create_OrgMinimaKissvmExpressionsConstantExpression_initWithOrgMinimaKissvmValuesValue_(JreLoadStatic(OrgMinimaKissvmValuesBooleanValue, FALSE)), zOperator);
+  OrgMinimaKissvmExpressionsOperatorExpression_initWithOrgMinimaKissvmExpressionsExpression_withOrgMinimaKissvmExpressionsExpression_withInt_(self, zLeft, new_OrgMinimaKissvmExpressionsConstantExpression_initWithOrgMinimaKissvmValuesValue_(JreLoadStatic(OrgMinimaKissvmValuesBooleanValue, FALSE)), zOperator);
 }
 
 OrgMinimaKissvmExpressionsOperatorExpression *new_OrgMinimaKissvmExpressionsOperatorExpression_initWithOrgMinimaKissvmExpressionsExpression_withInt_(id<OrgMinimaKissvmExpressionsExpression> zLeft, jint zOperator) {
@@ -181,8 +176,8 @@ OrgMinimaKissvmExpressionsOperatorExpression *create_OrgMinimaKissvmExpressionsO
 
 void OrgMinimaKissvmExpressionsOperatorExpression_initWithOrgMinimaKissvmExpressionsExpression_withOrgMinimaKissvmExpressionsExpression_withInt_(OrgMinimaKissvmExpressionsOperatorExpression *self, id<OrgMinimaKissvmExpressionsExpression> zLeft, id<OrgMinimaKissvmExpressionsExpression> zRight, jint zOperator) {
   NSObject_init(self);
-  JreStrongAssign(&self->mLeft_, zLeft);
-  JreStrongAssign(&self->mRight_, zRight);
+  self->mLeft_ = zLeft;
+  self->mRight_ = zRight;
   self->mOperatorType_ = zOperator;
 }
 

@@ -243,7 +243,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (id<OrgMinimaUtilsDigestMemoable>)copy__ {
-  return create_OrgMinimaUtilsDigestSHA256Digest_initWithOrgMinimaUtilsDigestSHA256Digest_(self);
+  return new_OrgMinimaUtilsDigestSHA256Digest_initWithOrgMinimaUtilsDigestSHA256Digest_(self);
 }
 
 - (void)resetWithOrgMinimaUtilsDigestMemoable:(id<OrgMinimaUtilsDigestMemoable>)other {
@@ -252,7 +252,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (IOSByteArray *)getEncodedState {
-  IOSByteArray *state = [IOSByteArray arrayWithLength:52 + xOff_ * 4];
+  IOSByteArray *state = [IOSByteArray newArrayWithLength:52 + xOff_ * 4];
   [super populateStateWithByteArray:state];
   OrgMinimaUtilsDigestPack_intToBigEndianWithInt_withByteArray_withInt_(H1_, state, 16);
   OrgMinimaUtilsDigestPack_intToBigEndianWithInt_withByteArray_withInt_(H2_, state, 20);
@@ -267,11 +267,6 @@ J2OBJC_IGNORE_DESIGNATED_END
     OrgMinimaUtilsDigestPack_intToBigEndianWithInt_withByteArray_withInt_(IOSIntArray_Get(nil_chk(X_), i), state, 52 + (i * 4));
   }
   return state;
-}
-
-- (void)dealloc {
-  RELEASE_(X_);
-  [super dealloc];
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -343,7 +338,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 + (void)initialize {
   if (self == [OrgMinimaUtilsDigestSHA256Digest class]) {
     OrgMinimaUtilsDigestSHA256Digest_super$_copyInWithOrgMinimaUtilsDigestGeneralDigest_ = (void (*)(id, SEL, id))[OrgMinimaUtilsDigestGeneralDigest instanceMethodForSelector:@selector(copyInWithOrgMinimaUtilsDigestGeneralDigest:)];
-    JreStrongAssignAndConsume(&OrgMinimaUtilsDigestSHA256Digest_K, [IOSIntArray newArrayWithInts:(jint[]){ (jint) 0x428a2f98, (jint) 0x71374491, (jint) 0xb5c0fbcf, (jint) 0xe9b5dba5, (jint) 0x3956c25b, (jint) 0x59f111f1, (jint) 0x923f82a4, (jint) 0xab1c5ed5, (jint) 0xd807aa98, (jint) 0x12835b01, (jint) 0x243185be, (jint) 0x550c7dc3, (jint) 0x72be5d74, (jint) 0x80deb1fe, (jint) 0x9bdc06a7, (jint) 0xc19bf174, (jint) 0xe49b69c1, (jint) 0xefbe4786, (jint) 0x0fc19dc6, (jint) 0x240ca1cc, (jint) 0x2de92c6f, (jint) 0x4a7484aa, (jint) 0x5cb0a9dc, (jint) 0x76f988da, (jint) 0x983e5152, (jint) 0xa831c66d, (jint) 0xb00327c8, (jint) 0xbf597fc7, (jint) 0xc6e00bf3, (jint) 0xd5a79147, (jint) 0x06ca6351, (jint) 0x14292967, (jint) 0x27b70a85, (jint) 0x2e1b2138, (jint) 0x4d2c6dfc, (jint) 0x53380d13, (jint) 0x650a7354, (jint) 0x766a0abb, (jint) 0x81c2c92e, (jint) 0x92722c85, (jint) 0xa2bfe8a1, (jint) 0xa81a664b, (jint) 0xc24b8b70, (jint) 0xc76c51a3, (jint) 0xd192e819, (jint) 0xd6990624, (jint) 0xf40e3585, (jint) 0x106aa070, (jint) 0x19a4c116, (jint) 0x1e376c08, (jint) 0x2748774c, (jint) 0x34b0bcb5, (jint) 0x391c0cb3, (jint) 0x4ed8aa4a, (jint) 0x5b9cca4f, (jint) 0x682e6ff3, (jint) 0x748f82ee, (jint) 0x78a5636f, (jint) 0x84c87814, (jint) 0x8cc70208, (jint) 0x90befffa, (jint) 0xa4506ceb, (jint) 0xbef9a3f7, (jint) 0xc67178f2 } count:64]);
+    OrgMinimaUtilsDigestSHA256Digest_K = [IOSIntArray newArrayWithInts:(jint[]){ (jint) 0x428a2f98, (jint) 0x71374491, (jint) 0xb5c0fbcf, (jint) 0xe9b5dba5, (jint) 0x3956c25b, (jint) 0x59f111f1, (jint) 0x923f82a4, (jint) 0xab1c5ed5, (jint) 0xd807aa98, (jint) 0x12835b01, (jint) 0x243185be, (jint) 0x550c7dc3, (jint) 0x72be5d74, (jint) 0x80deb1fe, (jint) 0x9bdc06a7, (jint) 0xc19bf174, (jint) 0xe49b69c1, (jint) 0xefbe4786, (jint) 0x0fc19dc6, (jint) 0x240ca1cc, (jint) 0x2de92c6f, (jint) 0x4a7484aa, (jint) 0x5cb0a9dc, (jint) 0x76f988da, (jint) 0x983e5152, (jint) 0xa831c66d, (jint) 0xb00327c8, (jint) 0xbf597fc7, (jint) 0xc6e00bf3, (jint) 0xd5a79147, (jint) 0x06ca6351, (jint) 0x14292967, (jint) 0x27b70a85, (jint) 0x2e1b2138, (jint) 0x4d2c6dfc, (jint) 0x53380d13, (jint) 0x650a7354, (jint) 0x766a0abb, (jint) 0x81c2c92e, (jint) 0x92722c85, (jint) 0xa2bfe8a1, (jint) 0xa81a664b, (jint) 0xc24b8b70, (jint) 0xc76c51a3, (jint) 0xd192e819, (jint) 0xd6990624, (jint) 0xf40e3585, (jint) 0x106aa070, (jint) 0x19a4c116, (jint) 0x1e376c08, (jint) 0x2748774c, (jint) 0x34b0bcb5, (jint) 0x391c0cb3, (jint) 0x4ed8aa4a, (jint) 0x5b9cca4f, (jint) 0x682e6ff3, (jint) 0x748f82ee, (jint) 0x78a5636f, (jint) 0x84c87814, (jint) 0x8cc70208, (jint) 0x90befffa, (jint) 0xa4506ceb, (jint) 0xbef9a3f7, (jint) 0xc67178f2 } count:64];
     J2OBJC_SET_INITIALIZED(OrgMinimaUtilsDigestSHA256Digest)
   }
 }
@@ -352,7 +347,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 void OrgMinimaUtilsDigestSHA256Digest_init(OrgMinimaUtilsDigestSHA256Digest *self) {
   OrgMinimaUtilsDigestGeneralDigest_init(self);
-  JreStrongAssignAndConsume(&self->X_, [IOSIntArray newArrayWithLength:64]);
+  self->X_ = [IOSIntArray newArrayWithLength:64];
   [self reset];
 }
 
@@ -366,7 +361,7 @@ OrgMinimaUtilsDigestSHA256Digest *create_OrgMinimaUtilsDigestSHA256Digest_init()
 
 void OrgMinimaUtilsDigestSHA256Digest_initWithOrgMinimaUtilsDigestSHA256Digest_(OrgMinimaUtilsDigestSHA256Digest *self, OrgMinimaUtilsDigestSHA256Digest *t) {
   OrgMinimaUtilsDigestGeneralDigest_initWithOrgMinimaUtilsDigestGeneralDigest_(self, t);
-  JreStrongAssignAndConsume(&self->X_, [IOSIntArray newArrayWithLength:64]);
+  self->X_ = [IOSIntArray newArrayWithLength:64];
   OrgMinimaUtilsDigestSHA256Digest_copyInWithOrgMinimaUtilsDigestSHA256Digest_(self, t);
 }
 
@@ -394,7 +389,7 @@ void OrgMinimaUtilsDigestSHA256Digest_copyInWithOrgMinimaUtilsDigestSHA256Digest
 
 void OrgMinimaUtilsDigestSHA256Digest_initWithByteArray_(OrgMinimaUtilsDigestSHA256Digest *self, IOSByteArray *encodedState) {
   OrgMinimaUtilsDigestGeneralDigest_initWithByteArray_(self, encodedState);
-  JreStrongAssignAndConsume(&self->X_, [IOSIntArray newArrayWithLength:64]);
+  self->X_ = [IOSIntArray newArrayWithLength:64];
   self->H1_ = OrgMinimaUtilsDigestPack_bigEndianToIntWithByteArray_withInt_(encodedState, 16);
   self->H2_ = OrgMinimaUtilsDigestPack_bigEndianToIntWithByteArray_withInt_(encodedState, 20);
   self->H3_ = OrgMinimaUtilsDigestPack_bigEndianToIntWithByteArray_withInt_(encodedState, 24);

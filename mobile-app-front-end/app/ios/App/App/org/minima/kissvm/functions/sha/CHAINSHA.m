@@ -35,18 +35,18 @@ J2OBJC_IGNORE_DESIGNATED_END
     bits = OrgMinimaObjectsProofsProof_getChainSHABitsWithNSString_([((OrgMinimaKissvmValuesHEXValue *) nil_chk(chain)) description]);
   }
   @catch (JavaLangException *e) {
-    @throw create_OrgMinimaKissvmExceptionsExecutionException_initWithNSString_([e description]);
+    @throw new_OrgMinimaKissvmExceptionsExecutionException_initWithNSString_([e description]);
   }
   IOSByteArray *hash_ = [((OrgMinimaUtilsCrypto *) nil_chk(OrgMinimaUtilsCrypto_getInstance())) hashDataWithByteArray:[((OrgMinimaObjectsBaseMiniData *) nil_chk(data)) getData] withInt:bits];
-  OrgMinimaObjectsBaseMiniData *finalhash = create_OrgMinimaObjectsBaseMiniData_initWithByteArray_(hash_);
-  OrgMinimaObjectsProofsProof *chainproof = create_OrgMinimaObjectsProofsProof_init();
+  OrgMinimaObjectsBaseMiniData *finalhash = new_OrgMinimaObjectsBaseMiniData_initWithByteArray_(hash_);
+  OrgMinimaObjectsProofsProof *chainproof = new_OrgMinimaObjectsProofsProof_init();
   [chainproof setDataWithOrgMinimaObjectsBaseMiniData:finalhash];
   [chainproof setProofWithOrgMinimaObjectsBaseMiniData:[chain getMiniData]];
-  return create_OrgMinimaKissvmValuesHEXValue_initWithOrgMinimaObjectsBaseMiniData_([chainproof getFinalHash]);
+  return new_OrgMinimaKissvmValuesHEXValue_initWithOrgMinimaObjectsBaseMiniData_([chainproof getFinalHash]);
 }
 
 - (OrgMinimaKissvmFunctionsMinimaFunction *)getNewFunction {
-  return create_OrgMinimaKissvmFunctionsShaCHAINSHA_init();
+  return new_OrgMinimaKissvmFunctionsShaCHAINSHA_init();
 }
 
 + (const J2ObjcClassInfo *)__metadata {

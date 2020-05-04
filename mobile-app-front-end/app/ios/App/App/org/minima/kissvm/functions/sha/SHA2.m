@@ -26,12 +26,12 @@ J2OBJC_IGNORE_DESIGNATED_END
 - (OrgMinimaKissvmValuesValue *)runFunctionWithOrgMinimaKissvmContract:(OrgMinimaKissvmContract *)zContract {
   IOSByteArray *data = [((OrgMinimaKissvmValuesValue *) nil_chk([((id<OrgMinimaKissvmExpressionsExpression>) nil_chk([self getParameterWithInt:0])) getValueWithOrgMinimaKissvmContract:zContract])) getRawData];
   IOSByteArray *ans = [((OrgMinimaUtilsCrypto *) nil_chk(OrgMinimaUtilsCrypto_getInstance())) hashSHA2WithByteArray:data];
-  OrgMinimaObjectsBaseMiniData *hash_ = create_OrgMinimaObjectsBaseMiniData_initWithByteArray_(ans);
-  return create_OrgMinimaKissvmValuesHEXValue_initWithByteArray_([hash_ getData]);
+  OrgMinimaObjectsBaseMiniData *hash_ = new_OrgMinimaObjectsBaseMiniData_initWithByteArray_(ans);
+  return new_OrgMinimaKissvmValuesHEXValue_initWithByteArray_([hash_ getData]);
 }
 
 - (OrgMinimaKissvmFunctionsMinimaFunction *)getNewFunction {
-  return create_OrgMinimaKissvmFunctionsShaSHA2_init();
+  return new_OrgMinimaKissvmFunctionsShaSHA2_init();
 }
 
 + (const J2ObjcClassInfo *)__metadata {

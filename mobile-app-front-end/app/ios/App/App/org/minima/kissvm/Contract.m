@@ -5,6 +5,7 @@
 
 #include "IOSClass.h"
 #include "IOSObjectArray.h"
+#include "IOSPrimitiveArray.h"
 #include "J2ObjC_source.h"
 #include "java/lang/Boolean.h"
 #include "java/lang/Exception.h"
@@ -65,7 +66,7 @@
 
 - (void)setGlobalVariableWithNSString:(NSString *)zGlobal
        withOrgMinimaKissvmValuesValue:(OrgMinimaKissvmValuesValue *)zValue {
-  [((JavaUtilHashtable *) nil_chk(mGlobals_)) putWithId:zGlobal withId:zValue];
+  (void) [((JavaUtilHashtable *) nil_chk(mGlobals_)) putWithId:zGlobal withId:zValue];
   [self traceLogWithNSString:JreStrcat("$$$@", @"Global [", zGlobal, @"] : ", zValue)];
 }
 
@@ -76,7 +77,7 @@
       return OrgMinimaKissvmValuesValue_getValueWithNSString_(stateval);
     }
   }
-  @throw create_OrgMinimaKissvmExceptionsExecutionException_initWithNSString_(JreStrcat("$I", @"PREVSTATE Missing : ", zPrev));
+  @throw new_OrgMinimaKissvmExceptionsExecutionException_initWithNSString_(JreStrcat("$I", @"PREVSTATE Missing : ", zPrev));
 }
 
 - (jboolean)isParseOK {
@@ -99,7 +100,7 @@
   if ([self isTrace]) {
     OrgMinimaUtilsMinimaLogger_logWithNSString_(JreStrcat("$I$$", @"INST[", mNumInstructions_, @"] - ", zLog));
   }
-  JreStrAppendStrong(&mCompleteLog_, "$I$$C", @"INST[", mNumInstructions_, @"] - ", zLog, 0x000a);
+  (void) JreStrAppendStrong(&mCompleteLog_, "$I$$C", @"INST[", mNumInstructions_, @"] - ", zLog, 0x000a);
 }
 
 - (NSString *)getCompleteTraceLog {
@@ -109,7 +110,7 @@
 - (void)incrementInstructions {
   mNumInstructions_++;
   if (mNumInstructions_ > OrgMinimaKissvmContract_MAX_INSTRUCTIONS) {
-    @throw create_OrgMinimaKissvmExceptionsExecutionException_initWithNSString_(JreStrcat("$I", @"MAX instruction number reached! ", mNumInstructions_));
+    @throw new_OrgMinimaKissvmExceptionsExecutionException_initWithNSString_(JreStrcat("$I", @"MAX instruction number reached! ", mNumInstructions_));
   }
 }
 
@@ -131,7 +132,7 @@
       [e printStackTrace];
     }
     mException_ = true;
-    JreStrongAssign(&mExceptionString_, [e description]);
+    mExceptionString_ = [e description];
     [self traceLogWithNSString:JreStrcat("$@", @"Execution Error - ", e)];
     mSuccess_ = false;
     mSuccessSet_ = true;
@@ -168,7 +169,7 @@
 }
 
 - (OrgMinimaUtilsJsonJSONObject *)getAllVariables {
-  OrgMinimaUtilsJsonJSONObject *variables = create_OrgMinimaUtilsJsonJSONObject_init();
+  OrgMinimaUtilsJsonJSONObject *variables = new_OrgMinimaUtilsJsonJSONObject_init();
   id<JavaUtilEnumeration> keys = [((JavaUtilHashtable *) nil_chk(mVariables_)) keys];
   while ([((id<JavaUtilEnumeration>) nil_chk(keys)) hasMoreElements]) {
     NSString *key = [keys nextElement];
@@ -178,10 +179,10 @@
       key = JreStrcat("$$$", @"( ", [((NSString *) nil_chk(key)) java_trim], @" )");
     }
     if ([((OrgMinimaKissvmValuesValue *) nil_chk(val)) getValueType] == OrgMinimaKissvmValuesScriptValue_VALUE_SCRIPT) {
-      [variables putWithId:key withId:JreStrcat("$$$", @"[ ", [val description], @" ]")];
+      (void) [variables putWithId:key withId:JreStrcat("$$$", @"[ ", [val description], @" ]")];
     }
     else {
-      [variables putWithId:key withId:[val description]];
+      (void) [variables putWithId:key withId:[val description]];
     }
   }
   return variables;
@@ -194,7 +195,7 @@
 
 - (void)setVariableWithNSString:(NSString *)zName
  withOrgMinimaKissvmValuesValue:(OrgMinimaKissvmValuesValue *)zValue {
-  [((JavaUtilHashtable *) nil_chk(mVariables_)) putWithId:zName withId:zValue];
+  (void) [((JavaUtilHashtable *) nil_chk(mVariables_)) putWithId:zName withId:zValue];
   [self traceVariables];
 }
 
@@ -204,22 +205,23 @@
 
 - (jboolean)setDYNStateWithInt:(jint)zStateNum
                   withNSString:(NSString *)zValue {
-  if (!mFloatingCoin_) {
-    @throw create_OrgMinimaKissvmExceptionsExecutionException_initWithNSString_(JreStrcat("$I", @"DYNSTATE only on Floating coins : ", zStateNum));
+  if (IOSBooleanArray_Get(nil_chk(mCheckState_), zStateNum)) {
+    @throw new_OrgMinimaKissvmExceptionsExecutionException_initWithNSString_(@"Can only call DYNSTATE before STATE or SAMESTATE");
   }
   if (IOSObjectArray_Get(nil_chk(mDYNState_), zStateNum) != nil) {
-    return [((NSString *) nil_chk(IOSObjectArray_Get(mDYNState_, zStateNum))) isEqual:zValue];
+    @throw new_OrgMinimaKissvmExceptionsExecutionException_initWithNSString_(@"Can only call DYNSTATE once per state per transaction!");
   }
-  IOSObjectArray_Set(mDYNState_, zStateNum, zValue);
+  (void) IOSObjectArray_Set(mDYNState_, zStateNum, zValue);
   return true;
 }
 
 - (NSString *)getStateWithInt:(jint)zStateNum {
+  *IOSBooleanArray_GetRef(nil_chk(mCheckState_), zStateNum) = true;
   if (IOSObjectArray_Get(nil_chk(mDYNState_), zStateNum) != nil) {
     return IOSObjectArray_Get(mDYNState_, zStateNum);
   }
   if (![((OrgMinimaObjectsTransaction *) nil_chk(mTransaction_)) stateExistsWithInt:zStateNum]) {
-    @throw create_OrgMinimaKissvmExceptionsExecutionException_initWithNSString_(JreStrcat("$I", @"State Variable does not exist ", zStateNum));
+    @throw new_OrgMinimaKissvmExceptionsExecutionException_initWithNSString_(JreStrcat("$I", @"State Variable does not exist ", zStateNum));
   }
   return [((OrgMinimaObjectsBaseMiniScript *) nil_chk([((OrgMinimaObjectsStateVariable *) nil_chk([((OrgMinimaObjectsTransaction *) nil_chk(mTransaction_)) getStateValueWithInt:zStateNum])) getData])) description];
 }
@@ -228,8 +230,14 @@
   return mDYNState_;
 }
 
-- (void)setCompleteDYNStateWithNSStringArray:(IOSObjectArray *)zDYNState {
-  JreStrongAssign(&mDYNState_, zDYNState);
+- (IOSBooleanArray *)getCompleteCheckState {
+  return mCheckState_;
+}
+
+- (void)setCompleteDYNStateWithNSStringArray:(IOSObjectArray *)zDYNState
+                            withBooleanArray:(IOSBooleanArray *)zCheckState {
+  mDYNState_ = zDYNState;
+  mCheckState_ = zCheckState;
 }
 
 - (void)traceVariables {
@@ -245,13 +253,13 @@
     jint type = [((OrgMinimaKissvmValuesValue *) nil_chk(val)) getValueType];
     switch (type) {
       case OrgMinimaKissvmValuesBooleanValue_VALUE_BOOLEAN:
-      JreStrAppend(&varlist, "$$$$", key, @" = ", [((NSString *) nil_chk(JavaLangBoolean_toStringWithBoolean_([val isTrue]))) uppercaseString], @", ");
+      (void) JreStrAppendStrong(&varlist, "$$$$", key, @" = ", [((NSString *) nil_chk(JavaLangBoolean_toStringWithBoolean_([val isTrue]))) uppercaseString], @", ");
       break;
       case OrgMinimaKissvmValuesScriptValue_VALUE_SCRIPT:
-      JreStrAppend(&varlist, "$$@$", key, @" = [ ", val, @" ], ");
+      (void) JreStrAppendStrong(&varlist, "$$@$", key, @" = [ ", val, @" ], ");
       break;
       default:
-      JreStrAppend(&varlist, "$$@$", key, @" = ", val, @", ");
+      (void) JreStrAppendStrong(&varlist, "$$@$", key, @" = ", val, @", ");
       break;
     }
   }
@@ -261,7 +269,7 @@
 - (OrgMinimaKissvmValuesValue *)getGlobalWithNSString:(NSString *)zGlobal {
   OrgMinimaKissvmValuesValue *ret = [((JavaUtilHashtable *) nil_chk(mGlobals_)) getWithId:zGlobal];
   if (ret == nil) {
-    @throw create_OrgMinimaKissvmExceptionsExecutionException_initWithNSString_(JreStrcat("$$", @"Global not found - ", zGlobal));
+    @throw new_OrgMinimaKissvmExceptionsExecutionException_initWithNSString_(JreStrcat("$$", @"Global not found - ", zGlobal));
   }
   return ret;
 }
@@ -282,21 +290,6 @@
 
 + (void)mainWithNSStringArray:(IOSObjectArray *)zArgs {
   OrgMinimaKissvmContract_mainWithNSStringArray_(zArgs);
-}
-
-- (void)dealloc {
-  RELEASE_(mTransaction_);
-  RELEASE_(mWitness_);
-  RELEASE_(mRamScript_);
-  RELEASE_(mBlock_);
-  RELEASE_(mSignatures_);
-  RELEASE_(mVariables_);
-  RELEASE_(mGlobals_);
-  RELEASE_(mPrevState_);
-  RELEASE_(mDYNState_);
-  RELEASE_(mExceptionString_);
-  RELEASE_(mCompleteLog_);
-  [super dealloc];
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -327,12 +320,13 @@
     { NULL, "Z", 0x1, 16, 17, 8, -1, -1, -1 },
     { NULL, "LNSString;", 0x1, 18, 7, 8, -1, -1, -1 },
     { NULL, "[LNSString;", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "[Z", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 19, 20, -1, -1, -1, -1 },
     { NULL, "V", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaKissvmValuesValue;", 0x1, 21, 10, 8, -1, -1, -1 },
     { NULL, "Z", 0x1, 22, 23, -1, -1, -1, -1 },
     { NULL, "LNSString;", 0x9, 24, 10, -1, -1, -1, -1 },
-    { NULL, "V", 0x9, 25, 20, -1, -1, -1, -1 },
+    { NULL, "V", 0x9, 25, 26, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
@@ -363,24 +357,26 @@
   methods[23].selector = @selector(setDYNStateWithInt:withNSString:);
   methods[24].selector = @selector(getStateWithInt:);
   methods[25].selector = @selector(getCompleteDYNState);
-  methods[26].selector = @selector(setCompleteDYNStateWithNSStringArray:);
-  methods[27].selector = @selector(traceVariables);
-  methods[28].selector = @selector(getGlobalWithNSString:);
-  methods[29].selector = @selector(checkSignatureWithOrgMinimaKissvmValuesValue:);
-  methods[30].selector = @selector(cleanScriptWithNSString:);
-  methods[31].selector = @selector(mainWithNSStringArray:);
+  methods[26].selector = @selector(getCompleteCheckState);
+  methods[27].selector = @selector(setCompleteDYNStateWithNSStringArray:withBooleanArray:);
+  methods[28].selector = @selector(traceVariables);
+  methods[29].selector = @selector(getGlobalWithNSString:);
+  methods[30].selector = @selector(checkSignatureWithOrgMinimaKissvmValuesValue:);
+  methods[31].selector = @selector(cleanScriptWithNSString:);
+  methods[32].selector = @selector(mainWithNSStringArray:);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
     { "mTransaction_", "LOrgMinimaObjectsTransaction;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mWitness_", "LOrgMinimaObjectsWitness;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mRamScript_", "LNSString;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mBlock_", "LOrgMinimaKissvmStatementsStatementBlock;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
-    { "mSignatures_", "LJavaUtilArrayList;", .constantValue.asLong = 0, 0x0, -1, -1, 26, -1 },
-    { "mVariables_", "LJavaUtilHashtable;", .constantValue.asLong = 0, 0x0, -1, -1, 27, -1 },
-    { "mGlobals_", "LJavaUtilHashtable;", .constantValue.asLong = 0, 0x0, -1, -1, 27, -1 },
-    { "mPrevState_", "LJavaUtilArrayList;", .constantValue.asLong = 0, 0x0, -1, -1, 28, -1 },
+    { "mSignatures_", "LJavaUtilArrayList;", .constantValue.asLong = 0, 0x0, -1, -1, 27, -1 },
+    { "mVariables_", "LJavaUtilHashtable;", .constantValue.asLong = 0, 0x0, -1, -1, 28, -1 },
+    { "mGlobals_", "LJavaUtilHashtable;", .constantValue.asLong = 0, 0x0, -1, -1, 28, -1 },
+    { "mPrevState_", "LJavaUtilArrayList;", .constantValue.asLong = 0, 0x0, -1, -1, 29, -1 },
     { "mFloatingCoin_", "Z", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mDYNState_", "[LNSString;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
+    { "mCheckState_", "[Z", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mSuccess_", "Z", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
     { "mSuccessSet_", "Z", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
     { "mTraceON_", "Z", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
@@ -391,8 +387,8 @@
     { "MAX_INSTRUCTIONS", "I", .constantValue.asInt = OrgMinimaKissvmContract_MAX_INSTRUCTIONS, 0x19, -1, -1, -1, -1 },
     { "mCompleteLog_", "LNSString;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
   };
-  static const void *ptrTable[] = { "LNSString;LNSString;LOrgMinimaObjectsWitness;LOrgMinimaObjectsTransaction;LJavaUtilArrayList;", "(Ljava/lang/String;Ljava/lang/String;Lorg/minima/objects/Witness;Lorg/minima/objects/Transaction;Ljava/util/ArrayList<Lorg/minima/objects/StateVariable;>;)V", "LNSString;LNSString;LOrgMinimaObjectsWitness;LOrgMinimaObjectsTransaction;LJavaUtilArrayList;Z", "(Ljava/lang/String;Ljava/lang/String;Lorg/minima/objects/Witness;Lorg/minima/objects/Transaction;Ljava/util/ArrayList<Lorg/minima/objects/StateVariable;>;Z)V", "setGlobalVariable", "LNSString;LOrgMinimaKissvmValuesValue;", "getPrevState", "I", "LOrgMinimaKissvmExceptionsExecutionException;", "traceLog", "LNSString;", "setRETURNValue", "Z", "getVariable", "setVariable", "setFloating", "setDYNState", "ILNSString;", "getState", "setCompleteDYNState", "[LNSString;", "getGlobal", "checkSignature", "LOrgMinimaKissvmValuesValue;", "cleanScript", "main", "Ljava/util/ArrayList<Lorg/minima/kissvm/values/Value;>;", "Ljava/util/Hashtable<Ljava/lang/String;Lorg/minima/kissvm/values/Value;>;", "Ljava/util/ArrayList<Lorg/minima/objects/StateVariable;>;" };
-  static const J2ObjcClassInfo _OrgMinimaKissvmContract = { "Contract", "org.minima.kissvm", ptrTable, methods, fields, 7, 0x1, 32, 19, -1, -1, -1, -1, -1 };
+  static const void *ptrTable[] = { "LNSString;LNSString;LOrgMinimaObjectsWitness;LOrgMinimaObjectsTransaction;LJavaUtilArrayList;", "(Ljava/lang/String;Ljava/lang/String;Lorg/minima/objects/Witness;Lorg/minima/objects/Transaction;Ljava/util/ArrayList<Lorg/minima/objects/StateVariable;>;)V", "LNSString;LNSString;LOrgMinimaObjectsWitness;LOrgMinimaObjectsTransaction;LJavaUtilArrayList;Z", "(Ljava/lang/String;Ljava/lang/String;Lorg/minima/objects/Witness;Lorg/minima/objects/Transaction;Ljava/util/ArrayList<Lorg/minima/objects/StateVariable;>;Z)V", "setGlobalVariable", "LNSString;LOrgMinimaKissvmValuesValue;", "getPrevState", "I", "LOrgMinimaKissvmExceptionsExecutionException;", "traceLog", "LNSString;", "setRETURNValue", "Z", "getVariable", "setVariable", "setFloating", "setDYNState", "ILNSString;", "getState", "setCompleteDYNState", "[LNSString;[Z", "getGlobal", "checkSignature", "LOrgMinimaKissvmValuesValue;", "cleanScript", "main", "[LNSString;", "Ljava/util/ArrayList<Lorg/minima/kissvm/values/Value;>;", "Ljava/util/Hashtable<Ljava/lang/String;Lorg/minima/kissvm/values/Value;>;", "Ljava/util/ArrayList<Lorg/minima/objects/StateVariable;>;" };
+  static const J2ObjcClassInfo _OrgMinimaKissvmContract = { "Contract", "org.minima.kissvm", ptrTable, methods, fields, 7, 0x1, 33, 20, -1, -1, -1, -1, -1 };
   return &_OrgMinimaKissvmContract;
 }
 
@@ -412,33 +408,37 @@ OrgMinimaKissvmContract *create_OrgMinimaKissvmContract_initWithNSString_withNSS
 
 void OrgMinimaKissvmContract_initWithNSString_withNSString_withOrgMinimaObjectsWitness_withOrgMinimaObjectsTransaction_withJavaUtilArrayList_withBoolean_(OrgMinimaKissvmContract *self, NSString *zRamScript, NSString *zSigs, OrgMinimaObjectsWitness *zWitness, OrgMinimaObjectsTransaction *zTransaction, JavaUtilArrayList *zPrevState, jboolean zTrace) {
   NSObject_init(self);
-  JreStrongAssignAndConsume(&self->mPrevState_, new_JavaUtilArrayList_init());
+  self->mPrevState_ = new_JavaUtilArrayList_init();
   self->mFloatingCoin_ = false;
   self->mTraceON_ = false;
-  JreStrongAssign(&self->mCompleteLog_, @"");
-  JreStrongAssign(&self->mCompleteLog_, @"");
+  self->mCompleteLog_ = @"";
+  self->mCompleteLog_ = @"";
   self->mTraceON_ = zTrace;
-  JreStrongAssign(&self->mRamScript_, OrgMinimaKissvmContract_cleanScriptWithNSString_(zRamScript));
-  JreStrongAssign(&self->mTransaction_, zTransaction);
-  JreStrongAssign(&self->mWitness_, zWitness);
-  JreStrongAssignAndConsume(&self->mSignatures_, new_JavaUtilArrayList_init());
-  JreStrongAssignAndConsume(&self->mVariables_, new_JavaUtilHashtable_init());
-  JreStrongAssignAndConsume(&self->mGlobals_, new_JavaUtilHashtable_init());
+  self->mRamScript_ = OrgMinimaKissvmContract_cleanScriptWithNSString_(zRamScript);
+  self->mTransaction_ = zTransaction;
+  self->mWitness_ = zWitness;
+  self->mSignatures_ = new_JavaUtilArrayList_init();
+  self->mVariables_ = new_JavaUtilHashtable_init();
+  self->mGlobals_ = new_JavaUtilHashtable_init();
   self->mFloatingCoin_ = false;
-  JreStrongAssignAndConsume(&self->mDYNState_, [IOSObjectArray newArrayWithLength:256 type:NSString_class_()]);
+  self->mDYNState_ = [IOSObjectArray newArrayWithLength:256 type:NSString_class_()];
   for (jint i = 0; i < 256; i++) {
-    IOSObjectArray_Set(self->mDYNState_, i, nil);
+    (void) IOSObjectArray_Set(self->mDYNState_, i, nil);
   }
-  JreStrongAssign(&self->mBlock_, nil);
+  self->mCheckState_ = [IOSBooleanArray newArrayWithLength:256];
+  for (jint i = 0; i < 256; i++) {
+    *IOSBooleanArray_GetRef(self->mCheckState_, i) = false;
+  }
+  self->mBlock_ = nil;
   self->mSuccess_ = false;
   self->mSuccessSet_ = false;
   self->mParseOK_ = false;
   self->mException_ = false;
-  JreStrongAssign(&self->mExceptionString_, @"");
+  self->mExceptionString_ = @"";
   self->mNumInstructions_ = 0;
   [self traceLogWithNSString:JreStrcat("$$", @"Contract   : ", self->mRamScript_)];
   [self traceLogWithNSString:JreStrcat("$I", @"Size       : ", [((NSString *) nil_chk(self->mRamScript_)) java_length])];
-  JavaUtilStringTokenizer *strtok = create_JavaUtilStringTokenizer_initWithNSString_withNSString_(zSigs, @"#");
+  JavaUtilStringTokenizer *strtok = new_JavaUtilStringTokenizer_initWithNSString_withNSString_(zSigs, @"#");
   while ([strtok hasMoreTokens]) {
     NSString *sig = [((NSString *) nil_chk([strtok nextToken])) java_trim];
     [self traceLogWithNSString:JreStrcat("$$", @"Signature : ", sig)];
@@ -451,10 +451,10 @@ void OrgMinimaKissvmContract_initWithNSString_withNSString_withOrgMinimaObjectsW
     [self traceLogWithNSString:JreStrcat("$I$$", @"State[", [((OrgMinimaObjectsStateVariable *) nil_chk(sv)) getPort], @"] : ", [((OrgMinimaObjectsBaseMiniScript *) nil_chk([sv getData])) description])];
   }
   if (zPrevState == nil) {
-    JreStrongAssignAndConsume(&self->mPrevState_, new_JavaUtilArrayList_init());
+    self->mPrevState_ = new_JavaUtilArrayList_init();
   }
   else {
-    JreStrongAssign(&self->mPrevState_, zPrevState);
+    self->mPrevState_ = zPrevState;
     for (OrgMinimaObjectsStateVariable * __strong sv in self->mPrevState_) {
       [self traceLogWithNSString:JreStrcat("$I$$", @"PrevState[", [((OrgMinimaObjectsStateVariable *) nil_chk(sv)) getPort], @"] : ", [((OrgMinimaObjectsBaseMiniScript *) nil_chk([sv getData])) description])];
     }
@@ -465,7 +465,7 @@ void OrgMinimaKissvmContract_initWithNSString_withNSString_withOrgMinimaObjectsW
     for (OrgMinimaKissvmTokensToken * __strong tok in nil_chk(tokens)) {
       [self traceLogWithNSString:JreStrcat("I$$$$", (count++), @") Token : [", [((OrgMinimaKissvmTokensToken *) nil_chk(tok)) getTokenTypeString], @"] ", [tok getToken])];
     }
-    JreStrongAssign(&self->mBlock_, OrgMinimaKissvmStatementsStatementParser_parseTokensWithJavaUtilList_(tokens));
+    self->mBlock_ = OrgMinimaKissvmStatementsStatementParser_parseTokensWithJavaUtilList_(tokens);
     [self traceLogWithNSString:@"Script token parse OK."];
     self->mParseOK_ = true;
   }
@@ -560,7 +560,7 @@ NSString *OrgMinimaKissvmContract_cleanScriptWithNSString_(NSString *zScript) {
     }
   }
   NSString *finalstring = @"";
-  JavaUtilStringTokenizer *strtok = create_JavaUtilStringTokenizer_initWithNSString_withNSString_(script, @" ");
+  JavaUtilStringTokenizer *strtok = new_JavaUtilStringTokenizer_initWithNSString_withNSString_(script, @" ");
   while ([strtok hasMoreTokens]) {
     NSString *tok = [strtok nextToken];
     if ([((NSString *) nil_chk(tok)) java_hasPrefix:@"0x"]) {
@@ -576,18 +576,18 @@ NSString *OrgMinimaKissvmContract_cleanScriptWithNSString_(NSString *zScript) {
 
 void OrgMinimaKissvmContract_mainWithNSStringArray_(IOSObjectArray *zArgs) {
   OrgMinimaKissvmContract_initialize();
-  NSString *RamScript = @"let t = sigdig( 1 0.1234)";
-  OrgMinimaObjectsTransaction *tt = create_OrgMinimaObjectsTransaction_init();
-  [tt addStateVariableWithOrgMinimaObjectsStateVariable:create_OrgMinimaObjectsStateVariable_initWithInt_withNSString_(0, @"987")];
-  OrgMinimaKissvmContract *ctr = create_OrgMinimaKissvmContract_initWithNSString_withNSString_withOrgMinimaObjectsWitness_withOrgMinimaObjectsTransaction_withJavaUtilArrayList_withBoolean_(RamScript, @"0x74A2222436C592046A6F576F67200C75DB3D9051BE31262BD0A0BF0DB30137C4", create_OrgMinimaObjectsWitness_init(), tt, nil, true);
+  NSString *RamScript = @"return true";
+  OrgMinimaObjectsTransaction *tt = new_OrgMinimaObjectsTransaction_init();
+  [tt addStateVariableWithOrgMinimaObjectsStateVariable:new_OrgMinimaObjectsStateVariable_initWithInt_withNSString_(0, @"987")];
+  OrgMinimaKissvmContract *ctr = new_OrgMinimaKissvmContract_initWithNSString_withNSString_withOrgMinimaObjectsWitness_withOrgMinimaObjectsTransaction_withJavaUtilArrayList_withBoolean_(RamScript, @"0x74A2222436C592046A6F576F67200C75DB3D9051BE31262BD0A0BF0DB30137C4", new_OrgMinimaObjectsWitness_init(), tt, nil, true);
   [ctr setFloatingWithBoolean:true];
-  [ctr setGlobalVariableWithNSString:@"@SCRIPT" withOrgMinimaKissvmValuesValue:create_OrgMinimaKissvmValuesScriptValue_initWithNSString_(RamScript)];
-  [ctr setGlobalVariableWithNSString:@"@BLKNUM" withOrgMinimaKissvmValuesValue:create_OrgMinimaKissvmValuesNumberValue_initWithOrgMinimaObjectsBaseMiniNumber_(create_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(@"31"))];
-  [ctr setGlobalVariableWithNSString:@"@INBLKNUM" withOrgMinimaKissvmValuesValue:create_OrgMinimaKissvmValuesNumberValue_initWithOrgMinimaObjectsBaseMiniNumber_(create_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(@"10"))];
-  [ctr setGlobalVariableWithNSString:@"@INPUT" withOrgMinimaKissvmValuesValue:create_OrgMinimaKissvmValuesNumberValue_initWithOrgMinimaObjectsBaseMiniNumber_(create_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(@"1"))];
-  [ctr setGlobalVariableWithNSString:@"@ADDRESS" withOrgMinimaKissvmValuesValue:create_OrgMinimaKissvmValuesHEXValue_initWithNSString_(@"0x67876AB")];
-  [ctr setGlobalVariableWithNSString:@"@TOKENID" withOrgMinimaKissvmValuesValue:create_OrgMinimaKissvmValuesHEXValue_initWithNSString_(@"0x00")];
-  [ctr setGlobalVariableWithNSString:@"@AMOUNT" withOrgMinimaKissvmValuesValue:create_OrgMinimaKissvmValuesNumberValue_initWithOrgMinimaObjectsBaseMiniNumber_(create_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(@"1"))];
+  [ctr setGlobalVariableWithNSString:@"@SCRIPT" withOrgMinimaKissvmValuesValue:new_OrgMinimaKissvmValuesScriptValue_initWithNSString_(RamScript)];
+  [ctr setGlobalVariableWithNSString:@"@BLKNUM" withOrgMinimaKissvmValuesValue:new_OrgMinimaKissvmValuesNumberValue_initWithOrgMinimaObjectsBaseMiniNumber_(new_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(@"31"))];
+  [ctr setGlobalVariableWithNSString:@"@INBLKNUM" withOrgMinimaKissvmValuesValue:new_OrgMinimaKissvmValuesNumberValue_initWithOrgMinimaObjectsBaseMiniNumber_(new_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(@"10"))];
+  [ctr setGlobalVariableWithNSString:@"@INPUT" withOrgMinimaKissvmValuesValue:new_OrgMinimaKissvmValuesNumberValue_initWithOrgMinimaObjectsBaseMiniNumber_(new_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(@"1"))];
+  [ctr setGlobalVariableWithNSString:@"@ADDRESS" withOrgMinimaKissvmValuesValue:new_OrgMinimaKissvmValuesHEXValue_initWithNSString_(@"0x67876AB")];
+  [ctr setGlobalVariableWithNSString:@"@TOKENID" withOrgMinimaKissvmValuesValue:new_OrgMinimaKissvmValuesHEXValue_initWithNSString_(@"0x00")];
+  [ctr setGlobalVariableWithNSString:@"@AMOUNT" withOrgMinimaKissvmValuesValue:new_OrgMinimaKissvmValuesNumberValue_initWithOrgMinimaObjectsBaseMiniNumber_(new_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(@"1"))];
   [ctr run];
 }
 

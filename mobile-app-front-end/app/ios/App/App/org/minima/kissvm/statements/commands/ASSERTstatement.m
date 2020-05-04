@@ -18,19 +18,13 @@
 
 - (void)executeWithOrgMinimaKissvmContract:(OrgMinimaKissvmContract *)zContract {
   jboolean success = [((OrgMinimaKissvmValuesValue *) nil_chk([((id<OrgMinimaKissvmExpressionsExpression>) nil_chk(mAssertValue_)) getValueWithOrgMinimaKissvmContract:zContract])) isTrue];
-  [((OrgMinimaKissvmContract *) nil_chk(zContract)) traceLogWithNSString:JreStrcat("$$Z", [self description], @" result:", success)];
   if (!success) {
-    [zContract setRETURNValueWithBoolean:false];
+    [((OrgMinimaKissvmContract *) nil_chk(zContract)) setRETURNValueWithBoolean:false];
   }
 }
 
 - (NSString *)description {
   return JreStrcat("$$", @"ASSERT ", [((id<OrgMinimaKissvmExpressionsExpression>) nil_chk(mAssertValue_)) description]);
-}
-
-- (void)dealloc {
-  RELEASE_(mAssertValue_);
-  [super dealloc];
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -58,7 +52,7 @@
 
 void OrgMinimaKissvmStatementsCommandsASSERTstatement_initWithOrgMinimaKissvmExpressionsExpression_(OrgMinimaKissvmStatementsCommandsASSERTstatement *self, id<OrgMinimaKissvmExpressionsExpression> zAssertValue) {
   NSObject_init(self);
-  JreStrongAssign(&self->mAssertValue_, zAssertValue);
+  self->mAssertValue_ = zAssertValue;
 }
 
 OrgMinimaKissvmStatementsCommandsASSERTstatement *new_OrgMinimaKissvmStatementsCommandsASSERTstatement_initWithOrgMinimaKissvmExpressionsExpression_(id<OrgMinimaKissvmExpressionsExpression> zAssertValue) {

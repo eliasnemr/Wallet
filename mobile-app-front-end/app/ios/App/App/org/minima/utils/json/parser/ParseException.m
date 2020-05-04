@@ -64,31 +64,26 @@ J2OBJC_STATIC_FIELD_CONSTANT(OrgMinimaUtilsJsonParserParseException, serialVersi
 }
 
 - (void)setUnexpectedObjectWithId:(id)unexpectedObject {
-  JreStrongAssign(&self->unexpectedObject_, unexpectedObject);
+  self->unexpectedObject_ = unexpectedObject;
 }
 
 - (NSString *)getMessage {
-  JavaLangStringBuffer *sb = create_JavaLangStringBuffer_init();
+  JavaLangStringBuffer *sb = new_JavaLangStringBuffer_init();
   switch (errorType_) {
     case OrgMinimaUtilsJsonParserParseException_ERROR_UNEXPECTED_CHAR:
-    [((JavaLangStringBuffer *) nil_chk([((JavaLangStringBuffer *) nil_chk([((JavaLangStringBuffer *) nil_chk([((JavaLangStringBuffer *) nil_chk([sb appendWithNSString:@"Unexpected character ("])) appendWithId:unexpectedObject_])) appendWithNSString:@") at position "])) appendWithInt:position_])) appendWithNSString:@"."];
+    (void) [((JavaLangStringBuffer *) nil_chk([((JavaLangStringBuffer *) nil_chk([((JavaLangStringBuffer *) nil_chk([((JavaLangStringBuffer *) nil_chk([sb appendWithNSString:@"Unexpected character ("])) appendWithId:unexpectedObject_])) appendWithNSString:@") at position "])) appendWithInt:position_])) appendWithNSString:@"."];
     break;
     case OrgMinimaUtilsJsonParserParseException_ERROR_UNEXPECTED_TOKEN:
-    [((JavaLangStringBuffer *) nil_chk([((JavaLangStringBuffer *) nil_chk([((JavaLangStringBuffer *) nil_chk([((JavaLangStringBuffer *) nil_chk([sb appendWithNSString:@"Unexpected token "])) appendWithId:unexpectedObject_])) appendWithNSString:@" at position "])) appendWithInt:position_])) appendWithNSString:@"."];
+    (void) [((JavaLangStringBuffer *) nil_chk([((JavaLangStringBuffer *) nil_chk([((JavaLangStringBuffer *) nil_chk([((JavaLangStringBuffer *) nil_chk([sb appendWithNSString:@"Unexpected token "])) appendWithId:unexpectedObject_])) appendWithNSString:@" at position "])) appendWithInt:position_])) appendWithNSString:@"."];
     break;
     case OrgMinimaUtilsJsonParserParseException_ERROR_UNEXPECTED_EXCEPTION:
-    [((JavaLangStringBuffer *) nil_chk([((JavaLangStringBuffer *) nil_chk([((JavaLangStringBuffer *) nil_chk([sb appendWithNSString:@"Unexpected exception at position "])) appendWithInt:position_])) appendWithNSString:@": "])) appendWithId:unexpectedObject_];
+    (void) [((JavaLangStringBuffer *) nil_chk([((JavaLangStringBuffer *) nil_chk([((JavaLangStringBuffer *) nil_chk([sb appendWithNSString:@"Unexpected exception at position "])) appendWithInt:position_])) appendWithNSString:@": "])) appendWithId:unexpectedObject_];
     break;
     default:
-    [((JavaLangStringBuffer *) nil_chk([((JavaLangStringBuffer *) nil_chk([sb appendWithNSString:@"Unkown error at position "])) appendWithInt:position_])) appendWithNSString:@"."];
+    (void) [((JavaLangStringBuffer *) nil_chk([((JavaLangStringBuffer *) nil_chk([sb appendWithNSString:@"Unkown error at position "])) appendWithInt:position_])) appendWithNSString:@"."];
     break;
   }
   return [sb description];
-}
-
-- (void)dealloc {
-  RELEASE_(unexpectedObject_);
-  [super dealloc];
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -162,7 +157,7 @@ void OrgMinimaUtilsJsonParserParseException_initWithInt_withInt_withId_(OrgMinim
   JavaLangException_init(self);
   self->position_ = position;
   self->errorType_ = errorType;
-  JreStrongAssign(&self->unexpectedObject_, unexpectedObject);
+  self->unexpectedObject_ = unexpectedObject;
 }
 
 OrgMinimaUtilsJsonParserParseException *new_OrgMinimaUtilsJsonParserParseException_initWithInt_withInt_withId_(jint position, jint errorType, id unexpectedObject) {

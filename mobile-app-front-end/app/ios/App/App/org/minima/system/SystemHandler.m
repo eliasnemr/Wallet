@@ -34,11 +34,6 @@ J2OBJC_FIELD_SETTER(OrgMinimaSystemSystemHandler, mMain_, OrgMinimaSystemMain *)
   return mMain_;
 }
 
-- (void)dealloc {
-  RELEASE_(mMain_);
-  [super dealloc];
-}
-
 + (const J2ObjcClassInfo *)__metadata {
   static J2ObjcMethodInfo methods[] = {
     { NULL, NULL, 0x1, -1, 0, -1, -1, -1, -1 },
@@ -68,7 +63,7 @@ void OrgMinimaSystemSystemHandler_initWithOrgMinimaSystemMain_(OrgMinimaSystemSy
 
 void OrgMinimaSystemSystemHandler_initWithOrgMinimaSystemMain_withNSString_(OrgMinimaSystemSystemHandler *self, OrgMinimaSystemMain *zMain, NSString *zName) {
   OrgMinimaUtilsMessagesMessageProcessor_initWithNSString_(self, zName);
-  JreStrongAssign(&self->mMain_, zMain);
+  self->mMain_ = zMain;
 }
 
 J2OBJC_CLASS_TYPE_LITERAL_SOURCE(OrgMinimaSystemSystemHandler)

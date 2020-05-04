@@ -26,13 +26,13 @@ J2OBJC_IGNORE_DESIGNATED_END
   jint id_ = JavaLangInteger_parseIntWithNSString_(IOSObjectArray_Get(nil_chk(zInput), 1));
   NSString *data = IOSObjectArray_Get(zInput, 2);
   OrgMinimaUtilsMessagesMessage *msg = [self getResponseMessageWithNSString:OrgMinimaSystemBrainsConsensusTxn_CONSENSUS_TXNIMPORT];
-  [((OrgMinimaUtilsMessagesMessage *) nil_chk(msg)) addIntWithNSString:@"transaction" withInt:id_];
-  [msg addStringWithNSString:@"data" withNSString:data];
+  (void) [((OrgMinimaUtilsMessagesMessage *) nil_chk(msg)) addIntWithNSString:@"transaction" withInt:id_];
+  (void) [msg addStringWithNSString:@"data" withNSString:data];
   [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getConsensusHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:msg];
 }
 
 - (OrgMinimaSystemInputCommandFunction *)getNewFunction {
-  return create_OrgMinimaSystemInputFunctionsTxnstxnimport_init();
+  return new_OrgMinimaSystemInputFunctionsTxnstxnimport_init();
 }
 
 + (const J2ObjcClassInfo *)__metadata {

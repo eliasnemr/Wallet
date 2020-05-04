@@ -31,21 +31,21 @@ J2OBJC_IGNORE_DESIGNATED_END
   jint end = [((OrgMinimaObjectsBaseMiniNumber *) nil_chk([((OrgMinimaKissvmValuesValue *) nil_chk([((id<OrgMinimaKissvmExpressionsExpression>) nil_chk([self getParameterWithInt:1])) getValueWithOrgMinimaKissvmContract:zContract])) getNumber])) getAsInt];
   jint len = end - start;
   IOSByteArray *orig = [((OrgMinimaKissvmValuesValue *) nil_chk([((id<OrgMinimaKissvmExpressionsExpression>) nil_chk([self getParameterWithInt:2])) getValueWithOrgMinimaKissvmContract:zContract])) getRawData];
-  IOSByteArray *subs = [IOSByteArray arrayWithLength:len];
+  IOSByteArray *subs = [IOSByteArray newArrayWithLength:len];
   JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(orig, start, subs, 0, len);
   if (type == OrgMinimaKissvmValuesHEXValue_VALUE_HEX) {
-    return create_OrgMinimaKissvmValuesHEXValue_initWithByteArray_(subs);
+    return new_OrgMinimaKissvmValuesHEXValue_initWithByteArray_(subs);
   }
   else if (type == OrgMinimaKissvmValuesScriptValue_VALUE_SCRIPT) {
-    return create_OrgMinimaKissvmValuesScriptValue_initWithNSString_([NSString java_stringWithBytes:subs]);
+    return new_OrgMinimaKissvmValuesScriptValue_initWithNSString_([NSString java_stringWithBytes:subs]);
   }
   else {
-    @throw create_OrgMinimaKissvmExceptionsExecutionException_initWithNSString_(JreStrcat("$I$$", @"Invaid Value Type in SUBSET ", type, @") ", [((id<OrgMinimaKissvmExpressionsExpression>) nil_chk([self getParameterWithInt:2])) description]));
+    @throw new_OrgMinimaKissvmExceptionsExecutionException_initWithNSString_(JreStrcat("$I$$", @"Invaid Value Type in SUBSET ", type, @") ", [((id<OrgMinimaKissvmExpressionsExpression>) nil_chk([self getParameterWithInt:2])) description]));
   }
 }
 
 - (OrgMinimaKissvmFunctionsMinimaFunction *)getNewFunction {
-  return create_OrgMinimaKissvmFunctionsBaseSUBSET_init();
+  return new_OrgMinimaKissvmFunctionsBaseSUBSET_init();
 }
 
 + (const J2ObjcClassInfo *)__metadata {

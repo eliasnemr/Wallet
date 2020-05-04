@@ -23,12 +23,12 @@ J2OBJC_IGNORE_DESIGNATED_END
 - (void)doFunctionWithNSStringArray:(IOSObjectArray *)zInput {
   NSString *uuid = IOSObjectArray_Get(nil_chk(zInput), 1);
   OrgMinimaUtilsMessagesMessage *connect = [self getResponseMessageWithNSString:OrgMinimaSystemNetworkNetworkHandler_NETWORK_WEBPROXY];
-  [((OrgMinimaUtilsMessagesMessage *) nil_chk(connect)) addStringWithNSString:@"uuid" withNSString:uuid];
+  (void) [((OrgMinimaUtilsMessagesMessage *) nil_chk(connect)) addStringWithNSString:@"uuid" withNSString:uuid];
   [((OrgMinimaSystemNetworkNetworkHandler *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getNetworkHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:connect];
 }
 
 - (OrgMinimaSystemInputCommandFunction *)getNewFunction {
-  return create_OrgMinimaSystemInputFunctionsweblink_init();
+  return new_OrgMinimaSystemInputFunctionsweblink_init();
 }
 
 + (const J2ObjcClassInfo *)__metadata {

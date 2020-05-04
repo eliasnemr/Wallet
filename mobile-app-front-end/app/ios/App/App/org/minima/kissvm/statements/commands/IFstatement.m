@@ -27,7 +27,6 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (void)executeWithOrgMinimaKissvmContract:(OrgMinimaKissvmContract *)zContract {
-  [((OrgMinimaKissvmContract *) nil_chk(zContract)) traceLogWithNSString:[self description]];
   jint size = [((JavaUtilArrayList *) nil_chk(mConditions_)) size];
   for (jint loop = 0; loop < size; loop++) {
     id<OrgMinimaKissvmExpressionsExpression> conditional = [((JavaUtilArrayList *) nil_chk(mConditions_)) getWithInt:loop];
@@ -48,16 +47,10 @@ J2OBJC_IGNORE_DESIGNATED_END
       ret = JreStrcat("$@", @"IF ", conditional);
     }
     else {
-      JreStrAppend(&ret, "$@", @", ELSEIF ", conditional);
+      (void) JreStrAppendStrong(&ret, "$@", @", ELSEIF ", conditional);
     }
   }
   return ret;
-}
-
-- (void)dealloc {
-  RELEASE_(mConditions_);
-  RELEASE_(mActions_);
-  [super dealloc];
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -88,8 +81,8 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 void OrgMinimaKissvmStatementsCommandsIFstatement_init(OrgMinimaKissvmStatementsCommandsIFstatement *self) {
   NSObject_init(self);
-  JreStrongAssignAndConsume(&self->mConditions_, new_JavaUtilArrayList_init());
-  JreStrongAssignAndConsume(&self->mActions_, new_JavaUtilArrayList_init());
+  self->mConditions_ = new_JavaUtilArrayList_init();
+  self->mActions_ = new_JavaUtilArrayList_init();
 }
 
 OrgMinimaKissvmStatementsCommandsIFstatement *new_OrgMinimaKissvmStatementsCommandsIFstatement_init() {

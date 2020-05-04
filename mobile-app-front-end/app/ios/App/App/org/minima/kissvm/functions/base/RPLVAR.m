@@ -31,7 +31,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   jint len = [search java_length];
   jint index = [((NSString *) nil_chk(ss)) java_indexOfString:search];
   if (index == -1) {
-    return create_OrgMinimaKissvmValuesScriptValue_initWithNSString_(ss);
+    return new_OrgMinimaKissvmValuesScriptValue_initWithNSString_(ss);
   }
   jint start = index + len;
   jint end = [((NSString *) nil_chk([script description])) java_length];
@@ -50,13 +50,13 @@ J2OBJC_IGNORE_DESIGNATED_END
     }
   }
   NSString *ret = [ss java_substring:0 endIndex:start];
-  JreStrAppend(&ret, "C$C", ' ', [((OrgMinimaKissvmValuesScriptValue *) nil_chk(exp)) description], ' ');
-  JreStrAppend(&ret, "$", [ss java_substring:end]);
-  return create_OrgMinimaKissvmValuesScriptValue_initWithNSString_(ret);
+  (void) JreStrAppendStrong(&ret, "C$C", ' ', [((OrgMinimaKissvmValuesScriptValue *) nil_chk(exp)) description], ' ');
+  (void) JreStrAppendStrong(&ret, "$", [ss java_substring:end]);
+  return new_OrgMinimaKissvmValuesScriptValue_initWithNSString_(ret);
 }
 
 - (OrgMinimaKissvmFunctionsMinimaFunction *)getNewFunction {
-  return create_OrgMinimaKissvmFunctionsBaseRPLVAR_init();
+  return new_OrgMinimaKissvmFunctionsBaseRPLVAR_init();
 }
 
 + (const J2ObjcClassInfo *)__metadata {

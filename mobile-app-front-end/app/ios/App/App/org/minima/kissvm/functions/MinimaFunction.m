@@ -77,7 +77,7 @@ IOSObjectArray *OrgMinimaKissvmFunctionsMinimaFunction_ALL_FUNCTIONS;
 
 - (id<OrgMinimaKissvmExpressionsExpression>)getParameterWithInt:(jint)zParamNum {
   if (zParamNum >= [self getParameterNum]) {
-    @throw create_OrgMinimaKissvmExceptionsExecutionException_initWithNSString_(JreStrcat("$$$I", @"Parameter missing for ", [self getName], @" num:", zParamNum));
+    @throw new_OrgMinimaKissvmExceptionsExecutionException_initWithNSString_(JreStrcat("$$$I", @"Parameter missing for ", [self getName], @" num:", zParamNum));
   }
   return [((JavaUtilArrayList *) nil_chk(mParameters_)) getWithInt:zParamNum];
 }
@@ -108,12 +108,6 @@ IOSObjectArray *OrgMinimaKissvmFunctionsMinimaFunction_ALL_FUNCTIONS;
 
 + (OrgMinimaKissvmFunctionsMinimaFunction *)getFunctionWithNSString:(NSString *)zFunction {
   return OrgMinimaKissvmFunctionsMinimaFunction_getFunctionWithNSString_(zFunction);
-}
-
-- (void)dealloc {
-  RELEASE_(mName_);
-  RELEASE_(mParameters_);
-  [super dealloc];
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -153,7 +147,7 @@ IOSObjectArray *OrgMinimaKissvmFunctionsMinimaFunction_ALL_FUNCTIONS;
 
 + (void)initialize {
   if (self == [OrgMinimaKissvmFunctionsMinimaFunction class]) {
-    JreStrongAssignAndConsume(&OrgMinimaKissvmFunctionsMinimaFunction_ALL_FUNCTIONS, [IOSObjectArray newArrayWithObjects:(id[]){ create_OrgMinimaKissvmFunctionsBaseSTRCAT_init(), create_OrgMinimaKissvmFunctionsBaseHEXCAT_init(), create_OrgMinimaKissvmFunctionsBaseLEN_init(), create_OrgMinimaKissvmFunctionsBaseRPLVAR_init(), create_OrgMinimaKissvmFunctionsBaseREV_init(), create_OrgMinimaKissvmFunctionsBaseSUBSET_init(), create_OrgMinimaKissvmFunctionsBaseGET_init(), create_OrgMinimaKissvmFunctionsCastBOOL_init(), create_OrgMinimaKissvmFunctionsCastNUMBER_init(), create_OrgMinimaKissvmFunctionsCastHEX_init(), create_OrgMinimaKissvmFunctionsCastSCRIPT_init(), create_OrgMinimaKissvmFunctionsCastASCII_init(), create_OrgMinimaKissvmFunctionsMathsABS_init(), create_OrgMinimaKissvmFunctionsMathsCEIL_init(), create_OrgMinimaKissvmFunctionsMathsFLOOR_init(), create_OrgMinimaKissvmFunctionsMathsMAX_init(), create_OrgMinimaKissvmFunctionsMathsMIN_init(), create_OrgMinimaKissvmFunctionsMathsDEC_init(), create_OrgMinimaKissvmFunctionsMathsINC_init(), create_OrgMinimaKissvmFunctionsMathsSIGDIG_init(), create_OrgMinimaKissvmFunctionsMathsPOW_init(), create_OrgMinimaKissvmFunctionsShaSHA3_init(), create_OrgMinimaKissvmFunctionsShaSHA2_init(), create_OrgMinimaKissvmFunctionsShaCHAINSHA_init(), create_OrgMinimaKissvmFunctionsMathsBITSET_init(), create_OrgMinimaKissvmFunctionsMathsBITGET_init(), create_OrgMinimaKissvmFunctionsSigsSIGNEDBY_init(), create_OrgMinimaKissvmFunctionsSigsMULTISIG_init(), create_OrgMinimaKissvmFunctionsSigsCHECKSIG_init(), create_OrgMinimaKissvmFunctionsTxnOutputGETOUTADDR_init(), create_OrgMinimaKissvmFunctionsTxnOutputGETOUTAMT_init(), create_OrgMinimaKissvmFunctionsTxnOutputGETOUTTOK_init(), create_OrgMinimaKissvmFunctionsTxnOutputVERIFYOUT_init(), create_OrgMinimaKissvmFunctionsStateSTATE_init(), create_OrgMinimaKissvmFunctionsStatePREVSTATE_init(), create_OrgMinimaKissvmFunctionsStateSAMESTATE_init(), create_OrgMinimaKissvmFunctionsStateDYNSTATE_init() } count:37 type:OrgMinimaKissvmFunctionsMinimaFunction_class_()]);
+    OrgMinimaKissvmFunctionsMinimaFunction_ALL_FUNCTIONS = [IOSObjectArray newArrayWithObjects:(id[]){ create_OrgMinimaKissvmFunctionsBaseSTRCAT_init(), create_OrgMinimaKissvmFunctionsBaseHEXCAT_init(), create_OrgMinimaKissvmFunctionsBaseLEN_init(), create_OrgMinimaKissvmFunctionsBaseRPLVAR_init(), create_OrgMinimaKissvmFunctionsBaseREV_init(), create_OrgMinimaKissvmFunctionsBaseSUBSET_init(), create_OrgMinimaKissvmFunctionsBaseGET_init(), create_OrgMinimaKissvmFunctionsCastBOOL_init(), create_OrgMinimaKissvmFunctionsCastNUMBER_init(), create_OrgMinimaKissvmFunctionsCastHEX_init(), create_OrgMinimaKissvmFunctionsCastSCRIPT_init(), create_OrgMinimaKissvmFunctionsCastASCII_init(), create_OrgMinimaKissvmFunctionsMathsABS_init(), create_OrgMinimaKissvmFunctionsMathsCEIL_init(), create_OrgMinimaKissvmFunctionsMathsFLOOR_init(), create_OrgMinimaKissvmFunctionsMathsMAX_init(), create_OrgMinimaKissvmFunctionsMathsMIN_init(), create_OrgMinimaKissvmFunctionsMathsDEC_init(), create_OrgMinimaKissvmFunctionsMathsINC_init(), create_OrgMinimaKissvmFunctionsMathsSIGDIG_init(), create_OrgMinimaKissvmFunctionsMathsPOW_init(), create_OrgMinimaKissvmFunctionsShaSHA3_init(), create_OrgMinimaKissvmFunctionsShaSHA2_init(), create_OrgMinimaKissvmFunctionsShaCHAINSHA_init(), create_OrgMinimaKissvmFunctionsMathsBITSET_init(), create_OrgMinimaKissvmFunctionsMathsBITGET_init(), create_OrgMinimaKissvmFunctionsSigsSIGNEDBY_init(), create_OrgMinimaKissvmFunctionsSigsMULTISIG_init(), create_OrgMinimaKissvmFunctionsSigsCHECKSIG_init(), create_OrgMinimaKissvmFunctionsTxnOutputGETOUTADDR_init(), create_OrgMinimaKissvmFunctionsTxnOutputGETOUTAMT_init(), create_OrgMinimaKissvmFunctionsTxnOutputGETOUTTOK_init(), create_OrgMinimaKissvmFunctionsTxnOutputVERIFYOUT_init(), create_OrgMinimaKissvmFunctionsStateSTATE_init(), create_OrgMinimaKissvmFunctionsStatePREVSTATE_init(), create_OrgMinimaKissvmFunctionsStateSAMESTATE_init(), create_OrgMinimaKissvmFunctionsStateDYNSTATE_init() } count:37 type:OrgMinimaKissvmFunctionsMinimaFunction_class_()];
     J2OBJC_SET_INITIALIZED(OrgMinimaKissvmFunctionsMinimaFunction)
   }
 }
@@ -162,8 +156,8 @@ IOSObjectArray *OrgMinimaKissvmFunctionsMinimaFunction_ALL_FUNCTIONS;
 
 void OrgMinimaKissvmFunctionsMinimaFunction_initWithNSString_(OrgMinimaKissvmFunctionsMinimaFunction *self, NSString *zName) {
   NSObject_init(self);
-  JreStrongAssign(&self->mName_, [((NSString *) nil_chk(zName)) uppercaseString]);
-  JreStrongAssignAndConsume(&self->mParameters_, new_JavaUtilArrayList_init());
+  self->mName_ = [((NSString *) nil_chk(zName)) uppercaseString];
+  self->mParameters_ = new_JavaUtilArrayList_init();
 }
 
 OrgMinimaKissvmFunctionsMinimaFunction *OrgMinimaKissvmFunctionsMinimaFunction_getFunctionWithNSString_(NSString *zFunction) {
@@ -179,7 +173,7 @@ OrgMinimaKissvmFunctionsMinimaFunction *OrgMinimaKissvmFunctionsMinimaFunction_g
       }
     }
   }
-  @throw create_OrgMinimaKissvmExceptionsMinimaParseException_initWithNSString_(JreStrcat("$$", @"Invalid Function : ", zFunction));
+  @throw new_OrgMinimaKissvmExceptionsMinimaParseException_initWithNSString_(JreStrcat("$$", @"Invalid Function : ", zFunction));
 }
 
 J2OBJC_CLASS_TYPE_LITERAL_SOURCE(OrgMinimaKissvmFunctionsMinimaFunction)

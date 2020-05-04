@@ -27,7 +27,7 @@ J2OBJC_IGNORE_DESIGNATED_BEGIN
 J2OBJC_IGNORE_DESIGNATED_END
 
 - (void)PostMessageWithNSString:(NSString *)zMessage {
-  [self PostMessageWithOrgMinimaUtilsMessagesMessage:create_OrgMinimaUtilsMessagesMessage_initWithNSString_(zMessage)];
+  [self PostMessageWithOrgMinimaUtilsMessagesMessage:new_OrgMinimaUtilsMessagesMessage_initWithNSString_(zMessage)];
 }
 
 - (void)PostMessageWithOrgMinimaUtilsMessagesMessage:(OrgMinimaUtilsMessagesMessage *)zMessage {
@@ -41,9 +41,9 @@ J2OBJC_IGNORE_DESIGNATED_END
     if (![((JavaUtilLinkedList *) nil_chk(mMessages_)) isEmpty]) {
       OrgMinimaUtilsMessagesMessage *msg = [((JavaUtilLinkedList *) nil_chk(mMessages_)) getFirst];
       [((JavaUtilLinkedList *) nil_chk(mMessages_)) removeWithId:msg];
-      return JreRetainedLocalValue(msg);
+      return msg;
     }
-    return JreRetainedLocalValue(nil);
+    return nil;
   }
 }
 
@@ -51,11 +51,6 @@ J2OBJC_IGNORE_DESIGNATED_END
   @synchronized(self) {
     return [((JavaUtilLinkedList *) nil_chk(mMessages_)) size];
   }
-}
-
-- (void)dealloc {
-  RELEASE_(mMessages_);
-  [super dealloc];
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -87,7 +82,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 void OrgMinimaUtilsMessagesMessageStack_init(OrgMinimaUtilsMessagesMessageStack *self) {
   NSObject_init(self);
-  JreStrongAssignAndConsume(&self->mMessages_, new_JavaUtilLinkedList_init());
+  self->mMessages_ = new_JavaUtilLinkedList_init();
 }
 
 OrgMinimaUtilsMessagesMessageStack *new_OrgMinimaUtilsMessagesMessageStack_init() {

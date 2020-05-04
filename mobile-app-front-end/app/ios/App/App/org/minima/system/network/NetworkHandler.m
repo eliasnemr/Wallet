@@ -15,7 +15,7 @@
 #include "org/minima/system/network/MultiServer.h"
 #include "org/minima/system/network/NetClient.h"
 #include "org/minima/system/network/NetworkHandler.h"
-#include "org/minima/system/network/WebProxyManager.h"
+#include "org/minima/system/network/minidapps/DAPPManager.h"
 #include "org/minima/system/network/rpc/RPCClient.h"
 #include "org/minima/system/network/rpc/RPCServer.h"
 #include "org/minima/utils/MinimaLogger.h"
@@ -60,9 +60,9 @@ NSString *OrgMinimaSystemNetworkNetworkHandler_NETWORK_NOTIFY = @"NETWORK_NOTIFY
 }
 
 - (void)setProxyWithNSString:(NSString *)zProxy {
-  JreStrongAssign(&mMifiProxy_, zProxy);
+  mMifiProxy_ = zProxy;
   if (![((NSString *) nil_chk(mMifiProxy_)) java_hasSuffix:@"/"]) {
-    JreStrAppendStrong(&mMifiProxy_, "$", @"/");
+    (void) JreStrAppendStrong(&mMifiProxy_, "$", @"/");
   }
 }
 
@@ -75,12 +75,13 @@ NSString *OrgMinimaSystemNetworkNetworkHandler_NETWORK_NOTIFY = @"NETWORK_NOTIFY
     OrgMinimaUtilsMinimaLogger_logWithNSString_(@"Network Startup..");
     jint port = [zMessage getIntegerWithNSString:@"port"];
     jint rpcport = [zMessage getIntegerWithNSString:@"rpcport"];
-    JreStrongAssignAndConsume(&mServer_, new_OrgMinimaSystemNetworkMultiServer_initWithOrgMinimaSystemNetworkNetworkHandler_withInt_(self, port));
-    JavaLangThread *multimain = create_JavaLangThread_initWithJavaLangRunnable_(mServer_);
+    mServer_ = new_OrgMinimaSystemNetworkMultiServer_initWithOrgMinimaSystemNetworkNetworkHandler_withInt_(self, port);
+    JavaLangThread *multimain = new_JavaLangThread_initWithJavaLangRunnable_(mServer_);
     [multimain start];
-    JreStrongAssignAndConsume(&mRPCServer_, new_OrgMinimaSystemNetworkRpcRPCServer_initWithOrgMinimaSystemInputInputHandler_withInt_([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getInputHandler], rpcport));
-    JavaLangThread *rpc = create_JavaLangThread_initWithJavaLangRunnable_(mRPCServer_);
+    mRPCServer_ = new_OrgMinimaSystemNetworkRpcRPCServer_initWithOrgMinimaSystemInputInputHandler_withInt_([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getInputHandler], rpcport);
+    JavaLangThread *rpc = new_JavaLangThread_initWithJavaLangRunnable_(mRPCServer_);
     [rpc start];
+    mDAPPManager_ = new_OrgMinimaSystemNetworkMinidappsDAPPManager_initWithOrgMinimaSystemMain_withInt_([self getMainHandler], 21000);
     OrgMinimaUtilsMinimaLogger_logWithNSString_(JreStrcat("$$", @"MiFi proxy set : ", mMifiProxy_));
   }
   else if ([zMessage isMessageTypeWithNSString:OrgMinimaSystemNetworkNetworkHandler_NETWORK_SHUTDOWN]) {
@@ -94,7 +95,12 @@ NSString *OrgMinimaSystemNetworkNetworkHandler_NETWORK_NOTIFY = @"NETWORK_NOTIFY
     }
     @catch (JavaLangException *exc) {
     }
-    OrgMinimaUtilsMessagesMessage *msg = create_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemNetworkNetClient_NETCLIENT_SHUTDOWN);
+    @try {
+      [((OrgMinimaSystemNetworkMinidappsDAPPManager *) nil_chk(mDAPPManager_)) stop];
+    }
+    @catch (JavaLangException *exc) {
+    }
+    OrgMinimaUtilsMessagesMessage *msg = new_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemNetworkNetClient_NETCLIENT_SHUTDOWN);
     for (OrgMinimaSystemNetworkNetClient * __strong client in nil_chk(mClients_)) {
       [((OrgMinimaSystemNetworkNetClient *) nil_chk(client)) stopMessageProcessor];
     }
@@ -111,21 +117,21 @@ NSString *OrgMinimaSystemNetworkNetworkHandler_NETWORK_NOTIFY = @"NETWORK_NOTIFY
       resp = OrgMinimaSystemNetworkRpcRPCClient_sendGETWithNSString_(url);
     }
     @catch (JavaIoIOException *exc) {
-      [((OrgMinimaUtilsJsonJSONObject *) nil_chk(OrgMinimaSystemInputInputHandler_getResponseJSONWithOrgMinimaUtilsMessagesMessage_(zMessage))) putWithId:@"url" withId:url];
-      [((OrgMinimaUtilsJsonJSONObject *) nil_chk(OrgMinimaSystemInputInputHandler_getResponseJSONWithOrgMinimaUtilsMessagesMessage_(zMessage))) putWithId:@"resp" withId:exc];
+      (void) [((OrgMinimaUtilsJsonJSONObject *) nil_chk(OrgMinimaSystemInputInputHandler_getResponseJSONWithOrgMinimaUtilsMessagesMessage_(zMessage))) putWithId:@"url" withId:url];
+      (void) [((OrgMinimaUtilsJsonJSONObject *) nil_chk(OrgMinimaSystemInputInputHandler_getResponseJSONWithOrgMinimaUtilsMessagesMessage_(zMessage))) putWithId:@"resp" withId:exc];
       OrgMinimaSystemInputInputHandler_endResponseWithOrgMinimaUtilsMessagesMessage_withBoolean_withNSString_(zMessage, true, @"");
       return;
     }
-    [((OrgMinimaUtilsJsonJSONObject *) nil_chk(OrgMinimaSystemInputInputHandler_getResponseJSONWithOrgMinimaUtilsMessagesMessage_(zMessage))) putWithId:@"url" withId:url];
-    [((OrgMinimaUtilsJsonJSONObject *) nil_chk(OrgMinimaSystemInputInputHandler_getResponseJSONWithOrgMinimaUtilsMessagesMessage_(zMessage))) putWithId:@"resp" withId:resp];
+    (void) [((OrgMinimaUtilsJsonJSONObject *) nil_chk(OrgMinimaSystemInputInputHandler_getResponseJSONWithOrgMinimaUtilsMessagesMessage_(zMessage))) putWithId:@"url" withId:url];
+    (void) [((OrgMinimaUtilsJsonJSONObject *) nil_chk(OrgMinimaSystemInputInputHandler_getResponseJSONWithOrgMinimaUtilsMessagesMessage_(zMessage))) putWithId:@"resp" withId:resp];
     OrgMinimaSystemInputInputHandler_endResponseWithOrgMinimaUtilsMessagesMessage_withBoolean_withNSString_(zMessage, true, @"");
   }
   else if ([zMessage isMessageTypeWithNSString:OrgMinimaSystemNetworkNetworkHandler_NETWORK_CONNECT]) {
     NSString *host = [zMessage getStringWithNSString:@"host"];
     jint port = [zMessage getIntegerWithNSString:@"port"];
     OrgMinimaUtilsMinimaLogger_logWithNSString_(JreStrcat("$$CI", @"Attempting to connect to ", host, ':', port));
-    OrgMinimaSystemNetworkNetClient *client = create_OrgMinimaSystemNetworkNetClient_initWithNSString_withInt_withOrgMinimaSystemNetworkNetworkHandler_(host, port, self);
-    [self PostMessageWithOrgMinimaUtilsMessagesMessage:[create_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemNetworkNetworkHandler_NETWORK_NEWCLIENT) addObjectWithNSString:@"client" withId:client]];
+    OrgMinimaSystemNetworkNetClient *client = new_OrgMinimaSystemNetworkNetClient_initWithNSString_withInt_withOrgMinimaSystemNetworkNetworkHandler_(host, port, self);
+    [self PostMessageWithOrgMinimaUtilsMessagesMessage:[new_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemNetworkNetworkHandler_NETWORK_NEWCLIENT) addObjectWithNSString:@"client" withId:client]];
   }
   else if ([zMessage isMessageTypeWithNSString:OrgMinimaSystemNetworkNetworkHandler_NETWORK_DISCONNECT]) {
     NSString *uid = [zMessage getStringWithNSString:@"uid"];
@@ -147,14 +153,14 @@ NSString *OrgMinimaSystemNetworkNetworkHandler_NETWORK_NOTIFY = @"NETWORK_NOTIFY
     if (reconnect && mGlobalReconnect_) {
       NSString *host = [client getHost];
       jint port = [client getPort];
-      OrgMinimaUtilsMessagesTimerMessage *recon = create_OrgMinimaUtilsMessagesTimerMessage_initWithInt_withNSString_(30000, OrgMinimaSystemNetworkNetworkHandler_NETWORK_CONNECT);
-      [recon addStringWithNSString:@"host" withNSString:host];
-      [recon addIntWithNSString:@"port" withInt:port];
+      OrgMinimaUtilsMessagesTimerMessage *recon = new_OrgMinimaUtilsMessagesTimerMessage_initWithInt_withNSString_(30000, OrgMinimaSystemNetworkNetworkHandler_NETWORK_CONNECT);
+      (void) [recon addStringWithNSString:@"host" withNSString:host];
+      (void) [recon addIntWithNSString:@"port" withInt:port];
       OrgMinimaUtilsMinimaLogger_logWithNSString_(JreStrcat("$$CI$", @"Attempting reconnect to ", host, ':', port, @" in 30s.."));
       [self PostTimerMessageWithOrgMinimaUtilsMessagesTimerMessage:recon];
     }
     [((JavaUtilArrayList *) nil_chk(mClients_)) removeWithId:client];
-    [client PostMessageWithOrgMinimaUtilsMessagesMessage:create_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemNetworkNetClient_NETCLIENT_SHUTDOWN)];
+    [client PostMessageWithOrgMinimaUtilsMessagesMessage:new_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemNetworkNetClient_NETCLIENT_SHUTDOWN)];
   }
   else if ([zMessage isMessageTypeWithNSString:OrgMinimaSystemNetworkNetworkHandler_NETWORK_TRACE]) {
     jboolean traceon = [zMessage getBooleanWithNSString:@"trace"];
@@ -175,15 +181,6 @@ NSString *OrgMinimaSystemNetworkNetworkHandler_NETWORK_NOTIFY = @"NETWORK_NOTIFY
 
 - (JavaUtilArrayList *)getNetClients {
   return mClients_;
-}
-
-- (void)dealloc {
-  RELEASE_(mServer_);
-  RELEASE_(mRPCServer_);
-  RELEASE_(mProxyManager_);
-  RELEASE_(mClients_);
-  RELEASE_(mMifiProxy_);
-  [super dealloc];
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -224,7 +221,7 @@ NSString *OrgMinimaSystemNetworkNetworkHandler_NETWORK_NOTIFY = @"NETWORK_NOTIFY
     { "NETWORK_NOTIFY", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 21, -1, -1 },
     { "mServer_", "LOrgMinimaSystemNetworkMultiServer;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mRPCServer_", "LOrgMinimaSystemNetworkRpcRPCServer;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
-    { "mProxyManager_", "LOrgMinimaSystemNetworkWebProxyManager;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
+    { "mDAPPManager_", "LOrgMinimaSystemNetworkMinidappsDAPPManager;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mClients_", "LJavaUtilArrayList;", .constantValue.asLong = 0, 0x0, -1, -1, 22, -1 },
     { "mGlobalReconnect_", "Z", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mMifiProxy_", "LNSString;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
@@ -238,9 +235,9 @@ NSString *OrgMinimaSystemNetworkNetworkHandler_NETWORK_NOTIFY = @"NETWORK_NOTIFY
 
 void OrgMinimaSystemNetworkNetworkHandler_initWithOrgMinimaSystemMain_(OrgMinimaSystemNetworkNetworkHandler *self, OrgMinimaSystemMain *zMain) {
   OrgMinimaSystemSystemHandler_initWithOrgMinimaSystemMain_withNSString_(self, zMain, @"NETWORK");
-  JreStrongAssignAndConsume(&self->mClients_, new_JavaUtilArrayList_init());
+  self->mClients_ = new_JavaUtilArrayList_init();
   self->mGlobalReconnect_ = true;
-  JreStrongAssign(&self->mMifiProxy_, @"http://mifi.minima.global:9000/");
+  self->mMifiProxy_ = @"http://mifi.minima.global:9000/";
 }
 
 OrgMinimaSystemNetworkNetworkHandler *new_OrgMinimaSystemNetworkNetworkHandler_initWithOrgMinimaSystemMain_(OrgMinimaSystemMain *zMain) {

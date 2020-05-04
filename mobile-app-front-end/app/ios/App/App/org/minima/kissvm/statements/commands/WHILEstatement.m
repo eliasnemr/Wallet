@@ -20,20 +20,12 @@
 
 - (void)executeWithOrgMinimaKissvmContract:(OrgMinimaKissvmContract *)zContract {
   while ([((OrgMinimaKissvmValuesValue *) nil_chk([((id<OrgMinimaKissvmExpressionsExpression>) nil_chk(mWhileCheck_)) getValueWithOrgMinimaKissvmContract:zContract])) isTrue]) {
-    [((OrgMinimaKissvmContract *) nil_chk(zContract)) traceLogWithNSString:JreStrcat("$$", [self description], @" result:true")];
     [((OrgMinimaKissvmStatementsStatementBlock *) nil_chk(mWhileBlock_)) runWithOrgMinimaKissvmContract:zContract];
   }
-  [((OrgMinimaKissvmContract *) nil_chk(zContract)) traceLogWithNSString:JreStrcat("$$", [self description], @" result:false")];
 }
 
 - (NSString *)description {
   return JreStrcat("$@", @"WHILE ", mWhileCheck_);
-}
-
-- (void)dealloc {
-  RELEASE_(mWhileCheck_);
-  RELEASE_(mWhileBlock_);
-
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -62,8 +54,8 @@
 
 void OrgMinimaKissvmStatementsCommandsWHILEstatement_initWithOrgMinimaKissvmExpressionsExpression_withOrgMinimaKissvmStatementsStatementBlock_(OrgMinimaKissvmStatementsCommandsWHILEstatement *self, id<OrgMinimaKissvmExpressionsExpression> zWhileCheck, OrgMinimaKissvmStatementsStatementBlock *zCodeBlock) {
   NSObject_init(self);
-  JreStrongAssign(&self->mWhileCheck_, zWhileCheck);
-  JreStrongAssign(&self->mWhileBlock_, zCodeBlock);
+  self->mWhileCheck_ = zWhileCheck;
+  self->mWhileBlock_ = zCodeBlock;
 }
 
 OrgMinimaKissvmStatementsCommandsWHILEstatement *new_OrgMinimaKissvmStatementsCommandsWHILEstatement_initWithOrgMinimaKissvmExpressionsExpression_withOrgMinimaKissvmStatementsStatementBlock_(id<OrgMinimaKissvmExpressionsExpression> zWhileCheck, OrgMinimaKissvmStatementsStatementBlock *zCodeBlock) {

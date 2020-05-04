@@ -74,18 +74,18 @@ OrgMinimaSystemNetworkRpcRPCClient *create_OrgMinimaSystemNetworkRpcRPCClient_in
 
 NSString *OrgMinimaSystemNetworkRpcRPCClient_sendGETWithNSString_(NSString *zHost) {
   OrgMinimaSystemNetworkRpcRPCClient_initialize();
-  JavaNetURL *obj = create_JavaNetURL_initWithNSString_(zHost);
+  JavaNetURL *obj = new_JavaNetURL_initWithNSString_(zHost);
   JavaNetHttpURLConnection *con = (JavaNetHttpURLConnection *) cast_chk([obj openConnection], [JavaNetHttpURLConnection class]);
   [((JavaNetHttpURLConnection *) nil_chk(con)) setRequestMethodWithNSString:@"GET"];
   [con setRequestPropertyWithNSString:@"User-Agent" withNSString:OrgMinimaSystemNetworkRpcRPCClient_USER_AGENT];
   jint responseCode = [con getResponseCode];
-  JavaLangStringBuffer *response = create_JavaLangStringBuffer_init();
+  JavaLangStringBuffer *response = new_JavaLangStringBuffer_init();
   if (responseCode == JavaNetHttpURLConnection_HTTP_OK) {
     JavaIoInputStream *is = [con getInputStream];
-    JavaIoBufferedReader *in = create_JavaIoBufferedReader_initWithJavaIoReader_(create_JavaIoInputStreamReader_initWithJavaIoInputStream_(is));
+    JavaIoBufferedReader *in = new_JavaIoBufferedReader_initWithJavaIoReader_(new_JavaIoInputStreamReader_initWithJavaIoInputStream_(is));
     NSString *inputLine;
     while ((inputLine = [in readLine]) != nil) {
-      [response appendWithNSString:inputLine];
+      (void) [response appendWithNSString:inputLine];
     }
     [in close];
     [((JavaIoInputStream *) nil_chk(is)) close];

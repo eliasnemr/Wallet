@@ -130,15 +130,15 @@ OrgMinimaUtilsBrettyTreePrinter *create_OrgMinimaUtilsBrettyTreePrinter_init() {
 
 void OrgMinimaUtilsBrettyTreePrinter_processWithOrgMinimaUtilsBrettyPrintableTreeNode_withNSString_withBoolean_withBoolean_withJavaLangStringBuilder_(id<OrgMinimaUtilsBrettyPrintableTreeNode> current, NSString *prefix, jboolean isRoot, jboolean lastInPeers, JavaLangStringBuilder *stringBuilder) {
   OrgMinimaUtilsBrettyTreePrinter_initialize();
-  [((JavaLangStringBuilder *) nil_chk(stringBuilder)) appendWithNSString:prefix];
+  (void) [((JavaLangStringBuilder *) nil_chk(stringBuilder)) appendWithNSString:prefix];
   if (!isRoot) {
-    [stringBuilder appendWithNSString:(lastInPeers ? @"\u2514\u2500\u2500 " : @"\u251c\u2500\u2500 ")];
+    (void) [stringBuilder appendWithNSString:(lastInPeers ? @"\u2514\u2500\u2500 " : @"\u251c\u2500\u2500 ")];
   }
   else {
-    [stringBuilder appendWithNSString:@" \u2500\u2500 "];
+    (void) [stringBuilder appendWithNSString:@" \u2500\u2500 "];
   }
-  [stringBuilder appendWithNSString:[((id<OrgMinimaUtilsBrettyPrintableTreeNode>) nil_chk(current)) name]];
-  [stringBuilder appendWithChar:0x000a];
+  (void) [stringBuilder appendWithNSString:[((id<OrgMinimaUtilsBrettyPrintableTreeNode>) nil_chk(current)) name]];
+  (void) [stringBuilder appendWithChar:0x000a];
   id<JavaUtilList> children = [current children];
   NSString *indentation = isRoot ? @"    " : @"    ";
   for (jint i = 0; i < [((id<JavaUtilList>) nil_chk(children)) size] - 1; ++i) {
@@ -151,15 +151,15 @@ void OrgMinimaUtilsBrettyTreePrinter_processWithOrgMinimaUtilsBrettyPrintableTre
 
 void OrgMinimaUtilsBrettyTreePrinter_processWithId_withOrgMinimaUtilsBrettyTreeNodeConverter_withNSString_withBoolean_withBoolean_withJavaLangStringBuilder_(id current, id<OrgMinimaUtilsBrettyTreeNodeConverter> treeNodeConverter, NSString *prefix, jboolean isRoot, jboolean lastInPeers, JavaLangStringBuilder *stringBuilder) {
   OrgMinimaUtilsBrettyTreePrinter_initialize();
-  [((JavaLangStringBuilder *) nil_chk(stringBuilder)) appendWithNSString:prefix];
+  (void) [((JavaLangStringBuilder *) nil_chk(stringBuilder)) appendWithNSString:prefix];
   if (!isRoot) {
-    [stringBuilder appendWithNSString:(lastInPeers ? @"\u2514\u2500\u2500 " : @"\u251c\u2500\u2500 ")];
+    (void) [stringBuilder appendWithNSString:(lastInPeers ? @"\u2514\u2500\u2500 " : @"\u251c\u2500\u2500 ")];
   }
   else {
-    [stringBuilder appendWithNSString:@" \u2500\u2500 "];
+    (void) [stringBuilder appendWithNSString:@" \u2500\u2500 "];
   }
-  [stringBuilder appendWithNSString:[((id<OrgMinimaUtilsBrettyTreeNodeConverter>) nil_chk(treeNodeConverter)) nameWithId:current]];
-  [stringBuilder appendWithChar:0x000a];
+  (void) [stringBuilder appendWithNSString:[((id<OrgMinimaUtilsBrettyTreeNodeConverter>) nil_chk(treeNodeConverter)) nameWithId:current]];
+  (void) [stringBuilder appendWithChar:0x000a];
   id<JavaUtilList> children = [treeNodeConverter childrenWithId:current];
   NSString *indentation = isRoot ? @"    " : @"    ";
   for (jint i = 0; i < [((id<JavaUtilList>) nil_chk(children)) size] - 1; ++i) {
@@ -172,15 +172,15 @@ void OrgMinimaUtilsBrettyTreePrinter_processWithId_withOrgMinimaUtilsBrettyTreeN
 
 NSString *OrgMinimaUtilsBrettyTreePrinter_toStringWithOrgMinimaUtilsBrettyPrintableTreeNode_(id<OrgMinimaUtilsBrettyPrintableTreeNode> root) {
   OrgMinimaUtilsBrettyTreePrinter_initialize();
-  JavaLangStringBuilder *stringBuilder = create_JavaLangStringBuilder_init();
-  id<OrgMinimaUtilsBrettyTreeNodeConverter> converter = create_OrgMinimaUtilsBrettyTreePrinter_1_init();
+  JavaLangStringBuilder *stringBuilder = new_JavaLangStringBuilder_init();
+  id<OrgMinimaUtilsBrettyTreeNodeConverter> converter = new_OrgMinimaUtilsBrettyTreePrinter_1_init();
   OrgMinimaUtilsBrettyTreePrinter_processWithId_withOrgMinimaUtilsBrettyTreeNodeConverter_withNSString_withBoolean_withBoolean_withJavaLangStringBuilder_(root, converter, @"", true, true, stringBuilder);
   return [stringBuilder description];
 }
 
 NSString *OrgMinimaUtilsBrettyTreePrinter_toStringWithId_withOrgMinimaUtilsBrettyTreeNodeConverter_(id root, id<OrgMinimaUtilsBrettyTreeNodeConverter> treeNodeConverter) {
   OrgMinimaUtilsBrettyTreePrinter_initialize();
-  JavaLangStringBuilder *stringBuilder = create_JavaLangStringBuilder_init();
+  JavaLangStringBuilder *stringBuilder = new_JavaLangStringBuilder_init();
   OrgMinimaUtilsBrettyTreePrinter_processWithId_withOrgMinimaUtilsBrettyTreeNodeConverter_withNSString_withBoolean_withBoolean_withJavaLangStringBuilder_(root, treeNodeConverter, @"", true, true, stringBuilder);
   return [stringBuilder description];
 }

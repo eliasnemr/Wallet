@@ -28,14 +28,14 @@ J2OBJC_IGNORE_DESIGNATED_END
     script = IOSObjectArray_Get(zInput, 3);
   }
   OrgMinimaUtilsMessagesMessage *msg = [self getResponseMessageWithNSString:OrgMinimaSystemBrainsConsensusHandler_CONSENSUS_CREATETOKEN];
-  [((OrgMinimaUtilsMessagesMessage *) nil_chk(msg)) addStringWithNSString:@"name" withNSString:name];
-  [msg addStringWithNSString:@"amount" withNSString:amount];
-  [msg addStringWithNSString:@"script" withNSString:script];
+  (void) [((OrgMinimaUtilsMessagesMessage *) nil_chk(msg)) addStringWithNSString:@"name" withNSString:name];
+  (void) [msg addStringWithNSString:@"amount" withNSString:amount];
+  (void) [msg addStringWithNSString:@"script" withNSString:script];
   [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getConsensusHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:msg];
 }
 
 - (OrgMinimaSystemInputCommandFunction *)getNewFunction {
-  return create_OrgMinimaSystemInputFunctionscreatetoken_init();
+  return new_OrgMinimaSystemInputFunctionscreatetoken_init();
 }
 
 + (const J2ObjcClassInfo *)__metadata {

@@ -25,20 +25,20 @@ J2OBJC_IGNORE_DESIGNATED_END
   OrgMinimaUtilsMessagesMessage *msg = [self getResponseMessageWithNSString:OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_PRINTCHAIN_TREE];
   if (((IOSObjectArray *) nil_chk(zInput))->size_ > 1) {
     if ([((NSString *) nil_chk(IOSObjectArray_Get(zInput, 1))) isEqual:@"on"]) {
-      [((OrgMinimaUtilsMessagesMessage *) nil_chk(msg)) addBooleanWithNSString:@"auto" withBoolean:true];
+      (void) [((OrgMinimaUtilsMessagesMessage *) nil_chk(msg)) addBooleanWithNSString:@"auto" withBoolean:true];
     }
     else {
-      [((OrgMinimaUtilsMessagesMessage *) nil_chk(msg)) addBooleanWithNSString:@"auto" withBoolean:false];
+      (void) [((OrgMinimaUtilsMessagesMessage *) nil_chk(msg)) addBooleanWithNSString:@"auto" withBoolean:false];
     }
   }
   else {
-    [((OrgMinimaUtilsMessagesMessage *) nil_chk(msg)) addBooleanWithNSString:@"auto" withBoolean:false];
+    (void) [((OrgMinimaUtilsMessagesMessage *) nil_chk(msg)) addBooleanWithNSString:@"auto" withBoolean:false];
   }
   [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getConsensusHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:msg];
 }
 
 - (OrgMinimaSystemInputCommandFunction *)getNewFunction {
-  return create_OrgMinimaSystemInputFunctionsprinttree_init();
+  return new_OrgMinimaSystemInputFunctionsprinttree_init();
 }
 
 + (const J2ObjcClassInfo *)__metadata {

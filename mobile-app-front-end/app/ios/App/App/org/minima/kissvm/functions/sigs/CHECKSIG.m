@@ -28,13 +28,13 @@ J2OBJC_IGNORE_DESIGNATED_END
   OrgMinimaKissvmValuesHEXValue *pubkey = (OrgMinimaKissvmValuesHEXValue *) cast_chk([((id<OrgMinimaKissvmExpressionsExpression>) nil_chk([self getParameterWithInt:0])) getValueWithOrgMinimaKissvmContract:zContract], [OrgMinimaKissvmValuesHEXValue class]);
   OrgMinimaKissvmValuesHEXValue *data = (OrgMinimaKissvmValuesHEXValue *) cast_chk([((id<OrgMinimaKissvmExpressionsExpression>) nil_chk([self getParameterWithInt:1])) getValueWithOrgMinimaKissvmContract:zContract], [OrgMinimaKissvmValuesHEXValue class]);
   OrgMinimaKissvmValuesHEXValue *sig = (OrgMinimaKissvmValuesHEXValue *) cast_chk([((id<OrgMinimaKissvmExpressionsExpression>) nil_chk([self getParameterWithInt:2])) getValueWithOrgMinimaKissvmContract:zContract], [OrgMinimaKissvmValuesHEXValue class]);
-  OrgMinimaObjectsBaseMiniData *pubk = create_OrgMinimaObjectsBaseMiniData_initWithByteArray_([((OrgMinimaObjectsBaseMiniData *) nil_chk([((OrgMinimaKissvmValuesHEXValue *) nil_chk(pubkey)) getMiniData])) getData]);
-  jboolean ok = OrgMinimaObjectsPubPrivKey_verifyWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniData_(pubk, create_OrgMinimaObjectsBaseMiniData_initWithByteArray_([((OrgMinimaKissvmValuesHEXValue *) nil_chk(data)) getRawData]), [((OrgMinimaKissvmValuesHEXValue *) nil_chk(sig)) getMiniData]);
-  return create_OrgMinimaKissvmValuesBooleanValue_initWithBoolean_(ok);
+  OrgMinimaObjectsBaseMiniData *pubk = new_OrgMinimaObjectsBaseMiniData_initWithByteArray_([((OrgMinimaObjectsBaseMiniData *) nil_chk([((OrgMinimaKissvmValuesHEXValue *) nil_chk(pubkey)) getMiniData])) getData]);
+  jboolean ok = OrgMinimaObjectsPubPrivKey_verifyWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniData_(pubk, new_OrgMinimaObjectsBaseMiniData_initWithByteArray_([((OrgMinimaKissvmValuesHEXValue *) nil_chk(data)) getRawData]), [((OrgMinimaKissvmValuesHEXValue *) nil_chk(sig)) getMiniData]);
+  return new_OrgMinimaKissvmValuesBooleanValue_initWithBoolean_(ok);
 }
 
 - (OrgMinimaKissvmFunctionsMinimaFunction *)getNewFunction {
-  return create_OrgMinimaKissvmFunctionsSigsCHECKSIG_init();
+  return new_OrgMinimaKissvmFunctionsSigsCHECKSIG_init();
 }
 
 + (const J2ObjcClassInfo *)__metadata {

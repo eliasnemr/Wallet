@@ -23,12 +23,12 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 - (OrgMinimaKissvmValuesValue *)runFunctionWithOrgMinimaKissvmContract:(OrgMinimaKissvmContract *)zContract {
   OrgMinimaKissvmValuesValue *hex = [((id<OrgMinimaKissvmExpressionsExpression>) nil_chk([self getParameterWithInt:0])) getValueWithOrgMinimaKissvmContract:zContract];
-  OrgMinimaKissvmValuesNumberValue *num = create_OrgMinimaKissvmValuesNumberValue_initWithOrgMinimaObjectsBaseMiniNumber_([((OrgMinimaKissvmValuesValue *) nil_chk(hex)) getNumber]);
+  OrgMinimaKissvmValuesNumberValue *num = new_OrgMinimaKissvmValuesNumberValue_initWithOrgMinimaObjectsBaseMiniNumber_([((OrgMinimaKissvmValuesValue *) nil_chk(hex)) getNumber]);
   return num;
 }
 
 - (OrgMinimaKissvmFunctionsMinimaFunction *)getNewFunction {
-  return create_OrgMinimaKissvmFunctionsCastNUMBER_init();
+  return new_OrgMinimaKissvmFunctionsCastNUMBER_init();
 }
 
 + (const J2ObjcClassInfo *)__metadata {

@@ -26,7 +26,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (OrgMinimaKissvmFunctionsMinimaFunction *)getNewFunction {
-  return create_OrgMinimaKissvmFunctionsStatePREVSTATE_init();
+  return new_OrgMinimaKissvmFunctionsStatePREVSTATE_init();
 }
 
 + (const J2ObjcClassInfo *)__metadata {

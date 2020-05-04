@@ -31,7 +31,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (OrgMinimaSystemInputCommandFunction *)getNewFunction {
-  return create_OrgMinimaSystemInputFunctionsgimme50_init();
+  return new_OrgMinimaSystemInputFunctionsgimme50_init();
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -57,7 +57,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 + (void)initialize {
   if (self == [OrgMinimaSystemInputFunctionsgimme50 class]) {
-    JreStrongAssignAndConsume(&OrgMinimaSystemInputFunctionsgimme50_COINID_INPUT, new_OrgMinimaObjectsBaseMiniData_initWithNSString_(@"0xFEED50FEED50FEED50FEED50"));
+    OrgMinimaSystemInputFunctionsgimme50_COINID_INPUT = new_OrgMinimaObjectsBaseMiniData_initWithNSString_(@"0xFEED50FEED50FEED50FEED50");
     J2OBJC_SET_INITIALIZED(OrgMinimaSystemInputFunctionsgimme50)
   }
 }

@@ -6,7 +6,13 @@
 #include "J2ObjC_source.h"
 #include "java/io/DataInputStream.h"
 #include "java/io/DataOutputStream.h"
+#include "java/math/BigInteger.h"
 #include "java/util/ArrayList.h"
+#include "org/minima/database/mmr/MMRSet.h"
+#include "org/minima/database/txpowtree/BlockTree.h"
+#include "org/minima/database/txpowtree/BlockTreeNode.h"
+#include "org/minima/database/txpowtree/MultiLevelCascadeTree.h"
+#include "org/minima/objects/TxPOW.h"
 #include "org/minima/objects/base/MiniNumber.h"
 #include "org/minima/system/backup/SyncPackage.h"
 #include "org/minima/system/backup/SyncPacket.h"
@@ -21,7 +27,7 @@ J2OBJC_IGNORE_DESIGNATED_BEGIN
 J2OBJC_IGNORE_DESIGNATED_END
 
 - (void)setCascadeNodeWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zNumber {
-  JreStrongAssign(&mCascadeNode_, zNumber);
+  mCascadeNode_ = zNumber;
 }
 
 - (OrgMinimaObjectsBaseMiniNumber *)getCascadeNode {
@@ -30,6 +36,28 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 - (JavaUtilArrayList *)getAllNodes {
   return mNodes_;
+}
+
+- (JavaMathBigInteger *)calculateWeight {
+  OrgMinimaDatabaseTxpowtreeBlockTree *blktree = new_OrgMinimaDatabaseTxpowtreeBlockTree_init();
+  for (OrgMinimaSystemBackupSyncPacket * __strong spack in nil_chk(mNodes_)) {
+    OrgMinimaObjectsTxPOW *txpow = [((OrgMinimaSystemBackupSyncPacket *) nil_chk(spack)) getTxPOW];
+    OrgMinimaDatabaseMmrMMRSet *mmr = [spack getMMRSet];
+    jboolean cascade = [spack isCascade];
+    OrgMinimaDatabaseTxpowtreeBlockTreeNode *node = new_OrgMinimaDatabaseTxpowtreeBlockTreeNode_initWithOrgMinimaObjectsTxPOW_(txpow);
+    [node setCascadeWithBoolean:cascade];
+    [node setStateWithInt:OrgMinimaDatabaseTxpowtreeBlockTreeNode_BLOCKSTATE_VALID];
+    [node setMMRsetWithOrgMinimaDatabaseMmrMMRSet:mmr];
+    [blktree hardAddNodeWithOrgMinimaDatabaseTxpowtreeBlockTreeNode:node withBoolean:true];
+    if ([((OrgMinimaObjectsBaseMiniNumber *) nil_chk([((OrgMinimaObjectsTxPOW *) nil_chk(txpow)) getBlockNumber])) isEqualWithOrgMinimaObjectsBaseMiniNumber:[self getCascadeNode]]) {
+      [blktree hardSetCascadeNodeWithOrgMinimaDatabaseTxpowtreeBlockTreeNode:node];
+    }
+  }
+  OrgMinimaDatabaseTxpowtreeMultiLevelCascadeTree *casc = new_OrgMinimaDatabaseTxpowtreeMultiLevelCascadeTree_initWithOrgMinimaDatabaseTxpowtreeBlockTree_(blktree);
+  (void) [casc cascadedTree];
+  OrgMinimaDatabaseTxpowtreeBlockTree *newtree = [casc getCascadeTree];
+  JavaMathBigInteger *totweight = [((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTree *) nil_chk(newtree)) getChainRoot])) getTotalWeight];
+  return totweight;
 }
 
 - (void)writeDataStreamWithJavaIoDataOutputStream:(JavaIoDataOutputStream *)zOut {
@@ -44,25 +72,19 @@ J2OBJC_IGNORE_DESIGNATED_END
 - (void)readDataStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn {
   jint len = [((JavaIoDataInputStream *) nil_chk(zIn)) readInt];
   for (jint i = 0; i < len; i++) {
-    OrgMinimaSystemBackupSyncPacket *node = create_OrgMinimaSystemBackupSyncPacket_init();
+    OrgMinimaSystemBackupSyncPacket *node = new_OrgMinimaSystemBackupSyncPacket_init();
     [node readDataStreamWithJavaIoDataInputStream:zIn];
     [((JavaUtilArrayList *) nil_chk(mNodes_)) addWithId:node];
   }
-  JreStrongAssign(&mCascadeNode_, OrgMinimaObjectsBaseMiniNumber_ReadFromStreamWithJavaIoDataInputStream_(zIn));
+  mCascadeNode_ = OrgMinimaObjectsBaseMiniNumber_ReadFromStreamWithJavaIoDataInputStream_(zIn);
 }
 
 - (NSString *)description {
   NSString *ret = @"";
   for (OrgMinimaSystemBackupSyncPacket * __strong node in nil_chk(mNodes_)) {
-    JreStrAppend(&ret, "@C", node, ',');
+    (void) JreStrAppendStrong(&ret, "@C", node, ',');
   }
   return ret;
-}
-
-- (void)dealloc {
-  RELEASE_(mCascadeNode_);
-  RELEASE_(mNodes_);
-  [super dealloc];
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -71,6 +93,7 @@ J2OBJC_IGNORE_DESIGNATED_END
     { NULL, "V", 0x1, 0, 1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LJavaUtilArrayList;", 0x1, -1, -1, -1, 2, -1, -1 },
+    { NULL, "LJavaMathBigInteger;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 3, 4, 5, -1, -1, -1 },
     { NULL, "V", 0x1, 6, 7, 5, -1, -1, -1 },
     { NULL, "LNSString;", 0x1, 8, -1, -1, -1, -1, -1 },
@@ -82,16 +105,17 @@ J2OBJC_IGNORE_DESIGNATED_END
   methods[1].selector = @selector(setCascadeNodeWithOrgMinimaObjectsBaseMiniNumber:);
   methods[2].selector = @selector(getCascadeNode);
   methods[3].selector = @selector(getAllNodes);
-  methods[4].selector = @selector(writeDataStreamWithJavaIoDataOutputStream:);
-  methods[5].selector = @selector(readDataStreamWithJavaIoDataInputStream:);
-  methods[6].selector = @selector(description);
+  methods[4].selector = @selector(calculateWeight);
+  methods[5].selector = @selector(writeDataStreamWithJavaIoDataOutputStream:);
+  methods[6].selector = @selector(readDataStreamWithJavaIoDataInputStream:);
+  methods[7].selector = @selector(description);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
     { "mCascadeNode_", "LOrgMinimaObjectsBaseMiniNumber;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mNodes_", "LJavaUtilArrayList;", .constantValue.asLong = 0, 0x0, -1, -1, 9, -1 },
   };
   static const void *ptrTable[] = { "setCascadeNode", "LOrgMinimaObjectsBaseMiniNumber;", "()Ljava/util/ArrayList<Lorg/minima/system/backup/SyncPacket;>;", "writeDataStream", "LJavaIoDataOutputStream;", "LJavaIoIOException;", "readDataStream", "LJavaIoDataInputStream;", "toString", "Ljava/util/ArrayList<Lorg/minima/system/backup/SyncPacket;>;" };
-  static const J2ObjcClassInfo _OrgMinimaSystemBackupSyncPackage = { "SyncPackage", "org.minima.system.backup", ptrTable, methods, fields, 7, 0x1, 7, 2, -1, -1, -1, -1, -1 };
+  static const J2ObjcClassInfo _OrgMinimaSystemBackupSyncPackage = { "SyncPackage", "org.minima.system.backup", ptrTable, methods, fields, 7, 0x1, 8, 2, -1, -1, -1, -1, -1 };
   return &_OrgMinimaSystemBackupSyncPackage;
 }
 
@@ -99,8 +123,8 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 void OrgMinimaSystemBackupSyncPackage_init(OrgMinimaSystemBackupSyncPackage *self) {
   NSObject_init(self);
-  JreStrongAssignAndConsume(&self->mNodes_, new_JavaUtilArrayList_init());
-  JreStrongAssign(&self->mCascadeNode_, JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, ZERO));
+  self->mNodes_ = new_JavaUtilArrayList_init();
+  self->mCascadeNode_ = JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, ZERO);
 }
 
 OrgMinimaSystemBackupSyncPackage *new_OrgMinimaSystemBackupSyncPackage_init() {

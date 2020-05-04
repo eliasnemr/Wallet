@@ -24,11 +24,11 @@ NSString *OrgMinimaSystemExternalProcessManager_PROCESS_RELCOIN = @"PROCESS_RELC
 }
 
 - (void)setTXNCallFunctionWithNSString:(NSString *)zFunction {
-  JreStrongAssign(&mTxnCall_, [((NSString *) nil_chk(zFunction)) java_trim]);
+  mTxnCall_ = [((NSString *) nil_chk(zFunction)) java_trim];
 }
 
 - (void)setRelCoinWithNSString:(NSString *)zPostURL {
-  JreStrongAssign(&mRelCoin_, [((NSString *) nil_chk(zPostURL)) java_trim]);
+  mRelCoin_ = [((NSString *) nil_chk(zPostURL)) java_trim];
 }
 
 - (void)processMessageWithOrgMinimaUtilsMessagesMessage:(OrgMinimaUtilsMessagesMessage *)zMessage {
@@ -40,19 +40,13 @@ NSString *OrgMinimaSystemExternalProcessManager_PROCESS_RELCOIN = @"PROCESS_RELC
       OrgMinimaObjectsBaseMiniData *transid = (OrgMinimaObjectsBaseMiniData *) cast_chk([zMessage getObjectWithNSString:@"transid"], [OrgMinimaObjectsBaseMiniData class]);
       OrgMinimaObjectsBaseMiniData *txpowid = (OrgMinimaObjectsBaseMiniData *) cast_chk([zMessage getObjectWithNSString:@"txpowid"], [OrgMinimaObjectsBaseMiniData class]);
       jboolean spent = [zMessage getBooleanWithNSString:@"spent"];
-      OrgMinimaUtilsJsonJSONObject *data = create_OrgMinimaUtilsJsonJSONObject_init();
-      [data putWithId:@"coin" withId:[((OrgMinimaObjectsCoin *) nil_chk(cc)) toJSON]];
-      [data putWithId:@"transid" withId:[((OrgMinimaObjectsBaseMiniData *) nil_chk(transid)) description]];
-      [data putWithId:@"txpowid" withId:[((OrgMinimaObjectsBaseMiniData *) nil_chk(txpowid)) description]];
-      [data putWithId:@"spent" withId:JavaLangBoolean_valueOfWithBoolean_(spent)];
+      OrgMinimaUtilsJsonJSONObject *data = new_OrgMinimaUtilsJsonJSONObject_init();
+      (void) [data putWithId:@"coin" withId:[((OrgMinimaObjectsCoin *) nil_chk(cc)) toJSON]];
+      (void) [data putWithId:@"transid" withId:[((OrgMinimaObjectsBaseMiniData *) nil_chk(transid)) description]];
+      (void) [data putWithId:@"txpowid" withId:[((OrgMinimaObjectsBaseMiniData *) nil_chk(txpowid)) description]];
+      (void) [data putWithId:@"spent" withId:JavaLangBoolean_valueOfWithBoolean_(spent)];
     }
   }
-}
-
-- (void)dealloc {
-  RELEASE_(mTxnCall_);
-  RELEASE_(mRelCoin_);
-  [super dealloc];
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -85,8 +79,8 @@ NSString *OrgMinimaSystemExternalProcessManager_PROCESS_RELCOIN = @"PROCESS_RELC
 
 void OrgMinimaSystemExternalProcessManager_initWithOrgMinimaSystemMain_(OrgMinimaSystemExternalProcessManager *self, OrgMinimaSystemMain *zMain) {
   OrgMinimaSystemSystemHandler_initWithOrgMinimaSystemMain_withNSString_(self, zMain, @"PROCESS");
-  JreStrongAssign(&self->mTxnCall_, @"");
-  JreStrongAssign(&self->mRelCoin_, @"");
+  self->mTxnCall_ = @"";
+  self->mRelCoin_ = @"";
 }
 
 OrgMinimaSystemExternalProcessManager *new_OrgMinimaSystemExternalProcessManager_initWithOrgMinimaSystemMain_(OrgMinimaSystemMain *zMain) {

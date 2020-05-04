@@ -25,14 +25,14 @@ J2OBJC_IGNORE_DESIGNATED_END
   OrgMinimaUtilsMessagesMessage *msg = [self getResponseMessageWithNSString:OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_HISTORY];
   if (((IOSObjectArray *) nil_chk(zInput))->size_ > 1) {
     if ([((NSString *) nil_chk(IOSObjectArray_Get(zInput, 1))) java_equalsIgnoreCase:@"clear"]) {
-      [((OrgMinimaUtilsMessagesMessage *) nil_chk(msg)) addBooleanWithNSString:@"clear" withBoolean:true];
+      (void) [((OrgMinimaUtilsMessagesMessage *) nil_chk(msg)) addBooleanWithNSString:@"clear" withBoolean:true];
     }
   }
   [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getConsensusHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:msg];
 }
 
 - (OrgMinimaSystemInputCommandFunction *)getNewFunction {
-  return create_OrgMinimaSystemInputFunctionshistory_init();
+  return new_OrgMinimaSystemInputFunctionshistory_init();
 }
 
 + (const J2ObjcClassInfo *)__metadata {

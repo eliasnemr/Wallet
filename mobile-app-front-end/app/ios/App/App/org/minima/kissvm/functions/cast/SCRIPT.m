@@ -30,22 +30,22 @@ J2OBJC_IGNORE_DESIGNATED_END
   OrgMinimaKissvmValuesValue *val = [((id<OrgMinimaKissvmExpressionsExpression>) nil_chk([self getParameterWithInt:0])) getValueWithOrgMinimaKissvmContract:zContract];
   jint type = [((OrgMinimaKissvmValuesValue *) nil_chk(val)) getValueType];
   if (type == OrgMinimaKissvmValuesNumberValue_VALUE_NUMBER) {
-    return create_OrgMinimaKissvmValuesScriptValue_initWithNSString_([((OrgMinimaObjectsBaseMiniNumber *) nil_chk([val getNumber])) description]);
+    return new_OrgMinimaKissvmValuesScriptValue_initWithNSString_([((OrgMinimaObjectsBaseMiniNumber *) nil_chk([val getNumber])) description]);
   }
   else if (type == OrgMinimaKissvmValuesHEXValue_VALUE_HEX) {
-    return create_OrgMinimaKissvmValuesScriptValue_initWithNSString_([((OrgMinimaObjectsBaseMiniData *) nil_chk([val getMiniData])) to0xString]);
+    return new_OrgMinimaKissvmValuesScriptValue_initWithNSString_([((OrgMinimaObjectsBaseMiniData *) nil_chk([val getMiniData])) to0xString]);
   }
   else if (type == OrgMinimaKissvmValuesBooleanValue_VALUE_BOOLEAN) {
-    return create_OrgMinimaKissvmValuesScriptValue_initWithNSString_([val description]);
+    return new_OrgMinimaKissvmValuesScriptValue_initWithNSString_([val description]);
   }
   else if (type == OrgMinimaKissvmValuesScriptValue_VALUE_SCRIPT) {
     return val;
   }
-  @throw create_OrgMinimaKissvmExceptionsExecutionException_initWithNSString_(JreStrcat("$I", @"Incorrect Vaue Type! ", type));
+  @throw new_OrgMinimaKissvmExceptionsExecutionException_initWithNSString_(JreStrcat("$I", @"Incorrect Vaue Type! ", type));
 }
 
 - (OrgMinimaKissvmFunctionsMinimaFunction *)getNewFunction {
-  return create_OrgMinimaKissvmFunctionsCastSCRIPT_init();
+  return new_OrgMinimaKissvmFunctionsCastSCRIPT_init();
 }
 
 + (const J2ObjcClassInfo *)__metadata {

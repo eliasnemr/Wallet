@@ -23,7 +23,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (OrgMinimaSystemInputCommandFunction *)getNewFunction {
-  return create_OrgMinimaSystemInputFunctionsintro_init();
+  return new_OrgMinimaSystemInputFunctionsintro_init();
 }
 
 + (const J2ObjcClassInfo *)__metadata {

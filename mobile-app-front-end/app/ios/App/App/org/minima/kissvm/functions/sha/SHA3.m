@@ -28,14 +28,14 @@ J2OBJC_IGNORE_DESIGNATED_END
   jint bitlength = [((OrgMinimaObjectsBaseMiniNumber *) nil_chk([((OrgMinimaKissvmValuesValue *) nil_chk([((id<OrgMinimaKissvmExpressionsExpression>) nil_chk([self getParameterWithInt:0])) getValueWithOrgMinimaKissvmContract:zContract])) getNumber])) getAsInt];
   IOSByteArray *data = [((OrgMinimaKissvmValuesValue *) nil_chk([((id<OrgMinimaKissvmExpressionsExpression>) nil_chk([self getParameterWithInt:1])) getValueWithOrgMinimaKissvmContract:zContract])) getRawData];
   if (bitlength > 512 || bitlength < 160 || (bitlength % 32 != 0)) {
-    @throw create_OrgMinimaKissvmExceptionsExecutionException_initWithNSString_(JreStrcat("$I", @"Bitlength incompatible with SHA3 ", bitlength));
+    @throw new_OrgMinimaKissvmExceptionsExecutionException_initWithNSString_(JreStrcat("$I", @"Bitlength incompatible with SHA3 ", bitlength));
   }
   IOSByteArray *ans = [((OrgMinimaUtilsCrypto *) nil_chk(OrgMinimaUtilsCrypto_getInstance())) hashDataWithByteArray:data withInt:bitlength];
-  return create_OrgMinimaKissvmValuesHEXValue_initWithByteArray_(ans);
+  return new_OrgMinimaKissvmValuesHEXValue_initWithByteArray_(ans);
 }
 
 - (OrgMinimaKissvmFunctionsMinimaFunction *)getNewFunction {
-  return create_OrgMinimaKissvmFunctionsShaSHA3_init();
+  return new_OrgMinimaKissvmFunctionsShaSHA3_init();
 }
 
 + (const J2ObjcClassInfo *)__metadata {

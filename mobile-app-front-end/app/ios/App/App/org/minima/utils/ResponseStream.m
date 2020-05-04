@@ -29,7 +29,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (void)setFunctionWithNSString:(NSString *)zFunction {
-  JreStrongAssign(&mFunction_, zFunction);
+  mFunction_ = zFunction;
 }
 
 - (NSString *)getResponse {
@@ -46,21 +46,21 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 - (void)endStatusWithBoolean:(jboolean)zValid
                 withNSString:(NSString *)zError {
-  [((OrgMinimaUtilsJsonJSONObject *) nil_chk(mJSON_)) putWithId:@"status" withId:JavaLangBoolean_valueOfWithBoolean_(zValid)];
-  [((OrgMinimaUtilsJsonJSONObject *) nil_chk(mJSON_)) putWithId:@"minifunc" withId:mFunction_];
+  (void) [((OrgMinimaUtilsJsonJSONObject *) nil_chk(mJSON_)) putWithId:@"status" withId:JavaLangBoolean_valueOfWithBoolean_(zValid)];
+  (void) [((OrgMinimaUtilsJsonJSONObject *) nil_chk(mJSON_)) putWithId:@"minifunc" withId:mFunction_];
   if (!zValid) {
-    [((OrgMinimaUtilsJsonJSONObject *) nil_chk(mJSON_)) putWithId:@"error" withId:zError];
+    (void) [((OrgMinimaUtilsJsonJSONObject *) nil_chk(mJSON_)) putWithId:@"error" withId:zError];
   }
   else {
-    [((OrgMinimaUtilsJsonJSONObject *) nil_chk(mJSON_)) putWithId:@"message" withId:zError];
+    (void) [((OrgMinimaUtilsJsonJSONObject *) nil_chk(mJSON_)) putWithId:@"message" withId:zError];
   }
-  [((OrgMinimaUtilsJsonJSONObject *) nil_chk(mJSON_)) putWithId:@"response" withId:mDataJSON_];
-  JreStrongAssign(&mFinalResponse_, [((NSString *) nil_chk([((OrgMinimaUtilsJsonJSONObject *) nil_chk(mJSON_)) description])) java_replaceAll:@"\\\\/" withReplacement:@"/"]);
+  (void) [((OrgMinimaUtilsJsonJSONObject *) nil_chk(mJSON_)) putWithId:@"response" withId:mDataJSON_];
+  mFinalResponse_ = [((NSString *) nil_chk([((OrgMinimaUtilsJsonJSONObject *) nil_chk(mJSON_)) description])) java_replaceAll:@"\\\\/" withReplacement:@"/"];
   mFinished_ = true;
 }
 
 - (void)hardEndStatusWithNSString:(NSString *)zResult {
-  JreStrongAssign(&mFinalResponse_, zResult);
+  mFinalResponse_ = zResult;
   mFinished_ = true;
 }
 
@@ -73,20 +73,12 @@ J2OBJC_IGNORE_DESIGNATED_END
   jlong timediff = 0;
   while (!mFinished_ && timediff < OrgMinimaUtilsResponseStream_MAX_WAITTIME) {
     @try {
-      JavaLangThread_sleepWithLong_(100);
+      JavaLangThread_sleepWithLong_(20);
     }
     @catch (JavaLangInterruptedException *e) {
     }
     timediff = JavaLangSystem_currentTimeMillis() - timestart;
   }
-}
-
-- (void)dealloc {
-  RELEASE_(mFunction_);
-  RELEASE_(mJSON_);
-  RELEASE_(mDataJSON_);
-  RELEASE_(mFinalResponse_);
-  [super dealloc];
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -136,11 +128,11 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 void OrgMinimaUtilsResponseStream_init(OrgMinimaUtilsResponseStream *self) {
   NSObject_init(self);
-  JreStrongAssign(&self->mFunction_, @"");
-  JreStrongAssignAndConsume(&self->mJSON_, new_OrgMinimaUtilsJsonJSONObject_init());
-  JreStrongAssignAndConsume(&self->mDataJSON_, new_OrgMinimaUtilsJsonJSONObject_init());
+  self->mFunction_ = @"";
+  self->mJSON_ = new_OrgMinimaUtilsJsonJSONObject_init();
+  self->mDataJSON_ = new_OrgMinimaUtilsJsonJSONObject_init();
   self->mFinished_ = false;
-  JreStrongAssign(&self->mFinalResponse_, @"");
+  self->mFinalResponse_ = @"";
   self->mIsLocal_ = false;
   self->mFinished_ = false;
 }

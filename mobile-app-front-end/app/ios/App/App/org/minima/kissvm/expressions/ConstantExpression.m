@@ -32,11 +32,6 @@ J2OBJC_FIELD_SETTER(OrgMinimaKissvmExpressionsConstantExpression, mValue_, OrgMi
   return [((OrgMinimaKissvmValuesValue *) nil_chk(mValue_)) description];
 }
 
-- (void)dealloc {
-  RELEASE_(mValue_);
-  [super dealloc];
-}
-
 + (const J2ObjcClassInfo *)__metadata {
   static J2ObjcMethodInfo methods[] = {
     { NULL, NULL, 0x1, -1, 0, -1, -1, -1, -1 },
@@ -62,7 +57,7 @@ J2OBJC_FIELD_SETTER(OrgMinimaKissvmExpressionsConstantExpression, mValue_, OrgMi
 
 void OrgMinimaKissvmExpressionsConstantExpression_initWithOrgMinimaKissvmValuesValue_(OrgMinimaKissvmExpressionsConstantExpression *self, OrgMinimaKissvmValuesValue *zValue) {
   NSObject_init(self);
-  JreStrongAssign(&self->mValue_, zValue);
+  self->mValue_ = zValue;
 }
 
 OrgMinimaKissvmExpressionsConstantExpression *new_OrgMinimaKissvmExpressionsConstantExpression_initWithOrgMinimaKissvmValuesValue_(OrgMinimaKissvmValuesValue *zValue) {

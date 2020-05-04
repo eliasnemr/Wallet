@@ -64,19 +64,19 @@
 }
 
 - (OrgMinimaKissvmValuesValue *)addWithOrgMinimaKissvmValuesValue:(OrgMinimaKissvmValuesValue *)zValue {
-  return create_OrgMinimaKissvmValuesNumberValue_initWithOrgMinimaObjectsBaseMiniNumber_([((OrgMinimaObjectsBaseMiniNumber *) nil_chk(mNumber_)) addWithOrgMinimaObjectsBaseMiniNumber:[((OrgMinimaKissvmValuesValue *) nil_chk(zValue)) getNumber]]);
+  return new_OrgMinimaKissvmValuesNumberValue_initWithOrgMinimaObjectsBaseMiniNumber_([((OrgMinimaObjectsBaseMiniNumber *) nil_chk(mNumber_)) addWithOrgMinimaObjectsBaseMiniNumber:[((OrgMinimaKissvmValuesValue *) nil_chk(zValue)) getNumber]]);
 }
 
 - (OrgMinimaKissvmValuesValue *)subWithOrgMinimaKissvmValuesValue:(OrgMinimaKissvmValuesValue *)zValue {
-  return create_OrgMinimaKissvmValuesNumberValue_initWithOrgMinimaObjectsBaseMiniNumber_([((OrgMinimaObjectsBaseMiniNumber *) nil_chk(mNumber_)) subWithOrgMinimaObjectsBaseMiniNumber:[((OrgMinimaKissvmValuesValue *) nil_chk(zValue)) getNumber]]);
+  return new_OrgMinimaKissvmValuesNumberValue_initWithOrgMinimaObjectsBaseMiniNumber_([((OrgMinimaObjectsBaseMiniNumber *) nil_chk(mNumber_)) subWithOrgMinimaObjectsBaseMiniNumber:[((OrgMinimaKissvmValuesValue *) nil_chk(zValue)) getNumber]]);
 }
 
 - (OrgMinimaKissvmValuesValue *)multWithOrgMinimaKissvmValuesValue:(OrgMinimaKissvmValuesValue *)zValue {
-  return create_OrgMinimaKissvmValuesNumberValue_initWithOrgMinimaObjectsBaseMiniNumber_([((OrgMinimaObjectsBaseMiniNumber *) nil_chk(mNumber_)) multWithOrgMinimaObjectsBaseMiniNumber:[((OrgMinimaKissvmValuesValue *) nil_chk(zValue)) getNumber]]);
+  return new_OrgMinimaKissvmValuesNumberValue_initWithOrgMinimaObjectsBaseMiniNumber_([((OrgMinimaObjectsBaseMiniNumber *) nil_chk(mNumber_)) multWithOrgMinimaObjectsBaseMiniNumber:[((OrgMinimaKissvmValuesValue *) nil_chk(zValue)) getNumber]]);
 }
 
 - (OrgMinimaKissvmValuesValue *)divWithOrgMinimaKissvmValuesValue:(OrgMinimaKissvmValuesValue *)zValue {
-  return create_OrgMinimaKissvmValuesNumberValue_initWithOrgMinimaObjectsBaseMiniNumber_([((OrgMinimaObjectsBaseMiniNumber *) nil_chk(mNumber_)) divWithOrgMinimaObjectsBaseMiniNumber:[((OrgMinimaKissvmValuesValue *) nil_chk(zValue)) getNumber]]);
+  return new_OrgMinimaKissvmValuesNumberValue_initWithOrgMinimaObjectsBaseMiniNumber_([((OrgMinimaObjectsBaseMiniNumber *) nil_chk(mNumber_)) divWithOrgMinimaObjectsBaseMiniNumber:[((OrgMinimaKissvmValuesValue *) nil_chk(zValue)) getNumber]]);
 }
 
 - (NSString *)description {
@@ -182,8 +182,8 @@ OrgMinimaKissvmValuesNumberValue *create_OrgMinimaKissvmValuesNumberValue_initWi
 
 void OrgMinimaKissvmValuesNumberValue_initWithNSString_(OrgMinimaKissvmValuesNumberValue *self, NSString *zNumber) {
   OrgMinimaKissvmValuesValue_init(self);
-  JreStrongAssignAndConsume(&self->mNumber_, new_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(zNumber));
-  JreStrongAssign(&self->mData_, OrgMinimaObjectsBaseMiniData_getMiniDataVersionWithOrgMinimaUtilsStreamable_(self->mNumber_));
+  self->mNumber_ = new_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(zNumber);
+  self->mData_ = OrgMinimaObjectsBaseMiniData_getMiniDataVersionWithOrgMinimaUtilsStreamable_(self->mNumber_);
 }
 
 OrgMinimaKissvmValuesNumberValue *new_OrgMinimaKissvmValuesNumberValue_initWithNSString_(NSString *zNumber) {

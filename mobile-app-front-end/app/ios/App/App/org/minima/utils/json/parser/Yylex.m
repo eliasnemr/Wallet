@@ -221,7 +221,7 @@ J2OBJC_INITIALIZED_DEFN(OrgMinimaUtilsJsonParserYylex)
 }
 
 - (void)yyresetWithJavaIoReader:(JavaIoReader *)reader {
-  JreStrongAssign(&zzReader_, reader);
+  zzReader_ = reader;
   zzAtBOL_ = true;
   zzAtEOF_ = false;
   zzEndRead_ = zzStartRead_ = 0;
@@ -315,108 +315,108 @@ J2OBJC_INITIALIZED_DEFN(OrgMinimaUtilsJsonParserYylex)
     switch (zzAction < 0 ? zzAction : IOSIntArray_Get(nil_chk(OrgMinimaUtilsJsonParserYylex_ZZ_ACTION), zzAction)) {
       case 11:
       {
-        [((JavaLangStringBuffer *) nil_chk(sb_)) appendWithNSString:OrgMinimaUtilsJsonParserYylex_yytext(self)];
+        (void) [((JavaLangStringBuffer *) nil_chk(sb_)) appendWithNSString:OrgMinimaUtilsJsonParserYylex_yytext(self)];
       }
       case 25:
       break;
       case 4:
       {
-        JreStrongAssign(&sb_, nil);
-        JreStrongAssignAndConsume(&sb_, new_JavaLangStringBuffer_init());
+        sb_ = nil;
+        sb_ = new_JavaLangStringBuffer_init();
         OrgMinimaUtilsJsonParserYylex_yybeginWithInt_(self, OrgMinimaUtilsJsonParserYylex_STRING_BEGIN);
       }
       case 26:
       break;
       case 16:
       {
-        [((JavaLangStringBuffer *) nil_chk(sb_)) appendWithChar:0x0008];
+        (void) [((JavaLangStringBuffer *) nil_chk(sb_)) appendWithChar:0x0008];
       }
       case 27:
       break;
       case 6:
       {
-        return create_OrgMinimaUtilsJsonParserYytoken_initWithInt_withId_(OrgMinimaUtilsJsonParserYytoken_TYPE_RIGHT_BRACE, nil);
+        return new_OrgMinimaUtilsJsonParserYytoken_initWithInt_withId_(OrgMinimaUtilsJsonParserYytoken_TYPE_RIGHT_BRACE, nil);
       }
       case 28:
       break;
       case 23:
       {
         JavaLangBoolean *val = JavaLangBoolean_valueOfWithNSString_(OrgMinimaUtilsJsonParserYylex_yytext(self));
-        return create_OrgMinimaUtilsJsonParserYytoken_initWithInt_withId_(OrgMinimaUtilsJsonParserYytoken_TYPE_VALUE, val);
+        return new_OrgMinimaUtilsJsonParserYytoken_initWithInt_withId_(OrgMinimaUtilsJsonParserYytoken_TYPE_VALUE, val);
       }
       case 29:
       break;
       case 22:
       {
-        return create_OrgMinimaUtilsJsonParserYytoken_initWithInt_withId_(OrgMinimaUtilsJsonParserYytoken_TYPE_VALUE, nil);
+        return new_OrgMinimaUtilsJsonParserYytoken_initWithInt_withId_(OrgMinimaUtilsJsonParserYytoken_TYPE_VALUE, nil);
       }
       case 30:
       break;
       case 13:
       {
         OrgMinimaUtilsJsonParserYylex_yybeginWithInt_(self, OrgMinimaUtilsJsonParserYylex_YYINITIAL);
-        return create_OrgMinimaUtilsJsonParserYytoken_initWithInt_withId_(OrgMinimaUtilsJsonParserYytoken_TYPE_VALUE, [((JavaLangStringBuffer *) nil_chk(sb_)) description]);
+        return new_OrgMinimaUtilsJsonParserYytoken_initWithInt_withId_(OrgMinimaUtilsJsonParserYytoken_TYPE_VALUE, [((JavaLangStringBuffer *) nil_chk(sb_)) description]);
       }
       case 31:
       break;
       case 12:
       {
-        [((JavaLangStringBuffer *) nil_chk(sb_)) appendWithChar:'\\'];
+        (void) [((JavaLangStringBuffer *) nil_chk(sb_)) appendWithChar:'\\'];
       }
       case 32:
       break;
       case 21:
       {
         JavaLangDouble *val = JavaLangDouble_valueOfWithNSString_(OrgMinimaUtilsJsonParserYylex_yytext(self));
-        return create_OrgMinimaUtilsJsonParserYytoken_initWithInt_withId_(OrgMinimaUtilsJsonParserYytoken_TYPE_VALUE, val);
+        return new_OrgMinimaUtilsJsonParserYytoken_initWithInt_withId_(OrgMinimaUtilsJsonParserYytoken_TYPE_VALUE, val);
       }
       case 33:
       break;
       case 1:
       {
-        @throw create_OrgMinimaUtilsJsonParserParseException_initWithInt_withInt_withId_(yychar_, OrgMinimaUtilsJsonParserParseException_ERROR_UNEXPECTED_CHAR, create_JavaLangCharacter_initWithChar_(OrgMinimaUtilsJsonParserYylex_yycharatWithInt_(self, 0)));
+        @throw new_OrgMinimaUtilsJsonParserParseException_initWithInt_withInt_withId_(yychar_, OrgMinimaUtilsJsonParserParseException_ERROR_UNEXPECTED_CHAR, new_JavaLangCharacter_initWithChar_(OrgMinimaUtilsJsonParserYylex_yycharatWithInt_(self, 0)));
       }
       case 34:
       break;
       case 8:
       {
-        return create_OrgMinimaUtilsJsonParserYytoken_initWithInt_withId_(OrgMinimaUtilsJsonParserYytoken_TYPE_RIGHT_SQUARE, nil);
+        return new_OrgMinimaUtilsJsonParserYytoken_initWithInt_withId_(OrgMinimaUtilsJsonParserYytoken_TYPE_RIGHT_SQUARE, nil);
       }
       case 35:
       break;
       case 19:
       {
-        [((JavaLangStringBuffer *) nil_chk(sb_)) appendWithChar:0x000d];
+        (void) [((JavaLangStringBuffer *) nil_chk(sb_)) appendWithChar:0x000d];
       }
       case 36:
       break;
       case 15:
       {
-        [((JavaLangStringBuffer *) nil_chk(sb_)) appendWithChar:'/'];
+        (void) [((JavaLangStringBuffer *) nil_chk(sb_)) appendWithChar:'/'];
       }
       case 37:
       break;
       case 10:
       {
-        return create_OrgMinimaUtilsJsonParserYytoken_initWithInt_withId_(OrgMinimaUtilsJsonParserYytoken_TYPE_COLON, nil);
+        return new_OrgMinimaUtilsJsonParserYytoken_initWithInt_withId_(OrgMinimaUtilsJsonParserYytoken_TYPE_COLON, nil);
       }
       case 38:
       break;
       case 14:
       {
-        [((JavaLangStringBuffer *) nil_chk(sb_)) appendWithChar:'"'];
+        (void) [((JavaLangStringBuffer *) nil_chk(sb_)) appendWithChar:'"'];
       }
       case 39:
       break;
       case 5:
       {
-        return create_OrgMinimaUtilsJsonParserYytoken_initWithInt_withId_(OrgMinimaUtilsJsonParserYytoken_TYPE_LEFT_BRACE, nil);
+        return new_OrgMinimaUtilsJsonParserYytoken_initWithInt_withId_(OrgMinimaUtilsJsonParserYytoken_TYPE_LEFT_BRACE, nil);
       }
       case 40:
       break;
       case 17:
       {
-        [((JavaLangStringBuffer *) nil_chk(sb_)) appendWithChar:0x000c];
+        (void) [((JavaLangStringBuffer *) nil_chk(sb_)) appendWithChar:0x000c];
       }
       case 41:
       break;
@@ -424,42 +424,42 @@ J2OBJC_INITIALIZED_DEFN(OrgMinimaUtilsJsonParserYylex)
       {
         @try {
           jint ch = JavaLangInteger_parseIntWithNSString_withInt_([((NSString *) nil_chk(OrgMinimaUtilsJsonParserYylex_yytext(self))) java_substring:2], 16);
-          [((JavaLangStringBuffer *) nil_chk(sb_)) appendWithChar:(jchar) ch];
+          (void) [((JavaLangStringBuffer *) nil_chk(sb_)) appendWithChar:(jchar) ch];
         }
         @catch (JavaLangException *e) {
-          @throw create_OrgMinimaUtilsJsonParserParseException_initWithInt_withInt_withId_(yychar_, OrgMinimaUtilsJsonParserParseException_ERROR_UNEXPECTED_EXCEPTION, e);
+          @throw new_OrgMinimaUtilsJsonParserParseException_initWithInt_withInt_withId_(yychar_, OrgMinimaUtilsJsonParserParseException_ERROR_UNEXPECTED_EXCEPTION, e);
         }
       }
       case 42:
       break;
       case 20:
       {
-        [((JavaLangStringBuffer *) nil_chk(sb_)) appendWithChar:0x0009];
+        (void) [((JavaLangStringBuffer *) nil_chk(sb_)) appendWithChar:0x0009];
       }
       case 43:
       break;
       case 7:
       {
-        return create_OrgMinimaUtilsJsonParserYytoken_initWithInt_withId_(OrgMinimaUtilsJsonParserYytoken_TYPE_LEFT_SQUARE, nil);
+        return new_OrgMinimaUtilsJsonParserYytoken_initWithInt_withId_(OrgMinimaUtilsJsonParserYytoken_TYPE_LEFT_SQUARE, nil);
       }
       case 44:
       break;
       case 2:
       {
         JavaLangLong *val = JavaLangLong_valueOfWithNSString_(OrgMinimaUtilsJsonParserYylex_yytext(self));
-        return create_OrgMinimaUtilsJsonParserYytoken_initWithInt_withId_(OrgMinimaUtilsJsonParserYytoken_TYPE_VALUE, val);
+        return new_OrgMinimaUtilsJsonParserYytoken_initWithInt_withId_(OrgMinimaUtilsJsonParserYytoken_TYPE_VALUE, val);
       }
       case 45:
       break;
       case 18:
       {
-        [((JavaLangStringBuffer *) nil_chk(sb_)) appendWithChar:0x000a];
+        (void) [((JavaLangStringBuffer *) nil_chk(sb_)) appendWithChar:0x000a];
       }
       case 46:
       break;
       case 9:
       {
-        return create_OrgMinimaUtilsJsonParserYytoken_initWithInt_withId_(OrgMinimaUtilsJsonParserYytoken_TYPE_COMMA, nil);
+        return new_OrgMinimaUtilsJsonParserYytoken_initWithInt_withId_(OrgMinimaUtilsJsonParserYytoken_TYPE_COMMA, nil);
       }
       case 47:
       break;
@@ -478,13 +478,6 @@ J2OBJC_INITIALIZED_DEFN(OrgMinimaUtilsJsonParserYylex)
       }
     }
   }
-}
-
-- (void)dealloc {
-  RELEASE_(zzReader_);
-  RELEASE_(zzBuffer_);
-  RELEASE_(sb_);
-  
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -577,13 +570,13 @@ J2OBJC_INITIALIZED_DEFN(OrgMinimaUtilsJsonParserYylex)
 
 + (void)initialize {
   if (self == [OrgMinimaUtilsJsonParserYylex class]) {
-    JreStrongAssignAndConsume(&OrgMinimaUtilsJsonParserYylex_ZZ_LEXSTATE, [IOSIntArray newArrayWithInts:(jint[]){ 0, 0, 1, 1 } count:4]);
-    JreStrongAssign(&OrgMinimaUtilsJsonParserYylex_ZZ_CMAP, OrgMinimaUtilsJsonParserYylex_zzUnpackCMapWithNSString_(OrgMinimaUtilsJsonParserYylex_ZZ_CMAP_PACKED));
-    JreStrongAssign(&OrgMinimaUtilsJsonParserYylex_ZZ_ACTION, OrgMinimaUtilsJsonParserYylex_zzUnpackAction());
-    JreStrongAssign(&OrgMinimaUtilsJsonParserYylex_ZZ_ROWMAP, OrgMinimaUtilsJsonParserYylex_zzUnpackRowMap());
-    JreStrongAssignAndConsume(&OrgMinimaUtilsJsonParserYylex_ZZ_TRANS, [IOSIntArray newArrayWithInts:(jint[]){ 2, 2, 3, 4, 2, 2, 2, 5, 2, 6, 2, 2, 7, 8, 2, 9, 2, 2, 2, 2, 2, 10, 11, 12, 13, 14, 15, 16, 16, 16, 16, 16, 16, 16, 16, 17, 18, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 4, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 4, 19, 20, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 20, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 5, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 21, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 22, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 23, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 16, 16, 16, 16, 16, 16, 16, 16, -1, -1, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, -1, -1, -1, -1, -1, -1, -1, -1, 24, 25, 26, 27, 28, 29, 30, 31, 32, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 33, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 34, 35, -1, -1, 34, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 36, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 37, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 38, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 39, -1, 39, -1, 39, -1, -1, -1, -1, -1, 39, 39, -1, -1, -1, -1, 39, 39, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 33, -1, 20, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 20, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 35, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 38, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 40, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 41, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 42, -1, 42, -1, 42, -1, -1, -1, -1, -1, 42, 42, -1, -1, -1, -1, 42, 42, -1, -1, -1, -1, -1, -1, -1, -1, -1, 43, -1, 43, -1, 43, -1, -1, -1, -1, -1, 43, 43, -1, -1, -1, -1, 43, 43, -1, -1, -1, -1, -1, -1, -1, -1, -1, 44, -1, 44, -1, 44, -1, -1, -1, -1, -1, 44, 44, -1, -1, -1, -1, 44, 44, -1, -1, -1, -1, -1, -1, -1, -1 } count:675]);
-    JreStrongAssignAndConsume(&OrgMinimaUtilsJsonParserYylex_ZZ_ERROR_MSG, [IOSObjectArray newArrayWithObjects:(id[]){ @"Unkown internal scanner error", @"Error: could not match input", @"Error: pushback value was too large" } count:3 type:NSString_class_()]);
-    JreStrongAssign(&OrgMinimaUtilsJsonParserYylex_ZZ_ATTRIBUTE, OrgMinimaUtilsJsonParserYylex_zzUnpackAttribute());
+    OrgMinimaUtilsJsonParserYylex_ZZ_LEXSTATE = [IOSIntArray newArrayWithInts:(jint[]){ 0, 0, 1, 1 } count:4];
+    OrgMinimaUtilsJsonParserYylex_ZZ_CMAP = OrgMinimaUtilsJsonParserYylex_zzUnpackCMapWithNSString_(OrgMinimaUtilsJsonParserYylex_ZZ_CMAP_PACKED);
+    OrgMinimaUtilsJsonParserYylex_ZZ_ACTION = OrgMinimaUtilsJsonParserYylex_zzUnpackAction();
+    OrgMinimaUtilsJsonParserYylex_ZZ_ROWMAP = OrgMinimaUtilsJsonParserYylex_zzUnpackRowMap();
+    OrgMinimaUtilsJsonParserYylex_ZZ_TRANS = [IOSIntArray newArrayWithInts:(jint[]){ 2, 2, 3, 4, 2, 2, 2, 5, 2, 6, 2, 2, 7, 8, 2, 9, 2, 2, 2, 2, 2, 10, 11, 12, 13, 14, 15, 16, 16, 16, 16, 16, 16, 16, 16, 17, 18, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 4, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 4, 19, 20, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 20, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 5, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 21, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 22, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 23, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 16, 16, 16, 16, 16, 16, 16, 16, -1, -1, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, -1, -1, -1, -1, -1, -1, -1, -1, 24, 25, 26, 27, 28, 29, 30, 31, 32, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 33, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 34, 35, -1, -1, 34, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 36, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 37, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 38, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 39, -1, 39, -1, 39, -1, -1, -1, -1, -1, 39, 39, -1, -1, -1, -1, 39, 39, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 33, -1, 20, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 20, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 35, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 38, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 40, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 41, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 42, -1, 42, -1, 42, -1, -1, -1, -1, -1, 42, 42, -1, -1, -1, -1, 42, 42, -1, -1, -1, -1, -1, -1, -1, -1, -1, 43, -1, 43, -1, 43, -1, -1, -1, -1, -1, 43, 43, -1, -1, -1, -1, 43, 43, -1, -1, -1, -1, -1, -1, -1, -1, -1, 44, -1, 44, -1, 44, -1, -1, -1, -1, -1, 44, 44, -1, -1, -1, -1, 44, 44, -1, -1, -1, -1, -1, -1, -1, -1 } count:675];
+    OrgMinimaUtilsJsonParserYylex_ZZ_ERROR_MSG = [IOSObjectArray newArrayWithObjects:(id[]){ @"Unkown internal scanner error", @"Error: could not match input", @"Error: pushback value was too large" } count:3 type:NSString_class_()];
+    OrgMinimaUtilsJsonParserYylex_ZZ_ATTRIBUTE = OrgMinimaUtilsJsonParserYylex_zzUnpackAttribute();
     J2OBJC_SET_INITIALIZED(OrgMinimaUtilsJsonParserYylex)
   }
 }
@@ -592,7 +585,7 @@ J2OBJC_INITIALIZED_DEFN(OrgMinimaUtilsJsonParserYylex)
 
 IOSIntArray *OrgMinimaUtilsJsonParserYylex_zzUnpackAction() {
   OrgMinimaUtilsJsonParserYylex_initialize();
-  IOSIntArray *result = [IOSIntArray arrayWithLength:45];
+  IOSIntArray *result = [IOSIntArray newArrayWithLength:45];
   jint offset = 0;
   offset = OrgMinimaUtilsJsonParserYylex_zzUnpackActionWithNSString_withInt_withIntArray_(OrgMinimaUtilsJsonParserYylex_ZZ_ACTION_PACKED_0, offset, result);
   return result;
@@ -614,7 +607,7 @@ jint OrgMinimaUtilsJsonParserYylex_zzUnpackActionWithNSString_withInt_withIntArr
 
 IOSIntArray *OrgMinimaUtilsJsonParserYylex_zzUnpackRowMap() {
   OrgMinimaUtilsJsonParserYylex_initialize();
-  IOSIntArray *result = [IOSIntArray arrayWithLength:45];
+  IOSIntArray *result = [IOSIntArray newArrayWithLength:45];
   jint offset = 0;
   offset = OrgMinimaUtilsJsonParserYylex_zzUnpackRowMapWithNSString_withInt_withIntArray_(OrgMinimaUtilsJsonParserYylex_ZZ_ROWMAP_PACKED_0, offset, result);
   return result;
@@ -634,7 +627,7 @@ jint OrgMinimaUtilsJsonParserYylex_zzUnpackRowMapWithNSString_withInt_withIntArr
 
 IOSIntArray *OrgMinimaUtilsJsonParserYylex_zzUnpackAttribute() {
   OrgMinimaUtilsJsonParserYylex_initialize();
-  IOSIntArray *result = [IOSIntArray arrayWithLength:45];
+  IOSIntArray *result = [IOSIntArray newArrayWithLength:45];
   jint offset = 0;
   offset = OrgMinimaUtilsJsonParserYylex_zzUnpackAttributeWithNSString_withInt_withIntArray_(OrgMinimaUtilsJsonParserYylex_ZZ_ATTRIBUTE_PACKED_0, offset, result);
   return result;
@@ -657,10 +650,10 @@ jint OrgMinimaUtilsJsonParserYylex_zzUnpackAttributeWithNSString_withInt_withInt
 void OrgMinimaUtilsJsonParserYylex_initWithJavaIoReader_(OrgMinimaUtilsJsonParserYylex *self, JavaIoReader *inArg) {
   NSObject_init(self);
   self->zzLexicalState_ = OrgMinimaUtilsJsonParserYylex_YYINITIAL;
-  JreStrongAssignAndConsume(&self->zzBuffer_, [IOSCharArray newArrayWithLength:OrgMinimaUtilsJsonParserYylex_ZZ_BUFFERSIZE]);
+  self->zzBuffer_ = [IOSCharArray newArrayWithLength:OrgMinimaUtilsJsonParserYylex_ZZ_BUFFERSIZE];
   self->zzAtBOL_ = true;
-  JreStrongAssignAndConsume(&self->sb_, new_JavaLangStringBuffer_init());
-  JreStrongAssign(&self->zzReader_, inArg);
+  self->sb_ = new_JavaLangStringBuffer_init();
+  self->zzReader_ = inArg;
 }
 
 OrgMinimaUtilsJsonParserYylex *new_OrgMinimaUtilsJsonParserYylex_initWithJavaIoReader_(JavaIoReader *inArg) {
@@ -672,7 +665,7 @@ OrgMinimaUtilsJsonParserYylex *create_OrgMinimaUtilsJsonParserYylex_initWithJava
 }
 
 void OrgMinimaUtilsJsonParserYylex_initWithJavaIoInputStream_(OrgMinimaUtilsJsonParserYylex *self, JavaIoInputStream *inArg) {
-  OrgMinimaUtilsJsonParserYylex_initWithJavaIoReader_(self, create_JavaIoInputStreamReader_initWithJavaIoInputStream_(inArg));
+  OrgMinimaUtilsJsonParserYylex_initWithJavaIoReader_(self, new_JavaIoInputStreamReader_initWithJavaIoInputStream_(inArg));
 }
 
 OrgMinimaUtilsJsonParserYylex *new_OrgMinimaUtilsJsonParserYylex_initWithJavaIoInputStream_(JavaIoInputStream *inArg) {
@@ -685,7 +678,7 @@ OrgMinimaUtilsJsonParserYylex *create_OrgMinimaUtilsJsonParserYylex_initWithJava
 
 IOSCharArray *OrgMinimaUtilsJsonParserYylex_zzUnpackCMapWithNSString_(NSString *packed) {
   OrgMinimaUtilsJsonParserYylex_initialize();
-  IOSCharArray *map = [IOSCharArray arrayWithLength:(jint) 0x10000];
+  IOSCharArray *map = [IOSCharArray newArrayWithLength:(jint) 0x10000];
   jint i = 0;
   jint j = 0;
   while (i < 90) {
@@ -706,9 +699,9 @@ jboolean OrgMinimaUtilsJsonParserYylex_zzRefill(OrgMinimaUtilsJsonParserYylex *s
     self->zzStartRead_ = 0;
   }
   if (self->zzCurrentPos_ >= ((IOSCharArray *) nil_chk(self->zzBuffer_))->size_) {
-    IOSCharArray *newBuffer = [IOSCharArray arrayWithLength:self->zzCurrentPos_ * 2];
+    IOSCharArray *newBuffer = [IOSCharArray newArrayWithLength:self->zzCurrentPos_ * 2];
     JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(self->zzBuffer_, 0, newBuffer, 0, self->zzBuffer_->size_);
-    JreStrongAssign(&self->zzBuffer_, newBuffer);
+    self->zzBuffer_ = newBuffer;
   }
   jint numRead = [((JavaIoReader *) nil_chk(self->zzReader_)) readWithCharArray:self->zzBuffer_ withInt:self->zzEndRead_ withInt:self->zzBuffer_->size_ - self->zzEndRead_];
   if (numRead > 0) {
@@ -752,7 +745,7 @@ void OrgMinimaUtilsJsonParserYylex_zzScanErrorWithInt_(OrgMinimaUtilsJsonParserY
   @catch (JavaLangArrayIndexOutOfBoundsException *e) {
     message = IOSObjectArray_Get(OrgMinimaUtilsJsonParserYylex_ZZ_ERROR_MSG, OrgMinimaUtilsJsonParserYylex_ZZ_UNKNOWN_ERROR);
   }
-  @throw create_JavaLangError_initWithNSString_(message);
+  @throw new_JavaLangError_initWithNSString_(message);
 }
 
 J2OBJC_CLASS_TYPE_LITERAL_SOURCE(OrgMinimaUtilsJsonParserYylex)

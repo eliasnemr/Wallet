@@ -24,12 +24,12 @@ J2OBJC_IGNORE_DESIGNATED_END
 - (void)doFunctionWithNSStringArray:(IOSObjectArray *)zInput {
   NSString *script = IOSObjectArray_Get(nil_chk(zInput), 1);
   OrgMinimaUtilsMessagesMessage *msg = [self getResponseMessageWithNSString:OrgMinimaSystemBrainsConsensusUser_CONSENSUS_NEWSCRIPT];
-  [((OrgMinimaUtilsMessagesMessage *) nil_chk(msg)) addStringWithNSString:@"script" withNSString:script];
+  (void) [((OrgMinimaUtilsMessagesMessage *) nil_chk(msg)) addStringWithNSString:@"script" withNSString:script];
   [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getConsensusHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:msg];
 }
 
 - (OrgMinimaSystemInputCommandFunction *)getNewFunction {
-  return create_OrgMinimaSystemInputFunctionsnewscript_init();
+  return new_OrgMinimaSystemInputFunctionsnewscript_init();
 }
 
 + (const J2ObjcClassInfo *)__metadata {

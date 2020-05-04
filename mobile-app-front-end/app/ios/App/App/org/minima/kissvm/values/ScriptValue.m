@@ -28,12 +28,7 @@
 
 - (OrgMinimaKissvmValuesValue *)addWithOrgMinimaKissvmValuesValue:(OrgMinimaKissvmValuesValue *)zValue {
   NSString *sum = JreStrcat("$C$", mScript_, ' ', [NSString java_stringWithBytes:[((OrgMinimaKissvmValuesValue *) nil_chk(zValue)) getRawData] charset:JavaNioCharsetCharset_forNameWithNSString_(@"US-ASCII")]);
-  return create_OrgMinimaKissvmValuesScriptValue_initWithNSString_(sum);
-}
-
-- (void)dealloc {
-  RELEASE_(mScript_);
-  [super dealloc];
+  return new_OrgMinimaKissvmValuesScriptValue_initWithNSString_(sum);
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -64,7 +59,7 @@
 
 void OrgMinimaKissvmValuesScriptValue_initWithNSString_(OrgMinimaKissvmValuesScriptValue *self, NSString *zScript) {
   OrgMinimaKissvmValuesHEXValue_initWithByteArray_(self, [((NSString *) nil_chk(OrgMinimaKissvmContract_cleanScriptWithNSString_(zScript))) java_getBytesWithCharset:JavaNioCharsetCharset_forNameWithNSString_(@"US-ASCII")]);
-  JreStrongAssign(&self->mScript_, [NSString java_stringWithBytes:[self getRawData] charset:JavaNioCharsetCharset_forNameWithNSString_(@"US-ASCII")]);
+  self->mScript_ = [NSString java_stringWithBytes:[self getRawData] charset:JavaNioCharsetCharset_forNameWithNSString_(@"US-ASCII")];
 }
 
 OrgMinimaKissvmValuesScriptValue *new_OrgMinimaKissvmValuesScriptValue_initWithNSString_(NSString *zScript) {

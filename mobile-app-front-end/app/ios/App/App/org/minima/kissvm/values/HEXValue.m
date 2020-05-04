@@ -58,19 +58,19 @@
 }
 
 - (OrgMinimaKissvmValuesValue *)addWithOrgMinimaKissvmValuesValue:(OrgMinimaKissvmValuesValue *)zValue {
-  return create_OrgMinimaKissvmValuesHEXValue_initWithOrgMinimaObjectsBaseMiniNumber_([((OrgMinimaObjectsBaseMiniNumber *) nil_chk(mNumber_)) addWithOrgMinimaObjectsBaseMiniNumber:[((OrgMinimaKissvmValuesValue *) nil_chk(zValue)) getNumber]]);
+  return new_OrgMinimaKissvmValuesHEXValue_initWithOrgMinimaObjectsBaseMiniNumber_([((OrgMinimaObjectsBaseMiniNumber *) nil_chk(mNumber_)) addWithOrgMinimaObjectsBaseMiniNumber:[((OrgMinimaKissvmValuesValue *) nil_chk(zValue)) getNumber]]);
 }
 
 - (OrgMinimaKissvmValuesValue *)subWithOrgMinimaKissvmValuesValue:(OrgMinimaKissvmValuesValue *)zValue {
-  return create_OrgMinimaKissvmValuesHEXValue_initWithOrgMinimaObjectsBaseMiniNumber_([((OrgMinimaObjectsBaseMiniNumber *) nil_chk(mNumber_)) subWithOrgMinimaObjectsBaseMiniNumber:[((OrgMinimaKissvmValuesValue *) nil_chk(zValue)) getNumber]]);
+  return new_OrgMinimaKissvmValuesHEXValue_initWithOrgMinimaObjectsBaseMiniNumber_([((OrgMinimaObjectsBaseMiniNumber *) nil_chk(mNumber_)) subWithOrgMinimaObjectsBaseMiniNumber:[((OrgMinimaKissvmValuesValue *) nil_chk(zValue)) getNumber]]);
 }
 
 - (OrgMinimaKissvmValuesValue *)multWithOrgMinimaKissvmValuesValue:(OrgMinimaKissvmValuesValue *)zValue {
-  return create_OrgMinimaKissvmValuesHEXValue_initWithOrgMinimaObjectsBaseMiniNumber_([((OrgMinimaObjectsBaseMiniNumber *) nil_chk(mNumber_)) multWithOrgMinimaObjectsBaseMiniNumber:[((OrgMinimaKissvmValuesValue *) nil_chk(zValue)) getNumber]]);
+  return new_OrgMinimaKissvmValuesHEXValue_initWithOrgMinimaObjectsBaseMiniNumber_([((OrgMinimaObjectsBaseMiniNumber *) nil_chk(mNumber_)) multWithOrgMinimaObjectsBaseMiniNumber:[((OrgMinimaKissvmValuesValue *) nil_chk(zValue)) getNumber]]);
 }
 
 - (OrgMinimaKissvmValuesValue *)divWithOrgMinimaKissvmValuesValue:(OrgMinimaKissvmValuesValue *)zValue {
-  return create_OrgMinimaKissvmValuesHEXValue_initWithOrgMinimaObjectsBaseMiniNumber_([((OrgMinimaObjectsBaseMiniNumber *) nil_chk(mNumber_)) divWithOrgMinimaObjectsBaseMiniNumber:[((OrgMinimaKissvmValuesValue *) nil_chk(zValue)) getNumber]]);
+  return new_OrgMinimaKissvmValuesHEXValue_initWithOrgMinimaObjectsBaseMiniNumber_([((OrgMinimaObjectsBaseMiniNumber *) nil_chk(mNumber_)) divWithOrgMinimaObjectsBaseMiniNumber:[((OrgMinimaKissvmValuesValue *) nil_chk(zValue)) getNumber]]);
 }
 
 - (NSString *)description {
@@ -138,8 +138,8 @@ OrgMinimaKissvmValuesHEXValue *create_OrgMinimaKissvmValuesHEXValue_initWithOrgM
 
 void OrgMinimaKissvmValuesHEXValue_initWithByteArray_(OrgMinimaKissvmValuesHEXValue *self, IOSByteArray *zData) {
   OrgMinimaKissvmValuesValue_init(self);
-  JreStrongAssignAndConsume(&self->mData_, new_OrgMinimaObjectsBaseMiniData_initWithByteArray_(zData));
-  JreStrongAssignAndConsume(&self->mNumber_, new_OrgMinimaObjectsBaseMiniNumber_initWithJavaMathBigInteger_([self->mData_ getDataValue]));
+  self->mData_ = new_OrgMinimaObjectsBaseMiniData_initWithByteArray_(zData);
+  self->mNumber_ = new_OrgMinimaObjectsBaseMiniNumber_initWithJavaMathBigInteger_([self->mData_ getDataValue]);
 }
 
 OrgMinimaKissvmValuesHEXValue *new_OrgMinimaKissvmValuesHEXValue_initWithByteArray_(IOSByteArray *zData) {
@@ -151,7 +151,7 @@ OrgMinimaKissvmValuesHEXValue *create_OrgMinimaKissvmValuesHEXValue_initWithByte
 }
 
 void OrgMinimaKissvmValuesHEXValue_initWithOrgMinimaObjectsBaseMiniNumber_(OrgMinimaKissvmValuesHEXValue *self, OrgMinimaObjectsBaseMiniNumber *zNumber) {
-  OrgMinimaKissvmValuesHEXValue_initWithNSString_(self, [((NSString *) nil_chk([create_JavaMathBigInteger_initWithNSString_([((OrgMinimaObjectsBaseMiniNumber *) nil_chk(zNumber)) description]) toStringWithInt:16])) uppercaseString]);
+  OrgMinimaKissvmValuesHEXValue_initWithNSString_(self, [((NSString *) nil_chk([new_JavaMathBigInteger_initWithNSString_([((OrgMinimaObjectsBaseMiniNumber *) nil_chk(zNumber)) description]) toStringWithInt:16])) uppercaseString]);
 }
 
 OrgMinimaKissvmValuesHEXValue *new_OrgMinimaKissvmValuesHEXValue_initWithOrgMinimaObjectsBaseMiniNumber_(OrgMinimaObjectsBaseMiniNumber *zNumber) {
@@ -164,8 +164,8 @@ OrgMinimaKissvmValuesHEXValue *create_OrgMinimaKissvmValuesHEXValue_initWithOrgM
 
 void OrgMinimaKissvmValuesHEXValue_initWithNSString_(OrgMinimaKissvmValuesHEXValue *self, NSString *zHex) {
   OrgMinimaKissvmValuesValue_init(self);
-  JreStrongAssignAndConsume(&self->mData_, new_OrgMinimaObjectsBaseMiniData_initWithNSString_(zHex));
-  JreStrongAssignAndConsume(&self->mNumber_, new_OrgMinimaObjectsBaseMiniNumber_initWithJavaMathBigInteger_([self->mData_ getDataValue]));
+  self->mData_ = new_OrgMinimaObjectsBaseMiniData_initWithNSString_(zHex);
+  self->mNumber_ = new_OrgMinimaObjectsBaseMiniNumber_initWithJavaMathBigInteger_([self->mData_ getDataValue]);
 }
 
 OrgMinimaKissvmValuesHEXValue *new_OrgMinimaKissvmValuesHEXValue_initWithNSString_(NSString *zHex) {

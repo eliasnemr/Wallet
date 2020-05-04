@@ -30,15 +30,15 @@ J2OBJC_IGNORE_DESIGNATED_END
   jint bit = [((OrgMinimaObjectsBaseMiniNumber *) nil_chk([((OrgMinimaKissvmValuesValue *) nil_chk([((id<OrgMinimaKissvmExpressionsExpression>) nil_chk([self getParameterWithInt:1])) getValueWithOrgMinimaKissvmContract:zContract])) getNumber])) getAsInt];
   jint reqbyte = JreFpToInt(JavaLangMath_floorWithDouble_(bit / 8));
   if (reqbyte >= datalen) {
-    @throw create_OrgMinimaKissvmExceptionsExecutionException_initWithNSString_(JreStrcat("$I$I", @"Overflow Bit set. Total Bytes ", datalen, @". Requested ", reqbyte));
+    @throw new_OrgMinimaKissvmExceptionsExecutionException_initWithNSString_(JreStrcat("$I$I", @"Overflow Bit set. Total Bytes ", datalen, @". Requested ", reqbyte));
   }
   jint bitbyte = bit - (reqbyte * 8);
   jboolean isSet = (IOSByteArray_Get(data, reqbyte) & (JreLShift32(1, bitbyte))) != 0;
-  return create_OrgMinimaKissvmValuesBooleanValue_initWithBoolean_(isSet);
+  return new_OrgMinimaKissvmValuesBooleanValue_initWithBoolean_(isSet);
 }
 
 - (OrgMinimaKissvmFunctionsMinimaFunction *)getNewFunction {
-  return create_OrgMinimaKissvmFunctionsMathsBITGET_init();
+  return new_OrgMinimaKissvmFunctionsMathsBITGET_init();
 }
 
 + (const J2ObjcClassInfo *)__metadata {

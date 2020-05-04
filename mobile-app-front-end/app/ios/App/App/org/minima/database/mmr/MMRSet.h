@@ -60,7 +60,7 @@
 
 - (OrgMinimaDatabaseMmrMMREntry *)addExternalUnspentCoinWithOrgMinimaDatabaseMmrMMRProof:(OrgMinimaDatabaseMmrMMRProof *)zProof;
 
-- (void)addKeeperWithOrgMinimaObjectsBaseMiniInteger:(OrgMinimaObjectsBaseMiniInteger *)zEntry;
+- (jboolean)addKeeperWithOrgMinimaObjectsBaseMiniInteger:(OrgMinimaObjectsBaseMiniInteger *)zEntry;
 
 - (OrgMinimaDatabaseMmrMMREntry *)addUnspentCoinWithOrgMinimaDatabaseMmrMMRData:(OrgMinimaDatabaseMmrMMRData *)zData;
 
@@ -70,8 +70,7 @@
 
 - (void)finalizeSet;
 
-- (OrgMinimaDatabaseMmrMMREntry *)findEntryWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zCoinID
-                                                                withBoolean:(jboolean)zSearchParent;
+- (OrgMinimaDatabaseMmrMMREntry *)findEntryWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zCoinID;
 
 - (OrgMinimaObjectsBaseMiniNumber *)getBlockTime;
 
@@ -112,8 +111,6 @@
 - (OrgMinimaDatabaseMmrMMREntry *)searchAddressWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zAddress
                                              withOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zAmount
                                                withOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zTokenID;
-
-- (void)setBlockTimeWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zTime;
 
 - (void)setParentWithOrgMinimaDatabaseMmrMMRSet:(OrgMinimaDatabaseMmrMMRSet *)zParent;
 

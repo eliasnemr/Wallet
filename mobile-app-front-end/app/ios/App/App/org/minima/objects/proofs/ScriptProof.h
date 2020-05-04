@@ -32,8 +32,6 @@
 
 #pragma mark Public
 
-- (instancetype)initWithNSString:(NSString *)zScript;
-
 - (instancetype)initWithNSString:(NSString *)zScript
                          withInt:(jint)zBitLength;
 
@@ -55,12 +53,6 @@
 J2OBJC_EMPTY_STATIC_INIT(OrgMinimaObjectsProofsScriptProof)
 
 J2OBJC_FIELD_SETTER(OrgMinimaObjectsProofsScriptProof, mScript_, OrgMinimaObjectsBaseMiniScript *)
-
-FOUNDATION_EXPORT void OrgMinimaObjectsProofsScriptProof_initWithNSString_(OrgMinimaObjectsProofsScriptProof *self, NSString *zScript);
-
-FOUNDATION_EXPORT OrgMinimaObjectsProofsScriptProof *new_OrgMinimaObjectsProofsScriptProof_initWithNSString_(NSString *zScript) NS_RETURNS_RETAINED;
-
-FOUNDATION_EXPORT OrgMinimaObjectsProofsScriptProof *create_OrgMinimaObjectsProofsScriptProof_initWithNSString_(NSString *zScript);
 
 FOUNDATION_EXPORT void OrgMinimaObjectsProofsScriptProof_initWithNSString_withInt_(OrgMinimaObjectsProofsScriptProof *self, NSString *zScript, jint zBitLength);
 

@@ -52,18 +52,18 @@ J2OBJC_IGNORE_DESIGNATED_END
     }
   }
   OrgMinimaUtilsMessagesMessage *rscript = [self getResponseMessageWithNSString:OrgMinimaSystemBrainsConsensusUser_CONSENSUS_RUNSCRIPT];
-  [((OrgMinimaUtilsMessagesMessage *) nil_chk(rscript)) addStringWithNSString:@"script" withNSString:script];
-  [rscript addStringWithNSString:@"sigs" withNSString:sigs];
-  [rscript addStringWithNSString:@"state" withNSString:state];
-  [rscript addStringWithNSString:@"prevstate" withNSString:prevstate];
-  [rscript addStringWithNSString:@"globals" withNSString:globals];
-  [rscript addStringWithNSString:@"outputs" withNSString:outputs];
-  [rscript addStringWithNSString:@"scripts" withNSString:scripts];
+  (void) [((OrgMinimaUtilsMessagesMessage *) nil_chk(rscript)) addStringWithNSString:@"script" withNSString:script];
+  (void) [rscript addStringWithNSString:@"sigs" withNSString:sigs];
+  (void) [rscript addStringWithNSString:@"state" withNSString:state];
+  (void) [rscript addStringWithNSString:@"prevstate" withNSString:prevstate];
+  (void) [rscript addStringWithNSString:@"globals" withNSString:globals];
+  (void) [rscript addStringWithNSString:@"outputs" withNSString:outputs];
+  (void) [rscript addStringWithNSString:@"scripts" withNSString:scripts];
   [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getConsensusHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:rscript];
 }
 
 - (OrgMinimaSystemInputCommandFunction *)getNewFunction {
-  return create_OrgMinimaSystemInputFunctionsrunscript_init();
+  return new_OrgMinimaSystemInputFunctionsrunscript_init();
 }
 
 + (const J2ObjcClassInfo *)__metadata {

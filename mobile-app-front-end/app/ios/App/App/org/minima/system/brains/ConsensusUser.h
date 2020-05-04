@@ -62,6 +62,11 @@ inline NSString *OrgMinimaSystemBrainsConsensusUser_get_CONSENSUS_NEWKEY(void);
 FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusUser_CONSENSUS_NEWKEY;
 J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBrainsConsensusUser, CONSENSUS_NEWKEY, NSString *)
 
+inline NSString *OrgMinimaSystemBrainsConsensusUser_get_CONSENSUS_SIGN(void);
+/*! INTERNAL ONLY - Use accessor function from above. */
+FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusUser_CONSENSUS_SIGN;
+J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBrainsConsensusUser, CONSENSUS_SIGN, NSString *)
+
 inline NSString *OrgMinimaSystemBrainsConsensusUser_get_CONSENSUS_NEWSIMPLE(void);
 /*! INTERNAL ONLY - Use accessor function from above. */
 FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusUser_CONSENSUS_NEWSIMPLE;
@@ -71,6 +76,11 @@ inline NSString *OrgMinimaSystemBrainsConsensusUser_get_CONSENSUS_NEWSCRIPT(void
 /*! INTERNAL ONLY - Use accessor function from above. */
 FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusUser_CONSENSUS_NEWSCRIPT;
 J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBrainsConsensusUser, CONSENSUS_NEWSCRIPT, NSString *)
+
+inline NSString *OrgMinimaSystemBrainsConsensusUser_get_CONSENSUS_EXTRASCRIPT(void);
+/*! INTERNAL ONLY - Use accessor function from above. */
+FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusUser_CONSENSUS_EXTRASCRIPT;
+J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBrainsConsensusUser, CONSENSUS_EXTRASCRIPT, NSString *)
 
 inline NSString *OrgMinimaSystemBrainsConsensusUser_get_CONSENSUS_RUNSCRIPT(void);
 /*! INTERNAL ONLY - Use accessor function from above. */

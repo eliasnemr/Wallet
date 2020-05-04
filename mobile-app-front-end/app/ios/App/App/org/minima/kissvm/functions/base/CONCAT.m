@@ -31,26 +31,26 @@ J2OBJC_IGNORE_DESIGNATED_END
 - (OrgMinimaKissvmValuesValue *)runFunctionWithOrgMinimaKissvmContract:(OrgMinimaKissvmContract *)zContract {
   JavaUtilArrayList *params = [self getAllParameters];
   jint paramnum = [((JavaUtilArrayList *) nil_chk(params)) size];
-  IOSObjectArray *parambytes = [IOSObjectArray arrayWithLength:paramnum type:IOSClass_byteArray(1)];
+  IOSObjectArray *parambytes = [IOSObjectArray newArrayWithLength:paramnum type:IOSClass_byteArray(1)];
   if (paramnum < 1) {
-    @throw create_OrgMinimaKissvmExceptionsExecutionException_initWithNSString_(JreStrcat("$I", @"Invalid number of Parameters for CONCAT ", paramnum));
+    @throw new_OrgMinimaKissvmExceptionsExecutionException_initWithNSString_(JreStrcat("$I", @"Invalid number of Parameters for CONCAT ", paramnum));
   }
   jint type = [((OrgMinimaKissvmValuesValue *) nil_chk([((id<OrgMinimaKissvmExpressionsExpression>) nil_chk([params getWithInt:0])) getValueWithOrgMinimaKissvmContract:zContract])) getValueType];
   if (type != OrgMinimaKissvmValuesHEXValue_VALUE_HEX && type != OrgMinimaKissvmValuesScriptValue_VALUE_SCRIPT) {
-    @throw create_OrgMinimaKissvmExceptionsExecutionException_initWithNSString_(JreStrcat("$I$$", @"Invaid Value Type in CONCAT ", type, @") MUST be HEX or SCRIPT ", [((id<OrgMinimaKissvmExpressionsExpression>) nil_chk([params getWithInt:0])) description]));
+    @throw new_OrgMinimaKissvmExceptionsExecutionException_initWithNSString_(JreStrcat("$I$$", @"Invaid Value Type in CONCAT ", type, @") MUST be HEX or SCRIPT ", [((id<OrgMinimaKissvmExpressionsExpression>) nil_chk([params getWithInt:0])) description]));
   }
   jint totlen = 0;
   jint counter = 0;
   for (id<OrgMinimaKissvmExpressionsExpression> __strong exp in params) {
     jint intype = [((OrgMinimaKissvmValuesValue *) nil_chk([((id<OrgMinimaKissvmExpressionsExpression>) nil_chk(exp)) getValueWithOrgMinimaKissvmContract:zContract])) getValueType];
     if (intype != type) {
-      @throw create_OrgMinimaKissvmExceptionsExecutionException_initWithNSString_(JreStrcat("$I$", @"Invaid Value Type in CONCAT ", intype, @") MUST all be the same"));
+      @throw new_OrgMinimaKissvmExceptionsExecutionException_initWithNSString_(JreStrcat("$I$", @"Invaid Value Type in CONCAT ", intype, @") MUST all be the same"));
     }
-    IOSObjectArray_Set(parambytes, counter, [((OrgMinimaKissvmValuesValue *) nil_chk([exp getValueWithOrgMinimaKissvmContract:zContract])) getRawData]);
+    (void) IOSObjectArray_Set(parambytes, counter, [((OrgMinimaKissvmValuesValue *) nil_chk([exp getValueWithOrgMinimaKissvmContract:zContract])) getRawData]);
     totlen += ((IOSByteArray *) nil_chk(IOSObjectArray_Get(parambytes, counter)))->size_;
     counter++;
   }
-  IOSByteArray *result = [IOSByteArray arrayWithLength:totlen];
+  IOSByteArray *result = [IOSByteArray newArrayWithLength:totlen];
   NSString *fullstring = @"";
   jint pos = 0;
   for (jint i = 0; i < counter; i++) {
@@ -59,22 +59,22 @@ J2OBJC_IGNORE_DESIGNATED_END
       pos += ((IOSByteArray *) nil_chk(IOSObjectArray_Get(parambytes, i)))->size_;
     }
     else {
-      JreStrAppend(&fullstring, "$C", [NSString java_stringWithBytes:IOSObjectArray_Get(parambytes, i) charset:JavaNioCharsetCharset_forNameWithNSString_(@"US-ASCII")], ' ');
+      (void) JreStrAppendStrong(&fullstring, "$C", [NSString java_stringWithBytes:IOSObjectArray_Get(parambytes, i) charset:JavaNioCharsetCharset_forNameWithNSString_(@"US-ASCII")], ' ');
     }
   }
   if (type == OrgMinimaKissvmValuesHEXValue_VALUE_HEX) {
-    return create_OrgMinimaKissvmValuesHEXValue_initWithByteArray_(result);
+    return new_OrgMinimaKissvmValuesHEXValue_initWithByteArray_(result);
   }
   else if (type == OrgMinimaKissvmValuesScriptValue_VALUE_SCRIPT) {
-    return create_OrgMinimaKissvmValuesScriptValue_initWithNSString_(fullstring);
+    return new_OrgMinimaKissvmValuesScriptValue_initWithNSString_(fullstring);
   }
   else {
-    @throw create_OrgMinimaKissvmExceptionsExecutionException_initWithNSString_(JreStrcat("$I$$", @"Invaid Value Type in CONCAT ", type, @") ", [((id<OrgMinimaKissvmExpressionsExpression>) nil_chk([params getWithInt:0])) description]));
+    @throw new_OrgMinimaKissvmExceptionsExecutionException_initWithNSString_(JreStrcat("$I$$", @"Invaid Value Type in CONCAT ", type, @") ", [((id<OrgMinimaKissvmExpressionsExpression>) nil_chk([params getWithInt:0])) description]));
   }
 }
 
 - (OrgMinimaKissvmFunctionsMinimaFunction *)getNewFunction {
-  return create_OrgMinimaKissvmFunctionsBaseCONCAT_init();
+  return new_OrgMinimaKissvmFunctionsBaseCONCAT_init();
 }
 
 + (const J2ObjcClassInfo *)__metadata {

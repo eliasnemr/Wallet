@@ -41,14 +41,12 @@ dependencies {
     implementation 'org.apache.cordova:framework:7.0.0'
     // SUB-PROJECT DEPENDENCIES START
     implementation "com.squareup.okhttp3:okhttp-urlconnection:3.10.0"
-    implementation "com.android.support:support-v4:26.+"
     // SUB-PROJECT DEPENDENCIES END
 }
 
 // PLUGIN GRADLE EXTENSIONS START
 apply from: "cordova.variables.gradle"
 apply from: "../../node_modules/cordova-plugin-badge/src/android/badge.gradle"
-apply from: "../../node_modules/cordova-plugin-local-notification/src/android/build/localnotification.gradle"
 apply from: "../../node_modules/cordova-plugin-qrscanner/src/android/qrscanner.gradle"
 // PLUGIN GRADLE EXTENSIONS END
 

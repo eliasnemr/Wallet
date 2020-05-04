@@ -38,9 +38,9 @@ J2OBJC_FIELD_SETTER(OrgMinimaUtilsDigestWinternitzOTSVerify, messDigestOTS_, id<
 - (IOSByteArray *)VerifyWithByteArray:(IOSByteArray *)message
                         withByteArray:(IOSByteArray *)signature {
   jint mdsize = [((id<OrgMinimaUtilsDigestDigest>) nil_chk(messDigestOTS_)) getDigestSize];
-  IOSByteArray *hash_ = [IOSByteArray arrayWithLength:mdsize];
+  IOSByteArray *hash_ = [IOSByteArray newArrayWithLength:mdsize];
   [((id<OrgMinimaUtilsDigestDigest>) nil_chk(messDigestOTS_)) updateWithByteArray:message withInt:0 withInt:((IOSByteArray *) nil_chk(message))->size_];
-  hash_ = [IOSByteArray arrayWithLength:[((id<OrgMinimaUtilsDigestDigest>) nil_chk(messDigestOTS_)) getDigestSize]];
+  hash_ = [IOSByteArray newArrayWithLength:[((id<OrgMinimaUtilsDigestDigest>) nil_chk(messDigestOTS_)) getDigestSize]];
   [((id<OrgMinimaUtilsDigestDigest>) nil_chk(messDigestOTS_)) doFinalWithByteArray:hash_ withInt:0];
   jint size = ((JreLShift32(mdsize, 3)) + (w_ - 1)) / w_;
   jint logs = [self getLogWithInt:(JreLShift32(size, w_)) + 1];
@@ -49,14 +49,14 @@ J2OBJC_FIELD_SETTER(OrgMinimaUtilsDigestWinternitzOTSVerify, messDigestOTS_, id<
   if (testKeySize != ((IOSByteArray *) nil_chk(signature))->size_) {
     return nil;
   }
-  IOSByteArray *testKey = [IOSByteArray arrayWithLength:testKeySize];
+  IOSByteArray *testKey = [IOSByteArray newArrayWithLength:testKeySize];
   jint c = 0;
   jint counter = 0;
   jint test;
   if (8 % w_ == 0) {
     jint d = 8 / w_;
     jint k = (JreLShift32(1, w_)) - 1;
-    IOSByteArray *hlp = [IOSByteArray arrayWithLength:mdsize];
+    IOSByteArray *hlp = [IOSByteArray newArrayWithLength:mdsize];
     for (jint i = 0; i < hash_->size_; i++) {
       for (jint j = 0; j < d; j++) {
         test = IOSByteArray_Get(hash_, i) & k;
@@ -64,7 +64,7 @@ J2OBJC_FIELD_SETTER(OrgMinimaUtilsDigestWinternitzOTSVerify, messDigestOTS_, id<
         JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(signature, counter * mdsize, hlp, 0, mdsize);
         while (test < k) {
           [((id<OrgMinimaUtilsDigestDigest>) nil_chk(messDigestOTS_)) updateWithByteArray:hlp withInt:0 withInt:hlp->size_];
-          hlp = [IOSByteArray arrayWithLength:[((id<OrgMinimaUtilsDigestDigest>) nil_chk(messDigestOTS_)) getDigestSize]];
+          hlp = [IOSByteArray newArrayWithLength:[((id<OrgMinimaUtilsDigestDigest>) nil_chk(messDigestOTS_)) getDigestSize]];
           [((id<OrgMinimaUtilsDigestDigest>) nil_chk(messDigestOTS_)) doFinalWithByteArray:hlp withInt:0];
           test++;
         }
@@ -79,7 +79,7 @@ J2OBJC_FIELD_SETTER(OrgMinimaUtilsDigestWinternitzOTSVerify, messDigestOTS_, id<
       JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(signature, counter * mdsize, hlp, 0, mdsize);
       while (test < k) {
         [((id<OrgMinimaUtilsDigestDigest>) nil_chk(messDigestOTS_)) updateWithByteArray:hlp withInt:0 withInt:hlp->size_];
-        hlp = [IOSByteArray arrayWithLength:[((id<OrgMinimaUtilsDigestDigest>) nil_chk(messDigestOTS_)) getDigestSize]];
+        hlp = [IOSByteArray newArrayWithLength:[((id<OrgMinimaUtilsDigestDigest>) nil_chk(messDigestOTS_)) getDigestSize]];
         [((id<OrgMinimaUtilsDigestDigest>) nil_chk(messDigestOTS_)) doFinalWithByteArray:hlp withInt:0];
         test++;
       }
@@ -91,7 +91,7 @@ J2OBJC_FIELD_SETTER(OrgMinimaUtilsDigestWinternitzOTSVerify, messDigestOTS_, id<
   else if (w_ < 8) {
     jint d = mdsize / w_;
     jint k = (JreLShift32(1, w_)) - 1;
-    IOSByteArray *hlp = [IOSByteArray arrayWithLength:mdsize];
+    IOSByteArray *hlp = [IOSByteArray newArrayWithLength:mdsize];
     jlong big8;
     jint ii = 0;
     for (jint i = 0; i < d; i++) {
@@ -106,7 +106,7 @@ J2OBJC_FIELD_SETTER(OrgMinimaUtilsDigestWinternitzOTSVerify, messDigestOTS_, id<
         JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(signature, counter * mdsize, hlp, 0, mdsize);
         while (test < k) {
           [((id<OrgMinimaUtilsDigestDigest>) nil_chk(messDigestOTS_)) updateWithByteArray:hlp withInt:0 withInt:hlp->size_];
-          hlp = [IOSByteArray arrayWithLength:[((id<OrgMinimaUtilsDigestDigest>) nil_chk(messDigestOTS_)) getDigestSize]];
+          hlp = [IOSByteArray newArrayWithLength:[((id<OrgMinimaUtilsDigestDigest>) nil_chk(messDigestOTS_)) getDigestSize]];
           [((id<OrgMinimaUtilsDigestDigest>) nil_chk(messDigestOTS_)) doFinalWithByteArray:hlp withInt:0];
           test++;
         }
@@ -128,7 +128,7 @@ J2OBJC_FIELD_SETTER(OrgMinimaUtilsDigestWinternitzOTSVerify, messDigestOTS_, id<
       JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(signature, counter * mdsize, hlp, 0, mdsize);
       while (test < k) {
         [((id<OrgMinimaUtilsDigestDigest>) nil_chk(messDigestOTS_)) updateWithByteArray:hlp withInt:0 withInt:hlp->size_];
-        hlp = [IOSByteArray arrayWithLength:[((id<OrgMinimaUtilsDigestDigest>) nil_chk(messDigestOTS_)) getDigestSize]];
+        hlp = [IOSByteArray newArrayWithLength:[((id<OrgMinimaUtilsDigestDigest>) nil_chk(messDigestOTS_)) getDigestSize]];
         [((id<OrgMinimaUtilsDigestDigest>) nil_chk(messDigestOTS_)) doFinalWithByteArray:hlp withInt:0];
         test++;
       }
@@ -142,7 +142,7 @@ J2OBJC_FIELD_SETTER(OrgMinimaUtilsDigestWinternitzOTSVerify, messDigestOTS_, id<
       JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(signature, counter * mdsize, hlp, 0, mdsize);
       while (test < k) {
         [((id<OrgMinimaUtilsDigestDigest>) nil_chk(messDigestOTS_)) updateWithByteArray:hlp withInt:0 withInt:hlp->size_];
-        hlp = [IOSByteArray arrayWithLength:[((id<OrgMinimaUtilsDigestDigest>) nil_chk(messDigestOTS_)) getDigestSize]];
+        hlp = [IOSByteArray newArrayWithLength:[((id<OrgMinimaUtilsDigestDigest>) nil_chk(messDigestOTS_)) getDigestSize]];
         [((id<OrgMinimaUtilsDigestDigest>) nil_chk(messDigestOTS_)) doFinalWithByteArray:hlp withInt:0];
         test++;
       }
@@ -154,7 +154,7 @@ J2OBJC_FIELD_SETTER(OrgMinimaUtilsDigestWinternitzOTSVerify, messDigestOTS_, id<
   else if (w_ < 57) {
     jint d = (JreLShift32(mdsize, 3)) - w_;
     jint k = (JreLShift32(1, w_)) - 1;
-    IOSByteArray *hlp = [IOSByteArray arrayWithLength:mdsize];
+    IOSByteArray *hlp = [IOSByteArray newArrayWithLength:mdsize];
     jlong big8;
     jlong test8;
     jint r = 0;
@@ -179,7 +179,7 @@ J2OBJC_FIELD_SETTER(OrgMinimaUtilsDigestWinternitzOTSVerify, messDigestOTS_, id<
       JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(signature, counter * mdsize, hlp, 0, mdsize);
       while (test8 < k) {
         [((id<OrgMinimaUtilsDigestDigest>) nil_chk(messDigestOTS_)) updateWithByteArray:hlp withInt:0 withInt:hlp->size_];
-        hlp = [IOSByteArray arrayWithLength:[((id<OrgMinimaUtilsDigestDigest>) nil_chk(messDigestOTS_)) getDigestSize]];
+        hlp = [IOSByteArray newArrayWithLength:[((id<OrgMinimaUtilsDigestDigest>) nil_chk(messDigestOTS_)) getDigestSize]];
         [((id<OrgMinimaUtilsDigestDigest>) nil_chk(messDigestOTS_)) doFinalWithByteArray:hlp withInt:0];
         test8++;
       }
@@ -201,7 +201,7 @@ J2OBJC_FIELD_SETTER(OrgMinimaUtilsDigestWinternitzOTSVerify, messDigestOTS_, id<
       JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(signature, counter * mdsize, hlp, 0, mdsize);
       while (test8 < k) {
         [((id<OrgMinimaUtilsDigestDigest>) nil_chk(messDigestOTS_)) updateWithByteArray:hlp withInt:0 withInt:hlp->size_];
-        hlp = [IOSByteArray arrayWithLength:[((id<OrgMinimaUtilsDigestDigest>) nil_chk(messDigestOTS_)) getDigestSize]];
+        hlp = [IOSByteArray newArrayWithLength:[((id<OrgMinimaUtilsDigestDigest>) nil_chk(messDigestOTS_)) getDigestSize]];
         [((id<OrgMinimaUtilsDigestDigest>) nil_chk(messDigestOTS_)) doFinalWithByteArray:hlp withInt:0];
         test8++;
       }
@@ -214,7 +214,7 @@ J2OBJC_FIELD_SETTER(OrgMinimaUtilsDigestWinternitzOTSVerify, messDigestOTS_, id<
       JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(signature, counter * mdsize, hlp, 0, mdsize);
       while (test8 < k) {
         [((id<OrgMinimaUtilsDigestDigest>) nil_chk(messDigestOTS_)) updateWithByteArray:hlp withInt:0 withInt:hlp->size_];
-        hlp = [IOSByteArray arrayWithLength:[((id<OrgMinimaUtilsDigestDigest>) nil_chk(messDigestOTS_)) getDigestSize]];
+        hlp = [IOSByteArray newArrayWithLength:[((id<OrgMinimaUtilsDigestDigest>) nil_chk(messDigestOTS_)) getDigestSize]];
         [((id<OrgMinimaUtilsDigestDigest>) nil_chk(messDigestOTS_)) doFinalWithByteArray:hlp withInt:0];
         test8++;
       }
@@ -223,9 +223,9 @@ J2OBJC_FIELD_SETTER(OrgMinimaUtilsDigestWinternitzOTSVerify, messDigestOTS_, id<
       counter++;
     }
   }
-  IOSByteArray *TKey = [IOSByteArray arrayWithLength:mdsize];
+  IOSByteArray *TKey = [IOSByteArray newArrayWithLength:mdsize];
   [((id<OrgMinimaUtilsDigestDigest>) nil_chk(messDigestOTS_)) updateWithByteArray:testKey withInt:0 withInt:testKey->size_];
-  TKey = [IOSByteArray arrayWithLength:[((id<OrgMinimaUtilsDigestDigest>) nil_chk(messDigestOTS_)) getDigestSize]];
+  TKey = [IOSByteArray newArrayWithLength:[((id<OrgMinimaUtilsDigestDigest>) nil_chk(messDigestOTS_)) getDigestSize]];
   [((id<OrgMinimaUtilsDigestDigest>) nil_chk(messDigestOTS_)) doFinalWithByteArray:TKey withInt:0];
   return TKey;
 }
@@ -238,11 +238,6 @@ J2OBJC_FIELD_SETTER(OrgMinimaUtilsDigestWinternitzOTSVerify, messDigestOTS_, id<
     log++;
   }
   return log;
-}
-
-- (void)dealloc {
-  RELEASE_(messDigestOTS_);
-
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -274,7 +269,7 @@ J2OBJC_FIELD_SETTER(OrgMinimaUtilsDigestWinternitzOTSVerify, messDigestOTS_, id<
 void OrgMinimaUtilsDigestWinternitzOTSVerify_initWithOrgMinimaUtilsDigestDigest_withInt_(OrgMinimaUtilsDigestWinternitzOTSVerify *self, id<OrgMinimaUtilsDigestDigest> digest, jint w) {
   NSObject_init(self);
   self->w_ = w;
-  JreStrongAssign(&self->messDigestOTS_, digest);
+  self->messDigestOTS_ = digest;
 }
 
 OrgMinimaUtilsDigestWinternitzOTSVerify *new_OrgMinimaUtilsDigestWinternitzOTSVerify_initWithOrgMinimaUtilsDigestDigest_withInt_(id<OrgMinimaUtilsDigestDigest> digest, jint w) {

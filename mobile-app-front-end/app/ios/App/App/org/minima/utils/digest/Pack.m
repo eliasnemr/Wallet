@@ -323,7 +323,7 @@ void OrgMinimaUtilsDigestPack_bigEndianToIntWithByteArray_withInt_withIntArray_(
 
 IOSByteArray *OrgMinimaUtilsDigestPack_intToBigEndianWithInt_(jint n) {
   OrgMinimaUtilsDigestPack_initialize();
-  IOSByteArray *bs = [IOSByteArray arrayWithLength:4];
+  IOSByteArray *bs = [IOSByteArray newArrayWithLength:4];
   OrgMinimaUtilsDigestPack_intToBigEndianWithInt_withByteArray_withInt_(n, bs, 0);
   return bs;
 }
@@ -338,7 +338,7 @@ void OrgMinimaUtilsDigestPack_intToBigEndianWithInt_withByteArray_withInt_(jint 
 
 IOSByteArray *OrgMinimaUtilsDigestPack_intToBigEndianWithIntArray_(IOSIntArray *ns) {
   OrgMinimaUtilsDigestPack_initialize();
-  IOSByteArray *bs = [IOSByteArray arrayWithLength:4 * ((IOSIntArray *) nil_chk(ns))->size_];
+  IOSByteArray *bs = [IOSByteArray newArrayWithLength:4 * ((IOSIntArray *) nil_chk(ns))->size_];
   OrgMinimaUtilsDigestPack_intToBigEndianWithIntArray_withByteArray_withInt_(ns, bs, 0);
   return bs;
 }
@@ -368,7 +368,7 @@ void OrgMinimaUtilsDigestPack_bigEndianToLongWithByteArray_withInt_withLongArray
 
 IOSByteArray *OrgMinimaUtilsDigestPack_longToBigEndianWithLong_(jlong n) {
   OrgMinimaUtilsDigestPack_initialize();
-  IOSByteArray *bs = [IOSByteArray arrayWithLength:8];
+  IOSByteArray *bs = [IOSByteArray newArrayWithLength:8];
   OrgMinimaUtilsDigestPack_longToBigEndianWithLong_withByteArray_withInt_(n, bs, 0);
   return bs;
 }
@@ -381,7 +381,7 @@ void OrgMinimaUtilsDigestPack_longToBigEndianWithLong_withByteArray_withInt_(jlo
 
 IOSByteArray *OrgMinimaUtilsDigestPack_longToBigEndianWithLongArray_(IOSLongArray *ns) {
   OrgMinimaUtilsDigestPack_initialize();
-  IOSByteArray *bs = [IOSByteArray arrayWithLength:8 * ((IOSLongArray *) nil_chk(ns))->size_];
+  IOSByteArray *bs = [IOSByteArray newArrayWithLength:8 * ((IOSLongArray *) nil_chk(ns))->size_];
   OrgMinimaUtilsDigestPack_longToBigEndianWithLongArray_withByteArray_withInt_(ns, bs, 0);
   return bs;
 }
@@ -436,7 +436,7 @@ void OrgMinimaUtilsDigestPack_littleEndianToIntWithByteArray_withInt_withIntArra
 
 IOSIntArray *OrgMinimaUtilsDigestPack_littleEndianToIntWithByteArray_withInt_withInt_(IOSByteArray *bs, jint off, jint count) {
   OrgMinimaUtilsDigestPack_initialize();
-  IOSIntArray *ns = [IOSIntArray arrayWithLength:count];
+  IOSIntArray *ns = [IOSIntArray newArrayWithLength:count];
   for (jint i = 0; i < ns->size_; ++i) {
     *IOSIntArray_GetRef(ns, i) = OrgMinimaUtilsDigestPack_littleEndianToIntWithByteArray_withInt_(bs, off);
     off += 4;
@@ -446,7 +446,7 @@ IOSIntArray *OrgMinimaUtilsDigestPack_littleEndianToIntWithByteArray_withInt_wit
 
 IOSByteArray *OrgMinimaUtilsDigestPack_shortToLittleEndianWithShort_(jshort n) {
   OrgMinimaUtilsDigestPack_initialize();
-  IOSByteArray *bs = [IOSByteArray arrayWithLength:2];
+  IOSByteArray *bs = [IOSByteArray newArrayWithLength:2];
   OrgMinimaUtilsDigestPack_shortToLittleEndianWithShort_withByteArray_withInt_(n, bs, 0);
   return bs;
 }
@@ -459,7 +459,7 @@ void OrgMinimaUtilsDigestPack_shortToLittleEndianWithShort_withByteArray_withInt
 
 IOSByteArray *OrgMinimaUtilsDigestPack_shortToBigEndianWithShort_(jshort n) {
   OrgMinimaUtilsDigestPack_initialize();
-  IOSByteArray *r = [IOSByteArray arrayWithLength:2];
+  IOSByteArray *r = [IOSByteArray newArrayWithLength:2];
   OrgMinimaUtilsDigestPack_shortToBigEndianWithShort_withByteArray_withInt_(n, r, 0);
   return r;
 }
@@ -472,7 +472,7 @@ void OrgMinimaUtilsDigestPack_shortToBigEndianWithShort_withByteArray_withInt_(j
 
 IOSByteArray *OrgMinimaUtilsDigestPack_intToLittleEndianWithInt_(jint n) {
   OrgMinimaUtilsDigestPack_initialize();
-  IOSByteArray *bs = [IOSByteArray arrayWithLength:4];
+  IOSByteArray *bs = [IOSByteArray newArrayWithLength:4];
   OrgMinimaUtilsDigestPack_intToLittleEndianWithInt_withByteArray_withInt_(n, bs, 0);
   return bs;
 }
@@ -487,7 +487,7 @@ void OrgMinimaUtilsDigestPack_intToLittleEndianWithInt_withByteArray_withInt_(ji
 
 IOSByteArray *OrgMinimaUtilsDigestPack_intToLittleEndianWithIntArray_(IOSIntArray *ns) {
   OrgMinimaUtilsDigestPack_initialize();
-  IOSByteArray *bs = [IOSByteArray arrayWithLength:4 * ((IOSIntArray *) nil_chk(ns))->size_];
+  IOSByteArray *bs = [IOSByteArray newArrayWithLength:4 * ((IOSIntArray *) nil_chk(ns))->size_];
   OrgMinimaUtilsDigestPack_intToLittleEndianWithIntArray_withByteArray_withInt_(ns, bs, 0);
   return bs;
 }
@@ -525,7 +525,7 @@ void OrgMinimaUtilsDigestPack_littleEndianToLongWithByteArray_withInt_withLongAr
 
 IOSByteArray *OrgMinimaUtilsDigestPack_longToLittleEndianWithLong_(jlong n) {
   OrgMinimaUtilsDigestPack_initialize();
-  IOSByteArray *bs = [IOSByteArray arrayWithLength:8];
+  IOSByteArray *bs = [IOSByteArray newArrayWithLength:8];
   OrgMinimaUtilsDigestPack_longToLittleEndianWithLong_withByteArray_withInt_(n, bs, 0);
   return bs;
 }
@@ -538,7 +538,7 @@ void OrgMinimaUtilsDigestPack_longToLittleEndianWithLong_withByteArray_withInt_(
 
 IOSByteArray *OrgMinimaUtilsDigestPack_longToLittleEndianWithLongArray_(IOSLongArray *ns) {
   OrgMinimaUtilsDigestPack_initialize();
-  IOSByteArray *bs = [IOSByteArray arrayWithLength:8 * ((IOSLongArray *) nil_chk(ns))->size_];
+  IOSByteArray *bs = [IOSByteArray newArrayWithLength:8 * ((IOSLongArray *) nil_chk(ns))->size_];
   OrgMinimaUtilsDigestPack_longToLittleEndianWithLongArray_withByteArray_withInt_(ns, bs, 0);
   return bs;
 }

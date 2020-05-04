@@ -25,17 +25,17 @@ J2OBJC_IGNORE_DESIGNATED_END
 - (OrgMinimaKissvmValuesValue *)runFunctionWithOrgMinimaKissvmContract:(OrgMinimaKissvmContract *)zContract {
   JavaUtilArrayList *params = [self getAllParameters];
   if ([((JavaUtilArrayList *) nil_chk(params)) size] < 1) {
-    @throw create_OrgMinimaKissvmExceptionsExecutionException_initWithNSString_(@"STRCAT requires at least 1 parameter");
+    @throw new_OrgMinimaKissvmExceptionsExecutionException_initWithNSString_(@"STRCAT requires at least 1 parameter");
   }
   NSString *fullstring = @"";
   for (id<OrgMinimaKissvmExpressionsExpression> __strong exp in params) {
-    JreStrAppend(&fullstring, "$C", [((OrgMinimaKissvmValuesValue *) nil_chk([((id<OrgMinimaKissvmExpressionsExpression>) nil_chk(exp)) getValueWithOrgMinimaKissvmContract:zContract])) description], ' ');
+    (void) JreStrAppendStrong(&fullstring, "$C", [((OrgMinimaKissvmValuesValue *) nil_chk([((id<OrgMinimaKissvmExpressionsExpression>) nil_chk(exp)) getValueWithOrgMinimaKissvmContract:zContract])) description], ' ');
   }
-  return create_OrgMinimaKissvmValuesScriptValue_initWithNSString_([fullstring java_trim]);
+  return new_OrgMinimaKissvmValuesScriptValue_initWithNSString_([fullstring java_trim]);
 }
 
 - (OrgMinimaKissvmFunctionsMinimaFunction *)getNewFunction {
-  return create_OrgMinimaKissvmFunctionsBaseSTRCAT_init();
+  return new_OrgMinimaKissvmFunctionsBaseSTRCAT_init();
 }
 
 + (const J2ObjcClassInfo *)__metadata {

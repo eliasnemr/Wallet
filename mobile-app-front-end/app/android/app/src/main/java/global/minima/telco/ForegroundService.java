@@ -34,12 +34,13 @@ public class ForegroundService extends Service {
     TxPOW txpow;
     public String mBLOCK_NUMBER;
 
-
+    public static ForegroundService mForegroundService;
     @Override
     public void onCreate() {
         super.onCreate();
 
         //Start Minima
+        mForegroundService = this;
         mStart = new Start();
 
         Log.d("Minima Call:", "" +  "Minima is running");
@@ -85,8 +86,8 @@ public class ForegroundService extends Service {
                                 public void run() {
 
                                     mNotificationBuilder = new NotificationCompat.Builder(ForegroundService.this, CHANNEL_ID)
-                                            .setContentTitle("Your Minima Node is running..")
-                                            .setContentText("You just received money!")
+                                            .setContentTitle("Minima Node: ")
+                                            .setContentText("You just received coins!")
                                             .setSmallIcon(R.drawable.ic_minima)
                                             .setContentIntent(mPendingIntent)
                                             .build();
@@ -108,8 +109,8 @@ public class ForegroundService extends Service {
                                     mBLOCK_NUMBER = txpow.getBlockNumber().toString();
 
                                     mNotificationBuilder = new NotificationCompat.Builder(ForegroundService.this, CHANNEL_ID)
-                                            .setContentTitle("Your Minima Node is running..")
-                                            .setContentText("Current block number: " + mBLOCK_NUMBER)
+                                            .setContentTitle("Minima Node: ")
+                                            .setContentText("Block no." + mBLOCK_NUMBER)
                                             .setSmallIcon(R.drawable.ic_minima)
                                             .setContentIntent(mPendingIntent)
                                             .build();

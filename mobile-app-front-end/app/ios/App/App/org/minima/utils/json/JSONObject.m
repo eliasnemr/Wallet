@@ -148,24 +148,24 @@ void OrgMinimaUtilsJsonJSONObject_writeJSONStringWithJavaUtilMap_withJavaIoWrite
 
 NSString *OrgMinimaUtilsJsonJSONObject_toJSONStringWithJavaUtilMap_(id<JavaUtilMap> map) {
   OrgMinimaUtilsJsonJSONObject_initialize();
-  JavaIoStringWriter *writer = create_JavaIoStringWriter_init();
+  JavaIoStringWriter *writer = new_JavaIoStringWriter_init();
   @try {
     OrgMinimaUtilsJsonJSONObject_writeJSONStringWithJavaUtilMap_withJavaIoWriter_(map, writer);
     return [writer description];
   }
   @catch (JavaIoIOException *e) {
-    @throw create_JavaLangRuntimeException_initWithJavaLangThrowable_(e);
+    @throw new_JavaLangRuntimeException_initWithJavaLangThrowable_(e);
   }
 }
 
 NSString *OrgMinimaUtilsJsonJSONObject_toStringWithNSString_withId_(NSString *key, id value) {
   OrgMinimaUtilsJsonJSONObject_initialize();
-  JavaLangStringBuffer *sb = create_JavaLangStringBuffer_init();
-  [sb appendWithChar:'"'];
-  if (key == nil) [sb appendWithNSString:@"null"];
+  JavaLangStringBuffer *sb = new_JavaLangStringBuffer_init();
+  (void) [sb appendWithChar:'"'];
+  if (key == nil) (void) [sb appendWithNSString:@"null"];
   else OrgMinimaUtilsJsonJSONValue_escapeWithNSString_withJavaLangStringBuffer_(key, sb);
-  [((JavaLangStringBuffer *) nil_chk([sb appendWithChar:'"'])) appendWithChar:':'];
-  [sb appendWithNSString:OrgMinimaUtilsJsonJSONValue_toJSONStringWithId_(value)];
+  (void) [((JavaLangStringBuffer *) nil_chk([sb appendWithChar:'"'])) appendWithChar:':'];
+  (void) [sb appendWithNSString:OrgMinimaUtilsJsonJSONValue_toJSONStringWithId_(value)];
   return [sb description];
 }
 

@@ -26,6 +26,7 @@
  @public
   OrgMinimaDatabaseMinimaDB *mDB_;
   OrgMinimaSystemBrainsConsensusHandler *mHandler_;
+  jboolean mHardResetAllowed_;
 }
 
 #pragma mark Public
@@ -36,6 +37,8 @@
 - (OrgMinimaObjectsBaseMiniNumber *)checkCrossoverWithOrgMinimaSystemBackupSyncPackage:(OrgMinimaSystemBackupSyncPackage *)zIntro;
 
 - (void)processMessageWithOrgMinimaUtilsMessagesMessage:(OrgMinimaUtilsMessagesMessage *)zMessage;
+
+- (void)setHardResestWithBoolean:(jboolean)zHardResetAllowed;
 
 // Disallowed inherited constructors, do not use.
 

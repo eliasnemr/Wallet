@@ -45,7 +45,7 @@ NSString *OrgMinimaSystemInputInputHandler_INPUT_RESPONSE = @"_**outstream**_";
         [found doFunctionWithNSStringArray:inputs];
       }
       @catch (JavaLangException *exc) {
-        [((OrgMinimaUtilsJsonJSONObject *) nil_chk([output getDataJSON])) putWithId:@"help" withId:JreStrcat("$C$$$", [found getName], ' ', [found getParams], @" - ", [found getSimple])];
+        (void) [((OrgMinimaUtilsJsonJSONObject *) nil_chk([output getDataJSON])) putWithId:@"help" withId:JreStrcat("$C$$$", [found getName], ' ', [found getParams], @" - ", [found getSimple])];
         [output endStatusWithBoolean:false withNSString:[exc description]];
       }
     }
@@ -98,7 +98,7 @@ NSString *OrgMinimaSystemInputInputHandler_INPUT_RESPONSE = @"_**outstream**_";
 
 void OrgMinimaSystemInputInputHandler_initWithOrgMinimaSystemMain_(OrgMinimaSystemInputInputHandler *self, OrgMinimaSystemMain *zMain) {
   OrgMinimaSystemSystemHandler_initWithOrgMinimaSystemMain_withNSString_(self, zMain, @"INPUT");
-  [create_OrgMinimaSystemInputFunctionsintro_init() doFunctionWithNSStringArray:[IOSObjectArray arrayWithLength:0 type:NSString_class_()]];
+  [new_OrgMinimaSystemInputFunctionsintro_init() doFunctionWithNSStringArray:[IOSObjectArray newArrayWithLength:0 type:NSString_class_()]];
 }
 
 OrgMinimaSystemInputInputHandler *new_OrgMinimaSystemInputInputHandler_initWithOrgMinimaSystemMain_(OrgMinimaSystemMain *zMain) {
@@ -112,7 +112,7 @@ OrgMinimaSystemInputInputHandler *create_OrgMinimaSystemInputInputHandler_initWi
 OrgMinimaUtilsMessagesMessage *OrgMinimaSystemInputInputHandler_addResponseMesageWithOrgMinimaUtilsMessagesMessage_withOrgMinimaUtilsMessagesMessage_(OrgMinimaUtilsMessagesMessage *zNewMessage, OrgMinimaUtilsMessagesMessage *zOriginal) {
   OrgMinimaSystemInputInputHandler_initialize();
   if ([((OrgMinimaUtilsMessagesMessage *) nil_chk(zOriginal)) existsWithNSString:OrgMinimaSystemInputInputHandler_INPUT_RESPONSE]) {
-    [((OrgMinimaUtilsMessagesMessage *) nil_chk(zNewMessage)) addObjectWithNSString:OrgMinimaSystemInputInputHandler_INPUT_RESPONSE withId:[zOriginal getObjectWithNSString:OrgMinimaSystemInputInputHandler_INPUT_RESPONSE]];
+    (void) [((OrgMinimaUtilsMessagesMessage *) nil_chk(zNewMessage)) addObjectWithNSString:OrgMinimaSystemInputInputHandler_INPUT_RESPONSE withId:[zOriginal getObjectWithNSString:OrgMinimaSystemInputInputHandler_INPUT_RESPONSE]];
   }
   return zNewMessage;
 }
@@ -124,7 +124,7 @@ OrgMinimaUtilsJsonJSONObject *OrgMinimaSystemInputInputHandler_getResponseJSONWi
     return [((OrgMinimaUtilsResponseStream *) nil_chk(out)) getDataJSON];
   }
   else {
-    return create_OrgMinimaUtilsJsonJSONObject_init();
+    return new_OrgMinimaUtilsJsonJSONObject_init();
   }
 }
 

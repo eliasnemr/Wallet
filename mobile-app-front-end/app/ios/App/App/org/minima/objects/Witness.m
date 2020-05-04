@@ -27,7 +27,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 - (void)addSignatureWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zPubKey
                     withOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zSignature {
-  [((JavaUtilArrayList *) nil_chk(mSignatureProofs_)) addWithId:create_OrgMinimaObjectsProofsSignatureProof_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniData_(zPubKey, zSignature)];
+  [((JavaUtilArrayList *) nil_chk(mSignatureProofs_)) addWithId:new_OrgMinimaObjectsProofsSignatureProof_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniData_(zPubKey, zSignature)];
 }
 
 - (void)addSignatureWithOrgMinimaObjectsProofsSignatureProof:(OrgMinimaObjectsProofsSignatureProof *)zSigProof {
@@ -41,7 +41,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 - (NSString *)getAllPubKeysCSV {
   NSString *ret = @"";
   for (OrgMinimaObjectsProofsSignatureProof * __strong sig in nil_chk(mSignatureProofs_)) {
-    //JreStrAppend(&ret, "$C", [((OrgMinimaObjectsBaseMiniData *) nil_chk([((OrgMinimaObjectsProofsSignatureProof *) nil_chk(sig)) getFinalHash])) to0xString], '#');
+    (void) JreStrAppendStrong(&ret, "$C", [((OrgMinimaObjectsBaseMiniData *) nil_chk([((OrgMinimaObjectsProofsSignatureProof *) nil_chk(sig)) getFinalHash])) to0xString], '#');
   }
   return [ret java_trim];
 }
@@ -79,7 +79,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 - (jboolean)addScriptWithNSString:(NSString *)zScript
                           withInt:(jint)zBitLength {
-  return [self addScriptWithOrgMinimaObjectsProofsScriptProof:create_OrgMinimaObjectsProofsScriptProof_initWithNSString_withInt_(zScript, zBitLength)];
+  return [self addScriptWithOrgMinimaObjectsProofsScriptProof:new_OrgMinimaObjectsProofsScriptProof_initWithNSString_withInt_(zScript, zBitLength)];
 }
 
 - (jboolean)addScriptWithOrgMinimaObjectsProofsScriptProof:(OrgMinimaObjectsProofsScriptProof *)zScriptProof {
@@ -106,27 +106,27 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (OrgMinimaUtilsJsonJSONObject *)toJSON {
-  OrgMinimaUtilsJsonJSONObject *obj = create_OrgMinimaUtilsJsonJSONObject_init();
-  OrgMinimaUtilsJsonJSONArray *arr = create_OrgMinimaUtilsJsonJSONArray_init();
+  OrgMinimaUtilsJsonJSONObject *obj = new_OrgMinimaUtilsJsonJSONObject_init();
+  OrgMinimaUtilsJsonJSONArray *arr = new_OrgMinimaUtilsJsonJSONArray_init();
   for (OrgMinimaObjectsProofsSignatureProof * __strong sg in nil_chk(mSignatureProofs_)) {
     [arr addWithId:[((OrgMinimaObjectsProofsSignatureProof *) nil_chk(sg)) toJSON]];
   }
-  [obj putWithId:@"signatures" withId:arr];
-  arr = create_OrgMinimaUtilsJsonJSONArray_init();
+  (void) [obj putWithId:@"signatures" withId:arr];
+  arr = new_OrgMinimaUtilsJsonJSONArray_init();
   for (OrgMinimaDatabaseMmrMMRProof * __strong proof in nil_chk(mMMRProofs_)) {
     [arr addWithId:[((OrgMinimaDatabaseMmrMMRProof *) nil_chk(proof)) toJSON]];
   }
-  [obj putWithId:@"mmrproofs" withId:arr];
-  arr = create_OrgMinimaUtilsJsonJSONArray_init();
+  (void) [obj putWithId:@"mmrproofs" withId:arr];
+  arr = new_OrgMinimaUtilsJsonJSONArray_init();
   for (OrgMinimaObjectsProofsTokenProof * __strong td in nil_chk(mTokenProofs_)) {
     [arr addWithId:[((OrgMinimaObjectsProofsTokenProof *) nil_chk(td)) toJSON]];
   }
-  [obj putWithId:@"tokens" withId:arr];
-  arr = create_OrgMinimaUtilsJsonJSONArray_init();
+  (void) [obj putWithId:@"tokens" withId:arr];
+  arr = new_OrgMinimaUtilsJsonJSONArray_init();
   for (OrgMinimaObjectsProofsScriptProof * __strong sp in nil_chk(mScriptProofs_)) {
     [arr addWithId:[((OrgMinimaObjectsProofsScriptProof *) nil_chk(sp)) toJSON]];
   }
-  [obj putWithId:@"scripts" withId:arr];
+  (void) [obj putWithId:@"scripts" withId:arr];
   return obj;
 }
 
@@ -158,34 +158,26 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (void)readDataStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn {
-  JreStrongAssignAndConsume(&mSignatureProofs_, new_JavaUtilArrayList_init());
+  mSignatureProofs_ = new_JavaUtilArrayList_init();
   jint prlen = [((JavaIoDataInputStream *) nil_chk(zIn)) readInt];
   for (jint i = 0; i < prlen; i++) {
     [((JavaUtilArrayList *) nil_chk(mSignatureProofs_)) addWithId:OrgMinimaObjectsProofsSignatureProof_ReadFromStreamWithJavaIoDataInputStream_(zIn)];
   }
-  JreStrongAssignAndConsume(&mMMRProofs_, new_JavaUtilArrayList_init());
+  mMMRProofs_ = new_JavaUtilArrayList_init();
   prlen = [zIn readInt];
   for (jint i = 0; i < prlen; i++) {
     [((JavaUtilArrayList *) nil_chk(mMMRProofs_)) addWithId:OrgMinimaDatabaseMmrMMRProof_ReadFromStreamWithJavaIoDataInputStream_(zIn)];
   }
-  JreStrongAssignAndConsume(&mTokenProofs_, new_JavaUtilArrayList_init());
+  mTokenProofs_ = new_JavaUtilArrayList_init();
   prlen = [zIn readInt];
   for (jint i = 0; i < prlen; i++) {
     [((JavaUtilArrayList *) nil_chk(mTokenProofs_)) addWithId:OrgMinimaObjectsProofsTokenProof_ReadFromStreamWithJavaIoDataInputStream_(zIn)];
   }
-  JreStrongAssignAndConsume(&mScriptProofs_, new_JavaUtilArrayList_init());
+  mScriptProofs_ = new_JavaUtilArrayList_init();
   prlen = [zIn readInt];
   for (jint i = 0; i < prlen; i++) {
     [((JavaUtilArrayList *) nil_chk(mScriptProofs_)) addWithId:OrgMinimaObjectsProofsScriptProof_ReadFromStreamWithJavaIoDataInputStream_(zIn)];
   }
-}
-
-- (void)dealloc {
-  RELEASE_(mMMRProofs_);
-  RELEASE_(mSignatureProofs_);
-  RELEASE_(mTokenProofs_);
-  RELEASE_(mScriptProofs_);
-
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -248,10 +240,10 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 void OrgMinimaObjectsWitness_init(OrgMinimaObjectsWitness *self) {
   NSObject_init(self);
-  JreStrongAssignAndConsume(&self->mMMRProofs_, new_JavaUtilArrayList_init());
-  JreStrongAssignAndConsume(&self->mSignatureProofs_, new_JavaUtilArrayList_init());
-  JreStrongAssignAndConsume(&self->mTokenProofs_, new_JavaUtilArrayList_init());
-  JreStrongAssignAndConsume(&self->mScriptProofs_, new_JavaUtilArrayList_init());
+  self->mMMRProofs_ = new_JavaUtilArrayList_init();
+  self->mSignatureProofs_ = new_JavaUtilArrayList_init();
+  self->mTokenProofs_ = new_JavaUtilArrayList_init();
+  self->mScriptProofs_ = new_JavaUtilArrayList_init();
 }
 
 OrgMinimaObjectsWitness *new_OrgMinimaObjectsWitness_init() {

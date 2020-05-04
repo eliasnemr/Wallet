@@ -95,7 +95,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 + (void)initialize {
   if (self == [OrgMinimaUtilsBaseConverter class]) {
-    JreStrongAssign(&OrgMinimaUtilsBaseConverter_HEX16ARRAY, [@"0123456789ABCDEF" java_toCharArray]);
+    OrgMinimaUtilsBaseConverter_HEX16ARRAY = [@"0123456789ABCDEF" java_toCharArray];
     J2OBJC_SET_INITIALIZED(OrgMinimaUtilsBaseConverter)
   }
 }
@@ -116,7 +116,7 @@ OrgMinimaUtilsBaseConverter *create_OrgMinimaUtilsBaseConverter_init() {
 
 NSString *OrgMinimaUtilsBaseConverter_encode16WithByteArray_(IOSByteArray *bytes) {
   OrgMinimaUtilsBaseConverter_initialize();
-  IOSCharArray *hexChars = [IOSCharArray arrayWithLength:((IOSByteArray *) nil_chk(bytes))->size_ * 2];
+  IOSCharArray *hexChars = [IOSCharArray newArrayWithLength:((IOSByteArray *) nil_chk(bytes))->size_ * 2];
   for (jint j = 0; j < bytes->size_; j++) {
     jint v = IOSByteArray_Get(bytes, j) & (jint) 0xFF;
     *IOSCharArray_GetRef(hexChars, j * 2) = IOSCharArray_Get(nil_chk(OrgMinimaUtilsBaseConverter_HEX16ARRAY), JreURShift32(v, 4));
@@ -137,7 +137,7 @@ IOSByteArray *OrgMinimaUtilsBaseConverter_decode16WithNSString_(NSString *zHex) 
     hex = JreStrcat("C$", '0', hex);
     len = [hex java_length];
   }
-  IOSByteArray *data = [IOSByteArray arrayWithLength:len / 2];
+  IOSByteArray *data = [IOSByteArray newArrayWithLength:len / 2];
   for (jint i = 0; i < len; i += 2) {
     *IOSByteArray_GetRef(data, i / 2) = (jbyte) ((JreLShift32(JavaLangCharacter_digitWithChar_withInt_([hex charAtWithInt:i], 16), 4)) + JavaLangCharacter_digitWithChar_withInt_([hex charAtWithInt:i + 1], 16));
   }
@@ -152,11 +152,11 @@ jint OrgMinimaUtilsBaseConverter_findChar32WithChar_(jchar zChar) {
 NSString *OrgMinimaUtilsBaseConverter_encode32WithByteArray_(IOSByteArray *zData) {
   OrgMinimaUtilsBaseConverter_initialize();
   if (((IOSByteArray *) nil_chk(zData))->size_ % 5 != 0) {
-    @throw create_JavaLangArithmeticException_initWithNSString_(@"Minima Address Encode32 data MUST be multiples of 5 in length");
+    @throw new_JavaLangArithmeticException_initWithNSString_(@"Minima Address Encode32 data MUST be multiples of 5 in length");
   }
   jint rounds = zData->size_ / 5;
   jint len = rounds * 8;
-  IOSIntArray *data32 = [IOSIntArray arrayWithLength:len];
+  IOSIntArray *data32 = [IOSIntArray newArrayWithLength:len];
   NSString *hex32 = @"";
   jint counter = 0;
   jint currByte;
@@ -183,7 +183,7 @@ NSString *OrgMinimaUtilsBaseConverter_encode32WithByteArray_(IOSByteArray *zData
   }
   for (jint i = 0; i < len; i++) {
     *IOSIntArray_GetRef(data32, i) = IOSIntArray_Get(data32, i) & 255;
-    JreStrAppend(&hex32, "C", [((NSString *) nil_chk(OrgMinimaUtilsBaseConverter_HEX32ARRAY)) charAtWithInt:IOSIntArray_Get(data32, i)]);
+    (void) JreStrAppendStrong(&hex32, "C", [((NSString *) nil_chk(OrgMinimaUtilsBaseConverter_HEX32ARRAY)) charAtWithInt:IOSIntArray_Get(data32, i)]);
   }
   return hex32;
 }
@@ -193,15 +193,15 @@ IOSByteArray *OrgMinimaUtilsBaseConverter_decode32WithNSString_(NSString *zHex32
   NSString *hex = [((NSString *) nil_chk(zHex32)) uppercaseString];
   jint strlen = [((NSString *) nil_chk(hex)) java_length];
   if (strlen % 8 != 0) {
-    @throw create_JavaLangArithmeticException_initWithNSString_(@"Minima Address Base 32 String must be multiple of 8 in length");
+    @throw new_JavaLangArithmeticException_initWithNSString_(@"Minima Address Base 32 String must be multiple of 8 in length");
   }
   jint rounds = strlen / 8;
   jint bytelen = rounds * 5;
-  IOSIntArray *digits = [IOSIntArray arrayWithLength:strlen];
+  IOSIntArray *digits = [IOSIntArray newArrayWithLength:strlen];
   for (jint i = 0; i < strlen; i++) {
     *IOSIntArray_GetRef(digits, i) = OrgMinimaUtilsBaseConverter_findChar32WithChar_([hex charAtWithInt:i]);
   }
-  IOSByteArray *redata = [IOSByteArray arrayWithLength:bytelen];
+  IOSByteArray *redata = [IOSByteArray newArrayWithLength:bytelen];
   for (jint i = 0; i < rounds; i++) {
     jint sdata = i * 5;
     jint sdigi = i * 8;
@@ -216,7 +216,7 @@ IOSByteArray *OrgMinimaUtilsBaseConverter_decode32WithNSString_(NSString *zHex32
 
 void OrgMinimaUtilsBaseConverter_mainWithNSStringArray_(IOSObjectArray *zArgs) {
   OrgMinimaUtilsBaseConverter_initialize();
-  IOSByteArray *data = [IOSByteArray arrayWithLength:10];
+  IOSByteArray *data = [IOSByteArray newArrayWithLength:10];
   *IOSByteArray_GetRef(data, 0) = (jbyte) 1;
   *IOSByteArray_GetRef(data, 1) = (jbyte) 13;
   *IOSByteArray_GetRef(data, 2) = (jbyte) 34;

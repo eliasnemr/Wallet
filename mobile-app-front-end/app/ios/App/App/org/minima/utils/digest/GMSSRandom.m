@@ -34,9 +34,9 @@ __attribute__((unused)) static void OrgMinimaUtilsDigestGMSSRandom_addOneWithByt
 }
 
 - (IOSByteArray *)nextSeedWithByteArray:(IOSByteArray *)outseed {
-  IOSByteArray *rand = [IOSByteArray arrayWithLength:((IOSByteArray *) nil_chk(outseed))->size_];
+  IOSByteArray *rand = [IOSByteArray newArrayWithLength:((IOSByteArray *) nil_chk(outseed))->size_];
   [((id<OrgMinimaUtilsDigestDigest>) nil_chk(messDigestTree_)) updateWithByteArray:outseed withInt:0 withInt:outseed->size_];
-  rand = [IOSByteArray arrayWithLength:[((id<OrgMinimaUtilsDigestDigest>) nil_chk(messDigestTree_)) getDigestSize]];
+  rand = [IOSByteArray newArrayWithLength:[((id<OrgMinimaUtilsDigestDigest>) nil_chk(messDigestTree_)) getDigestSize]];
   [((id<OrgMinimaUtilsDigestDigest>) nil_chk(messDigestTree_)) doFinalWithByteArray:rand withInt:0];
   OrgMinimaUtilsDigestGMSSRandom_addByteArraysWithByteArray_withByteArray_(self, outseed, rand);
   OrgMinimaUtilsDigestGMSSRandom_addOneWithByteArray_(self, outseed);
@@ -50,11 +50,6 @@ __attribute__((unused)) static void OrgMinimaUtilsDigestGMSSRandom_addOneWithByt
 
 - (void)addOneWithByteArray:(IOSByteArray *)a {
   OrgMinimaUtilsDigestGMSSRandom_addOneWithByteArray_(self, a);
-}
-
-- (void)dealloc {
-  RELEASE_(messDigestTree_);
-  [super dealloc];
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -84,7 +79,7 @@ __attribute__((unused)) static void OrgMinimaUtilsDigestGMSSRandom_addOneWithByt
 
 void OrgMinimaUtilsDigestGMSSRandom_initWithOrgMinimaUtilsDigestDigest_(OrgMinimaUtilsDigestGMSSRandom *self, id<OrgMinimaUtilsDigestDigest> messDigestTree2) {
   NSObject_init(self);
-  JreStrongAssign(&self->messDigestTree_, messDigestTree2);
+  self->messDigestTree_ = messDigestTree2;
 }
 
 OrgMinimaUtilsDigestGMSSRandom *new_OrgMinimaUtilsDigestGMSSRandom_initWithOrgMinimaUtilsDigestDigest_(id<OrgMinimaUtilsDigestDigest> messDigestTree2) {

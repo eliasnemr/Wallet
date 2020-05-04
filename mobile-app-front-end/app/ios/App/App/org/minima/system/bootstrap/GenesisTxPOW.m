@@ -56,13 +56,13 @@ J2OBJC_IGNORE_DESIGNATED_END
 void OrgMinimaSystemBootstrapGenesisTxPOW_init(OrgMinimaSystemBootstrapGenesisTxPOW *self) {
   OrgMinimaObjectsTxPOW_init(self);
   [self setTxDifficultyWithOrgMinimaObjectsBaseMiniData:JreLoadStatic(OrgMinimaUtilsCrypto, MAX_HASH)];
-  [self setNonceWithOrgMinimaObjectsBaseMiniInteger:create_OrgMinimaObjectsBaseMiniInteger_initWithInt_(256)];
-  [self setTimeSecsWithOrgMinimaObjectsBaseMiniNumber:create_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(JreStrcat("J", (JavaLangSystem_currentTimeMillis() / 1000)))];
+  [self setNonceWithOrgMinimaObjectsBaseMiniInteger:new_OrgMinimaObjectsBaseMiniInteger_initWithInt_(256)];
+  [self setTimeSecsWithOrgMinimaObjectsBaseMiniNumber:new_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(JreStrcat("J", (JavaLangSystem_currentTimeMillis() / 1000)))];
   [self setBlockNumberWithOrgMinimaObjectsBaseMiniNumber:JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, ZERO)];
   [self setBlockDifficultyWithOrgMinimaObjectsBaseMiniData:JreLoadStatic(OrgMinimaUtilsCrypto, MAX_HASH)];
-  [self setParentWithOrgMinimaObjectsBaseMiniData:create_OrgMinimaObjectsBaseMiniData_init()];
-  OrgMinimaObjectsTransaction *trans = create_OrgMinimaObjectsTransaction_init();
-  OrgMinimaObjectsWitness *wit = create_OrgMinimaObjectsWitness_init();
+  [self setParentWithOrgMinimaObjectsBaseMiniData:new_OrgMinimaObjectsBaseMiniData_initWithNSString_(@"0x00")];
+  OrgMinimaObjectsTransaction *trans = new_OrgMinimaObjectsTransaction_init();
+  OrgMinimaObjectsWitness *wit = new_OrgMinimaObjectsWitness_init();
   [self setTransactionWithOrgMinimaObjectsTransaction:trans];
   [self setWitnessWithOrgMinimaObjectsWitness:wit];
   [self calculateTXPOWID];
@@ -80,17 +80,17 @@ OrgMinimaSystemBootstrapGenesisTxPOW *create_OrgMinimaSystemBootstrapGenesisTxPO
 
 void OrgMinimaSystemBootstrapGenesisTxPOW_mainWithNSStringArray_(IOSObjectArray *zArgs) {
   OrgMinimaSystemBootstrapGenesisTxPOW_initialize();
-  OrgMinimaSystemBootstrapGenesisTxPOW *gen = create_OrgMinimaSystemBootstrapGenesisTxPOW_init();
+  OrgMinimaSystemBootstrapGenesisTxPOW *gen = new_OrgMinimaSystemBootstrapGenesisTxPOW_init();
   @try {
     [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out))) printlnWithNSString:JreStrcat("$@", @"GEN 1 : ", gen)];
-    JavaIoByteArrayOutputStream *baos = create_JavaIoByteArrayOutputStream_init();
-    JavaIoDataOutputStream *dos = create_JavaIoDataOutputStream_initWithJavaIoOutputStream_(baos);
+    JavaIoByteArrayOutputStream *baos = new_JavaIoByteArrayOutputStream_init();
+    JavaIoDataOutputStream *dos = new_JavaIoDataOutputStream_initWithJavaIoOutputStream_(baos);
     [gen writeDataStreamWithJavaIoDataOutputStream:dos];
     [dos flush];
     IOSByteArray *data = [baos toByteArray];
-    JavaIoByteArrayInputStream *bais = create_JavaIoByteArrayInputStream_initWithByteArray_(data);
-    JavaIoDataInputStream *dis = create_JavaIoDataInputStream_initWithJavaIoInputStream_(bais);
-    OrgMinimaObjectsTxPOW *tp = create_OrgMinimaObjectsTxPOW_init();
+    JavaIoByteArrayInputStream *bais = new_JavaIoByteArrayInputStream_initWithByteArray_(data);
+    JavaIoDataInputStream *dis = new_JavaIoDataInputStream_initWithJavaIoInputStream_(bais);
+    OrgMinimaObjectsTxPOW *tp = new_OrgMinimaObjectsTxPOW_init();
     [tp readDataStreamWithJavaIoDataInputStream:dis];
     [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out))) printlnWithNSString:JreStrcat("$@", @"GEN 2 : ", tp)];
   }

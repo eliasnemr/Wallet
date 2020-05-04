@@ -62,7 +62,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 + (void)initialize {
   if (self == [OrgMinimaUtilsBrettyStandardTreeNodeConverters class]) {
-    JreStrongAssignAndConsume(&OrgMinimaUtilsBrettyStandardTreeNodeConverters_FILE, new_OrgMinimaUtilsBrettyStandardTreeNodeConverters_1_init());
+    OrgMinimaUtilsBrettyStandardTreeNodeConverters_FILE = new_OrgMinimaUtilsBrettyStandardTreeNodeConverters_1_init();
     J2OBJC_SET_INITIALIZED(OrgMinimaUtilsBrettyStandardTreeNodeConverters)
   }
 }
@@ -97,7 +97,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (id<JavaUtilList>)childrenWithId:(JavaIoFile *)file {
-  id<JavaUtilList> files = create_JavaUtilArrayList_init();
+  id<JavaUtilList> files = new_JavaUtilArrayList_init();
   if ([((JavaIoFile *) nil_chk(file)) isDirectory]) {
     [files addAllWithJavaUtilCollection:JavaUtilArrays_asListWithNSObjectArray_([file listFiles])];
   }

@@ -25,12 +25,12 @@ J2OBJC_IGNORE_DESIGNATED_END
   NSString *host = IOSObjectArray_Get(nil_chk(zInput), 1);
   jint port = JavaLangInteger_parseIntWithNSString_(IOSObjectArray_Get(zInput, 2));
   OrgMinimaUtilsMessagesMessage *connect = [self getResponseMessageWithNSString:OrgMinimaSystemNetworkNetworkHandler_NETWORK_CONNECT];
-  [((OrgMinimaUtilsMessagesMessage *) nil_chk([((OrgMinimaUtilsMessagesMessage *) nil_chk(connect)) addIntWithNSString:@"port" withInt:port])) addStringWithNSString:@"host" withNSString:host];
+  (void) [((OrgMinimaUtilsMessagesMessage *) nil_chk([((OrgMinimaUtilsMessagesMessage *) nil_chk(connect)) addIntWithNSString:@"port" withInt:port])) addStringWithNSString:@"host" withNSString:host];
   [((OrgMinimaSystemNetworkNetworkHandler *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getNetworkHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:connect];
 }
 
 - (OrgMinimaSystemInputCommandFunction *)getNewFunction {
-  return create_OrgMinimaSystemInputFunctionsconnect_init();
+  return new_OrgMinimaSystemInputFunctionsconnect_init();
 }
 
 + (const J2ObjcClassInfo *)__metadata {

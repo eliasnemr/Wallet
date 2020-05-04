@@ -24,11 +24,11 @@ J2OBJC_IGNORE_DESIGNATED_END
 - (OrgMinimaKissvmValuesValue *)runFunctionWithOrgMinimaKissvmContract:(OrgMinimaKissvmContract *)zContract {
   OrgMinimaKissvmValuesValue *hex = [((id<OrgMinimaKissvmExpressionsExpression>) nil_chk([self getParameterWithInt:0])) getValueWithOrgMinimaKissvmContract:zContract];
   jint len = ((IOSByteArray *) nil_chk([((OrgMinimaKissvmValuesValue *) nil_chk(hex)) getRawData]))->size_;
-  return create_OrgMinimaKissvmValuesNumberValue_initWithInt_(len);
+  return new_OrgMinimaKissvmValuesNumberValue_initWithInt_(len);
 }
 
 - (OrgMinimaKissvmFunctionsMinimaFunction *)getNewFunction {
-  return create_OrgMinimaKissvmFunctionsBaseLEN_init();
+  return new_OrgMinimaKissvmFunctionsBaseLEN_init();
 }
 
 + (const J2ObjcClassInfo *)__metadata {

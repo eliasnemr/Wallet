@@ -24,12 +24,12 @@ J2OBJC_IGNORE_DESIGNATED_END
 - (void)doFunctionWithNSStringArray:(IOSObjectArray *)zInput {
   NSString *TxPOWID = IOSObjectArray_Get(nil_chk(zInput), 1);
   OrgMinimaUtilsMessagesMessage *msg = [self getResponseMessageWithNSString:OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_TXPOW];
-  [((OrgMinimaUtilsMessagesMessage *) nil_chk(msg)) addStringWithNSString:@"txpow" withNSString:TxPOWID];
+  (void) [((OrgMinimaUtilsMessagesMessage *) nil_chk(msg)) addStringWithNSString:@"txpow" withNSString:TxPOWID];
   [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getConsensusHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:msg];
 }
 
 - (OrgMinimaSystemInputCommandFunction *)getNewFunction {
-  return create_OrgMinimaSystemInputFunctionstxpowinfo_init();
+  return new_OrgMinimaSystemInputFunctionstxpowinfo_init();
 }
 
 + (const J2ObjcClassInfo *)__metadata {

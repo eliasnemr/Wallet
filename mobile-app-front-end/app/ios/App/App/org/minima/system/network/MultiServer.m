@@ -38,7 +38,7 @@
 
 - (void)hardSetHostWithNSString:(NSString *)zHost {
   mHardHostSet_ = true;
-  JreStrongAssign(&mHardHost_, zHost);
+  mHardHost_ = zHost;
 }
 
 - (void)stop {
@@ -55,12 +55,12 @@
 
 - (void)run {
   @try {
-    JreStrongAssignAndConsume(&mServerSocket_, new_JavaNetServerSocket_initWithInt_(mPort_));
-    JreStrongAssign(&mHost_, [((JavaNetInetAddress *) nil_chk([mServerSocket_ getInetAddress])) getHostAddress]);
+    mServerSocket_ = new_JavaNetServerSocket_initWithInt_(mPort_);
+    mHost_ = [((JavaNetInetAddress *) nil_chk([mServerSocket_ getInetAddress])) getHostAddress];
     while (mRunning_) {
       JavaNetSocket *clientsock = [((JavaNetServerSocket *) nil_chk(mServerSocket_)) accept];
-      OrgMinimaSystemNetworkNetClient *client = create_OrgMinimaSystemNetworkNetClient_initWithJavaNetSocket_withOrgMinimaSystemNetworkNetworkHandler_(clientsock, mNetwork_);
-      [((OrgMinimaSystemNetworkNetworkHandler *) nil_chk(mNetwork_)) PostMessageWithOrgMinimaUtilsMessagesMessage:[create_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemNetworkNetworkHandler_NETWORK_NEWCLIENT) addObjectWithNSString:@"client" withId:client]];
+      OrgMinimaSystemNetworkNetClient *client = new_OrgMinimaSystemNetworkNetClient_initWithJavaNetSocket_withOrgMinimaSystemNetworkNetworkHandler_(clientsock, mNetwork_);
+      [((OrgMinimaSystemNetworkNetworkHandler *) nil_chk(mNetwork_)) PostMessageWithOrgMinimaUtilsMessagesMessage:[new_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemNetworkNetworkHandler_NETWORK_NEWCLIENT) addObjectWithNSString:@"client" withId:client]];
     }
   }
   @catch (JavaNetBindException *e) {
@@ -77,14 +77,6 @@
   @catch (JavaIoIOException *e) {
     [e printStackTrace];
   }
-}
-
-- (void)dealloc {
-  RELEASE_(mNetwork_);
-  RELEASE_(mServerSocket_);
-  RELEASE_(mHost_);
-  RELEASE_(mHardHost_);
-  [super dealloc];
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -124,11 +116,11 @@
 
 void OrgMinimaSystemNetworkMultiServer_initWithOrgMinimaSystemNetworkNetworkHandler_withInt_(OrgMinimaSystemNetworkMultiServer *self, OrgMinimaSystemNetworkNetworkHandler *zNetwork, jint zPort) {
   NSObject_init(self);
-  JreStrongAssign(&self->mHost_, @"127.0.0.1");
+  self->mHost_ = @"127.0.0.1";
   self->mHardHostSet_ = false;
-  JreStrongAssign(&self->mHardHost_, @"127.0.0.1");
+  self->mHardHost_ = @"127.0.0.1";
   self->mRunning_ = true;
-  JreStrongAssign(&self->mNetwork_, zNetwork);
+  self->mNetwork_ = zNetwork;
   self->mPort_ = zPort;
 }
 

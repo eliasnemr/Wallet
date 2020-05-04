@@ -22,12 +22,12 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 - (void)doFunctionWithNSStringArray:(IOSObjectArray *)zInput {
   NSString *uid = IOSObjectArray_Get(nil_chk(zInput), 1);
-  OrgMinimaUtilsMessagesMessage *connect = [create_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemNetworkNetworkHandler_NETWORK_DISCONNECT) addStringWithNSString:@"uid" withNSString:uid];
+  OrgMinimaUtilsMessagesMessage *connect = [new_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemNetworkNetworkHandler_NETWORK_DISCONNECT) addStringWithNSString:@"uid" withNSString:uid];
   [((OrgMinimaSystemNetworkNetworkHandler *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getNetworkHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:connect];
 }
 
 - (OrgMinimaSystemInputCommandFunction *)getNewFunction {
-  return create_OrgMinimaSystemInputFunctionsdisconnect_init();
+  return new_OrgMinimaSystemInputFunctionsdisconnect_init();
 }
 
 + (const J2ObjcClassInfo *)__metadata {

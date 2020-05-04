@@ -24,12 +24,12 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 - (void)doFunctionWithNSStringArray:(IOSObjectArray *)zInput {
   NSString *data = IOSObjectArray_Get(nil_chk(zInput), 1);
-  OrgMinimaUtilsMessagesMessage *importmsg = [((OrgMinimaUtilsMessagesMessage *) nil_chk([self getResponseMessageWithNSString:OrgMinimaSystemBrainsConsensusUser_CONSENSUS_IMPORTCOIN])) addObjectWithNSString:@"proof" withId:create_OrgMinimaObjectsBaseMiniData_initWithNSString_(data)];
+  OrgMinimaUtilsMessagesMessage *importmsg = [((OrgMinimaUtilsMessagesMessage *) nil_chk([self getResponseMessageWithNSString:OrgMinimaSystemBrainsConsensusUser_CONSENSUS_IMPORTCOIN])) addObjectWithNSString:@"proof" withId:new_OrgMinimaObjectsBaseMiniData_initWithNSString_(data)];
   [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getConsensusHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:importmsg];
 }
 
 - (OrgMinimaSystemInputCommandFunction *)getNewFunction {
-  return create_OrgMinimaSystemInputFunctionsTransferimportcoin_init();
+  return new_OrgMinimaSystemInputFunctionsTransferimportcoin_init();
 }
 
 + (const J2ObjcClassInfo *)__metadata {

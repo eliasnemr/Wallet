@@ -31,6 +31,7 @@
   JavaIoFile *mRoot_;
   JavaIoFile *mBackup_;
   JavaIoFile *mTxPOWDB_;
+  JavaIoFile *mMiniDAPPS_;
 }
 
 #pragma mark Public
@@ -39,6 +40,8 @@
                                withNSString:(NSString *)zConfFolder;
 
 - (void)backupTxpowWithOrgMinimaObjectsTxPOW:(OrgMinimaObjectsTxPOW *)zTxPOW;
+
++ (void)deleteAllButMiniDAPPSWithJavaIoFile:(JavaIoFile *)zFolder;
 
 + (void)deleteFolderWithJavaIoFile:(JavaIoFile *)zFolder;
 
@@ -66,6 +69,7 @@ J2OBJC_FIELD_SETTER(OrgMinimaSystemBackupBackupManager, mConfigurationFolder_, N
 J2OBJC_FIELD_SETTER(OrgMinimaSystemBackupBackupManager, mRoot_, JavaIoFile *)
 J2OBJC_FIELD_SETTER(OrgMinimaSystemBackupBackupManager, mBackup_, JavaIoFile *)
 J2OBJC_FIELD_SETTER(OrgMinimaSystemBackupBackupManager, mTxPOWDB_, JavaIoFile *)
+J2OBJC_FIELD_SETTER(OrgMinimaSystemBackupBackupManager, mMiniDAPPS_, JavaIoFile *)
 
 inline NSString *OrgMinimaSystemBackupBackupManager_get_BACKUP_INIT(void);
 /*! INTERNAL ONLY - Use accessor function from above. */
@@ -117,6 +121,8 @@ FOUNDATION_EXPORT void OrgMinimaSystemBackupBackupManager_initWithOrgMinimaSyste
 FOUNDATION_EXPORT OrgMinimaSystemBackupBackupManager *new_OrgMinimaSystemBackupBackupManager_initWithOrgMinimaSystemMain_withNSString_(OrgMinimaSystemMain *zMain, NSString *zConfFolder) NS_RETURNS_RETAINED;
 
 FOUNDATION_EXPORT OrgMinimaSystemBackupBackupManager *create_OrgMinimaSystemBackupBackupManager_initWithOrgMinimaSystemMain_withNSString_(OrgMinimaSystemMain *zMain, NSString *zConfFolder);
+
+FOUNDATION_EXPORT void OrgMinimaSystemBackupBackupManager_deleteAllButMiniDAPPSWithJavaIoFile_(JavaIoFile *zFolder);
 
 FOUNDATION_EXPORT void OrgMinimaSystemBackupBackupManager_deleteFolderWithJavaIoFile_(JavaIoFile *zFolder);
 

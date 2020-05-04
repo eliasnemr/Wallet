@@ -68,7 +68,7 @@ NSString *OrgMinimaSystemMain_SYSTEM_EVENT = @"SYSTEM_EVENT";
 
 - (void)setAutoConnectHostPortWithNSString:(NSString *)zHost
                                    withInt:(jint)zPort {
-  JreStrongAssign(&mAutoHost_, zHost);
+  mAutoHost_ = zHost;
   mAutoPort_ = zPort;
 }
 
@@ -91,7 +91,7 @@ NSString *OrgMinimaSystemMain_SYSTEM_EVENT = @"SYSTEM_EVENT";
 - (void)setTraceWithBoolean:(jboolean)zTraceON {
   [self setLOGWithBoolean:zTraceON];
   [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk(mConsensus_)) setLOGWithBoolean:zTraceON];
-  [((OrgMinimaSystemNetworkNetworkHandler *) nil_chk(mNetwork_)) PostMessageWithOrgMinimaUtilsMessagesMessage:[create_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemNetworkNetworkHandler_NETWORK_TRACE) addBooleanWithNSString:@"trace" withBoolean:zTraceON]];
+  [((OrgMinimaSystemNetworkNetworkHandler *) nil_chk(mNetwork_)) PostMessageWithOrgMinimaUtilsMessagesMessage:[new_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemNetworkNetworkHandler_NETWORK_TRACE) addBooleanWithNSString:@"trace" withBoolean:zTraceON]];
   [((OrgMinimaSystemTxTXMiner *) nil_chk(mTXMiner_)) setLOGWithBoolean:zTraceON];
   [((OrgMinimaSystemInputInputHandler *) nil_chk(mInput_)) setLOGWithBoolean:zTraceON];
   [((OrgMinimaSystemBackupBackupManager *) nil_chk(mBackup_)) setLOGWithBoolean:zTraceON];
@@ -128,6 +128,7 @@ NSString *OrgMinimaSystemMain_SYSTEM_EVENT = @"SYSTEM_EVENT";
     if (mGenesis_) {
       [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk(mConsensus_)) genesis];
       [((OrgMinimaSystemTxTXMiner *) nil_chk(mTXMiner_)) setAutoMiningWithBoolean:true];
+      [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk(mConsensus_)) setHardResetAllowedWithBoolean:false];
       [self PostMessageWithNSString:OrgMinimaSystemMain_SYSTEM_INIT];
     }
     else {
@@ -135,16 +136,16 @@ NSString *OrgMinimaSystemMain_SYSTEM_EVENT = @"SYSTEM_EVENT";
     }
   }
   else if ([zMessage isMessageTypeWithNSString:OrgMinimaSystemMain_SYSTEM_INIT]) {
-    OrgMinimaUtilsMessagesMessage *netstart = [((OrgMinimaUtilsMessagesMessage *) nil_chk([create_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemNetworkNetworkHandler_NETWORK_STARTUP) addIntWithNSString:@"port" withInt:mPort_])) addIntWithNSString:@"rpcport" withInt:mRPCPort_];
+    OrgMinimaUtilsMessagesMessage *netstart = [((OrgMinimaUtilsMessagesMessage *) nil_chk([new_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemNetworkNetworkHandler_NETWORK_STARTUP) addIntWithNSString:@"port" withInt:mPort_])) addIntWithNSString:@"rpcport" withInt:mRPCPort_];
     [((OrgMinimaSystemNetworkNetworkHandler *) nil_chk(mNetwork_)) PostMessageWithOrgMinimaUtilsMessagesMessage:netstart];
     if (mAutoConnect_) {
-      OrgMinimaUtilsMessagesMessage *connect = [((OrgMinimaUtilsMessagesMessage *) nil_chk([create_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemNetworkNetworkHandler_NETWORK_CONNECT) addIntWithNSString:@"port" withInt:mAutoPort_])) addStringWithNSString:@"host" withNSString:mAutoHost_];
+      OrgMinimaUtilsMessagesMessage *connect = [((OrgMinimaUtilsMessagesMessage *) nil_chk([new_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemNetworkNetworkHandler_NETWORK_CONNECT) addIntWithNSString:@"port" withInt:mAutoPort_])) addStringWithNSString:@"host" withNSString:mAutoHost_];
       [((OrgMinimaSystemNetworkNetworkHandler *) nil_chk([self getNetworkHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:connect];
     }
   }
   else if ([zMessage isMessageTypeWithNSString:OrgMinimaSystemMain_SYSTEM_SHUTDOWN]) {
-    OrgMinimaUtilsMessagesMessage *backshut = create_OrgMinimaUtilsMessagesMessage_initWithNSString_(JreLoadStatic(OrgMinimaSystemBrainsConsensusBackup, CONSENSUSBACKUP_BACKUP));
-    [backshut addBooleanWithNSString:@"shutdown" withBoolean:true];
+    OrgMinimaUtilsMessagesMessage *backshut = new_OrgMinimaUtilsMessagesMessage_initWithNSString_(JreLoadStatic(OrgMinimaSystemBrainsConsensusBackup, CONSENSUSBACKUP_BACKUP));
+    (void) [backshut addBooleanWithNSString:@"shutdown" withBoolean:true];
     [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk([self getConsensusHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:backshut];
   }
   else if ([zMessage isMessageTypeWithNSString:OrgMinimaSystemMain_SYSTEM_FULLSHUTDOWN]) {
@@ -156,31 +157,19 @@ NSString *OrgMinimaSystemMain_SYSTEM_EVENT = @"SYSTEM_EVENT";
     [((OrgMinimaSystemExternalProcessManager *) nil_chk(mProcessManager_)) stopMessageProcessor];
     JavaLangThread_sleepWithLong_(250);
     [self stopMessageProcessor];
-    [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk(mConsensus_)) updateListenersWithOrgMinimaUtilsMessagesMessage:create_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemBrainsConsensusHandler_CONSENSUS_NOTIFY_QUIT)];
+    [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk(mConsensus_)) updateListenersWithOrgMinimaUtilsMessagesMessage:new_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemBrainsConsensusHandler_CONSENSUS_NOTIFY_QUIT)];
     OrgMinimaUtilsMinimaLogger_logWithNSString_(@"Minima Stopped. Bye Bye..");
   }
   else if ([zMessage isMessageTypeWithNSString:OrgMinimaSystemMain_SYSTEM_ALLSTOP]) {
-    IOSObjectArray *input = [IOSObjectArray arrayWithObjects:(id[]){ @"minetrans", @"off" } count:2 type:NSString_class_()];
+    IOSObjectArray *input = [IOSObjectArray newArrayWithObjects:(id[]){ @"minetrans", @"off" } count:2 type:NSString_class_()];
     OrgMinimaSystemInputCommandFunction *minetrans = OrgMinimaSystemInputCommandFunction_getFunctionWithNSString_(@"minetrans");
     [((OrgMinimaSystemInputCommandFunction *) nil_chk(minetrans)) setMainHandlerWithOrgMinimaSystemMain:[((OrgMinimaSystemBrainsConsensusHandler *) nil_chk([self getConsensusHandler])) getMainHandler]];
     [minetrans doFunctionWithNSStringArray:input];
-    [((OrgMinimaSystemNetworkNetworkHandler *) nil_chk([self getNetworkHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:create_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemNetworkNetworkHandler_NETWORK_ALLSTOP)];
+    [((OrgMinimaSystemNetworkNetworkHandler *) nil_chk([self getNetworkHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:new_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemNetworkNetworkHandler_NETWORK_ALLSTOP)];
   }
   else {
     OrgMinimaUtilsMinimaLogger_logWithNSString_(JreStrcat("$@", @"Unknown Message sent to main handler ", zMessage));
   }
-}
-
-- (void)dealloc {
-  RELEASE_(mInput_);
-  RELEASE_(mNetwork_);
-  RELEASE_(mTXMiner_);
-  RELEASE_(mConsensus_);
-  RELEASE_(mBackup_);
-  RELEASE_(mProcessManager_);
-  RELEASE_(mAutoHost_);
-  RELEASE_(mCurrentTopBlock_);
-  [super dealloc];
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -255,7 +244,7 @@ void OrgMinimaSystemMain_initWithInt_withInt_withBoolean_withNSString_(OrgMinima
   OrgMinimaUtilsMessagesMessageProcessor_initWithNSString_(self, @"MAIN     ");
   self->mGenesis_ = false;
   self->mAutoConnect_ = false;
-  JreStrongAssign(&self->mAutoHost_, @"");
+  self->mAutoHost_ = @"";
   self->mAutoPort_ = 0;
   self->mNodeStartTime_ = JavaLangSystem_currentTimeMillis();
   OrgMinimaUtilsMinimaLogger_logWithNSString_(@"**********************************************");
@@ -267,12 +256,12 @@ void OrgMinimaSystemMain_initWithInt_withInt_withBoolean_withNSString_(OrgMinima
   OrgMinimaUtilsMinimaLogger_logWithNSString_(@"**********************************************");
   self->mPort_ = zPort;
   self->mRPCPort_ = zRPCPort;
-  JreStrongAssignAndConsume(&self->mInput_, new_OrgMinimaSystemInputInputHandler_initWithOrgMinimaSystemMain_(self));
-  JreStrongAssignAndConsume(&self->mNetwork_, new_OrgMinimaSystemNetworkNetworkHandler_initWithOrgMinimaSystemMain_(self));
-  JreStrongAssignAndConsume(&self->mTXMiner_, new_OrgMinimaSystemTxTXMiner_initWithOrgMinimaSystemMain_(self));
-  JreStrongAssignAndConsume(&self->mBackup_, new_OrgMinimaSystemBackupBackupManager_initWithOrgMinimaSystemMain_withNSString_(self, zConfFolder));
-  JreStrongAssignAndConsume(&self->mProcessManager_, new_OrgMinimaSystemExternalProcessManager_initWithOrgMinimaSystemMain_(self));
-  JreStrongAssignAndConsume(&self->mConsensus_, new_OrgMinimaSystemBrainsConsensusHandler_initWithOrgMinimaSystemMain_(self));
+  self->mInput_ = new_OrgMinimaSystemInputInputHandler_initWithOrgMinimaSystemMain_(self);
+  self->mNetwork_ = new_OrgMinimaSystemNetworkNetworkHandler_initWithOrgMinimaSystemMain_(self);
+  self->mTXMiner_ = new_OrgMinimaSystemTxTXMiner_initWithOrgMinimaSystemMain_(self);
+  self->mBackup_ = new_OrgMinimaSystemBackupBackupManager_initWithOrgMinimaSystemMain_withNSString_(self, zConfFolder);
+  self->mProcessManager_ = new_OrgMinimaSystemExternalProcessManager_initWithOrgMinimaSystemMain_(self);
+  self->mConsensus_ = new_OrgMinimaSystemBrainsConsensusHandler_initWithOrgMinimaSystemMain_(self);
   self->mGenesis_ = zGenesis;
 }
 

@@ -118,7 +118,7 @@ OrgMinimaUtilsJsonJSONValue *create_OrgMinimaUtilsJsonJSONValue_init() {
 id OrgMinimaUtilsJsonJSONValue_parseWithJavaIoReader_(JavaIoReader *inArg) {
   OrgMinimaUtilsJsonJSONValue_initialize();
   @try {
-    OrgMinimaUtilsJsonParserJSONParser *parser = create_OrgMinimaUtilsJsonParserJSONParser_init();
+    OrgMinimaUtilsJsonParserJSONParser *parser = new_OrgMinimaUtilsJsonParserJSONParser_init();
     return [parser parseWithJavaIoReader:inArg];
   }
   @catch (JavaLangException *e) {
@@ -128,19 +128,19 @@ id OrgMinimaUtilsJsonJSONValue_parseWithJavaIoReader_(JavaIoReader *inArg) {
 
 id OrgMinimaUtilsJsonJSONValue_parseWithNSString_(NSString *s) {
   OrgMinimaUtilsJsonJSONValue_initialize();
-  JavaIoStringReader *in = create_JavaIoStringReader_initWithNSString_(s);
+  JavaIoStringReader *in = new_JavaIoStringReader_initWithNSString_(s);
   return OrgMinimaUtilsJsonJSONValue_parseWithJavaIoReader_(in);
 }
 
 id OrgMinimaUtilsJsonJSONValue_parseWithExceptionWithJavaIoReader_(JavaIoReader *inArg) {
   OrgMinimaUtilsJsonJSONValue_initialize();
-  OrgMinimaUtilsJsonParserJSONParser *parser = create_OrgMinimaUtilsJsonParserJSONParser_init();
+  OrgMinimaUtilsJsonParserJSONParser *parser = new_OrgMinimaUtilsJsonParserJSONParser_init();
   return [parser parseWithJavaIoReader:inArg];
 }
 
 id OrgMinimaUtilsJsonJSONValue_parseWithExceptionWithNSString_(NSString *s) {
   OrgMinimaUtilsJsonJSONValue_initialize();
-  OrgMinimaUtilsJsonParserJSONParser *parser = create_OrgMinimaUtilsJsonParserJSONParser_init();
+  OrgMinimaUtilsJsonParserJSONParser *parser = new_OrgMinimaUtilsJsonParserJSONParser_init();
   return [parser parseWithNSString:s];
 }
 
@@ -231,20 +231,20 @@ void OrgMinimaUtilsJsonJSONValue_writeJSONStringWithId_withJavaIoWriter_(id valu
 
 NSString *OrgMinimaUtilsJsonJSONValue_toJSONStringWithId_(id value) {
   OrgMinimaUtilsJsonJSONValue_initialize();
-  JavaIoStringWriter *writer = create_JavaIoStringWriter_init();
+  JavaIoStringWriter *writer = new_JavaIoStringWriter_init();
   @try {
     OrgMinimaUtilsJsonJSONValue_writeJSONStringWithId_withJavaIoWriter_(value, writer);
     return [writer description];
   }
   @catch (JavaIoIOException *e) {
-    @throw create_JavaLangRuntimeException_initWithJavaLangThrowable_(e);
+    @throw new_JavaLangRuntimeException_initWithJavaLangThrowable_(e);
   }
 }
 
 NSString *OrgMinimaUtilsJsonJSONValue_escapeWithNSString_(NSString *s) {
   OrgMinimaUtilsJsonJSONValue_initialize();
   if (s == nil) return nil;
-  JavaLangStringBuffer *sb = create_JavaLangStringBuffer_init();
+  JavaLangStringBuffer *sb = new_JavaLangStringBuffer_init();
   OrgMinimaUtilsJsonJSONValue_escapeWithNSString_withJavaLangStringBuffer_(s, sb);
   return [sb description];
 }
@@ -256,40 +256,40 @@ void OrgMinimaUtilsJsonJSONValue_escapeWithNSString_withJavaLangStringBuffer_(NS
     jchar ch = [s charAtWithInt:i];
     switch (ch) {
       case '"':
-      [((JavaLangStringBuffer *) nil_chk(sb)) appendWithNSString:@"\\\""];
+      (void) [((JavaLangStringBuffer *) nil_chk(sb)) appendWithNSString:@"\\\""];
       break;
       case '\\':
-      [((JavaLangStringBuffer *) nil_chk(sb)) appendWithNSString:@"\\\\"];
+      (void) [((JavaLangStringBuffer *) nil_chk(sb)) appendWithNSString:@"\\\\"];
       break;
       case 0x0008:
-      [((JavaLangStringBuffer *) nil_chk(sb)) appendWithNSString:@"\\b"];
+      (void) [((JavaLangStringBuffer *) nil_chk(sb)) appendWithNSString:@"\\b"];
       break;
       case 0x000c:
-      [((JavaLangStringBuffer *) nil_chk(sb)) appendWithNSString:@"\\f"];
+      (void) [((JavaLangStringBuffer *) nil_chk(sb)) appendWithNSString:@"\\f"];
       break;
       case 0x000a:
-      [((JavaLangStringBuffer *) nil_chk(sb)) appendWithNSString:@"\\n"];
+      (void) [((JavaLangStringBuffer *) nil_chk(sb)) appendWithNSString:@"\\n"];
       break;
       case 0x000d:
-      [((JavaLangStringBuffer *) nil_chk(sb)) appendWithNSString:@"\\r"];
+      (void) [((JavaLangStringBuffer *) nil_chk(sb)) appendWithNSString:@"\\r"];
       break;
       case 0x0009:
-      [((JavaLangStringBuffer *) nil_chk(sb)) appendWithNSString:@"\\t"];
+      (void) [((JavaLangStringBuffer *) nil_chk(sb)) appendWithNSString:@"\\t"];
       break;
       case '/':
-      [((JavaLangStringBuffer *) nil_chk(sb)) appendWithNSString:@"\\/"];
+      (void) [((JavaLangStringBuffer *) nil_chk(sb)) appendWithNSString:@"\\/"];
       break;
       default:
       if ((ch >= 0x0000 && ch <= 0x001f) || (ch >= 0x007f && ch <= 0x009f) || (ch >= 0x2000 && ch <= 0x20ff)) {
         NSString *ss = JavaLangInteger_toHexStringWithInt_(ch);
-        [((JavaLangStringBuffer *) nil_chk(sb)) appendWithNSString:@"\\u"];
+        (void) [((JavaLangStringBuffer *) nil_chk(sb)) appendWithNSString:@"\\u"];
         for (jint k = 0; k < 4 - [((NSString *) nil_chk(ss)) java_length]; k++) {
-          [sb appendWithChar:'0'];
+          (void) [sb appendWithChar:'0'];
         }
-        [sb appendWithNSString:[ss uppercaseString]];
+        (void) [sb appendWithNSString:[ss uppercaseString]];
       }
       else {
-        [((JavaLangStringBuffer *) nil_chk(sb)) appendWithChar:ch];
+        (void) [((JavaLangStringBuffer *) nil_chk(sb)) appendWithChar:ch];
       }
     }
   }

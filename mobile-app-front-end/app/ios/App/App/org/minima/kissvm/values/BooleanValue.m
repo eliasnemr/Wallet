@@ -52,8 +52,8 @@ OrgMinimaKissvmValuesBooleanValue *OrgMinimaKissvmValuesBooleanValue_TRUE;
 
 + (void)initialize {
   if (self == [OrgMinimaKissvmValuesBooleanValue class]) {
-    JreStrongAssignAndConsume(&OrgMinimaKissvmValuesBooleanValue_FALSE, new_OrgMinimaKissvmValuesBooleanValue_initWithBoolean_(false));
-    JreStrongAssignAndConsume(&OrgMinimaKissvmValuesBooleanValue_TRUE, new_OrgMinimaKissvmValuesBooleanValue_initWithBoolean_(true));
+    OrgMinimaKissvmValuesBooleanValue_FALSE = new_OrgMinimaKissvmValuesBooleanValue_initWithBoolean_(false);
+    OrgMinimaKissvmValuesBooleanValue_TRUE = new_OrgMinimaKissvmValuesBooleanValue_initWithBoolean_(true);
     J2OBJC_SET_INITIALIZED(OrgMinimaKissvmValuesBooleanValue)
   }
 }

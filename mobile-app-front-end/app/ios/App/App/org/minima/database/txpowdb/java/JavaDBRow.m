@@ -49,7 +49,7 @@ J2OBJC_FIELD_SETTER(OrgMinimaDatabaseTxpowdbJavaJavaDBRow, mInBlocknumber_, OrgM
 }
 
 - (void)setInBlockNumberWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zBlockNumber {
-  JreStrongAssign(&mInBlocknumber_, zBlockNumber);
+  mInBlocknumber_ = zBlockNumber;
 }
 
 - (NSString *)description {
@@ -91,12 +91,6 @@ J2OBJC_FIELD_SETTER(OrgMinimaDatabaseTxpowdbJavaJavaDBRow, mInBlocknumber_, OrgM
 
 - (jlong)getDeleteTime {
   return mDeleteTime_;
-}
-
-- (void)dealloc {
-  RELEASE_(mTxPOW_);
-  RELEASE_(mInBlocknumber_);
-  [super dealloc];
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -151,7 +145,7 @@ J2OBJC_FIELD_SETTER(OrgMinimaDatabaseTxpowdbJavaJavaDBRow, mInBlocknumber_, OrgM
 
 void OrgMinimaDatabaseTxpowdbJavaJavaDBRow_initWithOrgMinimaObjectsTxPOW_(OrgMinimaDatabaseTxpowdbJavaJavaDBRow *self, OrgMinimaObjectsTxPOW *zTxPOW) {
   NSObject_init(self);
-  JreStrongAssign(&self->mTxPOW_, zTxPOW);
+  self->mTxPOW_ = zTxPOW;
   self->mIsInBlock_ = false;
   self->mIsOnChainBlock_ = false;
   self->mBlockState_ = OrgMinimaDatabaseTxpowdbTxPOWDBRow_TXPOWDBROW_STATE_BASIC;

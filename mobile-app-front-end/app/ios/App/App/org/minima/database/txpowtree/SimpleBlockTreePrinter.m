@@ -50,14 +50,14 @@ __attribute__((unused)) static void OrgMinimaDatabaseTxpowtreeSimpleBlockTreePri
     return @"No tree root..";
   }
   mCascadeNode_ = [((OrgMinimaObjectsBaseMiniNumber *) nil_chk([((OrgMinimaObjectsTxPOW *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTree *) nil_chk(mTree_)) getCascadeNode])) getTxPow])) getBlockNumber])) getAsLong];
-  JreStrongAssign(&mTipID_, [((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTree *) nil_chk(mTree_)) getChainTip])) getTxPowID]);
+  mTipID_ = [((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTree *) nil_chk(mTree_)) getChainTip])) getTxPowID];
   OrgMinimaObjectsBaseMiniNumber *tip = [((OrgMinimaObjectsTxPOW *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTree *) nil_chk(mTree_)) getChainTip])) getTxPow])) getBlockNumber];
   OrgMinimaObjectsBaseMiniNumber *starttree = [((OrgMinimaObjectsBaseMiniNumber *) nil_chk(tip)) subWithOrgMinimaObjectsBaseMiniNumber:JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, THIRTYTWO)];
   if ([((OrgMinimaObjectsBaseMiniNumber *) nil_chk(starttree)) isLessWithOrgMinimaObjectsBaseMiniNumber:JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, ZERO)]) {
     starttree = JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, ZERO);
   }
-  IOSIntArray *alltots = [IOSIntArray arrayWithLength:OrgMinimaGlobalParams_MINIMA_CASCADE_LEVELS];
-  OrgMinimaUtilsBrettyTreeNode *rootnode = create_OrgMinimaUtilsBrettyTreeNode_initWithNSString_(OrgMinimaDatabaseTxpowtreeSimpleBlockTreePrinter_convertNodeToStringWithOrgMinimaDatabaseTxpowtreeBlockTreeNode_(self, root));
+  IOSIntArray *alltots = [IOSIntArray newArrayWithLength:OrgMinimaGlobalParams_MINIMA_CASCADE_LEVELS];
+  OrgMinimaUtilsBrettyTreeNode *rootnode = new_OrgMinimaUtilsBrettyTreeNode_initWithNSString_(OrgMinimaDatabaseTxpowtreeSimpleBlockTreePrinter_convertNodeToStringWithOrgMinimaDatabaseTxpowtreeBlockTreeNode_(self, root));
   OrgMinimaUtilsBrettyTreeNode *treenode = rootnode;
   OrgMinimaUtilsBrettyTreeNode *newnode = nil;
   OrgMinimaDatabaseTxpowtreeBlockTreeNode *current = root;
@@ -78,14 +78,14 @@ __attribute__((unused)) static void OrgMinimaDatabaseTxpowtreeSimpleBlockTreePri
       NSString *all = @"";
       for (jint i = 0; i < OrgMinimaGlobalParams_MINIMA_CASCADE_LEVELS; i++) {
         if (IOSIntArray_Get(alltots, i) != 0) {
-          JreStrAppend(&all, "ICIC", IOSIntArray_Get(alltots, i), '@', i, ' ');
+          (void) JreStrAppendStrong(&all, "ICIC", IOSIntArray_Get(alltots, i), '@', i, ' ');
         }
         *IOSIntArray_GetRef(alltots, i) = 0;
       }
-      newnode = create_OrgMinimaUtilsBrettyTreeNode_initWithNSString_(JreStrcat("I$I$$", tot, @" @ ", currentlev, @" Super:", all));
+      newnode = new_OrgMinimaUtilsBrettyTreeNode_initWithNSString_(JreStrcat("I$I$$", tot, @" @ ", currentlev, @" Super:", all));
       [treenode addChildWithOrgMinimaUtilsBrettyTreeNode:newnode];
       treenode = newnode;
-      newnode = create_OrgMinimaUtilsBrettyTreeNode_initWithNSString_(OrgMinimaDatabaseTxpowtreeSimpleBlockTreePrinter_convertNodeToStringWithOrgMinimaDatabaseTxpowtreeBlockTreeNode_(self, child));
+      newnode = new_OrgMinimaUtilsBrettyTreeNode_initWithNSString_(OrgMinimaDatabaseTxpowtreeSimpleBlockTreePrinter_convertNodeToStringWithOrgMinimaDatabaseTxpowtreeBlockTreeNode_(self, child));
       [treenode addChildWithOrgMinimaUtilsBrettyTreeNode:newnode];
       treenode = newnode;
       (*IOSIntArray_GetRef(alltots, [child getSuperBlockLevel]))++;
@@ -97,11 +97,11 @@ __attribute__((unused)) static void OrgMinimaDatabaseTxpowtreeSimpleBlockTreePri
   NSString *all = @"";
   for (jint i = 0; i < OrgMinimaGlobalParams_MINIMA_CASCADE_LEVELS; i++) {
     if (IOSIntArray_Get(alltots, i) != 0) {
-      JreStrAppend(&all, "ICIC", IOSIntArray_Get(alltots, i), '@', i, ' ');
+      (void) JreStrAppendStrong(&all, "ICIC", IOSIntArray_Get(alltots, i), '@', i, ' ');
     }
     *IOSIntArray_GetRef(alltots, i) = 0;
   }
-  newnode = create_OrgMinimaUtilsBrettyTreeNode_initWithNSString_(JreStrcat("I$I$$", tot, @" @ ", currentlev, @" Super:", all));
+  newnode = new_OrgMinimaUtilsBrettyTreeNode_initWithNSString_(JreStrcat("I$I$$", tot, @" @ ", currentlev, @" Super:", all));
   [treenode addChildWithOrgMinimaUtilsBrettyTreeNode:newnode];
   treenode = newnode;
   OrgMinimaDatabaseTxpowtreeSimpleBlockTreePrinter_drillNodeWithOrgMinimaDatabaseTxpowtreeBlockTreeNode_withOrgMinimaUtilsBrettyTreeNode_withInt_(self, current, treenode, 1);
@@ -125,12 +125,6 @@ __attribute__((unused)) static void OrgMinimaDatabaseTxpowtreeSimpleBlockTreePri
 
 + (void)clearScreen {
   OrgMinimaDatabaseTxpowtreeSimpleBlockTreePrinter_clearScreen();
-}
-
-- (void)dealloc {
-  RELEASE_(mTree_);
-  RELEASE_(mTipID_);
-  [super dealloc];
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -167,7 +161,7 @@ __attribute__((unused)) static void OrgMinimaDatabaseTxpowtreeSimpleBlockTreePri
 void OrgMinimaDatabaseTxpowtreeSimpleBlockTreePrinter_initWithOrgMinimaDatabaseTxpowtreeBlockTree_(OrgMinimaDatabaseTxpowtreeSimpleBlockTreePrinter *self, OrgMinimaDatabaseTxpowtreeBlockTree *zTree) {
   NSObject_init(self);
   self->mCascadeNode_ = 0;
-  JreStrongAssign(&self->mTree_, zTree);
+  self->mTree_ = zTree;
 }
 
 OrgMinimaDatabaseTxpowtreeSimpleBlockTreePrinter *new_OrgMinimaDatabaseTxpowtreeSimpleBlockTreePrinter_initWithOrgMinimaDatabaseTxpowtreeBlockTree_(OrgMinimaDatabaseTxpowtreeBlockTree *zTree) {
@@ -193,7 +187,7 @@ NSString *OrgMinimaDatabaseTxpowtreeSimpleBlockTreePrinter_convertNodeToStringWi
 NSString *OrgMinimaDatabaseTxpowtreeSimpleBlockTreePrinter_getStarStringWithInt_(OrgMinimaDatabaseTxpowtreeSimpleBlockTreePrinter *self, jint zLen) {
   NSString *ret = @"";
   for (jint i = 0; i < zLen; i++) {
-    JreStrAppend(&ret, "$", @"*");
+    (void) JreStrAppendStrong(&ret, "$", @"*");
   }
   return ret;
 }
@@ -201,7 +195,7 @@ NSString *OrgMinimaDatabaseTxpowtreeSimpleBlockTreePrinter_getStarStringWithInt_
 void OrgMinimaDatabaseTxpowtreeSimpleBlockTreePrinter_drillNodeWithOrgMinimaDatabaseTxpowtreeBlockTreeNode_withOrgMinimaUtilsBrettyTreeNode_withInt_(OrgMinimaDatabaseTxpowtreeSimpleBlockTreePrinter *self, OrgMinimaDatabaseTxpowtreeBlockTreeNode *zNode, OrgMinimaUtilsBrettyTreeNode *zTreeNode, jint zLevel) {
   JavaUtilArrayList *children = [((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk(zNode)) getChildren];
   for (OrgMinimaDatabaseTxpowtreeBlockTreeNode * __strong child in nil_chk(children)) {
-    OrgMinimaUtilsBrettyTreeNode *chilnode = create_OrgMinimaUtilsBrettyTreeNode_initWithNSString_(OrgMinimaDatabaseTxpowtreeSimpleBlockTreePrinter_convertNodeToStringWithOrgMinimaDatabaseTxpowtreeBlockTreeNode_(self, child));
+    OrgMinimaUtilsBrettyTreeNode *chilnode = new_OrgMinimaUtilsBrettyTreeNode_initWithNSString_(OrgMinimaDatabaseTxpowtreeSimpleBlockTreePrinter_convertNodeToStringWithOrgMinimaDatabaseTxpowtreeBlockTreeNode_(self, child));
     [((OrgMinimaUtilsBrettyTreeNode *) nil_chk(zTreeNode)) addChildWithOrgMinimaUtilsBrettyTreeNode:chilnode];
     OrgMinimaDatabaseTxpowtreeSimpleBlockTreePrinter_drillNodeWithOrgMinimaDatabaseTxpowtreeBlockTreeNode_withOrgMinimaUtilsBrettyTreeNode_withInt_(self, child, chilnode, [((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk(child)) getCurrentLevel]);
   }

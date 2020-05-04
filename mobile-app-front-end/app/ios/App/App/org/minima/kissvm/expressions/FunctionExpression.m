@@ -19,16 +19,13 @@
 
 - (OrgMinimaKissvmValuesValue *)getValueWithOrgMinimaKissvmContract:(OrgMinimaKissvmContract *)zContract {
   [((OrgMinimaKissvmContract *) nil_chk(zContract)) incrementInstructions];
-  return [((OrgMinimaKissvmFunctionsMinimaFunction *) nil_chk(mFunction_)) runFunctionWithOrgMinimaKissvmContract:zContract];
+  OrgMinimaKissvmValuesValue *val = [((OrgMinimaKissvmFunctionsMinimaFunction *) nil_chk(mFunction_)) runFunctionWithOrgMinimaKissvmContract:zContract];
+  [zContract traceLogWithNSString:JreStrcat("$$$", [self description], @" returns:", [((OrgMinimaKissvmValuesValue *) nil_chk(val)) description])];
+  return val;
 }
 
 - (NSString *)description {
   return JreStrcat("$$$@", @"function:", [((OrgMinimaKissvmFunctionsMinimaFunction *) nil_chk(mFunction_)) getName], @", params:", [((OrgMinimaKissvmFunctionsMinimaFunction *) nil_chk(mFunction_)) getAllParameters]);
-}
-
-- (void)dealloc {
-  RELEASE_(mFunction_);
-  [super dealloc];
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -56,7 +53,7 @@
 
 void OrgMinimaKissvmExpressionsFunctionExpression_initWithOrgMinimaKissvmFunctionsMinimaFunction_(OrgMinimaKissvmExpressionsFunctionExpression *self, OrgMinimaKissvmFunctionsMinimaFunction *zFunction) {
   NSObject_init(self);
-  JreStrongAssign(&self->mFunction_, zFunction);
+  self->mFunction_ = zFunction;
 }
 
 OrgMinimaKissvmExpressionsFunctionExpression *new_OrgMinimaKissvmExpressionsFunctionExpression_initWithOrgMinimaKissvmFunctionsMinimaFunction_(OrgMinimaKissvmFunctionsMinimaFunction *zFunction) {

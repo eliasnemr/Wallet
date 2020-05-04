@@ -30,6 +30,8 @@
   OrgMinimaObjectsBaseMiniData *mPrivateSeed_;
   OrgMinimaObjectsBaseMiniData *mPublicKey_;
   jint mBitLength_;
+  jint mMAX_;
+  jint mUses_;
 }
 
 #pragma mark Public

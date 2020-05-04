@@ -65,8 +65,8 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 + (void)initialize {
   if (self == [OrgMinimaUtilsMaths class]) {
-    JreStrongAssignAndConsume(&OrgMinimaUtilsMaths_BI_TWO, new_JavaMathBigInteger_initWithNSString_(@"2"));
-    JreStrongAssignAndConsume(&OrgMinimaUtilsMaths_BD_TWO, new_JavaMathBigDecimal_initWithNSString_(@"2"));
+    OrgMinimaUtilsMaths_BI_TWO = new_JavaMathBigInteger_initWithNSString_(@"2");
+    OrgMinimaUtilsMaths_BD_TWO = new_JavaMathBigDecimal_initWithNSString_(@"2");
     J2OBJC_SET_INITIALIZED(OrgMinimaUtilsMaths)
   }
 }
@@ -121,7 +121,7 @@ NSString *OrgMinimaUtilsMaths_ConvertMilliToTimeWithLong_(jlong zMilli) {
   jlong min = [JreLoadEnum(JavaUtilConcurrentTimeUnit, MILLISECONDS) toMinutesWithLong:milliseconds] - [((JavaUtilConcurrentTimeUnit *) nil_chk(JreLoadEnum(JavaUtilConcurrentTimeUnit, HOURS))) toMinutesWithLong:[JreLoadEnum(JavaUtilConcurrentTimeUnit, MILLISECONDS) toHoursWithLong:milliseconds]];
   jlong sec = [JreLoadEnum(JavaUtilConcurrentTimeUnit, MILLISECONDS) toSecondsWithLong:milliseconds] - [((JavaUtilConcurrentTimeUnit *) nil_chk(JreLoadEnum(JavaUtilConcurrentTimeUnit, MINUTES))) toSecondsWithLong:[JreLoadEnum(JavaUtilConcurrentTimeUnit, MILLISECONDS) toMinutesWithLong:milliseconds]];
   jlong ms = [JreLoadEnum(JavaUtilConcurrentTimeUnit, MILLISECONDS) toMillisWithLong:milliseconds] - [((JavaUtilConcurrentTimeUnit *) nil_chk(JreLoadEnum(JavaUtilConcurrentTimeUnit, SECONDS))) toMillisWithLong:[JreLoadEnum(JavaUtilConcurrentTimeUnit, MILLISECONDS) toSecondsWithLong:milliseconds]];
-  return NSString_java_formatWithNSString_withNSObjectArray_(@"%d Years %d Months %d Weeks %d Days %d Hours %d Minutes %d Seconds %d Milliseconds", [IOSObjectArray arrayWithObjects:(id[]){ JavaLangLong_valueOfWithLong_(yr), JavaLangLong_valueOfWithLong_(mn), JavaLangLong_valueOfWithLong_(wk), JavaLangLong_valueOfWithLong_(dy), JavaLangLong_valueOfWithLong_(hr), JavaLangLong_valueOfWithLong_(min), JavaLangLong_valueOfWithLong_(sec), JavaLangLong_valueOfWithLong_(ms) } count:8 type:NSObject_class_()]);
+  return NSString_java_formatWithNSString_withNSObjectArray_(@"%d Years %d Months %d Weeks %d Days %d Hours %d Minutes %d Seconds %d Milliseconds", [IOSObjectArray newArrayWithObjects:(id[]){ JavaLangLong_valueOfWithLong_(yr), JavaLangLong_valueOfWithLong_(mn), JavaLangLong_valueOfWithLong_(wk), JavaLangLong_valueOfWithLong_(dy), JavaLangLong_valueOfWithLong_(hr), JavaLangLong_valueOfWithLong_(min), JavaLangLong_valueOfWithLong_(sec), JavaLangLong_valueOfWithLong_(ms) } count:8 type:NSObject_class_()]);
 }
 
 J2OBJC_CLASS_TYPE_LITERAL_SOURCE(OrgMinimaUtilsMaths)

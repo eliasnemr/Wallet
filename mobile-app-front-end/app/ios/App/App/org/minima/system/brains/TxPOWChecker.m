@@ -5,6 +5,7 @@
 
 #include "IOSClass.h"
 #include "IOSObjectArray.h"
+#include "IOSPrimitiveArray.h"
 #include "J2ObjC_source.h"
 #include "java/lang/Boolean.h"
 #include "java/lang/Integer.h"
@@ -26,6 +27,7 @@
 #include "org/minima/objects/Address.h"
 #include "org/minima/objects/Coin.h"
 #include "org/minima/objects/PubPrivKey.h"
+#include "org/minima/objects/StateVariable.h"
 #include "org/minima/objects/Transaction.h"
 #include "org/minima/objects/TxPOW.h"
 #include "org/minima/objects/Witness.h"
@@ -156,58 +158,61 @@ jboolean OrgMinimaSystemBrainsTxPOWChecker_checkTransactionMMRWithOrgMinimaObjec
     if (![((OrgMinimaObjectsBaseMiniData *) nil_chk([((OrgMinimaObjectsTransaction *) nil_chk([zTxPOW getBurnTransaction])) getLinkHash])) isEqualWithOrgMinimaObjectsBaseMiniData:transid]) {
       return false;
     }
-    jboolean burntrans = OrgMinimaSystemBrainsTxPOWChecker_checkTransactionMMRWithOrgMinimaObjectsTransaction_withOrgMinimaObjectsWitness_withOrgMinimaDatabaseMinimaDB_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaDatabaseMmrMMRSet_withBoolean_withOrgMinimaUtilsJsonJSONArray_([zTxPOW getBurnTransaction], [zTxPOW getBurnWitness], zDB, zBlockNumber, zMMRSet, zTouchMMR, create_OrgMinimaUtilsJsonJSONArray_init());
+    jboolean burntrans = OrgMinimaSystemBrainsTxPOWChecker_checkTransactionMMRWithOrgMinimaObjectsTransaction_withOrgMinimaObjectsWitness_withOrgMinimaDatabaseMinimaDB_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaDatabaseMmrMMRSet_withBoolean_withOrgMinimaUtilsJsonJSONArray_([zTxPOW getBurnTransaction], [zTxPOW getBurnWitness], zDB, zBlockNumber, zMMRSet, zTouchMMR, new_OrgMinimaUtilsJsonJSONArray_init());
     if (!burntrans) {
       return false;
     }
   }
-  if (![((OrgMinimaObjectsBaseMiniData *) nil_chk([((OrgMinimaObjectsTransaction *) nil_chk([zTxPOW getTransaction])) getLinkHash])) isEqualWithOrgMinimaObjectsBaseMiniData:create_OrgMinimaObjectsBaseMiniData_initWithNSString_(@"0x00")]) {
+  if (![((OrgMinimaObjectsBaseMiniData *) nil_chk([((OrgMinimaObjectsTransaction *) nil_chk([zTxPOW getTransaction])) getLinkHash])) isEqualWithOrgMinimaObjectsBaseMiniData:new_OrgMinimaObjectsBaseMiniData_initWithNSString_(@"0x00")]) {
     return false;
   }
-  return OrgMinimaSystemBrainsTxPOWChecker_checkTransactionMMRWithOrgMinimaObjectsTransaction_withOrgMinimaObjectsWitness_withOrgMinimaDatabaseMinimaDB_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaDatabaseMmrMMRSet_withBoolean_withOrgMinimaUtilsJsonJSONArray_([zTxPOW getTransaction], [zTxPOW getWitness], zDB, zBlockNumber, zMMRSet, zTouchMMR, create_OrgMinimaUtilsJsonJSONArray_init());
+  return OrgMinimaSystemBrainsTxPOWChecker_checkTransactionMMRWithOrgMinimaObjectsTransaction_withOrgMinimaObjectsWitness_withOrgMinimaDatabaseMinimaDB_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaDatabaseMmrMMRSet_withBoolean_withOrgMinimaUtilsJsonJSONArray_([zTxPOW getTransaction], [zTxPOW getWitness], zDB, zBlockNumber, zMMRSet, zTouchMMR, new_OrgMinimaUtilsJsonJSONArray_init());
 }
 
 jboolean OrgMinimaSystemBrainsTxPOWChecker_checkTransactionMMRWithOrgMinimaObjectsTransaction_withOrgMinimaObjectsWitness_withOrgMinimaDatabaseMinimaDB_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaDatabaseMmrMMRSet_withBoolean_(OrgMinimaObjectsTransaction *zTrans, OrgMinimaObjectsWitness *zWit, OrgMinimaDatabaseMinimaDB *zDB, OrgMinimaObjectsBaseMiniNumber *zBlockNumber, OrgMinimaDatabaseMmrMMRSet *zMMRSet, jboolean zTouchMMR) {
   OrgMinimaSystemBrainsTxPOWChecker_initialize();
-  return OrgMinimaSystemBrainsTxPOWChecker_checkTransactionMMRWithOrgMinimaObjectsTransaction_withOrgMinimaObjectsWitness_withOrgMinimaDatabaseMinimaDB_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaDatabaseMmrMMRSet_withBoolean_withOrgMinimaUtilsJsonJSONArray_(zTrans, zWit, zDB, zBlockNumber, zMMRSet, zTouchMMR, create_OrgMinimaUtilsJsonJSONArray_init());
+  return OrgMinimaSystemBrainsTxPOWChecker_checkTransactionMMRWithOrgMinimaObjectsTransaction_withOrgMinimaObjectsWitness_withOrgMinimaDatabaseMinimaDB_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaDatabaseMmrMMRSet_withBoolean_withOrgMinimaUtilsJsonJSONArray_(zTrans, zWit, zDB, zBlockNumber, zMMRSet, zTouchMMR, new_OrgMinimaUtilsJsonJSONArray_init());
 }
 
 jboolean OrgMinimaSystemBrainsTxPOWChecker_checkTransactionMMRWithOrgMinimaObjectsTransaction_withOrgMinimaObjectsWitness_withOrgMinimaDatabaseMinimaDB_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaDatabaseMmrMMRSet_withBoolean_withOrgMinimaUtilsJsonJSONArray_(OrgMinimaObjectsTransaction *zTrans, OrgMinimaObjectsWitness *zWit, OrgMinimaDatabaseMinimaDB *zDB, OrgMinimaObjectsBaseMiniNumber *zBlockNumber, OrgMinimaDatabaseMmrMMRSet *zMMRSet, jboolean zTouchMMR, OrgMinimaUtilsJsonJSONArray *zContractLog) {
   OrgMinimaSystemBrainsTxPOWChecker_initialize();
   OrgMinimaObjectsTransaction *trans = [((OrgMinimaObjectsTransaction *) nil_chk(zTrans)) deepCopy];
-  IOSObjectArray *DYNState = [IOSObjectArray arrayWithLength:256 type:NSString_class_()];
+  jboolean relstate = [((id<OrgMinimaDatabaseUserdbUserDB>) nil_chk([((OrgMinimaDatabaseMinimaDB *) nil_chk(zDB)) getUserDB])) isStateListRelevantWithJavaUtilArrayList:[((OrgMinimaObjectsTransaction *) nil_chk(trans)) getCompleteState]];
+  IOSObjectArray *DYNState = [IOSObjectArray newArrayWithLength:256 type:NSString_class_()];
+  IOSBooleanArray *checkState = [IOSBooleanArray newArrayWithLength:256];
   for (jint i = 0; i < 256; i++) {
-    IOSObjectArray_Set(DYNState, i, nil);
+    (void) IOSObjectArray_Set(DYNState, i, nil);
+    *IOSBooleanArray_GetRef(checkState, i) = false;
   }
-  JavaUtilArrayList *inputs = [((OrgMinimaObjectsTransaction *) nil_chk(trans)) getAllInputs];
+  JavaUtilArrayList *inputs = [trans getAllInputs];
   NSString *sigs = [((OrgMinimaObjectsWitness *) nil_chk(zWit)) getAllPubKeysCSV];
   jboolean isfloating = false;
   jint ins = [((JavaUtilArrayList *) nil_chk(inputs)) size];
   for (jint i = 0; i < ins; i++) {
     OrgMinimaObjectsCoin *input = [inputs getWithInt:i];
-    OrgMinimaUtilsJsonJSONObject *contractlog = create_OrgMinimaUtilsJsonJSONObject_init();
+    OrgMinimaUtilsJsonJSONObject *contractlog = new_OrgMinimaUtilsJsonJSONObject_init();
     [((OrgMinimaUtilsJsonJSONArray *) nil_chk(zContractLog)) addWithId:contractlog];
     OrgMinimaObjectsProofsScriptProof *sp = [zWit getScriptWithOrgMinimaObjectsBaseMiniData:[((OrgMinimaObjectsCoin *) nil_chk(input)) getAddress]];
     if (sp == nil) {
-      [contractlog putWithId:@"error" withId:JreStrcat("$@", @"Script not found for ", [input getAddress])];
+      (void) [contractlog putWithId:@"error" withId:JreStrcat("$@", @"Script not found for ", [input getAddress])];
       return false;
     }
     NSString *script = [((OrgMinimaObjectsBaseMiniScript *) nil_chk([sp getScript])) description];
-    [contractlog putWithId:@"input" withId:JavaLangInteger_valueOfWithInt_(i)];
-    [contractlog putWithId:@"script" withId:script];
-    if ([((OrgMinimaObjectsBaseMiniData *) nil_chk([input getCoinID])) isEqualWithOrgMinimaObjectsBaseMiniData:JreLoadStatic(OrgMinimaSystemInputFunctionsgimme50, COINID_INPUT)] && [((OrgMinimaObjectsBaseMiniNumber *) nil_chk([input getAmount])) isLessEqualWithOrgMinimaObjectsBaseMiniNumber:create_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(@"50")]) {
-      [contractlog putWithId:@"isgimme50" withId:JavaLangBoolean_valueOfWithBoolean_(true)];
+    (void) [contractlog putWithId:@"input" withId:JavaLangInteger_valueOfWithInt_(i)];
+    (void) [contractlog putWithId:@"script" withId:script];
+    if ([((OrgMinimaObjectsBaseMiniData *) nil_chk([input getCoinID])) isEqualWithOrgMinimaObjectsBaseMiniData:JreLoadStatic(OrgMinimaSystemInputFunctionsgimme50, COINID_INPUT)] && [((OrgMinimaObjectsBaseMiniNumber *) nil_chk([input getAmount])) isLessEqualWithOrgMinimaObjectsBaseMiniNumber:new_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(@"50")]) {
+      (void) [contractlog putWithId:@"isgimme50" withId:JavaLangBoolean_valueOfWithBoolean_(true)];
     }
     else {
-      [contractlog putWithId:@"isgimme50" withId:JavaLangBoolean_valueOfWithBoolean_(false)];
-      OrgMinimaObjectsAddress *scraddr = create_OrgMinimaObjectsAddress_initWithNSString_withInt_(script, [((OrgMinimaObjectsBaseMiniData *) nil_chk([input getAddress])) getLength] * 8);
-      if (![scraddr isEqualWithOrgMinimaObjectsBaseMiniData:[input getAddress]]) {
-        [contractlog putWithId:@"error" withId:@"Serious - Invalid Address for script!"];
+      (void) [contractlog putWithId:@"isgimme50" withId:JavaLangBoolean_valueOfWithBoolean_(false)];
+      OrgMinimaObjectsAddress *scraddr = new_OrgMinimaObjectsAddress_initWithNSString_withInt_(script, [((OrgMinimaObjectsBaseMiniData *) nil_chk([input getAddress])) getLength] * 8);
+      if (![((OrgMinimaObjectsBaseMiniData *) nil_chk([scraddr getAddressData])) isEqualWithOrgMinimaObjectsBaseMiniData:[input getAddress]]) {
+        (void) [contractlog putWithId:@"error" withId:@"Serious - Invalid Address for script!"];
         return false;
       }
       OrgMinimaDatabaseMmrMMRProof *proof = [((JavaUtilArrayList *) nil_chk([zWit getAllMMRProofs])) getWithInt:i];
       if ([((OrgMinimaDatabaseMmrMMRData *) nil_chk([((OrgMinimaDatabaseMmrMMRProof *) nil_chk(proof)) getMMRData])) isHashOnly]) {
-        [contractlog putWithId:@"error" withId:@"Invalid MMR Proof (HASH Only)"];
+        (void) [contractlog putWithId:@"error" withId:@"Invalid MMR Proof (HASH Only)"];
         return false;
       }
       jboolean valid = [((OrgMinimaDatabaseMmrMMRSet *) nil_chk(zMMRSet)) checkProofWithOrgMinimaDatabaseMmrMMRProof:proof];
@@ -222,24 +227,24 @@ jboolean OrgMinimaSystemBrainsTxPOWChecker_checkTransactionMMRWithOrgMinimaObjec
             isfloating = true;
           }
           else {
-            [contractlog putWithId:@"error" withId:@"Invalid MMR Proof and NO VALID FLOATING COIN Found.."];
+            (void) [contractlog putWithId:@"error" withId:@"Invalid MMR Proof and NO VALID FLOATING COIN Found.."];
             return false;
           }
         }
         else {
-          [contractlog putWithId:@"error" withId:@"Invalid MMR Proof"];
+          (void) [contractlog putWithId:@"error" withId:@"Invalid MMR Proof"];
           return false;
         }
       }
       else {
         if (![proof checkCoinWithOrgMinimaObjectsCoin:input]) {
-          [contractlog putWithId:@"error" withId:@"Coin details proof miss-match"];
+          (void) [contractlog putWithId:@"error" withId:@"Coin details proof miss-match"];
           return false;
         }
       }
       if (zTouchMMR) {
         OrgMinimaDatabaseMmrMMREntry *spent = [zMMRSet updateSpentCoinWithOrgMinimaDatabaseMmrMMRProof:proof];
-        if ([((id<OrgMinimaDatabaseUserdbUserDB>) nil_chk([((OrgMinimaDatabaseMinimaDB *) nil_chk(zDB)) getUserDB])) isAddressRelevantWithOrgMinimaObjectsBaseMiniData:[input getAddress]]) {
+        if ([((id<OrgMinimaDatabaseUserdbUserDB>) nil_chk([zDB getUserDB])) isAddressRelevantWithOrgMinimaObjectsBaseMiniData:[input getAddress]]) {
           [zMMRSet addKeeperWithOrgMinimaObjectsBaseMiniInteger:[((OrgMinimaDatabaseMmrMMREntry *) nil_chk(spent)) getEntry]];
         }
       }
@@ -247,70 +252,72 @@ jboolean OrgMinimaSystemBrainsTxPOWChecker_checkTransactionMMRWithOrgMinimaObjec
       if (![((OrgMinimaObjectsBaseMiniData *) nil_chk([input getTokenID])) isEqualWithOrgMinimaObjectsBaseMiniData:JreLoadStatic(OrgMinimaObjectsCoin, MINIMA_TOKENID)]) {
         OrgMinimaObjectsProofsTokenProof *tokdets = [zWit getTokenDetailWithOrgMinimaObjectsBaseMiniData:[input getTokenID]];
         if (tokdets == nil) {
-          [contractlog putWithId:@"error" withId:JreStrcat("$@", @"Token Details for coin missing! ", [input getTokenID])];
+          (void) [contractlog putWithId:@"error" withId:JreStrcat("$@", @"Token Details for coin missing! ", [input getTokenID])];
           return false;
         }
         tokscript = [((OrgMinimaObjectsBaseMiniScript *) nil_chk([tokdets getTokenScript])) description];
       }
-      OrgMinimaKissvmContract *cc = create_OrgMinimaKissvmContract_initWithNSString_withNSString_withOrgMinimaObjectsWitness_withOrgMinimaObjectsTransaction_withJavaUtilArrayList_(script, sigs, zWit, trans, [((OrgMinimaDatabaseMmrMMRData *) nil_chk([proof getMMRData])) getPrevState]);
-      [cc setGlobalVariableWithNSString:@"@BLKNUM" withOrgMinimaKissvmValuesValue:create_OrgMinimaKissvmValuesNumberValue_initWithOrgMinimaObjectsBaseMiniNumber_(zBlockNumber)];
-      [cc setGlobalVariableWithNSString:@"@INBLKNUM" withOrgMinimaKissvmValuesValue:create_OrgMinimaKissvmValuesNumberValue_initWithOrgMinimaObjectsBaseMiniNumber_([((OrgMinimaDatabaseMmrMMRData *) nil_chk([proof getMMRData])) getInBlock])];
-      [cc setGlobalVariableWithNSString:@"@BLKDIFF" withOrgMinimaKissvmValuesValue:create_OrgMinimaKissvmValuesNumberValue_initWithOrgMinimaObjectsBaseMiniNumber_([((OrgMinimaObjectsBaseMiniNumber *) nil_chk(zBlockNumber)) subWithOrgMinimaObjectsBaseMiniNumber:[((OrgMinimaDatabaseMmrMMRData *) nil_chk([proof getMMRData])) getInBlock]])];
-      [cc setGlobalVariableWithNSString:@"@INPUT" withOrgMinimaKissvmValuesValue:create_OrgMinimaKissvmValuesNumberValue_initWithInt_(i)];
-      [cc setGlobalVariableWithNSString:@"@AMOUNT" withOrgMinimaKissvmValuesValue:create_OrgMinimaKissvmValuesNumberValue_initWithOrgMinimaObjectsBaseMiniNumber_([input getAmount])];
-      [cc setGlobalVariableWithNSString:@"@ADDRESS" withOrgMinimaKissvmValuesValue:create_OrgMinimaKissvmValuesHEXValue_initWithOrgMinimaObjectsBaseMiniData_([input getAddress])];
-      [cc setGlobalVariableWithNSString:@"@TOKENID" withOrgMinimaKissvmValuesValue:create_OrgMinimaKissvmValuesHEXValue_initWithOrgMinimaObjectsBaseMiniData_([input getTokenID])];
-      [cc setGlobalVariableWithNSString:@"@COINID" withOrgMinimaKissvmValuesValue:create_OrgMinimaKissvmValuesHEXValue_initWithOrgMinimaObjectsBaseMiniData_([input getCoinID])];
-      [cc setGlobalVariableWithNSString:@"@SCRIPT" withOrgMinimaKissvmValuesValue:create_OrgMinimaKissvmValuesScriptValue_initWithNSString_(script)];
-      [cc setGlobalVariableWithNSString:@"@TOKENSCRIPT" withOrgMinimaKissvmValuesValue:create_OrgMinimaKissvmValuesScriptValue_initWithNSString_(tokscript)];
-      [cc setGlobalVariableWithNSString:@"@FLOATING" withOrgMinimaKissvmValuesValue:create_OrgMinimaKissvmValuesBooleanValue_initWithBoolean_([input isFloating])];
-      [cc setGlobalVariableWithNSString:@"@TOTIN" withOrgMinimaKissvmValuesValue:create_OrgMinimaKissvmValuesNumberValue_initWithInt_([((JavaUtilArrayList *) nil_chk([trans getAllInputs])) size])];
-      [cc setGlobalVariableWithNSString:@"@TOTOUT" withOrgMinimaKissvmValuesValue:create_OrgMinimaKissvmValuesNumberValue_initWithInt_([((JavaUtilArrayList *) nil_chk([trans getAllOutputs])) size])];
+      OrgMinimaKissvmContract *cc = new_OrgMinimaKissvmContract_initWithNSString_withNSString_withOrgMinimaObjectsWitness_withOrgMinimaObjectsTransaction_withJavaUtilArrayList_(script, sigs, zWit, trans, [((OrgMinimaDatabaseMmrMMRData *) nil_chk([proof getMMRData])) getPrevState]);
+      [cc setGlobalVariableWithNSString:@"@BLKNUM" withOrgMinimaKissvmValuesValue:new_OrgMinimaKissvmValuesNumberValue_initWithOrgMinimaObjectsBaseMiniNumber_(zBlockNumber)];
+      [cc setGlobalVariableWithNSString:@"@INBLKNUM" withOrgMinimaKissvmValuesValue:new_OrgMinimaKissvmValuesNumberValue_initWithOrgMinimaObjectsBaseMiniNumber_([((OrgMinimaDatabaseMmrMMRData *) nil_chk([proof getMMRData])) getInBlock])];
+      [cc setGlobalVariableWithNSString:@"@BLKDIFF" withOrgMinimaKissvmValuesValue:new_OrgMinimaKissvmValuesNumberValue_initWithOrgMinimaObjectsBaseMiniNumber_([((OrgMinimaObjectsBaseMiniNumber *) nil_chk(zBlockNumber)) subWithOrgMinimaObjectsBaseMiniNumber:[((OrgMinimaDatabaseMmrMMRData *) nil_chk([proof getMMRData])) getInBlock]])];
+      [cc setGlobalVariableWithNSString:@"@INPUT" withOrgMinimaKissvmValuesValue:new_OrgMinimaKissvmValuesNumberValue_initWithInt_(i)];
+      [cc setGlobalVariableWithNSString:@"@AMOUNT" withOrgMinimaKissvmValuesValue:new_OrgMinimaKissvmValuesNumberValue_initWithOrgMinimaObjectsBaseMiniNumber_([input getAmount])];
+      [cc setGlobalVariableWithNSString:@"@ADDRESS" withOrgMinimaKissvmValuesValue:new_OrgMinimaKissvmValuesHEXValue_initWithOrgMinimaObjectsBaseMiniData_([input getAddress])];
+      [cc setGlobalVariableWithNSString:@"@TOKENID" withOrgMinimaKissvmValuesValue:new_OrgMinimaKissvmValuesHEXValue_initWithOrgMinimaObjectsBaseMiniData_([input getTokenID])];
+      [cc setGlobalVariableWithNSString:@"@COINID" withOrgMinimaKissvmValuesValue:new_OrgMinimaKissvmValuesHEXValue_initWithOrgMinimaObjectsBaseMiniData_([input getCoinID])];
+      [cc setGlobalVariableWithNSString:@"@SCRIPT" withOrgMinimaKissvmValuesValue:new_OrgMinimaKissvmValuesScriptValue_initWithNSString_(script)];
+      [cc setGlobalVariableWithNSString:@"@TOKENSCRIPT" withOrgMinimaKissvmValuesValue:new_OrgMinimaKissvmValuesScriptValue_initWithNSString_(tokscript)];
+      [cc setGlobalVariableWithNSString:@"@FLOATING" withOrgMinimaKissvmValuesValue:new_OrgMinimaKissvmValuesBooleanValue_initWithBoolean_([input isFloating])];
+      [cc setGlobalVariableWithNSString:@"@TOTIN" withOrgMinimaKissvmValuesValue:new_OrgMinimaKissvmValuesNumberValue_initWithInt_([((JavaUtilArrayList *) nil_chk([trans getAllInputs])) size])];
+      [cc setGlobalVariableWithNSString:@"@TOTOUT" withOrgMinimaKissvmValuesValue:new_OrgMinimaKissvmValuesNumberValue_initWithInt_([((JavaUtilArrayList *) nil_chk([trans getAllOutputs])) size])];
       [cc setFloatingWithBoolean:[input isFloating]];
-      [cc setCompleteDYNStateWithNSStringArray:DYNState];
+      [cc setCompleteDYNStateWithNSStringArray:DYNState withBooleanArray:checkState];
       [cc run];
-      [contractlog putWithId:@"script" withId:[cc getMiniScript]];
-      [contractlog putWithId:@"size" withId:JavaLangInteger_valueOfWithInt_([((NSString *) nil_chk([cc getMiniScript])) java_length])];
-      [contractlog putWithId:@"instructions" withId:JavaLangInteger_valueOfWithInt_([cc getNumberOfInstructions])];
-      [contractlog putWithId:@"address" withId:[((OrgMinimaObjectsBaseMiniData *) nil_chk([input getAddress])) to0xString]];
-      [contractlog putWithId:@"parseok" withId:JavaLangBoolean_valueOfWithBoolean_([cc isParseOK])];
-      [contractlog putWithId:@"parse" withId:[cc getCompleteTraceLog]];
-      [contractlog putWithId:@"exception" withId:JavaLangBoolean_valueOfWithBoolean_([cc isException])];
-      [contractlog putWithId:@"result" withId:JavaLangBoolean_valueOfWithBoolean_([cc isSuccess])];
+      (void) [contractlog putWithId:@"script" withId:[cc getMiniScript]];
+      (void) [contractlog putWithId:@"size" withId:JavaLangInteger_valueOfWithInt_([((NSString *) nil_chk([cc getMiniScript])) java_length])];
+      (void) [contractlog putWithId:@"instructions" withId:JavaLangInteger_valueOfWithInt_([cc getNumberOfInstructions])];
+      (void) [contractlog putWithId:@"address" withId:[((OrgMinimaObjectsBaseMiniData *) nil_chk([input getAddress])) to0xString]];
+      (void) [contractlog putWithId:@"parseok" withId:JavaLangBoolean_valueOfWithBoolean_([cc isParseOK])];
+      (void) [contractlog putWithId:@"parse" withId:[cc getCompleteTraceLog]];
+      (void) [contractlog putWithId:@"exception" withId:JavaLangBoolean_valueOfWithBoolean_([cc isException])];
+      (void) [contractlog putWithId:@"result" withId:JavaLangBoolean_valueOfWithBoolean_([cc isSuccess])];
       DYNState = [cc getCompleteDYNState];
+      checkState = [cc getCompleteCheckState];
       if (![cc isSuccess]) {
         return false;
       }
       if (![((OrgMinimaObjectsBaseMiniData *) nil_chk([input getTokenID])) isEqualWithOrgMinimaObjectsBaseMiniData:JreLoadStatic(OrgMinimaObjectsCoin, MINIMA_TOKENID)]) {
         if (![((NSString *) nil_chk(tokscript)) isEqual:@"RETURN TRUE"]) {
-          cc = create_OrgMinimaKissvmContract_initWithNSString_withNSString_withOrgMinimaObjectsWitness_withOrgMinimaObjectsTransaction_withJavaUtilArrayList_(tokscript, sigs, zWit, trans, [((OrgMinimaDatabaseMmrMMRData *) nil_chk([proof getMMRData])) getPrevState]);
-          [cc setGlobalVariableWithNSString:@"@BLKNUM" withOrgMinimaKissvmValuesValue:create_OrgMinimaKissvmValuesNumberValue_initWithOrgMinimaObjectsBaseMiniNumber_(zBlockNumber)];
-          [cc setGlobalVariableWithNSString:@"@INBLKNUM" withOrgMinimaKissvmValuesValue:create_OrgMinimaKissvmValuesNumberValue_initWithOrgMinimaObjectsBaseMiniNumber_([((OrgMinimaDatabaseMmrMMRData *) nil_chk([proof getMMRData])) getInBlock])];
-          [cc setGlobalVariableWithNSString:@"@BLKDIFF" withOrgMinimaKissvmValuesValue:create_OrgMinimaKissvmValuesNumberValue_initWithOrgMinimaObjectsBaseMiniNumber_([zBlockNumber subWithOrgMinimaObjectsBaseMiniNumber:[((OrgMinimaDatabaseMmrMMRData *) nil_chk([proof getMMRData])) getInBlock]])];
-          [cc setGlobalVariableWithNSString:@"@INPUT" withOrgMinimaKissvmValuesValue:create_OrgMinimaKissvmValuesNumberValue_initWithInt_(i)];
-          [cc setGlobalVariableWithNSString:@"@AMOUNT" withOrgMinimaKissvmValuesValue:create_OrgMinimaKissvmValuesNumberValue_initWithOrgMinimaObjectsBaseMiniNumber_([input getAmount])];
-          [cc setGlobalVariableWithNSString:@"@ADDRESS" withOrgMinimaKissvmValuesValue:create_OrgMinimaKissvmValuesHEXValue_initWithOrgMinimaObjectsBaseMiniData_([input getAddress])];
-          [cc setGlobalVariableWithNSString:@"@TOKENID" withOrgMinimaKissvmValuesValue:create_OrgMinimaKissvmValuesHEXValue_initWithOrgMinimaObjectsBaseMiniData_([input getTokenID])];
-          [cc setGlobalVariableWithNSString:@"@COINID" withOrgMinimaKissvmValuesValue:create_OrgMinimaKissvmValuesHEXValue_initWithOrgMinimaObjectsBaseMiniData_([input getCoinID])];
-          [cc setGlobalVariableWithNSString:@"@SCRIPT" withOrgMinimaKissvmValuesValue:create_OrgMinimaKissvmValuesScriptValue_initWithNSString_(script)];
-          [cc setGlobalVariableWithNSString:@"@TOKENSCRIPT" withOrgMinimaKissvmValuesValue:create_OrgMinimaKissvmValuesScriptValue_initWithNSString_(tokscript)];
-          [cc setGlobalVariableWithNSString:@"@FLOATING" withOrgMinimaKissvmValuesValue:create_OrgMinimaKissvmValuesBooleanValue_initWithBoolean_([input isFloating])];
-          [cc setGlobalVariableWithNSString:@"@TOTIN" withOrgMinimaKissvmValuesValue:create_OrgMinimaKissvmValuesNumberValue_initWithInt_([((JavaUtilArrayList *) nil_chk([trans getAllInputs])) size])];
-          [cc setGlobalVariableWithNSString:@"@TOTOUT" withOrgMinimaKissvmValuesValue:create_OrgMinimaKissvmValuesNumberValue_initWithInt_([((JavaUtilArrayList *) nil_chk([trans getAllOutputs])) size])];
+          cc = new_OrgMinimaKissvmContract_initWithNSString_withNSString_withOrgMinimaObjectsWitness_withOrgMinimaObjectsTransaction_withJavaUtilArrayList_(tokscript, sigs, zWit, trans, [((OrgMinimaDatabaseMmrMMRData *) nil_chk([proof getMMRData])) getPrevState]);
+          [cc setGlobalVariableWithNSString:@"@BLKNUM" withOrgMinimaKissvmValuesValue:new_OrgMinimaKissvmValuesNumberValue_initWithOrgMinimaObjectsBaseMiniNumber_(zBlockNumber)];
+          [cc setGlobalVariableWithNSString:@"@INBLKNUM" withOrgMinimaKissvmValuesValue:new_OrgMinimaKissvmValuesNumberValue_initWithOrgMinimaObjectsBaseMiniNumber_([((OrgMinimaDatabaseMmrMMRData *) nil_chk([proof getMMRData])) getInBlock])];
+          [cc setGlobalVariableWithNSString:@"@BLKDIFF" withOrgMinimaKissvmValuesValue:new_OrgMinimaKissvmValuesNumberValue_initWithOrgMinimaObjectsBaseMiniNumber_([zBlockNumber subWithOrgMinimaObjectsBaseMiniNumber:[((OrgMinimaDatabaseMmrMMRData *) nil_chk([proof getMMRData])) getInBlock]])];
+          [cc setGlobalVariableWithNSString:@"@INPUT" withOrgMinimaKissvmValuesValue:new_OrgMinimaKissvmValuesNumberValue_initWithInt_(i)];
+          [cc setGlobalVariableWithNSString:@"@AMOUNT" withOrgMinimaKissvmValuesValue:new_OrgMinimaKissvmValuesNumberValue_initWithOrgMinimaObjectsBaseMiniNumber_([input getAmount])];
+          [cc setGlobalVariableWithNSString:@"@ADDRESS" withOrgMinimaKissvmValuesValue:new_OrgMinimaKissvmValuesHEXValue_initWithOrgMinimaObjectsBaseMiniData_([input getAddress])];
+          [cc setGlobalVariableWithNSString:@"@TOKENID" withOrgMinimaKissvmValuesValue:new_OrgMinimaKissvmValuesHEXValue_initWithOrgMinimaObjectsBaseMiniData_([input getTokenID])];
+          [cc setGlobalVariableWithNSString:@"@COINID" withOrgMinimaKissvmValuesValue:new_OrgMinimaKissvmValuesHEXValue_initWithOrgMinimaObjectsBaseMiniData_([input getCoinID])];
+          [cc setGlobalVariableWithNSString:@"@SCRIPT" withOrgMinimaKissvmValuesValue:new_OrgMinimaKissvmValuesScriptValue_initWithNSString_(script)];
+          [cc setGlobalVariableWithNSString:@"@TOKENSCRIPT" withOrgMinimaKissvmValuesValue:new_OrgMinimaKissvmValuesScriptValue_initWithNSString_(tokscript)];
+          [cc setGlobalVariableWithNSString:@"@FLOATING" withOrgMinimaKissvmValuesValue:new_OrgMinimaKissvmValuesBooleanValue_initWithBoolean_([input isFloating])];
+          [cc setGlobalVariableWithNSString:@"@TOTIN" withOrgMinimaKissvmValuesValue:new_OrgMinimaKissvmValuesNumberValue_initWithInt_([((JavaUtilArrayList *) nil_chk([trans getAllInputs])) size])];
+          [cc setGlobalVariableWithNSString:@"@TOTOUT" withOrgMinimaKissvmValuesValue:new_OrgMinimaKissvmValuesNumberValue_initWithInt_([((JavaUtilArrayList *) nil_chk([trans getAllOutputs])) size])];
           [cc setFloatingWithBoolean:[input isFloating]];
-          [cc setCompleteDYNStateWithNSStringArray:DYNState];
+          [cc setCompleteDYNStateWithNSStringArray:DYNState withBooleanArray:checkState];
           [cc run];
           DYNState = [cc getCompleteDYNState];
-          OrgMinimaUtilsJsonJSONObject *toklog = create_OrgMinimaUtilsJsonJSONObject_init();
-          [contractlog putWithId:@"tokencontract" withId:toklog];
-          [toklog putWithId:@"script" withId:[cc getMiniScript]];
-          [toklog putWithId:@"size" withId:JavaLangInteger_valueOfWithInt_([((NSString *) nil_chk([cc getMiniScript])) java_length])];
-          [toklog putWithId:@"instructions" withId:JavaLangInteger_valueOfWithInt_([cc getNumberOfInstructions])];
-          [toklog putWithId:@"address" withId:[((OrgMinimaObjectsBaseMiniData *) nil_chk([input getAddress])) to0xString]];
-          [toklog putWithId:@"parseok" withId:JavaLangBoolean_valueOfWithBoolean_([cc isParseOK])];
-          [toklog putWithId:@"parse" withId:[cc getCompleteTraceLog]];
-          [toklog putWithId:@"exception" withId:JavaLangBoolean_valueOfWithBoolean_([cc isException])];
-          [toklog putWithId:@"result" withId:JavaLangBoolean_valueOfWithBoolean_([cc isSuccess])];
+          checkState = [cc getCompleteCheckState];
+          OrgMinimaUtilsJsonJSONObject *toklog = new_OrgMinimaUtilsJsonJSONObject_init();
+          (void) [contractlog putWithId:@"tokencontract" withId:toklog];
+          (void) [toklog putWithId:@"script" withId:[cc getMiniScript]];
+          (void) [toklog putWithId:@"size" withId:JavaLangInteger_valueOfWithInt_([((NSString *) nil_chk([cc getMiniScript])) java_length])];
+          (void) [toklog putWithId:@"instructions" withId:JavaLangInteger_valueOfWithInt_([cc getNumberOfInstructions])];
+          (void) [toklog putWithId:@"address" withId:[((OrgMinimaObjectsBaseMiniData *) nil_chk([input getAddress])) to0xString]];
+          (void) [toklog putWithId:@"parseok" withId:JavaLangBoolean_valueOfWithBoolean_([cc isParseOK])];
+          (void) [toklog putWithId:@"parse" withId:[cc getCompleteTraceLog]];
+          (void) [toklog putWithId:@"exception" withId:JavaLangBoolean_valueOfWithBoolean_([cc isException])];
+          (void) [toklog putWithId:@"result" withId:JavaLangBoolean_valueOfWithBoolean_([cc isSuccess])];
           if (![cc isSuccess]) {
             return false;
           }
@@ -319,19 +326,19 @@ jboolean OrgMinimaSystemBrainsTxPOWChecker_checkTransactionMMRWithOrgMinimaObjec
     }
   }
   if (isfloating) {
-    JavaUtilArrayList *tokens = create_JavaUtilArrayList_init();
+    JavaUtilArrayList *tokens = new_JavaUtilArrayList_init();
     for (OrgMinimaObjectsCoin * __strong cc in nil_chk([trans getAllInputs])) {
       NSString *tok = [((OrgMinimaObjectsBaseMiniData *) nil_chk([((OrgMinimaObjectsCoin *) nil_chk(cc)) getTokenID])) to0xString];
       if (![tokens containsWithId:tok]) {
         [tokens addWithId:tok];
       }
     }
-    JavaUtilHashtable *inamounts = create_JavaUtilHashtable_init();
+    JavaUtilHashtable *inamounts = new_JavaUtilHashtable_init();
     for (NSString * __strong token in tokens) {
-      [inamounts putWithId:token withId:[trans sumInputsWithOrgMinimaObjectsBaseMiniData:create_OrgMinimaObjectsBaseMiniData_initWithNSString_(token)]];
+      (void) [inamounts putWithId:token withId:[trans sumInputsWithOrgMinimaObjectsBaseMiniData:new_OrgMinimaObjectsBaseMiniData_initWithNSString_(token)]];
     }
     for (NSString * __strong token in tokens) {
-      OrgMinimaObjectsBaseMiniData *tok = create_OrgMinimaObjectsBaseMiniData_initWithNSString_(token);
+      OrgMinimaObjectsBaseMiniData *tok = new_OrgMinimaObjectsBaseMiniData_initWithNSString_(token);
       OrgMinimaObjectsBaseMiniNumber *outamt = [trans sumOutputsWithOrgMinimaObjectsBaseMiniData:tok];
       OrgMinimaObjectsBaseMiniNumber *inamt = [inamounts getWithId:token];
       OrgMinimaObjectsBaseMiniNumber *remainder = [((OrgMinimaObjectsBaseMiniNumber *) nil_chk(inamt)) subWithOrgMinimaObjectsBaseMiniNumber:outamt];
@@ -342,35 +349,44 @@ jboolean OrgMinimaSystemBrainsTxPOWChecker_checkTransactionMMRWithOrgMinimaObjec
         }
       }
     }
+    for (jint i = 0; i < 256; i++) {
+      if (IOSObjectArray_Get(nil_chk(DYNState), i) != nil) {
+        [trans addStateVariableWithOrgMinimaObjectsStateVariable:new_OrgMinimaObjectsStateVariable_initWithInt_withNSString_(i, IOSObjectArray_Get(DYNState, i))];
+      }
+    }
   }
   OrgMinimaObjectsBaseMiniData *transhash = [((OrgMinimaUtilsCrypto *) nil_chk(OrgMinimaUtilsCrypto_getInstance())) hashObjectWithOrgMinimaUtilsStreamable:trans];
   JavaUtilArrayList *outputs = [trans getAllOutputs];
   jint outs = [((JavaUtilArrayList *) nil_chk(outputs)) size];
   for (jint i = 0; i < outs; i++) {
     OrgMinimaObjectsCoin *output = [outputs getWithInt:i];
-    OrgMinimaObjectsBaseMiniData *coinid = [((OrgMinimaUtilsCrypto *) nil_chk(OrgMinimaUtilsCrypto_getInstance())) hashObjectsWithOrgMinimaUtilsStreamable:transhash withOrgMinimaUtilsStreamable:create_OrgMinimaObjectsBaseMiniByte_initWithInt_(i)];
+    OrgMinimaObjectsBaseMiniData *coinid = [((OrgMinimaUtilsCrypto *) nil_chk(OrgMinimaUtilsCrypto_getInstance())) hashObjectsWithOrgMinimaUtilsStreamable:transhash withOrgMinimaUtilsStreamable:new_OrgMinimaObjectsBaseMiniByte_initWithInt_(i)];
     OrgMinimaObjectsBaseMiniData *tokid = [((OrgMinimaObjectsCoin *) nil_chk(output)) getTokenID];
     OrgMinimaObjectsProofsTokenProof *newtoken = nil;
     OrgMinimaObjectsProofsTokenProof *newtokdets = nil;
     if ([((OrgMinimaObjectsBaseMiniData *) nil_chk(tokid)) isEqualWithOrgMinimaObjectsBaseMiniData:JreLoadStatic(OrgMinimaObjectsCoin, TOKENID_CREATE)]) {
       OrgMinimaObjectsProofsTokenProof *gentoken = [trans getTokenGenerationDetails];
-      newtokdets = create_OrgMinimaObjectsProofsTokenProof_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniScript_withOrgMinimaObjectsBaseMiniScript_(coinid, [((OrgMinimaObjectsProofsTokenProof *) nil_chk(gentoken)) getScale], [gentoken getAmount], [gentoken getName], [gentoken getTokenScript]);
+      newtokdets = new_OrgMinimaObjectsProofsTokenProof_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniScript_withOrgMinimaObjectsBaseMiniScript_(coinid, [((OrgMinimaObjectsProofsTokenProof *) nil_chk(gentoken)) getScale], [gentoken getAmount], [gentoken getName], [gentoken getTokenScript]);
       tokid = [newtokdets getTokenID];
     }
     else if (![tokid isEqualWithOrgMinimaObjectsBaseMiniData:JreLoadStatic(OrgMinimaObjectsCoin, MINIMA_TOKENID)]) {
       newtokdets = [zWit getTokenDetailWithOrgMinimaObjectsBaseMiniData:tokid];
       if (newtokdets == nil) {
-        OrgMinimaUtilsJsonJSONObject *errorlog = create_OrgMinimaUtilsJsonJSONObject_init();
+        OrgMinimaUtilsJsonJSONObject *errorlog = new_OrgMinimaUtilsJsonJSONObject_init();
         [((OrgMinimaUtilsJsonJSONArray *) nil_chk(zContractLog)) addWithId:errorlog];
-        [errorlog putWithId:@"error" withId:JreStrcat("$@", @"Total Details Missing for ", tokid)];
+        (void) [errorlog putWithId:@"error" withId:JreStrcat("$@", @"Total Details Missing for ", tokid)];
         return false;
       }
     }
     if (zTouchMMR) {
-      OrgMinimaObjectsCoin *mmrcoin = create_OrgMinimaObjectsCoin_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniData_(coinid, [output getAddress], [output getAmount], tokid);
-      OrgMinimaDatabaseMmrMMRData *mmrdata = create_OrgMinimaDatabaseMmrMMRData_initWithOrgMinimaObjectsBaseMiniByte_withOrgMinimaObjectsCoin_withOrgMinimaObjectsBaseMiniNumber_withJavaUtilArrayList_(JreLoadStatic(OrgMinimaObjectsBaseMiniByte, FALSE), mmrcoin, zBlockNumber, [trans getCompleteState]);
+      OrgMinimaObjectsCoin *mmrcoin = new_OrgMinimaObjectsCoin_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaObjectsBaseMiniData_(coinid, [output getAddress], [output getAmount], tokid);
+      OrgMinimaDatabaseMmrMMRData *mmrdata = new_OrgMinimaDatabaseMmrMMRData_initWithOrgMinimaObjectsBaseMiniByte_withOrgMinimaObjectsCoin_withOrgMinimaObjectsBaseMiniNumber_withJavaUtilArrayList_(JreLoadStatic(OrgMinimaObjectsBaseMiniByte, FALSE), mmrcoin, zBlockNumber, [trans getCompleteState]);
       OrgMinimaDatabaseMmrMMREntry *unspent = [((OrgMinimaDatabaseMmrMMRSet *) nil_chk(zMMRSet)) addUnspentCoinWithOrgMinimaDatabaseMmrMMRData:mmrdata];
-      if ([((id<OrgMinimaDatabaseUserdbUserDB>) nil_chk([((OrgMinimaDatabaseMinimaDB *) nil_chk(zDB)) getUserDB])) isAddressRelevantWithOrgMinimaObjectsBaseMiniData:[output getAddress]]) {
+      jboolean rel = [((id<OrgMinimaDatabaseUserdbUserDB>) nil_chk([zDB getUserDB])) isAddressRelevantWithOrgMinimaObjectsBaseMiniData:[output getAddress]];
+      if (!rel) {
+        rel = [((id<OrgMinimaDatabaseUserdbUserDB>) nil_chk([zDB getUserDB])) isStateListRelevantWithJavaUtilArrayList:[trans getCompleteState]];
+      }
+      if (rel) {
         [zMMRSet addKeeperWithOrgMinimaObjectsBaseMiniInteger:[((OrgMinimaDatabaseMmrMMREntry *) nil_chk(unspent)) getEntry]];
         if (newtokdets != nil) {
           [((id<OrgMinimaDatabaseUserdbUserDB>) nil_chk([zDB getUserDB])) addTokenDetailsWithOrgMinimaObjectsProofsTokenProof:newtokdets];
@@ -379,9 +395,9 @@ jboolean OrgMinimaSystemBrainsTxPOWChecker_checkTransactionMMRWithOrgMinimaObjec
     }
   }
   if (![trans checkValidInOutPerToken]) {
-    OrgMinimaUtilsJsonJSONObject *errorlog = create_OrgMinimaUtilsJsonJSONObject_init();
+    OrgMinimaUtilsJsonJSONObject *errorlog = new_OrgMinimaUtilsJsonJSONObject_init();
     [((OrgMinimaUtilsJsonJSONArray *) nil_chk(zContractLog)) addWithId:errorlog];
-    [errorlog putWithId:@"error" withId:@"Total Inputs are LESS than Total Outputs for certain Tokens"];
+    (void) [errorlog putWithId:@"error" withId:@"Total Inputs are LESS than Total Outputs for certain Tokens"];
     return false;
   }
   return true;

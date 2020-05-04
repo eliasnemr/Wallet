@@ -119,8 +119,8 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 + (void)initialize {
   if (self == [OrgMinimaObjectsBaseMiniByte class]) {
-    JreStrongAssignAndConsume(&OrgMinimaObjectsBaseMiniByte_TRUE, new_OrgMinimaObjectsBaseMiniByte_initWithInt_(1));
-    JreStrongAssignAndConsume(&OrgMinimaObjectsBaseMiniByte_FALSE, new_OrgMinimaObjectsBaseMiniByte_initWithInt_(0));
+    OrgMinimaObjectsBaseMiniByte_TRUE = new_OrgMinimaObjectsBaseMiniByte_initWithInt_(1);
+    OrgMinimaObjectsBaseMiniByte_FALSE = new_OrgMinimaObjectsBaseMiniByte_initWithInt_(0);
     J2OBJC_SET_INITIALIZED(OrgMinimaObjectsBaseMiniByte)
   }
 }
@@ -186,12 +186,11 @@ OrgMinimaObjectsBaseMiniByte *create_OrgMinimaObjectsBaseMiniByte_initWithBoolea
 
 OrgMinimaObjectsBaseMiniByte *OrgMinimaObjectsBaseMiniByte_ReadFromStreamWithJavaIoDataInputStream_(JavaIoDataInputStream *zIn) {
   OrgMinimaObjectsBaseMiniByte_initialize();
-  OrgMinimaObjectsBaseMiniByte *data = create_OrgMinimaObjectsBaseMiniByte_init();
+  OrgMinimaObjectsBaseMiniByte *data = new_OrgMinimaObjectsBaseMiniByte_init();
   @try {
     [data readDataStreamWithJavaIoDataInputStream:zIn];
   }
   @catch (JavaIoIOException *e) {
-    [e printStackTrace];
     return nil;
   }
   return data;

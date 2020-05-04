@@ -19,6 +19,7 @@
 #include "org/minima/system/input/functions/connect.h"
 #include "org/minima/system/input/functions/createtoken.h"
 #include "org/minima/system/input/functions/disconnect.h"
+#include "org/minima/system/input/functions/extrascript.h"
 #include "org/minima/system/input/functions/gimme50.h"
 #include "org/minima/system/input/functions/help.h"
 #include "org/minima/system/input/functions/history.h"
@@ -36,6 +37,7 @@
 #include "org/minima/system/input/functions/scripts.h"
 #include "org/minima/system/input/functions/search.h"
 #include "org/minima/system/input/functions/send.h"
+#include "org/minima/system/input/functions/sign.h"
 #include "org/minima/system/input/functions/status.h"
 #include "org/minima/system/input/functions/test.h"
 #include "org/minima/system/input/functions/tokens.h"
@@ -45,6 +47,7 @@
 #include "org/minima/system/input/functions/transfer/importcoin.h"
 #include "org/minima/system/input/functions/transfer/importkey.h"
 #include "org/minima/system/input/functions/tutorial.h"
+#include "org/minima/system/input/functions/txns/txnauto.h"
 #include "org/minima/system/input/functions/txns/txncreate.h"
 #include "org/minima/system/input/functions/txns/txndelete.h"
 #include "org/minima/system/input/functions/txns/txnexport.h"
@@ -85,17 +88,17 @@ IOSObjectArray *OrgMinimaSystemInputCommandFunction_ALL_FUNCTIONS;
 }
 
 - (OrgMinimaUtilsMessagesMessage *)getResponseMessageWithNSString:(NSString *)zMessageType {
-  OrgMinimaUtilsMessagesMessage *msg = create_OrgMinimaUtilsMessagesMessage_initWithNSString_(zMessageType);
-  [msg addObjectWithNSString:OrgMinimaSystemInputInputHandler_INPUT_RESPONSE withId:mResponse_];
+  OrgMinimaUtilsMessagesMessage *msg = new_OrgMinimaUtilsMessagesMessage_initWithNSString_(zMessageType);
+  (void) [msg addObjectWithNSString:OrgMinimaSystemInputInputHandler_INPUT_RESPONSE withId:mResponse_];
   return msg;
 }
 
 - (void)setHelpWithNSString:(NSString *)zParams
                withNSString:(NSString *)zSimple
                withNSString:(NSString *)zDescription {
-  JreStrongAssign(&mParams_, zParams);
-  JreStrongAssign(&mSimple_, zSimple);
-  JreStrongAssign(&mDescription_, zDescription);
+  mParams_ = zParams;
+  mSimple_ = zSimple;
+  mDescription_ = zDescription;
 }
 
 - (NSString *)getName {
@@ -115,7 +118,7 @@ IOSObjectArray *OrgMinimaSystemInputCommandFunction_ALL_FUNCTIONS;
 }
 
 - (void)setMainHandlerWithOrgMinimaSystemMain:(OrgMinimaSystemMain *)zMainHandler {
-  JreStrongAssign(&mMain_, zMainHandler);
+  mMain_ = zMainHandler;
 }
 
 - (OrgMinimaSystemMain *)getMainHandler {
@@ -123,7 +126,7 @@ IOSObjectArray *OrgMinimaSystemInputCommandFunction_ALL_FUNCTIONS;
 }
 
 - (void)setResponseStreamWithOrgMinimaUtilsResponseStream:(OrgMinimaUtilsResponseStream *)zResponse {
-  JreStrongAssign(&mResponse_, zResponse);
+  mResponse_ = zResponse;
 }
 
 - (OrgMinimaUtilsResponseStream *)getResponseStream {
@@ -143,16 +146,6 @@ IOSObjectArray *OrgMinimaSystemInputCommandFunction_ALL_FUNCTIONS;
 
 + (OrgMinimaSystemInputCommandFunction *)getFunctionWithNSString:(NSString *)zFunction {
   return OrgMinimaSystemInputCommandFunction_getFunctionWithNSString_(zFunction);
-}
-
-- (void)dealloc {
-  RELEASE_(mName_);
-  RELEASE_(mMain_);
-  RELEASE_(mParams_);
-  RELEASE_(mSimple_);
-  RELEASE_(mDescription_);
-  RELEASE_(mResponse_);
-  [super dealloc];
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -206,7 +199,7 @@ IOSObjectArray *OrgMinimaSystemInputCommandFunction_ALL_FUNCTIONS;
 
 + (void)initialize {
   if (self == [OrgMinimaSystemInputCommandFunction class]) {
-    JreStrongAssignAndConsume(&OrgMinimaSystemInputCommandFunction_ALL_FUNCTIONS, [IOSObjectArray newArrayWithObjects:(id[]){ create_OrgMinimaSystemInputFunctionsbackup_init(), create_OrgMinimaSystemInputFunctionsbalance_init(), create_OrgMinimaSystemInputFunctionsconnect_init(), create_OrgMinimaSystemInputFunctionscreatetoken_init(), create_OrgMinimaSystemInputFunctionsdisconnect_init(), create_OrgMinimaSystemInputFunctionsweblink_init(), create_OrgMinimaSystemInputFunctionsgimme50_init(), create_OrgMinimaSystemInputFunctionshelp_init(), create_OrgMinimaSystemInputFunctionsintro_init(), create_OrgMinimaSystemInputFunctionsautomine_init(), create_OrgMinimaSystemInputFunctionsnewaddress_init(), create_OrgMinimaSystemInputFunctionscoins_init(), create_OrgMinimaSystemInputFunctionstxpowinfo_init(), create_OrgMinimaSystemInputFunctionskeys_init(), create_OrgMinimaSystemInputFunctionsnewscript_init(), create_OrgMinimaSystemInputFunctionsprintchain_init(), create_OrgMinimaSystemInputFunctionsprinttree_init(), create_OrgMinimaSystemInputFunctionsquit_init(), create_OrgMinimaSystemInputFunctionsreconnect_init(), create_OrgMinimaSystemInputFunctionsrunscript_init(), create_OrgMinimaSystemInputFunctionscleanscript_init(), create_OrgMinimaSystemInputFunctionssend_init(), create_OrgMinimaSystemInputFunctionsstatus_init(), create_OrgMinimaSystemInputFunctionstest_init(), create_OrgMinimaSystemInputFunctionstrace_init(), create_OrgMinimaSystemInputFunctionstutorial_init(), create_OrgMinimaSystemInputFunctionshistory_init(), create_OrgMinimaSystemInputFunctionstokens_init(), create_OrgMinimaSystemInputFunctionsTransferexportkey_init(), create_OrgMinimaSystemInputFunctionsTransferimportkey_init(), create_OrgMinimaSystemInputFunctionsTransferexportcoin_init(), create_OrgMinimaSystemInputFunctionsTransferimportcoin_init(), create_OrgMinimaSystemInputFunctionssearch_init(), create_OrgMinimaSystemInputFunctionschainsha_init(), create_OrgMinimaSystemInputFunctionskeepcoin_init(), create_OrgMinimaSystemInputFunctionsscripts_init(), create_OrgMinimaSystemInputFunctionschart_init(), create_OrgMinimaSystemInputFunctionsnetwork_init(), create_OrgMinimaSystemInputFunctionsTxnstxncreate_init(), create_OrgMinimaSystemInputFunctionsTxnstxndelete_init(), create_OrgMinimaSystemInputFunctionsTxnstxninput_init(), create_OrgMinimaSystemInputFunctionsTxnstxnlist_init(), create_OrgMinimaSystemInputFunctionsTxnstxnstate_init(), create_OrgMinimaSystemInputFunctionsTxnstxnexport_init(), create_OrgMinimaSystemInputFunctionsTxnstxnimport_init(), create_OrgMinimaSystemInputFunctionsTxnstxnscript_init(), create_OrgMinimaSystemInputFunctionsTxnstxnoutput_init(), create_OrgMinimaSystemInputFunctionsTxnstxnpost_init(), create_OrgMinimaSystemInputFunctionsTxnstxnsign_init(), create_OrgMinimaSystemInputFunctionsTxnstxnvalidate_init() } count:50 type:OrgMinimaSystemInputCommandFunction_class_()]);
+    OrgMinimaSystemInputCommandFunction_ALL_FUNCTIONS = [IOSObjectArray newArrayWithObjects:(id[]){ create_OrgMinimaSystemInputFunctionsbackup_init(), create_OrgMinimaSystemInputFunctionsbalance_init(), create_OrgMinimaSystemInputFunctionsconnect_init(), create_OrgMinimaSystemInputFunctionscreatetoken_init(), create_OrgMinimaSystemInputFunctionsdisconnect_init(), create_OrgMinimaSystemInputFunctionsweblink_init(), create_OrgMinimaSystemInputFunctionsgimme50_init(), create_OrgMinimaSystemInputFunctionshelp_init(), create_OrgMinimaSystemInputFunctionsintro_init(), create_OrgMinimaSystemInputFunctionsautomine_init(), create_OrgMinimaSystemInputFunctionsnewaddress_init(), create_OrgMinimaSystemInputFunctionscoins_init(), create_OrgMinimaSystemInputFunctionstxpowinfo_init(), create_OrgMinimaSystemInputFunctionskeys_init(), create_OrgMinimaSystemInputFunctionsnewscript_init(), create_OrgMinimaSystemInputFunctionsprintchain_init(), create_OrgMinimaSystemInputFunctionsprinttree_init(), create_OrgMinimaSystemInputFunctionsquit_init(), create_OrgMinimaSystemInputFunctionsreconnect_init(), create_OrgMinimaSystemInputFunctionsrunscript_init(), create_OrgMinimaSystemInputFunctionscleanscript_init(), create_OrgMinimaSystemInputFunctionssend_init(), create_OrgMinimaSystemInputFunctionsstatus_init(), create_OrgMinimaSystemInputFunctionstest_init(), create_OrgMinimaSystemInputFunctionstrace_init(), create_OrgMinimaSystemInputFunctionstutorial_init(), create_OrgMinimaSystemInputFunctionshistory_init(), create_OrgMinimaSystemInputFunctionstokens_init(), create_OrgMinimaSystemInputFunctionsTransferexportkey_init(), create_OrgMinimaSystemInputFunctionsTransferimportkey_init(), create_OrgMinimaSystemInputFunctionsTransferexportcoin_init(), create_OrgMinimaSystemInputFunctionsTransferimportcoin_init(), create_OrgMinimaSystemInputFunctionssearch_init(), create_OrgMinimaSystemInputFunctionschainsha_init(), create_OrgMinimaSystemInputFunctionskeepcoin_init(), create_OrgMinimaSystemInputFunctionsscripts_init(), create_OrgMinimaSystemInputFunctionschart_init(), create_OrgMinimaSystemInputFunctionsnetwork_init(), create_OrgMinimaSystemInputFunctionsTxnstxncreate_init(), create_OrgMinimaSystemInputFunctionsTxnstxndelete_init(), create_OrgMinimaSystemInputFunctionsTxnstxninput_init(), create_OrgMinimaSystemInputFunctionsTxnstxnlist_init(), create_OrgMinimaSystemInputFunctionsTxnstxnauto_init(), create_OrgMinimaSystemInputFunctionsTxnstxnstate_init(), create_OrgMinimaSystemInputFunctionsTxnstxnexport_init(), create_OrgMinimaSystemInputFunctionsTxnstxnimport_init(), create_OrgMinimaSystemInputFunctionsTxnstxnscript_init(), create_OrgMinimaSystemInputFunctionsTxnstxnoutput_init(), create_OrgMinimaSystemInputFunctionsTxnstxnpost_init(), create_OrgMinimaSystemInputFunctionsTxnstxnsign_init(), create_OrgMinimaSystemInputFunctionsTxnstxnvalidate_init(), create_OrgMinimaSystemInputFunctionsextrascript_init(), create_OrgMinimaSystemInputFunctionssign_init() } count:53 type:OrgMinimaSystemInputCommandFunction_class_()];
     J2OBJC_SET_INITIALIZED(OrgMinimaSystemInputCommandFunction)
   }
 }
@@ -215,7 +208,7 @@ IOSObjectArray *OrgMinimaSystemInputCommandFunction_ALL_FUNCTIONS;
 
 void OrgMinimaSystemInputCommandFunction_initWithNSString_(OrgMinimaSystemInputCommandFunction *self, NSString *zName) {
   NSObject_init(self);
-  JreStrongAssign(&self->mName_, zName);
+  self->mName_ = zName;
   [self setHelpWithNSString:@"" withNSString:@"" withNSString:@""];
 }
 

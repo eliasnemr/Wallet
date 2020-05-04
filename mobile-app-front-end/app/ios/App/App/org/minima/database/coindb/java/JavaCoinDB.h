@@ -37,8 +37,6 @@
 
 - (id<OrgMinimaDatabaseCoindbCoinDBRow>)addCoinRowWithOrgMinimaObjectsCoin:(OrgMinimaObjectsCoin *)zCoin;
 
-- (JavaUtilArrayList *)checkForRelevantCoinsWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zAddress;
-
 - (void)clearDB;
 
 - (id<OrgMinimaDatabaseCoindbCoinDBRow>)getCoinRowWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zCoinID;

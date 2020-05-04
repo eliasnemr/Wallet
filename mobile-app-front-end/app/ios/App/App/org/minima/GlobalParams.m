@@ -9,7 +9,7 @@
 
 J2OBJC_INITIALIZED_DEFN(OrgMinimaGlobalParams)
 
-NSString *OrgMinimaGlobalParams_MINIMA_VERSION = @"0.86.3";
+NSString *OrgMinimaGlobalParams_MINIMA_VERSION = @"0.87.4";
 OrgMinimaObjectsBaseMiniNumber *OrgMinimaGlobalParams_MINIMA_BLOCK_SPEED;
 OrgMinimaObjectsBaseMiniNumber *OrgMinimaGlobalParams_MINIMA_CONFIRM_DEPTH;
 NSString *OrgMinimaGlobalParams_MINIMA_CASCADE_RATIO = @"0.9";
@@ -51,8 +51,8 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 + (void)initialize {
   if (self == [OrgMinimaGlobalParams class]) {
-    JreStrongAssignAndConsume(&OrgMinimaGlobalParams_MINIMA_BLOCK_SPEED, new_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(@"0.05"));
-    JreStrongAssignAndConsume(&OrgMinimaGlobalParams_MINIMA_CONFIRM_DEPTH, new_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(@"3"));
+    OrgMinimaGlobalParams_MINIMA_BLOCK_SPEED = new_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(@"0.05");
+    OrgMinimaGlobalParams_MINIMA_CONFIRM_DEPTH = new_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(@"3");
     J2OBJC_SET_INITIALIZED(OrgMinimaGlobalParams)
   }
 }

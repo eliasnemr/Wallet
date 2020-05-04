@@ -36,13 +36,13 @@ withOrgMinimaObjectsBaseMiniInteger:(OrgMinimaObjectsBaseMiniInteger *)zEntry {
 }
 
 - (void)setDataWithOrgMinimaDatabaseMmrMMRData:(OrgMinimaDatabaseMmrMMRData *)zData {
-  JreStrongAssign(&mData_, zData);
+  mData_ = zData;
   mIsEmpty_ = false;
 }
 
 - (void)clearData {
   mIsEmpty_ = true;
-  JreStrongAssign(&mData_, nil);
+  mData_ = nil;
 }
 
 - (OrgMinimaDatabaseMmrMMRData *)getData {
@@ -50,7 +50,7 @@ withOrgMinimaObjectsBaseMiniInteger:(OrgMinimaObjectsBaseMiniInteger *)zEntry {
 }
 
 - (void)setBlockTimeWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zBlockTime {
-  JreStrongAssign(&mBlockTime_, zBlockTime);
+  mBlockTime_ = zBlockTime;
 }
 
 - (OrgMinimaObjectsBaseMiniNumber *)getBlockTime {
@@ -122,7 +122,7 @@ withOrgMinimaObjectsBaseMiniInteger:(OrgMinimaObjectsBaseMiniInteger *)zEntry {
 }
 
 - (jint)compareToWithId:(OrgMinimaDatabaseMmrMMREntry *)zEntry {
-  cast_chk(zEntry, [OrgMinimaDatabaseMmrMMREntry class]);
+  (void) cast_chk(zEntry, [OrgMinimaDatabaseMmrMMREntry class]);
   return [((JavaMathBigInteger *) nil_chk([((OrgMinimaObjectsBaseMiniInteger *) nil_chk([((OrgMinimaDatabaseMmrMMREntry *) nil_chk(zEntry)) getEntry])) getNumber])) compareToWithId:[((OrgMinimaObjectsBaseMiniInteger *) nil_chk(mEntryNumber_)) getNumber]];
 }
 
@@ -133,17 +133,10 @@ withOrgMinimaObjectsBaseMiniInteger:(OrgMinimaObjectsBaseMiniInteger *)zEntry {
 }
 
 - (void)readDataStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn {
-  JreStrongAssign(&mEntryNumber_, OrgMinimaObjectsBaseMiniInteger_ReadFromStreamWithJavaIoDataInputStream_(zIn));
+  mEntryNumber_ = OrgMinimaObjectsBaseMiniInteger_ReadFromStreamWithJavaIoDataInputStream_(zIn);
   mRow_ = [((JavaIoDataInputStream *) nil_chk(zIn)) readInt];
-  JreStrongAssign(&mData_, OrgMinimaDatabaseMmrMMRData_ReadFromStreamWithJavaIoDataInputStream_(zIn));
+  mData_ = OrgMinimaDatabaseMmrMMRData_ReadFromStreamWithJavaIoDataInputStream_(zIn);
   mIsEmpty_ = false;
-}
-
-- (void)dealloc {
-  RELEASE_(mEntryNumber_);
-  RELEASE_(mBlockTime_);
-  RELEASE_(mData_);
-  [super dealloc];
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -221,9 +214,9 @@ withOrgMinimaObjectsBaseMiniInteger:(OrgMinimaObjectsBaseMiniInteger *)zEntry {
 
 void OrgMinimaDatabaseMmrMMREntry_initWithInt_withOrgMinimaObjectsBaseMiniInteger_(OrgMinimaDatabaseMmrMMREntry *self, jint zRow, OrgMinimaObjectsBaseMiniInteger *zEntry) {
   NSObject_init(self);
-  JreStrongAssignAndConsume(&self->mBlockTime_, new_OrgMinimaObjectsBaseMiniNumber_initWithInt_(0));
+  self->mBlockTime_ = new_OrgMinimaObjectsBaseMiniNumber_initWithInt_(0);
   self->mRow_ = zRow;
-  JreStrongAssign(&self->mEntryNumber_, zEntry);
+  self->mEntryNumber_ = zEntry;
   self->mIsEmpty_ = true;
 }
 

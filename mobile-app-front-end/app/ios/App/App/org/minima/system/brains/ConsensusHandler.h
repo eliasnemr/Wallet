@@ -61,6 +61,8 @@
 
 - (void)setBackUpManager;
 
+- (void)setHardResetAllowedWithBoolean:(jboolean)zHardResetAllowed;
+
 - (void)updateListenersWithOrgMinimaUtilsMessagesMessage:(OrgMinimaUtilsMessagesMessage *)zMessage;
 
 #pragma mark Protected

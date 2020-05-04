@@ -26,15 +26,15 @@ J2OBJC_IGNORE_DESIGNATED_END
 - (void)doFunctionWithNSStringArray:(IOSObjectArray *)zInput {
   jint txn = JavaLangInteger_parseIntWithNSString_(IOSObjectArray_Get(nil_chk(zInput), 1));
   NSString *coinid = IOSObjectArray_Get(zInput, 2);
-  OrgMinimaObjectsBaseMiniData *cid = create_OrgMinimaObjectsBaseMiniData_initWithNSString_(coinid);
+  OrgMinimaObjectsBaseMiniData *cid = new_OrgMinimaObjectsBaseMiniData_initWithNSString_(coinid);
   OrgMinimaUtilsMessagesMessage *msg = [self getResponseMessageWithNSString:OrgMinimaSystemBrainsConsensusTxn_CONSENSUS_TXNINPUT];
-  [((OrgMinimaUtilsMessagesMessage *) nil_chk(msg)) addIntWithNSString:@"transaction" withInt:txn];
-  [msg addObjectWithNSString:@"coinid" withId:cid];
+  (void) [((OrgMinimaUtilsMessagesMessage *) nil_chk(msg)) addIntWithNSString:@"transaction" withInt:txn];
+  (void) [msg addObjectWithNSString:@"coinid" withId:cid];
   [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getConsensusHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:msg];
 }
 
 - (OrgMinimaSystemInputCommandFunction *)getNewFunction {
-  return create_OrgMinimaSystemInputFunctionsTxnstxninput_init();
+  return new_OrgMinimaSystemInputFunctionsTxnstxninput_init();
 }
 
 + (const J2ObjcClassInfo *)__metadata {

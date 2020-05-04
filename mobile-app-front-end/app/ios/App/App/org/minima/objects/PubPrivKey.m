@@ -60,9 +60,9 @@ J2OBJC_IGNORE_DESIGNATED_BEGIN
 J2OBJC_IGNORE_DESIGNATED_END
 
 - (OrgMinimaObjectsBaseMiniData *)signWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zData {
-  OrgMinimaUtilsDigestWinternitzOTSignature *wots = create_OrgMinimaUtilsDigestWinternitzOTSignature_initWithByteArray_withOrgMinimaUtilsDigestDigest_withInt_([((OrgMinimaObjectsBaseMiniData *) nil_chk(mPrivateSeed_)) getData], OrgMinimaObjectsPubPrivKey_getHashFunctionWithInt_(mBitLength_), OrgMinimaObjectsPubPrivKey_WINTERNITZ_NUMBER);
+  OrgMinimaUtilsDigestWinternitzOTSignature *wots = new_OrgMinimaUtilsDigestWinternitzOTSignature_initWithByteArray_withOrgMinimaUtilsDigestDigest_withInt_([((OrgMinimaObjectsBaseMiniData *) nil_chk(mPrivateSeed_)) getData], OrgMinimaObjectsPubPrivKey_getHashFunctionWithInt_(mBitLength_), OrgMinimaObjectsPubPrivKey_WINTERNITZ_NUMBER);
   IOSByteArray *signature = [wots getSignatureWithByteArray:[((OrgMinimaObjectsBaseMiniData *) nil_chk(zData)) getData]];
-  return create_OrgMinimaObjectsBaseMiniData_initWithByteArray_(signature);
+  return new_OrgMinimaObjectsBaseMiniData_initWithByteArray_(signature);
 }
 
 - (jboolean)verifyWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zData
@@ -77,9 +77,9 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (OrgMinimaUtilsJsonJSONObject *)toJSON {
-  OrgMinimaUtilsJsonJSONObject *ret = create_OrgMinimaUtilsJsonJSONObject_init();
-  [ret putWithId:@"bits" withId:JavaLangInteger_valueOfWithInt_(mBitLength_)];
-  [ret putWithId:@"publickey" withId:[((OrgMinimaObjectsBaseMiniData *) nil_chk(mPublicKey_)) to0xString]];
+  OrgMinimaUtilsJsonJSONObject *ret = new_OrgMinimaUtilsJsonJSONObject_init();
+  (void) [ret putWithId:@"bits" withId:JavaLangInteger_valueOfWithInt_(mBitLength_)];
+  (void) [ret putWithId:@"publickey" withId:[((OrgMinimaObjectsBaseMiniData *) nil_chk(mPublicKey_)) to0xString]];
   return ret;
 }
 
@@ -105,15 +105,9 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (void)readDataStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn {
-  JreStrongAssign(&mPublicKey_, OrgMinimaObjectsBaseMiniData_ReadFromStreamWithJavaIoDataInputStream_(zIn));
-  JreStrongAssign(&mPrivateSeed_, OrgMinimaObjectsBaseMiniData_ReadFromStreamWithJavaIoDataInputStream_(zIn));
+  mPublicKey_ = OrgMinimaObjectsBaseMiniData_ReadFromStreamWithJavaIoDataInputStream_(zIn);
+  mPrivateSeed_ = OrgMinimaObjectsBaseMiniData_ReadFromStreamWithJavaIoDataInputStream_(zIn);
   mBitLength_ = [((OrgMinimaObjectsBaseMiniData *) nil_chk(mPrivateSeed_)) getLength] * 8;
-}
-
-- (void)dealloc {
-  RELEASE_(mPrivateSeed_);
-  RELEASE_(mPublicKey_);
-  [super dealloc];
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -158,9 +152,11 @@ J2OBJC_IGNORE_DESIGNATED_END
     { "mPrivateSeed_", "LOrgMinimaObjectsBaseMiniData;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mPublicKey_", "LOrgMinimaObjectsBaseMiniData;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mBitLength_", "I", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
+    { "mMAX_", "I", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
+    { "mUses_", "I", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
   };
   static const void *ptrTable[] = { "getHashFunction", "I", "LOrgMinimaObjectsBaseMiniData;", "initKeys", "sign", "verify", "LOrgMinimaObjectsBaseMiniData;LOrgMinimaObjectsBaseMiniData;", "LOrgMinimaObjectsBaseMiniData;LOrgMinimaObjectsBaseMiniData;LOrgMinimaObjectsBaseMiniData;", "toString", "writeDataStream", "LJavaIoDataOutputStream;", "LJavaIoIOException;", "readDataStream", "LJavaIoDataInputStream;" };
-  static const J2ObjcClassInfo _OrgMinimaObjectsPubPrivKey = { "PubPrivKey", "org.minima.objects", ptrTable, methods, fields, 7, 0x1, 15, 4, -1, -1, -1, -1, -1 };
+  static const J2ObjcClassInfo _OrgMinimaObjectsPubPrivKey = { "PubPrivKey", "org.minima.objects", ptrTable, methods, fields, 7, 0x1, 15, 6, -1, -1, -1, -1, -1 };
   return &_OrgMinimaObjectsPubPrivKey;
 }
 
@@ -168,11 +164,13 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 id<OrgMinimaUtilsDigestDigest> OrgMinimaObjectsPubPrivKey_getHashFunctionWithInt_(jint zBitLength) {
   OrgMinimaObjectsPubPrivKey_initialize();
-  return create_OrgMinimaUtilsDigestKeccakDigest_initWithInt_(zBitLength);
+  return new_OrgMinimaUtilsDigestKeccakDigest_initWithInt_(zBitLength);
 }
 
 void OrgMinimaObjectsPubPrivKey_initWithInt_(OrgMinimaObjectsPubPrivKey *self, jint zBitLength) {
   NSObject_init(self);
+  self->mMAX_ = 0;
+  self->mUses_ = 0;
   OrgMinimaObjectsPubPrivKey_initKeysWithOrgMinimaObjectsBaseMiniData_(self, OrgMinimaObjectsBaseMiniData_getRandomDataWithInt_(zBitLength / 8));
 }
 
@@ -186,6 +184,8 @@ OrgMinimaObjectsPubPrivKey *create_OrgMinimaObjectsPubPrivKey_initWithInt_(jint 
 
 void OrgMinimaObjectsPubPrivKey_initWithOrgMinimaObjectsBaseMiniData_(OrgMinimaObjectsPubPrivKey *self, OrgMinimaObjectsBaseMiniData *zPrivateSeed) {
   NSObject_init(self);
+  self->mMAX_ = 0;
+  self->mUses_ = 0;
   OrgMinimaObjectsPubPrivKey_initKeysWithOrgMinimaObjectsBaseMiniData_(self, zPrivateSeed);
 }
 
@@ -199,13 +199,17 @@ OrgMinimaObjectsPubPrivKey *create_OrgMinimaObjectsPubPrivKey_initWithOrgMinimaO
 
 void OrgMinimaObjectsPubPrivKey_initKeysWithOrgMinimaObjectsBaseMiniData_(OrgMinimaObjectsPubPrivKey *self, OrgMinimaObjectsBaseMiniData *zPrivateSeed) {
   self->mBitLength_ = [((OrgMinimaObjectsBaseMiniData *) nil_chk(zPrivateSeed)) getLength] * 8;
-  JreStrongAssign(&self->mPrivateSeed_, zPrivateSeed);
-  OrgMinimaUtilsDigestWinternitzOTSignature *wots = create_OrgMinimaUtilsDigestWinternitzOTSignature_initWithByteArray_withOrgMinimaUtilsDigestDigest_withInt_([self->mPrivateSeed_ getData], OrgMinimaObjectsPubPrivKey_getHashFunctionWithInt_(self->mBitLength_), OrgMinimaObjectsPubPrivKey_WINTERNITZ_NUMBER);
-  JreStrongAssignAndConsume(&self->mPublicKey_, new_OrgMinimaObjectsBaseMiniData_initWithByteArray_([wots getPublicKey]));
+  self->mPrivateSeed_ = zPrivateSeed;
+  OrgMinimaUtilsDigestWinternitzOTSignature *wots = new_OrgMinimaUtilsDigestWinternitzOTSignature_initWithByteArray_withOrgMinimaUtilsDigestDigest_withInt_([self->mPrivateSeed_ getData], OrgMinimaObjectsPubPrivKey_getHashFunctionWithInt_(self->mBitLength_), OrgMinimaObjectsPubPrivKey_WINTERNITZ_NUMBER);
+  self->mPublicKey_ = new_OrgMinimaObjectsBaseMiniData_initWithByteArray_([wots getPublicKey]);
+  self->mMAX_ = 1;
+  self->mUses_ = 0;
 }
 
 void OrgMinimaObjectsPubPrivKey_init(OrgMinimaObjectsPubPrivKey *self) {
   NSObject_init(self);
+  self->mMAX_ = 0;
+  self->mUses_ = 0;
 }
 
 OrgMinimaObjectsPubPrivKey *new_OrgMinimaObjectsPubPrivKey_init() {
@@ -219,9 +223,9 @@ OrgMinimaObjectsPubPrivKey *create_OrgMinimaObjectsPubPrivKey_init() {
 jboolean OrgMinimaObjectsPubPrivKey_verifyWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniData_(OrgMinimaObjectsBaseMiniData *zPubKey, OrgMinimaObjectsBaseMiniData *zData, OrgMinimaObjectsBaseMiniData *zSignature) {
   OrgMinimaObjectsPubPrivKey_initialize();
   jint bitLength = [((OrgMinimaObjectsBaseMiniData *) nil_chk(zPubKey)) getLength] * 8;
-  OrgMinimaUtilsDigestWinternitzOTSVerify *wver = create_OrgMinimaUtilsDigestWinternitzOTSVerify_initWithOrgMinimaUtilsDigestDigest_withInt_(OrgMinimaObjectsPubPrivKey_getHashFunctionWithInt_(bitLength), OrgMinimaObjectsPubPrivKey_WINTERNITZ_NUMBER);
+  OrgMinimaUtilsDigestWinternitzOTSVerify *wver = new_OrgMinimaUtilsDigestWinternitzOTSVerify_initWithOrgMinimaUtilsDigestDigest_withInt_(OrgMinimaObjectsPubPrivKey_getHashFunctionWithInt_(bitLength), OrgMinimaObjectsPubPrivKey_WINTERNITZ_NUMBER);
   IOSByteArray *pubkey = [wver VerifyWithByteArray:[((OrgMinimaObjectsBaseMiniData *) nil_chk(zData)) getData] withByteArray:[((OrgMinimaObjectsBaseMiniData *) nil_chk(zSignature)) getData]];
-  OrgMinimaObjectsBaseMiniData *resp = create_OrgMinimaObjectsBaseMiniData_initWithByteArray_(pubkey);
+  OrgMinimaObjectsBaseMiniData *resp = new_OrgMinimaObjectsBaseMiniData_initWithByteArray_(pubkey);
   return [resp isEqualWithOrgMinimaObjectsBaseMiniData:zPubKey];
 }
 

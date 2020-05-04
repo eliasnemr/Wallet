@@ -1,14 +1,14 @@
 import { Tokens } from '../../models/tokens.model';
 import { BalanceService } from '../../service/balance.service';
-import { Component, OnInit, NgZone, Input} from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 import { Clipboard } from '@ionic-native/clipboard/ngx';
 import { AlertController, Platform } from '@ionic/angular';
 import { MinimaApiService } from '../../service/minima-api.service';
 import { map } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
-import { Token } from '@angular/compiler/src/ml_parser/lexer';
 import { ActivatedRoute } from '@angular/router';
+import jsQR from "jsqr";
 
 @Component({
   selector: 'app-send-funds',
@@ -18,22 +18,22 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class SendFundsPage implements OnInit {
 
-  public selected_minima: any;
+  minimaToken: any;
+  data: any = {};
+  isCameraOpen: boolean = false;
+  balanceSubscription: Subscription;
+  ionApp = <HTMLElement>document.getElementsByTagName('ion-app')[0];
+  MINIMA_TOKEN_ID = '0x00';  
+  hideProgress = false;
+  progressShow = true;
+  strUnconfirmed: any;
+
+  // Token Array Type
+  tokenArr: Tokens[] = [];
+
   private lastJSON: string = '';
-  public minimaToken: any;
-  public data: any = {};
-  public isCameraOpen: boolean = false;
   private scanSub:any=null;
-  public balanceSubscription: Subscription;
-  public ionApp = <HTMLElement>document.getElementsByTagName('ion-app')[0];
-
-  // Pull in tokens vars
-  public MINIMA_TOKEN_ID = '0x00';
-  public hideProgress = false;
-  public progressShow = true;
-  public strUnconfirmed: any;
-  public tokenArr = [];
-
+  
   constructor(private qrScanner: QRScanner, private clipboard: Clipboard, 
     public alertController: AlertController, private zone: NgZone, 
     private api: MinimaApiService,
@@ -44,32 +44,51 @@ export class SendFundsPage implements OnInit {
   ngOnInit() {}
 
   ionViewWillEnter() {
+    // get token selected or set Minima as default if none..
+    this.pullInTokens();
+    this.getTokenSelected();
+    }
+
+  ionViewWillLeave() {
+    // unsubscribe
+    this.balanceSubscription.unsubscribe();
+    this.stopCamera();
+  }
+
+  getTokenSelected(): string {
+    this.pullInTokens();
     const empty = undefined;
-    if(this.route.snapshot.params['id'] === empty){
-      this.selected_minima = this.MINIMA_TOKEN_ID;
-      this.pullInTokens();
+    const param = this.route.snapshot.params['id'];
+    console.log("The selected token now is: "+ param);
+    if(param === empty || param === this.MINIMA_TOKEN_ID){
+      console.log("Default to Minima");
+
       this.isCameraOpen = false;
+      // set for sending
+
+      this.data.tokenid = this.route.snapshot.params['id'];
+      return "0x00";
+    } else if(param !== empty && param !== this.MINIMA_TOKEN_ID ){
+      console.log("It's a custom token");
+      console.log(this.tokenArr);
+      this.isCameraOpen = false;
+      // set for sending
+
+      this.data.tokenid = this.route.snapshot.params['id'];
+
+      return ""+param;
+      
+      
     } else {
-      this.selected_minima = this.route.snapshot.params['id'];
-      this.pullInTokens();
-      this.isCameraOpen = false;
+      return "";
     }
   }
 
-  ionViewWillLeave() {
-    this.balanceSubscription.unsubscribe();
-    this.stopCamera();
+  /** ScanQR: Native || Desktop */
+  scanQR() { 
 
-  }
-
-  ionViewDidLoad() {
-    this.data.tokenid = this.MINIMA_TOKEN_ID;
-  }
-
-
-  /** Camera Functions */
-  scanQR() {
-    this.qrScanner.prepare()
+    if(this.platform.is('ios') || this.platform.is('android')){
+      this.qrScanner.prepare()
       .then((status: QRScannerStatus) => {
         if (status.authorized) {
           
@@ -104,6 +123,15 @@ export class SendFundsPage implements OnInit {
         }
       })
       .catch((e: any) => console.log('Error is', e));
+
+    } else {
+      // browser compatible qr scan
+      this.presentAlert("Using Minidesk", "Minidesktop");
+
+      //jsQR()
+
+
+    }
   }
 
   stopCamera() {
@@ -188,7 +216,6 @@ export class SendFundsPage implements OnInit {
   }
 
   sendFunds(){
-    this.data.tokenid = this.selected_minima;
     if(this.data.address&&this.data.address!==''&&this.data.amount&&this.data.amount>0&&
     this.data.tokenid&&this.data.tokenid!==''){
       this.api.sendFunds(this.data).then((res:any)=>{
@@ -258,12 +285,13 @@ export class SendFundsPage implements OnInit {
   }
   // Display/hide mobile buttons with this..
   checkPlatform() {
-    if(this.platform.is('desktop') || this.platform.is('pwa')) {
+    if(this.platform.is('desktop')) {
       return false;
     } else {
       return true;
     }
   }
+
   
   pasteFromClipboard() {
     if(this.platform.is('desktop') || this.platform.is('pwa')) {
@@ -295,3 +323,5 @@ export class SendFundsPage implements OnInit {
   }
 
 }
+
+

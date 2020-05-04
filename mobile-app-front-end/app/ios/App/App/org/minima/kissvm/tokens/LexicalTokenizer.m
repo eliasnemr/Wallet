@@ -18,7 +18,7 @@
 
 - (OrgMinimaKissvmTokensToken *)getNextToken {
   if (mPos_ >= mSize_) {
-    @throw create_OrgMinimaKissvmExceptionsMinimaParseException_initWithNSString_(@"Run out of tokens!..");
+    @throw new_OrgMinimaKissvmExceptionsMinimaParseException_initWithNSString_(@"Run out of tokens!..");
   }
   return [((id<JavaUtilList>) nil_chk(mTokens_)) getWithInt:mPos_++];
 }
@@ -37,11 +37,6 @@
 
 - (jboolean)hasMoreElements {
   return mPos_ < mSize_;
-}
-
-- (void)dealloc {
-  RELEASE_(mTokens_);
-  [super dealloc];
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -77,7 +72,7 @@
 
 void OrgMinimaKissvmTokensLexicalTokenizer_initWithJavaUtilList_(OrgMinimaKissvmTokensLexicalTokenizer *self, id<JavaUtilList> zTokens) {
   NSObject_init(self);
-  JreStrongAssign(&self->mTokens_, zTokens);
+  self->mTokens_ = zTokens;
   self->mPos_ = 0;
   self->mSize_ = [((id<JavaUtilList>) nil_chk(zTokens)) size];
 }

@@ -37,10 +37,10 @@
   JavaIoPrintWriter *out = nil;
   NSString *fileRequested = nil;
   @try {
-    in = create_JavaIoBufferedReader_initWithJavaIoReader_(create_JavaIoInputStreamReader_initWithJavaIoInputStream_([((JavaNetSocket *) nil_chk(mSocket_)) getInputStream]));
-    out = create_JavaIoPrintWriter_initWithJavaIoOutputStream_([((JavaNetSocket *) nil_chk(mSocket_)) getOutputStream]);
+    in = new_JavaIoBufferedReader_initWithJavaIoReader_(new_JavaIoInputStreamReader_initWithJavaIoInputStream_([((JavaNetSocket *) nil_chk(mSocket_)) getInputStream]));
+    out = new_JavaIoPrintWriter_initWithJavaIoOutputStream_([((JavaNetSocket *) nil_chk(mSocket_)) getOutputStream]);
     NSString *input = [in readLine];
-    JavaUtilStringTokenizer *parse = create_JavaUtilStringTokenizer_initWithNSString_(input);
+    JavaUtilStringTokenizer *parse = new_JavaUtilStringTokenizer_initWithNSString_(input);
     NSString *method = [((NSString *) nil_chk([parse nextToken])) uppercaseString];
     fileRequested = [parse nextToken];
     if ([((NSString *) nil_chk(method)) isEqual:@"GET"]) {
@@ -55,9 +55,9 @@
       }
       NSString *result = @"";
       if (!multi) {
-        OrgMinimaUtilsResponseStream *response = create_OrgMinimaUtilsResponseStream_init();
+        OrgMinimaUtilsResponseStream *response = new_OrgMinimaUtilsResponseStream_init();
         if (![function isEqual:@""]) {
-          OrgMinimaSystemInputInputMessage *inmsg = create_OrgMinimaSystemInputInputMessage_initWithNSString_withOrgMinimaUtilsResponseStream_(function, response);
+          OrgMinimaSystemInputInputMessage *inmsg = new_OrgMinimaSystemInputInputMessage_initWithNSString_withOrgMinimaUtilsResponseStream_(function, response);
           [((OrgMinimaSystemInputInputHandler *) nil_chk(mInputHandler_)) PostMessageWithOrgMinimaUtilsMessagesMessage:inmsg];
           if (![((NSString *) nil_chk([((NSString *) nil_chk(input)) lowercaseString])) isEqual:@"quit"]) {
             [response waitToFinish];
@@ -66,13 +66,13 @@
         result = [response getResponse];
       }
       else {
-        OrgMinimaUtilsJsonJSONArray *responses = create_OrgMinimaUtilsJsonJSONArray_init();
-        JavaUtilStringTokenizer *functions = create_JavaUtilStringTokenizer_initWithNSString_withNSString_(function, @";");
+        OrgMinimaUtilsJsonJSONArray *responses = new_OrgMinimaUtilsJsonJSONArray_init();
+        JavaUtilStringTokenizer *functions = new_JavaUtilStringTokenizer_initWithNSString_withNSString_(function, @";");
         while ([functions hasMoreElements]) {
           NSString *func = [((NSString *) nil_chk([functions nextToken])) java_trim];
-          OrgMinimaUtilsResponseStream *response = create_OrgMinimaUtilsResponseStream_init();
+          OrgMinimaUtilsResponseStream *response = new_OrgMinimaUtilsResponseStream_init();
           if (![((NSString *) nil_chk(func)) isEqual:@""]) {
-            OrgMinimaSystemInputInputMessage *inmsg = create_OrgMinimaSystemInputInputMessage_initWithNSString_withOrgMinimaUtilsResponseStream_(func, response);
+            OrgMinimaSystemInputInputMessage *inmsg = new_OrgMinimaSystemInputInputMessage_initWithNSString_withOrgMinimaUtilsResponseStream_(func, response);
             [((OrgMinimaSystemInputInputHandler *) nil_chk(mInputHandler_)) PostMessageWithOrgMinimaUtilsMessagesMessage:inmsg];
             if (![((NSString *) nil_chk([((NSString *) nil_chk(input)) lowercaseString])) isEqual:@"quit"]) {
               [response waitToFinish];
@@ -87,7 +87,7 @@
       }
       [out printlnWithNSString:@"HTTP/1.1 200 OK"];
       [out printlnWithNSString:@"Server: HTTP RPC Server from Minima : 1.0"];
-      [out printlnWithNSString:JreStrcat("$@", @"Date: ", create_JavaUtilDate_init())];
+      [out printlnWithNSString:JreStrcat("$@", @"Date: ", new_JavaUtilDate_init())];
       [out printlnWithNSString:@"Content-type: text/plain"];
       [out printlnWithNSString:JreStrcat("$I", @"Content-length: ", [((NSString *) nil_chk(result)) java_length])];
       [out printlnWithNSString:@"Access-Control-Allow-Origin: *"];
@@ -109,12 +109,6 @@
       [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, err))) printlnWithNSString:JreStrcat("$$", @"Error closing stream : ", [e getMessage])];
     }
   }
-}
-
-- (void)dealloc {
-  RELEASE_(mSocket_);
-  RELEASE_(mInputHandler_);
-  [super dealloc];
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -141,8 +135,8 @@
 
 void OrgMinimaSystemNetworkRpcRPCHandler_initWithJavaNetSocket_withOrgMinimaSystemInputInputHandler_(OrgMinimaSystemNetworkRpcRPCHandler *self, JavaNetSocket *zSocket, OrgMinimaSystemInputInputHandler *zInput) {
   NSObject_init(self);
-  JreStrongAssign(&self->mSocket_, zSocket);
-  JreStrongAssign(&self->mInputHandler_, zInput);
+  self->mSocket_ = zSocket;
+  self->mInputHandler_ = zInput;
 }
 
 OrgMinimaSystemNetworkRpcRPCHandler *new_OrgMinimaSystemNetworkRpcRPCHandler_initWithJavaNetSocket_withOrgMinimaSystemInputInputHandler_(JavaNetSocket *zSocket, OrgMinimaSystemInputInputHandler *zInput) {

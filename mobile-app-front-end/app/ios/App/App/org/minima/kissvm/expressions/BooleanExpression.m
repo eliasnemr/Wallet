@@ -74,6 +74,7 @@
     ret = [lval isTrue] ? JreLoadStatic(OrgMinimaKissvmValuesBooleanValue, FALSE) : JreLoadStatic(OrgMinimaKissvmValuesBooleanValue, TRUE);
     break;
   }
+  [zContract traceLogWithNSString:JreStrcat("$$$", [self description], @" returns:", [((OrgMinimaKissvmValuesValue *) nil_chk(ret)) description])];
   return ret;
 }
 
@@ -122,12 +123,6 @@
   return JreStrcat("$@C$C@$", @"( ", mLeft_, ' ', ret, ' ', mRight_, @" )");
 }
 
-- (void)dealloc {
-  RELEASE_(mLeft_);
-  RELEASE_(mRight_);
-  [super dealloc];
-}
-
 + (const J2ObjcClassInfo *)__metadata {
   static J2ObjcMethodInfo methods[] = {
     { NULL, NULL, 0x1, -1, 0, -1, -1, -1, -1 },
@@ -169,7 +164,7 @@
 @end
 
 void OrgMinimaKissvmExpressionsBooleanExpression_initWithOrgMinimaKissvmExpressionsExpression_withInt_(OrgMinimaKissvmExpressionsBooleanExpression *self, id<OrgMinimaKissvmExpressionsExpression> zLeft, jint zBooleanType) {
-  OrgMinimaKissvmExpressionsBooleanExpression_initWithOrgMinimaKissvmExpressionsExpression_withOrgMinimaKissvmExpressionsExpression_withInt_(self, zLeft, create_OrgMinimaKissvmExpressionsConstantExpression_initWithOrgMinimaKissvmValuesValue_(JreLoadStatic(OrgMinimaKissvmValuesBooleanValue, FALSE)), zBooleanType);
+  OrgMinimaKissvmExpressionsBooleanExpression_initWithOrgMinimaKissvmExpressionsExpression_withOrgMinimaKissvmExpressionsExpression_withInt_(self, zLeft, new_OrgMinimaKissvmExpressionsConstantExpression_initWithOrgMinimaKissvmValuesValue_(JreLoadStatic(OrgMinimaKissvmValuesBooleanValue, FALSE)), zBooleanType);
 }
 
 OrgMinimaKissvmExpressionsBooleanExpression *new_OrgMinimaKissvmExpressionsBooleanExpression_initWithOrgMinimaKissvmExpressionsExpression_withInt_(id<OrgMinimaKissvmExpressionsExpression> zLeft, jint zBooleanType) {
@@ -182,8 +177,8 @@ OrgMinimaKissvmExpressionsBooleanExpression *create_OrgMinimaKissvmExpressionsBo
 
 void OrgMinimaKissvmExpressionsBooleanExpression_initWithOrgMinimaKissvmExpressionsExpression_withOrgMinimaKissvmExpressionsExpression_withInt_(OrgMinimaKissvmExpressionsBooleanExpression *self, id<OrgMinimaKissvmExpressionsExpression> zLeft, id<OrgMinimaKissvmExpressionsExpression> zRight, jint zBooleanType) {
   NSObject_init(self);
-  JreStrongAssign(&self->mLeft_, zLeft);
-  JreStrongAssign(&self->mRight_, zRight);
+  self->mLeft_ = zLeft;
+  self->mRight_ = zRight;
   self->mBooleanType_ = zBooleanType;
 }
 

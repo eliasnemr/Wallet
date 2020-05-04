@@ -59,13 +59,13 @@ __attribute__((unused)) static void OrgMinimaUtilsMessagesMessageProcessor_check
 }
 
 - (void)run {
-  JavaTextSimpleDateFormat *sdf = create_JavaTextSimpleDateFormat_initWithNSString_(@"HH:mm:ss.SSS");
+  JavaTextSimpleDateFormat *sdf = new_JavaTextSimpleDateFormat_initWithNSString_(@"HH:mm:ss.SSS");
   while (mRunning_) {
     OrgMinimaUtilsMessagesMessage *msg = [self getNextMessage];
     while (msg != nil && mRunning_) {
       @try {
         if (mLogON_) {
-          OrgMinimaUtilsMinimaLogger_logWithNSString_(JreStrcat("CI$$$$$@", '[', [self getSize], @"] ", [sdf formatWithJavaUtilDate:create_JavaUtilDate_init()], @" [ ", [((JavaLangThread *) nil_chk(mMainThread_)) getName], @" ] \t", msg));
+          OrgMinimaUtilsMinimaLogger_logWithNSString_(JreStrcat("CI$$$$$@", '[', [self getSize], @"] ", [sdf formatWithJavaUtilDate:new_JavaUtilDate_init()], @" [ ", [((JavaLangThread *) nil_chk(mMainThread_)) getName], @" ] \t", msg));
         }
         [self processMessageWithOrgMinimaUtilsMessagesMessage:msg];
       }
@@ -92,13 +92,6 @@ __attribute__((unused)) static void OrgMinimaUtilsMessagesMessageProcessor_check
 - (void)processMessageWithOrgMinimaUtilsMessagesMessage:(OrgMinimaUtilsMessagesMessage *)zMessage {
   // can't call an abstract method
   [self doesNotRecognizeSelector:_cmd];
-}
-
-- (void)dealloc {
-  RELEASE_(mMainThread_);
-  RELEASE_(mTimerMessages_);
-  RELEASE_(mName_);
-  [super dealloc];
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -141,17 +134,17 @@ __attribute__((unused)) static void OrgMinimaUtilsMessagesMessageProcessor_check
 void OrgMinimaUtilsMessagesMessageProcessor_initWithNSString_(OrgMinimaUtilsMessagesMessageProcessor *self, NSString *zName) {
   OrgMinimaUtilsMessagesMessageStack_init(self);
   self->mLogON_ = false;
-  JreStrongAssign(&self->mName_, zName);
+  self->mName_ = zName;
   self->mRunning_ = true;
-  JreStrongAssignAndConsume(&self->mTimerMessages_, new_JavaUtilLinkedList_init());
-  JreStrongAssignAndConsume(&self->mMainThread_, new_JavaLangThread_initWithJavaLangRunnable_withNSString_(self, zName));
+  self->mTimerMessages_ = new_JavaUtilLinkedList_init();
+  self->mMainThread_ = new_JavaLangThread_initWithJavaLangRunnable_withNSString_(self, zName);
   [self->mMainThread_ start];
 }
 
 void OrgMinimaUtilsMessagesMessageProcessor_checkTimerMessages(OrgMinimaUtilsMessagesMessageProcessor *self) {
   @synchronized(self) {
     jlong timenow = JavaLangSystem_currentTimeMillis();
-    JavaUtilArrayList *remove = create_JavaUtilArrayList_init();
+    JavaUtilArrayList *remove = new_JavaUtilArrayList_init();
     for (OrgMinimaUtilsMessagesTimerMessage * __strong tm in nil_chk(self->mTimerMessages_)) {
       if (timenow > [((OrgMinimaUtilsMessagesTimerMessage *) nil_chk(tm)) getTimer]) {
         [self PostMessageWithOrgMinimaUtilsMessagesMessage:tm];

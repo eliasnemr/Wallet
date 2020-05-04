@@ -16,6 +16,7 @@
 #if !defined (OrgMinimaKissvmContract_) && (INCLUDE_ALL_OrgMinimaKissvmContract || defined(INCLUDE_OrgMinimaKissvmContract))
 #define OrgMinimaKissvmContract_
 
+@class IOSBooleanArray;
 @class IOSObjectArray;
 @class JavaUtilArrayList;
 @class JavaUtilHashtable;
@@ -37,6 +38,7 @@
   JavaUtilArrayList *mPrevState_;
   jboolean mFloatingCoin_;
   IOSObjectArray *mDYNState_;
+  IOSBooleanArray *mCheckState_;
   jboolean mTraceON_;
   jboolean mParseOK_;
   jboolean mException_;
@@ -65,6 +67,8 @@
 + (NSString *)cleanScriptWithNSString:(NSString *)zScript;
 
 - (OrgMinimaUtilsJsonJSONObject *)getAllVariables;
+
+- (IOSBooleanArray *)getCompleteCheckState;
 
 - (IOSObjectArray *)getCompleteDYNState;
 
@@ -104,7 +108,8 @@
 
 - (void)run;
 
-- (void)setCompleteDYNStateWithNSStringArray:(IOSObjectArray *)zDYNState;
+- (void)setCompleteDYNStateWithNSStringArray:(IOSObjectArray *)zDYNState
+                            withBooleanArray:(IOSBooleanArray *)zCheckState;
 
 - (jboolean)setDYNStateWithInt:(jint)zStateNum
                   withNSString:(NSString *)zValue;
@@ -140,6 +145,7 @@ J2OBJC_FIELD_SETTER(OrgMinimaKissvmContract, mVariables_, JavaUtilHashtable *)
 J2OBJC_FIELD_SETTER(OrgMinimaKissvmContract, mGlobals_, JavaUtilHashtable *)
 J2OBJC_FIELD_SETTER(OrgMinimaKissvmContract, mPrevState_, JavaUtilArrayList *)
 J2OBJC_FIELD_SETTER(OrgMinimaKissvmContract, mDYNState_, IOSObjectArray *)
+J2OBJC_FIELD_SETTER(OrgMinimaKissvmContract, mCheckState_, IOSBooleanArray *)
 J2OBJC_FIELD_SETTER(OrgMinimaKissvmContract, mExceptionString_, NSString *)
 J2OBJC_FIELD_SETTER(OrgMinimaKissvmContract, mCompleteLog_, NSString *)
 

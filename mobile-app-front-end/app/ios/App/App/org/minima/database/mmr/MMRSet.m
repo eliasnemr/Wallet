@@ -28,6 +28,8 @@
 
 @interface OrgMinimaDatabaseMmrMMRSet ()
 
+- (void)setBlockTimeWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zTime;
+
 - (void)incrementEntryNumber;
 
 - (OrgMinimaDatabaseMmrMMREntry *)setEntryWithInt:(jint)zRow
@@ -40,6 +42,8 @@
 - (OrgMinimaDatabaseMmrMMRProof *)getPeakToRootWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zPeak;
 
 @end
+
+__attribute__((unused)) static void OrgMinimaDatabaseMmrMMRSet_setBlockTimeWithOrgMinimaObjectsBaseMiniNumber_(OrgMinimaDatabaseMmrMMRSet *self, OrgMinimaObjectsBaseMiniNumber *zTime);
 
 __attribute__((unused)) static void OrgMinimaDatabaseMmrMMRSet_incrementEntryNumber(OrgMinimaDatabaseMmrMMRSet *self);
 
@@ -75,14 +79,14 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (void)setParentWithOrgMinimaDatabaseMmrMMRSet:(OrgMinimaDatabaseMmrMMRSet *)zParent {
-  JreStrongAssign(&mParent_, zParent);
+  mParent_ = zParent;
 }
 
 - (void)finalizeSet {
   mFinalized_ = false;
-  JreStrongAssign(&mFinalizedPeaks_, [self getMMRPeaks]);
-  JreStrongAssign(&mFinalizedRoot_, [self getMMRRoot]);
-  JreStrongAssign(&mFinalizedZeroRow_, [self getRowWithInt:0]);
+  mFinalizedPeaks_ = [self getMMRPeaks];
+  mFinalizedRoot_ = [self getMMRRoot];
+  mFinalizedZeroRow_ = [self getRowWithInt:0];
   mFinalized_ = true;
 }
 
@@ -91,17 +95,11 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (void)setBlockTimeWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zTime {
-  JreStrongAssign(&mBlockTime_, zTime);
+  OrgMinimaDatabaseMmrMMRSet_setBlockTimeWithOrgMinimaObjectsBaseMiniNumber_(self, zTime);
 }
 
 - (OrgMinimaObjectsBaseMiniNumber *)getBlockTime {
   return mBlockTime_;
-}
-
-- (void)addKeeperWithOrgMinimaObjectsBaseMiniInteger:(OrgMinimaObjectsBaseMiniInteger *)zEntry {
-  if (![self isKeptAllreadyWithOrgMinimaObjectsBaseMiniInteger:zEntry]) {
-    [((JavaUtilArrayList *) nil_chk(mKeepers_)) addWithId:zEntry];
-  }
 }
 
 - (OrgMinimaDatabaseMmrMMRSet *)getParent {
@@ -128,7 +126,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (JavaUtilArrayList *)getRowWithInt:(jint)zRow {
-  JavaUtilArrayList *row = create_JavaUtilArrayList_init();
+  JavaUtilArrayList *row = new_JavaUtilArrayList_init();
   for (OrgMinimaDatabaseMmrMMREntry * __strong entry_ in nil_chk(mEntries_)) {
     if ([((OrgMinimaDatabaseMmrMMREntry *) nil_chk(entry_)) getRow] == zRow) {
       [row addWithId:entry_];
@@ -168,8 +166,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   return nil;
 }
 
-- (OrgMinimaDatabaseMmrMMREntry *)findEntryWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zCoinID
-                                                                withBoolean:(jboolean)zSearchParent {
+- (OrgMinimaDatabaseMmrMMREntry *)findEntryWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zCoinID {
   JavaUtilArrayList *zero = [self getZeroRow];
   for (OrgMinimaDatabaseMmrMMREntry * __strong entry_ in nil_chk(zero)) {
     if (![((OrgMinimaDatabaseMmrMMRData *) nil_chk([((OrgMinimaDatabaseMmrMMREntry *) nil_chk(entry_)) getData])) isHashOnly]) {
@@ -178,10 +175,8 @@ J2OBJC_IGNORE_DESIGNATED_END
       }
     }
   }
-  if (zSearchParent) {
-    if (mParent_ != nil) {
-      return [mParent_ findEntryWithOrgMinimaObjectsBaseMiniData:zCoinID withBoolean:true];
-    }
+  if (mParent_ != nil) {
+    return [mParent_ findEntryWithOrgMinimaObjectsBaseMiniData:zCoinID];
   }
   return nil;
 }
@@ -205,7 +200,7 @@ J2OBJC_IGNORE_DESIGNATED_END
     OrgMinimaDatabaseMmrMMREntry *sibling = OrgMinimaDatabaseMmrMMRSet_getEntryWithInt_withOrgMinimaObjectsBaseMiniInteger_(self, [entry_ getRow], [entry_ getLeftSibling]);
     OrgMinimaObjectsBaseMiniData *combined = [((OrgMinimaUtilsCrypto *) nil_chk(OrgMinimaUtilsCrypto_getInstance())) hashObjectsWithOrgMinimaUtilsStreamable:[((OrgMinimaDatabaseMmrMMREntry *) nil_chk(sibling)) getHashValue] withOrgMinimaUtilsStreamable:[entry_ getHashValue] withInt:MMR_HASH_BITS_];
     OrgMinimaObjectsBaseMMRSumNumber *sumvalue = [((OrgMinimaObjectsBaseMMRSumNumber *) nil_chk([((OrgMinimaDatabaseMmrMMRData *) nil_chk([entry_ getData])) getValueSum])) addWithOrgMinimaObjectsBaseMMRSumNumber:[((OrgMinimaDatabaseMmrMMRData *) nil_chk([sibling getData])) getValueSum]];
-    OrgMinimaDatabaseMmrMMRData *data = create_OrgMinimaDatabaseMmrMMRData_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMMRSumNumber_(combined, sumvalue);
+    OrgMinimaDatabaseMmrMMRData *data = new_OrgMinimaDatabaseMmrMMRData_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMMRSumNumber_(combined, sumvalue);
     entry_ = OrgMinimaDatabaseMmrMMRSet_setEntryWithInt_withOrgMinimaObjectsBaseMiniInteger_withOrgMinimaDatabaseMmrMMRData_(self, [entry_ getParentRow], [entry_ getParentEntry], data);
   }
   return ret;
@@ -226,7 +221,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   while (proofnum < prooflen) {
     OrgMinimaDatabaseMmrMMREntry *sibling = OrgMinimaDatabaseMmrMMRSet_getEntryWithInt_withOrgMinimaObjectsBaseMiniInteger_(self, [((OrgMinimaDatabaseMmrMMREntry *) nil_chk(entry_)) getRow], [entry_ getSibling]);
     OrgMinimaObjectsProofsProof_ProofChunk *chunk = [zProof getProofChunkWithInt:proofnum++];
-    OrgMinimaDatabaseMmrMMRData *pdata = create_OrgMinimaDatabaseMmrMMRData_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMMRSumNumber_([((OrgMinimaObjectsProofsProof_ProofChunk *) nil_chk(chunk)) getHash], [chunk getValue]);
+    OrgMinimaDatabaseMmrMMRData *pdata = new_OrgMinimaDatabaseMmrMMRData_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMMRSumNumber_([((OrgMinimaObjectsProofsProof_ProofChunk *) nil_chk(chunk)) getHash], [chunk getValue]);
     if ([((OrgMinimaDatabaseMmrMMREntry *) nil_chk(sibling)) isEmpty]) {
       sibling = OrgMinimaDatabaseMmrMMRSet_setEntryWithInt_withOrgMinimaObjectsBaseMiniInteger_withOrgMinimaDatabaseMmrMMRData_(self, [sibling getRow], [sibling getEntry], pdata);
     }
@@ -247,7 +242,7 @@ J2OBJC_IGNORE_DESIGNATED_END
       combined = [((OrgMinimaUtilsCrypto *) nil_chk(OrgMinimaUtilsCrypto_getInstance())) hashObjectsWithOrgMinimaUtilsStreamable:[((OrgMinimaDatabaseMmrMMREntry *) nil_chk(sibling)) getHashValue] withOrgMinimaUtilsStreamable:[entry_ getHashValue] withInt:MMR_HASH_BITS_];
     }
     OrgMinimaObjectsBaseMMRSumNumber *sumvalue = [((OrgMinimaObjectsBaseMMRSumNumber *) nil_chk([((OrgMinimaDatabaseMmrMMRData *) nil_chk([entry_ getData])) getValueSum])) addWithOrgMinimaObjectsBaseMMRSumNumber:[((OrgMinimaDatabaseMmrMMRData *) nil_chk([sibling getData])) getValueSum]];
-    OrgMinimaDatabaseMmrMMRData *data = create_OrgMinimaDatabaseMmrMMRData_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMMRSumNumber_(combined, sumvalue);
+    OrgMinimaDatabaseMmrMMRData *data = new_OrgMinimaDatabaseMmrMMRData_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMMRSumNumber_(combined, sumvalue);
     OrgMinimaDatabaseMmrMMREntry *parent = OrgMinimaDatabaseMmrMMRSet_getEntryWithInt_withOrgMinimaObjectsBaseMiniInteger_(self, [entry_ getParentRow], [entry_ getParentEntry]);
     if (![((OrgMinimaDatabaseMmrMMREntry *) nil_chk(parent)) isEmpty]) {
       if (![((OrgMinimaObjectsBaseMiniData *) nil_chk([((OrgMinimaDatabaseMmrMMRData *) nil_chk([parent getData])) getFinalHash])) isEqualWithOrgMinimaObjectsBaseMiniData:combined]) {
@@ -266,7 +261,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 - (OrgMinimaDatabaseMmrMMREntry *)updateSpentCoinWithOrgMinimaDatabaseMmrMMRProof:(OrgMinimaDatabaseMmrMMRProof *)zProof {
   OrgMinimaDatabaseMmrMMRData *original = [((OrgMinimaDatabaseMmrMMRProof *) nil_chk(zProof)) getMMRData];
-  OrgMinimaDatabaseMmrMMRData *spentmmr = create_OrgMinimaDatabaseMmrMMRData_initWithOrgMinimaObjectsBaseMiniByte_withOrgMinimaObjectsCoin_withOrgMinimaObjectsBaseMiniNumber_withJavaUtilArrayList_(JreLoadStatic(OrgMinimaObjectsBaseMiniByte, TRUE), [((OrgMinimaDatabaseMmrMMRData *) nil_chk(original)) getCoin], [original getInBlock], [original getPrevState]);
+  OrgMinimaDatabaseMmrMMRData *spentmmr = new_OrgMinimaDatabaseMmrMMRData_initWithOrgMinimaObjectsBaseMiniByte_withOrgMinimaObjectsCoin_withOrgMinimaObjectsBaseMiniNumber_withJavaUtilArrayList_(JreLoadStatic(OrgMinimaObjectsBaseMiniByte, TRUE), [((OrgMinimaDatabaseMmrMMRData *) nil_chk(original)) getCoin], [original getInBlock], [original getPrevState]);
   JavaUtilArrayList *peaks = [self getMMRPeaks];
   OrgMinimaDatabaseMmrMMREntry *entry_ = OrgMinimaDatabaseMmrMMRSet_setEntryWithInt_withOrgMinimaObjectsBaseMiniInteger_withOrgMinimaDatabaseMmrMMRData_(self, 0, [zProof getEntryNumber], spentmmr);
   OrgMinimaDatabaseMmrMMREntry *ret = entry_;
@@ -284,16 +279,16 @@ J2OBJC_IGNORE_DESIGNATED_END
     phash = [((OrgMinimaObjectsProofsProof_ProofChunk *) nil_chk(chunk)) getHash];
     pval = [chunk getValue];
     if ([sibling isEmpty]) {
-      sibling = OrgMinimaDatabaseMmrMMRSet_setEntryWithInt_withOrgMinimaObjectsBaseMiniInteger_withOrgMinimaDatabaseMmrMMRData_(self, [sibling getRow], [sibling getEntry], create_OrgMinimaDatabaseMmrMMRData_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMMRSumNumber_(phash, pval));
+      sibling = OrgMinimaDatabaseMmrMMRSet_setEntryWithInt_withOrgMinimaObjectsBaseMiniInteger_withOrgMinimaDatabaseMmrMMRData_(self, [sibling getRow], [sibling getEntry], new_OrgMinimaDatabaseMmrMMRData_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMMRSumNumber_(phash, pval));
     }
     else if ([((OrgMinimaObjectsBaseMiniNumber *) nil_chk([sibling getBlockTime])) isLessEqualWithOrgMinimaObjectsBaseMiniNumber:[zProof getBlockTime]]) {
       OrgMinimaObjectsBaseMiniData *orighash = [((OrgMinimaDatabaseMmrMMRData *) nil_chk([sibling getData])) getFinalHash];
       if (![((OrgMinimaObjectsBaseMiniData *) nil_chk(orighash)) isEqualWithOrgMinimaObjectsBaseMiniData:phash]) {
         [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out))) printlnWithNSString:@"SIBLING DIFFERENT HASH"];
-        sibling = OrgMinimaDatabaseMmrMMRSet_setEntryWithInt_withOrgMinimaObjectsBaseMiniInteger_withOrgMinimaDatabaseMmrMMRData_(self, [sibling getRow], [sibling getEntry], create_OrgMinimaDatabaseMmrMMRData_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMMRSumNumber_(phash, pval));
+        sibling = OrgMinimaDatabaseMmrMMRSet_setEntryWithInt_withOrgMinimaObjectsBaseMiniInteger_withOrgMinimaDatabaseMmrMMRData_(self, [sibling getRow], [sibling getEntry], new_OrgMinimaDatabaseMmrMMRData_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMMRSumNumber_(phash, pval));
       }
     }
-    OrgMinimaDatabaseMmrMMRSet_setEntryWithInt_withOrgMinimaObjectsBaseMiniInteger_withOrgMinimaDatabaseMmrMMRData_(self, [((OrgMinimaDatabaseMmrMMREntry *) nil_chk(sibling)) getRow], [sibling getEntry], [sibling getData]);
+    (void) OrgMinimaDatabaseMmrMMRSet_setEntryWithInt_withOrgMinimaObjectsBaseMiniInteger_withOrgMinimaDatabaseMmrMMRData_(self, [((OrgMinimaDatabaseMmrMMREntry *) nil_chk(sibling)) getRow], [sibling getEntry], [sibling getData]);
   }
   while (![((OrgMinimaDatabaseMmrMMREntry *) nil_chk(sibling)) isEmpty]) {
     OrgMinimaObjectsBaseMiniData *combined = nil;
@@ -304,8 +299,8 @@ J2OBJC_IGNORE_DESIGNATED_END
       combined = [((OrgMinimaUtilsCrypto *) nil_chk(OrgMinimaUtilsCrypto_getInstance())) hashObjectsWithOrgMinimaUtilsStreamable:[sibling getHashValue] withOrgMinimaUtilsStreamable:[entry_ getHashValue] withInt:MMR_HASH_BITS_];
     }
     OrgMinimaObjectsBaseMMRSumNumber *sumvalue = [((OrgMinimaObjectsBaseMMRSumNumber *) nil_chk([((OrgMinimaDatabaseMmrMMRData *) nil_chk([entry_ getData])) getValueSum])) addWithOrgMinimaObjectsBaseMMRSumNumber:[((OrgMinimaDatabaseMmrMMRData *) nil_chk([sibling getData])) getValueSum]];
-    OrgMinimaDatabaseMmrMMRData *data = create_OrgMinimaDatabaseMmrMMRData_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMMRSumNumber_(combined, sumvalue);
-    OrgMinimaDatabaseMmrMMRSet_setEntryWithInt_withOrgMinimaObjectsBaseMiniInteger_withOrgMinimaDatabaseMmrMMRData_(self, [sibling getRow], [sibling getEntry], [sibling getData]);
+    OrgMinimaDatabaseMmrMMRData *data = new_OrgMinimaDatabaseMmrMMRData_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMMRSumNumber_(combined, sumvalue);
+    (void) OrgMinimaDatabaseMmrMMRSet_setEntryWithInt_withOrgMinimaObjectsBaseMiniInteger_withOrgMinimaDatabaseMmrMMRData_(self, [sibling getRow], [sibling getEntry], [sibling getData]);
     entry_ = OrgMinimaDatabaseMmrMMRSet_setEntryWithInt_withOrgMinimaObjectsBaseMiniInteger_withOrgMinimaDatabaseMmrMMRData_(self, [entry_ getParentRow], [entry_ getParentEntry], data);
     for (OrgMinimaDatabaseMmrMMREntry * __strong peak in nil_chk(peaks)) {
       if ([((OrgMinimaDatabaseMmrMMREntry *) nil_chk(entry_)) checkPositionWithOrgMinimaDatabaseMmrMMREntry:peak]) {
@@ -318,13 +313,13 @@ J2OBJC_IGNORE_DESIGNATED_END
       phash = [((OrgMinimaObjectsProofsProof_ProofChunk *) nil_chk(chunk)) getHash];
       pval = [chunk getValue];
       if ([((OrgMinimaDatabaseMmrMMREntry *) nil_chk(sibling)) isEmpty]) {
-        sibling = OrgMinimaDatabaseMmrMMRSet_setEntryWithInt_withOrgMinimaObjectsBaseMiniInteger_withOrgMinimaDatabaseMmrMMRData_(self, [sibling getRow], [sibling getEntry], create_OrgMinimaDatabaseMmrMMRData_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMMRSumNumber_(phash, pval));
+        sibling = OrgMinimaDatabaseMmrMMRSet_setEntryWithInt_withOrgMinimaObjectsBaseMiniInteger_withOrgMinimaDatabaseMmrMMRData_(self, [sibling getRow], [sibling getEntry], new_OrgMinimaDatabaseMmrMMRData_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMMRSumNumber_(phash, pval));
       }
       else if ([((OrgMinimaObjectsBaseMiniNumber *) nil_chk([sibling getBlockTime])) isLessEqualWithOrgMinimaObjectsBaseMiniNumber:[zProof getBlockTime]]) {
         OrgMinimaObjectsBaseMiniData *orighash = [((OrgMinimaDatabaseMmrMMRData *) nil_chk([sibling getData])) getFinalHash];
         if (![((OrgMinimaObjectsBaseMiniData *) nil_chk(orighash)) isEqualWithOrgMinimaObjectsBaseMiniData:phash]) {
           [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out))) printlnWithNSString:@"SIBLING DIFFERENT HASH 2"];
-          sibling = OrgMinimaDatabaseMmrMMRSet_setEntryWithInt_withOrgMinimaObjectsBaseMiniInteger_withOrgMinimaDatabaseMmrMMRData_(self, [sibling getRow], [sibling getEntry], create_OrgMinimaDatabaseMmrMMRData_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMMRSumNumber_(phash, pval));
+          sibling = OrgMinimaDatabaseMmrMMRSet_setEntryWithInt_withOrgMinimaObjectsBaseMiniInteger_withOrgMinimaDatabaseMmrMMRData_(self, [sibling getRow], [sibling getEntry], new_OrgMinimaDatabaseMmrMMRData_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMMRSumNumber_(phash, pval));
         }
       }
     }
@@ -334,12 +329,12 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 - (OrgMinimaDatabaseMmrMMRProof *)getProofWithOrgMinimaObjectsBaseMiniInteger:(OrgMinimaObjectsBaseMiniInteger *)zEntryNumber {
   OrgMinimaDatabaseMmrMMREntry *entry_ = OrgMinimaDatabaseMmrMMRSet_getEntryWithInt_withOrgMinimaObjectsBaseMiniInteger_(self, 0, zEntryNumber);
-  OrgMinimaDatabaseMmrMMRProof *proof = create_OrgMinimaDatabaseMmrMMRProof_initWithOrgMinimaObjectsBaseMiniInteger_withOrgMinimaDatabaseMmrMMRData_withOrgMinimaObjectsBaseMiniNumber_(zEntryNumber, [((OrgMinimaDatabaseMmrMMREntry *) nil_chk(entry_)) getData], mBlockTime_);
+  OrgMinimaDatabaseMmrMMRProof *proof = new_OrgMinimaDatabaseMmrMMRProof_initWithOrgMinimaObjectsBaseMiniInteger_withOrgMinimaDatabaseMmrMMRData_withOrgMinimaObjectsBaseMiniNumber_(zEntryNumber, [((OrgMinimaDatabaseMmrMMREntry *) nil_chk(entry_)) getData], mBlockTime_);
   [proof setHashBitLengthWithInt:MMR_HASH_BITS_];
   OrgMinimaDatabaseMmrMMREntry *sibling = OrgMinimaDatabaseMmrMMRSet_getEntryWithInt_withOrgMinimaObjectsBaseMiniInteger_(self, [entry_ getRow], [entry_ getSibling]);
   while (![((OrgMinimaDatabaseMmrMMREntry *) nil_chk(sibling)) isEmpty]) {
-    [proof addProofChunkWithOrgMinimaObjectsBaseMiniByte:create_OrgMinimaObjectsBaseMiniByte_initWithBoolean_([sibling isLeft]) withOrgMinimaObjectsBaseMiniData:[sibling getHashValue] withOrgMinimaObjectsBaseMMRSumNumber:[((OrgMinimaDatabaseMmrMMRData *) nil_chk([sibling getData])) getValueSum]];
-    OrgMinimaDatabaseMmrMMREntry *parent = create_OrgMinimaDatabaseMmrMMREntry_initWithInt_withOrgMinimaObjectsBaseMiniInteger_([sibling getParentRow], [sibling getParentEntry]);
+    [proof addProofChunkWithOrgMinimaObjectsBaseMiniByte:new_OrgMinimaObjectsBaseMiniByte_initWithBoolean_([sibling isLeft]) withOrgMinimaObjectsBaseMiniData:[sibling getHashValue] withOrgMinimaObjectsBaseMMRSumNumber:[((OrgMinimaDatabaseMmrMMRData *) nil_chk([sibling getData])) getValueSum]];
+    OrgMinimaDatabaseMmrMMREntry *parent = new_OrgMinimaDatabaseMmrMMREntry_initWithInt_withOrgMinimaObjectsBaseMiniInteger_([sibling getParentRow], [sibling getParentEntry]);
     sibling = OrgMinimaDatabaseMmrMMRSet_getEntryWithInt_withOrgMinimaObjectsBaseMiniInteger_(self, [parent getRow], [parent getSibling]);
   }
   return proof;
@@ -430,7 +425,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   if (mFinalized_) {
     return mFinalizedPeaks_;
   }
-  JavaUtilArrayList *peaks = create_JavaUtilArrayList_init();
+  JavaUtilArrayList *peaks = new_JavaUtilArrayList_init();
   for (jint i = mMaxRow_; i >= 0; i--) {
     OrgMinimaDatabaseMmrMMREntry *max = IOSObjectArray_Get(nil_chk(mMaxEntries_), i);
     if (max != nil) {
@@ -448,27 +443,25 @@ J2OBJC_IGNORE_DESIGNATED_END
   }
   JavaUtilArrayList *peaks = [self getMMRPeaks];
   while ([((JavaUtilArrayList *) nil_chk(peaks)) size] > 1) {
-    OrgMinimaDatabaseMmrMMRSet *newmmr = create_OrgMinimaDatabaseMmrMMRSet_initWithInt_(MMR_HASH_BITS_);
+    OrgMinimaDatabaseMmrMMRSet *newmmr = new_OrgMinimaDatabaseMmrMMRSet_initWithInt_(MMR_HASH_BITS_);
     for (OrgMinimaDatabaseMmrMMREntry * __strong peak in peaks) {
-      [newmmr addUnspentCoinWithOrgMinimaDatabaseMmrMMRData:create_OrgMinimaDatabaseMmrMMRData_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMMRSumNumber_([((OrgMinimaDatabaseMmrMMREntry *) nil_chk(peak)) getHashValue], [((OrgMinimaDatabaseMmrMMRData *) nil_chk([peak getData])) getValueSum])];
+      (void) [newmmr addUnspentCoinWithOrgMinimaDatabaseMmrMMRData:new_OrgMinimaDatabaseMmrMMRData_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMMRSumNumber_([((OrgMinimaDatabaseMmrMMREntry *) nil_chk(peak)) getHashValue], [((OrgMinimaDatabaseMmrMMRData *) nil_chk([peak getData])) getValueSum])];
     }
     peaks = [newmmr getMMRPeaks];
   }
   return [((OrgMinimaDatabaseMmrMMREntry *) nil_chk([peaks getWithInt:0])) getData];
 }
 
-- (JavaUtilArrayList *)getKeepers {
-  return mKeepers_;
+- (jboolean)addKeeperWithOrgMinimaObjectsBaseMiniInteger:(OrgMinimaObjectsBaseMiniInteger *)zEntry {
+  if (![self isKeptAllreadyWithOrgMinimaObjectsBaseMiniInteger:zEntry]) {
+    [((JavaUtilArrayList *) nil_chk(mKeepers_)) addWithId:zEntry];
+    return true;
+  }
+  return false;
 }
 
-- (OrgMinimaDatabaseMmrMMRSet *)getParentAtTimeWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zTime {
-  if ([((OrgMinimaObjectsBaseMiniNumber *) nil_chk(mBlockTime_)) isEqualWithOrgMinimaObjectsBaseMiniNumber:zTime]) {
-    return self;
-  }
-  if (mParent_ != nil) {
-    return [mParent_ getParentAtTimeWithOrgMinimaObjectsBaseMiniNumber:zTime];
-  }
-  return nil;
+- (JavaUtilArrayList *)getKeepers {
+  return mKeepers_;
 }
 
 - (jboolean)isKeptAllreadyWithOrgMinimaObjectsBaseMiniInteger:(OrgMinimaObjectsBaseMiniInteger *)zNumber {
@@ -481,19 +474,19 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (void)copyParentKeepers {
-  JavaUtilArrayList *keepers = create_JavaUtilArrayList_init();
+  JavaUtilArrayList *parentkeepers = new_JavaUtilArrayList_init();
   if (mParent_ != nil) {
-    keepers = [mParent_ getKeepers];
+    parentkeepers = [mParent_ getKeepers];
   }
-  JavaUtilArrayList *newkeepers = create_JavaUtilArrayList_init();
+  JavaUtilArrayList *newkeepers = new_JavaUtilArrayList_init();
   for (OrgMinimaObjectsBaseMiniInteger * __strong keep in nil_chk(mKeepers_)) {
     OrgMinimaDatabaseMmrMMREntry *entry_ = OrgMinimaDatabaseMmrMMRSet_getEntryWithInt_withOrgMinimaObjectsBaseMiniInteger_(self, 0, keep);
     if (![((OrgMinimaDatabaseMmrMMRData *) nil_chk([((OrgMinimaDatabaseMmrMMREntry *) nil_chk(entry_)) getData])) isSpent]) {
       [newkeepers addWithId:keep];
     }
   }
-  JreStrongAssign(&mKeepers_, newkeepers);
-  for (OrgMinimaObjectsBaseMiniInteger * __strong keep in nil_chk(keepers)) {
+  mKeepers_ = newkeepers;
+  for (OrgMinimaObjectsBaseMiniInteger * __strong keep in nil_chk(parentkeepers)) {
     OrgMinimaDatabaseMmrMMREntry *entry_ = OrgMinimaDatabaseMmrMMRSet_getEntryWithInt_withOrgMinimaObjectsBaseMiniInteger_(self, 0, keep);
     if ([((OrgMinimaDatabaseMmrMMREntry *) nil_chk(entry_)) isEmpty] || [((OrgMinimaDatabaseMmrMMRData *) nil_chk([entry_ getData])) isHashOnly]) {
       [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out))) printlnWithNSString:JreStrcat("$@", @"copyKeepers on NULL Keeper Entry! ", keep)];
@@ -502,18 +495,16 @@ J2OBJC_IGNORE_DESIGNATED_END
     if ([((OrgMinimaDatabaseMmrMMRData *) nil_chk([entry_ getData])) isSpent]) {
       continue;
     }
-    if (![self isKeptAllreadyWithOrgMinimaObjectsBaseMiniInteger:keep]) {
-      [((JavaUtilArrayList *) nil_chk(mKeepers_)) addWithId:keep];
-      entry_ = OrgMinimaDatabaseMmrMMRSet_setEntryWithInt_withOrgMinimaObjectsBaseMiniInteger_withOrgMinimaDatabaseMmrMMRData_(self, 0, keep, [entry_ getData]);
-      OrgMinimaDatabaseMmrMMREntry *sibling = OrgMinimaDatabaseMmrMMRSet_getEntryWithInt_withOrgMinimaObjectsBaseMiniInteger_(self, [((OrgMinimaDatabaseMmrMMREntry *) nil_chk(entry_)) getRow], [entry_ getSibling]);
-      while (![((OrgMinimaDatabaseMmrMMREntry *) nil_chk(sibling)) isEmpty]) {
-        OrgMinimaDatabaseMmrMMRSet_setEntryWithInt_withOrgMinimaObjectsBaseMiniInteger_withOrgMinimaDatabaseMmrMMRData_(self, [sibling getRow], [sibling getEntry], [sibling getData]);
-        OrgMinimaDatabaseMmrMMREntry *parent = create_OrgMinimaDatabaseMmrMMREntry_initWithInt_withOrgMinimaObjectsBaseMiniInteger_([sibling getParentRow], [sibling getParentEntry]);
-        sibling = OrgMinimaDatabaseMmrMMRSet_getEntryWithInt_withOrgMinimaObjectsBaseMiniInteger_(self, [parent getRow], [parent getSibling]);
-      }
+    jboolean added = [self addKeeperWithOrgMinimaObjectsBaseMiniInteger:keep];
+    entry_ = OrgMinimaDatabaseMmrMMRSet_setEntryWithInt_withOrgMinimaObjectsBaseMiniInteger_withOrgMinimaDatabaseMmrMMRData_(self, 0, keep, [entry_ getData]);
+    OrgMinimaDatabaseMmrMMREntry *sibling = OrgMinimaDatabaseMmrMMRSet_getEntryWithInt_withOrgMinimaObjectsBaseMiniInteger_(self, [((OrgMinimaDatabaseMmrMMREntry *) nil_chk(entry_)) getRow], [entry_ getSibling]);
+    while (![((OrgMinimaDatabaseMmrMMREntry *) nil_chk(sibling)) isEmpty]) {
+      (void) OrgMinimaDatabaseMmrMMRSet_setEntryWithInt_withOrgMinimaObjectsBaseMiniInteger_withOrgMinimaDatabaseMmrMMRData_(self, [sibling getRow], [sibling getEntry], [sibling getData]);
+      OrgMinimaDatabaseMmrMMREntry *parent = new_OrgMinimaDatabaseMmrMMREntry_initWithInt_withOrgMinimaObjectsBaseMiniInteger_([sibling getParentRow], [sibling getParentEntry]);
+      sibling = OrgMinimaDatabaseMmrMMRSet_getEntryWithInt_withOrgMinimaObjectsBaseMiniInteger_(self, [parent getRow], [parent getSibling]);
     }
   }
-  JreStrongAssign(&mParent_, nil);
+  mParent_ = nil;
   [self finalizeSet];
 }
 
@@ -522,6 +513,16 @@ J2OBJC_IGNORE_DESIGNATED_END
     return self;
   }
   return [mParent_ getRootParent];
+}
+
+- (OrgMinimaDatabaseMmrMMRSet *)getParentAtTimeWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zTime {
+  if ([((OrgMinimaObjectsBaseMiniNumber *) nil_chk(mBlockTime_)) isEqualWithOrgMinimaObjectsBaseMiniNumber:zTime]) {
+    return self;
+  }
+  if (mParent_ != nil) {
+    return [mParent_ getParentAtTimeWithOrgMinimaObjectsBaseMiniNumber:zTime];
+  }
+  return nil;
 }
 
 - (OrgMinimaDatabaseMmrMMRSet *)getPenultimateParent {
@@ -552,14 +553,14 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (void)readDataStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn {
-  JreStrongAssign(&mBlockTime_, OrgMinimaObjectsBaseMiniNumber_ReadFromStreamWithJavaIoDataInputStream_(zIn));
-  JreStrongAssign(&mEntryNumber_, OrgMinimaObjectsBaseMiniInteger_ReadFromStreamWithJavaIoDataInputStream_(zIn));
-  JreStrongAssignAndConsume(&mEntries_, new_JavaUtilArrayList_init());
-  JreStrongAssignAndConsume(&mMaxEntries_, [IOSObjectArray newArrayWithLength:256 type:OrgMinimaDatabaseMmrMMREntry_class_()]);
+  mBlockTime_ = OrgMinimaObjectsBaseMiniNumber_ReadFromStreamWithJavaIoDataInputStream_(zIn);
+  mEntryNumber_ = OrgMinimaObjectsBaseMiniInteger_ReadFromStreamWithJavaIoDataInputStream_(zIn);
+  mEntries_ = new_JavaUtilArrayList_init();
+  mMaxEntries_ = [IOSObjectArray newArrayWithLength:256 type:OrgMinimaDatabaseMmrMMREntry_class_()];
   mMaxRow_ = 0;
   jint len = [((JavaIoDataInputStream *) nil_chk(zIn)) readInt];
   for (jint i = 0; i < len; i++) {
-    OrgMinimaDatabaseMmrMMREntry *entry_ = create_OrgMinimaDatabaseMmrMMREntry_initWithInt_withOrgMinimaObjectsBaseMiniInteger_(0, nil);
+    OrgMinimaDatabaseMmrMMREntry *entry_ = new_OrgMinimaDatabaseMmrMMREntry_initWithInt_withOrgMinimaObjectsBaseMiniInteger_(0, nil);
     [entry_ readDataStreamWithJavaIoDataInputStream:zIn];
     [entry_ setBlockTimeWithOrgMinimaObjectsBaseMiniNumber:mBlockTime_];
     if (![entry_ isEmpty]) {
@@ -568,28 +569,15 @@ J2OBJC_IGNORE_DESIGNATED_END
         mMaxRow_ = row;
       }
       if (IOSObjectArray_Get(nil_chk(mMaxEntries_), row) == nil) {
-        IOSObjectArray_Set(mMaxEntries_, row, entry_);
+        (void) IOSObjectArray_Set(mMaxEntries_, row, entry_);
       }
       else if ([((OrgMinimaObjectsBaseMiniInteger *) nil_chk([((OrgMinimaDatabaseMmrMMREntry *) nil_chk(IOSObjectArray_Get(mMaxEntries_, row))) getEntry])) isLessWithOrgMinimaObjectsBaseMiniInteger:[entry_ getEntry]]) {
-        IOSObjectArray_Set(nil_chk(mMaxEntries_), row, entry_);
+        (void) IOSObjectArray_Set(nil_chk(mMaxEntries_), row, entry_);
       }
       [((JavaUtilArrayList *) nil_chk(mEntries_)) addWithId:entry_];
     }
   }
   [self finalizeSet];
-}
-
-- (void)dealloc {
-  RELEASE_(mBlockTime_);
-  RELEASE_(mParent_);
-  RELEASE_(mEntryNumber_);
-  RELEASE_(mEntries_);
-  RELEASE_(mMaxEntries_);
-  RELEASE_(mKeepers_);
-  RELEASE_(mFinalizedRoot_);
-  RELEASE_(mFinalizedPeaks_);
-  RELEASE_(mFinalizedZeroRow_);
-  [super dealloc];
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -601,37 +589,37 @@ J2OBJC_IGNORE_DESIGNATED_END
     { NULL, "V", 0x1, 3, 1, -1, -1, -1, -1 },
     { NULL, "V", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "Z", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 4, 5, -1, -1, -1, -1 },
+    { NULL, "V", 0x2, 4, 5, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 6, 7, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaDatabaseMmrMMRSet;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x2, -1, -1, -1, -1, -1, -1 },
     { NULL, "I", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "I", 0x1, 8, 9, -1, -1, -1, -1 },
-    { NULL, "LJavaUtilArrayList;", 0x1, 10, 0, -1, 11, -1, -1 },
-    { NULL, "LJavaUtilArrayList;", 0x1, -1, -1, -1, 12, -1, -1 },
+    { NULL, "I", 0x1, 6, 7, -1, -1, -1, -1 },
+    { NULL, "LJavaUtilArrayList;", 0x1, 8, 0, -1, 9, -1, -1 },
+    { NULL, "LJavaUtilArrayList;", 0x1, -1, -1, -1, 10, -1, -1 },
+    { NULL, "LOrgMinimaDatabaseMmrMMREntry;", 0x1, 11, 12, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaDatabaseMmrMMREntry;", 0x1, 13, 14, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaDatabaseMmrMMREntry;", 0x1, 15, 16, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaDatabaseMmrMMREntry;", 0x2, 15, 16, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaDatabaseMmrMMREntry;", 0x2, 17, 18, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaDatabaseMmrMMREntry;", 0x2, 19, 20, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaDatabaseMmrMMREntry;", 0x1, 19, 20, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaDatabaseMmrMMREntry;", 0x1, 21, 22, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaDatabaseMmrMMREntry;", 0x1, 23, 24, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaDatabaseMmrMMREntry;", 0x1, 25, 24, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaDatabaseMmrMMRProof;", 0x1, 26, 7, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaDatabaseMmrMMRProof;", 0x2, 27, 28, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaDatabaseMmrMMRProof;", 0x1, 29, 7, -1, -1, -1, -1 },
-    { NULL, "Z", 0x1, 30, 24, -1, -1, -1, -1 },
-    { NULL, "LJavaUtilArrayList;", 0x1, -1, -1, -1, 12, -1, -1 },
+    { NULL, "LOrgMinimaDatabaseMmrMMREntry;", 0x1, 23, 22, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaDatabaseMmrMMRProof;", 0x1, 24, 25, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaDatabaseMmrMMRProof;", 0x2, 26, 14, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaDatabaseMmrMMRProof;", 0x1, 27, 25, -1, -1, -1, -1 },
+    { NULL, "Z", 0x1, 28, 22, -1, -1, -1, -1 },
+    { NULL, "LJavaUtilArrayList;", 0x1, -1, -1, -1, 10, -1, -1 },
     { NULL, "LOrgMinimaDatabaseMmrMMRData;", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LJavaUtilArrayList;", 0x1, -1, -1, -1, 31, -1, -1 },
-    { NULL, "LOrgMinimaDatabaseMmrMMRSet;", 0x1, 32, 5, -1, -1, -1, -1 },
-    { NULL, "Z", 0x1, 33, 7, -1, -1, -1, -1 },
+    { NULL, "Z", 0x1, 29, 25, -1, -1, -1, -1 },
+    { NULL, "LJavaUtilArrayList;", 0x1, -1, -1, -1, 30, -1, -1 },
+    { NULL, "Z", 0x1, 31, 25, -1, -1, -1, -1 },
     { NULL, "V", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaDatabaseMmrMMRSet;", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaDatabaseMmrMMRSet;", 0x1, 32, 5, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaDatabaseMmrMMRSet;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "I", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 34, 35, 36, -1, -1, -1 },
-    { NULL, "V", 0x1, 37, 38, 36, -1, -1, -1 },
+    { NULL, "V", 0x1, 33, 34, 35, -1, -1, -1 },
+    { NULL, "V", 0x1, 36, 37, 35, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
@@ -645,31 +633,31 @@ J2OBJC_IGNORE_DESIGNATED_END
   methods[6].selector = @selector(isFinalized);
   methods[7].selector = @selector(setBlockTimeWithOrgMinimaObjectsBaseMiniNumber:);
   methods[8].selector = @selector(getBlockTime);
-  methods[9].selector = @selector(addKeeperWithOrgMinimaObjectsBaseMiniInteger:);
-  methods[10].selector = @selector(getParent);
-  methods[11].selector = @selector(incrementEntryNumber);
-  methods[12].selector = @selector(getMaxRow);
-  methods[13].selector = @selector(getMaxRowWithBoolean:);
-  methods[14].selector = @selector(getRowWithInt:);
-  methods[15].selector = @selector(getZeroRow);
-  methods[16].selector = @selector(searchAddressWithOrgMinimaObjectsBaseMiniData:withOrgMinimaObjectsBaseMiniNumber:withOrgMinimaObjectsBaseMiniData:);
-  methods[17].selector = @selector(findEntryWithOrgMinimaObjectsBaseMiniData:withBoolean:);
-  methods[18].selector = @selector(setEntryWithInt:withOrgMinimaObjectsBaseMiniInteger:withOrgMinimaDatabaseMmrMMRData:);
-  methods[19].selector = @selector(getEntryWithInt:withOrgMinimaObjectsBaseMiniInteger:);
-  methods[20].selector = @selector(addUnspentCoinWithOrgMinimaDatabaseMmrMMRData:);
-  methods[21].selector = @selector(addExternalUnspentCoinWithOrgMinimaDatabaseMmrMMRProof:);
-  methods[22].selector = @selector(updateSpentCoinWithOrgMinimaDatabaseMmrMMRProof:);
-  methods[23].selector = @selector(getProofWithOrgMinimaObjectsBaseMiniInteger:);
-  methods[24].selector = @selector(getPeakToRootWithOrgMinimaObjectsBaseMiniData:);
-  methods[25].selector = @selector(getFullProofToRootWithOrgMinimaObjectsBaseMiniInteger:);
-  methods[26].selector = @selector(checkProofWithOrgMinimaDatabaseMmrMMRProof:);
-  methods[27].selector = @selector(getMMRPeaks);
-  methods[28].selector = @selector(getMMRRoot);
+  methods[9].selector = @selector(getParent);
+  methods[10].selector = @selector(incrementEntryNumber);
+  methods[11].selector = @selector(getMaxRow);
+  methods[12].selector = @selector(getMaxRowWithBoolean:);
+  methods[13].selector = @selector(getRowWithInt:);
+  methods[14].selector = @selector(getZeroRow);
+  methods[15].selector = @selector(searchAddressWithOrgMinimaObjectsBaseMiniData:withOrgMinimaObjectsBaseMiniNumber:withOrgMinimaObjectsBaseMiniData:);
+  methods[16].selector = @selector(findEntryWithOrgMinimaObjectsBaseMiniData:);
+  methods[17].selector = @selector(setEntryWithInt:withOrgMinimaObjectsBaseMiniInteger:withOrgMinimaDatabaseMmrMMRData:);
+  methods[18].selector = @selector(getEntryWithInt:withOrgMinimaObjectsBaseMiniInteger:);
+  methods[19].selector = @selector(addUnspentCoinWithOrgMinimaDatabaseMmrMMRData:);
+  methods[20].selector = @selector(addExternalUnspentCoinWithOrgMinimaDatabaseMmrMMRProof:);
+  methods[21].selector = @selector(updateSpentCoinWithOrgMinimaDatabaseMmrMMRProof:);
+  methods[22].selector = @selector(getProofWithOrgMinimaObjectsBaseMiniInteger:);
+  methods[23].selector = @selector(getPeakToRootWithOrgMinimaObjectsBaseMiniData:);
+  methods[24].selector = @selector(getFullProofToRootWithOrgMinimaObjectsBaseMiniInteger:);
+  methods[25].selector = @selector(checkProofWithOrgMinimaDatabaseMmrMMRProof:);
+  methods[26].selector = @selector(getMMRPeaks);
+  methods[27].selector = @selector(getMMRRoot);
+  methods[28].selector = @selector(addKeeperWithOrgMinimaObjectsBaseMiniInteger:);
   methods[29].selector = @selector(getKeepers);
-  methods[30].selector = @selector(getParentAtTimeWithOrgMinimaObjectsBaseMiniNumber:);
-  methods[31].selector = @selector(isKeptAllreadyWithOrgMinimaObjectsBaseMiniInteger:);
-  methods[32].selector = @selector(copyParentKeepers);
-  methods[33].selector = @selector(getRootParent);
+  methods[30].selector = @selector(isKeptAllreadyWithOrgMinimaObjectsBaseMiniInteger:);
+  methods[31].selector = @selector(copyParentKeepers);
+  methods[32].selector = @selector(getRootParent);
+  methods[33].selector = @selector(getParentAtTimeWithOrgMinimaObjectsBaseMiniNumber:);
   methods[34].selector = @selector(getPenultimateParent);
   methods[35].selector = @selector(getParentLength);
   methods[36].selector = @selector(writeDataStreamWithJavaIoDataOutputStream:);
@@ -679,17 +667,17 @@ J2OBJC_IGNORE_DESIGNATED_END
     { "mBlockTime_", "LOrgMinimaObjectsBaseMiniNumber;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mParent_", "LOrgMinimaDatabaseMmrMMRSet;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mEntryNumber_", "LOrgMinimaObjectsBaseMiniInteger;", .constantValue.asLong = 0, 0x1, -1, -1, -1, -1 },
-    { "mEntries_", "LJavaUtilArrayList;", .constantValue.asLong = 0, 0x0, -1, -1, 39, -1 },
+    { "mEntries_", "LJavaUtilArrayList;", .constantValue.asLong = 0, 0x0, -1, -1, 38, -1 },
     { "mMaxRow_", "I", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mMaxEntries_", "[LOrgMinimaDatabaseMmrMMREntry;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
-    { "mKeepers_", "LJavaUtilArrayList;", .constantValue.asLong = 0, 0x0, -1, -1, 40, -1 },
+    { "mKeepers_", "LJavaUtilArrayList;", .constantValue.asLong = 0, 0x0, -1, -1, 39, -1 },
     { "mFinalized_", "Z", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mFinalizedRoot_", "LOrgMinimaDatabaseMmrMMRData;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
-    { "mFinalizedPeaks_", "LJavaUtilArrayList;", .constantValue.asLong = 0, 0x0, -1, -1, 39, -1 },
-    { "mFinalizedZeroRow_", "LJavaUtilArrayList;", .constantValue.asLong = 0, 0x0, -1, -1, 39, -1 },
+    { "mFinalizedPeaks_", "LJavaUtilArrayList;", .constantValue.asLong = 0, 0x0, -1, -1, 38, -1 },
+    { "mFinalizedZeroRow_", "LJavaUtilArrayList;", .constantValue.asLong = 0, 0x0, -1, -1, 38, -1 },
     { "MMR_HASH_BITS_", "I", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
   };
-  static const void *ptrTable[] = { "I", "LOrgMinimaDatabaseMmrMMRSet;", "LOrgMinimaDatabaseMmrMMRSet;I", "setParent", "setBlockTime", "LOrgMinimaObjectsBaseMiniNumber;", "addKeeper", "LOrgMinimaObjectsBaseMiniInteger;", "getMaxRow", "Z", "getRow", "(I)Ljava/util/ArrayList<Lorg/minima/database/mmr/MMREntry;>;", "()Ljava/util/ArrayList<Lorg/minima/database/mmr/MMREntry;>;", "searchAddress", "LOrgMinimaObjectsBaseMiniData;LOrgMinimaObjectsBaseMiniNumber;LOrgMinimaObjectsBaseMiniData;", "findEntry", "LOrgMinimaObjectsBaseMiniData;Z", "setEntry", "ILOrgMinimaObjectsBaseMiniInteger;LOrgMinimaDatabaseMmrMMRData;", "getEntry", "ILOrgMinimaObjectsBaseMiniInteger;", "addUnspentCoin", "LOrgMinimaDatabaseMmrMMRData;", "addExternalUnspentCoin", "LOrgMinimaDatabaseMmrMMRProof;", "updateSpentCoin", "getProof", "getPeakToRoot", "LOrgMinimaObjectsBaseMiniData;", "getFullProofToRoot", "checkProof", "()Ljava/util/ArrayList<Lorg/minima/objects/base/MiniInteger;>;", "getParentAtTime", "isKeptAllready", "writeDataStream", "LJavaIoDataOutputStream;", "LJavaIoIOException;", "readDataStream", "LJavaIoDataInputStream;", "Ljava/util/ArrayList<Lorg/minima/database/mmr/MMREntry;>;", "Ljava/util/ArrayList<Lorg/minima/objects/base/MiniInteger;>;" };
+  static const void *ptrTable[] = { "I", "LOrgMinimaDatabaseMmrMMRSet;", "LOrgMinimaDatabaseMmrMMRSet;I", "setParent", "setBlockTime", "LOrgMinimaObjectsBaseMiniNumber;", "getMaxRow", "Z", "getRow", "(I)Ljava/util/ArrayList<Lorg/minima/database/mmr/MMREntry;>;", "()Ljava/util/ArrayList<Lorg/minima/database/mmr/MMREntry;>;", "searchAddress", "LOrgMinimaObjectsBaseMiniData;LOrgMinimaObjectsBaseMiniNumber;LOrgMinimaObjectsBaseMiniData;", "findEntry", "LOrgMinimaObjectsBaseMiniData;", "setEntry", "ILOrgMinimaObjectsBaseMiniInteger;LOrgMinimaDatabaseMmrMMRData;", "getEntry", "ILOrgMinimaObjectsBaseMiniInteger;", "addUnspentCoin", "LOrgMinimaDatabaseMmrMMRData;", "addExternalUnspentCoin", "LOrgMinimaDatabaseMmrMMRProof;", "updateSpentCoin", "getProof", "LOrgMinimaObjectsBaseMiniInteger;", "getPeakToRoot", "getFullProofToRoot", "checkProof", "addKeeper", "()Ljava/util/ArrayList<Lorg/minima/objects/base/MiniInteger;>;", "isKeptAllready", "getParentAtTime", "writeDataStream", "LJavaIoDataOutputStream;", "LJavaIoIOException;", "readDataStream", "LJavaIoDataInputStream;", "Ljava/util/ArrayList<Lorg/minima/database/mmr/MMREntry;>;", "Ljava/util/ArrayList<Lorg/minima/objects/base/MiniInteger;>;" };
   static const J2ObjcClassInfo _OrgMinimaDatabaseMmrMMRSet = { "MMRSet", "org.minima.database.mmr", ptrTable, methods, fields, 7, 0x1, 38, 12, -1, -1, -1, -1, -1 };
   return &_OrgMinimaDatabaseMmrMMRSet;
 }
@@ -734,31 +722,31 @@ OrgMinimaDatabaseMmrMMRSet *create_OrgMinimaDatabaseMmrMMRSet_initWithOrgMinimaD
 
 void OrgMinimaDatabaseMmrMMRSet_initWithOrgMinimaDatabaseMmrMMRSet_withInt_(OrgMinimaDatabaseMmrMMRSet *self, OrgMinimaDatabaseMmrMMRSet *zParent, jint zBitLength) {
   NSObject_init(self);
-  JreStrongAssignAndConsume(&self->mBlockTime_, new_OrgMinimaObjectsBaseMiniNumber_initWithInt_(0));
-  JreStrongAssign(&self->mParent_, nil);
-  JreStrongAssignAndConsume(&self->mEntryNumber_, new_OrgMinimaObjectsBaseMiniInteger_initWithInt_(0));
+  self->mBlockTime_ = new_OrgMinimaObjectsBaseMiniNumber_initWithInt_(0);
+  self->mParent_ = nil;
+  self->mEntryNumber_ = new_OrgMinimaObjectsBaseMiniInteger_initWithInt_(0);
   self->mMaxRow_ = 0;
   self->MMR_HASH_BITS_ = 512;
-  JreStrongAssignAndConsume(&self->mEntries_, new_JavaUtilArrayList_init());
-  JreStrongAssignAndConsume(&self->mMaxEntries_, [IOSObjectArray newArrayWithLength:256 type:OrgMinimaDatabaseMmrMMREntry_class_()]);
+  self->mEntries_ = new_JavaUtilArrayList_init();
+  self->mMaxEntries_ = [IOSObjectArray newArrayWithLength:256 type:OrgMinimaDatabaseMmrMMREntry_class_()];
   self->mMaxRow_ = 0;
-  JreStrongAssign(&self->mParent_, zParent);
-  JreStrongAssignAndConsume(&self->mKeepers_, new_JavaUtilArrayList_init());
+  self->mParent_ = zParent;
+  self->mKeepers_ = new_JavaUtilArrayList_init();
   self->mFinalized_ = false;
   self->MMR_HASH_BITS_ = zBitLength;
   if (self->mParent_ != nil) {
     if (![self->mParent_ isFinalized]) {
       [((OrgMinimaDatabaseMmrMMRSet *) nil_chk(self->mParent_)) finalizeSet];
     }
-    [self setBlockTimeWithOrgMinimaObjectsBaseMiniNumber:[((OrgMinimaObjectsBaseMiniNumber *) nil_chk([((OrgMinimaDatabaseMmrMMRSet *) nil_chk(self->mParent_)) getBlockTime])) addWithOrgMinimaObjectsBaseMiniNumber:JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, ONE)]];
+    OrgMinimaDatabaseMmrMMRSet_setBlockTimeWithOrgMinimaObjectsBaseMiniNumber_(self, [((OrgMinimaObjectsBaseMiniNumber *) nil_chk([((OrgMinimaDatabaseMmrMMRSet *) nil_chk(self->mParent_)) getBlockTime])) addWithOrgMinimaObjectsBaseMiniNumber:JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, ONE)]);
     JavaMathBigInteger *tot = JreLoadStatic(JavaMathBigInteger, ZERO);
-    JavaMathBigInteger *two = create_JavaMathBigInteger_initWithNSString_(@"2");
+    JavaMathBigInteger *two = new_JavaMathBigInteger_initWithNSString_(@"2");
     JavaUtilArrayList *peaks = [((OrgMinimaDatabaseMmrMMRSet *) nil_chk(self->mParent_)) getMMRPeaks];
     for (OrgMinimaDatabaseMmrMMREntry * __strong peak in nil_chk(peaks)) {
-      OrgMinimaDatabaseMmrMMRSet_setEntryWithInt_withOrgMinimaObjectsBaseMiniInteger_withOrgMinimaDatabaseMmrMMRData_(self, [((OrgMinimaDatabaseMmrMMREntry *) nil_chk(peak)) getRow], [peak getEntry], [peak getData]);
+      (void) OrgMinimaDatabaseMmrMMRSet_setEntryWithInt_withOrgMinimaObjectsBaseMiniInteger_withOrgMinimaDatabaseMmrMMRData_(self, [((OrgMinimaDatabaseMmrMMREntry *) nil_chk(peak)) getRow], [peak getEntry], [peak getData]);
       tot = [((JavaMathBigInteger *) nil_chk(tot)) addWithJavaMathBigInteger:[two powWithInt:[peak getRow]]];
     }
-    JreStrongAssignAndConsume(&self->mEntryNumber_, new_OrgMinimaObjectsBaseMiniInteger_initWithJavaMathBigInteger_(tot));
+    self->mEntryNumber_ = new_OrgMinimaObjectsBaseMiniInteger_initWithJavaMathBigInteger_(tot);
     if (![self->mEntryNumber_ isEqualWithOrgMinimaObjectsBaseMiniInteger:((OrgMinimaDatabaseMmrMMRSet *) nil_chk(self->mParent_))->mEntryNumber_]) {
       OrgMinimaUtilsMinimaLogger_logWithNSString_(JreStrcat("$@C@", @"SERIOUS ERROR - Entry Number Mismatch! ", self->mEntryNumber_, '/', ((OrgMinimaDatabaseMmrMMRSet *) nil_chk(self->mParent_))->mEntryNumber_));
     }
@@ -773,8 +761,12 @@ OrgMinimaDatabaseMmrMMRSet *create_OrgMinimaDatabaseMmrMMRSet_initWithOrgMinimaD
   J2OBJC_CREATE_IMPL(OrgMinimaDatabaseMmrMMRSet, initWithOrgMinimaDatabaseMmrMMRSet_withInt_, zParent, zBitLength)
 }
 
+void OrgMinimaDatabaseMmrMMRSet_setBlockTimeWithOrgMinimaObjectsBaseMiniNumber_(OrgMinimaDatabaseMmrMMRSet *self, OrgMinimaObjectsBaseMiniNumber *zTime) {
+  self->mBlockTime_ = zTime;
+}
+
 void OrgMinimaDatabaseMmrMMRSet_incrementEntryNumber(OrgMinimaDatabaseMmrMMRSet *self) {
-  JreStrongAssign(&self->mEntryNumber_, [((OrgMinimaObjectsBaseMiniInteger *) nil_chk(self->mEntryNumber_)) increment]);
+  self->mEntryNumber_ = [((OrgMinimaObjectsBaseMiniInteger *) nil_chk(self->mEntryNumber_)) increment];
 }
 
 OrgMinimaDatabaseMmrMMREntry *OrgMinimaDatabaseMmrMMRSet_setEntryWithInt_withOrgMinimaObjectsBaseMiniInteger_withOrgMinimaDatabaseMmrMMRData_(OrgMinimaDatabaseMmrMMRSet *self, jint zRow, OrgMinimaObjectsBaseMiniInteger *zEntry, OrgMinimaDatabaseMmrMMRData *zData) {
@@ -789,16 +781,16 @@ OrgMinimaDatabaseMmrMMREntry *OrgMinimaDatabaseMmrMMRSet_setEntryWithInt_withOrg
     }
   }
   if (entry_ == nil) {
-    entry_ = create_OrgMinimaDatabaseMmrMMREntry_initWithInt_withOrgMinimaObjectsBaseMiniInteger_(zRow, zEntry);
+    entry_ = new_OrgMinimaDatabaseMmrMMREntry_initWithInt_withOrgMinimaObjectsBaseMiniInteger_(zRow, zEntry);
     [entry_ setBlockTimeWithOrgMinimaObjectsBaseMiniNumber:[self getBlockTime]];
     [((JavaUtilArrayList *) nil_chk(self->mEntries_)) addWithId:entry_];
   }
   [entry_ setDataWithOrgMinimaDatabaseMmrMMRData:zData];
   if (IOSObjectArray_Get(nil_chk(self->mMaxEntries_), zRow) == nil) {
-    IOSObjectArray_Set(self->mMaxEntries_, zRow, entry_);
+    (void) IOSObjectArray_Set(self->mMaxEntries_, zRow, entry_);
   }
   else if ([((OrgMinimaObjectsBaseMiniInteger *) nil_chk([((OrgMinimaDatabaseMmrMMREntry *) nil_chk(IOSObjectArray_Get(self->mMaxEntries_, zRow))) getEntry])) isLessWithOrgMinimaObjectsBaseMiniInteger:zEntry]) {
-    IOSObjectArray_Set(nil_chk(self->mMaxEntries_), zRow, entry_);
+    (void) IOSObjectArray_Set(nil_chk(self->mMaxEntries_), zRow, entry_);
   }
   return entry_;
 }
@@ -815,26 +807,26 @@ OrgMinimaDatabaseMmrMMREntry *OrgMinimaDatabaseMmrMMRSet_getEntryWithInt_withOrg
       return entry_;
     }
   }
-  OrgMinimaDatabaseMmrMMREntry *entry_ = create_OrgMinimaDatabaseMmrMMREntry_initWithInt_withOrgMinimaObjectsBaseMiniInteger_(zRow, zEntry);
+  OrgMinimaDatabaseMmrMMREntry *entry_ = new_OrgMinimaDatabaseMmrMMREntry_initWithInt_withOrgMinimaObjectsBaseMiniInteger_(zRow, zEntry);
   [entry_ setBlockTimeWithOrgMinimaObjectsBaseMiniNumber:[self getBlockTime]];
   return entry_;
 }
 
 OrgMinimaDatabaseMmrMMRProof *OrgMinimaDatabaseMmrMMRSet_getPeakToRootWithOrgMinimaObjectsBaseMiniData_(OrgMinimaDatabaseMmrMMRSet *self, OrgMinimaObjectsBaseMiniData *zPeak) {
-  OrgMinimaDatabaseMmrMMRProof *totalproof = create_OrgMinimaDatabaseMmrMMRProof_init();
+  OrgMinimaDatabaseMmrMMRProof *totalproof = new_OrgMinimaDatabaseMmrMMRProof_init();
   [totalproof setHashBitLengthWithInt:self->MMR_HASH_BITS_];
   JavaUtilArrayList *peaks = [self getMMRPeaks];
   OrgMinimaDatabaseMmrMMREntry *keeper = nil;
   OrgMinimaObjectsBaseMiniData *keepvalue = zPeak;
   while ([((JavaUtilArrayList *) nil_chk(peaks)) size] > 1) {
-    OrgMinimaDatabaseMmrMMRSet *newmmr = create_OrgMinimaDatabaseMmrMMRSet_initWithInt_(self->MMR_HASH_BITS_);
+    OrgMinimaDatabaseMmrMMRSet *newmmr = new_OrgMinimaDatabaseMmrMMRSet_initWithInt_(self->MMR_HASH_BITS_);
     for (OrgMinimaDatabaseMmrMMREntry * __strong peak in peaks) {
-      OrgMinimaDatabaseMmrMMRData *data = create_OrgMinimaDatabaseMmrMMRData_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMMRSumNumber_([((OrgMinimaDatabaseMmrMMREntry *) nil_chk(peak)) getHashValue], [((OrgMinimaDatabaseMmrMMRData *) nil_chk([peak getData])) getValueSum]);
+      OrgMinimaDatabaseMmrMMRData *data = new_OrgMinimaDatabaseMmrMMRData_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMMRSumNumber_([((OrgMinimaDatabaseMmrMMREntry *) nil_chk(peak)) getHashValue], [((OrgMinimaDatabaseMmrMMRData *) nil_chk([peak getData])) getValueSum]);
       if ([((OrgMinimaObjectsBaseMiniData *) nil_chk([peak getHashValue])) isEqualWithOrgMinimaObjectsBaseMiniData:keepvalue]) {
         keeper = [newmmr addUnspentCoinWithOrgMinimaDatabaseMmrMMRData:data];
       }
       else {
-        [newmmr addUnspentCoinWithOrgMinimaDatabaseMmrMMRData:data];
+        (void) [newmmr addUnspentCoinWithOrgMinimaDatabaseMmrMMRData:data];
       }
     }
     OrgMinimaDatabaseMmrMMRProof *proof = [newmmr getProofWithOrgMinimaObjectsBaseMiniInteger:[((OrgMinimaDatabaseMmrMMREntry *) nil_chk(keeper)) getEntry]];

@@ -819,19 +819,19 @@ jboolean OrgMinimaUtilsDigestArrays_constantTimeAreEqualWithByteArray_withByteAr
 jboolean OrgMinimaUtilsDigestArrays_constantTimeAreEqualWithInt_withByteArray_withInt_withByteArray_withInt_(jint len, IOSByteArray *a, jint aOff, IOSByteArray *b, jint bOff) {
   OrgMinimaUtilsDigestArrays_initialize();
   if (nil == a) {
-    @throw create_JavaLangNullPointerException_initWithNSString_(@"'a' cannot be null");
+    @throw new_JavaLangNullPointerException_initWithNSString_(@"'a' cannot be null");
   }
   if (nil == b) {
-    @throw create_JavaLangNullPointerException_initWithNSString_(@"'b' cannot be null");
+    @throw new_JavaLangNullPointerException_initWithNSString_(@"'b' cannot be null");
   }
   if (len < 0) {
-    @throw create_JavaLangIllegalArgumentException_initWithNSString_(@"'len' cannot be negative");
+    @throw new_JavaLangIllegalArgumentException_initWithNSString_(@"'len' cannot be negative");
   }
   if (aOff > (a->size_ - len)) {
-    @throw create_JavaLangIndexOutOfBoundsException_initWithNSString_(@"'aOff' value invalid for specified length");
+    @throw new_JavaLangIndexOutOfBoundsException_initWithNSString_(@"'aOff' value invalid for specified length");
   }
   if (bOff > (b->size_ - len)) {
-    @throw create_JavaLangIndexOutOfBoundsException_initWithNSString_(@"'bOff' value invalid for specified length");
+    @throw new_JavaLangIndexOutOfBoundsException_initWithNSString_(@"'bOff' value invalid for specified length");
   }
   jint d = 0;
   for (jint i = 0; i < len; ++i) {
@@ -1244,9 +1244,9 @@ IOSObjectArray *OrgMinimaUtilsDigestArrays_cloneWithByteArray2_(IOSObjectArray *
   if (data == nil) {
     return nil;
   }
-  IOSObjectArray *copy_ = [IOSObjectArray arrayWithLength:data->size_ type:IOSClass_byteArray(1)];
+  IOSObjectArray *copy_ = [IOSObjectArray newArrayWithLength:data->size_ type:IOSClass_byteArray(1)];
   for (jint i = 0; i != copy_->size_; i++) {
-    IOSObjectArray_Set(copy_, i, OrgMinimaUtilsDigestArrays_cloneWithByteArray_(IOSObjectArray_Get(data, i)));
+    (void) IOSObjectArray_Set(copy_, i, OrgMinimaUtilsDigestArrays_cloneWithByteArray_(IOSObjectArray_Get(data, i)));
   }
   return copy_;
 }
@@ -1256,58 +1256,58 @@ IOSObjectArray *OrgMinimaUtilsDigestArrays_cloneWithByteArray3_(IOSObjectArray *
   if (data == nil) {
     return nil;
   }
-  IOSObjectArray *copy_ = [IOSObjectArray arrayWithLength:data->size_ type:IOSClass_byteArray(2)];
+  IOSObjectArray *copy_ = [IOSObjectArray newArrayWithLength:data->size_ type:IOSClass_byteArray(2)];
   for (jint i = 0; i != copy_->size_; i++) {
-    IOSObjectArray_Set(copy_, i, OrgMinimaUtilsDigestArrays_cloneWithByteArray2_(IOSObjectArray_Get(data, i)));
+    (void) IOSObjectArray_Set(copy_, i, OrgMinimaUtilsDigestArrays_cloneWithByteArray2_(IOSObjectArray_Get(data, i)));
   }
   return copy_;
 }
 
 IOSBooleanArray *OrgMinimaUtilsDigestArrays_copyOfWithBooleanArray_withInt_(IOSBooleanArray *original, jint newLength) {
   OrgMinimaUtilsDigestArrays_initialize();
-  IOSBooleanArray *copy_ = [IOSBooleanArray arrayWithLength:newLength];
+  IOSBooleanArray *copy_ = [IOSBooleanArray newArrayWithLength:newLength];
   JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(original, 0, copy_, 0, JavaLangMath_minWithInt_withInt_(((IOSBooleanArray *) nil_chk(original))->size_, newLength));
   return copy_;
 }
 
 IOSByteArray *OrgMinimaUtilsDigestArrays_copyOfWithByteArray_withInt_(IOSByteArray *original, jint newLength) {
   OrgMinimaUtilsDigestArrays_initialize();
-  IOSByteArray *copy_ = [IOSByteArray arrayWithLength:newLength];
+  IOSByteArray *copy_ = [IOSByteArray newArrayWithLength:newLength];
   JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(original, 0, copy_, 0, JavaLangMath_minWithInt_withInt_(((IOSByteArray *) nil_chk(original))->size_, newLength));
   return copy_;
 }
 
 IOSCharArray *OrgMinimaUtilsDigestArrays_copyOfWithCharArray_withInt_(IOSCharArray *original, jint newLength) {
   OrgMinimaUtilsDigestArrays_initialize();
-  IOSCharArray *copy_ = [IOSCharArray arrayWithLength:newLength];
+  IOSCharArray *copy_ = [IOSCharArray newArrayWithLength:newLength];
   JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(original, 0, copy_, 0, JavaLangMath_minWithInt_withInt_(((IOSCharArray *) nil_chk(original))->size_, newLength));
   return copy_;
 }
 
 IOSIntArray *OrgMinimaUtilsDigestArrays_copyOfWithIntArray_withInt_(IOSIntArray *original, jint newLength) {
   OrgMinimaUtilsDigestArrays_initialize();
-  IOSIntArray *copy_ = [IOSIntArray arrayWithLength:newLength];
+  IOSIntArray *copy_ = [IOSIntArray newArrayWithLength:newLength];
   JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(original, 0, copy_, 0, JavaLangMath_minWithInt_withInt_(((IOSIntArray *) nil_chk(original))->size_, newLength));
   return copy_;
 }
 
 IOSLongArray *OrgMinimaUtilsDigestArrays_copyOfWithLongArray_withInt_(IOSLongArray *original, jint newLength) {
   OrgMinimaUtilsDigestArrays_initialize();
-  IOSLongArray *copy_ = [IOSLongArray arrayWithLength:newLength];
+  IOSLongArray *copy_ = [IOSLongArray newArrayWithLength:newLength];
   JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(original, 0, copy_, 0, JavaLangMath_minWithInt_withInt_(((IOSLongArray *) nil_chk(original))->size_, newLength));
   return copy_;
 }
 
 IOSShortArray *OrgMinimaUtilsDigestArrays_copyOfWithShortArray_withInt_(IOSShortArray *original, jint newLength) {
   OrgMinimaUtilsDigestArrays_initialize();
-  IOSShortArray *copy_ = [IOSShortArray arrayWithLength:newLength];
+  IOSShortArray *copy_ = [IOSShortArray newArrayWithLength:newLength];
   JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(original, 0, copy_, 0, JavaLangMath_minWithInt_withInt_(((IOSShortArray *) nil_chk(original))->size_, newLength));
   return copy_;
 }
 
 IOSObjectArray *OrgMinimaUtilsDigestArrays_copyOfWithJavaMathBigIntegerArray_withInt_(IOSObjectArray *original, jint newLength) {
   OrgMinimaUtilsDigestArrays_initialize();
-  IOSObjectArray *copy_ = [IOSObjectArray arrayWithLength:newLength type:JavaMathBigInteger_class_()];
+  IOSObjectArray *copy_ = [IOSObjectArray newArrayWithLength:newLength type:JavaMathBigInteger_class_()];
   JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(original, 0, copy_, 0, JavaLangMath_minWithInt_withInt_(((IOSObjectArray *) nil_chk(original))->size_, newLength));
   return copy_;
 }
@@ -1315,7 +1315,7 @@ IOSObjectArray *OrgMinimaUtilsDigestArrays_copyOfWithJavaMathBigIntegerArray_wit
 IOSBooleanArray *OrgMinimaUtilsDigestArrays_copyOfRangeWithBooleanArray_withInt_withInt_(IOSBooleanArray *original, jint from, jint to) {
   OrgMinimaUtilsDigestArrays_initialize();
   jint newLength = OrgMinimaUtilsDigestArrays_getLengthWithInt_withInt_(from, to);
-  IOSBooleanArray *copy_ = [IOSBooleanArray arrayWithLength:newLength];
+  IOSBooleanArray *copy_ = [IOSBooleanArray newArrayWithLength:newLength];
   JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(original, from, copy_, 0, JavaLangMath_minWithInt_withInt_(((IOSBooleanArray *) nil_chk(original))->size_ - from, newLength));
   return copy_;
 }
@@ -1323,7 +1323,7 @@ IOSBooleanArray *OrgMinimaUtilsDigestArrays_copyOfRangeWithBooleanArray_withInt_
 IOSByteArray *OrgMinimaUtilsDigestArrays_copyOfRangeWithByteArray_withInt_withInt_(IOSByteArray *original, jint from, jint to) {
   OrgMinimaUtilsDigestArrays_initialize();
   jint newLength = OrgMinimaUtilsDigestArrays_getLengthWithInt_withInt_(from, to);
-  IOSByteArray *copy_ = [IOSByteArray arrayWithLength:newLength];
+  IOSByteArray *copy_ = [IOSByteArray newArrayWithLength:newLength];
   JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(original, from, copy_, 0, JavaLangMath_minWithInt_withInt_(((IOSByteArray *) nil_chk(original))->size_ - from, newLength));
   return copy_;
 }
@@ -1331,7 +1331,7 @@ IOSByteArray *OrgMinimaUtilsDigestArrays_copyOfRangeWithByteArray_withInt_withIn
 IOSCharArray *OrgMinimaUtilsDigestArrays_copyOfRangeWithCharArray_withInt_withInt_(IOSCharArray *original, jint from, jint to) {
   OrgMinimaUtilsDigestArrays_initialize();
   jint newLength = OrgMinimaUtilsDigestArrays_getLengthWithInt_withInt_(from, to);
-  IOSCharArray *copy_ = [IOSCharArray arrayWithLength:newLength];
+  IOSCharArray *copy_ = [IOSCharArray newArrayWithLength:newLength];
   JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(original, from, copy_, 0, JavaLangMath_minWithInt_withInt_(((IOSCharArray *) nil_chk(original))->size_ - from, newLength));
   return copy_;
 }
@@ -1339,7 +1339,7 @@ IOSCharArray *OrgMinimaUtilsDigestArrays_copyOfRangeWithCharArray_withInt_withIn
 IOSIntArray *OrgMinimaUtilsDigestArrays_copyOfRangeWithIntArray_withInt_withInt_(IOSIntArray *original, jint from, jint to) {
   OrgMinimaUtilsDigestArrays_initialize();
   jint newLength = OrgMinimaUtilsDigestArrays_getLengthWithInt_withInt_(from, to);
-  IOSIntArray *copy_ = [IOSIntArray arrayWithLength:newLength];
+  IOSIntArray *copy_ = [IOSIntArray newArrayWithLength:newLength];
   JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(original, from, copy_, 0, JavaLangMath_minWithInt_withInt_(((IOSIntArray *) nil_chk(original))->size_ - from, newLength));
   return copy_;
 }
@@ -1347,7 +1347,7 @@ IOSIntArray *OrgMinimaUtilsDigestArrays_copyOfRangeWithIntArray_withInt_withInt_
 IOSLongArray *OrgMinimaUtilsDigestArrays_copyOfRangeWithLongArray_withInt_withInt_(IOSLongArray *original, jint from, jint to) {
   OrgMinimaUtilsDigestArrays_initialize();
   jint newLength = OrgMinimaUtilsDigestArrays_getLengthWithInt_withInt_(from, to);
-  IOSLongArray *copy_ = [IOSLongArray arrayWithLength:newLength];
+  IOSLongArray *copy_ = [IOSLongArray newArrayWithLength:newLength];
   JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(original, from, copy_, 0, JavaLangMath_minWithInt_withInt_(((IOSLongArray *) nil_chk(original))->size_ - from, newLength));
   return copy_;
 }
@@ -1355,7 +1355,7 @@ IOSLongArray *OrgMinimaUtilsDigestArrays_copyOfRangeWithLongArray_withInt_withIn
 IOSShortArray *OrgMinimaUtilsDigestArrays_copyOfRangeWithShortArray_withInt_withInt_(IOSShortArray *original, jint from, jint to) {
   OrgMinimaUtilsDigestArrays_initialize();
   jint newLength = OrgMinimaUtilsDigestArrays_getLengthWithInt_withInt_(from, to);
-  IOSShortArray *copy_ = [IOSShortArray arrayWithLength:newLength];
+  IOSShortArray *copy_ = [IOSShortArray newArrayWithLength:newLength];
   JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(original, from, copy_, 0, JavaLangMath_minWithInt_withInt_(((IOSShortArray *) nil_chk(original))->size_ - from, newLength));
   return copy_;
 }
@@ -1363,7 +1363,7 @@ IOSShortArray *OrgMinimaUtilsDigestArrays_copyOfRangeWithShortArray_withInt_with
 IOSObjectArray *OrgMinimaUtilsDigestArrays_copyOfRangeWithJavaMathBigIntegerArray_withInt_withInt_(IOSObjectArray *original, jint from, jint to) {
   OrgMinimaUtilsDigestArrays_initialize();
   jint newLength = OrgMinimaUtilsDigestArrays_getLengthWithInt_withInt_(from, to);
-  IOSObjectArray *copy_ = [IOSObjectArray arrayWithLength:newLength type:JavaMathBigInteger_class_()];
+  IOSObjectArray *copy_ = [IOSObjectArray newArrayWithLength:newLength type:JavaMathBigInteger_class_()];
   JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(original, from, copy_, 0, JavaLangMath_minWithInt_withInt_(((IOSObjectArray *) nil_chk(original))->size_ - from, newLength));
   return copy_;
 }
@@ -1372,9 +1372,9 @@ jint OrgMinimaUtilsDigestArrays_getLengthWithInt_withInt_(jint from, jint to) {
   OrgMinimaUtilsDigestArrays_initialize();
   jint newLength = to - from;
   if (newLength < 0) {
-    JavaLangStringBuffer *sb = create_JavaLangStringBuffer_initWithInt_(from);
-    [((JavaLangStringBuffer *) nil_chk([sb appendWithNSString:@" > "])) appendWithInt:to];
-    @throw create_JavaLangIllegalArgumentException_initWithNSString_([sb description]);
+    JavaLangStringBuffer *sb = new_JavaLangStringBuffer_initWithInt_(from);
+    (void) [((JavaLangStringBuffer *) nil_chk([sb appendWithNSString:@" > "])) appendWithInt:to];
+    @throw new_JavaLangIllegalArgumentException_initWithNSString_([sb description]);
   }
   return newLength;
 }
@@ -1382,10 +1382,10 @@ jint OrgMinimaUtilsDigestArrays_getLengthWithInt_withInt_(jint from, jint to) {
 IOSByteArray *OrgMinimaUtilsDigestArrays_appendWithByteArray_withByte_(IOSByteArray *a, jbyte b) {
   OrgMinimaUtilsDigestArrays_initialize();
   if (a == nil) {
-    return [IOSByteArray arrayWithBytes:(jbyte[]){ b } count:1];
+    return [IOSByteArray newArrayWithBytes:(jbyte[]){ b } count:1];
   }
   jint length = a->size_;
-  IOSByteArray *result = [IOSByteArray arrayWithLength:length + 1];
+  IOSByteArray *result = [IOSByteArray newArrayWithLength:length + 1];
   JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(a, 0, result, 0, length);
   *IOSByteArray_GetRef(result, length) = b;
   return result;
@@ -1394,10 +1394,10 @@ IOSByteArray *OrgMinimaUtilsDigestArrays_appendWithByteArray_withByte_(IOSByteAr
 IOSShortArray *OrgMinimaUtilsDigestArrays_appendWithShortArray_withShort_(IOSShortArray *a, jshort b) {
   OrgMinimaUtilsDigestArrays_initialize();
   if (a == nil) {
-    return [IOSShortArray arrayWithShorts:(jshort[]){ b } count:1];
+    return [IOSShortArray newArrayWithShorts:(jshort[]){ b } count:1];
   }
   jint length = a->size_;
-  IOSShortArray *result = [IOSShortArray arrayWithLength:length + 1];
+  IOSShortArray *result = [IOSShortArray newArrayWithLength:length + 1];
   JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(a, 0, result, 0, length);
   *IOSShortArray_GetRef(result, length) = b;
   return result;
@@ -1406,10 +1406,10 @@ IOSShortArray *OrgMinimaUtilsDigestArrays_appendWithShortArray_withShort_(IOSSho
 IOSIntArray *OrgMinimaUtilsDigestArrays_appendWithIntArray_withInt_(IOSIntArray *a, jint b) {
   OrgMinimaUtilsDigestArrays_initialize();
   if (a == nil) {
-    return [IOSIntArray arrayWithInts:(jint[]){ b } count:1];
+    return [IOSIntArray newArrayWithInts:(jint[]){ b } count:1];
   }
   jint length = a->size_;
-  IOSIntArray *result = [IOSIntArray arrayWithLength:length + 1];
+  IOSIntArray *result = [IOSIntArray newArrayWithLength:length + 1];
   JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(a, 0, result, 0, length);
   *IOSIntArray_GetRef(result, length) = b;
   return result;
@@ -1418,12 +1418,12 @@ IOSIntArray *OrgMinimaUtilsDigestArrays_appendWithIntArray_withInt_(IOSIntArray 
 IOSObjectArray *OrgMinimaUtilsDigestArrays_appendWithNSStringArray_withNSString_(IOSObjectArray *a, NSString *b) {
   OrgMinimaUtilsDigestArrays_initialize();
   if (a == nil) {
-    return [IOSObjectArray arrayWithObjects:(id[]){ b } count:1 type:NSString_class_()];
+    return [IOSObjectArray newArrayWithObjects:(id[]){ b } count:1 type:NSString_class_()];
   }
   jint length = a->size_;
-  IOSObjectArray *result = [IOSObjectArray arrayWithLength:length + 1 type:NSString_class_()];
+  IOSObjectArray *result = [IOSObjectArray newArrayWithLength:length + 1 type:NSString_class_()];
   JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(a, 0, result, 0, length);
-  IOSObjectArray_Set(result, length, b);
+  (void) IOSObjectArray_Set(result, length, b);
   return result;
 }
 
@@ -1435,7 +1435,7 @@ IOSByteArray *OrgMinimaUtilsDigestArrays_concatenateWithByteArray_withByteArray_
   if (nil == b) {
     return [a java_clone];
   }
-  IOSByteArray *r = [IOSByteArray arrayWithLength:a->size_ + b->size_];
+  IOSByteArray *r = [IOSByteArray newArrayWithLength:a->size_ + b->size_];
   JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(a, 0, r, 0, a->size_);
   JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(b, 0, r, a->size_, b->size_);
   return r;
@@ -1452,7 +1452,7 @@ IOSByteArray *OrgMinimaUtilsDigestArrays_concatenateWithByteArray_withByteArray_
   if (nil == c) {
     return OrgMinimaUtilsDigestArrays_concatenateWithByteArray_withByteArray_(a, b);
   }
-  IOSByteArray *r = [IOSByteArray arrayWithLength:a->size_ + b->size_ + c->size_];
+  IOSByteArray *r = [IOSByteArray newArrayWithLength:a->size_ + b->size_ + c->size_];
   jint pos = 0;
   JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(a, 0, r, pos, a->size_);
   pos += a->size_;
@@ -1476,7 +1476,7 @@ IOSByteArray *OrgMinimaUtilsDigestArrays_concatenateWithByteArray_withByteArray_
   if (nil == d) {
     return OrgMinimaUtilsDigestArrays_concatenateWithByteArray_withByteArray_withByteArray_(a, b, c);
   }
-  IOSByteArray *r = [IOSByteArray arrayWithLength:a->size_ + b->size_ + c->size_ + d->size_];
+  IOSByteArray *r = [IOSByteArray newArrayWithLength:a->size_ + b->size_ + c->size_ + d->size_];
   jint pos = 0;
   JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(a, 0, r, pos, a->size_);
   pos += a->size_;
@@ -1494,7 +1494,7 @@ IOSByteArray *OrgMinimaUtilsDigestArrays_concatenateWithByteArray2_(IOSObjectArr
   for (jint i = 0; i != ((IOSObjectArray *) nil_chk(arrays))->size_; i++) {
     size += ((IOSByteArray *) nil_chk(IOSObjectArray_Get(arrays, i)))->size_;
   }
-  IOSByteArray *rv = [IOSByteArray arrayWithLength:size];
+  IOSByteArray *rv = [IOSByteArray newArrayWithLength:size];
   jint offSet = 0;
   for (jint i = 0; i != arrays->size_; i++) {
     JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(IOSObjectArray_Get(arrays, i), 0, rv, offSet, ((IOSByteArray *) nil_chk(IOSObjectArray_Get(arrays, i)))->size_);
@@ -1511,7 +1511,7 @@ IOSIntArray *OrgMinimaUtilsDigestArrays_concatenateWithIntArray_withIntArray_(IO
   if (nil == b) {
     return [a java_clone];
   }
-  IOSIntArray *r = [IOSIntArray arrayWithLength:a->size_ + b->size_];
+  IOSIntArray *r = [IOSIntArray newArrayWithLength:a->size_ + b->size_];
   JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(a, 0, r, 0, a->size_);
   JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(b, 0, r, a->size_, b->size_);
   return r;
@@ -1520,10 +1520,10 @@ IOSIntArray *OrgMinimaUtilsDigestArrays_concatenateWithIntArray_withIntArray_(IO
 IOSByteArray *OrgMinimaUtilsDigestArrays_prependWithByteArray_withByte_(IOSByteArray *a, jbyte b) {
   OrgMinimaUtilsDigestArrays_initialize();
   if (a == nil) {
-    return [IOSByteArray arrayWithBytes:(jbyte[]){ b } count:1];
+    return [IOSByteArray newArrayWithBytes:(jbyte[]){ b } count:1];
   }
   jint length = a->size_;
-  IOSByteArray *result = [IOSByteArray arrayWithLength:length + 1];
+  IOSByteArray *result = [IOSByteArray newArrayWithLength:length + 1];
   JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(a, 0, result, 1, length);
   *IOSByteArray_GetRef(result, 0) = b;
   return result;
@@ -1532,10 +1532,10 @@ IOSByteArray *OrgMinimaUtilsDigestArrays_prependWithByteArray_withByte_(IOSByteA
 IOSShortArray *OrgMinimaUtilsDigestArrays_prependWithShortArray_withShort_(IOSShortArray *a, jshort b) {
   OrgMinimaUtilsDigestArrays_initialize();
   if (a == nil) {
-    return [IOSShortArray arrayWithShorts:(jshort[]){ b } count:1];
+    return [IOSShortArray newArrayWithShorts:(jshort[]){ b } count:1];
   }
   jint length = a->size_;
-  IOSShortArray *result = [IOSShortArray arrayWithLength:length + 1];
+  IOSShortArray *result = [IOSShortArray newArrayWithLength:length + 1];
   JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(a, 0, result, 1, length);
   *IOSShortArray_GetRef(result, 0) = b;
   return result;
@@ -1544,10 +1544,10 @@ IOSShortArray *OrgMinimaUtilsDigestArrays_prependWithShortArray_withShort_(IOSSh
 IOSIntArray *OrgMinimaUtilsDigestArrays_prependWithIntArray_withInt_(IOSIntArray *a, jint b) {
   OrgMinimaUtilsDigestArrays_initialize();
   if (a == nil) {
-    return [IOSIntArray arrayWithInts:(jint[]){ b } count:1];
+    return [IOSIntArray newArrayWithInts:(jint[]){ b } count:1];
   }
   jint length = a->size_;
-  IOSIntArray *result = [IOSIntArray arrayWithLength:length + 1];
+  IOSIntArray *result = [IOSIntArray newArrayWithLength:length + 1];
   JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(a, 0, result, 1, length);
   *IOSIntArray_GetRef(result, 0) = b;
   return result;
@@ -1560,7 +1560,7 @@ IOSByteArray *OrgMinimaUtilsDigestArrays_reverseWithByteArray_(IOSByteArray *a) 
   }
   jint p1 = 0;
   jint p2 = a->size_;
-  IOSByteArray *result = [IOSByteArray arrayWithLength:p2];
+  IOSByteArray *result = [IOSByteArray newArrayWithLength:p2];
   while (--p2 >= 0) {
     *IOSByteArray_GetRef(result, p2) = IOSByteArray_Get(a, p1++);
   }
@@ -1574,7 +1574,7 @@ IOSIntArray *OrgMinimaUtilsDigestArrays_reverseWithIntArray_(IOSIntArray *a) {
   }
   jint p1 = 0;
   jint p2 = a->size_;
-  IOSIntArray *result = [IOSIntArray arrayWithLength:p2];
+  IOSIntArray *result = [IOSIntArray newArrayWithLength:p2];
   while (--p2 >= 0) {
     *IOSIntArray_GetRef(result, p2) = IOSIntArray_Get(a, p1++);
   }
@@ -1624,22 +1624,17 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(OrgMinimaUtilsDigestArrays)
 
 - (id)next {
   if (position_ == ((IOSObjectArray *) nil_chk(dataArray_))->size_) {
-    @throw create_JavaUtilNoSuchElementException_initWithNSString_(JreStrcat("$I", @"Out of elements: ", position_));
+    @throw new_JavaUtilNoSuchElementException_initWithNSString_(JreStrcat("$I", @"Out of elements: ", position_));
   }
   return IOSObjectArray_Get(dataArray_, position_++);
 }
 
 - (void)remove {
-  @throw create_JavaLangUnsupportedOperationException_initWithNSString_(@"Cannot remove element from an Array.");
+  @throw new_JavaLangUnsupportedOperationException_initWithNSString_(@"Cannot remove element from an Array.");
 }
 
 - (void)forEachRemainingWithJavaUtilFunctionConsumer:(id<JavaUtilFunctionConsumer>)arg0 {
   JavaUtilIterator_forEachRemainingWithJavaUtilFunctionConsumer_(self, arg0);
-}
-
-- (void)dealloc {
-  RELEASE_(dataArray_);
-  [super dealloc];
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -1671,7 +1666,7 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(OrgMinimaUtilsDigestArrays)
 void OrgMinimaUtilsDigestArrays_Iterator_initWithNSObjectArray_(OrgMinimaUtilsDigestArrays_Iterator *self, IOSObjectArray *dataArray) {
   NSObject_init(self);
   self->position_ = 0;
-  JreStrongAssign(&self->dataArray_, dataArray);
+  self->dataArray_ = dataArray;
 }
 
 OrgMinimaUtilsDigestArrays_Iterator *new_OrgMinimaUtilsDigestArrays_Iterator_initWithNSObjectArray_(IOSObjectArray *dataArray) {

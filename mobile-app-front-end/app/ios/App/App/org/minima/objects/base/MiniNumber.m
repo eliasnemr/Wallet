@@ -87,39 +87,39 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (OrgMinimaObjectsBaseMiniNumber *)addWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zNumber {
-  return create_OrgMinimaObjectsBaseMiniNumber_initWithJavaMathBigDecimal_([((JavaMathBigDecimal *) nil_chk(mNumber_)) addWithJavaMathBigDecimal:[((OrgMinimaObjectsBaseMiniNumber *) nil_chk(zNumber)) getAsBigDecimal] withJavaMathMathContext:OrgMinimaObjectsBaseMiniNumber_mMathContext]);
+  return new_OrgMinimaObjectsBaseMiniNumber_initWithJavaMathBigDecimal_([((JavaMathBigDecimal *) nil_chk(mNumber_)) addWithJavaMathBigDecimal:[((OrgMinimaObjectsBaseMiniNumber *) nil_chk(zNumber)) getAsBigDecimal] withJavaMathMathContext:OrgMinimaObjectsBaseMiniNumber_mMathContext]);
 }
 
 - (OrgMinimaObjectsBaseMiniNumber *)subWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zNumber {
-  return create_OrgMinimaObjectsBaseMiniNumber_initWithJavaMathBigDecimal_([((JavaMathBigDecimal *) nil_chk(mNumber_)) subtractWithJavaMathBigDecimal:[((OrgMinimaObjectsBaseMiniNumber *) nil_chk(zNumber)) getAsBigDecimal] withJavaMathMathContext:OrgMinimaObjectsBaseMiniNumber_mMathContext]);
+  return new_OrgMinimaObjectsBaseMiniNumber_initWithJavaMathBigDecimal_([((JavaMathBigDecimal *) nil_chk(mNumber_)) subtractWithJavaMathBigDecimal:[((OrgMinimaObjectsBaseMiniNumber *) nil_chk(zNumber)) getAsBigDecimal] withJavaMathMathContext:OrgMinimaObjectsBaseMiniNumber_mMathContext]);
 }
 
 - (OrgMinimaObjectsBaseMiniNumber *)divWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zNumber {
-  return create_OrgMinimaObjectsBaseMiniNumber_initWithJavaMathBigDecimal_([((JavaMathBigDecimal *) nil_chk(mNumber_)) divideWithJavaMathBigDecimal:[((OrgMinimaObjectsBaseMiniNumber *) nil_chk(zNumber)) getAsBigDecimal] withJavaMathMathContext:OrgMinimaObjectsBaseMiniNumber_mMathContext]);
+  return new_OrgMinimaObjectsBaseMiniNumber_initWithJavaMathBigDecimal_([((JavaMathBigDecimal *) nil_chk(mNumber_)) divideWithJavaMathBigDecimal:[((OrgMinimaObjectsBaseMiniNumber *) nil_chk(zNumber)) getAsBigDecimal] withJavaMathMathContext:OrgMinimaObjectsBaseMiniNumber_mMathContext]);
 }
 
 - (OrgMinimaObjectsBaseMiniNumber *)divRoundDownWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zNumber {
-  return create_OrgMinimaObjectsBaseMiniNumber_initWithJavaMathBigDecimal_([((JavaMathBigDecimal *) nil_chk(mNumber_)) divideWithJavaMathBigDecimal:[((OrgMinimaObjectsBaseMiniNumber *) nil_chk(zNumber)) getAsBigDecimal] withJavaMathRoundingMode:JreLoadEnum(JavaMathRoundingMode, DOWN)]);
+  return new_OrgMinimaObjectsBaseMiniNumber_initWithJavaMathBigDecimal_([((JavaMathBigDecimal *) nil_chk(mNumber_)) divideWithJavaMathBigDecimal:[((OrgMinimaObjectsBaseMiniNumber *) nil_chk(zNumber)) getAsBigDecimal] withJavaMathRoundingMode:JreLoadEnum(JavaMathRoundingMode, DOWN)]);
 }
 
 - (OrgMinimaObjectsBaseMiniNumber *)multWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zNumber {
-  return create_OrgMinimaObjectsBaseMiniNumber_initWithJavaMathBigDecimal_([((JavaMathBigDecimal *) nil_chk(mNumber_)) multiplyWithJavaMathBigDecimal:[((OrgMinimaObjectsBaseMiniNumber *) nil_chk(zNumber)) getAsBigDecimal] withJavaMathMathContext:OrgMinimaObjectsBaseMiniNumber_mMathContext]);
+  return new_OrgMinimaObjectsBaseMiniNumber_initWithJavaMathBigDecimal_([((JavaMathBigDecimal *) nil_chk(mNumber_)) multiplyWithJavaMathBigDecimal:[((OrgMinimaObjectsBaseMiniNumber *) nil_chk(zNumber)) getAsBigDecimal] withJavaMathMathContext:OrgMinimaObjectsBaseMiniNumber_mMathContext]);
 }
 
 - (OrgMinimaObjectsBaseMiniNumber *)powWithInt:(jint)zNumber {
-  return create_OrgMinimaObjectsBaseMiniNumber_initWithJavaMathBigDecimal_([((JavaMathBigDecimal *) nil_chk(mNumber_)) powWithInt:zNumber withJavaMathMathContext:OrgMinimaObjectsBaseMiniNumber_mMathContext]);
+  return new_OrgMinimaObjectsBaseMiniNumber_initWithJavaMathBigDecimal_([((JavaMathBigDecimal *) nil_chk(mNumber_)) powWithInt:zNumber withJavaMathMathContext:OrgMinimaObjectsBaseMiniNumber_mMathContext]);
 }
 
 - (OrgMinimaObjectsBaseMiniNumber *)moduloWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zNumber {
-  return create_OrgMinimaObjectsBaseMiniNumber_initWithJavaMathBigDecimal_([((JavaMathBigDecimal *) nil_chk(mNumber_)) remainderWithJavaMathBigDecimal:[((OrgMinimaObjectsBaseMiniNumber *) nil_chk(zNumber)) getAsBigDecimal] withJavaMathMathContext:OrgMinimaObjectsBaseMiniNumber_mMathContext]);
+  return new_OrgMinimaObjectsBaseMiniNumber_initWithJavaMathBigDecimal_([((JavaMathBigDecimal *) nil_chk(mNumber_)) remainderWithJavaMathBigDecimal:[((OrgMinimaObjectsBaseMiniNumber *) nil_chk(zNumber)) getAsBigDecimal] withJavaMathMathContext:OrgMinimaObjectsBaseMiniNumber_mMathContext]);
 }
 
 - (OrgMinimaObjectsBaseMiniNumber *)floor {
-  return create_OrgMinimaObjectsBaseMiniNumber_initWithJavaMathBigDecimal_([((JavaMathBigDecimal *) nil_chk(mNumber_)) setScaleWithInt:0 withJavaMathRoundingMode:JreLoadEnum(JavaMathRoundingMode, FLOOR)]);
+  return new_OrgMinimaObjectsBaseMiniNumber_initWithJavaMathBigDecimal_([((JavaMathBigDecimal *) nil_chk(mNumber_)) setScaleWithInt:0 withJavaMathRoundingMode:JreLoadEnum(JavaMathRoundingMode, FLOOR)]);
 }
 
 - (OrgMinimaObjectsBaseMiniNumber *)ceil {
-  return create_OrgMinimaObjectsBaseMiniNumber_initWithJavaMathBigDecimal_([((JavaMathBigDecimal *) nil_chk(mNumber_)) setScaleWithInt:0 withJavaMathRoundingMode:JreLoadEnum(JavaMathRoundingMode, CEILING)]);
+  return new_OrgMinimaObjectsBaseMiniNumber_initWithJavaMathBigDecimal_([((JavaMathBigDecimal *) nil_chk(mNumber_)) setScaleWithInt:0 withJavaMathRoundingMode:JreLoadEnum(JavaMathRoundingMode, CEILING)]);
 }
 
 - (OrgMinimaObjectsBaseMiniNumber *)setSignificantDigitsWithInt:(jint)zSignificantDigits {
@@ -127,19 +127,19 @@ J2OBJC_IGNORE_DESIGNATED_END
   if (sigdig > 18) {
     sigdig = 18;
   }
-  return create_OrgMinimaObjectsBaseMiniNumber_initWithJavaMathBigDecimal_([((JavaMathBigDecimal *) nil_chk(mNumber_)) roundWithJavaMathMathContext:create_JavaMathMathContext_initWithInt_withJavaMathRoundingMode_(sigdig, JreLoadEnum(JavaMathRoundingMode, DOWN))]);
+  return new_OrgMinimaObjectsBaseMiniNumber_initWithJavaMathBigDecimal_([((JavaMathBigDecimal *) nil_chk(mNumber_)) roundWithJavaMathMathContext:new_JavaMathMathContext_initWithInt_withJavaMathRoundingMode_(sigdig, JreLoadEnum(JavaMathRoundingMode, DOWN))]);
 }
 
 - (OrgMinimaObjectsBaseMiniNumber *)abs {
-  return create_OrgMinimaObjectsBaseMiniNumber_initWithJavaMathBigDecimal_([((JavaMathBigDecimal *) nil_chk(mNumber_)) abs]);
+  return new_OrgMinimaObjectsBaseMiniNumber_initWithJavaMathBigDecimal_([((JavaMathBigDecimal *) nil_chk(mNumber_)) abs]);
 }
 
 - (OrgMinimaObjectsBaseMiniNumber *)increment {
-  return create_OrgMinimaObjectsBaseMiniNumber_initWithJavaMathBigDecimal_([((JavaMathBigDecimal *) nil_chk(mNumber_)) addWithJavaMathBigDecimal:JreLoadStatic(JavaMathBigDecimal, ONE) withJavaMathMathContext:OrgMinimaObjectsBaseMiniNumber_mMathContext]);
+  return new_OrgMinimaObjectsBaseMiniNumber_initWithJavaMathBigDecimal_([((JavaMathBigDecimal *) nil_chk(mNumber_)) addWithJavaMathBigDecimal:JreLoadStatic(JavaMathBigDecimal, ONE) withJavaMathMathContext:OrgMinimaObjectsBaseMiniNumber_mMathContext]);
 }
 
 - (OrgMinimaObjectsBaseMiniNumber *)decrement {
-  return create_OrgMinimaObjectsBaseMiniNumber_initWithJavaMathBigDecimal_([((JavaMathBigDecimal *) nil_chk(mNumber_)) subtractWithJavaMathBigDecimal:JreLoadStatic(JavaMathBigDecimal, ONE) withJavaMathMathContext:OrgMinimaObjectsBaseMiniNumber_mMathContext]);
+  return new_OrgMinimaObjectsBaseMiniNumber_initWithJavaMathBigDecimal_([((JavaMathBigDecimal *) nil_chk(mNumber_)) subtractWithJavaMathBigDecimal:JreLoadStatic(JavaMathBigDecimal, ONE) withJavaMathMathContext:OrgMinimaObjectsBaseMiniNumber_mMathContext]);
 }
 
 - (jint)compareToWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zCompare {
@@ -181,19 +181,14 @@ J2OBJC_IGNORE_DESIGNATED_END
 - (void)readDataStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn {
   jint scale_ = [((JavaIoDataInputStream *) nil_chk(zIn)) readInt];
   jint len = [zIn readInt];
-  IOSByteArray *data = [IOSByteArray arrayWithLength:len];
+  IOSByteArray *data = [IOSByteArray newArrayWithLength:len];
   [zIn readFullyWithByteArray:data];
-  JavaMathBigInteger *unscaled = create_JavaMathBigInteger_initWithByteArray_(data);
-  JreStrongAssignAndConsume(&mNumber_, new_JavaMathBigDecimal_initWithJavaMathBigInteger_withInt_withJavaMathMathContext_(unscaled, scale_, OrgMinimaObjectsBaseMiniNumber_mMathContext));
+  JavaMathBigInteger *unscaled = new_JavaMathBigInteger_initWithByteArray_(data);
+  mNumber_ = new_JavaMathBigDecimal_initWithJavaMathBigInteger_withInt_withJavaMathMathContext_(unscaled, scale_, OrgMinimaObjectsBaseMiniNumber_mMathContext);
 }
 
 + (OrgMinimaObjectsBaseMiniNumber *)ReadFromStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn {
   return OrgMinimaObjectsBaseMiniNumber_ReadFromStreamWithJavaIoDataInputStream_(zIn);
-}
-
-- (void)dealloc {
-  RELEASE_(mNumber_);
-  [super dealloc];
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -290,17 +285,17 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 + (void)initialize {
   if (self == [OrgMinimaObjectsBaseMiniNumber class]) {
-    JreStrongAssignAndConsume(&OrgMinimaObjectsBaseMiniNumber_mMathContext, new_JavaMathMathContext_initWithInt_withJavaMathRoundingMode_(18, JreLoadEnum(JavaMathRoundingMode, DOWN)));
-    JreStrongAssignAndConsume(&OrgMinimaObjectsBaseMiniNumber_ZERO, new_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(@"0"));
-    JreStrongAssignAndConsume(&OrgMinimaObjectsBaseMiniNumber_ONE, new_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(@"1"));
-    JreStrongAssignAndConsume(&OrgMinimaObjectsBaseMiniNumber_TWO, new_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(@"2"));
-    JreStrongAssignAndConsume(&OrgMinimaObjectsBaseMiniNumber_EIGHT, new_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(@"8"));
-    JreStrongAssignAndConsume(&OrgMinimaObjectsBaseMiniNumber_THIRTYTWO, new_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(@"32"));
-    JreStrongAssignAndConsume(&OrgMinimaObjectsBaseMiniNumber_SIXTYFOUR, new_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(@"64"));
-    JreStrongAssignAndConsume(&OrgMinimaObjectsBaseMiniNumber_TEN, new_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(@"10"));
-    JreStrongAssignAndConsume(&OrgMinimaObjectsBaseMiniNumber_HUNDRED, new_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(@"100"));
-    JreStrongAssignAndConsume(&OrgMinimaObjectsBaseMiniNumber_THOUSAND, new_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(@"1000"));
-    JreStrongAssignAndConsume(&OrgMinimaObjectsBaseMiniNumber_MINUSONE, new_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(@"-1"));
+    OrgMinimaObjectsBaseMiniNumber_mMathContext = new_JavaMathMathContext_initWithInt_withJavaMathRoundingMode_(18, JreLoadEnum(JavaMathRoundingMode, DOWN));
+    OrgMinimaObjectsBaseMiniNumber_ZERO = new_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(@"0");
+    OrgMinimaObjectsBaseMiniNumber_ONE = new_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(@"1");
+    OrgMinimaObjectsBaseMiniNumber_TWO = new_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(@"2");
+    OrgMinimaObjectsBaseMiniNumber_EIGHT = new_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(@"8");
+    OrgMinimaObjectsBaseMiniNumber_THIRTYTWO = new_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(@"32");
+    OrgMinimaObjectsBaseMiniNumber_SIXTYFOUR = new_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(@"64");
+    OrgMinimaObjectsBaseMiniNumber_TEN = new_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(@"10");
+    OrgMinimaObjectsBaseMiniNumber_HUNDRED = new_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(@"100");
+    OrgMinimaObjectsBaseMiniNumber_THOUSAND = new_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(@"1000");
+    OrgMinimaObjectsBaseMiniNumber_MINUSONE = new_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(@"-1");
     J2OBJC_SET_INITIALIZED(OrgMinimaObjectsBaseMiniNumber)
   }
 }
@@ -309,7 +304,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 void OrgMinimaObjectsBaseMiniNumber_init(OrgMinimaObjectsBaseMiniNumber *self) {
   NSObject_init(self);
-  JreStrongAssign(&self->mNumber_, JreLoadStatic(JavaMathBigDecimal, ZERO));
+  self->mNumber_ = JreLoadStatic(JavaMathBigDecimal, ZERO);
 }
 
 OrgMinimaObjectsBaseMiniNumber *new_OrgMinimaObjectsBaseMiniNumber_init() {
@@ -322,7 +317,7 @@ OrgMinimaObjectsBaseMiniNumber *create_OrgMinimaObjectsBaseMiniNumber_init() {
 
 void OrgMinimaObjectsBaseMiniNumber_initWithInt_(OrgMinimaObjectsBaseMiniNumber *self, jint zNumber) {
   NSObject_init(self);
-  JreStrongAssignAndConsume(&self->mNumber_, new_JavaMathBigDecimal_initWithInt_withJavaMathMathContext_(zNumber, OrgMinimaObjectsBaseMiniNumber_mMathContext));
+  self->mNumber_ = new_JavaMathBigDecimal_initWithInt_withJavaMathMathContext_(zNumber, OrgMinimaObjectsBaseMiniNumber_mMathContext);
 }
 
 OrgMinimaObjectsBaseMiniNumber *new_OrgMinimaObjectsBaseMiniNumber_initWithInt_(jint zNumber) {
@@ -335,7 +330,7 @@ OrgMinimaObjectsBaseMiniNumber *create_OrgMinimaObjectsBaseMiniNumber_initWithIn
 
 void OrgMinimaObjectsBaseMiniNumber_initWithJavaMathBigInteger_(OrgMinimaObjectsBaseMiniNumber *self, JavaMathBigInteger *zNumber) {
   NSObject_init(self);
-  JreStrongAssignAndConsume(&self->mNumber_, new_JavaMathBigDecimal_initWithJavaMathBigInteger_withJavaMathMathContext_(zNumber, OrgMinimaObjectsBaseMiniNumber_mMathContext));
+  self->mNumber_ = new_JavaMathBigDecimal_initWithJavaMathBigInteger_withJavaMathMathContext_(zNumber, OrgMinimaObjectsBaseMiniNumber_mMathContext);
 }
 
 OrgMinimaObjectsBaseMiniNumber *new_OrgMinimaObjectsBaseMiniNumber_initWithJavaMathBigInteger_(JavaMathBigInteger *zNumber) {
@@ -348,7 +343,7 @@ OrgMinimaObjectsBaseMiniNumber *create_OrgMinimaObjectsBaseMiniNumber_initWithJa
 
 void OrgMinimaObjectsBaseMiniNumber_initWithJavaMathBigDecimal_(OrgMinimaObjectsBaseMiniNumber *self, JavaMathBigDecimal *zBigD) {
   NSObject_init(self);
-  JreStrongAssign(&self->mNumber_, zBigD);
+  self->mNumber_ = zBigD;
 }
 
 OrgMinimaObjectsBaseMiniNumber *new_OrgMinimaObjectsBaseMiniNumber_initWithJavaMathBigDecimal_(JavaMathBigDecimal *zBigD) {
@@ -361,7 +356,7 @@ OrgMinimaObjectsBaseMiniNumber *create_OrgMinimaObjectsBaseMiniNumber_initWithJa
 
 void OrgMinimaObjectsBaseMiniNumber_initWithNSString_(OrgMinimaObjectsBaseMiniNumber *self, NSString *zNumber) {
   NSObject_init(self);
-  JreStrongAssignAndConsume(&self->mNumber_, new_JavaMathBigDecimal_initWithNSString_withJavaMathMathContext_(zNumber, OrgMinimaObjectsBaseMiniNumber_mMathContext));
+  self->mNumber_ = new_JavaMathBigDecimal_initWithNSString_withJavaMathMathContext_(zNumber, OrgMinimaObjectsBaseMiniNumber_mMathContext);
 }
 
 OrgMinimaObjectsBaseMiniNumber *new_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(NSString *zNumber) {
@@ -374,12 +369,11 @@ OrgMinimaObjectsBaseMiniNumber *create_OrgMinimaObjectsBaseMiniNumber_initWithNS
 
 OrgMinimaObjectsBaseMiniNumber *OrgMinimaObjectsBaseMiniNumber_ReadFromStreamWithJavaIoDataInputStream_(JavaIoDataInputStream *zIn) {
   OrgMinimaObjectsBaseMiniNumber_initialize();
-  OrgMinimaObjectsBaseMiniNumber *data = create_OrgMinimaObjectsBaseMiniNumber_init();
+  OrgMinimaObjectsBaseMiniNumber *data = new_OrgMinimaObjectsBaseMiniNumber_init();
   @try {
     [data readDataStreamWithJavaIoDataInputStream:zIn];
   }
   @catch (JavaIoIOException *e) {
-    [e printStackTrace];
     return nil;
   }
   return data;

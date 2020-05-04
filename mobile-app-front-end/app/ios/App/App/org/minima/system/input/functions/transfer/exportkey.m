@@ -24,12 +24,12 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 - (void)doFunctionWithNSStringArray:(IOSObjectArray *)zInput {
   NSString *pubks = IOSObjectArray_Get(nil_chk(zInput), 1);
-  OrgMinimaUtilsMessagesMessage *export_ = [create_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemBrainsConsensusUser_CONSENSUS_EXPORTKEY) addObjectWithNSString:@"publickey" withId:create_OrgMinimaObjectsBaseMiniData_initWithNSString_(pubks)];
+  OrgMinimaUtilsMessagesMessage *export_ = [new_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemBrainsConsensusUser_CONSENSUS_EXPORTKEY) addObjectWithNSString:@"publickey" withId:new_OrgMinimaObjectsBaseMiniData_initWithNSString_(pubks)];
   [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getConsensusHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:export_];
 }
 
 - (OrgMinimaSystemInputCommandFunction *)getNewFunction {
-  return create_OrgMinimaSystemInputFunctionsTransferexportkey_init();
+  return new_OrgMinimaSystemInputFunctionsTransferexportkey_init();
 }
 
 + (const J2ObjcClassInfo *)__metadata {

@@ -28,10 +28,10 @@ J2OBJC_IGNORE_DESIGNATED_END
     OrgMinimaUtilsMessagesMessage *newkey = [self getResponseMessageWithNSString:OrgMinimaSystemBrainsConsensusUser_CONSENSUS_NEWKEY];
     if (zInput->size_ > 2) {
       jint bitl = JavaLangInteger_parseIntWithNSString_(IOSObjectArray_Get(zInput, 2));
-      [((OrgMinimaUtilsMessagesMessage *) nil_chk(newkey)) addIntWithNSString:@"bitlength" withInt:bitl];
+      (void) [((OrgMinimaUtilsMessagesMessage *) nil_chk(newkey)) addIntWithNSString:@"bitlength" withInt:bitl];
     }
     else {
-      [((OrgMinimaUtilsMessagesMessage *) nil_chk(newkey)) addIntWithNSString:@"bitlength" withInt:256];
+      (void) [((OrgMinimaUtilsMessagesMessage *) nil_chk(newkey)) addIntWithNSString:@"bitlength" withInt:256];
     }
     [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getConsensusHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:newkey];
     return;
@@ -40,7 +40,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (OrgMinimaSystemInputCommandFunction *)getNewFunction {
-  return create_OrgMinimaSystemInputFunctionskeys_init();
+  return new_OrgMinimaSystemInputFunctionskeys_init();
 }
 
 + (const J2ObjcClassInfo *)__metadata {

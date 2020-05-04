@@ -54,11 +54,11 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (OrgMinimaUtilsJsonJSONObject *)toJSON {
-  OrgMinimaUtilsJsonJSONObject *obj = create_OrgMinimaUtilsJsonJSONObject_init();
-  [obj putWithId:@"blocktime" withId:[((OrgMinimaObjectsBaseMiniNumber *) nil_chk(mBlockTime_)) description]];
-  [obj putWithId:@"entry" withId:[((OrgMinimaObjectsBaseMiniInteger *) nil_chk(mEntryNumber_)) description]];
-  [obj putWithId:@"data" withId:[((OrgMinimaDatabaseMmrMMRData *) nil_chk(mData_MMRProof_)) toJSON]];
-  [obj putWithId:@"proof" withId:[super toJSON]];
+  OrgMinimaUtilsJsonJSONObject *obj = new_OrgMinimaUtilsJsonJSONObject_init();
+  (void) [obj putWithId:@"blocktime" withId:[((OrgMinimaObjectsBaseMiniNumber *) nil_chk(mBlockTime_)) description]];
+  (void) [obj putWithId:@"entry" withId:[((OrgMinimaObjectsBaseMiniInteger *) nil_chk(mEntryNumber_)) description]];
+  (void) [obj putWithId:@"data" withId:[((OrgMinimaDatabaseMmrMMRData *) nil_chk(mData_MMRProof_)) toJSON]];
+  (void) [obj putWithId:@"proof" withId:[super toJSON]];
   return obj;
 }
 
@@ -74,21 +74,14 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (void)readDataStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn {
-  JreStrongAssign(&mBlockTime_, OrgMinimaObjectsBaseMiniNumber_ReadFromStreamWithJavaIoDataInputStream_(zIn));
-  JreStrongAssign(&mEntryNumber_, OrgMinimaObjectsBaseMiniInteger_ReadFromStreamWithJavaIoDataInputStream_(zIn));
-  JreStrongAssign(&mData_MMRProof_, OrgMinimaDatabaseMmrMMRData_ReadFromStreamWithJavaIoDataInputStream_(zIn));
+  mBlockTime_ = OrgMinimaObjectsBaseMiniNumber_ReadFromStreamWithJavaIoDataInputStream_(zIn);
+  mEntryNumber_ = OrgMinimaObjectsBaseMiniInteger_ReadFromStreamWithJavaIoDataInputStream_(zIn);
+  mData_MMRProof_ = OrgMinimaDatabaseMmrMMRData_ReadFromStreamWithJavaIoDataInputStream_(zIn);
   [super readDataStreamWithJavaIoDataInputStream:zIn];
 }
 
 + (OrgMinimaDatabaseMmrMMRProof *)ReadFromStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn {
   return OrgMinimaDatabaseMmrMMRProof_ReadFromStreamWithJavaIoDataInputStream_(zIn);
-}
-
-- (void)dealloc {
-  RELEASE_(mBlockTime_);
-  RELEASE_(mEntryNumber_);
-  RELEASE_(mData_MMRProof_);
-  [super dealloc];
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -134,8 +127,8 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 void OrgMinimaDatabaseMmrMMRProof_init(OrgMinimaDatabaseMmrMMRProof *self) {
   OrgMinimaObjectsProofsProof_init(self);
-  JreStrongAssignAndConsume(&self->mBlockTime_, new_OrgMinimaObjectsBaseMiniNumber_initWithInt_(0));
-  JreStrongAssignAndConsume(&self->mEntryNumber_, new_OrgMinimaObjectsBaseMiniInteger_initWithInt_(0));
+  self->mBlockTime_ = new_OrgMinimaObjectsBaseMiniNumber_initWithInt_(0);
+  self->mEntryNumber_ = new_OrgMinimaObjectsBaseMiniInteger_initWithInt_(0);
 }
 
 OrgMinimaDatabaseMmrMMRProof *new_OrgMinimaDatabaseMmrMMRProof_init() {
@@ -148,11 +141,11 @@ OrgMinimaDatabaseMmrMMRProof *create_OrgMinimaDatabaseMmrMMRProof_init() {
 
 void OrgMinimaDatabaseMmrMMRProof_initWithOrgMinimaObjectsBaseMiniInteger_withOrgMinimaDatabaseMmrMMRData_withOrgMinimaObjectsBaseMiniNumber_(OrgMinimaDatabaseMmrMMRProof *self, OrgMinimaObjectsBaseMiniInteger *zEntryNumber, OrgMinimaDatabaseMmrMMRData *zInitialData, OrgMinimaObjectsBaseMiniNumber *zBlockTime) {
   OrgMinimaObjectsProofsProof_init(self);
-  JreStrongAssignAndConsume(&self->mBlockTime_, new_OrgMinimaObjectsBaseMiniNumber_initWithInt_(0));
-  JreStrongAssignAndConsume(&self->mEntryNumber_, new_OrgMinimaObjectsBaseMiniInteger_initWithInt_(0));
-  JreStrongAssign(&self->mEntryNumber_, zEntryNumber);
-  JreStrongAssign(&self->mData_MMRProof_, zInitialData);
-  JreStrongAssign(&self->mBlockTime_, zBlockTime);
+  self->mBlockTime_ = new_OrgMinimaObjectsBaseMiniNumber_initWithInt_(0);
+  self->mEntryNumber_ = new_OrgMinimaObjectsBaseMiniInteger_initWithInt_(0);
+  self->mEntryNumber_ = zEntryNumber;
+  self->mData_MMRProof_ = zInitialData;
+  self->mBlockTime_ = zBlockTime;
   [self setDataWithOrgMinimaObjectsBaseMiniData:[((OrgMinimaDatabaseMmrMMRData *) nil_chk(self->mData_MMRProof_)) getFinalHash]];
 }
 
@@ -166,7 +159,7 @@ OrgMinimaDatabaseMmrMMRProof *create_OrgMinimaDatabaseMmrMMRProof_initWithOrgMin
 
 OrgMinimaDatabaseMmrMMRProof *OrgMinimaDatabaseMmrMMRProof_ReadFromStreamWithJavaIoDataInputStream_(JavaIoDataInputStream *zIn) {
   OrgMinimaDatabaseMmrMMRProof_initialize();
-  OrgMinimaDatabaseMmrMMRProof *proof = create_OrgMinimaDatabaseMmrMMRProof_init();
+  OrgMinimaDatabaseMmrMMRProof *proof = new_OrgMinimaDatabaseMmrMMRProof_init();
   @try {
     [proof readDataStreamWithJavaIoDataInputStream:zIn];
   }

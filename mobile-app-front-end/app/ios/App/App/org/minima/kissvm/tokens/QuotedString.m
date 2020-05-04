@@ -30,7 +30,7 @@ __attribute__((unused)) static jint OrgMinimaKissvmTokensQuotedString_findFinalQ
 - (NSString *)getDeQuotedString {
   mCurrentQuote_ = 0;
   mCurrentPos_ = 0;
-  JreStrongAssign(&mQuotedString_, @"");
+  mQuotedString_ = @"";
   jint len = [((NSString *) nil_chk(mString_)) java_length];
   while (mCurrentPos_ < len) {
     NSString *next = JavaLangCharacter_toStringWithChar_([((NSString *) nil_chk(mString_)) charAtWithInt:mCurrentPos_]);
@@ -38,13 +38,13 @@ __attribute__((unused)) static jint OrgMinimaKissvmTokensQuotedString_findFinalQ
       NSString *rep = JreStrcat("CI", ':', mCurrentQuote_);
       jint end = OrgMinimaKissvmTokensQuotedString_findFinalQuoteWithInt_(self, mCurrentPos_ + 1);
       NSString *quote = [((NSString *) nil_chk(mString_)) java_substring:mCurrentPos_ endIndex:end + 1];
-      JreStrAppendStrong(&mQuotedString_, "$", rep);
+      (void) JreStrAppendStrong(&mQuotedString_, "$", rep);
       [((JavaUtilArrayList *) nil_chk(mQuotes_)) addWithId:quote];
       mCurrentQuote_++;
       mCurrentPos_ = end;
     }
     else {
-      JreStrAppendStrong(&mQuotedString_, "$", next);
+      (void) JreStrAppendStrong(&mQuotedString_, "$", next);
     }
     mCurrentPos_++;
   }
@@ -65,13 +65,6 @@ __attribute__((unused)) static jint OrgMinimaKissvmTokensQuotedString_findFinalQ
 
 + (void)mainWithNSStringArray:(IOSObjectArray *)zArgs {
   OrgMinimaKissvmTokensQuotedString_mainWithNSStringArray_(zArgs);
-}
-
-- (void)dealloc {
-  RELEASE_(mString_);
-  RELEASE_(mQuotedString_);
-  RELEASE_(mQuotes_);
-  [super dealloc];
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -109,8 +102,8 @@ __attribute__((unused)) static jint OrgMinimaKissvmTokensQuotedString_findFinalQ
 
 void OrgMinimaKissvmTokensQuotedString_initWithNSString_(OrgMinimaKissvmTokensQuotedString *self, NSString *zString) {
   NSObject_init(self);
-  JreStrongAssign(&self->mString_, zString);
-  JreStrongAssignAndConsume(&self->mQuotes_, new_JavaUtilArrayList_init());
+  self->mString_ = zString;
+  self->mQuotes_ = new_JavaUtilArrayList_init();
 }
 
 OrgMinimaKissvmTokensQuotedString *new_OrgMinimaKissvmTokensQuotedString_initWithNSString_(NSString *zString) {
@@ -143,7 +136,7 @@ void OrgMinimaKissvmTokensQuotedString_mainWithNSStringArray_(IOSObjectArray *zA
   [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out))) printlnWithNSString:JreStrcat("$$", @"String : ", tester)];
   tester = OrgMinimaKissvmContract_cleanScriptWithNSString_(tester);
   [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out))) printlnWithNSString:JreStrcat("$$", @"Clean : ", tester)];
-  OrgMinimaKissvmTokensQuotedString *qs = create_OrgMinimaKissvmTokensQuotedString_initWithNSString_(tester);
+  OrgMinimaKissvmTokensQuotedString *qs = new_OrgMinimaKissvmTokensQuotedString_initWithNSString_(tester);
   [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out))) printlnWithNSString:JreStrcat("$$", @"String : ", tester)];
   [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out))) printlnWithNSString:JreStrcat("$$", @"Quoted : ", [qs getDeQuotedString])];
   for (jint i = 0; i < [qs getQuotesSize]; i++) {

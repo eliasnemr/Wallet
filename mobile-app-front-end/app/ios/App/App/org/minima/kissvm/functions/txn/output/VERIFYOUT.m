@@ -28,9 +28,9 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 - (OrgMinimaKissvmValuesValue *)runFunctionWithOrgMinimaKissvmContract:(OrgMinimaKissvmContract *)zContract {
   jint output = [((OrgMinimaObjectsBaseMiniNumber *) nil_chk([((OrgMinimaKissvmValuesValue *) nil_chk([((id<OrgMinimaKissvmExpressionsExpression>) nil_chk([self getParameterWithInt:0])) getValueWithOrgMinimaKissvmContract:zContract])) getNumber])) getAsInt];
-  OrgMinimaObjectsBaseMiniData *address = create_OrgMinimaObjectsBaseMiniData_initWithByteArray_([((OrgMinimaKissvmValuesValue *) nil_chk([((id<OrgMinimaKissvmExpressionsExpression>) nil_chk([self getParameterWithInt:1])) getValueWithOrgMinimaKissvmContract:zContract])) getRawData]);
+  OrgMinimaObjectsBaseMiniData *address = new_OrgMinimaObjectsBaseMiniData_initWithByteArray_([((OrgMinimaKissvmValuesValue *) nil_chk([((id<OrgMinimaKissvmExpressionsExpression>) nil_chk([self getParameterWithInt:1])) getValueWithOrgMinimaKissvmContract:zContract])) getRawData]);
   OrgMinimaObjectsBaseMiniNumber *amount = [((OrgMinimaKissvmValuesValue *) nil_chk([((id<OrgMinimaKissvmExpressionsExpression>) nil_chk([self getParameterWithInt:2])) getValueWithOrgMinimaKissvmContract:zContract])) getNumber];
-  OrgMinimaObjectsBaseMiniData *tokenid = create_OrgMinimaObjectsBaseMiniData_initWithByteArray_([((OrgMinimaKissvmValuesValue *) nil_chk([((id<OrgMinimaKissvmExpressionsExpression>) nil_chk([self getParameterWithInt:3])) getValueWithOrgMinimaKissvmContract:zContract])) getRawData]);
+  OrgMinimaObjectsBaseMiniData *tokenid = new_OrgMinimaObjectsBaseMiniData_initWithByteArray_([((OrgMinimaKissvmValuesValue *) nil_chk([((id<OrgMinimaKissvmExpressionsExpression>) nil_chk([self getParameterWithInt:3])) getValueWithOrgMinimaKissvmContract:zContract])) getRawData]);
   jint amountchecktype = 0;
   if ([self getParameterNum] > 4) {
     amountchecktype = [((OrgMinimaObjectsBaseMiniNumber *) nil_chk([((OrgMinimaKissvmValuesValue *) nil_chk([((id<OrgMinimaKissvmExpressionsExpression>) nil_chk([self getParameterWithInt:4])) getValueWithOrgMinimaKissvmContract:zContract])) getNumber])) getAsInt];
@@ -38,7 +38,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   OrgMinimaObjectsTransaction *trans = [((OrgMinimaKissvmContract *) nil_chk(zContract)) getTransaction];
   JavaUtilArrayList *outs = [((OrgMinimaObjectsTransaction *) nil_chk(trans)) getAllOutputs];
   if ([((JavaUtilArrayList *) nil_chk(outs)) size] <= output) {
-    return create_OrgMinimaKissvmValuesBooleanValue_initWithBoolean_(false);
+    return new_OrgMinimaKissvmValuesBooleanValue_initWithBoolean_(false);
   }
   OrgMinimaObjectsCoin *cc = [outs getWithInt:output];
   jboolean addr = [address isEqualWithOrgMinimaObjectsBaseMiniData:[((OrgMinimaObjectsCoin *) nil_chk(cc)) getAddress]];
@@ -54,11 +54,11 @@ J2OBJC_IGNORE_DESIGNATED_END
     amt = [((OrgMinimaObjectsBaseMiniNumber *) nil_chk([cc getAmount])) isMoreEqualWithOrgMinimaObjectsBaseMiniNumber:amount];
   }
   jboolean ver = addr && amt && tok;
-  return create_OrgMinimaKissvmValuesBooleanValue_initWithBoolean_(ver);
+  return new_OrgMinimaKissvmValuesBooleanValue_initWithBoolean_(ver);
 }
 
 - (OrgMinimaKissvmFunctionsMinimaFunction *)getNewFunction {
-  return create_OrgMinimaKissvmFunctionsTxnOutputVERIFYOUT_init();
+  return new_OrgMinimaKissvmFunctionsTxnOutputVERIFYOUT_init();
 }
 
 + (const J2ObjcClassInfo *)__metadata {

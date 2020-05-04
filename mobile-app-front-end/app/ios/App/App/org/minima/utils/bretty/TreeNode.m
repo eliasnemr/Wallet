@@ -38,12 +38,6 @@ J2OBJC_FIELD_SETTER(OrgMinimaUtilsBrettyTreeNode, children_, id<JavaUtilList>)
   return self->children_;
 }
 
-- (void)dealloc {
-  RELEASE_(name_);
-  RELEASE_(children_);
-  
-}
-
 + (const J2ObjcClassInfo *)__metadata {
   static J2ObjcMethodInfo methods[] = {
     { NULL, NULL, 0x1, -1, 0, -1, -1, -1, -1 },
@@ -72,8 +66,8 @@ J2OBJC_FIELD_SETTER(OrgMinimaUtilsBrettyTreeNode, children_, id<JavaUtilList>)
 
 void OrgMinimaUtilsBrettyTreeNode_initWithNSString_(OrgMinimaUtilsBrettyTreeNode *self, NSString *name) {
   NSObject_init(self);
-  JreStrongAssign(&self->name_, name);
-  JreStrongAssignAndConsume(&self->children_, new_JavaUtilArrayList_init());
+  self->name_ = name;
+  self->children_ = new_JavaUtilArrayList_init();
 }
 
 OrgMinimaUtilsBrettyTreeNode *new_OrgMinimaUtilsBrettyTreeNode_initWithNSString_(NSString *name) {

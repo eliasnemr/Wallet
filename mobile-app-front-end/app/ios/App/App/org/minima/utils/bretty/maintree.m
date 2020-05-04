@@ -55,18 +55,18 @@ OrgMinimaUtilsBrettymaintree *create_OrgMinimaUtilsBrettymaintree_init() {
 
 void OrgMinimaUtilsBrettymaintree_mainWithNSStringArray_(IOSObjectArray *zArgs) {
   OrgMinimaUtilsBrettymaintree_initialize();
-  OrgMinimaUtilsBrettyTreeNode *a = create_OrgMinimaUtilsBrettyTreeNode_initWithNSString_(@"a");
-  OrgMinimaUtilsBrettyTreeNode *b = create_OrgMinimaUtilsBrettyTreeNode_initWithNSString_(@"b");
-  OrgMinimaUtilsBrettyTreeNode *c = create_OrgMinimaUtilsBrettyTreeNode_initWithNSString_(@"c");
-  OrgMinimaUtilsBrettyTreeNode *d = create_OrgMinimaUtilsBrettyTreeNode_initWithNSString_(@"d");
-  OrgMinimaUtilsBrettyTreeNode *e = create_OrgMinimaUtilsBrettyTreeNode_initWithNSString_(@"e");
-  OrgMinimaUtilsBrettyTreeNode *f = create_OrgMinimaUtilsBrettyTreeNode_initWithNSString_(@"f");
-  OrgMinimaUtilsBrettyTreeNode *g = create_OrgMinimaUtilsBrettyTreeNode_initWithNSString_(@"g");
-  OrgMinimaUtilsBrettyTreeNode *h = create_OrgMinimaUtilsBrettyTreeNode_initWithNSString_(@"h");
-  OrgMinimaUtilsBrettyTreeNode *i = create_OrgMinimaUtilsBrettyTreeNode_initWithNSString_(@"i");
-  OrgMinimaUtilsBrettyTreeNode *j = create_OrgMinimaUtilsBrettyTreeNode_initWithNSString_(@"j");
-  OrgMinimaUtilsBrettyTreeNode *k = create_OrgMinimaUtilsBrettyTreeNode_initWithNSString_(@"k");
-  OrgMinimaUtilsBrettyTreeNode *l = create_OrgMinimaUtilsBrettyTreeNode_initWithNSString_(@"l");
+  OrgMinimaUtilsBrettyTreeNode *a = new_OrgMinimaUtilsBrettyTreeNode_initWithNSString_(@"a");
+  OrgMinimaUtilsBrettyTreeNode *b = new_OrgMinimaUtilsBrettyTreeNode_initWithNSString_(@"b");
+  OrgMinimaUtilsBrettyTreeNode *c = new_OrgMinimaUtilsBrettyTreeNode_initWithNSString_(@"c");
+  OrgMinimaUtilsBrettyTreeNode *d = new_OrgMinimaUtilsBrettyTreeNode_initWithNSString_(@"d");
+  OrgMinimaUtilsBrettyTreeNode *e = new_OrgMinimaUtilsBrettyTreeNode_initWithNSString_(@"e");
+  OrgMinimaUtilsBrettyTreeNode *f = new_OrgMinimaUtilsBrettyTreeNode_initWithNSString_(@"f");
+  OrgMinimaUtilsBrettyTreeNode *g = new_OrgMinimaUtilsBrettyTreeNode_initWithNSString_(@"g");
+  OrgMinimaUtilsBrettyTreeNode *h = new_OrgMinimaUtilsBrettyTreeNode_initWithNSString_(@"h");
+  OrgMinimaUtilsBrettyTreeNode *i = new_OrgMinimaUtilsBrettyTreeNode_initWithNSString_(@"i");
+  OrgMinimaUtilsBrettyTreeNode *j = new_OrgMinimaUtilsBrettyTreeNode_initWithNSString_(@"j");
+  OrgMinimaUtilsBrettyTreeNode *k = new_OrgMinimaUtilsBrettyTreeNode_initWithNSString_(@"k");
+  OrgMinimaUtilsBrettyTreeNode *l = new_OrgMinimaUtilsBrettyTreeNode_initWithNSString_(@"l");
   [a addChildWithOrgMinimaUtilsBrettyTreeNode:b];
   [a addChildWithOrgMinimaUtilsBrettyTreeNode:c];
   [a addChildWithOrgMinimaUtilsBrettyTreeNode:d];

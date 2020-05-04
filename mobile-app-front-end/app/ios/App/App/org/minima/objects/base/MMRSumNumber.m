@@ -72,7 +72,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (OrgMinimaObjectsBaseMMRSumNumber *)addWithOrgMinimaObjectsBaseMMRSumNumber:(OrgMinimaObjectsBaseMMRSumNumber *)zNumber {
-  return create_OrgMinimaObjectsBaseMMRSumNumber_initWithJavaMathBigDecimal_([((JavaMathBigDecimal *) nil_chk(mNumber_)) addWithJavaMathBigDecimal:[((OrgMinimaObjectsBaseMMRSumNumber *) nil_chk(zNumber)) getNumber] withJavaMathMathContext:OrgMinimaObjectsBaseMMRSumNumber_mMathContext]);
+  return new_OrgMinimaObjectsBaseMMRSumNumber_initWithJavaMathBigDecimal_([((JavaMathBigDecimal *) nil_chk(mNumber_)) addWithJavaMathBigDecimal:[((OrgMinimaObjectsBaseMMRSumNumber *) nil_chk(zNumber)) getNumber] withJavaMathMathContext:OrgMinimaObjectsBaseMMRSumNumber_mMathContext]);
 }
 
 - (jboolean)isEqualWithOrgMinimaObjectsBaseMMRSumNumber:(OrgMinimaObjectsBaseMMRSumNumber *)zNumber {
@@ -94,19 +94,14 @@ J2OBJC_IGNORE_DESIGNATED_END
 - (void)readDataStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn {
   jint scale_ = [((JavaIoDataInputStream *) nil_chk(zIn)) readInt];
   jint len = [zIn readInt];
-  IOSByteArray *data = [IOSByteArray arrayWithLength:len];
+  IOSByteArray *data = [IOSByteArray newArrayWithLength:len];
   [zIn readFullyWithByteArray:data];
-  JavaMathBigInteger *unscaled = create_JavaMathBigInteger_initWithByteArray_(data);
-  JreStrongAssignAndConsume(&mNumber_, new_JavaMathBigDecimal_initWithJavaMathBigInteger_withInt_withJavaMathMathContext_(unscaled, scale_, OrgMinimaObjectsBaseMMRSumNumber_mMathContext));
+  JavaMathBigInteger *unscaled = new_JavaMathBigInteger_initWithByteArray_(data);
+  mNumber_ = new_JavaMathBigDecimal_initWithJavaMathBigInteger_withInt_withJavaMathMathContext_(unscaled, scale_, OrgMinimaObjectsBaseMMRSumNumber_mMathContext);
 }
 
 + (OrgMinimaObjectsBaseMMRSumNumber *)ReadFromStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn {
   return OrgMinimaObjectsBaseMMRSumNumber_ReadFromStreamWithJavaIoDataInputStream_(zIn);
-}
-
-- (void)dealloc {
-  RELEASE_(mNumber_);
-  [super dealloc];
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -148,8 +143,8 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 + (void)initialize {
   if (self == [OrgMinimaObjectsBaseMMRSumNumber class]) {
-    JreStrongAssignAndConsume(&OrgMinimaObjectsBaseMMRSumNumber_mMathContext, new_JavaMathMathContext_initWithInt_withJavaMathRoundingMode_(100, JreLoadEnum(JavaMathRoundingMode, DOWN)));
-    JreStrongAssignAndConsume(&OrgMinimaObjectsBaseMMRSumNumber_ZERO, new_OrgMinimaObjectsBaseMMRSumNumber_initWithJavaMathBigDecimal_(JreLoadStatic(JavaMathBigDecimal, ZERO)));
+    OrgMinimaObjectsBaseMMRSumNumber_mMathContext = new_JavaMathMathContext_initWithInt_withJavaMathRoundingMode_(100, JreLoadEnum(JavaMathRoundingMode, DOWN));
+    OrgMinimaObjectsBaseMMRSumNumber_ZERO = new_OrgMinimaObjectsBaseMMRSumNumber_initWithJavaMathBigDecimal_(JreLoadStatic(JavaMathBigDecimal, ZERO));
     J2OBJC_SET_INITIALIZED(OrgMinimaObjectsBaseMMRSumNumber)
   }
 }
@@ -170,7 +165,7 @@ OrgMinimaObjectsBaseMMRSumNumber *create_OrgMinimaObjectsBaseMMRSumNumber_init()
 
 void OrgMinimaObjectsBaseMMRSumNumber_initWithJavaMathBigDecimal_(OrgMinimaObjectsBaseMMRSumNumber *self, JavaMathBigDecimal *zNumber) {
   NSObject_init(self);
-  JreStrongAssign(&self->mNumber_, zNumber);
+  self->mNumber_ = zNumber;
 }
 
 OrgMinimaObjectsBaseMMRSumNumber *new_OrgMinimaObjectsBaseMMRSumNumber_initWithJavaMathBigDecimal_(JavaMathBigDecimal *zNumber) {
@@ -183,7 +178,7 @@ OrgMinimaObjectsBaseMMRSumNumber *create_OrgMinimaObjectsBaseMMRSumNumber_initWi
 
 void OrgMinimaObjectsBaseMMRSumNumber_initWithOrgMinimaObjectsBaseMiniNumber_(OrgMinimaObjectsBaseMMRSumNumber *self, OrgMinimaObjectsBaseMiniNumber *zNumber) {
   NSObject_init(self);
-  JreStrongAssignAndConsume(&self->mNumber_, new_JavaMathBigDecimal_initWithNSString_withJavaMathMathContext_([((OrgMinimaObjectsBaseMiniNumber *) nil_chk(zNumber)) description], OrgMinimaObjectsBaseMMRSumNumber_mMathContext));
+  self->mNumber_ = new_JavaMathBigDecimal_initWithNSString_withJavaMathMathContext_([((OrgMinimaObjectsBaseMiniNumber *) nil_chk(zNumber)) description], OrgMinimaObjectsBaseMMRSumNumber_mMathContext);
 }
 
 OrgMinimaObjectsBaseMMRSumNumber *new_OrgMinimaObjectsBaseMMRSumNumber_initWithOrgMinimaObjectsBaseMiniNumber_(OrgMinimaObjectsBaseMiniNumber *zNumber) {
@@ -196,7 +191,7 @@ OrgMinimaObjectsBaseMMRSumNumber *create_OrgMinimaObjectsBaseMMRSumNumber_initWi
 
 OrgMinimaObjectsBaseMMRSumNumber *OrgMinimaObjectsBaseMMRSumNumber_ReadFromStreamWithJavaIoDataInputStream_(JavaIoDataInputStream *zIn) {
   OrgMinimaObjectsBaseMMRSumNumber_initialize();
-  OrgMinimaObjectsBaseMMRSumNumber *data = create_OrgMinimaObjectsBaseMMRSumNumber_init();
+  OrgMinimaObjectsBaseMMRSumNumber *data = new_OrgMinimaObjectsBaseMMRSumNumber_init();
   @try {
     [data readDataStreamWithJavaIoDataInputStream:zIn];
   }

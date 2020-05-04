@@ -135,10 +135,10 @@ OrgMinimaKissvmExpressionsExpressionParser *create_OrgMinimaKissvmExpressionsExp
 
 id<OrgMinimaKissvmExpressionsExpression> OrgMinimaKissvmExpressionsExpressionParser_getExpressionWithJavaUtilList_(id<JavaUtilList> zTokens) {
   OrgMinimaKissvmExpressionsExpressionParser_initialize();
-  OrgMinimaKissvmTokensLexicalTokenizer *lt = create_OrgMinimaKissvmTokensLexicalTokenizer_initWithJavaUtilList_(zTokens);
+  OrgMinimaKissvmTokensLexicalTokenizer *lt = new_OrgMinimaKissvmTokensLexicalTokenizer_initWithJavaUtilList_(zTokens);
   id<OrgMinimaKissvmExpressionsExpression> exp = OrgMinimaKissvmExpressionsExpressionParser_getExpressionWithOrgMinimaKissvmTokensLexicalTokenizer_(lt);
   if (![lt checkAllTokensUsed]) {
-    @throw create_OrgMinimaKissvmExceptionsMinimaParseException_initWithNSString_(JreStrcat("$$", @"Incorrect token number in expression @ ", [((OrgMinimaKissvmTokensToken *) nil_chk([lt getNextToken])) getToken]));
+    @throw new_OrgMinimaKissvmExceptionsMinimaParseException_initWithNSString_(JreStrcat("$$", @"Incorrect token number in expression @ ", [((OrgMinimaKissvmTokensToken *) nil_chk([lt getNextToken])) getToken]));
   }
   return exp;
 }
@@ -149,22 +149,22 @@ id<OrgMinimaKissvmExpressionsExpression> OrgMinimaKissvmExpressionsExpressionPar
   while ([((OrgMinimaKissvmTokensLexicalTokenizer *) nil_chk(zTokens)) hasMoreElements]) {
     OrgMinimaKissvmTokensToken *tok = [zTokens getNextToken];
     if ([((NSString *) nil_chk([((OrgMinimaKissvmTokensToken *) nil_chk(tok)) getToken])) isEqual:@"AND"]) {
-      exp = create_OrgMinimaKissvmExpressionsBooleanExpression_initWithOrgMinimaKissvmExpressionsExpression_withOrgMinimaKissvmExpressionsExpression_withInt_(exp, OrgMinimaKissvmExpressionsExpressionParser_getRelationWithOrgMinimaKissvmTokensLexicalTokenizer_(zTokens), OrgMinimaKissvmExpressionsBooleanExpression_BOOLEAN_AND);
+      exp = new_OrgMinimaKissvmExpressionsBooleanExpression_initWithOrgMinimaKissvmExpressionsExpression_withOrgMinimaKissvmExpressionsExpression_withInt_(exp, OrgMinimaKissvmExpressionsExpressionParser_getRelationWithOrgMinimaKissvmTokensLexicalTokenizer_(zTokens), OrgMinimaKissvmExpressionsBooleanExpression_BOOLEAN_AND);
     }
     else if ([((NSString *) nil_chk([tok getToken])) isEqual:@"OR"]) {
-      exp = create_OrgMinimaKissvmExpressionsBooleanExpression_initWithOrgMinimaKissvmExpressionsExpression_withOrgMinimaKissvmExpressionsExpression_withInt_(exp, OrgMinimaKissvmExpressionsExpressionParser_getRelationWithOrgMinimaKissvmTokensLexicalTokenizer_(zTokens), OrgMinimaKissvmExpressionsBooleanExpression_BOOLEAN_OR);
+      exp = new_OrgMinimaKissvmExpressionsBooleanExpression_initWithOrgMinimaKissvmExpressionsExpression_withOrgMinimaKissvmExpressionsExpression_withInt_(exp, OrgMinimaKissvmExpressionsExpressionParser_getRelationWithOrgMinimaKissvmTokensLexicalTokenizer_(zTokens), OrgMinimaKissvmExpressionsBooleanExpression_BOOLEAN_OR);
     }
     else if ([((NSString *) nil_chk([tok getToken])) isEqual:@"XOR"]) {
-      exp = create_OrgMinimaKissvmExpressionsBooleanExpression_initWithOrgMinimaKissvmExpressionsExpression_withOrgMinimaKissvmExpressionsExpression_withInt_(exp, OrgMinimaKissvmExpressionsExpressionParser_getRelationWithOrgMinimaKissvmTokensLexicalTokenizer_(zTokens), OrgMinimaKissvmExpressionsBooleanExpression_BOOLEAN_XOR);
+      exp = new_OrgMinimaKissvmExpressionsBooleanExpression_initWithOrgMinimaKissvmExpressionsExpression_withOrgMinimaKissvmExpressionsExpression_withInt_(exp, OrgMinimaKissvmExpressionsExpressionParser_getRelationWithOrgMinimaKissvmTokensLexicalTokenizer_(zTokens), OrgMinimaKissvmExpressionsBooleanExpression_BOOLEAN_XOR);
     }
     else if ([((NSString *) nil_chk([tok getToken])) isEqual:@"NAND"]) {
-      exp = create_OrgMinimaKissvmExpressionsBooleanExpression_initWithOrgMinimaKissvmExpressionsExpression_withOrgMinimaKissvmExpressionsExpression_withInt_(exp, OrgMinimaKissvmExpressionsExpressionParser_getRelationWithOrgMinimaKissvmTokensLexicalTokenizer_(zTokens), OrgMinimaKissvmExpressionsBooleanExpression_BOOLEAN_NAND);
+      exp = new_OrgMinimaKissvmExpressionsBooleanExpression_initWithOrgMinimaKissvmExpressionsExpression_withOrgMinimaKissvmExpressionsExpression_withInt_(exp, OrgMinimaKissvmExpressionsExpressionParser_getRelationWithOrgMinimaKissvmTokensLexicalTokenizer_(zTokens), OrgMinimaKissvmExpressionsBooleanExpression_BOOLEAN_NAND);
     }
     else if ([((NSString *) nil_chk([tok getToken])) isEqual:@"NOR"]) {
-      exp = create_OrgMinimaKissvmExpressionsBooleanExpression_initWithOrgMinimaKissvmExpressionsExpression_withOrgMinimaKissvmExpressionsExpression_withInt_(exp, OrgMinimaKissvmExpressionsExpressionParser_getRelationWithOrgMinimaKissvmTokensLexicalTokenizer_(zTokens), OrgMinimaKissvmExpressionsBooleanExpression_BOOLEAN_NOR);
+      exp = new_OrgMinimaKissvmExpressionsBooleanExpression_initWithOrgMinimaKissvmExpressionsExpression_withOrgMinimaKissvmExpressionsExpression_withInt_(exp, OrgMinimaKissvmExpressionsExpressionParser_getRelationWithOrgMinimaKissvmTokensLexicalTokenizer_(zTokens), OrgMinimaKissvmExpressionsBooleanExpression_BOOLEAN_NOR);
     }
     else if ([((NSString *) nil_chk([tok getToken])) isEqual:@"NXOR"]) {
-      exp = create_OrgMinimaKissvmExpressionsBooleanExpression_initWithOrgMinimaKissvmExpressionsExpression_withOrgMinimaKissvmExpressionsExpression_withInt_(exp, OrgMinimaKissvmExpressionsExpressionParser_getRelationWithOrgMinimaKissvmTokensLexicalTokenizer_(zTokens), OrgMinimaKissvmExpressionsBooleanExpression_BOOLEAN_NXOR);
+      exp = new_OrgMinimaKissvmExpressionsBooleanExpression_initWithOrgMinimaKissvmExpressionsExpression_withOrgMinimaKissvmExpressionsExpression_withInt_(exp, OrgMinimaKissvmExpressionsExpressionParser_getRelationWithOrgMinimaKissvmTokensLexicalTokenizer_(zTokens), OrgMinimaKissvmExpressionsBooleanExpression_BOOLEAN_NXOR);
     }
     else {
       [zTokens goBackToken];
@@ -180,22 +180,22 @@ id<OrgMinimaKissvmExpressionsExpression> OrgMinimaKissvmExpressionsExpressionPar
   while ([((OrgMinimaKissvmTokensLexicalTokenizer *) nil_chk(zTokens)) hasMoreElements]) {
     OrgMinimaKissvmTokensToken *tok = [zTokens getNextToken];
     if ([((NSString *) nil_chk([((OrgMinimaKissvmTokensToken *) nil_chk(tok)) getToken])) isEqual:@"EQ"]) {
-      exp = create_OrgMinimaKissvmExpressionsBooleanExpression_initWithOrgMinimaKissvmExpressionsExpression_withOrgMinimaKissvmExpressionsExpression_withInt_(exp, OrgMinimaKissvmExpressionsExpressionParser_getLogicWithOrgMinimaKissvmTokensLexicalTokenizer_(zTokens), OrgMinimaKissvmExpressionsBooleanExpression_BOOLEAN_EQ);
+      exp = new_OrgMinimaKissvmExpressionsBooleanExpression_initWithOrgMinimaKissvmExpressionsExpression_withOrgMinimaKissvmExpressionsExpression_withInt_(exp, OrgMinimaKissvmExpressionsExpressionParser_getLogicWithOrgMinimaKissvmTokensLexicalTokenizer_(zTokens), OrgMinimaKissvmExpressionsBooleanExpression_BOOLEAN_EQ);
     }
     else if ([((NSString *) nil_chk([tok getToken])) isEqual:@"NEQ"]) {
-      exp = create_OrgMinimaKissvmExpressionsBooleanExpression_initWithOrgMinimaKissvmExpressionsExpression_withOrgMinimaKissvmExpressionsExpression_withInt_(exp, OrgMinimaKissvmExpressionsExpressionParser_getLogicWithOrgMinimaKissvmTokensLexicalTokenizer_(zTokens), OrgMinimaKissvmExpressionsBooleanExpression_BOOLEAN_NEQ);
+      exp = new_OrgMinimaKissvmExpressionsBooleanExpression_initWithOrgMinimaKissvmExpressionsExpression_withOrgMinimaKissvmExpressionsExpression_withInt_(exp, OrgMinimaKissvmExpressionsExpressionParser_getLogicWithOrgMinimaKissvmTokensLexicalTokenizer_(zTokens), OrgMinimaKissvmExpressionsBooleanExpression_BOOLEAN_NEQ);
     }
     else if ([((NSString *) nil_chk([tok getToken])) isEqual:@"GT"]) {
-      exp = create_OrgMinimaKissvmExpressionsBooleanExpression_initWithOrgMinimaKissvmExpressionsExpression_withOrgMinimaKissvmExpressionsExpression_withInt_(exp, OrgMinimaKissvmExpressionsExpressionParser_getLogicWithOrgMinimaKissvmTokensLexicalTokenizer_(zTokens), OrgMinimaKissvmExpressionsBooleanExpression_BOOLEAN_GT);
+      exp = new_OrgMinimaKissvmExpressionsBooleanExpression_initWithOrgMinimaKissvmExpressionsExpression_withOrgMinimaKissvmExpressionsExpression_withInt_(exp, OrgMinimaKissvmExpressionsExpressionParser_getLogicWithOrgMinimaKissvmTokensLexicalTokenizer_(zTokens), OrgMinimaKissvmExpressionsBooleanExpression_BOOLEAN_GT);
     }
     else if ([((NSString *) nil_chk([tok getToken])) isEqual:@"GTE"]) {
-      exp = create_OrgMinimaKissvmExpressionsBooleanExpression_initWithOrgMinimaKissvmExpressionsExpression_withOrgMinimaKissvmExpressionsExpression_withInt_(exp, OrgMinimaKissvmExpressionsExpressionParser_getLogicWithOrgMinimaKissvmTokensLexicalTokenizer_(zTokens), OrgMinimaKissvmExpressionsBooleanExpression_BOOLEAN_GTE);
+      exp = new_OrgMinimaKissvmExpressionsBooleanExpression_initWithOrgMinimaKissvmExpressionsExpression_withOrgMinimaKissvmExpressionsExpression_withInt_(exp, OrgMinimaKissvmExpressionsExpressionParser_getLogicWithOrgMinimaKissvmTokensLexicalTokenizer_(zTokens), OrgMinimaKissvmExpressionsBooleanExpression_BOOLEAN_GTE);
     }
     else if ([((NSString *) nil_chk([tok getToken])) isEqual:@"LT"]) {
-      exp = create_OrgMinimaKissvmExpressionsBooleanExpression_initWithOrgMinimaKissvmExpressionsExpression_withOrgMinimaKissvmExpressionsExpression_withInt_(exp, OrgMinimaKissvmExpressionsExpressionParser_getLogicWithOrgMinimaKissvmTokensLexicalTokenizer_(zTokens), OrgMinimaKissvmExpressionsBooleanExpression_BOOLEAN_LT);
+      exp = new_OrgMinimaKissvmExpressionsBooleanExpression_initWithOrgMinimaKissvmExpressionsExpression_withOrgMinimaKissvmExpressionsExpression_withInt_(exp, OrgMinimaKissvmExpressionsExpressionParser_getLogicWithOrgMinimaKissvmTokensLexicalTokenizer_(zTokens), OrgMinimaKissvmExpressionsBooleanExpression_BOOLEAN_LT);
     }
     else if ([((NSString *) nil_chk([tok getToken])) isEqual:@"LTE"]) {
-      exp = create_OrgMinimaKissvmExpressionsBooleanExpression_initWithOrgMinimaKissvmExpressionsExpression_withOrgMinimaKissvmExpressionsExpression_withInt_(exp, OrgMinimaKissvmExpressionsExpressionParser_getLogicWithOrgMinimaKissvmTokensLexicalTokenizer_(zTokens), OrgMinimaKissvmExpressionsBooleanExpression_BOOLEAN_LTE);
+      exp = new_OrgMinimaKissvmExpressionsBooleanExpression_initWithOrgMinimaKissvmExpressionsExpression_withOrgMinimaKissvmExpressionsExpression_withInt_(exp, OrgMinimaKissvmExpressionsExpressionParser_getLogicWithOrgMinimaKissvmTokensLexicalTokenizer_(zTokens), OrgMinimaKissvmExpressionsBooleanExpression_BOOLEAN_LTE);
     }
     else {
       [zTokens goBackToken];
@@ -211,13 +211,13 @@ id<OrgMinimaKissvmExpressionsExpression> OrgMinimaKissvmExpressionsExpressionPar
   while ([((OrgMinimaKissvmTokensLexicalTokenizer *) nil_chk(zTokens)) hasMoreElements]) {
     OrgMinimaKissvmTokensToken *tok = [zTokens getNextToken];
     if ([((NSString *) nil_chk([((OrgMinimaKissvmTokensToken *) nil_chk(tok)) getToken])) isEqual:@"&"]) {
-      exp = create_OrgMinimaKissvmExpressionsOperatorExpression_initWithOrgMinimaKissvmExpressionsExpression_withOrgMinimaKissvmExpressionsExpression_withInt_(exp, OrgMinimaKissvmExpressionsExpressionParser_getAddSubWithOrgMinimaKissvmTokensLexicalTokenizer_(zTokens), OrgMinimaKissvmExpressionsOperatorExpression_OPERATOR_AND);
+      exp = new_OrgMinimaKissvmExpressionsOperatorExpression_initWithOrgMinimaKissvmExpressionsExpression_withOrgMinimaKissvmExpressionsExpression_withInt_(exp, OrgMinimaKissvmExpressionsExpressionParser_getAddSubWithOrgMinimaKissvmTokensLexicalTokenizer_(zTokens), OrgMinimaKissvmExpressionsOperatorExpression_OPERATOR_AND);
     }
     else if ([((NSString *) nil_chk([tok getToken])) isEqual:@"|"]) {
-      exp = create_OrgMinimaKissvmExpressionsOperatorExpression_initWithOrgMinimaKissvmExpressionsExpression_withOrgMinimaKissvmExpressionsExpression_withInt_(exp, OrgMinimaKissvmExpressionsExpressionParser_getAddSubWithOrgMinimaKissvmTokensLexicalTokenizer_(zTokens), OrgMinimaKissvmExpressionsOperatorExpression_OPERATOR_OR);
+      exp = new_OrgMinimaKissvmExpressionsOperatorExpression_initWithOrgMinimaKissvmExpressionsExpression_withOrgMinimaKissvmExpressionsExpression_withInt_(exp, OrgMinimaKissvmExpressionsExpressionParser_getAddSubWithOrgMinimaKissvmTokensLexicalTokenizer_(zTokens), OrgMinimaKissvmExpressionsOperatorExpression_OPERATOR_OR);
     }
     else if ([((NSString *) nil_chk([tok getToken])) isEqual:@"^"]) {
-      exp = create_OrgMinimaKissvmExpressionsOperatorExpression_initWithOrgMinimaKissvmExpressionsExpression_withOrgMinimaKissvmExpressionsExpression_withInt_(exp, OrgMinimaKissvmExpressionsExpressionParser_getAddSubWithOrgMinimaKissvmTokensLexicalTokenizer_(zTokens), OrgMinimaKissvmExpressionsOperatorExpression_OPERATOR_XOR);
+      exp = new_OrgMinimaKissvmExpressionsOperatorExpression_initWithOrgMinimaKissvmExpressionsExpression_withOrgMinimaKissvmExpressionsExpression_withInt_(exp, OrgMinimaKissvmExpressionsExpressionParser_getAddSubWithOrgMinimaKissvmTokensLexicalTokenizer_(zTokens), OrgMinimaKissvmExpressionsOperatorExpression_OPERATOR_XOR);
     }
     else {
       [zTokens goBackToken];
@@ -233,19 +233,19 @@ id<OrgMinimaKissvmExpressionsExpression> OrgMinimaKissvmExpressionsExpressionPar
   while ([((OrgMinimaKissvmTokensLexicalTokenizer *) nil_chk(zTokens)) hasMoreElements]) {
     OrgMinimaKissvmTokensToken *tok = [zTokens getNextToken];
     if ([((NSString *) nil_chk([((OrgMinimaKissvmTokensToken *) nil_chk(tok)) getToken])) isEqual:@"+"]) {
-      exp = create_OrgMinimaKissvmExpressionsOperatorExpression_initWithOrgMinimaKissvmExpressionsExpression_withOrgMinimaKissvmExpressionsExpression_withInt_(exp, OrgMinimaKissvmExpressionsExpressionParser_getMulDivWithOrgMinimaKissvmTokensLexicalTokenizer_(zTokens), OrgMinimaKissvmExpressionsOperatorExpression_OPERATOR_ADD);
+      exp = new_OrgMinimaKissvmExpressionsOperatorExpression_initWithOrgMinimaKissvmExpressionsExpression_withOrgMinimaKissvmExpressionsExpression_withInt_(exp, OrgMinimaKissvmExpressionsExpressionParser_getMulDivWithOrgMinimaKissvmTokensLexicalTokenizer_(zTokens), OrgMinimaKissvmExpressionsOperatorExpression_OPERATOR_ADD);
     }
     else if ([((NSString *) nil_chk([tok getToken])) isEqual:@"-"]) {
-      exp = create_OrgMinimaKissvmExpressionsOperatorExpression_initWithOrgMinimaKissvmExpressionsExpression_withOrgMinimaKissvmExpressionsExpression_withInt_(exp, OrgMinimaKissvmExpressionsExpressionParser_getMulDivWithOrgMinimaKissvmTokensLexicalTokenizer_(zTokens), OrgMinimaKissvmExpressionsOperatorExpression_OPERATOR_SUB);
+      exp = new_OrgMinimaKissvmExpressionsOperatorExpression_initWithOrgMinimaKissvmExpressionsExpression_withOrgMinimaKissvmExpressionsExpression_withInt_(exp, OrgMinimaKissvmExpressionsExpressionParser_getMulDivWithOrgMinimaKissvmTokensLexicalTokenizer_(zTokens), OrgMinimaKissvmExpressionsOperatorExpression_OPERATOR_SUB);
     }
     else if ([((NSString *) nil_chk([tok getToken])) isEqual:@"%"]) {
-      exp = create_OrgMinimaKissvmExpressionsOperatorExpression_initWithOrgMinimaKissvmExpressionsExpression_withOrgMinimaKissvmExpressionsExpression_withInt_(exp, OrgMinimaKissvmExpressionsExpressionParser_getMulDivWithOrgMinimaKissvmTokensLexicalTokenizer_(zTokens), OrgMinimaKissvmExpressionsOperatorExpression_OPERATOR_MODULO);
+      exp = new_OrgMinimaKissvmExpressionsOperatorExpression_initWithOrgMinimaKissvmExpressionsExpression_withOrgMinimaKissvmExpressionsExpression_withInt_(exp, OrgMinimaKissvmExpressionsExpressionParser_getMulDivWithOrgMinimaKissvmTokensLexicalTokenizer_(zTokens), OrgMinimaKissvmExpressionsOperatorExpression_OPERATOR_MODULO);
     }
     else if ([((NSString *) nil_chk([tok getToken])) isEqual:@"<<"]) {
-      exp = create_OrgMinimaKissvmExpressionsOperatorExpression_initWithOrgMinimaKissvmExpressionsExpression_withOrgMinimaKissvmExpressionsExpression_withInt_(exp, OrgMinimaKissvmExpressionsExpressionParser_getMulDivWithOrgMinimaKissvmTokensLexicalTokenizer_(zTokens), OrgMinimaKissvmExpressionsOperatorExpression_OPERATOR_SHIFTL);
+      exp = new_OrgMinimaKissvmExpressionsOperatorExpression_initWithOrgMinimaKissvmExpressionsExpression_withOrgMinimaKissvmExpressionsExpression_withInt_(exp, OrgMinimaKissvmExpressionsExpressionParser_getMulDivWithOrgMinimaKissvmTokensLexicalTokenizer_(zTokens), OrgMinimaKissvmExpressionsOperatorExpression_OPERATOR_SHIFTL);
     }
     else if ([((NSString *) nil_chk([tok getToken])) isEqual:@">>"]) {
-      exp = create_OrgMinimaKissvmExpressionsOperatorExpression_initWithOrgMinimaKissvmExpressionsExpression_withOrgMinimaKissvmExpressionsExpression_withInt_(exp, OrgMinimaKissvmExpressionsExpressionParser_getMulDivWithOrgMinimaKissvmTokensLexicalTokenizer_(zTokens), OrgMinimaKissvmExpressionsOperatorExpression_OPERATOR_SHIFTR);
+      exp = new_OrgMinimaKissvmExpressionsOperatorExpression_initWithOrgMinimaKissvmExpressionsExpression_withOrgMinimaKissvmExpressionsExpression_withInt_(exp, OrgMinimaKissvmExpressionsExpressionParser_getMulDivWithOrgMinimaKissvmTokensLexicalTokenizer_(zTokens), OrgMinimaKissvmExpressionsOperatorExpression_OPERATOR_SHIFTR);
     }
     else {
       [zTokens goBackToken];
@@ -261,10 +261,10 @@ id<OrgMinimaKissvmExpressionsExpression> OrgMinimaKissvmExpressionsExpressionPar
   while ([((OrgMinimaKissvmTokensLexicalTokenizer *) nil_chk(zTokens)) hasMoreElements]) {
     OrgMinimaKissvmTokensToken *tok = [zTokens getNextToken];
     if ([((NSString *) nil_chk([((OrgMinimaKissvmTokensToken *) nil_chk(tok)) getToken])) isEqual:@"*"]) {
-      exp = create_OrgMinimaKissvmExpressionsOperatorExpression_initWithOrgMinimaKissvmExpressionsExpression_withOrgMinimaKissvmExpressionsExpression_withInt_(exp, OrgMinimaKissvmExpressionsExpressionParser_getPrimaryWithOrgMinimaKissvmTokensLexicalTokenizer_(zTokens), OrgMinimaKissvmExpressionsOperatorExpression_OPERATOR_MUL);
+      exp = new_OrgMinimaKissvmExpressionsOperatorExpression_initWithOrgMinimaKissvmExpressionsExpression_withOrgMinimaKissvmExpressionsExpression_withInt_(exp, OrgMinimaKissvmExpressionsExpressionParser_getPrimaryWithOrgMinimaKissvmTokensLexicalTokenizer_(zTokens), OrgMinimaKissvmExpressionsOperatorExpression_OPERATOR_MUL);
     }
     else if ([((NSString *) nil_chk([tok getToken])) isEqual:@"/"]) {
-      exp = create_OrgMinimaKissvmExpressionsOperatorExpression_initWithOrgMinimaKissvmExpressionsExpression_withOrgMinimaKissvmExpressionsExpression_withInt_(exp, OrgMinimaKissvmExpressionsExpressionParser_getPrimaryWithOrgMinimaKissvmTokensLexicalTokenizer_(zTokens), OrgMinimaKissvmExpressionsOperatorExpression_OPERATOR_DIV);
+      exp = new_OrgMinimaKissvmExpressionsOperatorExpression_initWithOrgMinimaKissvmExpressionsExpression_withOrgMinimaKissvmExpressionsExpression_withInt_(exp, OrgMinimaKissvmExpressionsExpressionParser_getPrimaryWithOrgMinimaKissvmTokensLexicalTokenizer_(zTokens), OrgMinimaKissvmExpressionsOperatorExpression_OPERATOR_DIV);
     }
     else {
       [zTokens goBackToken];
@@ -280,10 +280,10 @@ id<OrgMinimaKissvmExpressionsExpression> OrgMinimaKissvmExpressionsExpressionPar
   while ([((OrgMinimaKissvmTokensLexicalTokenizer *) nil_chk(zTokens)) hasMoreElements]) {
     OrgMinimaKissvmTokensToken *tok = [zTokens getNextToken];
     if ([((NSString *) nil_chk([((OrgMinimaKissvmTokensToken *) nil_chk(tok)) getToken])) isEqual:@"NOT"]) {
-      return create_OrgMinimaKissvmExpressionsBooleanExpression_initWithOrgMinimaKissvmExpressionsExpression_withInt_(OrgMinimaKissvmExpressionsExpressionParser_getPrimaryWithOrgMinimaKissvmTokensLexicalTokenizer_(zTokens), OrgMinimaKissvmExpressionsBooleanExpression_BOOLEAN_NOT);
+      return new_OrgMinimaKissvmExpressionsBooleanExpression_initWithOrgMinimaKissvmExpressionsExpression_withInt_(OrgMinimaKissvmExpressionsExpressionParser_getPrimaryWithOrgMinimaKissvmTokensLexicalTokenizer_(zTokens), OrgMinimaKissvmExpressionsBooleanExpression_BOOLEAN_NOT);
     }
     else if ([((NSString *) nil_chk([tok getToken])) isEqual:@"NEG"]) {
-      return create_OrgMinimaKissvmExpressionsOperatorExpression_initWithOrgMinimaKissvmExpressionsExpression_withInt_(OrgMinimaKissvmExpressionsExpressionParser_getPrimaryWithOrgMinimaKissvmTokensLexicalTokenizer_(zTokens), OrgMinimaKissvmExpressionsOperatorExpression_OPERATOR_NEG);
+      return new_OrgMinimaKissvmExpressionsOperatorExpression_initWithOrgMinimaKissvmExpressionsExpression_withInt_(OrgMinimaKissvmExpressionsExpressionParser_getPrimaryWithOrgMinimaKissvmTokensLexicalTokenizer_(zTokens), OrgMinimaKissvmExpressionsOperatorExpression_OPERATOR_NEG);
     }
     else {
       [zTokens goBackToken];
@@ -299,25 +299,25 @@ id<OrgMinimaKissvmExpressionsExpression> OrgMinimaKissvmExpressionsExpressionPar
   id<OrgMinimaKissvmExpressionsExpression> exp = nil;
   OrgMinimaKissvmTokensToken *tok = [((OrgMinimaKissvmTokensLexicalTokenizer *) nil_chk(zTokens)) getNextToken];
   if ([((OrgMinimaKissvmTokensToken *) nil_chk(tok)) getTokenType] == OrgMinimaKissvmTokensToken_TOKEN_VALUE) {
-    exp = create_OrgMinimaKissvmExpressionsConstantExpression_initWithOrgMinimaKissvmValuesValue_(OrgMinimaKissvmValuesValue_getValueWithNSString_([tok getToken]));
+    exp = new_OrgMinimaKissvmExpressionsConstantExpression_initWithOrgMinimaKissvmValuesValue_(OrgMinimaKissvmValuesValue_getValueWithNSString_([tok getToken]));
   }
   else if ([tok getTokenType] == OrgMinimaKissvmTokensToken_TOKEN_GLOBAL) {
-    exp = create_OrgMinimaKissvmExpressionsGlobalExpression_initWithNSString_([tok getToken]);
+    exp = new_OrgMinimaKissvmExpressionsGlobalExpression_initWithNSString_([tok getToken]);
   }
   else if ([tok getTokenType] == OrgMinimaKissvmTokensToken_TOKEN_VARIABLE) {
-    exp = create_OrgMinimaKissvmExpressionsVariableExpression_initWithNSString_([tok getToken]);
+    exp = new_OrgMinimaKissvmExpressionsVariableExpression_initWithNSString_([tok getToken]);
   }
   else if ([tok getTokenType] == OrgMinimaKissvmTokensToken_TOKEN_TRUE) {
-    exp = create_OrgMinimaKissvmExpressionsConstantExpression_initWithOrgMinimaKissvmValuesValue_(JreLoadStatic(OrgMinimaKissvmValuesBooleanValue, TRUE));
+    exp = new_OrgMinimaKissvmExpressionsConstantExpression_initWithOrgMinimaKissvmValuesValue_(JreLoadStatic(OrgMinimaKissvmValuesBooleanValue, TRUE));
   }
   else if ([tok getTokenType] == OrgMinimaKissvmTokensToken_TOKEN_FALSE) {
-    exp = create_OrgMinimaKissvmExpressionsConstantExpression_initWithOrgMinimaKissvmValuesValue_(JreLoadStatic(OrgMinimaKissvmValuesBooleanValue, FALSE));
+    exp = new_OrgMinimaKissvmExpressionsConstantExpression_initWithOrgMinimaKissvmValuesValue_(JreLoadStatic(OrgMinimaKissvmValuesBooleanValue, FALSE));
   }
   else if ([tok getTokenType] == OrgMinimaKissvmTokensToken_TOKEN_FUNCTIION) {
     OrgMinimaKissvmFunctionsMinimaFunction *func = OrgMinimaKissvmFunctionsMinimaFunction_getFunctionWithNSString_([tok getToken]);
     OrgMinimaKissvmTokensToken *bracket = [zTokens getNextToken];
     if ([((OrgMinimaKissvmTokensToken *) nil_chk(bracket)) getTokenType] != OrgMinimaKissvmTokensToken_TOKEN_OPENBRACKET) {
-      @throw create_OrgMinimaKissvmExceptionsMinimaParseException_initWithNSString_(JreStrcat("$$", @"Missing opening bracket at start of function ", [((OrgMinimaKissvmFunctionsMinimaFunction *) nil_chk(func)) getName]));
+      @throw new_OrgMinimaKissvmExceptionsMinimaParseException_initWithNSString_(JreStrcat("$$", @"Missing opening bracket at start of function ", [((OrgMinimaKissvmFunctionsMinimaFunction *) nil_chk(func)) getName]));
     }
     while (true) {
       OrgMinimaKissvmTokensToken *isclosebracket = [zTokens getNextToken];
@@ -329,17 +329,17 @@ id<OrgMinimaKissvmExpressionsExpression> OrgMinimaKissvmExpressionsExpressionPar
         [((OrgMinimaKissvmFunctionsMinimaFunction *) nil_chk(func)) addParameterWithOrgMinimaKissvmExpressionsExpression:OrgMinimaKissvmExpressionsExpressionParser_getExpressionWithOrgMinimaKissvmTokensLexicalTokenizer_(zTokens)];
       }
     }
-    exp = create_OrgMinimaKissvmExpressionsFunctionExpression_initWithOrgMinimaKissvmFunctionsMinimaFunction_(func);
+    exp = new_OrgMinimaKissvmExpressionsFunctionExpression_initWithOrgMinimaKissvmFunctionsMinimaFunction_(func);
   }
   else if ([tok getTokenType] == OrgMinimaKissvmTokensToken_TOKEN_OPENBRACKET) {
     exp = OrgMinimaKissvmExpressionsExpressionParser_getExpressionWithOrgMinimaKissvmTokensLexicalTokenizer_(zTokens);
     OrgMinimaKissvmTokensToken *closebracket = [zTokens getNextToken];
     if ([((OrgMinimaKissvmTokensToken *) nil_chk(closebracket)) getTokenType] != OrgMinimaKissvmTokensToken_TOKEN_CLOSEBRACKET) {
-      @throw create_OrgMinimaKissvmExceptionsMinimaParseException_initWithNSString_(JreStrcat("$$", @"Missing close bracket. Found : ", [closebracket getToken]));
+      @throw new_OrgMinimaKissvmExceptionsMinimaParseException_initWithNSString_(JreStrcat("$$", @"Missing close bracket. Found : ", [closebracket getToken]));
     }
   }
   else {
-    @throw create_OrgMinimaKissvmExceptionsMinimaParseException_initWithNSString_(JreStrcat("$$", @"Incorrect Token in script ", [tok getToken]));
+    @throw new_OrgMinimaKissvmExceptionsMinimaParseException_initWithNSString_(JreStrcat("$$", @"Incorrect Token in script ", [tok getToken]));
   }
   return exp;
 }

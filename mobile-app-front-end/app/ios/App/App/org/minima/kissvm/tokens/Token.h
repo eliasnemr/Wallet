@@ -38,7 +38,7 @@
 
 + (void)mainWithNSStringArray:(IOSObjectArray *)zArgs;
 
-+ (id<JavaUtilList>)tokenizeWithNSString:(NSString *)zRamScript;
++ (id<JavaUtilList>)tokenizeWithNSString:(NSString *)zMiniScript;
 
 // Disallowed inherited constructors, do not use.
 
@@ -104,7 +104,7 @@ FOUNDATION_EXPORT OrgMinimaKissvmTokensToken *new_OrgMinimaKissvmTokensToken_ini
 
 FOUNDATION_EXPORT OrgMinimaKissvmTokensToken *create_OrgMinimaKissvmTokensToken_initWithInt_withNSString_(jint zTokenType, NSString *zToken);
 
-FOUNDATION_EXPORT id<JavaUtilList> OrgMinimaKissvmTokensToken_tokenizeWithNSString_(NSString *zRamScript);
+FOUNDATION_EXPORT id<JavaUtilList> OrgMinimaKissvmTokensToken_tokenizeWithNSString_(NSString *zMiniScript);
 
 FOUNDATION_EXPORT jboolean OrgMinimaKissvmTokensToken_isNumericWithNSString_(NSString *str);
 

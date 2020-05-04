@@ -29,28 +29,28 @@ J2OBJC_IGNORE_DESIGNATED_END
 - (OrgMinimaKissvmValuesValue *)runFunctionWithOrgMinimaKissvmContract:(OrgMinimaKissvmContract *)zContract {
   JavaUtilArrayList *params = [self getAllParameters];
   jint paramnum = [((JavaUtilArrayList *) nil_chk(params)) size];
-  IOSObjectArray *parambytes = [IOSObjectArray arrayWithLength:paramnum type:IOSClass_byteArray(1)];
+  IOSObjectArray *parambytes = [IOSObjectArray newArrayWithLength:paramnum type:IOSClass_byteArray(1)];
   if (paramnum < 1) {
-    @throw create_OrgMinimaKissvmExceptionsExecutionException_initWithNSString_(@"HEXCAT requires at least 1 parameter");
+    @throw new_OrgMinimaKissvmExceptionsExecutionException_initWithNSString_(@"HEXCAT requires at least 1 parameter");
   }
   jint totlen = 0;
   jint counter = 0;
   for (id<OrgMinimaKissvmExpressionsExpression> __strong exp in params) {
-    IOSObjectArray_Set(parambytes, counter, [((OrgMinimaKissvmValuesValue *) nil_chk([((id<OrgMinimaKissvmExpressionsExpression>) nil_chk(exp)) getValueWithOrgMinimaKissvmContract:zContract])) getRawData]);
+    (void) IOSObjectArray_Set(parambytes, counter, [((OrgMinimaKissvmValuesValue *) nil_chk([((id<OrgMinimaKissvmExpressionsExpression>) nil_chk(exp)) getValueWithOrgMinimaKissvmContract:zContract])) getRawData]);
     totlen += ((IOSByteArray *) nil_chk(IOSObjectArray_Get(parambytes, counter)))->size_;
     counter++;
   }
-  IOSByteArray *result = [IOSByteArray arrayWithLength:totlen];
+  IOSByteArray *result = [IOSByteArray newArrayWithLength:totlen];
   jint pos = 0;
   for (jint i = 0; i < counter; i++) {
     JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(IOSObjectArray_Get(parambytes, i), 0, result, pos, ((IOSByteArray *) nil_chk(IOSObjectArray_Get(parambytes, i)))->size_);
     pos += ((IOSByteArray *) nil_chk(IOSObjectArray_Get(parambytes, i)))->size_;
   }
-  return create_OrgMinimaKissvmValuesHEXValue_initWithByteArray_(result);
+  return new_OrgMinimaKissvmValuesHEXValue_initWithByteArray_(result);
 }
 
 - (OrgMinimaKissvmFunctionsMinimaFunction *)getNewFunction {
-  return create_OrgMinimaKissvmFunctionsBaseHEXCAT_init();
+  return new_OrgMinimaKissvmFunctionsBaseHEXCAT_init();
 }
 
 + (const J2ObjcClassInfo *)__metadata {

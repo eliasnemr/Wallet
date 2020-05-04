@@ -33,7 +33,7 @@
 }
 
 - (void)setInBlockNumberWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zInBlockNumber {
-  JreStrongAssign(&mInBlockNumber_, zInBlockNumber);
+  mInBlockNumber_ = zInBlockNumber;
 }
 
 - (OrgMinimaObjectsBaseMiniNumber *)getInBlockNumber {
@@ -49,18 +49,11 @@
 }
 
 - (void)setMMREntryWithOrgMinimaObjectsBaseMiniInteger:(OrgMinimaObjectsBaseMiniInteger *)zEntry {
-  JreStrongAssign(&mEntryNumber_, zEntry);
+  mEntryNumber_ = zEntry;
 }
 
 - (OrgMinimaObjectsBaseMiniInteger *)getMMREntry {
   return mEntryNumber_;
-}
-
-- (void)dealloc {
-  RELEASE_(mCoin_);
-  RELEASE_(mInBlockNumber_);
-  RELEASE_(mEntryNumber_);
-  [super dealloc];
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -108,9 +101,9 @@
 
 void OrgMinimaDatabaseCoindbJavaJavaCoinDBRow_initWithOrgMinimaObjectsCoin_(OrgMinimaDatabaseCoindbJavaJavaCoinDBRow *self, OrgMinimaObjectsCoin *zCoin) {
   NSObject_init(self);
-  JreStrongAssignAndConsume(&self->mInBlockNumber_, new_OrgMinimaObjectsBaseMiniNumber_initWithInt_(0));
-  JreStrongAssignAndConsume(&self->mEntryNumber_, new_OrgMinimaObjectsBaseMiniInteger_initWithInt_(0));
-  JreStrongAssign(&self->mCoin_, zCoin);
+  self->mInBlockNumber_ = new_OrgMinimaObjectsBaseMiniNumber_initWithInt_(0);
+  self->mEntryNumber_ = new_OrgMinimaObjectsBaseMiniInteger_initWithInt_(0);
+  self->mCoin_ = zCoin;
   self->mIsSpent_ = false;
   self->mIsInBlock_ = false;
 }

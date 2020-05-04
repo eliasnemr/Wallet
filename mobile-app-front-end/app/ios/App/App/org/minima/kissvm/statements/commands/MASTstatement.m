@@ -32,28 +32,21 @@
   OrgMinimaObjectsWitness *wit = [((OrgMinimaKissvmContract *) nil_chk(zContract)) getWitness];
   OrgMinimaObjectsProofsScriptProof *scrpr = [((OrgMinimaObjectsWitness *) nil_chk(wit)) getScriptWithOrgMinimaObjectsBaseMiniData:[((OrgMinimaKissvmValuesHEXValue *) nil_chk(mast)) getMiniData]];
   if (scrpr == nil) {
-    [zContract traceLogWithNSString:JreStrcat("$@", @"MAST ", mMASTScript_)];
-    @throw create_OrgMinimaKissvmExceptionsExecutionException_initWithNSString_(JreStrcat("$@", @"No script found for MAST ", [mast getMiniData]));
+    @throw new_OrgMinimaKissvmExceptionsExecutionException_initWithNSString_(JreStrcat("$@", @"No script found for MAST ", [mast getMiniData]));
   }
   NSString *script = [((OrgMinimaObjectsBaseMiniScript *) nil_chk([scrpr getScript])) description];
-  [zContract traceLogWithNSString:JreStrcat("$@$$$", @"MAST ", mMASTScript_, @" [ ", script, @" ]")];
   @try {
     id<JavaUtilList> tokens = OrgMinimaKissvmTokensToken_tokenizeWithNSString_(script);
     OrgMinimaKissvmStatementsStatementBlock *mBlock = OrgMinimaKissvmStatementsStatementParser_parseTokensWithJavaUtilList_(tokens);
     [((OrgMinimaKissvmStatementsStatementBlock *) nil_chk(mBlock)) runWithOrgMinimaKissvmContract:zContract];
   }
   @catch (JavaLangException *e) {
-    @throw create_OrgMinimaKissvmExceptionsExecutionException_initWithNSString_([e description]);
+    @throw new_OrgMinimaKissvmExceptionsExecutionException_initWithNSString_([e description]);
   }
 }
 
 - (NSString *)description {
   return JreStrcat("$$", @"MAST ", [((id<OrgMinimaKissvmExpressionsExpression>) nil_chk(mMASTScript_)) description]);
-}
-
-- (void)dealloc {
-  RELEASE_(mMASTScript_);
-  [super dealloc];
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -81,7 +74,7 @@
 
 void OrgMinimaKissvmStatementsCommandsMASTstatement_initWithOrgMinimaKissvmExpressionsExpression_(OrgMinimaKissvmStatementsCommandsMASTstatement *self, id<OrgMinimaKissvmExpressionsExpression> zMAST) {
   NSObject_init(self);
-  JreStrongAssign(&self->mMASTScript_, zMAST);
+  self->mMASTScript_ = zMAST;
 }
 
 OrgMinimaKissvmStatementsCommandsMASTstatement *new_OrgMinimaKissvmStatementsCommandsMASTstatement_initWithOrgMinimaKissvmExpressionsExpression_(id<OrgMinimaKissvmExpressionsExpression> zMAST) {

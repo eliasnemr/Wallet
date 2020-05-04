@@ -30,8 +30,6 @@
 
 - (void)doFunctionWithNSStringArray:(IOSObjectArray *)zInput;
 
-- (NSString *)getLineNumberWithInt:(jint)zLine;
-
 - (OrgMinimaSystemInputCommandFunction *)getNewFunction;
 
 // Disallowed inherited constructors, do not use.

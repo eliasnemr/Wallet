@@ -55,11 +55,11 @@
 
 - (void)run {
   @try {
-    JreStrongAssignAndConsume(&mServerSocket_, new_JavaNetServerSocket_initWithInt_(mPort_));
+    mServerSocket_ = new_JavaNetServerSocket_initWithInt_(mPort_);
     while (mRunning_) {
       JavaNetSocket *clientsock = [((JavaNetServerSocket *) nil_chk(mServerSocket_)) accept];
-      OrgMinimaSystemNetworkRpcRPCHandler *rpc = create_OrgMinimaSystemNetworkRpcRPCHandler_initWithJavaNetSocket_withOrgMinimaSystemInputInputHandler_(clientsock, mInputHandler_);
-      JavaLangThread *rpcthread = create_JavaLangThread_initWithJavaLangRunnable_(rpc);
+      OrgMinimaSystemNetworkRpcRPCHandler *rpc = new_OrgMinimaSystemNetworkRpcRPCHandler_initWithJavaNetSocket_withOrgMinimaSystemInputInputHandler_(clientsock, mInputHandler_);
+      JavaLangThread *rpcthread = new_JavaLangThread_initWithJavaLangRunnable_(rpc);
       [rpcthread start];
     }
   }
@@ -74,13 +74,6 @@
   @catch (JavaIoIOException *e) {
     [e printStackTrace];
   }
-}
-
-- (void)dealloc {
-  RELEASE_(mInputHandler_);
-  RELEASE_(mServerSocket_);
-  RELEASE_(mHost_);
-  [super dealloc];
 }
 
 + (const J2ObjcClassInfo *)__metadata {

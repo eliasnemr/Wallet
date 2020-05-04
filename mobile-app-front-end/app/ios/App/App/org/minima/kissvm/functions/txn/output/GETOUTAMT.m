@@ -33,18 +33,18 @@ J2OBJC_IGNORE_DESIGNATED_END
   OrgMinimaObjectsTransaction *trans = [((OrgMinimaKissvmContract *) nil_chk(zContract)) getTransaction];
   JavaUtilArrayList *outs = [((OrgMinimaObjectsTransaction *) nil_chk(trans)) getAllOutputs];
   if ([((JavaUtilArrayList *) nil_chk(outs)) size] <= output) {
-    @throw create_OrgMinimaKissvmExceptionsExecutionException_initWithNSString_(JreStrcat("$ICI", @"Output number too high ", output, '/', [outs size]));
+    @throw new_OrgMinimaKissvmExceptionsExecutionException_initWithNSString_(JreStrcat("$ICI", @"Output number too high ", output, '/', [outs size]));
   }
   OrgMinimaObjectsCoin *cc = [outs getWithInt:output];
   if (![((OrgMinimaObjectsBaseMiniData *) nil_chk([((OrgMinimaObjectsCoin *) nil_chk(cc)) getTokenID])) isEqualWithOrgMinimaObjectsBaseMiniData:JreLoadStatic(OrgMinimaObjectsCoin, MINIMA_TOKENID)]) {
     OrgMinimaObjectsProofsTokenProof *td = [((OrgMinimaObjectsWitness *) nil_chk([zContract getWitness])) getTokenDetailWithOrgMinimaObjectsBaseMiniData:[cc getTokenID]];
-    return create_OrgMinimaKissvmValuesNumberValue_initWithOrgMinimaObjectsBaseMiniNumber_([((OrgMinimaObjectsBaseMiniNumber *) nil_chk([cc getAmount])) multWithOrgMinimaObjectsBaseMiniNumber:[((OrgMinimaObjectsProofsTokenProof *) nil_chk(td)) getScaleFactor]]);
+    return new_OrgMinimaKissvmValuesNumberValue_initWithOrgMinimaObjectsBaseMiniNumber_([((OrgMinimaObjectsBaseMiniNumber *) nil_chk([cc getAmount])) multWithOrgMinimaObjectsBaseMiniNumber:[((OrgMinimaObjectsProofsTokenProof *) nil_chk(td)) getScaleFactor]]);
   }
-  return create_OrgMinimaKissvmValuesNumberValue_initWithOrgMinimaObjectsBaseMiniNumber_([cc getAmount]);
+  return new_OrgMinimaKissvmValuesNumberValue_initWithOrgMinimaObjectsBaseMiniNumber_([cc getAmount]);
 }
 
 - (OrgMinimaKissvmFunctionsMinimaFunction *)getNewFunction {
-  return create_OrgMinimaKissvmFunctionsTxnOutputGETOUTAMT_init();
+  return new_OrgMinimaKissvmFunctionsTxnOutputGETOUTAMT_init();
 }
 
 + (const J2ObjcClassInfo *)__metadata {

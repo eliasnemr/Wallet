@@ -4,8 +4,10 @@
 //
 
 #include "J2ObjC_source.h"
+#include "java/math/BigInteger.h"
 #include "java/util/ArrayList.h"
 #include "org/minima/database/MinimaDB.h"
+#include "org/minima/database/coindb/CoinDB.h"
 #include "org/minima/database/mmr/MMRSet.h"
 #include "org/minima/database/txpowdb/TxPOWDBRow.h"
 #include "org/minima/database/txpowdb/TxPowDB.h"
@@ -61,6 +63,10 @@ NSString *OrgMinimaSystemBrainsConsensusNet_CONSENSUS_NET_TXPOW;
   return OrgMinimaSystemBrainsConsensusNet_getMainDB(self);
 }
 
+- (void)setHardResestWithBoolean:(jboolean)zHardResetAllowed {
+  mHardResetAllowed_ = zHardResetAllowed;
+}
+
 - (void)processMessageWithOrgMinimaUtilsMessagesMessage:(OrgMinimaUtilsMessagesMessage *)zMessage {
   if ([((OrgMinimaUtilsMessagesMessage *) nil_chk(zMessage)) isMessageTypeWithNSString:OrgMinimaSystemBrainsConsensusNet_CONSENSUS_NET_INITIALISE]) {
     JavaUtilArrayList *nodes = [((OrgMinimaDatabaseTxpowtreeBlockTree *) nil_chk([((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusNet_getMainDB(self))) getMainTree])) getAsList];
@@ -68,17 +74,50 @@ NSString *OrgMinimaSystemBrainsConsensusNet_CONSENSUS_NET_TXPOW;
       return;
     }
     OrgMinimaObjectsBaseMiniNumber *casc = [((OrgMinimaObjectsTxPOW *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTree *) nil_chk([((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusNet_getMainDB(self))) getMainTree])) getCascadeNode])) getTxPow])) getBlockNumber];
-    OrgMinimaSystemBackupSyncPackage *sp = create_OrgMinimaSystemBackupSyncPackage_init();
+    OrgMinimaSystemBackupSyncPackage *sp = new_OrgMinimaSystemBackupSyncPackage_init();
     [sp setCascadeNodeWithOrgMinimaObjectsBaseMiniNumber:casc];
     for (OrgMinimaDatabaseTxpowtreeBlockTreeNode * __strong node in nodes) {
-      [((JavaUtilArrayList *) nil_chk([sp getAllNodes])) addWithInt:0 withId:create_OrgMinimaSystemBackupSyncPacket_initWithOrgMinimaDatabaseTxpowtreeBlockTreeNode_(node)];
+      [((JavaUtilArrayList *) nil_chk([sp getAllNodes])) addWithInt:0 withId:new_OrgMinimaSystemBackupSyncPacket_initWithOrgMinimaDatabaseTxpowtreeBlockTreeNode_(node)];
     }
     OrgMinimaSystemBrainsConsensusNet_sendNetMessageWithOrgMinimaUtilsMessagesMessage_withOrgMinimaObjectsBaseMiniByte_withOrgMinimaUtilsStreamable_(self, zMessage, JreLoadStatic(OrgMinimaSystemNetworkNetClientReader, NETMESSAGE_INTRO), sp);
   }
   else if ([zMessage isMessageTypeWithNSString:OrgMinimaSystemBrainsConsensusNet_CONSENSUS_NET_INTRO]) {
     OrgMinimaSystemBackupSyncPackage *sp = (OrgMinimaSystemBackupSyncPackage *) cast_chk([zMessage getObjectWithNSString:@"sync"], [OrgMinimaSystemBackupSyncPackage class]);
-    jboolean hardhack = false;
-    if (hardhack || [((JavaUtilArrayList *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTree *) nil_chk([((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusNet_getMainDB(self))) getMainTree])) getAsList])) size] == 0) {
+    jboolean hardreset = false;
+    OrgMinimaObjectsBaseMiniNumber *cross = JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, MINUSONE);
+    JavaMathBigInteger *myweight = JreLoadStatic(JavaMathBigInteger, ZERO);
+    if ([((JavaUtilArrayList *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTree *) nil_chk([((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusNet_getMainDB(self))) getMainTree])) getAsList])) size] != 0) {
+      myweight = [((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTree *) nil_chk([((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusNet_getMainDB(self))) getMainTree])) getChainRoot])) getTotalWeight];
+    }
+    if ([((JavaMathBigInteger *) nil_chk(myweight)) compareToWithId:JreLoadStatic(JavaMathBigInteger, ZERO)] <= 0) {
+      hardreset = true;
+    }
+    else {
+      JavaMathBigInteger *netweight = [((OrgMinimaSystemBackupSyncPackage *) nil_chk(sp)) calculateWeight];
+      cross = [self checkCrossoverWithOrgMinimaSystemBackupSyncPackage:sp];
+      if ([((OrgMinimaObjectsBaseMiniNumber *) nil_chk(cross)) isEqualWithOrgMinimaObjectsBaseMiniNumber:JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, MINUSONE)]) {
+        OrgMinimaUtilsMinimaLogger_logWithNSString_(@"IRREGULAR POW INTRO CHAIN. NO CROSSOVER BLOCK.. !");
+        if ([((JavaMathBigInteger *) nil_chk(netweight)) compareToWithId:myweight] > 0) {
+          OrgMinimaUtilsMinimaLogger_logWithNSString_(@"INTRO CHAIN HEAVIER.. ");
+        }
+        else {
+          OrgMinimaUtilsMinimaLogger_logWithNSString_(@"YOUR CHAIN HEAVIER.. NO CHANGE REQUIRED");
+          return;
+        }
+        if (mHardResetAllowed_) {
+          hardreset = true;
+          OrgMinimaUtilsMinimaLogger_logWithNSString_(@"HARD RESETTING.. ");
+        }
+        else {
+          OrgMinimaUtilsMinimaLogger_logWithNSString_(@"NO HARD RESET ALLOWED.. ");
+          hardreset = false;
+          return;
+        }
+      }
+    }
+    if (hardreset) {
+      [((OrgMinimaDatabaseTxpowtreeBlockTree *) nil_chk([((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusNet_getMainDB(self))) getMainTree])) clearTree];
+      [((id<OrgMinimaDatabaseCoindbCoinDB>) nil_chk([((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusNet_getMainDB(self))) getCoinDB])) clearDB];
       [((id<OrgMinimaDatabaseTxpowdbTxPowDB>) nil_chk([((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusNet_getMainDB(self))) getTxPowDB])) ClearDB];
       JavaUtilArrayList *packets = [((OrgMinimaSystemBackupSyncPackage *) nil_chk(sp)) getAllNodes];
       for (OrgMinimaSystemBackupSyncPacket * __strong spack in nil_chk(packets)) {
@@ -94,11 +133,6 @@ NSString *OrgMinimaSystemBrainsConsensusNet_CONSENSUS_NET_TXPOW;
       OrgMinimaUtilsMinimaLogger_logWithNSString_(JreStrcat("$@", @"Sync Complete.. Current block : ", [((OrgMinimaDatabaseTxpowtreeBlockTree *) nil_chk([((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusNet_getMainDB(self))) getMainTree])) getChainTip]));
     }
     else {
-      OrgMinimaObjectsBaseMiniNumber *cross = [self checkCrossoverWithOrgMinimaSystemBackupSyncPackage:sp];
-      if ([((OrgMinimaObjectsBaseMiniNumber *) nil_chk(cross)) isEqualWithOrgMinimaObjectsBaseMiniNumber:JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, ZERO)]) {
-        OrgMinimaUtilsMinimaLogger_logWithNSString_(@"IRREGULAR POW INTRO CHAIN. NO CROSSOVER BLOCK.. !");
-        return;
-      }
       OrgMinimaUtilsMinimaLogger_logWithNSString_(JreStrcat("$@", @"CROSSOVER BLOCK FOUND.. @ ", cross));
       JavaUtilArrayList *intro = [((OrgMinimaSystemBackupSyncPackage *) nil_chk(sp)) getAllNodes];
       jint totalreq = 0;
@@ -107,9 +141,9 @@ NSString *OrgMinimaSystemBrainsConsensusNet_CONSENSUS_NET_TXPOW;
           OrgMinimaObjectsTxPOW *txpow = [spack getTxPOW];
           if ([((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusNet_getMainDB(self))) getTxPOWWithOrgMinimaObjectsBaseMiniData:[((OrgMinimaObjectsTxPOW *) nil_chk(txpow)) getTxPowID]] == nil) {
             OrgMinimaSystemNetworkNetClient *client = (OrgMinimaSystemNetworkNetClient *) cast_chk([zMessage getObjectWithNSString:@"netclient"], [OrgMinimaSystemNetworkNetClient class]);
-            OrgMinimaUtilsMessagesMessage *msg = create_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemBrainsConsensusNet_CONSENSUS_NET_TXPOW);
-            [msg addObjectWithNSString:@"txpow" withId:txpow];
-            [msg addObjectWithNSString:@"netclient" withId:client];
+            OrgMinimaUtilsMessagesMessage *msg = new_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemBrainsConsensusNet_CONSENSUS_NET_TXPOW);
+            (void) [msg addObjectWithNSString:@"txpow" withId:txpow];
+            (void) [msg addObjectWithNSString:@"netclient" withId:client];
             [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk(mHandler_)) PostMessageWithOrgMinimaUtilsMessagesMessage:msg];
             totalreq++;
           }
@@ -133,7 +167,7 @@ NSString *OrgMinimaSystemBrainsConsensusNet_CONSENSUS_NET_TXPOW;
     }
     else {
       OrgMinimaSystemNetworkNetClient *client = (OrgMinimaSystemNetworkNetClient *) cast_chk([zMessage getObjectWithNSString:@"netclient"], [OrgMinimaSystemNetworkNetClient class]);
-      OrgMinimaUtilsMessagesMessage *tx = [create_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemNetworkNetClient_NETCLIENT_SENDTXPOW) addObjectWithNSString:@"txpow" withId:txpow];
+      OrgMinimaUtilsMessagesMessage *tx = [new_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemNetworkNetClient_NETCLIENT_SENDTXPOW) addObjectWithNSString:@"txpow" withId:txpow];
       [((OrgMinimaSystemNetworkNetClient *) nil_chk(client)) PostMessageWithOrgMinimaUtilsMessagesMessage:tx];
     }
   }
@@ -167,7 +201,7 @@ NSString *OrgMinimaSystemBrainsConsensusNet_CONSENSUS_NET_TXPOW;
         OrgMinimaSystemBrainsConsensusNet_sendNetMessageWithOrgMinimaUtilsMessagesMessage_withOrgMinimaObjectsBaseMiniByte_withOrgMinimaUtilsStreamable_(self, zMessage, JreLoadStatic(OrgMinimaSystemNetworkNetClientReader, NETMESSAGE_TXPOW_REQUEST), txn);
       }
     }
-    OrgMinimaUtilsMessagesMessage *newtxpow = [create_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemBrainsConsensusHandler_CONSENSUS_PRE_PROCESSTXPOW) addObjectWithNSString:@"txpow" withId:txpow];
+    OrgMinimaUtilsMessagesMessage *newtxpow = [new_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemBrainsConsensusHandler_CONSENSUS_PRE_PROCESSTXPOW) addObjectWithNSString:@"txpow" withId:txpow];
     [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk(mHandler_)) PostMessageWithOrgMinimaUtilsMessagesMessage:newtxpow];
   }
 }
@@ -180,20 +214,35 @@ NSString *OrgMinimaSystemBrainsConsensusNet_CONSENSUS_NET_TXPOW;
 
 - (OrgMinimaObjectsBaseMiniNumber *)checkCrossoverWithOrgMinimaSystemBackupSyncPackage:(OrgMinimaSystemBackupSyncPackage *)zIntro {
   JavaUtilArrayList *chain = [((OrgMinimaDatabaseTxpowtreeBlockTree *) nil_chk([((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusNet_getMainDB(self))) getMainTree])) getAsList];
+  OrgMinimaObjectsBaseMiniNumber *maintip = [((OrgMinimaObjectsTxPOW *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTree *) nil_chk([((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusNet_getMainDB(self))) getMainTree])) getChainTip])) getTxPow])) getBlockNumber];
   OrgMinimaObjectsBaseMiniNumber *maincascade = [((OrgMinimaObjectsTxPOW *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTree *) nil_chk([((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusNet_getMainDB(self))) getMainTree])) getCascadeNode])) getTxPow])) getBlockNumber];
   JavaUtilArrayList *introchain = [((OrgMinimaSystemBackupSyncPackage *) nil_chk(zIntro)) getAllNodes];
+  jint len = [((JavaUtilArrayList *) nil_chk(introchain)) size];
+  OrgMinimaSystemBackupSyncPacket *tip = [introchain getWithInt:len - 1];
+  OrgMinimaObjectsBaseMiniNumber *introtip = [((OrgMinimaObjectsTxPOW *) nil_chk([((OrgMinimaSystemBackupSyncPacket *) nil_chk(tip)) getTxPOW])) getBlockNumber];
+  OrgMinimaObjectsBaseMiniNumber *introcascade = [zIntro getCascadeNode];
+  OrgMinimaUtilsMinimaLogger_logWithNSString_(JreStrcat("$@$@", @"CROSSOVER mytip:", maintip, @" mycasc:", maincascade));
+  OrgMinimaUtilsMinimaLogger_logWithNSString_(JreStrcat("$@$@", @"CROSSOVER introtip:", introtip, @" introcasc:", introcascade));
+  jboolean tipgood = [((OrgMinimaObjectsBaseMiniNumber *) nil_chk(maintip)) isLessEqualWithOrgMinimaObjectsBaseMiniNumber:introtip] && [maintip isMoreEqualWithOrgMinimaObjectsBaseMiniNumber:introcascade];
+  jboolean cascgood = [((OrgMinimaObjectsBaseMiniNumber *) nil_chk(maincascade)) isLessEqualWithOrgMinimaObjectsBaseMiniNumber:introtip] && [maincascade isMoreEqualWithOrgMinimaObjectsBaseMiniNumber:introcascade];
   jboolean found = false;
-  OrgMinimaObjectsBaseMiniNumber *crossover = JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, ZERO);
+  OrgMinimaObjectsBaseMiniNumber *crossover = JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, MINUSONE);
+  if (!tipgood && !cascgood) {
+    return crossover;
+  }
   for (OrgMinimaDatabaseTxpowtreeBlockTreeNode * __strong block in nil_chk(chain)) {
     OrgMinimaObjectsBaseMiniNumber *bnum = [((OrgMinimaObjectsTxPOW *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk(block)) getTxPow])) getBlockNumber];
     OrgMinimaObjectsBaseMiniData *txpowid = [block getTxPowID];
     if ([((OrgMinimaObjectsBaseMiniNumber *) nil_chk(bnum)) isMoreWithOrgMinimaObjectsBaseMiniNumber:maincascade]) {
-      for (OrgMinimaSystemBackupSyncPacket * __strong spack in nil_chk(introchain)) {
-        if ([((OrgMinimaObjectsBaseMiniNumber *) nil_chk([((OrgMinimaObjectsTxPOW *) nil_chk([((OrgMinimaSystemBackupSyncPacket *) nil_chk(spack)) getTxPOW])) getBlockNumber])) isEqualWithOrgMinimaObjectsBaseMiniNumber:bnum]) {
-          if ([((OrgMinimaObjectsBaseMiniData *) nil_chk([((OrgMinimaObjectsTxPOW *) nil_chk([spack getTxPOW])) getTxPowID])) isEqualWithOrgMinimaObjectsBaseMiniData:txpowid]) {
-            found = true;
-            crossover = bnum;
-            break;
+      for (OrgMinimaSystemBackupSyncPacket * __strong spack in introchain) {
+        OrgMinimaObjectsBaseMiniNumber *snum = [((OrgMinimaObjectsTxPOW *) nil_chk([((OrgMinimaSystemBackupSyncPacket *) nil_chk(spack)) getTxPOW])) getBlockNumber];
+        if ([((OrgMinimaObjectsBaseMiniNumber *) nil_chk(snum)) isMoreWithOrgMinimaObjectsBaseMiniNumber:introcascade]) {
+          if ([((OrgMinimaObjectsBaseMiniNumber *) nil_chk([((OrgMinimaObjectsTxPOW *) nil_chk([spack getTxPOW])) getBlockNumber])) isEqualWithOrgMinimaObjectsBaseMiniNumber:bnum]) {
+            if ([((OrgMinimaObjectsBaseMiniData *) nil_chk([((OrgMinimaObjectsTxPOW *) nil_chk([spack getTxPOW])) getTxPowID])) isEqualWithOrgMinimaObjectsBaseMiniData:txpowid]) {
+              found = true;
+              crossover = bnum;
+              break;
+            }
           }
         }
       }
@@ -205,50 +254,47 @@ NSString *OrgMinimaSystemBrainsConsensusNet_CONSENSUS_NET_TXPOW;
   return crossover;
 }
 
-- (void)dealloc {
-  RELEASE_(mDB_);
-  RELEASE_(mHandler_);
-  [super dealloc];
-}
-
 + (const J2ObjcClassInfo *)__metadata {
   static J2ObjcMethodInfo methods[] = {
     { NULL, NULL, 0x1, -1, 0, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaDatabaseMinimaDB;", 0x2, -1, -1, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 1, 2, 3, -1, -1, -1 },
-    { NULL, "V", 0x2, 4, 5, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, 6, 7, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 1, 2, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 3, 4, 5, -1, -1, -1 },
+    { NULL, "V", 0x2, 6, 7, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, 8, 9, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
   #pragma clang diagnostic ignored "-Wundeclared-selector"
   methods[0].selector = @selector(initWithOrgMinimaDatabaseMinimaDB:withOrgMinimaSystemBrainsConsensusHandler:);
   methods[1].selector = @selector(getMainDB);
-  methods[2].selector = @selector(processMessageWithOrgMinimaUtilsMessagesMessage:);
-  methods[3].selector = @selector(sendNetMessageWithOrgMinimaUtilsMessagesMessage:withOrgMinimaObjectsBaseMiniByte:withOrgMinimaUtilsStreamable:);
-  methods[4].selector = @selector(checkCrossoverWithOrgMinimaSystemBackupSyncPackage:);
+  methods[2].selector = @selector(setHardResestWithBoolean:);
+  methods[3].selector = @selector(processMessageWithOrgMinimaUtilsMessagesMessage:);
+  methods[4].selector = @selector(sendNetMessageWithOrgMinimaUtilsMessagesMessage:withOrgMinimaObjectsBaseMiniByte:withOrgMinimaUtilsStreamable:);
+  methods[5].selector = @selector(checkCrossoverWithOrgMinimaSystemBackupSyncPackage:);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
-    { "CONSENSUS_PREFIX", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 8, -1, -1 },
-    { "CONSENSUS_NET_INITIALISE", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 9, -1, -1 },
-    { "CONSENSUS_NET_INTRO", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 10, -1, -1 },
-    { "CONSENSUS_NET_TXPOWID", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 11, -1, -1 },
-    { "CONSENSUS_NET_TXPOWREQUEST", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 12, -1, -1 },
-    { "CONSENSUS_NET_TXPOW", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 13, -1, -1 },
+    { "CONSENSUS_PREFIX", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 10, -1, -1 },
+    { "CONSENSUS_NET_INITIALISE", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 11, -1, -1 },
+    { "CONSENSUS_NET_INTRO", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 12, -1, -1 },
+    { "CONSENSUS_NET_TXPOWID", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 13, -1, -1 },
+    { "CONSENSUS_NET_TXPOWREQUEST", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 14, -1, -1 },
+    { "CONSENSUS_NET_TXPOW", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 15, -1, -1 },
     { "mDB_", "LOrgMinimaDatabaseMinimaDB;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mHandler_", "LOrgMinimaSystemBrainsConsensusHandler;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
+    { "mHardResetAllowed_", "Z", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
   };
-  static const void *ptrTable[] = { "LOrgMinimaDatabaseMinimaDB;LOrgMinimaSystemBrainsConsensusHandler;", "processMessage", "LOrgMinimaUtilsMessagesMessage;", "LJavaLangException;", "sendNetMessage", "LOrgMinimaUtilsMessagesMessage;LOrgMinimaObjectsBaseMiniByte;LOrgMinimaUtilsStreamable;", "checkCrossover", "LOrgMinimaSystemBackupSyncPackage;", &OrgMinimaSystemBrainsConsensusNet_CONSENSUS_PREFIX, &OrgMinimaSystemBrainsConsensusNet_CONSENSUS_NET_INITIALISE, &OrgMinimaSystemBrainsConsensusNet_CONSENSUS_NET_INTRO, &OrgMinimaSystemBrainsConsensusNet_CONSENSUS_NET_TXPOWID, &OrgMinimaSystemBrainsConsensusNet_CONSENSUS_NET_TXPOWREQUEST, &OrgMinimaSystemBrainsConsensusNet_CONSENSUS_NET_TXPOW };
-  static const J2ObjcClassInfo _OrgMinimaSystemBrainsConsensusNet = { "ConsensusNet", "org.minima.system.brains", ptrTable, methods, fields, 7, 0x1, 5, 8, -1, -1, -1, -1, -1 };
+  static const void *ptrTable[] = { "LOrgMinimaDatabaseMinimaDB;LOrgMinimaSystemBrainsConsensusHandler;", "setHardResest", "Z", "processMessage", "LOrgMinimaUtilsMessagesMessage;", "LJavaLangException;", "sendNetMessage", "LOrgMinimaUtilsMessagesMessage;LOrgMinimaObjectsBaseMiniByte;LOrgMinimaUtilsStreamable;", "checkCrossover", "LOrgMinimaSystemBackupSyncPackage;", &OrgMinimaSystemBrainsConsensusNet_CONSENSUS_PREFIX, &OrgMinimaSystemBrainsConsensusNet_CONSENSUS_NET_INITIALISE, &OrgMinimaSystemBrainsConsensusNet_CONSENSUS_NET_INTRO, &OrgMinimaSystemBrainsConsensusNet_CONSENSUS_NET_TXPOWID, &OrgMinimaSystemBrainsConsensusNet_CONSENSUS_NET_TXPOWREQUEST, &OrgMinimaSystemBrainsConsensusNet_CONSENSUS_NET_TXPOW };
+  static const J2ObjcClassInfo _OrgMinimaSystemBrainsConsensusNet = { "ConsensusNet", "org.minima.system.brains", ptrTable, methods, fields, 7, 0x1, 6, 9, -1, -1, -1, -1, -1 };
   return &_OrgMinimaSystemBrainsConsensusNet;
 }
 
 + (void)initialize {
   if (self == [OrgMinimaSystemBrainsConsensusNet class]) {
-    JreStrongAssign(&OrgMinimaSystemBrainsConsensusNet_CONSENSUS_NET_INTRO, JreStrcat("$$I", OrgMinimaSystemBrainsConsensusNet_CONSENSUS_PREFIX, @"NET_MESSAGE_", [((OrgMinimaObjectsBaseMiniByte *) nil_chk(JreLoadStatic(OrgMinimaSystemNetworkNetClientReader, NETMESSAGE_INTRO))) getValue]));
-    JreStrongAssign(&OrgMinimaSystemBrainsConsensusNet_CONSENSUS_NET_TXPOWID, JreStrcat("$$I", OrgMinimaSystemBrainsConsensusNet_CONSENSUS_PREFIX, @"NET_MESSAGE_", [((OrgMinimaObjectsBaseMiniByte *) nil_chk(JreLoadStatic(OrgMinimaSystemNetworkNetClientReader, NETMESSAGE_TXPOWID))) getValue]));
-    JreStrongAssign(&OrgMinimaSystemBrainsConsensusNet_CONSENSUS_NET_TXPOWREQUEST, JreStrcat("$$I", OrgMinimaSystemBrainsConsensusNet_CONSENSUS_PREFIX, @"NET_MESSAGE_", [((OrgMinimaObjectsBaseMiniByte *) nil_chk(JreLoadStatic(OrgMinimaSystemNetworkNetClientReader, NETMESSAGE_TXPOW_REQUEST))) getValue]));
-    JreStrongAssign(&OrgMinimaSystemBrainsConsensusNet_CONSENSUS_NET_TXPOW, JreStrcat("$$I", OrgMinimaSystemBrainsConsensusNet_CONSENSUS_PREFIX, @"NET_MESSAGE_", [((OrgMinimaObjectsBaseMiniByte *) nil_chk(JreLoadStatic(OrgMinimaSystemNetworkNetClientReader, NETMESSAGE_TXPOW))) getValue]));
+    OrgMinimaSystemBrainsConsensusNet_CONSENSUS_NET_INTRO = JreStrcat("$$I", OrgMinimaSystemBrainsConsensusNet_CONSENSUS_PREFIX, @"NET_MESSAGE_", [((OrgMinimaObjectsBaseMiniByte *) nil_chk(JreLoadStatic(OrgMinimaSystemNetworkNetClientReader, NETMESSAGE_INTRO))) getValue]);
+    OrgMinimaSystemBrainsConsensusNet_CONSENSUS_NET_TXPOWID = JreStrcat("$$I", OrgMinimaSystemBrainsConsensusNet_CONSENSUS_PREFIX, @"NET_MESSAGE_", [((OrgMinimaObjectsBaseMiniByte *) nil_chk(JreLoadStatic(OrgMinimaSystemNetworkNetClientReader, NETMESSAGE_TXPOWID))) getValue]);
+    OrgMinimaSystemBrainsConsensusNet_CONSENSUS_NET_TXPOWREQUEST = JreStrcat("$$I", OrgMinimaSystemBrainsConsensusNet_CONSENSUS_PREFIX, @"NET_MESSAGE_", [((OrgMinimaObjectsBaseMiniByte *) nil_chk(JreLoadStatic(OrgMinimaSystemNetworkNetClientReader, NETMESSAGE_TXPOW_REQUEST))) getValue]);
+    OrgMinimaSystemBrainsConsensusNet_CONSENSUS_NET_TXPOW = JreStrcat("$$I", OrgMinimaSystemBrainsConsensusNet_CONSENSUS_PREFIX, @"NET_MESSAGE_", [((OrgMinimaObjectsBaseMiniByte *) nil_chk(JreLoadStatic(OrgMinimaSystemNetworkNetClientReader, NETMESSAGE_TXPOW))) getValue]);
     J2OBJC_SET_INITIALIZED(OrgMinimaSystemBrainsConsensusNet)
   }
 }
@@ -257,8 +303,9 @@ NSString *OrgMinimaSystemBrainsConsensusNet_CONSENSUS_NET_TXPOW;
 
 void OrgMinimaSystemBrainsConsensusNet_initWithOrgMinimaDatabaseMinimaDB_withOrgMinimaSystemBrainsConsensusHandler_(OrgMinimaSystemBrainsConsensusNet *self, OrgMinimaDatabaseMinimaDB *zDB, OrgMinimaSystemBrainsConsensusHandler *zHandler) {
   NSObject_init(self);
-  JreStrongAssign(&self->mDB_, zDB);
-  JreStrongAssign(&self->mHandler_, zHandler);
+  self->mHardResetAllowed_ = true;
+  self->mDB_ = zDB;
+  self->mHandler_ = zHandler;
 }
 
 OrgMinimaSystemBrainsConsensusNet *new_OrgMinimaSystemBrainsConsensusNet_initWithOrgMinimaDatabaseMinimaDB_withOrgMinimaSystemBrainsConsensusHandler_(OrgMinimaDatabaseMinimaDB *zDB, OrgMinimaSystemBrainsConsensusHandler *zHandler) {
@@ -275,10 +322,10 @@ OrgMinimaDatabaseMinimaDB *OrgMinimaSystemBrainsConsensusNet_getMainDB(OrgMinima
 
 void OrgMinimaSystemBrainsConsensusNet_sendNetMessageWithOrgMinimaUtilsMessagesMessage_withOrgMinimaObjectsBaseMiniByte_withOrgMinimaUtilsStreamable_(OrgMinimaSystemBrainsConsensusNet *self, OrgMinimaUtilsMessagesMessage *zFromMessage, OrgMinimaObjectsBaseMiniByte *zMessageType, id<OrgMinimaUtilsStreamable> zObject) {
   OrgMinimaSystemNetworkNetClient *client = (OrgMinimaSystemNetworkNetClient *) cast_chk([((OrgMinimaUtilsMessagesMessage *) nil_chk(zFromMessage)) getObjectWithNSString:@"netclient"], [OrgMinimaSystemNetworkNetClient class]);
-  OrgMinimaUtilsMessagesMessage *msg = create_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemNetworkNetClient_NETCLIENT_SENDOBJECT);
-  [msg addObjectWithNSString:@"type" withId:zMessageType];
+  OrgMinimaUtilsMessagesMessage *msg = new_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemNetworkNetClient_NETCLIENT_SENDOBJECT);
+  (void) [msg addObjectWithNSString:@"type" withId:zMessageType];
   if (zObject != nil) {
-    [msg addObjectWithNSString:@"object" withId:zObject];
+    (void) [msg addObjectWithNSString:@"object" withId:zObject];
   }
   [((OrgMinimaSystemNetworkNetClient *) nil_chk(client)) PostMessageWithOrgMinimaUtilsMessagesMessage:msg];
 }

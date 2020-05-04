@@ -32,18 +32,17 @@
 @class OrgMinimaObjectsBaseMiniData;
 @class OrgMinimaObjectsProofsTokenProof;
 @class OrgMinimaObjectsPubPrivKey;
-@class OrgMinimaObjectsTransaction;
 @class OrgMinimaObjectsTxPOW;
 @protocol OrgMinimaDatabaseUserdbUserDBRow;
 
 @interface OrgMinimaDatabaseUserdbJavaJavaUserDB : NSObject < OrgMinimaDatabaseUserdbUserDB, OrgMinimaUtilsStreamable > {
  @public
   JavaUtilArrayList *mPubPrivKeys_;
-  JavaUtilArrayList *mAddresses_;
+  JavaUtilArrayList *mSimpleAddresses_;
   JavaUtilArrayList *mScriptAddresses_;
-  jint mCounter_;
-  JavaUtilArrayList *mRows_;
   JavaUtilArrayList *mTotalAddresses_;
+  JavaUtilArrayList *mExtraAddresses_;
+  JavaUtilArrayList *mRows_;
   JavaUtilArrayList *mAllTokens_;
   JavaUtilArrayList *mHistory_;
 }
@@ -73,13 +72,11 @@
 
 - (JavaUtilArrayList *)getKeys;
 
-- (OrgMinimaObjectsBaseMiniData *)getPublicKeyWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zAddress;
+- (OrgMinimaObjectsBaseMiniData *)getPublicKeyForSimpleAddressWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zAddress;
 
 - (OrgMinimaObjectsPubPrivKey *)getPubPrivKeyWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zPubKey;
 
 - (NSString *)getScriptWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zAddress;
-
-- (JavaUtilArrayList *)getScriptAddresses;
 
 - (JavaUtilArrayList *)getSimpleAddresses;
 
@@ -91,7 +88,9 @@
 
 - (jboolean)isSimpleAddressWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zAddress;
 
-- (jboolean)isTransactionRelevantWithOrgMinimaObjectsTransaction:(OrgMinimaObjectsTransaction *)zTrans;
+- (jboolean)isStateListRelevantWithJavaUtilArrayList:(JavaUtilArrayList *)zStateVarList;
+
+- (OrgMinimaObjectsAddress *)newExtraAddressWithNSString:(NSString *)zScript OBJC_METHOD_FAMILY_NONE;
 
 - (OrgMinimaObjectsPubPrivKey *)newPublicKeyWithInt:(jint)zBitLength OBJC_METHOD_FAMILY_NONE;
 
@@ -112,10 +111,11 @@
 J2OBJC_EMPTY_STATIC_INIT(OrgMinimaDatabaseUserdbJavaJavaUserDB)
 
 J2OBJC_FIELD_SETTER(OrgMinimaDatabaseUserdbJavaJavaUserDB, mPubPrivKeys_, JavaUtilArrayList *)
-J2OBJC_FIELD_SETTER(OrgMinimaDatabaseUserdbJavaJavaUserDB, mAddresses_, JavaUtilArrayList *)
+J2OBJC_FIELD_SETTER(OrgMinimaDatabaseUserdbJavaJavaUserDB, mSimpleAddresses_, JavaUtilArrayList *)
 J2OBJC_FIELD_SETTER(OrgMinimaDatabaseUserdbJavaJavaUserDB, mScriptAddresses_, JavaUtilArrayList *)
-J2OBJC_FIELD_SETTER(OrgMinimaDatabaseUserdbJavaJavaUserDB, mRows_, JavaUtilArrayList *)
 J2OBJC_FIELD_SETTER(OrgMinimaDatabaseUserdbJavaJavaUserDB, mTotalAddresses_, JavaUtilArrayList *)
+J2OBJC_FIELD_SETTER(OrgMinimaDatabaseUserdbJavaJavaUserDB, mExtraAddresses_, JavaUtilArrayList *)
+J2OBJC_FIELD_SETTER(OrgMinimaDatabaseUserdbJavaJavaUserDB, mRows_, JavaUtilArrayList *)
 J2OBJC_FIELD_SETTER(OrgMinimaDatabaseUserdbJavaJavaUserDB, mAllTokens_, JavaUtilArrayList *)
 J2OBJC_FIELD_SETTER(OrgMinimaDatabaseUserdbJavaJavaUserDB, mHistory_, JavaUtilArrayList *)
 

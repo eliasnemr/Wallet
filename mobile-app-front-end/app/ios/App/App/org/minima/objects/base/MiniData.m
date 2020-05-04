@@ -63,7 +63,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (JavaMathBigDecimal *)getDataValueDecimal {
-  return create_JavaMathBigDecimal_initWithJavaMathBigInteger_(mDataVal_);
+  return new_JavaMathBigDecimal_initWithJavaMathBigInteger_(mDataVal_);
 }
 
 - (jboolean)isEqual:(id)o {
@@ -94,11 +94,11 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (OrgMinimaObjectsBaseMiniData *)shiftrWithInt:(jint)zNumber {
-  return create_OrgMinimaObjectsBaseMiniData_initWithNSString_([((NSString *) nil_chk([((JavaMathBigInteger *) nil_chk([((JavaMathBigInteger *) nil_chk(mDataVal_)) shiftRightWithInt:zNumber])) toStringWithInt:16])) uppercaseString]);
+  return new_OrgMinimaObjectsBaseMiniData_initWithNSString_([((NSString *) nil_chk([((JavaMathBigInteger *) nil_chk([((JavaMathBigInteger *) nil_chk(mDataVal_)) shiftRightWithInt:zNumber])) toStringWithInt:16])) uppercaseString]);
 }
 
 - (OrgMinimaObjectsBaseMiniData *)shiftlWithInt:(jint)zNumber {
-  return create_OrgMinimaObjectsBaseMiniData_initWithNSString_([((NSString *) nil_chk([((JavaMathBigInteger *) nil_chk([((JavaMathBigInteger *) nil_chk(mDataVal_)) shiftLeftWithInt:zNumber])) toStringWithInt:16])) uppercaseString]);
+  return new_OrgMinimaObjectsBaseMiniData_initWithNSString_([((NSString *) nil_chk([((JavaMathBigInteger *) nil_chk([((JavaMathBigInteger *) nil_chk(mDataVal_)) shiftLeftWithInt:zNumber])) toStringWithInt:16])) uppercaseString]);
 }
 
 - (jint)compareWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zCompare {
@@ -109,10 +109,10 @@ J2OBJC_IGNORE_DESIGNATED_END
   jint locallen = [self getLength];
   jint concatlen = ((IOSByteArray *) nil_chk([((OrgMinimaObjectsBaseMiniData *) nil_chk(zConcat)) getData]))->size_;
   jint totlen = locallen + concatlen;
-  IOSByteArray *total = [IOSByteArray arrayWithLength:totlen];
+  IOSByteArray *total = [IOSByteArray newArrayWithLength:totlen];
   JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_([self getData], 0, total, 0, locallen);
   JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_([zConcat getData], 0, total, locallen, concatlen);
-  return create_OrgMinimaObjectsBaseMiniData_initWithByteArray_(total);
+  return new_OrgMinimaObjectsBaseMiniData_initWithByteArray_(total);
 }
 
 - (NSString *)description {
@@ -139,7 +139,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 - (void)readDataStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn {
   jint len = [((JavaIoDataInputStream *) nil_chk(zIn)) readInt];
-  JreStrongAssignAndConsume(&mData_, [IOSByteArray newArrayWithLength:len]);
+  mData_ = [IOSByteArray newArrayWithLength:len];
   [zIn readFullyWithByteArray:mData_];
   OrgMinimaObjectsBaseMiniData_setDataValue(self);
 }
@@ -158,12 +158,6 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 + (void)mainWithNSStringArray:(IOSObjectArray *)zArgs {
   OrgMinimaObjectsBaseMiniData_mainWithNSStringArray_(zArgs);
-}
-
-- (void)dealloc {
-  RELEASE_(mData_);
-  RELEASE_(mDataVal_);
-  [super dealloc];
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -239,7 +233,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 @end
 
 void OrgMinimaObjectsBaseMiniData_init(OrgMinimaObjectsBaseMiniData *self) {
-  OrgMinimaObjectsBaseMiniData_initWithByteArray_(self, [IOSByteArray arrayWithLength:0]);
+  OrgMinimaObjectsBaseMiniData_initWithByteArray_(self, [IOSByteArray newArrayWithLength:0]);
 }
 
 OrgMinimaObjectsBaseMiniData *new_OrgMinimaObjectsBaseMiniData_init() {
@@ -264,7 +258,7 @@ OrgMinimaObjectsBaseMiniData *create_OrgMinimaObjectsBaseMiniData_initWithNSStri
 
 void OrgMinimaObjectsBaseMiniData_initWithByteArray_(OrgMinimaObjectsBaseMiniData *self, IOSByteArray *zData) {
   NSObject_init(self);
-  JreStrongAssign(&self->mData_, zData);
+  self->mData_ = zData;
   OrgMinimaObjectsBaseMiniData_setDataValue(self);
 }
 
@@ -277,17 +271,16 @@ OrgMinimaObjectsBaseMiniData *create_OrgMinimaObjectsBaseMiniData_initWithByteAr
 }
 
 void OrgMinimaObjectsBaseMiniData_setDataValue(OrgMinimaObjectsBaseMiniData *self) {
-  JreStrongAssignAndConsume(&self->mDataVal_, new_JavaMathBigInteger_initWithInt_withByteArray_(1, self->mData_));
+  self->mDataVal_ = new_JavaMathBigInteger_initWithInt_withByteArray_(1, self->mData_);
 }
 
 OrgMinimaObjectsBaseMiniData *OrgMinimaObjectsBaseMiniData_ReadFromStreamWithJavaIoDataInputStream_(JavaIoDataInputStream *zIn) {
   OrgMinimaObjectsBaseMiniData_initialize();
-  OrgMinimaObjectsBaseMiniData *data = create_OrgMinimaObjectsBaseMiniData_init();
+  OrgMinimaObjectsBaseMiniData *data = new_OrgMinimaObjectsBaseMiniData_init();
   @try {
     [data readDataStreamWithJavaIoDataInputStream:zIn];
   }
   @catch (JavaIoIOException *e) {
-    [e printStackTrace];
     return nil;
   }
   return data;
@@ -295,8 +288,8 @@ OrgMinimaObjectsBaseMiniData *OrgMinimaObjectsBaseMiniData_ReadFromStreamWithJav
 
 OrgMinimaObjectsBaseMiniData *OrgMinimaObjectsBaseMiniData_getMiniDataVersionWithOrgMinimaUtilsStreamable_(id<OrgMinimaUtilsStreamable> zObject) {
   OrgMinimaObjectsBaseMiniData_initialize();
-  JavaIoByteArrayOutputStream *baos = create_JavaIoByteArrayOutputStream_init();
-  JavaIoDataOutputStream *dos = create_JavaIoDataOutputStream_initWithJavaIoOutputStream_(baos);
+  JavaIoByteArrayOutputStream *baos = new_JavaIoByteArrayOutputStream_init();
+  JavaIoDataOutputStream *dos = new_JavaIoDataOutputStream_initWithJavaIoOutputStream_(baos);
   @try {
     [((id<OrgMinimaUtilsStreamable>) nil_chk(zObject)) writeDataStreamWithJavaIoDataOutputStream:dos];
     [dos flush];
@@ -304,20 +297,20 @@ OrgMinimaObjectsBaseMiniData *OrgMinimaObjectsBaseMiniData_getMiniDataVersionWit
   @catch (JavaIoIOException *e) {
     return nil;
   }
-  return create_OrgMinimaObjectsBaseMiniData_initWithByteArray_([baos toByteArray]);
+  return new_OrgMinimaObjectsBaseMiniData_initWithByteArray_([baos toByteArray]);
 }
 
 OrgMinimaObjectsBaseMiniData *OrgMinimaObjectsBaseMiniData_getRandomDataWithInt_(jint len) {
   OrgMinimaObjectsBaseMiniData_initialize();
-  JavaSecuritySecureRandom *rand = create_JavaSecuritySecureRandom_init();
-  IOSByteArray *data = [IOSByteArray arrayWithLength:len];
+  JavaSecuritySecureRandom *rand = new_JavaSecuritySecureRandom_init();
+  IOSByteArray *data = [IOSByteArray newArrayWithLength:len];
   [rand nextBytesWithByteArray:data];
-  return create_OrgMinimaObjectsBaseMiniData_initWithByteArray_(data);
+  return new_OrgMinimaObjectsBaseMiniData_initWithByteArray_(data);
 }
 
 void OrgMinimaObjectsBaseMiniData_mainWithNSStringArray_(IOSObjectArray *zArgs) {
   OrgMinimaObjectsBaseMiniData_initialize();
-  OrgMinimaObjectsBaseMiniData *data = create_OrgMinimaObjectsBaseMiniData_init();
+  OrgMinimaObjectsBaseMiniData *data = new_OrgMinimaObjectsBaseMiniData_init();
   OrgMinimaUtilsMinimaLogger_logWithNSString_(JreStrcat("$$", @"data    : ", [data description]));
   OrgMinimaUtilsMinimaLogger_logWithNSString_(JreStrcat("$$", @"value   : ", [((JavaMathBigInteger *) nil_chk([data getDataValue])) description]));
 }

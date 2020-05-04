@@ -44,9 +44,9 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (OrgMinimaUtilsJsonJSONObject *)toJSON {
-  OrgMinimaUtilsJsonJSONObject *json = create_OrgMinimaUtilsJsonJSONObject_init();
-  [json putWithId:@"signature" withId:[((OrgMinimaObjectsBaseMiniData *) nil_chk(mSignature_)) to0xString]];
-  [json putWithId:@"proof" withId:[super toJSON]];
+  OrgMinimaUtilsJsonJSONObject *json = new_OrgMinimaUtilsJsonJSONObject_init();
+  (void) [json putWithId:@"signature" withId:[((OrgMinimaObjectsBaseMiniData *) nil_chk(mSignature_)) to0xString]];
+  (void) [json putWithId:@"proof" withId:[super toJSON]];
   return json;
 }
 
@@ -56,17 +56,12 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (void)readDataStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn {
-  JreStrongAssign(&mSignature_, OrgMinimaObjectsBaseMiniData_ReadFromStreamWithJavaIoDataInputStream_(zIn));
+  mSignature_ = OrgMinimaObjectsBaseMiniData_ReadFromStreamWithJavaIoDataInputStream_(zIn);
   [super readDataStreamWithJavaIoDataInputStream:zIn];
 }
 
 + (OrgMinimaObjectsProofsSignatureProof *)ReadFromStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn {
   return OrgMinimaObjectsProofsSignatureProof_ReadFromStreamWithJavaIoDataInputStream_(zIn);
-}
-
-- (void)dealloc {
-  RELEASE_(mSignature_);
-  [super dealloc];
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -115,7 +110,8 @@ OrgMinimaObjectsProofsSignatureProof *create_OrgMinimaObjectsProofsSignatureProo
 void OrgMinimaObjectsProofsSignatureProof_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniData_(OrgMinimaObjectsProofsSignatureProof *self, OrgMinimaObjectsBaseMiniData *mPublicKey, OrgMinimaObjectsBaseMiniData *zSignature) {
   OrgMinimaObjectsProofsProof_init(self);
   [self setDataWithOrgMinimaObjectsBaseMiniData:mPublicKey];
-  JreStrongAssign(&self->mSignature_, zSignature);
+  [self setHashBitLengthWithInt:[((OrgMinimaObjectsBaseMiniData *) nil_chk(mPublicKey)) getLength] * 8];
+  self->mSignature_ = zSignature;
 }
 
 OrgMinimaObjectsProofsSignatureProof *new_OrgMinimaObjectsProofsSignatureProof_initWithOrgMinimaObjectsBaseMiniData_withOrgMinimaObjectsBaseMiniData_(OrgMinimaObjectsBaseMiniData *mPublicKey, OrgMinimaObjectsBaseMiniData *zSignature) {
@@ -128,7 +124,7 @@ OrgMinimaObjectsProofsSignatureProof *create_OrgMinimaObjectsProofsSignatureProo
 
 OrgMinimaObjectsProofsSignatureProof *OrgMinimaObjectsProofsSignatureProof_ReadFromStreamWithJavaIoDataInputStream_(JavaIoDataInputStream *zIn) {
   OrgMinimaObjectsProofsSignatureProof_initialize();
-  OrgMinimaObjectsProofsSignatureProof *sigproof = create_OrgMinimaObjectsProofsSignatureProof_init();
+  OrgMinimaObjectsProofsSignatureProof *sigproof = new_OrgMinimaObjectsProofsSignatureProof_init();
   @try {
     [sigproof readDataStreamWithJavaIoDataInputStream:zIn];
   }

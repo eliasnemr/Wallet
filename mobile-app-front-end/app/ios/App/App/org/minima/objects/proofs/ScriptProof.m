@@ -40,11 +40,6 @@ J2OBJC_IGNORE_DESIGNATED_BEGIN
 }
 J2OBJC_IGNORE_DESIGNATED_END
 
-- (instancetype)initWithNSString:(NSString *)zScript {
-  OrgMinimaObjectsProofsScriptProof_initWithNSString_(self, zScript);
-  return self;
-}
-
 - (instancetype)initWithNSString:(NSString *)zScript
                          withInt:(jint)zBitLength {
   OrgMinimaObjectsProofsScriptProof_initWithNSString_withInt_(self, zScript, zBitLength);
@@ -67,9 +62,9 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (OrgMinimaUtilsJsonJSONObject *)toJSON {
-  OrgMinimaUtilsJsonJSONObject *json = create_OrgMinimaUtilsJsonJSONObject_init();
-  [json putWithId:@"script" withId:[((OrgMinimaObjectsBaseMiniScript *) nil_chk(mScript_)) description]];
-  [json putWithId:@"proof" withId:[super toJSON]];
+  OrgMinimaUtilsJsonJSONObject *json = new_OrgMinimaUtilsJsonJSONObject_init();
+  (void) [json putWithId:@"script" withId:[((OrgMinimaObjectsBaseMiniScript *) nil_chk(mScript_)) description]];
+  (void) [json putWithId:@"proof" withId:[super toJSON]];
   return json;
 }
 
@@ -79,7 +74,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (void)readDataStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn {
-  JreStrongAssign(&mScript_, OrgMinimaObjectsBaseMiniScript_ReadFromStreamWithJavaIoDataInputStream_(zIn));
+  mScript_ = OrgMinimaObjectsBaseMiniScript_ReadFromStreamWithJavaIoDataInputStream_(zIn);
   [super readDataStreamWithJavaIoDataInputStream:zIn];
 }
 
@@ -87,43 +82,36 @@ J2OBJC_IGNORE_DESIGNATED_END
   return OrgMinimaObjectsProofsScriptProof_ReadFromStreamWithJavaIoDataInputStream_(zIn);
 }
 
-- (void)dealloc {
-  RELEASE_(mScript_);
-  [super dealloc];
-}
-
 + (const J2ObjcClassInfo *)__metadata {
   static J2ObjcMethodInfo methods[] = {
     { NULL, NULL, 0x2, -1, -1, -1, -1, -1, -1 },
     { NULL, NULL, 0x1, -1, 0, 1, -1, -1, -1 },
     { NULL, NULL, 0x1, -1, 2, 1, -1, -1, -1 },
-    { NULL, NULL, 0x1, -1, 3, 1, -1, -1, -1 },
-    { NULL, "V", 0x2, 4, 3, 1, -1, -1, -1 },
+    { NULL, "V", 0x2, 3, 2, 1, -1, -1, -1 },
     { NULL, "LOrgMinimaObjectsBaseMiniScript;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaUtilsJsonJSONObject;", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 5, 6, 7, -1, -1, -1 },
-    { NULL, "V", 0x1, 8, 9, 7, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsProofsScriptProof;", 0x9, 10, 9, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 4, 5, 6, -1, -1, -1 },
+    { NULL, "V", 0x1, 7, 8, 6, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsProofsScriptProof;", 0x9, 9, 8, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
   #pragma clang diagnostic ignored "-Wundeclared-selector"
   methods[0].selector = @selector(init);
-  methods[1].selector = @selector(initWithNSString:);
-  methods[2].selector = @selector(initWithNSString:withInt:);
-  methods[3].selector = @selector(initWithNSString:withNSString:);
-  methods[4].selector = @selector(init__WithNSString:withNSString:);
-  methods[5].selector = @selector(getScript);
-  methods[6].selector = @selector(toJSON);
-  methods[7].selector = @selector(writeDataStreamWithJavaIoDataOutputStream:);
-  methods[8].selector = @selector(readDataStreamWithJavaIoDataInputStream:);
-  methods[9].selector = @selector(ReadFromStreamWithJavaIoDataInputStream:);
+  methods[1].selector = @selector(initWithNSString:withInt:);
+  methods[2].selector = @selector(initWithNSString:withNSString:);
+  methods[3].selector = @selector(init__WithNSString:withNSString:);
+  methods[4].selector = @selector(getScript);
+  methods[5].selector = @selector(toJSON);
+  methods[6].selector = @selector(writeDataStreamWithJavaIoDataOutputStream:);
+  methods[7].selector = @selector(readDataStreamWithJavaIoDataInputStream:);
+  methods[8].selector = @selector(ReadFromStreamWithJavaIoDataInputStream:);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
     { "mScript_", "LOrgMinimaObjectsBaseMiniScript;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
   };
-  static const void *ptrTable[] = { "LNSString;", "LJavaLangException;", "LNSString;I", "LNSString;LNSString;", "init", "writeDataStream", "LJavaIoDataOutputStream;", "LJavaIoIOException;", "readDataStream", "LJavaIoDataInputStream;", "ReadFromStream" };
-  static const J2ObjcClassInfo _OrgMinimaObjectsProofsScriptProof = { "ScriptProof", "org.minima.objects.proofs", ptrTable, methods, fields, 7, 0x1, 10, 1, -1, -1, -1, -1, -1 };
+  static const void *ptrTable[] = { "LNSString;I", "LJavaLangException;", "LNSString;LNSString;", "init", "writeDataStream", "LJavaIoDataOutputStream;", "LJavaIoIOException;", "readDataStream", "LJavaIoDataInputStream;", "ReadFromStream" };
+  static const J2ObjcClassInfo _OrgMinimaObjectsProofsScriptProof = { "ScriptProof", "org.minima.objects.proofs", ptrTable, methods, fields, 7, 0x1, 9, 1, -1, -1, -1, -1, -1 };
   return &_OrgMinimaObjectsProofsScriptProof;
 }
 
@@ -139,19 +127,6 @@ OrgMinimaObjectsProofsScriptProof *new_OrgMinimaObjectsProofsScriptProof_init() 
 
 OrgMinimaObjectsProofsScriptProof *create_OrgMinimaObjectsProofsScriptProof_init() {
   J2OBJC_CREATE_IMPL(OrgMinimaObjectsProofsScriptProof, init)
-}
-
-void OrgMinimaObjectsProofsScriptProof_initWithNSString_(OrgMinimaObjectsProofsScriptProof *self, NSString *zScript) {
-  OrgMinimaObjectsProofsProof_init(self);
-  OrgMinimaObjectsProofsScriptProof_init__WithNSString_withNSString_(self, zScript, @"0x0200");
-}
-
-OrgMinimaObjectsProofsScriptProof *new_OrgMinimaObjectsProofsScriptProof_initWithNSString_(NSString *zScript) {
-  J2OBJC_NEW_IMPL(OrgMinimaObjectsProofsScriptProof, initWithNSString_, zScript)
-}
-
-OrgMinimaObjectsProofsScriptProof *create_OrgMinimaObjectsProofsScriptProof_initWithNSString_(NSString *zScript) {
-  J2OBJC_CREATE_IMPL(OrgMinimaObjectsProofsScriptProof, initWithNSString_, zScript)
 }
 
 void OrgMinimaObjectsProofsScriptProof_initWithNSString_withInt_(OrgMinimaObjectsProofsScriptProof *self, NSString *zScript, jint zBitLength) {
@@ -189,18 +164,18 @@ OrgMinimaObjectsProofsScriptProof *create_OrgMinimaObjectsProofsScriptProof_init
 }
 
 void OrgMinimaObjectsProofsScriptProof_init__WithNSString_withNSString_(OrgMinimaObjectsProofsScriptProof *self, NSString *zScript, NSString *zChainSHAProof) {
-  JreStrongAssignAndConsume(&self->mScript_, new_OrgMinimaObjectsBaseMiniScript_initWithNSString_(zScript));
+  self->mScript_ = new_OrgMinimaObjectsBaseMiniScript_initWithNSString_(zScript);
   jint bits = OrgMinimaObjectsProofsProof_getChainSHABitsWithNSString_(zChainSHAProof);
-  OrgMinimaObjectsAddress *addr = create_OrgMinimaObjectsAddress_initWithNSString_withInt_([((OrgMinimaObjectsBaseMiniScript *) nil_chk(self->mScript_)) description], bits);
+  OrgMinimaObjectsAddress *addr = new_OrgMinimaObjectsAddress_initWithNSString_withInt_([((OrgMinimaObjectsBaseMiniScript *) nil_chk(self->mScript_)) description], bits);
   [self setDataWithOrgMinimaObjectsBaseMiniData:[addr getAddressData]];
   [self setHashBitLengthWithInt:bits];
-  [self setProofWithOrgMinimaObjectsBaseMiniData:create_OrgMinimaObjectsBaseMiniData_initWithNSString_(zChainSHAProof)];
+  [self setProofWithOrgMinimaObjectsBaseMiniData:new_OrgMinimaObjectsBaseMiniData_initWithNSString_(zChainSHAProof)];
   [self finalizeHash];
 }
 
 OrgMinimaObjectsProofsScriptProof *OrgMinimaObjectsProofsScriptProof_ReadFromStreamWithJavaIoDataInputStream_(JavaIoDataInputStream *zIn) {
   OrgMinimaObjectsProofsScriptProof_initialize();
-  OrgMinimaObjectsProofsScriptProof *proof = create_OrgMinimaObjectsProofsScriptProof_init();
+  OrgMinimaObjectsProofsScriptProof *proof = new_OrgMinimaObjectsProofsScriptProof_init();
   @try {
     [proof readDataStreamWithJavaIoDataInputStream:zIn];
   }

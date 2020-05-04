@@ -28,18 +28,13 @@ NSString *OrgMinimaSystemMaximaOffChainManager_OFFCHAIN_MESSAGE = @"OFFCHAIN_MES
   }
   else if ([zMessage isMessageTypeWithNSString:OrgMinimaSystemMaximaOffChainManager_OFFCHAIN_POW_VALID]) {
     OrgMinimaObjectsTxPOW *txpow = (OrgMinimaObjectsTxPOW *) cast_chk([zMessage getObjectWithNSString:@"txpow"], [OrgMinimaObjectsTxPOW class]);
-    JreStrongAssign(&mLatestPow_, txpow);
+    mLatestPow_ = txpow;
   }
   else if ([zMessage isMessageTypeWithNSString:OrgMinimaSystemMaximaOffChainManager_OFFCHAIN_MESSAGE]) {
     if (mLatestPow_ == nil) {
       return;
     }
   }
-}
-
-- (void)dealloc {
-  RELEASE_(mLatestPow_);
-  [super dealloc];
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -68,7 +63,7 @@ NSString *OrgMinimaSystemMaximaOffChainManager_OFFCHAIN_MESSAGE = @"OFFCHAIN_MES
 
 void OrgMinimaSystemMaximaOffChainManager_initWithOrgMinimaSystemMain_(OrgMinimaSystemMaximaOffChainManager *self, OrgMinimaSystemMain *zMain) {
   OrgMinimaSystemSystemHandler_initWithOrgMinimaSystemMain_withNSString_(self, zMain, @"OffChainManager");
-  JreStrongAssign(&self->mLatestPow_, nil);
+  self->mLatestPow_ = nil;
 }
 
 OrgMinimaSystemMaximaOffChainManager *new_OrgMinimaSystemMaximaOffChainManager_initWithOrgMinimaSystemMain_(OrgMinimaSystemMain *zMain) {

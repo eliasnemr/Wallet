@@ -17,6 +17,8 @@
     { NULL, "I", 0x401, -1, -1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaObjectsWitness;", 0x401, -1, -1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaObjectsTransaction;", 0x401, -1, -1, -1, -1, -1, -1 },
+    { NULL, "V", 0x401, 0, 1, -1, -1, -1, -1 },
+    { NULL, "V", 0x401, 2, 3, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaUtilsJsonJSONObject;", 0x401, -1, -1, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
@@ -25,9 +27,12 @@
   methods[0].selector = @selector(getID);
   methods[1].selector = @selector(getWitness);
   methods[2].selector = @selector(getTransaction);
-  methods[3].selector = @selector(toJSON);
+  methods[3].selector = @selector(setTransactionWithOrgMinimaObjectsTransaction:);
+  methods[4].selector = @selector(setWitnessWithOrgMinimaObjectsWitness:);
+  methods[5].selector = @selector(toJSON);
   #pragma clang diagnostic pop
-  static const J2ObjcClassInfo _OrgMinimaDatabaseUserdbUserDBRow = { "UserDBRow", "org.minima.database.userdb", NULL, methods, NULL, 7, 0x609, 4, 0, -1, -1, -1, -1, -1 };
+  static const void *ptrTable[] = { "setTransaction", "LOrgMinimaObjectsTransaction;", "setWitness", "LOrgMinimaObjectsWitness;" };
+  static const J2ObjcClassInfo _OrgMinimaDatabaseUserdbUserDBRow = { "UserDBRow", "org.minima.database.userdb", ptrTable, methods, NULL, 7, 0x609, 6, 0, -1, -1, -1, -1, -1 };
   return &_OrgMinimaDatabaseUserdbUserDBRow;
 }
 

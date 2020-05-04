@@ -28,6 +28,10 @@
 
 - (OrgMinimaObjectsTransaction *)getTransaction;
 
+- (void)setTransactionWithOrgMinimaObjectsTransaction:(OrgMinimaObjectsTransaction *)zTrans;
+
+- (void)setWitnessWithOrgMinimaObjectsWitness:(OrgMinimaObjectsWitness *)zWitness;
+
 - (OrgMinimaUtilsJsonJSONObject *)toJSON;
 
 @end

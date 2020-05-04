@@ -16,39 +16,34 @@
 }
 
 - (NSString *)description {
-  JavaLangStringBuffer *sb = create_JavaLangStringBuffer_init();
+  JavaLangStringBuffer *sb = new_JavaLangStringBuffer_init();
   switch (type_) {
     case OrgMinimaUtilsJsonParserYytoken_TYPE_VALUE:
-    [((JavaLangStringBuffer *) nil_chk([((JavaLangStringBuffer *) nil_chk([sb appendWithNSString:@"VALUE("])) appendWithId:value_])) appendWithNSString:@")"];
+    (void) [((JavaLangStringBuffer *) nil_chk([((JavaLangStringBuffer *) nil_chk([sb appendWithNSString:@"VALUE("])) appendWithId:value_])) appendWithNSString:@")"];
     break;
     case OrgMinimaUtilsJsonParserYytoken_TYPE_LEFT_BRACE:
-    [sb appendWithNSString:@"LEFT BRACE({)"];
+    (void) [sb appendWithNSString:@"LEFT BRACE({)"];
     break;
     case OrgMinimaUtilsJsonParserYytoken_TYPE_RIGHT_BRACE:
-    [sb appendWithNSString:@"RIGHT BRACE(})"];
+    (void) [sb appendWithNSString:@"RIGHT BRACE(})"];
     break;
     case OrgMinimaUtilsJsonParserYytoken_TYPE_LEFT_SQUARE:
-    [sb appendWithNSString:@"LEFT SQUARE([)"];
+    (void) [sb appendWithNSString:@"LEFT SQUARE([)"];
     break;
     case OrgMinimaUtilsJsonParserYytoken_TYPE_RIGHT_SQUARE:
-    [sb appendWithNSString:@"RIGHT SQUARE(])"];
+    (void) [sb appendWithNSString:@"RIGHT SQUARE(])"];
     break;
     case OrgMinimaUtilsJsonParserYytoken_TYPE_COMMA:
-    [sb appendWithNSString:@"COMMA(,)"];
+    (void) [sb appendWithNSString:@"COMMA(,)"];
     break;
     case OrgMinimaUtilsJsonParserYytoken_TYPE_COLON:
-    [sb appendWithNSString:@"COLON(:)"];
+    (void) [sb appendWithNSString:@"COLON(:)"];
     break;
     case OrgMinimaUtilsJsonParserYytoken_TYPE_EOF:
-    [sb appendWithNSString:@"END OF FILE"];
+    (void) [sb appendWithNSString:@"END OF FILE"];
     break;
   }
   return [sb description];
-}
-
-- (void)dealloc {
-  RELEASE_(value_);
-
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -84,9 +79,9 @@
 void OrgMinimaUtilsJsonParserYytoken_initWithInt_withId_(OrgMinimaUtilsJsonParserYytoken *self, jint type, id value) {
   NSObject_init(self);
   self->type_ = 0;
-  JreStrongAssign(&self->value_, nil);
+  self->value_ = nil;
   self->type_ = type;
-  JreStrongAssign(&self->value_, value);
+  self->value_ = value;
 }
 
 OrgMinimaUtilsJsonParserYytoken *new_OrgMinimaUtilsJsonParserYytoken_initWithInt_withId_(jint type, id value) {

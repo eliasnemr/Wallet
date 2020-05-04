@@ -11,10 +11,6 @@ var map = {
 	"./pages/balance/balance.module": [
 		"./src/app/pages/balance/balance.module.ts",
 		"pages-balance-balance-module"
-	],
-	"./pages/splash-screen/splash-screen.module": [
-		"./src/app/pages/splash-screen/splash-screen.module.ts",
-		"pages-splash-screen-splash-screen-module"
 	]
 };
 function webpackAsyncContext(req) {
@@ -544,7 +540,6 @@ var routes = [
     { path: 'web-scanner', loadChildren: function () { return __webpack_require__.e(/*! import() | pages-web-scanner-web-scanner-module */ "pages-web-scanner-web-scanner-module").then(__webpack_require__.bind(null, /*! ./pages/web-scanner/web-scanner.module */ "./src/app/pages/web-scanner/web-scanner.module.ts")).then(function (m) { return m.WebScannerPageModule; }); } },
     { path: 'community', loadChildren: function () { return __webpack_require__.e(/*! import() | pages-community-community-module */ "pages-community-community-module").then(__webpack_require__.bind(null, /*! ./pages/community/community.module */ "./src/app/pages/community/community.module.ts")).then(function (m) { return m.CommunityPageModule; }); } },
     { path: 'history', loadChildren: function () { return __webpack_require__.e(/*! import() | pages-history-history-module */ "pages-history-history-module").then(__webpack_require__.bind(null, /*! ./pages/history/history.module */ "./src/app/pages/history/history.module.ts")).then(function (m) { return m.HistoryPageModule; }); } },
-    { path: 'splash-screen', loadChildren: './pages/splash-screen/splash-screen.module#SplashScreenPageModule' },
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
@@ -614,9 +609,8 @@ var AppComponent = /** @class */ (function () {
         this.currentMode = false;
         this.currentVersion = 0;
         this.getPages(); /** this returns pages if on mobile or desktop, (different layouts) */
-        //this.getPlatform(); /** Turn getPlatform() off if you want to use desktop version with desktop node */ 
+        this.getPlatform(); /** Turn getPlatform() off if you want to use desktop version with desktop node */
         this.initializeApp();
-        this.whatPlatformIsThis();
         // Use matchMedia to check the user preference
         var prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
         //darkMode.toggleDarkTheme(prefersDark.matches);
@@ -656,7 +650,7 @@ var AppComponent = /** @class */ (function () {
                     { title: 'Token', routerLink: '/create-token', icon: 'brush', line: 'none', hidden: false },
                     { title: 'Status', routerLink: '/status', icon: 'analytics', line: 'none', hidden: false },
                     { title: 'Terminal', routerLink: '/mini-term', icon: 'code', line: 'full', hidden: false },
-                    { title: 'Web', routerLink: '/web-scanner', icon: 'desktop', line: 'full', hidden: this.isThisDesktop() },
+                    { title: 'Web', routerLink: '/web-scanner', icon: 'desktop', line: 'full', hidden: true },
                     { title: 'Settings', routerLink: '/settings', icon: 'build', line: 'none', hidden: false },
                 ];
         }
@@ -673,7 +667,7 @@ var AppComponent = /** @class */ (function () {
                     { title: 'Token', routerLink: '/create-token', icon: 'brush', line: 'none', hidden: false },
                     { title: 'Status', routerLink: '/status', icon: 'analytics', line: 'none', hidden: false },
                     { title: 'Terminal', routerLink: '/mini-term', icon: 'code', line: 'none', hidden: false },
-                    { title: 'Web', routerLink: '/web-scanner', icon: 'desktop', line: 'full', hidden: this.isThisDesktop() },
+                    { title: 'Web', routerLink: '/web-scanner', icon: 'desktop', line: 'full', hidden: true },
                     { title: 'Settings', routerLink: '/settings', icon: 'build', line: 'none', hidden: false },
                 ];
         }
@@ -705,13 +699,13 @@ var AppComponent = /** @class */ (function () {
     // returns logo that should be used with dark mode/light 
     AppComponent.prototype.getImg = function () {
         if (document.body.classList.contains('dark')) {
-            return '../../assets/fulllogodark.svg';
+            return './assets/fulllogodark.svg';
         }
         else if (this.currentMode === false) {
-            return '../../assets/fulllogo.svg';
+            return './assets/fulllogo.svg';
         }
         else {
-            return '';
+            return './assets/fulllogo.svg';
         }
     };
     // checking if desktop
@@ -728,7 +722,7 @@ var AppComponent = /** @class */ (function () {
         //Minima.logout();
         var _this = this;
         /*  If on desktop do this.. */
-        if (this.platform.is('desktop') || this.platform.is('pwa')) {
+        if (this.platform.is('desktop')) {
             window.addEventListener('load', function (ev) {
                 // Page loaded
                 window.addEventListener('MinimaEvent', function (evt) {
@@ -746,25 +740,11 @@ var AppComponent = /** @class */ (function () {
                 Minima.init();
             });
         }
-        else {
-            console.log('Running Minima on mobile. :)');
+        else if (this.platform.is('ios')) {
+            console.log('Running Minima on iOS');
         }
-    };
-    AppComponent.prototype.whatPlatformIsThis = function () {
-        if (this.platform.is('desktop') || this.platform.is('pwa')) {
-            console.log('You are on desktop');
-        }
-        else if (this.platform.is('android') || this.platform.is('ios')) {
-            console.log('You are on mobile.');
-        }
-        else if (this.platform.is('mobileweb')) {
-            console.log('You are on -mobile-');
-        }
-        else if (this.platform.is('phablet') || this.platform.is('tablet')) {
-            console.log('You are on a phablet or table');
-        }
-        else if (this.platform.is('mobileweb')) {
-            console.log('You are on mobile web');
+        else if (this.platform.is('android')) {
+            console.log('Running Minima on Android');
         }
     };
     AppComponent.prototype.getVersion = function () {
@@ -852,21 +832,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
-/* harmony import */ var _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic-native/splash-screen/ngx */ "./node_modules/@ionic-native/splash-screen/ngx/index.js");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
-/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
-/* harmony import */ var _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @ionic-native/clipboard/ngx */ "./node_modules/@ionic-native/clipboard/ngx/index.js");
-/* harmony import */ var _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @ionic-native/qr-scanner/ngx */ "./node_modules/@ionic-native/qr-scanner/ngx/index.js");
-/* harmony import */ var _components_pop_over_pop_over_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/pop-over/pop-over.component */ "./src/app/components/pop-over/pop-over.component.ts");
-/* harmony import */ var _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/pop-term/pop-term.component */ "./src/app/components/pop-term/pop-term.component.ts");
-/* harmony import */ var _components_pop_history_pop_history_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/pop-history/pop-history.component */ "./src/app/components/pop-history/pop-history.component.ts");
-/* harmony import */ var _service_userterminal_service__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./service/userterminal.service */ "./src/app/service/userterminal.service.ts");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
-/* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm5/ionic-storage.js");
-/* harmony import */ var _service_darkMode_service__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./service/darkMode.service */ "./src/app/service/darkMode.service.ts");
-/* harmony import */ var _components_pop_history_token_pop_history_token_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/pop-history-token/pop-history-token.component */ "./src/app/components/pop-history-token/pop-history-token.component.ts");
-
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
+/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
+/* harmony import */ var _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @ionic-native/clipboard/ngx */ "./node_modules/@ionic-native/clipboard/ngx/index.js");
+/* harmony import */ var _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @ionic-native/qr-scanner/ngx */ "./node_modules/@ionic-native/qr-scanner/ngx/index.js");
+/* harmony import */ var _components_pop_over_pop_over_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/pop-over/pop-over.component */ "./src/app/components/pop-over/pop-over.component.ts");
+/* harmony import */ var _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/pop-term/pop-term.component */ "./src/app/components/pop-term/pop-term.component.ts");
+/* harmony import */ var _components_pop_history_pop_history_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/pop-history/pop-history.component */ "./src/app/components/pop-history/pop-history.component.ts");
+/* harmony import */ var _service_userterminal_service__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./service/userterminal.service */ "./src/app/service/userterminal.service.ts");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm5/ionic-storage.js");
+/* harmony import */ var _service_darkMode_service__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./service/darkMode.service */ "./src/app/service/darkMode.service.ts");
+/* harmony import */ var _components_pop_history_token_pop_history_token_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/pop-history-token/pop-history-token.component */ "./src/app/components/pop-history-token/pop-history-token.component.ts");
 
 
 
@@ -892,25 +870,24 @@ var AppModule = /** @class */ (function () {
     }
     AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["NgModule"])({
-            declarations: [_app_component__WEBPACK_IMPORTED_MODULE_9__["AppComponent"], _components_pop_over_pop_over_component__WEBPACK_IMPORTED_MODULE_13__["PopOverComponent"], _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_14__["PopTermComponent"], _components_pop_history_pop_history_component__WEBPACK_IMPORTED_MODULE_15__["PopHistoryComponent"], _components_pop_history_token_pop_history_token_component__WEBPACK_IMPORTED_MODULE_20__["PopHistoryTokenComponent"]],
-            entryComponents: [_components_pop_over_pop_over_component__WEBPACK_IMPORTED_MODULE_13__["PopOverComponent"], _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_14__["PopTermComponent"], _components_pop_history_pop_history_component__WEBPACK_IMPORTED_MODULE_15__["PopHistoryComponent"], _components_pop_history_token_pop_history_token_component__WEBPACK_IMPORTED_MODULE_20__["PopHistoryTokenComponent"]],
-            imports: [_angular_forms__WEBPACK_IMPORTED_MODULE_8__["FormsModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HttpClientModule"], _angular_platform_browser__WEBPACK_IMPORTED_MODULE_3__["BrowserModule"], _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["IonicModule"].forRoot(), _app_routing_module__WEBPACK_IMPORTED_MODULE_10__["AppRoutingModule"], _ionic_storage__WEBPACK_IMPORTED_MODULE_18__["IonicStorageModule"].forRoot()],
+            declarations: [_app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"], _components_pop_over_pop_over_component__WEBPACK_IMPORTED_MODULE_12__["PopOverComponent"], _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_13__["PopTermComponent"], _components_pop_history_pop_history_component__WEBPACK_IMPORTED_MODULE_14__["PopHistoryComponent"], _components_pop_history_token_pop_history_token_component__WEBPACK_IMPORTED_MODULE_19__["PopHistoryTokenComponent"]],
+            entryComponents: [_components_pop_over_pop_over_component__WEBPACK_IMPORTED_MODULE_12__["PopOverComponent"], _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_13__["PopTermComponent"], _components_pop_history_pop_history_component__WEBPACK_IMPORTED_MODULE_14__["PopHistoryComponent"], _components_pop_history_token_pop_history_token_component__WEBPACK_IMPORTED_MODULE_19__["PopHistoryTokenComponent"]],
+            imports: [_angular_forms__WEBPACK_IMPORTED_MODULE_7__["FormsModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HttpClientModule"], _angular_platform_browser__WEBPACK_IMPORTED_MODULE_3__["BrowserModule"], _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["IonicModule"].forRoot(), _app_routing_module__WEBPACK_IMPORTED_MODULE_9__["AppRoutingModule"], _ionic_storage__WEBPACK_IMPORTED_MODULE_17__["IonicStorageModule"].forRoot()],
             providers: [
                 Storage,
-                _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_7__["SplashScreen"],
-                _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_11__["Clipboard"],
-                _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_12__["QRScanner"],
+                _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_10__["Clipboard"],
+                _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_11__["QRScanner"],
                 { provide: _angular_router__WEBPACK_IMPORTED_MODULE_4__["RouteReuseStrategy"], useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["IonicRouteStrategy"] },
-                { provide: _angular_common__WEBPACK_IMPORTED_MODULE_17__["LocationStrategy"], useClass: _angular_common__WEBPACK_IMPORTED_MODULE_17__["HashLocationStrategy"] },
-                _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_14__["PopTermComponent"],
-                _components_pop_over_pop_over_component__WEBPACK_IMPORTED_MODULE_13__["PopOverComponent"],
-                _components_pop_history_pop_history_component__WEBPACK_IMPORTED_MODULE_15__["PopHistoryComponent"],
-                _components_pop_history_token_pop_history_token_component__WEBPACK_IMPORTED_MODULE_20__["PopHistoryTokenComponent"],
-                _service_userterminal_service__WEBPACK_IMPORTED_MODULE_16__["UserTerminal"],
+                { provide: _angular_common__WEBPACK_IMPORTED_MODULE_16__["LocationStrategy"], useClass: _angular_common__WEBPACK_IMPORTED_MODULE_16__["HashLocationStrategy"] },
+                _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_13__["PopTermComponent"],
+                _components_pop_over_pop_over_component__WEBPACK_IMPORTED_MODULE_12__["PopOverComponent"],
+                _components_pop_history_pop_history_component__WEBPACK_IMPORTED_MODULE_14__["PopHistoryComponent"],
+                _components_pop_history_token_pop_history_token_component__WEBPACK_IMPORTED_MODULE_19__["PopHistoryTokenComponent"],
+                _service_userterminal_service__WEBPACK_IMPORTED_MODULE_15__["UserTerminal"],
                 _service_balance_service__WEBPACK_IMPORTED_MODULE_1__["BalanceService"],
-                _service_darkMode_service__WEBPACK_IMPORTED_MODULE_19__["darkMode"]
+                _service_darkMode_service__WEBPACK_IMPORTED_MODULE_18__["darkMode"]
             ],
-            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_9__["AppComponent"]]
+            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"]]
         })
     ], AppModule);
     return AppModule;

@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { HttpClientModule} from '@angular/common/http';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
-import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -13,13 +12,13 @@ import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 import { PopOverComponent } from './components/pop-over/pop-over.component';
 import { PopTermComponent } from './components/pop-term/pop-term.component';
 import { PopHistoryComponent } from './components/pop-history/pop-history.component';
+import { PopHistoryTokenComponent } from './components/pop-history-token/pop-history-token.component';
 import { UserTerminal } from './service/userterminal.service';
 import { LocationStrategy, HashLocationStrategy} from '@angular/common';
 import { IonicStorageModule } from '@ionic/storage';
 import { darkMode } from './service/darkMode.service';
-import * as MifiJS from '../assets/JS/minimajs.js';
-import { PopHistoryTokenComponent } from './components/pop-history-token/pop-history-token.component';
-
+import * as MifiJS from 'src/assets/JS/minima.js';
+import * as HTML5QR from 'node_modules/html5-qrcode/minified/html5-qrcode.min.js';
 
 @NgModule({
   declarations: [AppComponent, PopOverComponent, PopTermComponent, PopHistoryComponent, PopHistoryTokenComponent],
@@ -27,7 +26,6 @@ import { PopHistoryTokenComponent } from './components/pop-history-token/pop-his
   imports: [FormsModule, HttpClientModule, BrowserModule, IonicModule.forRoot(), AppRoutingModule, IonicStorageModule.forRoot()],
   providers: [
     Storage,
-    SplashScreen,
     Clipboard,
     QRScanner,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
@@ -38,7 +36,7 @@ import { PopHistoryTokenComponent } from './components/pop-history-token/pop-his
     PopHistoryTokenComponent,
     UserTerminal,
     BalanceService,
-    darkMode
+    darkMode,
   ],
   bootstrap: [AppComponent]
 })

@@ -23,19 +23,15 @@ J2OBJC_IGNORE_DESIGNATED_BEGIN
 J2OBJC_IGNORE_DESIGNATED_END
 
 - (void)doFunctionWithNSStringArray:(IOSObjectArray *)zInput {
-  jint txn = JavaLangInteger_parseIntWithNSString_(IOSObjectArray_Get(nil_chk(zInput), 1));
   OrgMinimaUtilsMessagesMessage *msg = [self getResponseMessageWithNSString:OrgMinimaSystemBrainsConsensusTxn_CONSENSUS_TXNSCRIPT];
-  [((OrgMinimaUtilsMessagesMessage *) nil_chk(msg)) addIntWithNSString:@"transaction" withInt:txn];
-  NSString *script = IOSObjectArray_Get(zInput, 2);
-  [msg addObjectWithNSString:@"script" withId:script];
-  if (zInput->size_ > 3) {
-    [msg addObjectWithNSString:@"proof" withId:IOSObjectArray_Get(zInput, 3)];
-  }
+  (void) [((OrgMinimaUtilsMessagesMessage *) nil_chk(msg)) addIntWithNSString:@"transaction" withInt:JavaLangInteger_parseIntWithNSString_(IOSObjectArray_Get(nil_chk(zInput), 1))];
+  (void) [msg addStringWithNSString:@"script" withNSString:IOSObjectArray_Get(zInput, 2)];
+  (void) [msg addStringWithNSString:@"proof" withNSString:IOSObjectArray_Get(zInput, 3)];
   [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getConsensusHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:msg];
 }
 
 - (OrgMinimaSystemInputCommandFunction *)getNewFunction {
-  return create_OrgMinimaSystemInputFunctionsTxnstxnscript_init();
+  return new_OrgMinimaSystemInputFunctionsTxnstxnscript_init();
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -60,7 +56,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 void OrgMinimaSystemInputFunctionsTxnstxnscript_init(OrgMinimaSystemInputFunctionsTxnstxnscript *self) {
   OrgMinimaSystemInputCommandFunction_initWithNSString_(self, @"txnscript");
-  [self setHelpWithNSString:@"[id] [script] (proof)" withNSString:@"Add a script to the transaction (MAST) with proof if required" withNSString:@""];
+  [self setHelpWithNSString:@"[id] [script] [proof]" withNSString:@"Add a script to the transaction (MAST) with proof" withNSString:@""];
 }
 
 OrgMinimaSystemInputFunctionsTxnstxnscript *new_OrgMinimaSystemInputFunctionsTxnstxnscript_init() {

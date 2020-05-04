@@ -52,8 +52,8 @@ __attribute__((unused)) static OrgMinimaDatabaseTxpowtreeBlockTreeNode *OrgMinim
 }
 
 - (JavaUtilArrayList *)cascadedTree {
-  JreStrongAssignAndConsume(&mRemovals_, new_JavaUtilArrayList_init());
-  JreStrongAssignAndConsume(&mCascadeTree_, new_OrgMinimaDatabaseTxpowtreeBlockTree_init());
+  mRemovals_ = new_JavaUtilArrayList_init();
+  mCascadeTree_ = new_OrgMinimaDatabaseTxpowtreeBlockTree_init();
   OrgMinimaDatabaseTxpowtreeBlockTreeNode *oldtip = [((OrgMinimaDatabaseTxpowtreeBlockTree *) nil_chk(mMainTree_)) getChainTip];
   OrgMinimaObjectsBaseMiniNumber *casc = [((OrgMinimaObjectsTxPOW *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTree *) nil_chk(mMainTree_)) getCascadeNode])) getTxPow])) getBlockNumber];
   jint counter = 0;
@@ -62,20 +62,20 @@ __attribute__((unused)) static OrgMinimaDatabaseTxpowtreeBlockTreeNode *OrgMinim
     oldtip = [((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk(oldtip)) getParent];
   }
   if (oldtip == nil) {
-    JreStrongAssign(&mCascadeTree_, mMainTree_);
+    mCascadeTree_ = mMainTree_;
     return mRemovals_;
   }
   OrgMinimaDatabaseTxpowtreeBlockTreeNode *fullkeep = OrgMinimaDatabaseTxpowtreeMultiLevelCascadeTree_copyNodeTreeWithOrgMinimaDatabaseTxpowtreeBlockTreeNode_(self, oldtip);
   OrgMinimaDatabaseTxpowtreeBlockTreeNode *newcascade = [oldtip getParent];
-  JavaUtilArrayList *cascnodes = create_JavaUtilArrayList_init();
+  JavaUtilArrayList *cascnodes = new_JavaUtilArrayList_init();
   while (newcascade != nil) {
-    OrgMinimaDatabaseTxpowtreeBlockTreeNode *node = create_OrgMinimaDatabaseTxpowtreeBlockTreeNode_initWithOrgMinimaDatabaseTxpowtreeBlockTreeNode_(newcascade);
+    OrgMinimaDatabaseTxpowtreeBlockTreeNode *node = new_OrgMinimaDatabaseTxpowtreeBlockTreeNode_initWithOrgMinimaDatabaseTxpowtreeBlockTreeNode_(newcascade);
     [node setCascadeWithBoolean:true];
     [node setStateWithInt:OrgMinimaDatabaseTxpowtreeBlockTreeNode_BLOCKSTATE_VALID];
     [cascnodes addWithId:node];
     newcascade = [newcascade getParent];
   }
-  JavaUtilArrayList *finalnodes = create_JavaUtilArrayList_init();
+  JavaUtilArrayList *finalnodes = new_JavaUtilArrayList_init();
   jint casclevel = 0;
   jint totlevel = 0;
   jboolean moveup = false;
@@ -95,7 +95,7 @@ __attribute__((unused)) static OrgMinimaDatabaseTxpowtreeBlockTreeNode *OrgMinim
     }
   }
   for (OrgMinimaDatabaseTxpowtreeBlockTreeNode * __strong node in finalnodes) {
-    OrgMinimaDatabaseTxpowtreeBlockTreeNode *copy_ = create_OrgMinimaDatabaseTxpowtreeBlockTreeNode_initWithOrgMinimaDatabaseTxpowtreeBlockTreeNode_(node);
+    OrgMinimaDatabaseTxpowtreeBlockTreeNode *copy_ = new_OrgMinimaDatabaseTxpowtreeBlockTreeNode_initWithOrgMinimaDatabaseTxpowtreeBlockTreeNode_(node);
     [((OrgMinimaDatabaseTxpowtreeBlockTree *) nil_chk(mCascadeTree_)) hardAddNodeWithOrgMinimaDatabaseTxpowtreeBlockTreeNode:copy_ withBoolean:false];
     [((OrgMinimaDatabaseTxpowtreeBlockTree *) nil_chk(mCascadeTree_)) hardSetCascadeNodeWithOrgMinimaDatabaseTxpowtreeBlockTreeNode:copy_];
   }
@@ -106,13 +106,6 @@ __attribute__((unused)) static OrgMinimaDatabaseTxpowtreeBlockTreeNode *OrgMinim
 
 - (OrgMinimaDatabaseTxpowtreeBlockTreeNode *)copyNodeTreeWithOrgMinimaDatabaseTxpowtreeBlockTreeNode:(OrgMinimaDatabaseTxpowtreeBlockTreeNode *)zOriginal {
   return OrgMinimaDatabaseTxpowtreeMultiLevelCascadeTree_copyNodeTreeWithOrgMinimaDatabaseTxpowtreeBlockTreeNode_(self, zOriginal);
-}
-
-- (void)dealloc {
-  RELEASE_(mMainTree_);
-  RELEASE_(mCascadeTree_);
-  RELEASE_(mRemovals_);
-  [super dealloc];
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -148,8 +141,8 @@ __attribute__((unused)) static OrgMinimaDatabaseTxpowtreeBlockTreeNode *OrgMinim
 
 void OrgMinimaDatabaseTxpowtreeMultiLevelCascadeTree_initWithOrgMinimaDatabaseTxpowtreeBlockTree_(OrgMinimaDatabaseTxpowtreeMultiLevelCascadeTree *self, OrgMinimaDatabaseTxpowtreeBlockTree *zMainTree) {
   NSObject_init(self);
-  JreStrongAssign(&self->mMainTree_, zMainTree);
-  JreStrongAssignAndConsume(&self->mRemovals_, new_JavaUtilArrayList_init());
+  self->mMainTree_ = zMainTree;
+  self->mRemovals_ = new_JavaUtilArrayList_init();
 }
 
 OrgMinimaDatabaseTxpowtreeMultiLevelCascadeTree *new_OrgMinimaDatabaseTxpowtreeMultiLevelCascadeTree_initWithOrgMinimaDatabaseTxpowtreeBlockTree_(OrgMinimaDatabaseTxpowtreeBlockTree *zMainTree) {
@@ -161,7 +154,7 @@ OrgMinimaDatabaseTxpowtreeMultiLevelCascadeTree *create_OrgMinimaDatabaseTxpowtr
 }
 
 OrgMinimaDatabaseTxpowtreeBlockTreeNode *OrgMinimaDatabaseTxpowtreeMultiLevelCascadeTree_copyNodeTreeWithOrgMinimaDatabaseTxpowtreeBlockTreeNode_(OrgMinimaDatabaseTxpowtreeMultiLevelCascadeTree *self, OrgMinimaDatabaseTxpowtreeBlockTreeNode *zOriginal) {
-  OrgMinimaDatabaseTxpowtreeBlockTreeNode *copy_ = create_OrgMinimaDatabaseTxpowtreeBlockTreeNode_initWithOrgMinimaDatabaseTxpowtreeBlockTreeNode_(zOriginal);
+  OrgMinimaDatabaseTxpowtreeBlockTreeNode *copy_ = new_OrgMinimaDatabaseTxpowtreeBlockTreeNode_initWithOrgMinimaDatabaseTxpowtreeBlockTreeNode_(zOriginal);
   JavaUtilArrayList *children = [((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk(zOriginal)) getChildren];
   for (OrgMinimaDatabaseTxpowtreeBlockTreeNode * __strong child in nil_chk(children)) {
     OrgMinimaDatabaseTxpowtreeBlockTreeNode *childcopy = OrgMinimaDatabaseTxpowtreeMultiLevelCascadeTree_copyNodeTreeWithOrgMinimaDatabaseTxpowtreeBlockTreeNode_(self, child);

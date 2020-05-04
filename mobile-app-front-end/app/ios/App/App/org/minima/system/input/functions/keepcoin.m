@@ -24,12 +24,12 @@ J2OBJC_IGNORE_DESIGNATED_END
 - (void)doFunctionWithNSStringArray:(IOSObjectArray *)zInput {
   NSString *coinid = IOSObjectArray_Get(nil_chk(zInput), 1);
   OrgMinimaUtilsMessagesMessage *sender = [self getResponseMessageWithNSString:OrgMinimaSystemBrainsConsensusUser_CONSENSUS_KEEPCOIN];
-  [((OrgMinimaUtilsMessagesMessage *) nil_chk(sender)) addStringWithNSString:@"coinid" withNSString:coinid];
+  (void) [((OrgMinimaUtilsMessagesMessage *) nil_chk(sender)) addStringWithNSString:@"coinid" withNSString:coinid];
   [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getConsensusHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:sender];
 }
 
 - (OrgMinimaSystemInputCommandFunction *)getNewFunction {
-  return create_OrgMinimaSystemInputFunctionskeepcoin_init();
+  return new_OrgMinimaSystemInputFunctionskeepcoin_init();
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -54,7 +54,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 void OrgMinimaSystemInputFunctionskeepcoin_init(OrgMinimaSystemInputFunctionskeepcoin *self) {
   OrgMinimaSystemInputCommandFunction_initWithNSString_(self, @"keepcoin");
-  [self setHelpWithNSString:@"[coinid]" withNSString:@"Add a coin to the list of coins you keep track of." withNSString:@""];
+  [self setHelpWithNSString:@"[coinid]" withNSString:@"Add a coin to the list of coins you keep track of. MUST be a recent coin in the current blocks." withNSString:@""];
 }
 
 OrgMinimaSystemInputFunctionskeepcoin *new_OrgMinimaSystemInputFunctionskeepcoin_init() {

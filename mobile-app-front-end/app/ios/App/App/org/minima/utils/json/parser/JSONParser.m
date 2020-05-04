@@ -67,9 +67,9 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (void)reset {
-  JreStrongAssign(&token_, nil);
+  token_ = nil;
   status_ = OrgMinimaUtilsJsonParserJSONParser_S_INIT;
-  JreStrongAssign(&handlerStatusStack_, nil);
+  handlerStatusStack_ = nil;
 }
 
 - (void)resetWithJavaIoReader:(JavaIoReader *)inArg {
@@ -87,12 +87,12 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 - (id)parseWithNSString:(NSString *)s
 withOrgMinimaUtilsJsonParserContainerFactory:(id<OrgMinimaUtilsJsonParserContainerFactory>)containerFactory {
-  JavaIoStringReader *in = create_JavaIoStringReader_initWithNSString_(s);
+  JavaIoStringReader *in = new_JavaIoStringReader_initWithNSString_(s);
   @try {
     return [self parseWithJavaIoReader:in withOrgMinimaUtilsJsonParserContainerFactory:containerFactory];
   }
   @catch (JavaIoIOException *ie) {
-    @throw create_OrgMinimaUtilsJsonParserParseException_initWithInt_withInt_withId_(-1, OrgMinimaUtilsJsonParserParseException_ERROR_UNEXPECTED_EXCEPTION, ie);
+    @throw new_OrgMinimaUtilsJsonParserParseException_initWithInt_withInt_withId_(-1, OrgMinimaUtilsJsonParserParseException_ERROR_UNEXPECTED_EXCEPTION, ie);
   }
 }
 
@@ -103,8 +103,8 @@ withOrgMinimaUtilsJsonParserContainerFactory:(id<OrgMinimaUtilsJsonParserContain
 - (id)parseWithJavaIoReader:(JavaIoReader *)inArg
 withOrgMinimaUtilsJsonParserContainerFactory:(id<OrgMinimaUtilsJsonParserContainerFactory>)containerFactory {
   [self resetWithJavaIoReader:inArg];
-  JavaUtilLinkedList *statusStack = create_JavaUtilLinkedList_init();
-  JavaUtilLinkedList *valueStack = create_JavaUtilLinkedList_init();
+  JavaUtilLinkedList *statusStack = new_JavaUtilLinkedList_init();
+  JavaUtilLinkedList *valueStack = new_JavaUtilLinkedList_init();
   @try {
     do {
       OrgMinimaUtilsJsonParserJSONParser_nextToken(self);
@@ -113,17 +113,17 @@ withOrgMinimaUtilsJsonParserContainerFactory:(id<OrgMinimaUtilsJsonParserContain
         switch (((OrgMinimaUtilsJsonParserYytoken *) nil_chk(token_))->type_) {
           case OrgMinimaUtilsJsonParserYytoken_TYPE_VALUE:
           status_ = OrgMinimaUtilsJsonParserJSONParser_S_IN_FINISHED_VALUE;
-          [statusStack addFirstWithId:create_JavaLangInteger_initWithInt_(status_)];
+          [statusStack addFirstWithId:new_JavaLangInteger_initWithInt_(status_)];
           [valueStack addFirstWithId:((OrgMinimaUtilsJsonParserYytoken *) nil_chk(token_))->value_];
           break;
           case OrgMinimaUtilsJsonParserYytoken_TYPE_LEFT_BRACE:
           status_ = OrgMinimaUtilsJsonParserJSONParser_S_IN_OBJECT;
-          [statusStack addFirstWithId:create_JavaLangInteger_initWithInt_(status_)];
+          [statusStack addFirstWithId:new_JavaLangInteger_initWithInt_(status_)];
           [valueStack addFirstWithId:OrgMinimaUtilsJsonParserJSONParser_createObjectContainerWithOrgMinimaUtilsJsonParserContainerFactory_(self, containerFactory)];
           break;
           case OrgMinimaUtilsJsonParserYytoken_TYPE_LEFT_SQUARE:
           status_ = OrgMinimaUtilsJsonParserJSONParser_S_IN_ARRAY;
-          [statusStack addFirstWithId:create_JavaLangInteger_initWithInt_(status_)];
+          [statusStack addFirstWithId:new_JavaLangInteger_initWithInt_(status_)];
           [valueStack addFirstWithId:OrgMinimaUtilsJsonParserJSONParser_createArrayContainerWithOrgMinimaUtilsJsonParserContainerFactory_(self, containerFactory)];
           break;
           default:
@@ -132,7 +132,7 @@ withOrgMinimaUtilsJsonParserContainerFactory:(id<OrgMinimaUtilsJsonParserContain
         break;
         case OrgMinimaUtilsJsonParserJSONParser_S_IN_FINISHED_VALUE:
         if (((OrgMinimaUtilsJsonParserYytoken *) nil_chk(token_))->type_ == OrgMinimaUtilsJsonParserYytoken_TYPE_EOF) return [valueStack removeFirst];
-        else @throw create_OrgMinimaUtilsJsonParserParseException_initWithInt_withInt_withId_([self getPosition], OrgMinimaUtilsJsonParserParseException_ERROR_UNEXPECTED_TOKEN, token_);
+        else @throw new_OrgMinimaUtilsJsonParserParseException_initWithInt_withInt_withId_([self getPosition], OrgMinimaUtilsJsonParserParseException_ERROR_UNEXPECTED_TOKEN, token_);
         case OrgMinimaUtilsJsonParserJSONParser_S_IN_OBJECT:
         switch (((OrgMinimaUtilsJsonParserYytoken *) nil_chk(token_))->type_) {
           case OrgMinimaUtilsJsonParserYytoken_TYPE_COMMA:
@@ -142,7 +142,7 @@ withOrgMinimaUtilsJsonParserContainerFactory:(id<OrgMinimaUtilsJsonParserContain
             NSString *key = (NSString *) token_->value_;
             [valueStack addFirstWithId:key];
             status_ = OrgMinimaUtilsJsonParserJSONParser_S_PASSED_PAIR_KEY;
-            [statusStack addFirstWithId:create_JavaLangInteger_initWithInt_(status_)];
+            [statusStack addFirstWithId:new_JavaLangInteger_initWithInt_(status_)];
           }
           else {
             status_ = OrgMinimaUtilsJsonParserJSONParser_S_IN_ERROR;
@@ -150,8 +150,8 @@ withOrgMinimaUtilsJsonParserContainerFactory:(id<OrgMinimaUtilsJsonParserContain
           break;
           case OrgMinimaUtilsJsonParserYytoken_TYPE_RIGHT_BRACE:
           if ([valueStack size] > 1) {
-            [statusStack removeFirst];
-            [valueStack removeFirst];
+            (void) [statusStack removeFirst];
+            (void) [valueStack removeFirst];
             status_ = OrgMinimaUtilsJsonParserJSONParser_peekStatusWithJavaUtilLinkedList_(self, statusStack);
           }
           else {
@@ -173,30 +173,30 @@ withOrgMinimaUtilsJsonParserContainerFactory:(id<OrgMinimaUtilsJsonParserContain
             case OrgMinimaUtilsJsonParserYytoken_TYPE_COLON:
             break;
             case OrgMinimaUtilsJsonParserYytoken_TYPE_VALUE:
-            [statusStack removeFirst];
+            (void) [statusStack removeFirst];
             key = (NSString *) cast_chk([valueStack removeFirst], [NSString class]);
             parent = (id<JavaUtilMap>) cast_check([valueStack getFirst], JavaUtilMap_class_());
-            [((id<JavaUtilMap>) nil_chk(parent)) putWithId:key withId:((OrgMinimaUtilsJsonParserYytoken *) nil_chk(token_))->value_];
+            (void) [((id<JavaUtilMap>) nil_chk(parent)) putWithId:key withId:((OrgMinimaUtilsJsonParserYytoken *) nil_chk(token_))->value_];
             status_ = OrgMinimaUtilsJsonParserJSONParser_peekStatusWithJavaUtilLinkedList_(self, statusStack);
             break;
             case OrgMinimaUtilsJsonParserYytoken_TYPE_LEFT_SQUARE:
-            [statusStack removeFirst];
+            (void) [statusStack removeFirst];
             key = (NSString *) cast_chk([valueStack removeFirst], [NSString class]);
             parent = (id<JavaUtilMap>) cast_check([valueStack getFirst], JavaUtilMap_class_());
             newArray = OrgMinimaUtilsJsonParserJSONParser_createArrayContainerWithOrgMinimaUtilsJsonParserContainerFactory_(self, containerFactory);
-            [((id<JavaUtilMap>) nil_chk(parent)) putWithId:key withId:newArray];
+            (void) [((id<JavaUtilMap>) nil_chk(parent)) putWithId:key withId:newArray];
             status_ = OrgMinimaUtilsJsonParserJSONParser_S_IN_ARRAY;
-            [statusStack addFirstWithId:create_JavaLangInteger_initWithInt_(status_)];
+            [statusStack addFirstWithId:new_JavaLangInteger_initWithInt_(status_)];
             [valueStack addFirstWithId:newArray];
             break;
             case OrgMinimaUtilsJsonParserYytoken_TYPE_LEFT_BRACE:
-            [statusStack removeFirst];
+            (void) [statusStack removeFirst];
             key = (NSString *) cast_chk([valueStack removeFirst], [NSString class]);
             parent = (id<JavaUtilMap>) cast_check([valueStack getFirst], JavaUtilMap_class_());
             newObject = OrgMinimaUtilsJsonParserJSONParser_createObjectContainerWithOrgMinimaUtilsJsonParserContainerFactory_(self, containerFactory);
-            [((id<JavaUtilMap>) nil_chk(parent)) putWithId:key withId:newObject];
+            (void) [((id<JavaUtilMap>) nil_chk(parent)) putWithId:key withId:newObject];
             status_ = OrgMinimaUtilsJsonParserJSONParser_S_IN_OBJECT;
-            [statusStack addFirstWithId:create_JavaLangInteger_initWithInt_(status_)];
+            [statusStack addFirstWithId:new_JavaLangInteger_initWithInt_(status_)];
             [valueStack addFirstWithId:newObject];
             break;
             default:
@@ -218,8 +218,8 @@ withOrgMinimaUtilsJsonParserContainerFactory:(id<OrgMinimaUtilsJsonParserContain
             break;
             case OrgMinimaUtilsJsonParserYytoken_TYPE_RIGHT_SQUARE:
             if ([valueStack size] > 1) {
-              [statusStack removeFirst];
-              [valueStack removeFirst];
+              (void) [statusStack removeFirst];
+              (void) [valueStack removeFirst];
               status_ = OrgMinimaUtilsJsonParserJSONParser_peekStatusWithJavaUtilLinkedList_(self, statusStack);
             }
             else {
@@ -231,7 +231,7 @@ withOrgMinimaUtilsJsonParserContainerFactory:(id<OrgMinimaUtilsJsonParserContain
             newObject = OrgMinimaUtilsJsonParserJSONParser_createObjectContainerWithOrgMinimaUtilsJsonParserContainerFactory_(self, containerFactory);
             [((id<JavaUtilList>) nil_chk(val)) addWithId:newObject];
             status_ = OrgMinimaUtilsJsonParserJSONParser_S_IN_OBJECT;
-            [statusStack addFirstWithId:create_JavaLangInteger_initWithInt_(status_)];
+            [statusStack addFirstWithId:new_JavaLangInteger_initWithInt_(status_)];
             [valueStack addFirstWithId:newObject];
             break;
             case OrgMinimaUtilsJsonParserYytoken_TYPE_LEFT_SQUARE:
@@ -239,7 +239,7 @@ withOrgMinimaUtilsJsonParserContainerFactory:(id<OrgMinimaUtilsJsonParserContain
             newArray = OrgMinimaUtilsJsonParserJSONParser_createArrayContainerWithOrgMinimaUtilsJsonParserContainerFactory_(self, containerFactory);
             [((id<JavaUtilList>) nil_chk(val)) addWithId:newArray];
             status_ = OrgMinimaUtilsJsonParserJSONParser_S_IN_ARRAY;
-            [statusStack addFirstWithId:create_JavaLangInteger_initWithInt_(status_)];
+            [statusStack addFirstWithId:new_JavaLangInteger_initWithInt_(status_)];
             [valueStack addFirstWithId:newArray];
             break;
             default:
@@ -248,10 +248,10 @@ withOrgMinimaUtilsJsonParserContainerFactory:(id<OrgMinimaUtilsJsonParserContain
         }
         break;
         case OrgMinimaUtilsJsonParserJSONParser_S_IN_ERROR:
-        @throw create_OrgMinimaUtilsJsonParserParseException_initWithInt_withInt_withId_([self getPosition], OrgMinimaUtilsJsonParserParseException_ERROR_UNEXPECTED_TOKEN, token_);
+        @throw new_OrgMinimaUtilsJsonParserParseException_initWithInt_withInt_withId_([self getPosition], OrgMinimaUtilsJsonParserParseException_ERROR_UNEXPECTED_TOKEN, token_);
       }
       if (status_ == OrgMinimaUtilsJsonParserJSONParser_S_IN_ERROR) {
-        @throw create_OrgMinimaUtilsJsonParserParseException_initWithInt_withInt_withId_([self getPosition], OrgMinimaUtilsJsonParserParseException_ERROR_UNEXPECTED_TOKEN, token_);
+        @throw new_OrgMinimaUtilsJsonParserParseException_initWithInt_withInt_withId_([self getPosition], OrgMinimaUtilsJsonParserParseException_ERROR_UNEXPECTED_TOKEN, token_);
       }
     }
     while (((OrgMinimaUtilsJsonParserYytoken *) nil_chk(token_))->type_ != OrgMinimaUtilsJsonParserYytoken_TYPE_EOF);
@@ -259,7 +259,7 @@ withOrgMinimaUtilsJsonParserContainerFactory:(id<OrgMinimaUtilsJsonParserContain
   @catch (JavaIoIOException *ie) {
     @throw ie;
   }
-  @throw create_OrgMinimaUtilsJsonParserParseException_initWithInt_withInt_withId_([self getPosition], OrgMinimaUtilsJsonParserParseException_ERROR_UNEXPECTED_TOKEN, token_);
+  @throw new_OrgMinimaUtilsJsonParserParseException_initWithInt_withInt_withId_([self getPosition], OrgMinimaUtilsJsonParserParseException_ERROR_UNEXPECTED_TOKEN, token_);
 }
 
 - (void)nextToken {
@@ -282,12 +282,12 @@ withOrgMinimaUtilsJsonParserContentHandler:(id<OrgMinimaUtilsJsonParserContentHa
 - (void)parseWithNSString:(NSString *)s
 withOrgMinimaUtilsJsonParserContentHandler:(id<OrgMinimaUtilsJsonParserContentHandler>)contentHandler
               withBoolean:(jboolean)isResume {
-  JavaIoStringReader *in = create_JavaIoStringReader_initWithNSString_(s);
+  JavaIoStringReader *in = new_JavaIoStringReader_initWithNSString_(s);
   @try {
     [self parseWithJavaIoReader:in withOrgMinimaUtilsJsonParserContentHandler:contentHandler withBoolean:isResume];
   }
   @catch (JavaIoIOException *ie) {
-    @throw create_OrgMinimaUtilsJsonParserParseException_initWithInt_withInt_withId_(-1, OrgMinimaUtilsJsonParserParseException_ERROR_UNEXPECTED_EXCEPTION, ie);
+    @throw new_OrgMinimaUtilsJsonParserParseException_initWithInt_withInt_withId_(-1, OrgMinimaUtilsJsonParserParseException_ERROR_UNEXPECTED_EXCEPTION, ie);
   }
 }
 
@@ -301,13 +301,13 @@ withOrgMinimaUtilsJsonParserContentHandler:(id<OrgMinimaUtilsJsonParserContentHa
                   withBoolean:(jboolean)isResume {
   if (!isResume) {
     [self resetWithJavaIoReader:inArg];
-    JreStrongAssignAndConsume(&handlerStatusStack_, new_JavaUtilLinkedList_init());
+    handlerStatusStack_ = new_JavaUtilLinkedList_init();
   }
   else {
     if (handlerStatusStack_ == nil) {
       isResume = false;
       [self resetWithJavaIoReader:inArg];
-      JreStrongAssignAndConsume(&handlerStatusStack_, new_JavaUtilLinkedList_init());
+      handlerStatusStack_ = new_JavaUtilLinkedList_init();
     }
   }
   JavaUtilLinkedList *statusStack = handlerStatusStack_;
@@ -320,17 +320,17 @@ withOrgMinimaUtilsJsonParserContentHandler:(id<OrgMinimaUtilsJsonParserContentHa
         switch (((OrgMinimaUtilsJsonParserYytoken *) nil_chk(token_))->type_) {
           case OrgMinimaUtilsJsonParserYytoken_TYPE_VALUE:
           status_ = OrgMinimaUtilsJsonParserJSONParser_S_IN_FINISHED_VALUE;
-          [statusStack addFirstWithId:create_JavaLangInteger_initWithInt_(status_)];
+          [statusStack addFirstWithId:new_JavaLangInteger_initWithInt_(status_)];
           if (![contentHandler primitiveWithId:((OrgMinimaUtilsJsonParserYytoken *) nil_chk(token_))->value_]) return;
           break;
           case OrgMinimaUtilsJsonParserYytoken_TYPE_LEFT_BRACE:
           status_ = OrgMinimaUtilsJsonParserJSONParser_S_IN_OBJECT;
-          [statusStack addFirstWithId:create_JavaLangInteger_initWithInt_(status_)];
+          [statusStack addFirstWithId:new_JavaLangInteger_initWithInt_(status_)];
           if (![contentHandler startObject]) return;
           break;
           case OrgMinimaUtilsJsonParserYytoken_TYPE_LEFT_SQUARE:
           status_ = OrgMinimaUtilsJsonParserJSONParser_S_IN_ARRAY;
-          [statusStack addFirstWithId:create_JavaLangInteger_initWithInt_(status_)];
+          [statusStack addFirstWithId:new_JavaLangInteger_initWithInt_(status_)];
           if (![contentHandler startArray]) return;
           break;
           default:
@@ -346,7 +346,7 @@ withOrgMinimaUtilsJsonParserContentHandler:(id<OrgMinimaUtilsJsonParserContentHa
         }
         else {
           status_ = OrgMinimaUtilsJsonParserJSONParser_S_IN_ERROR;
-          @throw create_OrgMinimaUtilsJsonParserParseException_initWithInt_withInt_withId_([self getPosition], OrgMinimaUtilsJsonParserParseException_ERROR_UNEXPECTED_TOKEN, token_);
+          @throw new_OrgMinimaUtilsJsonParserParseException_initWithInt_withInt_withId_([self getPosition], OrgMinimaUtilsJsonParserParseException_ERROR_UNEXPECTED_TOKEN, token_);
         }
         case OrgMinimaUtilsJsonParserJSONParser_S_IN_OBJECT:
         OrgMinimaUtilsJsonParserJSONParser_nextToken(self);
@@ -357,7 +357,7 @@ withOrgMinimaUtilsJsonParserContentHandler:(id<OrgMinimaUtilsJsonParserContentHa
           if ([token_->value_ isKindOfClass:[NSString class]]) {
             NSString *key = (NSString *) token_->value_;
             status_ = OrgMinimaUtilsJsonParserJSONParser_S_PASSED_PAIR_KEY;
-            [statusStack addFirstWithId:create_JavaLangInteger_initWithInt_(status_)];
+            [statusStack addFirstWithId:new_JavaLangInteger_initWithInt_(status_)];
             if (![((id<OrgMinimaUtilsJsonParserContentHandler>) nil_chk(contentHandler)) startObjectEntryWithNSString:key]) return;
           }
           else {
@@ -366,7 +366,7 @@ withOrgMinimaUtilsJsonParserContentHandler:(id<OrgMinimaUtilsJsonParserContentHa
           break;
           case OrgMinimaUtilsJsonParserYytoken_TYPE_RIGHT_BRACE:
           if ([statusStack size] > 1) {
-            [statusStack removeFirst];
+            (void) [statusStack removeFirst];
             status_ = OrgMinimaUtilsJsonParserJSONParser_peekStatusWithJavaUtilLinkedList_(self, statusStack);
           }
           else {
@@ -385,23 +385,23 @@ withOrgMinimaUtilsJsonParserContentHandler:(id<OrgMinimaUtilsJsonParserContentHa
           case OrgMinimaUtilsJsonParserYytoken_TYPE_COLON:
           break;
           case OrgMinimaUtilsJsonParserYytoken_TYPE_VALUE:
-          [statusStack removeFirst];
+          (void) [statusStack removeFirst];
           status_ = OrgMinimaUtilsJsonParserJSONParser_peekStatusWithJavaUtilLinkedList_(self, statusStack);
           if (![((id<OrgMinimaUtilsJsonParserContentHandler>) nil_chk(contentHandler)) primitiveWithId:((OrgMinimaUtilsJsonParserYytoken *) nil_chk(token_))->value_]) return;
           if (![contentHandler endObjectEntry]) return;
           break;
           case OrgMinimaUtilsJsonParserYytoken_TYPE_LEFT_SQUARE:
-          [statusStack removeFirst];
-          [statusStack addFirstWithId:create_JavaLangInteger_initWithInt_(OrgMinimaUtilsJsonParserJSONParser_S_IN_PAIR_VALUE)];
+          (void) [statusStack removeFirst];
+          [statusStack addFirstWithId:new_JavaLangInteger_initWithInt_(OrgMinimaUtilsJsonParserJSONParser_S_IN_PAIR_VALUE)];
           status_ = OrgMinimaUtilsJsonParserJSONParser_S_IN_ARRAY;
-          [statusStack addFirstWithId:create_JavaLangInteger_initWithInt_(status_)];
+          [statusStack addFirstWithId:new_JavaLangInteger_initWithInt_(status_)];
           if (![((id<OrgMinimaUtilsJsonParserContentHandler>) nil_chk(contentHandler)) startArray]) return;
           break;
           case OrgMinimaUtilsJsonParserYytoken_TYPE_LEFT_BRACE:
-          [statusStack removeFirst];
-          [statusStack addFirstWithId:create_JavaLangInteger_initWithInt_(OrgMinimaUtilsJsonParserJSONParser_S_IN_PAIR_VALUE)];
+          (void) [statusStack removeFirst];
+          [statusStack addFirstWithId:new_JavaLangInteger_initWithInt_(OrgMinimaUtilsJsonParserJSONParser_S_IN_PAIR_VALUE)];
           status_ = OrgMinimaUtilsJsonParserJSONParser_S_IN_OBJECT;
-          [statusStack addFirstWithId:create_JavaLangInteger_initWithInt_(status_)];
+          [statusStack addFirstWithId:new_JavaLangInteger_initWithInt_(status_)];
           if (![((id<OrgMinimaUtilsJsonParserContentHandler>) nil_chk(contentHandler)) startObject]) return;
           break;
           default:
@@ -409,7 +409,7 @@ withOrgMinimaUtilsJsonParserContentHandler:(id<OrgMinimaUtilsJsonParserContentHa
         }
         break;
         case OrgMinimaUtilsJsonParserJSONParser_S_IN_PAIR_VALUE:
-        [statusStack removeFirst];
+        (void) [statusStack removeFirst];
         status_ = OrgMinimaUtilsJsonParserJSONParser_peekStatusWithJavaUtilLinkedList_(self, statusStack);
         if (![((id<OrgMinimaUtilsJsonParserContentHandler>) nil_chk(contentHandler)) endObjectEntry]) return;
         break;
@@ -423,7 +423,7 @@ withOrgMinimaUtilsJsonParserContentHandler:(id<OrgMinimaUtilsJsonParserContentHa
           break;
           case OrgMinimaUtilsJsonParserYytoken_TYPE_RIGHT_SQUARE:
           if ([statusStack size] > 1) {
-            [statusStack removeFirst];
+            (void) [statusStack removeFirst];
             status_ = OrgMinimaUtilsJsonParserJSONParser_peekStatusWithJavaUtilLinkedList_(self, statusStack);
           }
           else {
@@ -433,12 +433,12 @@ withOrgMinimaUtilsJsonParserContentHandler:(id<OrgMinimaUtilsJsonParserContentHa
           break;
           case OrgMinimaUtilsJsonParserYytoken_TYPE_LEFT_BRACE:
           status_ = OrgMinimaUtilsJsonParserJSONParser_S_IN_OBJECT;
-          [statusStack addFirstWithId:create_JavaLangInteger_initWithInt_(status_)];
+          [statusStack addFirstWithId:new_JavaLangInteger_initWithInt_(status_)];
           if (![((id<OrgMinimaUtilsJsonParserContentHandler>) nil_chk(contentHandler)) startObject]) return;
           break;
           case OrgMinimaUtilsJsonParserYytoken_TYPE_LEFT_SQUARE:
           status_ = OrgMinimaUtilsJsonParserJSONParser_S_IN_ARRAY;
-          [statusStack addFirstWithId:create_JavaLangInteger_initWithInt_(status_)];
+          [statusStack addFirstWithId:new_JavaLangInteger_initWithInt_(status_)];
           if (![((id<OrgMinimaUtilsJsonParserContentHandler>) nil_chk(contentHandler)) startArray]) return;
           break;
           default:
@@ -448,10 +448,10 @@ withOrgMinimaUtilsJsonParserContentHandler:(id<OrgMinimaUtilsJsonParserContentHa
         case OrgMinimaUtilsJsonParserJSONParser_S_END:
         return;
         case OrgMinimaUtilsJsonParserJSONParser_S_IN_ERROR:
-        @throw create_OrgMinimaUtilsJsonParserParseException_initWithInt_withInt_withId_([self getPosition], OrgMinimaUtilsJsonParserParseException_ERROR_UNEXPECTED_TOKEN, token_);
+        @throw new_OrgMinimaUtilsJsonParserParseException_initWithInt_withInt_withId_([self getPosition], OrgMinimaUtilsJsonParserParseException_ERROR_UNEXPECTED_TOKEN, token_);
       }
       if (status_ == OrgMinimaUtilsJsonParserJSONParser_S_IN_ERROR) {
-        @throw create_OrgMinimaUtilsJsonParserParseException_initWithInt_withInt_withId_([self getPosition], OrgMinimaUtilsJsonParserParseException_ERROR_UNEXPECTED_TOKEN, token_);
+        @throw new_OrgMinimaUtilsJsonParserParseException_initWithInt_withInt_withId_([self getPosition], OrgMinimaUtilsJsonParserParseException_ERROR_UNEXPECTED_TOKEN, token_);
       }
     }
     while (((OrgMinimaUtilsJsonParserYytoken *) nil_chk(token_))->type_ != OrgMinimaUtilsJsonParserYytoken_TYPE_EOF);
@@ -473,14 +473,7 @@ withOrgMinimaUtilsJsonParserContentHandler:(id<OrgMinimaUtilsJsonParserContentHa
     @throw e;
   }
   status_ = OrgMinimaUtilsJsonParserJSONParser_S_IN_ERROR;
-  @throw create_OrgMinimaUtilsJsonParserParseException_initWithInt_withInt_withId_([self getPosition], OrgMinimaUtilsJsonParserParseException_ERROR_UNEXPECTED_TOKEN, token_);
-}
-
-- (void)dealloc {
-  RELEASE_(handlerStatusStack_);
-  RELEASE_(lexer_);
-  RELEASE_(token_);
-  [super dealloc];
+  @throw new_OrgMinimaUtilsJsonParserParseException_initWithInt_withInt_withId_([self getPosition], OrgMinimaUtilsJsonParserParseException_ERROR_UNEXPECTED_TOKEN, token_);
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -545,8 +538,8 @@ withOrgMinimaUtilsJsonParserContentHandler:(id<OrgMinimaUtilsJsonParserContentHa
 
 void OrgMinimaUtilsJsonParserJSONParser_init(OrgMinimaUtilsJsonParserJSONParser *self) {
   NSObject_init(self);
-  JreStrongAssignAndConsume(&self->lexer_, new_OrgMinimaUtilsJsonParserYylex_initWithJavaIoReader_(nil));
-  JreStrongAssign(&self->token_, nil);
+  self->lexer_ = new_OrgMinimaUtilsJsonParserYylex_initWithJavaIoReader_(nil);
+  self->token_ = nil;
   self->status_ = OrgMinimaUtilsJsonParserJSONParser_S_INIT;
 }
 
@@ -565,21 +558,21 @@ jint OrgMinimaUtilsJsonParserJSONParser_peekStatusWithJavaUtilLinkedList_(OrgMin
 }
 
 void OrgMinimaUtilsJsonParserJSONParser_nextToken(OrgMinimaUtilsJsonParserJSONParser *self) {
-  JreStrongAssign(&self->token_, [((OrgMinimaUtilsJsonParserYylex *) nil_chk(self->lexer_)) yylex]);
-  if (self->token_ == nil) JreStrongAssignAndConsume(&self->token_, new_OrgMinimaUtilsJsonParserYytoken_initWithInt_withId_(OrgMinimaUtilsJsonParserYytoken_TYPE_EOF, nil));
+  self->token_ = [((OrgMinimaUtilsJsonParserYylex *) nil_chk(self->lexer_)) yylex];
+  if (self->token_ == nil) self->token_ = new_OrgMinimaUtilsJsonParserYytoken_initWithInt_withId_(OrgMinimaUtilsJsonParserYytoken_TYPE_EOF, nil);
 }
 
 id<JavaUtilMap> OrgMinimaUtilsJsonParserJSONParser_createObjectContainerWithOrgMinimaUtilsJsonParserContainerFactory_(OrgMinimaUtilsJsonParserJSONParser *self, id<OrgMinimaUtilsJsonParserContainerFactory> containerFactory) {
-  if (containerFactory == nil) return create_OrgMinimaUtilsJsonJSONObject_init();
+  if (containerFactory == nil) return new_OrgMinimaUtilsJsonJSONObject_init();
   id<JavaUtilMap> m = [containerFactory createObjectContainer];
-  if (m == nil) return create_OrgMinimaUtilsJsonJSONObject_init();
+  if (m == nil) return new_OrgMinimaUtilsJsonJSONObject_init();
   return m;
 }
 
 id<JavaUtilList> OrgMinimaUtilsJsonParserJSONParser_createArrayContainerWithOrgMinimaUtilsJsonParserContainerFactory_(OrgMinimaUtilsJsonParserJSONParser *self, id<OrgMinimaUtilsJsonParserContainerFactory> containerFactory) {
-  if (containerFactory == nil) return create_OrgMinimaUtilsJsonJSONArray_init();
+  if (containerFactory == nil) return new_OrgMinimaUtilsJsonJSONArray_init();
   id<JavaUtilList> l = [containerFactory creatArrayContainer];
-  if (l == nil) return create_OrgMinimaUtilsJsonJSONArray_init();
+  if (l == nil) return new_OrgMinimaUtilsJsonJSONArray_init();
   return l;
 }
 

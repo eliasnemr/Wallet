@@ -56,6 +56,15 @@
                                                       withOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zChangeTokenID
                                                   withOrgMinimaObjectsProofsTokenProof:(OrgMinimaObjectsProofsTokenProof *)zTokenGen;
 
+- (OrgMinimaUtilsMessagesMessage *)createTransactionWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zAmount
+                                                           withOrgMinimaObjectsAddress:(OrgMinimaObjectsAddress *)zToAddress
+                                                           withOrgMinimaObjectsAddress:(OrgMinimaObjectsAddress *)zChangeAddress
+                                                                 withJavaUtilArrayList:(JavaUtilArrayList *)zConfirmed
+                                                      withOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zTokenID
+                                                      withOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zChangeTokenID
+                                                  withOrgMinimaObjectsProofsTokenProof:(OrgMinimaObjectsProofsTokenProof *)zTokenGen
+                                                       withOrgMinimaObjectsTransaction:(OrgMinimaObjectsTransaction *)zUseThisTransaction;
+
 - (OrgMinimaObjectsWitness *)createValidMMRPRoofsWithOrgMinimaObjectsTransaction:(OrgMinimaObjectsTransaction *)zTransaction
                                                      withOrgMinimaObjectsWitness:(OrgMinimaObjectsWitness *)zWitness;
 
@@ -107,8 +116,7 @@
 
 - (void)processTxPOWWithOrgMinimaObjectsTxPOW:(OrgMinimaObjectsTxPOW *)zTxPow;
 
-- (void)scanMMRSetForCoinsWithOrgMinimaDatabaseMmrMMRSet:(OrgMinimaDatabaseMmrMMRSet *)zMMRSet
-                                             withBoolean:(jboolean)zAddKeeper;
+- (void)scanMMRSetForCoinsWithOrgMinimaDatabaseMmrMMRSet:(OrgMinimaDatabaseMmrMMRSet *)zMMRSet;
 
 - (void)setBackupManagerWithOrgMinimaSystemBackupBackupManager:(OrgMinimaSystemBackupBackupManager *)zBackup;
 

@@ -18,17 +18,11 @@
 
 - (void)executeWithOrgMinimaKissvmContract:(OrgMinimaKissvmContract *)zContract {
   jboolean success = [((OrgMinimaKissvmValuesValue *) nil_chk([((id<OrgMinimaKissvmExpressionsExpression>) nil_chk(mReturnValue_)) getValueWithOrgMinimaKissvmContract:zContract])) isTrue];
-  [((OrgMinimaKissvmContract *) nil_chk(zContract)) traceLogWithNSString:JreStrcat("$$Z", [self description], @" result:", success)];
-  [zContract setRETURNValueWithBoolean:success];
+  [((OrgMinimaKissvmContract *) nil_chk(zContract)) setRETURNValueWithBoolean:success];
 }
 
 - (NSString *)description {
   return JreStrcat("$$", @"RETURN ", [((id<OrgMinimaKissvmExpressionsExpression>) nil_chk(mReturnValue_)) description]);
-}
-
-- (void)dealloc {
-  RELEASE_(mReturnValue_);
-  [super dealloc];
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -56,7 +50,7 @@
 
 void OrgMinimaKissvmStatementsCommandsRETURNstatement_initWithOrgMinimaKissvmExpressionsExpression_(OrgMinimaKissvmStatementsCommandsRETURNstatement *self, id<OrgMinimaKissvmExpressionsExpression> zReturnValue) {
   NSObject_init(self);
-  JreStrongAssign(&self->mReturnValue_, zReturnValue);
+  self->mReturnValue_ = zReturnValue;
 }
 
 OrgMinimaKissvmStatementsCommandsRETURNstatement *new_OrgMinimaKissvmStatementsCommandsRETURNstatement_initWithOrgMinimaKissvmExpressionsExpression_(id<OrgMinimaKissvmExpressionsExpression> zReturnValue) {

@@ -19,18 +19,13 @@
 - (OrgMinimaKissvmValuesValue *)getValueWithOrgMinimaKissvmContract:(OrgMinimaKissvmContract *)zContract {
   OrgMinimaKissvmValuesValue *val = [((OrgMinimaKissvmContract *) nil_chk(zContract)) getVariableWithNSString:mVariableName_];
   if (val == nil) {
-    @throw create_OrgMinimaKissvmExceptionsExecutionException_initWithNSString_(JreStrcat("$$", @"Variable does not exist : ", mVariableName_));
+    @throw new_OrgMinimaKissvmExceptionsExecutionException_initWithNSString_(JreStrcat("$$", @"Variable does not exist : ", mVariableName_));
   }
   return val;
 }
 
 - (NSString *)description {
   return JreStrcat("$$", @"variable:", mVariableName_);
-}
-
-- (void)dealloc {
-  RELEASE_(mVariableName_);
-
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -58,7 +53,7 @@
 
 void OrgMinimaKissvmExpressionsVariableExpression_initWithNSString_(OrgMinimaKissvmExpressionsVariableExpression *self, NSString *zName) {
   NSObject_init(self);
-  JreStrongAssign(&self->mVariableName_, zName);
+  self->mVariableName_ = zName;
 }
 
 OrgMinimaKissvmExpressionsVariableExpression *new_OrgMinimaKissvmExpressionsVariableExpression_initWithNSString_(NSString *zName) {

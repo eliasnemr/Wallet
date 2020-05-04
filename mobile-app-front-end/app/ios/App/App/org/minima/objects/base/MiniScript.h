@@ -29,7 +29,12 @@
 
 - (instancetype)initWithNSString:(NSString *)zString;
 
+- (instancetype)initWithNSString:(NSString *)zString
+                     withBoolean:(jboolean)zContractClean;
+
 + (OrgMinimaObjectsBaseMiniScript *)ReadFromStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn;
+
+- (NSString *)to0xString;
 
 - (NSString *)description;
 
@@ -46,6 +51,12 @@ FOUNDATION_EXPORT void OrgMinimaObjectsBaseMiniScript_initWithNSString_(OrgMinim
 FOUNDATION_EXPORT OrgMinimaObjectsBaseMiniScript *new_OrgMinimaObjectsBaseMiniScript_initWithNSString_(NSString *zString) NS_RETURNS_RETAINED;
 
 FOUNDATION_EXPORT OrgMinimaObjectsBaseMiniScript *create_OrgMinimaObjectsBaseMiniScript_initWithNSString_(NSString *zString);
+
+FOUNDATION_EXPORT void OrgMinimaObjectsBaseMiniScript_initWithNSString_withBoolean_(OrgMinimaObjectsBaseMiniScript *self, NSString *zString, jboolean zContractClean);
+
+FOUNDATION_EXPORT OrgMinimaObjectsBaseMiniScript *new_OrgMinimaObjectsBaseMiniScript_initWithNSString_withBoolean_(NSString *zString, jboolean zContractClean) NS_RETURNS_RETAINED;
+
+FOUNDATION_EXPORT OrgMinimaObjectsBaseMiniScript *create_OrgMinimaObjectsBaseMiniScript_initWithNSString_withBoolean_(NSString *zString, jboolean zContractClean);
 
 FOUNDATION_EXPORT OrgMinimaObjectsBaseMiniScript *OrgMinimaObjectsBaseMiniScript_ReadFromStreamWithJavaIoDataInputStream_(JavaIoDataInputStream *zIn);
 

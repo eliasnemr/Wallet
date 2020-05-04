@@ -8,6 +8,7 @@
 #include "J2ObjC_source.h"
 #include "java/io/PrintStream.h"
 #include "java/lang/Integer.h"
+#include "java/lang/NumberFormatException.h"
 #include "java/lang/System.h"
 #include "java/util/ArrayList.h"
 #include "java/util/Arrays.h"
@@ -79,8 +80,8 @@ IOSObjectArray *OrgMinimaKissvmTokensToken_TOKENS_OPERATOR;
   return mToken_;
 }
 
-+ (id<JavaUtilList>)tokenizeWithNSString:(NSString *)zRamScript {
-  return OrgMinimaKissvmTokensToken_tokenizeWithNSString_(zRamScript);
++ (id<JavaUtilList>)tokenizeWithNSString:(NSString *)zMiniScript {
+  return OrgMinimaKissvmTokensToken_tokenizeWithNSString_(zMiniScript);
 }
 
 + (jboolean)isNumericWithNSString:(NSString *)str {
@@ -93,11 +94,6 @@ IOSObjectArray *OrgMinimaKissvmTokensToken_TOKENS_OPERATOR;
 
 + (void)mainWithNSStringArray:(IOSObjectArray *)zArgs {
   OrgMinimaKissvmTokensToken_mainWithNSStringArray_(zArgs);
-}
-
-- (void)dealloc {
-  RELEASE_(mToken_);
-  [super dealloc];
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -146,8 +142,8 @@ IOSObjectArray *OrgMinimaKissvmTokensToken_TOKENS_OPERATOR;
 
 + (void)initialize {
   if (self == [OrgMinimaKissvmTokensToken class]) {
-    JreStrongAssignAndConsume(&OrgMinimaKissvmTokensToken_TOKENS_COMMAND, [IOSObjectArray newArrayWithObjects:(id[]){ @"LET", @"IF", @"THEN", @"ELSEIF", @"ELSE", @"ENDIF", @"RETURN", @"ASSERT", @"WHILE", @"DO", @"ENDWHILE", @"EXEC", @"MAST" } count:13 type:NSString_class_()]);
-    JreStrongAssignAndConsume(&OrgMinimaKissvmTokensToken_TOKENS_OPERATOR, [IOSObjectArray newArrayWithObjects:(id[]){ @"+", @"-", @"/", @"*", @"%", @"&", @"|", @"^", @">>", @"<<", @"=", @"LT", @"GT", @"GTE", @"LTE", @"EQ", @"NEQ", @"NEG", @"XOR", @"AND", @"OR", @"NXOR", @"NAND", @"NOR", @"NOT" } count:25 type:NSString_class_()]);
+    OrgMinimaKissvmTokensToken_TOKENS_COMMAND = [IOSObjectArray newArrayWithObjects:(id[]){ @"LET", @"IF", @"THEN", @"ELSEIF", @"ELSE", @"ENDIF", @"RETURN", @"ASSERT", @"WHILE", @"DO", @"ENDWHILE", @"EXEC", @"MAST" } count:13 type:NSString_class_()];
+    OrgMinimaKissvmTokensToken_TOKENS_OPERATOR = [IOSObjectArray newArrayWithObjects:(id[]){ @"+", @"-", @"/", @"*", @"%", @"&", @"|", @"^", @">>", @"<<", @"=", @"LT", @"GT", @"GTE", @"LTE", @"EQ", @"NEQ", @"NEG", @"XOR", @"AND", @"OR", @"NXOR", @"NAND", @"NOR", @"NOT" } count:25 type:NSString_class_()];
     J2OBJC_SET_INITIALIZED(OrgMinimaKissvmTokensToken)
   }
 }
@@ -157,7 +153,7 @@ IOSObjectArray *OrgMinimaKissvmTokensToken_TOKENS_OPERATOR;
 void OrgMinimaKissvmTokensToken_initWithInt_withNSString_(OrgMinimaKissvmTokensToken *self, jint zTokenType, NSString *zToken) {
   NSObject_init(self);
   self->mTokenType_ = zTokenType;
-  JreStrongAssign(&self->mToken_, zToken);
+  self->mToken_ = zToken;
 }
 
 OrgMinimaKissvmTokensToken *new_OrgMinimaKissvmTokensToken_initWithInt_withNSString_(jint zTokenType, NSString *zToken) {
@@ -168,12 +164,12 @@ OrgMinimaKissvmTokensToken *create_OrgMinimaKissvmTokensToken_initWithInt_withNS
   J2OBJC_CREATE_IMPL(OrgMinimaKissvmTokensToken, initWithInt_withNSString_, zTokenType, zToken)
 }
 
-id<JavaUtilList> OrgMinimaKissvmTokensToken_tokenizeWithNSString_(NSString *zRamScript) {
+id<JavaUtilList> OrgMinimaKissvmTokensToken_tokenizeWithNSString_(NSString *zMiniScript) {
   OrgMinimaKissvmTokensToken_initialize();
-  id<JavaUtilList> tokens = create_JavaUtilArrayList_init();
+  id<JavaUtilList> tokens = new_JavaUtilArrayList_init();
   id<JavaUtilList> allcommands = JavaUtilArrays_asListWithNSObjectArray_(OrgMinimaKissvmTokensToken_TOKENS_COMMAND);
   id<JavaUtilList> alloperators = JavaUtilArrays_asListWithNSObjectArray_(OrgMinimaKissvmTokensToken_TOKENS_OPERATOR);
-  id<JavaUtilList> allfunctions = create_JavaUtilArrayList_init();
+  id<JavaUtilList> allfunctions = new_JavaUtilArrayList_init();
   {
     IOSObjectArray *a__ = JreLoadStatic(OrgMinimaKissvmFunctionsMinimaFunction, ALL_FUNCTIONS);
     OrgMinimaKissvmFunctionsMinimaFunction * const *b__ = ((IOSObjectArray *) nil_chk(a__))->buffer_;
@@ -183,49 +179,54 @@ id<JavaUtilList> OrgMinimaKissvmTokensToken_tokenizeWithNSString_(NSString *zRam
       [allfunctions addWithId:[((OrgMinimaKissvmFunctionsMinimaFunction *) nil_chk(func)) getName]];
     }
   }
-  OrgMinimaKissvmTokensQuotedString *qs = create_OrgMinimaKissvmTokensQuotedString_initWithNSString_(zRamScript);
-  JavaUtilStringTokenizer *strtok = create_JavaUtilStringTokenizer_initWithNSString_withNSString_([qs getDeQuotedString], @" ");
+  OrgMinimaKissvmTokensQuotedString *qs = new_OrgMinimaKissvmTokensQuotedString_initWithNSString_(zMiniScript);
+  JavaUtilStringTokenizer *strtok = new_JavaUtilStringTokenizer_initWithNSString_withNSString_([qs getDeQuotedString], @" ");
   while ([strtok hasMoreTokens]) {
     NSString *tok = [((NSString *) nil_chk([strtok nextToken])) java_trim];
     if ([((id<JavaUtilList>) nil_chk(allcommands)) containsWithId:tok]) {
-      [tokens addWithId:create_OrgMinimaKissvmTokensToken_initWithInt_withNSString_(OrgMinimaKissvmTokensToken_TOKEN_COMMAND, tok)];
+      [tokens addWithId:new_OrgMinimaKissvmTokensToken_initWithInt_withNSString_(OrgMinimaKissvmTokensToken_TOKEN_COMMAND, tok)];
     }
     else if ([allfunctions containsWithId:tok]) {
-      [tokens addWithId:create_OrgMinimaKissvmTokensToken_initWithInt_withNSString_(OrgMinimaKissvmTokensToken_TOKEN_FUNCTIION, tok)];
+      [tokens addWithId:new_OrgMinimaKissvmTokensToken_initWithInt_withNSString_(OrgMinimaKissvmTokensToken_TOKEN_FUNCTIION, tok)];
     }
     else if ([((id<JavaUtilList>) nil_chk(alloperators)) containsWithId:tok]) {
-      [tokens addWithId:create_OrgMinimaKissvmTokensToken_initWithInt_withNSString_(OrgMinimaKissvmTokensToken_TOKEN_OPERATOR, tok)];
+      [tokens addWithId:new_OrgMinimaKissvmTokensToken_initWithInt_withNSString_(OrgMinimaKissvmTokensToken_TOKEN_OPERATOR, tok)];
     }
     else if ([((NSString *) nil_chk(tok)) java_hasPrefix:@":"]) {
-      jint quote = JavaLangInteger_parseIntWithNSString_([tok java_substring:1]);
-      [tokens addWithId:create_OrgMinimaKissvmTokensToken_initWithInt_withNSString_(OrgMinimaKissvmTokensToken_TOKEN_VALUE, [qs getQuoteWithInt:quote])];
+      @try {
+        jint quote = JavaLangInteger_parseIntWithNSString_([tok java_substring:1]);
+        [tokens addWithId:new_OrgMinimaKissvmTokensToken_initWithInt_withNSString_(OrgMinimaKissvmTokensToken_TOKEN_VALUE, [qs getQuoteWithInt:quote])];
+      }
+      @catch (JavaLangNumberFormatException *exc) {
+        @throw new_OrgMinimaKissvmExceptionsMinimaParseException_initWithNSString_(JreStrcat("$$", @"Incorrect Number Format in quoted parse : ", tok));
+      }
     }
     else if ([tok java_hasPrefix:@"0x"] || OrgMinimaKissvmTokensToken_isNumericWithNSString_(tok)) {
-      [tokens addWithId:create_OrgMinimaKissvmTokensToken_initWithInt_withNSString_(OrgMinimaKissvmTokensToken_TOKEN_VALUE, tok)];
+      [tokens addWithId:new_OrgMinimaKissvmTokensToken_initWithInt_withNSString_(OrgMinimaKissvmTokensToken_TOKEN_VALUE, tok)];
     }
     else if ([tok isEqual:@"("]) {
-      [tokens addWithId:create_OrgMinimaKissvmTokensToken_initWithInt_withNSString_(OrgMinimaKissvmTokensToken_TOKEN_OPENBRACKET, tok)];
+      [tokens addWithId:new_OrgMinimaKissvmTokensToken_initWithInt_withNSString_(OrgMinimaKissvmTokensToken_TOKEN_OPENBRACKET, tok)];
     }
     else if ([tok isEqual:@")"]) {
-      [tokens addWithId:create_OrgMinimaKissvmTokensToken_initWithInt_withNSString_(OrgMinimaKissvmTokensToken_TOKEN_CLOSEBRACKET, tok)];
+      [tokens addWithId:new_OrgMinimaKissvmTokensToken_initWithInt_withNSString_(OrgMinimaKissvmTokensToken_TOKEN_CLOSEBRACKET, tok)];
     }
     else if ([tok isEqual:@"TRUE"]) {
-      [tokens addWithId:create_OrgMinimaKissvmTokensToken_initWithInt_withNSString_(OrgMinimaKissvmTokensToken_TOKEN_TRUE, tok)];
+      [tokens addWithId:new_OrgMinimaKissvmTokensToken_initWithInt_withNSString_(OrgMinimaKissvmTokensToken_TOKEN_TRUE, tok)];
     }
     else if ([tok isEqual:@"FALSE"]) {
-      [tokens addWithId:create_OrgMinimaKissvmTokensToken_initWithInt_withNSString_(OrgMinimaKissvmTokensToken_TOKEN_FALSE, tok)];
+      [tokens addWithId:new_OrgMinimaKissvmTokensToken_initWithInt_withNSString_(OrgMinimaKissvmTokensToken_TOKEN_FALSE, tok)];
     }
     else if ([tok java_hasPrefix:@"@"]) {
-      [tokens addWithId:create_OrgMinimaKissvmTokensToken_initWithInt_withNSString_(OrgMinimaKissvmTokensToken_TOKEN_GLOBAL, tok)];
+      [tokens addWithId:new_OrgMinimaKissvmTokensToken_initWithInt_withNSString_(OrgMinimaKissvmTokensToken_TOKEN_GLOBAL, tok)];
     }
     else if (OrgMinimaKissvmTokensToken_isVariableWithNSString_(tok)) {
       if ([tok java_length] > 16) {
-        @throw create_OrgMinimaKissvmExceptionsMinimaParseException_initWithNSString_(JreStrcat("$$", @"MAX variable name length is 16 : ", tok));
+        @throw new_OrgMinimaKissvmExceptionsMinimaParseException_initWithNSString_(JreStrcat("$$", @"MAX variable name length is 16 : ", tok));
       }
-      [tokens addWithId:create_OrgMinimaKissvmTokensToken_initWithInt_withNSString_(OrgMinimaKissvmTokensToken_TOKEN_VARIABLE, tok)];
+      [tokens addWithId:new_OrgMinimaKissvmTokensToken_initWithInt_withNSString_(OrgMinimaKissvmTokensToken_TOKEN_VARIABLE, tok)];
     }
     else {
-      @throw create_OrgMinimaKissvmExceptionsMinimaParseException_initWithNSString_(JreStrcat("$$", @"Incorrect token in parse : ", tok));
+      @throw new_OrgMinimaKissvmExceptionsMinimaParseException_initWithNSString_(JreStrcat("$$", @"Incorrect token in parse : ", tok));
     }
   }
   return tokens;

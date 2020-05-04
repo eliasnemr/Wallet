@@ -77,7 +77,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (void)updateWithByte:(jbyte)inArg {
-  [self absorbWithByteArray:[IOSByteArray arrayWithBytes:(jbyte[]){ inArg } count:1] withInt:0 withInt:1];
+  [self absorbWithByteArray:[IOSByteArray newArrayWithBytes:(jbyte[]){ inArg } count:1] withInt:0 withInt:1];
 }
 
 - (void)updateWithByteArray:(IOSByteArray *)inArg
@@ -125,10 +125,10 @@ J2OBJC_IGNORE_DESIGNATED_END
                     withInt:(jint)off
                     withInt:(jint)len {
   if ((bitsInQueue_ % 8) != 0) {
-    @throw create_JavaLangIllegalStateException_initWithNSString_(@"attempt to absorb with odd length queue");
+    @throw new_JavaLangIllegalStateException_initWithNSString_(@"attempt to absorb with odd length queue");
   }
   if (squeezing_) {
-    @throw create_JavaLangIllegalStateException_initWithNSString_(@"attempt to absorb while squeezing");
+    @throw new_JavaLangIllegalStateException_initWithNSString_(@"attempt to absorb while squeezing");
   }
   jint bytesInQueue = JreRShift32(bitsInQueue_, 3);
   jint rateBytes = JreRShift32(rate_, 3);
@@ -158,13 +158,13 @@ J2OBJC_IGNORE_DESIGNATED_END
 - (void)absorbBitsWithInt:(jint)data
                   withInt:(jint)bits {
   if (bits < 1 || bits > 7) {
-    @throw create_JavaLangIllegalArgumentException_initWithNSString_(@"'bits' must be in the range 1 to 7");
+    @throw new_JavaLangIllegalArgumentException_initWithNSString_(@"'bits' must be in the range 1 to 7");
   }
   if ((bitsInQueue_ % 8) != 0) {
-    @throw create_JavaLangIllegalStateException_initWithNSString_(@"attempt to absorb with odd length queue");
+    @throw new_JavaLangIllegalStateException_initWithNSString_(@"attempt to absorb with odd length queue");
   }
   if (squeezing_) {
-    @throw create_JavaLangIllegalStateException_initWithNSString_(@"attempt to absorb while squeezing");
+    @throw new_JavaLangIllegalStateException_initWithNSString_(@"attempt to absorb while squeezing");
   }
   jint mask = (JreLShift32(1, bits)) - 1;
   *IOSByteArray_GetRef(nil_chk(dataQueue_), JreRShift32(bitsInQueue_, 3)) = (jbyte) (data & mask);
@@ -182,7 +182,7 @@ J2OBJC_IGNORE_DESIGNATED_END
     OrgMinimaUtilsDigestKeccakDigest_padAndSwitchToSqueezingPhase(self);
   }
   if ((outputLength % 8) != 0) {
-    @throw create_JavaLangIllegalStateException_initWithNSString_(@"outputLength not a multiple of 8");
+    @throw new_JavaLangIllegalStateException_initWithNSString_(@"outputLength not a multiple of 8");
   }
   jlong i = 0;
   while (i < outputLength) {
@@ -209,12 +209,6 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 - (void)KeccakPermutation {
   OrgMinimaUtilsDigestKeccakDigest_KeccakPermutation(self);
-}
-
-- (void)dealloc {
-  RELEASE_(state_);
-  RELEASE_(dataQueue_);
-  [super dealloc];
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -280,7 +274,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 + (void)initialize {
   if (self == [OrgMinimaUtilsDigestKeccakDigest class]) {
-    JreStrongAssignAndConsume(&OrgMinimaUtilsDigestKeccakDigest_KeccakRoundConstants, [IOSLongArray newArrayWithLongs:(jlong[]){ (jlong) 0x0000000000000001LL, (jlong) 0x0000000000008082LL, (jlong) 0x800000000000808aLL, (jlong) 0x8000000080008000LL, (jlong) 0x000000000000808bLL, (jlong) 0x0000000080000001LL, (jlong) 0x8000000080008081LL, (jlong) 0x8000000000008009LL, (jlong) 0x000000000000008aLL, (jlong) 0x0000000000000088LL, (jlong) 0x0000000080008009LL, (jlong) 0x000000008000000aLL, (jlong) 0x000000008000808bLL, (jlong) 0x800000000000008bLL, (jlong) 0x8000000000008089LL, (jlong) 0x8000000000008003LL, (jlong) 0x8000000000008002LL, (jlong) 0x8000000000000080LL, (jlong) 0x000000000000800aLL, (jlong) 0x800000008000000aLL, (jlong) 0x8000000080008081LL, (jlong) 0x8000000000008080LL, (jlong) 0x0000000080000001LL, (jlong) 0x8000000080008008LL } count:24]);
+    OrgMinimaUtilsDigestKeccakDigest_KeccakRoundConstants = [IOSLongArray newArrayWithLongs:(jlong[]){ (jlong) 0x0000000000000001LL, (jlong) 0x0000000000008082LL, (jlong) 0x800000000000808aLL, (jlong) 0x8000000080008000LL, (jlong) 0x000000000000808bLL, (jlong) 0x0000000080000001LL, (jlong) 0x8000000080008081LL, (jlong) 0x8000000000008009LL, (jlong) 0x000000000000008aLL, (jlong) 0x0000000000000088LL, (jlong) 0x0000000080008009LL, (jlong) 0x000000008000000aLL, (jlong) 0x000000008000808bLL, (jlong) 0x800000000000008bLL, (jlong) 0x8000000000008089LL, (jlong) 0x8000000000008003LL, (jlong) 0x8000000000008002LL, (jlong) 0x8000000000000080LL, (jlong) 0x000000000000800aLL, (jlong) 0x800000008000000aLL, (jlong) 0x8000000080008081LL, (jlong) 0x8000000000008080LL, (jlong) 0x0000000080000001LL, (jlong) 0x8000000080008008LL } count:24];
     J2OBJC_SET_INITIALIZED(OrgMinimaUtilsDigestKeccakDigest)
   }
 }
@@ -301,8 +295,8 @@ OrgMinimaUtilsDigestKeccakDigest *create_OrgMinimaUtilsDigestKeccakDigest_init()
 
 void OrgMinimaUtilsDigestKeccakDigest_initWithInt_(OrgMinimaUtilsDigestKeccakDigest *self, jint bitLength) {
   NSObject_init(self);
-  JreStrongAssignAndConsume(&self->state_, [IOSLongArray newArrayWithLength:25]);
-  JreStrongAssignAndConsume(&self->dataQueue_, [IOSByteArray newArrayWithLength:192]);
+  self->state_ = [IOSLongArray newArrayWithLength:25];
+  self->dataQueue_ = [IOSByteArray newArrayWithLength:192];
   OrgMinimaUtilsDigestKeccakDigest_init__WithInt_(self, bitLength);
 }
 
@@ -316,8 +310,8 @@ OrgMinimaUtilsDigestKeccakDigest *create_OrgMinimaUtilsDigestKeccakDigest_initWi
 
 void OrgMinimaUtilsDigestKeccakDigest_initWithOrgMinimaUtilsDigestKeccakDigest_(OrgMinimaUtilsDigestKeccakDigest *self, OrgMinimaUtilsDigestKeccakDigest *source) {
   NSObject_init(self);
-  JreStrongAssignAndConsume(&self->state_, [IOSLongArray newArrayWithLength:25]);
-  JreStrongAssignAndConsume(&self->dataQueue_, [IOSByteArray newArrayWithLength:192]);
+  self->state_ = [IOSLongArray newArrayWithLength:25];
+  self->dataQueue_ = [IOSByteArray newArrayWithLength:192];
   JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(((OrgMinimaUtilsDigestKeccakDigest *) nil_chk(source))->state_, 0, self->state_, 0, source->state_->size_);
   JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(source->dataQueue_, 0, self->dataQueue_, 0, ((IOSByteArray *) nil_chk(source->dataQueue_))->size_);
   self->rate_ = source->rate_;
@@ -342,13 +336,13 @@ void OrgMinimaUtilsDigestKeccakDigest_init__WithInt_(OrgMinimaUtilsDigestKeccakD
     OrgMinimaUtilsDigestKeccakDigest_initSpongeWithInt_(self, 1600 - (JreLShift32(bitLength, 1)));
     break;
     default:
-    @throw create_JavaLangIllegalArgumentException_initWithNSString_(@"bitLength must be one of 160, 256, or 512.");
+    @throw new_JavaLangIllegalArgumentException_initWithNSString_(@"bitLength must be one of 160, 256, or 512.");
   }
 }
 
 void OrgMinimaUtilsDigestKeccakDigest_initSpongeWithInt_(OrgMinimaUtilsDigestKeccakDigest *self, jint rate) {
   if ((rate <= 0) || (rate >= 1600) || ((rate % 64) != 0)) {
-    @throw create_JavaLangIllegalStateException_initWithNSString_(@"invalid rate value");
+    @throw new_JavaLangIllegalStateException_initWithNSString_(@"invalid rate value");
   }
   self->rate_ = rate;
   for (jint i = 0; i < ((IOSLongArray *) nil_chk(self->state_))->size_; ++i) {

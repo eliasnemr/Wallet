@@ -14,15 +14,6 @@
 
 @implementation MinimaBridger
 
-- (BOOL)application:(UIApplication *)application
-    didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
-    AppDelegate *instance = [AppDelegate new];
-    [instance callNotification];
-    
-    return YES;
-}
-
 - (id) init {
     if(self = [super init]) {
         [self runMinima];

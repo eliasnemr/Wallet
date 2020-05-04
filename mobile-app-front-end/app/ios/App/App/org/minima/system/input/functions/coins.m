@@ -24,13 +24,13 @@ J2OBJC_IGNORE_DESIGNATED_END
 - (void)doFunctionWithNSStringArray:(IOSObjectArray *)zInput {
   OrgMinimaUtilsMessagesMessage *msg = [self getResponseMessageWithNSString:OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_COINS];
   if (((IOSObjectArray *) nil_chk(zInput))->size_ > 1) {
-    [((OrgMinimaUtilsMessagesMessage *) nil_chk(msg)) addStringWithNSString:@"address" withNSString:IOSObjectArray_Get(zInput, 1)];
+    (void) [((OrgMinimaUtilsMessagesMessage *) nil_chk(msg)) addStringWithNSString:@"address" withNSString:IOSObjectArray_Get(zInput, 1)];
   }
   [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getConsensusHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:msg];
 }
 
 - (OrgMinimaSystemInputCommandFunction *)getNewFunction {
-  return create_OrgMinimaSystemInputFunctionscoins_init();
+  return new_OrgMinimaSystemInputFunctionscoins_init();
 }
 
 + (const J2ObjcClassInfo *)__metadata {

@@ -118,12 +118,6 @@ J2OBJC_IGNORE_DESIGNATED_END
   OrgMinimaKissvmValuesValue_mainWithNSStringArray_(zArgs);
 }
 
-- (void)dealloc {
-  RELEASE_(mNumber_);
-  RELEASE_(mData_);
-
-}
-
 + (const J2ObjcClassInfo *)__metadata {
   static J2ObjcMethodInfo methods[] = {
     { NULL, NULL, 0x1, -1, -1, -1, -1, -1, -1 },
@@ -188,10 +182,10 @@ OrgMinimaKissvmValuesValue *OrgMinimaKissvmValuesValue_getValueWithNSString_(NSS
   OrgMinimaKissvmValuesValue_initialize();
   if ([((NSString *) nil_chk(zValue)) java_hasPrefix:@"["]) {
     NSString *sc = [zValue java_substring:1 endIndex:[zValue java_length] - 1];
-    return create_OrgMinimaKissvmValuesScriptValue_initWithNSString_(sc);
+    return new_OrgMinimaKissvmValuesScriptValue_initWithNSString_(sc);
   }
   else if ([zValue java_hasPrefix:@"0x"]) {
-    return create_OrgMinimaKissvmValuesHEXValue_initWithNSString_(zValue);
+    return new_OrgMinimaKissvmValuesHEXValue_initWithNSString_(zValue);
   }
   else if ([zValue isEqual:@"TRUE"]) {
     return JreLoadStatic(OrgMinimaKissvmValuesBooleanValue, TRUE);
@@ -200,7 +194,7 @@ OrgMinimaKissvmValuesValue *OrgMinimaKissvmValuesValue_getValueWithNSString_(NSS
     return JreLoadStatic(OrgMinimaKissvmValuesBooleanValue, FALSE);
   }
   else {
-    return create_OrgMinimaKissvmValuesNumberValue_initWithNSString_(zValue);
+    return new_OrgMinimaKissvmValuesNumberValue_initWithNSString_(zValue);
   }
 }
 
@@ -228,9 +222,9 @@ jint OrgMinimaKissvmValuesValue_getValueTypeWithNSString_(NSString *zValue) {
 
 void OrgMinimaKissvmValuesValue_mainWithNSStringArray_(IOSObjectArray *zArgs) {
   OrgMinimaKissvmValuesValue_initialize();
-  OrgMinimaKissvmValuesValue *vv = create_OrgMinimaKissvmValuesHEXValue_initWithNSString_(@"0xF184A0A4295AD508CEC610C7430CE328F184A0A4295AD508CEC610C7430CE328");
-  OrgMinimaObjectsBaseMiniNumber *q = create_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(@"1");
-  OrgMinimaObjectsBaseMiniNumber *e = create_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(@"3");
+  OrgMinimaKissvmValuesValue *vv = new_OrgMinimaKissvmValuesHEXValue_initWithNSString_(@"0xF184A0A4295AD508CEC610C7430CE328F184A0A4295AD508CEC610C7430CE328");
+  OrgMinimaObjectsBaseMiniNumber *q = new_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(@"1");
+  OrgMinimaObjectsBaseMiniNumber *e = new_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(@"3");
   OrgMinimaObjectsBaseMiniNumber *t = [q divWithOrgMinimaObjectsBaseMiniNumber:e];
   [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out))) printlnWithId:vv];
 }

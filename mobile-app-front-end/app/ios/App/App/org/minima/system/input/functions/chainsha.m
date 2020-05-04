@@ -26,17 +26,17 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 - (void)doFunctionWithNSStringArray:(IOSObjectArray *)zInput {
   OrgMinimaUtilsMessagesMessage *msg = [self getResponseMessageWithNSString:OrgMinimaSystemBrainsConsensusUser_CONSENSUS_MMRTREE];
-  [((OrgMinimaUtilsMessagesMessage *) nil_chk(msg)) addIntWithNSString:@"bitlength" withInt:JavaLangInteger_parseIntWithNSString_(IOSObjectArray_Get(nil_chk(zInput), 1))];
-  JavaUtilArrayList *data = create_JavaUtilArrayList_init();
+  (void) [((OrgMinimaUtilsMessagesMessage *) nil_chk(msg)) addIntWithNSString:@"bitlength" withInt:JavaLangInteger_parseIntWithNSString_(IOSObjectArray_Get(nil_chk(zInput), 1))];
+  JavaUtilArrayList *data = new_JavaUtilArrayList_init();
   for (jint i = 2; i < zInput->size_; i++) {
-    [data addWithId:create_OrgMinimaObjectsBaseMiniScript_initWithNSString_(IOSObjectArray_Get(zInput, i))];
+    [data addWithId:new_OrgMinimaObjectsBaseMiniScript_initWithNSString_(IOSObjectArray_Get(zInput, i))];
   }
-  [msg addObjectWithNSString:@"leaves" withId:data];
+  (void) [msg addObjectWithNSString:@"leaves" withId:data];
   [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getConsensusHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:msg];
 }
 
 - (OrgMinimaSystemInputCommandFunction *)getNewFunction {
-  return create_OrgMinimaSystemInputFunctionschainsha_init();
+  return new_OrgMinimaSystemInputFunctionschainsha_init();
 }
 
 + (const J2ObjcClassInfo *)__metadata {

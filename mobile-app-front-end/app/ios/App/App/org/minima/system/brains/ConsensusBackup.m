@@ -69,28 +69,28 @@ NSString *OrgMinimaSystemBrainsConsensusBackup_CONSENSUSBACKUP_RESTORETREEDB = @
     OrgMinimaDatabaseUserdbJavaJavaUserDB *userdb = (OrgMinimaDatabaseUserdbJavaJavaUserDB *) cast_chk([((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusBackup_getMainDB(self))) getUserDB], [OrgMinimaDatabaseUserdbJavaJavaUserDB class]);
     NSString *nameu = @"user.minima";
     JavaIoFile *ffu = [((OrgMinimaSystemBackupBackupManager *) nil_chk([((OrgMinimaSystemMain *) nil_chk([((OrgMinimaSystemBrainsConsensusHandler *) nil_chk(mHandler_)) getMainHandler])) getBackupManager])) getBackUpFileWithNSString:nameu];
-    OrgMinimaUtilsMessagesMessage *backupu = create_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemBackupBackupManager_BACKUP_WRITE);
-    [backupu addObjectWithNSString:@"file" withId:ffu];
-    [backupu addObjectWithNSString:@"object" withId:userdb];
-    [backupu addBooleanWithNSString:@"overwrite" withBoolean:true];
+    OrgMinimaUtilsMessagesMessage *backupu = new_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemBackupBackupManager_BACKUP_WRITE);
+    (void) [backupu addObjectWithNSString:@"file" withId:ffu];
+    (void) [backupu addObjectWithNSString:@"object" withId:userdb];
+    (void) [backupu addBooleanWithNSString:@"overwrite" withBoolean:true];
     [((OrgMinimaSystemBackupBackupManager *) nil_chk(OrgMinimaSystemBrainsConsensusBackup_getBackup(self))) PostMessageWithOrgMinimaUtilsMessagesMessage:backupu];
     JavaUtilArrayList *nodes = [((OrgMinimaDatabaseTxpowtreeBlockTree *) nil_chk([((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusBackup_getMainDB(self))) getMainTree])) getAsList];
     if ([((JavaUtilArrayList *) nil_chk(nodes)) size] > 0) {
-      OrgMinimaSystemBackupSyncPackage *sp = create_OrgMinimaSystemBackupSyncPackage_init();
+      OrgMinimaSystemBackupSyncPackage *sp = new_OrgMinimaSystemBackupSyncPackage_init();
       [sp setCascadeNodeWithOrgMinimaObjectsBaseMiniNumber:[((OrgMinimaObjectsTxPOW *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTree *) nil_chk([((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusBackup_getMainDB(self))) getMainTree])) getCascadeNode])) getTxPow])) getBlockNumber]];
       for (OrgMinimaDatabaseTxpowtreeBlockTreeNode * __strong node in nodes) {
-        [((JavaUtilArrayList *) nil_chk([sp getAllNodes])) addWithInt:0 withId:create_OrgMinimaSystemBackupSyncPacket_initWithOrgMinimaDatabaseTxpowtreeBlockTreeNode_(node)];
+        [((JavaUtilArrayList *) nil_chk([sp getAllNodes])) addWithInt:0 withId:new_OrgMinimaSystemBackupSyncPacket_initWithOrgMinimaDatabaseTxpowtreeBlockTreeNode_(node)];
       }
       NSString *name = @"latest.txbackup";
       JavaIoFile *ff = [((OrgMinimaSystemBackupBackupManager *) nil_chk([((OrgMinimaSystemMain *) nil_chk([((OrgMinimaSystemBrainsConsensusHandler *) nil_chk(mHandler_)) getMainHandler])) getBackupManager])) getBackUpFileWithNSString:name];
-      OrgMinimaUtilsMessagesMessage *post = create_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemMain_SYSTEM_FULLSHUTDOWN);
-      OrgMinimaUtilsMessagesMessage *backup = create_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemBackupBackupManager_BACKUP_WRITE);
-      [backup addObjectWithNSString:@"file" withId:ff];
-      [backup addObjectWithNSString:@"object" withId:sp];
-      [backup addBooleanWithNSString:@"overwrite" withBoolean:true];
+      OrgMinimaUtilsMessagesMessage *post = new_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemMain_SYSTEM_FULLSHUTDOWN);
+      OrgMinimaUtilsMessagesMessage *backup = new_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemBackupBackupManager_BACKUP_WRITE);
+      (void) [backup addObjectWithNSString:@"file" withId:ff];
+      (void) [backup addObjectWithNSString:@"object" withId:sp];
+      (void) [backup addBooleanWithNSString:@"overwrite" withBoolean:true];
       if (shutdown) {
-        [backup addObjectWithNSString:OrgMinimaSystemBackupBackupManager_BACKUP_POSTACTIONMSG withId:post];
-        [backup addObjectWithNSString:OrgMinimaSystemBackupBackupManager_BACKUP_POSTACTION_HANDLER withId:[((OrgMinimaSystemBrainsConsensusHandler *) nil_chk(mHandler_)) getMainHandler]];
+        (void) [backup addObjectWithNSString:OrgMinimaSystemBackupBackupManager_BACKUP_POSTACTIONMSG withId:post];
+        (void) [backup addObjectWithNSString:OrgMinimaSystemBackupBackupManager_BACKUP_POSTACTION_HANDLER withId:[((OrgMinimaSystemBrainsConsensusHandler *) nil_chk(mHandler_)) getMainHandler]];
       }
       [((OrgMinimaSystemBackupBackupManager *) nil_chk(OrgMinimaSystemBrainsConsensusBackup_getBackup(self))) PostMessageWithOrgMinimaUtilsMessagesMessage:backup];
     }
@@ -103,13 +103,13 @@ NSString *OrgMinimaSystemBrainsConsensusBackup_CONSENSUSBACKUP_RESTORETREEDB = @
   else if ([zMessage isMessageTypeWithNSString:OrgMinimaSystemBrainsConsensusBackup_CONSENSUSBACKUP_RESTORE]) {
     NSString *name = @"user.minima";
     JavaIoFile *ff = [((OrgMinimaSystemBackupBackupManager *) nil_chk(OrgMinimaSystemBrainsConsensusBackup_getBackup(self))) getBackUpFileWithNSString:name];
-    OrgMinimaUtilsMessagesMessage *backupman = create_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemBackupBackupManager_BACKUP_READ);
+    OrgMinimaUtilsMessagesMessage *backupman = new_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemBackupBackupManager_BACKUP_READ);
     if ([((JavaIoFile *) nil_chk(ff)) exists]) {
-      backupman = create_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemBackupBackupManager_BACKUP_READ);
-      [backupman addObjectWithNSString:@"file" withId:ff];
-      [backupman addStringWithNSString:@"type" withNSString:OrgMinimaSystemBackupBackupManager_BACKUP_READUSER];
-      [backupman addObjectWithNSString:OrgMinimaSystemBackupBackupManager_BACKUP_POSTACTIONMSG withId:create_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemBrainsConsensusBackup_CONSENSUSBACKUP_RESTOREUSERDB)];
-      [backupman addObjectWithNSString:OrgMinimaSystemBackupBackupManager_BACKUP_POSTACTION_HANDLER withId:mHandler_];
+      backupman = new_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemBackupBackupManager_BACKUP_READ);
+      (void) [backupman addObjectWithNSString:@"file" withId:ff];
+      (void) [backupman addStringWithNSString:@"type" withNSString:OrgMinimaSystemBackupBackupManager_BACKUP_READUSER];
+      (void) [backupman addObjectWithNSString:OrgMinimaSystemBackupBackupManager_BACKUP_POSTACTIONMSG withId:new_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemBrainsConsensusBackup_CONSENSUSBACKUP_RESTOREUSERDB)];
+      (void) [backupman addObjectWithNSString:OrgMinimaSystemBackupBackupManager_BACKUP_POSTACTION_HANDLER withId:mHandler_];
       [((OrgMinimaSystemBackupBackupManager *) nil_chk(OrgMinimaSystemBrainsConsensusBackup_getBackup(self))) PostMessageWithOrgMinimaUtilsMessagesMessage:backupman];
     }
     else {
@@ -120,11 +120,11 @@ NSString *OrgMinimaSystemBrainsConsensusBackup_CONSENSUSBACKUP_RESTORETREEDB = @
     name = @"latest.txbackup";
     ff = [((OrgMinimaSystemBackupBackupManager *) nil_chk(OrgMinimaSystemBrainsConsensusBackup_getBackup(self))) getBackUpFileWithNSString:name];
     if ([((JavaIoFile *) nil_chk(ff)) exists]) {
-      backupman = create_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemBackupBackupManager_BACKUP_READ);
-      [backupman addObjectWithNSString:@"file" withId:ff];
-      [backupman addStringWithNSString:@"type" withNSString:OrgMinimaSystemBackupBackupManager_BACKUP_READSYNC];
-      [backupman addObjectWithNSString:OrgMinimaSystemBackupBackupManager_BACKUP_POSTACTIONMSG withId:create_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemBrainsConsensusBackup_CONSENSUSBACKUP_RESTORETREEDB)];
-      [backupman addObjectWithNSString:OrgMinimaSystemBackupBackupManager_BACKUP_POSTACTION_HANDLER withId:mHandler_];
+      backupman = new_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemBackupBackupManager_BACKUP_READ);
+      (void) [backupman addObjectWithNSString:@"file" withId:ff];
+      (void) [backupman addStringWithNSString:@"type" withNSString:OrgMinimaSystemBackupBackupManager_BACKUP_READSYNC];
+      (void) [backupman addObjectWithNSString:OrgMinimaSystemBackupBackupManager_BACKUP_POSTACTIONMSG withId:new_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemBrainsConsensusBackup_CONSENSUSBACKUP_RESTORETREEDB)];
+      (void) [backupman addObjectWithNSString:OrgMinimaSystemBackupBackupManager_BACKUP_POSTACTION_HANDLER withId:mHandler_];
       [((OrgMinimaSystemBackupBackupManager *) nil_chk(OrgMinimaSystemBrainsConsensusBackup_getBackup(self))) PostMessageWithOrgMinimaUtilsMessagesMessage:backupman];
     }
     else {
@@ -139,7 +139,7 @@ NSString *OrgMinimaSystemBrainsConsensusBackup_CONSENSUSBACKUP_RESTORETREEDB = @
   }
   else if ([zMessage isMessageTypeWithNSString:OrgMinimaSystemBrainsConsensusBackup_CONSENSUSBACKUP_RESTORETXPOW]) {
     OrgMinimaObjectsTxPOW *txPOW = (OrgMinimaObjectsTxPOW *) cast_chk([zMessage getObjectWithNSString:@"readobject"], [OrgMinimaObjectsTxPOW class]);
-    [((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusBackup_getMainDB(self))) addNewTxPowWithOrgMinimaObjectsTxPOW:txPOW];
+    (void) [((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusBackup_getMainDB(self))) addNewTxPowWithOrgMinimaObjectsTxPOW:txPOW];
   }
   else if ([zMessage isMessageTypeWithNSString:OrgMinimaSystemBrainsConsensusBackup_CONSENSUSBACKUP_RESTORETREEDB]) {
     OrgMinimaSystemBackupSyncPackage *sp = (OrgMinimaSystemBackupSyncPackage *) cast_chk([zMessage getObjectWithNSString:@"readobject"], [OrgMinimaSystemBackupSyncPackage class]);
@@ -152,7 +152,7 @@ NSString *OrgMinimaSystemBrainsConsensusBackup_CONSENSUSBACKUP_RESTORETREEDB = @
       jboolean cascade = [spack isCascade];
       if (mmrset != nil) {
         if ([((OrgMinimaObjectsBaseMiniNumber *) nil_chk([mmrset getBlockTime])) isMoreEqualWithOrgMinimaObjectsBaseMiniNumber:casc]) {
-          [((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusBackup_getMainDB(self))) scanMMRSetForCoinsWithOrgMinimaDatabaseMmrMMRSet:mmrset withBoolean:true];
+          [((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusBackup_getMainDB(self))) scanMMRSetForCoinsWithOrgMinimaDatabaseMmrMMRSet:mmrset];
         }
       }
       OrgMinimaDatabaseTxpowtreeBlockTreeNode *node = [((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusBackup_getMainDB(self))) hardAddTxPOWBlockWithOrgMinimaObjectsTxPOW:txpow withOrgMinimaDatabaseMmrMMRSet:mmrset withBoolean:cascade];
@@ -163,12 +163,6 @@ NSString *OrgMinimaSystemBrainsConsensusBackup_CONSENSUSBACKUP_RESTORETREEDB = @
     [((OrgMinimaDatabaseMinimaDB *) nil_chk(OrgMinimaSystemBrainsConsensusBackup_getMainDB(self))) hardResetChain];
     [((OrgMinimaSystemMain *) nil_chk([((OrgMinimaSystemBrainsConsensusHandler *) nil_chk(mHandler_)) getMainHandler])) PostMessageWithNSString:OrgMinimaSystemMain_SYSTEM_INIT];
   }
-}
-
-- (void)dealloc {
-  RELEASE_(mDB_);
-  RELEASE_(mHandler_);
-  [super dealloc];
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -205,8 +199,8 @@ NSString *OrgMinimaSystemBrainsConsensusBackup_CONSENSUSBACKUP_RESTORETREEDB = @
 
 void OrgMinimaSystemBrainsConsensusBackup_initWithOrgMinimaDatabaseMinimaDB_withOrgMinimaSystemBrainsConsensusHandler_(OrgMinimaSystemBrainsConsensusBackup *self, OrgMinimaDatabaseMinimaDB *zDB, OrgMinimaSystemBrainsConsensusHandler *zHandler) {
   NSObject_init(self);
-  JreStrongAssign(&self->mDB_, zDB);
-  JreStrongAssign(&self->mHandler_, zHandler);
+  self->mDB_ = zDB;
+  self->mHandler_ = zHandler;
 }
 
 OrgMinimaSystemBrainsConsensusBackup *new_OrgMinimaSystemBrainsConsensusBackup_initWithOrgMinimaDatabaseMinimaDB_withOrgMinimaSystemBrainsConsensusHandler_(OrgMinimaDatabaseMinimaDB *zDB, OrgMinimaSystemBrainsConsensusHandler *zHandler) {

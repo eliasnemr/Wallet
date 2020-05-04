@@ -25,6 +25,9 @@
 - (OrgMinimaDatabaseTxpowtreeBlockTreeNode *)_findNodeWithOrgMinimaDatabaseTxpowtreeBlockTreeNode:(OrgMinimaDatabaseTxpowtreeBlockTreeNode *)zRoot
                                                                  withOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zTxPOWID;
 
+- (OrgMinimaDatabaseTxpowtreeBlockTreeNode *)_getOnChainBlockWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zBlockNumber
+                                                    withOrgMinimaDatabaseTxpowtreeBlockTreeNode:(OrgMinimaDatabaseTxpowtreeBlockTreeNode *)zTip;
+
 @end
 
 __attribute__((unused)) static void OrgMinimaDatabaseTxpowtreeBlockTree__zeroWeightsWithOrgMinimaDatabaseTxpowtreeBlockTreeNode_(OrgMinimaDatabaseTxpowtreeBlockTree *self, OrgMinimaDatabaseTxpowtreeBlockTreeNode *zNode);
@@ -34,6 +37,8 @@ __attribute__((unused)) static void OrgMinimaDatabaseTxpowtreeBlockTree__cascade
 __attribute__((unused)) static OrgMinimaDatabaseTxpowtreeBlockTreeNode *OrgMinimaDatabaseTxpowtreeBlockTree_getHeaviestBranchTipWithOrgMinimaDatabaseTxpowtreeBlockTreeNode_(OrgMinimaDatabaseTxpowtreeBlockTree *self, OrgMinimaDatabaseTxpowtreeBlockTreeNode *zStartNode);
 
 __attribute__((unused)) static OrgMinimaDatabaseTxpowtreeBlockTreeNode *OrgMinimaDatabaseTxpowtreeBlockTree__findNodeWithOrgMinimaDatabaseTxpowtreeBlockTreeNode_withOrgMinimaObjectsBaseMiniData_(OrgMinimaDatabaseTxpowtreeBlockTree *self, OrgMinimaDatabaseTxpowtreeBlockTreeNode *zRoot, OrgMinimaObjectsBaseMiniData *zTxPOWID);
+
+__attribute__((unused)) static OrgMinimaDatabaseTxpowtreeBlockTreeNode *OrgMinimaDatabaseTxpowtreeBlockTree__getOnChainBlockWithOrgMinimaObjectsBaseMiniNumber_withOrgMinimaDatabaseTxpowtreeBlockTreeNode_(OrgMinimaDatabaseTxpowtreeBlockTree *self, OrgMinimaObjectsBaseMiniNumber *zBlockNumber, OrgMinimaDatabaseTxpowtreeBlockTreeNode *zTip);
 
 @implementation OrgMinimaDatabaseTxpowtreeBlockTree
 
@@ -46,9 +51,9 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 - (void)setTreeRootWithOrgMinimaDatabaseTxpowtreeBlockTreeNode:(OrgMinimaDatabaseTxpowtreeBlockTreeNode *)zNode {
   [((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk(zNode)) setParentWithOrgMinimaDatabaseTxpowtreeBlockTreeNode:nil];
-  JreStrongAssign(&mRoot_, zNode);
-  JreStrongAssign(&mTip_, mRoot_);
-  JreStrongAssign(&mCascadeNode_, mRoot_);
+  mRoot_ = zNode;
+  mTip_ = mRoot_;
+  mCascadeNode_ = mRoot_;
 }
 
 - (OrgMinimaDatabaseTxpowtreeBlockTreeNode *)getChainRoot {
@@ -61,10 +66,6 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 - (OrgMinimaDatabaseTxpowtreeBlockTreeNode *)getCascadeNode {
   return mCascadeNode_;
-}
-
-- (OrgMinimaDatabaseTxpowtreeBlockTreeNode *)getLastNode {
-  return mLastNode_;
 }
 
 - (jboolean)addNodeWithOrgMinimaDatabaseTxpowtreeBlockTreeNode:(OrgMinimaDatabaseTxpowtreeBlockTreeNode *)zNode {
@@ -105,17 +106,17 @@ J2OBJC_IGNORE_DESIGNATED_END
       }
     }
   }
-  JreStrongAssign(&mTip_, zNode);
+  mTip_ = zNode;
 }
 
 - (void)hardSetCascadeNodeWithOrgMinimaDatabaseTxpowtreeBlockTreeNode:(OrgMinimaDatabaseTxpowtreeBlockTreeNode *)zNode {
-  JreStrongAssign(&mCascadeNode_, zNode);
+  mCascadeNode_ = zNode;
 }
 
 - (void)resetWeights {
   OrgMinimaDatabaseTxpowtreeBlockTree__zeroWeightsWithOrgMinimaDatabaseTxpowtreeBlockTreeNode_(self, [self getChainRoot]);
   OrgMinimaDatabaseTxpowtreeBlockTree__cascadeWeightsWithOrgMinimaDatabaseTxpowtreeBlockTreeNode_(self, [self getChainRoot]);
-  JreStrongAssign(&mTip_, OrgMinimaDatabaseTxpowtreeBlockTree_getHeaviestBranchTipWithOrgMinimaDatabaseTxpowtreeBlockTreeNode_(self, [self getChainRoot]));
+  mTip_ = OrgMinimaDatabaseTxpowtreeBlockTree_getHeaviestBranchTipWithOrgMinimaDatabaseTxpowtreeBlockTreeNode_(self, [self getChainRoot]);
 }
 
 - (void)_zeroWeightsWithOrgMinimaDatabaseTxpowtreeBlockTreeNode:(OrgMinimaDatabaseTxpowtreeBlockTreeNode *)zNode {
@@ -142,12 +143,21 @@ J2OBJC_IGNORE_DESIGNATED_END
   return OrgMinimaDatabaseTxpowtreeBlockTree__findNodeWithOrgMinimaDatabaseTxpowtreeBlockTreeNode_withOrgMinimaObjectsBaseMiniData_(self, zRoot, zTxPOWID);
 }
 
+- (OrgMinimaDatabaseTxpowtreeBlockTreeNode *)getOnChainBlockWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zBlockNumber {
+  return OrgMinimaDatabaseTxpowtreeBlockTree__getOnChainBlockWithOrgMinimaObjectsBaseMiniNumber_withOrgMinimaDatabaseTxpowtreeBlockTreeNode_(self, zBlockNumber, mTip_);
+}
+
+- (OrgMinimaDatabaseTxpowtreeBlockTreeNode *)_getOnChainBlockWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zBlockNumber
+                                                    withOrgMinimaDatabaseTxpowtreeBlockTreeNode:(OrgMinimaDatabaseTxpowtreeBlockTreeNode *)zTip {
+  return OrgMinimaDatabaseTxpowtreeBlockTree__getOnChainBlockWithOrgMinimaObjectsBaseMiniNumber_withOrgMinimaDatabaseTxpowtreeBlockTreeNode_(self, zBlockNumber, zTip);
+}
+
 - (JavaUtilArrayList *)getAsList {
   return [self getAsListWithBoolean:false];
 }
 
 - (JavaUtilArrayList *)getAsListWithBoolean:(jboolean)zReverse {
-  JavaUtilArrayList *nodes = create_JavaUtilArrayList_init();
+  JavaUtilArrayList *nodes = new_JavaUtilArrayList_init();
   if (mTip_ == nil) {
     return nodes;
   }
@@ -180,7 +190,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (JavaMathBigInteger *)getAvgChainDifficulty {
-  JavaMathBigInteger *total = create_JavaMathBigInteger_initWithNSString_(@"0");
+  JavaMathBigInteger *total = new_JavaMathBigInteger_initWithNSString_(@"0");
   OrgMinimaObjectsBaseMiniData *casc = [((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk(mCascadeNode_)) getTxPowID];
   OrgMinimaDatabaseTxpowtreeBlockTreeNode *current = mTip_;
   jint num = 0;
@@ -195,23 +205,20 @@ J2OBJC_IGNORE_DESIGNATED_END
   if (num == 0) {
     return JreLoadStatic(JavaMathBigInteger, ZERO);
   }
-  JavaMathBigInteger *avg = [((JavaMathBigInteger *) nil_chk(total)) divideWithJavaMathBigInteger:create_JavaMathBigInteger_initWithNSString_(JreStrcat("I", num))];
+  JavaMathBigInteger *avg = [((JavaMathBigInteger *) nil_chk(total)) divideWithJavaMathBigInteger:new_JavaMathBigInteger_initWithNSString_(JreStrcat("I", num))];
   return avg;
 }
 
-- (void)dealloc {
-  RELEASE_(mRoot_);
-  RELEASE_(mTip_);
-  RELEASE_(mCascadeNode_);
-  RELEASE_(mLastNode_);
-  [super dealloc];
+- (void)clearTree {
+  mRoot_ = nil;
+  mTip_ = nil;
+  mCascadeNode_ = nil;
 }
 
 + (const J2ObjcClassInfo *)__metadata {
   static J2ObjcMethodInfo methods[] = {
     { NULL, NULL, 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 0, 1, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaDatabaseTxpowtreeBlockTreeNode;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaDatabaseTxpowtreeBlockTreeNode;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaDatabaseTxpowtreeBlockTreeNode;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaDatabaseTxpowtreeBlockTreeNode;", 0x1, -1, -1, -1, -1, -1, -1 },
@@ -224,10 +231,13 @@ J2OBJC_IGNORE_DESIGNATED_END
     { NULL, "LOrgMinimaDatabaseTxpowtreeBlockTreeNode;", 0x2, 8, 1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaDatabaseTxpowtreeBlockTreeNode;", 0x1, 9, 10, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaDatabaseTxpowtreeBlockTreeNode;", 0x2, 11, 12, -1, -1, -1, -1 },
-    { NULL, "LJavaUtilArrayList;", 0x1, -1, -1, -1, 13, -1, -1 },
-    { NULL, "LJavaUtilArrayList;", 0x1, 14, 15, -1, 16, -1, -1 },
+    { NULL, "LOrgMinimaDatabaseTxpowtreeBlockTreeNode;", 0x1, 13, 14, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaDatabaseTxpowtreeBlockTreeNode;", 0x2, 15, 16, -1, -1, -1, -1 },
+    { NULL, "LJavaUtilArrayList;", 0x1, -1, -1, -1, 17, -1, -1 },
+    { NULL, "LJavaUtilArrayList;", 0x1, 18, 19, -1, 20, -1, -1 },
     { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LJavaMathBigInteger;", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, -1, -1, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
@@ -237,29 +247,30 @@ J2OBJC_IGNORE_DESIGNATED_END
   methods[2].selector = @selector(getChainRoot);
   methods[3].selector = @selector(getChainTip);
   methods[4].selector = @selector(getCascadeNode);
-  methods[5].selector = @selector(getLastNode);
-  methods[6].selector = @selector(addNodeWithOrgMinimaDatabaseTxpowtreeBlockTreeNode:);
-  methods[7].selector = @selector(hardAddNodeWithOrgMinimaDatabaseTxpowtreeBlockTreeNode:withBoolean:);
-  methods[8].selector = @selector(hardSetCascadeNodeWithOrgMinimaDatabaseTxpowtreeBlockTreeNode:);
-  methods[9].selector = @selector(resetWeights);
-  methods[10].selector = @selector(_zeroWeightsWithOrgMinimaDatabaseTxpowtreeBlockTreeNode:);
-  methods[11].selector = @selector(_cascadeWeightsWithOrgMinimaDatabaseTxpowtreeBlockTreeNode:);
-  methods[12].selector = @selector(getHeaviestBranchTipWithOrgMinimaDatabaseTxpowtreeBlockTreeNode:);
-  methods[13].selector = @selector(findNodeWithOrgMinimaObjectsBaseMiniData:);
-  methods[14].selector = @selector(_findNodeWithOrgMinimaDatabaseTxpowtreeBlockTreeNode:withOrgMinimaObjectsBaseMiniData:);
-  methods[15].selector = @selector(getAsList);
-  methods[16].selector = @selector(getAsListWithBoolean:);
-  methods[17].selector = @selector(getChainSpeed);
-  methods[18].selector = @selector(getAvgChainDifficulty);
+  methods[5].selector = @selector(addNodeWithOrgMinimaDatabaseTxpowtreeBlockTreeNode:);
+  methods[6].selector = @selector(hardAddNodeWithOrgMinimaDatabaseTxpowtreeBlockTreeNode:withBoolean:);
+  methods[7].selector = @selector(hardSetCascadeNodeWithOrgMinimaDatabaseTxpowtreeBlockTreeNode:);
+  methods[8].selector = @selector(resetWeights);
+  methods[9].selector = @selector(_zeroWeightsWithOrgMinimaDatabaseTxpowtreeBlockTreeNode:);
+  methods[10].selector = @selector(_cascadeWeightsWithOrgMinimaDatabaseTxpowtreeBlockTreeNode:);
+  methods[11].selector = @selector(getHeaviestBranchTipWithOrgMinimaDatabaseTxpowtreeBlockTreeNode:);
+  methods[12].selector = @selector(findNodeWithOrgMinimaObjectsBaseMiniData:);
+  methods[13].selector = @selector(_findNodeWithOrgMinimaDatabaseTxpowtreeBlockTreeNode:withOrgMinimaObjectsBaseMiniData:);
+  methods[14].selector = @selector(getOnChainBlockWithOrgMinimaObjectsBaseMiniNumber:);
+  methods[15].selector = @selector(_getOnChainBlockWithOrgMinimaObjectsBaseMiniNumber:withOrgMinimaDatabaseTxpowtreeBlockTreeNode:);
+  methods[16].selector = @selector(getAsList);
+  methods[17].selector = @selector(getAsListWithBoolean:);
+  methods[18].selector = @selector(getChainSpeed);
+  methods[19].selector = @selector(getAvgChainDifficulty);
+  methods[20].selector = @selector(clearTree);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
     { "mRoot_", "LOrgMinimaDatabaseTxpowtreeBlockTreeNode;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mTip_", "LOrgMinimaDatabaseTxpowtreeBlockTreeNode;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mCascadeNode_", "LOrgMinimaDatabaseTxpowtreeBlockTreeNode;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
-    { "mLastNode_", "LOrgMinimaDatabaseTxpowtreeBlockTreeNode;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
   };
-  static const void *ptrTable[] = { "setTreeRoot", "LOrgMinimaDatabaseTxpowtreeBlockTreeNode;", "addNode", "hardAddNode", "LOrgMinimaDatabaseTxpowtreeBlockTreeNode;Z", "hardSetCascadeNode", "_zeroWeights", "_cascadeWeights", "getHeaviestBranchTip", "findNode", "LOrgMinimaObjectsBaseMiniData;", "_findNode", "LOrgMinimaDatabaseTxpowtreeBlockTreeNode;LOrgMinimaObjectsBaseMiniData;", "()Ljava/util/ArrayList<Lorg/minima/database/txpowtree/BlockTreeNode;>;", "getAsList", "Z", "(Z)Ljava/util/ArrayList<Lorg/minima/database/txpowtree/BlockTreeNode;>;" };
-  static const J2ObjcClassInfo _OrgMinimaDatabaseTxpowtreeBlockTree = { "BlockTree", "org.minima.database.txpowtree", ptrTable, methods, fields, 7, 0x1, 19, 4, -1, -1, -1, -1, -1 };
+  static const void *ptrTable[] = { "setTreeRoot", "LOrgMinimaDatabaseTxpowtreeBlockTreeNode;", "addNode", "hardAddNode", "LOrgMinimaDatabaseTxpowtreeBlockTreeNode;Z", "hardSetCascadeNode", "_zeroWeights", "_cascadeWeights", "getHeaviestBranchTip", "findNode", "LOrgMinimaObjectsBaseMiniData;", "_findNode", "LOrgMinimaDatabaseTxpowtreeBlockTreeNode;LOrgMinimaObjectsBaseMiniData;", "getOnChainBlock", "LOrgMinimaObjectsBaseMiniNumber;", "_getOnChainBlock", "LOrgMinimaObjectsBaseMiniNumber;LOrgMinimaDatabaseTxpowtreeBlockTreeNode;", "()Ljava/util/ArrayList<Lorg/minima/database/txpowtree/BlockTreeNode;>;", "getAsList", "Z", "(Z)Ljava/util/ArrayList<Lorg/minima/database/txpowtree/BlockTreeNode;>;" };
+  static const J2ObjcClassInfo _OrgMinimaDatabaseTxpowtreeBlockTree = { "BlockTree", "org.minima.database.txpowtree", ptrTable, methods, fields, 7, 0x1, 21, 3, -1, -1, -1, -1, -1 };
   return &_OrgMinimaDatabaseTxpowtreeBlockTree;
 }
 
@@ -336,6 +347,16 @@ OrgMinimaDatabaseTxpowtreeBlockTreeNode *OrgMinimaDatabaseTxpowtreeBlockTree__fi
     }
   }
   return nil;
+}
+
+OrgMinimaDatabaseTxpowtreeBlockTreeNode *OrgMinimaDatabaseTxpowtreeBlockTree__getOnChainBlockWithOrgMinimaObjectsBaseMiniNumber_withOrgMinimaDatabaseTxpowtreeBlockTreeNode_(OrgMinimaDatabaseTxpowtreeBlockTree *self, OrgMinimaObjectsBaseMiniNumber *zBlockNumber, OrgMinimaDatabaseTxpowtreeBlockTreeNode *zTip) {
+  if (zTip == nil) {
+    return nil;
+  }
+  if ([((OrgMinimaObjectsBaseMiniNumber *) nil_chk([((OrgMinimaObjectsTxPOW *) nil_chk([zTip getTxPow])) getBlockNumber])) isEqualWithOrgMinimaObjectsBaseMiniNumber:zBlockNumber]) {
+    return zTip;
+  }
+  return OrgMinimaDatabaseTxpowtreeBlockTree__getOnChainBlockWithOrgMinimaObjectsBaseMiniNumber_withOrgMinimaDatabaseTxpowtreeBlockTreeNode_(self, zBlockNumber, [zTip getParent]);
 }
 
 J2OBJC_CLASS_TYPE_LITERAL_SOURCE(OrgMinimaDatabaseTxpowtreeBlockTree)

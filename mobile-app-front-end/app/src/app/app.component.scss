@@ -1,3 +1,43 @@
+/** OVERLAY MENU */
+.my-overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: #f2f2f2;
+  opacity: 100%;
+
+  z-index: 20;
+  top: 0;
+  left: auto;
+  right: auto;
+  padding: 10%;
+}
+.my-overlay ion-card ion-card-header ion-item {
+  padding-bottom: 5%;
+}
+.my-overlay img {
+  padding-bottom: 5%;
+}
+.my-overlay p {
+  padding-bottom: 5%;
+}
+.my-overlay-btn {
+  position: relative;
+  top: 25%;
+}
+.my-overlay ion-card {
+  opacity: 100%;
+  --ion-background-color: #ffffff;
+  padding: 25px;
+  top: 20%;
+  padding: 20px;
+  text-align: center;
+}
+/** */
+
+.footer-content {
+  padding: 15px;
+}
 ion-menu {
   --background: var(--ion-background-color, #f2f2f2);
 }
@@ -40,7 +80,7 @@ ion-menu ion-item {
     padding: 10px 70px 0px 0;
 }
 
-
+/** Desktop Version */
 @media only screen and (min-width: 992px) {
 
     .splitpane {
@@ -60,9 +100,20 @@ ion-menu ion-item {
         position: relative;
         padding: 10px 20px 15px 0px;
     }
-
+    .my-overlay ion-card {
+      top: 0%;
+    }
+    .my-overlay img {
+      padding-bottom: 5%;
+      width: 250px;
+    }
+    .my-overlay h2 {
+      font-size: 1.5rem;
+    }
+    .my-overlay p {
+      font-size: 1.5rem;
+    }
 }
-
 /*
  * Material Design Menu
 */

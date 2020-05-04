@@ -28,14 +28,14 @@ J2OBJC_IGNORE_DESIGNATED_END
     tokenid = IOSObjectArray_Get(zInput, 3);
   }
   OrgMinimaUtilsMessagesMessage *sender = [self getResponseMessageWithNSString:OrgMinimaSystemBrainsConsensusHandler_CONSENSUS_CREATETRANS];
-  [((OrgMinimaUtilsMessagesMessage *) nil_chk(sender)) addStringWithNSString:@"address" withNSString:address];
-  [sender addStringWithNSString:@"amount" withNSString:amount];
-  [sender addStringWithNSString:@"tokenid" withNSString:tokenid];
+  (void) [((OrgMinimaUtilsMessagesMessage *) nil_chk(sender)) addStringWithNSString:@"address" withNSString:address];
+  (void) [sender addStringWithNSString:@"amount" withNSString:amount];
+  (void) [sender addStringWithNSString:@"tokenid" withNSString:tokenid];
   [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getConsensusHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:sender];
 }
 
 - (OrgMinimaSystemInputCommandFunction *)getNewFunction {
-  return create_OrgMinimaSystemInputFunctionssend_init();
+  return new_OrgMinimaSystemInputFunctionssend_init();
 }
 
 + (const J2ObjcClassInfo *)__metadata {

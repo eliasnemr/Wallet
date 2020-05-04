@@ -65,8 +65,8 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 + (void)initialize {
   if (self == [OrgMinimaUtilsSuperBlockLevels class]) {
-    JreStrongAssignAndConsume(&OrgMinimaUtilsSuperBlockLevels_GENESIS_HASH, new_OrgMinimaObjectsBaseMiniData_init());
-    JreStrongAssignAndConsume(&OrgMinimaUtilsSuperBlockLevels_TWO, new_JavaMathBigInteger_initWithNSString_(@"2"));
+    OrgMinimaUtilsSuperBlockLevels_GENESIS_HASH = new_OrgMinimaObjectsBaseMiniData_init();
+    OrgMinimaUtilsSuperBlockLevels_TWO = new_JavaMathBigInteger_initWithNSString_(@"2");
     J2OBJC_SET_INITIALIZED(OrgMinimaUtilsSuperBlockLevels)
   }
 }

@@ -1,3 +1,26 @@
+<div class="my-overlay" padding [hidden]="overlayHidden">   
+  <ion-card>
+  <ion-card-header>
+    <img [src]="getImg()">
+  </ion-card-header>
+    <h2> Welcome! </h2>
+    <p> This is <b> Minima's Official Wallet </b>.  
+    It was built as a compact core wallet for Minima v1.0.
+    </p>
+
+    <ion-button
+      expand="full"
+      fill="solid"
+      shape="round"
+      full 
+      (click)="hideOverlay()" 
+      class="my-overlay-btn">
+        Get Started
+    </ion-button>
+
+  </ion-card>
+</div>
+
 <ion-app>
   <ion-split-pane when="lg" contentId="mainMenu" class="splitpane" >
   <ion-menu side="start" contentId="mainMenu">
@@ -53,7 +76,7 @@
     
   </ion-content>
   <ion-menu-toggle auto-hide="false">
-      <ion-footer class="ion-padding">
+      <ion-footer class="footer-content">
         <ion-item routerLink="/community" routerLinkActive="selected" lines="none">
           <ion-icon name="share" slot="start"></ion-icon> Join Community
         </ion-item>

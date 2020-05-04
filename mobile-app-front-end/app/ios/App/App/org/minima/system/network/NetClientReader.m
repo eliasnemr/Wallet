@@ -38,33 +38,33 @@ OrgMinimaObjectsBaseMiniByte *OrgMinimaSystemNetworkNetClientReader_NETMESSAGE_T
 
 - (void)run {
   @try {
-    JavaIoDataInputStream *mInput = create_JavaIoDataInputStream_initWithJavaIoInputStream_(create_JavaIoBufferedInputStream_initWithJavaIoInputStream_([((JavaNetSocket *) nil_chk([((OrgMinimaSystemNetworkNetClient *) nil_chk(mNetClient_)) getSocket])) getInputStream]));
-    OrgMinimaObjectsBaseMiniByte *msgtype = create_OrgMinimaObjectsBaseMiniByte_init();
+    JavaIoDataInputStream *mInput = new_JavaIoDataInputStream_initWithJavaIoInputStream_(new_JavaIoBufferedInputStream_initWithJavaIoInputStream_([((JavaNetSocket *) nil_chk([((OrgMinimaSystemNetworkNetClient *) nil_chk(mNetClient_)) getSocket])) getInputStream]));
+    OrgMinimaObjectsBaseMiniByte *msgtype = new_OrgMinimaObjectsBaseMiniByte_init();
     OrgMinimaSystemBrainsConsensusHandler *consensus = [((OrgMinimaSystemMain *) nil_chk([((OrgMinimaSystemNetworkNetworkHandler *) nil_chk([((OrgMinimaSystemNetworkNetClient *) nil_chk(mNetClient_)) getNetworkHandler])) getMainHandler])) getConsensusHandler];
     while (true) {
       [msgtype readDataStreamWithJavaIoDataInputStream:mInput];
-      OrgMinimaUtilsMessagesMessage *rec = create_OrgMinimaUtilsMessagesMessage_initWithNSString_(JreStrcat("$$@", OrgMinimaSystemBrainsConsensusNet_CONSENSUS_PREFIX, @"NET_MESSAGE_", msgtype));
-      [rec addObjectWithNSString:@"netclient" withId:mNetClient_];
+      OrgMinimaUtilsMessagesMessage *rec = new_OrgMinimaUtilsMessagesMessage_initWithNSString_(JreStrcat("$$@", OrgMinimaSystemBrainsConsensusNet_CONSENSUS_PREFIX, @"NET_MESSAGE_", msgtype));
+      (void) [rec addObjectWithNSString:@"netclient" withId:mNetClient_];
       jboolean valid = true;
       if ([msgtype isEqualWithOrgMinimaObjectsBaseMiniByte:OrgMinimaSystemNetworkNetClientReader_NETMESSAGE_INTRO]) {
-        OrgMinimaSystemBackupSyncPackage *sp = create_OrgMinimaSystemBackupSyncPackage_init();
+        OrgMinimaSystemBackupSyncPackage *sp = new_OrgMinimaSystemBackupSyncPackage_init();
         [sp readDataStreamWithJavaIoDataInputStream:mInput];
-        [rec addObjectWithNSString:@"sync" withId:sp];
+        (void) [rec addObjectWithNSString:@"sync" withId:sp];
       }
       else if ([msgtype isEqualWithOrgMinimaObjectsBaseMiniByte:OrgMinimaSystemNetworkNetClientReader_NETMESSAGE_TXPOWID]) {
-        OrgMinimaObjectsBaseMiniData *hash_ = create_OrgMinimaObjectsBaseMiniData_init();
+        OrgMinimaObjectsBaseMiniData *hash_ = new_OrgMinimaObjectsBaseMiniData_init();
         [hash_ readDataStreamWithJavaIoDataInputStream:mInput];
-        [rec addObjectWithNSString:@"txpowid" withId:hash_];
+        (void) [rec addObjectWithNSString:@"txpowid" withId:hash_];
       }
       else if ([msgtype isEqualWithOrgMinimaObjectsBaseMiniByte:OrgMinimaSystemNetworkNetClientReader_NETMESSAGE_TXPOW]) {
-        OrgMinimaObjectsTxPOW *tx = create_OrgMinimaObjectsTxPOW_init();
+        OrgMinimaObjectsTxPOW *tx = new_OrgMinimaObjectsTxPOW_init();
         [tx readDataStreamWithJavaIoDataInputStream:mInput];
-        [rec addObjectWithNSString:@"txpow" withId:tx];
+        (void) [rec addObjectWithNSString:@"txpow" withId:tx];
       }
       else if ([msgtype isEqualWithOrgMinimaObjectsBaseMiniByte:OrgMinimaSystemNetworkNetClientReader_NETMESSAGE_TXPOW_REQUEST]) {
-        OrgMinimaObjectsBaseMiniData *hash_ = create_OrgMinimaObjectsBaseMiniData_init();
+        OrgMinimaObjectsBaseMiniData *hash_ = new_OrgMinimaObjectsBaseMiniData_init();
         [hash_ readDataStreamWithJavaIoDataInputStream:mInput];
-        [rec addObjectWithNSString:@"txpowid" withId:hash_];
+        (void) [rec addObjectWithNSString:@"txpowid" withId:hash_];
       }
       else {
         valid = false;
@@ -80,12 +80,7 @@ OrgMinimaObjectsBaseMiniByte *OrgMinimaSystemNetworkNetClientReader_NETMESSAGE_T
   }
   @catch (JavaLangException *exc) {
   }
-  [((OrgMinimaSystemNetworkNetworkHandler *) nil_chk([((OrgMinimaSystemNetworkNetClient *) nil_chk(mNetClient_)) getNetworkHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:[create_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemNetworkNetworkHandler_NETWORK_CLIENTERROR) addObjectWithNSString:@"client" withId:mNetClient_]];
-}
-
-- (void)dealloc {
-  RELEASE_(mNetClient_);
-  [super dealloc];
+  [((OrgMinimaSystemNetworkNetworkHandler *) nil_chk([((OrgMinimaSystemNetworkNetClient *) nil_chk(mNetClient_)) getNetworkHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:[new_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemNetworkNetworkHandler_NETWORK_CLIENTERROR) addObjectWithNSString:@"client" withId:mNetClient_]];
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -113,10 +108,10 @@ OrgMinimaObjectsBaseMiniByte *OrgMinimaSystemNetworkNetClientReader_NETMESSAGE_T
 
 + (void)initialize {
   if (self == [OrgMinimaSystemNetworkNetClientReader class]) {
-    JreStrongAssignAndConsume(&OrgMinimaSystemNetworkNetClientReader_NETMESSAGE_INTRO, new_OrgMinimaObjectsBaseMiniByte_initWithInt_(0));
-    JreStrongAssignAndConsume(&OrgMinimaSystemNetworkNetClientReader_NETMESSAGE_TXPOWID, new_OrgMinimaObjectsBaseMiniByte_initWithInt_(1));
-    JreStrongAssignAndConsume(&OrgMinimaSystemNetworkNetClientReader_NETMESSAGE_TXPOW_REQUEST, new_OrgMinimaObjectsBaseMiniByte_initWithInt_(2));
-    JreStrongAssignAndConsume(&OrgMinimaSystemNetworkNetClientReader_NETMESSAGE_TXPOW, new_OrgMinimaObjectsBaseMiniByte_initWithInt_(3));
+    OrgMinimaSystemNetworkNetClientReader_NETMESSAGE_INTRO = new_OrgMinimaObjectsBaseMiniByte_initWithInt_(0);
+    OrgMinimaSystemNetworkNetClientReader_NETMESSAGE_TXPOWID = new_OrgMinimaObjectsBaseMiniByte_initWithInt_(1);
+    OrgMinimaSystemNetworkNetClientReader_NETMESSAGE_TXPOW_REQUEST = new_OrgMinimaObjectsBaseMiniByte_initWithInt_(2);
+    OrgMinimaSystemNetworkNetClientReader_NETMESSAGE_TXPOW = new_OrgMinimaObjectsBaseMiniByte_initWithInt_(3);
     J2OBJC_SET_INITIALIZED(OrgMinimaSystemNetworkNetClientReader)
   }
 }
@@ -125,7 +120,7 @@ OrgMinimaObjectsBaseMiniByte *OrgMinimaSystemNetworkNetClientReader_NETMESSAGE_T
 
 void OrgMinimaSystemNetworkNetClientReader_initWithOrgMinimaSystemNetworkNetClient_(OrgMinimaSystemNetworkNetClientReader *self, OrgMinimaSystemNetworkNetClient *zNetClient) {
   NSObject_init(self);
-  JreStrongAssign(&self->mNetClient_, zNetClient);
+  self->mNetClient_ = zNetClient;
 }
 
 OrgMinimaSystemNetworkNetClientReader *new_OrgMinimaSystemNetworkNetClientReader_initWithOrgMinimaSystemNetworkNetClient_(OrgMinimaSystemNetworkNetClient *zNetClient) {

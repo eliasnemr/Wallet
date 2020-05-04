@@ -19,16 +19,13 @@
 - (void)runWithOrgMinimaKissvmContract:(OrgMinimaKissvmContract *)zContract {
   for (id<OrgMinimaKissvmStatementsStatement> __strong stat in nil_chk(mStatements_)) {
     if ([((OrgMinimaKissvmContract *) nil_chk(zContract)) isSuccessSet]) {
+      [zContract traceLogWithNSString:JreStrcat("$Z", @"SUCCESS SET : ", [zContract isSuccess])];
       return;
     }
     [zContract incrementInstructions];
-    [((id<OrgMinimaKissvmStatementsStatement>) nil_chk(stat)) executeWithOrgMinimaKissvmContract:zContract];
+    [zContract traceLogWithNSString:[((id<OrgMinimaKissvmStatementsStatement>) nil_chk(stat)) description]];
+    [stat executeWithOrgMinimaKissvmContract:zContract];
   }
-}
-
-- (void)dealloc {
-  RELEASE_(mStatements_);
-  [super dealloc];
 }
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -54,7 +51,7 @@
 
 void OrgMinimaKissvmStatementsStatementBlock_initWithJavaUtilList_(OrgMinimaKissvmStatementsStatementBlock *self, id<JavaUtilList> zStatements) {
   NSObject_init(self);
-  JreStrongAssign(&self->mStatements_, zStatements);
+  self->mStatements_ = zStatements;
 }
 
 OrgMinimaKissvmStatementsStatementBlock *new_OrgMinimaKissvmStatementsStatementBlock_initWithJavaUtilList_(id<JavaUtilList> zStatements) {
