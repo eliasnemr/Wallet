@@ -11,6 +11,7 @@ import { darkMode } from '../../service/darkMode.service';
 })
 export class SettingsPage implements OnInit {
 
+  overlayHidePref: boolean = false;
   toggleValue: boolean = false;
   host = '';
 
@@ -21,6 +22,12 @@ export class SettingsPage implements OnInit {
       this.toggleValue = true;
     } else {
       this.toggleValue = false;
+    }
+
+    if(localStorage.getItem('overlayVal') === 'true'){
+      this.overlayHidePref = true;
+    } else {
+      this.overlayHidePref = false;
     }
      
     }
@@ -38,10 +45,16 @@ export class SettingsPage implements OnInit {
   /** MISCELLANEOUS */
   saveUserPreferences() {
 
-    if(localStorage.getItem('toggleVal') === 'true'){
-      this.toggleValue = true;
+     if(localStorage.getItem('toggleVal') === 'true'){
+       this.toggleValue = true;
+     } else {
+       this.toggleValue = false;
+     }
+
+     if(localStorage.getItem('overlayVal') === 'true'){
+      this.overlayHidePref = true;
     } else {
-      this.toggleValue = false;
+      this.overlayHidePref = false;
     }
       
     // save host used.
@@ -59,6 +72,12 @@ export class SettingsPage implements OnInit {
     } else {
       this.toggleValue = false;
     }
+
+    if(localStorage.getItem('overlayVal') === 'true'){
+      this.overlayHidePref = true;
+    } else {
+      this.overlayHidePref = false;
+    }
       
     // save host used.
     if (this.host!=='') {      
@@ -66,6 +85,14 @@ export class SettingsPage implements OnInit {
     }
 
     this.presentToast();
+  }
+
+  checkOverlayToggle() {
+    if(this.overlayHidePref === true){
+      localStorage.setItem('overlayVal', 'true');
+    } else {
+      localStorage.setItem('overlayVal', 'false');
+    }
   }
 
   checkToggle(e: Event) {

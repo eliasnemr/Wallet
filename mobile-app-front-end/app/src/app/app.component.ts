@@ -14,6 +14,7 @@ declare var Minima: any;
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
+
   overlayHidden: boolean = false;
   private currentRoute:string='';
   currentMode: boolean = false;
@@ -44,6 +45,13 @@ export class AppComponent {
     
     } else {
       document.body.classList.toggle('dark', false);
+    }
+
+    //check cookies for overlay welcome screen
+    if(localStorage.getItem('overlayVal') === 'true'){
+      this.overlayHidden = true;
+    } else {
+      this.overlayHidden = false;
     }
 
   }
@@ -84,7 +92,7 @@ export class AppComponent {
         { title:'Status', routerLink: '/status', icon: 'analytics', line: 'none', hidden: false},
         { title:'Terminal', routerLink: '/mini-term', icon: 'code', line: 'full', hidden: false},
         { title:'Web', routerLink: '/web-scanner', icon: 'desktop', line: 'full', hidden: true},
-        { title:'Settings', routerLink: '/settings', icon: 'build', line: 'none', hidden: false},
+        { title:'Community', routerLink: '/community', icon: 'share', line: 'none', hidden: false},
       ]
     } else {
       this.basic =
@@ -102,7 +110,7 @@ export class AppComponent {
         { title:'Status', routerLink: '/status', icon: 'analytics', line: 'none', hidden: false},
         { title:'Terminal', routerLink: '/mini-term', icon: 'code', line: 'none', hidden: false},
         { title:'Web', routerLink: '/web-scanner', icon: 'desktop', line: 'full', hidden: true},
-        { title:'Settings', routerLink: '/settings', icon: 'build', line: 'none', hidden: false},
+        { title:'Community', routerLink: '/community', icon: 'share', line: 'none', hidden: false},
       ]
     }
   }

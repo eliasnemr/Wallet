@@ -1,6 +1,6 @@
 import { Tokens } from '../../models/tokens.model';
 import { BalanceService } from '../../service/balance.service';
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit, NgZone, ViewChild, ElementRef } from '@angular/core';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 import { Clipboard } from '@ionic-native/clipboard/ngx';
 import { AlertController, Platform, NavParams } from '@ionic/angular';
@@ -17,6 +17,8 @@ import jsQR from "jsqr";
   providers: [ BalanceService ],
 })
 export class SendFundsPage implements OnInit {
+
+  @ViewChild('address', {static: false}) address: ElementRef;
 
   compareWith: any;
   itemSelected: any;
@@ -66,13 +68,13 @@ export class SendFundsPage implements OnInit {
     if(param === empty || param === this.MINIMA_TOKEN_ID){
     
       this.itemSelected = this.tokenArr[0];
-      this.data.tokenid = "0x00";
+      this.updateTokenId("0x00");
     
     } else if(param !== empty && param !== this.MINIMA_TOKEN_ID ){
     this.tokenArr.forEach(element => {
       if(param === element.id){
         this.itemSelected = element;
-        this.data.tokenid = element.id;
+        this.updateTokenId(element.id);
       }
     })
   }
@@ -307,7 +309,7 @@ export class SendFundsPage implements OnInit {
   }
 
   pasteFromClipboard() {
-    if(this.platform.is('desktop') || this.platform.is('pwa')) {
+    if(this.platform.is('desktop')) {
 
       this.pasteFromPWA();
 
@@ -326,6 +328,7 @@ export class SendFundsPage implements OnInit {
 
   pasteFromPWA() {
     document.addEventListener('paste', (e: ClipboardEvent) => {
+
       this.data.address = e.clipboardData.getData('text');
       
       e.preventDefault();
