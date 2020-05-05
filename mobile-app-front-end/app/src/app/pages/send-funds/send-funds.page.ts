@@ -3,7 +3,7 @@ import { BalanceService } from '../../service/balance.service';
 import { Component, OnInit, NgZone } from '@angular/core';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 import { Clipboard } from '@ionic-native/clipboard/ngx';
-import { AlertController, Platform } from '@ionic/angular';
+import { AlertController, Platform, NavParams } from '@ionic/angular';
 import { MinimaApiService } from '../../service/minima-api.service';
 import { map } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
@@ -18,18 +18,18 @@ import jsQR from "jsqr";
 })
 export class SendFundsPage implements OnInit {
 
+  compareWith: any;
+  itemSelected: any;
+  isCameraOpen: boolean = false;
   minimaToken: any;
   data: any = {};
-  isCameraOpen: boolean = false;
+
   balanceSubscription: Subscription;
-  ionApp = <HTMLElement>document.getElementsByTagName('ion-app')[0];
-  MINIMA_TOKEN_ID = '0x00';  
-  hideProgress = false;
-  progressShow = true;
-  strUnconfirmed: any;
+ 
 
   // Token Array Type
   tokenArr: Tokens[] = [];
+  MINIMA_TOKEN_ID = '0x00'; 
 
   private lastJSON: string = '';
   private scanSub:any=null;
@@ -41,13 +41,15 @@ export class SendFundsPage implements OnInit {
     private platform: Platform,
     private route: ActivatedRoute) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.isCameraOpen = false;
+  }
 
-  ionViewWillEnter() {
-    // get token selected or set Minima as default if none..
+  ionViewWillEnter(){
     this.pullInTokens();
     this.getTokenSelected();
-    }
+    this.isCameraOpen = false;
+  }
 
   ionViewWillLeave() {
     // unsubscribe
@@ -55,33 +57,41 @@ export class SendFundsPage implements OnInit {
     this.stopCamera();
   }
 
-  getTokenSelected(): string {
-    this.pullInTokens();
+  // get token selected or set Minima as default
+  getTokenSelected() {    
+    // check url snapshot
     const empty = undefined;
     const param = this.route.snapshot.params['id'];
-    console.log("The selected token now is: "+ param);
+    // check param
     if(param === empty || param === this.MINIMA_TOKEN_ID){
-      console.log("Default to Minima");
-
-      this.isCameraOpen = false;
-      // set for sending
-
-      this.data.tokenid = this.route.snapshot.params['id'];
-      return "0x00";
+    
+      this.itemSelected = this.tokenArr[0];
+      this.data.tokenid = "0x00";
+    
     } else if(param !== empty && param !== this.MINIMA_TOKEN_ID ){
-      console.log("It's a custom token");
-      console.log(this.tokenArr);
-      this.isCameraOpen = false;
-      // set for sending
+    this.tokenArr.forEach(element => {
+      if(param === element.id){
+        this.itemSelected = element;
+        this.data.tokenid = element.id;
+      }
+    })
+  }
+  }
 
-      this.data.tokenid = this.route.snapshot.params['id'];
+  // listen to selection change
+  onItemSelection($event) {
+    this.tokenArr.forEach(element => {
+      if(this.itemSelected === element.id){
+        this.itemSelected = element;
 
-      return ""+param;
-      
-      
-    } else {
-      return "";
-    }
+        // update tokenid
+        this.updateTokenId(element.id);
+      }
+    })
+  }
+  // fn to update tokenid
+  updateTokenId(id) {
+    this.data.tokenid = id;
   }
 
   /** ScanQR: Native || Desktop */
@@ -200,6 +210,7 @@ export class SendFundsPage implements OnInit {
 
           }
         }
+
         return tokenArr;
         
       })
@@ -210,7 +221,10 @@ export class SendFundsPage implements OnInit {
       if(this.lastJSON !== JSON.stringify(responseData)){
         this.tokenArr = [...responseData];
         this.lastJSON = JSON.stringify(responseData);
-      }
+
+        // add tokens
+        this.getTokenSelected();
+      } 
 
     });
   }
@@ -222,7 +236,7 @@ export class SendFundsPage implements OnInit {
         if(res.status == true) {
           this.presentAlert('Sent successfully!', 'Info');
         } else {
-          this.presentAlert(res.error, 'Error');
+          this.presentAlert(res.error, 'Insufficient funds.');
         }
       })
     } else {
@@ -292,7 +306,6 @@ export class SendFundsPage implements OnInit {
     }
   }
 
-  
   pasteFromClipboard() {
     if(this.platform.is('desktop') || this.platform.is('pwa')) {
 
@@ -314,7 +327,6 @@ export class SendFundsPage implements OnInit {
   pasteFromPWA() {
     document.addEventListener('paste', (e: ClipboardEvent) => {
       this.data.address = e.clipboardData.getData('text');
-      
       
       e.preventDefault();
       document.removeEventListener('paste', null);
