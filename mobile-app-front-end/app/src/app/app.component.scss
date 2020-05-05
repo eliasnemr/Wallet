@@ -116,6 +116,12 @@ ion-menu ion-item {
     .my-overlay p {
       font-size: 1.5rem;
     }
+    .my-overlay ion-card-header {
+      display:inline-block;
+      height:auto;
+      width:20%;
+      margin: 0 auto;
+    }
 }
 /*
  * Material Design Menu

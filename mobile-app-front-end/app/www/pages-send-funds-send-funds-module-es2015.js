@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-app>\n<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    <ion-title color=\"primary\">\n      Send\n    </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content *ngIf=\"isCameraOpen==false\">\n  <ion-card>\n    <ion-card-header>\n      <ion-card-title>\n        <ion-item lines=\"none\">\n          <ion-icon style=\" font-size:2.0rem;\" slot=\"start\" name=\"send\" class=\"icon-head\" ></ion-icon>\n        </ion-item>\n      </ion-card-title>\n    </ion-card-header>\n\n    <ion-card-content>\n        <ion-item>\n          <ion-label position=\"floating\">Tokens</ion-label>\n          <ion-select \n              interface = 'alert'\n              class=\"token-select\"\n              placeholder = \"Select your token\"\n              [(ngModel)]=\"selected_minima\">\n          <ion-select-option *ngFor=\"let token of tokenArr; let i = index\" value=\"{{token.id}}\" class=\"token-option\" >\n            {{ token.token  + ' <' + token.id.substring(0, 12) + '>'  }} \n          </ion-select-option>\n        </ion-select>\n        </ion-item>\n\n        <ion-item>\n          <ion-label position=\"floating\">Address</ion-label>\n          <ion-input name=\"address\" [(ngModel)]=\"data.address\"></ion-input>\n          \n        </ion-item>\n        <ion-item lines=\"none\" slot=\"end\" [hidden]=\"!checkPlatform()\">\n          <ion-button type=\"button\" class=\"util-btns\" size=\"small\" (click)=\"scanQR()\">\n            <ion-label slot=\"start\" style=\"padding:2px\">SCAN QR</ion-label>\n            <ion-icon  name=\"qr-scanner\" ></ion-icon>\n          </ion-button>\n          <ion-button type=\"button\" size=\"small\" class=\"util-btns\" (click)=\"pasteFromClipboard()\" [hidden]=\"!checkPlatform()\">\n            <ion-label slot=\"start\" style=\"padding:5px\">CLIPBOARD</ion-label>\n            <ion-icon name=\"clipboard\" ></ion-icon>\n          </ion-button>\n        </ion-item>\n        <ion-item>\n          <ion-label position=\"floating\">Amount</ion-label>\n          <ion-input type=\"number\" name=\"amount\" [(ngModel)]=\"data.amount\"></ion-input>\n        </ion-item>\n    </ion-card-content>\n    \n  </ion-card>\n</ion-content>\n<ion-footer>\n  <ion-toolbar>\n    <ion-buttons> \n      <ion-button class=\"action-btn\" expand=\"block\" (click)=\"stopCamera()\"  *ngIf=\"isCameraOpen==true\">\n        Stop scanning\n       </ion-button>\n      <ion-button class=\"action-btn\" expand=\"block\" (click)=\"sendFunds()\" *ngIf=\"isCameraOpen==false\">\n        <ion-icon name=\"send\" slot=\"start\"></ion-icon> Send\n      </ion-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-footer>\n</ion-app>"
+module.exports = "<ion-app>\n<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    <ion-title color=\"primary\">\n      Send\n    </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content *ngIf=\"isCameraOpen==false\">\n  <ion-card>\n    <ion-card-header>\n      <ion-card-title>\n        <ion-item lines=\"none\">\n          <ion-icon style=\" font-size:2.0rem;\" slot=\"start\" name=\"send\" class=\"icon-head\" ></ion-icon>\n        </ion-item>\n      </ion-card-title>\n    </ion-card-header>\n\n    <ion-card-content>\n        <ion-item>\n          <ion-label position=\"floating\">Tokens</ion-label>\n          <ion-select \n              interface = 'alert'\n              class=\"token-select\"\n              [(ngModel)]=\"itemSelected\"\n              (ionChange)=\"onItemSelection($event)\"> \n          <ion-select-option *ngFor=\"let token of tokenArr;\" [value]=\"token\" class=\"token-option\">\n          \n            <p *ngIf=\"token.id === '0x00'\">\n            {{ token.token  + ' <' + token.id.substring(0, 12) + '>'  }} \n            </p>\n\n            <p *ngIf=\"token.id !== '0x00'\">\n            {{ token.token  + ' <' + token.id.substring(0, 12) + '...>'  }} \n            </p>\n          </ion-select-option>\n        </ion-select>\n        </ion-item>\n\n        <ion-item>\n          <ion-label position=\"floating\">Address</ion-label>\n          <ion-input name=\"address\" [(ngModel)]=\"data.address\"></ion-input>\n          \n        </ion-item>\n        <ion-item lines=\"none\" slot=\"end\" [hidden]=\"!checkPlatform()\">\n          <ion-button type=\"button\" class=\"util-btns\" size=\"small\" (click)=\"scanQR()\">\n            <ion-label slot=\"start\" style=\"padding:2px\">SCAN QR</ion-label>\n            <ion-icon  name=\"qr-scanner\" ></ion-icon>\n          </ion-button>\n          <ion-button type=\"button\" size=\"small\" class=\"util-btns\" (click)=\"pasteFromClipboard()\">\n            <ion-label slot=\"start\" style=\"padding:5px\">CLIPBOARD</ion-label>\n            <ion-icon name=\"clipboard\" ></ion-icon>\n          </ion-button>\n        </ion-item>\n        <ion-item>\n          <ion-label position=\"floating\">Amount</ion-label>\n          <ion-input type=\"number\" name=\"amount\" [(ngModel)]=\"data.amount\"></ion-input>\n        </ion-item>\n    </ion-card-content>\n    \n  </ion-card>\n</ion-content>\n<ion-footer>\n  <ion-toolbar>\n    <ion-buttons> \n      <ion-button class=\"action-btn\" expand=\"block\" (click)=\"stopCamera()\"  *ngIf=\"isCameraOpen==true\">\n        Stop scanning\n       </ion-button>\n      <ion-button class=\"action-btn\" expand=\"block\" (click)=\"sendFunds()\" *ngIf=\"isCameraOpen==false\">\n        <ion-icon name=\"send\" slot=\"start\"></ion-icon> Send\n      </ion-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-footer>\n</ion-app>"
 
 /***/ }),
 
@@ -108,70 +108,99 @@ let SendFundsPage = class SendFundsPage {
         this.balanceService = balanceService;
         this.platform = platform;
         this.route = route;
-        this.lastJSON = '';
-        this.data = {};
         this.isCameraOpen = false;
-        this.scanSub = null;
-        this.ionApp = document.getElementsByTagName('ion-app')[0];
-        // Pull in tokens vars
-        this.MINIMA_TOKEN_ID = '0x00';
-        this.hideProgress = false;
-        this.progressShow = true;
+        this.data = {};
+        // Token Array Type
         this.tokenArr = [];
+        this.MINIMA_TOKEN_ID = '0x00';
+        this.lastJSON = '';
+        this.scanSub = null;
     }
-    ngOnInit() { }
+    ngOnInit() {
+        this.isCameraOpen = false;
+    }
     ionViewWillEnter() {
-        const empty = undefined;
-        if (this.route.snapshot.params['id'] === empty) {
-            this.selected_minima = this.MINIMA_TOKEN_ID;
-            this.pullInTokens();
-            this.isCameraOpen = false;
-        }
-        else {
-            this.selected_minima = this.route.snapshot.params['id'];
-            this.pullInTokens();
-            this.isCameraOpen = false;
-        }
+        this.pullInTokens();
+        this.getTokenSelected();
+        this.isCameraOpen = false;
     }
     ionViewWillLeave() {
+        // unsubscribe
         this.balanceSubscription.unsubscribe();
         this.stopCamera();
     }
-    ionViewDidLoad() {
-        this.data.tokenid = this.MINIMA_TOKEN_ID;
+    // get token selected or set Minima as default
+    getTokenSelected() {
+        // check url snapshot
+        const empty = undefined;
+        const param = this.route.snapshot.params['id'];
+        // check param
+        if (param === empty || param === this.MINIMA_TOKEN_ID) {
+            this.itemSelected = this.tokenArr[0];
+            this.updateTokenId("0x00");
+        }
+        else if (param !== empty && param !== this.MINIMA_TOKEN_ID) {
+            this.tokenArr.forEach(element => {
+                if (param === element.id) {
+                    this.itemSelected = element;
+                    this.updateTokenId(element.id);
+                }
+            });
+        }
     }
-    /** Camera Functions */
+    // listen to selection change
+    onItemSelection($event) {
+        this.tokenArr.forEach(element => {
+            if (this.itemSelected === element.id) {
+                this.itemSelected = element;
+                // update tokenid
+                this.updateTokenId(element.id);
+            }
+        });
+    }
+    // fn to update tokenid
+    updateTokenId(id) {
+        this.data.tokenid = id;
+    }
+    /** ScanQR: Native || Desktop */
     scanQR() {
-        this.qrScanner.prepare()
-            .then((status) => {
-            if (status.authorized) {
-                // Which class adding should I use?
-                this.identifyPlatformToScan_Add();
-                this.qrScanner.show();
-                this.isCameraOpen = true;
-                this.scanSub = this.qrScanner.scan().subscribe((text) => {
-                    this.zone.run(() => {
-                        this.data.address = text;
-                        this.stopCamera();
-                        this.identifyPlatformToScan_Remove();
-                        this.isCameraOpen = false;
+        if (this.platform.is('ios') || this.platform.is('android')) {
+            this.qrScanner.prepare()
+                .then((status) => {
+                if (status.authorized) {
+                    // Which class adding should I use?
+                    this.identifyPlatformToScan_Add();
+                    this.qrScanner.show();
+                    this.isCameraOpen = true;
+                    this.scanSub = this.qrScanner.scan().subscribe((text) => {
+                        this.zone.run(() => {
+                            this.data.address = text;
+                            this.stopCamera();
+                            this.identifyPlatformToScan_Remove();
+                            this.isCameraOpen = false;
+                        });
+                    }, (err) => {
+                        console.log('Scanned failed', err);
                     });
-                }, (err) => {
-                    console.log('Scanned failed', err);
-                });
-            }
-            else if (status.denied) {
-                // camera permission was permanently denied
-                // you must use QRScanner.openSettings() method to guide the user to the settings page
-                // then they can grant the permission from there
-                this.presentAlert('Please check camera permission', 'Error');
-            }
-            else {
-                // permission was denied, but not permanently. You can ask for permission again at a later time.
-                this.presentAlert('Please check camera permission', 'Error');
-            }
-        })
-            .catch((e) => console.log('Error is', e));
+                }
+                else if (status.denied) {
+                    // camera permission was permanently denied
+                    // you must use QRScanner.openSettings() method to guide the user to the settings page
+                    // then they can grant the permission from there
+                    this.presentAlert('Please check camera permission', 'Error');
+                }
+                else {
+                    // permission was denied, but not permanently. You can ask for permission again at a later time.
+                    this.presentAlert('Please check camera permission', 'Error');
+                }
+            })
+                .catch((e) => console.log('Error is', e));
+        }
+        else {
+            // browser compatible qr scan
+            this.presentAlert("Using Minidesk", "Minidesktop");
+            //jsQR()
+        }
     }
     stopCamera() {
         if (this.scanSub !== null) {
@@ -238,11 +267,12 @@ let SendFundsPage = class SendFundsPage {
             if (this.lastJSON !== JSON.stringify(responseData)) {
                 this.tokenArr = [...responseData];
                 this.lastJSON = JSON.stringify(responseData);
+                // add tokens
+                this.getTokenSelected();
             }
         });
     }
     sendFunds() {
-        this.data.tokenid = this.selected_minima;
         if (this.data.address && this.data.address !== '' && this.data.amount && this.data.amount > 0 &&
             this.data.tokenid && this.data.tokenid !== '') {
             this.api.sendFunds(this.data).then((res) => {
@@ -250,7 +280,7 @@ let SendFundsPage = class SendFundsPage {
                     this.presentAlert('Sent successfully!', 'Info');
                 }
                 else {
-                    this.presentAlert(res.error, 'Error');
+                    this.presentAlert(res.error, 'Insufficient funds.');
                 }
             });
         }
@@ -312,7 +342,7 @@ let SendFundsPage = class SendFundsPage {
     }
     // Display/hide mobile buttons with this..
     checkPlatform() {
-        if (this.platform.is('desktop') || this.platform.is('pwa')) {
+        if (this.platform.is('desktop')) {
             return false;
         }
         else {
@@ -320,7 +350,7 @@ let SendFundsPage = class SendFundsPage {
         }
     }
     pasteFromClipboard() {
-        if (this.platform.is('desktop') || this.platform.is('pwa')) {
+        if (this.platform.is('desktop')) {
             this.pasteFromPWA();
         }
         else {
@@ -350,6 +380,10 @@ SendFundsPage.ctorParameters = () => [
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["Platform"] },
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_8__["ActivatedRoute"] }
 ];
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ViewChild"])('address', { static: false }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_2__["ElementRef"])
+], SendFundsPage.prototype, "address", void 0);
 SendFundsPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Component"])({
         selector: 'app-send-funds',
