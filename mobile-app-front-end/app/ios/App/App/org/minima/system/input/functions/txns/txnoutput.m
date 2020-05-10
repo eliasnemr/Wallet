@@ -41,16 +41,21 @@ J2OBJC_IGNORE_DESIGNATED_END
   else if ([address java_hasPrefix:@"Mx"]) {
     address = [((OrgMinimaObjectsBaseMiniData *) nil_chk(OrgMinimaObjectsAddress_convertMinimaAddressWithNSString_(address))) to0xString];
   }
-  OrgMinimaObjectsAddress *addr = new_OrgMinimaObjectsAddress_initWithOrgMinimaObjectsBaseMiniData_(new_OrgMinimaObjectsBaseMiniData_initWithNSString_(address));
-  NSString *tokenid = @"0x00";
-  if (zInput->size_ > 4) {
-    tokenid = IOSObjectArray_Get(zInput, 4);
+  else {
+    [((OrgMinimaUtilsResponseStream *) nil_chk([self getResponseStream])) endStatusWithBoolean:false withNSString:JreStrcat("$$", @"INVALID ADDRESS.. ", address)];
+    return;
   }
+  OrgMinimaObjectsAddress *addr = new_OrgMinimaObjectsAddress_initWithOrgMinimaObjectsBaseMiniData_(new_OrgMinimaObjectsBaseMiniData_initWithNSString_(address));
+  NSString *tokenid = IOSObjectArray_Get(zInput, 4);
   OrgMinimaUtilsMessagesMessage *msg = [self getResponseMessageWithNSString:OrgMinimaSystemBrainsConsensusTxn_CONSENSUS_TXNOUTPUT];
   (void) [((OrgMinimaUtilsMessagesMessage *) nil_chk(msg)) addIntWithNSString:@"transaction" withInt:txn];
   (void) [msg addStringWithNSString:@"value" withNSString:value];
   (void) [msg addObjectWithNSString:@"address" withId:addr];
   (void) [msg addStringWithNSString:@"tokenid" withNSString:tokenid];
+  if (zInput->size_ > 5) {
+    jint position = JavaLangInteger_parseIntWithNSString_(IOSObjectArray_Get(zInput, 5));
+    (void) [msg addIntWithNSString:@"position" withInt:position];
+  }
   [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getConsensusHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:msg];
 }
 
@@ -80,7 +85,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 void OrgMinimaSystemInputFunctionsTxnstxnoutput_init(OrgMinimaSystemInputFunctionsTxnstxnoutput *self) {
   OrgMinimaSystemInputCommandFunction_initWithNSString_(self, @"txnoutput");
-  [self setHelpWithNSString:@"[id] [amount] [address] {tokenID}" withNSString:@"Add an output to the specified transaction" withNSString:@""];
+  [self setHelpWithNSString:@"[id] [amount] [address] [tokenID] (position)" withNSString:@"Add an output to the specified transaction. Can specify position or added at end." withNSString:@""];
 }
 
 OrgMinimaSystemInputFunctionsTxnstxnoutput *new_OrgMinimaSystemInputFunctionsTxnstxnoutput_init() {

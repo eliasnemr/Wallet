@@ -54,6 +54,7 @@ export class MinimaApiService {
 
   setHost(newHost: string) {
     localStorage.setItem('minima_host', newHost);
+    environment.defaultNode = newHost;
     this.host = newHost;
   }
 

@@ -3,9 +3,8 @@
   position: fixed;
   width: 100%;
   height: 100%;
-  background: #f2f2f2;
+  background: var(--ion-background-color, #f2f2f2);
   opacity: 100%;
-
   z-index: 20;
   top: 0;
   left: auto;
@@ -27,7 +26,7 @@
 }
 .my-overlay ion-card {
   opacity: 100%;
-  --ion-background-color: #ffffff;
+  --background: var(--ion-background-color, #f2f2f2);
   padding: 25px;
   top: 20%;
   padding: 20px;
@@ -37,7 +36,6 @@
   font-size: 12px;
 }
 /** */
-
 .footer-content {
   padding: 15px;
 }
@@ -91,10 +89,13 @@ ion-menu ion-item {
         margin-right: 180px;
         margin-top: 100px;
         margin-bottom: 100px;
-        box-shadow: 2px 2px 5px grey;
+        // box-shadow: 2px 2px 5px grey;
     }
     ion-app {
         background-image: url('../assets/miniTiles.png');
+    }
+    ion-menu-toggle {
+      height: 72px;
     }
     .menu-logo {
         height: auto;
@@ -105,6 +106,9 @@ ion-menu ion-item {
     }
     .my-overlay ion-card {
       top: 0%;
+      width: 650px;
+      height: auto;
+      margin-left: 28%;
     }
     .my-overlay img {
       padding-bottom: 5%;
@@ -112,14 +116,17 @@ ion-menu ion-item {
     }
     .my-overlay h2 {
       font-size: 1.5rem;
+      padding-bottom: 0px;
     }
     .my-overlay p {
       font-size: 1.5rem;
+      padding-bottom: 0%;
     }
     .my-overlay ion-card-header {
       display:inline-block;
       height:auto;
-      width:20%;
+      width:30%;
+      padding-bottom: 6%;
       margin: 0 auto;
     }
 }
@@ -169,6 +176,9 @@ ion-menu.md ion-list {
     margin: auto;
     color: #FF671E;
     font-size: 8px;
+  }
+  .ios .footer-content {
+    padding: 18px;
   }
     
   ion-menu.ios ion-item.selected {

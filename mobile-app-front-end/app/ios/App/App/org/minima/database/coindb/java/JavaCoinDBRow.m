@@ -4,10 +4,12 @@
 //
 
 #include "J2ObjC_source.h"
+#include "java/lang/Boolean.h"
 #include "org/minima/database/coindb/java/JavaCoinDBRow.h"
 #include "org/minima/objects/Coin.h"
 #include "org/minima/objects/base/MiniInteger.h"
 #include "org/minima/objects/base/MiniNumber.h"
+#include "org/minima/utils/json/JSONObject.h"
 
 @implementation OrgMinimaDatabaseCoindbJavaJavaCoinDBRow
 
@@ -17,7 +19,19 @@
 }
 
 - (NSString *)description {
-  return JreStrcat("$@$Z$Z$@C@", @"MMR:", [self getMMREntry], @" spent:", mIsSpent_, @" inblock:", mIsInBlock_, @" block:", mInBlockNumber_, ' ', mCoin_);
+  return [((OrgMinimaUtilsJsonJSONObject *) nil_chk([self toJSON])) description];
+}
+
+- (OrgMinimaUtilsJsonJSONObject *)toJSON {
+  OrgMinimaUtilsJsonJSONObject *ret = new_OrgMinimaUtilsJsonJSONObject_init();
+  (void) [ret putWithId:@"mmrentry" withId:[((OrgMinimaObjectsBaseMiniInteger *) nil_chk([self getMMREntry])) description]];
+  (void) [ret putWithId:@"spent" withId:JavaLangBoolean_valueOfWithBoolean_(mIsSpent_)];
+  (void) [ret putWithId:@"relevant" withId:JavaLangBoolean_valueOfWithBoolean_(mRelevant_)];
+  (void) [ret putWithId:@"keeper" withId:JavaLangBoolean_valueOfWithBoolean_(mKeeper_)];
+  (void) [ret putWithId:@"isinblock" withId:JavaLangBoolean_valueOfWithBoolean_(mIsInBlock_)];
+  (void) [ret putWithId:@"inblock" withId:[((OrgMinimaObjectsBaseMiniNumber *) nil_chk(mInBlockNumber_)) description]];
+  (void) [ret putWithId:@"coin" withId:[((OrgMinimaObjectsCoin *) nil_chk(mCoin_)) toJSON]];
+  return ret;
 }
 
 - (OrgMinimaObjectsCoin *)getCoin {
@@ -56,10 +70,27 @@
   return mEntryNumber_;
 }
 
+- (void)setRelevantWithBoolean:(jboolean)zRelevant {
+  mRelevant_ = zRelevant;
+}
+
+- (jboolean)isRelevant {
+  return mRelevant_;
+}
+
+- (void)setKeeperWithBoolean:(jboolean)zKeeper {
+  mKeeper_ = zKeeper;
+}
+
+- (jboolean)isKeeper {
+  return mKeeper_;
+}
+
 + (const J2ObjcClassInfo *)__metadata {
   static J2ObjcMethodInfo methods[] = {
     { NULL, NULL, 0x1, -1, 0, -1, -1, -1, -1 },
     { NULL, "LNSString;", 0x1, 1, -1, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaUtilsJsonJSONObject;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaObjectsCoin;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 2, 3, -1, -1, -1, -1 },
     { NULL, "Z", 0x1, -1, -1, -1, -1, -1, -1 },
@@ -69,21 +100,30 @@
     { NULL, "Z", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 7, 8, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaObjectsBaseMiniInteger;", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 9, 3, -1, -1, -1, -1 },
+    { NULL, "Z", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 10, 3, -1, -1, -1, -1 },
+    { NULL, "Z", 0x1, -1, -1, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
   #pragma clang diagnostic ignored "-Wundeclared-selector"
   methods[0].selector = @selector(initWithOrgMinimaObjectsCoin:);
   methods[1].selector = @selector(description);
-  methods[2].selector = @selector(getCoin);
-  methods[3].selector = @selector(setIsSpentWithBoolean:);
-  methods[4].selector = @selector(isSpent);
-  methods[5].selector = @selector(setInBlockNumberWithOrgMinimaObjectsBaseMiniNumber:);
-  methods[6].selector = @selector(getInBlockNumber);
-  methods[7].selector = @selector(setIsInBlockWithBoolean:);
-  methods[8].selector = @selector(isInBlock);
-  methods[9].selector = @selector(setMMREntryWithOrgMinimaObjectsBaseMiniInteger:);
-  methods[10].selector = @selector(getMMREntry);
+  methods[2].selector = @selector(toJSON);
+  methods[3].selector = @selector(getCoin);
+  methods[4].selector = @selector(setIsSpentWithBoolean:);
+  methods[5].selector = @selector(isSpent);
+  methods[6].selector = @selector(setInBlockNumberWithOrgMinimaObjectsBaseMiniNumber:);
+  methods[7].selector = @selector(getInBlockNumber);
+  methods[8].selector = @selector(setIsInBlockWithBoolean:);
+  methods[9].selector = @selector(isInBlock);
+  methods[10].selector = @selector(setMMREntryWithOrgMinimaObjectsBaseMiniInteger:);
+  methods[11].selector = @selector(getMMREntry);
+  methods[12].selector = @selector(setRelevantWithBoolean:);
+  methods[13].selector = @selector(isRelevant);
+  methods[14].selector = @selector(setKeeperWithBoolean:);
+  methods[15].selector = @selector(isKeeper);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
     { "mCoin_", "LOrgMinimaObjectsCoin;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
@@ -91,9 +131,11 @@
     { "mIsInBlock_", "Z", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mInBlockNumber_", "LOrgMinimaObjectsBaseMiniNumber;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mEntryNumber_", "LOrgMinimaObjectsBaseMiniInteger;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
+    { "mRelevant_", "Z", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
+    { "mKeeper_", "Z", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
   };
-  static const void *ptrTable[] = { "LOrgMinimaObjectsCoin;", "toString", "setIsSpent", "Z", "setInBlockNumber", "LOrgMinimaObjectsBaseMiniNumber;", "setIsInBlock", "setMMREntry", "LOrgMinimaObjectsBaseMiniInteger;" };
-  static const J2ObjcClassInfo _OrgMinimaDatabaseCoindbJavaJavaCoinDBRow = { "JavaCoinDBRow", "org.minima.database.coindb.java", ptrTable, methods, fields, 7, 0x1, 11, 5, -1, -1, -1, -1, -1 };
+  static const void *ptrTable[] = { "LOrgMinimaObjectsCoin;", "toString", "setIsSpent", "Z", "setInBlockNumber", "LOrgMinimaObjectsBaseMiniNumber;", "setIsInBlock", "setMMREntry", "LOrgMinimaObjectsBaseMiniInteger;", "setRelevant", "setKeeper" };
+  static const J2ObjcClassInfo _OrgMinimaDatabaseCoindbJavaJavaCoinDBRow = { "JavaCoinDBRow", "org.minima.database.coindb.java", ptrTable, methods, fields, 7, 0x1, 16, 7, -1, -1, -1, -1, -1 };
   return &_OrgMinimaDatabaseCoindbJavaJavaCoinDBRow;
 }
 
@@ -106,6 +148,8 @@ void OrgMinimaDatabaseCoindbJavaJavaCoinDBRow_initWithOrgMinimaObjectsCoin_(OrgM
   self->mCoin_ = zCoin;
   self->mIsSpent_ = false;
   self->mIsInBlock_ = false;
+  self->mRelevant_ = false;
+  self->mKeeper_ = false;
 }
 
 OrgMinimaDatabaseCoindbJavaJavaCoinDBRow *new_OrgMinimaDatabaseCoindbJavaJavaCoinDBRow_initWithOrgMinimaObjectsCoin_(OrgMinimaObjectsCoin *zCoin) {

@@ -31,35 +31,54 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (void)PostMessageWithOrgMinimaUtilsMessagesMessage:(OrgMinimaUtilsMessagesMessage *)zMessage {
-  @synchronized(self) {
+  @synchronized(mMessages_) {
     [((JavaUtilLinkedList *) nil_chk(mMessages_)) addWithId:zMessage];
   }
+  [self notifyLock];
+}
+
+- (void)notifyLock {
+  @synchronized(mLock_) {
+    [nil_chk(mLock_) java_notifyAll];
+  }
+}
+
+- (jboolean)isNextMessage {
+  jboolean avail;
+  @synchronized(mMessages_) {
+    avail = ![((JavaUtilLinkedList *) nil_chk(mMessages_)) isEmpty];
+  }
+  return avail;
 }
 
 - (OrgMinimaUtilsMessagesMessage *)getNextMessage {
-  @synchronized(self) {
+  OrgMinimaUtilsMessagesMessage *nxtmsg = nil;
+  @synchronized(mMessages_) {
     if (![((JavaUtilLinkedList *) nil_chk(mMessages_)) isEmpty]) {
-      OrgMinimaUtilsMessagesMessage *msg = [((JavaUtilLinkedList *) nil_chk(mMessages_)) getFirst];
-      [((JavaUtilLinkedList *) nil_chk(mMessages_)) removeWithId:msg];
-      return msg;
+      nxtmsg = [((JavaUtilLinkedList *) nil_chk(mMessages_)) getFirst];
+      [((JavaUtilLinkedList *) nil_chk(mMessages_)) removeWithId:nxtmsg];
     }
-    return nil;
   }
+  return nxtmsg;
 }
 
 - (jint)getSize {
-  @synchronized(self) {
-    return [((JavaUtilLinkedList *) nil_chk(mMessages_)) size];
+  jint len;
+  @synchronized(mMessages_) {
+    len = [((JavaUtilLinkedList *) nil_chk(mMessages_)) size];
   }
+  return len;
 }
 
 + (const J2ObjcClassInfo *)__metadata {
   static J2ObjcMethodInfo methods[] = {
     { NULL, NULL, 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 0, 1, -1, -1, -1, -1 },
-    { NULL, "V", 0x21, 0, 2, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaUtilsMessagesMessage;", 0x24, -1, -1, -1, -1, -1, -1 },
-    { NULL, "I", 0x24, -1, -1, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 0, 2, -1, -1, -1, -1 },
+    { NULL, "V", 0x4, -1, -1, -1, -1, -1, -1 },
+    { NULL, "Z", 0x4, -1, -1, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaUtilsMessagesMessage;", 0x4, -1, -1, -1, -1, -1, -1 },
+    { NULL, "I", 0x4, -1, -1, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
@@ -67,14 +86,17 @@ J2OBJC_IGNORE_DESIGNATED_END
   methods[0].selector = @selector(init);
   methods[1].selector = @selector(PostMessageWithNSString:);
   methods[2].selector = @selector(PostMessageWithOrgMinimaUtilsMessagesMessage:);
-  methods[3].selector = @selector(getNextMessage);
-  methods[4].selector = @selector(getSize);
+  methods[3].selector = @selector(notifyLock);
+  methods[4].selector = @selector(isNextMessage);
+  methods[5].selector = @selector(getNextMessage);
+  methods[6].selector = @selector(getSize);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
     { "mMessages_", "LJavaUtilLinkedList;", .constantValue.asLong = 0, 0x2, -1, -1, 3, -1 },
+    { "mLock_", "LNSObject;", .constantValue.asLong = 0, 0x4, -1, -1, -1, -1 },
   };
   static const void *ptrTable[] = { "PostMessage", "LNSString;", "LOrgMinimaUtilsMessagesMessage;", "Ljava/util/LinkedList<Lorg/minima/utils/messages/Message;>;" };
-  static const J2ObjcClassInfo _OrgMinimaUtilsMessagesMessageStack = { "MessageStack", "org.minima.utils.messages", ptrTable, methods, fields, 7, 0x1, 5, 1, -1, -1, -1, -1, -1 };
+  static const J2ObjcClassInfo _OrgMinimaUtilsMessagesMessageStack = { "MessageStack", "org.minima.utils.messages", ptrTable, methods, fields, 7, 0x1, 7, 2, -1, -1, -1, -1, -1 };
   return &_OrgMinimaUtilsMessagesMessageStack;
 }
 
@@ -82,6 +104,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 void OrgMinimaUtilsMessagesMessageStack_init(OrgMinimaUtilsMessagesMessageStack *self) {
   NSObject_init(self);
+  self->mLock_ = new_NSObject_init();
   self->mMessages_ = new_JavaUtilLinkedList_init();
 }
 

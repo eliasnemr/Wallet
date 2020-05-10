@@ -18,11 +18,16 @@ import java.util.StringTokenizer;
 
 import org.minima.objects.base.MiniData;
 import org.minima.system.backup.BackupManager;
+import org.minima.system.network.minidapps.hexdata.faviconico;
+import org.minima.system.network.minidapps.hexdata.helphtml;
+import org.minima.system.network.minidapps.hexdata.iconpng;
+import org.minima.system.network.minidapps.hexdata.indexhtml;
+import org.minima.system.network.minidapps.hexdata.installdapphtml;
+import org.minima.system.network.minidapps.hexdata.minidappscss;
+import org.minima.system.network.minidapps.hexdata.tilegreyjpeg;
 import org.minima.utils.json.JSONArray;
 import org.minima.utils.json.JSONObject;
 import org.minima.utils.messages.Message;
-
-import global.minima.telco.MainActivity;
 
 /**
  * This class handles a single request then exits
@@ -38,6 +43,11 @@ public class DAPPHandler implements Runnable {
 	Socket mSocket;
 	
 	DAPPManager mDAPPManager;
+	
+	/**
+	 * Load from resource or from the STATIC hard coded files
+	 */
+	boolean mUseResources = false;
 	
 	/**
 	 * Main Constructor
@@ -76,7 +86,7 @@ public class DAPPHandler implements Runnable {
 			int contentlength = 0;
 			String boundary = "";
 			while (input!=null && !input.isEmpty()) { 
-				System.out.println(input);
+				//System.out.println(input);
 				
 				//Find the Length..
 				if(input.indexOf("Content-Length:") != -1) {
@@ -101,7 +111,7 @@ public class DAPPHandler implements Runnable {
 			// we get file requested
 			fileRequested = parse.nextToken();
 			
-			System.out.println("GET "+fileRequested);
+//			System.out.println("GET "+fileRequested);
 			
 			if(fileRequested.endsWith("/")) {
 				fileRequested = fileRequested.concat("index.html");
@@ -127,15 +137,9 @@ public class DAPPHandler implements Runnable {
 					if(uninstall != -1) {
 						//Create the complete folder..
 						File appfolder = new File(mDAPPManager.getMiniDAPPSFolder(),query.substring(uninstall+10));
-						
-//						//Check is the actual folder..
-//						String parent = appfolder.getParentFile().getName();
-//						if(!parent.equals("minidapps")) {
-//							appfolder = appfolder.getParentFile();
-//						}
-						
+					
 						//Delete the app root..
-						BackupManager.deleteFolder(appfolder);
+						BackupManager.deleteFileOrFolder(appfolder);
 						
 						//Recalculate the MINIDAPPS
 						mDAPPManager.recalculateMiniDAPPS();
@@ -148,8 +152,15 @@ public class DAPPHandler implements Runnable {
 			int filelen = 0;
 			
 			if(fileRequested.endsWith("minima.js")) {
-				file    = getResourceBytes("js/minima.js");
+				//Get the editted file..
+				file    = mDAPPManager.getMinimaJS();
 				filelen = file.length;
+				
+//				if(!mUseResources) {
+//					file    = minimajs.returnData();
+//				}else {
+//					file    = getResourceBytes("js/minima.js");
+//				}
 				
 			}else if(fileRequested.startsWith("minidapps/")) {
 				//Look in the minidapps folder
@@ -160,15 +171,45 @@ public class DAPPHandler implements Runnable {
 			}else if(fileRequested.startsWith("rpc/")) {
 				//It's an RPC request
 				
-				
 			}else {
-				file    = getResourceBytes(fileRequested);
-				
-				if(fileRequested.equals("index.html")) {
-					String page = new String(file,StandardCharsets.UTF_8);
-					String newpage = page.replace("######", createMiniDAPPList());
+				if(!mUseResources) {
+					if(fileRequested.equals("index.html")) {
+						String page    = new String(indexhtml.returnData(),StandardCharsets.UTF_8);
+						String newpage = page.replace("######", createMiniDAPPList());
+						file = newpage.getBytes();
+						
+					}else if(fileRequested.equals("css/minidapps.css")) {
+						file    = minidappscss.returnData();
 					
-					file = newpage.getBytes();
+					}else if(fileRequested.equals("favicon.ico")) {
+						file    = faviconico.returnData();
+					
+					}else if(fileRequested.equals("help.html")) {
+						file    = helphtml.returnData();
+					
+					}else if(fileRequested.equals("icon.png")) {
+						file    = iconpng.returnData();
+					
+					}else if(fileRequested.equals("installdapp.html")) {
+						file    = installdapphtml.returnData();
+					
+					}else if(fileRequested.equals("tile-grey.jpeg")) {
+						file    = tilegreyjpeg.returnData();
+						
+					}else {
+						//Not found..
+						file    = new byte[0];	
+					}	
+					
+				}else {
+					if(fileRequested.equals("index.html")) {
+						file           = getResourceBytes(fileRequested);
+						String page    = new String(file,StandardCharsets.UTF_8);
+						String newpage = page.replace("######", createMiniDAPPList());
+						file           = newpage.getBytes();
+					}else {
+						file = getResourceBytes(fileRequested);	
+					}	
 				}
 				
 				filelen = file.length;
@@ -224,6 +265,7 @@ public class DAPPHandler implements Runnable {
 					
 					mDAPPManager.PostMessage(msg);
 				}
+				 
 				// send HTTP Headers
 				out.println("HTTP/1.1 200 OK");
 				out.println("Server: HTTP RPC Server from Minima : 1.0");
@@ -238,12 +280,11 @@ public class DAPPHandler implements Runnable {
 				//Now write the file data
 				out.write(file, 0, filelen);
 				out.flush(); // flush character output stream buffer
-				
 			}
 			
 		} catch (Exception ioe) {
-			ioe.printStackTrace();
-			System.err.println("Server : " +fileRequested+" "+ioe);
+//			ioe.printStackTrace();
+//			System.err.println("Server : " +fileRequested+" "+ioe);
 			
 		} finally {
 			try {
@@ -298,7 +339,10 @@ public class DAPPHandler implements Runnable {
 		}
 		
 		if(len == 0) {
-			list.append("<tr><td><br><br>&nbsp;&nbsp;<b>NO DAPPS INSTALLED YET..</b></td></tr>");
+			list.append("<tr><td style='text-align:center;'><br><br><b>NO DAPPS INSTALLED YET..</b>"
+					+ "<br><br><br>"
+					+ "Go to <a href='http://mifi.minima.global/' target='_blank'>http://mifi.minima.global/</a> to find MiniDAPPs"
+					+ "</td></tr>");
 		}
 		
 		list.append("</table>");
@@ -309,16 +353,14 @@ public class DAPPHandler implements Runnable {
 	
 	
 	
-	//private static final String RESOURCE_BASE = "/org/minima/system/network/minidapps/resources/";
-	private static final String RESOURCE_BASE = "minidapps/resources/";
+	private static final String RESOURCE_BASE = "org/minima/system/network/minidapps/resources/";
+	
 	public byte[] getResourceBytes(String zResource) throws IOException {
 		
-		//InputStream in = getClass().getClassLoader().getResourceAsStream(RESOURCE_BASE+zResource);
-		InputStream in = MainActivity.mMainLink.getAssets().open(RESOURCE_BASE+zResource);
-
+		InputStream in = getClass().getClassLoader().getResourceAsStream(RESOURCE_BASE+zResource);
+		
 		//Doesn't exist..
 		if(in == null) {
-			System.out.println("ERROR not found "+zResource);
 			return new byte[0];
 		}
 		
@@ -373,7 +415,6 @@ public class DAPPHandler implements Runnable {
 		}else if(zEnding.equals("xml")) {
 			return "text/xml";
 		
-			
 		}else if(zEnding.equals("jpg")) {
 			return "image/jpeg";
 		}else if(zEnding.equals("jpeg")) {
@@ -382,9 +423,10 @@ public class DAPPHandler implements Runnable {
 			return "image/png";
 		}else if(zEnding.equals("gif")) {
 			return "image/gif";
+		}else if(zEnding.equals("svg")) {
+			return "image/svg+xml";
 		}else if(zEnding.equals("ico")) {
 			return "image/ico";
-		
 		
 		}else if(zEnding.equals("zip")) {
 			return "application/zip";

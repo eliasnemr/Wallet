@@ -19,11 +19,16 @@
 @class IOSObjectArray;
 @class OrgMinimaSystemMain;
 
-@interface OrgMinimaStart : NSObject
+@interface OrgMinimaStart : NSObject {
+ @public
+  NSString *mConfFolder_;
+}
 
 #pragma mark Public
 
 - (instancetype)init;
+
+- (void)fireStarterWithNSString:(NSString *)zConfFolder;
 
 + (OrgMinimaSystemMain *)getServer;
 
@@ -32,6 +37,8 @@
 @end
 
 J2OBJC_EMPTY_STATIC_INIT(OrgMinimaStart)
+
+J2OBJC_FIELD_SETTER(OrgMinimaStart, mConfFolder_, NSString *)
 
 inline OrgMinimaSystemMain *OrgMinimaStart_get_mMainServer(void);
 inline OrgMinimaSystemMain *OrgMinimaStart_set_mMainServer(OrgMinimaSystemMain *value);

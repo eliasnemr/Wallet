@@ -2,32 +2,35 @@ package org.minima.system.input;
 
 import org.minima.kissvm.exceptions.MinimaParseException;
 import org.minima.system.Main;
-import org.minima.system.input.functions.scripts;
+import org.minima.system.input.functions.automine;
 import org.minima.system.input.functions.backup;
 import org.minima.system.input.functions.balance;
-import org.minima.system.input.functions.chart;
+import org.minima.system.input.functions.chainsha;
+import org.minima.system.input.functions.check;
 import org.minima.system.input.functions.cleanscript;
 import org.minima.system.input.functions.coins;
+import org.minima.system.input.functions.coinsimple;
 import org.minima.system.input.functions.connect;
 import org.minima.system.input.functions.createtoken;
 import org.minima.system.input.functions.disconnect;
 import org.minima.system.input.functions.extrascript;
+import org.minima.system.input.functions.flushmempool;
 import org.minima.system.input.functions.gimme50;
 import org.minima.system.input.functions.help;
 import org.minima.system.input.functions.history;
 import org.minima.system.input.functions.intro;
 import org.minima.system.input.functions.keepcoin;
 import org.minima.system.input.functions.keys;
-import org.minima.system.input.functions.automine;
-import org.minima.system.input.functions.chainsha;
 import org.minima.system.input.functions.network;
 import org.minima.system.input.functions.newaddress;
 import org.minima.system.input.functions.newscript;
-import org.minima.system.input.functions.printchain;
+import org.minima.system.input.functions.printdb;
 import org.minima.system.input.functions.printtree;
 import org.minima.system.input.functions.quit;
+import org.minima.system.input.functions.random;
 import org.minima.system.input.functions.reconnect;
 import org.minima.system.input.functions.runscript;
+import org.minima.system.input.functions.scripts;
 import org.minima.system.input.functions.search;
 import org.minima.system.input.functions.send;
 import org.minima.system.input.functions.sign;
@@ -37,6 +40,8 @@ import org.minima.system.input.functions.tokens;
 import org.minima.system.input.functions.trace;
 import org.minima.system.input.functions.tutorial;
 import org.minima.system.input.functions.txpowinfo;
+import org.minima.system.input.functions.txpowsearch;
+import org.minima.system.input.functions.unkeepcoin;
 import org.minima.system.input.functions.weblink;
 import org.minima.system.input.functions.transfer.exportcoin;
 import org.minima.system.input.functions.transfer.exportkey;
@@ -51,8 +56,11 @@ import org.minima.system.input.functions.txns.txninput;
 import org.minima.system.input.functions.txns.txnlist;
 import org.minima.system.input.functions.txns.txnoutput;
 import org.minima.system.input.functions.txns.txnpost;
+import org.minima.system.input.functions.txns.txnreminput;
+import org.minima.system.input.functions.txns.txnremoutput;
 import org.minima.system.input.functions.txns.txnscript;
 import org.minima.system.input.functions.txns.txnsign;
+import org.minima.system.input.functions.txns.txnsignauto;
 import org.minima.system.input.functions.txns.txnstate;
 import org.minima.system.input.functions.txns.txnvalidate;
 import org.minima.utils.ResponseStream;
@@ -66,15 +74,15 @@ public abstract class CommandFunction {
 	public static CommandFunction[] ALL_FUNCTIONS = 
 		{
 			new backup(), new balance(), new connect(), new createtoken(), new disconnect(), new weblink(),
-			new gimme50(), new help(), new intro(), new automine(), new newaddress(), new coins(), new txpowinfo(), new keys(),
-			new newscript(), new printchain(), new printtree(), new quit(),new reconnect(), new runscript(), new cleanscript(), 
+			new gimme50(), new help(), new intro(), new automine(), new newaddress(), new coins(), new coinsimple(), new txpowinfo(), new keys(),
+			new newscript(), new printdb(), new printtree(), new quit(),new reconnect(), new runscript(), new cleanscript(), 
 			new send(), new status(), new test(), new trace(), new tutorial(), new history(), new tokens(),
 			new exportkey(), new importkey(), new exportcoin(), new importcoin(), new search(),
-			new chainsha(), new keepcoin(), new scripts(), new chart(), new network(),
+			new chainsha(), new keepcoin(), new unkeepcoin(), new scripts(), new network(),
 			new txncreate(), new txndelete(), new txninput(), new txnlist(), new txnauto(),
-			new txnstate(), new txnexport(), new txnimport(), new txnscript(),
-			new txnoutput(), new txnpost(), new txnsign(), new txnvalidate(),
-			new extrascript(), new sign()
+			new txnstate(), new txnexport(), new txnimport(), new txnscript(), new txnreminput(), new txnremoutput(),
+			new txnoutput(), new txnpost(), new txnsign(), new txnvalidate(),new txnsignauto(),
+			new extrascript(), new sign(), new txpowsearch(), new flushmempool(), new random(), new check()
 		};  
 	
 	/**

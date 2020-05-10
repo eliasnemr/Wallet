@@ -56,7 +56,9 @@
 
 - (void)addTokenDetailsWithOrgMinimaObjectsProofsTokenProof:(OrgMinimaObjectsProofsTokenProof *)zDetails;
 
-- (void)clearProofs;
+- (void)clearMMRProofs;
+
+- (void)clearSignatures;
 
 - (JavaUtilArrayList *)getAllMMRProofs;
 

@@ -1,3 +1,12 @@
+ion-card-header {
+    --background: var(--ion-background-color, #f2f2f2);
+}
+ion-segment {
+    margin-top: 10px;
+}
+ion-card-content ion-text {
+    margin-top: 10px;
+}
 .list-md {
     padding: 0px 0px 0px 0px !important;
 }
@@ -20,7 +29,6 @@
     right: 5%;
 }
 .activity:hover{
-    
     background-color: #d8dfe6 !important;
 }
 .activity:hover {

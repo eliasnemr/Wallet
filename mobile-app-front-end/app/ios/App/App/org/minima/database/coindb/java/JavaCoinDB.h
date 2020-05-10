@@ -43,6 +43,10 @@
 
 - (JavaUtilArrayList *)getComplete;
 
+- (JavaUtilArrayList *)getCompleteRelevant;
+
+- (jboolean)removeCoinWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zCoinID;
+
 - (void)removeOldSpentCoinsWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zMinBlock;
 
 @end
@@ -50,13 +54,6 @@
 J2OBJC_EMPTY_STATIC_INIT(OrgMinimaDatabaseCoindbJavaJavaCoinDB)
 
 J2OBJC_FIELD_SETTER(OrgMinimaDatabaseCoindbJavaJavaCoinDB, mRows_, JavaUtilArrayList *)
-
-inline jlong OrgMinimaDatabaseCoindbJavaJavaCoinDB_get_COINDB_LIMIT(void);
-inline jlong OrgMinimaDatabaseCoindbJavaJavaCoinDB_set_COINDB_LIMIT(jlong value);
-inline jlong *OrgMinimaDatabaseCoindbJavaJavaCoinDB_getRef_COINDB_LIMIT(void);
-/*! INTERNAL ONLY - Use accessor function from above. */
-FOUNDATION_EXPORT jlong OrgMinimaDatabaseCoindbJavaJavaCoinDB_COINDB_LIMIT;
-J2OBJC_STATIC_FIELD_PRIMITIVE(OrgMinimaDatabaseCoindbJavaJavaCoinDB, COINDB_LIMIT, jlong)
 
 FOUNDATION_EXPORT void OrgMinimaDatabaseCoindbJavaJavaCoinDB_init(OrgMinimaDatabaseCoindbJavaJavaCoinDB *self);
 

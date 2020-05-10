@@ -34,9 +34,16 @@ J2OBJC_IGNORE_DESIGNATED_END
   return self;
 }
 
+- (OrgMinimaObjectsTxPOW *)getTxPOW {
+  return mTxPow_;
+}
+
 - (OrgMinimaUtilsJsonJSONObject *)toJSONWithOrgMinimaDatabaseMinimaDB:(OrgMinimaDatabaseMinimaDB *)zDB {
-  OrgMinimaUtilsJsonJSONObject *ret = new_OrgMinimaUtilsJsonJSONObject_init();
-  (void) [ret putWithId:@"txpow" withId:[((OrgMinimaObjectsTxPOW *) nil_chk(mTxPow_)) toJSON]];
+  if (mJSON_ != nil) {
+    return mJSON_;
+  }
+  mJSON_ = new_OrgMinimaUtilsJsonJSONObject_init();
+  (void) [mJSON_ putWithId:@"txpow" withId:[((OrgMinimaObjectsTxPOW *) nil_chk(mTxPow_)) toJSON]];
   OrgMinimaUtilsJsonJSONArray *tokarray = new_OrgMinimaUtilsJsonJSONArray_init();
   id<JavaUtilEnumeration> tokens = [((JavaUtilHashtable *) nil_chk(mTokenValues_)) keys];
   while ([((id<JavaUtilEnumeration>) nil_chk(tokens)) hasMoreElements]) {
@@ -54,7 +61,7 @@ J2OBJC_IGNORE_DESIGNATED_END
     else {
       OrgMinimaObjectsProofsTokenProof *tp = [((id<OrgMinimaDatabaseUserdbUserDB>) nil_chk([((OrgMinimaDatabaseMinimaDB *) nil_chk(zDB)) getUserDB])) getTokenDetailWithOrgMinimaObjectsBaseMiniData:new_OrgMinimaObjectsBaseMiniData_initWithNSString_(token)];
       if (tp == nil) {
-        (void) [json putWithId:@"name" withId:@"null"];
+        (void) [json putWithId:@"name" withId:@"null (UNKNOWN)"];
       }
       else {
         (void) [json putWithId:@"name" withId:[((OrgMinimaObjectsBaseMiniScript *) nil_chk([tp getName])) description]];
@@ -64,8 +71,8 @@ J2OBJC_IGNORE_DESIGNATED_END
     (void) [json putWithId:@"amount" withId:[((OrgMinimaObjectsBaseMiniNumber *) nil_chk([((OrgMinimaObjectsBaseMiniNumber *) nil_chk(amt)) multWithOrgMinimaObjectsBaseMiniNumber:scale_])) description]];
     [tokarray addWithId:json];
   }
-  (void) [ret putWithId:@"values" withId:tokarray];
-  return ret;
+  (void) [((OrgMinimaUtilsJsonJSONObject *) nil_chk(mJSON_)) putWithId:@"values" withId:tokarray];
+  return mJSON_;
 }
 
 - (void)writeDataStreamWithJavaIoDataOutputStream:(JavaIoDataOutputStream *)zOut {
@@ -91,12 +98,14 @@ J2OBJC_IGNORE_DESIGNATED_END
     OrgMinimaObjectsBaseMiniNumber *amt = OrgMinimaObjectsBaseMiniNumber_ReadFromStreamWithJavaIoDataInputStream_(zIn);
     (void) [((JavaUtilHashtable *) nil_chk(mTokenValues_)) putWithId:token withId:amt];
   }
+  mJSON_ = nil;
 }
 
 + (const J2ObjcClassInfo *)__metadata {
   static J2ObjcMethodInfo methods[] = {
     { NULL, NULL, 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, NULL, 0x1, -1, 0, -1, 1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsTxPOW;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaUtilsJsonJSONObject;", 0x1, 2, 3, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 4, 5, 6, -1, -1, -1 },
     { NULL, "V", 0x1, 7, 8, 6, -1, -1, -1 },
@@ -106,16 +115,18 @@ J2OBJC_IGNORE_DESIGNATED_END
   #pragma clang diagnostic ignored "-Wundeclared-selector"
   methods[0].selector = @selector(init);
   methods[1].selector = @selector(initWithOrgMinimaObjectsTxPOW:withJavaUtilHashtable:);
-  methods[2].selector = @selector(toJSONWithOrgMinimaDatabaseMinimaDB:);
-  methods[3].selector = @selector(writeDataStreamWithJavaIoDataOutputStream:);
-  methods[4].selector = @selector(readDataStreamWithJavaIoDataInputStream:);
+  methods[2].selector = @selector(getTxPOW);
+  methods[3].selector = @selector(toJSONWithOrgMinimaDatabaseMinimaDB:);
+  methods[4].selector = @selector(writeDataStreamWithJavaIoDataOutputStream:);
+  methods[5].selector = @selector(readDataStreamWithJavaIoDataInputStream:);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
     { "mTxPow_", "LOrgMinimaObjectsTxPOW;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mTokenValues_", "LJavaUtilHashtable;", .constantValue.asLong = 0, 0x0, -1, -1, 9, -1 },
+    { "mJSON_", "LOrgMinimaUtilsJsonJSONObject;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
   };
   static const void *ptrTable[] = { "LOrgMinimaObjectsTxPOW;LJavaUtilHashtable;", "(Lorg/minima/objects/TxPOW;Ljava/util/Hashtable<Ljava/lang/String;Lorg/minima/objects/base/MiniNumber;>;)V", "toJSON", "LOrgMinimaDatabaseMinimaDB;", "writeDataStream", "LJavaIoDataOutputStream;", "LJavaIoIOException;", "readDataStream", "LJavaIoDataInputStream;", "Ljava/util/Hashtable<Ljava/lang/String;Lorg/minima/objects/base/MiniNumber;>;" };
-  static const J2ObjcClassInfo _OrgMinimaDatabaseUserdbJavareltxpow = { "reltxpow", "org.minima.database.userdb.java", ptrTable, methods, fields, 7, 0x1, 5, 2, -1, -1, -1, -1, -1 };
+  static const J2ObjcClassInfo _OrgMinimaDatabaseUserdbJavareltxpow = { "reltxpow", "org.minima.database.userdb.java", ptrTable, methods, fields, 7, 0x1, 6, 3, -1, -1, -1, -1, -1 };
   return &_OrgMinimaDatabaseUserdbJavareltxpow;
 }
 
@@ -123,6 +134,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 void OrgMinimaDatabaseUserdbJavareltxpow_init(OrgMinimaDatabaseUserdbJavareltxpow *self) {
   NSObject_init(self);
+  self->mJSON_ = nil;
 }
 
 OrgMinimaDatabaseUserdbJavareltxpow *new_OrgMinimaDatabaseUserdbJavareltxpow_init() {
@@ -135,6 +147,7 @@ OrgMinimaDatabaseUserdbJavareltxpow *create_OrgMinimaDatabaseUserdbJavareltxpow_
 
 void OrgMinimaDatabaseUserdbJavareltxpow_initWithOrgMinimaObjectsTxPOW_withJavaUtilHashtable_(OrgMinimaDatabaseUserdbJavareltxpow *self, OrgMinimaObjectsTxPOW *zTxPow, JavaUtilHashtable *zValues) {
   NSObject_init(self);
+  self->mJSON_ = nil;
   self->mTxPow_ = zTxPow;
   self->mTokenValues_ = zValues;
 }

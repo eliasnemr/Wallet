@@ -1,12 +1,10 @@
 package org.minima.objects.base;
 
 import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
 
 import org.minima.kissvm.Contract;
-import org.minima.utils.Streamable;
 
 public class MiniScript extends MiniData {
 	
@@ -33,11 +31,6 @@ public class MiniScript extends MiniData {
 	@Override
 	public String toString() {
 		return new String(getData(),Charset.forName("US-ASCII"));
-	}
-	
-	@Override 
-	public String to0xString() {
-		return null;
 	}
 	
 	public static MiniScript ReadFromStream(DataInputStream zIn){

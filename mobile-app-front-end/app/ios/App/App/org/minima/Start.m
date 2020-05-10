@@ -29,12 +29,17 @@
 #include "org/minima/utils/MinimaLogger.h"
 #include "org/minima/utils/ResponseStream.h"
 #include "org/minima/utils/messages/Message.h"
+
 // import to bridge Swift to Obj C
 #import "App-Swift.h"
 
-@interface OrgMinimaStart_1 : NSObject < JavaLangRunnable >
 
-- (instancetype)init;
+@interface OrgMinimaStart_1 : NSObject < JavaLangRunnable > {
+ @public
+  OrgMinimaStart *this$0_;
+}
+
+- (instancetype)initWithOrgMinimaStart:(OrgMinimaStart *)outer$;
 
 - (void)run;
 
@@ -42,11 +47,11 @@
 
 J2OBJC_EMPTY_STATIC_INIT(OrgMinimaStart_1)
 
-__attribute__((unused)) static void OrgMinimaStart_1_init(OrgMinimaStart_1 *self);
+__attribute__((unused)) static void OrgMinimaStart_1_initWithOrgMinimaStart_(OrgMinimaStart_1 *self, OrgMinimaStart *outer$);
 
-__attribute__((unused)) static OrgMinimaStart_1 *new_OrgMinimaStart_1_init(void) NS_RETURNS_RETAINED;
+__attribute__((unused)) static OrgMinimaStart_1 *new_OrgMinimaStart_1_initWithOrgMinimaStart_(OrgMinimaStart *outer$) NS_RETURNS_RETAINED;
 
-__attribute__((unused)) static OrgMinimaStart_1 *create_OrgMinimaStart_1_init(void);
+__attribute__((unused)) static OrgMinimaStart_1 *create_OrgMinimaStart_1_initWithOrgMinimaStart_(OrgMinimaStart *outer$);
 
 @interface OrgMinimaStart_2 : NSObject < OrgMinimaNativeListener >
 
@@ -79,6 +84,13 @@ J2OBJC_IGNORE_DESIGNATED_BEGIN
 }
 J2OBJC_IGNORE_DESIGNATED_END
 
+- (void)fireStarterWithNSString:(NSString *)zConfFolder {
+  mConfFolder_ = zConfFolder;
+  id<JavaLangRunnable> mainrunner = new_OrgMinimaStart_1_initWithOrgMinimaStart_(self);
+  JavaLangThread *mainthread = new_JavaLangThread_initWithJavaLangRunnable_(mainrunner);
+  [mainthread start];
+}
+
 + (void)mainWithNSStringArray:(IOSObjectArray *)zArgs {
   OrgMinimaStart_mainWithNSStringArray_(zArgs);
 }
@@ -87,20 +99,23 @@ J2OBJC_IGNORE_DESIGNATED_END
   static J2ObjcMethodInfo methods[] = {
     { NULL, "LOrgMinimaSystemMain;", 0x9, -1, -1, -1, -1, -1, -1 },
     { NULL, NULL, 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "V", 0x9, 0, 1, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 0, 1, -1, -1, -1, -1 },
+    { NULL, "V", 0x9, 2, 3, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
   #pragma clang diagnostic ignored "-Wundeclared-selector"
   methods[0].selector = @selector(getServer);
   methods[1].selector = @selector(init);
-  methods[2].selector = @selector(mainWithNSStringArray:);
+  methods[2].selector = @selector(fireStarterWithNSString:);
+  methods[3].selector = @selector(mainWithNSStringArray:);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
-    { "mMainServer", "LOrgMinimaSystemMain;", .constantValue.asLong = 0, 0x9, -1, 2, -1, -1 },
+    { "mMainServer", "LOrgMinimaSystemMain;", .constantValue.asLong = 0, 0x9, -1, 4, -1, -1 },
+    { "mConfFolder_", "LNSString;", .constantValue.asLong = 0, 0x1, -1, -1, -1, -1 },
   };
-  static const void *ptrTable[] = { "main", "[LNSString;", &OrgMinimaStart_mMainServer };
-  static const J2ObjcClassInfo _OrgMinimaStart = { "Start", "org.minima", ptrTable, methods, fields, 7, 0x1, 3, 1, -1, -1, -1, -1, -1 };
+  static const void *ptrTable[] = { "fireStarter", "LNSString;", "main", "[LNSString;", &OrgMinimaStart_mMainServer };
+  static const J2ObjcClassInfo _OrgMinimaStart = { "Start", "org.minima", ptrTable, methods, fields, 7, 0x1, 4, 2, -1, -1, -1, -1, -1 };
   return &_OrgMinimaStart;
 }
 
@@ -113,9 +128,6 @@ OrgMinimaSystemMain *OrgMinimaStart_getServer() {
 
 void OrgMinimaStart_init(OrgMinimaStart *self) {
   NSObject_init(self);
-  id<JavaLangRunnable> mainrunner = new_OrgMinimaStart_1_init();
-  JavaLangThread *mainthread = new_JavaLangThread_initWithJavaLangRunnable_(mainrunner);
-  [mainthread start];
 }
 
 OrgMinimaStart *new_OrgMinimaStart_init() {
@@ -131,8 +143,6 @@ void OrgMinimaStart_mainWithNSStringArray_(IOSObjectArray *zArgs) {
   jint arglen = ((IOSObjectArray *) nil_chk(zArgs))->size_;
   jint port = 9001;
   jint rpcport = 8999;
-  NSString *txnfunction = @"";
-  NSString *relcoin = @"";
   jboolean connect = true;
   NSString *connecthost = @"34.90.172.118";
   jint connectport = 9001;
@@ -191,12 +201,6 @@ void OrgMinimaStart_mainWithNSStringArray_(IOSObjectArray *zArgs) {
       else if ([arg isEqual:@"-clean"]) {
         clean = true;
       }
-      else if ([arg isEqual:@"-txncall"]) {
-        txnfunction = IOSObjectArray_Get(zArgs, counter++);
-      }
-      else if ([arg isEqual:@"-relcoin"]) {
-        relcoin = IOSObjectArray_Get(zArgs, counter++);
-      }
       else if ([arg isEqual:@"-conf"]) {
         conffolder = IOSObjectArray_Get(zArgs, counter++);
       }
@@ -206,8 +210,9 @@ void OrgMinimaStart_mainWithNSStringArray_(IOSObjectArray *zArgs) {
       }
     }
   }
+  JavaIoFile *conffile = new_JavaIoFile_initWithNSString_(conffolder);
   if (clean) {
-    OrgMinimaSystemBackupBackupManager_deleteAllButMiniDAPPSWithJavaIoFile_(new_JavaIoFile_initWithNSString_(conffolder));
+    OrgMinimaSystemBackupBackupManager_deleteAllButMiniDAPPSWithJavaIoFile_(conffile);
   }
   OrgMinimaSystemMain *rcmainserver = new_OrgMinimaSystemMain_initWithInt_withInt_withBoolean_withNSString_(port, rpcport, genesis, conffolder);
   OrgMinimaStart_mMainServer = rcmainserver;
@@ -215,18 +220,10 @@ void OrgMinimaStart_mainWithNSStringArray_(IOSObjectArray *zArgs) {
   rcmainserver->mAutoHost_ = connecthost;
   rcmainserver->mAutoPort_ = connectport;
   [rcmainserver setMiFiProxyWithNSString:mifiProxy];
-  if (![((NSString *) nil_chk(txnfunction)) isEqual:@""]) {
-    OrgMinimaUtilsMinimaLogger_logWithNSString_(JreStrcat("$$", @"New Txn function : ", txnfunction));
-    [rcmainserver setNewTxnCommandWithNSString:txnfunction];
-  }
-  if (![((NSString *) nil_chk(relcoin)) isEqual:@""]) {
-    OrgMinimaUtilsMinimaLogger_logWithNSString_(JreStrcat("$$", @"New Relevant Coin URL : ", relcoin));
-    [rcmainserver setNewRelCoinWithNSString:relcoin];
-  }
   [rcmainserver PostMessageWithNSString:OrgMinimaSystemMain_SYSTEM_STARTUP];
   [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk([rcmainserver getConsensusHandler])) addListenerWithOrgMinimaNativeListener:new_OrgMinimaStart_2_init()];
   if (daemon) {
-    [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out))) printlnWithNSString:@"Daemon Started.."];
+    OrgMinimaUtilsMinimaLogger_logWithNSString_(@"Daemon Started..");
     while ([rcmainserver isRunning]) {
       @try {
         JavaLangThread_sleepWithLong_(1000);
@@ -252,10 +249,7 @@ void OrgMinimaStart_mainWithNSStringArray_(IOSObjectArray *zArgs) {
           }
           [response waitToFinish];
           NSString *resp = [response getResponse];
-          if ([((NSString *) nil_chk(resp)) java_hasPrefix:@"{"] || [resp java_hasPrefix:@"["]) {
-            resp = OrgMinimaUtilsMiniFormat_PrettyJSONWithNSString_(resp);
-          }
-          resp = [((NSString *) nil_chk(resp)) java_replaceAll:@"\\\\n" withReplacement:@"\n"];
+          resp = OrgMinimaUtilsMiniFormat_JSONPrettyWithNSString_(resp);
           [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out))) printlnWithNSString:resp];
         }
       }
@@ -277,24 +271,19 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(OrgMinimaStart)
 
 @implementation OrgMinimaStart_1
 
-J2OBJC_IGNORE_DESIGNATED_BEGIN
-- (instancetype)init {
-  OrgMinimaStart_1_init(self);
+- (instancetype)initWithOrgMinimaStart:(OrgMinimaStart *)outer$ {
+  OrgMinimaStart_1_initWithOrgMinimaStart_(self, outer$);
   return self;
 }
-J2OBJC_IGNORE_DESIGNATED_END
 
 - (void)run {
   [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out))) printlnWithNSString:@"Minima Started.."];
   JavaUtilArrayList *vars = new_JavaUtilArrayList_init();
+  
   [vars addWithId:@"-private"];
   [vars addWithId:@"-daemon"];
-//  [vars addWithId:@"-clean"];
-//  [vars addWithId:@"-port"];
-//  [vars addWithId:@"9001"];
-//  [vars addWithId:@"-connect"];
-//  [vars addWithId:@"34.90.172.118"];
-//  [vars addWithId:@"9001"];
+//  [vars addWithId:@"-conf"];
+//  [vars addWithId:this$0_->mConfFolder_];
   OrgMinimaStart_mainWithNSStringArray_([vars toArrayWithNSObjectArray:[IOSObjectArray newArrayWithLength:0 type:NSString_class_()]]);
 }
 
@@ -306,26 +295,30 @@ J2OBJC_IGNORE_DESIGNATED_END
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
   #pragma clang diagnostic ignored "-Wundeclared-selector"
-  methods[0].selector = @selector(init);
+  methods[0].selector = @selector(initWithOrgMinimaStart:);
   methods[1].selector = @selector(run);
   #pragma clang diagnostic pop
-  static const void *ptrTable[] = { "LOrgMinimaStart;", "init" };
-  static const J2ObjcClassInfo _OrgMinimaStart_1 = { "", "org.minima", ptrTable, methods, NULL, 7, 0x8010, 2, 0, 0, -1, 1, -1, -1 };
+  static const J2ObjcFieldInfo fields[] = {
+    { "this$0_", "LOrgMinimaStart;", .constantValue.asLong = 0, 0x1012, -1, -1, -1, -1 },
+  };
+  static const void *ptrTable[] = { "LOrgMinimaStart;", "fireStarterWithNSString:" };
+  static const J2ObjcClassInfo _OrgMinimaStart_1 = { "", "org.minima", ptrTable, methods, fields, 7, 0x8010, 2, 1, 0, -1, 1, -1, -1 };
   return &_OrgMinimaStart_1;
 }
 
 @end
 
-void OrgMinimaStart_1_init(OrgMinimaStart_1 *self) {
+void OrgMinimaStart_1_initWithOrgMinimaStart_(OrgMinimaStart_1 *self, OrgMinimaStart *outer$) {
+  self->this$0_ = outer$;
   NSObject_init(self);
 }
 
-OrgMinimaStart_1 *new_OrgMinimaStart_1_init() {
-  J2OBJC_NEW_IMPL(OrgMinimaStart_1, init)
+OrgMinimaStart_1 *new_OrgMinimaStart_1_initWithOrgMinimaStart_(OrgMinimaStart *outer$) {
+  J2OBJC_NEW_IMPL(OrgMinimaStart_1, initWithOrgMinimaStart_, outer$)
 }
 
-OrgMinimaStart_1 *create_OrgMinimaStart_1_init() {
-  J2OBJC_CREATE_IMPL(OrgMinimaStart_1, init)
+OrgMinimaStart_1 *create_OrgMinimaStart_1_initWithOrgMinimaStart_(OrgMinimaStart *outer$) {
+  J2OBJC_CREATE_IMPL(OrgMinimaStart_1, initWithOrgMinimaStart_, outer$)
 }
 
 @implementation OrgMinimaStart_2
@@ -348,7 +341,6 @@ J2OBJC_IGNORE_DESIGNATED_END
     }
     
 }
-
 
 + (const J2ObjcClassInfo *)__metadata {
   static J2ObjcMethodInfo methods[] = {

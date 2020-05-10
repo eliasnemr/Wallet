@@ -123,6 +123,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 void OrgMinimaSystemBackupSyncPackage_init(OrgMinimaSystemBackupSyncPackage *self) {
   NSObject_init(self);
+  self->mCascadeNode_ = JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, ZERO);
   self->mNodes_ = new_JavaUtilArrayList_init();
   self->mCascadeNode_ = JreLoadStatic(OrgMinimaObjectsBaseMiniNumber, ZERO);
 }

@@ -25,6 +25,8 @@
 #include <ifaddrs.h>
 #include <arpa/inet.h>
 
+NSString *OrgMinimaSystemNetworkRpcRPCServer_mHost;
+
 @implementation OrgMinimaSystemNetworkRpcRPCServer
 
 - (instancetype)initWithOrgMinimaSystemInputInputHandler:(OrgMinimaSystemInputInputHandler *)zInput
@@ -37,8 +39,8 @@
   return mPort_;
 }
 
-- (NSString *)getHost {
-  return mHost_;
++ (NSString *)getHost {
+  return OrgMinimaSystemNetworkRpcRPCServer_getHost();
 }
 
 - (void)stop {
@@ -59,7 +61,7 @@
     while (mRunning_) {
       JavaNetSocket *clientsock = [((JavaNetServerSocket *) nil_chk(mServerSocket_)) accept];
       OrgMinimaSystemNetworkRpcRPCHandler *rpc = new_OrgMinimaSystemNetworkRpcRPCHandler_initWithJavaNetSocket_withOrgMinimaSystemInputInputHandler_(clientsock, mInputHandler_);
-      JavaLangThread *rpcthread = new_JavaLangThread_initWithJavaLangRunnable_(rpc);
+      JavaLangThread *rpcthread = new_JavaLangThread_initWithJavaLangRunnable_withNSString_(rpc, @"RPC Client");
       [rpcthread start];
     }
   }
@@ -80,7 +82,7 @@
   static J2ObjcMethodInfo methods[] = {
     { NULL, NULL, 0x1, -1, 0, -1, -1, -1, -1 },
     { NULL, "I", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LNSString;", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "LNSString;", 0x9, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x1, -1, -1, -1, -1, -1, -1 },
   };
@@ -97,13 +99,14 @@
     { "mInputHandler_", "LOrgMinimaSystemInputInputHandler;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mServerSocket_", "LJavaNetServerSocket;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mPort_", "I", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
-    { "mHost_", "LNSString;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
+    { "mHost", "LNSString;", .constantValue.asLong = 0, 0x8, -1, 1, -1, -1 },
     { "mRunning_", "Z", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
   };
-  static const void *ptrTable[] = { "LOrgMinimaSystemInputInputHandler;I" };
+  static const void *ptrTable[] = { "LOrgMinimaSystemInputInputHandler;I", &OrgMinimaSystemNetworkRpcRPCServer_mHost };
   static const J2ObjcClassInfo _OrgMinimaSystemNetworkRpcRPCServer = { "RPCServer", "org.minima.system.network.rpc", ptrTable, methods, fields, 7, 0x1, 5, 5, -1, -1, -1, -1, -1 };
   return &_OrgMinimaSystemNetworkRpcRPCServer;
 }
+
 
 // Getting ip address for status + web
 
@@ -140,7 +143,7 @@ void OrgMinimaSystemNetworkRpcRPCServer_initWithOrgMinimaSystemInputInputHandler
   self->mRunning_ = true;
   JreStrongAssign(&self->mInputHandler_, zInput);
   self->mPort_ = zPort;
-  self->mHost_ = [self getIPAddress];
+  OrgMinimaSystemNetworkRpcRPCServer_mHost = [self getIPAddress];
   //JreStrongAssign(&self->mHost_, @"127.0.0.1");
   /*jboolean found = false;
   @try {
@@ -171,12 +174,18 @@ void OrgMinimaSystemNetworkRpcRPCServer_initWithOrgMinimaSystemInputInputHandler
 
 @end
 
+
 OrgMinimaSystemNetworkRpcRPCServer *new_OrgMinimaSystemNetworkRpcRPCServer_initWithOrgMinimaSystemInputInputHandler_withInt_(OrgMinimaSystemInputInputHandler *zInput, jint zPort) {
   J2OBJC_NEW_IMPL(OrgMinimaSystemNetworkRpcRPCServer, initWithOrgMinimaSystemInputInputHandler_withInt_, zInput, zPort)
 }
 
 OrgMinimaSystemNetworkRpcRPCServer *create_OrgMinimaSystemNetworkRpcRPCServer_initWithOrgMinimaSystemInputInputHandler_withInt_(OrgMinimaSystemInputInputHandler *zInput, jint zPort) {
   J2OBJC_CREATE_IMPL(OrgMinimaSystemNetworkRpcRPCServer, initWithOrgMinimaSystemInputInputHandler_withInt_, zInput, zPort)
+}
+
+NSString *OrgMinimaSystemNetworkRpcRPCServer_getHost() {
+  OrgMinimaSystemNetworkRpcRPCServer_initialize();
+  return OrgMinimaSystemNetworkRpcRPCServer_mHost;
 }
 
 J2OBJC_CLASS_TYPE_LITERAL_SOURCE(OrgMinimaSystemNetworkRpcRPCServer)

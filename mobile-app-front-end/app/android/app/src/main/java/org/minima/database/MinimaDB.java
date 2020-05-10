@@ -36,6 +36,7 @@ import org.minima.objects.Witness;
 import org.minima.objects.base.MMRSumNumber;
 import org.minima.objects.base.MiniByte;
 import org.minima.objects.base.MiniData;
+import org.minima.objects.base.MiniInteger;
 import org.minima.objects.base.MiniNumber;
 import org.minima.objects.proofs.TokenProof;
 import org.minima.system.backup.BackupManager;
@@ -43,8 +44,9 @@ import org.minima.system.backup.SyncPackage;
 import org.minima.system.backup.SyncPacket;
 import org.minima.system.bootstrap.GenesisTxPOW;
 import org.minima.system.brains.ConsensusHandler;
-import org.minima.system.brains.TxPOWChecker;
-import org.minima.system.tx.TXMiner;
+import org.minima.system.input.functions.gimme50;
+import org.minima.system.txpow.TxPoWChecker;
+import org.minima.system.txpow.TxPoWMiner;
 import org.minima.utils.Crypto;
 import org.minima.utils.MinimaLogger;
 import org.minima.utils.json.JSONArray;
@@ -76,6 +78,11 @@ public class MinimaDB {
 	 * The Backup Manager
 	 */
 	BackupManager mBackup = null;
+	
+	/**
+	 * When you mine.. You can't use these INPUTS in your transactions
+	 */
+	Hashtable<String,Transaction> mMiningTransactions = new Hashtable<>();
 	
 	/**
 	 * Main Constructor
@@ -121,7 +128,8 @@ public class MinimaDB {
 		gen.setMMRRoot(base.getMMRRoot().getFinalHash());
 		gen.setMMRTotal(MMRSumNumber.ZERO);
 		
-//		SuperBlockLevels.GENESIS_HASH = Crypto.getInstance().hashObject(gen);
+		//Will make this PERMANENT in future release.. so ALL roads lead back to it..
+		//SuperBlockLevels.GENESIS_HASH = Crypto.getInstance().hashObject(gen);
 		
 		//Need to recalculate the TxPOWID
 		gen.calculateTXPOWID();
@@ -138,8 +146,7 @@ public class MinimaDB {
 		mMainTree.setTreeRoot(root);
 				
 		//Back it up..
-//		getBackup().backupTxpow(gen); 
-//		getBackup().backupFullBlock(gen, new ArrayList<>());
+		getBackup().backupTxpow(gen); 
 	}
 	
 	public TxPOW getTxPOW(MiniData zTxPOWID) {
@@ -148,10 +155,6 @@ public class MinimaDB {
 			return null;
 		}
 		return row.getTxPOW();
-	}
-	
-	public boolean isTxPOWFound(MiniData zTxPOWID) {
-		return getTxPOW(zTxPOWID)!=null;
 	}
 	
 	public TxPOWDBRow getTxPOWRow(MiniData zTxPOWID) {
@@ -189,7 +192,7 @@ public class MinimaDB {
 		boolean newfullblock = false;
 		for(TxPOWDBRow unblock : unfinishedblocks) {
 			boolean allok = true;
-			ArrayList<MiniData> txns = unblock.getTxPOW().getBlockTxns();
+			ArrayList<MiniData> txns = unblock.getTxPOW().getBlockTransactions();
 			for(MiniData txnid : txns) {
 				if(getTxPOW(txnid) == null) {
 					allok = false;
@@ -273,7 +276,7 @@ public class MinimaDB {
 				}
 				
 				//Now the Txns..
-				ArrayList<MiniData> txpowlist = txpow.getBlockTxns();
+				ArrayList<MiniData> txpowlist = txpow.getBlockTransactions();
 				for(MiniData txid : txpowlist) {
 					trow = mTxPOWDB.findTxPOWDBRow(txid);
 					if(trow!=null) {
@@ -307,9 +310,12 @@ public class MinimaDB {
 			//See what the difference is..
 			BigDecimal ratio = new BigDecimal(cascweight).divide(new BigDecimal(weight), MathContext.DECIMAL128);
 			
+			//If the cascade levels are long enough this should NEVER happen
 			if(ratio.compareTo(new BigDecimal(GlobalParams.MINIMA_CASCADE_RATIO)) < 0) {
 				//Too much power lost.. wait..
-				return;
+				MinimaLogger.log("Cascade Tree LOST more than "+GlobalParams.MINIMA_CASCADE_RATIO+" "+ratio);
+				//For NOW continue..
+//				return;
 			}
 			
 			//Set it
@@ -331,7 +337,7 @@ public class MinimaDB {
 				row.setOnChainBlock(false);
 				
 				//And delete / move to different folder any file backups..
-//				getBackup().deleteTxpow(node.getTxPow());
+				getBackup().deleteTxpow(node.getTxPow());
 			}
 			
 			//Remove all TXPowRows that are less than the cascade node.. they will not be used again..
@@ -340,10 +346,10 @@ public class MinimaDB {
 			//Which txpow have been removed..
 			ArrayList<TxPOWDBRow> remrows =  mTxPOWDB.removeTxPOWInBlockLessThan(cascade);
 			
-//			//Remove the deleted txpow..
-//			for(TxPOWDBRow remrow : remrows) {
-//				getBackup().deleteTxpow(remrow.getTxPOW());
-//			}
+			//Remove the deleted txpow..
+			for(TxPOWDBRow remrow : remrows) {
+				getBackup().deleteTxpow(remrow.getTxPOW());
+			}
 			
 			//Remove all the coins no longer needed.. SPENT
 			mCoinDB.removeOldSpentCoins(cascade);
@@ -351,44 +357,42 @@ public class MinimaDB {
 	}
 	
 	public void scanMMRSetForCoins(MMRSet zMMRSet) {
+		//Cascade node has no parent MMR!
 		if(zMMRSet == null) {
-//			System.out.println("Scanning NULL MMRSET..! ");
 			return;
 		}
 		
-		//First check the MMR for any relevant coins..
+		//Check the MMR for any coins..
 		ArrayList<MMREntry> entries = zMMRSet.getZeroRow();
 		for(MMREntry mmrcoin : entries) {
 			if(!mmrcoin.getData().isHashOnly()) {
+				//Get the Coin..
 				Coin cc = mmrcoin.getData().getCoin();
+				
+				//Is it spent
+				boolean spent = mmrcoin.getData().isSpent();
 				
 				//Is the address one of ours..
 				boolean rel = getUserDB().isAddressRelevant(cc.getAddress());
 					
-				//Check the PREV State - could be a KEY we own..
+				//Check the PREV State - could be a KEY or ADDRESS we own..
 				if(!rel) {
 					rel = getUserDB().isStateListRelevant(mmrcoin.getData().getPrevState());
 				}
 				
 				//Keep it if it's relevant
 				if(rel) {
-					//It's to be kept..
+					//It's to be kept in the MMR past the cascade..
 					zMMRSet.addKeeper(mmrcoin.getEntry());
 				}
 				
-				//Do we have it or not..
-				CoinDBRow oldrow = getCoinDB().getCoinRow(cc.getCoinID());
-				if(oldrow == null && !rel) {
-					continue;
-				}
-				
-				//And add to our list..
+				//Add to our list - or return the already existing  version..
 				CoinDBRow inrow = getCoinDB().addCoinRow(cc);
+				inrow.setRelevant(rel);
 				
 				//Exists already - only want to update if something has changed..
-				boolean spent = mmrcoin.getData().isSpent();
+				//Same coin can be in the MMR for multiple blocks.. only do this ONCHANGE
 				if(!inrow.isInBlock() || inrow.isSpent() != spent) {
-					//Update
 					inrow.setIsSpent(spent);
 					inrow.setIsInBlock(true);
 					inrow.setInBlockNumber(zMMRSet.getBlockTime());
@@ -477,20 +481,20 @@ public class MinimaDB {
 	private boolean checkFullTxPOW(TxPOW zBlock, MMRSet zMMRSet) {
 		//First check the main transaction..
 		if(zBlock.isTransaction()) {
-			boolean inputvalid = TxPOWChecker.checkTransactionMMR(zBlock, this, zBlock.getBlockNumber(), zMMRSet,true);
+			boolean inputvalid = TxPoWChecker.checkTransactionMMR(zBlock, this, zBlock.getBlockNumber(), zMMRSet,true);
 			if(!inputvalid) {
 				return false;
 			}
 		}
 		
 		//Now cycle through all the transactions in the block..
-		ArrayList<MiniData> txns = zBlock.getBlockTxns();
+		ArrayList<MiniData> txns = zBlock.getBlockTransactions();
 		for(MiniData txn : txns) {
 			TxPOWDBRow row = getTxPOWRow(txn);
 			TxPOW txpow = row.getTxPOW();
 			
 			//Check the Proof..
-			boolean inputvalid = TxPOWChecker.checkTransactionMMR(txpow, this, zBlock.getBlockNumber(), zMMRSet,true);
+			boolean inputvalid = TxPoWChecker.checkTransactionMMR(txpow, this, zBlock.getBlockNumber(), zMMRSet,true);
 			if(!inputvalid) {
 				return false;
 			}
@@ -510,20 +514,15 @@ public class MinimaDB {
 		return mTxPOWDB.addTxPOWDBRow(zTxPOW);
 	}
 	
-	
-	public boolean isChainRoot() {
-		return ( mMainTree.getChainRoot() != null );
-	}
-	
-	public BlockTreeNode hardAddTxPOWBlock(TxPOW zRoot, MMRSet zMMR, boolean zCascade) {
+	public BlockTreeNode hardAddTxPOWBlock(TxPOW zTxPoW, MMRSet zMMR, boolean zCascade) {
 		//Add to the list
-		TxPOWDBRow row = mTxPOWDB.addTxPOWDBRow(zRoot);
+		TxPOWDBRow row = mTxPOWDB.addTxPOWDBRow(zTxPoW);
 		row.setIsInBlock(true);
 		row.setOnChainBlock(true);
-		row.setInBlockNumber(zRoot.getBlockNumber());
+		row.setInBlockNumber(zTxPoW.getBlockNumber());
 		row.setBlockState(TxPOWDBRow.TXPOWDBROW_STATE_FULL);
 		
-		BlockTreeNode node = new BlockTreeNode(zRoot);
+		BlockTreeNode node = new BlockTreeNode(zTxPoW);
 		node.setCascade(zCascade);
 		node.setState(BlockTreeNode.BLOCKSTATE_VALID);
 		
@@ -547,30 +546,81 @@ public class MinimaDB {
 		mMainTree = casc.getCascadeTree();
 	}
 	
+	/**
+	 * When you mine a transaction these must be talen into account from coin selection
+	 */
+	
+	public void addMiningTransaction(Transaction zTrans) {
+		//Hash it..
+		MiniData transhash = Crypto.getInstance().hashObject(zTrans, 160);
+		String hash        = transhash.to0xString();
+		
+		//Do we have it..
+		Transaction prev = mMiningTransactions.get(hash);
+		if(prev!=null) {
+			return;
+		}
+		
+		//Add it..
+		mMiningTransactions.put(hash, zTrans);
+	}
+	
+	public void remeoveMiningTransaction(Transaction zTrans) {
+		//Hash it..
+		MiniData transhash = Crypto.getInstance().hashObject(zTrans, 160);
+		String hash        = transhash.to0xString();
+		mMiningTransactions.remove(hash);
+	}
+	
+	public boolean checkInputForMining(MiniData zCoinID) {
+		Enumeration<Transaction> alltrans = mMiningTransactions.elements();
+		while(alltrans.hasMoreElements()) {
+			Transaction trans = alltrans.nextElement();
+			ArrayList<Coin> inputs = trans.getAllInputs();
+			for(Coin input : inputs) {
+				if(zCoinID.isEqual(input.getCoinID())) {
+					return true;
+				}
+			}
+		}
+		
+		return false;
+	}
+	
+	
 	public ArrayList<Coin> getTotalSimpleSpendableCoins(MiniData zTokenID) {
 		ArrayList<Coin> confirmed   = new ArrayList<>();
 		
 		MiniNumber top = getTopBlock();
 		
-		//Now Check NONE of these are in the mempool.
+		//Check NONE of these are in the mempool.
 		ArrayList<Coin> memcoins = getMempoolCoins();
 				
 		//Do we have any inputs with this address..
-		ArrayList<CoinDBRow> relevant = getCoinDB().getComplete();
+		ArrayList<CoinDBRow> relevant = getCoinDB().getCompleteRelevant();
 		for(CoinDBRow row : relevant) {
 			if(row.isInBlock() && !row.isSpent() && row.getCoin().getTokenID().isEqual(zTokenID)){
 				MiniNumber depth = top.sub(row.getInBlockNumber());
 				if(depth.isMoreEqual(GlobalParams.MINIMA_CONFIRM_DEPTH)) {
 					//Is this a simple address..
 					if(getUserDB().isSimpleAddress(row.getCoin().getAddress())) {
-						boolean found = false;
+						boolean found   = false;
+						MiniData coinid = row.getCoin().getCoinID();
+						
+						//Check in MemPool
 						for(Coin memcoin : memcoins) {
-							if(memcoin.getCoinID().isEqual(row.getCoin().getCoinID())) {
+							if(memcoin.getCoinID().isEqual(coinid)) {
 								found = true;
 								break;
 							}
 						}
 						
+						//Check in Mining
+						if(!found) {
+							found = checkInputForMining(coinid);	
+						}
+						
+						//Is it safe to use ?
 						if(!found) {
 							confirmed.add(row.getCoin());	
 						}	
@@ -582,6 +632,21 @@ public class MinimaDB {
 		return confirmed;
 	}
 	
+	public boolean checkTransactionForMempoolCoins(Transaction zTransaction) {
+		ArrayList<Coin> memcoins = getMempoolCoins();
+		ArrayList<Coin> inputs = zTransaction.getAllInputs();
+		for(Coin in : inputs) {
+			for(Coin mem : memcoins) {
+				if(in.getCoinID().isEqual(mem.getCoinID())) {
+					//No GOOD!
+					return true;
+				}
+			}
+		}
+		
+		return false;
+	}
+	
 	public ArrayList<Coin> getMempoolCoins(){
 		ArrayList<Coin> coins = new ArrayList<>();
 		
@@ -591,7 +656,7 @@ public class MinimaDB {
 			if(txpow.isTransaction()) {
 				ArrayList<Coin> inputs = txpow.getTransaction().getAllInputs();	
 				for(Coin cc : inputs) {
-					if(getUserDB().isAddressRelevant(cc.getAddress())) {
+					if(!cc.getCoinID().isEqual(gimme50.COINID_INPUT)) {
 						coins.add(cc);	
 					}
 				}
@@ -690,16 +755,25 @@ public class MinimaDB {
 		MiniNumber currentblock = basemmr.getBlockTime();
 		
 		//Clear the proofs..
-		zWitness.clearProofs();
+		zWitness.clearMMRProofs();
 		
 		//Cycle through the inputs..
 		ArrayList<Coin> ins = zTransaction.getAllInputs();
 		
 		//What's the most recent coin used..
-		MiniNumber recent = currentblock;
+		MiniNumber recent = null;
 		for(Coin cc : ins) {
-			//The CoinDB Entry
-			MiniNumber inblock = getCoinDB().getCoinRow(cc.getCoinID()).getInBlockNumber();
+			MiniNumber inblock = null;
+					
+			//Get the block..
+			CoinDBRow crow = getCoinDB().getCoinRow(cc.getCoinID());
+			if(crow != null) {
+				inblock = crow.getInBlockNumber();
+			}else {
+				//Search for the coin..
+				MMREntry entry =  basemmr.findEntry(cc.getCoinID());
+				inblock = entry.getData().getInBlock();
+			}
 			
 			if(recent == null) {
 				recent = inblock;
@@ -723,8 +797,18 @@ public class MinimaDB {
 		
 		//Now add the actual MMR Proofs..
 		for(Coin cc : ins) {
+			MiniInteger entrynum = null;
+			
+			//Get the entry
+			CoinDBRow crow = getCoinDB().getCoinRow(cc.getCoinID());
+			if(crow != null) {
+				entrynum = crow.getMMREntry();
+			}else {
+				entrynum = proofmmr.findEntry(cc.getCoinID()).getEntry();
+			}
+			
 			//Get a proof from a while back.. more than confirmed depth, less than cascade
-			MMRProof proof = proofmmr.getProof(getCoinDB().getCoinRow(cc.getCoinID()).getMMREntry());
+			MMRProof proof = proofmmr.getProof(entrynum);
 			
 			//Hmm.. this should not happen
 			if(proof == null) {
@@ -889,8 +973,8 @@ public class MinimaDB {
 		
 		//The Transaction Difficulty is set by the user after testing.. 
 		//He performs 10 seconds of work..
-		txpow.setTxDifficulty(TXMiner.BASE_TXN);
-		txpow.setBlockDifficulty(TXMiner.BASE_BLOCK);
+		txpow.setTxDifficulty(TxPoWMiner.BASE_TXN);
+		txpow.setBlockDifficulty(TxPoWMiner.BASE_BLOCK);
 		
 		//Block Details..
 		txpow.setBlockNumber(tip.getTxPow().getBlockNumber().increment());
@@ -921,6 +1005,7 @@ public class MinimaDB {
 				if(newdiff.compareTo(Crypto.MAX_VAL)>0) {
 					newdiff = Crypto.MAX_VAL;
 				}
+								
 				//Create the hash
 				MiniData diffhash = new MiniData("0x"+newdiff.toString(16)); 
 				
@@ -948,12 +1033,12 @@ public class MinimaDB {
 		
 		//Check the first transaction
 		if(!zTrans.isEmpty()) {
-			boolean valid = TxPOWChecker.checkTransactionMMR(zTrans, zWitness, this, 
+			boolean valid = TxPoWChecker.checkTransactionMMR(zTrans, zWitness, this, 
 					txpow.getBlockNumber(),newset,true, zContractLogs);
 			
 			//MUST be valid.. ?
 			if(!valid) {
-//				MinimaLogger.log("ERROR: Your own transaction is invalid !?");
+				MinimaLogger.log("ERROR: Your own transaction is invalid !?");
 				return null;
 			}
 		}
@@ -969,7 +1054,7 @@ public class MinimaDB {
 			 * is valid.. but no way to check it has already been added
 			 */
 			if(txp.isTransaction()) {
-				boolean valid = TxPOWChecker.checkTransactionMMR(txp, this, txpow.getBlockNumber(),newset,true);
+				boolean valid = TxPoWChecker.checkTransactionMMR(txp, this, txpow.getBlockNumber(),newset,true);
 				
 				if(valid) {
 					//Add it..
@@ -1005,22 +1090,35 @@ public class MinimaDB {
 		return getMainTree().getChainTip().getTxPow().getBlockNumber();
 	}
 	
-	/**
-	 * Get the Current IBD - total required to log in for a new user
-	 */
-	public int getIntroSyncSize() {
+	public SyncPackage getSyncPackage() {
 		SyncPackage sp = new SyncPackage();
+		
+		//Is there anything.. ?
+		if(getMainTree().getChainRoot()==null) {
+			return sp;
+		}
+		
+		//Cascade Node
+		MiniNumber casc = getMainTree().getCascadeNode().getTxPow().getBlockNumber();
+		sp.setCascadeNode(casc);
 		
 		//Lets create a sync package
 		ArrayList<BlockTreeNode> nodes = getMainTree().getAsList();
-		MiniNumber casc = getMainTree().getCascadeNode().getTxPow().getBlockNumber();
-		sp.setCascadeNode(casc);
 		
 		//Cycle through it all..
 		for(BlockTreeNode node : nodes) {
 			MiniNumber block = node.getTxPow().getBlockNumber();
 			sp.getAllNodes().add(0,new SyncPacket(node, block.isLessEqual(casc)));
 		}
+		
+		return sp;
+	}
+		
+	/**
+	 * Get the Current IBD - total required to log in for a new user
+	 */
+	public int getIntroSyncSize() {
+		SyncPackage sp = getSyncPackage();
 		
 		//Write it out..
 		try {

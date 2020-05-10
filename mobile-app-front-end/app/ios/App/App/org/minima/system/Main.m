@@ -13,11 +13,10 @@
 #include "org/minima/system/backup/BackupManager.h"
 #include "org/minima/system/brains/ConsensusBackup.h"
 #include "org/minima/system/brains/ConsensusHandler.h"
-#include "org/minima/system/external/ProcessManager.h"
 #include "org/minima/system/input/CommandFunction.h"
 #include "org/minima/system/input/InputHandler.h"
 #include "org/minima/system/network/NetworkHandler.h"
-#include "org/minima/system/tx/TXMiner.h"
+#include "org/minima/system/txpow/TxPoWMiner.h"
 #include "org/minima/utils/MinimaLogger.h"
 #include "org/minima/utils/messages/Message.h"
 #include "org/minima/utils/messages/MessageProcessor.h"
@@ -26,20 +25,18 @@
  @public
   OrgMinimaSystemInputInputHandler *mInput_;
   OrgMinimaSystemNetworkNetworkHandler *mNetwork_;
-  OrgMinimaSystemTxTXMiner *mTXMiner_;
+  OrgMinimaSystemTxpowTxPoWMiner *mTXMiner_;
   OrgMinimaSystemBrainsConsensusHandler *mConsensus_;
   OrgMinimaSystemBackupBackupManager *mBackup_;
-  OrgMinimaSystemExternalProcessManager *mProcessManager_;
 }
 
 @end
 
 J2OBJC_FIELD_SETTER(OrgMinimaSystemMain, mInput_, OrgMinimaSystemInputInputHandler *)
 J2OBJC_FIELD_SETTER(OrgMinimaSystemMain, mNetwork_, OrgMinimaSystemNetworkNetworkHandler *)
-J2OBJC_FIELD_SETTER(OrgMinimaSystemMain, mTXMiner_, OrgMinimaSystemTxTXMiner *)
+J2OBJC_FIELD_SETTER(OrgMinimaSystemMain, mTXMiner_, OrgMinimaSystemTxpowTxPoWMiner *)
 J2OBJC_FIELD_SETTER(OrgMinimaSystemMain, mConsensus_, OrgMinimaSystemBrainsConsensusHandler *)
 J2OBJC_FIELD_SETTER(OrgMinimaSystemMain, mBackup_, OrgMinimaSystemBackupBackupManager *)
-J2OBJC_FIELD_SETTER(OrgMinimaSystemMain, mProcessManager_, OrgMinimaSystemExternalProcessManager *)
 
 NSString *OrgMinimaSystemMain_SYSTEM_STARTUP = @"SYSTEM_STARTUP";
 NSString *OrgMinimaSystemMain_SYSTEM_INIT = @"SYSTEM_INIT";
@@ -76,14 +73,6 @@ NSString *OrgMinimaSystemMain_SYSTEM_EVENT = @"SYSTEM_EVENT";
   return mNodeStartTime_;
 }
 
-- (void)setNewTxnCommandWithNSString:(NSString *)zExec {
-  [((OrgMinimaSystemExternalProcessManager *) nil_chk(mProcessManager_)) setTXNCallFunctionWithNSString:zExec];
-}
-
-- (void)setNewRelCoinWithNSString:(NSString *)zPostURL {
-  [((OrgMinimaSystemExternalProcessManager *) nil_chk(mProcessManager_)) setRelCoinWithNSString:zPostURL];
-}
-
 - (void)SystemShutDown {
   [self PostMessageWithNSString:OrgMinimaSystemMain_SYSTEM_SHUTDOWN];
 }
@@ -92,10 +81,9 @@ NSString *OrgMinimaSystemMain_SYSTEM_EVENT = @"SYSTEM_EVENT";
   [self setLOGWithBoolean:zTraceON];
   [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk(mConsensus_)) setLOGWithBoolean:zTraceON];
   [((OrgMinimaSystemNetworkNetworkHandler *) nil_chk(mNetwork_)) PostMessageWithOrgMinimaUtilsMessagesMessage:[new_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemNetworkNetworkHandler_NETWORK_TRACE) addBooleanWithNSString:@"trace" withBoolean:zTraceON]];
-  [((OrgMinimaSystemTxTXMiner *) nil_chk(mTXMiner_)) setLOGWithBoolean:zTraceON];
+  [((OrgMinimaSystemTxpowTxPoWMiner *) nil_chk(mTXMiner_)) setLOGWithBoolean:zTraceON];
   [((OrgMinimaSystemInputInputHandler *) nil_chk(mInput_)) setLOGWithBoolean:zTraceON];
   [((OrgMinimaSystemBackupBackupManager *) nil_chk(mBackup_)) setLOGWithBoolean:zTraceON];
-  [((OrgMinimaSystemExternalProcessManager *) nil_chk(mProcessManager_)) setLOGWithBoolean:zTraceON];
 }
 
 - (OrgMinimaSystemInputInputHandler *)getInputHandler {
@@ -114,11 +102,7 @@ NSString *OrgMinimaSystemMain_SYSTEM_EVENT = @"SYSTEM_EVENT";
   return mBackup_;
 }
 
-- (OrgMinimaSystemExternalProcessManager *)getProcessManager {
-  return mProcessManager_;
-}
-
-- (OrgMinimaSystemTxTXMiner *)getMiner {
+- (OrgMinimaSystemTxpowTxPoWMiner *)getMiner {
   return mTXMiner_;
 }
 
@@ -127,7 +111,7 @@ NSString *OrgMinimaSystemMain_SYSTEM_EVENT = @"SYSTEM_EVENT";
     [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk([self getConsensusHandler])) setBackUpManager];
     if (mGenesis_) {
       [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk(mConsensus_)) genesis];
-      [((OrgMinimaSystemTxTXMiner *) nil_chk(mTXMiner_)) setAutoMiningWithBoolean:true];
+      [((OrgMinimaSystemTxpowTxPoWMiner *) nil_chk(mTXMiner_)) setAutoMiningWithBoolean:true];
       [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk(mConsensus_)) setHardResetAllowedWithBoolean:false];
       [self PostMessageWithNSString:OrgMinimaSystemMain_SYSTEM_INIT];
     }
@@ -151,11 +135,10 @@ NSString *OrgMinimaSystemMain_SYSTEM_EVENT = @"SYSTEM_EVENT";
   else if ([zMessage isMessageTypeWithNSString:OrgMinimaSystemMain_SYSTEM_FULLSHUTDOWN]) {
     [((OrgMinimaSystemNetworkNetworkHandler *) nil_chk(mNetwork_)) PostMessageWithNSString:OrgMinimaSystemNetworkNetworkHandler_NETWORK_SHUTDOWN];
     [((OrgMinimaSystemInputInputHandler *) nil_chk(mInput_)) stopMessageProcessor];
-    [((OrgMinimaSystemTxTXMiner *) nil_chk(mTXMiner_)) stopMessageProcessor];
+    [((OrgMinimaSystemTxpowTxPoWMiner *) nil_chk(mTXMiner_)) stopMessageProcessor];
     [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk(mConsensus_)) stopMessageProcessor];
     [((OrgMinimaSystemBackupBackupManager *) nil_chk(mBackup_)) stopMessageProcessor];
-    [((OrgMinimaSystemExternalProcessManager *) nil_chk(mProcessManager_)) stopMessageProcessor];
-    JavaLangThread_sleepWithLong_(250);
+    JavaLangThread_sleepWithLong_(1000);
     [self stopMessageProcessor];
     [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk(mConsensus_)) updateListenersWithOrgMinimaUtilsMessagesMessage:new_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemBrainsConsensusHandler_CONSENSUS_NOTIFY_QUIT)];
     OrgMinimaUtilsMinimaLogger_logWithNSString_(@"Minima Stopped. Bye Bye..");
@@ -179,17 +162,14 @@ NSString *OrgMinimaSystemMain_SYSTEM_EVENT = @"SYSTEM_EVENT";
     { NULL, "V", 0x1, 3, 4, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 5, 6, -1, -1, -1, -1 },
     { NULL, "J", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 7, 4, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 8, 4, -1, -1, -1, -1 },
     { NULL, "V", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 9, 2, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 7, 2, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaSystemInputInputHandler;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaSystemNetworkNetworkHandler;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaSystemBrainsConsensusHandler;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaSystemBackupBackupManager;", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaSystemExternalProcessManager;", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaSystemTxTXMiner;", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "V", 0x4, 10, 11, 12, -1, -1, -1 },
+    { NULL, "LOrgMinimaSystemTxpowTxPoWMiner;", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "V", 0x4, 8, 9, 10, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
@@ -199,31 +179,27 @@ NSString *OrgMinimaSystemMain_SYSTEM_EVENT = @"SYSTEM_EVENT";
   methods[2].selector = @selector(setMiFiProxyWithNSString:);
   methods[3].selector = @selector(setAutoConnectHostPortWithNSString:withInt:);
   methods[4].selector = @selector(getNodeStartTime);
-  methods[5].selector = @selector(setNewTxnCommandWithNSString:);
-  methods[6].selector = @selector(setNewRelCoinWithNSString:);
-  methods[7].selector = @selector(SystemShutDown);
-  methods[8].selector = @selector(setTraceWithBoolean:);
-  methods[9].selector = @selector(getInputHandler);
-  methods[10].selector = @selector(getNetworkHandler);
-  methods[11].selector = @selector(getConsensusHandler);
-  methods[12].selector = @selector(getBackupManager);
-  methods[13].selector = @selector(getProcessManager);
-  methods[14].selector = @selector(getMiner);
-  methods[15].selector = @selector(processMessageWithOrgMinimaUtilsMessagesMessage:);
+  methods[5].selector = @selector(SystemShutDown);
+  methods[6].selector = @selector(setTraceWithBoolean:);
+  methods[7].selector = @selector(getInputHandler);
+  methods[8].selector = @selector(getNetworkHandler);
+  methods[9].selector = @selector(getConsensusHandler);
+  methods[10].selector = @selector(getBackupManager);
+  methods[11].selector = @selector(getMiner);
+  methods[12].selector = @selector(processMessageWithOrgMinimaUtilsMessagesMessage:);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
-    { "SYSTEM_STARTUP", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 13, -1, -1 },
-    { "SYSTEM_INIT", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 14, -1, -1 },
-    { "SYSTEM_SHUTDOWN", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 15, -1, -1 },
-    { "SYSTEM_FULLSHUTDOWN", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 16, -1, -1 },
-    { "SYSTEM_ALLSTOP", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 17, -1, -1 },
-    { "SYSTEM_EVENT", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 18, -1, -1 },
+    { "SYSTEM_STARTUP", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 11, -1, -1 },
+    { "SYSTEM_INIT", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 12, -1, -1 },
+    { "SYSTEM_SHUTDOWN", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 13, -1, -1 },
+    { "SYSTEM_FULLSHUTDOWN", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 14, -1, -1 },
+    { "SYSTEM_ALLSTOP", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 15, -1, -1 },
+    { "SYSTEM_EVENT", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 16, -1, -1 },
     { "mInput_", "LOrgMinimaSystemInputInputHandler;", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
     { "mNetwork_", "LOrgMinimaSystemNetworkNetworkHandler;", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
-    { "mTXMiner_", "LOrgMinimaSystemTxTXMiner;", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
+    { "mTXMiner_", "LOrgMinimaSystemTxpowTxPoWMiner;", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
     { "mConsensus_", "LOrgMinimaSystemBrainsConsensusHandler;", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
     { "mBackup_", "LOrgMinimaSystemBackupBackupManager;", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
-    { "mProcessManager_", "LOrgMinimaSystemExternalProcessManager;", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
     { "mGenesis_", "Z", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mPort_", "I", .constantValue.asLong = 0, 0x1, -1, -1, -1, -1 },
     { "mRPCPort_", "I", .constantValue.asLong = 0, 0x1, -1, -1, -1, -1 },
@@ -233,8 +209,8 @@ NSString *OrgMinimaSystemMain_SYSTEM_EVENT = @"SYSTEM_EVENT";
     { "mCurrentTopBlock_", "LOrgMinimaObjectsBaseMiniNumber;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mNodeStartTime_", "J", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
   };
-  static const void *ptrTable[] = { "IIZLNSString;", "setAutoConnect", "Z", "setMiFiProxy", "LNSString;", "setAutoConnectHostPort", "LNSString;I", "setNewTxnCommand", "setNewRelCoin", "setTrace", "processMessage", "LOrgMinimaUtilsMessagesMessage;", "LJavaLangException;", &OrgMinimaSystemMain_SYSTEM_STARTUP, &OrgMinimaSystemMain_SYSTEM_INIT, &OrgMinimaSystemMain_SYSTEM_SHUTDOWN, &OrgMinimaSystemMain_SYSTEM_FULLSHUTDOWN, &OrgMinimaSystemMain_SYSTEM_ALLSTOP, &OrgMinimaSystemMain_SYSTEM_EVENT };
-  static const J2ObjcClassInfo _OrgMinimaSystemMain = { "Main", "org.minima.system", ptrTable, methods, fields, 7, 0x1, 16, 20, -1, -1, -1, -1, -1 };
+  static const void *ptrTable[] = { "IIZLNSString;", "setAutoConnect", "Z", "setMiFiProxy", "LNSString;", "setAutoConnectHostPort", "LNSString;I", "setTrace", "processMessage", "LOrgMinimaUtilsMessagesMessage;", "LJavaLangException;", &OrgMinimaSystemMain_SYSTEM_STARTUP, &OrgMinimaSystemMain_SYSTEM_INIT, &OrgMinimaSystemMain_SYSTEM_SHUTDOWN, &OrgMinimaSystemMain_SYSTEM_FULLSHUTDOWN, &OrgMinimaSystemMain_SYSTEM_ALLSTOP, &OrgMinimaSystemMain_SYSTEM_EVENT };
+  static const J2ObjcClassInfo _OrgMinimaSystemMain = { "Main", "org.minima.system", ptrTable, methods, fields, 7, 0x1, 13, 19, -1, -1, -1, -1, -1 };
   return &_OrgMinimaSystemMain;
 }
 
@@ -258,11 +234,11 @@ void OrgMinimaSystemMain_initWithInt_withInt_withBoolean_withNSString_(OrgMinima
   self->mRPCPort_ = zRPCPort;
   self->mInput_ = new_OrgMinimaSystemInputInputHandler_initWithOrgMinimaSystemMain_(self);
   self->mNetwork_ = new_OrgMinimaSystemNetworkNetworkHandler_initWithOrgMinimaSystemMain_(self);
-  self->mTXMiner_ = new_OrgMinimaSystemTxTXMiner_initWithOrgMinimaSystemMain_(self);
+  self->mTXMiner_ = new_OrgMinimaSystemTxpowTxPoWMiner_initWithOrgMinimaSystemMain_(self);
   self->mBackup_ = new_OrgMinimaSystemBackupBackupManager_initWithOrgMinimaSystemMain_withNSString_(self, zConfFolder);
-  self->mProcessManager_ = new_OrgMinimaSystemExternalProcessManager_initWithOrgMinimaSystemMain_(self);
   self->mConsensus_ = new_OrgMinimaSystemBrainsConsensusHandler_initWithOrgMinimaSystemMain_(self);
   self->mGenesis_ = zGenesis;
+  OrgMinimaUtilsMinimaLogger_logWithNSString_(JreStrcat("$$", @"Minima files : ", zConfFolder));
 }
 
 OrgMinimaSystemMain *new_OrgMinimaSystemMain_initWithInt_withInt_withBoolean_withNSString_(jint zPort, jint zRPCPort, jboolean zGenesis, NSString *zConfFolder) {

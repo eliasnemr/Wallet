@@ -175,11 +175,11 @@ OrgMinimaDatabaseTxpowtreeSimpleBlockTreePrinter *create_OrgMinimaDatabaseTxpowt
 NSString *OrgMinimaDatabaseTxpowtreeSimpleBlockTreePrinter_convertNodeToStringWithOrgMinimaDatabaseTxpowtreeBlockTreeNode_(OrgMinimaDatabaseTxpowtreeSimpleBlockTreePrinter *self, OrgMinimaDatabaseTxpowtreeBlockTreeNode *zNode) {
   jint slev = [((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk(zNode)) getSuperBlockLevel];
   jint clev = [zNode getCurrentLevel];
-  NSString *weight = JreStrcat("$@C@$", @"{WEIGHT:", [zNode getWeight], '/', [zNode getTotalWeight], @"} ");
+  NSString *weight = JreStrcat("$@C@C", @"WEIGHT:", [zNode getWeight], '/', [zNode getTotalWeight], ' ');
   OrgMinimaObjectsTxPOW *txpow = [zNode getTxPow];
   OrgMinimaObjectsBaseMiniData *parent = [((OrgMinimaObjectsTxPOW *) nil_chk(txpow)) getSuperParentWithInt:clev];
   OrgMinimaObjectsBaseMiniData *parent2 = [txpow getSuperParentWithInt:clev + 1];
-  NSString *parents = JreStrcat("$@$$$IC$$IC$$IC", @"[blk:", [txpow getBlockNumber], @"] txpowid:", [((OrgMinimaObjectsBaseMiniData *) nil_chk([zNode getTxPowID])) to0xStringWithInt:16], @" [parent:", clev, ']', [((OrgMinimaObjectsBaseMiniData *) nil_chk(parent)) to0xStringWithInt:16], @" [parent:", (clev + 1), ']', [((OrgMinimaObjectsBaseMiniData *) nil_chk(parent2)) to0xStringWithInt:16], @"[txns:", [((JavaUtilArrayList *) nil_chk([txpow getBlockTxns])) size], ']');
+  NSString *parents = JreStrcat("$@$$$IC$$IC$$IC", @"[blk:", [txpow getBlockNumber], @"] txpowid:", [((OrgMinimaObjectsBaseMiniData *) nil_chk([zNode getTxPowID])) to0xStringWithInt:16], @" [parent:", clev, ']', [((OrgMinimaObjectsBaseMiniData *) nil_chk(parent)) to0xStringWithInt:16], @" [parent:", (clev + 1), ']', [((OrgMinimaObjectsBaseMiniData *) nil_chk(parent2)) to0xStringWithInt:16], @"[txns:", [((JavaUtilArrayList *) nil_chk([txpow getBlockTransactions])) size], ']');
   NSString *add = JreStrcat("$$$$$", parents, @" [", OrgMinimaDatabaseTxpowtreeSimpleBlockTreePrinter_getStarStringWithInt_(self, slev), @"] - ", OrgMinimaDatabaseTxpowtreeSimpleBlockTreePrinter_getStarStringWithInt_(self, clev));
   return JreStrcat("$CI$I$$", weight, '[', clev, @" / ", slev, @"] ", add);
 }

@@ -20,7 +20,13 @@
 #define INCLUDE_OrgMinimaUtilsMessagesMessage 1
 #include "org/minima/utils/messages/Message.h"
 
-@interface OrgMinimaUtilsMessagesTimerMessage : OrgMinimaUtilsMessagesMessage
+#define RESTRICT_JavaLangRunnable 1
+#define INCLUDE_JavaLangRunnable 1
+#include "java/lang/Runnable.h"
+
+@class OrgMinimaUtilsMessagesMessageProcessor;
+
+@interface OrgMinimaUtilsMessagesTimerMessage : OrgMinimaUtilsMessagesMessage < JavaLangRunnable >
 
 #pragma mark Public
 
@@ -28,6 +34,10 @@
                withNSString:(NSString *)zMessageType;
 
 - (jlong)getTimer;
+
+- (void)run;
+
+- (void)setProcessorWithOrgMinimaUtilsMessagesMessageProcessor:(OrgMinimaUtilsMessagesMessageProcessor *)zProcessor;
 
 // Disallowed inherited constructors, do not use.
 

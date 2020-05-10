@@ -97,6 +97,21 @@ inline NSString *OrgMinimaSystemBrainsConsensusUser_get_CONSENSUS_KEEPCOIN(void)
 FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusUser_CONSENSUS_KEEPCOIN;
 J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBrainsConsensusUser, CONSENSUS_KEEPCOIN, NSString *)
 
+inline NSString *OrgMinimaSystemBrainsConsensusUser_get_CONSENSUS_UNKEEPCOIN(void);
+/*! INTERNAL ONLY - Use accessor function from above. */
+FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusUser_CONSENSUS_UNKEEPCOIN;
+J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBrainsConsensusUser, CONSENSUS_UNKEEPCOIN, NSString *)
+
+inline NSString *OrgMinimaSystemBrainsConsensusUser_get_CONSENSUS_CHECK(void);
+/*! INTERNAL ONLY - Use accessor function from above. */
+FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusUser_CONSENSUS_CHECK;
+J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBrainsConsensusUser, CONSENSUS_CHECK, NSString *)
+
+inline NSString *OrgMinimaSystemBrainsConsensusUser_get_CONSENSUS_FLUSHMEMPOOL(void);
+/*! INTERNAL ONLY - Use accessor function from above. */
+FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusUser_CONSENSUS_FLUSHMEMPOOL;
+J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBrainsConsensusUser, CONSENSUS_FLUSHMEMPOOL, NSString *)
+
 inline NSString *OrgMinimaSystemBrainsConsensusUser_get_CONSENSUS_EXPORTKEY(void);
 /*! INTERNAL ONLY - Use accessor function from above. */
 FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusUser_CONSENSUS_EXPORTKEY;

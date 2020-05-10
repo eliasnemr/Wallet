@@ -64,6 +64,11 @@ inline NSString *OrgMinimaSystemBrainsConsensusPrint_get_CONSENSUS_COINS(void);
 FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_COINS;
 J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBrainsConsensusPrint, CONSENSUS_COINS, NSString *)
 
+inline NSString *OrgMinimaSystemBrainsConsensusPrint_get_CONSENSUS_COINSIMPLE(void);
+/*! INTERNAL ONLY - Use accessor function from above. */
+FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_COINSIMPLE;
+J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBrainsConsensusPrint, CONSENSUS_COINSIMPLE, NSString *)
+
 inline NSString *OrgMinimaSystemBrainsConsensusPrint_get_CONSENSUS_TXPOW(void);
 /*! INTERNAL ONLY - Use accessor function from above. */
 FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_TXPOW;
@@ -84,6 +89,11 @@ inline NSString *OrgMinimaSystemBrainsConsensusPrint_get_CONSENSUS_SEARCH(void);
 FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_SEARCH;
 J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBrainsConsensusPrint, CONSENSUS_SEARCH, NSString *)
 
+inline NSString *OrgMinimaSystemBrainsConsensusPrint_get_CONSENSUS_TXPOWSEARCH(void);
+/*! INTERNAL ONLY - Use accessor function from above. */
+FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_TXPOWSEARCH;
+J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBrainsConsensusPrint, CONSENSUS_TXPOWSEARCH, NSString *)
+
 inline NSString *OrgMinimaSystemBrainsConsensusPrint_get_CONSENSUS_HISTORY(void);
 /*! INTERNAL ONLY - Use accessor function from above. */
 FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_HISTORY;
@@ -93,6 +103,11 @@ inline NSString *OrgMinimaSystemBrainsConsensusPrint_get_CONSENSUS_TOKENS(void);
 /*! INTERNAL ONLY - Use accessor function from above. */
 FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_TOKENS;
 J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBrainsConsensusPrint, CONSENSUS_TOKENS, NSString *)
+
+inline NSString *OrgMinimaSystemBrainsConsensusPrint_get_CONSENSUS_RANDOM(void);
+/*! INTERNAL ONLY - Use accessor function from above. */
+FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_RANDOM;
+J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBrainsConsensusPrint, CONSENSUS_RANDOM, NSString *)
 
 inline NSString *OrgMinimaSystemBrainsConsensusPrint_get_CONSENSUS_STATUS(void);
 /*! INTERNAL ONLY - Use accessor function from above. */
@@ -113,21 +128,6 @@ inline NSString *OrgMinimaSystemBrainsConsensusPrint_get_CONSENSUS_PRINTCHAIN_TR
 /*! INTERNAL ONLY - Use accessor function from above. */
 FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_PRINTCHAIN_TREE;
 J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBrainsConsensusPrint, CONSENSUS_PRINTCHAIN_TREE, NSString *)
-
-inline NSString *OrgMinimaSystemBrainsConsensusPrint_get_CONSENSUS_ADDCHARTPOINT(void);
-/*! INTERNAL ONLY - Use accessor function from above. */
-FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_ADDCHARTPOINT;
-J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBrainsConsensusPrint, CONSENSUS_ADDCHARTPOINT, NSString *)
-
-inline NSString *OrgMinimaSystemBrainsConsensusPrint_get_CONSENSUS_OUTPUTCHART(void);
-/*! INTERNAL ONLY - Use accessor function from above. */
-FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_OUTPUTCHART;
-J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBrainsConsensusPrint, CONSENSUS_OUTPUTCHART, NSString *)
-
-inline NSString *OrgMinimaSystemBrainsConsensusPrint_get_CONSENSUS_CLEARCHART(void);
-/*! INTERNAL ONLY - Use accessor function from above. */
-FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_CLEARCHART;
-J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBrainsConsensusPrint, CONSENSUS_CLEARCHART, NSString *)
 
 FOUNDATION_EXPORT void OrgMinimaSystemBrainsConsensusPrint_initWithOrgMinimaDatabaseMinimaDB_withOrgMinimaSystemBrainsConsensusHandler_(OrgMinimaSystemBrainsConsensusPrint *self, OrgMinimaDatabaseMinimaDB *zDB, OrgMinimaSystemBrainsConsensusHandler *zHandler);
 

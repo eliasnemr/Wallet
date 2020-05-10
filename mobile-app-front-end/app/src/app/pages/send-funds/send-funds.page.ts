@@ -8,7 +8,7 @@ import { MinimaApiService } from '../../service/minima-api.service';
 import { map } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import jsQR from "jsqr";
+import QrScanner from 'qr-scanner';
 
 @Component({
   selector: 'app-send-funds',
@@ -19,10 +19,13 @@ import jsQR from "jsqr";
 export class SendFundsPage implements OnInit {
 
   @ViewChild('address', {static: false}) address: ElementRef;
+  @ViewChild('videoElem', {static: false}) videoElem: ElementRef;
 
+  webQrScanner: any;
   compareWith: any;
   itemSelected: any;
   isCameraOpen: boolean = false;
+  isWebCameraOpen: boolean = false;
   minimaToken: any;
   data: any = {};
 
@@ -140,7 +143,7 @@ export class SendFundsPage implements OnInit {
       // browser compatible qr scan
       this.presentAlert("Using Minidesk", "Minidesktop");
 
-      //jsQR()
+
 
 
     }
@@ -337,6 +340,26 @@ export class SendFundsPage implements OnInit {
     document.execCommand('paste');
   }
 
+  webScanQR() {
+    this.isWebCameraOpen = true;
+    QrScanner.WORKER_PATH = 'assets/JS/qr-scanner-worker.min.js';
+
+    setTimeout(() => {
+      this.webQrScanner = new QrScanner(this.videoElem.nativeElement, result => {
+        this.data.address = result;
+
+        this.isWebCameraOpen = false;
+      });
+      this.webQrScanner.start();
+    }, 500);
+      
+  }
+
+  stopWebScanQR() {
+    this.webQrScanner.destroy();
+    this.webQrScanner = null;
+    this.isWebCameraOpen = false;
+  }
 }
 
 

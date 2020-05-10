@@ -24,6 +24,7 @@
 - (void) runMinima {
     
     OrgMinimaStart *start = [[OrgMinimaStart alloc] init];
+    [start fireStarterWithNSString:@""];
 }
 
 @end

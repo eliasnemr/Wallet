@@ -6,6 +6,7 @@
 #include "J2ObjC_source.h"
 #include "java/io/DataInputStream.h"
 #include "java/io/DataOutputStream.h"
+#include "java/lang/Integer.h"
 #include "java/math/BigInteger.h"
 #include "org/minima/database/mmr/MMRData.h"
 #include "org/minima/database/mmr/MMREntry.h"
@@ -13,6 +14,7 @@
 #include "org/minima/objects/base/MiniInteger.h"
 #include "org/minima/objects/base/MiniNumber.h"
 #include "org/minima/utils/MinimaLogger.h"
+#include "org/minima/utils/json/JSONObject.h"
 
 @implementation OrgMinimaDatabaseMmrMMREntry
 
@@ -62,6 +64,15 @@ withOrgMinimaObjectsBaseMiniInteger:(OrgMinimaObjectsBaseMiniInteger *)zEntry {
     OrgMinimaUtilsMinimaLogger_logWithNSString_(JreStrcat("$@", @"ERROR NULL Entry : ", self));
   }
   return [((OrgMinimaDatabaseMmrMMRData *) nil_chk(mData_)) getFinalHash];
+}
+
+- (OrgMinimaUtilsJsonJSONObject *)toJSON {
+  OrgMinimaUtilsJsonJSONObject *ret = new_OrgMinimaUtilsJsonJSONObject_init();
+  (void) [ret putWithId:@"block" withId:[((OrgMinimaObjectsBaseMiniNumber *) nil_chk(mBlockTime_)) description]];
+  (void) [ret putWithId:@"row" withId:JavaLangInteger_valueOfWithInt_(mRow_)];
+  (void) [ret putWithId:@"entry" withId:[((OrgMinimaObjectsBaseMiniInteger *) nil_chk(mEntryNumber_)) description]];
+  (void) [ret putWithId:@"data" withId:[((OrgMinimaDatabaseMmrMMRData *) nil_chk(mData_)) toJSON]];
+  return ret;
 }
 
 - (NSString *)description {
@@ -151,6 +162,7 @@ withOrgMinimaObjectsBaseMiniInteger:(OrgMinimaObjectsBaseMiniInteger *)zEntry {
     { NULL, "V", 0x1, 5, 6, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaObjectsBaseMiniData;", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaUtilsJsonJSONObject;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LNSString;", 0x1, 7, -1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaObjectsBaseMiniInteger;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "I", 0x1, -1, -1, -1, -1, -1, -1 },
@@ -181,22 +193,23 @@ withOrgMinimaObjectsBaseMiniInteger:(OrgMinimaObjectsBaseMiniInteger *)zEntry {
   methods[7].selector = @selector(setBlockTimeWithOrgMinimaObjectsBaseMiniNumber:);
   methods[8].selector = @selector(getBlockTime);
   methods[9].selector = @selector(getHashValue);
-  methods[10].selector = @selector(description);
-  methods[11].selector = @selector(getEntry);
-  methods[12].selector = @selector(getRow);
-  methods[13].selector = @selector(getParentRow);
-  methods[14].selector = @selector(getChildRow);
-  methods[15].selector = @selector(isLeft);
-  methods[16].selector = @selector(isRight);
-  methods[17].selector = @selector(getLeftSibling);
-  methods[18].selector = @selector(getRightSibling);
-  methods[19].selector = @selector(getSibling);
-  methods[20].selector = @selector(getParentEntry);
-  methods[21].selector = @selector(getLeftChildEntry);
-  methods[22].selector = @selector(getRightChildEntry);
-  methods[23].selector = @selector(compareToWithId:);
-  methods[24].selector = @selector(writeDataStreamWithJavaIoDataOutputStream:);
-  methods[25].selector = @selector(readDataStreamWithJavaIoDataInputStream:);
+  methods[10].selector = @selector(toJSON);
+  methods[11].selector = @selector(description);
+  methods[12].selector = @selector(getEntry);
+  methods[13].selector = @selector(getRow);
+  methods[14].selector = @selector(getParentRow);
+  methods[15].selector = @selector(getChildRow);
+  methods[16].selector = @selector(isLeft);
+  methods[17].selector = @selector(isRight);
+  methods[18].selector = @selector(getLeftSibling);
+  methods[19].selector = @selector(getRightSibling);
+  methods[20].selector = @selector(getSibling);
+  methods[21].selector = @selector(getParentEntry);
+  methods[22].selector = @selector(getLeftChildEntry);
+  methods[23].selector = @selector(getRightChildEntry);
+  methods[24].selector = @selector(compareToWithId:);
+  methods[25].selector = @selector(writeDataStreamWithJavaIoDataOutputStream:);
+  methods[26].selector = @selector(readDataStreamWithJavaIoDataInputStream:);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
     { "mEntryNumber_", "LOrgMinimaObjectsBaseMiniInteger;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
@@ -206,7 +219,7 @@ withOrgMinimaObjectsBaseMiniInteger:(OrgMinimaObjectsBaseMiniInteger *)zEntry {
     { "mIsEmpty_", "Z", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
   };
   static const void *ptrTable[] = { "ILOrgMinimaObjectsBaseMiniInteger;", "checkPosition", "LOrgMinimaDatabaseMmrMMREntry;", "setData", "LOrgMinimaDatabaseMmrMMRData;", "setBlockTime", "LOrgMinimaObjectsBaseMiniNumber;", "toString", "compareTo", "writeDataStream", "LJavaIoDataOutputStream;", "LJavaIoIOException;", "readDataStream", "LJavaIoDataInputStream;", "Ljava/lang/Object;Ljava/lang/Comparable<Lorg/minima/database/mmr/MMREntry;>;Lorg/minima/utils/Streamable;" };
-  static const J2ObjcClassInfo _OrgMinimaDatabaseMmrMMREntry = { "MMREntry", "org.minima.database.mmr", ptrTable, methods, fields, 7, 0x1, 26, 5, -1, -1, -1, 14, -1 };
+  static const J2ObjcClassInfo _OrgMinimaDatabaseMmrMMREntry = { "MMREntry", "org.minima.database.mmr", ptrTable, methods, fields, 7, 0x1, 27, 5, -1, -1, -1, 14, -1 };
   return &_OrgMinimaDatabaseMmrMMREntry;
 }
 

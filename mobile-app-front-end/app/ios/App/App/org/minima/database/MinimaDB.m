@@ -16,6 +16,7 @@
 #include "java/math/MathContext.h"
 #include "java/util/ArrayList.h"
 #include "java/util/Collections.h"
+#include "java/util/Enumeration.h"
 #include "java/util/Hashtable.h"
 #include "org/minima/GlobalParams.h"
 #include "org/minima/database/MinimaDB.h"
@@ -51,8 +52,9 @@
 #include "org/minima/system/backup/SyncPacket.h"
 #include "org/minima/system/bootstrap/GenesisTxPOW.h"
 #include "org/minima/system/brains/ConsensusHandler.h"
-#include "org/minima/system/brains/TxPOWChecker.h"
-#include "org/minima/system/tx/TXMiner.h"
+#include "org/minima/system/input/functions/gimme50.h"
+#include "org/minima/system/txpow/TxPoWChecker.h"
+#include "org/minima/system/txpow/TxPoWMiner.h"
 #include "org/minima/utils/Crypto.h"
 #include "org/minima/utils/MinimaLogger.h"
 #include "org/minima/utils/json/JSONArray.h"
@@ -123,6 +125,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   [root setCascadeWithBoolean:false];
   [root setMMRsetWithOrgMinimaDatabaseMmrMMRSet:base];
   [((OrgMinimaDatabaseTxpowtreeBlockTree *) nil_chk(mMainTree_)) setTreeRootWithOrgMinimaDatabaseTxpowtreeBlockTreeNode:root];
+  [((OrgMinimaSystemBackupBackupManager *) nil_chk([self getBackup])) backupTxpowWithOrgMinimaObjectsTxPOW:gen];
 }
 
 - (OrgMinimaObjectsTxPOW *)getTxPOWWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zTxPOWID {
@@ -131,10 +134,6 @@ J2OBJC_IGNORE_DESIGNATED_END
     return nil;
   }
   return [row getTxPOW];
-}
-
-- (jboolean)isTxPOWFoundWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zTxPOWID {
-  return [self getTxPOWWithOrgMinimaObjectsBaseMiniData:zTxPOWID] != nil;
 }
 
 - (id<OrgMinimaDatabaseTxpowdbTxPOWDBRow>)getTxPOWRowWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zTxPOWID {
@@ -158,7 +157,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   jboolean newfullblock = false;
   for (id<OrgMinimaDatabaseTxpowdbTxPOWDBRow> __strong unblock in nil_chk(unfinishedblocks)) {
     jboolean allok = true;
-    JavaUtilArrayList *txns = [((OrgMinimaObjectsTxPOW *) nil_chk([((id<OrgMinimaDatabaseTxpowdbTxPOWDBRow>) nil_chk(unblock)) getTxPOW])) getBlockTxns];
+    JavaUtilArrayList *txns = [((OrgMinimaObjectsTxPOW *) nil_chk([((id<OrgMinimaDatabaseTxpowdbTxPOWDBRow>) nil_chk(unblock)) getTxPOW])) getBlockTransactions];
     for (OrgMinimaObjectsBaseMiniData * __strong txnid in nil_chk(txns)) {
       if ([self getTxPOWWithOrgMinimaObjectsBaseMiniData:txnid] == nil) {
         allok = false;
@@ -200,7 +199,7 @@ J2OBJC_IGNORE_DESIGNATED_END
       if ([((OrgMinimaObjectsBaseMiniNumber *) nil_chk([((OrgMinimaObjectsTxPOW *) nil_chk([treenode getTxPow])) getBlockNumber])) isMoreEqualWithOrgMinimaObjectsBaseMiniNumber:oldcascade]) {
         [self scanMMRSetForCoinsWithOrgMinimaDatabaseMmrMMRSet:[treenode getMMRSet]];
       }
-      JavaUtilArrayList *txpowlist = [txpow getBlockTxns];
+      JavaUtilArrayList *txpowlist = [txpow getBlockTransactions];
       for (OrgMinimaObjectsBaseMiniData * __strong txid in nil_chk(txpowlist)) {
         trow = [((id<OrgMinimaDatabaseTxpowdbTxPowDB>) nil_chk(mTxPOWDB_)) findTxPOWDBRowWithOrgMinimaObjectsBaseMiniData:txid];
         if (trow != nil) {
@@ -219,7 +218,7 @@ J2OBJC_IGNORE_DESIGNATED_END
     JavaMathBigInteger *cascweight = [((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTree *) nil_chk([casc getCascadeTree])) getChainRoot])) getTotalWeight];
     JavaMathBigDecimal *ratio = [new_JavaMathBigDecimal_initWithJavaMathBigInteger_(cascweight) divideWithJavaMathBigDecimal:new_JavaMathBigDecimal_initWithJavaMathBigInteger_(weight) withJavaMathMathContext:JreLoadStatic(JavaMathMathContext, DECIMAL128)];
     if ([((JavaMathBigDecimal *) nil_chk(ratio)) compareToWithId:new_JavaMathBigDecimal_initWithNSString_(OrgMinimaGlobalParams_MINIMA_CASCADE_RATIO)] < 0) {
-      return;
+      OrgMinimaUtilsMinimaLogger_logWithNSString_(JreStrcat("$$C@", @"Cascade Tree LOST more than ", OrgMinimaGlobalParams_MINIMA_CASCADE_RATIO, ' ', ratio));
     }
     mMainTree_ = [casc getCascadeTree];
     OrgMinimaDatabaseTxpowtreeBlockTreeNode *newcascade = [((OrgMinimaDatabaseTxpowtreeBlockTree *) nil_chk(mMainTree_)) getCascadeNode];
@@ -229,9 +228,13 @@ J2OBJC_IGNORE_DESIGNATED_END
     for (OrgMinimaDatabaseTxpowtreeBlockTreeNode * __strong node in nil_chk(removals)) {
       id<OrgMinimaDatabaseTxpowdbTxPOWDBRow> row = [self getTxPOWRowWithOrgMinimaObjectsBaseMiniData:[((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk(node)) getTxPowID]];
       [((id<OrgMinimaDatabaseTxpowdbTxPOWDBRow>) nil_chk(row)) setOnChainBlockWithBoolean:false];
+      [((OrgMinimaSystemBackupBackupManager *) nil_chk([self getBackup])) deleteTxpowWithOrgMinimaObjectsTxPOW:[node getTxPow]];
     }
     OrgMinimaObjectsBaseMiniNumber *cascade = [((OrgMinimaObjectsTxPOW *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTree *) nil_chk(mMainTree_)) getCascadeNode])) getTxPow])) getBlockNumber];
     JavaUtilArrayList *remrows = [((id<OrgMinimaDatabaseTxpowdbTxPowDB>) nil_chk(mTxPOWDB_)) removeTxPOWInBlockLessThanWithOrgMinimaObjectsBaseMiniNumber:cascade];
+    for (id<OrgMinimaDatabaseTxpowdbTxPOWDBRow> __strong remrow in nil_chk(remrows)) {
+      [((OrgMinimaSystemBackupBackupManager *) nil_chk([self getBackup])) deleteTxpowWithOrgMinimaObjectsTxPOW:[((id<OrgMinimaDatabaseTxpowdbTxPOWDBRow>) nil_chk(remrow)) getTxPOW]];
+    }
     [((id<OrgMinimaDatabaseCoindbCoinDB>) nil_chk(mCoinDB_)) removeOldSpentCoinsWithOrgMinimaObjectsBaseMiniNumber:cascade];
   }
 }
@@ -244,6 +247,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   for (OrgMinimaDatabaseMmrMMREntry * __strong mmrcoin in nil_chk(entries)) {
     if (![((OrgMinimaDatabaseMmrMMRData *) nil_chk([((OrgMinimaDatabaseMmrMMREntry *) nil_chk(mmrcoin)) getData])) isHashOnly]) {
       OrgMinimaObjectsCoin *cc = [((OrgMinimaDatabaseMmrMMRData *) nil_chk([mmrcoin getData])) getCoin];
+      jboolean spent = [((OrgMinimaDatabaseMmrMMRData *) nil_chk([mmrcoin getData])) isSpent];
       jboolean rel = [((id<OrgMinimaDatabaseUserdbUserDB>) nil_chk([self getUserDB])) isAddressRelevantWithOrgMinimaObjectsBaseMiniData:[((OrgMinimaObjectsCoin *) nil_chk(cc)) getAddress]];
       if (!rel) {
         rel = [((id<OrgMinimaDatabaseUserdbUserDB>) nil_chk([self getUserDB])) isStateListRelevantWithJavaUtilArrayList:[((OrgMinimaDatabaseMmrMMRData *) nil_chk([mmrcoin getData])) getPrevState]];
@@ -251,13 +255,9 @@ J2OBJC_IGNORE_DESIGNATED_END
       if (rel) {
         [zMMRSet addKeeperWithOrgMinimaObjectsBaseMiniInteger:[mmrcoin getEntry]];
       }
-      id<OrgMinimaDatabaseCoindbCoinDBRow> oldrow = [((id<OrgMinimaDatabaseCoindbCoinDB>) nil_chk([self getCoinDB])) getCoinRowWithOrgMinimaObjectsBaseMiniData:[cc getCoinID]];
-      if (oldrow == nil && !rel) {
-        continue;
-      }
       id<OrgMinimaDatabaseCoindbCoinDBRow> inrow = [((id<OrgMinimaDatabaseCoindbCoinDB>) nil_chk([self getCoinDB])) addCoinRowWithOrgMinimaObjectsCoin:cc];
-      jboolean spent = [((OrgMinimaDatabaseMmrMMRData *) nil_chk([mmrcoin getData])) isSpent];
-      if (![((id<OrgMinimaDatabaseCoindbCoinDBRow>) nil_chk(inrow)) isInBlock] || [inrow isSpent] != spent) {
+      [((id<OrgMinimaDatabaseCoindbCoinDBRow>) nil_chk(inrow)) setRelevantWithBoolean:rel];
+      if (![inrow isInBlock] || [inrow isSpent] != spent) {
         [inrow setIsSpentWithBoolean:spent];
         [inrow setIsInBlockWithBoolean:true];
         [inrow setInBlockNumberWithOrgMinimaObjectsBaseMiniNumber:[zMMRSet getBlockTime]];
@@ -285,19 +285,15 @@ J2OBJC_IGNORE_DESIGNATED_END
   return [((id<OrgMinimaDatabaseTxpowdbTxPowDB>) nil_chk(mTxPOWDB_)) addTxPOWDBRowWithOrgMinimaObjectsTxPOW:zTxPOW];
 }
 
-- (jboolean)isChainRoot {
-  return ([((OrgMinimaDatabaseTxpowtreeBlockTree *) nil_chk(mMainTree_)) getChainRoot] != nil);
-}
-
-- (OrgMinimaDatabaseTxpowtreeBlockTreeNode *)hardAddTxPOWBlockWithOrgMinimaObjectsTxPOW:(OrgMinimaObjectsTxPOW *)zRoot
+- (OrgMinimaDatabaseTxpowtreeBlockTreeNode *)hardAddTxPOWBlockWithOrgMinimaObjectsTxPOW:(OrgMinimaObjectsTxPOW *)zTxPoW
                                                          withOrgMinimaDatabaseMmrMMRSet:(OrgMinimaDatabaseMmrMMRSet *)zMMR
                                                                             withBoolean:(jboolean)zCascade {
-  id<OrgMinimaDatabaseTxpowdbTxPOWDBRow> row = [((id<OrgMinimaDatabaseTxpowdbTxPowDB>) nil_chk(mTxPOWDB_)) addTxPOWDBRowWithOrgMinimaObjectsTxPOW:zRoot];
+  id<OrgMinimaDatabaseTxpowdbTxPOWDBRow> row = [((id<OrgMinimaDatabaseTxpowdbTxPowDB>) nil_chk(mTxPOWDB_)) addTxPOWDBRowWithOrgMinimaObjectsTxPOW:zTxPoW];
   [((id<OrgMinimaDatabaseTxpowdbTxPOWDBRow>) nil_chk(row)) setIsInBlockWithBoolean:true];
   [row setOnChainBlockWithBoolean:true];
-  [row setInBlockNumberWithOrgMinimaObjectsBaseMiniNumber:[((OrgMinimaObjectsTxPOW *) nil_chk(zRoot)) getBlockNumber]];
+  [row setInBlockNumberWithOrgMinimaObjectsBaseMiniNumber:[((OrgMinimaObjectsTxPOW *) nil_chk(zTxPoW)) getBlockNumber]];
   [row setBlockStateWithInt:OrgMinimaDatabaseTxpowdbTxPOWDBRow_TXPOWDBROW_STATE_FULL];
-  OrgMinimaDatabaseTxpowtreeBlockTreeNode *node = new_OrgMinimaDatabaseTxpowtreeBlockTreeNode_initWithOrgMinimaObjectsTxPOW_(zRoot);
+  OrgMinimaDatabaseTxpowtreeBlockTreeNode *node = new_OrgMinimaDatabaseTxpowtreeBlockTreeNode_initWithOrgMinimaObjectsTxPOW_(zTxPoW);
   [node setCascadeWithBoolean:zCascade];
   [node setStateWithInt:OrgMinimaDatabaseTxpowtreeBlockTreeNode_BLOCKSTATE_VALID];
   [node setMMRsetWithOrgMinimaDatabaseMmrMMRSet:zMMR];
@@ -315,22 +311,56 @@ J2OBJC_IGNORE_DESIGNATED_END
   mMainTree_ = [casc getCascadeTree];
 }
 
+- (void)addMiningTransactionWithOrgMinimaObjectsTransaction:(OrgMinimaObjectsTransaction *)zTrans {
+  OrgMinimaObjectsBaseMiniData *transhash = [((OrgMinimaUtilsCrypto *) nil_chk(OrgMinimaUtilsCrypto_getInstance())) hashObjectWithOrgMinimaUtilsStreamable:zTrans withInt:160];
+  NSString *hash_ = [((OrgMinimaObjectsBaseMiniData *) nil_chk(transhash)) to0xString];
+  OrgMinimaObjectsTransaction *prev = [((JavaUtilHashtable *) nil_chk(mMiningTransactions_)) getWithId:hash_];
+  if (prev != nil) {
+    return;
+  }
+  (void) [((JavaUtilHashtable *) nil_chk(mMiningTransactions_)) putWithId:hash_ withId:zTrans];
+}
+
+- (void)remeoveMiningTransactionWithOrgMinimaObjectsTransaction:(OrgMinimaObjectsTransaction *)zTrans {
+  OrgMinimaObjectsBaseMiniData *transhash = [((OrgMinimaUtilsCrypto *) nil_chk(OrgMinimaUtilsCrypto_getInstance())) hashObjectWithOrgMinimaUtilsStreamable:zTrans withInt:160];
+  NSString *hash_ = [((OrgMinimaObjectsBaseMiniData *) nil_chk(transhash)) to0xString];
+  (void) [((JavaUtilHashtable *) nil_chk(mMiningTransactions_)) removeWithId:hash_];
+}
+
+- (jboolean)checkInputForMiningWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zCoinID {
+  id<JavaUtilEnumeration> alltrans = [((JavaUtilHashtable *) nil_chk(mMiningTransactions_)) elements];
+  while ([((id<JavaUtilEnumeration>) nil_chk(alltrans)) hasMoreElements]) {
+    OrgMinimaObjectsTransaction *trans = [alltrans nextElement];
+    JavaUtilArrayList *inputs = [((OrgMinimaObjectsTransaction *) nil_chk(trans)) getAllInputs];
+    for (OrgMinimaObjectsCoin * __strong input in nil_chk(inputs)) {
+      if ([((OrgMinimaObjectsBaseMiniData *) nil_chk(zCoinID)) isEqualWithOrgMinimaObjectsBaseMiniData:[((OrgMinimaObjectsCoin *) nil_chk(input)) getCoinID]]) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
 - (JavaUtilArrayList *)getTotalSimpleSpendableCoinsWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zTokenID {
   JavaUtilArrayList *confirmed = new_JavaUtilArrayList_init();
   OrgMinimaObjectsBaseMiniNumber *top = [self getTopBlock];
   JavaUtilArrayList *memcoins = [self getMempoolCoins];
-  JavaUtilArrayList *relevant = [((id<OrgMinimaDatabaseCoindbCoinDB>) nil_chk([self getCoinDB])) getComplete];
+  JavaUtilArrayList *relevant = [((id<OrgMinimaDatabaseCoindbCoinDB>) nil_chk([self getCoinDB])) getCompleteRelevant];
   for (id<OrgMinimaDatabaseCoindbCoinDBRow> __strong row in nil_chk(relevant)) {
     if ([((id<OrgMinimaDatabaseCoindbCoinDBRow>) nil_chk(row)) isInBlock] && ![row isSpent] && [((OrgMinimaObjectsBaseMiniData *) nil_chk([((OrgMinimaObjectsCoin *) nil_chk([row getCoin])) getTokenID])) isEqualWithOrgMinimaObjectsBaseMiniData:zTokenID]) {
       OrgMinimaObjectsBaseMiniNumber *depth = [((OrgMinimaObjectsBaseMiniNumber *) nil_chk(top)) subWithOrgMinimaObjectsBaseMiniNumber:[row getInBlockNumber]];
       if ([((OrgMinimaObjectsBaseMiniNumber *) nil_chk(depth)) isMoreEqualWithOrgMinimaObjectsBaseMiniNumber:JreLoadStatic(OrgMinimaGlobalParams, MINIMA_CONFIRM_DEPTH)]) {
         if ([((id<OrgMinimaDatabaseUserdbUserDB>) nil_chk([self getUserDB])) isSimpleAddressWithOrgMinimaObjectsBaseMiniData:[((OrgMinimaObjectsCoin *) nil_chk([row getCoin])) getAddress]]) {
           jboolean found = false;
+          OrgMinimaObjectsBaseMiniData *coinid = [((OrgMinimaObjectsCoin *) nil_chk([row getCoin])) getCoinID];
           for (OrgMinimaObjectsCoin * __strong memcoin in nil_chk(memcoins)) {
-            if ([((OrgMinimaObjectsBaseMiniData *) nil_chk([((OrgMinimaObjectsCoin *) nil_chk(memcoin)) getCoinID])) isEqualWithOrgMinimaObjectsBaseMiniData:[((OrgMinimaObjectsCoin *) nil_chk([row getCoin])) getCoinID]]) {
+            if ([((OrgMinimaObjectsBaseMiniData *) nil_chk([((OrgMinimaObjectsCoin *) nil_chk(memcoin)) getCoinID])) isEqualWithOrgMinimaObjectsBaseMiniData:coinid]) {
               found = true;
               break;
             }
+          }
+          if (!found) {
+            found = [self checkInputForMiningWithOrgMinimaObjectsBaseMiniData:coinid];
           }
           if (!found) {
             [confirmed addWithId:[row getCoin]];
@@ -342,6 +372,19 @@ J2OBJC_IGNORE_DESIGNATED_END
   return confirmed;
 }
 
+- (jboolean)checkTransactionForMempoolCoinsWithOrgMinimaObjectsTransaction:(OrgMinimaObjectsTransaction *)zTransaction {
+  JavaUtilArrayList *memcoins = [self getMempoolCoins];
+  JavaUtilArrayList *inputs = [((OrgMinimaObjectsTransaction *) nil_chk(zTransaction)) getAllInputs];
+  for (OrgMinimaObjectsCoin * __strong in in nil_chk(inputs)) {
+    for (OrgMinimaObjectsCoin * __strong mem in nil_chk(memcoins)) {
+      if ([((OrgMinimaObjectsBaseMiniData *) nil_chk([((OrgMinimaObjectsCoin *) nil_chk(in)) getCoinID])) isEqualWithOrgMinimaObjectsBaseMiniData:[((OrgMinimaObjectsCoin *) nil_chk(mem)) getCoinID]]) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
 - (JavaUtilArrayList *)getMempoolCoins {
   JavaUtilArrayList *coins = new_JavaUtilArrayList_init();
   JavaUtilArrayList *rows = [((id<OrgMinimaDatabaseTxpowdbTxPowDB>) nil_chk([self getTxPowDB])) getAllUnusedTxPOW];
@@ -350,7 +393,7 @@ J2OBJC_IGNORE_DESIGNATED_END
     if ([((OrgMinimaObjectsTxPOW *) nil_chk(txpow)) isTransaction]) {
       JavaUtilArrayList *inputs = [((OrgMinimaObjectsTransaction *) nil_chk([txpow getTransaction])) getAllInputs];
       for (OrgMinimaObjectsCoin * __strong cc in nil_chk(inputs)) {
-        if ([((id<OrgMinimaDatabaseUserdbUserDB>) nil_chk([self getUserDB])) isAddressRelevantWithOrgMinimaObjectsBaseMiniData:[((OrgMinimaObjectsCoin *) nil_chk(cc)) getAddress]]) {
+        if (![((OrgMinimaObjectsBaseMiniData *) nil_chk([((OrgMinimaObjectsCoin *) nil_chk(cc)) getCoinID])) isEqualWithOrgMinimaObjectsBaseMiniData:JreLoadStatic(OrgMinimaSystemInputFunctionsgimme50, COINID_INPUT)]) {
           [coins addWithId:cc];
         }
       }
@@ -425,11 +468,19 @@ J2OBJC_IGNORE_DESIGNATED_END
                                                      withOrgMinimaObjectsWitness:(OrgMinimaObjectsWitness *)zWitness {
   OrgMinimaDatabaseMmrMMRSet *basemmr = [((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTree *) nil_chk([self getMainTree])) getChainTip])) getMMRSet];
   OrgMinimaObjectsBaseMiniNumber *currentblock = [((OrgMinimaDatabaseMmrMMRSet *) nil_chk(basemmr)) getBlockTime];
-  [((OrgMinimaObjectsWitness *) nil_chk(zWitness)) clearProofs];
+  [((OrgMinimaObjectsWitness *) nil_chk(zWitness)) clearMMRProofs];
   JavaUtilArrayList *ins = [((OrgMinimaObjectsTransaction *) nil_chk(zTransaction)) getAllInputs];
-  OrgMinimaObjectsBaseMiniNumber *recent = currentblock;
+  OrgMinimaObjectsBaseMiniNumber *recent = nil;
   for (OrgMinimaObjectsCoin * __strong cc in nil_chk(ins)) {
-    OrgMinimaObjectsBaseMiniNumber *inblock = [((id<OrgMinimaDatabaseCoindbCoinDBRow>) nil_chk([((id<OrgMinimaDatabaseCoindbCoinDB>) nil_chk([self getCoinDB])) getCoinRowWithOrgMinimaObjectsBaseMiniData:[((OrgMinimaObjectsCoin *) nil_chk(cc)) getCoinID]])) getInBlockNumber];
+    OrgMinimaObjectsBaseMiniNumber *inblock = nil;
+    id<OrgMinimaDatabaseCoindbCoinDBRow> crow = [((id<OrgMinimaDatabaseCoindbCoinDB>) nil_chk([self getCoinDB])) getCoinRowWithOrgMinimaObjectsBaseMiniData:[((OrgMinimaObjectsCoin *) nil_chk(cc)) getCoinID]];
+    if (crow != nil) {
+      inblock = [crow getInBlockNumber];
+    }
+    else {
+      OrgMinimaDatabaseMmrMMREntry *entry_ = [basemmr findEntryWithOrgMinimaObjectsBaseMiniData:[cc getCoinID]];
+      inblock = [((OrgMinimaDatabaseMmrMMRData *) nil_chk([((OrgMinimaDatabaseMmrMMREntry *) nil_chk(entry_)) getData])) getInBlock];
+    }
     if (recent == nil) {
       recent = inblock;
     }
@@ -445,7 +496,15 @@ J2OBJC_IGNORE_DESIGNATED_END
   }
   OrgMinimaDatabaseMmrMMRSet *proofmmr = [basemmr getParentAtTimeWithOrgMinimaObjectsBaseMiniNumber:[currentblock subWithOrgMinimaObjectsBaseMiniNumber:howdeep]];
   for (OrgMinimaObjectsCoin * __strong cc in ins) {
-    OrgMinimaDatabaseMmrMMRProof *proof = [((OrgMinimaDatabaseMmrMMRSet *) nil_chk(proofmmr)) getProofWithOrgMinimaObjectsBaseMiniInteger:[((id<OrgMinimaDatabaseCoindbCoinDBRow>) nil_chk([((id<OrgMinimaDatabaseCoindbCoinDB>) nil_chk([self getCoinDB])) getCoinRowWithOrgMinimaObjectsBaseMiniData:[((OrgMinimaObjectsCoin *) nil_chk(cc)) getCoinID]])) getMMREntry]];
+    OrgMinimaObjectsBaseMiniInteger *entrynum = nil;
+    id<OrgMinimaDatabaseCoindbCoinDBRow> crow = [((id<OrgMinimaDatabaseCoindbCoinDB>) nil_chk([self getCoinDB])) getCoinRowWithOrgMinimaObjectsBaseMiniData:[((OrgMinimaObjectsCoin *) nil_chk(cc)) getCoinID]];
+    if (crow != nil) {
+      entrynum = [crow getMMREntry];
+    }
+    else {
+      entrynum = [((OrgMinimaDatabaseMmrMMREntry *) nil_chk([((OrgMinimaDatabaseMmrMMRSet *) nil_chk(proofmmr)) findEntryWithOrgMinimaObjectsBaseMiniData:[cc getCoinID]])) getEntry];
+    }
+    OrgMinimaDatabaseMmrMMRProof *proof = [((OrgMinimaDatabaseMmrMMRSet *) nil_chk(proofmmr)) getProofWithOrgMinimaObjectsBaseMiniInteger:entrynum];
     if (proof == nil) {
       return nil;
     }
@@ -542,8 +601,8 @@ J2OBJC_IGNORE_DESIGNATED_END
   [txpow setTimeSecsWithOrgMinimaObjectsBaseMiniNumber:new_OrgMinimaObjectsBaseMiniNumber_initWithNSString_(JreStrcat("J", (JavaLangSystem_currentTimeMillis() / 1000)))];
   [txpow setTransactionWithOrgMinimaObjectsTransaction:zTrans];
   [txpow setWitnessWithOrgMinimaObjectsWitness:zWitness];
-  [txpow setTxDifficultyWithOrgMinimaObjectsBaseMiniData:JreLoadStatic(OrgMinimaSystemTxTXMiner, BASE_TXN)];
-  [txpow setBlockDifficultyWithOrgMinimaObjectsBaseMiniData:JreLoadStatic(OrgMinimaSystemTxTXMiner, BASE_BLOCK)];
+  [txpow setTxDifficultyWithOrgMinimaObjectsBaseMiniData:JreLoadStatic(OrgMinimaSystemTxpowTxPoWMiner, BASE_TXN)];
+  [txpow setBlockDifficultyWithOrgMinimaObjectsBaseMiniData:JreLoadStatic(OrgMinimaSystemTxpowTxPoWMiner, BASE_BLOCK)];
   [txpow setBlockNumberWithOrgMinimaObjectsBaseMiniNumber:[((OrgMinimaObjectsBaseMiniNumber *) nil_chk([((OrgMinimaObjectsTxPOW *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk(tip)) getTxPow])) getBlockNumber])) increment]];
   [txpow setParentWithOrgMinimaObjectsBaseMiniData:[tip getTxPowID]];
   {
@@ -572,8 +631,9 @@ J2OBJC_IGNORE_DESIGNATED_END
   }
   OrgMinimaDatabaseMmrMMRSet *newset = new_OrgMinimaDatabaseMmrMMRSet_initWithOrgMinimaDatabaseMmrMMRSet_([tip getMMRSet]);
   if (![((OrgMinimaObjectsTransaction *) nil_chk(zTrans)) isEmpty]) {
-    jboolean valid = OrgMinimaSystemBrainsTxPOWChecker_checkTransactionMMRWithOrgMinimaObjectsTransaction_withOrgMinimaObjectsWitness_withOrgMinimaDatabaseMinimaDB_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaDatabaseMmrMMRSet_withBoolean_withOrgMinimaUtilsJsonJSONArray_(zTrans, zWitness, self, [txpow getBlockNumber], newset, true, zContractLogs);
+    jboolean valid = OrgMinimaSystemTxpowTxPoWChecker_checkTransactionMMRWithOrgMinimaObjectsTransaction_withOrgMinimaObjectsWitness_withOrgMinimaDatabaseMinimaDB_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaDatabaseMmrMMRSet_withBoolean_withOrgMinimaUtilsJsonJSONArray_(zTrans, zWitness, self, [txpow getBlockNumber], newset, true, zContractLogs);
     if (!valid) {
+      OrgMinimaUtilsMinimaLogger_logWithNSString_(@"ERROR: Your own transaction is invalid !?");
       return nil;
     }
   }
@@ -581,7 +641,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   for (id<OrgMinimaDatabaseTxpowdbTxPOWDBRow> __strong row in nil_chk(unused)) {
     OrgMinimaObjectsTxPOW *txp = [((id<OrgMinimaDatabaseTxpowdbTxPOWDBRow>) nil_chk(row)) getTxPOW];
     if ([((OrgMinimaObjectsTxPOW *) nil_chk(txp)) isTransaction]) {
-      jboolean valid = OrgMinimaSystemBrainsTxPOWChecker_checkTransactionMMRWithOrgMinimaObjectsTxPOW_withOrgMinimaDatabaseMinimaDB_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaDatabaseMmrMMRSet_withBoolean_(txp, self, [txpow getBlockNumber], newset, true);
+      jboolean valid = OrgMinimaSystemTxpowTxPoWChecker_checkTransactionMMRWithOrgMinimaObjectsTxPOW_withOrgMinimaDatabaseMinimaDB_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaDatabaseMmrMMRSet_withBoolean_(txp, self, [txpow getBlockNumber], newset, true);
       if (valid) {
         [txpow addBlockTxPOWWithOrgMinimaObjectsTxPOW:txp];
       }
@@ -602,19 +662,27 @@ J2OBJC_IGNORE_DESIGNATED_END
   return [((OrgMinimaObjectsTxPOW *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTree *) nil_chk([self getMainTree])) getChainTip])) getTxPow])) getBlockNumber];
 }
 
-- (jint)getIntroSyncSize {
+- (OrgMinimaSystemBackupSyncPackage *)getSyncPackage {
   OrgMinimaSystemBackupSyncPackage *sp = new_OrgMinimaSystemBackupSyncPackage_init();
-  JavaUtilArrayList *nodes = [((OrgMinimaDatabaseTxpowtreeBlockTree *) nil_chk([self getMainTree])) getAsList];
+  if ([((OrgMinimaDatabaseTxpowtreeBlockTree *) nil_chk([self getMainTree])) getChainRoot] == nil) {
+    return sp;
+  }
   OrgMinimaObjectsBaseMiniNumber *casc = [((OrgMinimaObjectsTxPOW *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTree *) nil_chk([self getMainTree])) getCascadeNode])) getTxPow])) getBlockNumber];
   [sp setCascadeNodeWithOrgMinimaObjectsBaseMiniNumber:casc];
+  JavaUtilArrayList *nodes = [((OrgMinimaDatabaseTxpowtreeBlockTree *) nil_chk([self getMainTree])) getAsList];
   for (OrgMinimaDatabaseTxpowtreeBlockTreeNode * __strong node in nil_chk(nodes)) {
     OrgMinimaObjectsBaseMiniNumber *block = [((OrgMinimaObjectsTxPOW *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk(node)) getTxPow])) getBlockNumber];
     [((JavaUtilArrayList *) nil_chk([sp getAllNodes])) addWithInt:0 withId:new_OrgMinimaSystemBackupSyncPacket_initWithOrgMinimaDatabaseTxpowtreeBlockTreeNode_withBoolean_(node, [((OrgMinimaObjectsBaseMiniNumber *) nil_chk(block)) isLessEqualWithOrgMinimaObjectsBaseMiniNumber:casc])];
   }
+  return sp;
+}
+
+- (jint)getIntroSyncSize {
+  OrgMinimaSystemBackupSyncPackage *sp = [self getSyncPackage];
   @try {
     JavaIoByteArrayOutputStream *baos = new_JavaIoByteArrayOutputStream_init();
     JavaIoDataOutputStream *dos = new_JavaIoDataOutputStream_initWithJavaIoOutputStream_(baos);
-    [sp writeDataStreamWithJavaIoDataOutputStream:dos];
+    [((OrgMinimaSystemBackupSyncPackage *) nil_chk(sp)) writeDataStreamWithJavaIoDataOutputStream:dos];
     [dos flush];
     [dos close];
     return ((IOSByteArray *) nil_chk([baos toByteArray]))->size_;
@@ -652,34 +720,37 @@ J2OBJC_IGNORE_DESIGNATED_END
     { NULL, "LOrgMinimaSystemBackupBackupManager;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaObjectsTxPOW;", 0x1, 2, 3, -1, -1, -1, -1 },
-    { NULL, "Z", 0x1, 4, 3, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaDatabaseTxpowdbTxPOWDBRow;", 0x1, 5, 3, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaDatabaseTxpowtreeBlockTreeNode;", 0x1, 6, 3, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 7, 8, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 9, 10, -1, -1, -1, -1 },
-    { NULL, "V", 0x2, 11, 3, -1, -1, -1, -1 },
-    { NULL, "V", 0x2, 12, 13, -1, -1, -1, -1 },
-    { NULL, "Z", 0x2, 14, 15, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaDatabaseTxpowdbTxPOWDBRow;", 0x1, 16, 8, -1, -1, -1, -1 },
-    { NULL, "Z", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaDatabaseTxpowtreeBlockTreeNode;", 0x1, 17, 18, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 19, 20, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaDatabaseTxpowdbTxPOWDBRow;", 0x1, 4, 3, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaDatabaseTxpowtreeBlockTreeNode;", 0x1, 5, 3, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 6, 7, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 8, 9, -1, -1, -1, -1 },
+    { NULL, "V", 0x2, 10, 3, -1, -1, -1, -1 },
+    { NULL, "V", 0x2, 11, 12, -1, -1, -1, -1 },
+    { NULL, "Z", 0x2, 13, 14, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaDatabaseTxpowdbTxPOWDBRow;", 0x1, 15, 7, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaDatabaseTxpowtreeBlockTreeNode;", 0x1, 16, 17, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 18, 19, -1, -1, -1, -1 },
     { NULL, "V", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LJavaUtilArrayList;", 0x1, 21, 3, -1, 22, -1, -1 },
-    { NULL, "LJavaUtilArrayList;", 0x1, -1, -1, -1, 23, -1, -1 },
-    { NULL, "LJavaUtilHashtable;", 0x1, -1, -1, -1, 24, -1, -1 },
-    { NULL, "LJavaUtilHashtable;", 0x1, 25, 8, -1, 26, -1, -1 },
-    { NULL, "LOrgMinimaObjectsWitness;", 0x1, 27, 28, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaUtilsMessagesMessage;", 0x1, 29, 30, -1, 31, -1, -1 },
-    { NULL, "LOrgMinimaUtilsMessagesMessage;", 0x1, 29, 32, -1, 33, -1, -1 },
-    { NULL, "LOrgMinimaObjectsTxPOW;", 0x1, 34, 35, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 20, 21, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 22, 21, -1, -1, -1, -1 },
+    { NULL, "Z", 0x1, 23, 3, -1, -1, -1, -1 },
+    { NULL, "LJavaUtilArrayList;", 0x1, 24, 3, -1, 25, -1, -1 },
+    { NULL, "Z", 0x1, 26, 21, -1, -1, -1, -1 },
+    { NULL, "LJavaUtilArrayList;", 0x1, -1, -1, -1, 27, -1, -1 },
+    { NULL, "LJavaUtilHashtable;", 0x1, -1, -1, -1, 28, -1, -1 },
+    { NULL, "LJavaUtilHashtable;", 0x1, 29, 7, -1, 30, -1, -1 },
+    { NULL, "LOrgMinimaObjectsWitness;", 0x1, 31, 32, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaUtilsMessagesMessage;", 0x1, 33, 34, -1, 35, -1, -1 },
+    { NULL, "LOrgMinimaUtilsMessagesMessage;", 0x1, 33, 36, -1, 37, -1, -1 },
+    { NULL, "LOrgMinimaObjectsTxPOW;", 0x1, 38, 39, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaSystemBackupSyncPackage;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "I", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaDatabaseTxpowtreeBlockTree;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaDatabaseTxpowdbTxPowDB;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaDatabaseCoindbCoinDB;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaDatabaseUserdbUserDB;", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 36, 37, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 40, 41, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
@@ -689,34 +760,37 @@ J2OBJC_IGNORE_DESIGNATED_END
   methods[2].selector = @selector(getBackup);
   methods[3].selector = @selector(DoGenesis);
   methods[4].selector = @selector(getTxPOWWithOrgMinimaObjectsBaseMiniData:);
-  methods[5].selector = @selector(isTxPOWFoundWithOrgMinimaObjectsBaseMiniData:);
-  methods[6].selector = @selector(getTxPOWRowWithOrgMinimaObjectsBaseMiniData:);
-  methods[7].selector = @selector(getBlockTreeNodeWithOrgMinimaObjectsBaseMiniData:);
-  methods[8].selector = @selector(processTxPOWWithOrgMinimaObjectsTxPOW:);
-  methods[9].selector = @selector(scanMMRSetForCoinsWithOrgMinimaDatabaseMmrMMRSet:);
-  methods[10].selector = @selector(addTreeChildrenWithOrgMinimaObjectsBaseMiniData:);
-  methods[11].selector = @selector(sortBlockTreeNodeStatesWithOrgMinimaDatabaseTxpowtreeBlockTreeNode:withInt:);
-  methods[12].selector = @selector(checkFullTxPOWWithOrgMinimaObjectsTxPOW:withOrgMinimaDatabaseMmrMMRSet:);
-  methods[13].selector = @selector(addNewTxPowWithOrgMinimaObjectsTxPOW:);
-  methods[14].selector = @selector(isChainRoot);
-  methods[15].selector = @selector(hardAddTxPOWBlockWithOrgMinimaObjectsTxPOW:withOrgMinimaDatabaseMmrMMRSet:withBoolean:);
-  methods[16].selector = @selector(hardSetCascadeNodeWithOrgMinimaDatabaseTxpowtreeBlockTreeNode:);
-  methods[17].selector = @selector(hardResetChain);
-  methods[18].selector = @selector(getTotalSimpleSpendableCoinsWithOrgMinimaObjectsBaseMiniData:);
-  methods[19].selector = @selector(getMempoolCoins);
-  methods[20].selector = @selector(getTotalUnusedAmount);
-  methods[21].selector = @selector(getTransactionTokenAmountsWithOrgMinimaObjectsTxPOW:);
-  methods[22].selector = @selector(createValidMMRPRoofsWithOrgMinimaObjectsTransaction:withOrgMinimaObjectsWitness:);
-  methods[23].selector = @selector(createTransactionWithOrgMinimaObjectsBaseMiniNumber:withOrgMinimaObjectsAddress:withOrgMinimaObjectsAddress:withJavaUtilArrayList:withOrgMinimaObjectsBaseMiniData:withOrgMinimaObjectsBaseMiniData:withOrgMinimaObjectsProofsTokenProof:);
-  methods[24].selector = @selector(createTransactionWithOrgMinimaObjectsBaseMiniNumber:withOrgMinimaObjectsAddress:withOrgMinimaObjectsAddress:withJavaUtilArrayList:withOrgMinimaObjectsBaseMiniData:withOrgMinimaObjectsBaseMiniData:withOrgMinimaObjectsProofsTokenProof:withOrgMinimaObjectsTransaction:);
-  methods[25].selector = @selector(getCurrentTxPowWithOrgMinimaObjectsTransaction:withOrgMinimaObjectsWitness:withOrgMinimaUtilsJsonJSONArray:);
-  methods[26].selector = @selector(getTopBlock);
-  methods[27].selector = @selector(getIntroSyncSize);
-  methods[28].selector = @selector(getMainTree);
-  methods[29].selector = @selector(getTxPowDB);
-  methods[30].selector = @selector(getCoinDB);
-  methods[31].selector = @selector(getUserDB);
-  methods[32].selector = @selector(setUserDBWithOrgMinimaDatabaseUserdbJavaJavaUserDB:);
+  methods[5].selector = @selector(getTxPOWRowWithOrgMinimaObjectsBaseMiniData:);
+  methods[6].selector = @selector(getBlockTreeNodeWithOrgMinimaObjectsBaseMiniData:);
+  methods[7].selector = @selector(processTxPOWWithOrgMinimaObjectsTxPOW:);
+  methods[8].selector = @selector(scanMMRSetForCoinsWithOrgMinimaDatabaseMmrMMRSet:);
+  methods[9].selector = @selector(addTreeChildrenWithOrgMinimaObjectsBaseMiniData:);
+  methods[10].selector = @selector(sortBlockTreeNodeStatesWithOrgMinimaDatabaseTxpowtreeBlockTreeNode:withInt:);
+  methods[11].selector = @selector(checkFullTxPOWWithOrgMinimaObjectsTxPOW:withOrgMinimaDatabaseMmrMMRSet:);
+  methods[12].selector = @selector(addNewTxPowWithOrgMinimaObjectsTxPOW:);
+  methods[13].selector = @selector(hardAddTxPOWBlockWithOrgMinimaObjectsTxPOW:withOrgMinimaDatabaseMmrMMRSet:withBoolean:);
+  methods[14].selector = @selector(hardSetCascadeNodeWithOrgMinimaDatabaseTxpowtreeBlockTreeNode:);
+  methods[15].selector = @selector(hardResetChain);
+  methods[16].selector = @selector(addMiningTransactionWithOrgMinimaObjectsTransaction:);
+  methods[17].selector = @selector(remeoveMiningTransactionWithOrgMinimaObjectsTransaction:);
+  methods[18].selector = @selector(checkInputForMiningWithOrgMinimaObjectsBaseMiniData:);
+  methods[19].selector = @selector(getTotalSimpleSpendableCoinsWithOrgMinimaObjectsBaseMiniData:);
+  methods[20].selector = @selector(checkTransactionForMempoolCoinsWithOrgMinimaObjectsTransaction:);
+  methods[21].selector = @selector(getMempoolCoins);
+  methods[22].selector = @selector(getTotalUnusedAmount);
+  methods[23].selector = @selector(getTransactionTokenAmountsWithOrgMinimaObjectsTxPOW:);
+  methods[24].selector = @selector(createValidMMRPRoofsWithOrgMinimaObjectsTransaction:withOrgMinimaObjectsWitness:);
+  methods[25].selector = @selector(createTransactionWithOrgMinimaObjectsBaseMiniNumber:withOrgMinimaObjectsAddress:withOrgMinimaObjectsAddress:withJavaUtilArrayList:withOrgMinimaObjectsBaseMiniData:withOrgMinimaObjectsBaseMiniData:withOrgMinimaObjectsProofsTokenProof:);
+  methods[26].selector = @selector(createTransactionWithOrgMinimaObjectsBaseMiniNumber:withOrgMinimaObjectsAddress:withOrgMinimaObjectsAddress:withJavaUtilArrayList:withOrgMinimaObjectsBaseMiniData:withOrgMinimaObjectsBaseMiniData:withOrgMinimaObjectsProofsTokenProof:withOrgMinimaObjectsTransaction:);
+  methods[27].selector = @selector(getCurrentTxPowWithOrgMinimaObjectsTransaction:withOrgMinimaObjectsWitness:withOrgMinimaUtilsJsonJSONArray:);
+  methods[28].selector = @selector(getTopBlock);
+  methods[29].selector = @selector(getSyncPackage);
+  methods[30].selector = @selector(getIntroSyncSize);
+  methods[31].selector = @selector(getMainTree);
+  methods[32].selector = @selector(getTxPowDB);
+  methods[33].selector = @selector(getCoinDB);
+  methods[34].selector = @selector(getUserDB);
+  methods[35].selector = @selector(setUserDBWithOrgMinimaDatabaseUserdbJavaJavaUserDB:);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
     { "mTxPOWDB_", "LOrgMinimaDatabaseTxpowdbTxPowDB;", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
@@ -724,9 +798,10 @@ J2OBJC_IGNORE_DESIGNATED_END
     { "mCoinDB_", "LOrgMinimaDatabaseCoindbCoinDB;", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
     { "mUserDB_", "LOrgMinimaDatabaseUserdbUserDB;", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
     { "mBackup_", "LOrgMinimaSystemBackupBackupManager;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
+    { "mMiningTransactions_", "LJavaUtilHashtable;", .constantValue.asLong = 0, 0x0, -1, -1, 42, -1 },
   };
-  static const void *ptrTable[] = { "setBackupManager", "LOrgMinimaSystemBackupBackupManager;", "getTxPOW", "LOrgMinimaObjectsBaseMiniData;", "isTxPOWFound", "getTxPOWRow", "getBlockTreeNode", "processTxPOW", "LOrgMinimaObjectsTxPOW;", "scanMMRSetForCoins", "LOrgMinimaDatabaseMmrMMRSet;", "addTreeChildren", "sortBlockTreeNodeStates", "LOrgMinimaDatabaseTxpowtreeBlockTreeNode;I", "checkFullTxPOW", "LOrgMinimaObjectsTxPOW;LOrgMinimaDatabaseMmrMMRSet;", "addNewTxPow", "hardAddTxPOWBlock", "LOrgMinimaObjectsTxPOW;LOrgMinimaDatabaseMmrMMRSet;Z", "hardSetCascadeNode", "LOrgMinimaDatabaseTxpowtreeBlockTreeNode;", "getTotalSimpleSpendableCoins", "(Lorg/minima/objects/base/MiniData;)Ljava/util/ArrayList<Lorg/minima/objects/Coin;>;", "()Ljava/util/ArrayList<Lorg/minima/objects/Coin;>;", "()Ljava/util/Hashtable<Ljava/lang/String;Lorg/minima/objects/base/MiniNumber;>;", "getTransactionTokenAmounts", "(Lorg/minima/objects/TxPOW;)Ljava/util/Hashtable<Ljava/lang/String;Lorg/minima/objects/base/MiniNumber;>;", "createValidMMRPRoofs", "LOrgMinimaObjectsTransaction;LOrgMinimaObjectsWitness;", "createTransaction", "LOrgMinimaObjectsBaseMiniNumber;LOrgMinimaObjectsAddress;LOrgMinimaObjectsAddress;LJavaUtilArrayList;LOrgMinimaObjectsBaseMiniData;LOrgMinimaObjectsBaseMiniData;LOrgMinimaObjectsProofsTokenProof;", "(Lorg/minima/objects/base/MiniNumber;Lorg/minima/objects/Address;Lorg/minima/objects/Address;Ljava/util/ArrayList<Lorg/minima/objects/Coin;>;Lorg/minima/objects/base/MiniData;Lorg/minima/objects/base/MiniData;Lorg/minima/objects/proofs/TokenProof;)Lorg/minima/utils/messages/Message;", "LOrgMinimaObjectsBaseMiniNumber;LOrgMinimaObjectsAddress;LOrgMinimaObjectsAddress;LJavaUtilArrayList;LOrgMinimaObjectsBaseMiniData;LOrgMinimaObjectsBaseMiniData;LOrgMinimaObjectsProofsTokenProof;LOrgMinimaObjectsTransaction;", "(Lorg/minima/objects/base/MiniNumber;Lorg/minima/objects/Address;Lorg/minima/objects/Address;Ljava/util/ArrayList<Lorg/minima/objects/Coin;>;Lorg/minima/objects/base/MiniData;Lorg/minima/objects/base/MiniData;Lorg/minima/objects/proofs/TokenProof;Lorg/minima/objects/Transaction;)Lorg/minima/utils/messages/Message;", "getCurrentTxPow", "LOrgMinimaObjectsTransaction;LOrgMinimaObjectsWitness;LOrgMinimaUtilsJsonJSONArray;", "setUserDB", "LOrgMinimaDatabaseUserdbJavaJavaUserDB;" };
-  static const J2ObjcClassInfo _OrgMinimaDatabaseMinimaDB = { "MinimaDB", "org.minima.database", ptrTable, methods, fields, 7, 0x1, 33, 5, -1, -1, -1, -1, -1 };
+  static const void *ptrTable[] = { "setBackupManager", "LOrgMinimaSystemBackupBackupManager;", "getTxPOW", "LOrgMinimaObjectsBaseMiniData;", "getTxPOWRow", "getBlockTreeNode", "processTxPOW", "LOrgMinimaObjectsTxPOW;", "scanMMRSetForCoins", "LOrgMinimaDatabaseMmrMMRSet;", "addTreeChildren", "sortBlockTreeNodeStates", "LOrgMinimaDatabaseTxpowtreeBlockTreeNode;I", "checkFullTxPOW", "LOrgMinimaObjectsTxPOW;LOrgMinimaDatabaseMmrMMRSet;", "addNewTxPow", "hardAddTxPOWBlock", "LOrgMinimaObjectsTxPOW;LOrgMinimaDatabaseMmrMMRSet;Z", "hardSetCascadeNode", "LOrgMinimaDatabaseTxpowtreeBlockTreeNode;", "addMiningTransaction", "LOrgMinimaObjectsTransaction;", "remeoveMiningTransaction", "checkInputForMining", "getTotalSimpleSpendableCoins", "(Lorg/minima/objects/base/MiniData;)Ljava/util/ArrayList<Lorg/minima/objects/Coin;>;", "checkTransactionForMempoolCoins", "()Ljava/util/ArrayList<Lorg/minima/objects/Coin;>;", "()Ljava/util/Hashtable<Ljava/lang/String;Lorg/minima/objects/base/MiniNumber;>;", "getTransactionTokenAmounts", "(Lorg/minima/objects/TxPOW;)Ljava/util/Hashtable<Ljava/lang/String;Lorg/minima/objects/base/MiniNumber;>;", "createValidMMRPRoofs", "LOrgMinimaObjectsTransaction;LOrgMinimaObjectsWitness;", "createTransaction", "LOrgMinimaObjectsBaseMiniNumber;LOrgMinimaObjectsAddress;LOrgMinimaObjectsAddress;LJavaUtilArrayList;LOrgMinimaObjectsBaseMiniData;LOrgMinimaObjectsBaseMiniData;LOrgMinimaObjectsProofsTokenProof;", "(Lorg/minima/objects/base/MiniNumber;Lorg/minima/objects/Address;Lorg/minima/objects/Address;Ljava/util/ArrayList<Lorg/minima/objects/Coin;>;Lorg/minima/objects/base/MiniData;Lorg/minima/objects/base/MiniData;Lorg/minima/objects/proofs/TokenProof;)Lorg/minima/utils/messages/Message;", "LOrgMinimaObjectsBaseMiniNumber;LOrgMinimaObjectsAddress;LOrgMinimaObjectsAddress;LJavaUtilArrayList;LOrgMinimaObjectsBaseMiniData;LOrgMinimaObjectsBaseMiniData;LOrgMinimaObjectsProofsTokenProof;LOrgMinimaObjectsTransaction;", "(Lorg/minima/objects/base/MiniNumber;Lorg/minima/objects/Address;Lorg/minima/objects/Address;Ljava/util/ArrayList<Lorg/minima/objects/Coin;>;Lorg/minima/objects/base/MiniData;Lorg/minima/objects/base/MiniData;Lorg/minima/objects/proofs/TokenProof;Lorg/minima/objects/Transaction;)Lorg/minima/utils/messages/Message;", "getCurrentTxPow", "LOrgMinimaObjectsTransaction;LOrgMinimaObjectsWitness;LOrgMinimaUtilsJsonJSONArray;", "setUserDB", "LOrgMinimaDatabaseUserdbJavaJavaUserDB;", "Ljava/util/Hashtable<Ljava/lang/String;Lorg/minima/objects/Transaction;>;" };
+  static const J2ObjcClassInfo _OrgMinimaDatabaseMinimaDB = { "MinimaDB", "org.minima.database", ptrTable, methods, fields, 7, 0x1, 36, 6, -1, -1, -1, -1, -1 };
   return &_OrgMinimaDatabaseMinimaDB;
 }
 
@@ -735,6 +810,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 void OrgMinimaDatabaseMinimaDB_init(OrgMinimaDatabaseMinimaDB *self) {
   NSObject_init(self);
   self->mBackup_ = nil;
+  self->mMiningTransactions_ = new_JavaUtilHashtable_init();
   self->mTxPOWDB_ = new_OrgMinimaDatabaseTxpowdbJavaJavaDB_init();
   self->mMainTree_ = new_OrgMinimaDatabaseTxpowtreeBlockTree_init();
   self->mCoinDB_ = new_OrgMinimaDatabaseCoindbJavaJavaCoinDB_init();
@@ -790,16 +866,16 @@ void OrgMinimaDatabaseMinimaDB_sortBlockTreeNodeStatesWithOrgMinimaDatabaseTxpow
 
 jboolean OrgMinimaDatabaseMinimaDB_checkFullTxPOWWithOrgMinimaObjectsTxPOW_withOrgMinimaDatabaseMmrMMRSet_(OrgMinimaDatabaseMinimaDB *self, OrgMinimaObjectsTxPOW *zBlock, OrgMinimaDatabaseMmrMMRSet *zMMRSet) {
   if ([((OrgMinimaObjectsTxPOW *) nil_chk(zBlock)) isTransaction]) {
-    jboolean inputvalid = OrgMinimaSystemBrainsTxPOWChecker_checkTransactionMMRWithOrgMinimaObjectsTxPOW_withOrgMinimaDatabaseMinimaDB_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaDatabaseMmrMMRSet_withBoolean_(zBlock, self, [zBlock getBlockNumber], zMMRSet, true);
+    jboolean inputvalid = OrgMinimaSystemTxpowTxPoWChecker_checkTransactionMMRWithOrgMinimaObjectsTxPOW_withOrgMinimaDatabaseMinimaDB_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaDatabaseMmrMMRSet_withBoolean_(zBlock, self, [zBlock getBlockNumber], zMMRSet, true);
     if (!inputvalid) {
       return false;
     }
   }
-  JavaUtilArrayList *txns = [zBlock getBlockTxns];
+  JavaUtilArrayList *txns = [zBlock getBlockTransactions];
   for (OrgMinimaObjectsBaseMiniData * __strong txn in nil_chk(txns)) {
     id<OrgMinimaDatabaseTxpowdbTxPOWDBRow> row = [self getTxPOWRowWithOrgMinimaObjectsBaseMiniData:txn];
     OrgMinimaObjectsTxPOW *txpow = [((id<OrgMinimaDatabaseTxpowdbTxPOWDBRow>) nil_chk(row)) getTxPOW];
-    jboolean inputvalid = OrgMinimaSystemBrainsTxPOWChecker_checkTransactionMMRWithOrgMinimaObjectsTxPOW_withOrgMinimaDatabaseMinimaDB_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaDatabaseMmrMMRSet_withBoolean_(txpow, self, [zBlock getBlockNumber], zMMRSet, true);
+    jboolean inputvalid = OrgMinimaSystemTxpowTxPoWChecker_checkTransactionMMRWithOrgMinimaObjectsTxPOW_withOrgMinimaDatabaseMinimaDB_withOrgMinimaObjectsBaseMiniNumber_withOrgMinimaDatabaseMmrMMRSet_withBoolean_(txpow, self, [zBlock getBlockNumber], zMMRSet, true);
     if (!inputvalid) {
       return false;
     }

@@ -143,7 +143,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 + (void)initialize {
   if (self == [OrgMinimaObjectsBaseMMRSumNumber class]) {
-    OrgMinimaObjectsBaseMMRSumNumber_mMathContext = new_JavaMathMathContext_initWithInt_withJavaMathRoundingMode_(100, JreLoadEnum(JavaMathRoundingMode, DOWN));
+    OrgMinimaObjectsBaseMMRSumNumber_mMathContext = new_JavaMathMathContext_initWithInt_withJavaMathRoundingMode_(128, JreLoadEnum(JavaMathRoundingMode, DOWN));
     OrgMinimaObjectsBaseMMRSumNumber_ZERO = new_OrgMinimaObjectsBaseMMRSumNumber_initWithJavaMathBigDecimal_(JreLoadStatic(JavaMathBigDecimal, ZERO));
     J2OBJC_SET_INITIALIZED(OrgMinimaObjectsBaseMMRSumNumber)
   }

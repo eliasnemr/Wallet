@@ -6,6 +6,7 @@
 #include "IOSObjectArray.h"
 #include "J2ObjC_source.h"
 #include "java/io/PrintStream.h"
+#include "java/lang/Integer.h"
 #include "java/lang/System.h"
 #include "org/minima/utils/MiniFormat.h"
 
@@ -26,8 +27,8 @@ J2OBJC_IGNORE_DESIGNATED_BEGIN
 }
 J2OBJC_IGNORE_DESIGNATED_END
 
-+ (NSString *)PrettyJSONWithNSString:(NSString *)zJSON {
-  return OrgMinimaUtilsMiniFormat_PrettyJSONWithNSString_(zJSON);
++ (NSString *)JSONPrettyWithNSString:(NSString *)zJSON {
+  return OrgMinimaUtilsMiniFormat_JSONPrettyWithNSString_(zJSON);
 }
 
 + (NSString *)maketabstringWithInt:(jint)zNum {
@@ -49,11 +50,11 @@ J2OBJC_IGNORE_DESIGNATED_END
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
   #pragma clang diagnostic ignored "-Wundeclared-selector"
   methods[0].selector = @selector(init);
-  methods[1].selector = @selector(PrettyJSONWithNSString:);
+  methods[1].selector = @selector(JSONPrettyWithNSString:);
   methods[2].selector = @selector(maketabstringWithInt:);
   methods[3].selector = @selector(mainWithNSStringArray:);
   #pragma clang diagnostic pop
-  static const void *ptrTable[] = { "PrettyJSON", "LNSString;", "maketabstring", "I", "main", "[LNSString;" };
+  static const void *ptrTable[] = { "JSONPretty", "LNSString;", "maketabstring", "I", "main", "[LNSString;" };
   static const J2ObjcClassInfo _OrgMinimaUtilsMiniFormat = { "MiniFormat", "org.minima.utils", ptrTable, methods, NULL, 7, 0x1, 4, 0, -1, -1, -1, -1, -1 };
   return &_OrgMinimaUtilsMiniFormat;
 }
@@ -72,44 +73,76 @@ OrgMinimaUtilsMiniFormat *create_OrgMinimaUtilsMiniFormat_init() {
   J2OBJC_CREATE_IMPL(OrgMinimaUtilsMiniFormat, init)
 }
 
-NSString *OrgMinimaUtilsMiniFormat_PrettyJSONWithNSString_(NSString *zJSON) {
+NSString *OrgMinimaUtilsMiniFormat_JSONPrettyWithNSString_(NSString *zJSON) {
   OrgMinimaUtilsMiniFormat_initialize();
+  NSString *work = [((NSString *) nil_chk(zJSON)) java_trim];
+  jint len = [((NSString *) nil_chk(work)) java_length];
+  if (len > 100000) {
+    return work;
+  }
   NSString *ret = @"";
-  jint len = [((NSString *) nil_chk(zJSON)) java_length];
   jint tabs = 0;
   NSString *tabstring = OrgMinimaUtilsMiniFormat_maketabstringWithInt_(tabs);
-  jboolean inquotes = false;
-  for (jint i = 0; i < len; i++) {
-    jchar cc = [zJSON charAtWithInt:i];
-    if (cc == '"') {
-      inquotes = !inquotes;
+  jint oldpos = 0;
+  jint currentpos = 0;
+  while (true) {
+    oldpos = currentpos;
+    jint indquotes = [work java_indexOfString:@"\"" fromIndex:currentpos];
+    jint indopen = [work java_indexOfString:@"{" fromIndex:currentpos];
+    jint indclose = [work java_indexOfString:@"}" fromIndex:currentpos];
+    jint indcomma = [work java_indexOfString:@"," fromIndex:currentpos];
+    if (indquotes == -1 && indopen == -1 && indclose == -1 && indcomma == -1) {
+      break;
     }
-    if (!inquotes) {
-      if (cc == '{') {
-        tabs++;
-        tabstring = OrgMinimaUtilsMiniFormat_maketabstringWithInt_(tabs);
-        (void) JreStrAppendStrong(&ret, "$", @"{\n");
-        (void) JreStrAppendStrong(&ret, "$", tabstring);
-      }
-      else if (cc == '}') {
-        tabs--;
-        tabstring = OrgMinimaUtilsMiniFormat_maketabstringWithInt_(tabs);
-        (void) JreStrAppendStrong(&ret, "$", @"\n");
-        (void) JreStrAppendStrong(&ret, "$", tabstring);
-        (void) JreStrAppendStrong(&ret, "$", @"}");
-      }
-      else if (cc == ',') {
-        (void) JreStrAppendStrong(&ret, "$", @",\n");
-        (void) JreStrAppendStrong(&ret, "$", tabstring);
-      }
-      else {
-        (void) JreStrAppendStrong(&ret, "C", cc);
-      }
+    if (indquotes == -1) {
+      indquotes = JavaLangInteger_MAX_VALUE;
+    }
+    if (indopen == -1) {
+      indopen = JavaLangInteger_MAX_VALUE;
+    }
+    if (indclose == -1) {
+      indclose = JavaLangInteger_MAX_VALUE;
+    }
+    if (indcomma == -1) {
+      indcomma = JavaLangInteger_MAX_VALUE;
+    }
+    if (indopen < indclose && indopen < indcomma && indopen < indquotes) {
+      tabs++;
+      tabstring = OrgMinimaUtilsMiniFormat_maketabstringWithInt_(tabs);
+      NSString *substr = [work java_substring:oldpos endIndex:indopen];
+      currentpos = indopen + 1;
+      (void) JreStrAppendStrong(&ret, "$", substr);
+      (void) JreStrAppendStrong(&ret, "$", @"{\n");
+      (void) JreStrAppendStrong(&ret, "$", tabstring);
+    }
+    else if (indclose < indopen && indclose < indcomma && indclose < indquotes) {
+      tabs--;
+      tabstring = OrgMinimaUtilsMiniFormat_maketabstringWithInt_(tabs);
+      NSString *substr = [work java_substring:oldpos endIndex:indclose];
+      currentpos = indclose + 1;
+      (void) JreStrAppendStrong(&ret, "$", substr);
+      (void) JreStrAppendStrong(&ret, "$", @"\n");
+      (void) JreStrAppendStrong(&ret, "$", tabstring);
+      (void) JreStrAppendStrong(&ret, "$", @"}");
+    }
+    else if (indquotes < indopen && indquotes < indcomma && indquotes < indclose) {
+      NSString *prequote = [work java_substring:oldpos endIndex:indquotes];
+      (void) JreStrAppendStrong(&ret, "$", prequote);
+      jint quoteend = [work java_indexOfString:@"\"" fromIndex:indquotes + 1];
+      NSString *quote = [work java_substring:indquotes endIndex:quoteend + 1];
+      currentpos = quoteend + 1;
+      (void) JreStrAppendStrong(&ret, "$", quote);
     }
     else {
-      (void) JreStrAppendStrong(&ret, "C", cc);
+      NSString *substr = [work java_substring:oldpos endIndex:indcomma];
+      currentpos = indcomma + 1;
+      (void) JreStrAppendStrong(&ret, "$", substr);
+      (void) JreStrAppendStrong(&ret, "$", @",\n");
+      (void) JreStrAppendStrong(&ret, "$", tabstring);
     }
   }
+  ret = [ret java_replaceAll:@"\\\\/" withReplacement:@"/"];
+  ret = [((NSString *) nil_chk(ret)) java_replaceAll:@"\\\\n" withReplacement:@"\n"];
   return ret;
 }
 
@@ -124,8 +157,8 @@ NSString *OrgMinimaUtilsMiniFormat_maketabstringWithInt_(jint zNum) {
 
 void OrgMinimaUtilsMiniFormat_mainWithNSStringArray_(IOSObjectArray *zArgs) {
   OrgMinimaUtilsMiniFormat_initialize();
-  NSString *test = @"{\"version\":0.4,\"milliuptime\":2450,\"stringuptime\":\"0 Years 0 Months 0 Weeks 0 Days 0 Hours 0 Minutes 2 Seconds 450 Milliseconds\",\"conf\":\"\\/home\\/spartacusrex\\/minima\\/minima\",\"host\":\"0.0.0.0\",\"port\":9001,\"pulse\":true,\"root\":{\"block\":0,\"isblock\":true,\"txpowid\":\"0x8C73A2FF132C3242E83FA2F6AD389884A3170C0D5AE283BDEC89DD08151DD8E8\",\"parent\":\"0x0000000000000000000000000000000000000000000000000000000000000000\",\"blkdiff\":0,\"txndiff\":0,\"txn\":{\"inputs\":[],\"outputs\":[]},\"witness\":params[] pubk[] scripts[],\"txnlist\":[],\"nonce\":256,\"mmr\":\"0x7094AA8139BFBCC37CA832CADD5BB49ECCB2C54C6C1C6FC8DBAB354BA052BF66\",\"timemilli\":1573815008746},\"tip\":{\"block\":7,\"isblock\":true,\"txpowid\":\"0x188CF963491A7ED735CC60217C29598F86631503F4A7BB228AE9CAA3C85EF2EA\",\"parent\":\"0x8F50F40A85EABC440C10AB0781C39C41B3F44DC1A793C176AC4ECEB80F680AFE\",\"blkdiff\":0,\"txndiff\":0,\"txn\":{\"inputs\":[],\"outputs\":[]},\"witness\":params[] pubk[] scripts[],\"txnlist\":[],\"nonce\":-2804983266292932580,\"mmr\":\"0x7094AA8139BFBCC37CA832CADD5BB49ECCB2C54C6C1C6FC8DBAB354BA052BF66\",\"timemilli\":1573815011101},\"chainspeed\":2.9723991507431,\"lastblock\":7,\"totalpow\":8}";
-  NSString *pretty = OrgMinimaUtilsMiniFormat_PrettyJSONWithNSString_(test);
+  NSString *test = @"{\"version\": \"0.8, , 7.67\",\"milliuptime\": 2450 }";
+  NSString *pretty = OrgMinimaUtilsMiniFormat_JSONPrettyWithNSString_(test);
   [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out))) printlnWithNSString:pretty];
 }
 

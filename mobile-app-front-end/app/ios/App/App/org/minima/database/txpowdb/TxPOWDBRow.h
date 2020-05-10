@@ -18,6 +18,7 @@
 
 @class OrgMinimaObjectsBaseMiniNumber;
 @class OrgMinimaObjectsTxPOW;
+@class OrgMinimaUtilsJsonJSONObject;
 
 @protocol OrgMinimaDatabaseTxpowdbTxPOWDBRow < JavaObject >
 
@@ -42,6 +43,8 @@
 - (void)deleteRow;
 
 - (jlong)getDeleteTime;
+
+- (OrgMinimaUtilsJsonJSONObject *)toJSON;
 
 @end
 

@@ -31,6 +31,7 @@ J2OBJC_IGNORE_DESIGNATED_END
     NSString *olds = [((OrgMinimaKissvmValuesValue *) nil_chk([((OrgMinimaKissvmContract *) nil_chk(zContract)) getPrevStateWithInt:i])) description];
     NSString *news = [((NSString *) nil_chk([zContract getStateWithInt:i])) description];
     if (![((NSString *) nil_chk(olds)) isEqual:news]) {
+      [zContract traceLogWithNSString:JreStrcat("$I$$$$", @"SAMESTATE FAIL [", i, @"] PREV:", olds, @" / CURRENT:", news)];
       return JreLoadStatic(OrgMinimaKissvmValuesBooleanValue, FALSE);
     }
   }

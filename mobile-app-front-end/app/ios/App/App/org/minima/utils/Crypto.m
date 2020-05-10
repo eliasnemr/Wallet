@@ -26,6 +26,8 @@ J2OBJC_INITIALIZED_DEFN(OrgMinimaUtilsCrypto)
 
 JavaMathBigInteger *OrgMinimaUtilsCrypto_MAX_VAL;
 OrgMinimaObjectsBaseMiniData *OrgMinimaUtilsCrypto_MAX_HASH;
+JavaMathBigInteger *OrgMinimaUtilsCrypto_MEGA_VAL;
+OrgMinimaObjectsBaseMiniData *OrgMinimaUtilsCrypto_MEGA_HASH;
 
 @implementation OrgMinimaUtilsCrypto
 
@@ -178,10 +180,12 @@ J2OBJC_IGNORE_DESIGNATED_END
   static const J2ObjcFieldInfo fields[] = {
     { "MAX_VAL", "LJavaMathBigInteger;", .constantValue.asLong = 0, 0x19, -1, 14, -1, -1 },
     { "MAX_HASH", "LOrgMinimaObjectsBaseMiniData;", .constantValue.asLong = 0, 0x19, -1, 15, -1, -1 },
-    { "mCrypto", "LOrgMinimaUtilsCrypto;", .constantValue.asLong = 0, 0xa, -1, 16, -1, -1 },
+    { "MEGA_VAL", "LJavaMathBigInteger;", .constantValue.asLong = 0, 0x19, -1, 16, -1, -1 },
+    { "MEGA_HASH", "LOrgMinimaObjectsBaseMiniData;", .constantValue.asLong = 0, 0x19, -1, 17, -1, -1 },
+    { "mCrypto", "LOrgMinimaUtilsCrypto;", .constantValue.asLong = 0, 0xa, -1, 18, -1, -1 },
   };
-  static const void *ptrTable[] = { "hashData", "[B", "[BI", "hashSHA2", "hashObject", "LOrgMinimaUtilsStreamable;", "LOrgMinimaUtilsStreamable;I", "hashObjects", "LOrgMinimaUtilsStreamable;LOrgMinimaUtilsStreamable;", "LOrgMinimaUtilsStreamable;LOrgMinimaUtilsStreamable;I", "hashAllObjects", "[LOrgMinimaUtilsStreamable;", "main", "[LNSString;", &OrgMinimaUtilsCrypto_MAX_VAL, &OrgMinimaUtilsCrypto_MAX_HASH, &OrgMinimaUtilsCrypto_mCrypto };
-  static const J2ObjcClassInfo _OrgMinimaUtilsCrypto = { "Crypto", "org.minima.utils", ptrTable, methods, fields, 7, 0x1, 11, 3, -1, -1, -1, -1, -1 };
+  static const void *ptrTable[] = { "hashData", "[B", "[BI", "hashSHA2", "hashObject", "LOrgMinimaUtilsStreamable;", "LOrgMinimaUtilsStreamable;I", "hashObjects", "LOrgMinimaUtilsStreamable;LOrgMinimaUtilsStreamable;", "LOrgMinimaUtilsStreamable;LOrgMinimaUtilsStreamable;I", "hashAllObjects", "[LOrgMinimaUtilsStreamable;", "main", "[LNSString;", &OrgMinimaUtilsCrypto_MAX_VAL, &OrgMinimaUtilsCrypto_MAX_HASH, &OrgMinimaUtilsCrypto_MEGA_VAL, &OrgMinimaUtilsCrypto_MEGA_HASH, &OrgMinimaUtilsCrypto_mCrypto };
+  static const J2ObjcClassInfo _OrgMinimaUtilsCrypto = { "Crypto", "org.minima.utils", ptrTable, methods, fields, 7, 0x1, 11, 5, -1, -1, -1, -1, -1 };
   return &_OrgMinimaUtilsCrypto;
 }
 
@@ -189,6 +193,8 @@ J2OBJC_IGNORE_DESIGNATED_END
   if (self == [OrgMinimaUtilsCrypto class]) {
     OrgMinimaUtilsCrypto_MAX_VAL = new_JavaMathBigInteger_initWithNSString_withInt_(@"FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", 16);
     OrgMinimaUtilsCrypto_MAX_HASH = new_OrgMinimaObjectsBaseMiniData_initWithNSString_(@"0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF");
+    OrgMinimaUtilsCrypto_MEGA_VAL = [OrgMinimaUtilsCrypto_MAX_VAL divideWithJavaMathBigInteger:new_JavaMathBigInteger_initWithNSString_(@"100000")];
+    OrgMinimaUtilsCrypto_MEGA_HASH = new_OrgMinimaObjectsBaseMiniData_initWithNSString_(JreStrcat("$$", @"0x", [((JavaMathBigInteger *) nil_chk(OrgMinimaUtilsCrypto_MEGA_VAL)) toStringWithInt:16]));
     J2OBJC_SET_INITIALIZED(OrgMinimaUtilsCrypto)
   }
 }

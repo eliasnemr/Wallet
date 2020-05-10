@@ -5,6 +5,7 @@
 
 #include "IOSObjectArray.h"
 #include "J2ObjC_source.h"
+#include "java/lang/Integer.h"
 #include "org/minima/system/Main.h"
 #include "org/minima/system/brains/ConsensusHandler.h"
 #include "org/minima/system/brains/ConsensusTxn.h"
@@ -22,7 +23,12 @@ J2OBJC_IGNORE_DESIGNATED_BEGIN
 J2OBJC_IGNORE_DESIGNATED_END
 
 - (void)doFunctionWithNSStringArray:(IOSObjectArray *)zInput {
-  [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getConsensusHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:[self getResponseMessageWithNSString:OrgMinimaSystemBrainsConsensusTxn_CONSENSUS_TXNLIST]];
+  OrgMinimaUtilsMessagesMessage *list = [self getResponseMessageWithNSString:OrgMinimaSystemBrainsConsensusTxn_CONSENSUS_TXNLIST];
+  if (((IOSObjectArray *) nil_chk(zInput))->size_ > 1) {
+    jint txn = JavaLangInteger_parseIntWithNSString_(IOSObjectArray_Get(zInput, 1));
+    (void) [((OrgMinimaUtilsMessagesMessage *) nil_chk(list)) addIntWithNSString:@"transaction" withInt:txn];
+  }
+  [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getConsensusHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:list];
 }
 
 - (OrgMinimaSystemInputCommandFunction *)getNewFunction {
@@ -51,7 +57,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 void OrgMinimaSystemInputFunctionsTxnstxnlist_init(OrgMinimaSystemInputFunctionsTxnstxnlist *self) {
   OrgMinimaSystemInputCommandFunction_initWithNSString_(self, @"txnlist");
-  [self setHelpWithNSString:@"" withNSString:@"List all current custom transactions" withNSString:@""];
+  [self setHelpWithNSString:@"(id)" withNSString:@"List all custom transactions or just the selected id" withNSString:@""];
 }
 
 OrgMinimaSystemInputFunctionsTxnstxnlist *new_OrgMinimaSystemInputFunctionsTxnstxnlist_init() {

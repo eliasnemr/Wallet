@@ -214,7 +214,7 @@ public class NetClient extends MessageProcessor {
 			
 			//Start reading
 			mInputReader = new NetClientReader(this);
-			mInputThread = new Thread(mInputReader);
+			mInputThread = new Thread(mInputReader, "NetClientReader");
 			mInputThread.start();
 			
 			//First thing to do..
@@ -231,9 +231,6 @@ public class NetClient extends MessageProcessor {
 	
 			//First the TXPOW
 			txpow.writeDataStream(mOutput);
-			
-			//Then all the signatures..
-//			txpow.getWitness().writeSigs(mOutput);
 			
 		}else if(zMessage.isMessageType(NETCLIENT_SENDOBJECT)) {
 			//What type of object is this..

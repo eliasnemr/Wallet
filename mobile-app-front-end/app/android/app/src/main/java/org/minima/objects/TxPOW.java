@@ -6,7 +6,6 @@ package org.minima.objects;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -209,7 +208,7 @@ public class TxPOW implements Streamable {
 		mTxPowIDList.add(zTxPOW.getTxPowID());
 	}
 	
-	public ArrayList<MiniData> getBlockTxns(){
+	public ArrayList<MiniData> getBlockTransactions(){
 		return mTxPowIDList;
 	}
 	

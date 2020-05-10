@@ -27,6 +27,14 @@ J2OBJC_IGNORE_DESIGNATED_END
     if ([((NSString *) nil_chk(IOSObjectArray_Get(zInput, 1))) java_equalsIgnoreCase:@"clear"]) {
       (void) [((OrgMinimaUtilsMessagesMessage *) nil_chk(msg)) addBooleanWithNSString:@"clear" withBoolean:true];
     }
+    else {
+      (void) [((OrgMinimaUtilsMessagesMessage *) nil_chk(msg)) addStringWithNSString:@"address" withNSString:IOSObjectArray_Get(zInput, 1)];
+    }
+  }
+  if (zInput->size_ > 2) {
+    if ([((NSString *) nil_chk(IOSObjectArray_Get(zInput, 2))) java_equalsIgnoreCase:@"clear"]) {
+      (void) [((OrgMinimaUtilsMessagesMessage *) nil_chk(msg)) addBooleanWithNSString:@"clear" withBoolean:true];
+    }
   }
   [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getConsensusHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:msg];
 }
@@ -57,7 +65,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 void OrgMinimaSystemInputFunctionshistory_init(OrgMinimaSystemInputFunctionshistory *self) {
   OrgMinimaSystemInputCommandFunction_initWithNSString_(self, @"history");
-  [self setHelpWithNSString:@"(clear)" withNSString:@"Return a list of relevant past transactions or clear them all" withNSString:@""];
+  [self setHelpWithNSString:@"(address) (clear)" withNSString:@"Return a list of past transactions or clear them all" withNSString:@""];
 }
 
 OrgMinimaSystemInputFunctionshistory *new_OrgMinimaSystemInputFunctionshistory_init() {

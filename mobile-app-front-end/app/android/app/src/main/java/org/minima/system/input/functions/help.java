@@ -14,8 +14,11 @@ import org.minima.system.input.functions.txns.txninput;
 import org.minima.system.input.functions.txns.txnlist;
 import org.minima.system.input.functions.txns.txnoutput;
 import org.minima.system.input.functions.txns.txnpost;
+import org.minima.system.input.functions.txns.txnreminput;
+import org.minima.system.input.functions.txns.txnremoutput;
 import org.minima.system.input.functions.txns.txnscript;
 import org.minima.system.input.functions.txns.txnsign;
+import org.minima.system.input.functions.txns.txnsignauto;
 import org.minima.system.input.functions.txns.txnstate;
 import org.minima.system.input.functions.txns.txnvalidate;
 
@@ -61,9 +64,11 @@ public class help extends CommandFunction{
 			addJSONDesc(new status());
 			addJSONDesc(new history());
 			addJSONDesc(new backup());
+			addJSONDesc(new flushmempool());
+			addJSONDesc(new check());
 			
-//			addJSONDesc(new printchain());
-			addJSONDesc(new printtree());
+			addJSONDesc(new printdb());
+//			addJSONDesc(new printtree());
 			addJSONDesc(new automine());
 			addJSONDesc(new trace());
 			
@@ -83,11 +88,14 @@ public class help extends CommandFunction{
 			addJSONDesc(new importkey());
 			
 			addJSONDesc(new coins());
+			addJSONDesc(new coinsimple());
 			addJSONDesc(new exportcoin());
 			addJSONDesc(new importcoin());
 			addJSONDesc(new keepcoin());
+//			addJSONDesc(new unkeepcoin());
 			
-			addJSONDesc(new search());
+//			addJSONDesc(new search());
+			addJSONDesc(new txpowsearch());
 			addJSONDesc(new txpowinfo());
 			
 			addJSONDesc(new scripts());
@@ -101,18 +109,22 @@ public class help extends CommandFunction{
 			
 			addJSONDesc(new sign());
 			addJSONDesc(new chainsha());
+			addJSONDesc(new random());
 			
 			addJSONDesc(new txnlist());
 			addJSONDesc(new txncreate());
 			addJSONDesc(new txndelete());
 			addJSONDesc(new txnexport());
 			addJSONDesc(new txnimport());
-			addJSONDesc(new txnauto());
 			addJSONDesc(new txninput());
 			addJSONDesc(new txnoutput());
+			addJSONDesc(new txnreminput());
+			addJSONDesc(new txnremoutput());
 			addJSONDesc(new txnstate());
 			addJSONDesc(new txnscript());
 			addJSONDesc(new txnsign());
+			addJSONDesc(new txnauto());
+			addJSONDesc(new txnsignauto());
 			addJSONDesc(new txnvalidate());
 			addJSONDesc(new txnpost());
 			

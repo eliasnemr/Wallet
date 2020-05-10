@@ -69,6 +69,11 @@ inline NSString *OrgMinimaSystemBrainsConsensusTxn_get_CONSENSUS_TXNAUTO(void);
 FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusTxn_CONSENSUS_TXNAUTO;
 J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBrainsConsensusTxn, CONSENSUS_TXNAUTO, NSString *)
 
+inline NSString *OrgMinimaSystemBrainsConsensusTxn_get_CONSENSUS_TXNAUTOSIGN(void);
+/*! INTERNAL ONLY - Use accessor function from above. */
+FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusTxn_CONSENSUS_TXNAUTOSIGN;
+J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBrainsConsensusTxn, CONSENSUS_TXNAUTOSIGN, NSString *)
+
 inline NSString *OrgMinimaSystemBrainsConsensusTxn_get_CONSENSUS_TXNINPUT(void);
 /*! INTERNAL ONLY - Use accessor function from above. */
 FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusTxn_CONSENSUS_TXNINPUT;
@@ -113,6 +118,16 @@ inline NSString *OrgMinimaSystemBrainsConsensusTxn_get_CONSENSUS_TXNIMPORT(void)
 /*! INTERNAL ONLY - Use accessor function from above. */
 FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusTxn_CONSENSUS_TXNIMPORT;
 J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBrainsConsensusTxn, CONSENSUS_TXNIMPORT, NSString *)
+
+inline NSString *OrgMinimaSystemBrainsConsensusTxn_get_CONSENSUS_REMOUTPUT(void);
+/*! INTERNAL ONLY - Use accessor function from above. */
+FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusTxn_CONSENSUS_REMOUTPUT;
+J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBrainsConsensusTxn, CONSENSUS_REMOUTPUT, NSString *)
+
+inline NSString *OrgMinimaSystemBrainsConsensusTxn_get_CONSENSUS_REMINPUT(void);
+/*! INTERNAL ONLY - Use accessor function from above. */
+FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusTxn_CONSENSUS_REMINPUT;
+J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBrainsConsensusTxn, CONSENSUS_REMINPUT, NSString *)
 
 FOUNDATION_EXPORT void OrgMinimaSystemBrainsConsensusTxn_initWithOrgMinimaDatabaseMinimaDB_withOrgMinimaSystemBrainsConsensusHandler_(OrgMinimaSystemBrainsConsensusTxn *self, OrgMinimaDatabaseMinimaDB *zDB, OrgMinimaSystemBrainsConsensusHandler *zHandler);
 

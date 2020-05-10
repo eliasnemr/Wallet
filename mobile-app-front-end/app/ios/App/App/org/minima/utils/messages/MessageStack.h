@@ -18,7 +18,10 @@
 
 @class OrgMinimaUtilsMessagesMessage;
 
-@interface OrgMinimaUtilsMessagesMessageStack : NSObject
+@interface OrgMinimaUtilsMessagesMessageStack : NSObject {
+ @public
+  id mLock_;
+}
 
 #pragma mark Public
 
@@ -34,9 +37,15 @@
 
 - (jint)getSize;
 
+- (jboolean)isNextMessage;
+
+- (void)notifyLock;
+
 @end
 
 J2OBJC_EMPTY_STATIC_INIT(OrgMinimaUtilsMessagesMessageStack)
+
+J2OBJC_FIELD_SETTER(OrgMinimaUtilsMessagesMessageStack, mLock_, id)
 
 FOUNDATION_EXPORT void OrgMinimaUtilsMessagesMessageStack_init(OrgMinimaUtilsMessagesMessageStack *self);
 

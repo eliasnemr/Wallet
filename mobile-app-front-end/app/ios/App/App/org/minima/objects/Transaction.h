@@ -45,7 +45,13 @@
 
 - (void)addInputWithOrgMinimaObjectsCoin:(OrgMinimaObjectsCoin *)zCoin;
 
+- (void)addInputWithOrgMinimaObjectsCoin:(OrgMinimaObjectsCoin *)zCoin
+                                 withInt:(jint)zPosition;
+
 - (void)addOutputWithOrgMinimaObjectsCoin:(OrgMinimaObjectsCoin *)zCoin;
+
+- (void)addOutputWithOrgMinimaObjectsCoin:(OrgMinimaObjectsCoin *)zCoin
+                                  withInt:(jint)zPosition;
 
 - (void)addStateVariableWithOrgMinimaObjectsStateVariable:(OrgMinimaObjectsStateVariable *)zValue;
 

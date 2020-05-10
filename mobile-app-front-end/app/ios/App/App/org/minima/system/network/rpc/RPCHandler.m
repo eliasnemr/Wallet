@@ -10,6 +10,7 @@
 #include "java/io/OutputStream.h"
 #include "java/io/PrintStream.h"
 #include "java/io/PrintWriter.h"
+#include "java/lang/Boolean.h"
 #include "java/lang/Exception.h"
 #include "java/lang/System.h"
 #include "java/net/Socket.h"
@@ -19,7 +20,6 @@
 #include "org/minima/system/input/InputHandler.h"
 #include "org/minima/system/input/InputMessage.h"
 #include "org/minima/system/network/rpc/RPCHandler.h"
-#include "org/minima/utils/MiniFormat.h"
 #include "org/minima/utils/ResponseStream.h"
 #include "org/minima/utils/json/JSONArray.h"
 #include "org/minima/utils/json/JSONObject.h"
@@ -45,10 +45,10 @@
     fileRequested = [parse nextToken];
     if ([((NSString *) nil_chk(method)) isEqual:@"GET"]) {
       NSString *function = [NSString stringWithString:fileRequested];
-      if ([function java_hasPrefix:@"/"]) {
+      function = [((NSString *) nil_chk(JavaNetURLDecoder_decodeWithNSString_withNSString_(function, @"UTF-8"))) java_trim];
+      if ([((NSString *) nil_chk(function)) java_hasPrefix:@"/"]) {
         function = [function java_substring:1];
       }
-      function = [((NSString *) nil_chk(JavaNetURLDecoder_decodeWithNSString_withNSString_(function, @"UTF-8"))) java_trim];
       jboolean multi = false;
       if ([((NSString *) nil_chk(function)) java_indexOfString:@";"] != -1) {
         multi = true;
@@ -68,7 +68,8 @@
       else {
         OrgMinimaUtilsJsonJSONArray *responses = new_OrgMinimaUtilsJsonJSONArray_init();
         JavaUtilStringTokenizer *functions = new_JavaUtilStringTokenizer_initWithNSString_withNSString_(function, @";");
-        while ([functions hasMoreElements]) {
+        jboolean allok = true;
+        while (allok && [functions hasMoreElements]) {
           NSString *func = [((NSString *) nil_chk([functions nextToken])) java_trim];
           OrgMinimaUtilsResponseStream *response = new_OrgMinimaUtilsResponseStream_init();
           if (![((NSString *) nil_chk(func)) isEqual:@""]) {
@@ -77,13 +78,14 @@
             if (![((NSString *) nil_chk([((NSString *) nil_chk(input)) lowercaseString])) isEqual:@"quit"]) {
               [response waitToFinish];
             }
-            [responses addWithId:[response getFinalJSON]];
+            OrgMinimaUtilsJsonJSONObject *resp = [response getFinalJSON];
+            if ([((OrgMinimaUtilsJsonJSONObject *) nil_chk(resp)) getWithId:@"status"] == JreLoadStatic(JavaLangBoolean, FALSE)) {
+              allok = false;
+            }
+            [responses addWithId:resp];
           }
         }
         result = [responses description];
-      }
-      if ([((NSString *) nil_chk(result)) java_hasPrefix:@"{"] || [result java_hasPrefix:@"["]) {
-        result = OrgMinimaUtilsMiniFormat_PrettyJSONWithNSString_(result);
       }
       [out printlnWithNSString:@"HTTP/1.1 200 OK"];
       [out printlnWithNSString:@"Server: HTTP RPC Server from Minima : 1.0"];

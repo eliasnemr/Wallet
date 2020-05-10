@@ -137,7 +137,7 @@ withOrgMinimaSystemNetworkNetworkHandler:(OrgMinimaSystemNetworkNetworkHandler *
   else if ([zMessage isMessageTypeWithNSString:OrgMinimaSystemNetworkNetClient_NETCLIENT_STARTUP]) {
     mOutput_ = new_JavaIoDataOutputStream_initWithJavaIoOutputStream_([((JavaNetSocket *) nil_chk(mSocket_)) getOutputStream]);
     mInputReader_ = new_OrgMinimaSystemNetworkNetClientReader_initWithOrgMinimaSystemNetworkNetClient_(self);
-    mInputThread_ = new_JavaLangThread_initWithJavaLangRunnable_(mInputReader_);
+    mInputThread_ = new_JavaLangThread_initWithJavaLangRunnable_withNSString_(mInputReader_, @"NetClientReader");
     [mInputThread_ start];
     OrgMinimaUtilsMessagesMessage *init_ = new_OrgMinimaUtilsMessagesMessage_initWithNSString_(OrgMinimaSystemBrainsConsensusNet_CONSENSUS_NET_INITIALISE);
     (void) [init_ addObjectWithNSString:@"netclient" withId:self];

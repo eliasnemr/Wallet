@@ -31,6 +31,7 @@
  @public
   OrgMinimaObjectsTxPOW *mTxPow_;
   JavaUtilHashtable *mTokenValues_;
+  OrgMinimaUtilsJsonJSONObject *mJSON_;
 }
 
 #pragma mark Public
@@ -39,6 +40,8 @@
 
 - (instancetype)initWithOrgMinimaObjectsTxPOW:(OrgMinimaObjectsTxPOW *)zTxPow
                         withJavaUtilHashtable:(JavaUtilHashtable *)zValues;
+
+- (OrgMinimaObjectsTxPOW *)getTxPOW;
 
 - (void)readDataStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn;
 
@@ -52,6 +55,7 @@ J2OBJC_EMPTY_STATIC_INIT(OrgMinimaDatabaseUserdbJavareltxpow)
 
 J2OBJC_FIELD_SETTER(OrgMinimaDatabaseUserdbJavareltxpow, mTxPow_, OrgMinimaObjectsTxPOW *)
 J2OBJC_FIELD_SETTER(OrgMinimaDatabaseUserdbJavareltxpow, mTokenValues_, JavaUtilHashtable *)
+J2OBJC_FIELD_SETTER(OrgMinimaDatabaseUserdbJavareltxpow, mJSON_, OrgMinimaUtilsJsonJSONObject *)
 
 FOUNDATION_EXPORT void OrgMinimaDatabaseUserdbJavareltxpow_init(OrgMinimaDatabaseUserdbJavareltxpow *self);
 

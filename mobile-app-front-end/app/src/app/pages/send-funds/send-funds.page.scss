@@ -1,5 +1,5 @@
 ion-card {
-  border-radius: 15px;
+  --background: var(--ion-background-color, #f2f2f2);
 }
 ion-footer ion-toolbar ion-buttons ion-button{
   width: 100%;
@@ -14,10 +14,14 @@ ion-footer ion-toolbar ion-buttons ion-button{
   margin: 2px;
 }
 .action-btn {
-  height: 40px;
+  height: 72px;
 }
 .action-btn:hover {
-  height: 50px !important; 
+  height: 72px !important; 
+
+    ion-icon {
+      font-size: large;
+    }
 }
 .token-select {
   font-family: Aeonik;
@@ -33,4 +37,9 @@ ion-footer ion-toolbar ion-buttons ion-button{
 .transparentBody {
 	background: none transparent !important;
 	--background: none transparent !important;
+}
+
+.webscan-canvas {
+ text-align: center;
+ 	--background: none transparent !important;
 }

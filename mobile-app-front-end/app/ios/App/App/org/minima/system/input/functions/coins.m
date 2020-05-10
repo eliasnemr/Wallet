@@ -10,6 +10,7 @@
 #include "org/minima/system/brains/ConsensusPrint.h"
 #include "org/minima/system/input/CommandFunction.h"
 #include "org/minima/system/input/functions/coins.h"
+#include "org/minima/utils/ResponseStream.h"
 #include "org/minima/utils/messages/Message.h"
 
 @implementation OrgMinimaSystemInputFunctionscoins
@@ -22,11 +23,41 @@ J2OBJC_IGNORE_DESIGNATED_BEGIN
 J2OBJC_IGNORE_DESIGNATED_END
 
 - (void)doFunctionWithNSStringArray:(IOSObjectArray *)zInput {
-  OrgMinimaUtilsMessagesMessage *msg = [self getResponseMessageWithNSString:OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_COINS];
-  if (((IOSObjectArray *) nil_chk(zInput))->size_ > 1) {
-    (void) [((OrgMinimaUtilsMessagesMessage *) nil_chk(msg)) addStringWithNSString:@"address" withNSString:IOSObjectArray_Get(zInput, 1)];
+  jint len = ((IOSObjectArray *) nil_chk(zInput))->size_;
+  jboolean relevant = false;
+  NSString *address = @"";
+  NSString *amount = @"";
+  NSString *tokenid = @"";
+  NSString *type = @"unspent";
+  for (jint i = 1; i < len; i++) {
+    NSString *param = IOSObjectArray_Get(zInput, i);
+    if ([((NSString *) nil_chk(param)) java_hasPrefix:@"relevant"]) {
+      relevant = true;
+    }
+    else if ([param java_hasPrefix:@"address:"]) {
+      address = [param java_substring:8];
+    }
+    else if ([param java_hasPrefix:@"amount:"]) {
+      amount = [param java_substring:7];
+    }
+    else if ([param java_hasPrefix:@"tokenid:"]) {
+      tokenid = [param java_substring:8];
+    }
+    else if ([param java_hasPrefix:@"type:"]) {
+      type = [param java_substring:5];
+    }
+    else {
+      [((OrgMinimaUtilsResponseStream *) nil_chk([self getResponseStream])) endStatusWithBoolean:false withNSString:JreStrcat("$$", @"UNKNOWN parameter : ", IOSObjectArray_Get(zInput, i))];
+      return;
+    }
   }
-  [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getConsensusHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:msg];
+  OrgMinimaUtilsMessagesMessage *sender = [self getResponseMessageWithNSString:OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_COINS];
+  (void) [((OrgMinimaUtilsMessagesMessage *) nil_chk(sender)) addBooleanWithNSString:@"relevant" withBoolean:relevant];
+  (void) [sender addStringWithNSString:@"address" withNSString:address];
+  (void) [sender addStringWithNSString:@"amount" withNSString:amount];
+  (void) [sender addStringWithNSString:@"tokenid" withNSString:tokenid];
+  (void) [sender addStringWithNSString:@"type" withNSString:type];
+  [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getConsensusHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:sender];
 }
 
 - (OrgMinimaSystemInputCommandFunction *)getNewFunction {
@@ -55,7 +86,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 void OrgMinimaSystemInputFunctionscoins_init(OrgMinimaSystemInputFunctionscoins *self) {
   OrgMinimaSystemInputCommandFunction_initWithNSString_(self, @"coins");
-  [self setHelpWithNSString:@"" withNSString:@"(address) Either return all your coins or all your coins of a given address" withNSString:@""];
+  [self setHelpWithNSString:@"(relevant) (address:address) (amount:amount) (tokenid:tokenid) (type:spent|unspent|all)" withNSString:@"Search coin database. Defaults to all unspent coins." withNSString:@""];
 }
 
 OrgMinimaSystemInputFunctionscoins *new_OrgMinimaSystemInputFunctionscoins_init() {

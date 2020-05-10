@@ -65,8 +65,16 @@ public class Transaction implements Streamable {
 		mInputs.add(zCoin);
 	}
 	
+	public void addInput(Coin zCoin, int zPosition) {
+		mInputs.add(zPosition, zCoin);
+	}
+	
 	public void addOutput(Coin zCoin) {
 		mOutputs.add(zCoin);
+	}
+	
+	public void addOutput(Coin zCoin, int zPosition) {
+		mOutputs.add(zPosition, zCoin);
 	}
 	
 	public boolean isEmpty() {
@@ -178,6 +186,8 @@ public class Transaction implements Streamable {
 	
 	/**
 	 * Set a state value from 0-255 to a certain value
+	 * MAX 255 VAUES
+	 * 
 	 * @param zStateNum
 	 * @param zValue
 	 */
@@ -319,8 +329,8 @@ public class Transaction implements Streamable {
 		}
 		
 		//How many state variables..
-		int len = mState.size();
-		zOut.writeInt(len);
+		MiniByte bytelen = new MiniByte(mState.size());
+		bytelen.writeDataStream(zOut);
 		for(StateVariable sv : mState) {
 			sv.writeDataStream(zOut);
 		}
@@ -345,7 +355,6 @@ public class Transaction implements Streamable {
 		
 		//Inputs
 		MiniByte ins = MiniByte.ReadFromStream(zIn);
-		
 		int len = ins.getValue();
 		for(int i=0;i<len;i++) {
 			Coin coin = Coin.ReadFromStream(zIn);
@@ -361,7 +370,8 @@ public class Transaction implements Streamable {
 		}
 		
 		//State Variables
-		len = zIn.readInt();
+		MiniByte states = MiniByte.ReadFromStream(zIn);
+		len = states.getValue();
 		for(int i=0;i<len;i++){
 			StateVariable sv = StateVariable.ReadFromStream(zIn);
 			mState.add(sv);

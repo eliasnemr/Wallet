@@ -128,7 +128,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   [((JavaUtilArrayList *) nil_chk(mTxPowIDList_)) addWithId:[((OrgMinimaObjectsTxPOW *) nil_chk(zTxPOW)) getTxPowID]];
 }
 
-- (JavaUtilArrayList *)getBlockTxns {
+- (JavaUtilArrayList *)getBlockTransactions {
   return mTxPowIDList_;
 }
 
@@ -443,7 +443,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   methods[13].selector = @selector(getBurnTransaction);
   methods[14].selector = @selector(setTransactionWithOrgMinimaObjectsTransaction:);
   methods[15].selector = @selector(addBlockTxPOWWithOrgMinimaObjectsTxPOW:);
-  methods[16].selector = @selector(getBlockTxns);
+  methods[16].selector = @selector(getBlockTransactions);
   methods[17].selector = @selector(getBlockDifficulty);
   methods[18].selector = @selector(setBlockDifficultyWithOrgMinimaObjectsBaseMiniData:);
   methods[19].selector = @selector(setParentWithOrgMinimaObjectsBaseMiniData:);

@@ -1,35 +1,42 @@
 @media screen and (min-width: 900px) {
-    
-    ion-card {
-        width: 50%;
-        margin-left:25%;
-    }
-
     .skeleton-address {
-        height: 500px;
-        width: 100%;
-        background-color: #f2f2f2;
+        height: auto;
+        width: auto;
+        --background: var(--ion-background-color, #f2f2f2);
     }
+    .qrCanvas {
+        border: 2px solid #07ABC8;
+        width: 200px;
+        height: auto;
+        padding-right: 0px;
+    }
+}
+ion-content {
+    --overflow: hidden;
 }
 
 ion-card {
-    border-radius: 30px;
-    background-color: #FFFFFF;
-
+    --background: var(--ion-background-color, #f2f2f2);
 }
-ion-footer ion-toolbar ion-buttons ion-button{
+ion-footer ion-toolbar ion-buttons ion-button {
     width: 100%;
  }
 
 .action-btn {
-    height: 40px;
+    height: 72px;
 }
 .action-btn:hover {
-height: 50px;
+    height: 72px;
+
+    ion-icon {
+        font-size: large;
+      }
 }
 
 .ios .skeleton-address {
     height: 280px;
     width: 100%;
 }
+
+
 

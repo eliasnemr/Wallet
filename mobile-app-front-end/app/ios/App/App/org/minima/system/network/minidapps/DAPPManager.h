@@ -20,6 +20,7 @@
 #define INCLUDE_OrgMinimaSystemSystemHandler 1
 #include "org/minima/system/SystemHandler.h"
 
+@class IOSByteArray;
 @class JavaIoFile;
 @class OrgMinimaSystemMain;
 @class OrgMinimaSystemNetworkMinidappsDAPPServer;
@@ -32,16 +33,23 @@
   OrgMinimaUtilsJsonJSONArray *CURRENT_MINIDAPPS_;
   NSString *MINIDAPPS_FOLDER_;
   OrgMinimaSystemNetworkMinidappsDAPPServer *mDAPPServer_;
+  IOSByteArray *mMINIMAJS_;
+  NSString *mHost_;
 }
 
 #pragma mark Public
 
 - (instancetype)initWithOrgMinimaSystemMain:(OrgMinimaSystemMain *)zMain
-                                    withInt:(jint)zPort;
+                                    withInt:(jint)zPort
+                                    withInt:(jint)zRPCPort;
+
+- (NSString *)getCurrentHost;
 
 - (OrgMinimaUtilsJsonJSONArray *)getMiniDAPPS;
 
 - (NSString *)getMiniDAPPSFolder;
+
+- (IOSByteArray *)getMinimaJS;
 
 - (OrgMinimaUtilsJsonJSONObject *)loadConfFileWithJavaIoFile:(JavaIoFile *)zConf;
 
@@ -67,6 +75,8 @@ J2OBJC_EMPTY_STATIC_INIT(OrgMinimaSystemNetworkMinidappsDAPPManager)
 J2OBJC_FIELD_SETTER(OrgMinimaSystemNetworkMinidappsDAPPManager, CURRENT_MINIDAPPS_, OrgMinimaUtilsJsonJSONArray *)
 J2OBJC_FIELD_SETTER(OrgMinimaSystemNetworkMinidappsDAPPManager, MINIDAPPS_FOLDER_, NSString *)
 J2OBJC_FIELD_SETTER(OrgMinimaSystemNetworkMinidappsDAPPManager, mDAPPServer_, OrgMinimaSystemNetworkMinidappsDAPPServer *)
+J2OBJC_FIELD_SETTER(OrgMinimaSystemNetworkMinidappsDAPPManager, mMINIMAJS_, IOSByteArray *)
+J2OBJC_FIELD_SETTER(OrgMinimaSystemNetworkMinidappsDAPPManager, mHost_, NSString *)
 
 inline NSString *OrgMinimaSystemNetworkMinidappsDAPPManager_get_DAPP_INSTALL(void);
 inline NSString *OrgMinimaSystemNetworkMinidappsDAPPManager_set_DAPP_INSTALL(NSString *value);
@@ -74,11 +84,11 @@ inline NSString *OrgMinimaSystemNetworkMinidappsDAPPManager_set_DAPP_INSTALL(NSS
 FOUNDATION_EXPORT NSString *OrgMinimaSystemNetworkMinidappsDAPPManager_DAPP_INSTALL;
 J2OBJC_STATIC_FIELD_OBJ(OrgMinimaSystemNetworkMinidappsDAPPManager, DAPP_INSTALL, NSString *)
 
-FOUNDATION_EXPORT void OrgMinimaSystemNetworkMinidappsDAPPManager_initWithOrgMinimaSystemMain_withInt_(OrgMinimaSystemNetworkMinidappsDAPPManager *self, OrgMinimaSystemMain *zMain, jint zPort);
+FOUNDATION_EXPORT void OrgMinimaSystemNetworkMinidappsDAPPManager_initWithOrgMinimaSystemMain_withInt_withInt_(OrgMinimaSystemNetworkMinidappsDAPPManager *self, OrgMinimaSystemMain *zMain, jint zPort, jint zRPCPort);
 
-FOUNDATION_EXPORT OrgMinimaSystemNetworkMinidappsDAPPManager *new_OrgMinimaSystemNetworkMinidappsDAPPManager_initWithOrgMinimaSystemMain_withInt_(OrgMinimaSystemMain *zMain, jint zPort) NS_RETURNS_RETAINED;
+FOUNDATION_EXPORT OrgMinimaSystemNetworkMinidappsDAPPManager *new_OrgMinimaSystemNetworkMinidappsDAPPManager_initWithOrgMinimaSystemMain_withInt_withInt_(OrgMinimaSystemMain *zMain, jint zPort, jint zRPCPort) NS_RETURNS_RETAINED;
 
-FOUNDATION_EXPORT OrgMinimaSystemNetworkMinidappsDAPPManager *create_OrgMinimaSystemNetworkMinidappsDAPPManager_initWithOrgMinimaSystemMain_withInt_(OrgMinimaSystemMain *zMain, jint zPort);
+FOUNDATION_EXPORT OrgMinimaSystemNetworkMinidappsDAPPManager *create_OrgMinimaSystemNetworkMinidappsDAPPManager_initWithOrgMinimaSystemMain_withInt_withInt_(OrgMinimaSystemMain *zMain, jint zPort, jint zRPCPort);
 
 J2OBJC_TYPE_LITERAL_HEADER(OrgMinimaSystemNetworkMinidappsDAPPManager)
 

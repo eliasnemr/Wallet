@@ -22,6 +22,7 @@
 
 @class OrgMinimaObjectsBaseMiniNumber;
 @class OrgMinimaObjectsTxPOW;
+@class OrgMinimaUtilsJsonJSONObject;
 
 @interface OrgMinimaDatabaseTxpowdbJavaJavaDBRow : NSObject < OrgMinimaDatabaseTxpowdbTxPOWDBRow >
 
@@ -52,6 +53,8 @@
 - (void)setIsInBlockWithBoolean:(jboolean)zIsInBlock;
 
 - (void)setOnChainBlockWithBoolean:(jboolean)zOnChain;
+
+- (OrgMinimaUtilsJsonJSONObject *)toJSON;
 
 - (NSString *)description;
 

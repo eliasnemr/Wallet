@@ -10,13 +10,13 @@
 #include "java/io/DataInputStream.h"
 #include "java/io/DataOutputStream.h"
 #include "java/io/IOException.h"
+#include "java/io/PrintStream.h"
 #include "java/lang/System.h"
 #include "java/math/BigDecimal.h"
 #include "java/math/BigInteger.h"
 #include "java/security/SecureRandom.h"
 #include "org/minima/objects/base/MiniData.h"
 #include "org/minima/utils/BaseConverter.h"
-#include "org/minima/utils/MinimaLogger.h"
 #include "org/minima/utils/Streamable.h"
 
 @interface OrgMinimaObjectsBaseMiniData ()
@@ -71,10 +71,17 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (jboolean)isEqualWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zCompare {
-  if ([self getLength] != [((OrgMinimaObjectsBaseMiniData *) nil_chk(zCompare)) getLength]) {
+  jint len = [self getLength];
+  if (len != [((OrgMinimaObjectsBaseMiniData *) nil_chk(zCompare)) getLength]) {
     return false;
   }
-  return [((JavaMathBigInteger *) nil_chk(mDataVal_)) compareToWithId:[zCompare getDataValue]] == 0;
+  IOSByteArray *data = [zCompare getData];
+  for (jint i = 0; i < len; i++) {
+    if (IOSByteArray_Get(nil_chk(data), i) != IOSByteArray_Get(nil_chk(mData_), i)) {
+      return false;
+    }
+  }
+  return true;
 }
 
 - (jboolean)isLessWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zCompare {
@@ -310,9 +317,18 @@ OrgMinimaObjectsBaseMiniData *OrgMinimaObjectsBaseMiniData_getRandomDataWithInt_
 
 void OrgMinimaObjectsBaseMiniData_mainWithNSStringArray_(IOSObjectArray *zArgs) {
   OrgMinimaObjectsBaseMiniData_initialize();
-  OrgMinimaObjectsBaseMiniData *data = new_OrgMinimaObjectsBaseMiniData_init();
-  OrgMinimaUtilsMinimaLogger_logWithNSString_(JreStrcat("$$", @"data    : ", [data description]));
-  OrgMinimaUtilsMinimaLogger_logWithNSString_(JreStrcat("$$", @"value   : ", [((JavaMathBigInteger *) nil_chk([data getDataValue])) description]));
+  OrgMinimaObjectsBaseMiniData *data1 = OrgMinimaObjectsBaseMiniData_getRandomDataWithInt_(128);
+  OrgMinimaObjectsBaseMiniData *data2 = OrgMinimaObjectsBaseMiniData_getRandomDataWithInt_(128);
+  jlong timenow = JavaLangSystem_currentTimeMillis();
+  jboolean allsame = true;
+  for (jint i = 0; i < 10000000; i++) {
+    jboolean same = [((OrgMinimaObjectsBaseMiniData *) nil_chk(data1)) isEqualWithOrgMinimaObjectsBaseMiniData:data2];
+    if (!same) {
+      allsame = false;
+    }
+  }
+  jlong timediff = JavaLangSystem_currentTimeMillis() - timenow;
+  [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out))) printlnWithNSString:JreStrcat("ZCJ", allsame, ' ', timediff)];
 }
 
 J2OBJC_CLASS_TYPE_LITERAL_SOURCE(OrgMinimaObjectsBaseMiniData)

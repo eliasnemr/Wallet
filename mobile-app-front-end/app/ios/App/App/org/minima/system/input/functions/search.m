@@ -25,6 +25,12 @@ J2OBJC_IGNORE_DESIGNATED_END
   NSString *address = IOSObjectArray_Get(nil_chk(zInput), 1);
   OrgMinimaUtilsMessagesMessage *sender = [self getResponseMessageWithNSString:OrgMinimaSystemBrainsConsensusPrint_CONSENSUS_SEARCH];
   (void) [((OrgMinimaUtilsMessagesMessage *) nil_chk(sender)) addStringWithNSString:@"address" withNSString:address];
+  (void) [sender addBooleanWithNSString:@"spent" withBoolean:false];
+  if (zInput->size_ > 2) {
+    if ([((NSString *) nil_chk(IOSObjectArray_Get(zInput, 2))) isEqual:@"spent"]) {
+      (void) [sender addBooleanWithNSString:@"spent" withBoolean:true];
+    }
+  }
   [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getConsensusHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:sender];
 }
 
@@ -54,7 +60,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 void OrgMinimaSystemInputFunctionssearch_init(OrgMinimaSystemInputFunctionssearch *self) {
   OrgMinimaSystemInputCommandFunction_initWithNSString_(self, @"search");
-  [self setHelpWithNSString:@"[address]" withNSString:@"Search for any unspent coins of the given address" withNSString:@""];
+  [self setHelpWithNSString:@"[address] (spent|unspent)" withNSString:@"Search for any coins of the given address. Deafaults to UNSPENT" withNSString:@""];
 }
 
 OrgMinimaSystemInputFunctionssearch *new_OrgMinimaSystemInputFunctionssearch_init() {

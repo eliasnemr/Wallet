@@ -38,10 +38,14 @@ J2OBJC_IGNORE_DESIGNATED_END
   return mSignatureProofs_;
 }
 
+- (void)clearSignatures {
+  [((JavaUtilArrayList *) nil_chk(mSignatureProofs_)) clear];
+}
+
 - (NSString *)getAllPubKeysCSV {
   NSString *ret = @"";
   for (OrgMinimaObjectsProofsSignatureProof * __strong sig in nil_chk(mSignatureProofs_)) {
-    (void) JreStrAppendStrong(&ret, "$C", [((OrgMinimaObjectsBaseMiniData *) nil_chk([((OrgMinimaObjectsProofsSignatureProof *) nil_chk(sig)) getFinalHash])) to0xString], '#');
+    (void) JreStrAppendStrong(&ret, "$$", [((OrgMinimaObjectsBaseMiniData *) nil_chk([((OrgMinimaObjectsProofsSignatureProof *) nil_chk(sig)) getFinalHash])) to0xString], @" # ");
   }
   return [ret java_trim];
 }
@@ -50,7 +54,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   [((JavaUtilArrayList *) nil_chk(mMMRProofs_)) addWithId:zProof];
 }
 
-- (void)clearProofs {
+- (void)clearMMRProofs {
   [((JavaUtilArrayList *) nil_chk(mMMRProofs_)) clear];
 }
 
@@ -186,6 +190,7 @@ J2OBJC_IGNORE_DESIGNATED_END
     { NULL, "V", 0x1, 0, 1, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 0, 2, -1, -1, -1, -1 },
     { NULL, "LJavaUtilArrayList;", 0x1, -1, -1, -1, 3, -1, -1 },
+    { NULL, "V", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LNSString;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 4, 5, -1, -1, -1, -1 },
     { NULL, "V", 0x1, -1, -1, -1, -1, -1, -1 },
@@ -209,21 +214,22 @@ J2OBJC_IGNORE_DESIGNATED_END
   methods[1].selector = @selector(addSignatureWithOrgMinimaObjectsBaseMiniData:withOrgMinimaObjectsBaseMiniData:);
   methods[2].selector = @selector(addSignatureWithOrgMinimaObjectsProofsSignatureProof:);
   methods[3].selector = @selector(getAllSignatures);
-  methods[4].selector = @selector(getAllPubKeysCSV);
-  methods[5].selector = @selector(addMMRProofWithOrgMinimaDatabaseMmrMMRProof:);
-  methods[6].selector = @selector(clearProofs);
-  methods[7].selector = @selector(getAllMMRProofs);
-  methods[8].selector = @selector(getAllTokenDetails);
-  methods[9].selector = @selector(addTokenDetailsWithOrgMinimaObjectsProofsTokenProof:);
-  methods[10].selector = @selector(getTokenDetailWithOrgMinimaObjectsBaseMiniData:);
-  methods[11].selector = @selector(addScriptWithNSString:withInt:);
-  methods[12].selector = @selector(addScriptWithOrgMinimaObjectsProofsScriptProof:);
-  methods[13].selector = @selector(getScriptWithOrgMinimaObjectsBaseMiniData:);
-  methods[14].selector = @selector(scriptExistsWithOrgMinimaObjectsBaseMiniData:);
-  methods[15].selector = @selector(toJSON);
-  methods[16].selector = @selector(description);
-  methods[17].selector = @selector(writeDataStreamWithJavaIoDataOutputStream:);
-  methods[18].selector = @selector(readDataStreamWithJavaIoDataInputStream:);
+  methods[4].selector = @selector(clearSignatures);
+  methods[5].selector = @selector(getAllPubKeysCSV);
+  methods[6].selector = @selector(addMMRProofWithOrgMinimaDatabaseMmrMMRProof:);
+  methods[7].selector = @selector(clearMMRProofs);
+  methods[8].selector = @selector(getAllMMRProofs);
+  methods[9].selector = @selector(getAllTokenDetails);
+  methods[10].selector = @selector(addTokenDetailsWithOrgMinimaObjectsProofsTokenProof:);
+  methods[11].selector = @selector(getTokenDetailWithOrgMinimaObjectsBaseMiniData:);
+  methods[12].selector = @selector(addScriptWithNSString:withInt:);
+  methods[13].selector = @selector(addScriptWithOrgMinimaObjectsProofsScriptProof:);
+  methods[14].selector = @selector(getScriptWithOrgMinimaObjectsBaseMiniData:);
+  methods[15].selector = @selector(scriptExistsWithOrgMinimaObjectsBaseMiniData:);
+  methods[16].selector = @selector(toJSON);
+  methods[17].selector = @selector(description);
+  methods[18].selector = @selector(writeDataStreamWithJavaIoDataOutputStream:);
+  methods[19].selector = @selector(readDataStreamWithJavaIoDataInputStream:);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
     { "mMMRProofs_", "LJavaUtilArrayList;", .constantValue.asLong = 0, 0x0, -1, -1, 24, -1 },
@@ -232,7 +238,7 @@ J2OBJC_IGNORE_DESIGNATED_END
     { "mScriptProofs_", "LJavaUtilArrayList;", .constantValue.asLong = 0, 0x4, -1, -1, 27, -1 },
   };
   static const void *ptrTable[] = { "addSignature", "LOrgMinimaObjectsBaseMiniData;LOrgMinimaObjectsBaseMiniData;", "LOrgMinimaObjectsProofsSignatureProof;", "()Ljava/util/ArrayList<Lorg/minima/objects/proofs/SignatureProof;>;", "addMMRProof", "LOrgMinimaDatabaseMmrMMRProof;", "()Ljava/util/ArrayList<Lorg/minima/database/mmr/MMRProof;>;", "()Ljava/util/ArrayList<Lorg/minima/objects/proofs/TokenProof;>;", "addTokenDetails", "LOrgMinimaObjectsProofsTokenProof;", "getTokenDetail", "LOrgMinimaObjectsBaseMiniData;", "addScript", "LNSString;I", "LJavaLangException;", "LOrgMinimaObjectsProofsScriptProof;", "getScript", "scriptExists", "toString", "writeDataStream", "LJavaIoDataOutputStream;", "LJavaIoIOException;", "readDataStream", "LJavaIoDataInputStream;", "Ljava/util/ArrayList<Lorg/minima/database/mmr/MMRProof;>;", "Ljava/util/ArrayList<Lorg/minima/objects/proofs/SignatureProof;>;", "Ljava/util/ArrayList<Lorg/minima/objects/proofs/TokenProof;>;", "Ljava/util/ArrayList<Lorg/minima/objects/proofs/ScriptProof;>;" };
-  static const J2ObjcClassInfo _OrgMinimaObjectsWitness = { "Witness", "org.minima.objects", ptrTable, methods, fields, 7, 0x1, 19, 4, -1, -1, -1, -1, -1 };
+  static const J2ObjcClassInfo _OrgMinimaObjectsWitness = { "Witness", "org.minima.objects", ptrTable, methods, fields, 7, 0x1, 20, 4, -1, -1, -1, -1, -1 };
   return &_OrgMinimaObjectsWitness;
 }
 

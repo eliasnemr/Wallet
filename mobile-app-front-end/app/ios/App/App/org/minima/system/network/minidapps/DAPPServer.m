@@ -53,7 +53,7 @@ withOrgMinimaSystemNetworkMinidappsDAPPManager:(OrgMinimaSystemNetworkMinidappsD
     while (mRunning_) {
       JavaNetSocket *clientsock = [((JavaNetServerSocket *) nil_chk(mServerSocket_)) accept];
       OrgMinimaSystemNetworkMinidappsDAPPHandler *rpc = new_OrgMinimaSystemNetworkMinidappsDAPPHandler_initWithJavaNetSocket_withOrgMinimaSystemNetworkMinidappsDAPPManager_(clientsock, mDAPPMAnager_);
-      JavaLangThread *rpcthread = new_JavaLangThread_initWithJavaLangRunnable_(rpc);
+      JavaLangThread *rpcthread = new_JavaLangThread_initWithJavaLangRunnable_withNSString_(rpc, @"DAPP Handler");
       [rpcthread start];
     }
   }
@@ -112,9 +112,9 @@ void OrgMinimaSystemNetworkMinidappsDAPPServer_initWithInt_withOrgMinimaSystemNe
   NSObject_init(self);
   self->mRunning_ = true;
   self->mPort_ = zPort;
-  self->mHost_ = @"127.0.0.1";
+  self->mHost_ = [((OrgMinimaSystemNetworkMinidappsDAPPManager *) nil_chk(zDAPPMAnager)) getCurrentHost];
   self->mDAPPMAnager_ = zDAPPMAnager;
-  [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out))) printlnWithNSString:JreStrcat("$$CI", @"DAPP Server started on ", self->mHost_, ':', self->mPort_)];
+  OrgMinimaUtilsMinimaLogger_logWithNSString_(JreStrcat("$$CI", @"DAPP Server started on ", self->mHost_, ':', self->mPort_));
 }
 
 OrgMinimaSystemNetworkMinidappsDAPPServer *new_OrgMinimaSystemNetworkMinidappsDAPPServer_initWithInt_withOrgMinimaSystemNetworkMinidappsDAPPManager_(jint zPort, OrgMinimaSystemNetworkMinidappsDAPPManager *zDAPPMAnager) {

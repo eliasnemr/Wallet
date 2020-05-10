@@ -12,13 +12,18 @@ public interface CoinDB {
 	 * Clear the database
 	 */
 	public void clearDB();
-//	public void clearOldCoins(long zCurrentBlock);
 	
 	/**
 	 * SELECT *
 	 * @return
 	 */
 	ArrayList<CoinDBRow> getComplete();
+	
+	/**
+	 * SELECT *
+	 * @return
+	 */
+	ArrayList<CoinDBRow> getCompleteRelevant();
 	
 	/**
 	 * Get the coin row with this CoinID or NULL if none present
@@ -36,5 +41,15 @@ public interface CoinDB {
 	 */
 	public CoinDBRow addCoinRow(Coin zCoin);
 	
+	/**
+	 * Can remove a Coin Row..
+	 */
+	public boolean removeCoin(MiniData zCoinID);
+	
+	/**
+	 * remove old spent coins that are before this block..
+	 * @param zMinBlock
+	 */
 	public void removeOldSpentCoins(MiniNumber zMinBlock);
+	
 }

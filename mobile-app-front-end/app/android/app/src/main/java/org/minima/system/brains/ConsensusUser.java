@@ -15,6 +15,8 @@ import org.minima.database.mmr.MMRData;
 import org.minima.database.mmr.MMREntry;
 import org.minima.database.mmr.MMRProof;
 import org.minima.database.mmr.MMRSet;
+import org.minima.database.txpowdb.TxPOWDBRow;
+import org.minima.database.txpowdb.TxPowDB;
 import org.minima.kissvm.Contract;
 import org.minima.kissvm.values.BooleanValue;
 import org.minima.kissvm.values.HEXValue;
@@ -26,6 +28,7 @@ import org.minima.objects.Coin;
 import org.minima.objects.PubPrivKey;
 import org.minima.objects.StateVariable;
 import org.minima.objects.Transaction;
+import org.minima.objects.TxPOW;
 import org.minima.objects.Witness;
 import org.minima.objects.base.MMRSumNumber;
 import org.minima.objects.base.MiniData;
@@ -34,6 +37,10 @@ import org.minima.objects.base.MiniNumber;
 import org.minima.objects.base.MiniScript;
 import org.minima.objects.proofs.ScriptProof;
 import org.minima.system.input.InputHandler;
+import org.minima.system.network.NetClient;
+import org.minima.system.network.NetClientReader;
+import org.minima.system.network.NetworkHandler;
+import org.minima.system.txpow.TxPoWChecker;
 import org.minima.utils.Crypto;
 import org.minima.utils.MinimaLogger;
 import org.minima.utils.json.JSONArray;
@@ -56,6 +63,11 @@ public class ConsensusUser {
 	public static final String CONSENSUS_CLEANSCRIPT 		= CONSENSUS_PREFIX+"CLEANSCRIPT";
 	
 	public static final String CONSENSUS_KEEPCOIN 			= CONSENSUS_PREFIX+"KEEPCOIN";
+	public static final String CONSENSUS_UNKEEPCOIN 		= CONSENSUS_PREFIX+"UNKEEPCOIN";
+	
+	public static final String CONSENSUS_CHECK 		        = CONSENSUS_PREFIX+"CHECK";
+	
+	public static final String CONSENSUS_FLUSHMEMPOOL 		= CONSENSUS_PREFIX+"FLUSHMEMPOOL";
 	
 	public static final String CONSENSUS_EXPORTKEY 			= CONSENSUS_PREFIX+"EXPORTKEY";
 	public static final String CONSENSUS_IMPORTKEY 			= CONSENSUS_PREFIX+"IMPORTKEY";
@@ -92,6 +104,8 @@ public class ConsensusUser {
 			resp.put("address", addr.toJSON());
 			InputHandler.endResponse(zMessage, true, "");
 		
+			//Do a backup..
+			mHandler.PostMessage(ConsensusBackup.CONSENSUSBACKUP_BACKUPUSER);
 			
 		}else if(zMessage.isMessageType(CONSENSUS_SIGN)) {
 			String data   = zMessage.getString("data");
@@ -135,6 +149,9 @@ public class ConsensusUser {
 			resp.put("address", addrchk.toJSON());
 			InputHandler.endResponse(zMessage, true, "");
 		
+			//Do a backup..
+			mHandler.PostMessage(ConsensusBackup.CONSENSUSBACKUP_BACKUPUSER);
+			
 		}else if(zMessage.isMessageType(CONSENSUS_NEWSCRIPT)) {
 			//Get the script
 			String script = zMessage.getString("script");
@@ -150,6 +167,9 @@ public class ConsensusUser {
 			resp.put("address", addrchk.toJSON());
 			InputHandler.endResponse(zMessage, true, "");
 		
+			//Do a backup..
+			mHandler.PostMessage(ConsensusBackup.CONSENSUSBACKUP_BACKUPUSER);
+			
 		}else if(zMessage.isMessageType(CONSENSUS_NEWKEY)) {
 			//Get the bitlength
 			int bitl = zMessage.getInteger("bitlength");
@@ -162,7 +182,42 @@ public class ConsensusUser {
 			resp.put("key", key.toJSON());
 			InputHandler.endResponse(zMessage, true, "");
 			
-		
+			//Do a backup..
+			mHandler.PostMessage(ConsensusBackup.CONSENSUSBACKUP_BACKUPUSER);
+			
+		}else if(zMessage.isMessageType(CONSENSUS_CHECK)) {
+			String data = zMessage.getString("data");
+			
+			//How much to who ?
+			MiniData check = null;
+			if(data.startsWith("0x")) {
+				//It's a regular HASH address
+				check  = new MiniData(data);
+			}else if(data.startsWith("Mx")) {
+				//It's a Minima Address!
+				check = Address.convertMinimaAddress(data);
+			
+			}else {
+				InputHandler.endResponse(zMessage, false, "INVALID KEY - "+data);	
+				return;
+			}
+			
+			//Now check..
+			String type = "none";
+			boolean found=false;
+			if(getMainDB().getUserDB().isAddressRelevant(check)) {
+				found=true;
+				type = "address";
+			}else if(getMainDB().getUserDB().getPubPrivKey(check)!=null) {
+				found=true;
+				type = "publickey";
+			}
+					
+			JSONObject resp = InputHandler.getResponseJSON(zMessage);
+			resp.put("relevant", found);
+			resp.put("type", type);
+			InputHandler.endResponse(zMessage, true, "");
+			
 		}else if(zMessage.isMessageType(CONSENSUS_MMRTREE)) {
 			//What type SCRIPT or HASHES
 			int bitlength = zMessage.getInteger("bitlength");
@@ -428,9 +483,116 @@ public class ConsensusUser {
 			resp.put("variables",cc.getAllVariables());
 			resp.put("parse", cc.getCompleteTraceLog());
 			resp.put("exception", cc.isException());
+			resp.put("excvalue", cc.getException());
 			resp.put("result", cc.isSuccess());
 			InputHandler.endResponse(zMessage, true, "");
 		
+		}else if(zMessage.isMessageType(CONSENSUS_FLUSHMEMPOOL)) {
+			boolean hard = false;
+			if(zMessage.exists("hard")) {
+				hard = zMessage.getBoolean("hard");	
+			}
+			
+			JSONObject resp = InputHandler.getResponseJSON(zMessage);
+			resp.put("hard", hard);
+			
+			//TxPOW DB
+			TxPowDB tdb = getMainDB().getTxPowDB();
+			
+			//Check the MEMPOOL transactions..
+			ArrayList<TxPOWDBRow> unused = tdb.getAllUnusedTxPOW();
+			ArrayList<MiniData> remove = new ArrayList<>();
+			JSONArray requested = new JSONArray();
+			
+			
+			//Check them all..
+			for(TxPOWDBRow txrow : unused) {
+				TxPOW txpow    = txrow.getTxPOW();
+				
+				//Do we just remove them all.. ?
+				if(hard) {
+					//Remove all..
+					remove.add(txpow.getTxPowID());
+				}else{
+					
+					//Check it..
+					boolean sigsok = true;
+					boolean trxok  = true;
+					if(txpow.isTransaction()) {
+						sigsok = TxPoWChecker.checkSigs(txpow);
+						trxok  = TxPoWChecker.checkTransactionMMR(txpow, getMainDB());	
+					}
+						
+					//Check the basics..
+					if(!sigsok || !trxok) {
+						remove.add(txpow.getTxPowID());
+					}else {
+						//Check All..
+						if(txpow.isBlock()) {
+							MiniData parent = txpow.getParentID();
+							if(tdb.findTxPOWDBRow(parent) == null) {
+								//Request it from ALL your peers..
+								Message msg  = new Message(NetClient.NETCLIENT_SENDOBJECT)
+										.addObject("type", NetClientReader.NETMESSAGE_TXPOW_REQUEST)
+										.addObject("object", parent);
+								Message netw = new Message(NetworkHandler.NETWORK_SENDALL)
+										.addObject("message", msg);
+								
+								//Post it..
+								mHandler.getMainHandler().getNetworkHandler().PostMessage(netw);
+								
+								//Add to out list
+								requested.add(parent.to0xString());
+							}
+							
+							//Get all the messages in the block..
+							ArrayList<MiniData> txns = txpow.getBlockTransactions();
+							for(MiniData txn : txns) {
+								if(tdb.findTxPOWDBRow(txn) == null) {
+									//Request it from ALL your peers..
+									Message msg  = new Message(NetClient.NETCLIENT_SENDOBJECT)
+											.addObject("type", NetClientReader.NETMESSAGE_TXPOW_REQUEST)
+											.addObject("object", txn);
+									Message netw = new Message(NetworkHandler.NETWORK_SENDALL)
+											.addObject("message", msg);
+									
+									//Post it..
+									mHandler.getMainHandler().getNetworkHandler().PostMessage(netw);
+									
+									//Add to out list
+									requested.add(txn.to0xString());
+								}
+							}
+						}		
+					}
+				}
+			}
+			
+			//Now remove these..
+			JSONArray rem = new JSONArray();
+			for(MiniData remtxp : remove) {
+				rem.add(remtxp.to0xString());
+				getMainDB().getTxPowDB().removeTxPOW(remtxp);
+			}
+			
+			//Now you have the proof..
+			resp.put("removed", rem);
+			resp.put("requested", requested);
+			InputHandler.endResponse(zMessage, true, "Mempool Flushed");
+			
+		}else if(zMessage.isMessageType(CONSENSUS_UNKEEPCOIN)) {
+			//Once a coin has been used - say in a DEX.. you can remove it from your coinDB
+			String cid = zMessage.getString("coinid");
+			
+			//Remove the coin..
+			boolean found = getMainDB().getCoinDB().removeCoin(new MiniData(cid));
+			
+			//Now you have the proof..
+			JSONObject resp = InputHandler.getResponseJSON(zMessage);
+			resp.put("found", found);
+			resp.put("coinid", cid);
+			InputHandler.endResponse(zMessage, true, "Coin removed");
+			
 		}else if(zMessage.isMessageType(CONSENSUS_KEEPCOIN)) {
 			String cid = zMessage.getString("coinid");
 			
@@ -449,8 +611,16 @@ public class ConsensusUser {
 			//Get the coin
 			Coin cc = entry.getData().getCoin();
 			
+			//Is it relevant..
+			boolean rel = false;
+			if( getMainDB().getUserDB().isAddressRelevant(cc.getAddress()) ){
+				rel = true;
+			}
+			
 			//add it to the database
 			CoinDBRow crow = getMainDB().getCoinDB().addCoinRow(cc);
+			crow.setRelevant(rel);
+			crow.setKeeper(true);
 			crow.setIsSpent(entry.getData().isSpent());
 			crow.setIsInBlock(true);
 			crow.setInBlockNumber(entry.getData().getInBlock());
@@ -458,8 +628,11 @@ public class ConsensusUser {
 			
 			//Now you have the proof..
 			JSONObject resp = InputHandler.getResponseJSON(zMessage);
-			resp.put("coin", cc.toJSON());
+			resp.put("coin", basemmr.getProof(entry.getEntry()));
 			InputHandler.endResponse(zMessage, true, "");
+			
+			//Do a backup..
+			mHandler.PostMessage(ConsensusBackup.CONSENSUSBACKUP_BACKUP);
 			
 		}else if(zMessage.isMessageType(CONSENSUS_IMPORTCOIN)) {
 			MiniData data = (MiniData)zMessage.getObject("proof");
@@ -512,8 +685,16 @@ public class ConsensusUser {
 			//Get the coin
 			Coin cc = entry.getData().getCoin();
 			
+			//Is it relevant..
+			boolean rel = false;
+			if( getMainDB().getUserDB().isAddressRelevant(cc.getAddress()) ){
+				rel = true;
+			}
+			
 			//add it to the database
 			CoinDBRow crow = getMainDB().getCoinDB().addCoinRow(cc);
+			crow.setRelevant(rel);
+			crow.setKeeper(true);
 			crow.setIsSpent(entry.getData().isSpent());
 			crow.setIsInBlock(true);
 			crow.setInBlockNumber(entry.getData().getInBlock());
@@ -523,6 +704,9 @@ public class ConsensusUser {
 			JSONObject resp = InputHandler.getResponseJSON(zMessage);
 			resp.put("proof", proof.toJSON());
 			InputHandler.endResponse(zMessage, true, "");
+			
+			//Do a backup..
+			mHandler.PostMessage(ConsensusBackup.CONSENSUSBACKUP_BACKUP);
 			
 		}else if(zMessage.isMessageType(CONSENSUS_EXPORTCOIN)) {
 			MiniData coinid = (MiniData)zMessage.getObject("coinid");
@@ -577,6 +761,9 @@ public class ConsensusUser {
 			}else {
 				getMainDB().getUserDB().newSimpleAddress(newkey);
 			}
+			
+			//Do a backup..
+			mHandler.PostMessage(ConsensusBackup.CONSENSUSBACKUP_BACKUPUSER);
 		}
 	}
 	
@@ -612,8 +799,16 @@ public class ConsensusUser {
 		//Get the coin
 		Coin cc = entry.getData().getCoin();
 		
+		//Is it relevant..
+		boolean rel = false;
+		if( zDB.getUserDB().isAddressRelevant(cc.getAddress()) ){
+			rel = true;
+		}
+		
 		//add it to the database
 		CoinDBRow crow = zDB.getCoinDB().addCoinRow(cc);
+		crow.setKeeper(true);
+		crow.setRelevant(rel);
 		crow.setIsSpent(entry.getData().isSpent());
 		crow.setIsInBlock(true);
 		crow.setInBlockNumber(entry.getData().getInBlock());

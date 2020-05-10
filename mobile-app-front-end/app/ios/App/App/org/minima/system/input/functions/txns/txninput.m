@@ -30,6 +30,10 @@ J2OBJC_IGNORE_DESIGNATED_END
   OrgMinimaUtilsMessagesMessage *msg = [self getResponseMessageWithNSString:OrgMinimaSystemBrainsConsensusTxn_CONSENSUS_TXNINPUT];
   (void) [((OrgMinimaUtilsMessagesMessage *) nil_chk(msg)) addIntWithNSString:@"transaction" withInt:txn];
   (void) [msg addObjectWithNSString:@"coinid" withId:cid];
+  if (zInput->size_ > 3) {
+    jint position = JavaLangInteger_parseIntWithNSString_(IOSObjectArray_Get(zInput, 3));
+    (void) [msg addIntWithNSString:@"position" withInt:position];
+  }
   [((OrgMinimaSystemBrainsConsensusHandler *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getConsensusHandler])) PostMessageWithOrgMinimaUtilsMessagesMessage:msg];
 }
 
@@ -59,7 +63,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 void OrgMinimaSystemInputFunctionsTxnstxninput_init(OrgMinimaSystemInputFunctionsTxnstxninput *self) {
   OrgMinimaSystemInputCommandFunction_initWithNSString_(self, @"txninput");
-  [self setHelpWithNSString:@"[id] [coinID]" withNSString:@"Add a specific Coin as an input to the specified transaction" withNSString:@""];
+  [self setHelpWithNSString:@"[id] [coinid] (position)" withNSString:@"Add a specific Coin as an input to the specified transaction. Can specify position - usually to add at 0." withNSString:@""];
 }
 
 OrgMinimaSystemInputFunctionsTxnstxninput *new_OrgMinimaSystemInputFunctionsTxnstxninput_init() {

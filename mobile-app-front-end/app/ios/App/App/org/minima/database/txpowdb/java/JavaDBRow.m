@@ -4,11 +4,14 @@
 //
 
 #include "J2ObjC_source.h"
+#include "java/lang/Boolean.h"
+#include "java/lang/Long.h"
 #include "java/lang/System.h"
 #include "org/minima/database/txpowdb/TxPOWDBRow.h"
 #include "org/minima/database/txpowdb/java/JavaDBRow.h"
 #include "org/minima/objects/TxPOW.h"
 #include "org/minima/objects/base/MiniNumber.h"
+#include "org/minima/utils/json/JSONObject.h"
 
 @interface OrgMinimaDatabaseTxpowdbJavaJavaDBRow () {
  @public
@@ -32,6 +35,17 @@ J2OBJC_FIELD_SETTER(OrgMinimaDatabaseTxpowdbJavaJavaDBRow, mInBlocknumber_, OrgM
   return self;
 }
 
+- (OrgMinimaUtilsJsonJSONObject *)toJSON {
+  OrgMinimaUtilsJsonJSONObject *ret = new_OrgMinimaUtilsJsonJSONObject_init();
+  (void) [ret putWithId:@"txpow" withId:[((OrgMinimaObjectsTxPOW *) nil_chk(mTxPOW_)) toJSON]];
+  (void) [ret putWithId:@"isonchainblock" withId:JavaLangBoolean_valueOfWithBoolean_(mIsOnChainBlock_)];
+  (void) [ret putWithId:@"isinblock" withId:JavaLangBoolean_valueOfWithBoolean_(mIsInBlock_)];
+  (void) [ret putWithId:@"inblock" withId:[((OrgMinimaObjectsBaseMiniNumber *) nil_chk(mInBlocknumber_)) description]];
+  (void) [ret putWithId:@"blockstate" withId:[self getStatusAsString]];
+  (void) [ret putWithId:@"deleted" withId:JavaLangLong_valueOfWithLong_(mDeleteTime_)];
+  return ret;
+}
+
 - (OrgMinimaObjectsTxPOW *)getTxPOW {
   return mTxPOW_;
 }
@@ -53,7 +67,7 @@ J2OBJC_FIELD_SETTER(OrgMinimaDatabaseTxpowdbJavaJavaDBRow, mInBlocknumber_, OrgM
 }
 
 - (NSString *)description {
-  return JreStrcat("$$Z$Z$@C@", [self getStatusAsString], @" ONCHAINBLK:", [self isOnChainBlock], @" IS_IN_BLOCK (", mIsInBlock_, @") :", mInBlocknumber_, ' ', mTxPOW_);
+  return [((OrgMinimaUtilsJsonJSONObject *) nil_chk([self toJSON])) description];
 }
 
 - (NSString *)getStatusAsString {
@@ -96,6 +110,7 @@ J2OBJC_FIELD_SETTER(OrgMinimaDatabaseTxpowdbJavaJavaDBRow, mInBlocknumber_, OrgM
 + (const J2ObjcClassInfo *)__metadata {
   static J2ObjcMethodInfo methods[] = {
     { NULL, NULL, 0x1, -1, 0, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaUtilsJsonJSONObject;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaObjectsTxPOW;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 1, 2, -1, -1, -1, -1 },
     { NULL, "Z", 0x1, -1, -1, -1, -1, -1, -1 },
@@ -114,19 +129,20 @@ J2OBJC_FIELD_SETTER(OrgMinimaDatabaseTxpowdbJavaJavaDBRow, mInBlocknumber_, OrgM
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
   #pragma clang diagnostic ignored "-Wundeclared-selector"
   methods[0].selector = @selector(initWithOrgMinimaObjectsTxPOW:);
-  methods[1].selector = @selector(getTxPOW);
-  methods[2].selector = @selector(setIsInBlockWithBoolean:);
-  methods[3].selector = @selector(isInBlock);
-  methods[4].selector = @selector(getInBlockNumber);
-  methods[5].selector = @selector(setInBlockNumberWithOrgMinimaObjectsBaseMiniNumber:);
-  methods[6].selector = @selector(description);
-  methods[7].selector = @selector(getStatusAsString);
-  methods[8].selector = @selector(isOnChainBlock);
-  methods[9].selector = @selector(setOnChainBlockWithBoolean:);
-  methods[10].selector = @selector(getBlockState);
-  methods[11].selector = @selector(setBlockStateWithInt:);
-  methods[12].selector = @selector(deleteRow);
-  methods[13].selector = @selector(getDeleteTime);
+  methods[1].selector = @selector(toJSON);
+  methods[2].selector = @selector(getTxPOW);
+  methods[3].selector = @selector(setIsInBlockWithBoolean:);
+  methods[4].selector = @selector(isInBlock);
+  methods[5].selector = @selector(getInBlockNumber);
+  methods[6].selector = @selector(setInBlockNumberWithOrgMinimaObjectsBaseMiniNumber:);
+  methods[7].selector = @selector(description);
+  methods[8].selector = @selector(getStatusAsString);
+  methods[9].selector = @selector(isOnChainBlock);
+  methods[10].selector = @selector(setOnChainBlockWithBoolean:);
+  methods[11].selector = @selector(getBlockState);
+  methods[12].selector = @selector(setBlockStateWithInt:);
+  methods[13].selector = @selector(deleteRow);
+  methods[14].selector = @selector(getDeleteTime);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
     { "mTxPOW_", "LOrgMinimaObjectsTxPOW;", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
@@ -137,7 +153,7 @@ J2OBJC_FIELD_SETTER(OrgMinimaDatabaseTxpowdbJavaJavaDBRow, mInBlocknumber_, OrgM
     { "mDeleteTime_", "J", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
   };
   static const void *ptrTable[] = { "LOrgMinimaObjectsTxPOW;", "setIsInBlock", "Z", "setInBlockNumber", "LOrgMinimaObjectsBaseMiniNumber;", "toString", "setOnChainBlock", "setBlockState", "I" };
-  static const J2ObjcClassInfo _OrgMinimaDatabaseTxpowdbJavaJavaDBRow = { "JavaDBRow", "org.minima.database.txpowdb.java", ptrTable, methods, fields, 7, 0x1, 14, 6, -1, -1, -1, -1, -1 };
+  static const J2ObjcClassInfo _OrgMinimaDatabaseTxpowdbJavaJavaDBRow = { "JavaDBRow", "org.minima.database.txpowdb.java", ptrTable, methods, fields, 7, 0x1, 15, 6, -1, -1, -1, -1, -1 };
   return &_OrgMinimaDatabaseTxpowdbJavaJavaDBRow;
 }
 

@@ -131,18 +131,17 @@ public class SimpleBlockTreePrinter {
 	private String convertNodeToString(BlockTreeNode zNode) {
 		int slev 	= zNode.getSuperBlockLevel();
 		int clev 	= zNode.getCurrentLevel();
-		String weight= "{WEIGHT:"+zNode.getWeight()+"/"+zNode.getTotalWeight()+"} ";
+		String weight= "WEIGHT:"+zNode.getWeight()+"/"+zNode.getTotalWeight()+" ";
 		
 		TxPOW txpow = zNode.getTxPow();
 		MiniData parent  = txpow.getSuperParent(clev);
 		MiniData parent2 = txpow.getSuperParent(clev+1);
 				
 		String parents = "[blk:"+txpow.getBlockNumber()+"] "
-//						 +"diff:"+txpow.getBlockDifficulty().toShort0xString(16)+" "
 					     +"txpowid:"+zNode.getTxPowID().to0xString(16)+" "
 						 +"[parent:"+clev+"]"+parent.to0xString(16)+" "
 						 +"[parent:"+(clev+1)+"]"+parent2.to0xString(16)
-						 +"[txns:"+txpow.getBlockTxns().size()+"]";
+						 +"[txns:"+txpow.getBlockTransactions().size()+"]";
 								
 		String add = parents +" ["+getStarString(slev)+"] - "+getStarString(clev);
 		

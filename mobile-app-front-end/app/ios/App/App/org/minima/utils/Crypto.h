@@ -67,6 +67,16 @@ inline OrgMinimaObjectsBaseMiniData *OrgMinimaUtilsCrypto_get_MAX_HASH(void);
 FOUNDATION_EXPORT OrgMinimaObjectsBaseMiniData *OrgMinimaUtilsCrypto_MAX_HASH;
 J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaUtilsCrypto, MAX_HASH, OrgMinimaObjectsBaseMiniData *)
 
+inline JavaMathBigInteger *OrgMinimaUtilsCrypto_get_MEGA_VAL(void);
+/*! INTERNAL ONLY - Use accessor function from above. */
+FOUNDATION_EXPORT JavaMathBigInteger *OrgMinimaUtilsCrypto_MEGA_VAL;
+J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaUtilsCrypto, MEGA_VAL, JavaMathBigInteger *)
+
+inline OrgMinimaObjectsBaseMiniData *OrgMinimaUtilsCrypto_get_MEGA_HASH(void);
+/*! INTERNAL ONLY - Use accessor function from above. */
+FOUNDATION_EXPORT OrgMinimaObjectsBaseMiniData *OrgMinimaUtilsCrypto_MEGA_HASH;
+J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaUtilsCrypto, MEGA_HASH, OrgMinimaObjectsBaseMiniData *)
+
 FOUNDATION_EXPORT OrgMinimaUtilsCrypto *OrgMinimaUtilsCrypto_getInstance(void);
 
 FOUNDATION_EXPORT void OrgMinimaUtilsCrypto_init(OrgMinimaUtilsCrypto *self);

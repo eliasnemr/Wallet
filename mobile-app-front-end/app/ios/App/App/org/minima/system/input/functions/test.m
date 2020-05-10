@@ -8,7 +8,7 @@
 #include "org/minima/system/Main.h"
 #include "org/minima/system/input/CommandFunction.h"
 #include "org/minima/system/input/functions/test.h"
-#include "org/minima/system/tx/TXMiner.h"
+#include "org/minima/system/txpow/TxPoWMiner.h"
 
 @implementation OrgMinimaSystemInputFunctionstest
 
@@ -20,7 +20,7 @@ J2OBJC_IGNORE_DESIGNATED_BEGIN
 J2OBJC_IGNORE_DESIGNATED_END
 
 - (void)doFunctionWithNSStringArray:(IOSObjectArray *)zInput {
-  [((OrgMinimaSystemTxTXMiner *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getMiner])) PostMessageWithNSString:OrgMinimaSystemTxTXMiner_TXMINER_TESTHASHING];
+  [((OrgMinimaSystemTxpowTxPoWMiner *) nil_chk([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getMiner])) PostMessageWithNSString:OrgMinimaSystemTxpowTxPoWMiner_TXMINER_TESTHASHING];
 }
 
 - (OrgMinimaSystemInputCommandFunction *)getNewFunction {

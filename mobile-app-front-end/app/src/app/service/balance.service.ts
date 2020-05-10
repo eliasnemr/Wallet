@@ -6,6 +6,7 @@ import { Observable, Subscription, Subject } from 'rxjs';
 import { map, concatMap, merge } from 'rxjs/operators';
 import { timer } from 'rxjs/Observable/timer';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -57,7 +58,6 @@ export class BalanceService {
       concatMap(_ => balance$),
       map((res: {status: boolean, minifunc: string, response: {balance: Tokens}}) => res)
 
-
     );
   }
 
@@ -66,7 +66,7 @@ export class BalanceService {
     i > 0 ? a.splice(0,0,a.splice(i,1)[0]) 
           : i && a.splice(0,0,e);
     (a.length > 5) && a.length--
-    return a;
+    return a;  
   };
 
 }

@@ -6,8 +6,6 @@ package org.minima.utils;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 import org.minima.objects.base.MiniData;
 import org.minima.utils.digest.Digest;
@@ -39,6 +37,13 @@ public class Crypto {
 					  "FFFFFFFFFFFFFFFFFFFF"+
 					  "FFFFFFFFFFFFFFFFFFFF"+
 					  "FFFF");
+	
+	/**
+	 * 1 Mega Hash - for now 100,000 - just to test..
+	 */
+	public static final BigInteger MEGA_VAL = MAX_VAL.divide(new BigInteger("100000"));	
+	public static final MiniData MEGA_HASH  = new MiniData("0x"+MEGA_VAL.toString(16));
+	
 	
 	/**
 	 * Get the default instance..

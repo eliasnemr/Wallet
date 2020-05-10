@@ -17,8 +17,6 @@ import org.minima.utils.MinimaLogger;
 import org.minima.utils.ResponseStream;
 import org.minima.utils.messages.Message;
 
-import global.minima.telco.ForegroundService;
-
 /**
  * @author Paddy Cerri
  *
@@ -33,10 +31,16 @@ public class Start {
 		return mMainServer;
 	}
 	
+	public String mConfFolder;
+	
 	/**
 	 * Simple constructor for iOS and Android
 	 */
-	public Start() {
+	public Start() {}
+	
+	public void fireStarter(String zConfFolder) {
+		mConfFolder = zConfFolder;
+		
 		//Create a separate thread
 		Runnable mainrunner = new Runnable() {
 			@Override
@@ -45,6 +49,7 @@ public class Start {
 				
 				//Start up Variables
 				ArrayList<String> vars = new ArrayList<>();
+				vars.add("-private");
 				vars.add("-daemon");
 //				vars.add("-clean");
 //				vars.add("-port");
@@ -52,7 +57,8 @@ public class Start {
 //				vars.add("-connect");
 //				vars.add("34.90.172.118");
 //				vars.add("9001");
-				//etc..
+				vars.add("-conf");
+				vars.add(mConfFolder);
 				
 				//And call it..
 				main( vars.toArray(new String[0]) );
@@ -78,12 +84,6 @@ public class Start {
 		int port 				= 9001;
 		int rpcport 			= 8999;
 		
-		//Currently DISABLED .. will re-enable later
-		//Is a function called when there is a new relevant transaction..
-		//This function could put the data in a web database etc..
-		String txnfunction = "";
-		String relcoin     = "";
-		
 		boolean connect         = true;
 		String connecthost      = "34.90.172.118";
 		int connectport         = 9001;
@@ -94,8 +94,7 @@ public class Start {
 		boolean daemon          = false;
 		
 		//Configuration folder
-		File conf = new File(ForegroundService.mForegroundService.getFilesDir(),".minima");
-		//File conf = ForegroundService.mForegroundService.getFilesDir();
+		File conf = new File(System.getProperty("user.home"),".minima");
 		String conffolder = conf.getAbsolutePath();
 		
 		if(arglen > 0) {
@@ -122,7 +121,6 @@ public class Start {
 					MinimaLogger.log("        -noconnect             : Don't connect to MainNet. Can then connect to private chains.");
 					MinimaLogger.log("        -connect [host] [port] : Don't connect to MainNet. Connect to this node.");
 					MinimaLogger.log("        -mifiproxy [host:port] : Use this address for MiFi proxy requests and not the default.");
-//					SimpleLogger.log("        -relcoin [POST_URL]    : HTTP POST of new coins in json format (all in 'data') that are relevant to this wallet.");
 					MinimaLogger.log("        -clean                 : Wipe user files and chain backup. Start afresh.");
 					MinimaLogger.log("        -daemon                : Accepts no input from STDIN. Can run in background process.");
 					MinimaLogger.log("        -help                  : Show this help");
@@ -152,12 +150,6 @@ public class Start {
 					
 				}else if(arg.equals("-clean")) {
 					clean = true;
-				
-				}else if(arg.equals("-txncall")) {
-					txnfunction = zArgs[counter++];
-					
-				}else if(arg.equals("-relcoin")) {
-					relcoin = zArgs[counter++];
 					
 				}else if(arg.equals("-conf")) {
 					conffolder = zArgs[counter++];
@@ -170,9 +162,9 @@ public class Start {
 		}
 		
 		//Do we wipe
+		File conffile = new File(conffolder);
 		if(clean) {
-			//BackupManager.deleteFolder(new File(conffolder));
-			BackupManager.deleteAllButMiniDAPPS(new File(conffolder));
+			BackupManager.deleteAllButMiniDAPPS(conffile);
 		}
 		
 		//Start the main Minima server
@@ -189,29 +181,19 @@ public class Start {
 		//Set the proxy
 		rcmainserver.setMiFiProxy(mifiProxy);
 		
-		if(!txnfunction.equals("")) {
-			MinimaLogger.log("New Txn function : "+txnfunction);
-			rcmainserver.setNewTxnCommand(txnfunction);
-		}
-		
-		if(!relcoin.equals("")) {
-			MinimaLogger.log("New Relevant Coin URL : "+relcoin);
-			rcmainserver.setNewRelCoin(relcoin);
-		}
-		
 		//Start the system
 		rcmainserver.PostMessage(Main.SYSTEM_STARTUP);
 		
 		rcmainserver.getConsensusHandler().addListener(new NativeListener() {
 			@Override
 			public void processMessage(Message zMessage) {
-				//THIS GETS CALLED!
+				//THIS GETS CALLED! - IOS J2OBJC HELPER..
 			}
 		});
 		
 		//Are we a daemon thread
 		if(daemon) {
-			System.out.println("Daemon Started..");
+			MinimaLogger.log("Daemon Started..");
 			
 			//Loop while running..
 			while (rcmainserver.isRunning()) {
@@ -257,13 +239,8 @@ public class Start {
 		                //Get the response..
 		                String resp = response.getResponse();
 		                
-		                //Check it's a JSON - Hack for now..
-		                if(resp.startsWith("{") || resp.startsWith("[")) {
-		                	resp = MiniFormat.PrettyJSON(resp);
-		                }
-		                
-		                //Convert \n..
-		                resp = resp.replaceAll("\\\\n", "\n");
+		                //Makethe JSON pretty
+		                resp = MiniFormat.JSONPretty(resp);
 		                		
 		                //And then print out the result
 		                System.out.println(resp);

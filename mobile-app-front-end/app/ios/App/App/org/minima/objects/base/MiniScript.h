@@ -34,8 +34,6 @@
 
 + (OrgMinimaObjectsBaseMiniScript *)ReadFromStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn;
 
-- (NSString *)to0xString;
-
 - (NSString *)description;
 
 // Disallowed inherited constructors, do not use.

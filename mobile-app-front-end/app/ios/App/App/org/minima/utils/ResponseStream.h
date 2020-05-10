@@ -25,7 +25,6 @@
   OrgMinimaUtilsJsonJSONObject *mDataJSON_;
   jboolean mFinished_;
   NSString *mFinalResponse_;
-  jboolean mIsLocal_;
 }
 
 #pragma mark Public
@@ -33,7 +32,7 @@
 - (instancetype)init;
 
 - (void)endStatusWithBoolean:(jboolean)zValid
-                withNSString:(NSString *)zError;
+                withNSString:(NSString *)zMessage;
 
 - (OrgMinimaUtilsJsonJSONObject *)getDataJSON;
 
@@ -43,13 +42,7 @@
 
 - (void)hardEndStatusWithNSString:(NSString *)zResult;
 
-- (jboolean)isFinished;
-
-- (jboolean)isLocal;
-
 - (void)setFunctionWithNSString:(NSString *)zFunction;
-
-- (void)setLocalMachine;
 
 - (void)waitToFinish;
 
@@ -63,7 +56,7 @@ J2OBJC_FIELD_SETTER(OrgMinimaUtilsResponseStream, mDataJSON_, OrgMinimaUtilsJson
 J2OBJC_FIELD_SETTER(OrgMinimaUtilsResponseStream, mFinalResponse_, NSString *)
 
 inline jlong OrgMinimaUtilsResponseStream_get_MAX_WAITTIME(void);
-#define OrgMinimaUtilsResponseStream_MAX_WAITTIME 5000LL
+#define OrgMinimaUtilsResponseStream_MAX_WAITTIME 10000LL
 J2OBJC_STATIC_FIELD_CONSTANT(OrgMinimaUtilsResponseStream, MAX_WAITTIME, jlong)
 
 FOUNDATION_EXPORT void OrgMinimaUtilsResponseStream_init(OrgMinimaUtilsResponseStream *self);

@@ -18,7 +18,7 @@ public class RPCServer implements Runnable{
 	
 	ServerSocket mServerSocket;
 	int mPort;
-	String mHost;
+	static String mHost;
 	
 	boolean mRunning = true;
 	
@@ -57,14 +57,14 @@ public class RPCServer implements Runnable{
 	        System.out.println("RPCSERVER : "+e);
 	    }
 	    
-	    System.out.println("RPC Server started on "+mHost+":"+mPort);
+	    MinimaLogger.log("RPC Server started on "+mHost+":"+mPort);
 	}
 	
 	public int getPort() {
 		return mPort;
 	}
 	
-	public String getHost() {
+	public static String getHost() {
 		return mHost;
 	}
 		
@@ -96,7 +96,7 @@ public class RPCServer implements Runnable{
 				RPCHandler rpc = new RPCHandler(clientsock, mInputHandler);
 				
 				//Run in a new Thread
-				Thread rpcthread = new Thread(rpc);
+				Thread rpcthread = new Thread(rpc, "RPC Client");
 				rpcthread.start();
 			}
 			

@@ -5,11 +5,10 @@ import org.minima.objects.base.MiniNumber;
 import org.minima.system.backup.BackupManager;
 import org.minima.system.brains.ConsensusBackup;
 import org.minima.system.brains.ConsensusHandler;
-import org.minima.system.external.ProcessManager;
 import org.minima.system.input.CommandFunction;
 import org.minima.system.input.InputHandler;
 import org.minima.system.network.NetworkHandler;
-import org.minima.system.tx.TXMiner;
+import org.minima.system.txpow.TxPoWMiner;
 import org.minima.utils.MinimaLogger;
 import org.minima.utils.messages.Message;
 import org.minima.utils.messages.MessageProcessor;
@@ -40,7 +39,7 @@ public class Main extends MessageProcessor {
 	/**
 	 * The Transaction Miner
 	 */
-	private TXMiner mTXMiner;
+	private TxPoWMiner mTXMiner;
 	
 	/**
 	 * The Main bottleneck thread that calculates the actual situation
@@ -51,12 +50,7 @@ public class Main extends MessageProcessor {
 	 * The Backup Manager - runs in a separate thread
 	 */
 	private BackupManager mBackup;
-	
-	/**
-	 * The Process manager that runs command line functions on receipt of transactions and blocks
-	 */
-	private ProcessManager mProcessManager;
-	
+		
 	/**
 	 * User Simulator.. for testing..
 	 */
@@ -114,15 +108,15 @@ public class Main extends MessageProcessor {
 		mInput 		= new InputHandler(this);
 		
 		mNetwork 	= new NetworkHandler(this);
-		mTXMiner 	= new TXMiner(this);
+		mTXMiner 	= new TxPoWMiner(this);
 		mBackup     = new BackupManager(this,zConfFolder);
-		
-		mProcessManager = new ProcessManager(this);
 		
 		//Create the Consensus handler..
 		mConsensus  = new ConsensusHandler(this);
 		
 		mGenesis 	= zGenesis;
+		
+		MinimaLogger.log("Minima files : "+zConfFolder);
 	}
 	
 	public void setAutoConnect(boolean zAuto) {
@@ -142,19 +136,6 @@ public class Main extends MessageProcessor {
 		return mNodeStartTime;
 	}
 	
-	/**
-	 * Do we run a command line function on receipt of a valid transaction
-	 * Does not take depth nto account..
-	 * @param zExec
-	 */
-	public void setNewTxnCommand(String zExec) {
-		mProcessManager.setTXNCallFunction(zExec);
-	}
-	
-	public void setNewRelCoin(String zPostURL) {
-		mProcessManager.setRelCoin(zPostURL);
-	}
-	
 	public void SystemShutDown() {
 		PostMessage(SYSTEM_SHUTDOWN);
 	}
@@ -167,9 +148,6 @@ public class Main extends MessageProcessor {
 		mTXMiner.setLOG(zTraceON);
 		mInput.setLOG(zTraceON);
 		mBackup.setLOG(zTraceON);
-		mProcessManager.setLOG(zTraceON);
-		
-//		mSim.setLOG(zTraceON);
 	}
 	
 	public InputHandler getInputHandler() {
@@ -188,11 +166,7 @@ public class Main extends MessageProcessor {
 		return mBackup;
 	}
 	
-	public ProcessManager getProcessManager() {
-		return mProcessManager;
-	}
-	
-	public TXMiner getMiner() {
+	public TxPoWMiner getMiner() {
 		return mTXMiner;
 	}
 		
@@ -256,11 +230,10 @@ public class Main extends MessageProcessor {
 			mInput.stopMessageProcessor();
 			mTXMiner.stopMessageProcessor();
 			mConsensus.stopMessageProcessor();
-			mBackup	.stopMessageProcessor();
-			mProcessManager.stopMessageProcessor();
+			mBackup.stopMessageProcessor();
 			
 			//Wait..
-			Thread.sleep(250);
+			Thread.sleep(1000);
 			
 			//And shut this down too..
 			stopMessageProcessor();

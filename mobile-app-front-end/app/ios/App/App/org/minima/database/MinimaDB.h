@@ -30,6 +30,7 @@
 @class OrgMinimaObjectsTxPOW;
 @class OrgMinimaObjectsWitness;
 @class OrgMinimaSystemBackupBackupManager;
+@class OrgMinimaSystemBackupSyncPackage;
 @class OrgMinimaUtilsJsonJSONArray;
 @class OrgMinimaUtilsMessagesMessage;
 @protocol OrgMinimaDatabaseCoindbCoinDB;
@@ -40,13 +41,20 @@
 @interface OrgMinimaDatabaseMinimaDB : NSObject {
  @public
   OrgMinimaSystemBackupBackupManager *mBackup_;
+  JavaUtilHashtable *mMiningTransactions_;
 }
 
 #pragma mark Public
 
 - (instancetype)init;
 
+- (void)addMiningTransactionWithOrgMinimaObjectsTransaction:(OrgMinimaObjectsTransaction *)zTrans;
+
 - (id<OrgMinimaDatabaseTxpowdbTxPOWDBRow>)addNewTxPowWithOrgMinimaObjectsTxPOW:(OrgMinimaObjectsTxPOW *)zTxPOW;
+
+- (jboolean)checkInputForMiningWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zCoinID;
+
+- (jboolean)checkTransactionForMempoolCoinsWithOrgMinimaObjectsTransaction:(OrgMinimaObjectsTransaction *)zTransaction;
 
 - (OrgMinimaUtilsMessagesMessage *)createTransactionWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zAmount
                                                            withOrgMinimaObjectsAddress:(OrgMinimaObjectsAddress *)zToAddress
@@ -86,6 +94,8 @@
 
 - (JavaUtilArrayList *)getMempoolCoins;
 
+- (OrgMinimaSystemBackupSyncPackage *)getSyncPackage;
+
 - (OrgMinimaObjectsBaseMiniNumber *)getTopBlock;
 
 - (JavaUtilArrayList *)getTotalSimpleSpendableCoinsWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zTokenID;
@@ -102,7 +112,7 @@
 
 - (id<OrgMinimaDatabaseUserdbUserDB>)getUserDB;
 
-- (OrgMinimaDatabaseTxpowtreeBlockTreeNode *)hardAddTxPOWBlockWithOrgMinimaObjectsTxPOW:(OrgMinimaObjectsTxPOW *)zRoot
+- (OrgMinimaDatabaseTxpowtreeBlockTreeNode *)hardAddTxPOWBlockWithOrgMinimaObjectsTxPOW:(OrgMinimaObjectsTxPOW *)zTxPoW
                                                          withOrgMinimaDatabaseMmrMMRSet:(OrgMinimaDatabaseMmrMMRSet *)zMMR
                                                                             withBoolean:(jboolean)zCascade;
 
@@ -110,11 +120,9 @@
 
 - (void)hardSetCascadeNodeWithOrgMinimaDatabaseTxpowtreeBlockTreeNode:(OrgMinimaDatabaseTxpowtreeBlockTreeNode *)zNode;
 
-- (jboolean)isChainRoot;
-
-- (jboolean)isTxPOWFoundWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zTxPOWID;
-
 - (void)processTxPOWWithOrgMinimaObjectsTxPOW:(OrgMinimaObjectsTxPOW *)zTxPow;
+
+- (void)remeoveMiningTransactionWithOrgMinimaObjectsTransaction:(OrgMinimaObjectsTransaction *)zTrans;
 
 - (void)scanMMRSetForCoinsWithOrgMinimaDatabaseMmrMMRSet:(OrgMinimaDatabaseMmrMMRSet *)zMMRSet;
 
@@ -127,6 +135,7 @@
 J2OBJC_EMPTY_STATIC_INIT(OrgMinimaDatabaseMinimaDB)
 
 J2OBJC_FIELD_SETTER(OrgMinimaDatabaseMinimaDB, mBackup_, OrgMinimaSystemBackupBackupManager *)
+J2OBJC_FIELD_SETTER(OrgMinimaDatabaseMinimaDB, mMiningTransactions_, JavaUtilHashtable *)
 
 FOUNDATION_EXPORT void OrgMinimaDatabaseMinimaDB_init(OrgMinimaDatabaseMinimaDB *self);
 

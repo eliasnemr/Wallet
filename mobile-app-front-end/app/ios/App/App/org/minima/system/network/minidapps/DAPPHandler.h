@@ -28,6 +28,7 @@
  @public
   JavaNetSocket *mSocket_;
   OrgMinimaSystemNetworkMinidappsDAPPManager *mDAPPManager_;
+  jboolean mUseResources_;
 }
 
 #pragma mark Public

@@ -58,7 +58,7 @@
 
 - (OrgMinimaObjectsBaseMiniNumber *)getBlockNumber;
 
-- (JavaUtilArrayList *)getBlockTxns;
+- (JavaUtilArrayList *)getBlockTransactions;
 
 - (OrgMinimaObjectsTransaction *)getBurnTransaction;
 

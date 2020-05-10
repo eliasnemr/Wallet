@@ -4,16 +4,23 @@
 //
 
 #include "J2ObjC_source.h"
+#include "java/lang/InterruptedException.h"
 #include "java/lang/System.h"
+#include "java/lang/Thread.h"
 #include "org/minima/utils/messages/Message.h"
+#include "org/minima/utils/messages/MessageProcessor.h"
 #include "org/minima/utils/messages/TimerMessage.h"
 
 @interface OrgMinimaUtilsMessagesTimerMessage () {
  @public
   jlong mTimer_;
+  jlong mDelay_;
+  OrgMinimaUtilsMessagesMessageProcessor *mProcessor_;
 }
 
 @end
+
+J2OBJC_FIELD_SETTER(OrgMinimaUtilsMessagesTimerMessage, mProcessor_, OrgMinimaUtilsMessagesMessageProcessor *)
 
 @implementation OrgMinimaUtilsMessagesTimerMessage
 
@@ -23,26 +30,45 @@
   return self;
 }
 
+- (void)setProcessorWithOrgMinimaUtilsMessagesMessageProcessor:(OrgMinimaUtilsMessagesMessageProcessor *)zProcessor {
+  mProcessor_ = zProcessor;
+}
+
 - (jlong)getTimer {
   return mTimer_;
+}
+
+- (void)run {
+  @try {
+    JavaLangThread_sleepWithLong_(mDelay_);
+  }
+  @catch (JavaLangInterruptedException *e) {
+  }
+  [((OrgMinimaUtilsMessagesMessageProcessor *) nil_chk(mProcessor_)) PostMessageWithOrgMinimaUtilsMessagesMessage:self];
 }
 
 + (const J2ObjcClassInfo *)__metadata {
   static J2ObjcMethodInfo methods[] = {
     { NULL, NULL, 0x1, -1, 0, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 1, 2, -1, -1, -1, -1 },
     { NULL, "J", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, -1, -1, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
   #pragma clang diagnostic ignored "-Wundeclared-selector"
   methods[0].selector = @selector(initWithInt:withNSString:);
-  methods[1].selector = @selector(getTimer);
+  methods[1].selector = @selector(setProcessorWithOrgMinimaUtilsMessagesMessageProcessor:);
+  methods[2].selector = @selector(getTimer);
+  methods[3].selector = @selector(run);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
     { "mTimer_", "J", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
+    { "mDelay_", "J", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
+    { "mProcessor_", "LOrgMinimaUtilsMessagesMessageProcessor;", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
   };
-  static const void *ptrTable[] = { "ILNSString;" };
-  static const J2ObjcClassInfo _OrgMinimaUtilsMessagesTimerMessage = { "TimerMessage", "org.minima.utils.messages", ptrTable, methods, fields, 7, 0x1, 2, 1, -1, -1, -1, -1, -1 };
+  static const void *ptrTable[] = { "ILNSString;", "setProcessor", "LOrgMinimaUtilsMessagesMessageProcessor;" };
+  static const J2ObjcClassInfo _OrgMinimaUtilsMessagesTimerMessage = { "TimerMessage", "org.minima.utils.messages", ptrTable, methods, fields, 7, 0x1, 4, 3, -1, -1, -1, -1, -1 };
   return &_OrgMinimaUtilsMessagesTimerMessage;
 }
 
@@ -50,6 +76,7 @@
 
 void OrgMinimaUtilsMessagesTimerMessage_initWithInt_withNSString_(OrgMinimaUtilsMessagesTimerMessage *self, jint zDelay, NSString *zMessageType) {
   OrgMinimaUtilsMessagesMessage_initWithNSString_(self, zMessageType);
+  self->mDelay_ = zDelay;
   self->mTimer_ = JavaLangSystem_currentTimeMillis() + zDelay;
 }
 

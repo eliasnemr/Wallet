@@ -7,7 +7,7 @@ public class GlobalParams {
 	/**
 	 * Which Version
 	 */
-	public static final String MINIMA_VERSION = "0.87.4";
+	public static final String MINIMA_VERSION = "0.88.0";
 	
 	/**
 	 * Number of seconds before sending a pulse message
@@ -34,12 +34,12 @@ public class GlobalParams {
 	/**
 	 * Depth before we cascade..
 	 */
-	public static final int MINIMA_CASCADE_START_DEPTH   = 512;
+	public static final int MINIMA_CASCADE_START_DEPTH   = 1024;
 	
 	/**
 	 * Minimum number of blocks at each cascade level 
 	 */
-	public static final int MINIMA_MINUMUM_CASCADE_LEVEL_NODES  = 64;
+	public static final int MINIMA_MINUMUM_CASCADE_LEVEL_NODES  = 128;
 	
 	/**
 	 * How Many Cascade Levels are there
@@ -48,12 +48,13 @@ public class GlobalParams {
 	
 	/**
 	 * Ratio of Cascade tree vs Old tree allowed
+	 * CURRENTLY NOT ENFORCED BUT WARNS IF HAPPENS
 	 */
 	public static final String MINIMA_CASCADE_RATIO  = "0.9";
 	
 	/**
 	 * Current default HASH_Strength Used. Can be upto 512.
-	 * All the MMR data automatically uses 512. But addresses, scripts, and public keys..
+	 * All the MINING, TxPOW and MMR data ALWAYS uses 512. But addresses, scripts, and public keys..
 	 * can be set to less. This way signatures and addresses are shorter.
 	 */
 	public static final int MINIMA_DEFAULT_HASH_STRENGTH = 256;

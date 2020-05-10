@@ -22,7 +22,6 @@
 
 @class JavaUtilArrayList;
 @class OrgMinimaDatabaseMinimaDB;
-@class OrgMinimaObjectsTxPOW;
 @class OrgMinimaSystemBrainsConsensusBackup;
 @class OrgMinimaSystemBrainsConsensusNet;
 @class OrgMinimaSystemBrainsConsensusPrint;
@@ -49,9 +48,6 @@
 - (instancetype)initWithOrgMinimaSystemMain:(OrgMinimaSystemMain *)zMain;
 
 - (void)addListenerWithOrgMinimaNativeListener:(id<OrgMinimaNativeListener>)zListen;
-
-- (jboolean)checkTransactionRelevantWithOrgMinimaObjectsTxPOW:(OrgMinimaObjectsTxPOW *)zTxPOW
-                            withOrgMinimaUtilsMessagesMessage:(OrgMinimaUtilsMessagesMessage *)zOriginal;
 
 - (void)clearListeners;
 
@@ -106,30 +102,30 @@ inline NSString *OrgMinimaSystemBrainsConsensusHandler_get_CONSENSUS_MINEBLOCK(v
 FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusHandler_CONSENSUS_MINEBLOCK;
 J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBrainsConsensusHandler, CONSENSUS_MINEBLOCK, NSString *)
 
-inline NSString *OrgMinimaSystemBrainsConsensusHandler_get_CONSENSUS_SENDTRANS(void);
+inline NSString *OrgMinimaSystemBrainsConsensusHandler_get_CONSENSUS_GIMME50(void);
 /*! INTERNAL ONLY - Use accessor function from above. */
-FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusHandler_CONSENSUS_SENDTRANS;
-J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBrainsConsensusHandler, CONSENSUS_SENDTRANS, NSString *)
+FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusHandler_CONSENSUS_GIMME50;
+J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBrainsConsensusHandler, CONSENSUS_GIMME50, NSString *)
 
 inline NSString *OrgMinimaSystemBrainsConsensusHandler_get_CONSENSUS_CREATETRANS(void);
 /*! INTERNAL ONLY - Use accessor function from above. */
 FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusHandler_CONSENSUS_CREATETRANS;
 J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBrainsConsensusHandler, CONSENSUS_CREATETRANS, NSString *)
 
+inline NSString *OrgMinimaSystemBrainsConsensusHandler_get_CONSENSUS_SENDTRANS(void);
+/*! INTERNAL ONLY - Use accessor function from above. */
+FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusHandler_CONSENSUS_SENDTRANS;
+J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBrainsConsensusHandler, CONSENSUS_SENDTRANS, NSString *)
+
+inline NSString *OrgMinimaSystemBrainsConsensusHandler_get_CONSENSUS_FINISHED_MINE(void);
+/*! INTERNAL ONLY - Use accessor function from above. */
+FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusHandler_CONSENSUS_FINISHED_MINE;
+J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBrainsConsensusHandler, CONSENSUS_FINISHED_MINE, NSString *)
+
 inline NSString *OrgMinimaSystemBrainsConsensusHandler_get_CONSENSUS_CREATETOKEN(void);
 /*! INTERNAL ONLY - Use accessor function from above. */
 FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusHandler_CONSENSUS_CREATETOKEN;
 J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBrainsConsensusHandler, CONSENSUS_CREATETOKEN, NSString *)
-
-inline NSString *OrgMinimaSystemBrainsConsensusHandler_get_CONSENSUS_PRINTCHAIN(void);
-/*! INTERNAL ONLY - Use accessor function from above. */
-FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusHandler_CONSENSUS_PRINTCHAIN;
-J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBrainsConsensusHandler, CONSENSUS_PRINTCHAIN, NSString *)
-
-inline NSString *OrgMinimaSystemBrainsConsensusHandler_get_CONSENSUS_STATUS(void);
-/*! INTERNAL ONLY - Use accessor function from above. */
-FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusHandler_CONSENSUS_STATUS;
-J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBrainsConsensusHandler, CONSENSUS_STATUS, NSString *)
 
 inline NSString *OrgMinimaSystemBrainsConsensusHandler_get_CONSENSUS_NOTIFY_QUIT(void);
 /*! INTERNAL ONLY - Use accessor function from above. */
@@ -145,16 +141,6 @@ inline NSString *OrgMinimaSystemBrainsConsensusHandler_get_CONSENSUS_NOTIFY_NEWB
 /*! INTERNAL ONLY - Use accessor function from above. */
 FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusHandler_CONSENSUS_NOTIFY_NEWBLOCK;
 J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBrainsConsensusHandler, CONSENSUS_NOTIFY_NEWBLOCK, NSString *)
-
-inline NSString *OrgMinimaSystemBrainsConsensusHandler_get_CONSENSUS_NOTIFY_RELCOIN(void);
-/*! INTERNAL ONLY - Use accessor function from above. */
-FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusHandler_CONSENSUS_NOTIFY_RELCOIN;
-J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBrainsConsensusHandler, CONSENSUS_NOTIFY_RELCOIN, NSString *)
-
-inline NSString *OrgMinimaSystemBrainsConsensusHandler_get_CONSENSUS_GIMME50(void);
-/*! INTERNAL ONLY - Use accessor function from above. */
-FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusHandler_CONSENSUS_GIMME50;
-J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBrainsConsensusHandler, CONSENSUS_GIMME50, NSString *)
 
 FOUNDATION_EXPORT void OrgMinimaSystemBrainsConsensusHandler_initWithOrgMinimaSystemMain_(OrgMinimaSystemBrainsConsensusHandler *self, OrgMinimaSystemMain *zMain);
 

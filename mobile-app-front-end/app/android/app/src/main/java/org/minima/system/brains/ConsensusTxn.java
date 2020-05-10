@@ -9,7 +9,9 @@ import java.util.Random;
 
 import org.minima.database.MinimaDB;
 import org.minima.database.coindb.CoinDBRow;
+import org.minima.database.mmr.MMREntry;
 import org.minima.database.mmr.MMRProof;
+import org.minima.database.mmr.MMRSet;
 import org.minima.database.userdb.UserDBRow;
 import org.minima.objects.Address;
 import org.minima.objects.Coin;
@@ -23,6 +25,7 @@ import org.minima.objects.proofs.ScriptProof;
 import org.minima.objects.proofs.SignatureProof;
 import org.minima.objects.proofs.TokenProof;
 import org.minima.system.input.InputHandler;
+import org.minima.system.txpow.TxPoWChecker;
 import org.minima.utils.Crypto;
 import org.minima.utils.MinimaLogger;
 import org.minima.utils.json.JSONArray;
@@ -41,6 +44,7 @@ public class ConsensusTxn {
 	public static final String CONSENSUS_TXNLIST 			= CONSENSUS_PREFIX+"TXNLIST";
 	
 	public static final String CONSENSUS_TXNAUTO 			= CONSENSUS_PREFIX+"TXNAUTO";
+	public static final String CONSENSUS_TXNAUTOSIGN 		= CONSENSUS_PREFIX+"TXNAUTOSIGN";
 	
 	public static final String CONSENSUS_TXNINPUT 			= CONSENSUS_PREFIX+"TXNINPUT";
 	public static final String CONSENSUS_TXNOUTPUT 			= CONSENSUS_PREFIX+"TXNOUTPUT";
@@ -56,6 +60,9 @@ public class ConsensusTxn {
 	
 	public static final String CONSENSUS_TXNEXPORT 			= CONSENSUS_PREFIX+"TXNEXPORT";
 	public static final String CONSENSUS_TXNIMPORT 			= CONSENSUS_PREFIX+"TXNIMPORT";
+	
+	public static final String CONSENSUS_REMOUTPUT 			= CONSENSUS_PREFIX+"REMOUTPUT";
+	public static final String CONSENSUS_REMINPUT 			= CONSENSUS_PREFIX+"REMINPUT";
 	
 	MinimaDB mDB;
 	
@@ -85,6 +92,18 @@ public class ConsensusTxn {
 		Message list = new Message(CONSENSUS_TXNLIST);
 		InputHandler.addResponseMesage(list, zMessage);
 		mHandler.PostMessage(list);
+	}
+	
+	private void outputTransaction(Message zMessage, int zTransaction) {
+		UserDBRow row =  getMainDB().getUserDB().getUserRow(zTransaction);
+		if(row == null) {
+			InputHandler.endResponse(zMessage, false, "Transaction "+zTransaction+" not found..");
+			return;
+		}
+		
+		InputHandler.getResponseJSON(zMessage).put("transaction", row.toJSON());
+		InputHandler.endResponse(zMessage, true, "");
+		return;
 	}
 	
 	public void processMessage(Message zMessage) throws Exception {
@@ -120,6 +139,22 @@ public class ConsensusTxn {
 			listTransactions(zMessage);
 			
 		}else if(zMessage.isMessageType(CONSENSUS_TXNLIST)) {
+			if(zMessage.exists("transaction")) {
+				int trans = zMessage.getInteger("transaction");
+				
+				//Get the Transaction..
+				UserDBRow row =  getMainDB().getUserDB().getUserRow(trans);
+				if(row == null) {
+					InputHandler.endResponse(zMessage, false, "Transaction "+trans+" not found..");
+					return;
+				}
+				
+				InputHandler.getResponseJSON(zMessage).put("transaction", row.toJSON());
+				InputHandler.endResponse(zMessage, true, "");
+				return;
+			}
+			
+			//List them all..
 			JSONArray arr = new JSONArray();
 			
 			//get all the transactions..
@@ -251,20 +286,61 @@ public class ConsensusTxn {
 			Message ret = getMainDB().createTransaction(sendamount, 
 					recipient, change, confirmed, tok, changetok,null,trx);
 			
+			//Get the witness and add relevant info..
+			Witness wit             = (Witness) ret.getObject("witness");
+			Transaction transaction = (Transaction) ret.getObject("transaction");
+			
 			//Is this a token transaction
 			if(tokendets != null) {
-				//Get the witness and add relevant info..
-				Witness wit = (Witness) ret.getObject("witness");
-				
 				//Get the token details..
 				wit.addTokenDetails(tokendets);
 			}
 			
 			//Now We gave a valid transaction and witness.!
-			getMainDB().getUserDB().getUserRow(trans).setTransaction((Transaction) ret.getObject("transaction"));
-			getMainDB().getUserDB().getUserRow(trans).setWitness((Witness) ret.getObject("witness"));
+			getMainDB().getUserDB().getUserRow(trans).setTransaction(transaction);
+			getMainDB().getUserDB().getUserRow(trans).setWitness(wit);
 			
-			listTransactions(zMessage);
+			outputTransaction(zMessage,trans);
+			
+		}else if(zMessage.isMessageType(CONSENSUS_TXNAUTOSIGN)) {
+			//Add input to a custom transaction
+			int trans 			= zMessage.getInteger("transaction");
+			
+			//Check valid..
+			if(!checkTransactionValid(trans)) {
+				InputHandler.endResponse(zMessage, false, "Invalid TXN chosen : "+trans);
+				return;
+			}
+			
+			//Get the Transaction..
+			Transaction trx =  getMainDB().getUserDB().getUserRow(trans).getTransaction();
+			Witness wit     =  getMainDB().getUserDB().getUserRow(trans).getWitness();
+			
+			//Transction hash
+			MiniData transhash = Crypto.getInstance().hashObject(trx);
+			
+			//Clear the previous signatures
+			wit.clearSignatures();
+			
+			//Resign the inputs..
+			ArrayList<Coin> inputs = trx.getAllInputs();
+			for(Coin input : inputs){
+				//Is it a simple..
+				MiniData pubkey = getMainDB().getUserDB().getPublicKeyForSimpleAddress(input.getAddress());
+				if(pubkey != null) {
+					//Get the Pub Priv..
+					PubPrivKey signer = getMainDB().getUserDB().getPubPrivKey(pubkey);
+					
+					//Sign the data
+					MiniData signature = signer.sign(transhash);
+					
+					//Add to the witness..
+					wit.addSignature(pubkey, signature);
+				}
+			}
+			
+			//List current..
+			outputTransaction(zMessage,trans);
 		
 		}else if(zMessage.isMessageType(CONSENSUS_TXNINPUT)) {
 			//Add input to a custom transaction
@@ -283,12 +359,27 @@ public class ConsensusTxn {
 			
 			//Get the Coin..
 			CoinDBRow crow = getMainDB().getCoinDB().getCoinRow(coinid);
-			if(crow == null) {
-				InputHandler.endResponse(zMessage, false, "CoinID not found : "+coinid);
-				return;
-			}
-			Coin cc = crow.getCoin();
+			Coin cc        = null;
 			
+			//If it isn't one of OUR coins..
+			if(crow==null) {
+				//Get the MMRSet
+				MMRSet basemmr = getMainDB().getMainTree().getChainTip().getMMRSet();
+				
+				//Search for the coin..
+				MMREntry entry =  basemmr.findEntry(coinid);
+				
+				//Coin found..
+				if(entry != null) {
+					cc = entry.getData().getCoin();	
+				}else {
+					InputHandler.endResponse(zMessage, false, "CoinID not found : "+coinid);
+					return;	
+				}
+			}else {
+				cc = crow.getCoin();
+			}
+						
 			//Is it a Token ? 
 			if(!cc.getTokenID().isEqual(Coin.MINIMA_TOKENID)) {
 				//Add the Token details..
@@ -306,7 +397,12 @@ public class ConsensusTxn {
 			}
 			
 			//Add it..
-			trx.addInput(cc);
+			if(zMessage.exists("position")) {
+				int pos = zMessage.getInteger("position");
+				trx.addInput(cc,pos);
+			}else {
+				trx.addInput(cc);	
+			}
 			
 			//Get the Script associated with this coin
 			String script = getMainDB().getUserDB().getScript(cc.getAddress());
@@ -317,7 +413,7 @@ public class ConsensusTxn {
 				wit.addScript(script, cc.getAddress().getLength()*8);
 			}
 			
-			listTransactions(zMessage);
+			outputTransaction(zMessage,trans);
 			
 		}else if(zMessage.isMessageType(CONSENSUS_TXNOUTPUT)) {
 			//Which transaction
@@ -343,7 +439,7 @@ public class ConsensusTxn {
 			
 			//Get the Transaction..
 			Transaction trx = getMainDB().getUserDB().getUserRow(trans).getTransaction();
-			Witness wit     =  getMainDB().getUserDB().getUserRow(trans).getWitness();
+			Witness wit     = getMainDB().getUserDB().getUserRow(trans).getWitness();
 			
 			//Is it a Token ? 
 			if(!out.getTokenID().isEqual(Coin.MINIMA_TOKENID)) {
@@ -361,10 +457,33 @@ public class ConsensusTxn {
 				wit.addTokenDetails(tokendets);
 			}
 			
-			//Add the output
-			trx.addOutput(out);
+			//Add it..
+			if(zMessage.exists("position")) {
+				int pos = zMessage.getInteger("position");
+				trx.addOutput(out,pos);
+			}else {
+				trx.addOutput(out);
+			}
 			
-			listTransactions(zMessage);
+			outputTransaction(zMessage,trans);
+			
+		}else if(zMessage.isMessageType(CONSENSUS_REMOUTPUT)) {
+			int trans    	= zMessage.getInteger("transaction");
+			int position    = zMessage.getInteger("position");
+		
+			Transaction trx = getMainDB().getUserDB().getUserRow(trans).getTransaction();
+			trx.getAllOutputs().remove(position);
+			
+			outputTransaction(zMessage,trans);
+			
+		}else if(zMessage.isMessageType(CONSENSUS_REMINPUT)) {
+			int trans    	= zMessage.getInteger("transaction");
+			int position    = zMessage.getInteger("position");
+		
+			Transaction trx = getMainDB().getUserDB().getUserRow(trans).getTransaction();
+			trx.getAllInputs().remove(position);
+			
+			outputTransaction(zMessage,trans);
 			
 		}else if(zMessage.isMessageType(CONSENSUS_TXNSTATEVAR)) {
 			//Which transaction
@@ -380,14 +499,15 @@ public class ConsensusTxn {
 			
 			//Get the Transaction..
 			Transaction trx = getMainDB().getUserDB().getUserRow(trans).getTransaction();
-		
+			Witness wit     = getMainDB().getUserDB().getUserRow(trans).getWitness();
+			
 			//Create a new State Variable
 			StateVariable sv = new StateVariable(port, variable);
 			
 			//Add it to the transaction
 			trx.addStateVariable(sv);
 			
-			listTransactions(zMessage);
+			outputTransaction(zMessage,trans);
 			
 		}else if(zMessage.isMessageType(CONSENSUS_TXNPOST)) {
 			//Which transaction
@@ -407,6 +527,13 @@ public class ConsensusTxn {
 			Witness newwit = getMainDB().createValidMMRPRoofs(trx, wit);
 			if(newwit == null) {
 				InputHandler.endResponse(zMessage, false, "ERROR creating valid Witness. MMR Proofs wrong..");
+				return;
+			}
+			
+			//Check the INPUTS against the MEMPOOL COINS..
+			if(getMainDB().checkTransactionForMempoolCoins(trx)) {
+				//No GOOD!
+				InputHandler.endResponse(zMessage, false, "ERROR double spend coin in mempool.");
 				return;
 			}
 			
@@ -464,7 +591,7 @@ public class ConsensusTxn {
 			
 			//And Check the actual Transaction..
 			JSONArray contractlogs = new JSONArray();
-			boolean checkok = TxPOWChecker.checkTransactionMMR(trx, wit, getMainDB(),
+			boolean checkok = TxPoWChecker.checkTransactionMMR(trx, wit, getMainDB(),
 					getMainDB().getTopBlock(),
 					getMainDB().getMainTree().getChainTip().getMMRSet(),false,contractlogs);
 			
@@ -532,8 +659,8 @@ public class ConsensusTxn {
 			//Now set the SIG.. 
 			wit.addSignature(key.getPublicKey(), signature);
 			
-			listTransactions(zMessage);
-		
+			outputTransaction(zMessage,trans);
+			
 		}else if(zMessage.isMessageType(CONSENSUS_TXNEXPORT)) {
 			//Export the entire transaction as HEX data.. 
 			int trans = zMessage.getInteger("transaction");

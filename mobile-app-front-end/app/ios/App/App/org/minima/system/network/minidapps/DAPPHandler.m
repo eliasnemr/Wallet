@@ -31,16 +31,19 @@
 #include "org/minima/system/backup/BackupManager.h"
 #include "org/minima/system/network/minidapps/DAPPHandler.h"
 #include "org/minima/system/network/minidapps/DAPPManager.h"
+#include "org/minima/system/network/minidapps/hexdata/faviconico.h"
+#include "org/minima/system/network/minidapps/hexdata/helphtml.h"
+#include "org/minima/system/network/minidapps/hexdata/iconpng.h"
+#include "org/minima/system/network/minidapps/hexdata/indexhtml.h"
+#include "org/minima/system/network/minidapps/hexdata/installdapphtml.h"
+#include "org/minima/system/network/minidapps/hexdata/minidappscss.h"
+#include "org/minima/system/network/minidapps/hexdata/tilegreyjpeg.h"
 #include "org/minima/utils/json/JSONArray.h"
 #include "org/minima/utils/json/JSONObject.h"
 #include "org/minima/utils/messages/Message.h"
 
-#import "App-Swift.h"
-
 inline NSString *OrgMinimaSystemNetworkMinidappsDAPPHandler_get_RESOURCE_BASE(void);
-static NSString *OrgMinimaSystemNetworkMinidappsDAPPHandler_RESOURCE_BASE = @"minidapps/";
-
-
+static NSString *OrgMinimaSystemNetworkMinidappsDAPPHandler_RESOURCE_BASE = @"org/minima/system/network/minidapps/resources/";
 J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemNetworkMinidappsDAPPHandler, RESOURCE_BASE, NSString *)
 
 @implementation OrgMinimaSystemNetworkMinidappsDAPPHandler
@@ -95,7 +98,7 @@ withOrgMinimaSystemNetworkMinidappsDAPPManager:(OrgMinimaSystemNetworkMinidappsD
         jint uninstall = [((NSString *) nil_chk(query)) java_indexOfString:@"uninstall="];
         if (uninstall != -1) {
           JavaIoFile *appfolder = new_JavaIoFile_initWithNSString_withNSString_([((OrgMinimaSystemNetworkMinidappsDAPPManager *) nil_chk(mDAPPManager_)) getMiniDAPPSFolder], [query java_substring:uninstall + 10]);
-          OrgMinimaSystemBackupBackupManager_deleteFolderWithJavaIoFile_(appfolder);
+          OrgMinimaSystemBackupBackupManager_deleteFileOrFolderWithJavaIoFile_(appfolder);
           (void) [((OrgMinimaSystemNetworkMinidappsDAPPManager *) nil_chk(mDAPPManager_)) recalculateMiniDAPPS];
         }
       }
@@ -103,7 +106,7 @@ withOrgMinimaSystemNetworkMinidappsDAPPManager:(OrgMinimaSystemNetworkMinidappsD
     IOSByteArray *file = nil;
     jint filelen = 0;
     if ([fileRequested java_hasSuffix:@"minima.js"]) {
-      file = [self getResourceBytesWithNSString:@"js/minima.js"];
+      file = [((OrgMinimaSystemNetworkMinidappsDAPPManager *) nil_chk(mDAPPManager_)) getMinimaJS];
       filelen = ((IOSByteArray *) nil_chk(file))->size_;
     }
     else if ([fileRequested java_hasPrefix:@"minidapps/"]) {
@@ -114,11 +117,44 @@ withOrgMinimaSystemNetworkMinidappsDAPPManager:(OrgMinimaSystemNetworkMinidappsD
     else if ([fileRequested java_hasPrefix:@"rpc/"]) {
     }
     else {
-      file = [self getResourceBytesWithNSString:fileRequested];
-      if ([fileRequested isEqual:@"index.html"]) {
-        NSString *page = [NSString java_stringWithBytes:file charset:JreLoadStatic(JavaNioCharsetStandardCharsets, UTF_8)];
-        NSString *newpage = [page java_replace:@"######" withSequence:[self createMiniDAPPList]];
-        file = [((NSString *) nil_chk(newpage)) java_getBytes];
+      if (!mUseResources_) {
+        if ([fileRequested isEqual:@"index.html"]) {
+          NSString *page = [NSString java_stringWithBytes:OrgMinimaSystemNetworkMinidappsHexdataindexhtml_returnData() charset:JreLoadStatic(JavaNioCharsetStandardCharsets, UTF_8)];
+          NSString *newpage = [page java_replace:@"######" withSequence:[self createMiniDAPPList]];
+          file = [((NSString *) nil_chk(newpage)) java_getBytes];
+        }
+        else if ([fileRequested isEqual:@"css/minidapps.css"]) {
+          file = OrgMinimaSystemNetworkMinidappsHexdataminidappscss_returnData();
+        }
+        else if ([fileRequested isEqual:@"favicon.ico"]) {
+          file = OrgMinimaSystemNetworkMinidappsHexdatafaviconico_returnData();
+        }
+        else if ([fileRequested isEqual:@"help.html"]) {
+          file = OrgMinimaSystemNetworkMinidappsHexdatahelphtml_returnData();
+        }
+        else if ([fileRequested isEqual:@"icon.png"]) {
+          file = OrgMinimaSystemNetworkMinidappsHexdataiconpng_returnData();
+        }
+        else if ([fileRequested isEqual:@"installdapp.html"]) {
+          file = OrgMinimaSystemNetworkMinidappsHexdatainstalldapphtml_returnData();
+        }
+        else if ([fileRequested isEqual:@"tile-grey.jpeg"]) {
+          file = OrgMinimaSystemNetworkMinidappsHexdatatilegreyjpeg_returnData();
+        }
+        else {
+          file = [IOSByteArray newArrayWithLength:0];
+        }
+      }
+      else {
+        if ([fileRequested isEqual:@"index.html"]) {
+          file = [self getResourceBytesWithNSString:fileRequested];
+          NSString *page = [NSString java_stringWithBytes:file charset:JreLoadStatic(JavaNioCharsetStandardCharsets, UTF_8)];
+          NSString *newpage = [page java_replace:@"######" withSequence:[self createMiniDAPPList]];
+          file = [((NSString *) nil_chk(newpage)) java_getBytes];
+        }
+        else {
+          file = [self getResourceBytesWithNSString:fileRequested];
+        }
       }
       filelen = ((IOSByteArray *) nil_chk(file))->size_;
     }
@@ -192,86 +228,22 @@ withOrgMinimaSystemNetworkMinidappsDAPPManager:(OrgMinimaSystemNetworkMinidappsD
     (void) [list appendWithNSString:JreStrcat("$$$$$$$$$$$$$$$$$$$", @"<tr><td>\t\t\t<table style='background-size:100%;background-image: url(", backg, @");' width=100% height=100 class=minidapp>\t\t\t \t<tr>\t\t\t\t\t<td style='cursor:pointer;' rowspan=2 onclick=\"window.open('", webpage, @"', '_blank');\">\t\t\t\t\t\t<img src='", icon, @"' height=100>\t\t\t\t\t</td>\t\t\t\t\t<td width=100% class='minidappdescription'>                   <div style='position:relative'>\t\t\t\t        <div onclick='uninstallDAPP(\"", name, @"\",\"", approot, @"\");' style='color:red;cursor:pointer;position:absolute;right:10;top:10'>UNINSTALL</div>\t\t\t\t\t\t<br>\t\t\t\t\t\t<div onclick=\"window.open('", webpage, @"','_blank');\" style='cursor:pointer;font-size:18'><b>", [((NSString *) nil_chk(name)) uppercaseString], @"</b></div>\t\t\t\t\t\t<br><div onclick=\"window.open('", webpage, @"','_blank');\" style='cursor:pointer;font-size:12'>", desc, @"</div>\t\t\t\t\t</div>                     </td>\t\t\t\t</tr>\t\t\t</table>\t\t</td></tr>")];
   }
   if (len == 0) {
-    (void) [list appendWithNSString:@"<tr><td><br><br>&nbsp;&nbsp;<b>NO DAPPS INSTALLED YET..</b></td></tr>"];
+    (void) [list appendWithNSString:@"<tr><td style='text-align:center;'><br><br><b>NO DAPPS INSTALLED YET..</b><br><br><br>Go to <a href='http://mifi.minima.global/' target='_blank'>http://mifi.minima.global/</a> to find MiniDAPPs</td></tr>"];
   }
   (void) [list appendWithNSString:@"</table>"];
   return [list description];
 }
 
-// Get main bundle
-NSBundle* mainBundle;
-- (NSString*)getResourceBytesWithNSString:(NSString *)zResource {
-    
-    mainBundle = [NSBundle mainBundle];
-    
-    if(mainBundle == nil) {
-        NSLog(@"Main Bundle has not been found!");
-        return @"mainBundle non existent";
-    }
-    NSString* path =[OrgMinimaSystemNetworkMinidappsDAPPHandler_RESOURCE_BASE stringByAppendingString:zResource];
-    NSString* ns = [mainBundle pathForResource:zResource ofType:@"" ];
-
-    if(ns == nil) {
-        NSLog(@"Requested File not found! %@", path);
-    } else {
-        NSLog(@"Your index file was found in your main bundle.");
-    }
-    
-    NSInputStream* in = [NSInputStream inputStreamWithFileAtPath:ns];
-    
-    if(in == nil ){
-        NSLog(@"Can't create this stream");
-    } else {
-        NSLog(@"Stream created..");
-    }
-    
-    [in open];
-    
-    uint8_t byteBuffer[4096];
-    
-    if(in.hasBytesAvailable){
-        NSLog(@"We have bytes to look at..");
-        NSInteger bytesRead = [in read:byteBuffer maxLength:sizeof(byteBuffer)];
-        NSString *stringFromData = [[NSString alloc] initWithBytes:byteBuffer length:bytesRead encoding:NSUTF8StringEncoding];
-        
-        NSLog(@"Buffer has been recorded");
-        
-        return stringFromData;
-    }
-    // concat path string
-//    OrgMinimaSystemNetworkMinidappsDAPPHandler_RESOURCE_BASE  = [OrgMinimaSystemNetworkMinidappsDAPPHandler_RESOURCE_BASE stringByAppendingString:zResource];
-//
-//    NSString* path=[mainBundle pathForResource:OrgMinimaSystemNetworkMinidappsDAPPHandler_RESOURCE_BASE ofType:@"html"];
-//    NSString* content = [NSString stringWithContentsOfFile:path
-//    encoding:NSUTF8StringEncoding
-//       error:NULL];
-//
-//    NSURL* url = [[NSURL alloc] initWithString:path];
-//    NSInputStream* in = [NSInputStream inputStreamWithURL:url];
-//    [in open];
-//
-//
-//  if (in == nil) {
-//      NSLog(@"File not found -> %@", zResource);
-//      NSLog(@"Looking in.., %@", OrgMinimaSystemNetworkMinidappsDAPPHandler_RESOURCE_BASE);
-//    return [IOSByteArray newArrayWithLength:0];
-//  }
-//
-//
-//  uint8_t byteBuffer[4096];
-//
-//    if(in.hasBytesAvailable){
-//        NSLog(@"bytes available");
-//
-//        NSInteger bytesRead = [in read:byteBuffer maxLength:sizeof(byteBuffer)]; //max len must match buffer size
-//        NSString *stringFromData = [[NSString alloc] initWithBytes:byteBuffer length:bytesRead encoding:NSUTF8StringEncoding];
-//
-//        NSLog(@"another attempt: %@", stringFromData);
-//    }
-    
-    
-//    return [IOSByteArray newArrayWithLength:0];
-    return 0;
+- (IOSByteArray *)getResourceBytesWithNSString:(NSString *)zResource {
+  JavaIoInputStream *in = [((JavaLangClassLoader *) nil_chk([[self java_getClass] getClassLoader])) getResourceAsStreamWithNSString:JreStrcat("$$", OrgMinimaSystemNetworkMinidappsDAPPHandler_RESOURCE_BASE, zResource)];
+  if (in == nil) {
+    return [IOSByteArray newArrayWithLength:0];
+  }
+  JavaIoDataInputStream *dis = new_JavaIoDataInputStream_initWithJavaIoInputStream_(in);
+  jint length = [dis available];
+  IOSByteArray *buf = [IOSByteArray newArrayWithLength:length];
+  [dis readFullyWithByteArray:buf];
+  return buf;
 }
 
 - (IOSByteArray *)getFileBytesWithNSString:(NSString *)zFile {
@@ -325,10 +297,11 @@ NSBundle* mainBundle;
   static const J2ObjcFieldInfo fields[] = {
     { "mSocket_", "LJavaNetSocket;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "mDAPPManager_", "LOrgMinimaSystemNetworkMinidappsDAPPManager;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
+    { "mUseResources_", "Z", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
     { "RESOURCE_BASE", "LNSString;", .constantValue.asLong = 0, 0x1a, -1, 9, -1, -1 },
   };
   static const void *ptrTable[] = { "LJavaNetSocket;LOrgMinimaSystemNetworkMinidappsDAPPManager;", "LJavaLangException;", "getResourceBytes", "LNSString;", "LJavaIoIOException;", "getFileBytes", "getContentType", "indexOf", "[B[BI", &OrgMinimaSystemNetworkMinidappsDAPPHandler_RESOURCE_BASE };
-  static const J2ObjcClassInfo _OrgMinimaSystemNetworkMinidappsDAPPHandler = { "DAPPHandler", "org.minima.system.network.minidapps", ptrTable, methods, fields, 7, 0x1, 7, 3, -1, -1, -1, -1, -1 };
+  static const J2ObjcClassInfo _OrgMinimaSystemNetworkMinidappsDAPPHandler = { "DAPPHandler", "org.minima.system.network.minidapps", ptrTable, methods, fields, 7, 0x1, 7, 4, -1, -1, -1, -1, -1 };
   return &_OrgMinimaSystemNetworkMinidappsDAPPHandler;
 }
 
@@ -336,6 +309,7 @@ NSBundle* mainBundle;
 
 void OrgMinimaSystemNetworkMinidappsDAPPHandler_initWithJavaNetSocket_withOrgMinimaSystemNetworkMinidappsDAPPManager_(OrgMinimaSystemNetworkMinidappsDAPPHandler *self, JavaNetSocket *zSocket, OrgMinimaSystemNetworkMinidappsDAPPManager *zDAPPManager) {
   NSObject_init(self);
+  self->mUseResources_ = false;
   self->mSocket_ = zSocket;
   self->mDAPPManager_ = zDAPPManager;
 }
@@ -379,6 +353,9 @@ NSString *OrgMinimaSystemNetworkMinidappsDAPPHandler_getContentTypeWithNSString_
   }
   else if ([zEnding isEqual:@"gif"]) {
     return @"image/gif";
+  }
+  else if ([zEnding isEqual:@"svg"]) {
+    return @"image/svg+xml";
   }
   else if ([zEnding isEqual:@"ico"]) {
     return @"image/ico";

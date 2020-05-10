@@ -7,7 +7,7 @@ public class ResponseStream {
 	/**
 	 * Maximum Amount of time to wait for a response finish
 	 */
-	public static final long MAX_WAITTIME = 5000;
+	public static final long MAX_WAITTIME = 10000;
 	
 	/**
 	 * What is the response
@@ -33,26 +33,13 @@ public class ResponseStream {
 	 * The final returned response
 	 */
 	String mFinalResponse = "";
-	
-	/**
-	 * Is this the LOCAL machine..
-	 */
-	boolean mIsLocal = false;
-	
+		
 	/**
 	 * Main Constructor
 	 */
 	public ResponseStream(){
 		//Not finished yet
 		mFinished = false;
-	}
-
-	public void setLocalMachine(){
-		mIsLocal = true;
-	}
-	
-	public boolean isLocal() {
-		return mIsLocal;
 	}
 	
 	public void setFunction(String zFunction) {
@@ -71,21 +58,16 @@ public class ResponseStream {
 		return mJSON;
 	}
 	
-	public void endStatus(boolean zValid, String zError) {
+	public void endStatus(boolean zValid, String zMessage) {
 		mJSON.put("status", zValid);
 		mJSON.put("minifunc", mFunction);
-		
-		if(!zValid) {
-			mJSON.put("error", zError);
-		}else {
-			mJSON.put("message", zError);
-		}
+		mJSON.put("message", zMessage);
 		
 		//Add the data to the JSON
 		mJSON.put("response", mDataJSON);
 	
 		//Create the final response
-		mFinalResponse = mJSON.toString().replaceAll ("\\\\/", "/");
+		mFinalResponse = mJSON.toString().replaceAll("\\\\/", "/");
 		
 		//It's finished
 		mFinished = true;
@@ -97,10 +79,6 @@ public class ResponseStream {
 		
 		//It's finished
 		mFinished = true;
-	}
-	
-	public boolean isFinished() {
-		return mFinished;
 	}
 	
 	/**

@@ -10,7 +10,6 @@ import org.minima.objects.base.MiniData;
 import org.minima.objects.proofs.ScriptProof;
 import org.minima.objects.proofs.SignatureProof;
 import org.minima.objects.proofs.TokenProof;
-import org.minima.utils.Crypto;
 import org.minima.utils.Streamable;
 import org.minima.utils.json.JSONArray;
 import org.minima.utils.json.JSONObject;
@@ -66,10 +65,14 @@ public class Witness implements Streamable {
 		return mSignatureProofs;
 	}
 	
+	public void clearSignatures() {
+		mSignatureProofs.clear();
+	}
+	
 	public String getAllPubKeysCSV(){
 		String ret = "";
 		for(SignatureProof sig : mSignatureProofs) {
-			ret += sig.getFinalHash().to0xString()+"#";
+			ret += sig.getFinalHash().to0xString()+" # ";
 		}
 
 		return ret.trim();
@@ -82,7 +85,7 @@ public class Witness implements Streamable {
 		mMMRProofs.add(zProof);
 	}
 	
-	public void clearProofs(){
+	public void clearMMRProofs(){
 		mMMRProofs.clear();	
 	}
 	

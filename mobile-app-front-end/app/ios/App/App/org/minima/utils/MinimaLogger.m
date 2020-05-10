@@ -61,7 +61,7 @@ OrgMinimaUtilsMinimaLogger *create_OrgMinimaUtilsMinimaLogger_init() {
 void OrgMinimaUtilsMinimaLogger_logWithNSString_(NSString *zLog) {
   OrgMinimaUtilsMinimaLogger_initialize();
   if (OrgMinimaUtilsMinimaLogger_LOGGING_ON) {
-    [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out))) printlnWithNSString:zLog];
+    [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out))) printlnWithNSString:JreStrcat("$$", @"Minima : ", zLog)];
   }
 }
 

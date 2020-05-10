@@ -9,6 +9,7 @@
 #include "java/io/DataInputStream.h"
 #include "java/io/DataOutputStream.h"
 #include "java/io/PrintStream.h"
+#include "java/lang/Integer.h"
 #include "java/lang/System.h"
 #include "java/math/BigInteger.h"
 #include "java/util/ArrayList.h"
@@ -25,6 +26,8 @@
 #include "org/minima/objects/proofs/Proof.h"
 #include "org/minima/utils/Crypto.h"
 #include "org/minima/utils/MinimaLogger.h"
+#include "org/minima/utils/json/JSONArray.h"
+#include "org/minima/utils/json/JSONObject.h"
 
 @interface OrgMinimaDatabaseMmrMMRSet ()
 
@@ -70,6 +73,37 @@ J2OBJC_IGNORE_DESIGNATED_END
 - (instancetype)initWithOrgMinimaDatabaseMmrMMRSet:(OrgMinimaDatabaseMmrMMRSet *)zParent {
   OrgMinimaDatabaseMmrMMRSet_initWithOrgMinimaDatabaseMmrMMRSet_(self, zParent);
   return self;
+}
+
+- (OrgMinimaUtilsJsonJSONObject *)toJSON {
+  OrgMinimaUtilsJsonJSONObject *ret = new_OrgMinimaUtilsJsonJSONObject_init();
+  (void) [ret putWithId:@"block" withId:mBlockTime_];
+  (void) [ret putWithId:@"entrynumber" withId:mEntryNumber_];
+  OrgMinimaUtilsJsonJSONArray *jentry = new_OrgMinimaUtilsJsonJSONArray_init();
+  for (OrgMinimaDatabaseMmrMMREntry * __strong entry_ in nil_chk(mEntries_)) {
+    [jentry addWithId:[((OrgMinimaDatabaseMmrMMREntry *) nil_chk(entry_)) toJSON]];
+  }
+  (void) [ret putWithId:@"entries" withId:jentry];
+  (void) [ret putWithId:@"maxrow" withId:JavaLangInteger_valueOfWithInt_(mMaxRow_)];
+  OrgMinimaUtilsJsonJSONArray *maxentry = new_OrgMinimaUtilsJsonJSONArray_init();
+  {
+    IOSObjectArray *a__ = mMaxEntries_;
+    OrgMinimaDatabaseMmrMMREntry * const *b__ = ((IOSObjectArray *) nil_chk(a__))->buffer_;
+    OrgMinimaDatabaseMmrMMREntry * const *e__ = b__ + a__->size_;
+    while (b__ < e__) {
+      OrgMinimaDatabaseMmrMMREntry *entry_ = *b__++;
+      if (entry_ != nil) {
+        [maxentry addWithId:[((OrgMinimaObjectsBaseMiniInteger *) nil_chk([entry_ getEntry])) description]];
+      }
+    }
+  }
+  (void) [ret putWithId:@"maxentries" withId:maxentry];
+  OrgMinimaUtilsJsonJSONArray *keepers = new_OrgMinimaUtilsJsonJSONArray_init();
+  for (OrgMinimaObjectsBaseMiniInteger * __strong keeper in nil_chk(mKeepers_)) {
+    [keepers addWithId:[((OrgMinimaObjectsBaseMiniInteger *) nil_chk(keeper)) description]];
+  }
+  (void) [ret putWithId:@"keepers" withId:keepers];
+  return ret;
 }
 
 - (instancetype)initWithOrgMinimaDatabaseMmrMMRSet:(OrgMinimaDatabaseMmrMMRSet *)zParent
@@ -585,6 +619,7 @@ J2OBJC_IGNORE_DESIGNATED_END
     { NULL, NULL, 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, NULL, 0x1, -1, 0, -1, -1, -1, -1 },
     { NULL, NULL, 0x1, -1, 1, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaUtilsJsonJSONObject;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, NULL, 0x1, -1, 2, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 3, 1, -1, -1, -1, -1 },
     { NULL, "V", 0x1, -1, -1, -1, -1, -1, -1 },
@@ -627,41 +662,42 @@ J2OBJC_IGNORE_DESIGNATED_END
   methods[0].selector = @selector(init);
   methods[1].selector = @selector(initWithInt:);
   methods[2].selector = @selector(initWithOrgMinimaDatabaseMmrMMRSet:);
-  methods[3].selector = @selector(initWithOrgMinimaDatabaseMmrMMRSet:withInt:);
-  methods[4].selector = @selector(setParentWithOrgMinimaDatabaseMmrMMRSet:);
-  methods[5].selector = @selector(finalizeSet);
-  methods[6].selector = @selector(isFinalized);
-  methods[7].selector = @selector(setBlockTimeWithOrgMinimaObjectsBaseMiniNumber:);
-  methods[8].selector = @selector(getBlockTime);
-  methods[9].selector = @selector(getParent);
-  methods[10].selector = @selector(incrementEntryNumber);
-  methods[11].selector = @selector(getMaxRow);
-  methods[12].selector = @selector(getMaxRowWithBoolean:);
-  methods[13].selector = @selector(getRowWithInt:);
-  methods[14].selector = @selector(getZeroRow);
-  methods[15].selector = @selector(searchAddressWithOrgMinimaObjectsBaseMiniData:withOrgMinimaObjectsBaseMiniNumber:withOrgMinimaObjectsBaseMiniData:);
-  methods[16].selector = @selector(findEntryWithOrgMinimaObjectsBaseMiniData:);
-  methods[17].selector = @selector(setEntryWithInt:withOrgMinimaObjectsBaseMiniInteger:withOrgMinimaDatabaseMmrMMRData:);
-  methods[18].selector = @selector(getEntryWithInt:withOrgMinimaObjectsBaseMiniInteger:);
-  methods[19].selector = @selector(addUnspentCoinWithOrgMinimaDatabaseMmrMMRData:);
-  methods[20].selector = @selector(addExternalUnspentCoinWithOrgMinimaDatabaseMmrMMRProof:);
-  methods[21].selector = @selector(updateSpentCoinWithOrgMinimaDatabaseMmrMMRProof:);
-  methods[22].selector = @selector(getProofWithOrgMinimaObjectsBaseMiniInteger:);
-  methods[23].selector = @selector(getPeakToRootWithOrgMinimaObjectsBaseMiniData:);
-  methods[24].selector = @selector(getFullProofToRootWithOrgMinimaObjectsBaseMiniInteger:);
-  methods[25].selector = @selector(checkProofWithOrgMinimaDatabaseMmrMMRProof:);
-  methods[26].selector = @selector(getMMRPeaks);
-  methods[27].selector = @selector(getMMRRoot);
-  methods[28].selector = @selector(addKeeperWithOrgMinimaObjectsBaseMiniInteger:);
-  methods[29].selector = @selector(getKeepers);
-  methods[30].selector = @selector(isKeptAllreadyWithOrgMinimaObjectsBaseMiniInteger:);
-  methods[31].selector = @selector(copyParentKeepers);
-  methods[32].selector = @selector(getRootParent);
-  methods[33].selector = @selector(getParentAtTimeWithOrgMinimaObjectsBaseMiniNumber:);
-  methods[34].selector = @selector(getPenultimateParent);
-  methods[35].selector = @selector(getParentLength);
-  methods[36].selector = @selector(writeDataStreamWithJavaIoDataOutputStream:);
-  methods[37].selector = @selector(readDataStreamWithJavaIoDataInputStream:);
+  methods[3].selector = @selector(toJSON);
+  methods[4].selector = @selector(initWithOrgMinimaDatabaseMmrMMRSet:withInt:);
+  methods[5].selector = @selector(setParentWithOrgMinimaDatabaseMmrMMRSet:);
+  methods[6].selector = @selector(finalizeSet);
+  methods[7].selector = @selector(isFinalized);
+  methods[8].selector = @selector(setBlockTimeWithOrgMinimaObjectsBaseMiniNumber:);
+  methods[9].selector = @selector(getBlockTime);
+  methods[10].selector = @selector(getParent);
+  methods[11].selector = @selector(incrementEntryNumber);
+  methods[12].selector = @selector(getMaxRow);
+  methods[13].selector = @selector(getMaxRowWithBoolean:);
+  methods[14].selector = @selector(getRowWithInt:);
+  methods[15].selector = @selector(getZeroRow);
+  methods[16].selector = @selector(searchAddressWithOrgMinimaObjectsBaseMiniData:withOrgMinimaObjectsBaseMiniNumber:withOrgMinimaObjectsBaseMiniData:);
+  methods[17].selector = @selector(findEntryWithOrgMinimaObjectsBaseMiniData:);
+  methods[18].selector = @selector(setEntryWithInt:withOrgMinimaObjectsBaseMiniInteger:withOrgMinimaDatabaseMmrMMRData:);
+  methods[19].selector = @selector(getEntryWithInt:withOrgMinimaObjectsBaseMiniInteger:);
+  methods[20].selector = @selector(addUnspentCoinWithOrgMinimaDatabaseMmrMMRData:);
+  methods[21].selector = @selector(addExternalUnspentCoinWithOrgMinimaDatabaseMmrMMRProof:);
+  methods[22].selector = @selector(updateSpentCoinWithOrgMinimaDatabaseMmrMMRProof:);
+  methods[23].selector = @selector(getProofWithOrgMinimaObjectsBaseMiniInteger:);
+  methods[24].selector = @selector(getPeakToRootWithOrgMinimaObjectsBaseMiniData:);
+  methods[25].selector = @selector(getFullProofToRootWithOrgMinimaObjectsBaseMiniInteger:);
+  methods[26].selector = @selector(checkProofWithOrgMinimaDatabaseMmrMMRProof:);
+  methods[27].selector = @selector(getMMRPeaks);
+  methods[28].selector = @selector(getMMRRoot);
+  methods[29].selector = @selector(addKeeperWithOrgMinimaObjectsBaseMiniInteger:);
+  methods[30].selector = @selector(getKeepers);
+  methods[31].selector = @selector(isKeptAllreadyWithOrgMinimaObjectsBaseMiniInteger:);
+  methods[32].selector = @selector(copyParentKeepers);
+  methods[33].selector = @selector(getRootParent);
+  methods[34].selector = @selector(getParentAtTimeWithOrgMinimaObjectsBaseMiniNumber:);
+  methods[35].selector = @selector(getPenultimateParent);
+  methods[36].selector = @selector(getParentLength);
+  methods[37].selector = @selector(writeDataStreamWithJavaIoDataOutputStream:);
+  methods[38].selector = @selector(readDataStreamWithJavaIoDataInputStream:);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
     { "mBlockTime_", "LOrgMinimaObjectsBaseMiniNumber;", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
@@ -678,7 +714,7 @@ J2OBJC_IGNORE_DESIGNATED_END
     { "MMR_HASH_BITS_", "I", .constantValue.asLong = 0, 0x0, -1, -1, -1, -1 },
   };
   static const void *ptrTable[] = { "I", "LOrgMinimaDatabaseMmrMMRSet;", "LOrgMinimaDatabaseMmrMMRSet;I", "setParent", "setBlockTime", "LOrgMinimaObjectsBaseMiniNumber;", "getMaxRow", "Z", "getRow", "(I)Ljava/util/ArrayList<Lorg/minima/database/mmr/MMREntry;>;", "()Ljava/util/ArrayList<Lorg/minima/database/mmr/MMREntry;>;", "searchAddress", "LOrgMinimaObjectsBaseMiniData;LOrgMinimaObjectsBaseMiniNumber;LOrgMinimaObjectsBaseMiniData;", "findEntry", "LOrgMinimaObjectsBaseMiniData;", "setEntry", "ILOrgMinimaObjectsBaseMiniInteger;LOrgMinimaDatabaseMmrMMRData;", "getEntry", "ILOrgMinimaObjectsBaseMiniInteger;", "addUnspentCoin", "LOrgMinimaDatabaseMmrMMRData;", "addExternalUnspentCoin", "LOrgMinimaDatabaseMmrMMRProof;", "updateSpentCoin", "getProof", "LOrgMinimaObjectsBaseMiniInteger;", "getPeakToRoot", "getFullProofToRoot", "checkProof", "addKeeper", "()Ljava/util/ArrayList<Lorg/minima/objects/base/MiniInteger;>;", "isKeptAllready", "getParentAtTime", "writeDataStream", "LJavaIoDataOutputStream;", "LJavaIoIOException;", "readDataStream", "LJavaIoDataInputStream;", "Ljava/util/ArrayList<Lorg/minima/database/mmr/MMREntry;>;", "Ljava/util/ArrayList<Lorg/minima/objects/base/MiniInteger;>;" };
-  static const J2ObjcClassInfo _OrgMinimaDatabaseMmrMMRSet = { "MMRSet", "org.minima.database.mmr", ptrTable, methods, fields, 7, 0x1, 38, 12, -1, -1, -1, -1, -1 };
+  static const J2ObjcClassInfo _OrgMinimaDatabaseMmrMMRSet = { "MMRSet", "org.minima.database.mmr", ptrTable, methods, fields, 7, 0x1, 39, 12, -1, -1, -1, -1, -1 };
   return &_OrgMinimaDatabaseMmrMMRSet;
 }
 

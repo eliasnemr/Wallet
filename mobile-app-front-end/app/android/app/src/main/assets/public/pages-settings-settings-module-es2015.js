@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-app>\n<ion-header>\n  <ion-toolbar>\n\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n\n    <ion-title color=\"primary\">\n      Settings\n    </ion-title>\n\n    <ion-buttons slot=\"end\">\n      <ion-button (click)= \"presentQuitAlert()\">\n          <ion-icon name=\"power\" color=\"danger\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n    <form>\n      <ion-item>\n        <ion-icon slot=\"start\" name=\"link\" style=\"padding: 10px;\" color=\"primary\"></ion-icon>\n        <ion-label style=\"font-style: normal;\" position=\"floating\" color=\"primary\">Host</ion-label>\n        <ion-input name=\"host\" [(ngModel)]=\"host\"></ion-input>\n      </ion-item>\n    </form>\n   \n    <ion-item lines=\"none\">\n      <ion-icon slot=\"start\" name=\"moon\" style=\"padding: 10px;\" color=\"primary\"></ion-icon>\n      <ion-label style=\"font-style:normal;\" color=\"tertiary\">Night Mode</ion-label>\n      <ion-toggle #darkToggle color=\"primary\" [(ngModel)]=\"toggleValue\" (ionChange)=\"checkToggle()\"></ion-toggle>\n    </ion-item>\n    \n</ion-content>\n<ion-footer>\n  <ion-toolbar>\n    <ion-buttons>\n      \n    \n    <ion-button class=\"action-btn\" expand=\"block\" (click)=\"savePreferencesBtn()\">\n      <ion-icon name=\"save\"></ion-icon>\n     Save\n    </ion-button>   \n  </ion-buttons>\n  </ion-toolbar>\n</ion-footer>\n</ion-app>\n"
+module.exports = "<ion-app>\n<ion-header>\n  <ion-toolbar>\n\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n\n    <ion-title color=\"primary\">\n      Settings\n    </ion-title>\n\n    <ion-buttons slot=\"end\">\n      <ion-button (click)= \"presentQuitAlert()\">\n          <ion-icon name=\"power\" color=\"danger\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n    <form>\n      <ion-item [hidden]=\"true\">\n        <ion-icon slot=\"start\" name=\"link\" style=\"padding: 10px;\" color=\"primary\"></ion-icon>\n        <ion-label style=\"font-style: normal;\" position=\"floating\" color=\"primary\">Host</ion-label>\n        <ion-input name=\"host\" [(ngModel)]=\"host\"></ion-input>\n      </ion-item>\n    </form>\n   \n    <ion-item lines=\"full\">\n      <ion-icon slot=\"start\" name=\"moon\" style=\"padding: 10px;\" color=\"primary\"></ion-icon>\n      <ion-label style=\"font-style:normal;\" color=\"tertiary\">Night Mode</ion-label>\n      <ion-toggle #darkToggle color=\"primary\" [(ngModel)]=\"toggleValue\" (ionChange)=\"checkToggle()\"></ion-toggle>\n    </ion-item>\n\n    <ion-item lines=\"none\">\n      <ion-icon slot=\"start\" name=\"exit\" style=\"padding: 10px;\" color=\"primary\"></ion-icon>\n      <ion-label style=\"font-style: normal\" color=\"tertiary\" class=\"hide-chckbox\">Hide Welcome Screen Overlay</ion-label>\n      <ion-toggle color=\"primary\" [(ngModel)]=\"overlayHidePref\" (ionChange)=\"checkOverlayToggle()\"></ion-toggle>\n    </ion-item>\n    \n</ion-content>\n</ion-app>\n"
 
 /***/ }),
 
@@ -97,6 +97,7 @@ let SettingsPage = class SettingsPage {
         this.alertController = alertController;
         this.toastController = toastController;
         this.darkMode = darkMode;
+        this.overlayHidePref = false;
         this.toggleValue = false;
         this.host = '';
         if (localStorage.getItem('toggleVal') === 'true') {
@@ -104,6 +105,12 @@ let SettingsPage = class SettingsPage {
         }
         else {
             this.toggleValue = false;
+        }
+        if (localStorage.getItem('overlayVal') === 'true') {
+            this.overlayHidePref = true;
+        }
+        else {
+            this.overlayHidePref = false;
         }
     }
     /** LIFE CYCLES */
@@ -122,6 +129,12 @@ let SettingsPage = class SettingsPage {
         else {
             this.toggleValue = false;
         }
+        if (localStorage.getItem('overlayVal') === 'true') {
+            this.overlayHidePref = true;
+        }
+        else {
+            this.overlayHidePref = false;
+        }
         // save host used.
         if (this.host !== '') {
             this.api.setHost(this.host);
@@ -136,11 +149,25 @@ let SettingsPage = class SettingsPage {
         else {
             this.toggleValue = false;
         }
+        if (localStorage.getItem('overlayVal') === 'true') {
+            this.overlayHidePref = true;
+        }
+        else {
+            this.overlayHidePref = false;
+        }
         // save host used.
         if (this.host !== '') {
             this.api.setHost(this.host);
         }
         this.presentToast();
+    }
+    checkOverlayToggle() {
+        if (this.overlayHidePref === true) {
+            localStorage.setItem('overlayVal', 'true');
+        }
+        else {
+            localStorage.setItem('overlayVal', 'false');
+        }
     }
     checkToggle(e) {
         if (this.toggleValue === false) {

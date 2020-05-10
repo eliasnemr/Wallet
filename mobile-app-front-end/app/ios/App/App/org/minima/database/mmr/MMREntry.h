@@ -30,6 +30,7 @@
 @class OrgMinimaObjectsBaseMiniData;
 @class OrgMinimaObjectsBaseMiniInteger;
 @class OrgMinimaObjectsBaseMiniNumber;
+@class OrgMinimaUtilsJsonJSONObject;
 
 @interface OrgMinimaDatabaseMmrMMREntry : NSObject < JavaLangComparable, OrgMinimaUtilsStreamable > {
  @public
@@ -91,6 +92,8 @@ withOrgMinimaObjectsBaseMiniInteger:(OrgMinimaObjectsBaseMiniInteger *)zEntry;
 - (void)setBlockTimeWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zBlockTime;
 
 - (void)setDataWithOrgMinimaDatabaseMmrMMRData:(OrgMinimaDatabaseMmrMMRData *)zData;
+
+- (OrgMinimaUtilsJsonJSONObject *)toJSON;
 
 - (NSString *)description;
 

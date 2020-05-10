@@ -23,10 +23,9 @@
 @class OrgMinimaObjectsBaseMiniNumber;
 @class OrgMinimaSystemBackupBackupManager;
 @class OrgMinimaSystemBrainsConsensusHandler;
-@class OrgMinimaSystemExternalProcessManager;
 @class OrgMinimaSystemInputInputHandler;
 @class OrgMinimaSystemNetworkNetworkHandler;
-@class OrgMinimaSystemTxTXMiner;
+@class OrgMinimaSystemTxpowTxPoWMiner;
 @class OrgMinimaUtilsMessagesMessage;
 
 @interface OrgMinimaSystemMain : OrgMinimaUtilsMessagesMessageProcessor {
@@ -54,13 +53,11 @@
 
 - (OrgMinimaSystemInputInputHandler *)getInputHandler;
 
-- (OrgMinimaSystemTxTXMiner *)getMiner;
+- (OrgMinimaSystemTxpowTxPoWMiner *)getMiner;
 
 - (OrgMinimaSystemNetworkNetworkHandler *)getNetworkHandler;
 
 - (jlong)getNodeStartTime;
-
-- (OrgMinimaSystemExternalProcessManager *)getProcessManager;
 
 - (void)setAutoConnectWithBoolean:(jboolean)zAuto;
 
@@ -68,10 +65,6 @@
                                    withInt:(jint)zPort;
 
 - (void)setMiFiProxyWithNSString:(NSString *)zProxy;
-
-- (void)setNewRelCoinWithNSString:(NSString *)zPostURL;
-
-- (void)setNewTxnCommandWithNSString:(NSString *)zExec;
 
 - (void)setTraceWithBoolean:(jboolean)zTraceON;
 

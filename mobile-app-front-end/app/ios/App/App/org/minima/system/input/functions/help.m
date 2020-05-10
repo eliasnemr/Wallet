@@ -10,12 +10,15 @@
 #include "org/minima/system/input/functions/backup.h"
 #include "org/minima/system/input/functions/balance.h"
 #include "org/minima/system/input/functions/chainsha.h"
+#include "org/minima/system/input/functions/check.h"
 #include "org/minima/system/input/functions/cleanscript.h"
 #include "org/minima/system/input/functions/coins.h"
+#include "org/minima/system/input/functions/coinsimple.h"
 #include "org/minima/system/input/functions/connect.h"
 #include "org/minima/system/input/functions/createtoken.h"
 #include "org/minima/system/input/functions/disconnect.h"
 #include "org/minima/system/input/functions/extrascript.h"
+#include "org/minima/system/input/functions/flushmempool.h"
 #include "org/minima/system/input/functions/gimme50.h"
 #include "org/minima/system/input/functions/help.h"
 #include "org/minima/system/input/functions/history.h"
@@ -24,12 +27,12 @@
 #include "org/minima/system/input/functions/network.h"
 #include "org/minima/system/input/functions/newaddress.h"
 #include "org/minima/system/input/functions/newscript.h"
-#include "org/minima/system/input/functions/printtree.h"
+#include "org/minima/system/input/functions/printdb.h"
 #include "org/minima/system/input/functions/quit.h"
+#include "org/minima/system/input/functions/random.h"
 #include "org/minima/system/input/functions/reconnect.h"
 #include "org/minima/system/input/functions/runscript.h"
 #include "org/minima/system/input/functions/scripts.h"
-#include "org/minima/system/input/functions/search.h"
 #include "org/minima/system/input/functions/send.h"
 #include "org/minima/system/input/functions/sign.h"
 #include "org/minima/system/input/functions/status.h"
@@ -49,11 +52,15 @@
 #include "org/minima/system/input/functions/txns/txnlist.h"
 #include "org/minima/system/input/functions/txns/txnoutput.h"
 #include "org/minima/system/input/functions/txns/txnpost.h"
+#include "org/minima/system/input/functions/txns/txnreminput.h"
+#include "org/minima/system/input/functions/txns/txnremoutput.h"
 #include "org/minima/system/input/functions/txns/txnscript.h"
 #include "org/minima/system/input/functions/txns/txnsign.h"
+#include "org/minima/system/input/functions/txns/txnsignauto.h"
 #include "org/minima/system/input/functions/txns/txnstate.h"
 #include "org/minima/system/input/functions/txns/txnvalidate.h"
 #include "org/minima/system/input/functions/txpowinfo.h"
+#include "org/minima/system/input/functions/txpowsearch.h"
 #include "org/minima/system/input/functions/weblink.h"
 #include "org/minima/utils/ResponseStream.h"
 #include "org/minima/utils/json/JSONObject.h"
@@ -91,7 +98,9 @@ J2OBJC_IGNORE_DESIGNATED_END
     [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsstatus_init()];
     [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionshistory_init()];
     [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsbackup_init()];
-    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsprinttree_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsflushmempool_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionscheck_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsprintdb_init()];
     [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsautomine_init()];
     [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionstrace_init()];
     [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsnetwork_init()];
@@ -107,10 +116,11 @@ J2OBJC_IGNORE_DESIGNATED_END
     [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsTransferexportkey_init()];
     [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsTransferimportkey_init()];
     [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionscoins_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionscoinsimple_init()];
     [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsTransferexportcoin_init()];
     [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsTransferimportcoin_init()];
     [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionskeepcoin_init()];
-    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionssearch_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionstxpowsearch_init()];
     [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionstxpowinfo_init()];
     [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsscripts_init()];
     [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsnewscript_init()];
@@ -121,17 +131,21 @@ J2OBJC_IGNORE_DESIGNATED_END
     [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionstokens_init()];
     [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionssign_init()];
     [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionschainsha_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsrandom_init()];
     [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsTxnstxnlist_init()];
     [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsTxnstxncreate_init()];
     [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsTxnstxndelete_init()];
     [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsTxnstxnexport_init()];
     [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsTxnstxnimport_init()];
-    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsTxnstxnauto_init()];
     [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsTxnstxninput_init()];
     [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsTxnstxnoutput_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsTxnstxnreminput_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsTxnstxnremoutput_init()];
     [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsTxnstxnstate_init()];
     [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsTxnstxnscript_init()];
     [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsTxnstxnsign_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsTxnstxnauto_init()];
+    [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsTxnstxnsignauto_init()];
     [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsTxnstxnvalidate_init()];
     [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsTxnstxnpost_init()];
     [self addJSONDescWithOrgMinimaSystemInputCommandFunction:new_OrgMinimaSystemInputFunctionsquit_init()];

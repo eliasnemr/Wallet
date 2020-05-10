@@ -24,13 +24,11 @@
 #define INCLUDE_JavaLangRunnable 1
 #include "java/lang/Runnable.h"
 
-@class JavaUtilLinkedList;
 @class OrgMinimaUtilsMessagesMessage;
 @class OrgMinimaUtilsMessagesTimerMessage;
 
 @interface OrgMinimaUtilsMessagesMessageProcessor : OrgMinimaUtilsMessagesMessageStack < JavaLangRunnable > {
  @public
-  JavaUtilLinkedList *mTimerMessages_;
   jboolean mLogON_;
   NSString *mName_;
 }
@@ -57,7 +55,6 @@
 
 J2OBJC_EMPTY_STATIC_INIT(OrgMinimaUtilsMessagesMessageProcessor)
 
-J2OBJC_FIELD_SETTER(OrgMinimaUtilsMessagesMessageProcessor, mTimerMessages_, JavaUtilLinkedList *)
 J2OBJC_FIELD_SETTER(OrgMinimaUtilsMessagesMessageProcessor, mName_, NSString *)
 
 FOUNDATION_EXPORT void OrgMinimaUtilsMessagesMessageProcessor_initWithNSString_(OrgMinimaUtilsMessagesMessageProcessor *self, NSString *zName);

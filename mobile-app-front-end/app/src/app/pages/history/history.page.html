@@ -12,23 +12,25 @@
     <ion-card>
       <ion-card-header>
         Recent Activity
+
+        <!-- Category Segment -->
+      <ion-segment
+        *ngIf = "transactions.length > 1"
+        (ionChange)="segmentChanged($event, slides)" 
+        [(ngModel)] = "categories"
+        class="category-seg">
+        <ion-segment-button value="0" class="seg">
+          <ion-label>Transactions</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="1" class="seg">
+          <ion-label>Tokens Created</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="2" class="seg">
+        <ion-label>All</ion-label>
+        </ion-segment-button>
+      </ion-segment>
       </ion-card-header>
-<!-- Category Segment -->
-  <ion-segment
-    *ngIf = "transactions.length > 1"
-    (ionChange)="segmentChanged($event, slides)" 
-    [(ngModel)] = "categories"
-    class="category-seg">
-  <ion-segment-button value="0" class="seg">
-    <ion-label>Transactions</ion-label>
-  </ion-segment-button>
-  <ion-segment-button value="1" class="seg">
-    <ion-label>Tokens Created</ion-label>
-  </ion-segment-button>
-  <ion-segment-button value="2" class="seg">
-  <ion-label>All</ion-label>
-  </ion-segment-button>
-  </ion-segment>
+
 
 
   <ion-slides

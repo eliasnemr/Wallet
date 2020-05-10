@@ -14,8 +14,10 @@
 #include "org/minima/kissvm/values/Value.h"
 #include "org/minima/objects/Coin.h"
 #include "org/minima/objects/Transaction.h"
+#include "org/minima/objects/Witness.h"
 #include "org/minima/objects/base/MiniData.h"
 #include "org/minima/objects/base/MiniNumber.h"
+#include "org/minima/objects/proofs/TokenProof.h"
 
 @implementation OrgMinimaKissvmFunctionsTxnOutputVERIFYOUT
 
@@ -43,15 +45,20 @@ J2OBJC_IGNORE_DESIGNATED_END
   OrgMinimaObjectsCoin *cc = [outs getWithInt:output];
   jboolean addr = [address isEqualWithOrgMinimaObjectsBaseMiniData:[((OrgMinimaObjectsCoin *) nil_chk(cc)) getAddress]];
   jboolean tok = [tokenid isEqualWithOrgMinimaObjectsBaseMiniData:[cc getTokenID]];
+  OrgMinimaObjectsBaseMiniNumber *outamt = [cc getAmount];
+  if (![((OrgMinimaObjectsBaseMiniData *) nil_chk([cc getTokenID])) isEqualWithOrgMinimaObjectsBaseMiniData:JreLoadStatic(OrgMinimaObjectsCoin, MINIMA_TOKENID)]) {
+    OrgMinimaObjectsProofsTokenProof *td = [((OrgMinimaObjectsWitness *) nil_chk([zContract getWitness])) getTokenDetailWithOrgMinimaObjectsBaseMiniData:[cc getTokenID]];
+    outamt = [((OrgMinimaObjectsBaseMiniNumber *) nil_chk([cc getAmount])) multWithOrgMinimaObjectsBaseMiniNumber:[((OrgMinimaObjectsProofsTokenProof *) nil_chk(td)) getScaleFactor]];
+  }
   jboolean amt = false;
   if (amountchecktype == 0) {
-    amt = [((OrgMinimaObjectsBaseMiniNumber *) nil_chk(amount)) isEqualWithOrgMinimaObjectsBaseMiniNumber:[cc getAmount]];
+    amt = [((OrgMinimaObjectsBaseMiniNumber *) nil_chk(outamt)) isEqualWithOrgMinimaObjectsBaseMiniNumber:amount];
   }
   else if (amountchecktype == -1) {
-    amt = [((OrgMinimaObjectsBaseMiniNumber *) nil_chk([cc getAmount])) isLessEqualWithOrgMinimaObjectsBaseMiniNumber:amount];
+    amt = [((OrgMinimaObjectsBaseMiniNumber *) nil_chk(outamt)) isLessEqualWithOrgMinimaObjectsBaseMiniNumber:amount];
   }
   else {
-    amt = [((OrgMinimaObjectsBaseMiniNumber *) nil_chk([cc getAmount])) isMoreEqualWithOrgMinimaObjectsBaseMiniNumber:amount];
+    amt = [((OrgMinimaObjectsBaseMiniNumber *) nil_chk(outamt)) isMoreEqualWithOrgMinimaObjectsBaseMiniNumber:amount];
   }
   jboolean ver = addr && amt && tok;
   return new_OrgMinimaKissvmValuesBooleanValue_initWithBoolean_(ver);

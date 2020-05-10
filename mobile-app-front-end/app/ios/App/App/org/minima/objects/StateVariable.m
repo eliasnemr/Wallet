@@ -66,12 +66,27 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 - (void)writeDataStreamWithJavaIoDataOutputStream:(JavaIoDataOutputStream *)zOut {
   [((OrgMinimaObjectsBaseMiniByte *) nil_chk(mPort_)) writeDataStreamWithJavaIoDataOutputStream:zOut];
-  [((OrgMinimaObjectsBaseMiniScript *) nil_chk(mData_)) writeDataStreamWithJavaIoDataOutputStream:zOut];
+  if ([((NSString *) nil_chk([((OrgMinimaObjectsBaseMiniScript *) nil_chk(mData_)) description])) java_hasPrefix:@"0x"]) {
+    OrgMinimaObjectsBaseMiniData *data = new_OrgMinimaObjectsBaseMiniData_initWithNSString_([((OrgMinimaObjectsBaseMiniScript *) nil_chk(mData_)) description]);
+    [((OrgMinimaObjectsBaseMiniByte *) nil_chk(JreLoadStatic(OrgMinimaObjectsBaseMiniByte, TRUE))) writeDataStreamWithJavaIoDataOutputStream:zOut];
+    [data writeDataStreamWithJavaIoDataOutputStream:zOut];
+  }
+  else {
+    [((OrgMinimaObjectsBaseMiniByte *) nil_chk(JreLoadStatic(OrgMinimaObjectsBaseMiniByte, FALSE))) writeDataStreamWithJavaIoDataOutputStream:zOut];
+    [((OrgMinimaObjectsBaseMiniScript *) nil_chk(mData_)) writeDataStreamWithJavaIoDataOutputStream:zOut];
+  }
 }
 
 - (void)readDataStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn {
   mPort_ = OrgMinimaObjectsBaseMiniByte_ReadFromStreamWithJavaIoDataInputStream_(zIn);
-  mData_ = OrgMinimaObjectsBaseMiniScript_ReadFromStreamWithJavaIoDataInputStream_(zIn);
+  OrgMinimaObjectsBaseMiniByte *isdata = OrgMinimaObjectsBaseMiniByte_ReadFromStreamWithJavaIoDataInputStream_(zIn);
+  if ([((OrgMinimaObjectsBaseMiniByte *) nil_chk(isdata)) isTrue]) {
+    OrgMinimaObjectsBaseMiniData *data = OrgMinimaObjectsBaseMiniData_ReadFromStreamWithJavaIoDataInputStream_(zIn);
+    mData_ = new_OrgMinimaObjectsBaseMiniScript_initWithNSString_([((OrgMinimaObjectsBaseMiniData *) nil_chk(data)) to0xString]);
+  }
+  else {
+    mData_ = OrgMinimaObjectsBaseMiniScript_ReadFromStreamWithJavaIoDataInputStream_(zIn);
+  }
 }
 
 + (OrgMinimaObjectsStateVariable *)ReadFromStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn {

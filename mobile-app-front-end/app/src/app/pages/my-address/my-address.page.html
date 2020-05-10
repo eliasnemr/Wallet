@@ -1,5 +1,5 @@
 <ion-app>
-<ion-header >
+<ion-header>
   <ion-toolbar >
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
@@ -8,35 +8,65 @@
       Receive
     </ion-title>
   </ion-toolbar>
-</ion-header >
+</ion-header>
 
 <ion-content fullscreen>
-  <ion-card class="welcome-card" color="white" *ngIf="this.qrCode.length > 0">
-    <ion-card-header translucent="true" color="white">
-        <ion-toolbar>
-                <qrcode
-                      [qrdata]="qrCode"
-                      [size]="canvasSize"
-                      [level]="'Q'"
-                      colorlight="#e9ecef"
-                      colorDark="#000000"
-                      *ngIf="qrCode!==''">
-                </qrcode> 
-        </ion-toolbar>
-
-        <ion-card-subtitle style="text-align: center;">
-          <a style="text-decoration: none; color:##3F88BF;">{{ qrCode }}</a>
-          <hr>
-          This address can be used for any Minima or Token transaction.
-        </ion-card-subtitle>
-    </ion-card-header>
-      <ion-card-content fullscreen> 
-                
-                  
+  <ion-card color="white" *ngIf="this.qrCode.length > 0 && !checkPlatform()">
+    <ion-card-content>
+      <div class="qrCanvas">
+        <qrcode
+              [qrdata]="qrCode"
+              [size]="canvasSize"
+              [level]="'Q'"
+              colorlight="#f2f2f2"
+              colorDark="#f2f2f2"
+              *ngIf="qrCode!==''">
+        </qrcode> 
+      </div>
+        
+    <ion-card-subtitle style="text-align: center; font-family:'Aeonik-light'">
+        
+        <a style="text-decoration: none; color:##3F88BF; font-weight: bold; font-size:18px;">{{ qrCode }}</a>
+      <hr>
+      This address can be used for any Minima or Token transaction.
+    </ion-card-subtitle>
     </ion-card-content>
   </ion-card>
 
-  <ion-card class="welcome-card" color="white" *ngIf="this.qrCode===''">
+  <ion-card class="welcome-card" color="white" *ngIf="this.qrCode.length > 0 && checkPlatform()">
+    <ion-card-content>
+    <ion-grid>
+    <ion-row>
+      <ion-col size="3">
+        <div class="qrCanvas">
+          <qrcode
+
+                [qrdata]="qrCode"
+                [size]="canvasSize"
+                [level]="'Q'"
+                colorlight="#f2f2f2"
+                colorDark="#f2f2f2"
+                *ngIf="qrCode!==''">
+          </qrcode> 
+        </div>
+      </ion-col>
+      <ion-col size="8" style="margin-top: 35px;">
+        <h3>
+          Current Minima Address
+        </h3>
+        <a style="text-decoration: none; color:##3F88BF; font-weight: bold; font-size:18px;">{{ qrCode }}</a>
+      </ion-col>
+    </ion-row>
+    </ion-grid>
+        
+    <ion-card-subtitle style="text-align: center; font-family:'Aeonik-light'">
+      This address can be used for any Minima or Token transaction.
+    </ion-card-subtitle>
+        
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card class="welcome-card" color="white" *ngIf="this.qrCode==='' && !checkPlatform()">
     <ion-card-header translucent="true" color="white">
         <ion-toolbar>
           <ion-skeleton-text animated class="skeleton-address"></ion-skeleton-text>
@@ -53,14 +83,41 @@
                   
     </ion-card-content>
   </ion-card>
+
+
+  <ion-card class="welcome-card" color="white" *ngIf="this.qrCode==='' && checkPlatform()">
+    <ion-card-content>
+    <ion-grid>
+    <ion-row>
+      <ion-col size="3">
+        <div class="qrCanvas">
+          <ion-skeleton-text animated class="skeleton-address"></ion-skeleton-text>
+        </div>
+      </ion-col>
+      <ion-col size="8" style="margin-top: 35px;">
+        <h3>
+          Current Minima Address
+        </h3>
+        <ion-skeleton-text animated class="skeleton-address"></ion-skeleton-text>
+      </ion-col>
+    </ion-row>
+    </ion-grid>
+        
+    <ion-card-subtitle style="text-align: center; font-family:'Aeonik-light'">
+      This address can be used for any Minima or Token transaction.
+    </ion-card-subtitle>
+        
+    </ion-card-content>
+  </ion-card>
 </ion-content>
+
+
 
 <ion-footer>
   <ion-toolbar>
     <ion-buttons>
       <ion-button     
           class="action-btn"
-          shape="round"
           expand="full"
           (click)="copyToClipboard()"
           [disabled]="!isEmpty">

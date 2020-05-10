@@ -54,7 +54,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 void OrgMinimaSystemInputFunctionsextrascript_init(OrgMinimaSystemInputFunctionsextrascript *self) {
   OrgMinimaSystemInputCommandFunction_initWithNSString_(self, @"extrascript");
-  [self setHelpWithNSString:@"[script]" withNSString:@"Add a new script, but do not keep all coins of that address." withNSString:@""];
+  [self setHelpWithNSString:@"[script]" withNSString:@"Add a new script to your database but do not consider all addresses relevant." withNSString:@""];
 }
 
 OrgMinimaSystemInputFunctionsextrascript *new_OrgMinimaSystemInputFunctionsextrascript_init() {

@@ -212,7 +212,12 @@
     @throw new_OrgMinimaKissvmExceptionsExecutionException_initWithNSString_(@"Can only call DYNSTATE once per state per transaction!");
   }
   (void) IOSObjectArray_Set(mDYNState_, zStateNum, zValue);
-  return true;
+  OrgMinimaObjectsStateVariable *sv = [((OrgMinimaObjectsTransaction *) nil_chk(mTransaction_)) getStateValueWithInt:zStateNum];
+  if (sv != nil) {
+    NSString *oldsv = [((OrgMinimaObjectsBaseMiniScript *) nil_chk([sv getData])) description];
+    return [((NSString *) nil_chk(oldsv)) isEqual:zValue];
+  }
+  return false;
 }
 
 - (NSString *)getStateWithInt:(jint)zStateNum {
@@ -470,7 +475,9 @@ void OrgMinimaKissvmContract_initWithNSString_withNSString_withOrgMinimaObjectsW
     self->mParseOK_ = true;
   }
   @catch (OrgMinimaKissvmExceptionsMinimaParseException *e) {
-    [self traceLogWithNSString:JreStrcat("$$", @"PARSE ERROR : ", [e getMessage])];
+    self->mException_ = true;
+    self->mExceptionString_ = [e getMessage];
+    [self traceLogWithNSString:JreStrcat("$$", @"PARSE ERROR : ", self->mExceptionString_)];
   }
 }
 

@@ -48,7 +48,6 @@ export class StatusService {
     
     return this.polledStatus$ = timer(0, 3000).pipe(
       
-      merge(this.manualRefresh),
       concatMap(_ => status$),
       map((res: {status: boolean, minifunc: string, response: Status}) => res)
 

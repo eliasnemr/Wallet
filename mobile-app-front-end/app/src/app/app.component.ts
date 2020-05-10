@@ -30,47 +30,32 @@ export class AppComponent {
     private api: MinimaApiService,
     private darkMode: darkMode,
     private storage: Storage) {
-    
+  
     this.getPages();  /** this returns pages if on mobile or desktop, (different layouts) */ 
-    //this.getPlatform(); /** Turn getPlatform() off if you want to use desktop version with desktop node */ 
+    this.getPlatform(); /** Turn getPlatform() off if you want to use desktop version with desktop node */ 
     this.initializeApp();
 
     // Use matchMedia to check the user preference
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
-    //darkMode.toggleDarkTheme(prefersDark.matches);
 
-    //check cookies for theme
-    if(localStorage.getItem('toggleVal') === 'true'){
-      document.body.classList.toggle('dark', true);
-    
-    } else {
-      document.body.classList.toggle('dark', false);
-    }
+    // set localStorages
+    this.setLocalStorage();
 
-    //check cookies for overlay welcome screen
-    if(localStorage.getItem('overlayVal') === 'true'){
-      this.overlayHidden = true;
-    } else {
-      this.overlayHidden = false;
-    }
 
   }
 
   /** @@@@@@@@@@@@@ Lifecycle @@@@@@@@@@@@@@@ */
   ionViewWillEnter(){
    this.initializeApp();
-   
+   localStorage.setItem('overlayVal', 'true');
   }
 
   initializeApp() {
     console.log('Minima initialized');
     this.platform.ready().then(() => {
-
-      // SplashScreen.show({
-      //   showDuration: 2000,
-      //   autoHide: true,
-      // });
-      
+      // set host.. taken from Minima.js
+      Minima.init();
+      this.api.setHost('http://'+ Minima.host + '/');
     });
   }
 
@@ -119,8 +104,33 @@ export class AppComponent {
     setTimeout(() => {
       this.overlayHidden = true;
     }, 400);
+  }
+
+  // localStorage
+  setLocalStorage() {
+    //check cookies for theme
+    if(localStorage.getItem('toggleVal') === 'true'){
+      document.body.classList.toggle('dark', true);
     
-}
+    } else {
+      document.body.classList.toggle('dark', false);
+    }
+
+    //check cookies for overlay welcome screen
+    if(localStorage.getItem('overlayVal') === 'true'){
+      this.overlayHidden = true;
+    } else {
+      this.overlayHidden = false;
+    }
+
+    // localStoraghe - overlayVal
+    localStorage.setItem('overlayVal', 'true');
+
+    // localStorage - termFontSize
+    if(!localStorage.getItem('termFontSize')){
+      localStorage.setItem('termFontSize', ""+14);
+    }
+  }
 
   // get a key/value object
   async getObject(key: string): Promise<any> {

@@ -10,8 +10,6 @@ import org.minima.objects.base.MiniNumber;
 
 public class JavaCoinDB implements CoinDB{
 
-	public static long COINDB_LIMIT = 1000;
-	
 	ArrayList<CoinDBRow> mRows;
 	
 	public JavaCoinDB() {
@@ -23,13 +21,24 @@ public class JavaCoinDB implements CoinDB{
 		mRows = new ArrayList<>();
 	}
 	
-
-
 	@Override
 	public ArrayList<CoinDBRow> getComplete() {
 		return mRows;
 	}
 
+	@Override
+	public ArrayList<CoinDBRow> getCompleteRelevant() {
+		ArrayList<CoinDBRow> retlist = new ArrayList<>();
+		
+		for(CoinDBRow row : mRows) {
+			if(row.isRelevant() || row.isKeeper()) {
+				retlist.add(row);
+			}
+		}
+		
+		return retlist;
+	}
+	
 	@Override
 	public CoinDBRow getCoinRow(MiniData zCoinID) {
 		for(CoinDBRow row : mRows) {
@@ -58,13 +67,31 @@ public class JavaCoinDB implements CoinDB{
 	public void removeOldSpentCoins(MiniNumber zMinBlock) {
 		ArrayList<CoinDBRow> newrows = new ArrayList<>();
 		for(CoinDBRow row : mRows) {
-			if(!row.isSpent()) {
+			if(!row.isSpent() && ( row.isRelevant() || row.isKeeper() )) {
 				newrows.add(row);
 			}else if(row.getInBlockNumber().isMoreEqual(zMinBlock)) {
 				newrows.add(row);
+			}else {
+//				MinimaLogger.log("COIN REMOVED : "+row.getCoin());
 			}
 		}
 		mRows = newrows;
 	}
 
+	@Override
+	public boolean removeCoin(MiniData zCoinID) {
+		boolean found=false;
+		ArrayList<CoinDBRow> newrows = new ArrayList<>();
+		for(CoinDBRow row : mRows) {
+			if(!row.getCoin().getCoinID().isEqual(zCoinID)) {
+				newrows.add(row);
+			}else {
+				found=true;
+			}
+		}
+		mRows = newrows;
+		
+		return found;
+	}
+	
 }

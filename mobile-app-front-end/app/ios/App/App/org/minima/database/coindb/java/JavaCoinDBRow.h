@@ -23,6 +23,7 @@
 @class OrgMinimaObjectsBaseMiniInteger;
 @class OrgMinimaObjectsBaseMiniNumber;
 @class OrgMinimaObjectsCoin;
+@class OrgMinimaUtilsJsonJSONObject;
 
 @interface OrgMinimaDatabaseCoindbJavaJavaCoinDBRow : NSObject < OrgMinimaDatabaseCoindbCoinDBRow > {
  @public
@@ -31,6 +32,8 @@
   jboolean mIsInBlock_;
   OrgMinimaObjectsBaseMiniNumber *mInBlockNumber_;
   OrgMinimaObjectsBaseMiniInteger *mEntryNumber_;
+  jboolean mRelevant_;
+  jboolean mKeeper_;
 }
 
 #pragma mark Public
@@ -45,6 +48,10 @@
 
 - (jboolean)isInBlock;
 
+- (jboolean)isKeeper;
+
+- (jboolean)isRelevant;
+
 - (jboolean)isSpent;
 
 - (void)setInBlockNumberWithOrgMinimaObjectsBaseMiniNumber:(OrgMinimaObjectsBaseMiniNumber *)zInBlockNumber;
@@ -53,7 +60,13 @@
 
 - (void)setIsSpentWithBoolean:(jboolean)zSpent;
 
+- (void)setKeeperWithBoolean:(jboolean)zKeeper;
+
 - (void)setMMREntryWithOrgMinimaObjectsBaseMiniInteger:(OrgMinimaObjectsBaseMiniInteger *)zEntry;
+
+- (void)setRelevantWithBoolean:(jboolean)zRelevant;
+
+- (OrgMinimaUtilsJsonJSONObject *)toJSON;
 
 - (NSString *)description;
 

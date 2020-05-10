@@ -19,6 +19,7 @@
 @class OrgMinimaObjectsBaseMiniInteger;
 @class OrgMinimaObjectsBaseMiniNumber;
 @class OrgMinimaObjectsCoin;
+@class OrgMinimaUtilsJsonJSONObject;
 
 @protocol OrgMinimaDatabaseCoindbCoinDBRow < JavaObject >
 
@@ -39,6 +40,16 @@
 - (void)setMMREntryWithOrgMinimaObjectsBaseMiniInteger:(OrgMinimaObjectsBaseMiniInteger *)zEntry;
 
 - (OrgMinimaObjectsBaseMiniInteger *)getMMREntry;
+
+- (void)setRelevantWithBoolean:(jboolean)zRelevant;
+
+- (jboolean)isRelevant;
+
+- (void)setKeeperWithBoolean:(jboolean)zRelevant;
+
+- (jboolean)isKeeper;
+
+- (OrgMinimaUtilsJsonJSONObject *)toJSON;
 
 @end
 

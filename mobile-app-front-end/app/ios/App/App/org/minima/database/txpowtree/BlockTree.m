@@ -93,8 +93,12 @@ J2OBJC_IGNORE_DESIGNATED_END
     [((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk(zNode)) setParentWithOrgMinimaDatabaseTxpowtreeBlockTreeNode:nil];
     return;
   }
+  OrgMinimaDatabaseTxpowtreeBlockTreeNode *exists = [self findNodeWithOrgMinimaObjectsBaseMiniData:[((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk(zNode)) getTxPowID]];
+  if (exists != nil) {
+    OrgMinimaUtilsMinimaLogger_logWithNSString_(JreStrcat("$$", @"HARD ADDING NODE ALREADY THERE! ", [zNode description]));
+  }
   [((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk(mTip_)) addChildWithOrgMinimaDatabaseTxpowtreeBlockTreeNode:zNode];
-  if ([((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk(zNode)) getMMRSet] != nil) {
+  if ([zNode getMMRSet] != nil) {
     if (zLinkAll) {
       if ([((OrgMinimaObjectsBaseMiniData *) nil_chk([((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk(mTip_)) getTxPowID])) isEqualWithOrgMinimaObjectsBaseMiniData:[((OrgMinimaObjectsTxPOW *) nil_chk([zNode getTxPow])) getParentID]]) {
         [((OrgMinimaDatabaseMmrMMRSet *) nil_chk([zNode getMMRSet])) setParentWithOrgMinimaDatabaseMmrMMRSet:[((OrgMinimaDatabaseTxpowtreeBlockTreeNode *) nil_chk(mTip_)) getMMRSet]];

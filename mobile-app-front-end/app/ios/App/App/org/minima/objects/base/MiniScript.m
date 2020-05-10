@@ -58,10 +58,6 @@ J2OBJC_IGNORE_DESIGNATED_END
   return [NSString java_stringWithBytes:[self getData] charset:JavaNioCharsetCharset_forNameWithNSString_(@"US-ASCII")];
 }
 
-- (NSString *)to0xString {
-  return nil;
-}
-
 + (OrgMinimaObjectsBaseMiniScript *)ReadFromStreamWithJavaIoDataInputStream:(JavaIoDataInputStream *)zIn {
   return OrgMinimaObjectsBaseMiniScript_ReadFromStreamWithJavaIoDataInputStream_(zIn);
 }
@@ -73,7 +69,6 @@ J2OBJC_IGNORE_DESIGNATED_END
     { NULL, NULL, 0x1, -1, 1, -1, -1, -1, -1 },
     { NULL, "[B", 0xa, 2, 1, -1, -1, -1, -1 },
     { NULL, "LNSString;", 0x1, 3, -1, -1, -1, -1, -1 },
-    { NULL, "LNSString;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaObjectsBaseMiniScript;", 0x9, 4, 5, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
@@ -84,11 +79,10 @@ J2OBJC_IGNORE_DESIGNATED_END
   methods[2].selector = @selector(initWithNSString:withBoolean:);
   methods[3].selector = @selector(initMiniScriptWithNSString:withBoolean:);
   methods[4].selector = @selector(description);
-  methods[5].selector = @selector(to0xString);
-  methods[6].selector = @selector(ReadFromStreamWithJavaIoDataInputStream:);
+  methods[5].selector = @selector(ReadFromStreamWithJavaIoDataInputStream:);
   #pragma clang diagnostic pop
   static const void *ptrTable[] = { "LNSString;", "LNSString;Z", "initMiniScript", "toString", "ReadFromStream", "LJavaIoDataInputStream;" };
-  static const J2ObjcClassInfo _OrgMinimaObjectsBaseMiniScript = { "MiniScript", "org.minima.objects.base", ptrTable, methods, NULL, 7, 0x1, 7, 0, -1, -1, -1, -1, -1 };
+  static const J2ObjcClassInfo _OrgMinimaObjectsBaseMiniScript = { "MiniScript", "org.minima.objects.base", ptrTable, methods, NULL, 7, 0x1, 6, 0, -1, -1, -1, -1, -1 };
   return &_OrgMinimaObjectsBaseMiniScript;
 }
 

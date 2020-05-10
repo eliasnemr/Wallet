@@ -24,9 +24,9 @@
 
 - (instancetype)init;
 
-+ (void)mainWithNSStringArray:(IOSObjectArray *)zArgs;
++ (NSString *)JSONPrettyWithNSString:(NSString *)zJSON;
 
-+ (NSString *)PrettyJSONWithNSString:(NSString *)zJSON;
++ (void)mainWithNSStringArray:(IOSObjectArray *)zArgs;
 
 @end
 
@@ -38,7 +38,7 @@ FOUNDATION_EXPORT OrgMinimaUtilsMiniFormat *new_OrgMinimaUtilsMiniFormat_init(vo
 
 FOUNDATION_EXPORT OrgMinimaUtilsMiniFormat *create_OrgMinimaUtilsMiniFormat_init(void);
 
-FOUNDATION_EXPORT NSString *OrgMinimaUtilsMiniFormat_PrettyJSONWithNSString_(NSString *zJSON);
+FOUNDATION_EXPORT NSString *OrgMinimaUtilsMiniFormat_JSONPrettyWithNSString_(NSString *zJSON);
 
 FOUNDATION_EXPORT void OrgMinimaUtilsMiniFormat_mainWithNSStringArray_(IOSObjectArray *zArgs);
 

@@ -63,8 +63,18 @@ J2OBJC_IGNORE_DESIGNATED_END
   [((JavaUtilArrayList *) nil_chk(mInputs_)) addWithId:zCoin];
 }
 
+- (void)addInputWithOrgMinimaObjectsCoin:(OrgMinimaObjectsCoin *)zCoin
+                                 withInt:(jint)zPosition {
+  [((JavaUtilArrayList *) nil_chk(mInputs_)) addWithInt:zPosition withId:zCoin];
+}
+
 - (void)addOutputWithOrgMinimaObjectsCoin:(OrgMinimaObjectsCoin *)zCoin {
   [((JavaUtilArrayList *) nil_chk(mOutputs_)) addWithId:zCoin];
+}
+
+- (void)addOutputWithOrgMinimaObjectsCoin:(OrgMinimaObjectsCoin *)zCoin
+                                  withInt:(jint)zPosition {
+  [((JavaUtilArrayList *) nil_chk(mOutputs_)) addWithInt:zPosition withId:zCoin];
 }
 
 - (jboolean)isEmpty {
@@ -240,8 +250,8 @@ J2OBJC_IGNORE_DESIGNATED_END
   for (OrgMinimaObjectsCoin * __strong coin in nil_chk(mOutputs_)) {
     [((OrgMinimaObjectsCoin *) nil_chk(coin)) writeDataStreamWithJavaIoDataOutputStream:zOut];
   }
-  jint len = [((JavaUtilArrayList *) nil_chk(mState_)) size];
-  [((JavaIoDataOutputStream *) nil_chk(zOut)) writeIntWithInt:len];
+  OrgMinimaObjectsBaseMiniByte *bytelen = new_OrgMinimaObjectsBaseMiniByte_initWithInt_([((JavaUtilArrayList *) nil_chk(mState_)) size]);
+  [bytelen writeDataStreamWithJavaIoDataOutputStream:zOut];
   for (OrgMinimaObjectsStateVariable * __strong sv in nil_chk(mState_)) {
     [((OrgMinimaObjectsStateVariable *) nil_chk(sv)) writeDataStreamWithJavaIoDataOutputStream:zOut];
   }
@@ -271,7 +281,8 @@ J2OBJC_IGNORE_DESIGNATED_END
     OrgMinimaObjectsCoin *coin = OrgMinimaObjectsCoin_ReadFromStreamWithJavaIoDataInputStream_(zIn);
     [((JavaUtilArrayList *) nil_chk(mOutputs_)) addWithId:coin];
   }
-  len = [((JavaIoDataInputStream *) nil_chk(zIn)) readInt];
+  OrgMinimaObjectsBaseMiniByte *states = OrgMinimaObjectsBaseMiniByte_ReadFromStreamWithJavaIoDataInputStream_(zIn);
+  len = [((OrgMinimaObjectsBaseMiniByte *) nil_chk(states)) getValue];
   for (jint i = 0; i < len; i++) {
     OrgMinimaObjectsStateVariable *sv = OrgMinimaObjectsStateVariable_ReadFromStreamWithJavaIoDataInputStream_(zIn);
     [((JavaUtilArrayList *) nil_chk(mState_)) addWithId:sv];
@@ -311,28 +322,30 @@ J2OBJC_IGNORE_DESIGNATED_END
   static J2ObjcMethodInfo methods[] = {
     { NULL, NULL, 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 0, 1, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 2, 1, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 0, 2, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 3, 1, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 3, 2, -1, -1, -1, -1 },
     { NULL, "Z", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LJavaUtilArrayList;", 0x1, -1, -1, -1, 3, -1, -1 },
-    { NULL, "LJavaUtilArrayList;", 0x1, -1, -1, -1, 3, -1, -1 },
+    { NULL, "LJavaUtilArrayList;", 0x1, -1, -1, -1, 4, -1, -1 },
+    { NULL, "LJavaUtilArrayList;", 0x1, -1, -1, -1, 4, -1, -1 },
     { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, 4, 5, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, 5, 6, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, 6, 5, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsCoin;", 0x1, 7, 5, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsBaseMiniNumber;", 0x1, 7, 6, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsCoin;", 0x1, 8, 6, -1, -1, -1, -1 },
     { NULL, "Z", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 8, 9, -1, -1, -1, -1 },
-    { NULL, "LOrgMinimaObjectsStateVariable;", 0x1, 10, 11, -1, -1, -1, -1 },
-    { NULL, "Z", 0x1, 12, 11, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 9, 10, -1, -1, -1, -1 },
+    { NULL, "LOrgMinimaObjectsStateVariable;", 0x1, 11, 12, -1, -1, -1, -1 },
+    { NULL, "Z", 0x1, 13, 12, -1, -1, -1, -1 },
     { NULL, "V", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LJavaUtilArrayList;", 0x1, -1, -1, -1, 13, -1, -1 },
+    { NULL, "LJavaUtilArrayList;", 0x1, -1, -1, -1, 14, -1, -1 },
     { NULL, "LOrgMinimaObjectsBaseMiniData;", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 14, 15, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 15, 16, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaObjectsProofsTokenProof;", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LNSString;", 0x1, 16, -1, -1, -1, -1, -1 },
+    { NULL, "LNSString;", 0x1, 17, -1, -1, -1, -1, -1 },
     { NULL, "LOrgMinimaUtilsJsonJSONObject;", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 17, 18, 19, -1, -1, -1 },
-    { NULL, "V", 0x1, 20, 21, 19, -1, -1, -1 },
+    { NULL, "V", 0x1, 18, 19, 20, -1, -1, -1 },
+    { NULL, "V", 0x1, 21, 22, 20, -1, -1, -1 },
     { NULL, "LOrgMinimaObjectsTransaction;", 0x1, -1, -1, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
@@ -340,39 +353,41 @@ J2OBJC_IGNORE_DESIGNATED_END
   #pragma clang diagnostic ignored "-Wundeclared-selector"
   methods[0].selector = @selector(init);
   methods[1].selector = @selector(addInputWithOrgMinimaObjectsCoin:);
-  methods[2].selector = @selector(addOutputWithOrgMinimaObjectsCoin:);
-  methods[3].selector = @selector(isEmpty);
-  methods[4].selector = @selector(getAllInputs);
-  methods[5].selector = @selector(getAllOutputs);
-  methods[6].selector = @selector(sumInputs);
-  methods[7].selector = @selector(sumInputsWithOrgMinimaObjectsBaseMiniData:);
-  methods[8].selector = @selector(sumOutputs);
-  methods[9].selector = @selector(sumOutputsWithOrgMinimaObjectsBaseMiniData:);
-  methods[10].selector = @selector(getRemainderCoinWithOrgMinimaObjectsBaseMiniData:);
-  methods[11].selector = @selector(checkValidInOutPerToken);
-  methods[12].selector = @selector(addStateVariableWithOrgMinimaObjectsStateVariable:);
-  methods[13].selector = @selector(getStateValueWithInt:);
-  methods[14].selector = @selector(stateExistsWithInt:);
-  methods[15].selector = @selector(clearState);
-  methods[16].selector = @selector(getCompleteState);
-  methods[17].selector = @selector(getLinkHash);
-  methods[18].selector = @selector(setTokenGenerationDetailsWithOrgMinimaObjectsProofsTokenProof:);
-  methods[19].selector = @selector(getTokenGenerationDetails);
-  methods[20].selector = @selector(description);
-  methods[21].selector = @selector(toJSON);
-  methods[22].selector = @selector(writeDataStreamWithJavaIoDataOutputStream:);
-  methods[23].selector = @selector(readDataStreamWithJavaIoDataInputStream:);
-  methods[24].selector = @selector(deepCopy);
+  methods[2].selector = @selector(addInputWithOrgMinimaObjectsCoin:withInt:);
+  methods[3].selector = @selector(addOutputWithOrgMinimaObjectsCoin:);
+  methods[4].selector = @selector(addOutputWithOrgMinimaObjectsCoin:withInt:);
+  methods[5].selector = @selector(isEmpty);
+  methods[6].selector = @selector(getAllInputs);
+  methods[7].selector = @selector(getAllOutputs);
+  methods[8].selector = @selector(sumInputs);
+  methods[9].selector = @selector(sumInputsWithOrgMinimaObjectsBaseMiniData:);
+  methods[10].selector = @selector(sumOutputs);
+  methods[11].selector = @selector(sumOutputsWithOrgMinimaObjectsBaseMiniData:);
+  methods[12].selector = @selector(getRemainderCoinWithOrgMinimaObjectsBaseMiniData:);
+  methods[13].selector = @selector(checkValidInOutPerToken);
+  methods[14].selector = @selector(addStateVariableWithOrgMinimaObjectsStateVariable:);
+  methods[15].selector = @selector(getStateValueWithInt:);
+  methods[16].selector = @selector(stateExistsWithInt:);
+  methods[17].selector = @selector(clearState);
+  methods[18].selector = @selector(getCompleteState);
+  methods[19].selector = @selector(getLinkHash);
+  methods[20].selector = @selector(setTokenGenerationDetailsWithOrgMinimaObjectsProofsTokenProof:);
+  methods[21].selector = @selector(getTokenGenerationDetails);
+  methods[22].selector = @selector(description);
+  methods[23].selector = @selector(toJSON);
+  methods[24].selector = @selector(writeDataStreamWithJavaIoDataOutputStream:);
+  methods[25].selector = @selector(readDataStreamWithJavaIoDataInputStream:);
+  methods[26].selector = @selector(deepCopy);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
     { "mLinkHash_", "LOrgMinimaObjectsBaseMiniData;", .constantValue.asLong = 0, 0x4, -1, -1, -1, -1 },
-    { "mInputs_", "LJavaUtilArrayList;", .constantValue.asLong = 0, 0x4, -1, -1, 22, -1 },
-    { "mOutputs_", "LJavaUtilArrayList;", .constantValue.asLong = 0, 0x4, -1, -1, 22, -1 },
-    { "mState_", "LJavaUtilArrayList;", .constantValue.asLong = 0, 0x4, -1, -1, 23, -1 },
+    { "mInputs_", "LJavaUtilArrayList;", .constantValue.asLong = 0, 0x4, -1, -1, 23, -1 },
+    { "mOutputs_", "LJavaUtilArrayList;", .constantValue.asLong = 0, 0x4, -1, -1, 23, -1 },
+    { "mState_", "LJavaUtilArrayList;", .constantValue.asLong = 0, 0x4, -1, -1, 24, -1 },
     { "mTokenGenDetails_", "LOrgMinimaObjectsProofsTokenProof;", .constantValue.asLong = 0, 0x4, -1, -1, -1, -1 },
   };
-  static const void *ptrTable[] = { "addInput", "LOrgMinimaObjectsCoin;", "addOutput", "()Ljava/util/ArrayList<Lorg/minima/objects/Coin;>;", "sumInputs", "LOrgMinimaObjectsBaseMiniData;", "sumOutputs", "getRemainderCoin", "addStateVariable", "LOrgMinimaObjectsStateVariable;", "getStateValue", "I", "stateExists", "()Ljava/util/ArrayList<Lorg/minima/objects/StateVariable;>;", "setTokenGenerationDetails", "LOrgMinimaObjectsProofsTokenProof;", "toString", "writeDataStream", "LJavaIoDataOutputStream;", "LJavaIoIOException;", "readDataStream", "LJavaIoDataInputStream;", "Ljava/util/ArrayList<Lorg/minima/objects/Coin;>;", "Ljava/util/ArrayList<Lorg/minima/objects/StateVariable;>;" };
-  static const J2ObjcClassInfo _OrgMinimaObjectsTransaction = { "Transaction", "org.minima.objects", ptrTable, methods, fields, 7, 0x1, 25, 5, -1, -1, -1, -1, -1 };
+  static const void *ptrTable[] = { "addInput", "LOrgMinimaObjectsCoin;", "LOrgMinimaObjectsCoin;I", "addOutput", "()Ljava/util/ArrayList<Lorg/minima/objects/Coin;>;", "sumInputs", "LOrgMinimaObjectsBaseMiniData;", "sumOutputs", "getRemainderCoin", "addStateVariable", "LOrgMinimaObjectsStateVariable;", "getStateValue", "I", "stateExists", "()Ljava/util/ArrayList<Lorg/minima/objects/StateVariable;>;", "setTokenGenerationDetails", "LOrgMinimaObjectsProofsTokenProof;", "toString", "writeDataStream", "LJavaIoDataOutputStream;", "LJavaIoIOException;", "readDataStream", "LJavaIoDataInputStream;", "Ljava/util/ArrayList<Lorg/minima/objects/Coin;>;", "Ljava/util/ArrayList<Lorg/minima/objects/StateVariable;>;" };
+  static const J2ObjcClassInfo _OrgMinimaObjectsTransaction = { "Transaction", "org.minima.objects", ptrTable, methods, fields, 7, 0x1, 27, 5, -1, -1, -1, -1, -1 };
   return &_OrgMinimaObjectsTransaction;
 }
 

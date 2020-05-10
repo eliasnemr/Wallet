@@ -21,9 +21,11 @@
 #include "org/minima/system/SystemHandler.h"
 
 @class JavaIoFile;
+@class OrgMinimaObjectsBaseMiniData;
 @class OrgMinimaObjectsTxPOW;
 @class OrgMinimaSystemMain;
 @class OrgMinimaUtilsMessagesMessage;
+@protocol OrgMinimaUtilsStreamable;
 
 @interface OrgMinimaSystemBackupBackupManager : OrgMinimaSystemSystemHandler {
  @public
@@ -43,15 +45,22 @@
 
 + (void)deleteAllButMiniDAPPSWithJavaIoFile:(JavaIoFile *)zFolder;
 
-+ (void)deleteFolderWithJavaIoFile:(JavaIoFile *)zFolder;
++ (void)deleteFileOrFolderWithJavaIoFile:(JavaIoFile *)zFile;
 
 - (void)deleteTxpowWithOrgMinimaObjectsTxPOW:(OrgMinimaObjectsTxPOW *)zTxPOW;
 
 - (JavaIoFile *)getBackUpFileWithNSString:(NSString *)name;
 
-- (NSString *)getRootFolder;
+- (JavaIoFile *)getBackUpFolder;
+
+- (JavaIoFile *)getRootFolder;
+
+- (JavaIoFile *)getTxpowFileWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zTxPoWID;
 
 - (JavaIoFile *)getTxPOWFolder;
+
++ (void)writeObjectToFileWithJavaIoFile:(JavaIoFile *)zFile
+           withOrgMinimaUtilsStreamable:(id<OrgMinimaUtilsStreamable>)zObject;
 
 #pragma mark Protected
 
@@ -71,51 +80,6 @@ J2OBJC_FIELD_SETTER(OrgMinimaSystemBackupBackupManager, mBackup_, JavaIoFile *)
 J2OBJC_FIELD_SETTER(OrgMinimaSystemBackupBackupManager, mTxPOWDB_, JavaIoFile *)
 J2OBJC_FIELD_SETTER(OrgMinimaSystemBackupBackupManager, mMiniDAPPS_, JavaIoFile *)
 
-inline NSString *OrgMinimaSystemBackupBackupManager_get_BACKUP_INIT(void);
-/*! INTERNAL ONLY - Use accessor function from above. */
-FOUNDATION_EXPORT NSString *OrgMinimaSystemBackupBackupManager_BACKUP_INIT;
-J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBackupBackupManager, BACKUP_INIT, NSString *)
-
-inline NSString *OrgMinimaSystemBackupBackupManager_get_BACKUP_CLEAR(void);
-/*! INTERNAL ONLY - Use accessor function from above. */
-FOUNDATION_EXPORT NSString *OrgMinimaSystemBackupBackupManager_BACKUP_CLEAR;
-J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBackupBackupManager, BACKUP_CLEAR, NSString *)
-
-inline NSString *OrgMinimaSystemBackupBackupManager_get_BACKUP_WRITE(void);
-/*! INTERNAL ONLY - Use accessor function from above. */
-FOUNDATION_EXPORT NSString *OrgMinimaSystemBackupBackupManager_BACKUP_WRITE;
-J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBackupBackupManager, BACKUP_WRITE, NSString *)
-
-inline NSString *OrgMinimaSystemBackupBackupManager_get_BACKUP_READ(void);
-/*! INTERNAL ONLY - Use accessor function from above. */
-FOUNDATION_EXPORT NSString *OrgMinimaSystemBackupBackupManager_BACKUP_READ;
-J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBackupBackupManager, BACKUP_READ, NSString *)
-
-inline NSString *OrgMinimaSystemBackupBackupManager_get_BACKUP_READSYNC(void);
-/*! INTERNAL ONLY - Use accessor function from above. */
-FOUNDATION_EXPORT NSString *OrgMinimaSystemBackupBackupManager_BACKUP_READSYNC;
-J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBackupBackupManager, BACKUP_READSYNC, NSString *)
-
-inline NSString *OrgMinimaSystemBackupBackupManager_get_BACKUP_READUSER(void);
-/*! INTERNAL ONLY - Use accessor function from above. */
-FOUNDATION_EXPORT NSString *OrgMinimaSystemBackupBackupManager_BACKUP_READUSER;
-J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBackupBackupManager, BACKUP_READUSER, NSString *)
-
-inline NSString *OrgMinimaSystemBackupBackupManager_get_BACKUP_READTXPOW(void);
-/*! INTERNAL ONLY - Use accessor function from above. */
-FOUNDATION_EXPORT NSString *OrgMinimaSystemBackupBackupManager_BACKUP_READTXPOW;
-J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBackupBackupManager, BACKUP_READTXPOW, NSString *)
-
-inline NSString *OrgMinimaSystemBackupBackupManager_get_BACKUP_POSTACTIONMSG(void);
-/*! INTERNAL ONLY - Use accessor function from above. */
-FOUNDATION_EXPORT NSString *OrgMinimaSystemBackupBackupManager_BACKUP_POSTACTIONMSG;
-J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBackupBackupManager, BACKUP_POSTACTIONMSG, NSString *)
-
-inline NSString *OrgMinimaSystemBackupBackupManager_get_BACKUP_POSTACTION_HANDLER(void);
-/*! INTERNAL ONLY - Use accessor function from above. */
-FOUNDATION_EXPORT NSString *OrgMinimaSystemBackupBackupManager_BACKUP_POSTACTION_HANDLER;
-J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBackupBackupManager, BACKUP_POSTACTION_HANDLER, NSString *)
-
 FOUNDATION_EXPORT void OrgMinimaSystemBackupBackupManager_initWithOrgMinimaSystemMain_withNSString_(OrgMinimaSystemBackupBackupManager *self, OrgMinimaSystemMain *zMain, NSString *zConfFolder);
 
 FOUNDATION_EXPORT OrgMinimaSystemBackupBackupManager *new_OrgMinimaSystemBackupBackupManager_initWithOrgMinimaSystemMain_withNSString_(OrgMinimaSystemMain *zMain, NSString *zConfFolder) NS_RETURNS_RETAINED;
@@ -124,7 +88,9 @@ FOUNDATION_EXPORT OrgMinimaSystemBackupBackupManager *create_OrgMinimaSystemBack
 
 FOUNDATION_EXPORT void OrgMinimaSystemBackupBackupManager_deleteAllButMiniDAPPSWithJavaIoFile_(JavaIoFile *zFolder);
 
-FOUNDATION_EXPORT void OrgMinimaSystemBackupBackupManager_deleteFolderWithJavaIoFile_(JavaIoFile *zFolder);
+FOUNDATION_EXPORT void OrgMinimaSystemBackupBackupManager_deleteFileOrFolderWithJavaIoFile_(JavaIoFile *zFile);
+
+FOUNDATION_EXPORT void OrgMinimaSystemBackupBackupManager_writeObjectToFileWithJavaIoFile_withOrgMinimaUtilsStreamable_(JavaIoFile *zFile, id<OrgMinimaUtilsStreamable> zObject);
 
 J2OBJC_TYPE_LITERAL_HEADER(OrgMinimaSystemBackupBackupManager)
 

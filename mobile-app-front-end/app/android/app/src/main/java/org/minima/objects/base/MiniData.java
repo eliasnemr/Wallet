@@ -10,10 +10,8 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.security.SecureRandom;
-import java.util.Random;
 
 import org.minima.utils.BaseConverter;
-import org.minima.utils.MinimaLogger;
 import org.minima.utils.Streamable;
 
 /**
@@ -71,10 +69,23 @@ public class MiniData implements Streamable {
 	}
 	
 	public boolean isEqual(MiniData zCompare) {
-		if(getLength() != zCompare.getLength()) {
+		int len = getLength();
+		if(len != zCompare.getLength()) {
 			return false;
 		}
-		return mDataVal.compareTo(zCompare.getDataValue()) == 0;
+		
+		//Get both data sets..
+		byte[] data = zCompare.getData();
+		
+		//Chack the data..
+		for(int i=0;i<len;i++) {
+			if(data[i] != mData[i]) {
+				return false;
+			}
+		}
+	
+		return true;
+//		return mDataVal.compareTo(zCompare.getDataValue()) == 0;
 	}
 	
 	public boolean isLess(MiniData zCompare) {
@@ -192,16 +203,27 @@ public class MiniData implements Streamable {
 	 */
 	public static MiniData getRandomData(int len) {
 		SecureRandom rand = new SecureRandom();
-//		Random rand = new Random();
 		byte[] data = new byte[len];
 		rand.nextBytes(data);
 		return new MiniData(data);
 	}
 	
 	public static void main(String[] zArgs) {
-		MiniData data = new MiniData();
 		
-		MinimaLogger.log("data    : "+data.toString());
-		MinimaLogger.log("value   : "+data.getDataValue().toString());
+		MiniData data1 = getRandomData(128);
+		MiniData data2 = getRandomData(128);
+		
+		long timenow = System.currentTimeMillis();
+		boolean allsame = true;
+		for(int i=0;i<10000000;i++) {
+			boolean same = data1.isEqual(data2);
+			if(!same) {
+				allsame = false;
+			}
+		}
+		
+		long timediff = System.currentTimeMillis() - timenow;
+		System.out.println(allsame+" "+timediff);
+		
 	}
 }

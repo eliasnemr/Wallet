@@ -30,6 +30,7 @@
 @class OrgMinimaObjectsBaseMiniData;
 @class OrgMinimaObjectsBaseMiniInteger;
 @class OrgMinimaObjectsBaseMiniNumber;
+@class OrgMinimaUtilsJsonJSONObject;
 
 @interface OrgMinimaDatabaseMmrMMRSet : NSObject < OrgMinimaUtilsStreamable > {
  @public
@@ -113,6 +114,8 @@
                                                withOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zTokenID;
 
 - (void)setParentWithOrgMinimaDatabaseMmrMMRSet:(OrgMinimaDatabaseMmrMMRSet *)zParent;
+
+- (OrgMinimaUtilsJsonJSONObject *)toJSON;
 
 - (OrgMinimaDatabaseMmrMMREntry *)updateSpentCoinWithOrgMinimaDatabaseMmrMMRProof:(OrgMinimaDatabaseMmrMMRProof *)zProof;
 

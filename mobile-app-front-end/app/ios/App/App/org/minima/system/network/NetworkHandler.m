@@ -76,12 +76,12 @@ NSString *OrgMinimaSystemNetworkNetworkHandler_NETWORK_NOTIFY = @"NETWORK_NOTIFY
     jint port = [zMessage getIntegerWithNSString:@"port"];
     jint rpcport = [zMessage getIntegerWithNSString:@"rpcport"];
     mServer_ = new_OrgMinimaSystemNetworkMultiServer_initWithOrgMinimaSystemNetworkNetworkHandler_withInt_(self, port);
-    JavaLangThread *multimain = new_JavaLangThread_initWithJavaLangRunnable_(mServer_);
+    JavaLangThread *multimain = new_JavaLangThread_initWithJavaLangRunnable_withNSString_(mServer_, @"Multi Server");
     [multimain start];
     mRPCServer_ = new_OrgMinimaSystemNetworkRpcRPCServer_initWithOrgMinimaSystemInputInputHandler_withInt_([((OrgMinimaSystemMain *) nil_chk([self getMainHandler])) getInputHandler], rpcport);
-    JavaLangThread *rpc = new_JavaLangThread_initWithJavaLangRunnable_(mRPCServer_);
+    JavaLangThread *rpc = new_JavaLangThread_initWithJavaLangRunnable_withNSString_(mRPCServer_, @"RPC Server");
     [rpc start];
-    mDAPPManager_ = new_OrgMinimaSystemNetworkMinidappsDAPPManager_initWithOrgMinimaSystemMain_withInt_([self getMainHandler], 21000);
+    mDAPPManager_ = new_OrgMinimaSystemNetworkMinidappsDAPPManager_initWithOrgMinimaSystemMain_withInt_withInt_([self getMainHandler], 21000, rpcport);
     OrgMinimaUtilsMinimaLogger_logWithNSString_(JreStrcat("$$", @"MiFi proxy set : ", mMifiProxy_));
   }
   else if ([zMessage isMessageTypeWithNSString:OrgMinimaSystemNetworkNetworkHandler_NETWORK_SHUTDOWN]) {
@@ -110,7 +110,7 @@ NSString *OrgMinimaSystemNetworkNetworkHandler_NETWORK_NOTIFY = @"NETWORK_NOTIFY
   }
   else if ([zMessage isMessageTypeWithNSString:OrgMinimaSystemNetworkNetworkHandler_NETWORK_WEBPROXY]) {
     NSString *uuid = [zMessage getStringWithNSString:@"uuid"];
-    NSString *ip = JreStrcat("$C$CI", uuid, '#', [((OrgMinimaSystemNetworkRpcRPCServer *) nil_chk([self getRPCServer])) getHost], ':', [((OrgMinimaSystemNetworkRpcRPCServer *) nil_chk([self getRPCServer])) getPort]);
+    NSString *ip = JreStrcat("$C$CI", uuid, '#', OrgMinimaSystemNetworkRpcRPCServer_getHost(), ':', [((OrgMinimaSystemNetworkRpcRPCServer *) nil_chk([self getRPCServer])) getPort]);
     NSString *url = JreStrcat("$$", mMifiProxy_, JavaNetURLEncoder_encodeWithNSString_withNSString_(ip, @"UTF-8"));
     NSString *resp = @"";
     @try {

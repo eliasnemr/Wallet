@@ -10,9 +10,9 @@ import java.util.StringTokenizer;
 
 import org.minima.system.input.InputHandler;
 import org.minima.system.input.InputMessage;
-import org.minima.utils.MiniFormat;
 import org.minima.utils.ResponseStream;
 import org.minima.utils.json.JSONArray;
+import org.minima.utils.json.JSONObject;
 
 /**
  * This class handles a single request then exits
@@ -72,14 +72,15 @@ public class RPCHandler implements Runnable {
 			// we support only GET and HEAD methods, we check
 			if (method.equals("GET")){
 //				System.out.println("fileRequested : "+fileRequested);
-			
+				
 				String function=new String(fileRequested);
-				if(function.startsWith("/")) {
-					function = function.substring(1);
-				}
 				
 				//decode URL message
 				function = URLDecoder.decode(function,"UTF-8").trim();
+				
+				if(function.startsWith("/")) {
+					function = function.substring(1);
+				}
 				
 				//Is this a multi function..
 				boolean multi = false;
@@ -120,7 +121,8 @@ public class RPCHandler implements Runnable {
 					//Cycle through each request..	
 					StringTokenizer functions = new StringTokenizer(function,";");
 					
-					while(functions.hasMoreElements()) {
+					boolean allok = true;
+					while(allok && functions.hasMoreElements()) {
 						String func = functions.nextToken().trim();
 					
 						//Now make this request
@@ -140,19 +142,23 @@ public class RPCHandler implements Runnable {
 				                response.waitToFinish();
 				            }
 			                
+			                //Get the JSON
+			                JSONObject resp = response.getFinalJSON();
+			                
+			                //IF there is an erorr.. STOP
+			                if(resp.get("status") == Boolean.FALSE) {
+			                	//ERROR - stop running functions..
+			                	allok = false;
+			                }
+			                
 			                //Add it to the array
-			                responses.add(response.getFinalJSON());
+			                responses.add(resp);
 						}
 					}
 					
 					//And now get all the answers in one go..
 					result = responses.toString();
 				}
-				
-                //Check it's a JSON
-                if(result.startsWith("{") || result.startsWith("[")) {
-                	result = MiniFormat.PrettyJSON(result);
-                }
 				
 				// send HTTP Headers
 				out.println("HTTP/1.1 200 OK");

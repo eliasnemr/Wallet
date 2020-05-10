@@ -10,7 +10,6 @@ import org.minima.objects.StateVariable;
 import org.minima.objects.Transaction;
 import org.minima.objects.TxPOW;
 import org.minima.objects.base.MiniData;
-import org.minima.objects.base.MiniData;
 import org.minima.objects.base.MiniNumber;
 import org.minima.objects.proofs.TokenProof;
 
@@ -64,6 +63,13 @@ public interface UserDB {
 	 * Check if an address matters
 	 */
 	public boolean isAddressRelevant(MiniData zAddress);
+	
+	/**
+	 * Check if a transaction matters..
+	 * @param zTrans
+	 * @return
+	 */
+	public boolean isTransactionRelevant(Transaction zTrans);
 	
 	/**
 	 * Check if the state of this transaction has a KEY we own.. 

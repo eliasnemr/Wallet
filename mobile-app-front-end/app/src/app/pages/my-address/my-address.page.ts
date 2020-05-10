@@ -1,4 +1,4 @@
-import { Platform, AlertController } from '@ionic/angular';
+import { Platform, AlertController, IonContent } from '@ionic/angular';
 import { Component, OnInit, ViewChild, ElementRef} from '@angular/core';
 import { Clipboard } from '@ionic-native/clipboard/ngx';
 import { MinimaApiService } from '../../service/minima-api.service';
@@ -15,7 +15,7 @@ export class MyAddressPage implements OnInit {
   @ViewChild('canvasDimension', {static: false}) canvasDimension: ElementRef;
 
   public qrCode = '';
-  public canvasSize = 309;
+  public canvasSize = 300;
   public canvasLength: number;
   public canvasWidth: number;
   isEmpty: boolean;
@@ -25,12 +25,11 @@ export class MyAddressPage implements OnInit {
     private api: MinimaApiService,
     private platform : Platform,
     private alertController: AlertController) {
+
       // Needed this to fix android's build wonky
       this.platform.ready().then((readySource) => {
-        if(this.platform.width() < 900){
+        if(this.platform.is('android')){
           this.canvasSize = this.platform.width() - 50;
-        } else if (this.platform.width() >= 900){
-          this.canvasSize = 350;
         }
       });
     }
@@ -83,9 +82,15 @@ export class MyAddressPage implements OnInit {
       document.removeEventListener('copy', null);
     });
     document.execCommand('copy');
-
   }
-  
-  
+
+  checkPlatform() {
+    if(this.platform.is('desktop')){
+      return true;
+    } else {
+      return false;
+    }
+  }
+
 
 }

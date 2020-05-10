@@ -28,7 +28,6 @@
   OrgMinimaSystemInputInputHandler *mInputHandler_;
   JavaNetServerSocket *mServerSocket_;
   jint mPort_;
-  NSString *mHost_;
   jboolean mRunning_;
 }
 
@@ -37,11 +36,11 @@
 - (instancetype)initWithOrgMinimaSystemInputInputHandler:(OrgMinimaSystemInputInputHandler *)zInput
                                                  withInt:(jint)zPort;
 
-- (NSString *)getHost;
++ (NSString *)getHost;
 
 - (jint)getPort;
 
-- (NSString *)getIPAddress;
+- (NSString *)getIPAddress; 
 
 - (void)run;
 
@@ -57,13 +56,20 @@ J2OBJC_EMPTY_STATIC_INIT(OrgMinimaSystemNetworkRpcRPCServer)
 
 J2OBJC_FIELD_SETTER(OrgMinimaSystemNetworkRpcRPCServer, mInputHandler_, OrgMinimaSystemInputInputHandler *)
 J2OBJC_FIELD_SETTER(OrgMinimaSystemNetworkRpcRPCServer, mServerSocket_, JavaNetServerSocket *)
-J2OBJC_FIELD_SETTER(OrgMinimaSystemNetworkRpcRPCServer, mHost_, NSString *)
+
+inline NSString *OrgMinimaSystemNetworkRpcRPCServer_get_mHost(void);
+inline NSString *OrgMinimaSystemNetworkRpcRPCServer_set_mHost(NSString *value);
+/*! INTERNAL ONLY - Use accessor function from above. */
+FOUNDATION_EXPORT NSString *OrgMinimaSystemNetworkRpcRPCServer_mHost;
+J2OBJC_STATIC_FIELD_OBJ(OrgMinimaSystemNetworkRpcRPCServer, mHost, NSString *)
 
 FOUNDATION_EXPORT void OrgMinimaSystemNetworkRpcRPCServer_initWithOrgMinimaSystemInputInputHandler_withInt_(OrgMinimaSystemNetworkRpcRPCServer *self, OrgMinimaSystemInputInputHandler *zInput, jint zPort);
 
 FOUNDATION_EXPORT OrgMinimaSystemNetworkRpcRPCServer *new_OrgMinimaSystemNetworkRpcRPCServer_initWithOrgMinimaSystemInputInputHandler_withInt_(OrgMinimaSystemInputInputHandler *zInput, jint zPort) NS_RETURNS_RETAINED;
 
 FOUNDATION_EXPORT OrgMinimaSystemNetworkRpcRPCServer *create_OrgMinimaSystemNetworkRpcRPCServer_initWithOrgMinimaSystemInputInputHandler_withInt_(OrgMinimaSystemInputInputHandler *zInput, jint zPort);
+
+FOUNDATION_EXPORT NSString *OrgMinimaSystemNetworkRpcRPCServer_getHost(void);
 
 J2OBJC_TYPE_LITERAL_HEADER(OrgMinimaSystemNetworkRpcRPCServer)
 

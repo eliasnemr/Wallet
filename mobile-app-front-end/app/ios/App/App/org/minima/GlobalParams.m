@@ -9,7 +9,7 @@
 
 J2OBJC_INITIALIZED_DEFN(OrgMinimaGlobalParams)
 
-NSString *OrgMinimaGlobalParams_MINIMA_VERSION = @"0.87.4";
+NSString *OrgMinimaGlobalParams_MINIMA_VERSION = @"0.88.0";
 OrgMinimaObjectsBaseMiniNumber *OrgMinimaGlobalParams_MINIMA_BLOCK_SPEED;
 OrgMinimaObjectsBaseMiniNumber *OrgMinimaGlobalParams_MINIMA_CONFIRM_DEPTH;
 NSString *OrgMinimaGlobalParams_MINIMA_CASCADE_RATIO = @"0.9";

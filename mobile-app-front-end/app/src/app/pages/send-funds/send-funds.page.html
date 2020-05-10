@@ -11,7 +11,21 @@
 </ion-header>
 
 <ion-content *ngIf="isCameraOpen==false">
-  <ion-card>
+
+  <ion-card class="webscan-canvas" *ngIf="!checkPlatform() && isWebCameraOpen">
+    <ion-card-header>
+
+    Scan Your Minima QR address now...
+    <ion-progress-bar type="indeterminate" reversed="true"></ion-progress-bar>
+    </ion-card-header>
+
+    <video height="240" #videoElem></video>
+    <hr>
+    <ion-button block="full" (click)="stopWebScanQR()">Stop Scanning</ion-button>
+    <hr>
+  </ion-card>
+
+  <ion-card *ngIf="!isWebCameraOpen">
     <ion-card-header>
       <ion-card-title>
         <ion-item lines="none">
@@ -46,6 +60,12 @@
           <ion-input name="address" [(ngModel)]="data.address"></ion-input>
           
         </ion-item>
+        <ion-item lines="none" slot="end" [hidden]="checkPlatform()">
+          <ion-button type="button" class="util-btns" size="small" (click)="webScanQR()">
+            <ion-label slot="start" style="padding:2px">SCAN QR</ion-label>
+            <ion-icon  name="qr-scanner" ></ion-icon>
+          </ion-button>
+        </ion-item>
         <ion-item lines="none" slot="end" [hidden]="!checkPlatform()">
           <ion-button type="button" class="util-btns" size="small" (click)="scanQR()">
             <ion-label slot="start" style="padding:2px">SCAN QR</ion-label>
@@ -61,8 +81,8 @@
           <ion-input type="number" name="amount" [(ngModel)]="data.amount"></ion-input>
         </ion-item>
     </ion-card-content>
-    
   </ion-card>
+
 </ion-content>
 <ion-footer>
   <ion-toolbar>
@@ -77,3 +97,4 @@
   </ion-toolbar>
 </ion-footer>
 </ion-app>
+

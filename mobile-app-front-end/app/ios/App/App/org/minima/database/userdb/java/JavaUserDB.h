@@ -32,6 +32,7 @@
 @class OrgMinimaObjectsBaseMiniData;
 @class OrgMinimaObjectsProofsTokenProof;
 @class OrgMinimaObjectsPubPrivKey;
+@class OrgMinimaObjectsTransaction;
 @class OrgMinimaObjectsTxPOW;
 @protocol OrgMinimaDatabaseUserdbUserDBRow;
 
@@ -89,6 +90,8 @@
 - (jboolean)isSimpleAddressWithOrgMinimaObjectsBaseMiniData:(OrgMinimaObjectsBaseMiniData *)zAddress;
 
 - (jboolean)isStateListRelevantWithJavaUtilArrayList:(JavaUtilArrayList *)zStateVarList;
+
+- (jboolean)isTransactionRelevantWithOrgMinimaObjectsTransaction:(OrgMinimaObjectsTransaction *)zTrans;
 
 - (OrgMinimaObjectsAddress *)newExtraAddressWithNSString:(NSString *)zScript OBJC_METHOD_FAMILY_NONE;
 

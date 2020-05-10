@@ -16,7 +16,9 @@
 #if !defined (OrgMinimaSystemBrainsConsensusBackup_) && (INCLUDE_ALL_OrgMinimaSystemBrainsConsensusBackup || defined(INCLUDE_OrgMinimaSystemBrainsConsensusBackup))
 #define OrgMinimaSystemBrainsConsensusBackup_
 
+@class JavaIoFile;
 @class OrgMinimaDatabaseMinimaDB;
+@class OrgMinimaObjectsTxPOW;
 @class OrgMinimaSystemBrainsConsensusHandler;
 @class OrgMinimaUtilsMessagesMessage;
 
@@ -30,6 +32,8 @@
 
 - (instancetype)initWithOrgMinimaDatabaseMinimaDB:(OrgMinimaDatabaseMinimaDB *)zDB
         withOrgMinimaSystemBrainsConsensusHandler:(OrgMinimaSystemBrainsConsensusHandler *)zHandler;
+
++ (OrgMinimaObjectsTxPOW *)loadTxPOWWithJavaIoFile:(JavaIoFile *)zTxpowFile;
 
 - (void)processMessageWithOrgMinimaUtilsMessagesMessage:(OrgMinimaUtilsMessagesMessage *)zMessage;
 
@@ -48,6 +52,12 @@ inline NSString *OrgMinimaSystemBrainsConsensusBackup_get_CONSENSUS_PREFIX(void)
 /*! INTERNAL ONLY - Use accessor function from above. */
 FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusBackup_CONSENSUS_PREFIX;
 J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBrainsConsensusBackup, CONSENSUS_PREFIX, NSString *)
+
+inline NSString *OrgMinimaSystemBrainsConsensusBackup_get_CONSENSUSBACKUP_BACKUPUSER(void);
+inline NSString *OrgMinimaSystemBrainsConsensusBackup_set_CONSENSUSBACKUP_BACKUPUSER(NSString *value);
+/*! INTERNAL ONLY - Use accessor function from above. */
+FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusBackup_CONSENSUSBACKUP_BACKUPUSER;
+J2OBJC_STATIC_FIELD_OBJ(OrgMinimaSystemBrainsConsensusBackup, CONSENSUSBACKUP_BACKUPUSER, NSString *)
 
 inline NSString *OrgMinimaSystemBrainsConsensusBackup_get_CONSENSUSBACKUP_BACKUP(void);
 inline NSString *OrgMinimaSystemBrainsConsensusBackup_set_CONSENSUSBACKUP_BACKUP(NSString *value);
@@ -79,11 +89,23 @@ inline NSString *OrgMinimaSystemBrainsConsensusBackup_set_CONSENSUSBACKUP_RESTOR
 FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusBackup_CONSENSUSBACKUP_RESTORETREEDB;
 J2OBJC_STATIC_FIELD_OBJ(OrgMinimaSystemBrainsConsensusBackup, CONSENSUSBACKUP_RESTORETREEDB, NSString *)
 
+inline NSString *OrgMinimaSystemBrainsConsensusBackup_get_USERDB_BACKUP(void);
+/*! INTERNAL ONLY - Use accessor function from above. */
+FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusBackup_USERDB_BACKUP;
+J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBrainsConsensusBackup, USERDB_BACKUP, NSString *)
+
+inline NSString *OrgMinimaSystemBrainsConsensusBackup_get_SYNC_BACKUP(void);
+/*! INTERNAL ONLY - Use accessor function from above. */
+FOUNDATION_EXPORT NSString *OrgMinimaSystemBrainsConsensusBackup_SYNC_BACKUP;
+J2OBJC_STATIC_FIELD_OBJ_FINAL(OrgMinimaSystemBrainsConsensusBackup, SYNC_BACKUP, NSString *)
+
 FOUNDATION_EXPORT void OrgMinimaSystemBrainsConsensusBackup_initWithOrgMinimaDatabaseMinimaDB_withOrgMinimaSystemBrainsConsensusHandler_(OrgMinimaSystemBrainsConsensusBackup *self, OrgMinimaDatabaseMinimaDB *zDB, OrgMinimaSystemBrainsConsensusHandler *zHandler);
 
 FOUNDATION_EXPORT OrgMinimaSystemBrainsConsensusBackup *new_OrgMinimaSystemBrainsConsensusBackup_initWithOrgMinimaDatabaseMinimaDB_withOrgMinimaSystemBrainsConsensusHandler_(OrgMinimaDatabaseMinimaDB *zDB, OrgMinimaSystemBrainsConsensusHandler *zHandler) NS_RETURNS_RETAINED;
 
 FOUNDATION_EXPORT OrgMinimaSystemBrainsConsensusBackup *create_OrgMinimaSystemBrainsConsensusBackup_initWithOrgMinimaDatabaseMinimaDB_withOrgMinimaSystemBrainsConsensusHandler_(OrgMinimaDatabaseMinimaDB *zDB, OrgMinimaSystemBrainsConsensusHandler *zHandler);
+
+FOUNDATION_EXPORT OrgMinimaObjectsTxPOW *OrgMinimaSystemBrainsConsensusBackup_loadTxPOWWithJavaIoFile_(JavaIoFile *zTxpowFile);
 
 J2OBJC_TYPE_LITERAL_HEADER(OrgMinimaSystemBrainsConsensusBackup)
 

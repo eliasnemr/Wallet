@@ -1,8 +1,8 @@
 .terminal {
-    min-height: 100%;;
+    min-height: 100%;
     width: 100%;
-    background-color: black;
-    color: white;
+    background-color: var(--ion-background-color, #ffffff);
+    color: var(--ion-text-color, #000000);
     padding: 5px;
     font-family: monospace;
 }
@@ -16,6 +16,9 @@
 }
 
 .no-scroll {
+    --overflow: hidden;
+}
+ion-content {
     --overflow: hidden;
 }
 
@@ -37,8 +40,10 @@ label:focus,
     box-shadow: none !important;
 }
 
-@media only screen and (min-width: 992px) {
+@media only screen and (min-width: 990px) {
     .terminal {
-        font-size: 20px;
+        font-size: 16px;
+        border: 0px;
     }
+     
 }
