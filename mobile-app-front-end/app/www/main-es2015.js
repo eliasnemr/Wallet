@@ -1375,6 +1375,23 @@ let MinimaApiService = class MinimaApiService {
     createToken(data) {
         return this.request('createtoken+' + data.token + '+' + data.amount);
     }
+    createTXN(data) {
+        const txnidentifier = Math.floor(Math.random() * 1000000000);
+        const port254 = 254;
+        const port255 = 255;
+        const customTXN = 
+        // Custom TXN with an ID
+        'txncreate ' + txnidentifier + ";" +
+            // Add state variable 1
+            "txnstate " + txnidentifier + " " + port254 + " " + "01000100" + ";" +
+            // Add User state variable 2
+            "txnstate " + txnidentifier + " " + port255 + " " + data.message + ";" +
+            // Auto fill the transaction
+            "txnauto " + txnidentifier + " " + data.amount + " " + data.address + " " + data.tokenid + ";" +
+            // Post it!
+            "txnpost " + txnidentifier;
+        return this.request(customTXN);
+    }
     webLink(data) {
         return this.request('weblink+' + data.url);
     }
@@ -1422,16 +1439,6 @@ let MinimaApiService = class MinimaApiService {
             });
         });
         return promise;
-        // const self = this;
-        // console.log(route);
-        // return new Promise((resolve, reject) => {
-        //   self.http.get(self.host + route, { responseType: 'json' }).subscribe(( d: any ) => {
-        //     resolve(d);
-        //   }, (err) => {
-        //     console.log('Error ' + err );
-        //     reject(err);
-        //   });
-        // });
     }
 };
 MinimaApiService.ctorParameters = () => [

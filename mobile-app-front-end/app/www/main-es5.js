@@ -1435,6 +1435,23 @@ var MinimaApiService = /** @class */ (function () {
     MinimaApiService.prototype.createToken = function (data) {
         return this.request('createtoken+' + data.token + '+' + data.amount);
     };
+    MinimaApiService.prototype.createTXN = function (data) {
+        var txnidentifier = Math.floor(Math.random() * 1000000000);
+        var port254 = 254;
+        var port255 = 255;
+        var customTXN = 
+        // Custom TXN with an ID
+        'txncreate ' + txnidentifier + ";" +
+            // Add state variable 1
+            "txnstate " + txnidentifier + " " + port254 + " " + "01000100" + ";" +
+            // Add User state variable 2
+            "txnstate " + txnidentifier + " " + port255 + " " + data.message + ";" +
+            // Auto fill the transaction
+            "txnauto " + txnidentifier + " " + data.amount + " " + data.address + " " + data.tokenid + ";" +
+            // Post it!
+            "txnpost " + txnidentifier;
+        return this.request(customTXN);
+    };
     MinimaApiService.prototype.webLink = function (data) {
         return this.request('weblink+' + data.url);
     };
@@ -1483,16 +1500,6 @@ var MinimaApiService = /** @class */ (function () {
             });
         });
         return promise;
-        // const self = this;
-        // console.log(route);
-        // return new Promise((resolve, reject) => {
-        //   self.http.get(self.host + route, { responseType: 'json' }).subscribe(( d: any ) => {
-        //     resolve(d);
-        //   }, (err) => {
-        //     console.log('Error ' + err );
-        //     reject(err);
-        //   });
-        // });
     };
     MinimaApiService.ctorParameters = function () { return [
         { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"] },

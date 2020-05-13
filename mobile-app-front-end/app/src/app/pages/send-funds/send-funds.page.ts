@@ -29,6 +29,11 @@ export class SendFundsPage implements OnInit {
   minimaToken: any;
   data: any = {};
 
+  //checkboxValue
+  messageEntry: any = {
+    isChecked: false
+  }
+  
   balanceSubscription: Subscription;
  
 
@@ -236,8 +241,17 @@ export class SendFundsPage implements OnInit {
 
   sendFunds(){
     if(this.data.address&&this.data.address!==''&&this.data.amount&&this.data.amount>0&&
-    this.data.tokenid&&this.data.tokenid!==''){
+    this.data.tokenid&&this.data.tokenid!==''&&this.data.message===undefined){
       this.api.sendFunds(this.data).then((res:any)=>{
+        if(res.status == true) {
+          this.presentAlert('Sent successfully!', 'Info');
+        } else {
+          this.presentAlert(res.error, 'Insufficient funds.');
+        }
+      })
+    } else if(this.data.address&&this.data.address!==''&&this.data.amount&&this.data.amount>0&&
+    this.data.tokenid&&this.data.tokenid!==''&&this.data.message&&this.data.message.length>0) {
+      this.api.createTXN(this.data).then((res:any)=> {
         if(res.status == true) {
           this.presentAlert('Sent successfully!', 'Info');
         } else {
@@ -302,6 +316,13 @@ export class SendFundsPage implements OnInit {
 
     });
   }
+
+  checkboxValue(ev: any, messageEntry: any){
+    if(messageEntry === false){
+      this.data.message = undefined;
+    } 
+  }
+
   // Display/hide mobile buttons with this..
   checkPlatform() {
     if(this.platform.is('desktop')) {

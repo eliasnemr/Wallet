@@ -37,7 +37,7 @@
     <ion-card-content>
         <ion-item>
           <ion-label position="floating">Tokens</ion-label>
-          <ion-select 
+          <ion-select
               interface = 'alert'
               class="token-select"
               [(ngModel)]="itemSelected"
@@ -79,6 +79,14 @@
         <ion-item>
           <ion-label position="floating">Amount</ion-label>
           <ion-input type="number" name="amount" [(ngModel)]="data.amount"></ion-input>
+        </ion-item>
+        <ion-item lines="none">
+        <!-- Disabled Checkbox -->
+        <ion-checkbox [(ngModel)]="messageEntry.isChecked" (ionChange)="checkboxValue($event, messageEntry.isChecked)"></ion-checkbox>
+        <ion-label style="padding-left: 10px;">Message/Description</ion-label>
+        </ion-item>
+        <ion-item [hidden]="!messageEntry.isChecked">
+            <ion-textarea [(ngModel)]="data.message" placeholder="type your message..."></ion-textarea>
         </ion-item>
     </ion-card-content>
   </ion-card>
