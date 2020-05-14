@@ -75,7 +75,6 @@ export class BalancePage implements OnInit {
         }, 600);
       } else {
         console.log("Result is false " + res)
-        
       }
     });
   }

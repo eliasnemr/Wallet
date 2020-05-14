@@ -6,6 +6,7 @@ import { Observable, Subscription, Subject } from 'rxjs';
 import { map, concatMap, merge } from 'rxjs/operators';
 import { timer } from 'rxjs/Observable/timer';
 
+declare var Minima: any;
 @Injectable({
   providedIn: 'root'
 })
@@ -47,10 +48,9 @@ export class StatusService {
     let status$ = this.http.get(apiUrl);
     
     return this.polledStatus$ = timer(0, 3000).pipe(
-      
+
       concatMap(_ => status$),
       map((res: {status: boolean, minifunc: string, response: Status}) => res)
-
 
     );
   }

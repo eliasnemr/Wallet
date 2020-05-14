@@ -3,7 +3,7 @@ import { BalanceService } from '../../service/balance.service';
 import { Component, OnInit, NgZone, ViewChild, ElementRef } from '@angular/core';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 import { Clipboard } from '@ionic-native/clipboard/ngx';
-import { AlertController, Platform, NavParams } from '@ionic/angular';
+import { AlertController, Platform, NavParams, IonInput, IonTextarea, ToastController } from '@ionic/angular';
 import { MinimaApiService } from '../../service/minima-api.service';
 import { map } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
@@ -18,7 +18,10 @@ import QrScanner from 'qr-scanner';
 })
 export class SendFundsPage implements OnInit {
 
-  @ViewChild('address', {static: false}) address: ElementRef;
+  @ViewChild('address', {static: false}) address: IonInput;
+  @ViewChild('amount', {static: false}) amount: IonInput;
+  @ViewChild('message', {static: false}) message: IonTextarea;
+
   @ViewChild('videoElem', {static: false}) videoElem: ElementRef;
 
   webQrScanner: any;
@@ -45,7 +48,9 @@ export class SendFundsPage implements OnInit {
   private scanSub:any=null;
   
   constructor(private qrScanner: QRScanner, private clipboard: Clipboard, 
-    public alertController: AlertController, private zone: NgZone, 
+    public alertController: AlertController,
+    public toastController: ToastController,
+    private zone: NgZone, 
     private api: MinimaApiService,
     private balanceService: BalanceService,
     private platform: Platform,
@@ -104,9 +109,8 @@ export class SendFundsPage implements OnInit {
     this.data.tokenid = id;
   }
 
-  /** ScanQR: Native || Desktop */
+  /** ScanQR: Native */
   scanQR() { 
-
     if(this.platform.is('ios') || this.platform.is('android')){
       this.qrScanner.prepare()
       .then((status: QRScannerStatus) => {
@@ -143,14 +147,6 @@ export class SendFundsPage implements OnInit {
         }
       })
       .catch((e: any) => console.log('Error is', e));
-
-    } else {
-      // browser compatible qr scan
-      this.presentAlert("Using Minidesk", "Minidesktop");
-
-
-
-
     }
   }
 
@@ -175,6 +171,17 @@ export class SendFundsPage implements OnInit {
     });
 
     await alert.present();
+  }
+  async presentToast(msg: string, type: string) {
+    const toast = await this.toastController.create({
+      message: msg,
+      duration: 4000,
+      color: type,
+      keyboardClose: true,
+      translucent: true,
+      position:  'top'
+    });
+    toast.present();
   }
 
   // API CALLS
@@ -240,22 +247,36 @@ export class SendFundsPage implements OnInit {
   }
 
   sendFunds(){
+    
     if(this.data.address&&this.data.address!==''&&this.data.amount&&this.data.amount>0&&
     this.data.tokenid&&this.data.tokenid!==''&&this.data.message===undefined){
       this.api.sendFunds(this.data).then((res:any)=>{
-        if(res.status == true) {
-          this.presentAlert('Sent successfully!', 'Info');
+        if(res.status === true) {
+          //clear inputs
+          this.address.value = "";
+          this.amount.value = "";
+          //success
+          this.presentToast("Success!  Your transaction has been posted!", "success");
         } else {
-          this.presentAlert(res.error, 'Insufficient funds.');
+          this.presentToast("Insufficient funds.  Check your funds.", "danger");
+          
         }
       })
     } else if(this.data.address&&this.data.address!==''&&this.data.amount&&this.data.amount>0&&
-    this.data.tokenid&&this.data.tokenid!==''&&this.data.message&&this.data.message.length>0) {
+    this.data.tokenid&&this.data.tokenid!==''&&this.data.message!==undefined&&this.data.message.length >= 0) {
       this.api.createTXN(this.data).then((res:any)=> {
-        if(res.status == true) {
-          this.presentAlert('Sent successfully!', 'Info');
-        } else {
-          this.presentAlert(res.error, 'Insufficient funds.');
+        if(res[4].status === true) {
+          //clear inputs
+          this.address.value = "";
+          this.amount.value = "";
+          this.message.value = "";
+          //success
+          this.presentToast("Success!  Your transaction has been posted!", "success");
+        } else if(res[4].status === false) {
+          this.presentToast("Insufficient funds.  Check your funds.", "danger");
+        }
+        else {
+          
         }
       })
     } else {

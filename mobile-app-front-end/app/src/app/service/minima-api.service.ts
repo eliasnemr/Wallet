@@ -4,6 +4,7 @@ import { LoadingController } from '@ionic/angular';
 import { environment } from '../../environments/environment';
 
 
+declare var Minima: any;
 @Injectable({
   providedIn: 'root'
 })
@@ -45,7 +46,7 @@ export class MinimaApiService {
     const port255 = 255;
     const customTXN = 
     // Custom TXN with an ID
-    'txncreate '+txnidentifier+";"+
+    "txncreate "+txnidentifier+";"+
     // Add state variable 1
     "txnstate "+txnidentifier+" "+port254+" "+"01000100"+";"+
     // Add User state variable 2
@@ -55,11 +56,11 @@ export class MinimaApiService {
     // Post it!
     "txnpost "+txnidentifier;
 
-    return this.request(customTXN)
+    return this.req(customTXN)
   }
 
   webLink(data: any) { 
-    return this.request('weblink+' + data.url);
+    return this.req('weblink+' + data.url);
   }
 
   getHost() {
@@ -78,19 +79,19 @@ export class MinimaApiService {
   }
 
   newAddress() {
-    return this.request('newaddress');
+    return this.req('newaddress');
   }
 
   sendFunds(data: any) {
-    return this.request('send+' + data.amount + '+' + data.address + '+' + data.tokenid);
+    return this.req('send ' + data.amount + ' ' + data.address + ' ' + data.tokenid);
   }
 
   giveMe50() {
-    return this.request('gimme50');
+    return this.req('gimme50');
   }
 
   getBalance() {
-    return this.request('balance');
+    return this.req('balance');
   }
 
   getHistory() {
@@ -102,7 +103,7 @@ export class MinimaApiService {
   }
 
   getStatus() {
-    return this.request('status');
+    return this.req('status');
   }
 
   request(route: any) {
@@ -116,4 +117,13 @@ export class MinimaApiService {
     return promise;
   }
 
+  // Use minima.js instead..
+  req(fnc: any) {
+    let promise = new Promise((resolve, reject) => {
+      Minima.cmd(fnc, function(resp){
+        resolve(resp);
+      });
+    })
+    return promise;
+  }
 }
