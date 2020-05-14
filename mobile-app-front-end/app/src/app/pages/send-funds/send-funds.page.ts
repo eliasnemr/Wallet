@@ -7,7 +7,7 @@ import { AlertController, Platform, NavParams, IonInput, IonTextarea, ToastContr
 import { MinimaApiService } from '../../service/minima-api.service';
 import { map } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import QrScanner from 'qr-scanner';
 
 @Component({
@@ -54,7 +54,8 @@ export class SendFundsPage implements OnInit {
     private api: MinimaApiService,
     private balanceService: BalanceService,
     private platform: Platform,
-    private route: ActivatedRoute) {}
+    private route: ActivatedRoute,
+    private router: Router) {}
 
   ngOnInit() {
     this.isCameraOpen = false;
@@ -95,10 +96,14 @@ export class SendFundsPage implements OnInit {
 
   // listen to selection change
   onItemSelection($event) {
+    const param = this.route.snapshot.params['id'];
     this.tokenArr.forEach(element => {
-      if(this.itemSelected === element.id){
+      if(this.itemSelected === element){
         this.itemSelected = element;
+        
+        this.router.navigate(["/send-funds", {id: element.id}]);
 
+        console.log(this.itemSelected)
         // update tokenid
         this.updateTokenId(element.id);
       }
@@ -247,7 +252,6 @@ export class SendFundsPage implements OnInit {
   }
 
   sendFunds(){
-    
     if(this.data.address&&this.data.address!==''&&this.data.amount&&this.data.amount>0&&
     this.data.tokenid&&this.data.tokenid!==''&&this.data.message===undefined){
       this.api.sendFunds(this.data).then((res:any)=>{

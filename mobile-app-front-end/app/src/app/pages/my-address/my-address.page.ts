@@ -1,4 +1,4 @@
-import { Platform, AlertController, IonContent } from '@ionic/angular';
+import { Platform, AlertController, IonContent, ToastController } from '@ionic/angular';
 import { Component, OnInit, ViewChild, ElementRef} from '@angular/core';
 import { Clipboard } from '@ionic-native/clipboard/ngx';
 import { MinimaApiService } from '../../service/minima-api.service';
@@ -24,7 +24,8 @@ export class MyAddressPage implements OnInit {
     private qrScanner: QRScanner, 
     private api: MinimaApiService,
     private platform : Platform,
-    private alertController: AlertController) {
+    private alertController: AlertController,
+    public toastController: ToastController) {
 
       // Needed this to fix android's build wonky
       this.platform.ready().then((readySource) => {
@@ -61,16 +62,28 @@ export class MyAddressPage implements OnInit {
     });
     await alert.present();
   }
+  async presentToast(msg: string, type: string) {
+    const toast = await this.toastController.create({
+      message: msg,
+      duration: 4000,
+      color: type,
+      keyboardClose: true,
+      translucent: true,
+      position:  'bottom'
+    });
+    toast.present();
+  }
 
   /** MISC Functions */
   copyToClipboard() {
 
     if(this.platform.is('desktop') || this.platform.is('pwa')) {
       this.copyToClipPWA();
-      this.presentAlert("Copied to clipboard.", "Success");
+      this.presentToast("Copied to clipboard", "success");
     } else {
       this.clipboard.copy(this.qrCode);
-      this.presentAlert("Copied to clipboard.", "Success");
+      this.presentToast("Copied to clipboard", "success");
+
     }
 
   }

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MinimaApiService } from '../../service/minima-api.service';
-import { IonTextarea, IonSlide, IonRange, IonInput, AlertController } from '@ionic/angular';
+import { IonTextarea, IonSlide, IonRange, IonInput, AlertController, ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-create-token',
@@ -21,7 +21,7 @@ export class CreateTokenPage implements OnInit {
   balance = 0;
   
 
-  constructor(private api: MinimaApiService, public alertController: AlertController) {}
+  constructor(private api: MinimaApiService, public alertController: AlertController, public toastController: ToastController) {}
 
   ionViewDidEnter(){}
   ngOnInit() {}
@@ -35,19 +35,19 @@ export class CreateTokenPage implements OnInit {
     this.api.createToken(this.data).then((res : any) => {
       if(res.status == true){
 
-        this.presentAlert('Success! '+this.tokenName+' has been created.', this.tokenName);
+        this.presentToast('Success! '+this.tokenName+' has been successfully created', "success");
 
         this.resetForm();
 
       }else{
 
-        this.presentAlert(res.error, 'Error');
+        this.presentToast('Something went wrong.  Please try again!', 'danger');
 
       }
     });
     } else {
 
-      this.presentAlert('Please check the input fields', 'Error');
+      this.presentToast('Something went wrong.  Please try again!', 'danger');
       
     }
   }
@@ -61,6 +61,20 @@ export class CreateTokenPage implements OnInit {
 
     await alert.present();
   }
+
+  //Alerts
+  async presentToast(msg: string, type: string) {
+    const toast = await this.toastController.create({
+      message: msg,
+      duration: 4000,
+      color: type,
+      keyboardClose: true,
+      translucent: true,
+      position:  'top'
+    });
+    toast.present();
+  }
+
 
   onAmountChanged(event: any) {
     this.tokenAmount = event.target.value;

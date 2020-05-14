@@ -37,7 +37,7 @@ export class MinimaApiService {
   }
 
   createToken(data: any) {
-    return this.request('createtoken+' + data.token + '+' + data.amount);
+    return this.req('createtoken ' + data.token + ' ' + data.amount);
   }
 
   createTXN(data: any){
@@ -95,11 +95,11 @@ export class MinimaApiService {
   }
 
   getHistory() {
-    return this.request('history');
+    return this.req('history');
   }
 
   clearMyHistory() {
-    return this.request('history clear')
+    return this.req('history clear')
   }
 
   getStatus() {
