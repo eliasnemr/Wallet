@@ -481,7 +481,7 @@ module.exports = "<ion-list>\n  \n  <div>\n  <h2 class=\"pop-title-activity\">Cr
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n<ion-list>\n  \n  <div>\n  <h2 class=\"pop-title-activity\">{{ checkTransType(transAmount)}} {{ name.substring(0, 10) }}\n  </h2>\n  <h2 class=\"pop-amount-h2\">\n    {{ transAmount }} {{ name.substring(0, 10) }}\n  </h2>\n  </div>\n  <ion-item>\n    <ion-label class=\"pop-lbl\">\n      To\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right (click)=\"copyToClipboard(receivingAddress)\">\n      {{ receivingAddress }}\n    </ion-label>\n  </ion-item>\n\n  <ion-item>\n    <ion-label class=\"pop-lbl\">\n      TxPow Block\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right>\n      {{ blockNumber }}\n    </ion-label>\n  </ion-item>\n\n  <ion-item>\n    <ion-label class=\"pop-lbl\">\n      TxPow Id\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right>\n      {{ txpowid }}\n    </ion-label>\n  </ion-item>\n  <ion-item>\n    <ion-label class=\"pop-lbl\">\n      Parent\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right>\n      {{ parent }}\n    </ion-label>\n  </ion-item>\n  <ion-item lines=\"none\">\n    <ion-label class=\"pop-lbl\">\n      isBlock\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right>\n      {{ isBlock }}\n    </ion-label>\n  </ion-item>\n\n\n\n</ion-list>\n<ion-footer>\n<ion-toolbar>\n    <ion-item lines=\"none\" class=\"box\">\n    \n    <ion-icon name=\"time\" class=\"box-icon\"></ion-icon>\n    {{  'Completed at ' + date }}\n\n  </ion-item>\n</ion-toolbar>\n\n</ion-footer>\n"
+module.exports = "\n<ion-list>\n  \n  <div>\n  <h2 class=\"pop-title-activity\">{{ checkTransType(transAmount)}} {{ name.substring(0, 10) }}\n  </h2>\n  <h2 class=\"pop-amount-h2\">\n    {{ transAmount }} {{ name.substring(0, 10) }}\n  </h2>\n  </div>\n  <ion-item>\n    <ion-label class=\"pop-lbl\">\n      To\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right (click)=\"copyToClipboard(receivingAddress)\">\n      {{ receivingAddress }}\n    </ion-label>\n  </ion-item>\n\n  <ion-item>\n    <ion-label class=\"pop-lbl\">\n      TxPow Block\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right>\n      {{ blockNumber }}\n    </ion-label>\n  </ion-item>\n\n  <ion-item>\n    <ion-label class=\"pop-lbl\">\n      TxPow Id\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right>\n      {{ txpowid }}\n    </ion-label>\n  </ion-item>\n  <ion-item>\n    <ion-label class=\"pop-lbl\">\n      Parent\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right>\n      {{ parent }}\n    </ion-label>\n  </ion-item>\n  <ion-item>\n    <ion-label class=\"pop-lbl\">\n      isBlock\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right>\n      {{ isBlock }}\n    </ion-label>\n  </ion-item>\n  <ion-item lines=\"none\" *ngIf=\"this.state.length > 0\">\n    <ion-label class=\"pop-lbl\">\n      Message\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right>\n      {{ state[1].data}}\n    </ion-label>\n  </ion-item>\n\n\n</ion-list>\n<ion-footer>\n<ion-toolbar>\n    <ion-item lines=\"none\" class=\"box\">\n    \n    <ion-icon name=\"time\" class=\"box-icon\"></ion-icon>\n    {{  'Completed at ' + date }}\n\n  </ion-item>\n</ion-toolbar>\n\n</ion-footer>\n"
 
 /***/ }),
 
@@ -1031,6 +1031,7 @@ var PopHistoryComponent = /** @class */ (function () {
         this.parent = this.navParams.get('parent');
         this.blockdiff = this.navParams.get('blockdiff');
         this.date = this.navParams.get('date');
+        this.state = this.navParams.get('state');
     }
     PopHistoryComponent.prototype.ngOnInit = function () { };
     // Check if we're receiving or sending
@@ -1315,6 +1316,7 @@ var BalanceService = /** @class */ (function () {
     BalanceService.prototype.request = function (route) {
         var apiUrl = this.host + route; // this.host+'route' = "127.0.0.1:8999/'balance'"
         var balance$ = this.http.get(apiUrl);
+        var b$ = Minima.cmd();
         return this.polledBalance$ = Object(rxjs_Observable_timer__WEBPACK_IMPORTED_MODULE_6__["timer"])(0, 2000).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["merge"])(this.manualRefresh), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["concatMap"])(function (_) { return balance$; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (res) { return res; }));
     };
     BalanceService.ctorParameters = function () { return [
@@ -1433,7 +1435,7 @@ var MinimaApiService = /** @class */ (function () {
         });
     };
     MinimaApiService.prototype.createToken = function (data) {
-        return this.request('createtoken+' + data.token + '+' + data.amount);
+        return this.req('createtoken ' + data.token + ' ' + data.amount);
     };
     MinimaApiService.prototype.createTXN = function (data) {
         var txnidentifier = Math.floor(Math.random() * 1000000000);
@@ -1441,7 +1443,7 @@ var MinimaApiService = /** @class */ (function () {
         var port255 = 255;
         var customTXN = 
         // Custom TXN with an ID
-        'txncreate ' + txnidentifier + ";" +
+        "txncreate " + txnidentifier + ";" +
             // Add state variable 1
             "txnstate " + txnidentifier + " " + port254 + " " + "01000100" + ";" +
             // Add User state variable 2
@@ -1450,10 +1452,10 @@ var MinimaApiService = /** @class */ (function () {
             "txnauto " + txnidentifier + " " + data.amount + " " + data.address + " " + data.tokenid + ";" +
             // Post it!
             "txnpost " + txnidentifier;
-        return this.request(customTXN);
+        return this.req(customTXN);
     };
     MinimaApiService.prototype.webLink = function (data) {
-        return this.request('weblink+' + data.url);
+        return this.req('weblink+' + data.url);
     };
     MinimaApiService.prototype.getHost = function () {
         if (localStorage.getItem('minima_host') == null) {
@@ -1470,25 +1472,25 @@ var MinimaApiService = /** @class */ (function () {
         this.host = newHost;
     };
     MinimaApiService.prototype.newAddress = function () {
-        return this.request('newaddress');
+        return this.req('newaddress');
     };
     MinimaApiService.prototype.sendFunds = function (data) {
-        return this.request('send+' + data.amount + '+' + data.address + '+' + data.tokenid);
+        return this.req('send ' + data.amount + ' ' + data.address + ' ' + data.tokenid);
     };
     MinimaApiService.prototype.giveMe50 = function () {
-        return this.request('gimme50');
+        return this.req('gimme50');
     };
     MinimaApiService.prototype.getBalance = function () {
-        return this.request('balance');
+        return this.req('balance');
     };
     MinimaApiService.prototype.getHistory = function () {
-        return this.request('history');
+        return this.req('history');
     };
     MinimaApiService.prototype.clearMyHistory = function () {
-        return this.request('history clear');
+        return this.req('history clear');
     };
     MinimaApiService.prototype.getStatus = function () {
-        return this.request('status');
+        return this.req('status');
     };
     MinimaApiService.prototype.request = function (route) {
         var _this = this;
@@ -1497,6 +1499,15 @@ var MinimaApiService = /** @class */ (function () {
             _this.http.get(apiUrl, { responseType: 'json' })
                 .subscribe(function (data) {
                 resolve(data);
+            });
+        });
+        return promise;
+    };
+    // Use minima.js instead..
+    MinimaApiService.prototype.req = function (fnc) {
+        var promise = new Promise(function (resolve, reject) {
+            Minima.cmd(fnc, function (resp) {
+                resolve(resp);
             });
         });
         return promise;

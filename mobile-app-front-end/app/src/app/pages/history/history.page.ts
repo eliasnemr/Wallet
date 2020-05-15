@@ -54,7 +54,7 @@ export class HistoryPage implements OnInit {
   // Present history details popover when tapped/clicked
   async presentHistoryInfo(ev: any, _name: string, _addr: any, _blkNumber: any, _amnt: any,
                        _isBlock: boolean, _txpowid: string, _parent: string,
-                        _blockdiff: number, _date: string ) {
+                        _blockdiff: number, _date: string, _state: any ) {
     const popover = await this.popHistoryController.create({
       component: PopHistoryComponent,
       cssClass: 'history-popover',
@@ -71,6 +71,7 @@ export class HistoryPage implements OnInit {
            parent: _parent,
            blockdiff: _blockdiff,
            date: _date,
+           state: _state
           
           },
     });
@@ -79,7 +80,7 @@ export class HistoryPage implements OnInit {
   // Present history details popover when tapped/clicked
   async presentHistoryTokenInfo(ev: any, _addr: any, _blkNumber: any, _amnt: any,
     _isBlock: boolean, _txpowid: string, _parent: string,
-    _blockdiff: number, _date: string ) {
+    _blockdiff: number, _date: string, _state: any ) {
   const popover = await this.popHistoryController.create({
         component: PopHistoryTokenComponent,
         cssClass: 'history-popover',
@@ -95,6 +96,7 @@ export class HistoryPage implements OnInit {
         parent: _parent,
         blockdiff: _blockdiff,
         date: _date,
+        state: _state
 
   },
   });
@@ -107,6 +109,13 @@ export class HistoryPage implements OnInit {
       return "Sent";
     } else {
       return "Received";
+    }
+  }
+  getTXNType(amount: string) {
+    if(amount.substring(0,1) === "-"){
+      return "return-down-back-outline";
+    } else {
+      return "arrow-redo-circle-outline";
     }
   }
 

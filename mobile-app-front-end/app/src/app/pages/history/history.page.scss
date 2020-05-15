@@ -2,7 +2,8 @@ ion-card-header {
     --background: var(--ion-background-color, #f2f2f2);
 }
 ion-segment {
-    margin-top: 10px;
+    margin-top: 5px;
+    padding: 0px 10px 0px 10px;
 }
 ion-card-content ion-text {
     margin-top: 10px;
@@ -11,6 +12,7 @@ ion-card-content ion-text {
     padding: 0px 0px 0px 0px !important;
 }
 
+/** @@@@@@ TXN Details @@@@@@ **/
 .date {
     display: block;
 }
@@ -25,31 +27,32 @@ ion-card-content ion-text {
 }
 .activity {
     width: 90%;
-    left: 5%;
+    left: 12%;
     right: 5%;
+
 }
-.activity:hover{
-    background-color: #d8dfe6 !important;
-}
-.activity:hover {
-    background-color: slategray;
-    box-shadow: inset 0px 0px 0px 1px red;
+ion-row {
+    width: 90%;
 }
 .activity div h1 {
     font-size: 14px;
     text-transform: uppercase;
 }
-
 .amount {
     text-align: center;
 }
-
 #month {
+    font-weight: bolder;
     font-size: 20px;
     color: #00AAC7;
 }
 #day {
+    font-weight: bolder;
     font-size: 22px;
+    color: #FF671D;
+}
+#token-name {
+    font-weight: bolder;
     color: #FF671D;
 }
 
@@ -57,17 +60,20 @@ ion-card-content ion-text {
     font-size: 20px;
 }
 .p-tokenid {
+    font-weight: bolder;
     font-size: 18px;
 }   
 .amount-p {
+    font-weight: bolder;
     font-size: 20px;
 }
 .amount-h2 {
+    font-weight: bolder;
     font-size: 20px;
 }
 
-.category-seg {
-    padding: 0px 40px 0px 40px;
+.msg-details {
+    font-size: 16px;
 }
 
 /** @@@@@@@@@@@@@@@@@ iOS @@@@@@@@@@@@@@@@@@@ */

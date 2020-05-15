@@ -475,7 +475,7 @@ module.exports = "<ion-list>\n  \n  <div>\n  <h2 class=\"pop-title-activity\">Cr
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n<ion-list>\n  \n  <div>\n  <h2 class=\"pop-title-activity\">{{ checkTransType(transAmount)}} {{ name.substring(0, 10) }}\n  </h2>\n  <h2 class=\"pop-amount-h2\">\n    {{ transAmount }} {{ name.substring(0, 10) }}\n  </h2>\n  </div>\n  <ion-item>\n    <ion-label class=\"pop-lbl\">\n      To\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right (click)=\"copyToClipboard(receivingAddress)\">\n      {{ receivingAddress }}\n    </ion-label>\n  </ion-item>\n\n  <ion-item>\n    <ion-label class=\"pop-lbl\">\n      TxPow Block\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right>\n      {{ blockNumber }}\n    </ion-label>\n  </ion-item>\n\n  <ion-item>\n    <ion-label class=\"pop-lbl\">\n      TxPow Id\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right>\n      {{ txpowid }}\n    </ion-label>\n  </ion-item>\n  <ion-item>\n    <ion-label class=\"pop-lbl\">\n      Parent\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right>\n      {{ parent }}\n    </ion-label>\n  </ion-item>\n  <ion-item lines=\"none\">\n    <ion-label class=\"pop-lbl\">\n      isBlock\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right>\n      {{ isBlock }}\n    </ion-label>\n  </ion-item>\n\n\n\n</ion-list>\n<ion-footer>\n<ion-toolbar>\n    <ion-item lines=\"none\" class=\"box\">\n    \n    <ion-icon name=\"time\" class=\"box-icon\"></ion-icon>\n    {{  'Completed at ' + date }}\n\n  </ion-item>\n</ion-toolbar>\n\n</ion-footer>\n"
+module.exports = "\n<ion-list>\n  \n  <div>\n  <h2 class=\"pop-title-activity\">{{ checkTransType(transAmount)}} {{ name.substring(0, 10) }}\n  </h2>\n  <h2 class=\"pop-amount-h2\">\n    {{ transAmount }} {{ name.substring(0, 10) }}\n  </h2>\n  </div>\n  <ion-item>\n    <ion-label class=\"pop-lbl\">\n      To\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right (click)=\"copyToClipboard(receivingAddress)\">\n      {{ receivingAddress }}\n    </ion-label>\n  </ion-item>\n\n  <ion-item>\n    <ion-label class=\"pop-lbl\">\n      TxPow Block\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right>\n      {{ blockNumber }}\n    </ion-label>\n  </ion-item>\n\n  <ion-item>\n    <ion-label class=\"pop-lbl\">\n      TxPow Id\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right>\n      {{ txpowid }}\n    </ion-label>\n  </ion-item>\n  <ion-item>\n    <ion-label class=\"pop-lbl\">\n      Parent\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right>\n      {{ parent }}\n    </ion-label>\n  </ion-item>\n  <ion-item>\n    <ion-label class=\"pop-lbl\">\n      isBlock\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right>\n      {{ isBlock }}\n    </ion-label>\n  </ion-item>\n  <ion-item lines=\"none\" *ngIf=\"this.state.length > 0\">\n    <ion-label class=\"pop-lbl\">\n      Message\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right>\n      {{ state[1].data}}\n    </ion-label>\n  </ion-item>\n\n\n</ion-list>\n<ion-footer>\n<ion-toolbar>\n    <ion-item lines=\"none\" class=\"box\">\n    \n    <ion-icon name=\"time\" class=\"box-icon\"></ion-icon>\n    {{  'Completed at ' + date }}\n\n  </ion-item>\n</ion-toolbar>\n\n</ion-footer>\n"
 
 /***/ }),
 
@@ -1005,6 +1005,7 @@ let PopHistoryComponent = class PopHistoryComponent {
         this.parent = this.navParams.get('parent');
         this.blockdiff = this.navParams.get('blockdiff');
         this.date = this.navParams.get('date');
+        this.state = this.navParams.get('state');
     }
     ngOnInit() { }
     // Check if we're receiving or sending
@@ -1275,6 +1276,7 @@ let BalanceService = class BalanceService {
     request(route) {
         let apiUrl = this.host + route; // this.host+'route' = "127.0.0.1:8999/'balance'"
         let balance$ = this.http.get(apiUrl);
+        let b$ = Minima.cmd();
         return this.polledBalance$ = Object(rxjs_Observable_timer__WEBPACK_IMPORTED_MODULE_6__["timer"])(0, 2000).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["merge"])(this.manualRefresh), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["concatMap"])(_ => balance$), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])((res) => res));
     }
 };
@@ -1373,7 +1375,7 @@ let MinimaApiService = class MinimaApiService {
         });
     }
     createToken(data) {
-        return this.request('createtoken+' + data.token + '+' + data.amount);
+        return this.req('createtoken ' + data.token + ' ' + data.amount);
     }
     createTXN(data) {
         const txnidentifier = Math.floor(Math.random() * 1000000000);
@@ -1381,7 +1383,7 @@ let MinimaApiService = class MinimaApiService {
         const port255 = 255;
         const customTXN = 
         // Custom TXN with an ID
-        'txncreate ' + txnidentifier + ";" +
+        "txncreate " + txnidentifier + ";" +
             // Add state variable 1
             "txnstate " + txnidentifier + " " + port254 + " " + "01000100" + ";" +
             // Add User state variable 2
@@ -1390,10 +1392,10 @@ let MinimaApiService = class MinimaApiService {
             "txnauto " + txnidentifier + " " + data.amount + " " + data.address + " " + data.tokenid + ";" +
             // Post it!
             "txnpost " + txnidentifier;
-        return this.request(customTXN);
+        return this.req(customTXN);
     }
     webLink(data) {
-        return this.request('weblink+' + data.url);
+        return this.req('weblink+' + data.url);
     }
     getHost() {
         if (localStorage.getItem('minima_host') == null) {
@@ -1410,25 +1412,25 @@ let MinimaApiService = class MinimaApiService {
         this.host = newHost;
     }
     newAddress() {
-        return this.request('newaddress');
+        return this.req('newaddress');
     }
     sendFunds(data) {
-        return this.request('send+' + data.amount + '+' + data.address + '+' + data.tokenid);
+        return this.req('send ' + data.amount + ' ' + data.address + ' ' + data.tokenid);
     }
     giveMe50() {
-        return this.request('gimme50');
+        return this.req('gimme50');
     }
     getBalance() {
-        return this.request('balance');
+        return this.req('balance');
     }
     getHistory() {
-        return this.request('history');
+        return this.req('history');
     }
     clearMyHistory() {
-        return this.request('history clear');
+        return this.req('history clear');
     }
     getStatus() {
-        return this.request('status');
+        return this.req('status');
     }
     request(route) {
         let apiUrl = this.host + route; // this.host = "127.0.0.1:8999/" ** route = "balance" (for example)
@@ -1436,6 +1438,15 @@ let MinimaApiService = class MinimaApiService {
             this.http.get(apiUrl, { responseType: 'json' })
                 .subscribe(data => {
                 resolve(data);
+            });
+        });
+        return promise;
+    }
+    // Use minima.js instead..
+    req(fnc) {
+        let promise = new Promise((resolve, reject) => {
+            Minima.cmd(fnc, function (resp) {
+                resolve(resp);
             });
         });
         return promise;

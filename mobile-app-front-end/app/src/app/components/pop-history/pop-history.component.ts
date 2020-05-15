@@ -21,6 +21,7 @@ export class PopHistoryComponent implements OnInit {
   public parent: string;
   public blockdiff: number;  
   public date: string;
+  public state: any;
 
 constructor(public navParams: NavParams, private clipboard: Clipboard) {
 
@@ -33,6 +34,7 @@ constructor(public navParams: NavParams, private clipboard: Clipboard) {
   this.parent = this.navParams.get('parent');
   this.blockdiff = this.navParams.get('blockdiff');
   this.date = this.navParams.get('date');
+  this.state = this.navParams.get('state');
   
 }
 

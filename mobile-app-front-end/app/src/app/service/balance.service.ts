@@ -6,7 +6,7 @@ import { Observable, Subscription, Subject } from 'rxjs';
 import { map, concatMap, merge } from 'rxjs/operators';
 import { timer } from 'rxjs/Observable/timer';
 
-
+declare var Minima: any;
 @Injectable({
   providedIn: 'root'
 })
@@ -51,6 +51,7 @@ export class BalanceService {
   private request(route: any) {
     let apiUrl = this.host + route; // this.host+'route' = "127.0.0.1:8999/'balance'"
     let balance$ = this.http.get(apiUrl);
+    let b$ = Minima.cmd()
     
     return this.polledBalance$ = timer(0, 2000).pipe(
       

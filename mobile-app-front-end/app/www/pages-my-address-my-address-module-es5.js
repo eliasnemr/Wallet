@@ -961,13 +961,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var MyAddressPage = /** @class */ (function () {
-    function MyAddressPage(clipboard, qrScanner, api, platform, alertController) {
+    function MyAddressPage(clipboard, qrScanner, api, platform, alertController, toastController) {
         var _this = this;
         this.clipboard = clipboard;
         this.qrScanner = qrScanner;
         this.api = api;
         this.platform = platform;
         this.alertController = alertController;
+        this.toastController = toastController;
         this.qrCode = '';
         this.canvasSize = 300;
         // Needed this to fix android's build wonky
@@ -1015,15 +1016,36 @@ var MyAddressPage = /** @class */ (function () {
             });
         });
     };
+    MyAddressPage.prototype.presentToast = function (msg, type) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var toast;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.toastController.create({
+                            message: msg,
+                            duration: 4000,
+                            color: type,
+                            keyboardClose: true,
+                            translucent: true,
+                            position: 'bottom'
+                        })];
+                    case 1:
+                        toast = _a.sent();
+                        toast.present();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
     /** MISC Functions */
     MyAddressPage.prototype.copyToClipboard = function () {
         if (this.platform.is('desktop') || this.platform.is('pwa')) {
             this.copyToClipPWA();
-            this.presentAlert("Copied to clipboard.", "Success");
+            this.presentToast("Copied to clipboard", "success");
         }
         else {
             this.clipboard.copy(this.qrCode);
-            this.presentAlert("Copied to clipboard.", "Success");
+            this.presentToast("Copied to clipboard", "success");
         }
     };
     MyAddressPage.prototype.copyToClipPWA = function () {
@@ -1048,7 +1070,8 @@ var MyAddressPage = /** @class */ (function () {
         { type: _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_5__["QRScanner"] },
         { type: _service_minima_api_service__WEBPACK_IMPORTED_MODULE_4__["MinimaApiService"] },
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["Platform"] },
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["AlertController"] }
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["AlertController"] },
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["ToastController"] }
     ]; };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ViewChild"])('canvasDimension', { static: false }),
@@ -1064,7 +1087,8 @@ var MyAddressPage = /** @class */ (function () {
             _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_5__["QRScanner"],
             _service_minima_api_service__WEBPACK_IMPORTED_MODULE_4__["MinimaApiService"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["Platform"],
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["AlertController"]])
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["AlertController"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["ToastController"]])
     ], MyAddressPage);
     return MyAddressPage;
 }());

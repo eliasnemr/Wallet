@@ -89,9 +89,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let CreateTokenPage = class CreateTokenPage {
-    constructor(api, alertController) {
+    constructor(api, alertController, toastController) {
         this.api = api;
         this.alertController = alertController;
+        this.toastController = toastController;
         this.data = {};
         this.minimaAmount = 0;
         this.forNewToken = 0;
@@ -107,16 +108,16 @@ let CreateTokenPage = class CreateTokenPage {
         if (this.data.token && this.data.token !== '' && this.data.amount && this.data.amount > 0) {
             this.api.createToken(this.data).then((res) => {
                 if (res.status == true) {
-                    this.presentAlert('Success! ' + this.tokenName + ' has been created.', this.tokenName);
+                    this.presentToast('Success! ' + this.tokenName + ' has been successfully created', "success");
                     this.resetForm();
                 }
                 else {
-                    this.presentAlert(res.error, 'Error');
+                    this.presentToast('Something went wrong.  Please try again!', 'danger');
                 }
             });
         }
         else {
-            this.presentAlert('Please check the input fields', 'Error');
+            this.presentToast('Something went wrong.  Please try again!', 'danger');
         }
     }
     presentAlert(msg, header) {
@@ -127,6 +128,20 @@ let CreateTokenPage = class CreateTokenPage {
                 buttons: ['OK']
             });
             yield alert.present();
+        });
+    }
+    //Alerts
+    presentToast(msg, type) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            const toast = yield this.toastController.create({
+                message: msg,
+                duration: 4000,
+                color: type,
+                keyboardClose: true,
+                translucent: true,
+                position: 'top'
+            });
+            toast.present();
         });
     }
     onAmountChanged(event) {
@@ -152,7 +167,8 @@ let CreateTokenPage = class CreateTokenPage {
 };
 CreateTokenPage.ctorParameters = () => [
     { type: _service_minima_api_service__WEBPACK_IMPORTED_MODULE_2__["MinimaApiService"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["AlertController"] }
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["AlertController"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["ToastController"] }
 ];
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('nameTextArea', { static: false }),
@@ -172,7 +188,7 @@ CreateTokenPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         template: __webpack_require__(/*! raw-loader!./create-token.page.html */ "./node_modules/raw-loader/index.js!./src/app/pages/create-token/create-token.page.html"),
         styles: [__webpack_require__(/*! ./create-token.page.scss */ "./src/app/pages/create-token/create-token.page.scss")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_service_minima_api_service__WEBPACK_IMPORTED_MODULE_2__["MinimaApiService"], _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["AlertController"]])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_service_minima_api_service__WEBPACK_IMPORTED_MODULE_2__["MinimaApiService"], _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["AlertController"], _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["ToastController"]])
 ], CreateTokenPage);
 
 

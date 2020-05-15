@@ -83,7 +83,8 @@
         <ion-item lines="none">
         <!-- Disabled Checkbox -->
         <ion-checkbox [(ngModel)]="messageEntry.isChecked" (ionChange)="checkboxValue($event, messageEntry.isChecked)"></ion-checkbox>
-        <ion-label style="padding-left: 10px;">Message/Description</ion-label>
+        <ion-label [hidden]="messageEntry.isChecked"style="padding-left: 10px;">Message</ion-label>
+        <ion-label [hidden]="!messageEntry.isChecked"style="padding-left: 10px;">This message is public</ion-label>
         </ion-item>
         <ion-item [hidden]="!messageEntry.isChecked">
             <ion-textarea 
@@ -92,7 +93,9 @@
             placeholder="type your message..."
             maxlength="255"
             autogrow="true"></ion-textarea>
+            
         </ion-item>
+        
     </ion-card-content>
   </ion-card>
 
