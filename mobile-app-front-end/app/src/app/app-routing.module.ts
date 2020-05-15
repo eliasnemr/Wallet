@@ -19,6 +19,7 @@ const routes: Routes = [
   { path: 'community', loadChildren: () => import('./pages/community/community.module').then(m => m.CommunityPageModule) },
   { path: 'history', loadChildren: () => import('./pages/history/history.module').then(m => m.HistoryPageModule) },
   { path: 'historymodal', loadChildren: './components/historymodal/historymodal.module#HistorymodalPageModule' },
+  { path: 'historytokenmodal', loadChildren: './components/historytokenmodal/historytokenmodal.module#HistorytokenmodalPageModule' },
 ];
 
 

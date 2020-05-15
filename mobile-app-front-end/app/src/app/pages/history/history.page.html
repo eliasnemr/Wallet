@@ -125,7 +125,16 @@
     <ion-grid *ngIf="transactions.length >= 1 && transaction.values[0].name === 'Create Token';" ><ion-row>
     <ion-item 
     class="activity"
-    (click)="presentModal()">
+    (click)="presentTokenModal(transaction.txpow.txpowid, 
+              transaction.values[0].amount,
+              transaction.txpow.txn.state,
+              transaction.txpow.txnid,
+              transaction.txpow.block,
+              transaction.txpow.parent,
+              transaction.txpow.txn.inputs[0].tokenid,
+              transaction.txpow.date,
+              transaction.txpow.isblock,
+              transaction.values[0].name)">
       <!-- TXN Icon -->
       <ion-col size="1">
       <ion-icon name="brush-outline" size="large"></ion-icon>
@@ -179,7 +188,16 @@
     <ion-grid *ngIf="transactions.length >= 1 && transaction.values[0].name !== 'Create Token';"><ion-row>
     <ion-item 
     class="activity"
-    (click)="presentModal()">
+    (click)="presentModal(transaction.txpow.txpowid, 
+              transaction.values[0].amount,
+              transaction.txpow.txn.state,
+              transaction.txpow.txnid,
+              transaction.txpow.block,
+              transaction.txpow.parent,
+              transaction.txpow.txn.inputs[0].tokenid,
+              transaction.txpow.date,
+              transaction.txpow.isblock,
+              transaction.values[0].name)">
 
       <!-- TXN Icon -->
       <ion-col size="1">
@@ -236,7 +254,16 @@
     <ion-grid *ngIf="transactions.length >= 1 && transaction.values[0].name === 'Create Token';"><ion-row>
     <ion-item 
     class="activity"
-    (click)="presentModal()">
+    (click)="presentTokenModal(transaction.txpow.txpowid, 
+              transaction.values[0].amount,
+              transaction.txpow.txn.state,
+              transaction.txpow.txnid,
+              transaction.txpow.block,
+              transaction.txpow.parent,
+              transaction.txpow.txn.inputs[0].tokenid,
+              transaction.txpow.date,
+              transaction.txpow.isblock,
+              transaction.values[0].name)">
       <!-- TXN Icon -->
       <ion-col size="1">
       <ion-icon name="brush-outline" size="large"></ion-icon>

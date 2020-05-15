@@ -18,10 +18,11 @@ import { darkMode } from './service/darkMode.service';
 import * as MifiJS from 'src/assets/JS/minima.js';
 import * as HTML5QR from 'node_modules/html5-qrcode/minified/html5-qrcode.min.js';
 import { HistorymodalPage } from './components/historymodal/historymodal.page';
+import { HistorytokenmodalPage } from './components/historytokenmodal/historytokenmodal.page';
 
 @NgModule({
-  declarations: [AppComponent, PopOverComponent, PopTermComponent, HistorymodalPage],
-  entryComponents: [PopOverComponent, PopTermComponent, HistorymodalPage],
+  declarations: [AppComponent, PopOverComponent, PopTermComponent, HistorymodalPage, HistorytokenmodalPage],
+  entryComponents: [PopOverComponent, PopTermComponent, HistorymodalPage, HistorytokenmodalPage],
   imports: [FormsModule, HttpClientModule, BrowserModule, IonicModule.forRoot(), AppRoutingModule, IonicStorageModule.forRoot()],
   providers: [
     Storage,

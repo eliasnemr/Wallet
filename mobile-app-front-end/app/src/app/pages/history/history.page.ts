@@ -6,6 +6,7 @@ import { HistoryService } from '../../service/history.service';
 import { map } from 'rxjs/operators';
 import { History } from '../../models/history.model';
 import { HistorymodalPage } from '../../components/historymodal/historymodal.page';
+import { HistorytokenmodalPage } from '../../components/historytokenmodal/historytokenmodal.page';
 
 @Component({
   selector: 'app-history',
@@ -71,6 +72,27 @@ export class HistoryPage implements OnInit {
     });
     return await modal.present();
   }
+  async presentTokenModal(_txpowid: string, _amount: any,
+    _message: any, _txnid: string, _block: number,
+    _parent: string, _tokenid: string, _date: string, _isBlock: boolean,
+    _name: string) {
+   const modal = await this.modalController.create({
+     component: HistorytokenmodalPage,
+     componentProps: {
+       'TXPOW_ID': _txpowid,
+       'Amount': _amount,
+       'Message': _message,
+       'TXN_ID': _txnid,
+       'Block': _block,
+       'Parent': _parent,
+       'TokenID': _tokenid,
+       'Date': _date,
+       'isBlock': _isBlock,
+       'TokenName': _name
+     }
+   });
+   return await modal.present();
+ }
 
   /** ALERTS */
   // Present history details popover when tapped/clicked
