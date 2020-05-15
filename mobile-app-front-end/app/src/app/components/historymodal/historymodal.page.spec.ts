@@ -1,22 +1,22 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PopHistoryComponent } from './pop-history.component';
+import { HistorymodalPage } from './historymodal.page';
 
-describe('PopHistoryComponent', () => {
-  let component: PopHistoryComponent;
-  let fixture: ComponentFixture<PopHistoryComponent>;
+describe('HistorymodalPage', () => {
+  let component: HistorymodalPage;
+  let fixture: ComponentFixture<HistorymodalPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PopHistoryComponent ],
+      declarations: [ HistorymodalPage ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PopHistoryComponent);
+    fixture = TestBed.createComponent(HistorymodalPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

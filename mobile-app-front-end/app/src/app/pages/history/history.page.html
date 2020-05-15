@@ -48,17 +48,16 @@
     <ion-item 
     *ngIf="transactions.length >= 1 && transaction.values[0].name !== 'Create Token';" 
     class="activity"
-    (click)="presentHistoryInfo($event,
-              transaction.values[0].name, 
-              transaction.txpow.txn.inputs[0].address,
-              transaction.txpow.block, 
-              transaction.values[0].amount, 
-              transaction.txpow.isblock, 
-              transaction.txpow.txpowid, 
-              transaction.txpow.parent, 
-              transaction.txpow.blkdiff, 
-              transaction.txpow.date.substring(11,16),
-              transaction.txpow.txn.state)">
+    (click)="presentModal(transaction.txpow.txpowid, 
+              transaction.values[0].amount,
+              transaction.txpow.txn.state,
+              transaction.txpow.txnid,
+              transaction.txpow.block,
+              transaction.txpow.parent,
+              transaction.txpow.txn.inputs[0].tokenid,
+              transaction.txpow.date,
+              transaction.txpow.isblock,
+              transaction.values[0].name)">
 
       <!-- TXN Icon -->
       <ion-col size="1">
@@ -126,16 +125,7 @@
     <ion-grid *ngIf="transactions.length >= 1 && transaction.values[0].name === 'Create Token';" ><ion-row>
     <ion-item 
     class="activity"
-    (click)="presentHistoryTokenInfo($event, 
-              transaction.txpow.txn.inputs[0].address,
-              transaction.txpow.block, 
-              transaction.values[1].amount, 
-              transaction.txpow.isblock, 
-              transaction.txpow.txpowid, 
-              transaction.txpow.parent, 
-              transaction.txpow.blkdiff, 
-              transaction.txpow.date.substring(11,16),
-              transaction.txpow.txn.state)">
+    (click)="presentModal()">
       <!-- TXN Icon -->
       <ion-col size="1">
       <ion-icon name="brush-outline" size="large"></ion-icon>
@@ -189,17 +179,7 @@
     <ion-grid *ngIf="transactions.length >= 1 && transaction.values[0].name !== 'Create Token';"><ion-row>
     <ion-item 
     class="activity"
-    (click)="presentHistoryInfo($event,
-              transaction.values[0].name, 
-              transaction.txpow.txn.inputs[0].address,
-              transaction.txpow.block, 
-              transaction.values[0].amount, 
-              transaction.txpow.isblock, 
-              transaction.txpow.txpowid, 
-              transaction.txpow.parent, 
-              transaction.txpow.blkdiff, 
-              transaction.txpow.date.substring(11,16),
-               transaction.txpow.txn.state)">
+    (click)="presentModal()">
 
       <!-- TXN Icon -->
       <ion-col size="1">
@@ -256,15 +236,7 @@
     <ion-grid *ngIf="transactions.length >= 1 && transaction.values[0].name === 'Create Token';"><ion-row>
     <ion-item 
     class="activity"
-    (click)="presentHistoryTokenInfo($event, 
-              transaction.txpow.txn.inputs[0].address,
-              transaction.txpow.block, 
-              transaction.values[1].amount, 
-              transaction.txpow.isblock, 
-              transaction.txpow.txpowid, 
-              transaction.txpow.parent, 
-              transaction.txpow.blkdiff, 
-              transaction.txpow.date.substring(11,16))">
+    (click)="presentModal()">
       <!-- TXN Icon -->
       <ion-col size="1">
       <ion-icon name="brush-outline" size="large"></ion-icon>

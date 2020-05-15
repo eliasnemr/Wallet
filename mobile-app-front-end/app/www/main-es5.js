@@ -8,6 +8,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
+	"./components/historymodal/historymodal.module": [
+		"./src/app/components/historymodal/historymodal.module.ts",
+		"components-historymodal-historymodal-module"
+	],
 	"./pages/balance/balance.module": [
 		"./src/app/pages/balance/balance.module.ts",
 		"pages-balance-balance-module"
@@ -463,25 +467,14 @@ module.exports = "<div class=\"my-overlay\" padding [hidden]=\"overlayHidden\"> 
 
 /***/ }),
 
-/***/ "./node_modules/raw-loader/index.js!./src/app/components/pop-history-token/pop-history-token.component.html":
-/*!*********************************************************************************************************!*\
-  !*** ./node_modules/raw-loader!./src/app/components/pop-history-token/pop-history-token.component.html ***!
-  \*********************************************************************************************************/
+/***/ "./node_modules/raw-loader/index.js!./src/app/components/historymodal/historymodal.page.html":
+/*!******************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/components/historymodal/historymodal.page.html ***!
+  \******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-list>\n  \n  <div>\n  <h2 class=\"pop-title-activity\">Created a Token.\n  </h2>\n  <h2 class=\"pop-amount-h2\">\n    {{ transAmount }} Minima\n  </h2>\n  </div>\n  <ion-item>\n    <ion-label class=\"pop-lbl\">\n      To\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right (click)=\"copyToClipboard(receivingAddress)\">\n      {{ receivingAddress }}\n    </ion-label>\n  </ion-item>\n\n  <ion-item>\n    <ion-label class=\"pop-lbl\">\n      TxPow Block\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right>\n      {{ blockNumber }}\n    </ion-label>\n  </ion-item>\n\n  <ion-item>\n    <ion-label class=\"pop-lbl\">\n      TxPow Id\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right>\n      {{ txpowid }}\n    </ion-label>\n  </ion-item>\n  <ion-item>\n    <ion-label class=\"pop-lbl\">\n      Parent\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right>\n      {{ parent }}\n    </ion-label>\n  </ion-item>\n  <ion-item lines=\"none\">\n    <ion-label class=\"pop-lbl\">\n      isBlock\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right>\n      {{ isBlock }}\n    </ion-label>\n  </ion-item>\n\n\n\n</ion-list>\n<ion-footer>\n<ion-toolbar>\n    <ion-item lines=\"none\" class=\"box\">\n    \n    <ion-icon name=\"time\" class=\"box-icon\"></ion-icon>\n    {{  'Completed at ' + date }}\n\n  </ion-item>\n</ion-toolbar>\n\n</ion-footer>\n\n"
-
-/***/ }),
-
-/***/ "./node_modules/raw-loader/index.js!./src/app/components/pop-history/pop-history.component.html":
-/*!*********************************************************************************************!*\
-  !*** ./node_modules/raw-loader!./src/app/components/pop-history/pop-history.component.html ***!
-  \*********************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "\n<ion-list>\n  \n  <div>\n  <h2 class=\"pop-title-activity\">{{ checkTransType(transAmount)}} {{ name.substring(0, 10) }}\n  </h2>\n  <h2 class=\"pop-amount-h2\">\n    {{ transAmount }} {{ name.substring(0, 10) }}\n  </h2>\n  </div>\n  <ion-item>\n    <ion-label class=\"pop-lbl\">\n      To\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right (click)=\"copyToClipboard(receivingAddress)\">\n      {{ receivingAddress }}\n    </ion-label>\n  </ion-item>\n\n  <ion-item>\n    <ion-label class=\"pop-lbl\">\n      TxPow Block\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right>\n      {{ blockNumber }}\n    </ion-label>\n  </ion-item>\n\n  <ion-item>\n    <ion-label class=\"pop-lbl\">\n      TxPow Id\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right>\n      {{ txpowid }}\n    </ion-label>\n  </ion-item>\n  <ion-item>\n    <ion-label class=\"pop-lbl\">\n      Parent\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right>\n      {{ parent }}\n    </ion-label>\n  </ion-item>\n  <ion-item>\n    <ion-label class=\"pop-lbl\">\n      isBlock\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right>\n      {{ isBlock }}\n    </ion-label>\n  </ion-item>\n  <ion-item lines=\"none\" *ngIf=\"this.state.length > 0\">\n    <ion-label class=\"pop-lbl\">\n      Message\n    </ion-label>\n    <ion-label class=\"pop-info-lbl\" text-right>\n      {{ state[1].data}}\n    </ion-label>\n  </ion-item>\n\n\n</ion-list>\n<ion-footer>\n<ion-toolbar>\n    <ion-item lines=\"none\" class=\"box\">\n    \n    <ion-icon name=\"time\" class=\"box-icon\"></ion-icon>\n    {{  'Completed at ' + date }}\n\n  </ion-item>\n</ion-toolbar>\n\n</ion-footer>\n"
+module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-title slot=\"start\"><span style=\"color:#FF671E\">TxPoW</span> <span style=\"font-size:14px;\">{{ TXPOW_ID.substring(0,20)+\"...\" }}</span></ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n<ion-card>\n  <ion-card-header>\n  <ion-grid><ion-row>\n  <ion-col>\n    <!-- TXN Type -->\n    <ion-icon size=\"large\" [name]=\"getTXNType(Amount)\"></ion-icon>\n    <h2 *ngIf=\"Amount.toString().substring(0, 1) !== '-'\">  {{\"+\"+Amount}} {{ TokenName }} </h2>\n    <h2 *ngIf=\"Amount.toString().substring(0, 1) === '-'\">  Sent {{Amount}} {{ TokenName }} </h2>\n  </ion-col>\n  </ion-row>\n  <!-- TXN Message (if any)-->\n  <ion-row>\n  <ion-col *ngIf=\"Message.length > 0 && Message[0].data === '01000100'\">\n  <ion-note>{{'\"'+ Message[1].data +'\"' }}</ion-note>\n  </ion-col>\n  </ion-row>\n  </ion-grid>\n  </ion-card-header>\n<!-- TXN Details -->  \n<ion-list>\n\n  <ion-item>\n  <ion-label class=\"info-lbl\">\n    TxnID\n  </ion-label>\n  <ion-label class=\"information\">\n    {{ TXN_ID.substring(0, 20)+\"...\" }}\n  </ion-label>\n  </ion-item>\n\n  <ion-item>\n  <ion-label class=\"info-lbl\">\n    TokenID\n  </ion-label>\n  <ion-label class=\"information\">\n    {{ TokenID }}\n  </ion-label>\n  </ion-item>\n\n  <ion-item>\n  <ion-label class=\"info-lbl\">\n    Block #\n  </ion-label>\n  <ion-label class=\"information\">\n    {{ Block }}\n  </ion-label>\n  </ion-item>\n\n  <ion-item>\n  <ion-label class=\"info-lbl\">\n    isBlock\n  </ion-label>\n  <ion-label class=\"information\">\n    {{ isBlock }}\n  </ion-label>\n  </ion-item>\n\n  <ion-item lines=\"none\">\n  <ion-label class=\"info-lbl\">\n   Parent\n  </ion-label>\n  <ion-label class=\"information\">\n    {{ Parent.substring(0, 20)+\"...\" }}\n  </ion-label>\n  </ion-item>\n\n  <ion-item lines=\"none\">\n  <ion-label class=\"info-lbl\">\n   {{ Date.substring(4, 20) }}\n  </ion-label>\n  <ion-label class=\"completed\">\n    Completed\n  </ion-label>\n  </ion-item>\n\n</ion-list>\n</ion-card>\n\n\n</ion-content>\n\n<ion-footer>\n<ion-toolbar style=\"text-align: center;\">\n  <ion-button fill=\"clear\" (click)=\"dismiss()\" class=\"dismiss-btn\" expand=\"full\">\n  Dismiss\n  </ion-button>\n</ion-toolbar>\n</ion-footer>"
 
 /***/ }),
 
@@ -540,6 +533,7 @@ var routes = [
     { path: 'web-scanner', loadChildren: function () { return __webpack_require__.e(/*! import() | pages-web-scanner-web-scanner-module */ "pages-web-scanner-web-scanner-module").then(__webpack_require__.bind(null, /*! ./pages/web-scanner/web-scanner.module */ "./src/app/pages/web-scanner/web-scanner.module.ts")).then(function (m) { return m.WebScannerPageModule; }); } },
     { path: 'community', loadChildren: function () { return __webpack_require__.e(/*! import() | pages-community-community-module */ "pages-community-community-module").then(__webpack_require__.bind(null, /*! ./pages/community/community.module */ "./src/app/pages/community/community.module.ts")).then(function (m) { return m.CommunityPageModule; }); } },
     { path: 'history', loadChildren: function () { return __webpack_require__.e(/*! import() | pages-history-history-module */ "pages-history-history-module").then(__webpack_require__.bind(null, /*! ./pages/history/history.module */ "./src/app/pages/history/history.module.ts")).then(function (m) { return m.HistoryPageModule; }); } },
+    { path: 'historymodal', loadChildren: './components/historymodal/historymodal.module#HistorymodalPageModule' },
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
@@ -865,13 +859,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @ionic-native/qr-scanner/ngx */ "./node_modules/@ionic-native/qr-scanner/ngx/index.js");
 /* harmony import */ var _components_pop_over_pop_over_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/pop-over/pop-over.component */ "./src/app/components/pop-over/pop-over.component.ts");
 /* harmony import */ var _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/pop-term/pop-term.component */ "./src/app/components/pop-term/pop-term.component.ts");
-/* harmony import */ var _components_pop_history_pop_history_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/pop-history/pop-history.component */ "./src/app/components/pop-history/pop-history.component.ts");
-/* harmony import */ var _components_pop_history_token_pop_history_token_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/pop-history-token/pop-history-token.component */ "./src/app/components/pop-history-token/pop-history-token.component.ts");
-/* harmony import */ var _service_userterminal_service__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./service/userterminal.service */ "./src/app/service/userterminal.service.ts");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
-/* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm5/ionic-storage.js");
-/* harmony import */ var _service_darkMode_service__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./service/darkMode.service */ "./src/app/service/darkMode.service.ts");
-
+/* harmony import */ var _service_userterminal_service__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./service/userterminal.service */ "./src/app/service/userterminal.service.ts");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm5/ionic-storage.js");
+/* harmony import */ var _service_darkMode_service__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./service/darkMode.service */ "./src/app/service/darkMode.service.ts");
+/* harmony import */ var _components_historymodal_historymodal_page__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/historymodal/historymodal.page */ "./src/app/components/historymodal/historymodal.page.ts");
 
 
 
@@ -896,22 +888,20 @@ var AppModule = /** @class */ (function () {
     }
     AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["NgModule"])({
-            declarations: [_app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"], _components_pop_over_pop_over_component__WEBPACK_IMPORTED_MODULE_12__["PopOverComponent"], _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_13__["PopTermComponent"], _components_pop_history_pop_history_component__WEBPACK_IMPORTED_MODULE_14__["PopHistoryComponent"], _components_pop_history_token_pop_history_token_component__WEBPACK_IMPORTED_MODULE_15__["PopHistoryTokenComponent"]],
-            entryComponents: [_components_pop_over_pop_over_component__WEBPACK_IMPORTED_MODULE_12__["PopOverComponent"], _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_13__["PopTermComponent"], _components_pop_history_pop_history_component__WEBPACK_IMPORTED_MODULE_14__["PopHistoryComponent"], _components_pop_history_token_pop_history_token_component__WEBPACK_IMPORTED_MODULE_15__["PopHistoryTokenComponent"]],
-            imports: [_angular_forms__WEBPACK_IMPORTED_MODULE_7__["FormsModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HttpClientModule"], _angular_platform_browser__WEBPACK_IMPORTED_MODULE_3__["BrowserModule"], _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["IonicModule"].forRoot(), _app_routing_module__WEBPACK_IMPORTED_MODULE_9__["AppRoutingModule"], _ionic_storage__WEBPACK_IMPORTED_MODULE_18__["IonicStorageModule"].forRoot()],
+            declarations: [_app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"], _components_pop_over_pop_over_component__WEBPACK_IMPORTED_MODULE_12__["PopOverComponent"], _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_13__["PopTermComponent"], _components_historymodal_historymodal_page__WEBPACK_IMPORTED_MODULE_18__["HistorymodalPage"]],
+            entryComponents: [_components_pop_over_pop_over_component__WEBPACK_IMPORTED_MODULE_12__["PopOverComponent"], _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_13__["PopTermComponent"], _components_historymodal_historymodal_page__WEBPACK_IMPORTED_MODULE_18__["HistorymodalPage"]],
+            imports: [_angular_forms__WEBPACK_IMPORTED_MODULE_7__["FormsModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HttpClientModule"], _angular_platform_browser__WEBPACK_IMPORTED_MODULE_3__["BrowserModule"], _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["IonicModule"].forRoot(), _app_routing_module__WEBPACK_IMPORTED_MODULE_9__["AppRoutingModule"], _ionic_storage__WEBPACK_IMPORTED_MODULE_16__["IonicStorageModule"].forRoot()],
             providers: [
                 Storage,
                 _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_10__["Clipboard"],
                 _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_11__["QRScanner"],
                 { provide: _angular_router__WEBPACK_IMPORTED_MODULE_4__["RouteReuseStrategy"], useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["IonicRouteStrategy"] },
-                { provide: _angular_common__WEBPACK_IMPORTED_MODULE_17__["LocationStrategy"], useClass: _angular_common__WEBPACK_IMPORTED_MODULE_17__["HashLocationStrategy"] },
+                { provide: _angular_common__WEBPACK_IMPORTED_MODULE_15__["LocationStrategy"], useClass: _angular_common__WEBPACK_IMPORTED_MODULE_15__["HashLocationStrategy"] },
                 _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_13__["PopTermComponent"],
                 _components_pop_over_pop_over_component__WEBPACK_IMPORTED_MODULE_12__["PopOverComponent"],
-                _components_pop_history_pop_history_component__WEBPACK_IMPORTED_MODULE_14__["PopHistoryComponent"],
-                _components_pop_history_token_pop_history_token_component__WEBPACK_IMPORTED_MODULE_15__["PopHistoryTokenComponent"],
-                _service_userterminal_service__WEBPACK_IMPORTED_MODULE_16__["UserTerminal"],
+                _service_userterminal_service__WEBPACK_IMPORTED_MODULE_14__["UserTerminal"],
                 _service_balance_service__WEBPACK_IMPORTED_MODULE_1__["BalanceService"],
-                _service_darkMode_service__WEBPACK_IMPORTED_MODULE_19__["darkMode"],
+                _service_darkMode_service__WEBPACK_IMPORTED_MODULE_17__["darkMode"],
             ],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"]]
         })
@@ -923,143 +913,66 @@ var AppModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/components/pop-history-token/pop-history-token.component.scss":
-/*!*******************************************************************************!*\
-  !*** ./src/app/components/pop-history-token/pop-history-token.component.scss ***!
-  \*******************************************************************************/
+/***/ "./src/app/components/historymodal/historymodal.page.scss":
+/*!****************************************************************!*\
+  !*** ./src/app/components/historymodal/historymodal.page.scss ***!
+  \****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "ion-footer ion-toolbar ion-item {\n  --background: var(--ion-background-color, #f2f2f2);\n}\n\nion-footer ion-toolbar {\n  --background: var(--ion-background-color, #f2f2f2);\n}\n\n.pop-lbl {\n  font-weight: lighter;\n  font-family: \"Aeonik-light\";\n  font-size: 12px;\n}\n\nion-icon {\n  color: #3D9970;\n}\n\n.pop-info-lbl {\n  font-size: 12px;\n}\n\n.pop-amount-h2 {\n  text-align: center;\n}\n\n.pop-title-activity {\n  text-align: center;\n  font-size: medium;\n}\n\n.box {\n  margin-left: auto;\n  margin-right: auto;\n  white-space: nowrap;\n  font-size: 16px;\n}\n\n.box-icon {\n  font-size: 30px;\n  padding-right: 15px;\n}\n\n@media only screen and (min-width: 992px) {\n  .date-lbl {\n    font-size: 14px;\n  }\n}\n\n.ios .box {\n  margin-left: auto;\n  margin-right: auto;\n  white-space: nowrap;\n  font-size: 16px;\n}\n\n.ios .box-icon {\n  font-size: 20px;\n  padding-right: 3px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9lbGlhcy9Qcm9qZWN0cy9taW5pbWFjb3JlL21vYmlsZS1hcHAtZnJvbnQtZW5kL2FwcC9zcmMvYXBwL2NvbXBvbmVudHMvcG9wLWhpc3RvcnktdG9rZW4vcG9wLWhpc3RvcnktdG9rZW4uY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL2NvbXBvbmVudHMvcG9wLWhpc3RvcnktdG9rZW4vcG9wLWhpc3RvcnktdG9rZW4uY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxrREFBQTtBQ0NKOztBREVBO0VBQ0ksa0RBQUE7QUNDSjs7QURFQTtFQUNJLG9CQUFBO0VBQ0EsMkJBQUE7RUFDQSxlQUFBO0FDQ0o7O0FEQ0E7RUFDSSxjQUFBO0FDRUo7O0FEQ0E7RUFDSSxlQUFBO0FDRUo7O0FEQ0E7RUFDSSxrQkFBQTtBQ0VKOztBRENBO0VBQ0ksa0JBQUE7RUFDQSxpQkFBQTtBQ0VKOztBREFBO0VBQ0ksaUJBQUE7RUFDQSxrQkFBQTtFQUNBLG1CQUFBO0VBQ0EsZUFBQTtBQ0dKOztBRERBO0VBQ0ksZUFBQTtFQUNBLG1CQUFBO0FDSUo7O0FEQUE7RUFDSTtJQUNJLGVBQUE7RUNHTjtBQUNGOztBREdBO0VBQ0ksaUJBQUE7RUFDQSxrQkFBQTtFQUNBLG1CQUFBO0VBQ0EsZUFBQTtBQ0RKOztBREdBO0VBQ0ksZUFBQTtFQUNBLGtCQUFBO0FDQUoiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL3BvcC1oaXN0b3J5LXRva2VuL3BvcC1oaXN0b3J5LXRva2VuLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiaW9uLWZvb3RlciBpb24tdG9vbGJhciBpb24taXRlbSB7XG4gICAgLS1iYWNrZ3JvdW5kOiB2YXIoLS1pb24tYmFja2dyb3VuZC1jb2xvciwgI2YyZjJmMik7XG5cbn1cbmlvbi1mb290ZXIgaW9uLXRvb2xiYXIge1xuICAgIC0tYmFja2dyb3VuZDogdmFyKC0taW9uLWJhY2tncm91bmQtY29sb3IsICNmMmYyZjIpO1xuXG59XG4ucG9wLWxibCB7XG4gICAgZm9udC13ZWlnaHQ6IGxpZ2h0ZXI7IFxuICAgIGZvbnQtZmFtaWx5OiAnQWVvbmlrLWxpZ2h0JztcbiAgICBmb250LXNpemU6IDEycHg7XG59XG5pb24taWNvbiB7XG4gICAgY29sb3I6ICMzRDk5NzA7XG59XG5cbi5wb3AtaW5mby1sYmwge1xuICAgIGZvbnQtc2l6ZTogMTJweDtcbiAgICBcbn1cbi5wb3AtYW1vdW50LWgyIHtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gICAgXG59XG4ucG9wLXRpdGxlLWFjdGl2aXR5IHtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gICAgZm9udC1zaXplOiBtZWRpdW07XG59XG4uYm94IHtcbiAgICBtYXJnaW4tbGVmdDogYXV0bztcbiAgICBtYXJnaW4tcmlnaHQ6IGF1dG87XG4gICAgd2hpdGUtc3BhY2U6IG5vd3JhcDtcbiAgICBmb250LXNpemU6IDE2cHg7XG59XG4uYm94LWljb24ge1xuICAgIGZvbnQtc2l6ZTogMzBweDtcbiAgICBwYWRkaW5nLXJpZ2h0OiAxNXB4O1xufVxuLy9kZXNrdG9wXG5cbkBtZWRpYSBvbmx5IHNjcmVlbiBhbmQgKG1pbi13aWR0aDogOTkycHgpIHtcbiAgICAuZGF0ZS1sYmwge1xuICAgICAgICBmb250LXNpemU6IDE0cHg7XG4gICAgfVxufVxuXG5cbi8vaU9TIEJveFxuXG4uaW9zIC5ib3gge1xuICAgIG1hcmdpbi1sZWZ0OiBhdXRvO1xuICAgIG1hcmdpbi1yaWdodDogYXV0bztcbiAgICB3aGl0ZS1zcGFjZTogbm93cmFwO1xuICAgIGZvbnQtc2l6ZTogMTZweDtcbn1cbi5pb3MgLmJveC1pY29uIHtcbiAgICBmb250LXNpemU6IDIwcHg7XG4gICAgcGFkZGluZy1yaWdodDogM3B4O1xufSIsImlvbi1mb290ZXIgaW9uLXRvb2xiYXIgaW9uLWl0ZW0ge1xuICAtLWJhY2tncm91bmQ6IHZhcigtLWlvbi1iYWNrZ3JvdW5kLWNvbG9yLCAjZjJmMmYyKTtcbn1cblxuaW9uLWZvb3RlciBpb24tdG9vbGJhciB7XG4gIC0tYmFja2dyb3VuZDogdmFyKC0taW9uLWJhY2tncm91bmQtY29sb3IsICNmMmYyZjIpO1xufVxuXG4ucG9wLWxibCB7XG4gIGZvbnQtd2VpZ2h0OiBsaWdodGVyO1xuICBmb250LWZhbWlseTogXCJBZW9uaWstbGlnaHRcIjtcbiAgZm9udC1zaXplOiAxMnB4O1xufVxuXG5pb24taWNvbiB7XG4gIGNvbG9yOiAjM0Q5OTcwO1xufVxuXG4ucG9wLWluZm8tbGJsIHtcbiAgZm9udC1zaXplOiAxMnB4O1xufVxuXG4ucG9wLWFtb3VudC1oMiB7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbn1cblxuLnBvcC10aXRsZS1hY3Rpdml0eSB7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgZm9udC1zaXplOiBtZWRpdW07XG59XG5cbi5ib3gge1xuICBtYXJnaW4tbGVmdDogYXV0bztcbiAgbWFyZ2luLXJpZ2h0OiBhdXRvO1xuICB3aGl0ZS1zcGFjZTogbm93cmFwO1xuICBmb250LXNpemU6IDE2cHg7XG59XG5cbi5ib3gtaWNvbiB7XG4gIGZvbnQtc2l6ZTogMzBweDtcbiAgcGFkZGluZy1yaWdodDogMTVweDtcbn1cblxuQG1lZGlhIG9ubHkgc2NyZWVuIGFuZCAobWluLXdpZHRoOiA5OTJweCkge1xuICAuZGF0ZS1sYmwge1xuICAgIGZvbnQtc2l6ZTogMTRweDtcbiAgfVxufVxuLmlvcyAuYm94IHtcbiAgbWFyZ2luLWxlZnQ6IGF1dG87XG4gIG1hcmdpbi1yaWdodDogYXV0bztcbiAgd2hpdGUtc3BhY2U6IG5vd3JhcDtcbiAgZm9udC1zaXplOiAxNnB4O1xufVxuXG4uaW9zIC5ib3gtaWNvbiB7XG4gIGZvbnQtc2l6ZTogMjBweDtcbiAgcGFkZGluZy1yaWdodDogM3B4O1xufSJdfQ== */"
+module.exports = ".dismiss-btn {\n  height: 72px;\n}\n\n.information {\n  text-align: right;\n  font-family: \"monospace\";\n  color: #00AAC8;\n}\n\n.completed {\n  text-align: right;\n  font-weight: bold;\n  font-size: 20px;\n  color: #93C54B;\n}\n\n.info-lbl {\n  text-align: left;\n}\n\nion-card-header {\n  width: 100%;\n  margin-left: auto;\n  margin-right: auto;\n  white-space: nowrap;\n  font-size: 16px;\n}\n\nion-card-header ion-grid {\n  text-align: center;\n}\n\nion-card-header ion-icon {\n  --ionicon-stroke-width: 60px;\n}\n\nion-card-header h2 {\n  font-size: 22px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9lbGlhcy9Qcm9qZWN0cy9taW5pbWFjb3JlL21vYmlsZS1hcHAtZnJvbnQtZW5kL2FwcC9zcmMvYXBwL2NvbXBvbmVudHMvaGlzdG9yeW1vZGFsL2hpc3Rvcnltb2RhbC5wYWdlLnNjc3MiLCJzcmMvYXBwL2NvbXBvbmVudHMvaGlzdG9yeW1vZGFsL2hpc3Rvcnltb2RhbC5wYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxZQUFBO0FDQ0o7O0FEQ0E7RUFDSSxpQkFBQTtFQUNBLHdCQUFBO0VBQ0EsY0FBQTtBQ0VKOztBREFBO0VBQ0ksaUJBQUE7RUFDQSxpQkFBQTtFQUNBLGVBQUE7RUFDQSxjQUFBO0FDR0o7O0FEREE7RUFDSSxnQkFBQTtBQ0lKOztBREZBO0VBQ0ksV0FBQTtFQUNBLGlCQUFBO0VBQ0Esa0JBQUE7RUFDQSxtQkFBQTtFQUNBLGVBQUE7QUNLSjs7QURIQTtFQUNJLGtCQUFBO0FDTUo7O0FESkE7RUFDSSw0QkFBQTtBQ09KOztBRExBO0VBQ0ksZUFBQTtBQ1FKIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9oaXN0b3J5bW9kYWwvaGlzdG9yeW1vZGFsLnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5kaXNtaXNzLWJ0biB7XG4gICAgaGVpZ2h0OiA3MnB4O1xufVxuLmluZm9ybWF0aW9uIHtcbiAgICB0ZXh0LWFsaWduOiByaWdodDsgXG4gICAgZm9udC1mYW1pbHk6J21vbm9zcGFjZSc7XG4gICAgY29sb3I6ICMwMEFBQzg7XG59XG4uY29tcGxldGVkIHtcbiAgICB0ZXh0LWFsaWduOiByaWdodDtcbiAgICBmb250LXdlaWdodDogYm9sZDtcbiAgICBmb250LXNpemU6IDIwcHg7XG4gICAgY29sb3I6ICM5M0M1NEI7XG59XG4uaW5mby1sYmwge1xuICAgIHRleHQtYWxpZ246IGxlZnQ7XG59XG5pb24tY2FyZC1oZWFkZXIge1xuICAgIHdpZHRoOiAxMDAlO1xuICAgIG1hcmdpbi1sZWZ0OiBhdXRvO1xuICAgIG1hcmdpbi1yaWdodDogYXV0bztcbiAgICB3aGl0ZS1zcGFjZTogbm93cmFwO1xuICAgIGZvbnQtc2l6ZTogMTZweDtcbn1cbmlvbi1jYXJkLWhlYWRlciBpb24tZ3JpZCB7XG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xufVxuaW9uLWNhcmQtaGVhZGVyIGlvbi1pY29uIHtcbiAgICAtLWlvbmljb24tc3Ryb2tlLXdpZHRoOiA2MHB4O1xufVxuaW9uLWNhcmQtaGVhZGVyIGgyIHtcbiAgICBmb250LXNpemU6IDIycHg7XG59XG4iLCIuZGlzbWlzcy1idG4ge1xuICBoZWlnaHQ6IDcycHg7XG59XG5cbi5pbmZvcm1hdGlvbiB7XG4gIHRleHQtYWxpZ246IHJpZ2h0O1xuICBmb250LWZhbWlseTogXCJtb25vc3BhY2VcIjtcbiAgY29sb3I6ICMwMEFBQzg7XG59XG5cbi5jb21wbGV0ZWQge1xuICB0ZXh0LWFsaWduOiByaWdodDtcbiAgZm9udC13ZWlnaHQ6IGJvbGQ7XG4gIGZvbnQtc2l6ZTogMjBweDtcbiAgY29sb3I6ICM5M0M1NEI7XG59XG5cbi5pbmZvLWxibCB7XG4gIHRleHQtYWxpZ246IGxlZnQ7XG59XG5cbmlvbi1jYXJkLWhlYWRlciB7XG4gIHdpZHRoOiAxMDAlO1xuICBtYXJnaW4tbGVmdDogYXV0bztcbiAgbWFyZ2luLXJpZ2h0OiBhdXRvO1xuICB3aGl0ZS1zcGFjZTogbm93cmFwO1xuICBmb250LXNpemU6IDE2cHg7XG59XG5cbmlvbi1jYXJkLWhlYWRlciBpb24tZ3JpZCB7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbn1cblxuaW9uLWNhcmQtaGVhZGVyIGlvbi1pY29uIHtcbiAgLS1pb25pY29uLXN0cm9rZS13aWR0aDogNjBweDtcbn1cblxuaW9uLWNhcmQtaGVhZGVyIGgyIHtcbiAgZm9udC1zaXplOiAyMnB4O1xufSJdfQ== */"
 
 /***/ }),
 
-/***/ "./src/app/components/pop-history-token/pop-history-token.component.ts":
-/*!*****************************************************************************!*\
-  !*** ./src/app/components/pop-history-token/pop-history-token.component.ts ***!
-  \*****************************************************************************/
-/*! exports provided: PopHistoryTokenComponent */
+/***/ "./src/app/components/historymodal/historymodal.page.ts":
+/*!**************************************************************!*\
+  !*** ./src/app/components/historymodal/historymodal.page.ts ***!
+  \**************************************************************/
+/*! exports provided: HistorymodalPage */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PopHistoryTokenComponent", function() { return PopHistoryTokenComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HistorymodalPage", function() { return HistorymodalPage; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
-/* harmony import */ var _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic-native/clipboard/ngx */ "./node_modules/@ionic-native/clipboard/ngx/index.js");
 
 
 
-
-var PopHistoryTokenComponent = /** @class */ (function () {
-    function PopHistoryTokenComponent(navParams, clipboard) {
-        this.navParams = navParams;
-        this.clipboard = clipboard;
-        this.receivingAddress = this.navParams.get('address');
-        this.blockNumber = this.navParams.get('blockNumber');
-        this.transAmount = this.navParams.get('transAmount');
-        this.isBlock = this.navParams.get('isBlock');
-        this.txpowid = this.navParams.get('txpowid');
-        this.parent = this.navParams.get('parent');
-        this.blockdiff = this.navParams.get('blockdiff');
-        this.date = this.navParams.get('date');
+var HistorymodalPage = /** @class */ (function () {
+    function HistorymodalPage(modalCtrl) {
+        this.modalCtrl = modalCtrl;
     }
-    PopHistoryTokenComponent.prototype.ngOnInit = function () { };
-    PopHistoryTokenComponent.prototype.copyToClipboard = function (data) {
-        this.clipboard.copy(data);
-        alert('Copied Clipboard Successfully.');
+    HistorymodalPage.prototype.ngOnInit = function () {
     };
-    PopHistoryTokenComponent.ctorParameters = function () { return [
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavParams"] },
-        { type: _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_3__["Clipboard"] }
-    ]; };
-    PopHistoryTokenComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-pop-history-token',
-            template: __webpack_require__(/*! raw-loader!./pop-history-token.component.html */ "./node_modules/raw-loader/index.js!./src/app/components/pop-history-token/pop-history-token.component.html"),
-            styles: [__webpack_require__(/*! ./pop-history-token.component.scss */ "./src/app/components/pop-history-token/pop-history-token.component.scss")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavParams"], _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_3__["Clipboard"]])
-    ], PopHistoryTokenComponent);
-    return PopHistoryTokenComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/components/pop-history/pop-history.component.scss":
-/*!*******************************************************************!*\
-  !*** ./src/app/components/pop-history/pop-history.component.scss ***!
-  \*******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "ion-footer ion-toolbar ion-item {\n  --background: var(--ion-background-color, #f2f2f2);\n}\n\nion-footer ion-toolbar {\n  --background: var(--ion-background-color, #f2f2f2);\n}\n\n.pop-lbl {\n  font-weight: lighter;\n  font-family: \"Aeonik-light\";\n  font-size: 12px;\n}\n\nion-icon {\n  color: #3D9970;\n}\n\n.pop-info-lbl {\n  font-size: 12px;\n}\n\n.pop-amount-h2 {\n  text-align: center;\n}\n\n.pop-title-activity {\n  text-align: center;\n  font-size: medium;\n}\n\n.box {\n  margin-left: auto;\n  margin-right: auto;\n  white-space: nowrap;\n  font-size: 16px;\n}\n\n.box-icon {\n  font-size: 30px;\n  padding-right: 15px;\n}\n\n@media only screen and (min-width: 992px) {\n  .date-lbl {\n    font-size: 14px;\n  }\n}\n\n.ios .box {\n  margin-left: auto;\n  margin-right: auto;\n  white-space: nowrap;\n  font-size: 16px;\n}\n\n.ios .box-icon {\n  font-size: 20px;\n  padding-right: 3px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9lbGlhcy9Qcm9qZWN0cy9taW5pbWFjb3JlL21vYmlsZS1hcHAtZnJvbnQtZW5kL2FwcC9zcmMvYXBwL2NvbXBvbmVudHMvcG9wLWhpc3RvcnkvcG9wLWhpc3RvcnkuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL2NvbXBvbmVudHMvcG9wLWhpc3RvcnkvcG9wLWhpc3RvcnkuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxrREFBQTtBQ0NKOztBREVBO0VBQ0ksa0RBQUE7QUNDSjs7QURFQTtFQUNJLG9CQUFBO0VBQ0EsMkJBQUE7RUFDQSxlQUFBO0FDQ0o7O0FEQ0E7RUFDSSxjQUFBO0FDRUo7O0FEQ0E7RUFDSSxlQUFBO0FDRUo7O0FEQ0E7RUFDSSxrQkFBQTtBQ0VKOztBRENBO0VBQ0ksa0JBQUE7RUFDQSxpQkFBQTtBQ0VKOztBREFBO0VBQ0ksaUJBQUE7RUFDQSxrQkFBQTtFQUNBLG1CQUFBO0VBQ0EsZUFBQTtBQ0dKOztBRERBO0VBQ0ksZUFBQTtFQUNBLG1CQUFBO0FDSUo7O0FEQUE7RUFDSTtJQUNJLGVBQUE7RUNHTjtBQUNGOztBREdBO0VBQ0ksaUJBQUE7RUFDQSxrQkFBQTtFQUNBLG1CQUFBO0VBQ0EsZUFBQTtBQ0RKOztBREdBO0VBQ0ksZUFBQTtFQUNBLGtCQUFBO0FDQUoiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL3BvcC1oaXN0b3J5L3BvcC1oaXN0b3J5LmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiaW9uLWZvb3RlciBpb24tdG9vbGJhciBpb24taXRlbSB7XG4gICAgLS1iYWNrZ3JvdW5kOiB2YXIoLS1pb24tYmFja2dyb3VuZC1jb2xvciwgI2YyZjJmMik7XG5cbn1cbmlvbi1mb290ZXIgaW9uLXRvb2xiYXIge1xuICAgIC0tYmFja2dyb3VuZDogdmFyKC0taW9uLWJhY2tncm91bmQtY29sb3IsICNmMmYyZjIpO1xuXG59XG4ucG9wLWxibCB7XG4gICAgZm9udC13ZWlnaHQ6IGxpZ2h0ZXI7IFxuICAgIGZvbnQtZmFtaWx5OiAnQWVvbmlrLWxpZ2h0JztcbiAgICBmb250LXNpemU6IDEycHg7XG59XG5pb24taWNvbiB7XG4gICAgY29sb3I6ICMzRDk5NzA7XG59XG5cbi5wb3AtaW5mby1sYmwge1xuICAgIGZvbnQtc2l6ZTogMTJweDtcbiAgICBcbn1cbi5wb3AtYW1vdW50LWgyIHtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gICAgXG59XG4ucG9wLXRpdGxlLWFjdGl2aXR5IHtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gICAgZm9udC1zaXplOiBtZWRpdW07XG59XG4uYm94IHtcbiAgICBtYXJnaW4tbGVmdDogYXV0bztcbiAgICBtYXJnaW4tcmlnaHQ6IGF1dG87XG4gICAgd2hpdGUtc3BhY2U6IG5vd3JhcDtcbiAgICBmb250LXNpemU6IDE2cHg7XG59XG4uYm94LWljb24ge1xuICAgIGZvbnQtc2l6ZTogMzBweDtcbiAgICBwYWRkaW5nLXJpZ2h0OiAxNXB4O1xufVxuLy9kZXNrdG9wXG5cbkBtZWRpYSBvbmx5IHNjcmVlbiBhbmQgKG1pbi13aWR0aDogOTkycHgpIHtcbiAgICAuZGF0ZS1sYmwge1xuICAgICAgICBmb250LXNpemU6IDE0cHg7XG4gICAgfVxufVxuXG5cbi8vaU9TIEJveFxuXG4uaW9zIC5ib3gge1xuICAgIG1hcmdpbi1sZWZ0OiBhdXRvO1xuICAgIG1hcmdpbi1yaWdodDogYXV0bztcbiAgICB3aGl0ZS1zcGFjZTogbm93cmFwO1xuICAgIGZvbnQtc2l6ZTogMTZweDtcbn1cbi5pb3MgLmJveC1pY29uIHtcbiAgICBmb250LXNpemU6IDIwcHg7XG4gICAgcGFkZGluZy1yaWdodDogM3B4O1xufSIsImlvbi1mb290ZXIgaW9uLXRvb2xiYXIgaW9uLWl0ZW0ge1xuICAtLWJhY2tncm91bmQ6IHZhcigtLWlvbi1iYWNrZ3JvdW5kLWNvbG9yLCAjZjJmMmYyKTtcbn1cblxuaW9uLWZvb3RlciBpb24tdG9vbGJhciB7XG4gIC0tYmFja2dyb3VuZDogdmFyKC0taW9uLWJhY2tncm91bmQtY29sb3IsICNmMmYyZjIpO1xufVxuXG4ucG9wLWxibCB7XG4gIGZvbnQtd2VpZ2h0OiBsaWdodGVyO1xuICBmb250LWZhbWlseTogXCJBZW9uaWstbGlnaHRcIjtcbiAgZm9udC1zaXplOiAxMnB4O1xufVxuXG5pb24taWNvbiB7XG4gIGNvbG9yOiAjM0Q5OTcwO1xufVxuXG4ucG9wLWluZm8tbGJsIHtcbiAgZm9udC1zaXplOiAxMnB4O1xufVxuXG4ucG9wLWFtb3VudC1oMiB7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbn1cblxuLnBvcC10aXRsZS1hY3Rpdml0eSB7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgZm9udC1zaXplOiBtZWRpdW07XG59XG5cbi5ib3gge1xuICBtYXJnaW4tbGVmdDogYXV0bztcbiAgbWFyZ2luLXJpZ2h0OiBhdXRvO1xuICB3aGl0ZS1zcGFjZTogbm93cmFwO1xuICBmb250LXNpemU6IDE2cHg7XG59XG5cbi5ib3gtaWNvbiB7XG4gIGZvbnQtc2l6ZTogMzBweDtcbiAgcGFkZGluZy1yaWdodDogMTVweDtcbn1cblxuQG1lZGlhIG9ubHkgc2NyZWVuIGFuZCAobWluLXdpZHRoOiA5OTJweCkge1xuICAuZGF0ZS1sYmwge1xuICAgIGZvbnQtc2l6ZTogMTRweDtcbiAgfVxufVxuLmlvcyAuYm94IHtcbiAgbWFyZ2luLWxlZnQ6IGF1dG87XG4gIG1hcmdpbi1yaWdodDogYXV0bztcbiAgd2hpdGUtc3BhY2U6IG5vd3JhcDtcbiAgZm9udC1zaXplOiAxNnB4O1xufVxuXG4uaW9zIC5ib3gtaWNvbiB7XG4gIGZvbnQtc2l6ZTogMjBweDtcbiAgcGFkZGluZy1yaWdodDogM3B4O1xufSJdfQ== */"
-
-/***/ }),
-
-/***/ "./src/app/components/pop-history/pop-history.component.ts":
-/*!*****************************************************************!*\
-  !*** ./src/app/components/pop-history/pop-history.component.ts ***!
-  \*****************************************************************/
-/*! exports provided: PopHistoryComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PopHistoryComponent", function() { return PopHistoryComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic-native/clipboard/ngx */ "./node_modules/@ionic-native/clipboard/ngx/index.js");
-
-
-
-
-var PopHistoryComponent = /** @class */ (function () {
-    function PopHistoryComponent(navParams, clipboard) {
-        this.navParams = navParams;
-        this.clipboard = clipboard;
-        this.name = this.navParams.get('name');
-        this.receivingAddress = this.navParams.get('address');
-        this.blockNumber = this.navParams.get('blockNumber');
-        this.transAmount = this.navParams.get('transAmount');
-        this.isBlock = this.navParams.get('isBlock');
-        this.txpowid = this.navParams.get('txpowid');
-        this.parent = this.navParams.get('parent');
-        this.blockdiff = this.navParams.get('blockdiff');
-        this.date = this.navParams.get('date');
-        this.state = this.navParams.get('state');
-    }
-    PopHistoryComponent.prototype.ngOnInit = function () { };
-    // Check if we're receiving or sending
-    PopHistoryComponent.prototype.checkTransType = function (amount) {
-        if (amount.toString().substring(0, 1) === "-") {
-            return "Sent";
+    HistorymodalPage.prototype.getTXNType = function (amount) {
+        if (amount.substring(0, 1) === "-") {
+            return "return-down-back";
         }
         else {
-            return "Received";
+            return "arrow-redo-circle";
         }
     };
-    PopHistoryComponent.prototype.copyToClipboard = function (data) {
-        this.clipboard.copy(data);
-        alert('Copied Clipboard Successfully.');
+    HistorymodalPage.prototype.dismiss = function () {
+        // using the injected ModalController this page
+        // can "dismiss" itself and optionally pass back data
+        this.modalCtrl.dismiss({
+            'dismissed': true
+        });
     };
-    PopHistoryComponent.ctorParameters = function () { return [
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["NavParams"] },
-        { type: _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_3__["Clipboard"] }
+    HistorymodalPage.ctorParameters = function () { return [
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"] }
     ]; };
-    PopHistoryComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Component"])({
-            selector: 'app-pop-history',
-            template: __webpack_require__(/*! raw-loader!./pop-history.component.html */ "./node_modules/raw-loader/index.js!./src/app/components/pop-history/pop-history.component.html"),
-            styles: [__webpack_require__(/*! ./pop-history.component.scss */ "./src/app/components/pop-history/pop-history.component.scss")]
+    HistorymodalPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-historymodal',
+            template: __webpack_require__(/*! raw-loader!./historymodal.page.html */ "./node_modules/raw-loader/index.js!./src/app/components/historymodal/historymodal.page.html"),
+            styles: [__webpack_require__(/*! ./historymodal.page.scss */ "./src/app/components/historymodal/historymodal.page.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_1__["NavParams"], _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_3__["Clipboard"]])
-    ], PopHistoryComponent);
-    return PopHistoryComponent;
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"]])
+    ], HistorymodalPage);
+    return HistorymodalPage;
 }());
 
 
@@ -1438,6 +1351,7 @@ var MinimaApiService = /** @class */ (function () {
         return this.req('createtoken ' + data.token + ' ' + data.amount);
     };
     MinimaApiService.prototype.createTXN = function (data) {
+        console.log("createTXN" + data.message);
         var txnidentifier = Math.floor(Math.random() * 1000000000);
         var port254 = 254;
         var port255 = 255;
@@ -1445,13 +1359,15 @@ var MinimaApiService = /** @class */ (function () {
         // Custom TXN with an ID
         "txncreate " + txnidentifier + ";" +
             // Add state variable 1
-            "txnstate " + txnidentifier + " " + port254 + " " + "01000100" + ";" +
+            "txnstate " + txnidentifier + " 254 01000100" + ";" +
             // Add User state variable 2
-            "txnstate " + txnidentifier + " " + port255 + " " + data.message + ";" +
+            "txnstate " + txnidentifier + " 255 \"" + data.message + "\"" + ";" +
             // Auto fill the transaction
             "txnauto " + txnidentifier + " " + data.amount + " " + data.address + " " + data.tokenid + ";" +
             // Post it!
-            "txnpost " + txnidentifier;
+            "txnpost " + txnidentifier + ";" +
+            // Clear the txn
+            "txndelete " + txnidentifier + ";";
         return this.req(customTXN);
     };
     MinimaApiService.prototype.webLink = function (data) {

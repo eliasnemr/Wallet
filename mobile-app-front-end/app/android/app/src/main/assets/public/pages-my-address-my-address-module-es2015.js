@@ -958,12 +958,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let MyAddressPage = class MyAddressPage {
-    constructor(clipboard, qrScanner, api, platform, alertController) {
+    constructor(clipboard, qrScanner, api, platform, alertController, toastController) {
         this.clipboard = clipboard;
         this.qrScanner = qrScanner;
         this.api = api;
         this.platform = platform;
         this.alertController = alertController;
+        this.toastController = toastController;
         this.qrCode = '';
         this.canvasSize = 300;
         // Needed this to fix android's build wonky
@@ -1000,15 +1001,28 @@ let MyAddressPage = class MyAddressPage {
             yield alert.present();
         });
     }
+    presentToast(msg, type) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            const toast = yield this.toastController.create({
+                message: msg,
+                duration: 4000,
+                color: type,
+                keyboardClose: true,
+                translucent: true,
+                position: 'bottom'
+            });
+            toast.present();
+        });
+    }
     /** MISC Functions */
     copyToClipboard() {
         if (this.platform.is('desktop') || this.platform.is('pwa')) {
             this.copyToClipPWA();
-            this.presentAlert("Copied to clipboard.", "Success");
+            this.presentToast("Copied to clipboard", "success");
         }
         else {
             this.clipboard.copy(this.qrCode);
-            this.presentAlert("Copied to clipboard.", "Success");
+            this.presentToast("Copied to clipboard", "success");
         }
     }
     copyToClipPWA() {
@@ -1033,7 +1047,8 @@ MyAddressPage.ctorParameters = () => [
     { type: _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_5__["QRScanner"] },
     { type: _service_minima_api_service__WEBPACK_IMPORTED_MODULE_4__["MinimaApiService"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["Platform"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["AlertController"] }
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["AlertController"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["ToastController"] }
 ];
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ViewChild"])('canvasDimension', { static: false }),
@@ -1049,7 +1064,8 @@ MyAddressPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_5__["QRScanner"],
         _service_minima_api_service__WEBPACK_IMPORTED_MODULE_4__["MinimaApiService"],
         _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["Platform"],
-        _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["AlertController"]])
+        _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["AlertController"],
+        _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["ToastController"]])
 ], MyAddressPage);
 
 

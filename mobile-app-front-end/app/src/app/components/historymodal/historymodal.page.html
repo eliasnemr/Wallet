@@ -1,0 +1,95 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title slot="start"><span style="color:#FF671E">TxPoW</span> <span style="font-size:14px;">{{ TXPOW_ID.substring(0,20)+"..." }}</span></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<ion-card>
+  <ion-card-header>
+  <ion-grid><ion-row>
+  <ion-col>
+    <!-- TXN Type -->
+    <ion-icon size="large" [name]="getTXNType(Amount)"></ion-icon>
+    <h2 *ngIf="Amount.toString().substring(0, 1) !== '-'">  {{"+"+Amount}} {{ TokenName }} </h2>
+    <h2 *ngIf="Amount.toString().substring(0, 1) === '-'">  Sent {{Amount}} {{ TokenName }} </h2>
+  </ion-col>
+  </ion-row>
+  <!-- TXN Message (if any)-->
+  <ion-row>
+  <ion-col *ngIf="Message.length > 0 && Message[0].data === '01000100'">
+  <ion-note>{{'"'+ Message[1].data +'"' }}</ion-note>
+  </ion-col>
+  </ion-row>
+  </ion-grid>
+  </ion-card-header>
+<!-- TXN Details -->  
+<ion-list>
+
+  <ion-item>
+  <ion-label class="info-lbl">
+    TxnID
+  </ion-label>
+  <ion-label class="information">
+    {{ TXN_ID.substring(0, 20)+"..." }}
+  </ion-label>
+  </ion-item>
+
+  <ion-item>
+  <ion-label class="info-lbl">
+    TokenID
+  </ion-label>
+  <ion-label class="information">
+    {{ TokenID }}
+  </ion-label>
+  </ion-item>
+
+  <ion-item>
+  <ion-label class="info-lbl">
+    Block #
+  </ion-label>
+  <ion-label class="information">
+    {{ Block }}
+  </ion-label>
+  </ion-item>
+
+  <ion-item>
+  <ion-label class="info-lbl">
+    isBlock
+  </ion-label>
+  <ion-label class="information">
+    {{ isBlock }}
+  </ion-label>
+  </ion-item>
+
+  <ion-item lines="none">
+  <ion-label class="info-lbl">
+   Parent
+  </ion-label>
+  <ion-label class="information">
+    {{ Parent.substring(0, 20)+"..." }}
+  </ion-label>
+  </ion-item>
+
+  <ion-item lines="none">
+  <ion-label class="info-lbl">
+   {{ Date.substring(4, 20) }}
+  </ion-label>
+  <ion-label class="completed">
+    Completed
+  </ion-label>
+  </ion-item>
+
+</ion-list>
+</ion-card>
+
+
+</ion-content>
+
+<ion-footer>
+<ion-toolbar style="text-align: center;">
+  <ion-button fill="clear" (click)="dismiss()" class="dismiss-btn" expand="full">
+  Dismiss
+  </ion-button>
+</ion-toolbar>
+</ion-footer>

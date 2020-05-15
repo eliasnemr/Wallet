@@ -32,7 +32,7 @@ else{let d,f;d=()=>{a.removeEventListener("load",d);a.removeEventListener("error
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-app>\n<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    <ion-title color=\"primary\">\n      Send\n    </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content *ngIf=\"isCameraOpen==false\">\n\n  <ion-card class=\"webscan-canvas\" *ngIf=\"!checkPlatform() && isWebCameraOpen\">\n    <ion-card-header>\n\n    Scan Your Minima QR address now...\n    <ion-progress-bar type=\"indeterminate\" reversed=\"true\"></ion-progress-bar>\n    </ion-card-header>\n\n    <video height=\"240\" #videoElem></video>\n    <hr>\n    <ion-button block=\"full\" (click)=\"stopWebScanQR()\">Stop Scanning</ion-button>\n    <hr>\n  </ion-card>\n\n  <ion-card *ngIf=\"!isWebCameraOpen\">\n    <ion-card-header>\n      <ion-card-title>\n        <ion-item lines=\"none\">\n          <ion-icon style=\" font-size:2.0rem;\" slot=\"start\" name=\"send\" class=\"icon-head\" ></ion-icon>\n        </ion-item>\n      </ion-card-title>\n    </ion-card-header>\n\n    <ion-card-content>\n        <ion-item>\n          <ion-label position=\"floating\">Tokens</ion-label>\n          <ion-select \n              interface = 'alert'\n              class=\"token-select\"\n              [(ngModel)]=\"itemSelected\"\n              (ionChange)=\"onItemSelection($event)\"> \n          <ion-select-option *ngFor=\"let token of tokenArr;\" [value]=\"token\" class=\"token-option\">\n          \n            <p *ngIf=\"token.id === '0x00'\">\n            {{ token.token  + ' <' + token.id.substring(0, 12) + '>'  }} \n            </p>\n\n            <p *ngIf=\"token.id !== '0x00'\">\n            {{ token.token  + ' <' + token.id.substring(0, 12) + '...>'  }} \n            </p>\n          </ion-select-option>\n        </ion-select>\n        </ion-item>\n\n        <ion-item>\n          <ion-label position=\"floating\">Address</ion-label>\n          <ion-input name=\"address\" [(ngModel)]=\"data.address\"></ion-input>\n          \n        </ion-item>\n        <ion-item lines=\"none\" slot=\"end\" [hidden]=\"checkPlatform()\">\n          <ion-button type=\"button\" class=\"util-btns\" size=\"small\" (click)=\"webScanQR()\">\n            <ion-label slot=\"start\" style=\"padding:2px\">SCAN QR</ion-label>\n            <ion-icon  name=\"qr-scanner\" ></ion-icon>\n          </ion-button>\n        </ion-item>\n        <ion-item lines=\"none\" slot=\"end\" [hidden]=\"!checkPlatform()\">\n          <ion-button type=\"button\" class=\"util-btns\" size=\"small\" (click)=\"scanQR()\">\n            <ion-label slot=\"start\" style=\"padding:2px\">SCAN QR</ion-label>\n            <ion-icon  name=\"qr-scanner\" ></ion-icon>\n          </ion-button>\n          <ion-button type=\"button\" size=\"small\" class=\"util-btns\" (click)=\"pasteFromClipboard()\">\n            <ion-label slot=\"start\" style=\"padding:5px\">CLIPBOARD</ion-label>\n            <ion-icon name=\"clipboard\" ></ion-icon>\n          </ion-button>\n        </ion-item>\n        <ion-item>\n          <ion-label position=\"floating\">Amount</ion-label>\n          <ion-input type=\"number\" name=\"amount\" [(ngModel)]=\"data.amount\"></ion-input>\n        </ion-item>\n    </ion-card-content>\n  </ion-card>\n\n</ion-content>\n<ion-footer>\n  <ion-toolbar>\n    <ion-buttons> \n      <ion-button class=\"action-btn\" expand=\"block\" (click)=\"stopCamera()\"  *ngIf=\"isCameraOpen==true\">\n        Stop scanning\n       </ion-button>\n      <ion-button class=\"action-btn\" expand=\"block\" (click)=\"sendFunds()\" *ngIf=\"isCameraOpen==false\">\n        <ion-icon name=\"send\" slot=\"start\"></ion-icon> Send\n      </ion-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-footer>\n</ion-app>\n\n"
+module.exports = "<ion-app>\n<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    <ion-title color=\"primary\">\n      Send\n    </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content *ngIf=\"isCameraOpen==false\">\n\n  <ion-card class=\"webscan-canvas\" *ngIf=\"!checkPlatform() && isWebCameraOpen\">\n    <ion-card-header>\n\n    Scan Your Minima QR address now...\n    <ion-progress-bar type=\"indeterminate\" reversed=\"true\"></ion-progress-bar>\n    </ion-card-header>\n\n    <video height=\"240\" #videoElem></video>\n    <hr>\n    <ion-button block=\"full\" (click)=\"stopWebScanQR()\">Stop Scanning</ion-button>\n    <hr>\n  </ion-card>\n\n  <ion-card *ngIf=\"!isWebCameraOpen\">\n    <ion-card-header>\n      <ion-card-title>\n        <ion-item lines=\"none\">\n          <ion-icon style=\" font-size:2.0rem;\" slot=\"start\" name=\"send\" class=\"icon-head\" ></ion-icon>\n        </ion-item>\n      </ion-card-title>\n    </ion-card-header>\n\n    <ion-card-content>\n        <ion-item>\n          <ion-label position=\"floating\">Tokens</ion-label>\n          <ion-select\n              interface = 'alert'\n              class=\"token-select\"\n              [(ngModel)]=\"itemSelected\"\n              (ionChange)=\"onItemSelection($event)\"> \n          <ion-select-option *ngFor=\"let token of tokenArr;\" [value]=\"token\" class=\"token-option\">\n          \n            <p *ngIf=\"token.id === '0x00'\">\n            {{ token.token  + ' <' + token.id.substring(0, 12) + '>'  }} \n            </p>\n\n            <p *ngIf=\"token.id !== '0x00'\">\n            {{ token.token  + ' <' + token.id.substring(0, 12) + '...>'  }} \n            </p>\n          </ion-select-option>\n        </ion-select>\n        </ion-item>\n\n        <ion-item>\n          <ion-label position=\"floating\">Address</ion-label>\n          <ion-input #address name=\"address\" [(ngModel)]=\"data.address\" clearInput=\"true\"></ion-input>\n          \n        </ion-item>\n        <ion-item lines=\"none\" slot=\"end\" [hidden]=\"checkPlatform()\">\n          <ion-button type=\"button\" class=\"util-btns\" size=\"small\" (click)=\"webScanQR()\">\n            <ion-label slot=\"start\" style=\"padding:2px\">SCAN QR</ion-label>\n            <ion-icon  name=\"qr-scanner\" ></ion-icon>\n          </ion-button>\n        </ion-item>\n        <ion-item lines=\"none\" slot=\"end\" [hidden]=\"!checkPlatform()\">\n          <ion-button type=\"button\" class=\"util-btns\" size=\"small\" (click)=\"scanQR()\">\n            <ion-label slot=\"start\" style=\"padding:2px\">SCAN QR</ion-label>\n            <ion-icon  name=\"qr-scanner\" ></ion-icon>\n          </ion-button>\n          <ion-button type=\"button\" size=\"small\" class=\"util-btns\" (click)=\"pasteFromClipboard()\">\n            <ion-label slot=\"start\" style=\"padding:5px\">CLIPBOARD</ion-label>\n            <ion-icon name=\"clipboard\" ></ion-icon>\n          </ion-button>\n        </ion-item>\n        <ion-item>\n          <ion-label position=\"floating\">Amount</ion-label>\n          <ion-input #amount type=\"number\" name=\"amount\" [(ngModel)]=\"data.amount\"></ion-input>\n        </ion-item>\n        <ion-item lines=\"none\">\n        <!-- Disabled Checkbox -->\n        <ion-checkbox [(ngModel)]=\"messageEntry.isChecked\" (ionChange)=\"checkboxValue($event, messageEntry.isChecked)\"></ion-checkbox>\n        <ion-label [hidden]=\"messageEntry.isChecked\"style=\"padding-left: 10px;\">Message</ion-label>\n        <ion-label [hidden]=\"!messageEntry.isChecked\"style=\"padding-left: 10px;\">This message is public</ion-label>\n        </ion-item>\n        <ion-item [hidden]=\"!messageEntry.isChecked\">\n            <ion-textarea \n            #message \n            [(ngModel)]=\"data.message\" \n            placeholder=\"type your message...\"\n            maxlength=\"255\"\n            autogrow=\"true\"></ion-textarea>\n            \n        </ion-item>\n        \n    </ion-card-content>\n  </ion-card>\n\n</ion-content>\n<ion-footer>\n  <ion-toolbar>\n    <ion-buttons> \n      <ion-button class=\"action-btn\" expand=\"block\" (click)=\"stopCamera()\"  *ngIf=\"isCameraOpen==true\">\n        Stop scanning\n       </ion-button>\n      <ion-button class=\"action-btn\" expand=\"block\" (click)=\"sendFunds()\" *ngIf=\"isCameraOpen==false\">\n        <ion-icon name=\"send\" slot=\"start\"></ion-icon> Send\n      </ion-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-footer>\n</ion-app>\n\n"
 
 /***/ }),
 
@@ -126,18 +126,24 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let SendFundsPage = class SendFundsPage {
-    constructor(qrScanner, clipboard, alertController, zone, api, balanceService, platform, route) {
+    constructor(qrScanner, clipboard, alertController, toastController, zone, api, balanceService, platform, route, router) {
         this.qrScanner = qrScanner;
         this.clipboard = clipboard;
         this.alertController = alertController;
+        this.toastController = toastController;
         this.zone = zone;
         this.api = api;
         this.balanceService = balanceService;
         this.platform = platform;
         this.route = route;
+        this.router = router;
         this.isCameraOpen = false;
         this.isWebCameraOpen = false;
         this.data = {};
+        //checkboxValue
+        this.messageEntry = {
+            isChecked: false
+        };
         // Token Array Type
         this.tokenArr = [];
         this.MINIMA_TOKEN_ID = '0x00';
@@ -178,9 +184,12 @@ let SendFundsPage = class SendFundsPage {
     }
     // listen to selection change
     onItemSelection($event) {
+        const param = this.route.snapshot.params['id'];
         this.tokenArr.forEach(element => {
-            if (this.itemSelected === element.id) {
+            if (this.itemSelected === element) {
                 this.itemSelected = element;
+                this.router.navigate(["/send-funds", { id: element.id }]);
+                console.log(this.itemSelected);
                 // update tokenid
                 this.updateTokenId(element.id);
             }
@@ -190,7 +199,7 @@ let SendFundsPage = class SendFundsPage {
     updateTokenId(id) {
         this.data.tokenid = id;
     }
-    /** ScanQR: Native || Desktop */
+    /** ScanQR: Native */
     scanQR() {
         if (this.platform.is('ios') || this.platform.is('android')) {
             this.qrScanner.prepare()
@@ -224,10 +233,6 @@ let SendFundsPage = class SendFundsPage {
             })
                 .catch((e) => console.log('Error is', e));
         }
-        else {
-            // browser compatible qr scan
-            this.presentAlert("Using Minidesk", "Minidesktop");
-        }
     }
     stopCamera() {
         if (this.scanSub !== null) {
@@ -248,6 +253,19 @@ let SendFundsPage = class SendFundsPage {
                 buttons: ['OK']
             });
             yield alert.present();
+        });
+    }
+    presentToast(msg, type) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            const toast = yield this.toastController.create({
+                message: msg,
+                duration: 4000,
+                color: type,
+                keyboardClose: true,
+                translucent: true,
+                position: 'top'
+            });
+            toast.present();
         });
     }
     // API CALLS
@@ -301,13 +319,35 @@ let SendFundsPage = class SendFundsPage {
     }
     sendFunds() {
         if (this.data.address && this.data.address !== '' && this.data.amount && this.data.amount > 0 &&
-            this.data.tokenid && this.data.tokenid !== '') {
+            this.data.tokenid && this.data.tokenid !== '' && this.data.message === undefined) {
             this.api.sendFunds(this.data).then((res) => {
-                if (res.status == true) {
-                    this.presentAlert('Sent successfully!', 'Info');
+                if (res.status === true) {
+                    //clear inputs
+                    this.address.value = "";
+                    this.amount.value = "";
+                    //success
+                    this.presentToast("Success!  Your transaction has been posted!", "success");
                 }
                 else {
-                    this.presentAlert(res.error, 'Insufficient funds.');
+                    this.presentToast("Insufficient funds.  Check your funds.", "danger");
+                }
+            });
+        }
+        else if (this.data.address && this.data.address !== '' && this.data.amount && this.data.amount > 0 &&
+            this.data.tokenid && this.data.tokenid !== '' && this.data.message !== undefined && this.data.message.length >= 0) {
+            this.api.createTXN(this.data).then((res) => {
+                if (res[4].status === true) {
+                    //clear inputs
+                    this.address.value = "";
+                    this.amount.value = "";
+                    this.message.value = "";
+                    //success
+                    this.presentToast("Success!  Your transaction has been posted!", "success");
+                }
+                else if (res[4].status === false) {
+                    this.presentToast("Insufficient funds.  Check your funds.", "danger");
+                }
+                else {
                 }
             });
         }
@@ -367,6 +407,11 @@ let SendFundsPage = class SendFundsPage {
             }
         });
     }
+    checkboxValue(ev, messageEntry) {
+        if (messageEntry === false) {
+            this.data.message = undefined;
+        }
+    }
     // Display/hide mobile buttons with this..
     checkPlatform() {
         if (this.platform.is('desktop')) {
@@ -417,16 +462,26 @@ SendFundsPage.ctorParameters = () => [
     { type: _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_3__["QRScanner"] },
     { type: _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_4__["Clipboard"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["AlertController"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["ToastController"] },
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_2__["NgZone"] },
     { type: _service_minima_api_service__WEBPACK_IMPORTED_MODULE_6__["MinimaApiService"] },
     { type: _service_balance_service__WEBPACK_IMPORTED_MODULE_1__["BalanceService"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["Platform"] },
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_8__["ActivatedRoute"] }
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_8__["ActivatedRoute"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_8__["Router"] }
 ];
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ViewChild"])('address', { static: false }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_2__["ElementRef"])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonInput"])
 ], SendFundsPage.prototype, "address", void 0);
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ViewChild"])('amount', { static: false }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonInput"])
+], SendFundsPage.prototype, "amount", void 0);
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ViewChild"])('message', { static: false }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonTextarea"])
+], SendFundsPage.prototype, "message", void 0);
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ViewChild"])('videoElem', { static: false }),
     tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_2__["ElementRef"])
@@ -439,11 +494,14 @@ SendFundsPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         styles: [__webpack_require__(/*! ./send-funds.page.scss */ "./src/app/pages/send-funds/send-funds.page.scss")]
     }),
     tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_3__["QRScanner"], _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_4__["Clipboard"],
-        _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["AlertController"], _angular_core__WEBPACK_IMPORTED_MODULE_2__["NgZone"],
+        _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["AlertController"],
+        _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["ToastController"],
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["NgZone"],
         _service_minima_api_service__WEBPACK_IMPORTED_MODULE_6__["MinimaApiService"],
         _service_balance_service__WEBPACK_IMPORTED_MODULE_1__["BalanceService"],
         _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["Platform"],
-        _angular_router__WEBPACK_IMPORTED_MODULE_8__["ActivatedRoute"]])
+        _angular_router__WEBPACK_IMPORTED_MODULE_8__["ActivatedRoute"],
+        _angular_router__WEBPACK_IMPORTED_MODULE_8__["Router"]])
 ], SendFundsPage);
 
 

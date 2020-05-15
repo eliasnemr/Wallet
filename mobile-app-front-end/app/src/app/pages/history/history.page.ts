@@ -1,12 +1,11 @@
 import { MinimaApiService } from '../../service/minima-api.service';
-import { PopoverController, IonSlides } from '@ionic/angular';
-import { PopHistoryComponent } from '../../components/pop-history/pop-history.component';
+import { PopoverController, IonSlides, ModalController } from '@ionic/angular';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { HistoryService } from '../../service/history.service';
 import { map } from 'rxjs/operators';
 import { History } from '../../models/history.model';
-import { PopHistoryTokenComponent } from '../../components/pop-history-token/pop-history-token.component';
+import { HistorymodalPage } from '../../components/historymodal/historymodal.page';
 
 @Component({
   selector: 'app-history',
@@ -33,9 +32,9 @@ export class HistoryPage implements OnInit {
   private lastJSON: string = '';
 
   constructor(
-    public popHistoryController: PopoverController,
     private api: MinimaApiService,
-    private historyService: HistoryService) {}
+    private historyService: HistoryService,
+    public modalController: ModalController) {}
 
   ngOnInit() {}
 
@@ -50,58 +49,82 @@ export class HistoryPage implements OnInit {
    this.polledHistorySubscription.unsubscribe();
   }
 
+  /** Modals */
+  async presentModal(_txpowid: string, _amount: any,
+     _message: any, _txnid: string, _block: number,
+     _parent: string, _tokenid: string, _date: string, _isBlock: boolean,
+     _name: string) {
+    const modal = await this.modalController.create({
+      component: HistorymodalPage,
+      componentProps: {
+        'TXPOW_ID': _txpowid,
+        'Amount': _amount,
+        'Message': _message,
+        'TXN_ID': _txnid,
+        'Block': _block,
+        'Parent': _parent,
+        'TokenID': _tokenid,
+        'Date': _date,
+        'isBlock': _isBlock,
+        'TokenName': _name
+      }
+    });
+    return await modal.present();
+  }
+
   /** ALERTS */
   // Present history details popover when tapped/clicked
-  async presentHistoryInfo(ev: any, _name: string, _addr: any, _blkNumber: any, _amnt: any,
-                       _isBlock: boolean, _txpowid: string, _parent: string,
-                        _blockdiff: number, _date: string, _state: any ) {
-    const popover = await this.popHistoryController.create({
-      component: PopHistoryComponent,
-      cssClass: 'history-popover',
-      event: ev,
-      translucent: true,
-      componentProps: {
+  // async presentHistoryInfo(ev: any, _name: string, _addr: any, _blkNumber: any, _amnt: any,
+  //                      _isBlock: boolean, _txpowid: string, _parent: string,
+  //                       _blockdiff: number, _date: string, _state: any ) {
+  //   const popover = await this.popHistoryController.create({
+  //     component: PopHistoryComponent,
+  //     cssClass: 'history-popover',
+  //     event: ev,
+  //     translucent: true,
+  //     componentProps: {
 
-           name: _name,
-           address: _addr,
-           blockNumber: _blkNumber,
-           transAmount: _amnt,
-           isBlock: _isBlock,
-           txpowid: _txpowid,
-           parent: _parent,
-           blockdiff: _blockdiff,
-           date: _date,
-           state: _state
+  //          name: _name,
+  //          address: _addr,
+  //          blockNumber: _blkNumber,
+  //          transAmount: _amnt,
+  //          isBlock: _isBlock,
+  //          txpowid: _txpowid,
+  //          parent: _parent,
+  //          blockdiff: _blockdiff,
+  //          date: _date,
+  //          state: _state
           
-          },
-    });
-    return await popover.present();
-  }
+  //         },
+  //   });
+  //   return await popover.present();
+  // }
   // Present history details popover when tapped/clicked
-  async presentHistoryTokenInfo(ev: any, _addr: any, _blkNumber: any, _amnt: any,
-    _isBlock: boolean, _txpowid: string, _parent: string,
-    _blockdiff: number, _date: string, _state: any ) {
-  const popover = await this.popHistoryController.create({
-        component: PopHistoryTokenComponent,
-        cssClass: 'history-popover',
-        event: ev,
-        translucent: true,
-        componentProps: {
+  // async presentHistoryTokenInfo(ev: any, _addr: any, _blkNumber: any, _amnt: any,
+  //   _isBlock: boolean, _txpowid: string, _parent: string,
+  //   _blockdiff: number, _date: string, _state: any ) {
+  // const popover = await this.popHistoryController.create({
+  //       component: PopHistoryTokenComponent,
+  //       cssClass: 'history-popover',
+  //       event: ev,
+  //       translucent: true,
+  //       componentProps: {
 
-        address: _addr,
-        blockNumber: _blkNumber,
-        transAmount: _amnt,
-        isBlock: _isBlock,
-        txpowid: _txpowid,
-        parent: _parent,
-        blockdiff: _blockdiff,
-        date: _date,
-        state: _state
+  //       address: _addr,
+  //       blockNumber: _blkNumber,
+  //       transAmount: _amnt,
+  //       isBlock: _isBlock,
+  //       txpowid: _txpowid,
+  //       parent: _parent,
+  //       blockdiff: _blockdiff,
+  //       date: _date,
+  //       state: _state
 
-  },
-  });
-  return await popover.present();
-  }
+  // },
+  // });
+  // return await popover.present();
+  // }
+
   /** MISC Functions */
   // Check if we're receiving or sending
   checkTransType(amount: string) {
@@ -110,7 +133,7 @@ export class HistoryPage implements OnInit {
     } else {
       return "Received";
     }
-  }
+  } 
   getTXNType(amount: string) {
     if(amount.substring(0,1) === "-"){
       return "return-down-back-outline";

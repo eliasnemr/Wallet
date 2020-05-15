@@ -41,6 +41,7 @@ export class MinimaApiService {
   }
 
   createTXN(data: any){
+    console.log("createTXN"+ data.message);
     const txnidentifier = Math.floor(Math.random()*1000000000);
     const port254 = 254;
     const port255 = 255;
@@ -48,13 +49,15 @@ export class MinimaApiService {
     // Custom TXN with an ID
     "txncreate "+txnidentifier+";"+
     // Add state variable 1
-    "txnstate "+txnidentifier+" "+port254+" "+"01000100"+";"+
+    "txnstate "+txnidentifier+" 254 01000100"+";"+
     // Add User state variable 2
-    "txnstate "+txnidentifier+" "+port255+" "+data.message+";"+
+    "txnstate "+txnidentifier+" 255 \""+data.message+"\""+";"+
     // Auto fill the transaction
     "txnauto "+txnidentifier+" "+data.amount+" "+data.address+" "+data.tokenid+";"+
     // Post it!
-    "txnpost "+txnidentifier;
+    "txnpost "+txnidentifier+";"+
+    // Clear the txn
+    "txndelete "+txnidentifier+";";
 
     return this.req(customTXN)
   }

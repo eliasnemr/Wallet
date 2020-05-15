@@ -11,18 +11,17 @@ import { Clipboard } from '@ionic-native/clipboard/ngx';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 import { PopOverComponent } from './components/pop-over/pop-over.component';
 import { PopTermComponent } from './components/pop-term/pop-term.component';
-import { PopHistoryComponent } from './components/pop-history/pop-history.component';
-import { PopHistoryTokenComponent } from './components/pop-history-token/pop-history-token.component';
 import { UserTerminal } from './service/userterminal.service';
 import { LocationStrategy, HashLocationStrategy} from '@angular/common';
 import { IonicStorageModule } from '@ionic/storage';
 import { darkMode } from './service/darkMode.service';
 import * as MifiJS from 'src/assets/JS/minima.js';
 import * as HTML5QR from 'node_modules/html5-qrcode/minified/html5-qrcode.min.js';
+import { HistorymodalPage } from './components/historymodal/historymodal.page';
 
 @NgModule({
-  declarations: [AppComponent, PopOverComponent, PopTermComponent, PopHistoryComponent, PopHistoryTokenComponent],
-  entryComponents: [PopOverComponent, PopTermComponent, PopHistoryComponent, PopHistoryTokenComponent],
+  declarations: [AppComponent, PopOverComponent, PopTermComponent, HistorymodalPage],
+  entryComponents: [PopOverComponent, PopTermComponent, HistorymodalPage],
   imports: [FormsModule, HttpClientModule, BrowserModule, IonicModule.forRoot(), AppRoutingModule, IonicStorageModule.forRoot()],
   providers: [
     Storage,
@@ -32,8 +31,6 @@ import * as HTML5QR from 'node_modules/html5-qrcode/minified/html5-qrcode.min.js
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     PopTermComponent,
     PopOverComponent,
-    PopHistoryComponent,
-    PopHistoryTokenComponent,
     UserTerminal,
     BalanceService,
     darkMode,
