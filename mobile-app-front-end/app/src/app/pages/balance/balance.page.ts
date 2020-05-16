@@ -39,10 +39,11 @@ export class BalancePage implements OnInit {
     private route: Router) {}
 
   ionViewWillEnter() {
-    this.pullArrLength();
-    setTimeout(() => {
-      this.pullInTokens(); // subscribes & polls balance
-    }, 1000);
+    
+    //this.pullArrLength();
+    
+    this.pullInTokens(); // subscribes & polls balance
+
   }
   ngOnInit(){}
   
@@ -61,7 +62,7 @@ export class BalancePage implements OnInit {
   }
 
   public sendTokenOver(id: string) {
-    this.route.navigate(['/send-funds/'+id]);
+    this.route.navigate(['/send-funds/'+id]); 
   }
 
   giveMe50() {

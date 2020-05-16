@@ -158,7 +158,6 @@ var SendFundsPage = /** @class */ (function () {
     };
     SendFundsPage.prototype.ionViewWillEnter = function () {
         this.pullInTokens();
-        this.getTokenSelected();
         this.isCameraOpen = false;
     };
     SendFundsPage.prototype.ionViewWillLeave = function () {

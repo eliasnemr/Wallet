@@ -34,6 +34,7 @@ ion-footer ion-toolbar ion-buttons ion-button{
      font-size: 0.8rem;
      font-family: 'Aeonik-bold';
      white-space: normal;
+     color: #00AAC7;
      text-align: right;
  }
  .logo-names {
@@ -95,7 +96,8 @@ ion-grid:hover {
   background: var(--ion-background-color, #f2f2f2);
 }
 ion-row {
-  border-left: 2px solid #07ABC8;
+  border-left: 2px solid #FF671E;
+  border-right: 2px solid #1FB4CD;
 }
 
 @media screen and (max-width: 900px) {

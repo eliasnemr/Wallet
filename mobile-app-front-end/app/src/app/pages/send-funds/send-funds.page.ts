@@ -63,7 +63,6 @@ export class SendFundsPage implements OnInit {
 
   ionViewWillEnter(){
     this.pullInTokens();
-    this.getTokenSelected();
     this.isCameraOpen = false;
   }
 
@@ -98,7 +97,7 @@ export class SendFundsPage implements OnInit {
   onItemSelection($event) {
     const param = this.route.snapshot.params['id'];
     this.tokenArr.forEach(element => {
-      if(this.itemSelected === element){
+      if(this.itemSelected === element && param !== element.id){
         this.itemSelected = element;
         
         this.router.navigate(["/send-funds", {id: element.id}]);

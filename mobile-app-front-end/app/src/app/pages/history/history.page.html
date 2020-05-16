@@ -50,12 +50,12 @@
                   transaction.values[0].name)">
 
       <!-- TXN Icon -->
-      <ion-col size="1">
+      <ion-col size="1" [hidden]="ios">
       <ion-icon [name]="getTXNType(transaction.values[0].amount)" size="large"></ion-icon>
       </ion-col>
 
       <!-- TXN Date -->
-      <ion-col size="1" class="col-month" fixed="true">
+      <ion-col size="2" fixed="true">
       <ion-label>
       <p id="day">
       {{ transaction.txpow.date.substring(8, 10) }}
@@ -67,38 +67,38 @@
       </ion-col>
 
       <!-- TXN Description -->
-      <ion-col size="2" class="col-transtype" fixed="true">
+      <ion-col size="4" fixed="true" [hidden]="ios">
         <ion-label id="transaction">
         <h2 class="h2-type">
         {{ checkTransType(transaction.values[0].amount) }} <span id="token-name">{{ (transaction.values[0].name).substring(0,12) }}</span>
         </h2>
-        <a *ngFor="let input of transaction.txpow.txn.inputs">
-        <p *ngIf="input.tokenid ==='0x00'"class="p-tokenid">
-        {{ input.tokenid.substring(0, 10) }}
-        </p>
-        <p *ngIf="input.tokenid !=='0x00'" class="p-tokenid">
-        {{ input.tokenid.substring(0, 10) + "..." }}
-        </p>
-        </a>
         </ion-label>
       </ion-col>
 
+      <!-- TXN Description -->
+      <ion-col size="6" fixed="true" [hidden]="!ios">
+        <ion-label id="transaction">
+        <h2 class="h2-type">
+        {{ checkTransType(transaction.values[0].amount) }} <span id="token-name">{{ (transaction.values[0].name).substring(0,12) }}</span>
+        </h2>
+        </ion-label>
+      </ion-col>
+      
+
       <!-- TXN AMOUNT -->
-      <ion-col size="6" class="col-transamnt" fixed="true">
-      <ion-label class="amount">
+      <ion-col size="4" fixed="true">
       <h2 class="amount-h2" *ngIf="transaction.values[0].amount.substring(0,1) === '-'">
       {{ transaction.values[0].amount + " " }} <span style="text-transform: uppercase;"> {{ (transaction.values[0].name).substring(0, 4)}} </span>
       </h2>
       <h2 class="amount-h2" *ngIf="transaction.values[0].amount.substring(0,1) !== '-'">
       {{ "+" + transaction.values[0].amount + " " }} <span style="text-transform: uppercase;"> {{ (transaction.values[0].name).substring(0, 4)}} </span>
       </h2>
-      </ion-label>
       </ion-col>
 
       <!-- TXN Message -->
-      <ion-col size="4" *ngIf="transaction.txpow.txn.state.length > 0">
+      <ion-col size="4" *ngIf="transaction.txpow.txn.state.length > 0" [hidden]="ios">
       <ion-note *ngIf="transaction.txpow.txn.state[1].data.length <= 15" class="msg-details">{{transaction.txpow.txn.state[1].data.substring(0, 15)}}</ion-note>
-      <ion-note *ngIf="transaction.txpow.txn.state[1].data.length > 15" class="msg-details">{{transaction.txpow.txn.state[1].data.substring(0, 15) + "..."}}</ion-note>
+      <ion-note *ngIf="transaction.txpow.txn.state[1].data.length > 15" class="msg-details">{{transaction.txpow.txn.state[1].data.substring(0, 8) + "..."}}</ion-note>
       </ion-col>
     </ion-item>
 
@@ -111,7 +111,7 @@
     <ion-slide class="swiper-slide">
       <ion-card-content style="width: 100%; text-align: center;">
     
-        <ion-text *ngIf="isEmpty">No token activities to display. </ion-text>
+        <ion-text *ngIf="tokens.length < 1">No token activities to display. </ion-text>
     
     <ion-grid *ngFor="let transaction of transactions;">
       <ion-row *ngIf="transactions.length >= 1 && transaction.values[0].name === 'Create Token';">
@@ -128,12 +128,12 @@
                   transaction.values[0].name)">
       
       <!-- TXN Icon -->
-      <ion-col size="1">
+      <ion-col size="1" [hidden]="ios">
       <ion-icon name="brush-outline" size="large"></ion-icon>
       </ion-col>
 
       <!-- TXN Date -->
-      <ion-col size="1" class="col-month" fixed="true">
+      <ion-col size="2" fixed="true">
       <ion-label>
       <p id="day">
       {{ transaction.txpow.date.substring(8, 10) }}
@@ -145,21 +145,31 @@
       </ion-col>
 
       <!-- TXN Description -->
-      <ion-col size="4" class="col-transtype" fixed="true">
+      <ion-col size="4" class="col-transtype" fixed="true" [hidden]="ios">
         <ion-label id="transaction">
         <h2 class="h2-type">
         Created a token.
         </h2>
         </ion-label>
       </ion-col>
+      <!-- TXN Description -->
+      <ion-col size="5" class="col-transtype" fixed="true" [hidden]="!ios">
+        <ion-label id="transaction">
+        <h2 class="h2-type">
+        Created a token
+        </h2>
+        </ion-label>
+      </ion-col>
 
-      <!-- TXN Amount -->
-      <ion-col size="6" class="col-transamnt" fixed="true">
-      <ion-label class="amount">
-      <h2 class="amount-h2">
-      {{ transaction.values[1].amount.substring(0, 8) + " " }} MINI
+
+      <!-- TXN AMOUNT -->
+      <ion-col size="4" fixed="true">
+      <h2 class="amount-h2" *ngIf="transaction.values[0].amount.substring(0,1) === '-'">
+      {{ transaction.values[0].amount + " " }} <span style="text-transform: uppercase;"> MINI </span>
       </h2>
-      </ion-label>
+      <h2 class="amount-h2" *ngIf="transaction.values[0].amount.substring(0,1) !== '-'">
+      {{ "+" + transaction.values[0].amount + " " }} <span style="text-transform: uppercase;"> MINI </span>
+      </h2>
       </ion-col>
 
     </ion-item>
@@ -189,12 +199,12 @@
                   transaction.values[0].name)">
 
       <!-- TXN Icon -->
-      <ion-col size="1">
+      <ion-col size="1" [hidden]="ios">
       <ion-icon [name]="getTXNType(transaction.values[0].amount)" size="large"></ion-icon>
       </ion-col>
 
       <!-- TXN Date -->
-      <ion-col size="1" class="col-month" fixed="true">
+      <ion-col size="2" class="col-month" fixed="true">
       <ion-label>
       <p id="day">
       {{ transaction.txpow.date.substring(8, 10) }}
@@ -206,33 +216,35 @@
       </ion-col>
 
       <!-- TXN Description -->
-      <ion-col size="2" class="col-transtype" fixed="true">
+      <ion-col size="4" fixed="true" [hidden]="ios">
         <ion-label id="transaction">
         <h2 class="h2-type">
         {{ checkTransType(transaction.values[0].amount) }} <span id="token-name">{{ (transaction.values[0].name).substring(0,12) }}</span>
         </h2>
-        <a *ngFor="let input of transaction.txpow.txn.inputs">
-        <p *ngIf="input.tokenid ==='0x00'"class="p-tokenid">
-        {{ input.tokenid.substring(0, 10) }}
-        </p>
-        <p *ngIf="input.tokenid !=='0x00'" class="p-tokenid">
-        {{ input.tokenid.substring(0, 10) + "..." }}
-        </p>
-        </a>
+        </ion-label>
+      </ion-col>
+
+      <!-- TXN Description -->
+      <ion-col size="6" fixed="true" [hidden]="!ios">
+        <ion-label id="transaction">
+        <h2 class="h2-type">
+        {{ checkTransType(transaction.values[0].amount) }} <span id="token-name">{{ (transaction.values[0].name).substring(0,12) }}</span>
+        </h2>
         </ion-label>
       </ion-col>
 
       <!-- TXN AMOUNT -->
-      <ion-col size="6" class="col-transamnt" fixed="true">
-      <ion-label class="amount">
-      <h2 class="amount-h2">
+      <ion-col size="4" fixed="true">
+      <h2 class="amount-h2" *ngIf="transaction.values[0].amount.substring(0,1) === '-'">
       {{ transaction.values[0].amount + " " }} <span style="text-transform: uppercase;"> {{ (transaction.values[0].name).substring(0, 4)}} </span>
       </h2>
-      </ion-label>
+      <h2 class="amount-h2" *ngIf="transaction.values[0].amount.substring(0,1) !== '-'">
+      {{ "+" + transaction.values[0].amount + " " }} <span style="text-transform: uppercase;"> {{ (transaction.values[0].name).substring(0, 4)}} </span>
+      </h2>
       </ion-col>
 
       <!-- TXN Message -->
-      <ion-col size="4" *ngIf="transaction.txpow.txn.state.length > 0">
+      <ion-col size="4" *ngIf="transaction.txpow.txn.state.length > 0" [hidden]="ios">
       <ion-note *ngIf="transaction.txpow.txn.state[1].data.length <= 15" class="msg-details">{{transaction.txpow.txn.state[1].data.substring(0, 15)}}</ion-note>
       <ion-note *ngIf="transaction.txpow.txn.state[1].data.length > 15" class="msg-details">{{transaction.txpow.txn.state[1].data.substring(0, 15) + "..."}}</ion-note>
       </ion-col>
@@ -255,12 +267,12 @@
               transaction.txpow.isblock,
               transaction.values[0].name)">
       <!-- TXN Icon -->
-      <ion-col size="1">
+      <ion-col size="1" [hidden]="ios">
       <ion-icon name="brush-outline" size="large"></ion-icon>
       </ion-col>
 
       <!-- TXN Date -->
-      <ion-col size="1" class="col-month" fixed="true">
+      <ion-col size="2" class="col-month" fixed="true">
       <ion-label>
       <p id="day">
       {{ transaction.txpow.date.substring(8, 10) }}
@@ -272,21 +284,22 @@
       </ion-col>
 
       <!-- TXN Description -->
-      <ion-col size="2" class="col-transtype" fixed="true">
+      <ion-col size="5" class="col-transtype" fixed="true">
         <ion-label id="transaction">
         <h2 class="h2-type">
-        Created a token.
+        Created a token
         </h2>
         </ion-label>
       </ion-col>
 
-      <!-- TXN Amount -->
-      <ion-col size="6" class="col-transamnt" fixed="true">
-      <ion-label class="amount">
-      <h2 class="amount-h2">
-      {{ transaction.values[1].amount.substring(0, 8) + " " }} MINI
+      <!-- TXN AMOUNT -->
+      <ion-col size="4" fixed="true">
+      <h2 class="amount-h2" *ngIf="transaction.values[0].amount.substring(0,1) === '-'">
+      {{ transaction.values[0].amount + " " }} <span style="text-transform: uppercase;"> MINI </span>
       </h2>
-      </ion-label>
+      <h2 class="amount-h2" *ngIf="transaction.values[0].amount.substring(0,1) !== '-'">
+      {{ "+" + transaction.values[0].amount + " " }} <span style="text-transform: uppercase;"> MINI </span>
+      </h2>
       </ion-col>
     
     </ion-item>
@@ -306,7 +319,7 @@
       <ion-item  class="activity-skeleton" lines="full">
 
     <!-- TXN Icon Skeleton -->
-    <ion-col size="1">
+    <ion-col size="1" [hidden]="ios">
     <ion-skeleton-text animated style="width: 50%; height: 50%;"></ion-skeleton-text>
     </ion-col>
 
@@ -342,7 +355,7 @@
   </ion-col>
 
   <!-- TXN Message Skeleton -->
-  <ion-col size="4">
+  <ion-col size="4" [hidden]="ios">
   <ion-skeleton-text animated style="width: 50%; height: 10%;"></ion-skeleton-text>
   </ion-col>
 

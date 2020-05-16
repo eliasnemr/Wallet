@@ -1,5 +1,5 @@
 import { MinimaApiService } from '../../service/minima-api.service';
-import { PopoverController, IonSlides, ModalController } from '@ionic/angular';
+import { PopoverController, IonSlides, ModalController, Platform } from '@ionic/angular';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { HistoryService } from '../../service/history.service';
@@ -18,6 +18,7 @@ export class HistoryPage implements OnInit {
   isEmpty: boolean = true;
   selectedSlide: any;
   categories: number = 0;
+  ios: boolean = false;
   sliderOptions = {
     initialSlide: 0,
     slidesPerView: 1,
@@ -33,9 +34,14 @@ export class HistoryPage implements OnInit {
   // - vars
   private lastJSON: string = '';
 
-  constructor(private api: MinimaApiService, private historyService: HistoryService, public modalController: ModalController) {}
+  constructor(private api: MinimaApiService, private historyService: HistoryService,
+     public modalController: ModalController, private platform: Platform) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    if(this.platform.is('ios') || this.platform.is('android')){
+      this.ios = true;
+    }
+  }
 
   ionViewDidEnter(){ 
     this.pullInHistoryLength(); // get length for skeleton

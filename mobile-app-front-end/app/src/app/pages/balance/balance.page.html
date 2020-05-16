@@ -35,14 +35,14 @@
   </ion-label>
   </ion-col>
 
-  <ion-col size="10" slot="end">
+  <ion-col size="8" slot="end">
   <ion-label class="confirmed-amount">
     {{ token.confirmed }}
   </ion-label>
   </ion-col>
   
-  <ion-col size="10" slot="end">
-  <ion-label *ngIf='token.unconfirmed != 0' class="unconfirmed-amount" color="black">
+  <ion-col *ngIf='token.unconfirmed != 0' size="6" slot="end" color="black">
+  <ion-label class="unconfirmed-amount">
     {{ token.unconfirmed }}
   </ion-label>
   </ion-col>

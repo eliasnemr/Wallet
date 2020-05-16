@@ -155,7 +155,6 @@ let SendFundsPage = class SendFundsPage {
     }
     ionViewWillEnter() {
         this.pullInTokens();
-        this.getTokenSelected();
         this.isCameraOpen = false;
     }
     ionViewWillLeave() {
