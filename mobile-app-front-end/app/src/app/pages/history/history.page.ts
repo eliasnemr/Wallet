@@ -15,6 +15,7 @@ import { HistorytokenmodalPage } from '../../components/historytokenmodal/histor
 })
 export class HistoryPage implements OnInit {
 
+  isEmpty: boolean = true;
   selectedSlide: any;
   categories: number = 0;
   sliderOptions = {
@@ -32,15 +33,13 @@ export class HistoryPage implements OnInit {
   // - vars
   private lastJSON: string = '';
 
-  constructor(
-    private api: MinimaApiService,
-    private historyService: HistoryService,
-    public modalController: ModalController) {}
+  constructor(private api: MinimaApiService, private historyService: HistoryService, public modalController: ModalController) {}
 
   ngOnInit() {}
 
   ionViewDidEnter(){ 
-    this.pullInHistoryLength();
+    this.pullInHistoryLength(); // get length for skeleton
+    
     setTimeout(() => {
       this.pullInHistorySummary(); // subscribe and polls history
     }, 500);
@@ -192,6 +191,10 @@ export class HistoryPage implements OnInit {
   pullInHistoryLength() {
     this.historyService.getHistory().subscribe( (res: {status: boolean, minifunc: string, message: string, response: {history: History[]} })=> {
       this.t_summarySpoof = res.response.history;
+      /** Check if we have any txn */
+      if(this.t_summarySpoof.length > 0) {
+        this.isEmpty = false;
+      }
     });
   }
   

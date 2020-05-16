@@ -1,12 +1,26 @@
 ion-card-header {
     --background: var(--ion-background-color, #f2f2f2);
 }
+ion-card-content {
+    width: 100%;
+    text-align: center;
+}
 ion-segment {
     margin-top: 5px;
     padding: 0px 10px 0px 10px;
 }
 ion-card-content ion-text {
     margin-top: 10px;
+}
+ion-row {
+    padding: 2px;
+} 
+
+ion-grid {
+    padding: 0px;
+}
+ion-row:hover {
+    background: var(--ion-background-color, #f2f2f2);
 }
 .list-md {
     padding: 0px 0px 0px 0px !important;
@@ -26,10 +40,19 @@ ion-card-content ion-text {
     margin-left: 0px;
 }
 .activity {
-    width: 90%;
-    left: 12%;
-    right: 5%;
-
+    width: 100%;
+    border-left: 2px solid #07ABC8;
+}
+.activity-tokens {
+    width: 100%;
+    border-left: 2px solid rgb(109, 204, 146);
+}
+.divider {
+    padding: 5px;
+}
+.activity-skeleton {
+    width: 100%;
+    border-left: 2px solid #f2f2f2;
 }
 ion-row {
     width: 90%;
@@ -136,4 +159,3 @@ ion-row {
 .no-activity-item {
     padding-left: 2%;
 }
-

@@ -9,14 +9,12 @@
   </ion-header>
   
   <ion-content>
+
     <ion-card>
       <ion-card-header>
         Recent Activity
         <!-- Category Segment -->
-      <ion-segment
-        *ngIf = "transactions.length > 1"
-        (ionChange)="segmentChanged($event, slides)" 
-        [(ngModel)] = "categories">
+      <ion-segment (ionChange)="segmentChanged($event, slides)" [(ngModel)] = "categories">
         <ion-segment-button value="0" class="seg">
           <ion-label>Transactions</ion-label>
         </ion-segment-button>
@@ -29,35 +27,27 @@
       </ion-segment>
       </ion-card-header>
 
-  <ion-slides
-  #slides
-  pager="false"
-  [options]="sliderOptions"
-  (ionSlideDidChange)="slideChanged(slides)"
-  (ionSlideDidLoad)="slideChanged(slides)">
+  <ion-slides #slides pager="true" [options]="sliderOptions" (ionSlideDidChange)="slideChanged(slides)" (ionSlideDidLoad)="slideChanged(slides)">
 
-    <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@ Transactions @@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
-    
-    <ion-slide class="swiper-slide">
-    <ion-card-content style="width: 100%; text-align: center;">
+  <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@ Transactions @@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+  <ion-slide class="swiper-slide">
+    <ion-card-content>
 
-    <!-- Zero activities -->
-    <ion-text *ngIf="transactions.length < 1" style="font-family: Aeonik-light;">No activities to display.</ion-text>
-    <ion-list *ngFor="let transaction of transactions;">
-    <ion-grid><ion-row>
-    <ion-item 
-    *ngIf="transactions.length >= 1 && transaction.values[0].name !== 'Create Token';" 
-    class="activity"
-    (click)="presentModal(transaction.txpow.txpowid, 
-              transaction.values[0].amount,
-              transaction.txpow.txn.state,
-              transaction.txpow.txnid,
-              transaction.txpow.block,
-              transaction.txpow.parent,
-              transaction.txpow.txn.inputs[0].tokenid,
-              transaction.txpow.date,
-              transaction.txpow.isblock,
-              transaction.values[0].name)">
+    <ion-text *ngIf="isEmpty">No activities to display.</ion-text>
+
+    <ion-grid *ngFor="let transaction of transactions;">
+      <ion-row *ngIf="transactions.length >= 1 && transaction.values[0].name !== 'Create Token';">
+        <ion-item lines="full" class="activity"
+        (click)="presentModal(transaction.txpow.txpowid, 
+                  transaction.values[0].amount,
+                  transaction.txpow.txn.state,
+                  transaction.txpow.txnid,
+                  transaction.txpow.block,
+                  transaction.txpow.parent,
+                  transaction.txpow.txn.inputs[0].tokenid,
+                  transaction.txpow.date,
+                  transaction.txpow.isblock,
+                  transaction.values[0].name)">
 
       <!-- TXN Icon -->
       <ion-col size="1">
@@ -96,8 +86,11 @@
       <!-- TXN AMOUNT -->
       <ion-col size="6" class="col-transamnt" fixed="true">
       <ion-label class="amount">
-      <h2 class="amount-h2">
+      <h2 class="amount-h2" *ngIf="transaction.values[0].amount.substring(0,1) === '-'">
       {{ transaction.values[0].amount + " " }} <span style="text-transform: uppercase;"> {{ (transaction.values[0].name).substring(0, 4)}} </span>
+      </h2>
+      <h2 class="amount-h2" *ngIf="transaction.values[0].amount.substring(0,1) !== '-'">
+      {{ "+" + transaction.values[0].amount + " " }} <span style="text-transform: uppercase;"> {{ (transaction.values[0].name).substring(0, 4)}} </span>
       </h2>
       </ion-label>
       </ion-col>
@@ -107,34 +100,33 @@
       <ion-note *ngIf="transaction.txpow.txn.state[1].data.length <= 15" class="msg-details">{{transaction.txpow.txn.state[1].data.substring(0, 15)}}</ion-note>
       <ion-note *ngIf="transaction.txpow.txn.state[1].data.length > 15" class="msg-details">{{transaction.txpow.txn.state[1].data.substring(0, 15) + "..."}}</ion-note>
       </ion-col>
-
     </ion-item>
-    </ion-row></ion-grid>
-    </ion-list>
-    </ion-card-content>
-    </ion-slide>
+
+    </ion-row>
+      </ion-grid>
+        </ion-card-content>
+          </ion-slide>
 
     <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@ Token Creation @@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
     <ion-slide class="swiper-slide">
-    <ion-card-content style="width: 100%; text-align: center !important;">
+      <ion-card-content style="width: 100%; text-align: center;">
     
-    <ion-text *ngIf="tokens.length < 1" style="font-family: 'Aeonik-light';"> No token activities to display. </ion-text>
+        <ion-text *ngIf="isEmpty">No token activities to display. </ion-text>
     
-    
-    <ion-list *ngFor="let transaction of transactions;">
-    <ion-grid *ngIf="transactions.length >= 1 && transaction.values[0].name === 'Create Token';" ><ion-row>
-    <ion-item 
-    class="activity"
-    (click)="presentTokenModal(transaction.txpow.txpowid, 
-              transaction.values[0].amount,
-              transaction.txpow.txn.state,
-              transaction.txpow.txnid,
-              transaction.txpow.block,
-              transaction.txpow.parent,
-              transaction.txpow.txn.inputs[0].tokenid,
-              transaction.txpow.date,
-              transaction.txpow.isblock,
-              transaction.values[0].name)">
+    <ion-grid *ngFor="let transaction of transactions;">
+      <ion-row *ngIf="transactions.length >= 1 && transaction.values[0].name === 'Create Token';">
+        <ion-item lines="full" class="activity-tokens"
+        (click)="presentTokenModal(transaction.txpow.txpowid, 
+                  transaction.values[0].amount,
+                  transaction.txpow.txn.state,
+                  transaction.txpow.txnid,
+                  transaction.txpow.block,
+                  transaction.txpow.parent,
+                  transaction.txpow.txn.inputs[0].tokenid,
+                  transaction.txpow.date,
+                  transaction.txpow.isblock,
+                  transaction.values[0].name)">
+      
       <!-- TXN Icon -->
       <ion-col size="1">
       <ion-icon name="brush-outline" size="large"></ion-icon>
@@ -170,34 +162,31 @@
       </ion-label>
       </ion-col>
 
-      </ion-item>
-    </ion-row></ion-grid>
-    </ion-list>
-
-    </ion-card-content>
-    </ion-slide>
+    </ion-item>
+      </ion-row>
+      </ion-grid>
+        </ion-card-content>
+         </ion-slide>
 
     <!-- @@@@@@@@@@@@@@@@@@@@@@@@@ All @@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
     <ion-slide class="swiper-slide">
-    <ion-card-content style="width: 100%; text-align: center;">
+      <ion-card-content>
 
-    <!-- Zero activities -->
-    <ion-text *ngIf="transactions.length < 1" style="font-family: Aeonik-light;">No activities to display.</ion-text>
+      <ion-text *ngIf="isEmpty" style="font-family: Aeonik-light;">No activities to display.</ion-text>
 
-    <ion-list *ngFor="let transaction of transactions;">
-    <ion-grid *ngIf="transactions.length >= 1 && transaction.values[0].name !== 'Create Token';"><ion-row>
-    <ion-item 
-    class="activity"
-    (click)="presentModal(transaction.txpow.txpowid, 
-              transaction.values[0].amount,
-              transaction.txpow.txn.state,
-              transaction.txpow.txnid,
-              transaction.txpow.block,
-              transaction.txpow.parent,
-              transaction.txpow.txn.inputs[0].tokenid,
-              transaction.txpow.date,
-              transaction.txpow.isblock,
-              transaction.values[0].name)">
+    <ion-grid *ngFor="let transaction of transactions;">
+      <ion-row *ngIf="transactions.length >= 1 && transaction.values[0].name !== 'Create Token';">
+        <ion-item lines="full" class="activity"
+        (click)="presentModal(transaction.txpow.txpowid, 
+                  transaction.values[0].amount,
+                  transaction.txpow.txn.state,
+                  transaction.txpow.txnid,
+                  transaction.txpow.block,
+                  transaction.txpow.parent,
+                  transaction.txpow.txn.inputs[0].tokenid,
+                  transaction.txpow.date,
+                  transaction.txpow.isblock,
+                  transaction.values[0].name)">
 
       <!-- TXN Icon -->
       <ion-col size="1">
@@ -247,13 +236,14 @@
       <ion-note *ngIf="transaction.txpow.txn.state[1].data.length <= 15" class="msg-details">{{transaction.txpow.txn.state[1].data.substring(0, 15)}}</ion-note>
       <ion-note *ngIf="transaction.txpow.txn.state[1].data.length > 15" class="msg-details">{{transaction.txpow.txn.state[1].data.substring(0, 15) + "..."}}</ion-note>
       </ion-col>
-
     </ion-item>
-    </ion-row></ion-grid>
- 
-    <ion-grid *ngIf="transactions.length >= 1 && transaction.values[0].name === 'Create Token';"><ion-row>
-    <ion-item 
-    class="activity"
+    <!-- Tokens -->
+    </ion-row>
+
+    <ion-row *ngIf="transactions.length >= 1 && transaction.values[0].name === 'Create Token';">
+    <ion-item
+    lines="full"
+    class="activity-tokens"
     (click)="presentTokenModal(transaction.txpow.txpowid, 
               transaction.values[0].amount,
               transaction.txpow.txn.state,
@@ -298,27 +288,26 @@
       </h2>
       </ion-label>
       </ion-col>
-
+    
     </ion-item>
-    </ion-row></ion-grid>
-    </ion-list>
-    </ion-card-content>
-    </ion-slide>
-  </ion-slides>
+      </ion-row>
+        </ion-grid>
+          </ion-card-content>
+            </ion-slide>
+              </ion-slides>
 
 
 
   <!-- SKELETON FOR UX LOADING -->
-  <div *ngIf="transactions.length < 1">  
-  <ion-list *ngFor="let length of t_summarySpoof">
-    <ion-grid *ngIf="length.values[0].name !== 'Create Token'"><ion-row>
-    <ion-item class="activity">
-    
+   
+  
+  <ion-grid *ngFor="let length of t_summarySpoof">
+    <ion-row *ngIf="length.values[0].name !== 'Create Token' && transactions.length < 1">
+      <ion-item  class="activity-skeleton" lines="full">
+
     <!-- TXN Icon Skeleton -->
     <ion-col size="1">
-    <ion-avatar>
     <ion-skeleton-text animated style="width: 50%; height: 50%;"></ion-skeleton-text>
-    </ion-avatar>
     </ion-col>
 
     <!-- TXN Date Skeleton -->
@@ -356,13 +345,12 @@
   <ion-col size="4">
   <ion-skeleton-text animated style="width: 50%; height: 10%;"></ion-skeleton-text>
   </ion-col>
+
   </ion-item>
-
-  </ion-row></ion-grid>
-  </ion-list>
-  </div>
-
-</ion-card>
+    </ion-row>
+      </ion-grid>
+        </ion-card>
   
-  </ion-content>
+  
+</ion-content>
   </ion-app>

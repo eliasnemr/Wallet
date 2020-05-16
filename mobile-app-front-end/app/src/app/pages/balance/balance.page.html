@@ -14,56 +14,49 @@
 
     <ion-card color="white">
       <ion-card-header color="white">
-
       </ion-card-header>
   <ion-card-content>
 
   <ion-icon style=" font-size:2.0rem; padding-left:10px;" name="card" slot="start" class="icon-head"></ion-icon>
-  <ion-list *ngFor="let token of tokenArr;">
 
-  <ion-item-sliding>
-  <ion-item-options side="start">
-  <ion-item-option class="receive-slide" routerLink="/my-address">Receive</ion-item-option>
-  <ion-item-option class="send-slide" (click)="sendTokenOver(token.id)">Send</ion-item-option>
-  </ion-item-options>
+  <ion-grid style="width: 100%;" *ngFor="let token of tokenArr;">
+    <ion-row>    
+      <ion-item-sliding>
+      <ion-item-options side="start">
+      <ion-item-option class="receive-slide" routerLink="/my-address">Receive</ion-item-option>
+      <ion-item-option class="send-slide" (click)="sendTokenOver(token.id)">Send</ion-item-option>
+      </ion-item-options>
 
   <ion-item lines="full">
+  <ion-col size="2" slot="start">
   <ion-label class="logo-names">
     <ion-icon class="balance-token" src="./assets/icon/minima.svg"></ion-icon>
     <ion-note class="balance-tokenname"> {{ token.token }} </ion-note>
   </ion-label>
+  </ion-col>
+
+  <ion-col size="10" slot="end">
   <ion-label class="confirmed-amount">
     {{ token.confirmed }}
   </ion-label>
+  </ion-col>
+  
+  <ion-col size="10" slot="end">
   <ion-label *ngIf='token.unconfirmed != 0' class="unconfirmed-amount" color="black">
     {{ token.unconfirmed }}
   </ion-label>
+  </ion-col>
+
   </ion-item>
 
   <ion-item-options side="end">
     <ion-item-option (click)="presentPopover($event, token.id)">Token ID</ion-item-option>
   </ion-item-options>
   </ion-item-sliding>
+    </ion-row>
+      </ion-grid>
 
-  </ion-list>
-
-  <!-- SKELETON UX FOR LOADING -->
-  <div *ngIf="tokenArr.length < 1">
-  <ion-list *ngFor="let tkn of tokenSpoof">
-    <ion-item lines="full">
-
-    <ion-avatar slot="start" class="skeleton-icon">
-      <ion-skeleton-text animated></ion-skeleton-text>
-    </ion-avatar>
-
-
-    <p class="skeleton-name"><ion-skeleton-text animated animated> </ion-skeleton-text></p>
-    
-    <ion-label slot="end" class="skeleton-amount"><ion-skeleton-text animated></ion-skeleton-text></ion-label>
-    </ion-item>
-    
-  </ion-list>
-  </div>
+  
 
   </ion-card-content>
   </ion-card>

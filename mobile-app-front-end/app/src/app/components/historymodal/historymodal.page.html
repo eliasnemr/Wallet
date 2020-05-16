@@ -1,6 +1,10 @@
 <ion-header>
   <ion-toolbar>
     <ion-title slot="start"><span style="color:#FF671E">TxPoW</span> <span style="font-size:14px;">{{ TXPOW_ID.substring(0,20)+"..." }}</span></ion-title>
+
+  <ion-button slot="end" fill="clear" (click)="dismiss()" class="dismiss-btn">
+  Dismiss
+  </ion-button>
   </ion-toolbar>
 </ion-header>
 
@@ -18,11 +22,13 @@
   <!-- TXN Message (if any)-->
   <ion-row>
   <ion-col *ngIf="Message.length > 0 && Message[0].data === '01000100'">
-  <ion-note>{{'"'+ Message[1].data +'"' }}</ion-note>
+  <ion-note id="msg">{{'"'+ Message[1].data +'"' }}</ion-note>
   </ion-col>
   </ion-row>
   </ion-grid>
   </ion-card-header>
+
+  <ion-item-divider></ion-item-divider>
 <!-- TXN Details -->  
 <ion-list>
 
@@ -85,11 +91,3 @@
 
 
 </ion-content>
-
-<ion-footer>
-<ion-toolbar style="text-align: center;">
-  <ion-button fill="clear" (click)="dismiss()" class="dismiss-btn" expand="full">
-  Dismiss
-  </ion-button>
-</ion-toolbar>
-</ion-footer>
