@@ -22,6 +22,7 @@ export class BalanceService {
     this.host = this.getHost();
    }
    
+  /** API CALLS */
   giveMe50(): Observable<{ status: boolean, minifunc: string, response: any}> {
     let apiUrl = this.host + 'gimme50';
     
@@ -41,17 +42,18 @@ export class BalanceService {
     }
   }
 
-  doRefresh(event) {
-    this.manualRefresh.next('');
-    setTimeout( () => {
-      event.target.complete();
-    }, 1000);
-  }
-
   private request(route: any) {
-    let apiUrl = this.host + route; // this.host+'route' = "127.0.0.1:8999/'balance'"
-    let balance$ = this.http.get(apiUrl);
-    let b$ = Minima.cmd()
+    //let apiUrl = this.host + route; // this.host+'route' = "127.0.0.1:8999/'balance'"
+    //let balance$ = this.http.get(apiUrl);
+
+    // create custom observable to talk with minima.js
+    const balanceObservable = Observable.create(observer => {
+      Minima.cmd('balance', function(resp){
+        observer.next(resp);
+      });
+    });
+
+    let balance$ = balanceObservable;
     
     return this.polledBalance$ = timer(0, 2000).pipe(
       

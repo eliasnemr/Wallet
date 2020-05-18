@@ -27,7 +27,7 @@
       </ion-segment>
       </ion-card-header>
 
-  <ion-slides #slides pager="true" [options]="sliderOptions" (ionSlideDidChange)="slideChanged(slides)" (ionSlideDidLoad)="slideChanged(slides)">
+  <ion-slides #slides pager="false" [options]="sliderOptions" (ionSlideDidChange)="slideChanged(slides)" (ionSlideDidLoad)="slideChanged(slides)">
 
   <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@ Transactions @@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
   <ion-slide class="swiper-slide">
@@ -340,9 +340,6 @@
       <h2 class="h2-type">
         <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
       </h2>
-      <p class="p-tokenid">
-        <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
-      </p>
     </ion-label>
   </ion-col>
   <!-- TXN Amount Skeleton-->

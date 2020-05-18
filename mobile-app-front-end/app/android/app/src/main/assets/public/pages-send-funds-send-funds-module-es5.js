@@ -190,7 +190,7 @@ var SendFundsPage = /** @class */ (function () {
         var _this = this;
         var param = this.route.snapshot.params['id'];
         this.tokenArr.forEach(function (element) {
-            if (_this.itemSelected === element) {
+            if (_this.itemSelected === element && param !== element.id) {
                 _this.itemSelected = element;
                 _this.router.navigate(["/send-funds", { id: element.id }]);
                 console.log(_this.itemSelected);

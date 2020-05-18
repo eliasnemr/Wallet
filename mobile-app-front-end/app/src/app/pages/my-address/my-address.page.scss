@@ -5,7 +5,6 @@
         --background: var(--ion-background-color, #f2f2f2);
     }
     .qrCanvas {
-        border: 2px solid #07ABC8;
         width: 200px;
         height: auto;
         padding-right: 0px;
@@ -36,6 +35,10 @@ ion-footer ion-toolbar ion-buttons ion-button {
 .ios .skeleton-address {
     height: 280px;
     width: 100%;
+}
+.qrCanvas{
+    width: 50px;
+    height: auto;
 }
 
 

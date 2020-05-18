@@ -35,8 +35,16 @@ export class HistoryService {
   }
   
   private request(route: any) {
-    let apiUrl = this.host + route; // this.host+'route' = "127.0.0.1:8999/'balance'"
-    let history$ = this.http.get(apiUrl);
+    // let apiUrl = this.host + route; // this.host+'route' = "127.0.0.1:8999/'balance'"
+    // let history$ = this.http.get(apiUrl);
+
+    const historyObservable = Observable.create(observer => {
+      Minima.cmd('history', function(response){
+        observer.next(response);
+      });
+    });
+
+    let history$ = historyObservable;
     
     return this.polledHistory$ = timer(0, 2000).pipe(
       

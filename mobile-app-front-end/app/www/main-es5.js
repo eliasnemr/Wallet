@@ -1280,6 +1280,7 @@ var BalanceService = /** @class */ (function () {
         this.host = _environments_environment_prod__WEBPACK_IMPORTED_MODULE_1__["environment"].defaultNode;
         this.host = this.getHost();
     }
+    /** API CALLS */
     BalanceService.prototype.giveMe50 = function () {
         var apiUrl = this.host + 'gimme50';
         return this.http.get(apiUrl);
@@ -1296,16 +1297,16 @@ var BalanceService = /** @class */ (function () {
             return localStorage.getItem('minima_host');
         }
     };
-    BalanceService.prototype.doRefresh = function (event) {
-        this.manualRefresh.next('');
-        setTimeout(function () {
-            event.target.complete();
-        }, 1000);
-    };
     BalanceService.prototype.request = function (route) {
-        var apiUrl = this.host + route; // this.host+'route' = "127.0.0.1:8999/'balance'"
-        var balance$ = this.http.get(apiUrl);
-        var b$ = Minima.cmd();
+        //let apiUrl = this.host + route; // this.host+'route' = "127.0.0.1:8999/'balance'"
+        //let balance$ = this.http.get(apiUrl);
+        // create custom observable to talk with minima.js
+        var balanceObservable = rxjs__WEBPACK_IMPORTED_MODULE_4__["Observable"].create(function (observer) {
+            Minima.cmd('balance', function (resp) {
+                observer.next(resp);
+            });
+        });
+        var balance$ = balanceObservable;
         return this.polledBalance$ = Object(rxjs_Observable_timer__WEBPACK_IMPORTED_MODULE_6__["timer"])(0, 2000).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["merge"])(this.manualRefresh), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["concatMap"])(function (_) { return balance$; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (res) { return res; }));
     };
     BalanceService.ctorParameters = function () { return [
@@ -1484,6 +1485,7 @@ var MinimaApiService = /** @class */ (function () {
     MinimaApiService.prototype.getStatus = function () {
         return this.req('status');
     };
+    // old api
     MinimaApiService.prototype.request = function (route) {
         var _this = this;
         var apiUrl = this.host + route; // this.host = "127.0.0.1:8999/" ** route = "balance" (for example)

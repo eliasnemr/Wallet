@@ -31,10 +31,10 @@ ion-footer ion-toolbar ion-buttons ion-button{
     text-align: right;
  }
  .unconfirmed-amount {
-     font-size: 0.8rem;
-     font-family: 'Aeonik-bold';
+     font-size: 1.0rem;
+     font-family: 'monospace';
      white-space: normal;
-     color: #00AAC7;
+     color: #9494b8;
      text-align: right;
  }
  .logo-names {
@@ -113,4 +113,6 @@ ion-row {
     }
 }
  
-  
+  .balance {
+    font-size: 12px;
+  }

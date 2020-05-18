@@ -109,6 +109,7 @@ export class MinimaApiService {
     return this.req('status');
   }
 
+  // old api
   request(route: any) {
     let apiUrl = this.host + route; // this.host = "127.0.0.1:8999/" ** route = "balance" (for example)
     let promise = new Promise((resolve, reject) => {

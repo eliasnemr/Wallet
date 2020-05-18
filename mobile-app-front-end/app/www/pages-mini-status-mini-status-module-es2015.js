@@ -213,8 +213,14 @@ let StatusService = class StatusService {
         }, 1000);
     }
     request(route) {
-        let apiUrl = this.host + route; // this.host+'route' = "127.0.0.1:8999/'balance'"
-        let status$ = this.http.get(apiUrl);
+        // let apiUrl = this.host + route; // this.host+'route' = "127.0.0.1:8999/'balance'"
+        // let status$ = this.http.get(apiUrl);
+        const statusObservable = rxjs__WEBPACK_IMPORTED_MODULE_4__["Observable"].create(observer => {
+            Minima.cmd('status', function (response) {
+                observer.next(response);
+            });
+        });
+        let status$ = statusObservable;
         return this.polledStatus$ = Object(rxjs_Observable_timer__WEBPACK_IMPORTED_MODULE_6__["timer"])(0, 3000).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["concatMap"])(_ => status$), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])((res) => res));
     }
 };

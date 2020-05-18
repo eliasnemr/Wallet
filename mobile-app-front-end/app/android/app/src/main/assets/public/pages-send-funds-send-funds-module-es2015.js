@@ -185,7 +185,7 @@ let SendFundsPage = class SendFundsPage {
     onItemSelection($event) {
         const param = this.route.snapshot.params['id'];
         this.tokenArr.forEach(element => {
-            if (this.itemSelected === element) {
+            if (this.itemSelected === element && param !== element.id) {
                 this.itemSelected = element;
                 this.router.navigate(["/send-funds", { id: element.id }]);
                 console.log(this.itemSelected);

@@ -2,8 +2,8 @@ import { Observable, Subscription, Subject, interval } from 'rxjs';
 import { map, concatMap } from 'rxjs/operators';
 import { timer } from 'rxjs/Observable/timer';
 import { MinimaApiService } from '../../service/minima-api.service';
-import { Component, ChangeDetectorRef, AfterContentChecked, OnInit, Input} from '@angular/core';
-import { AlertController, PopoverController, NavController } from '@ionic/angular';
+import { Component, ChangeDetectorRef, AfterContentChecked, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { AlertController, PopoverController, NavController, IonLabel, IonInput } from '@ionic/angular';
 import { Tokens } from '../../models/tokens.model';
 import { PopOverComponent } from '../../components/pop-over/pop-over.component';
 import { BalanceService } from '../../service/balance.service';
@@ -18,6 +18,8 @@ import { Router } from '@angular/router';
 })
 
 export class BalancePage implements OnInit {
+
+  @ViewChild('balance', {static: false}) balance: ElementRef;
 
   tokenArr: Tokens[] = [];
   tokenSpoof: Tokens[] = [];

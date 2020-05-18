@@ -1240,6 +1240,7 @@ let BalanceService = class BalanceService {
         this.host = _environments_environment_prod__WEBPACK_IMPORTED_MODULE_1__["environment"].defaultNode;
         this.host = this.getHost();
     }
+    /** API CALLS */
     giveMe50() {
         let apiUrl = this.host + 'gimme50';
         return this.http.get(apiUrl);
@@ -1256,16 +1257,16 @@ let BalanceService = class BalanceService {
             return localStorage.getItem('minima_host');
         }
     }
-    doRefresh(event) {
-        this.manualRefresh.next('');
-        setTimeout(() => {
-            event.target.complete();
-        }, 1000);
-    }
     request(route) {
-        let apiUrl = this.host + route; // this.host+'route' = "127.0.0.1:8999/'balance'"
-        let balance$ = this.http.get(apiUrl);
-        let b$ = Minima.cmd();
+        //let apiUrl = this.host + route; // this.host+'route' = "127.0.0.1:8999/'balance'"
+        //let balance$ = this.http.get(apiUrl);
+        // create custom observable to talk with minima.js
+        const balanceObservable = rxjs__WEBPACK_IMPORTED_MODULE_4__["Observable"].create(observer => {
+            Minima.cmd('balance', function (resp) {
+                observer.next(resp);
+            });
+        });
+        let balance$ = balanceObservable;
         return this.polledBalance$ = Object(rxjs_Observable_timer__WEBPACK_IMPORTED_MODULE_6__["timer"])(0, 2000).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["merge"])(this.manualRefresh), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["concatMap"])(_ => balance$), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])((res) => res));
     }
 };
@@ -1424,6 +1425,7 @@ let MinimaApiService = class MinimaApiService {
     getStatus() {
         return this.req('status');
     }
+    // old api
     request(route) {
         let apiUrl = this.host + route; // this.host = "127.0.0.1:8999/" ** route = "balance" (for example)
         let promise = new Promise((resolve, reject) => {

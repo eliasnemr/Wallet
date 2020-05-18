@@ -44,8 +44,16 @@ export class StatusService {
   }
 
   private request(route: any) {
-    let apiUrl = this.host + route; // this.host+'route' = "127.0.0.1:8999/'balance'"
-    let status$ = this.http.get(apiUrl);
+    // let apiUrl = this.host + route; // this.host+'route' = "127.0.0.1:8999/'balance'"
+    // let status$ = this.http.get(apiUrl);
+
+    const statusObservable = Observable.create(observer => {
+      Minima.cmd('status', function(response){
+        observer.next(response);
+      });
+    });
+
+    let status$ = statusObservable;
     
     return this.polledStatus$ = timer(0, 3000).pipe(
 
