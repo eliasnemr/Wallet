@@ -40,11 +40,11 @@
 
 - (jint)getPort;
 
-- (NSString *)getIPAddress; 
-
 - (void)run;
 
 - (void)stop;
+
+#pragma mark Package-Private
 
 // Disallowed inherited constructors, do not use.
 

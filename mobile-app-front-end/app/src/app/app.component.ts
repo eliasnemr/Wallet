@@ -35,11 +35,9 @@ export class AppComponent {
     this.getPlatform(); /** Turn getPlatform() off if you want to use desktop version with desktop node */ 
     this.initializeApp();
 
-    // Use matchMedia to check the user preference
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)'); /** check user preference */
 
-    // set localStorages
-    this.setLocalStorage();
+    this.setLocalStorage(); /** set localStorages  */
 
 
   }

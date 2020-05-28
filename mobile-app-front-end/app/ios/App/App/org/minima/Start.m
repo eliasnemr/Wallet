@@ -30,9 +30,7 @@
 #include "org/minima/utils/ResponseStream.h"
 #include "org/minima/utils/messages/Message.h"
 
-// import to bridge Swift to Obj C
 #import "App-Swift.h"
-
 
 @interface OrgMinimaStart_1 : NSObject < JavaLangRunnable > {
  @public
@@ -72,6 +70,18 @@ __attribute__((unused)) static OrgMinimaStart_2 *create_OrgMinimaStart_2_init(vo
 OrgMinimaSystemMain *OrgMinimaStart_mMainServer;
 
 @implementation OrgMinimaStart
+
+- (void)processMessageWithOrgMinimaUtilsMessagesMessage:(OrgMinimaUtilsMessagesMessage *)zMessage {
+  if ([((OrgMinimaUtilsMessagesMessage *) nil_chk(zMessage)) isMessageTypeWithNSString:OrgMinimaSystemBrainsConsensusHandler_CONSENSUS_NOTIFY_BALANCE]) {
+    
+    //Notification call through Swift
+    TestClass *insta = [[TestClass alloc] init];
+    
+    
+    [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out)))printlnWithNSString:JreStrcat("$@", @"You just received some money. ", zMessage)];
+  }
+  
+}
 
 + (OrgMinimaSystemMain *)getServer {
   return OrgMinimaStart_getServer();
@@ -279,11 +289,10 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(OrgMinimaStart)
 - (void)run {
   [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out))) printlnWithNSString:@"Minima Started.."];
   JavaUtilArrayList *vars = new_JavaUtilArrayList_init();
-  
   [vars addWithId:@"-private"];
   [vars addWithId:@"-daemon"];
-//  [vars addWithId:@"-conf"];
-//  [vars addWithId:this$0_->mConfFolder_];
+  [vars addWithId:@"-conf"];
+  [vars addWithId:this$0_->mConfFolder_];
   OrgMinimaStart_mainWithNSStringArray_([vars toArrayWithNSObjectArray:[IOSObjectArray newArrayWithLength:0 type:NSString_class_()]]);
 }
 
@@ -331,15 +340,8 @@ J2OBJC_IGNORE_DESIGNATED_BEGIN
 J2OBJC_IGNORE_DESIGNATED_END
 
 - (void)processMessageWithOrgMinimaUtilsMessagesMessage:(OrgMinimaUtilsMessagesMessage *)zMessage {
-    if ([((OrgMinimaUtilsMessagesMessage *) nil_chk(zMessage)) isMessageTypeWithNSString:OrgMinimaSystemBrainsConsensusHandler_CONSENSUS_NOTIFY_BALANCE]) {
-        
-        //Notification call through Swift
-        TestClass *insta = [[TestClass alloc] init];
-        
-        
-        [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out)))printlnWithNSString:JreStrcat("$@", @"You just received some money. ", zMessage)];
-    }
-    
+  
+  ;
 }
 
 + (const J2ObjcClassInfo *)__metadata {

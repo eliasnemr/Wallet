@@ -15,9 +15,9 @@ export class HistorymodalPage implements OnInit {
 
   getTXNType(amount: string) {
     if(amount.substring(0,1) === "-"){
-      return "return-down-back";
+      return "arrow-round-back";
     } else {
-      return "arrow-redo-circle";
+      return "arrow-round-forward";
     }
   }
 

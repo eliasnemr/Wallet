@@ -57,8 +57,7 @@ export class HistoryPage implements OnInit {
 
   /** Modals */
   async presentModal(_txpowid: string, _amount: any,
-     _message: any, _txnid: string, _block: number,
-     _parent: string, _tokenid: string, _date: string, _isBlock: boolean,
+     _message: any, _block: number, _tokenid: string, _date: string, _isBlock: boolean,
      _name: string) {
     const modal = await this.modalController.create({
       component: HistorymodalPage,
@@ -66,9 +65,7 @@ export class HistoryPage implements OnInit {
         'TXPOW_ID': _txpowid,
         'Amount': _amount,
         'Message': _message,
-        'TXN_ID': _txnid,
         'Block': _block,
-        'Parent': _parent,
         'TokenID': _tokenid,
         'Date': _date,
         'isBlock': _isBlock,
@@ -78,8 +75,7 @@ export class HistoryPage implements OnInit {
     return await modal.present();
   }
   async presentTokenModal(_txpowid: string, _amount: any,
-    _message: any, _txnid: string, _block: number,
-    _parent: string, _tokenid: string, _date: string, _isBlock: boolean,
+    _message: any,  _block: number, _tokenid: string, _date: string, _isBlock: boolean,
     _name: string) {
    const modal = await this.modalController.create({
      component: HistorytokenmodalPage,
@@ -87,9 +83,7 @@ export class HistoryPage implements OnInit {
        'TXPOW_ID': _txpowid,
        'Amount': _amount,
        'Message': _message,
-       'TXN_ID': _txnid,
        'Block': _block,
-       'Parent': _parent,
        'TokenID': _tokenid,
        'Date': _date,
        'isBlock': _isBlock,
@@ -163,9 +157,9 @@ export class HistoryPage implements OnInit {
   } 
   getTXNType(amount: string) {
     if(amount.substring(0,1) === "-"){
-      return "return-down-back-outline";
+      return "arrow-round-back";
     } else {
-      return "arrow-redo-circle-outline";
+      return "arrow-round-forward";
     }
   }
 
@@ -207,6 +201,7 @@ export class HistoryPage implements OnInit {
   // Get all users activities+transactions history
   pullInHistorySummary() {
   this.polledHistorySubscription = this.historyService.getHistory().pipe(map(responseData => {
+    console.log(responseData);
     let historyArr: History[] = [];
     for(const key in responseData.response){
       let history = responseData.response;
@@ -215,11 +210,12 @@ export class HistoryPage implements OnInit {
           //Transaction description summary
           historyArr = history[key];
 
-          history.history.forEach(element => {
-            element.values.forEach(val => {
-              if(val.name === 'Create Token')
+          history.history.forEach((element: History) => {
+            
+            if(element.values[0].name === 'Create Token'){
               this.tokens.push(element);
-            })
+            }
+            
           })
           
         }

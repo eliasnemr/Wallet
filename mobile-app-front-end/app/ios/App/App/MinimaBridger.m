@@ -24,7 +24,11 @@
 - (void) runMinima {
     
     OrgMinimaStart *start = [[OrgMinimaStart alloc] init];
-    [start fireStarterWithNSString:@""];
+    
+    NSLog(@"%@",[[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject]);
+    
+    NSString *url = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject].absoluteString;
+    [start fireStarterWithNSString:url];
 }
 
 @end

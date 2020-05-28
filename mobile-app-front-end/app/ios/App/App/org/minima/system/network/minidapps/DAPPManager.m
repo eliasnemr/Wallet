@@ -255,44 +255,44 @@ void OrgMinimaSystemNetworkMinidappsDAPPManager_initWithOrgMinimaSystemMain_with
   self->MINIDAPPS_FOLDER_ = @"";
   self->mMINIMAJS_ = [IOSByteArray newArrayWithLength:0];
   self->mHost_ = @"127.0.0.1";
-//  jboolean found = false;
-//  @try {
-//    id<JavaUtilEnumeration> interfaces = JavaNetNetworkInterface_getNetworkInterfaces();
-//    while (!found && [((id<JavaUtilEnumeration>) nil_chk(interfaces)) hasMoreElements]) {
-//      JavaNetNetworkInterface *iface = [((id<JavaUtilEnumeration>) nil_chk(interfaces)) nextElement];
-//      if ([((JavaNetNetworkInterface *) nil_chk(iface)) isLoopback] || ![iface isUp]) continue;
-//      id<JavaUtilEnumeration> addresses = [iface getInetAddresses];
-//      while (!found && [((id<JavaUtilEnumeration>) nil_chk(addresses)) hasMoreElements]) {
-//        JavaNetInetAddress *addr = [((id<JavaUtilEnumeration>) nil_chk(addresses)) nextElement];
-//        NSString *ip = [((JavaNetInetAddress *) nil_chk(addr)) getHostAddress];
-//        NSString *name = [iface getDisplayName];
-//        if (![((NSString *) nil_chk(ip)) java_contains:@":"]) {
-//          self->mHost_ = ip;
-//          if ([((NSString *) nil_chk(name)) java_hasPrefix:@"wl"]) {
-//            found = true;
-//            break;
-//          }
-//        }
-//      }
-//    }
-//  }
+  jboolean found = false;
+////  @try {
+////    id<JavaUtilEnumeration> interfaces = JavaNetNetworkInterface_getNetworkInterfaces();
+////    while (!found && [((id<JavaUtilEnumeration>) nil_chk(interfaces)) hasMoreElements]) {
+////      JavaNetNetworkInterface *iface = [((id<JavaUtilEnumeration>) nil_chk(interfaces)) nextElement];
+////      if ([((JavaNetNetworkInterface *) nil_chk(iface)) isLoopback] || ![iface isUp]) continue;
+////      id<JavaUtilEnumeration> addresses = [iface getInetAddresses];
+////      while (!found && [((id<JavaUtilEnumeration>) nil_chk(addresses)) hasMoreElements]) {
+////        JavaNetInetAddress *addr = [((id<JavaUtilEnumeration>) nil_chk(addresses)) nextElement];
+////        NSString *ip = [((JavaNetInetAddress *) nil_chk(addr)) getHostAddress];
+////        NSString *name = [iface getDisplayName];
+////        if (![((NSString *) nil_chk(ip)) java_contains:@":"]) {
+////          self->mHost_ = ip;
+////          if ([((NSString *) nil_chk(name)) java_hasPrefix:@"wl"]) {
+////            found = true;
+////            break;
+////          }
+////        }
+////      }
+////    }
+////  }
 //  @catch (JavaNetSocketException *e) {
 //    OrgMinimaUtilsMinimaLogger_logWithNSString_(JreStrcat("$@", @"DAPPMANAGER : ", e));
 //  }
-  NSString *hostport = JreStrcat("$CI", self->mHost_, ':', zRPCPort);
-  @try {
-    IOSByteArray *minima = OrgMinimaSystemNetworkMinidappsHexdataminimajs_returnData();
-    NSString *minstring = [NSString java_stringWithBytes:minima charset:JavaNioCharsetCharset_forNameWithNSString_(@"UTF-8")];
-    NSString *editstring = [minstring java_replace:@"######" withSequence:JreStrcat("$$$", @"var MINIMA_MINIDAPP_HOST = \"", hostport, @"\";")];
-    self->mMINIMAJS_ = [((NSString *) nil_chk(editstring)) java_getBytes];
-  }
-  @catch (JavaIoIOException *e) {
-    [e printStackTrace];
-  }
-  (void) [self recalculateMiniDAPPS];
-  self->mDAPPServer_ = new_OrgMinimaSystemNetworkMinidappsDAPPServer_initWithInt_withOrgMinimaSystemNetworkMinidappsDAPPManager_(zPort, self);
-  JavaLangThread *tt = new_JavaLangThread_initWithJavaLangRunnable_withNSString_(self->mDAPPServer_, @"DAPP Server");
-  [tt start];
+//  NSString *hostport = JreStrcat("$CI", self->mHost_, ':', zRPCPort);
+//  @try {
+//    IOSByteArray *minima = OrgMinimaSystemNetworkMinidappsHexdataminimajs_returnData();
+//    NSString *minstring = [NSString java_stringWithBytes:minima charset:JavaNioCharsetCharset_forNameWithNSString_(@"UTF-8")];
+//    NSString *editstring = [minstring java_replace:@"######" withSequence:JreStrcat("$$$", @"var MINIMA_MINIDAPP_HOST = \"", hostport, @"\";")];
+//    self->mMINIMAJS_ = [((NSString *) nil_chk(editstring)) java_getBytes];
+//  }
+//  @catch (JavaIoIOException *e) {
+//    [e printStackTrace];
+//  }
+//  (void) [self recalculateMiniDAPPS];
+//  self->mDAPPServer_ = new_OrgMinimaSystemNetworkMinidappsDAPPServer_initWithInt_withOrgMinimaSystemNetworkMinidappsDAPPManager_(zPort, self);
+//  JavaLangThread *tt = new_JavaLangThread_initWithJavaLangRunnable_withNSString_(self->mDAPPServer_, @"DAPP Server");
+//  [tt start];
 }
 
 OrgMinimaSystemNetworkMinidappsDAPPManager *new_OrgMinimaSystemNetworkMinidappsDAPPManager_initWithOrgMinimaSystemMain_withInt_withInt_(OrgMinimaSystemMain *zMain, jint zPort, jint zRPCPort) {

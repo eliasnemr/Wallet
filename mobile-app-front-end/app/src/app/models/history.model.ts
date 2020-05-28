@@ -1,34 +1,52 @@
 export interface History {
-    txpow:{
-        block: string,
+
+    txpow: {
         isblock: boolean,
+        istransaction: boolean,
         txpowid: string,
-        parent: string,
-        superparents:[{
-        difficulty: number,
-        count: number,
-        parent: string
-        }],
-        txn: {
-        inputs:[{
-            coinid: string,
-            address: string,
-            amount: number,
-            tokenid: string,
-            floating: false,
-            remainder: false;
-        }],
-        outputs:[{
-            coinid: string,
-            address: string,
-            amount: string,
-            tokenid: string,
-            floating: boolean,
-            remainder: boolean
-        }],
-        state: [],
-        linkhash: string
+        superblock: number,
+        header:{
+            block: string,
+            blkdiff: string,
+            cascadelevels: number,
+            superparents:[{
+                difficulty: number,
+                count: number,
+                parent: string
+            }],
+            chainid: string,
+            parentchainid: string,
+            mmr: string,
+            total: string,
+            nonce: string
+            timesecs: string,
+            date: string
         },
+    hasbody: boolean,
+
+    body:{
+        txndiff: string
+    txn: {
+    inputs:[{
+        coinid: string,
+        address: string,
+        amount: number,
+        tokenid: string,
+        floating: false,
+        remainder: false;
+    }],
+    outputs:[{
+        coinid: string,
+        address: string,
+        amount: string,
+        tokenid: string,
+        floating: boolean,
+        remainder: boolean
+    }],
+    state: [],
+    linkhash: string
+    }
+    },
         witness:{
         signatures: [],
         mmrproofs: [],
@@ -58,19 +76,15 @@ export interface History {
         },
         txnlist:[],
         magic: string,
-        chainid: string,
-        parentchainid: string,
-        custom: string,
-        nonce: string,
-        mmr: string,
-        total: string,
-        timesecs: string,
-        date: string
-    },
+    }
     values:[{
         token: string,
         name: string,
         amount: string
     }]
+
+
+
+
 }
 

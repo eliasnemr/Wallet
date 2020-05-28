@@ -21,7 +21,6 @@
 #include "org/minima/system/network/rpc/RPCServer.h"
 #include "org/minima/utils/MinimaLogger.h"
 
-// Imports for getIPAddress for Minima Web
 #include <ifaddrs.h>
 #include <arpa/inet.h>
 
@@ -53,6 +52,43 @@ NSString *OrgMinimaSystemNetworkRpcRPCServer_mHost;
   @catch (JavaLangException *e) {
     [e printStackTrace];
   }
+}
+
+- (NSString *)getIPAddress {
+  NSString *address = @"error";
+  struct ifaddrs *interfaces = NULL;
+  struct ifaddrs *temp_addr = NULL;
+  int success = 0;
+  // retrieve the current interfaces - returns 0 on success
+  success = getifaddrs(&interfaces);
+  if (success == 0) {
+    // Loop through linked list of interfaces
+    temp_addr = interfaces;
+    while(temp_addr != NULL) {
+      if(temp_addr->ifa_addr->sa_family == AF_INET) {
+        // Check if interface is en0 which is the wifi connection on the iPhone
+        if([[NSString stringWithUTF8String:temp_addr->ifa_name] isEqualToString:@"en0"] || [[NSString stringWithUTF8String:temp_addr->ifa_name] isEqualToString:@"pdp_ip0"])  {
+          // Get NSString from C String
+          address = [NSString stringWithUTF8String:inet_ntoa(((struct sockaddr_in *)temp_addr->ifa_addr)->sin_addr)];
+        }
+      }
+      
+      temp_addr = temp_addr->ifa_next;
+    }
+  }
+  // Free memory
+  freeifaddrs(interfaces);
+  return address;
+  
+}
+
+void OrgMinimaSystemNetworkRpcRPCServer_initWithOrgMinimaSystemInputInputHandler_withInt_(OrgMinimaSystemNetworkRpcRPCServer *self, OrgMinimaSystemInputInputHandler *zInput, jint zPort) {
+  NSObject_init(self);
+  self->mRunning_ = true;
+  JreStrongAssign(&self->mInputHandler_, zInput);
+  self->mPort_ = zPort;
+  OrgMinimaSystemNetworkRpcRPCServer_mHost = [self getIPAddress];
+  
 }
 
 - (void)run {
@@ -107,73 +143,7 @@ NSString *OrgMinimaSystemNetworkRpcRPCServer_mHost;
   return &_OrgMinimaSystemNetworkRpcRPCServer;
 }
 
-
-// Getting ip address for status + web
-
-- (NSString *)getIPAddress {
-    NSString *address = @"error";
-    struct ifaddrs *interfaces = NULL;
-    struct ifaddrs *temp_addr = NULL;
-    int success = 0;
-    // retrieve the current interfaces - returns 0 on success
-    success = getifaddrs(&interfaces);
-    if (success == 0) {
-        // Loop through linked list of interfaces
-        temp_addr = interfaces;
-        while(temp_addr != NULL) {
-            if(temp_addr->ifa_addr->sa_family == AF_INET) {
-                // Check if interface is en0 which is the wifi connection on the iPhone
-                if([[NSString stringWithUTF8String:temp_addr->ifa_name] isEqualToString:@"en0"] || [[NSString stringWithUTF8String:temp_addr->ifa_name] isEqualToString:@"pdp_ip0"])  {
-                    // Get NSString from C String
-                    address = [NSString stringWithUTF8String:inet_ntoa(((struct sockaddr_in *)temp_addr->ifa_addr)->sin_addr)];
-                }
-            }
-
-            temp_addr = temp_addr->ifa_next;
-        }
-    }
-    // Free memory
-    freeifaddrs(interfaces);
-    return address;
-
-}
-
-void OrgMinimaSystemNetworkRpcRPCServer_initWithOrgMinimaSystemInputInputHandler_withInt_(OrgMinimaSystemNetworkRpcRPCServer *self, OrgMinimaSystemInputInputHandler *zInput, jint zPort) {
-  NSObject_init(self);
-  self->mRunning_ = true;
-  JreStrongAssign(&self->mInputHandler_, zInput);
-  self->mPort_ = zPort;
-  OrgMinimaSystemNetworkRpcRPCServer_mHost = [self getIPAddress];
-  //JreStrongAssign(&self->mHost_, @"127.0.0.1");
-  /*jboolean found = false;
-  @try {
-    id<JavaUtilEnumeration> interfaces = JavaNetNetworkInterface_getNetworkInterfaces();
-    while (!found && [((id<JavaUtilEnumeration>) nil_chk(interfaces)) hasMoreElements]) {
-      JavaNetNetworkInterface *iface = [((id<JavaUtilEnumeration>) nil_chk(interfaces)) nextElement];
-      if ([((JavaNetNetworkInterface *) nil_chk(iface)) isLoopback] || ![iface isUp]) continue;
-      id<JavaUtilEnumeration> addresses = [iface getInetAddresses];
-      while (!found && [((id<JavaUtilEnumeration>) nil_chk(addresses)) hasMoreElements]) {
-        JavaNetInetAddress *addr = [((id<JavaUtilEnumeration>) nil_chk(addresses)) nextElement];
-        NSString *ip = [((JavaNetInetAddress *) nil_chk(addr)) getHostAddress];
-        NSString *name = [iface getDisplayName];
-        if (![((NSString *) nil_chk(ip)) java_contains:@":"]) {
-          JreStrongAssign(&self->mHost_, ip);
-          if ([((NSString *) nil_chk(name)) java_hasPrefix:@"wl"]) {
-            found = true;
-            break;
-          }
-        }
-      }
-    }
-  }
-  @catch (JavaNetSocketException *e) {
-    [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out))) printlnWithNSString:JreStrcat("$@", @"RPCSERVER : ", e)];
-  }
-  [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out))) printlnWithNSString:JreStrcat("$$CI", @"RPC Server started on ", self->mHost_, ':', self->mPort_)]; */
-}
-
 @end
-
 
 OrgMinimaSystemNetworkRpcRPCServer *new_OrgMinimaSystemNetworkRpcRPCServer_initWithOrgMinimaSystemInputInputHandler_withInt_(OrgMinimaSystemInputInputHandler *zInput, jint zPort) {
   J2OBJC_NEW_IMPL(OrgMinimaSystemNetworkRpcRPCServer, initWithOrgMinimaSystemInputInputHandler_withInt_, zInput, zPort)

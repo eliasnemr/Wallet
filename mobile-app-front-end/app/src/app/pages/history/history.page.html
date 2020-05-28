@@ -40,12 +40,10 @@
         <ion-item lines="full" class="activity"
         (click)="presentModal(transaction.txpow.txpowid, 
                   transaction.values[0].amount,
-                  transaction.txpow.txn.state,
-                  transaction.txpow.txnid,
-                  transaction.txpow.block,
-                  transaction.txpow.parent,
-                  transaction.txpow.txn.inputs[0].tokenid,
-                  transaction.txpow.date,
+                  transaction.txpow.body.txn.state,
+                  transaction.txpow.header.block,
+                  transaction.txpow.body.txn.inputs[0].tokenid,
+                  transaction.txpow.header.date,
                   transaction.txpow.isblock,
                   transaction.values[0].name)">
 
@@ -58,10 +56,10 @@
       <ion-col size="2" fixed="true">
       <ion-label>
       <p id="day">
-      {{ transaction.txpow.date.substring(8, 10) }}
+      {{ transaction.txpow.header.date.substring(8, 10) }}
       </p>
       <h1 id="month">
-      {{ transaction.txpow.date.substring(4, 7) }} 
+      {{ transaction.txpow.header.date.substring(4, 7) }} 
       </h1>
       </ion-label>
       </ion-col>
@@ -96,9 +94,9 @@
       </ion-col>
 
       <!-- TXN Message -->
-      <ion-col size="4" *ngIf="transaction.txpow.txn.state.length > 0" [hidden]="ios">
-      <ion-note *ngIf="transaction.txpow.txn.state[1].data.length <= 15" class="msg-details">{{transaction.txpow.txn.state[1].data.substring(0, 15)}}</ion-note>
-      <ion-note *ngIf="transaction.txpow.txn.state[1].data.length > 15" class="msg-details">{{transaction.txpow.txn.state[1].data.substring(0, 8) + "..."}}</ion-note>
+      <ion-col size="4" *ngIf="transaction.txpow.body.txn.state.length > 0" [hidden]="ios">
+      <ion-note *ngIf="transaction.txpow.body.txn.state[1].data.length <= 15" class="msg-details">{{transaction.txpow.body.txn.state[1].data.substring(0, 15)}}</ion-note>
+      <ion-note *ngIf="transaction.txpow.body.txn.state[1].data.length > 15" class="msg-details">{{transaction.txpow.body.txn.state[1].data.substring(0, 8) + "..."}}</ion-note>
       </ion-col>
     </ion-item>
 
@@ -118,28 +116,26 @@
         <ion-item lines="full" class="activity-tokens"
         (click)="presentTokenModal(transaction.txpow.txpowid, 
                   transaction.values[0].amount,
-                  transaction.txpow.txn.state,
-                  transaction.txpow.txnid,
-                  transaction.txpow.block,
-                  transaction.txpow.parent,
-                  transaction.txpow.txn.inputs[0].tokenid,
-                  transaction.txpow.date,
+                  transaction.txpow.body.txn.state,
+                  transaction.txpow.header.block,
+                  transaction.txpow.body.txn.inputs[0].tokenid,
+                  transaction.txpow.header.date,
                   transaction.txpow.isblock,
                   transaction.values[0].name)">
       
       <!-- TXN Icon -->
       <ion-col size="1" [hidden]="ios">
-      <ion-icon name="brush-outline" size="large"></ion-icon>
+      <ion-icon name="brush" size="large"></ion-icon>
       </ion-col>
 
       <!-- TXN Date -->
       <ion-col size="2" fixed="true">
       <ion-label>
       <p id="day">
-      {{ transaction.txpow.date.substring(8, 10) }}
+      {{ transaction.txpow.header.date.substring(8, 10) }}
       </p>
       <h1 id="month">
-      {{ transaction.txpow.date.substring(4, 7) }} 
+      {{ transaction.txpow.header.date.substring(4, 7) }} 
       </h1>
       </ion-label>
       </ion-col>
@@ -182,19 +178,17 @@
     <ion-slide class="swiper-slide">
       <ion-card-content>
 
-      <ion-text *ngIf="isEmpty" style="font-family: Aeonik-light;">No activities to display.</ion-text>
+      <ion-text *ngIf="isEmpty">No activities to display.</ion-text>
 
     <ion-grid *ngFor="let transaction of transactions;">
       <ion-row *ngIf="transactions.length >= 1 && transaction.values[0].name !== 'Create Token';">
         <ion-item lines="full" class="activity"
         (click)="presentModal(transaction.txpow.txpowid, 
                   transaction.values[0].amount,
-                  transaction.txpow.txn.state,
-                  transaction.txpow.txnid,
-                  transaction.txpow.block,
-                  transaction.txpow.parent,
-                  transaction.txpow.txn.inputs[0].tokenid,
-                  transaction.txpow.date,
+                  transaction.txpow.body.txn.state,
+                  transaction.txpow.header.block,
+                  transaction.txpow.body.txn.inputs[0].tokenid,
+                  transaction.txpow.header.date,
                   transaction.txpow.isblock,
                   transaction.values[0].name)">
 
@@ -207,10 +201,10 @@
       <ion-col size="2" class="col-month" fixed="true">
       <ion-label>
       <p id="day">
-      {{ transaction.txpow.date.substring(8, 10) }}
+      {{ transaction.txpow.header.date.substring(8, 10) }}
       </p>
       <h1 id="month">
-      {{ transaction.txpow.date.substring(4, 7) }} 
+      {{ transaction.txpow.header.date.substring(4, 7) }} 
       </h1>
       </ion-label>
       </ion-col>
@@ -244,9 +238,9 @@
       </ion-col>
 
       <!-- TXN Message -->
-      <ion-col size="4" *ngIf="transaction.txpow.txn.state.length > 0" [hidden]="ios">
-      <ion-note *ngIf="transaction.txpow.txn.state[1].data.length <= 15" class="msg-details">{{transaction.txpow.txn.state[1].data.substring(0, 15)}}</ion-note>
-      <ion-note *ngIf="transaction.txpow.txn.state[1].data.length > 15" class="msg-details">{{transaction.txpow.txn.state[1].data.substring(0, 15) + "..."}}</ion-note>
+      <ion-col size="4" *ngIf="transaction.txpow.body.txn.state.length > 0" [hidden]="ios">
+      <ion-note *ngIf="transaction.txpow.body.txn.state[1].data.length <= 15" class="msg-details">{{transaction.txpow.body.txn.state[1].data.substring(0, 15)}}</ion-note>
+      <ion-note *ngIf="transaction.txpow.body.txn.state[1].data.length > 15" class="msg-details">{{transaction.txpow.body.txn.state[1].data.substring(0, 15) + "..."}}</ion-note>
       </ion-col>
     </ion-item>
     <!-- Tokens -->
@@ -257,28 +251,26 @@
     lines="full"
     class="activity-tokens"
     (click)="presentTokenModal(transaction.txpow.txpowid, 
-              transaction.values[0].amount,
-              transaction.txpow.txn.state,
-              transaction.txpow.txnid,
-              transaction.txpow.block,
-              transaction.txpow.parent,
-              transaction.txpow.txn.inputs[0].tokenid,
-              transaction.txpow.date,
-              transaction.txpow.isblock,
-              transaction.values[0].name)">
+                  transaction.values[0].amount,
+                  transaction.txpow.body.txn.state,
+                  transaction.txpow.header.block,
+                  transaction.txpow.body.txn.inputs[0].tokenid,
+                  transaction.txpow.header.date,
+                  transaction.txpow.isblock,
+                  transaction.values[0].name)">
       <!-- TXN Icon -->
       <ion-col size="1" [hidden]="ios">
-      <ion-icon name="brush-outline" size="large"></ion-icon>
+      <ion-icon name="brush" size="large"></ion-icon>
       </ion-col>
 
       <!-- TXN Date -->
       <ion-col size="2" class="col-month" fixed="true">
       <ion-label>
       <p id="day">
-      {{ transaction.txpow.date.substring(8, 10) }}
+      {{ transaction.txpow.header.date.substring(8, 10) }}
       </p>
       <h1 id="month">
-      {{ transaction.txpow.date.substring(4, 7) }} 
+      {{ transaction.txpow.header.date.substring(4, 7) }} 
       </h1>
       </ion-label>
       </ion-col>

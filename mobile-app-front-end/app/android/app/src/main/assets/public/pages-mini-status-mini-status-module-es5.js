@@ -219,8 +219,14 @@ var StatusService = /** @class */ (function () {
         }, 1000);
     };
     StatusService.prototype.request = function (route) {
-        var apiUrl = this.host + route; // this.host+'route' = "127.0.0.1:8999/'balance'"
-        var status$ = this.http.get(apiUrl);
+        // let apiUrl = this.host + route; // this.host+'route' = "127.0.0.1:8999/'balance'"
+        // let status$ = this.http.get(apiUrl);
+        var statusObservable = rxjs__WEBPACK_IMPORTED_MODULE_4__["Observable"].create(function (observer) {
+            Minima.cmd('status', function (response) {
+                observer.next(response);
+            });
+        });
+        var status$ = statusObservable;
         return this.polledStatus$ = Object(rxjs_Observable_timer__WEBPACK_IMPORTED_MODULE_6__["timer"])(0, 3000).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["concatMap"])(function (_) { return status$; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (res) { return res; }));
     };
     StatusService.ctorParameters = function () { return [

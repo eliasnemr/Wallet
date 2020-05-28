@@ -34,6 +34,8 @@
 
 + (void)mainWithNSStringArray:(IOSObjectArray *)zArgs;
 
+#pragma mark Package-Private
+
 @end
 
 J2OBJC_EMPTY_STATIC_INIT(OrgMinimaStart)
