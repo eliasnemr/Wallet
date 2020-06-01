@@ -154,6 +154,16 @@ let SendFundsPage = class SendFundsPage {
         this.isCameraOpen = false;
     }
     ionViewWillEnter() {
+        // check for updates
+        window.addEventListener('load', (ev) => {
+            // Page loaded
+            window.addEventListener('MinimaEvent', (evt) => {
+                // Event connection success
+                if (evt.detail.event === 'newbalance') {
+                    this.pullInTokens();
+                }
+            });
+        });
         this.pullInTokens();
         this.isCameraOpen = false;
     }

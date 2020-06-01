@@ -33,6 +33,18 @@ export class MiniStatusPage implements OnInit {
       this.updateStatus(); // subscribes & polls status
       this.statusOfStatus = 'updated';
     }, 500);
+
+    window.addEventListener('MinimaEvent', (evt: any)=> {
+      // Event connection success
+      if(evt.detail.event === 'newblock') {
+
+        setTimeout(() => {
+          this.updateStatus(); // subscribes & polls status
+          this.statusOfStatus = 'updated';
+        }, 1000);
+
+      } 
+    });
   }
 
   ionViewWillLeave(){

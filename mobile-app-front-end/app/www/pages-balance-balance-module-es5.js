@@ -100,12 +100,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var BalancePage = /** @class */ (function () {
-    function BalancePage(service, api, alertController, popoverController, balanceService, ref, route) {
+    function BalancePage(service, api, alertController, popoverController, ref, route) {
         this.service = service;
         this.api = api;
         this.alertController = alertController;
         this.popoverController = popoverController;
-        this.balanceService = balanceService;
         this.ref = ref;
         this.route = route;
         this.tokenArr = [];
@@ -116,8 +115,14 @@ var BalancePage = /** @class */ (function () {
         this.MINI_TOKENID = '0x00';
     }
     BalancePage.prototype.ionViewWillEnter = function () {
-        //this.pullArrLength();
+        var _this = this;
         this.pullInTokens(); // subscribes & polls balance
+        window.addEventListener('MinimaEvent', function (evt) {
+            // Event connection success
+            if (evt.detail.event === 'newbalance') {
+                _this.pullInTokens();
+            }
+        });
     };
     BalancePage.prototype.ngOnInit = function () { };
     BalancePage.prototype.ionViewWillLeave = function () {
@@ -244,7 +249,6 @@ var BalancePage = /** @class */ (function () {
         { type: _service_minima_api_service__WEBPACK_IMPORTED_MODULE_2__["MinimaApiService"] },
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["AlertController"] },
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["PopoverController"] },
-        { type: _service_balance_service__WEBPACK_IMPORTED_MODULE_6__["BalanceService"] },
         { type: _angular_core__WEBPACK_IMPORTED_MODULE_3__["ChangeDetectorRef"] },
         { type: _angular_router__WEBPACK_IMPORTED_MODULE_7__["Router"] }
     ]; };
@@ -263,7 +267,6 @@ var BalancePage = /** @class */ (function () {
             _service_minima_api_service__WEBPACK_IMPORTED_MODULE_2__["MinimaApiService"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["AlertController"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["PopoverController"],
-            _service_balance_service__WEBPACK_IMPORTED_MODULE_6__["BalanceService"],
             _angular_core__WEBPACK_IMPORTED_MODULE_3__["ChangeDetectorRef"],
             _angular_router__WEBPACK_IMPORTED_MODULE_7__["Router"]])
     ], BalancePage);

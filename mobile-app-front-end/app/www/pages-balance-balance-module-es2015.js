@@ -97,12 +97,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let BalancePage = class BalancePage {
-    constructor(service, api, alertController, popoverController, balanceService, ref, route) {
+    constructor(service, api, alertController, popoverController, ref, route) {
         this.service = service;
         this.api = api;
         this.alertController = alertController;
         this.popoverController = popoverController;
-        this.balanceService = balanceService;
         this.ref = ref;
         this.route = route;
         this.tokenArr = [];
@@ -113,8 +112,13 @@ let BalancePage = class BalancePage {
         this.MINI_TOKENID = '0x00';
     }
     ionViewWillEnter() {
-        //this.pullArrLength();
         this.pullInTokens(); // subscribes & polls balance
+        window.addEventListener('MinimaEvent', (evt) => {
+            // Event connection success
+            if (evt.detail.event === 'newbalance') {
+                this.pullInTokens();
+            }
+        });
     }
     ngOnInit() { }
     ionViewWillLeave() {
@@ -221,7 +225,6 @@ BalancePage.ctorParameters = () => [
     { type: _service_minima_api_service__WEBPACK_IMPORTED_MODULE_2__["MinimaApiService"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["AlertController"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["PopoverController"] },
-    { type: _service_balance_service__WEBPACK_IMPORTED_MODULE_6__["BalanceService"] },
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_3__["ChangeDetectorRef"] },
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_7__["Router"] }
 ];
@@ -240,7 +243,6 @@ BalancePage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         _service_minima_api_service__WEBPACK_IMPORTED_MODULE_2__["MinimaApiService"],
         _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["AlertController"],
         _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["PopoverController"],
-        _service_balance_service__WEBPACK_IMPORTED_MODULE_6__["BalanceService"],
         _angular_core__WEBPACK_IMPORTED_MODULE_3__["ChangeDetectorRef"],
         _angular_router__WEBPACK_IMPORTED_MODULE_7__["Router"]])
 ], BalancePage);

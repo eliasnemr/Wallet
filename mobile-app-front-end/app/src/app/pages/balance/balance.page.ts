@@ -7,7 +7,6 @@ import { AlertController, PopoverController, NavController, IonLabel, IonInput }
 import { Tokens } from '../../models/tokens.model';
 import { PopOverComponent } from '../../components/pop-over/pop-over.component';
 import { BalanceService } from '../../service/balance.service';
-import { JsonPipe } from '@angular/common';
 import { Router } from '@angular/router';
 
 @Component({
@@ -36,17 +35,22 @@ export class BalancePage implements OnInit {
     private api: MinimaApiService,
     public alertController: AlertController,
     public popoverController: PopoverController,
-    public balanceService: BalanceService,
     private ref: ChangeDetectorRef,
     private route: Router) {}
 
   ionViewWillEnter() {
-    
-    //this.pullArrLength();
-    
     this.pullInTokens(); // subscribes & polls balance
+    
+    window.addEventListener('MinimaEvent', (evt: any)=> {
+      // Event connection success
+      if(evt.detail.event === 'newbalance') {
 
+        this.pullInTokens();
+
+      } 
+    });
   }
+  
   ngOnInit(){}
   
   ionViewWillLeave(){

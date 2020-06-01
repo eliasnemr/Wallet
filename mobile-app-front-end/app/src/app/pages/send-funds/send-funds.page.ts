@@ -62,6 +62,19 @@ export class SendFundsPage implements OnInit {
   }
 
   ionViewWillEnter(){
+    // check for updates
+    window.addEventListener('load', (ev: Event) => {
+      // Page loaded
+      window.addEventListener('MinimaEvent', (evt: any)=> {
+        // Event connection success
+        if(evt.detail.event === 'newbalance') {
+
+          this.pullInTokens();
+
+        } 
+      });
+    });
+
     this.pullInTokens();
     this.isCameraOpen = false;
   }

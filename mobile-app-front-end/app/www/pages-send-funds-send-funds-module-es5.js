@@ -157,6 +157,17 @@ var SendFundsPage = /** @class */ (function () {
         this.isCameraOpen = false;
     };
     SendFundsPage.prototype.ionViewWillEnter = function () {
+        var _this = this;
+        // check for updates
+        window.addEventListener('load', function (ev) {
+            // Page loaded
+            window.addEventListener('MinimaEvent', function (evt) {
+                // Event connection success
+                if (evt.detail.event === 'newbalance') {
+                    _this.pullInTokens();
+                }
+            });
+        });
         this.pullInTokens();
         this.isCameraOpen = false;
     };
