@@ -23,7 +23,7 @@ export class StatusService {
     this.host = this.getHost();
    }
    
-  getStatus(): Observable<{ status: boolean, minifunc: string, response: Status}> {
+  getStatus(): Observable<{ status: boolean, minifunc: string, message: string, response: Status}> {
     return this.request('status');
   }
 
@@ -48,9 +48,7 @@ export class StatusService {
     // let status$ = this.http.get(apiUrl);
 
     const statusObservable = Observable.create(observer => {
-      Minima.cmd('status', function(response){
-        observer.next(response);
-      });
+      observer.next(Minima.status);
     });
 
     let status$ = statusObservable;
@@ -58,7 +56,7 @@ export class StatusService {
     return this.polledStatus$ = timer(0, 3000).pipe(
 
       concatMap(_ => status$),
-      map((res: {status: boolean, minifunc: string, response: Status}) => res)
+      map((res: {status: boolean, minifunc: string, message: string, response: Status}) => res)
 
     );
   }

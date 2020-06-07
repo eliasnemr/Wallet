@@ -14,7 +14,7 @@ import { Platform } from '@ionic/angular';
 
 export class MiniStatusPage implements OnInit {
 
-  status: { status: boolean, minifunc: string, response: Status};
+  status: { status: boolean, minifunc: string, message: string, response: Status};
   statusSubscription: Subscription;
 
   public statusOfStatus: string = 'empty';
@@ -38,11 +38,13 @@ export class MiniStatusPage implements OnInit {
       // Event connection success
       if(evt.detail.event === 'newblock') {
 
-        setTimeout(() => {
-          this.updateStatus(); // subscribes & polls status
-          this.statusOfStatus = 'updated';
-        }, 1000);
-
+        this.updateStatus();
+        this.statusOfStatus = 'updated';
+        // setTimeout(() => {
+        //   this.updateStatus(); // subscribes & polls status
+        // }, 3500);
+        
+  
       } 
     });
   }

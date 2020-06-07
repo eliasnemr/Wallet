@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n    <ion-toolbar>\n      <ion-buttons slot=\"start\">\n        <ion-menu-button></ion-menu-button>\n      </ion-buttons>\n      <ion-title color=\"primary\">\n        Balance\n      </ion-title>\n    </ion-toolbar>\n\n  </ion-header>\n\n  <ion-content>\n\n    <ion-card color=\"white\">\n      <ion-card-header color=\"white\">\n      </ion-card-header>\n  <ion-card-content>\n\n  <ion-icon style=\" font-size:2.0rem; padding-left:10px;\" name=\"card\" slot=\"start\" class=\"icon-head\"></ion-icon>\n\n  <ion-grid style=\"width: 100%;\" *ngFor=\"let token of tokenArr;\">\n    <ion-row>    \n      <ion-item-sliding>\n      <ion-item-options side=\"start\">\n      <ion-item-option class=\"receive-slide\" routerLink=\"/my-address\">Receive</ion-item-option>\n      <ion-item-option class=\"send-slide\" (click)=\"sendTokenOver(token.id)\">Send</ion-item-option>\n      </ion-item-options>\n\n  <ion-item lines=\"full\">\n  <ion-col size=\"2\" slot=\"start\">\n  <ion-label class=\"logo-names\">\n    <ion-icon class=\"balance-token\" src=\"./assets/icon/minima.svg\"></ion-icon>\n    <ion-note class=\"balance-tokenname\"> {{ token.token }} </ion-note>\n  </ion-label>\n  </ion-col>\n\n  <ion-col size=\"6\" slot=\"end\" #balance>\n  <ion-label class=\"confirmed-amount\">\n    {{ token.confirmed }}\n  </ion-label>\n  </ion-col>\n\n  <ion-col *ngIf='token.unconfirmed !== 0' size=\"3\" slot=\"end\">\n  <ion-label class=\"unconfirmed-amount\" color=\"white\">\n    {{ token.unconfirmed }}\n  </ion-label>\n  </ion-col>\n  \n  </ion-item>\n\n  <ion-item-options side=\"end\">\n    <ion-item-option (click)=\"presentPopover($event, token.id)\">Token ID</ion-item-option>\n  </ion-item-options>\n  </ion-item-sliding>\n    </ion-row>\n      </ion-grid>\n\n  \n\n  </ion-card-content>\n  </ion-card>\n  </ion-content>\n\n  <ion-footer>\n    <ion-toolbar>\n      <ion-buttons>\n        <ion-button class=\"action-btn\" shape=\"\" expand=\"block\" type=\"button\" (click)=\"giveMe50()\">\n          <ion-icon name=\"cash\" slot=\"start\"></ion-icon> Gimme 50\n        </ion-button>\n      </ion-buttons>\n    </ion-toolbar>\n  </ion-footer>"
+module.exports = "<ion-header>\n    <ion-toolbar>\n      <ion-buttons slot=\"start\">\n        <ion-menu-button></ion-menu-button>\n      </ion-buttons>\n      <ion-title color=\"primary\">\n        Balance\n      </ion-title>\n    </ion-toolbar>\n\n  </ion-header>\n\n  <ion-content>\n\n    <ion-card color=\"white\">\n      <ion-card-header color=\"white\">\n      </ion-card-header>\n  <ion-card-content>\n\n  <ion-icon style=\" font-size:2.0rem; padding-left:10px;\" name=\"card\" slot=\"start\" class=\"icon-head\"></ion-icon>\n\n  <ion-grid style=\"width: 100%;\" *ngFor=\"let token of tokenArr;\">\n    <ion-row>    \n      <ion-item-sliding>\n      <ion-item-options side=\"start\">\n      <ion-item-option class=\"receive-slide\" routerLink=\"/my-address\">Receive</ion-item-option>\n      <ion-item-option class=\"send-slide\" (click)=\"sendTokenOver(token.id)\">Send</ion-item-option>\n      </ion-item-options>\n\n  <ion-item lines=\"full\">\n  <ion-col size=\"2\" slot=\"start\">\n  <ion-label class=\"logo-names\">\n    <ion-icon class=\"balance-token\" src=\"./assets/icon/minima.svg\"></ion-icon>\n    <ion-note class=\"balance-tokenname\"> {{ token.token }} </ion-note>\n  </ion-label>\n  </ion-col>\n\n  <ion-col size=\"6\" slot=\"end\" #balance>\n  <ion-label class=\"confirmed-amount\">\n    {{ token.confirmed }}\n  </ion-label>\n  </ion-col>\n\n  <ion-col *ngIf='token.unconfirmed !== 0' size=\"3\" slot=\"end\">\n  <ion-label class=\"unconfirmed-amount\" color=\"white\">\n    {{ token.unconfirmed }}\n  </ion-label>\n  </ion-col>\n  \n  </ion-item>\n\n  <ion-item-options side=\"end\">\n    <ion-item-option (click)=\"presentPopover($event, token.tokenid)\">Token ID</ion-item-option>\n  </ion-item-options>\n  </ion-item-sliding>\n    </ion-row>\n      </ion-grid>\n\n  \n\n  </ion-card-content>\n  </ion-card>\n  </ion-content>\n\n  <ion-footer>\n    <ion-toolbar>\n      <ion-buttons>\n        <ion-button class=\"action-btn\" shape=\"\" expand=\"block\" type=\"button\" (click)=\"giveMe50()\">\n          <ion-icon name=\"cash\" slot=\"start\"></ion-icon> Gimme 50\n        </ion-button>\n      </ion-buttons>\n    </ion-toolbar>\n  </ion-footer>"
 
 /***/ }),
 
@@ -172,18 +172,20 @@ var BalancePage = /** @class */ (function () {
         //   console.log('refreshing completed.');
         // }, 1000);
     };
-    BalancePage.prototype.presentPopover = function (ev, data) {
+    BalancePage.prototype.presentPopover = function (ev, id) {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
             var popover;
             return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.popoverController.create({
-                            component: _components_pop_over_pop_over_component__WEBPACK_IMPORTED_MODULE_5__["PopOverComponent"],
-                            event: ev,
-                            cssClass: 'balance-popover',
-                            translucent: false,
-                            componentProps: { tokenid: data },
-                        })];
+                    case 0:
+                        console.log("id taken: " + id);
+                        return [4 /*yield*/, this.popoverController.create({
+                                component: _components_pop_over_pop_over_component__WEBPACK_IMPORTED_MODULE_5__["PopOverComponent"],
+                                event: ev,
+                                cssClass: 'balance-popover',
+                                translucent: false,
+                                componentProps: { tokenid: id },
+                            })];
                     case 1:
                         popover = _a.sent();
                         return [4 /*yield*/, popover.present()];
@@ -195,23 +197,23 @@ var BalancePage = /** @class */ (function () {
     BalancePage.prototype.pullArrLength = function () {
         var _this = this;
         this.service.getBalance().subscribe(function (res) {
-            for (var i in res.response.balance) {
-                _this.tokenSpoof.push(res.response.balance[i].confirmed);
-            }
+            res.forEach(function (element) {
+                _this.tokenSpoof.push(element);
+            });
         });
     };
     BalancePage.prototype.pullInTokens = function () {
         var _this = this;
         this.balanceSubscription = this.service.getBalance().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(function (responseData) {
             var tokenArr = [];
-            for (var key in responseData.response.balance) {
-                if (responseData.response.balance.hasOwnProperty(key)) {
-                    var element = responseData.response.balance[key];
+            for (var key in responseData) {
+                if (responseData.hasOwnProperty(key)) {
+                    var element = responseData[key];
                     // round up confirmed && unconfirmed
                     var tempConfirmed = (Math.round(element.confirmed * 1000) / 1000);
                     var tempUnconfirmed = (Math.round(element.unconfirmed * 1000) / 1000);
                     tokenArr.push({
-                        id: element.tokenid,
+                        tokenid: element.tokenid,
                         token: element.token,
                         total: element.total,
                         confirmed: tempConfirmed,
@@ -223,7 +225,7 @@ var BalancePage = /** @class */ (function () {
                     if (element.tokenid === _this.MINI_TOKENID) {
                         tokenArr.pop(); // pop it
                         _this.service.update(tokenArr, {
-                            id: element.tokenid,
+                            tokenid: element.tokenid,
                             token: element.token,
                             total: element.total,
                             confirmed: tempConfirmed,

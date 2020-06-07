@@ -29,7 +29,7 @@ export class BalanceService {
     return this.http.get<{ status: boolean, minifunc: string, response: any}>(apiUrl);
   }
 
-  getBalance(): Observable<{ status: boolean, minifunc: string, response: {balance: Tokens}}> {
+  getBalance(): Observable<Tokens[]> {
     return this.request('balance');
   }
 
@@ -48,9 +48,11 @@ export class BalanceService {
 
     // create custom observable to talk with minima.js
     const balanceObservable = Observable.create(observer => {
-      Minima.cmd('balance', function(resp){
-        observer.next(resp);
-      });
+
+      observer.next(Minima.balance);
+
+      console.log(Minima.balance);
+
     });
 
     let balance$ = balanceObservable;
@@ -59,13 +61,13 @@ export class BalanceService {
       
       merge(this.manualRefresh),
       concatMap(_ => balance$),
-      map((res: {status: boolean, minifunc: string, response: {balance: Tokens}}) => res)
+      map((res: Tokens[]) => res)
 
     );
   }
 
   // take in tokenArr and the element you'd like to add to front of array
-  update = (a : Tokens[], e) => { var i = a.findIndex(o => o.id === e);
+  update = (a : Tokens[], e) => { var i = a.findIndex(o => o.tokenid === e);
     i > 0 ? a.splice(0,0,a.splice(i,1)[0]) 
           : i && a.splice(0,0,e);
     (a.length > 5) && a.length--

@@ -45,11 +45,11 @@
           <ion-select-option *ngFor="let token of tokenArr;" [value]="token" class="token-option">
           
             <p *ngIf="token.id === '0x00'">
-            {{ token.token  + ' <' + token.id.substring(0, 12) + '>'  }} 
+            {{ token.token  + ' <' + token.tokenid.substring(0, 12) + '>'  }} 
             </p>
 
             <p *ngIf="token.id !== '0x00'">
-            {{ token.token  + ' <' + token.id.substring(0, 12) + '...>'  }} 
+            {{ token.token  + ' <' + token.tokenid.substring(0, 12) + '...>'  }} 
             </p>
           </ion-select-option>
         </ion-select>

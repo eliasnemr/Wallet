@@ -1229,7 +1229,7 @@ let BalanceService = class BalanceService {
         this.loader = null;
         // take in tokenArr and the element you'd like to add to front of array
         this.update = (a, e) => {
-            var i = a.findIndex(o => o.id === e);
+            var i = a.findIndex(o => o.tokenid === e);
             i > 0 ? a.splice(0, 0, a.splice(i, 1)[0])
                 : i && a.splice(0, 0, e);
             (a.length > 5) && a.length--;
@@ -1260,9 +1260,8 @@ let BalanceService = class BalanceService {
         //let balance$ = this.http.get(apiUrl);
         // create custom observable to talk with minima.js
         const balanceObservable = rxjs__WEBPACK_IMPORTED_MODULE_4__["Observable"].create(observer => {
-            Minima.cmd('balance', function (resp) {
-                observer.next(resp);
-            });
+            observer.next(Minima.balance);
+            console.log(Minima.balance);
         });
         let balance$ = balanceObservable;
         return this.polledBalance$ = Object(rxjs_Observable_timer__WEBPACK_IMPORTED_MODULE_6__["timer"])(0, 2000).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["merge"])(this.manualRefresh), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["concatMap"])(_ => balance$), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])((res) => res));

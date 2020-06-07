@@ -1,6 +1,6 @@
 // create a tokens model/interface for tokens
 export interface Tokens {
-    id?: string;
+    tokenid?: string;
     token: string;
     total: number; 
     confirmed: number;

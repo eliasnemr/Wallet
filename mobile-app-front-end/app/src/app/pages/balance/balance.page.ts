@@ -94,13 +94,14 @@ export class BalancePage implements OnInit {
     // }, 1000);
   }
 
-  async presentPopover(ev: any, data:any) {
+  async presentPopover(ev: any, id: string) {
+    console.log("id taken: "+id);
     const popover = await this.popoverController.create({
       component: PopOverComponent,
       event: ev,
       cssClass: 'balance-popover',
       translucent: false,
-      componentProps:{tokenid: data},
+      componentProps:{tokenid: id},
     });
     return await popover.present();
 
@@ -108,26 +109,25 @@ export class BalancePage implements OnInit {
 
   pullArrLength() {
     this.service.getBalance().subscribe(res => {
-      for(const i in res.response.balance){
-      this.tokenSpoof.push(res.response.balance[i].confirmed)
-      }
-      
+      res.forEach(element => {
+        this.tokenSpoof.push(element);
+      })
     });
   }
 
   pullInTokens() {
     this.balanceSubscription = this.service.getBalance().pipe(map(responseData => {
       const tokenArr: Tokens[] = [];
-      for(const key in responseData.response.balance){
-        if(responseData.response.balance.hasOwnProperty(key)){
-          let element = responseData.response.balance[key];
+      for(const key in responseData){
+        if(responseData.hasOwnProperty(key)){
+          let element = responseData[key];
           // round up confirmed && unconfirmed
           
           let tempConfirmed = (Math.round(element.confirmed * 1000)/1000);
           let tempUnconfirmed = (Math.round(element.unconfirmed * 1000)/1000);
 
           tokenArr.push({
-              id: element.tokenid,
+              tokenid: element.tokenid,
               token: element.token,
               total: element.total,
               confirmed: tempConfirmed,
@@ -142,7 +142,7 @@ export class BalancePage implements OnInit {
             this.service.update(
             tokenArr,
             {
-              id: element.tokenid,
+              tokenid: element.tokenid,
               token: element.token,
               total: element.total,
               confirmed: tempConfirmed,

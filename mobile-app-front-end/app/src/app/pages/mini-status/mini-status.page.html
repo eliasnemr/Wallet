@@ -13,63 +13,63 @@
 <ion-content>
         <ion-list *ngIf="statusOfStatus === 'updated' ">
         <ion-list-header>
-        Minima Node {{ "v"+status?.response.version }}
+        Minima Node {{ "v"+status?.version }}
         </ion-list-header>
           <ion-item>
             <ion-icon name="checkmark-circle" slot="start" class="active-icons"></ion-icon>
             <ion-label>
             <h2>Status</h2>
-            <p *ngIf="status?.status === true" class="status-on"> Online</p>
-            <p *ngIf="status?.status === false" class="status-off"> Offline</p>
+            <p *ngIf="status?.version" class="status-on"> Online</p>
+            <p *ngIf="!status?.version" class="status-off"> Offline</p>
             </ion-label>
           </ion-item>
           <ion-item>
             <ion-icon name="checkmark-circle" slot="start" class="active-icons"></ion-icon>
             <ion-label>
             <h2>Node Version</h2>
-            <p>{{ "v"+status?.response.version }}</p>
+            <p>{{ "v"+status?.version }}</p>
             </ion-label>
           </ion-item>
           <ion-item>
             <ion-icon name="checkmark-circle" slot="start" class="active-icons"></ion-icon>
             <ion-label>
             <h2>Node uptime</h2>
-            <p>{{ status?.response.uptime.substring(0,51) }}</p>
+            <p>{{ status?.uptime.substring(0,51) }}</p>
             </ion-label>
           </ion-item>
           <ion-item>
             <ion-icon name="checkmark-circle" slot="start" class="active-icons"></ion-icon>
             <ion-label>
             <h2>Configuration path</h2>
-            <p>{{ status?.response.conf }}</p>
+            <p>{{ status?.conf }}</p>
             </ion-label>
           </ion-item>
           <ion-item>
             <ion-icon name="checkmark-circle" slot="start" class="active-icons"></ion-icon>
             <ion-label>
             <h2>Hosting IP</h2>
-            <p>{{ status?.response.host +':' }}{{ status?.response.port }}</p>
+            <p>{{ status?.host +':' }}{{ status?.port }}</p>
             </ion-label>
           </ion-item>
           <ion-item>
             <ion-icon name="checkmark-circle" slot="start" class="active-icons"></ion-icon>
             <ion-label>
             <h2>RPC Port</h2>
-            <p>{{ status?.response.rpcport }}</p>
+            <p>{{ status?.rpcport }}</p>
             </ion-label>
           </ion-item>
           <ion-item>
             <ion-icon name="checkmark-circle" slot="start" class="active-icons"></ion-icon>
             <ion-label>
             <h2>Last block number</h2>
-            <p>{{ status?.response.lastblock }}</p>
+            <p>{{ status?.lastblock }}</p>
             </ion-label>
           </ion-item>
           <ion-item lines="none">
             <ion-icon name="checkmark-circle" slot="start" class="active-icons"></ion-icon>
             <ion-label>
             <h2>Last block time relayed</h2>
-            <p>{{ status?.response.lasttime.substring(4, 30) }}</p>
+            <p>{{ status?.lasttime.substring(4, 30) }}</p>
             </ion-label>
           </ion-item>
         </ion-list>

@@ -98,9 +98,9 @@ export class SendFundsPage implements OnInit {
     
     } else if(param !== empty && param !== this.MINIMA_TOKEN_ID ){
     this.tokenArr.forEach(element => {
-      if(param === element.id){
+      if(param === element.tokenid){
         this.itemSelected = element;
-        this.updateTokenId(element.id);
+        this.updateTokenId(element.tokenid);
       }
     })
   }
@@ -110,14 +110,14 @@ export class SendFundsPage implements OnInit {
   onItemSelection($event) {
     const param = this.route.snapshot.params['id'];
     this.tokenArr.forEach(element => {
-      if(this.itemSelected === element && param !== element.id){
+      if(this.itemSelected === element && param !== element.tokenid){
         this.itemSelected = element;
         
-        this.router.navigate(["/send-funds", {id: element.id}]);
+        this.router.navigate(["/send-funds", {id: element.tokenid}]);
 
         console.log(this.itemSelected)
         // update tokenid
-        this.updateTokenId(element.id);
+        this.updateTokenId(element.tokenid);
       }
     })
   }
@@ -205,9 +205,9 @@ export class SendFundsPage implements OnInit {
   pullInTokens() {
     this.balanceSubscription =this.balanceService.getBalance().pipe(map(responseData => {
       const tokenArr: Tokens[] = [];
-      for(const key in responseData.response.balance){
-        if(responseData.response.balance.hasOwnProperty(key)){
-          let element = responseData.response.balance[key];
+      for(const key in responseData){
+        if(responseData.hasOwnProperty(key)){
+          let element = responseData[key];
           // round up confirmed && unconfirmed
           
           let tempConfirmed = (Math.round(element.confirmed * 100)/100);
@@ -217,7 +217,7 @@ export class SendFundsPage implements OnInit {
             this.minimaToken = element.tokenid;
           }
           tokenArr.push({
-              id: element.tokenid,
+              tokenid: element.tokenid,
               token: element.token,
               total: element.total,
               confirmed: tempConfirmed,
@@ -232,7 +232,7 @@ export class SendFundsPage implements OnInit {
             this.balanceService.update(
             tokenArr,
             {
-              id: element.tokenid,
+              tokenid: element.tokenid,
               token: element.token,
               total: element.total,
               confirmed: tempConfirmed,
