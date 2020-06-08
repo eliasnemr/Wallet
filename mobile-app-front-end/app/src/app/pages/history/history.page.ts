@@ -93,58 +93,6 @@ export class HistoryPage implements OnInit {
    return await modal.present();
  }
 
-  /** ALERTS */
-  // Present history details popover when tapped/clicked
-  // async presentHistoryInfo(ev: any, _name: string, _addr: any, _blkNumber: any, _amnt: any,
-  //                      _isBlock: boolean, _txpowid: string, _parent: string,
-  //                       _blockdiff: number, _date: string, _state: any ) {
-  //   const popover = await this.popHistoryController.create({
-  //     component: PopHistoryComponent,
-  //     cssClass: 'history-popover',
-  //     event: ev,
-  //     translucent: true,
-  //     componentProps: {
-
-  //          name: _name,
-  //          address: _addr,
-  //          blockNumber: _blkNumber,
-  //          transAmount: _amnt,
-  //          isBlock: _isBlock,
-  //          txpowid: _txpowid,
-  //          parent: _parent,
-  //          blockdiff: _blockdiff,
-  //          date: _date,
-  //          state: _state
-          
-  //         },
-  //   });
-  //   return await popover.present();
-  // }
-  // Present history details popover when tapped/clicked
-  // async presentHistoryTokenInfo(ev: any, _addr: any, _blkNumber: any, _amnt: any,
-  //   _isBlock: boolean, _txpowid: string, _parent: string,
-  //   _blockdiff: number, _date: string, _state: any ) {
-  // const popover = await this.popHistoryController.create({
-  //       component: PopHistoryTokenComponent,
-  //       cssClass: 'history-popover',
-  //       event: ev,
-  //       translucent: true,
-  //       componentProps: {
-
-  //       address: _addr,
-  //       blockNumber: _blkNumber,
-  //       transAmount: _amnt,
-  //       isBlock: _isBlock,
-  //       txpowid: _txpowid,
-  //       parent: _parent,
-  //       blockdiff: _blockdiff,
-  //       date: _date,
-  //       state: _state
-
-  // },
-  // });
-  // return await popover.present();
-  // }
 
   /** MISC Functions */
   // Check if we're receiving or sending

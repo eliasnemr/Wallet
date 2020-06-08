@@ -72,7 +72,7 @@ export class BalancePage implements OnInit {
   }
 
   giveMe50() {
-    this.service.giveMe50().subscribe((res:{ status: boolean, minifunc: string, response: any})=> {  
+    this.service.giveMe50().subscribe((res:{ status: boolean, minifunc: string, message: string, response: any})=> {  
       if(res.status === true) {
 
         this.pullInTokens();
@@ -80,8 +80,8 @@ export class BalancePage implements OnInit {
         setTimeout(() => {
           this.presentAlert('A transfer of 50 is on the way...', 'Minima');
         }, 600);
-      } else {
-        console.log("Result is false " + res)
+      } else if(res.status === false) {
+        this.presentAlert(res.message+'!', 'Unsuccessful' );
       }
     });
   }

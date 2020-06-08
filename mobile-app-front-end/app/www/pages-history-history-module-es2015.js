@@ -168,54 +168,6 @@ let HistoryPage = class HistoryPage {
             return yield modal.present();
         });
     }
-    /** ALERTS */
-    // Present history details popover when tapped/clicked
-    // async presentHistoryInfo(ev: any, _name: string, _addr: any, _blkNumber: any, _amnt: any,
-    //                      _isBlock: boolean, _txpowid: string, _parent: string,
-    //                       _blockdiff: number, _date: string, _state: any ) {
-    //   const popover = await this.popHistoryController.create({
-    //     component: PopHistoryComponent,
-    //     cssClass: 'history-popover',
-    //     event: ev,
-    //     translucent: true,
-    //     componentProps: {
-    //          name: _name,
-    //          address: _addr,
-    //          blockNumber: _blkNumber,
-    //          transAmount: _amnt,
-    //          isBlock: _isBlock,
-    //          txpowid: _txpowid,
-    //          parent: _parent,
-    //          blockdiff: _blockdiff,
-    //          date: _date,
-    //          state: _state
-    //         },
-    //   });
-    //   return await popover.present();
-    // }
-    // Present history details popover when tapped/clicked
-    // async presentHistoryTokenInfo(ev: any, _addr: any, _blkNumber: any, _amnt: any,
-    //   _isBlock: boolean, _txpowid: string, _parent: string,
-    //   _blockdiff: number, _date: string, _state: any ) {
-    // const popover = await this.popHistoryController.create({
-    //       component: PopHistoryTokenComponent,
-    //       cssClass: 'history-popover',
-    //       event: ev,
-    //       translucent: true,
-    //       componentProps: {
-    //       address: _addr,
-    //       blockNumber: _blkNumber,
-    //       transAmount: _amnt,
-    //       isBlock: _isBlock,
-    //       txpowid: _txpowid,
-    //       parent: _parent,
-    //       blockdiff: _blockdiff,
-    //       date: _date,
-    //       state: _state
-    // },
-    // });
-    // return await popover.present();
-    // }
     /** MISC Functions */
     // Check if we're receiving or sending
     checkTransType(amount) {
@@ -360,7 +312,9 @@ let HistoryService = class HistoryService {
         // let apiUrl = this.host + route; // this.host+'route' = "127.0.0.1:8999/'balance'"
         // let history$ = this.http.get(apiUrl);
         const historyObservable = rxjs__WEBPACK_IMPORTED_MODULE_5__["Observable"].create(observer => {
-            observer.next(Minima.history);
+            Minima.cmd('history', function (res) {
+                observer.next(res);
+            });
         });
         let history$ = historyObservable;
         return this.polledHistory$ = Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["timer"])(0, 2000).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["merge"])(this.manualRefresh), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["concatMap"])(_ => history$), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])((res) => res));
