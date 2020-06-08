@@ -37,7 +37,7 @@
 }
 /** */
 .footer-content {
-  padding: 15px;
+  padding-top: 10px;
 }
 ion-menu {
   --background: var(--ion-background-color, #f2f2f2);
@@ -51,7 +51,6 @@ ion-menu ion-header ion-toolbar {
 ion-menu ion-content {
     --padding-top: 12px;
     --padding-bottom: 20px;
-  
     --background: var(--ion-item-background, var(--ion-background-color, #fff));
   }
 
@@ -190,3 +189,9 @@ ion-menu.md ion-list {
   }
 //
 
+
+
+#footer-item {
+  --padding-bottom: 0px;
+  --padding-start: 15px;
+}

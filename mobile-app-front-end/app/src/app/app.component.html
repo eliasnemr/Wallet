@@ -1,7 +1,7 @@
 <div class="my-overlay" padding [hidden]="overlayHidden">   
   <ion-card>
   <ion-card-header>
-      <ion-note style="padding-left: 20px;">Wallet v0.90</ion-note>
+      <ion-note style="padding-left: 20px;">Wallet v0.91</ion-note>
     <img [src]="getImg()">
   </ion-card-header>
     <h2> Welcome! </h2>
@@ -74,7 +74,7 @@
 
   <ion-menu-toggle auto-hide="false">
       <ion-footer class="footer-content">
-        <ion-item routerLink="/settings" routerLinkActive="selected" lines="none">
+        <ion-item id="footer-item" routerLink="/settings" routerLinkActive="selected" lines="none">
           <ion-icon name="build" slot="start"></ion-icon> Settings
         </ion-item>
       </ion-footer>

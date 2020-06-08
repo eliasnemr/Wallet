@@ -39,9 +39,7 @@ export class HistoryService {
     // let history$ = this.http.get(apiUrl);
 
     const historyObservable = Observable.create(observer => {
-      Minima.cmd('history', function(response){
-        observer.next(response);
-      });
+      observer.next(Minima.history);
     });
 
     let history$ = historyObservable;

@@ -10,60 +10,40 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content fullscreen>
-  <ion-card color="white" *ngIf="this.qrCode.length > 0 && !checkPlatform()">
+<ion-content>
+  <ion-card color="white" *ngIf="this.qrCode.length > 0">
     <ion-card-content>
-      <h2 style="text-align: center;">Your Mini Address</h2>
-      <p style="text-align: center; color:#3F88BF; font-weight: bold; font-size:12px; font-family='monospace'"> 
-      {{ qrCode }}
-      </p>
+    <ion-grid fixed>
+      <ion-row>
+        <ion-col class="ion-align-self-center" size="12">
+          <h2 style="text-align: center;">Your Mini Address</h2>
+          <p style="text-align: center; 
+                    color:#3F88BF; font-weight: bold; 
+                    font-size:12px; 
+                    font-family='monospace'"> 
+          {{ qrCode }}
+          </p>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="ion-align-self-center" size="12">
         <qrcode
-            class="qrCanvas"
               [qrdata]="qrCode"
-              [size]="canvasSize"
               [level]="'Q'"
-              colorlight="#f2f2f2"
-              colorDark="#f2f2f2"
               *ngIf="qrCode!==''">
         </qrcode> 
-    <ion-card-subtitle style="text-align: center; font-family:'Aeonik-light'">
-      This address can be used for any Minima or Token transaction.
-    </ion-card-subtitle>
-    </ion-card-content>
-  </ion-card>
-
-  <ion-card class="welcome-card" color="white" *ngIf="this.qrCode.length > 0 && checkPlatform()">
-    <ion-card-content>
-    <ion-grid>
-      <ion-row>
-        <ion-col size="2.5">
-            <qrcode
-            class="qrCanvas"
-                  [qrdata]="qrCode"
-                  [size]="canvasSize"
-                  [level]="'Q'"
-                  colorlight="#f2f2f2"
-                  colorDark="#f2f2f2"
-                  *ngIf="qrCode!==''">
-            </qrcode> 
         </ion-col>
-      <ion-col size="8.5">
-        <h3>
-          Current Minima Address
-        </h3>
-        <a style="text-decoration: none; color:#3F88BF; font-weight: bold; font-size:20px; font-family='monospace'">{{ qrCode }}</a>
-      </ion-col>
-    </ion-row>
-      </ion-grid>
-        
+      </ion-row>
+    </ion-grid>  
     <ion-card-subtitle style="text-align: center; font-family:'Aeonik-light'">
       This address can be used for any Minima or Token transaction.
     </ion-card-subtitle>
-        
     </ion-card-content>
   </ion-card>
 
-  <ion-card class="welcome-card" color="white" *ngIf="this.qrCode==='' && !checkPlatform()">
+
+
+  <ion-card class="welcome-card" color="white" *ngIf="this.qrCode===''">
     <ion-card-header translucent="true" color="white">
         <ion-toolbar>
           <ion-skeleton-text animated class="skeleton-address"></ion-skeleton-text>
@@ -81,31 +61,6 @@
     </ion-card-content>
   </ion-card>
 
-
-  <ion-card class="welcome-card" color="white" *ngIf="this.qrCode==='' && checkPlatform()">
-    <ion-card-content>
-    <ion-grid>
-    <ion-row>
-      <ion-col size="2.5">
-        <div class="qrCanvas">
-          <ion-skeleton-text animated class="skeleton-address"></ion-skeleton-text>
-        </div>
-      </ion-col>
-      <ion-col size="8.5">
-        <h3>
-          Current Minima Address
-        </h3>
-        <ion-skeleton-text animated class="skeleton-address"></ion-skeleton-text>
-      </ion-col>
-    </ion-row>
-    </ion-grid>
-        
-    <ion-card-subtitle style="text-align: center; font-family:'Aeonik-light'">
-      This address can be used for any Minima or Token transaction.
-    </ion-card-subtitle>
-        
-    </ion-card-content>
-  </ion-card>
 </ion-content>
 
 

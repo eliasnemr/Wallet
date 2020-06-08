@@ -360,9 +360,7 @@ let HistoryService = class HistoryService {
         // let apiUrl = this.host + route; // this.host+'route' = "127.0.0.1:8999/'balance'"
         // let history$ = this.http.get(apiUrl);
         const historyObservable = rxjs__WEBPACK_IMPORTED_MODULE_5__["Observable"].create(observer => {
-            Minima.cmd('history', function (response) {
-                observer.next(response);
-            });
+            observer.next(Minima.history);
         });
         let history$ = historyObservable;
         return this.polledHistory$ = Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["timer"])(0, 2000).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["merge"])(this.manualRefresh), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["concatMap"])(_ => history$), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])((res) => res));
