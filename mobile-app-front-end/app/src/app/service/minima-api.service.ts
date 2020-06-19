@@ -37,7 +37,7 @@ export class MinimaApiService {
   }
 
   createToken(data: any) {
-    return this.req('createtoken ' + data.token + ' ' + data.amount);
+    return this.req("tokencreate name:\""+data.name+"\" amount:"+data.amount+" description:\""+data.description+"\" script:\""+data.script+"\" icon:"+data.icon+" proof:"+data.proof);
   }
 
   createTXN(data: any){
@@ -125,6 +125,7 @@ export class MinimaApiService {
   req(fnc: any) {
     let promise = new Promise((resolve, reject) => {
       Minima.cmd(fnc, function(resp){
+        console.log(resp);
         resolve(resp);
       });
     })

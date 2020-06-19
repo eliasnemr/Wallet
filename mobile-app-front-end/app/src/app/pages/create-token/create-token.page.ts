@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MinimaApiService } from '../../service/minima-api.service';
 import { IonTextarea, IonSlide, IonRange, IonInput, AlertController, ToastController } from '@ionic/angular';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-create-token',
@@ -9,57 +10,96 @@ import { IonTextarea, IonSlide, IonRange, IonInput, AlertController, ToastContro
 })
 export class CreateTokenPage implements OnInit {
 
+  @ViewChild('f', {static:false}) tokenForm: NgForm;
   @ViewChild('nameTextArea', {static: false}) nameText: IonInput;
-  @ViewChild('tokenSlider', {static: false}) tokenSlider: IonRange;
   @ViewChild('amountRef', {static:false}) amountRef: IonInput;
+  @ViewChild('proofURL', {static:false}) proofURL: IonInput;
+  @ViewChild('iconURL', {static:false}) iconURL: IonInput;
 
-  private data: any = {};
+  @ViewChild('textarea', {static: false}) textArea: IonTextarea;
+
+  public data: any = {
+    name: String,
+    amount: Number,
+    description: String,
+    script: String,
+    icon: String,
+    proof: String, 
+  };
+
   minimaAmount = 0;
-  forNewToken = 0;
   tokenAmount = 0;
-  tokenName = '?';
+  tokenName = '';
   balance = 0;
+  descriptionLength = 0;
+
+  iconEntry: any = {
+    isChecked: Boolean
+  }
+  proofEntry: any = {
+    isChecked: Boolean
+  }
+  nft: any = {
+    isNonFungible: Boolean
+  }
   
 
-  constructor(private api: MinimaApiService, public alertController: AlertController, public toastController: ToastController) {}
+  constructor(private api: MinimaApiService, public alertController: AlertController, public toastController: ToastController) {
+    this.data.name = "";
+    this.data.amount = "";
+    this.data.description = "";
+    this.data.script = "RETURN TRUE";
+    this.data.icon = "";
+    this.data.proof = "";
+
+    this.iconEntry.isChecked = false;
+    this.proofEntry.isChecked = false;
+    this.nft.isNonFungible = false;
+  }
 
   ionViewDidEnter(){}
   ngOnInit() {}
 
-  createToken() {
+  createTokenAdvanced(f) {
 
-    this.data.token = this.tokenName;
-    this.data.amount = this.tokenAmount;
+    console.log(f);
+    
+    if(f.value.name&&f.value.name.length>0&&f.value.amount&&f.value.amount>0){
 
-    if(this.data.token&&this.data.token!==''&&this.data.amount&&this.data.amount>0){
-    this.api.createToken(this.data).then((res : any) => {
-      if(res.status == true){
+        console.log("passed check 1");
+        this.data.name = f.value.name;
+        this.data.amount = f.value.amount;
+        this.data.description = f.value.description;
+        // Check and set..
+        if(f.value.checkboxproof === false){
+          this.data.proof = "";
+        } else {
+          this.data.proof = f.value.proof;
+        }
+        if(f.checkboxicon === false){
+          this.data.icon = "assets/icon/icon.png";
+        } else {
+          this.data.icon = f.value.icon;
+        }
+        // if NFT return custom script if not.. RETURN TRUE
+        if(f.value.NFT === false){
+          this.data.script = "RETURN TRUE";
+        } else if(f.value.NFT === true) {
+          this.data.script = "ASSERT FLOOR ( @AMOUNT ) EQ @AMOUNT LET checkout = 0 WHILE ( checkout LT @TOTOUT ) DO IF GETOUTTOK ( checkout ) EQ @TOKENID THEN LET outamt = GETOUTAMT ( checkout ) ASSERT FLOOR ( outamt ) EQ outamt ENDIF LET checkout = INC ( checkout ) ENDWHILE RETURN TRUE";
+        }
 
-        this.presentToast('Success! '+this.tokenName+' has been successfully created', "success");
+        this.api.createToken(this.data).then((res: any) => {
+          if(res.status === true){
+            this.presentToast('Success! '+this.data.name + ' has been created.', "success");
+            this.resetForm();
+          } else {
+            this.presentToast("Your token creation failed, please check your records", 'danger');
+          }
+        });
 
-        this.resetForm();
-
-      }else{
-
-        this.presentToast('Something went wrong.  Please try again!', 'danger');
-
+      } else {
+        this.presentToast('There is an error with your inputs.', 'danger');
       }
-    });
-    } else {
-
-      this.presentToast('Something went wrong.  Please try again!', 'danger');
-      
-    }
-  }
-
-  async presentAlert(msg:string,header:string) {
-    const alert = await this.alertController.create({
-      header: header,
-      message: msg,
-      buttons: ['OK']
-    });
-
-    await alert.present();
   }
 
   //Alerts
@@ -90,12 +130,15 @@ export class CreateTokenPage implements OnInit {
 
   resetForm() {
     this.nameText.value = '';
-    //this.tokenSlider.value = 0;
     this.amountRef.value = '';
-    this.forNewToken = 0;
+    this.proofURL.value = '';
+    this.iconURL.value = '';
+    this.textArea.value = '';
+    this.iconEntry.isChecked = false;
+    this.proofEntry.isChecked = false;
+    this.nft.isNonFungible = false;
     this.tokenAmount = 0;
     this.tokenName = '';
-
   }
   
   onUpdateTokenName(event: any){

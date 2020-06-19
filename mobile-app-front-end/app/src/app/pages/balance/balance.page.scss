@@ -116,3 +116,19 @@ ion-row {
   .balance {
     font-size: 12px;
   }
+
+  // ion-col 
+ion-col {
+  --ion-grid-columns: 0;
+}
+ion-grid {
+  --ion-grid-width-sm: 240px;
+  --ion-grid-width-lg: 240px;
+
+  --ion-grid-column-padding: 2px;
+
+}
+
+ion-card-content {
+  padding: 5px;
+}

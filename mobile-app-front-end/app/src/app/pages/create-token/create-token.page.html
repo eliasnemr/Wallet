@@ -9,57 +9,95 @@
 </ion-header>
 
 <ion-content>
-    <ion-card color="white">
-      <ion-card-header>
-        <ion-card-title>
-          <ion-icon style="font-size:1.2rem;" name="clipboard"></ion-icon>
-          Your Contract for the token, <ion-label style="color: #FF671D;"> "{{ tokenName }}" </ion-label>
-        </ion-card-title>
-      </ion-card-header>
+  <ion-card color="white">
+    <ion-card-header>
+      <ion-card-title>
+        <ion-icon style="font-size:1.5rem; padding-right:5px;" name="clipboard"></ion-icon>
+        <ion-text [hidden]="tokenName.length === 0">Your Contract for the token, "{{ tokenName }}"</ion-text>
+      </ion-card-title>
+    </ion-card-header>
 
-      <ion-card-content>
-        <form>
-        
-          <ion-item lines="none">
-            <ion-icon style="color:#FF671D" name="return-right" size="small"></ion-icon> 
-            <ion-text style="font-weight: lighter; font-family: 'Aeonik-Light'; padding:5px;">
-              Converting Minima to 
-            <ion-text style="font-weight: lighter; font-family: 'Aeonik-Light';" class="tokenStyle">{{  '"' + tokenName + '"' }}</ion-text>
-            </ion-text> 
-              
-          </ion-item>
-        
-        
-          <ion-item>
-            <ion-label position="floating" class="amount-font">Name</ion-label>
-            <ion-input #nameTextArea (ionChange)="onUpdateTokenName($event)"></ion-input>
-             <!-- <ion-input placeholder="a description of token"></ion-input> -->
-          </ion-item>
-  
-          <ion-item>
-            <ion-label class="amount-font" position="floating">Amount</ion-label>
-            <ion-input #amountRef (ionChange)="onAmountChanged($event)"></ion-input>
-          </ion-item>        
-        
-      </form>
-      </ion-card-content>
+    <ion-card-content>
+      <!-- Token FORM -->
+      <form (ngSubmit)="createTokenAdvanced(f)" #f="ngForm" id='my-form'>
 
+        <ion-item lines="none" [hidden]="!nft.isNonFungible">
+          <ion-text style="color: #a94dff; font-weight: 300;">Your token is now a NFT.  (You can only send it as a whole number)</ion-text>  
+        </ion-item>
       
+        <ion-item>
+          <ion-label position="floating" class="amount-font">Name</ion-label>
+          <ion-input #nameTextArea name="name" [(ngModel)]="data.name" (ionChange)="onUpdateTokenName($event)"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label class="amount-font"  position="floating">Amount</ion-label>
+          <ion-input #amountRef name="amount" [(ngModel)]="data.amount" (ionChange)="onAmountChanged($event)"></ion-input>
+        </ion-item>
+
+        <!-- Description -->
+        <ion-item>
+          <ion-label class="amount-font"  position="floating">Description (Optional)</ion-label>
+          <ion-textarea #textarea 
+                    name="description"
+                    maxlength="255" 
+                    auto-grow="true" 
+                    [(ngModel)]="data.description" 
+                    placeholder="write your description here...">
+          </ion-textarea>
+          <p style="position: relative; left:80%; font-family:'Optima'">{{ data.description.length+"/255"}}</p>
+        </ion-item>
+        <!-- Icon Entry -->
+        <ion-item [hidden]="iconEntry.isChecked">
+          <ion-label>Icon</ion-label>
+          <ion-checkbox class="checkbox" name="checkboxicon" [(ngModel)]="iconEntry.isChecked"></ion-checkbox>
+        </ion-item>
+
+        <ion-item [hidden]="!iconEntry.isChecked">
+          <ion-label>Icon (Optional)</ion-label>
+          <ion-input name="icon" #iconURL [(ngModel)]="data.icon" placeholder="icon URL"></ion-input>
+          <ion-checkbox class="checkbox" name="checkboxicon" [(ngModel)]="iconEntry.isChecked"></ion-checkbox>
+        </ion-item>
+        <!-- Proof Entry -->
+        <ion-item [hidden]="proofEntry.isChecked">
+          <ion-label>Proof</ion-label>
+          <ion-checkbox class="checkbox" name="checkboxproof" [(ngModel)]="proofEntry.isChecked"></ion-checkbox>
+        </ion-item>
+
+        <ion-item [hidden]="!proofEntry.isChecked">
+          <ion-label>Proof (Optional)</ion-label>
+          <ion-input name="proof" #proofURL [(ngModel)]="data.proof" placeholder="proof URL"></ion-input>
+          <ion-checkbox class="checkbox" name="checkboxproof" [(ngModel)]="proofEntry.isChecked"></ion-checkbox>
+        </ion-item>
         
-    </ion-card>
+        <ion-item lines="none">
+          <ion-label>Non Fungible Token</ion-label>
+          <ion-checkbox class="checkbox" name="NFT" [(ngModel)]="nft.isNonFungible"></ion-checkbox>
+        </ion-item>
+      </form>
+    </ion-card-content>
+
+    
+      
+  </ion-card>
 
 </ion-content>
-
 <ion-footer>
   <ion-toolbar>
     <ion-buttons>
-      
-      <ion-button class="action-btn" (click)="createToken()" shape="fill"  slot="primary" expand="fill" type="button" position="relative" >
-        <ion-icon name="brush" slot="start"></ion-icon>
+      <button form="my-form" style="width: 100%; background-color:transparent;">
+      <ion-button 
+        class="action-btn" 
+        shape="fill"  
+        slot="primary" 
+        expand="fill" 
+        type="submit" >
+      <ion-icon name="brush" slot="start"></ion-icon>
         Create token
       </ion-button>
+      </button>
     </ion-buttons>
-    
   </ion-toolbar>
 </ion-footer>
+
 </ion-app>
