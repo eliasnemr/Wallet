@@ -76,7 +76,7 @@ export class CreateTokenPage implements OnInit {
         } else {
           this.data.proof = f.value.proof;
         }
-        if(f.checkboxicon === false){
+        if(f.checkboxicon === false || f.value.icon === ""){
           this.data.icon = "assets/icon/icon.png";
         } else {
           this.data.icon = f.value.icon;

@@ -11,9 +11,10 @@
 <ion-content>
   <ion-card color="white">
     <ion-card-header>
+    
       <ion-card-title>
-        <ion-icon style="font-size:1.5rem; padding-right:5px;" name="clipboard"></ion-icon>
-        <ion-text [hidden]="tokenName.length === 0">Your Contract for the token, "{{ tokenName }}"</ion-text>
+      <ion-icon size="large" name="clipboard"></ion-icon>
+      <ion-text style="position:absolute; padding:8px 0 0 8px;" [hidden]="tokenName.length === 0">Your transaction for the token, {{ tokenName }}</ion-text>
       </ion-card-title>
     </ion-card-header>
 
@@ -22,7 +23,7 @@
       <form (ngSubmit)="createTokenAdvanced(f)" #f="ngForm" id='my-form'>
 
         <ion-item lines="none" [hidden]="!nft.isNonFungible">
-          <ion-text style="color: #a94dff; font-weight: 300;">Your token is now a NFT.  (You can only send it as a whole number)</ion-text>  
+          <ion-text style="color: #a94dff; font-weight: 300;">Your token is now a <b>NFT</b>.  Can be spent whole and not divisible by less than a unit.  1 <b><i>{{ tokenName }}</i></b> can be shared as 1 and not a decimal number like 0.5.</ion-text>  
         </ion-item>
       
         <ion-item>
