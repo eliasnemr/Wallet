@@ -3,7 +3,9 @@
     <ion-list-header>
         Token ID: 
           
-        <ion-item class="token-lbl" id="copythis">{{refTokenid.substring(0, 10)}}</ion-item>        
+        <ion-item [hidden]="refTokenid == '0x00'" class="token-lbl" id="copythis">{{refTokenid.substring(0, 10)+"..."}}</ion-item>
+        <ion-item [hidden]="refTokenid !== '0x00'" class="token-lbl" id="copythis">{{refTokenid.substring(0, 10)}}</ion-item>        
+
             
     </ion-list-header>
     <ion-item style="width: 100%;">

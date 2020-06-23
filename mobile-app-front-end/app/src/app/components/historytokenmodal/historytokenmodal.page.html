@@ -20,8 +20,8 @@
   </ion-row>
   <!-- TXN Message (if any)-->
   <ion-row>
-  <ion-col *ngIf="Message.length > 0 && Message[0].data === '01000100'">
-  <ion-note id="msg">{{'"'+ Message[1].data +'"' }}</ion-note>
+  <ion-col id="msg" *ngIf="description.length > 0">
+    {{'"'+ description +'"' }}
   </ion-col>
   </ion-row>
   </ion-grid>
@@ -32,10 +32,28 @@
 
   <ion-item>
   <ion-label class="info-lbl">
+    Token Name
+  </ion-label>
+  <ion-label class="information">
+    {{ tokenNameGiven }}
+  </ion-label>
+  </ion-item>
+
+  <ion-item>
+  <ion-label class="info-lbl">
     TokenID
   </ion-label>
   <ion-label class="information">
     {{ TokenID }}
+  </ion-label>
+  </ion-item>
+
+  <ion-item>
+  <ion-label class="info-lbl">
+    Amount Created
+  </ion-label>
+  <ion-label class="information">
+    {{ amountCreated }}
   </ion-label>
   </ion-item>
 

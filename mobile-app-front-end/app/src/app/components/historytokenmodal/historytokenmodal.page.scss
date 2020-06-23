@@ -3,7 +3,7 @@
 }
 .information {
     text-align: right; 
-    color: #00AAC8;
+    font-weight: 400;
 }
 .completed {
     text-align: right;
@@ -13,6 +13,7 @@
 }
 .info-lbl {
     text-align: left;
+    font-weight: 700;
 }
 ion-card-header {
     width: 100%;
@@ -31,9 +32,15 @@ ion-card-header h2 {
     font-size: 22px;
 }
 #msg{
-    font-size: 18px;
+    width: 100%;
+    font-size: 14px;
     font-weight: bold;
+    white-space: normal;
 }
 ion-card {
     --overflow: hidden;
+}
+
+h3 {
+    font-weight: 700;
 }

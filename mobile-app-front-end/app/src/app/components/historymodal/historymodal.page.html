@@ -15,14 +15,17 @@
   <ion-col>
     <!-- TXN Type -->
     <ion-icon size="large" [name]="getTXNType(Amount)"></ion-icon>
-    <h2 *ngIf="Amount.toString().substring(0, 1) !== '-'">  {{"+"+Amount}} {{ TokenName }} </h2>
-    <h2 *ngIf="Amount.toString().substring(0, 1) === '-'">  Sent {{Amount}} {{ TokenName }} </h2>
+    <h2 *ngIf="Amount.toString().substring(0, 1) !== '-' && !TokenName.name">  {{"+"+Amount}} {{ TokenName }} </h2>
+    <h2 *ngIf="Amount.toString().substring(0, 1) === '-' && !TokenName.name">  Sent {{Amount}} {{ TokenName }} </h2>
+
+    <h2 *ngIf="Amount.toString().substring(0, 1) !== '-' && TokenName.name">  {{"+"+Amount}} {{ TokenName.name }} </h2>
+    <h2 *ngIf="Amount.toString().substring(0, 1) === '-' && TokenName.name">  Sent {{Amount}} {{ TokenName.name }} </h2>
   </ion-col>
   </ion-row>
   <!-- TXN Message (if any)-->
   <ion-row>
-  <ion-col *ngIf="Message.length > 0 && Message[0].data === '01000100'">
-  <ion-note id="msg">{{'"'+ Message[1].data +'"' }}</ion-note>
+  <ion-col id="msg" *ngIf="Message.length > 0 && Message[0].data === '01000100'">
+    {{'"'+ Message[1].data +'"' }}
   </ion-col>
   </ion-row>
   </ion-grid>
