@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-title slot="start">
     {{ name }}
-    <span [hidden]="tokenid == '0x00'">{{ tokenid.substring(0,20) + "..."}}</span>
+    <span [hidden]="tokenid == '0x00'">{{ tokenid.substring(0,8) + "..."}}</span>
     <span [hidden]="tokenid !== '0x00'">{{ tokenid }}</span>
     <ion-icon (click)="copyToClipboard()" name="clipboard"></ion-icon>
     </ion-title>
