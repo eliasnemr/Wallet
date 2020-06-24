@@ -3,6 +3,12 @@
 ion-title {
      color:  var(--ion-text-color, #F6661D);
 }
+ion-title ion-icon {
+    width: 16px;
+    position: absolute;
+    padding-top: 3px;
+    cursor: pointer;
+}
 ion-title span {
     color:  var(--ion-text-color, #000);
     font-size: 16px;

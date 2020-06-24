@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController, ToastController } from '@ionic/angular';
+import { ModalController, ToastController, Platform, NavParams } from '@ionic/angular';
 import { MinimaApiService } from '../../service/minima-api.service';
 import { Router } from '@angular/router';
+import { Clipboard } from '@ionic-native/clipboard/ngx';
 
 @Component({
   selector: 'app-token-descr',
@@ -10,12 +11,19 @@ import { Router } from '@angular/router';
 })
 export class TokenDescrComponent implements OnInit {
 
+  public refTokenid: string;
+
   constructor(public modalCtrl: ModalController, 
     public api: MinimaApiService,
     public toastController: ToastController,
-    public route: Router) {}
+    public route: Router,
+    private platform: Platform,
+    private clipboard: Clipboard,
+    private navParams: NavParams) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.refTokenid = this.navParams.get("tokenid");
+  }
 
   dismiss(){
   // using the injected ModalController this page
@@ -48,6 +56,30 @@ export class TokenDescrComponent implements OnInit {
       position:  'top'
     });
     toast.present();
+  }
+
+  copyToClipboard() {
+    
+    if(this.platform.is('desktop') || this.platform.is('pwa')) {
+      this.copyToClipPWA();
+      this.presentToast("Copied TokenID", "success");
+    } else {
+      this.clipboard.copy(this.refTokenid);
+      this.presentToast("Can't copy to clipboard", "danger");
+
+      
+    }
+    
+  }
+
+  copyToClipPWA() {
+    document.addEventListener('copy', (e: ClipboardEvent) => {
+      e.clipboardData.setData('text/plain', this.refTokenid);
+      e.preventDefault();
+      document.removeEventListener('copy', null);
+    });
+    document.execCommand('copy');
+
   }
 
 
