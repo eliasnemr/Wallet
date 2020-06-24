@@ -141,3 +141,30 @@
 
 </ion-content>
 
+<!-- Only if Minima token -->
+<ion-content [hidden]="tokenid !== '0x00'">
+  <ion-card> 
+    <ion-card-header>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <img style="max-width: 250px; min-height:75px;" [hidden]="tokenid !== '0x00'" src="assets/icon/icon.png"/>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            Minima's Official Token
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-header>
+    
+  </ion-card>
+  <!-- fab placed to the bottom end -->
+  <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+    <ion-fab-button size="80px;" color="medium" (click)="sendTokenOver(tokenid)">
+      <ion-icon size="45px;" name="send" color="tertiary"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>
