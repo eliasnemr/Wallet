@@ -30,10 +30,10 @@ export class TokenDescrComponent implements OnInit {
   }
   validateProof(tokenid: string) {
     this.api.validateTokenID(tokenid).then((res: any)=>{
-       if(res.status == true){
+       if(res.response.valid === true){
          this.presentToast("This proof is valid.", "success");
        } else {
-        this.presentToast("This proof is invalid.", "danger");
+        this.presentToast("Proof Mismatch - Proof is invalid.", "danger");
        }
     });
   }

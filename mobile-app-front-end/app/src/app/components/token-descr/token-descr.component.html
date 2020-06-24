@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-title slot="start">
-    {{ name }} - 
+    {{ name }}
     <span [hidden]="tokenid == '0x00'">{{ tokenid.substring(0,20) + "..."}}</span>
     <span [hidden]="tokenid !== '0x00'">{{ tokenid }}</span>
     </ion-title>
@@ -22,9 +22,9 @@
     <ion-card-header>
       <ion-grid>
         <ion-row>
-          <ion-col>
-            <img [hidden]="tokenid == '0x00'" src="{{ icon }}"/>
-            <img [hidden]="tokenid !== '0x00'" src="assets/icon/icon.png"/>
+          <ion-col >
+            <img style="max-width: 250px; min-height:75px;"[hidden]="tokenid == '0x00'" src="{{ icon }}"/>
+            <img style="max-width: 250px; min-height:75px;" [hidden]="tokenid !== '0x00'" src="assets/icon/icon.png"/>
           </ion-col>
         </ion-row>
         <ion-row>
@@ -60,10 +60,10 @@
            Token Type
          </ion-col>
          <ion-col [hidden]="script !== 'RETURN TRUE'" id="variable">   
-            Non-Fungible
+            Fungible
          </ion-col>
          <ion-col [hidden]="script == 'RETURN TRUE'" id="variable">
-            Fungible
+            Non-Fungible
          </ion-col>
         </ion-row>
         <ion-row>
@@ -133,9 +133,10 @@
   </ion-card>
   <!-- fab placed to the bottom end -->
   <ion-fab vertical="bottom" horizontal="start" slot="fixed">
-    <ion-fab-button size="small" color="#F6661D" (click)="sendTokenOver(tokenid)">
-      <ion-icon size="small" name="send"></ion-icon>
+    <ion-fab-button size="80px;" color="medium" (click)="sendTokenOver(tokenid)">
+      <ion-icon size="45px;" name="send" color="tertiary"></ion-icon>
     </ion-fab-button>
   </ion-fab>
+
 </ion-content>
 

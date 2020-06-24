@@ -40,4 +40,8 @@ ion-card-header h2 {
 // hide scrolling 
 ion-card {
     --overflow: hidden;
+    background: linear-gradient(to bottom,  var(--ion-background-color, #fff) 0%, var(--ion-background-color, #f2f2f2) 100%) !important;
+}
+ion-list {
+    background: linear-gradient(to bottom,  var(--ion-background-color, #fff) 0%, var(--ion-background-color, #f2f2f2) 100%) !important;
 }
