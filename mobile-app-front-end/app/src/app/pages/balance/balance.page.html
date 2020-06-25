@@ -12,12 +12,10 @@
 
   <ion-content>
 
-    <ion-card color="white">
+  <ion-card color="white">
       <ion-card-header color="white">
       </ion-card-header>
   <ion-card-content>
-
-  <ion-icon style=" font-size:2.0rem; padding-left:10px;" name="card" slot="start" class="icon-head"></ion-icon>
 
   <ion-grid style="width: 100%;" *ngFor="let token of tokenArr;">
     <ion-row>    
@@ -27,12 +25,26 @@
       <ion-item-option class="send-slide" (click)="sendTokenOver(token.tokenid)">Send</ion-item-option>
       </ion-item-options>
 
-  <ion-item lines="full">
-  <ion-col size="2" slot="start">
-  <ion-label class="logo-names">
-    <ion-icon class="balance-token" src="./assets/icon/minima.svg"></ion-icon>
-    <ion-note class="balance-tokenname"> {{ token.token }} </ion-note>
-  </ion-label>
+  <!-- TOKENS ONLY -->
+  <ion-item lines="full" 
+            (click)="presentTokenDescr(token.tokenid, token.token, token.description,
+                                      token.icon, token.proof, token.total, token.script,
+                                      token.coinid, token.totalamount, token.scale, token.confirmed,
+                                      token.unconfirmed, token.mempool, token.sendable)">
+  <ion-col size="3" style="padding: 12px;"slot="start">
+
+    <img *ngIf="token.icon" alt="Avatar" class="balance-token" src="{{ token.icon }}">
+    <img *ngIf="!token.icon" alt="Avatar"class="balance-token" src="assets/icon/icon.png">
+
+    
+    <ion-row style="border: none; padding-left: 5px;">
+      <ion-text class="balance-name"> {{ token.token }} </ion-text>
+    </ion-row>
+    <ion-row style="border:none; padding-left: 5px;">
+      <ion-text class="abbr-name"> {{ token.token.substring(0,3) }} </ion-text>
+    </ion-row>
+
+
   </ion-col>
 
   <ion-col size="3" slot="end" #balance>
@@ -57,6 +69,7 @@
   </ion-col>
   
   </ion-item>
+
 
   <ion-item-options side="end">
     <ion-item-option (click)="presentPopover($event, token.tokenid)">Token ID</ion-item-option>

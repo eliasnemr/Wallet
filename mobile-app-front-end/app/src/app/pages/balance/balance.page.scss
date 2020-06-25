@@ -59,15 +59,23 @@ ion-footer ion-toolbar ion-buttons ion-button{
   }
 
   .balance-token {
-      font-size: 1.5rem;
+    float:left;
+    width: 35px;
+    padding-right: 5px;
   }
   .balance-tokenname {
-   position: absolute;
-   font-family: 'Aeonik-bold' ;
-   text-transform: uppercase;
-   padding-top: 6px;
-   padding-left: 2px;
+   float:right;
+   position: relative;
+   padding-top: 5px;
+   font-size: 17px;
+   font-weight: 1200;
   }
+  .abbr-name {
+    font-style: oblique;
+    font-size: 12px;
+    font-weight: 400;
+    text-transform: uppercase;
+   }
 
   /** SKELETON CSS */
   .wrapper {
@@ -113,9 +121,9 @@ ion-row {
     }
 }
  
-  .balance {
-    font-size: 12px;
-  }
+.balance {
+  font-size: 12px;
+}
 
   // ion-col 
 ion-col {
@@ -128,7 +136,19 @@ ion-grid {
   --ion-grid-column-padding: 2px;
 
 }
-
+ion-card-header {
+  --background: var(--ion-background-color, #f2f2f2);
+  background: linear-gradient(to bottom,  var(--ion-background-color, #fff) 0%, var(--ion-background-color, #f2f2f2) 100%) !important;
+}
 ion-card-content {
   padding: 5px;
+
+  --background: var(--ion-background-color, #f2f2f2);
+  background: linear-gradient(to bottom,  var(--ion-background-color, #fff) 0%, var(--ion-background-color, #f2f2f2) 100%) !important;
+
+}
+
+.tokenDescr-modal .modal-wrapper{
+  width: 1500px;
+  height: auto;
 }

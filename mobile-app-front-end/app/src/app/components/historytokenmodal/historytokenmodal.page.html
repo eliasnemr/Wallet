@@ -26,65 +26,98 @@
   </ion-row>
   </ion-grid>
   </ion-card-header>
-  <ion-item-divider></ion-item-divider>
 <!-- TXN Details -->  
-<ion-list>
+<ion-grid>
 
-  <ion-item>
-  <ion-label class="info-lbl">
-    Token Name
-  </ion-label>
-  <ion-label class="information">
-    {{ tokenNameGiven }}
-  </ion-label>
-  </ion-item>
+  <ion-row>
+    <ion-col class="info-lbl">
+      Token Name
+    </ion-col>
 
-  <ion-item>
-  <ion-label class="info-lbl">
-    TokenID
-  </ion-label>
-  <ion-label class="information">
-    {{ TokenID }}
-  </ion-label>
-  </ion-item>
+    <ion-col class="information">
+      {{ tokenNameGiven }}
+    </ion-col>
 
-  <ion-item>
-  <ion-label class="info-lbl">
-    Amount Created
-  </ion-label>
-  <ion-label class="information">
-    {{ amountCreated }}
-  </ion-label>
-  </ion-item>
+  </ion-row>
 
-  <ion-item>
-  <ion-label class="info-lbl">
-    Block #
-  </ion-label>
-  <ion-label class="information">
-    {{ Block }}
-  </ion-label>
-  </ion-item>
+  <ion-row> 
+    <ion-col class="info-lbl">
+      Token ID
+    </ion-col>
 
-  <ion-item>
-  <ion-label class="info-lbl">
-    isBlock
-  </ion-label>
-  <ion-label class="information">
-    {{ isBlock }}
-  </ion-label>
-  </ion-item>
+    <ion-col *ngIf="TokenID === '0x00'"class="information">
+      {{ TokenID }}
+    </ion-col>
+    <ion-col *ngIf="TokenID !== '0x00'"class="information">
+      {{ TokenID.substring(0, 15)+"..." }}
+    </ion-col>
 
-  <ion-item lines="none">
-  <ion-label class="info-lbl">
-   {{ Date.substring(4, 20) }}
-  </ion-label>
-  <ion-label class="completed">
-    Completed
-  </ion-label>
-  </ion-item>
+  </ion-row>
 
-</ion-list>
+  <ion-row>
+    <ion-col class="info-lbl">
+      Amount Colored
+    </ion-col>
+
+    <ion-col class="information">
+      {{ amountCreated }}
+    </ion-col>
+
+  </ion-row>
+
+  <ion-row>
+    <ion-col class="info-lbl">
+      Stored in a Block
+    </ion-col>
+
+    <ion-col *ngIf="isinblock" class="information">
+      True
+    </ion-col>
+    <ion-col *ngIf="!isinblock" class="information">
+      False
+    </ion-col>
+
+  </ion-row>
+
+  <ion-row>
+    <ion-col class="info-lbl">
+      Block #
+    </ion-col>
+
+    <ion-col class="information">
+      {{ Block }}
+    </ion-col>
+
+  </ion-row>
+
+  <ion-row>
+    <ion-col class="info-lbl">
+      Part of chain
+    </ion-col>
+
+    <ion-col *ngIf="ispartofchain" class="information">
+      True
+    </ion-col>
+    <ion-col *ngIf="!ispartofchain" class="information">
+      False
+    </ion-col>
+  </ion-row>
+
+</ion-grid>
+
+<ion-grid>
+  <ion-row>
+    <ion-col class="info-lbl">
+      <ion-text style="font-weight: 400 !important;">{{ Date.substring(4, 10) }}</ion-text><br>
+      <ion-text style="font-size:18px;">{{ Date.substring(10, 20) }}</ion-text>
+     </ion-col>
+
+    <ion-col class="completed">
+      Completed
+    </ion-col>
+  
+  </ion-row>
+</ion-grid>
 </ion-card>
 
 

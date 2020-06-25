@@ -2,7 +2,14 @@
 export interface Tokens {
     tokenid?: string;
     token: string;
-    total: number; 
+    description: string;
+    icon: string;
+    proof: string;
+    total: string;
+    script: string;
+    coinid: string;
+    totalamount: number;
+    scale: string; 
     confirmed: number;
     unconfirmed: any;
     mempool: string;

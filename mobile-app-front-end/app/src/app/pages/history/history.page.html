@@ -10,34 +10,41 @@
   
   <ion-content>
 
-    <ion-card>
-      <ion-card-header>
-        Recent Activity
-        <!-- Category Segment -->
-      <ion-segment (ionChange)="segmentChanged($event, slides)" [(ngModel)] = "categories">
-        <ion-segment-button value="0" class="seg">
-          <ion-label>Transactions</ion-label>
-        </ion-segment-button>
-        <ion-segment-button value="1" class="seg">
-          <ion-label>Tokens Created</ion-label>
-        </ion-segment-button>
-        <ion-segment-button value="2" class="seg">
-        <ion-label>All</ion-label>
-        </ion-segment-button>
-      </ion-segment>
-      </ion-card-header>
+  <ion-card>
+  
+  <ion-card-header>
+  <!-- Category Segment -->
+  <ion-segment (ionChange)="segmentChanged($event, slides)" [(ngModel)] = "categories">
+    <ion-segment-button value="0" class="seg">
+      <ion-label>Transactions</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="1" class="seg">
+      <ion-label>Tokens</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="2" class="seg">
+    <ion-label>All</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+  </ion-card-header>
 
-  <ion-slides #slides pager="false" [options]="sliderOptions" (ionSlideDidChange)="slideChanged(slides)" (ionSlideDidLoad)="slideChanged(slides)">
+  <ion-slides #slides 
+              pager="true"
+             [options]="sliderOptions" 
+             (ionSlideDidChange)="slideChanged(slides)" 
+             (ionSlideDidLoad)="slideChanged(slides)">
 
   <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@ Transactions @@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
-  <ion-slide class="swiper-slide">
+  <ion-slide>
     <ion-card-content>
-
+    <!-- NO TRANSACTIONS -->
     <ion-text *ngIf="isEmpty">No activities to display.</ion-text>
 
-    <ion-grid *ngFor="let transaction of transactions;">
+    <ng-container *ngFor="let transaction of transactions;">
+    <ion-grid>
       <ion-row *ngIf="transactions.length >= 1 && transaction.values[0].name !== 'Create Token';">
-        <ion-item lines="full" class="activity"
+        <ion-item 
+        lines="full" 
+        class="activity"
         (click)="presentModal(transaction.txpow.txpowid, 
                   transaction.values[0].amount,
                   transaction.txpow.body.txn.state,
@@ -47,9 +54,9 @@
                   transaction.txpow.isblock,
                   transaction.values[0].name)">
 
-      <!-- TXN Icon -->
+      <!-- TXN Icon -- desktop only -->
       <ion-col size="1" [hidden]="ios">
-      <ion-icon [name]="getTXNType(transaction.values[0].amount)" size="large"></ion-icon>
+        <ion-icon [name]="getTXNType(transaction.values[0].amount)" size="large"></ion-icon>
       </ion-col>
 
       <!-- TXN Date -->
@@ -64,33 +71,63 @@
       </ion-label>
       </ion-col>
 
-      <!-- TXN Description -->
-      <ion-col size="4" fixed="true" [hidden]="ios">
-        <ion-label id="transaction">
-        <h2 class="h2-type">
-        {{ checkTransType(transaction.values[0].amount) }} <span id="token-name">{{ (transaction.values[0].name).substring(0,12) }}</span>
-        </h2>
-        </ion-label>
+
+      <!-- If it's minima do this.. -->
+        <!-- TXN Description -->
+      <ion-col *ngIf="!transaction.values[0].name.name" size="4" fixed="true" [hidden]="ios">
+        <ng-container *ngIf="transaction.values[0].amount.substring(0,1) == '-'"> 
+          Sent Minima
+        </ng-container>
+
+        <ng-container *ngIf="transaction.values[0].amount.substring(0,1) !== '-'">
+          Received Minima
+        </ng-container>
       </ion-col>
 
       <!-- TXN Description -->
-      <ion-col size="6" fixed="true" [hidden]="!ios">
-        <ion-label id="transaction">
-        <h2 class="h2-type">
-        {{ checkTransType(transaction.values[0].amount) }} <span id="token-name">{{ (transaction.values[0].name).substring(0,12) }}</span>
-        </h2>
-        </ion-label>
+      <ion-col *ngIf="!transaction.values[0].name.name" size="6" fixed="true" [hidden]="!ios">
+        <ng-container *ngIf="transaction.values[0].amount.substring(0,1) == '-'"> 
+          Sent Minima
+        </ng-container>
+
+        <ng-container *ngIf="transaction.values[0].amount.substring(0,1) !== '-'">
+          Received Minima
+        </ng-container>
+      </ion-col>
+
+      <!-- If it's a TOKEN.. do this.. -->
+        <!-- TXN Description -->
+      <ion-col *ngIf="transaction.values[0].name.name" size="4" fixed="true" [hidden]="ios">
+        <ng-container *ngIf="transaction.values[0].amount.substring(0,1) == '-'"> 
+          Sent {{ transaction.values[0].name.name }}
+        </ng-container>
+
+        <ng-container *ngIf="transaction.values[0].amount.substring(0,1) !== '-'">
+          Received {{ transaction.values[0].name.name }}
+        </ng-container>
+      </ion-col>
+
+      <!-- TXN Description -->
+      <ion-col *ngIf="transaction.values[0].name.name" size="6" fixed="true" [hidden]="!ios">
+        <ng-container *ngIf="transaction.values[0].amount.substring(0,1) == '-'"> 
+          Sent {{ transaction.values[0].name.name }}
+        </ng-container>
+
+        <ng-container *ngIf="transaction.values[0].amount.substring(0,1) !== '-'">
+          Received {{ transaction.values[0].name.name }}
+        </ng-container>
       </ion-col>
       
 
       <!-- TXN AMOUNT -->
       <ion-col size="4" fixed="true">
-      <h2 class="amount-h2" *ngIf="transaction.values[0].amount.substring(0,1) === '-'">
-      {{ transaction.values[0].amount + " " }} <span style="text-transform: uppercase;"> {{ (transaction.values[0].name).substring(0, 4)}} </span>
-      </h2>
-      <h2 class="amount-h2" *ngIf="transaction.values[0].amount.substring(0,1) !== '-'">
-      {{ "+" + transaction.values[0].amount + " " }} <span style="text-transform: uppercase;"> {{ (transaction.values[0].name).substring(0, 4)}} </span>
-      </h2>
+        <ng-container  *ngIf="transaction.values[0].amount.substring(0,1) == '-'"> 
+          <h2 class="negative">{{ transaction.values[0].amount}}</h2>
+        </ng-container>
+
+        <ng-container  *ngIf="transaction.values[0].amount.substring(0,1) !== '-'">
+          <h2 class="positive">{{ "+"+ transaction.values[0].amount}}</h2>
+        </ng-container>
       </ion-col>
 
       <!-- TXN Message -->
@@ -102,26 +139,31 @@
 
     </ion-row>
       </ion-grid>
+      </ng-container>
         </ion-card-content>
           </ion-slide>
 
     <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@ Token Creation @@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
-    <ion-slide class="swiper-slide">
+    <ion-slide>
       <ion-card-content style="width: 100%; text-align: center;">
     
         <ion-text *ngIf="tokens.length < 1">No token activities to display. </ion-text>
     
-    <ion-grid *ngFor="let transaction of transactions;">
+    <ng-container *ngIf="tokens.length > 0">
+    <ion-grid *ngFor="let transaction of tokens;">
       <ion-row *ngIf="transactions.length >= 1 && transaction.values[0].name === 'Create Token';">
         <ion-item lines="full" class="activity-tokens"
         (click)="presentTokenModal(transaction.txpow.txpowid, 
                   transaction.values[0].amount,
                   transaction.txpow.body.txn.state,
                   transaction.txpow.header.block,
-                  transaction.txpow.body.txn.inputs[0].tokenid,
+                  transaction.txpow.body.txn.tokengen.tokenid,
                   transaction.txpow.header.date,
                   transaction.txpow.isblock,
-                  transaction.values[0].name)">
+                  transaction.values[0].name,
+                  transaction.txpow.body.txn.tokengen.token,
+                  transaction.txpow.body.txn.tokengen.total,
+                  transaction.txpow.body.txn.tokengen.description)">
       
       <!-- TXN Icon -->
       <ion-col size="1" [hidden]="ios">
@@ -144,8 +186,9 @@
       <ion-col size="4" class="col-transtype" fixed="true" [hidden]="ios">
         <ion-label id="transaction">
         <h2 class="h2-type">
-        Created a token.
+        Created a token
         </h2>
+        <p id="token-name">{{ transaction.txpow.body.txn.tokengen.token }}</p>
         </ion-label>
       </ion-col>
       <!-- TXN Description -->
@@ -154,33 +197,39 @@
         <h2 class="h2-type">
         Created a token
         </h2>
+        <p id="token-name">{{ transaction.txpow.body.txn.tokengen.token }}</p>
         </ion-label>
       </ion-col>
 
 
       <!-- TXN AMOUNT -->
-      <ion-col size="4" fixed="true">
-      <h2 class="amount-h2" *ngIf="transaction.values[0].amount.substring(0,1) === '-'">
-      {{ transaction.values[0].amount + " " }} <span style="text-transform: uppercase;"> MINI </span>
-      </h2>
-      <h2 class="amount-h2" *ngIf="transaction.values[0].amount.substring(0,1) !== '-'">
-      {{ "+" + transaction.values[0].amount + " " }} <span style="text-transform: uppercase;"> MINI </span>
-      </h2>
+      <ion-col id="amount" size="4" fixed="true">
+        <ng-container *ngIf="transaction.values[0].amount.substring(0,1) == '-'"> 
+          <h2 class="positive">{{ "+" + transaction.txpow.body.txn.tokengen.total }}</h2>
+          <p id="mini-amnt">{{ "-"+transaction.values[0].amount + " MINI"}}</p>
+        </ng-container>
+
+        <ng-container *ngIf="transaction.values[0].amount.substring(0,1) !== '-'">
+          <h2 class="positive">{{ "+" +transaction.txpow.body.txn.tokengen.total }}</h2>
+          <p id="mini-amnt">{{ "-"+transaction.values[0].amount + " MINI"}}</p>
+        </ng-container>
       </ion-col>
 
     </ion-item>
       </ion-row>
       </ion-grid>
+      </ng-container>
         </ion-card-content>
          </ion-slide>
 
     <!-- @@@@@@@@@@@@@@@@@@@@@@@@@ All @@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
-    <ion-slide class="swiper-slide">
+    <ion-slide>
       <ion-card-content>
 
       <ion-text *ngIf="isEmpty">No activities to display.</ion-text>
 
-    <ion-grid *ngFor="let transaction of transactions;">
+    <ng-container *ngIf="tokens.length > 0 || transactions.length > 0">
+      <ion-grid *ngFor="let transaction of allTransactions;">
       <ion-row *ngIf="transactions.length >= 1 && transaction.values[0].name !== 'Create Token';">
         <ion-item lines="full" class="activity"
         (click)="presentModal(transaction.txpow.txpowid, 
@@ -209,32 +258,61 @@
       </ion-label>
       </ion-col>
 
-      <!-- TXN Description -->
-      <ion-col size="4" fixed="true" [hidden]="ios">
-        <ion-label id="transaction">
-        <h2 class="h2-type">
-        {{ checkTransType(transaction.values[0].amount) }} <span id="token-name">{{ (transaction.values[0].name).substring(0,12) }}</span>
-        </h2>
-        </ion-label>
+      <!-- If it's minima do this.. -->
+        <!-- TXN Description -->
+      <ion-col *ngIf="!transaction.values[0].name.name" size="4" fixed="true" [hidden]="ios">
+        <ng-container *ngIf="transaction.values[0].amount.substring(0,1) == '-'"> 
+          Sent Minima
+        </ng-container>
+
+        <ng-container *ngIf="transaction.values[0].amount.substring(0,1) !== '-'">
+          Received Minima
+        </ng-container>
       </ion-col>
 
       <!-- TXN Description -->
-      <ion-col size="6" fixed="true" [hidden]="!ios">
-        <ion-label id="transaction">
-        <h2 class="h2-type">
-        {{ checkTransType(transaction.values[0].amount) }} <span id="token-name">{{ (transaction.values[0].name).substring(0,12) }}</span>
-        </h2>
-        </ion-label>
+      <ion-col *ngIf="!transaction.values[0].name.name" size="6" fixed="true" [hidden]="!ios">
+        <ng-container *ngIf="transaction.values[0].amount.substring(0,1) == '-'"> 
+          Sent Minima
+        </ng-container>
+
+        <ng-container *ngIf="transaction.values[0].amount.substring(0,1) !== '-'">
+          Received Minima
+        </ng-container>
+      </ion-col>
+
+      <!-- If it's a TOKEN.. do this.. -->
+        <!-- TXN Description -->
+      <ion-col *ngIf="transaction.values[0].name.name" size="4" fixed="true" [hidden]="ios">
+        <ng-container *ngIf="transaction.values[0].amount.substring(0,1) == '-'"> 
+          Sent {{ transaction.values[0].name.name }}
+        </ng-container>
+
+        <ng-container *ngIf="transaction.values[0].amount.substring(0,1) !== '-'">
+          Received {{ transaction.values[0].name.name }}
+        </ng-container>
+      </ion-col>
+
+      <!-- TXN Description -->
+      <ion-col *ngIf="transaction.values[0].name.name" size="6" fixed="true" [hidden]="!ios">
+        <ng-container *ngIf="transaction.values[0].amount.substring(0,1) == '-'"> 
+          Sent {{ transaction.values[0].name.name }}
+        </ng-container>
+
+        <ng-container *ngIf="transaction.values[0].amount.substring(0,1) !== '-'">
+          Received {{ transaction.values[0].name.name }}
+        </ng-container>
       </ion-col>
 
       <!-- TXN AMOUNT -->
       <ion-col size="4" fixed="true">
-      <h2 class="amount-h2" *ngIf="transaction.values[0].amount.substring(0,1) === '-'">
-      {{ transaction.values[0].amount + " " }} <span style="text-transform: uppercase;"> {{ (transaction.values[0].name).substring(0, 4)}} </span>
-      </h2>
-      <h2 class="amount-h2" *ngIf="transaction.values[0].amount.substring(0,1) !== '-'">
-      {{ "+" + transaction.values[0].amount + " " }} <span style="text-transform: uppercase;"> {{ (transaction.values[0].name).substring(0, 4)}} </span>
-      </h2>
+        <ng-container *ngIf="transaction.values[0].amount.substring(0,1) == '-'"> 
+          <h2 class="negative">{{ transaction.values[0].amount}}</h2>
+        </ng-container>
+
+        <ng-container *ngIf="transaction.values[0].amount.substring(0,1) !== '-'">
+          <h2 class="positive">{{ "+"+ transaction.values[0].amount}}</h2>
+        </ng-container>
       </ion-col>
 
       <!-- TXN Message -->
@@ -245,7 +323,7 @@
     </ion-item>
     <!-- Tokens -->
     </ion-row>
-
+    
     <ion-row *ngIf="transactions.length >= 1 && transaction.values[0].name === 'Create Token';">
     <ion-item
     lines="full"
@@ -254,17 +332,20 @@
                   transaction.values[0].amount,
                   transaction.txpow.body.txn.state,
                   transaction.txpow.header.block,
-                  transaction.txpow.body.txn.inputs[0].tokenid,
+                  transaction.txpow.body.txn.tokengen.tokenid,
                   transaction.txpow.header.date,
                   transaction.txpow.isblock,
-                  transaction.values[0].name)">
+                  transaction.values[0].name,
+                  transaction.txpow.body.txn.tokengen.token,
+                  transaction.txpow.body.txn.tokengen.total,
+                  transaction.txpow.body.txn.tokengen.description)">
       <!-- TXN Icon -->
       <ion-col size="1" [hidden]="ios">
       <ion-icon name="brush" size="large"></ion-icon>
       </ion-col>
 
       <!-- TXN Date -->
-      <ion-col size="2" class="col-month" fixed="true">
+      <ion-col size="2" fixed="true">
       <ion-label>
       <p id="day">
       {{ transaction.txpow.header.date.substring(8, 10) }}
@@ -276,37 +357,50 @@
       </ion-col>
 
       <!-- TXN Description -->
-      <ion-col size="5" class="col-transtype" fixed="true">
+      <ion-col size="4" class="col-transtype" fixed="true" [hidden]="ios">
         <ion-label id="transaction">
         <h2 class="h2-type">
         Created a token
         </h2>
+        <p id="token-name">{{ transaction.txpow.body.txn.tokengen.token }}</p>
+        </ion-label>
+      </ion-col>
+      <!-- TXN Description -->
+      <ion-col size="5" class="col-transtype" fixed="true" [hidden]="!ios">
+        <ion-label id="transaction">
+        <h2 class="h2-type">
+        Created a token
+        </h2>
+        <p id="token-name">{{ transaction.txpow.body.txn.tokengen.token }}</p>
         </ion-label>
       </ion-col>
 
+
       <!-- TXN AMOUNT -->
-      <ion-col size="4" fixed="true">
-      <h2 class="amount-h2" *ngIf="transaction.values[0].amount.substring(0,1) === '-'">
-      {{ transaction.values[0].amount + " " }} <span style="text-transform: uppercase;"> MINI </span>
-      </h2>
-      <h2 class="amount-h2" *ngIf="transaction.values[0].amount.substring(0,1) !== '-'">
-      {{ "+" + transaction.values[0].amount + " " }} <span style="text-transform: uppercase;"> MINI </span>
-      </h2>
+      <ion-col id="amount" size="4" fixed="true">
+        <ng-container *ngIf="transaction.values[0].amount.substring(0,1) == '-'"> 
+          <h2 class="positive">{{ "+" + transaction.txpow.body.txn.tokengen.total }}</h2>
+          <p id="mini-amnt">{{ "-"+transaction.values[0].amount + " MINI"}}</p>
+        </ng-container>
+
+        <ng-container *ngIf="transaction.values[0].amount.substring(0,1) !== '-'">
+          <h2 class="positive">{{ "+" +transaction.txpow.body.txn.tokengen.total }}</h2>
+          <p id="mini-amnt">{{ "-"+transaction.values[0].amount + " MINI"}}</p>
+        </ng-container>
       </ion-col>
     
     </ion-item>
       </ion-row>
         </ion-grid>
+          </ng-container>
           </ion-card-content>
             </ion-slide>
-              </ion-slides>
 
 
-
-  <!-- SKELETON FOR UX LOADING -->
-   
-  
-  <ion-grid *ngFor="let length of t_summarySpoof">
+    <ion-slide>
+    <!-- SKELETON FOR UX LOADING -->
+  <ng-container *ngFor="let length of t_summarySpoof">
+  <ion-grid>
     <ion-row *ngIf="length.values[0].name !== 'Create Token' && transactions.length < 1">
       <ion-item  class="activity-skeleton" lines="full">
 
@@ -351,7 +445,14 @@
   </ion-item>
     </ion-row>
       </ion-grid>
-        </ion-card>
+      </ng-container>
+        </ion-slide>
+      </ion-slides>
+  </ion-card>
+
+
+  
+  
   
   
 </ion-content>

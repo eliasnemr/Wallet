@@ -40,12 +40,14 @@
         <ion-menu-toggle auto-hide="false" *ngFor="let p of basic; let i = index">
           
             <ion-item 
+            class="ripple-parent ion-activatable"
             detail="false"
             routerLinkActive="selected"
             routerDirection="root"
             [hidden] = "p.hidden" 
             [routerLink]="p.routerLink"
             lines="{{ p.line }}">
+              <ion-ripple-effect type="unbounded"></ion-ripple-effect>
 
             <ion-icon name="{{ p.icon }}" slot="start"></ion-icon> {{ p.title }}
 
@@ -58,12 +60,15 @@
         <ion-menu-toggle auto-hide="false" *ngFor="let p of advanced; let i = index">
           
             <ion-item 
+            class="ripple-parent ion-activatable"
             detail="false"
             routerLinkActive="selected"
             routerDirection="root"
             [hidden] = "p.hidden" 
             routerLink="{{ p.routerLink }}"
             lines="{{ p.line }}">
+              <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+
 
             <ion-icon name="{{ p.icon }}" slot="start"></ion-icon> {{ p.title }}
 
@@ -74,14 +79,15 @@
 
   <ion-menu-toggle auto-hide="false">
       <ion-footer class="footer-content">
-        <ion-item id="footer-item" routerLink="/settings" routerLinkActive="selected" lines="none">
+        <ion-item class="ripple-parent ion-activatable"id="footer-item" routerLink="/settings" routerLinkActive="selected" lines="none">
           <ion-icon name="build" slot="start"></ion-icon> Settings
         </ion-item>
+              <ion-ripple-effect type="unbounded"></ion-ripple-effect>
       </ion-footer>
   </ion-menu-toggle>
   </ion-menu>
 
   <ion-router-outlet main id="mainMenu"></ion-router-outlet>
   </ion-split-pane>
-  
+
 </ion-app>

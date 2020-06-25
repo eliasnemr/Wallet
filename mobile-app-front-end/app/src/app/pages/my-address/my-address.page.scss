@@ -11,6 +11,7 @@ ion-content {
 
 ion-card {
     --background: var(--ion-background-color, #f2f2f2);
+    background: linear-gradient(to bottom,  var(--ion-background-color, #fff) 0%, var(--ion-background-color, #f2f2f2) 100%) !important;
 }
 ion-footer ion-toolbar ion-buttons ion-button {
     width: 100%;
@@ -35,7 +36,12 @@ ion-footer ion-toolbar ion-buttons ion-button {
     width: 50px;
     height: auto;
 }
-
+.addr-title {
+    padding: 10px;
+}
+.qr-container {
+    border: 5px solid linear-gradient(to bottom,  var(--ion-background-color, #fff) 0%, var(--ion-background-color, #f2f2f2) 100%) !important;;
+}
 
 
 // ion-grid, ion-row, ion-col 
@@ -45,5 +51,4 @@ ion-grid {
     --ion-grid-width-xl: 360px;
     --ion-grid-width-lg: 360px;
     --ion-grid-padding-md: 90px;
-
 }

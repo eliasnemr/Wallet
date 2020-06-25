@@ -15,7 +15,7 @@
     --ion-color-primary-tint: #4c8dff;
 
     /** secondary **/
-    --ion-color-secondary: #0cd1e8;
+    --ion-color-secondary: #F6617E;
     --ion-color-secondary-rgb: 12, 209, 232;
     --ion-color-secondary-contrast: #ffffff;
     --ion-color-secondary-contrast-rgb: 255, 255, 255;
@@ -63,7 +63,7 @@
     --ion-color-dark-tint: #383a3e;
 
     /** medium **/
-    --ion-color-medium: #989aa2;
+    --ion-color-medium: #f2f2f2;
     --ion-color-medium-rgb: 152, 154, 162;
     --ion-color-medium-contrast: #ffffff;
     --ion-color-medium-contrast-rgb: 255, 255, 255;
@@ -77,6 +77,13 @@
     --ion-color-light-contrast-rgb: 0, 0, 0;
     --ion-color-light-shade: #d7d8da;
     --ion-color-light-tint: #f5f6f9;
+    /** icon **/
+    --ion-color-icon: #ffa64d;
+    --ion-color-icon-rgb: 255, 166, 77;
+    --ion-color-icon-contrast: #000000;
+    --ion-color-icon-contrast-rgb: 0, 0, 0;
+    --ion-color-icon-shade: #d7d8da;
+    --ion-color-icon-tint: #f5f6f9;
 
     /** custom Minima css vars **/
     --minima-terminal-size: 12px;
@@ -97,6 +104,12 @@
 
   .ios ion-header {
     padding-top: 10px;
+  }
+
+  .swiper-pagination {
+    --background: var(--ion-background-color, #f2f2f2);
+    background: linear-gradient(to bottom,  var(--ion-background-color, #fff) 0%, var(--ion-background-color, #f2f2f2) 100%) !important;
+    bottom: 0px !important;
   }
 
 
@@ -167,6 +180,12 @@
       --height: 100px;
     opacity: 0.96;
 
+    }
+    .tokenDescr-modal .modal-wrapper { 
+      height: 650px;
+      position: absolute; 
+      display: block;  
+      width: 850px;
     }
 
 }

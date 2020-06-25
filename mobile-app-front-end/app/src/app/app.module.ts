@@ -19,10 +19,11 @@ import * as MifiJS from 'src/assets/JS/minima.js';
 import * as HTML5QR from 'node_modules/html5-qrcode/minified/html5-qrcode.min.js';
 import { HistorymodalPage } from './components/historymodal/historymodal.page';
 import { HistorytokenmodalPage } from './components/historytokenmodal/historytokenmodal.page';
+import { TokenDescrComponent } from './components/token-descr/token-descr.component';
 
 @NgModule({
-  declarations: [AppComponent, PopOverComponent, PopTermComponent, HistorymodalPage, HistorytokenmodalPage],
-  entryComponents: [PopOverComponent, PopTermComponent, HistorymodalPage, HistorytokenmodalPage],
+  declarations: [AppComponent, PopOverComponent, PopTermComponent, HistorymodalPage, HistorytokenmodalPage, TokenDescrComponent],
+  entryComponents: [PopOverComponent, PopTermComponent, HistorymodalPage, HistorytokenmodalPage, TokenDescrComponent],
   imports: [FormsModule, HttpClientModule, BrowserModule, IonicModule.forRoot(), AppRoutingModule, IonicStorageModule.forRoot()],
   providers: [
     Storage,

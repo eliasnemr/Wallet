@@ -28,9 +28,7 @@
   <ion-card *ngIf="!isWebCameraOpen">
     <ion-card-header>
       <ion-card-title>
-        <ion-item lines="none">
           <ion-icon style=" font-size:2.0rem;" slot="start" name="send" class="icon-head" ></ion-icon>
-        </ion-item>
       </ion-card-title>
     </ion-card-header>
 
@@ -44,14 +42,16 @@
               (ionChange)="onItemSelection($event)"> 
           <ion-select-option *ngFor="let token of tokenArr;" [value]="token" class="token-option">
           
-            <p *ngIf="token.id === '0x00'">
-            {{ token.token  + ' <' + token.tokenid.substring(0, 12) + '>'  }} 
-            </p>
+            <ion-text *ngIf="token.tokenid === '0x00'">
+            {{ token.token +" {"+  token.tokenid + "}" }} 
 
-            <p *ngIf="token.id !== '0x00'">
-            {{ token.token  + ' <' + token.tokenid.substring(0, 12) + '...>'  }} 
-            </p>
+            </ion-text>
+
+            <ion-text *ngIf="token.tokenid !== '0x00'">
+            {{ token.token +" {"+ token.tokenid.substring(0, 12)+"...}"  }} 
+            </ion-text>
           </ion-select-option>
+
         </ion-select>
         </ion-item>
 

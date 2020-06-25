@@ -1,9 +1,22 @@
-ion-card-header {
-    --background: var(--ion-background-color, #f2f2f2);
+// ion-grid, ion-row, ion-col 
+ion-grid {
+    --ion-grid-padding: 0;
+    --ion-grid-column-padding: 0;
+    --ion-grid-width-xl: 360px;
+    --ion-grid-width-lg: 360px;
+    --ion-grid-padding-md: 90px;
 }
+
+ion-card-header {
+
+    --background: var(--ion-background-color, #f2f2f2);
+    background: linear-gradient(to bottom,  var(--ion-background-color, #fff) 0%, var(--ion-background-color, #f2f2f2) 100%) !important;
+    
+}
+
 ion-card-content {
     width: 100%;
-    text-align: center;
+    text-align: center;    
 }
 ion-segment {
     margin-top: 5px;
@@ -55,32 +68,28 @@ ion-row:hover {
     border-left: 2px solid #f2f2f2;
 }
 ion-row {
-    width: 90%;
+    width: 100%;
 }
 .activity div h1 {
     font-size: 14px;
     text-transform: uppercase;
 }
-.amount {
-    text-align: center;
+#amount {
+    font-weight: 500;
+    font-size: 18px;
 }
 #month {
-    font-weight: bolder;
+    font-weight: 700;
     font-size: 20px;
     color: #00AAC7;
 }
 #day {
-    font-weight: bolder;
+    font-weight: 700;
     font-size: 22px;
     color: #FF671D;
 }
 #token-name {
-    font-weight: bolder;
-    color: #FF671D;
-}
-
-.h2-type {
-    font-size: 20px;
+    font-weight: 700;
 }
 .p-tokenid {
     font-weight: bolder;
@@ -97,6 +106,24 @@ ion-row {
 
 .msg-details {
     font-size: 16px;
+    white-space: normal !important;
+}
+#token-name {
+    font-weight: 300;
+    color: #b3b3b3;
+}
+#mini-amnt {
+    font-weight: 300;
+    font-size: 12px;
+    color: #b3b3b3;
+}
+.negative {
+    color: #F07473;
+    font-weight: 500;
+}
+.positive {
+    color: #48D2D3;
+    font-weight: 800;
 }
 
 /** @@@@@@@@@@@@@@@@@ iOS @@@@@@@@@@@@@@@@@@@ */
@@ -159,3 +186,6 @@ ion-row {
 .no-activity-item {
     padding-left: 2%;
 }
+
+
+

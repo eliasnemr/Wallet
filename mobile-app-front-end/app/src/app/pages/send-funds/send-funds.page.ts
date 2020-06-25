@@ -217,13 +217,20 @@ export class SendFundsPage implements OnInit {
             this.minimaToken = element.tokenid;
           }
           tokenArr.push({
-              tokenid: element.tokenid,
-              token: element.token,
-              total: element.total,
-              confirmed: tempConfirmed,
-              unconfirmed: tempUnconfirmed,
-              mempool: element.mempool,
-              sendable: element.sendable
+            tokenid: element.tokenid,
+            token: element.token,
+            description: element.description,
+            icon: element.icon,
+            proof: element.proof,
+            total: element.total,
+            script: element.script,
+            coinid: element.coinid,
+            totalamount: element.totalamount,
+            scale: element.scale,
+            confirmed: tempConfirmed,
+            unconfirmed: tempUnconfirmed,
+            mempool: element.mempool,
+            sendable: element.sendable
           });
 
           // add Minima always to the top

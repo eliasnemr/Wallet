@@ -21,12 +21,16 @@ export class HistoryPage implements OnInit {
   ios: boolean = false;
   sliderOptions = {
     initialSlide: 0,
-    slidesPerView: 1,
-    speed: 200
+    slidesPerView: 1.0,
+    slideShadows: true,
+    speed: 900
   }
   // + vars
   public transactions: History[] = [];
+  public minimaTransactions: History[] = [];
+  public allTransactions: History[] = [];
   public tokens: History[] = [];
+  public tokenTransactions: History[] = [];
   public t_summarySpoof: History[] = [];
 
   polledHistorySubscription: Subscription;
@@ -76,7 +80,7 @@ export class HistoryPage implements OnInit {
   }
   async presentTokenModal(_txpowid: string, _amount: any,
     _message: any,  _block: number, _tokenid: string, _date: string, _isBlock: boolean,
-    _name: string) {
+    _name: string, _tokenNameGiven: string, _amountCreated: string, _description) {
    const modal = await this.modalController.create({
      component: HistorytokenmodalPage,
      componentProps: {
@@ -87,7 +91,10 @@ export class HistoryPage implements OnInit {
        'TokenID': _tokenid,
        'Date': _date,
        'isBlock': _isBlock,
-       'TokenName': _name
+       'TokenName': _name,
+       'tokenNameGiven': _tokenNameGiven,
+       'amountCreated': _amountCreated,
+       'description': _description
      }
    });
    return await modal.present();
@@ -95,14 +102,7 @@ export class HistoryPage implements OnInit {
 
 
   /** MISC Functions */
-  // Check if we're receiving or sending
-  checkTransType(amount: string) {
-    if(amount.substring(0,1) === "-"){
-      return "Sent";
-    } else {
-      return "Received";
-    }
-  } 
+  
   getTXNType(amount: string) {
     if(amount.substring(0,1) === "-"){
       return "arrow-round-back";
@@ -115,9 +115,7 @@ export class HistoryPage implements OnInit {
   getUserOrderPref() {
     if(true){
     return 't_summaryArr.slice().reverse()';
-    } else {
-    return 't_summaryArr';
-  }
+    }
   }
 
   // Categories Segment
@@ -149,30 +147,28 @@ export class HistoryPage implements OnInit {
   // Get all users activities+transactions history
   pullInHistorySummary() {
   this.polledHistorySubscription = this.historyService.getHistory().pipe(map(responseData => {
-    console.log(responseData);
-    let historyArr: History[] = [];
-    for(const key in responseData.response){
-      let history = responseData.response;
-        if(history[key]){
+    responseData.response.history.forEach((element: any)=> {
+      let name = element.values[0].name;
 
-          //Transaction description summary
-          historyArr = history[key];
+      if(name.substring(0,1) === '{'){
+        element.values[0].name = JSON.parse(name);
+        this.transactions.push(element);
+        this.allTransactions.push(element);
+      } else if(name === 'Create Token'){
+        this.allTransactions.push(element);
+        this.tokens.push(element);
+      } else {
+        this.transactions.push(element);
+        this.allTransactions.push(element);
 
-          history.history.forEach((element: History) => {
-            
-            if(element.values[0].name === 'Create Token'){
-              this.tokens.push(element);
-            }
-            
-          })
-          
-        }
-        return historyArr;
-    }
+      }
+
+    });
+    console.log(this.transactions);
   })).subscribe(responseData => {
     
     if(this.lastJSON !== JSON.stringify(responseData)){
-      this.transactions = responseData;
+      //this.transactions = responseData;
       this.lastJSON = JSON.stringify(responseData);
     }
 

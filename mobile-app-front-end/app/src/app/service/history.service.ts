@@ -49,7 +49,6 @@ export class HistoryService {
     
     return this.polledHistory$ = timer(0, 2000).pipe(
       
-      merge(this.manualRefresh),
       concatMap(_ => history$),
       map((res: {status: boolean, minifunc: string, message: string, response: {history: History[]}}) => res)
 

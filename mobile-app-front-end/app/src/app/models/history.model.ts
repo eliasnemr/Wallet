@@ -79,7 +79,7 @@ export interface History {
     }
     values:[{
         token: string,
-        name: string,
+        name: any,
         amount: string
     }]
 

@@ -40,6 +40,10 @@ export class MinimaApiService {
     return this.req("tokencreate name:\""+data.name+"\" amount:"+data.amount+" description:\""+data.description+"\" script:\""+data.script+"\" icon:"+data.icon+" proof:"+data.proof);
   }
 
+  validateTokenID(tokenid: string){
+    return this.req("tokenvalidate "+tokenid);
+  }
+
   createTXN(data: any){
     console.log("createTXN"+ data.message);
     const txnidentifier = Math.floor(Math.random()*1000000000);

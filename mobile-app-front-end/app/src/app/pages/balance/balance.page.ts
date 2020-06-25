@@ -3,11 +3,12 @@ import { map, concatMap } from 'rxjs/operators';
 import { timer } from 'rxjs/Observable/timer';
 import { MinimaApiService } from '../../service/minima-api.service';
 import { Component, ChangeDetectorRef, AfterContentChecked, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
-import { AlertController, PopoverController, NavController, IonLabel, IonInput } from '@ionic/angular';
+import { AlertController, PopoverController, NavController, IonLabel, IonInput, ModalController } from '@ionic/angular';
 import { Tokens } from '../../models/tokens.model';
 import { PopOverComponent } from '../../components/pop-over/pop-over.component';
 import { BalanceService } from '../../service/balance.service';
 import { Router } from '@angular/router';
+import { TokenDescrComponent } from '../../components/token-descr/token-descr.component';
 
 @Component({
   selector: 'app-balance',
@@ -28,7 +29,7 @@ export class BalancePage implements OnInit {
   // - vars
   private lastJSON = '';
   private host: any = '';
-  private MINI_TOKENID = '0x00';
+  private MINIMA = '0x00';
 
   constructor(
     private service: BalanceService,
@@ -36,22 +37,26 @@ export class BalancePage implements OnInit {
     public alertController: AlertController,
     public popoverController: PopoverController,
     private ref: ChangeDetectorRef,
-    private route: Router) {}
+    private route: Router,
+    private modalController: ModalController) {}
 
   ionViewWillEnter() {
-    this.pullInTokens(); // subscribes & polls balance
-    
+    this.pullInTokens();
+  }
+  
+  ngOnInit(){
     window.addEventListener('MinimaEvent', (evt: any)=> {
+
       // Event connection success
       if(evt.detail.event === 'newbalance') {
 
         this.pullInTokens();
 
-      } 
+      } else if(evt.detail.event === 'connected') {
+        this.pullInTokens();
+      }
     });
   }
-  
-  ngOnInit(){}
   
   ionViewWillLeave(){
     this.balanceSubscription.unsubscribe(); // unsubs
@@ -86,14 +91,50 @@ export class BalancePage implements OnInit {
     });
   }
 
-  // currently unavailable
-  doRefresh(event) {
-    // setTimeout( () => {
-    //   event.target.complete();
-    //   console.log('refreshing completed.');
-    // }, 1000);
-  }
-
+  /** Async Pop ups */
+      /** Tokens
+     * 
+    tokenid?: string;
+    token: string;
+    description: string;
+    icon: string;
+    proof: string;
+    total: string;
+    script: string;
+    coinid: string;
+    totalamount: number;
+    scale: string; 
+    confirmed: number;
+    unconfirmed: any;
+    mempool: string;
+    sendable: string;
+     */
+  async presentTokenDescr(
+    id: string, token: string, descr: string, icon:string, proof: string, total: string,
+     script: string, coinid: string, totalamnt: string, scale:string, conf: number, unconf:any, memp: string, sendable: string) {
+  const modal = await this.modalController.create({
+     component: TokenDescrComponent,
+     cssClass: 'tokenDescr-modal',
+     componentProps: {
+       'tokenid': id,
+       'name': token,
+       'description': descr,
+       'icon': icon,
+       'proof': proof,
+       'total': total,
+       'script': script,
+       'coinid': coinid,
+       'totalamount': totalamnt,
+       'scale': scale,
+       'confirmed': conf,
+       'unconfirmed': unconf,
+       'mempool': memp,
+       'sendable': sendable,
+     }
+   });
+   return await modal.present();
+ }
+ 
   async presentPopover(ev: any, id: string) {
     console.log("id taken: "+id);
     const popover = await this.popoverController.create({
@@ -101,7 +142,7 @@ export class BalancePage implements OnInit {
       event: ev,
       cssClass: 'balance-popover',
       translucent: false,
-      componentProps:{tokenid: id},
+      componentProps:{'tokenid': id},
     });
     return await popover.present();
 
@@ -129,7 +170,14 @@ export class BalancePage implements OnInit {
           tokenArr.push({
               tokenid: element.tokenid,
               token: element.token,
+              description: element.description,
+              icon: element.icon,
+              proof: element.proof,
               total: element.total,
+              script: element.script,
+              coinid: element.coinid,
+              totalamount: element.totalamount,
+              scale: element.scale,
               confirmed: tempConfirmed,
               unconfirmed: tempUnconfirmed,
               mempool: element.mempool,
@@ -137,7 +185,7 @@ export class BalancePage implements OnInit {
           });
 
           // add Minima always to the top
-          if(element.tokenid === this.MINI_TOKENID){
+          if(element.tokenid === this.MINIMA){
             tokenArr.pop(); // pop it
             this.service.update(
             tokenArr,
