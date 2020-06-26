@@ -77,7 +77,7 @@ export class CreateTokenPage implements OnInit {
           this.data.proof = f.value.proof;
         }
         if(f.checkboxicon === false || f.value.icon === "" || f.value.icon.length <= 0){
-          this.data.icon = "assets/icon/icon.png";
+          this.data.icon = "";
         } else {
           this.data.icon = f.value.icon;
         }
@@ -93,7 +93,7 @@ export class CreateTokenPage implements OnInit {
             this.presentToast('Success! '+this.data.name + ' has been created.', "success");
             this.resetForm();
           } else {
-            this.presentToast("Your token creation failed, please check your records", 'danger');
+            this.presentToast("Your token creation failed, "+res.message, 'danger');
           }
         });
 
