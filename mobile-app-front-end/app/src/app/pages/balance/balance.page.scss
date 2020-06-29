@@ -4,13 +4,30 @@
     }
 }
 
+ion-item-sliding ion-item div .item-native {
+  padding-left: 0px;
+}
+
 .send-slide {
   background-color: #FF671E;
 }
 
 ion-card {
     --background: var(--ion-background-color, #f2f2f2);
+}
 
+ion-avatar {
+  width:100% !important;  
+  height : 100% !important;  
+  max-width: 20px !important;  //any size
+  max-height: 150px !important; //any size 
+}
+img {
+  padding: 0 !important;
+  border: 1px solid #f2f2f2;
+  max-width: 150px;
+  width: 120px;
+  border-radius: 50%;
 }
 
 ion-footer ion-toolbar ion-buttons ion-button{

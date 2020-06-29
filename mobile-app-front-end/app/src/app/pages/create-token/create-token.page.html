@@ -11,7 +11,6 @@
 <ion-content>
   <ion-card color="white">
     <ion-card-header>
-    
       <ion-card-title>
       <ion-icon size="large" name="clipboard"></ion-icon>
       <ion-text style="position:relative; padding:8px 0 0 8px;" [hidden]="tokenName.length === 0">Your transaction for the token, {{ tokenName }}</ion-text>
@@ -21,16 +20,7 @@
     <ion-card-content>
       <!-- Token FORM -->
       <form (ngSubmit)="createTokenAdvanced(f)" #f="ngForm" id='my-form'>
-
-        <ion-item lines="none" [hidden]="!nft.isNonFungible">
-          <ion-text style="padding: 20px; color: #855EFC; font-weight: 800;">
-          <ion-icon size="small" name="images"></ion-icon>
-          Your can only send this token whole
-          <ion-icon size="small" name="images"></ion-icon>
-          </ion-text>  
-          
-        </ion-item>
-      
+  
         <ion-item>
           <ion-label position="floating" class="amount-font">Name</ion-label>
           <ion-input #nameTextArea name="name" [(ngModel)]="data.name" (ionChange)="onUpdateTokenName($event)"></ion-input>
@@ -64,22 +54,29 @@
           <ion-input name="icon" #iconURL [(ngModel)]="data.icon" placeholder="icon URL"></ion-input>
           <ion-checkbox class="checkbox" name="checkboxicon" [(ngModel)]="iconEntry.isChecked"></ion-checkbox>
         </ion-item>
+        <ion-note [hidden]="!iconEntry.isChecked">To set an icon for your token, add the URL of the hosted icon.</ion-note>
         <!-- Proof Entry -->
-        <ion-item [hidden]="proofEntry.isChecked">
+
+       <ion-item [hidden]="proofEntry.isChecked">
           <ion-label>Proof</ion-label>
           <ion-checkbox class="checkbox" name="checkboxproof" [(ngModel)]="proofEntry.isChecked"></ion-checkbox>
         </ion-item>
 
         <ion-item [hidden]="!proofEntry.isChecked">
           <ion-label>Proof (Optional)</ion-label>
-          <ion-input name="proof" #proofURL [(ngModel)]="data.proof" placeholder="proof URL"></ion-input>
+          <ion-input  name="proof" #proofURL [(ngModel)]="data.proof" placeholder="proof URL"></ion-input>
           <ion-checkbox class="checkbox" name="checkboxproof" [(ngModel)]="proofEntry.isChecked"></ion-checkbox>
         </ion-item>
+        <ion-note [hidden]="!proofEntry.isChecked">To set proof for your token, add to your host website a text file with the token ID.</ion-note>
         
         <ion-item lines="none">
           <ion-label>Non Fungible Token</ion-label>
           <ion-checkbox class="checkbox" name="NFT" [(ngModel)]="nft.isNonFungible"></ion-checkbox>
         </ion-item>
+         <ion-note [hidden]="!nft.isNonFungible" style="padding: 20px; color: #855EFC; font-weight: 800;">
+          <ion-icon  size="small" name="images"></ion-icon>
+          This token can be spent whole only
+          </ion-note>  
       </form>
     </ion-card-content>
 
