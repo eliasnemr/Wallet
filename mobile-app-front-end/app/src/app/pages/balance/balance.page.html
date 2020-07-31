@@ -89,8 +89,8 @@
     <ion-col size="3" slot="end">
 
       <ion-row style="border:none;">
-        <span *ngIf="token.confirmed === token.sendable" class="confirmed-amount medium-text">{{ token.confirmed }}</span>
-        <span *ngIf="token.confirmed !== token.sendable" class="confirmed-amount medium-text">{{ token.confirmed +"/"+token.sendable }}</span>
+        <span *ngIf="token.confirmed !== token.sendable" class="confirmed-amount medium-text">{{ token.confirmed }}</span>
+        <span *ngIf="token.confirmed === token.sendable" class="confirmed-amount medium-text">{{ token.confirmed +"/"+token.sendable }}</span>
       </ion-row>
 
       <ion-row *ngIf="token.unconfirmed !== 0" style="border:none;">
