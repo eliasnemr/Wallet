@@ -1,19 +1,29 @@
 <ion-app>
-<ion-list lines="none">
-    <ion-list-header>
-        Token ID: 
-          
-        <ion-item [hidden]="refTokenid == '0x00'" class="token-lbl" id="copythis">{{refTokenid.substring(0, 10)+"..."}}</ion-item>
-        <ion-item [hidden]="refTokenid !== '0x00'" class="token-lbl" id="copythis">{{refTokenid.substring(0, 10)}}</ion-item>        
 
-            
-    </ion-list-header>
-    <ion-item style="width: 100%;">
-    <ion-button (click)="copyToClipboard()" class="popover-btn" fill="clear" size="small" expand="full" style="width: 100%;" >
-        <ion-icon name="copy"></ion-icon> 
-            Copy
-        </ion-button>
-    </ion-item>
-</ion-list>
+    <ion-grid>
+        <ion-row>
+            <ion-col size="12" style="text-align: center;">
+                <p [hidden]="refTokenid == '0x00'" class="small-text" id="copythis">{{refTokenid.substring(0, 20)+"..."}}</p>
+                <p [hidden]="refTokenid !== '0x00'" class="small-text" id="copythis">{{ refTokenid }}</p>    
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size="12">
+                <ion-button 
+                (click)="copyToClipboard()" 
+                class="popover-btn small-text" 
+                fill="clear" 
+                size="small" 
+                expand="full" 
+                style="width: 100%;" >
+                
+                <ion-icon name="copy"></ion-icon> 
+                
+                </ion-button>
+            </ion-col>
+        </ion-row>
+
+    </ion-grid>
+
 </ion-app>
 

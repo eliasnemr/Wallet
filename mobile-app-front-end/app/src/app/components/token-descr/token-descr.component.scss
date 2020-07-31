@@ -11,8 +11,7 @@ ion-title ion-icon {
     font-weight: 300;
 }
 ion-title span {
-    color:  var(--ion-text-color, #000);
-    font-size: 16px;
+    // color:  var(--ion-text-color, #000);
 }
 ion-card-header {
     width: 100%;
@@ -26,7 +25,8 @@ ion-card-header ion-grid {
     text-align: center;
 }
 ion-card-header ion-icon {
-    --ionicon-stroke-width: 60px;
+    --ionicon-stroke-width: 45px;
+
 }
 ion-card-header img {
     width: 100px;

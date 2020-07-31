@@ -41,6 +41,10 @@
   font-size: 12px;
 }
 /** */
+.medium-text {
+  opacity: 1.5;
+  font-weight: 700;
+}
 .footer-content {
   padding-top: 10px;
 }
@@ -193,7 +197,8 @@ ion-menu.md ion-list {
   ion-menu.ios ion-list {
     padding-bottom: 0px !important;
   }
-//
+
+
 
 
 

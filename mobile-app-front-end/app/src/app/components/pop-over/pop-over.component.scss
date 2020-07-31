@@ -5,8 +5,11 @@
 //     }
 // }
 
-.token-lbl {
-    font-size: 14px;
+p {
+    word-break: break-all;
+    word-wrap: break-word;
+    white-space: normal;
+    hyphens: auto;
 }
 
 /** no scrolling on pop-over */

@@ -50,9 +50,18 @@ ion-footer ion-toolbar ion-buttons ion-button{
  .unconfirmed-amount {
      white-space: normal;
      word-break: break-all;
-     hyphens: auto;
+     font-style: oblique;
+     opacity: 0.5;
      color: var(--minima-text);
      text-align: right;
+ }
+ .mempool-amount {
+  white-space: normal;
+  word-break: break-all;
+  font-style: oblique;
+  opacity: 0.3;
+  color: var(--minima-text);
+  text-align: right;
  }
 
 
@@ -166,3 +175,7 @@ ion-card-content {
 }
 
 
+.small-text {
+  font-weight: 500;
+  opacity: 0.75;
+}

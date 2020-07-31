@@ -62,7 +62,7 @@ export class HistoryPage implements OnInit {
   /** Modals */
   async presentModal(_txpowid: string, _amount: any,
      _message: any, _block: number, _tokenid: string, _date: string, _isBlock: boolean,
-     _name: string) {
+     _name: string, _address: string) {
     const modal = await this.modalController.create({
       component: HistorymodalPage,
       componentProps: {
@@ -73,7 +73,8 @@ export class HistoryPage implements OnInit {
         'TokenID': _tokenid,
         'Date': _date,
         'isBlock': _isBlock,
-        'TokenName': _name
+        'TokenName': _name,
+        'Address': _address
       }
     });
     return await modal.present();

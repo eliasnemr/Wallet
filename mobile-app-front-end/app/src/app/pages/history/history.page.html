@@ -52,7 +52,8 @@
                   transaction.txpow.body.txn.inputs[0].tokenid,
                   transaction.txpow.header.date,
                   transaction.txpow.isblock,
-                  transaction.values[0].name)">
+                  transaction.values[0].name,
+                  transaction.txpow.body.txn.outputs[0].address)">
 
       <!-- TXN Icon -- desktop only -->
       <ion-col size="1" [hidden]="ios">

@@ -1,17 +1,20 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title slot="start">
-    {{ name }}
-    <span [hidden]="tokenid == '0x00'">{{ tokenid.substring(0,8) + "..."}}</span>
-    <span [hidden]="tokenid !== '0x00'">{{ tokenid }}</span>
+    <ion-title slot="start" class="large-text">
+    
+    <span *ngIf="name.length <= 10" class="large-text">{{ name + " " }}</span>
+    <span *ngIf="name.length > 10" class="large-text">{{ name.substring(0, 10)+"... " }}</span>
+
+    <span class="medium-text" [hidden]="tokenid == '0x00'">{{ tokenid.substring(0,8) + "..."}}</span>
+    <span class="medium-text" [hidden]="tokenid !== '0x00'">{{ tokenid }}</span>
     <ion-icon (click)="copyToClipboard()" name="clipboard"></ion-icon>
     </ion-title>
   
   <ion-button 
+  class="medium-text"
   slot="end"
   fill="clear"
-  (click)="dismiss()"
-  class="dismiss-btn">
+  (click)="dismiss()">
   Dismiss
   </ion-button>
   </ion-toolbar>
@@ -29,10 +32,10 @@
           </ion-col>
         </ion-row>
         <ion-row>
-          <ion-col [hidden]="tokenid === '0x00'">
+          <ion-col class="medium-text" [hidden]="tokenid === '0x00'">
           {{ description }}
           </ion-col>
-          <ion-col [hidden]="tokenid !== '0x00'">
+          <ion-col class="medium-text" [hidden]="tokenid !== '0x00'">
             Minima's Official Token
           </ion-col>
         </ion-row>
@@ -41,90 +44,90 @@
     <ion-card-content>
       <ion-grid>
         <ion-row>
-         <ion-col id="varname">
+         <ion-col class="small-text" id="varname">
            Total Amount Available
          </ion-col>
-         <ion-col id="variable">
+         <ion-col class="small-text" id="variable">
             {{ total }}
          </ion-col>
         </ion-row>
         <ion-row [hidden]="tokenid == '0x00'">
-         <ion-col id="varname">
+         <ion-col class="small-text" id="varname">
            Total Amount Available (Minima)
          </ion-col>
-         <ion-col id="variable">
+         <ion-col class="small-text" id="variable">
             {{ totalamount }}
          </ion-col>
         </ion-row>
         <ion-row>
-         <ion-col id="varname">
+         <ion-col class="small-text" id="varname">
            Token Type
          </ion-col>
-         <ion-col [hidden]="script !== 'RETURN TRUE'" id="variable">   
+         <ion-col class="small-text" [hidden]="script !== 'RETURN TRUE'" id="variable">   
             Fungible
          </ion-col>
-         <ion-col [hidden]="script == 'RETURN TRUE'" id="variable">
+         <ion-col class="small-text" [hidden]="script == 'RETURN TRUE'" id="variable">
             Non-Fungible
          </ion-col>
         </ion-row>
         <ion-row>
-         <ion-col id="varname">
+         <ion-col class="small-text" id="varname">
            Proof Availability
          </ion-col>
-         <ion-col [hidden]="proof.length > 0" id="variable">   
+         <ion-col class="small-text" [hidden]="proof.length > 0" id="variable">   
             False
          </ion-col>
-         <ion-col [hidden]="proof.length == 0" id="variable">
+         <ion-col class="small-text" [hidden]="proof.length == 0" id="variable">
             True
          </ion-col>
         </ion-row>
         <ion-row id="varname" [hidden]="proof.length <= 0">
-         <ion-col>
+         <ion-col class="small-text">
            Proof URL
          </ion-col>
-         <ion-col id="variable">   
+         <ion-col class="small-text" id="variable">   
              {{ proof }}
          </ion-col>
         </ion-row>
         <ion-row id="varname" [hidden]="proof.length <= 0">
-         <ion-col>
+         <ion-col class="small-text">
            Validate Proof
          </ion-col>
          <ion-col id="variable">   
-          <ion-button size="small" (click)="validateProof(tokenid)">
+          <ion-button class="small-text" size="small" (click)="validateProof(tokenid)">
             Validate
           </ion-button>
          </ion-col>
         </ion-row>
         <ion-row>
-         <ion-col id="varname" >
+         <ion-col class="small-text" id="varname" >
            Confirmed/Sendable Amount
          </ion-col>
-         <ion-col id="variable">   
+         <ion-col class="small-text" id="variable">   
              {{ confirmed + "/" + sendable }}
          </ion-col>
         </ion-row>
         <ion-row>
-         <ion-col id="varname">
+         <ion-col class="small-text" id="varname">
            Unconfirmed Amount
          </ion-col>
-         <ion-col id="variable">   
+         <ion-col class="small-text" id="variable">   
              {{ unconfirmed }}
          </ion-col>
         </ion-row>
         <ion-row>
-         <ion-col id="varname">
+         <ion-col class="small-text" id="varname">
            Mempool
          </ion-col>
-         <ion-col id="variable">   
+         <ion-col class="small-text" id="variable">   
              {{ mempool }}
          </ion-col>
         </ion-row>
         <ion-row>
-         <ion-col size="3" id="varname">
+         <ion-col class="small-text" size="3" id="varname">
            Script
          </ion-col>
-         <ion-col size="9" id="variable">   
+         <ion-col class="small-text" size="9" id="variable">   
              {{ script }}
          </ion-col>
         </ion-row>
@@ -134,7 +137,7 @@
   </ion-card>
   <!-- fab placed to the bottom end -->
   <ion-fab vertical="bottom" horizontal="start" slot="fixed">
-    <ion-fab-button size="80px;" color="medium" (click)="sendTokenOver(tokenid)">
+    <ion-fab-button size="55px;" color="minima-text" (click)="sendTokenOver(tokenid)">
       <ion-icon size="45px;" name="send" color="tertiary"></ion-icon>
     </ion-fab-button>
   </ion-fab>
@@ -162,7 +165,7 @@
   </ion-card>
   <!-- fab placed to the bottom end -->
   <ion-fab vertical="bottom" horizontal="start" slot="fixed">
-    <ion-fab-button size="80px;" color="medium" (click)="sendTokenOver(tokenid)">
+    <ion-fab-button size="55px;" color="minima-text" (click)="sendTokenOver(tokenid)">
       <ion-icon size="45px;" name="send" color="tertiary"></ion-icon>
     </ion-fab-button>
   </ion-fab>

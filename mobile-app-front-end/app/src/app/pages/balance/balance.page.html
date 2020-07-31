@@ -21,8 +21,8 @@
     <ion-row>    
       <ion-item-sliding>
       <ion-item-options side="start">
-      <ion-item-option class="receive-slide" routerLink="/my-address">Receive</ion-item-option>
-      <ion-item-option class="send-slide" (click)="sendTokenOver(token.tokenid)">Send</ion-item-option>
+      <ion-item-option class="receive-slide small-text" routerLink="/my-address">Receive</ion-item-option>
+      <ion-item-option class="send-slide small-text" (click)="sendTokenOver(token.tokenid)">Send</ion-item-option>
       </ion-item-options>
 
   <!-- TOKENS ONLY -->
@@ -80,7 +80,7 @@
     
 
     <ion-row style="border:none; padding-left: 5px;">
-      <ion-text class="abbr-name smaller-text"> {{ token.token.substring(0,3) }} </ion-text>
+      <ion-text class="abbr-name small-text"> {{ token.token.substring(0,3) }} </ion-text>
     </ion-row>
 
   </ion-col>
@@ -100,7 +100,7 @@
       </ion-row>
 
       <ion-row *ngIf="token.mempool === 0" style="border:none;">
-        <span class="unconfirmed-amount medium-text">
+        <span class="mempool-amount medium-text">
           {{ token.mempool }}
         </span>
       </ion-row>
@@ -112,7 +112,7 @@
 
 
   <ion-item-options side="end">
-    <ion-item-option (click)="presentPopover($event, token.tokenid)">Token ID</ion-item-option>
+    <ion-item-option class="small-text" (click)="presentPopover($event, token.tokenid)">Token ID</ion-item-option>
   </ion-item-options>
   </ion-item-sliding>
     </ion-row>
