@@ -164,7 +164,6 @@ export class HistoryPage implements OnInit {
       }
 
     });
-    console.log(this.transactions);
   })).subscribe(responseData => {
     
     if(this.lastJSON !== JSON.stringify(responseData)){

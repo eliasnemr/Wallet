@@ -115,7 +115,7 @@ export class SendFundsPage implements OnInit {
         
         this.router.navigate(["/send-funds", {id: element.tokenid}]);
 
-        console.log(this.itemSelected)
+        //console.log(this.itemSelected)
         // update tokenid
         this.updateTokenId(element.tokenid);
       }

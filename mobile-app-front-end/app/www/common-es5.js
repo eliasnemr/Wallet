@@ -485,7 +485,7 @@ var BalanceService = /** @class */ (function () {
         // create custom observable to talk with minima.js
         var balanceObservable = rxjs__WEBPACK_IMPORTED_MODULE_4__["Observable"].create(function (observer) {
             observer.next(Minima.balance);
-            console.log(Minima.balance);
+            //console.log(Minima.balance);
         });
         var balance$ = balanceObservable;
         return this.polledBalance$ = Object(rxjs_Observable_timer__WEBPACK_IMPORTED_MODULE_6__["timer"])(0, 2000).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["merge"])(this.manualRefresh), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["concatMap"])(function (_) { return balance$; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (res) { return res; }));

@@ -1,11 +1,11 @@
 <div class="my-overlay" padding [hidden]="overlayHidden">   
   <ion-card>
   <ion-card-header>
-      <ion-note style="padding-left: 20px;">Wallet v0.91</ion-note>
+      <ion-note class="large-text" style="padding-left: 20px;">Wallet v0.91</ion-note>
     <img [src]="getImg()">
   </ion-card-header>
-    <h2> Welcome! </h2>
-    <p> This is <b> Minima's Official Wallet </b>.  
+    <h2 class="large-text"> Welcome! </h2>
+    <p class="medium-text"> This is <b> Minima's Official Wallet </b>.  
     It was built as a compact core wallet for Minima v1.0.
     </p>
 
@@ -40,7 +40,7 @@
         <ion-menu-toggle auto-hide="false" *ngFor="let p of basic; let i = index">
           
             <ion-item 
-            class="ripple-parent ion-activatable"
+            class="ripple-parent ion-activatable medium-text"
             detail="false"
             routerLinkActive="selected"
             routerDirection="root"
@@ -60,7 +60,7 @@
         <ion-menu-toggle auto-hide="false" *ngFor="let p of advanced; let i = index">
           
             <ion-item 
-            class="ripple-parent ion-activatable"
+            class="ripple-parent ion-activatable medium-text"
             detail="false"
             routerLinkActive="selected"
             routerDirection="root"
@@ -79,7 +79,7 @@
 
   <ion-menu-toggle auto-hide="false">
       <ion-footer class="footer-content">
-        <ion-item class="ripple-parent ion-activatable"id="footer-item" routerLink="/settings" routerLinkActive="selected" lines="none">
+        <ion-item class="ripple-parent ion-activatable medium-text" id="footer-item" routerLink="/settings" routerLinkActive="selected" lines="none">
           <ion-icon name="build" slot="start"></ion-icon> Settings
         </ion-item>
               <ion-ripple-effect type="unbounded"></ion-ripple-effect>

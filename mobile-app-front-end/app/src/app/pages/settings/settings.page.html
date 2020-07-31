@@ -3,10 +3,10 @@
   <ion-toolbar>
 
     <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
+      <ion-menu-button class="menu-icon"></ion-menu-button>
     </ion-buttons>
 
-    <ion-title color="primary">
+    <ion-title class="large-text">
       Settings
     </ion-title>
 
@@ -22,22 +22,22 @@
 <ion-content>
     <form>
       <ion-item [hidden]="true">
-        <ion-icon slot="start" name="link" style="padding: 10px;" color="primary"></ion-icon>
-        <ion-label style="font-style: normal;" position="floating" color="primary">Host</ion-label>
+        <ion-icon slot="start" name="link" style="padding: 10px;"></ion-icon>
+        <span class="medium-text" position="floating" color="primary">Host</span>
         <ion-input name="host" [(ngModel)]="host"></ion-input>
       </ion-item>
     </form>
    
     <ion-item lines="full">
-      <ion-icon slot="start" name="moon" style="padding: 10px;" color="primary"></ion-icon>
-      <ion-label style="font-style:normal;" color="tertiary">Night Mode</ion-label>
-      <ion-toggle #darkToggle color="primary" [(ngModel)]="toggleValue" (ionChange)="checkToggle()"></ion-toggle>
+      <ion-icon slot="start" name="moon" style="padding: 10px;"></ion-icon>
+      <span class="medium-text">Night Mode</span>
+      <ion-toggle  slot="end" #darkToggle [(ngModel)]="toggleValue" (ionChange)="checkToggle()"></ion-toggle>
     </ion-item>
 
     <ion-item lines="none">
-      <ion-icon slot="start" name="exit" style="padding: 10px;" color="primary"></ion-icon>
-      <ion-label style="font-style: normal" color="tertiary" class="hide-chckbox">Hide Welcome Screen Overlay</ion-label>
-      <ion-toggle color="primary" [(ngModel)]="overlayHidePref" (ionChange)="checkOverlayToggle()"></ion-toggle>
+      <ion-icon slot="start" name="exit" style="padding: 10px;"></ion-icon>
+      <span class="hide-chckbox medium-text">Hide Welcome Screen Overlay</span>
+      <ion-toggle  slot="end" color="primary" [(ngModel)]="overlayHidePref" (ionChange)="checkOverlayToggle()"></ion-toggle>
     </ion-item>
     
 </ion-content>

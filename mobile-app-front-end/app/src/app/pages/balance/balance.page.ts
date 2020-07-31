@@ -19,8 +19,6 @@ import { TokenDescrComponent } from '../../components/token-descr/token-descr.co
 
 export class BalancePage implements OnInit {
 
-  @ViewChild('balance', {static: false}) balance: ElementRef;
-
   tokenArr: Tokens[] = [];
   tokenSpoof: Tokens[] = [];
   
@@ -136,7 +134,6 @@ export class BalancePage implements OnInit {
  }
  
   async presentPopover(ev: any, id: string) {
-    console.log("id taken: "+id);
     const popover = await this.popoverController.create({
       component: PopOverComponent,
       event: ev,

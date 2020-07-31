@@ -92,6 +92,7 @@
       --ion-color-light-contrast-rgb: 255,255,255;
       --ion-color-light-shade: #1e2023;
       --ion-color-light-tint: #383a3e;
+
   
       ion-refresher-content {
         padding-bottom: 200px;
@@ -111,7 +112,7 @@
      */
     
     .ios body.dark {
-      --ion-background-color: #000000;
+      --ion-background-color: #202123;
       --ion-background-color-rgb: 0,0,0;
     
       --ion-text-color: #ffffff;
@@ -139,7 +140,7 @@
     
       --ion-toolbar-background: #0d0d0d;
     
-      --ion-item-background: #1c1c1c;
+      --ion-item-background: #202123;
       --ion-item-background-activated: #313131;
   
       ion-refresher-content {
@@ -168,7 +169,7 @@
      */
     
     .md body.dark {
-      --ion-background-color: #121212;
+      --ion-background-color: #202123;
       --ion-background-color-rgb: 18,18,18;
     
       --ion-text-color: #ffffff;
@@ -224,6 +225,9 @@
 
 //CSS Fallback 
 body.dark {
+  --minima-text: #868687;
+  --minima-icons: #868687;
+
   --ion-color-primary: #06AAC7;
   --ion-color-primary-rgb: 66,140,255;
   --ion-color-primary-contrast: #ffffff;
@@ -305,7 +309,9 @@ body.dark {
  */
 
 .ios body.dark {
-  --ion-background-color: #000000;
+  --minima-text: #868687;
+
+  --ion-background-color: #202123;
   --ion-background-color-rgb: 0,0,0;
 
   --ion-text-color: #ffffff;
@@ -354,6 +360,8 @@ body.dark {
 //  */
 
 .md body.dark {
+  /** Dark Mode text */
+  --minima-text: #868687;
   --ion-background-color: #121212;
   --ion-background-color-rgb: 18,18,18;
 

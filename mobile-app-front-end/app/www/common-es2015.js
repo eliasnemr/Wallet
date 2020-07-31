@@ -763,7 +763,7 @@ let BalanceService = class BalanceService {
         // create custom observable to talk with minima.js
         const balanceObservable = rxjs__WEBPACK_IMPORTED_MODULE_4__["Observable"].create(observer => {
             observer.next(Minima.balance);
-            console.log(Minima.balance);
+            //console.log(Minima.balance);
         });
         let balance$ = balanceObservable;
         return this.polledBalance$ = Object(rxjs_Observable_timer__WEBPACK_IMPORTED_MODULE_6__["timer"])(0, 2000).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["merge"])(this.manualRefresh), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["concatMap"])(_ => balance$), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])((res) => res));

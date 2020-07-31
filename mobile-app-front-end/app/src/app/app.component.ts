@@ -148,15 +148,10 @@ export class AppComponent {
   getImg() {
 
   if(document.body.classList.contains('dark')){
-      return './assets/fulllogodark.svg';
+      return './assets/MINIMADARKMODE.svg';
     } else if(this.currentMode === false) {
-      return './assets/fulllogo.svg';
-    } else {
-      return './assets/fulllogo.svg';
-    }
-    
-
-    
+      return './assets/MINIMALIGHTMODE.svg';
+    }  
   }
 
   // checking if desktop
@@ -213,7 +208,7 @@ export class AppComponent {
   }
 
   notifyMe() {
-    let notificationIcon = '../assets/icon/minima.svg';
+    //let notificationIcon = '../assets/icon/icon.png';
     let notificationBody = 'You just received some tokens';
     // Let's check if the browser supports notifications
   if (!("Notification" in window)) {
@@ -226,7 +221,7 @@ export class AppComponent {
     
     var notification = new Notification("Minima",
     {
-      icon: notificationIcon,
+      //icon: notificationIcon,
       body: notificationBody
     });
   }
@@ -239,7 +234,7 @@ export class AppComponent {
         
         var notification = new Notification("Minima", 
         {
-          icon: notificationIcon,
+          //icon: notificationIcon,
           body: notificationBody
         } );
         

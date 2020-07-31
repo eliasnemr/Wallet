@@ -12,6 +12,6 @@ export interface Tokens {
     scale: string; 
     confirmed: number;
     unconfirmed: any;
-    mempool: string;
-    sendable: string;
+    mempool: number;
+    sendable: number;
 }

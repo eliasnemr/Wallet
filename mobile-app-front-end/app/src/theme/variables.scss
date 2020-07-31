@@ -89,8 +89,14 @@
     --minima-terminal-size: 12px;
     --overflow: hidden;
 
+    /** Light mode text */
+    --minima-text: #202123;
+    --minima-icons: #e2e2e2;
+  
     $alert-ios-content-max-height:700px !default;
     $alert-md-content-max-height:400px !default;
+
+
   }
   // FIX POP UP IN SEND-FUNDS.. WON'T WORK OTHERWISE
   .alert-wrapper.sc-ion-alert-md {
@@ -188,4 +194,112 @@
       width: 850px;
     }
 
+}
+
+.menu-icon {
+  font-size: 18px;
+  color: var(--minima-text);
+}
+
+.large-text {
+  font-size: large;
+  color: var(--minima-text);
+}
+
+.medium-text {
+  font-size: medium;
+  color: var(--minima-text);
+
+}
+
+.small-text {
+  font-size: small;
+  color: var(--minima-text);
+
+}
+
+.smaller-text {
+  font-size: 12px;
+  color: var(--minima-text);
+
+}
+
+
+
+@media only screen and (max-width: 600px) {
+
+    .menu-icon {
+      font-size: 18px;
+    }
+
+    .large-text {
+      font-size: 14px;
+    }
+    
+    .medium-text {
+      font-size: 12px;
+    
+    }
+    
+    .small-text {
+      font-size: 10px;
+    
+    }
+    
+    .smaller-text {
+      font-size: 8px;
+    
+    }
+
+    @media only screen and (max-width: 400px) {
+      
+      .menu-icon {
+        font-size: 18px;
+      }
+
+      .large-text {
+        font-size: 10px;
+      }
+      
+      .medium-text {
+        font-size: 9px;
+      
+      }
+      
+      .small-text {
+        font-size: 8px;
+      
+      }
+      
+      .smaller-text {
+        font-size: 6px;
+      
+      }
+    }
+    
+}
+.ios {
+
+  .menu-icon {
+    font-size: 18px;
+  }
+
+  .large-text {
+    font-size: 14px;
+  }
+  
+  .medium-text {
+    font-size: 12px;
+  
+  }
+  
+  .small-text {
+    font-size: 10px;
+  
+  }
+  
+  .smaller-text {
+    font-size: 8px;
+  
+  }
 }

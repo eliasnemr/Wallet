@@ -44,6 +44,7 @@ export interface History {
         remainder: boolean
     }],
     state: [],
+    tokengen: any,
     linkhash: string
     }
     },

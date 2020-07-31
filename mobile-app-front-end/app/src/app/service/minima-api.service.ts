@@ -129,7 +129,7 @@ export class MinimaApiService {
   req(fnc: any) {
     let promise = new Promise((resolve, reject) => {
       Minima.cmd(fnc, function(resp){
-        console.log(resp);
+        //console.log(resp);
         resolve(resp);
       });
     })

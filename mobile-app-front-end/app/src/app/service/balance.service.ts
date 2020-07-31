@@ -51,7 +51,7 @@ export class BalanceService {
 
       observer.next(Minima.balance);
 
-      console.log(Minima.balance);
+      //console.log(Minima.balance);
 
     });
 

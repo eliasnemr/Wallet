@@ -55,7 +55,7 @@ var Minima = {
 	status : {},
 	balance : {},
 	uuid : Math.floor(Math.random()*1000000000),
-	logging : true,
+	logging : false,
 	
 	//Minima Startup
 	init : function(){

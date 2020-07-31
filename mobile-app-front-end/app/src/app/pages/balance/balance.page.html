@@ -1,9 +1,9 @@
 <ion-header>
     <ion-toolbar>
       <ion-buttons slot="start">
-        <ion-menu-button></ion-menu-button>
+        <ion-menu-button class="menu-icon"></ion-menu-button>
       </ion-buttons>
-      <ion-title color="primary">
+      <ion-title class="large-text">
         Balance
       </ion-title>
     </ion-toolbar>
@@ -33,43 +33,80 @@
                                       token.unconfirmed, token.mempool, token.sendable)">
     <ion-avatar slot="start">
       <img *ngIf="token.icon" alt="Avatar" class="balance-token" src="{{ token.icon }}">
-      <img *ngIf="!token.icon || token.icon.length <= 0" alt="Avatar"class="balance-token" src="assets/icon/icon.png">
+      <img *ngIf="!token.icon || token.icon.length <= 0" alt="Avatar" class="balance-token" src="assets/icon/icon.png">
     </ion-avatar>
 
-  <ion-col size="3" style="padding: 12px;"slot="start">
+  <ion-col size="9" style="padding: 12px;" slot="start">
 
-    <ion-row *ngIf="token.token.length < 15" style="border: none; padding-left: 5px;">
-      <ion-text class="balance-name"> {{ token.token}} </ion-text>
-    </ion-row>
-    <ion-row *ngIf="token.token.length >= 15" style="border: none; padding-left: 5px;">
-      <ion-text class="balance-name"> {{ token.token.substring(0,15)+"..." }} </ion-text>
-    </ion-row>
+    <!-- if token name is shorter than 15 -->
+    <div *ngIf="token.token.length < 15">
+      <ion-row style="border: none; padding-left: 5px;">
+        <ion-text class="medium-text"> {{ token.token}} </ion-text>
+      </ion-row>
+    </div>
+    <!-- if token name is longer than 15 and smaller than 30 -->   
+    <div *ngIf="token.token.length >= 15 && token.token.length < 30" >
+      <ion-row style="border:none; padding-left: 5px;">
+        <ion-text class="medium-text"> {{ token.token.substring(0,15)+"-" }} </ion-text>
+      </ion-row>
+      <ion-row style="border:none; padding-left: 5px;">
+        <ion-text class="small-text"> {{ token.token.substring(15, 30) }} </ion-text>
+      </ion-row>
+    </div>
+    <!-- if token name is longer than 30 and smaller than 45 -->   
+    <div *ngIf="token.token.length >= 15 && token.token.length < 45" >
+      <ion-row style="border:none; padding-left: 5px;">
+        <ion-text class="medium-text"> {{ token.token.substring(0,15)+"-" }} </ion-text>
+      </ion-row>
+      <ion-row style="border:none; padding-left: 5px;">
+        <ion-text class="small-text"> {{ token.token.substring(15, 30)+"-" }} </ion-text>
+      </ion-row>
+      <ion-row style="border:none; padding-left: 5px;">
+        <ion-text class="smaller-text"> {{ token.token.substring(30, 45) }} </ion-text>
+      </ion-row>
+    </div>
+    <!-- if token name is longer than 45... -->   
+    <div *ngIf="token.token.length >= 45" >
+      <ion-row style="border:none; padding-left: 5px;">
+        <ion-text class="medium-text"> {{ token.token.substring(0,15)+"-" }} </ion-text>
+      </ion-row>
+      <ion-row style="border:none; padding-left: 5px;">
+        <ion-text class="small-text"> {{ token.token.substring(15, 30)+"-" }} </ion-text>
+      </ion-row>
+      <ion-row style="border:none; padding-left: 5px;">
+        <ion-text class="smaller-text"> {{ token.token.substring(30, 45)+"..." }} </ion-text>
+      </ion-row>
+    </div>
+    
+
     <ion-row style="border:none; padding-left: 5px;">
-      <ion-text class="abbr-name"> {{ token.token.substring(0,3) }} </ion-text>
+      <ion-text class="abbr-name smaller-text"> {{ token.token.substring(0,3) }} </ion-text>
     </ion-row>
 
   </ion-col>
 
-  <ion-col size="3" slot="end" #balance>
-  <ion-label *ngIf="token.confirmed == token.sendable" class="confirmed-amount">
-    {{ token.confirmed }}
-  </ion-label>
-  <ion-label *ngIf="token.sendable != token.confirmed" class="confirmed-amount">
-    {{ token.confirmed +"/"+token.sendable }}
-  </ion-label>
-  </ion-col>
 
-  <ion-col *ngIf='token.unconfirmed !== 0' size="3" slot="end">
-  <ion-label class="unconfirmed-amount" color="white">
-    {{ token.unconfirmed }}
-  </ion-label>
-  </ion-col>
+    <ion-col size="3" slot="end">
 
-  <ion-col *ngIf='token.mempool != 0' size="3" slot="end">
-  <ion-label class="unconfirmed-amount" color="#92A8D1">
-    {{ token.mempool }}
-  </ion-label>
-  </ion-col>
+      <ion-row style="border:none;">
+        <span *ngIf="token.confirmed === token.sendable" class="confirmed-amount medium-text">{{ token.confirmed }}</span>
+        <span *ngIf="token.confirmed !== token.sendable" class="confirmed-amount medium-text">{{ token.confirmed +"/"+token.sendable }}</span>
+      </ion-row>
+
+      <ion-row *ngIf="token.unconfirmed !== 0" style="border:none;">
+        <span class="unconfirmed-amount medium-text">
+          {{ token.unconfirmed }}
+        </span>
+      </ion-row>
+
+      <ion-row *ngIf="token.mempool === 0" style="border:none;">
+        <span class="unconfirmed-amount medium-text">
+          {{ token.mempool }}
+        </span>
+      </ion-row>
+
+    </ion-col>
+
   
   </ion-item>
 
@@ -90,7 +127,7 @@
   <ion-footer>
     <ion-toolbar>
       <ion-buttons>
-        <ion-button class="action-btn" shape="" expand="block" type="button" (click)="giveMe50()">
+        <ion-button class="action-btn medium-text" shape="" expand="block" type="button" (click)="giveMe50()">
           <ion-icon name="cash" slot="start"></ion-icon> Gimme 50
         </ion-button>
       </ion-buttons>
