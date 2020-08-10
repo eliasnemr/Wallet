@@ -15,11 +15,11 @@ Minima, full mobile cryptocurrency. Ionic cross-platform project with a full run
 Now that you have all the needed packages.  You can proceed to learn how to run it if you haven't ran an Ionic project before.
 
 1. Open your terminal and clone the repository as below:
-``
+>``
 git clone https://github.com/eliasnemr/Minima.git
 ``
 2. Open your preferred code editor and cd to the top directory which is app.
-``
+>``
 cd ~/minimacore/mobile-app-front-end/app
 ``
 3. You now are ready to launch the app either in
@@ -31,7 +31,7 @@ cd ~/minimacore/mobile-app-front-end/app
 To test the app in your browser you will have to have the Minima node running on your local machine.  (If you haven't already downloaded the Minima Node, follow the tutorial [here](www.github.com/spartacusrex99/Minima)).
 
  - Launch the project in your local browser by typing in the terminal
-    ``ionic serve``
+    >``ionic serve``
 
 The browser should now automatically launch with the app running locally.  If it doesn't open your browser and go to your localhost at port 8100; http://localhost:8100/. 
 
@@ -39,15 +39,15 @@ The browser should now automatically launch with the app running locally.  If it
  To run the app in android you will certainly have to have **Android Studio** installed.
 
  You launch the android app using
-  ``npx cap open android``
- in terminal.
+  >``npx cap open android``
+
 
  ##### iOS
  To run the app in iOS you will certainly have to have a mac machine and Xcode installed.
 
  You launch the iOS app using
- `` npx cap open ios``
- in terminal.
+ >`` npx cap open ios``
+ 
 
 
 ### Enjoy Minima :grin:
