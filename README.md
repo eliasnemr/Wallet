@@ -4,9 +4,9 @@ Minima, full mobile cryptocurrency. Ionic cross-platform project with a full run
 
 #### Prerequisites
 - Latest version of **node.js**
-  - Get the latest version of node.js [here](nodejs.org/en/).
+  - Get the latest version of node.js [here](https://nodejs.org/en/).
 - When you have **node.js** installed, you can now use **npm** in your terminal to install **Ionic Framework**.
-  - Follow the step by step tutorial on **Ionic's** Official [Documentation](ionicframework.com/docs/intro/cli).
+  - Follow the step by step tutorial on **Ionic's** Official [Documentation](https://ionicframework.com/docs/intro/cli).
 - You will need **capacitor** (an api created by Ionic to bridge native features)
   - Find the latest version [here](https://capacitorjs.com/docs/getting-started).
 
