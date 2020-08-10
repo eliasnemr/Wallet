@@ -965,11 +965,11 @@ var HistorymodalPage = /** @class */ (function () {
         var _this = this;
         // retrieve some needed vars for the modal
         this.txpow = this.navParams.get('TXPOW_ID');
-        console.log("TXPOW is.." + this.txpow);
+        //console.log("TXPOW is.."+ this.txpow);
         Minima.cmd('txpowinfo ' + this.txpow, function (res) {
             _this.ispartofchain = JSON.stringify(res.response.ischainblock);
             _this.isinblock = JSON.stringify(res.response.isinblock);
-            console.log('ispartofchain: ' + _this.ispartofchain + ' isinblock: ' + _this.isinblock);
+            //console.log('ispartofchain: '+this.ispartofchain + ' isinblock: '+ this.isinblock);
         });
     };
     HistorymodalPage.prototype.getTXNType = function (amount) {
@@ -1043,11 +1043,11 @@ var HistorytokenmodalPage = /** @class */ (function () {
         var _this = this;
         // retrieve some needed vars for the modal
         this.txpow = this.navParams.get('TXPOW_ID');
-        console.log("TXPOW is.." + this.txpow);
+        //console.log("TXPOW is.."+ this.txpow);
         Minima.cmd('txpowinfo ' + this.txpow, function (res) {
             _this.ispartofchain = JSON.stringify(res.response.ischainblock);
             _this.isinblock = JSON.stringify(res.response.isinblock);
-            console.log('ispartofchain: ' + _this.ispartofchain + ' isinblock: ' + _this.isinblock);
+            //console.log('ispartofchain: '+this.ispartofchain + ' isinblock: '+ this.isinblock);
         });
     };
     HistorytokenmodalPage.prototype.dismiss = function () {

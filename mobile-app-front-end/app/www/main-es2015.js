@@ -939,11 +939,11 @@ let HistorymodalPage = class HistorymodalPage {
     ngOnInit() {
         // retrieve some needed vars for the modal
         this.txpow = this.navParams.get('TXPOW_ID');
-        console.log("TXPOW is.." + this.txpow);
+        //console.log("TXPOW is.."+ this.txpow);
         Minima.cmd('txpowinfo ' + this.txpow, (res) => {
             this.ispartofchain = JSON.stringify(res.response.ischainblock);
             this.isinblock = JSON.stringify(res.response.isinblock);
-            console.log('ispartofchain: ' + this.ispartofchain + ' isinblock: ' + this.isinblock);
+            //console.log('ispartofchain: '+this.ispartofchain + ' isinblock: '+ this.isinblock);
         });
     }
     getTXNType(amount) {
@@ -1015,11 +1015,11 @@ let HistorytokenmodalPage = class HistorytokenmodalPage {
     ngOnInit() {
         // retrieve some needed vars for the modal
         this.txpow = this.navParams.get('TXPOW_ID');
-        console.log("TXPOW is.." + this.txpow);
+        //console.log("TXPOW is.."+ this.txpow);
         Minima.cmd('txpowinfo ' + this.txpow, (res) => {
             this.ispartofchain = JSON.stringify(res.response.ischainblock);
             this.isinblock = JSON.stringify(res.response.isinblock);
-            console.log('ispartofchain: ' + this.ispartofchain + ' isinblock: ' + this.isinblock);
+            //console.log('ispartofchain: '+this.ispartofchain + ' isinblock: '+ this.isinblock);
         });
     }
     dismiss() {

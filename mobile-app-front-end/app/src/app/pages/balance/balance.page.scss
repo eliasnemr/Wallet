@@ -80,8 +80,9 @@ ion-footer ion-toolbar ion-buttons ion-button{
   }
 
   .balance-token {
+    max-height: 40px;
     float: left;
-    width: 35px;
+    max-width: 35px;
     padding-right: 5px;
   }
   .balance-tokenname {
