@@ -33,7 +33,7 @@ To test the app in your browser you will have to have the Minima node running on
  - Launch the project in your local browser by typing in the terminal
     >``ionic serve``
 
-The browser should now automatically launch with the app running locally.  If it doesn't open your browser and go to your localhost at port 8100; http://localhost:8100/. 
+The browser should now automatically launch with the app running locally.  If it doesn't open your browser then just manually browse to your localhost at port 8100; http://localhost:8100/. 
 
  #### Android
  To run the app in android you will certainly have to have **Android Studio** installed.
