@@ -6,13 +6,17 @@
         "activityBar.inactiveForeground": "#15202b99",
         "activityBarBadge.background": "#d24d94",
         "activityBarBadge.foreground": "#e7e7e7",
-        "titleBar.activeBackground": "#6da7d9",
-        "titleBar.inactiveBackground": "#6da7d999",
+        "titleBar.activeBackground": "#6ca6da",
+        "titleBar.inactiveBackground": "#6ca6da99",
         "titleBar.activeForeground": "#15202b",
         "titleBar.inactiveForeground": "#15202b99",
-        "statusBar.background": "#6da7d9",
-        "statusBarItem.hoverBackground": "#458fce",
-        "statusBar.foreground": "#15202b"
+        "statusBar.background": "#6ca6da",
+        "statusBarItem.hoverBackground": "#438dd0",
+        "statusBar.foreground": "#15202b",
+        "activityBar.activeBackground": "#95bfe4",
+        "statusBar.border": "#6ca6da",
+        "titleBar.border": "#6ca6da"
     },
-    "git.ignoreLimitWarning": true
+    "git.ignoreLimitWarning": true,
+    "peacock.color": "#6ca6da"
 }
