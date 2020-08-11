@@ -118,7 +118,9 @@ let MiniStatusPage = class MiniStatusPage {
         });
     }
     ionViewWillLeave() {
-        this.statusSubscription.unsubscribe(); // unsubs
+        if (this.statusSubscription) {
+            this.statusSubscription.unsubscribe(); // unsubs
+        }
     }
     getImg() {
         if (document.body.classList.value === 'dark') {

@@ -133,7 +133,9 @@ let HistoryPage = class HistoryPage {
         }, 500);
     }
     ionViewDidLeave() {
-        this.polledHistorySubscription.unsubscribe();
+        if (this.polledHistorySubscription) {
+            this.polledHistorySubscription.unsubscribe();
+        }
     }
     /** Modals */
     presentModal(_txpowid, _amount, _message, _block, _tokenid, _date, _isBlock, _name, _address) {

@@ -122,7 +122,9 @@ var MiniStatusPage = /** @class */ (function () {
         });
     };
     MiniStatusPage.prototype.ionViewWillLeave = function () {
-        this.statusSubscription.unsubscribe(); // unsubs
+        if (this.statusSubscription) {
+            this.statusSubscription.unsubscribe(); // unsubs
+        }
     };
     MiniStatusPage.prototype.getImg = function () {
         if (document.body.classList.value === 'dark') {

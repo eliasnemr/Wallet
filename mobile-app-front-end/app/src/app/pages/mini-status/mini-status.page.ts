@@ -50,7 +50,13 @@ export class MiniStatusPage implements OnInit {
   }
 
   ionViewWillLeave(){
-   this.statusSubscription.unsubscribe(); // unsubs
+  
+    if(this.statusSubscription){
+
+      this.statusSubscription.unsubscribe(); // unsubs
+
+    }
+
   }
 
   getImg() {

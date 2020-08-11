@@ -137,7 +137,9 @@ var HistoryPage = /** @class */ (function () {
         }, 500);
     };
     HistoryPage.prototype.ionViewDidLeave = function () {
-        this.polledHistorySubscription.unsubscribe();
+        if (this.polledHistorySubscription) {
+            this.polledHistorySubscription.unsubscribe();
+        }
     };
     /** Modals */
     HistoryPage.prototype.presentModal = function (_txpowid, _amount, _message, _block, _tokenid, _date, _isBlock, _name, _address) {

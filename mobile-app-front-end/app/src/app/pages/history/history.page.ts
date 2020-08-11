@@ -56,7 +56,13 @@ export class HistoryPage implements OnInit {
   }
 
   ionViewDidLeave(){
-   this.polledHistorySubscription.unsubscribe();
+
+    if(this.polledHistorySubscription){
+      
+      this.polledHistorySubscription.unsubscribe();
+
+    }
+
   }
 
   /** Modals */
