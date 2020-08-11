@@ -14,7 +14,7 @@ Minima, full mobile cryptocurrency. Ionic cross-platform project with a full run
 
 Now that you have all the needed packages.  You can proceed to the following steps which will show you how to run the project.
 
-:bellhop_bell:*Skip step **1** if you want to manually download the repository*. 
+:bellhop_bell: *Skip step **1** if you want to manually download the repository*. 
 
 **1.** Open your terminal and clone the repository as shown below:
 >``
@@ -28,7 +28,12 @@ $ git clone https://github.com/eliasnemr/Minima.git
 $ cd ~/minimacore/mobile-app-front-end/app
 ``
 
-**3.** You now are ready to launch the app either in
+**3.** Now that you're in the same directory with the **_package.json_**, you can run **_npm's_** package installer
+  >``
+  $ npm install
+  ``
+
+**4.** After all the packages are installed, you are now able to launch the app either in
 - **Browser**
 - **iOS**, _or_
 - **Android**

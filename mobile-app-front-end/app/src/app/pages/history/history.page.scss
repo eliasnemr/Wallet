@@ -68,7 +68,7 @@ ion-row:hover {
     border-left: 2px solid #f2f2f2;
 }
 ion-row {
-    width: 100%;
+    width: 95%;
 }
 .activity div h1 {
     font-size: 14px;
@@ -105,8 +105,11 @@ ion-row {
 }
 
 .msg-details {
-    font-size: 16px;
-    white-space: normal !important;
+    font-size: --minima-text;
+    hyphens: auto;
+    white-space: normal;
+    word-wrap: break-word;
+    word-break: break-all;
 }
 #token-name {
     font-weight: 300;

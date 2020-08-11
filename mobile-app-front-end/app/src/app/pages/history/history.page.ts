@@ -20,10 +20,10 @@ export class HistoryPage implements OnInit {
   categories: number = 0;
   ios: boolean = false;
   sliderOptions = {
-    initialSlide: 0,
-    slidesPerView: 1.0,
+    initialSlide: 2,
+    slidesPerView: 1,
     slideShadows: true,
-    speed: 900
+    speed: 500
   }
   // + vars
   public transactions: History[] = [];

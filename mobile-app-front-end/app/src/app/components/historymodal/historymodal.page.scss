@@ -31,12 +31,17 @@ ion-card-header ion-icon {
 }
 ion-card-header h2 {
     font-size: 22px;
+    white-space: normal;
+    word-wrap: break-word;
+    word-break: break-all;
 }
 #msg{
     width:100%;
     font-size: 18px;
     font-weight: bold;
     white-space: normal;
+    word-wrap: break-word;
+    word-break: break-all;
 }
 // hide scrolling 
 ion-card {

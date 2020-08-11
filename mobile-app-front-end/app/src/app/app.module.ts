@@ -16,8 +16,6 @@ import { LocationStrategy, HashLocationStrategy} from '@angular/common';
 import { IonicStorageModule } from '@ionic/storage';
 import { darkMode } from './service/darkMode.service';
 import * as MifiJS from 'src/assets/JS/minima.js';
-import * as tLite from 'node_modules/tlite/tlite.js';
-import * as HTML5QR from 'node_modules/html5-qrcode/minified/html5-qrcode.min.js';
 import { HistorymodalPage } from './components/historymodal/historymodal.page';
 import { HistorytokenmodalPage } from './components/historytokenmodal/historytokenmodal.page';
 import { TokenDescrComponent } from './components/token-descr/token-descr.component';

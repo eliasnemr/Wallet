@@ -28,7 +28,7 @@
   </ion-card-header>
 
   <ion-slides #slides 
-              pager="true"
+             pager="false"
              [options]="sliderOptions" 
              (ionSlideDidChange)="slideChanged(slides)" 
              (ionSlideDidLoad)="slideChanged(slides)">
@@ -133,8 +133,8 @@
 
       <!-- TXN Message -->
       <ion-col size="4" class="medium-text" *ngIf="transaction.txpow.body.txn.state.length > 0" [hidden]="ios">
-      <ion-note *ngIf="transaction.txpow.body.txn.state[1].data.length <= 15" class="msg-details">{{transaction.txpow.body.txn.state[1].data.substring(0, 15)}}</ion-note>
-      <ion-note *ngIf="transaction.txpow.body.txn.state[1].data.length > 15" class="msg-details">{{transaction.txpow.body.txn.state[1].data.substring(0, 8) + "..."}}</ion-note>
+      <p *ngIf="transaction.txpow.body.txn.state[1].data.length <= 15" class="msg-details">{{transaction.txpow.body.txn.state[1].data.substring(0, 15)}}</p>
+      <p *ngIf="transaction.txpow.body.txn.state[1].data.length > 15" class="msg-details">{{transaction.txpow.body.txn.state[1].data.substring(0, 8) + "..."}}</p>
       </ion-col>
     </ion-item>
 
@@ -318,8 +318,8 @@
 
       <!-- TXN Message -->
       <ion-col size="4" *ngIf="transaction.txpow.body.txn.state.length > 0" [hidden]="ios">
-      <ion-note *ngIf="transaction.txpow.body.txn.state[1].data.length <= 15" class="msg-details small-text">{{transaction.txpow.body.txn.state[1].data.substring(0, 15)}}</ion-note>
-      <ion-note *ngIf="transaction.txpow.body.txn.state[1].data.length > 15" class="msg-details small-text">{{transaction.txpow.body.txn.state[1].data.substring(0, 15) + "..."}}</ion-note>
+      <p *ngIf="transaction.txpow.body.txn.state[1].data.length <= 15" class="msg-details small-text">{{transaction.txpow.body.txn.state[1].data.substring(0, 15)}}</p>
+      <p *ngIf="transaction.txpow.body.txn.state[1].data.length > 15" class="msg-details small-text">{{transaction.txpow.body.txn.state[1].data.substring(0, 15) + "..."}}</p>
       </ion-col>
     </ion-item>
     <!-- Tokens -->

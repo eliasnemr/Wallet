@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MinimaApiService } from '../../service/minima-api.service';
 import { IonTextarea, IonSlide, IonRange, IonInput, AlertController, ToastController } from '@ionic/angular';
 import { NgForm } from '@angular/forms';
-import * as tlite from 'node_modules/tlite/tlite.js'; //   Tooltip.. use as such-> tlite(el => el.classList.contains('proof'));
 
 @Component({
   selector: 'app-create-token',
