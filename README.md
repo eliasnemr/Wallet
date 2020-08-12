@@ -2,7 +2,7 @@
 Minima, full mobile cryptocurrency. Ionic cross-platform project with a full running Java Minima Node.
 
 
-#### Prerequisites
+#### :point_right: Prerequisites
 - Latest version of **Node.js**, (**required** to install the next 2 prerquisites).
   - Get the latest version of Node.js [here](https://nodejs.org/en/).
 - Latest version of the **Ionic Framework CLI**.
@@ -10,7 +10,7 @@ Minima, full mobile cryptocurrency. Ionic cross-platform project with a full run
 - Latest version of **Angular Framework**
   - Follow the tutorial [here](https://angular.io/guide/setup-local).
 
-#### :point_right: Getting Started
+#### :rocket: Getting Started
 
 At this point you should have all the necessary packages and frameworks.  The following steps will show you how to run the project itself.
 
