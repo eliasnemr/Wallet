@@ -12,7 +12,7 @@ Minima, full mobile cryptocurrency. Ionic cross-platform project with a full run
 
 #### :point_right: Getting Started
 
-Now that you have all the needed packages.  You can proceed to the following steps which will show you how to run the project.
+At this point you should have all the necessary packages and frameworks.  The following steps will show you how to run the project itself.
 
 :bellhop_bell: *Skip step **1** if you want to manually download the repository*. 
 
@@ -33,7 +33,7 @@ $ cd ~/minimacore/mobile-app-front-end/app
   $ npm install
   ``
 
-**4.** After all the packages are installed, you are now able to launch the app either in
+**4.** After all the packages have been installed, you will now be able to launch the app either in
 - **Browser**
 - **iOS**, _or_
 - **Android**
@@ -48,14 +48,14 @@ To test the app in your browser you will have to have the Minima node running on
 The browser should now automatically launch with the app running locally.  If it doesn't open your browser then just manually browse to your localhost at port 8100; http://localhost:8100/. 
 
  #### :robot: Android
- To run the app in android you will certainly have to have **Android Studio** installed.
+ To launch the app in an android emulator you must have **Android Studio** installed.
 
  You launch the android app using
   >``$ npx cap open android``
 
 
  #### :iphone: iOS
- To run the app in iOS you will certainly have to have a mac machine and Xcode installed.
+ To launch the app in iOS you must have a MAC machine and Xcode installed.
 
  You launch the iOS app using
  >``$ npx cap open ios``
@@ -64,8 +64,7 @@ The browser should now automatically launch with the app running locally.  If it
 
 ### Enjoy Minima :grin:
 #### Any questions?
-##### Freely join our telegram group and ask
-###### [here](https://t.me/Minima_Global)
+##### Freely join our telegram group and ask [there](https://t.me/Minima_Global).
 
 #### Elias :love_letter:
  
