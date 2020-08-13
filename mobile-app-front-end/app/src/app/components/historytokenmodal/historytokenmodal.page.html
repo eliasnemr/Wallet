@@ -1,11 +1,28 @@
 <ion-header>
-  <ion-toolbar>
+
+  <div class="custom-toolbar large-text txpow">
+
+    TxPoW
+
+    <span class="medium-text txpow_id">
+
+     {{ TXPOW_ID.substring(0,20)+"..." }}
+
+    </span>
+
+    <ion-button slot="end" fill="clear" (click)="dismiss()" size="small" class="dismiss-btn">
+      Dismiss
+    </ion-button>
+    
+  </div>
+
+  <!-- <ion-toolbar>
     <ion-title slot="start"><span style="color:#FF671E">TxPoW</span> <span style="font-size:14px;">{{ TXPOW_ID.substring(0,20)+"..." }}</span></ion-title>
   
   <ion-button slot="end" fill="clear" (click)="dismiss()" class="dismiss-btn">
   Dismiss
   </ion-button>
-  </ion-toolbar>
+  </ion-toolbar> -->
 </ion-header>
 
 <ion-content>

@@ -51,7 +51,7 @@ export class MyAddressPage implements OnInit {
           this.isEmpty = true;
         }
       });
-    }, 500);
+    }, 0);
   }
   /** Alerts */
   async presentAlert(msg:string,header:string) {

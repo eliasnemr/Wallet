@@ -14,11 +14,6 @@ ion-list ion-item ion-range ion-label {
 ion-footer ion-toolbar ion-buttons ion-button{
    width: 100%;
 }
-
-ion-card {
-    --background: var(--ion-background-color, #f2f2f2);
-}
-
 .tokenStyle {
     color: #FF671D;
     white-space: normal;
@@ -109,4 +104,14 @@ ion-toolbar ion-title {
   .tlite-se::before {
     bottom: -3px;
     right: 10px;
+  }
+
+  ion-toolbar {
+    --background: var(--card-header-color);
+  }
+  ion-card-content {
+    background: var(--ion-card-color);
+  }
+  ion-card-header {
+    background: var(--ion-card-header);
   }

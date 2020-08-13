@@ -1,5 +1,9 @@
 .dismiss-btn {
-    height: 72px;
+    height: auto;
+    float: right;
+    color: #48D2D3;
+
+    --color-hover: #EE6E73;
 }
 .information {
     text-align: right; 
@@ -18,6 +22,7 @@
 }
 ion-card-header {
     width: 100%;
+    background: var(--card-header-color);
     margin-left: auto;
     margin-right: auto;
     white-space: nowrap;
@@ -50,4 +55,29 @@ ion-card {
 }
 ion-list {
     background: linear-gradient(to bottom,  var(--ion-background-color, #fff) 0%, var(--ion-background-color, #f2f2f2) 100%) !important;
+}
+
+ion-content {
+    --background: transparent;
+}
+
+ion-header ion-toolbar {
+    --background: #f2f2f2;
+}
+
+
+/** Modal Custom Header... avoiding Shadow DOM */
+.custom-toolbar {
+    background: linear-gradient(to bottom,  var(--ion-background-color, #fff) 0%, var(--ion-background-color, #f2f2f2) 100%) !important;
+    width:100%;
+    padding-inline-start: 5px;
+    padding-inline-end: 5px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+.txpow_id {
+    color: #666666;
+}
+.txpow {
+    font-weight: 600;
 }

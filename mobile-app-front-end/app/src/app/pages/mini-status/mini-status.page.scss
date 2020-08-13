@@ -65,3 +65,6 @@ ion-list-header {
     font-size: 20px;
 }
 
+ion-toolbar {
+    --background: var(--card-header-color);
+  }

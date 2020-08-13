@@ -71,6 +71,7 @@ export class HistoryPage implements OnInit {
      _name: string, _address: string) {
     const modal = await this.modalController.create({
       component: HistorymodalPage,
+      cssClass: 'history-pop',
       componentProps: {
         'TXPOW_ID': _txpowid,
         'Amount': _amount,
@@ -90,6 +91,7 @@ export class HistoryPage implements OnInit {
     _name: string, _tokenNameGiven: string, _amountCreated: string, _description) {
    const modal = await this.modalController.create({
      component: HistorytokenmodalPage,
+     cssClass: 'token-pop',
      componentProps: {
        'TXPOW_ID': _txpowid,
        'Amount': _amount,

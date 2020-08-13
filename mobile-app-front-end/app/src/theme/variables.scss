@@ -89,9 +89,13 @@
     --minima-terminal-size: 12px;
     --overflow: hidden;
 
-    /** Light mode text */
+    /** Light mode text & bg colors */
     --minima-text: #202123;
     --minima-icons: #e2e2e2;
+    --card-header-color: #f2f2f2;
+    --ion-card-color: #FFFFFF;
+    --ion-card-header: linear-gradient(0deg, rgba(255,255,255,1) 14%, rgba(242,242,242,1) 100%);
+
   
     $alert-ios-content-max-height:700px !default;
     $alert-md-content-max-height:400px !default;
@@ -170,23 +174,7 @@
   font-family: 'Aeonik-light'; 
 }
 
-.ios .balance-popover {
-  --width: 200px;
-  --height: 80px;
-  opacity: 0.96;
-}
-.md .balance-popover {
-  --width: 200px;
-  opacity: 0.96;
-
-}
 @media only screen and (min-width: 992px) {
-    .balance-popover {
-      --width: 200px;
-      --height: 100px;
-    opacity: 0.96;
-
-    }
     .tokenDescr-modal .modal-wrapper { 
       height: 650px;
       position: absolute; 
@@ -223,8 +211,6 @@
   color: var(--minima-text);
 
 }
-
-
 
 @media only screen and (max-width: 600px) {
 
@@ -275,6 +261,7 @@
         font-size: 6px;
       
       }
+
     }
     
 }
@@ -303,3 +290,7 @@
   
   }
 }
+
+
+
+

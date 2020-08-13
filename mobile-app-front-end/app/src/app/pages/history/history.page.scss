@@ -190,5 +190,7 @@ ion-row {
     padding-left: 2%;
 }
 
-
+ion-toolbar {
+    --background: var(--card-header-color);
+  }
 

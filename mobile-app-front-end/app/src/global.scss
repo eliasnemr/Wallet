@@ -93,16 +93,11 @@
       --ion-color-light-shade: #1e2023;
       --ion-color-light-tint: #383a3e;
 
-  
-      ion-refresher-content {
-        padding-bottom: 200px;
-        background-color: #231F20;
-      
-        .refresher-pulling {
-          position: fixed;
-          top: 50px;
-        }
-      }
+      --card-header-color: #111417;
+      --ion-card-color: #1A1C1E;
+      --ion-card-header: linear-gradient(144deg, rgba(0,0,0,1) 0%, rgba(17,20,23,1) 70%);
+
+
   
     }
     
@@ -112,6 +107,11 @@
      */
     
     .ios body.dark {
+      --card-header-color: #111417;
+      --ion-card-color: #1A1C1E;
+      --ion-card-header: linear-gradient(144deg, rgba(0,0,0,1) 0%, rgba(17,20,23,1) 70%);
+
+
       --ion-background-color: #202123;
       --ion-background-color-rgb: 0,0,0;
     
@@ -143,23 +143,7 @@
       --ion-item-background: #202123;
       --ion-item-background-activated: #313131;
   
-      ion-refresher-content {
-        padding-bottom: 200px;
-        background-color: #231F20;
-      
-        .refresher-pulling {
-          position: fixed;
-          top: 50px;
-        }
-      }
 
-      .tokenDescr-modal .modal-wrapper{
-          height: 20%;
-          top: 80%;
-          position: absolute; 
-          display: block;  
-          width: 1000px;
-      }
     }
     
     
@@ -169,6 +153,11 @@
      */
     
     .md body.dark {
+      --card-header-color: #111417;
+      --ion-card-color: #1A1C1E;
+      --ion-card-header: linear-gradient(144deg, rgba(0,0,0,1) 0%, rgba(17,20,23,1) 70%);
+
+
       --ion-background-color: #202123;
       --ion-background-color-rgb: 18,18,18;
     
@@ -225,6 +214,11 @@
 
 //CSS Fallback 
 body.dark {
+  --card-header-color: #111417;
+  --ion-card-color: #1A1C1E;
+  --ion-card-header: linear-gradient(144deg, rgba(0,0,0,1) 0%, rgba(17,20,23,1) 70%);
+
+
   --minima-text: #868687;
   --minima-icons: #868687;
 
@@ -310,6 +304,9 @@ body.dark {
 
 .ios body.dark {
   --minima-text: #868687;
+  --card-header-color: #111417;
+  --ion-card-color: #1A1C1E;
+  --ion-card-header: linear-gradient(144deg, rgba(0,0,0,1) 0%, rgba(17,20,23,1) 70%);
 
   --ion-background-color: #202123;
   --ion-background-color-rgb: 0,0,0;
@@ -361,6 +358,10 @@ body.dark {
 
 .md body.dark {
   /** Dark Mode text */
+  --card-header-color: #111417;
+  --ion-card-color: #1A1C1E;
+  --ion-card-header: linear-gradient(144deg, rgba(0,0,0,1) 0%, rgba(17,20,23,1) 70%);
+
   --minima-text: #868687;
   --ion-background-color: #121212;
   --ion-background-color-rgb: 18,18,18;
@@ -412,3 +413,115 @@ ion-refresher-content {
     top: 50px;
   }
 }
+
+/* History.page.ts - modal */
+@media only screen and (min-width: 900px){
+  
+.history-pop {
+    
+  .modal-wrapper {
+    min-width: 300px;
+    min-height: 500px;
+    height: auto !important;
+    display: block;
+    background: transparent !important;  
+  }
+
+  .modal-wrapper .ion-page {
+    background: transparent;
+  }
+
+  ion-backdrop {
+    opacity: 0.4 !important;
+  }
+  
+}
+
+.token-pop {
+  
+  .modal-wrapper {
+    min-height: 475px;
+    height: auto;
+    height: auto !important;
+    display: block;
+    background: transparent !important;  
+  }
+
+  .modal-wrapper .ion-page {
+    background: transparent;
+  }
+
+  ion-backdrop {
+    opacity: 0.4 !important;
+  }
+  
+}
+}
+
+
+/* Balance.page.ts - popover Component */
+
+  ion-popover{
+    ion-backdrop{
+      opacity: 0.5 !important
+    }
+    .popover-wrapper{
+      .popover-content{
+        width: 50vw;
+        height: 55vw;
+        max-height: 150px;
+        max-width: 350px;
+      }
+    }
+  }
+
+  @media only screen and (min-width: 601px) {
+    
+    ion-popover{
+      ion-backdrop{
+        opacity: 0.5 !important
+      }
+      .popover-wrapper{
+        .popover-content{
+          width: 50vw;
+          height: 55vw;
+          max-height: 135px;
+          max-width: 240px;
+        }
+      }
+    }
+
+
+  }
+
+
+  @media only screen and (max-width: 600px) {
+
+    ion-popover {
+      ion-backdrop  {
+        opacity: 0.20 !important
+      }
+      .popover-wrapper{
+        .popover-content{
+          width: 50vw;
+          height: 55vw;
+          max-height: 100px;
+          max-width: 250px;
+        }
+      }
+    }
+
+  }
+
+
+/* miniterm.page.ts popover */
+  .terminal-pop ion-backdrop {
+    opacity: 0.4 !important;
+  }
+  .terminal-pop .popover-content  {
+      overflow-y: hidden;
+      max-height: 65px !important;
+      max-width: 148px !important;
+  }
+
+  

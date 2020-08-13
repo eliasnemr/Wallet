@@ -1,19 +1,9 @@
-@media screen and (max-width: 320px) {
-    p {
-        font-size: 10px;
-    }
-}
-
 ion-item-sliding ion-item div .item-native {
   padding-left: 0px;
 }
 
 .send-slide {
   background-color: #FF671E;
-}
-
-ion-card {
-    --background: var(--ion-background-color, #f2f2f2);
 }
 
 ion-avatar {
@@ -158,16 +148,13 @@ ion-grid {
   --ion-grid-column-padding: 2px;
 
 }
-ion-card-header {
-  --background: var(--ion-background-color, #f2f2f2);
-  background: linear-gradient(to bottom,  var(--ion-background-color, #fff) 0%, var(--ion-background-color, #f2f2f2) 100%) !important;
-}
+
 ion-card-content {
   padding: 5px;
-
-  --background: var(--ion-background-color, #f2f2f2);
-  background: linear-gradient(to bottom,  var(--ion-background-color, #fff) 0%, var(--ion-background-color, #f2f2f2) 100%) !important;
-
+  background: var(--ion-card-color);
+}
+ion-card-header {
+  background: var(--ion-card-header);
 }
 
 .tokenDescr-modal .modal-wrapper{
@@ -179,4 +166,8 @@ ion-card-content {
 .small-text {
   font-weight: 500;
   opacity: 0.75;
+}
+
+ion-toolbar {
+  --background: var(--card-header-color);
 }

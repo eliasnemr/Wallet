@@ -202,11 +202,15 @@ request(route) {
   }
 
   async presentPopover(ev: any) {
+    
   const popover = await this.popoverController.create({
     component: PopTermComponent,
+    cssClass: 'terminal-pop',
     event: ev,
-    translucent: false,
+    translucent: false, 
+
   });
+
   return await popover.present();
 
   }

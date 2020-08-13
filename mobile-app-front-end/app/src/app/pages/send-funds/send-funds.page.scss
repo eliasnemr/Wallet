@@ -1,11 +1,8 @@
-ion-card {
-  --background: var(--ion-background-color, #f2f2f2);
-  background: linear-gradient(to bottom,  var(--ion-background-color, #fff) 0%, var(--ion-background-color, #f2f2f2) 100%) !important;
+ion-card-content {
+  background: var(--ion-card-color);
 }
 ion-card-header {
-  --background: var(--ion-background-color, #f2f2f2);
-  background: linear-gradient(to bottom,  var(--ion-background-color, #fff) 0%, var(--ion-background-color, #f2f2f2) 100%) !important;
-
+  background: var(--ion-card-header);
 }
 ion-footer ion-toolbar ion-buttons ion-button{
   width: 100%;
@@ -47,4 +44,7 @@ ion-footer ion-toolbar ion-buttons ion-button{
 .webscan-canvas {
  text-align: center;
  	--background: none transparent !important;
+}
+ion-toolbar {
+  --background: var(--card-header-color);
 }

@@ -155,10 +155,10 @@ ion-menu.md ion-list {
   
     font-weight: 500;
   }
-ion-menu.md ion-item.selected {
-  --background: var(--ion-background-color, #f2f2f2);
-  background: linear-gradient(to left,  var(--ion-background-color, #fff) 0%, var(--ion-background-color, #f2f2f2) 100%) !important;
-}
+  ion-menu.md ion-item.selected {
+    --background: var(--ion-background-color, #f2f2f2);
+    background: linear-gradient(to left,  var(--ion-background-color, #fff) 0%, var(--ion-background-color, #f2f2f2) 100%) !important;
+  }
 ion-menu.md ion-list {
     padding-bottom: 0px !important;
 }
@@ -192,8 +192,8 @@ ion-menu.md ion-list {
     
   ion-menu.ios ion-item.selected {
     --background: linear-gradient(to left,  var(--ion-background-color, #fff) 0%, var(--ion-background-color, #f2f2f2) 100%) !important;
-
   }
+  
   ion-menu.ios ion-list {
     padding-bottom: 0px !important;
   }
@@ -207,3 +207,9 @@ ion-menu.md ion-list {
   --padding-start: 15px;
 }
 
+ion-toolbar {
+  --background: var(--card-header-color) !important;
+}
+ion-menu-toggle ion-footer  {
+  background: var(--card-header-color) !important;
+}
