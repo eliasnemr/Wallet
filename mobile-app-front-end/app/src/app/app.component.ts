@@ -39,7 +39,6 @@ export class AppComponent {
 
     this.setLocalStorage(); /** set localStorages  */
 
-
   }
 
   /** @@@@@@@@@@@@@ Lifecycle @@@@@@@@@@@@@@@ */
@@ -54,6 +53,7 @@ export class AppComponent {
       // set host.. taken from Minima.js
       Minima.init();
       this.api.setHost('http://'+ Minima.host + '/');
+
     });
   }
 

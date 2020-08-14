@@ -12,6 +12,18 @@ import { Clipboard } from '@ionic-native/clipboard/ngx';
 export class TokenDescrComponent implements OnInit {
 
   public refTokenid: string;
+  public name: string;
+  public tokenid: string;
+  public description: string;
+  public total: number;
+  public totalamount: number;
+  public script: string;
+  public proof: string;
+  public confirmed: number;
+  public unconfirmed: number;
+  public mempool: number;
+  public sendable: number;
+    
 
   constructor(public modalCtrl: ModalController, 
     public api: MinimaApiService,

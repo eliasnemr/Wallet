@@ -13,7 +13,7 @@
 <ion-content>
   <ion-card *ngIf="this.qrCode.length > 0">
     <ion-card-header>
-      Your Address << {{ qrCode }} >>
+      Your Address << {{ qrCode.substring(0,5)+"..."+qrCode.substring(50, qrCode.length) }} >>
     </ion-card-header>
     <ion-card-content>
     <ion-grid fixed>
@@ -37,12 +37,15 @@
       <ion-button 
         fill="clear"
         size="small"
-        class="copy-btn">
+        class="copy-btn"
+        (click)="copyToClipPWA()">
         Copy
       </ion-button>
     </ion-card-subtitle>
     </ion-card-content>
   </ion-card>
+
+  <!-- Web Sharing Options for clipboard -->
 
 
 
@@ -58,7 +61,7 @@
       <ion-button     
           class="action-btn medium-text"
           expand="full"
-          (click)="copyToClipboard()"
+          (click)="socialShare()"
           [disabled]="!isEmpty">
       <ion-icon
             name="copy" 

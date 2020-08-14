@@ -314,11 +314,11 @@
     {
       "cordova-base64-to-gallery": "4.1.3",
       "cordova-clipboard": "1.3.0",
-      "cordova-plugin-advanced-http": "2.4.1",
+      "cordova-plugin-advanced-http": "2.5.1",
       "cordova-plugin-badge": "0.8.8",
       "cordova-plugin-file": "6.0.2",
       "cordova-plugin-qrscanner": "3.0.1",
-      "cordova-sqlite-storage": "5.0.0",
+      "cordova-sqlite-storage": "5.0.1",
       "cordova-plugin-device": "2.0.3",
       "cordova-plugin-statusbar": "2.4.3",
       "cordova-plugin-whitelist": "1.3.4"

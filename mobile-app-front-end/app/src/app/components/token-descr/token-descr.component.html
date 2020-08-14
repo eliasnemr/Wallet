@@ -2,8 +2,8 @@
   <ion-toolbar>
     <ion-title slot="start" class="large-text">
     
-    <span *ngIf="name.length <= 10" class="large-text">{{ name + " " }}</span>
-    <span *ngIf="name.length > 10" class="large-text">{{ name.substring(0, 10)+"... " }}</span>
+    <span *ngIf="name && name.length <= 10" class="large-text">{{ name + " " }}</span>
+    <span *ngIf="name && name.length > 10" class="large-text">{{ name.substring(0, 10)+"... " }}</span>
 
     <span class="medium-text" [hidden]="tokenid == '0x00'">{{ tokenid.substring(0,8) + "..."}}</span>
     <span class="medium-text" [hidden]="tokenid !== '0x00'">{{ tokenid }}</span>
@@ -47,7 +47,7 @@
          <ion-col class="small-text" id="varname">
            Total Amount Available
          </ion-col>
-         <ion-col class="small-text" id="variable">
+         <ion-col *ngIf="total" class="small-text" id="variable">
             {{ total }}
          </ion-col>
         </ion-row>
@@ -55,7 +55,7 @@
          <ion-col class="small-text" id="varname">
            Total Amount Available (Minima)
          </ion-col>
-         <ion-col class="small-text" id="variable">
+         <ion-col *ngIf="totalamount" class="small-text" id="variable">
             {{ totalamount }}
          </ion-col>
         </ion-row>
@@ -74,14 +74,14 @@
          <ion-col class="small-text" id="varname">
            Proof Availability
          </ion-col>
-         <ion-col class="small-text" [hidden]="proof.length > 0" id="variable">   
+         <ion-col class="small-text" *ngIf="proof" [hidden]="proof.length > 0" id="variable">   
             False
          </ion-col>
-         <ion-col class="small-text" [hidden]="proof.length == 0" id="variable">
+         <ion-col class="small-text" *ngIf="proof" [hidden]="proof.length == 0" id="variable">
             True
          </ion-col>
         </ion-row>
-        <ion-row id="varname" [hidden]="proof.length <= 0">
+        <ion-row id="varname" *ngIf="proof" [hidden]="proof.length <= 0">
          <ion-col class="small-text">
            Proof URL
          </ion-col>
@@ -89,12 +89,12 @@
              {{ proof }}
          </ion-col>
         </ion-row>
-        <ion-row id="varname" [hidden]="proof.length <= 0">
+        <ion-row id="varname" *ngIf="proof" [hidden]="proof.length <= 0">
          <ion-col class="small-text">
            Validate Proof
          </ion-col>
          <ion-col id="variable">   
-          <ion-button class="small-text" size="small" (click)="validateProof(tokenid)">
+          <ion-button *ngIf="proof" class="small-text" size="small" (click)="validateProof(tokenid)">
             Validate
           </ion-button>
          </ion-col>
@@ -103,7 +103,7 @@
          <ion-col class="small-text" id="varname" >
            Confirmed/Sendable Amount
          </ion-col>
-         <ion-col class="small-text" id="variable">   
+         <ion-col *ngIf="confirmed || sendable" class="small-text" id="variable">   
              {{ confirmed + "/" + sendable }}
          </ion-col>
         </ion-row>
@@ -111,7 +111,7 @@
          <ion-col class="small-text" id="varname">
            Unconfirmed Amount
          </ion-col>
-         <ion-col class="small-text" id="variable">   
+         <ion-col *ngIf="unconfirmed" class="small-text" id="variable">   
              {{ unconfirmed }}
          </ion-col>
         </ion-row>
@@ -119,7 +119,7 @@
          <ion-col class="small-text" id="varname">
            Mempool
          </ion-col>
-         <ion-col class="small-text" id="variable">   
+         <ion-col *ngIf="mempool" class="small-text" id="variable">   
              {{ mempool }}
          </ion-col>
         </ion-row>
@@ -127,7 +127,7 @@
          <ion-col class="small-text" size="3" id="varname">
            Script
          </ion-col>
-         <ion-col class="small-text" size="9" id="variable">   
+         <ion-col *ngIf="script" class="small-text" size="9" id="variable">   
              {{ script }}
          </ion-col>
         </ion-row>

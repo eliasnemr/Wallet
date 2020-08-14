@@ -1,8 +1,9 @@
 import { Platform, AlertController, IonContent, ToastController } from '@ionic/angular';
-import { Component, OnInit, ViewChild, ElementRef} from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { Clipboard } from '@ionic-native/clipboard/ngx';
 import { MinimaApiService } from '../../service/minima-api.service';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 
 declare let window: any;
 @Component({
@@ -20,7 +21,9 @@ export class MyAddressPage implements OnInit {
   public canvasWidth: number;
   isEmpty: boolean;
 
-  constructor(private clipboard: Clipboard, 
+  constructor(
+    private socialSharing: SocialSharing,
+    private clipboard: Clipboard, 
     private qrScanner: QRScanner, 
     private api: MinimaApiService,
     private platform : Platform,
@@ -88,9 +91,26 @@ export class MyAddressPage implements OnInit {
 
   }
 
+  socialShare() {
+   // Check if sharing via email is supported
+  this.socialSharing.canShareViaEmail().then(() => {
+    // Sharing via email is possible
+  }).catch(() => {
+    // Sharing via email is not possible
+  });
+
+  // Share via email
+  this.socialSharing.shareViaEmail('Body', 'Subject', ['recipient@example.org']).then(() => {
+    // Success!
+  }).catch(() => {
+    // Error!
+  }); 
+  }
+
   copyToClipPWA() {
     document.addEventListener('copy', (e: ClipboardEvent) => {
       e.clipboardData.setData('text/plain', this.qrCode);
+      this.presentToast("Copied to Clipboard", "success");
       e.preventDefault();
       document.removeEventListener('copy', null);
     });

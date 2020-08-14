@@ -679,6 +679,127 @@ const findCheckedOption = (el, tagName) => {
 
 
 
+/***/ }),
+
+/***/ "./node_modules/rxjs-compat/_esm2015/Observable/timer.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/rxjs-compat/_esm2015/Observable/timer.js ***!
+  \***************************************************************/
+/*! exports provided: timer */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "timer", function() { return rxjs__WEBPACK_IMPORTED_MODULE_0__["timer"]; });
+
+
+//# sourceMappingURL=timer.js.map
+
+/***/ }),
+
+/***/ "./src/app/service/balance.service.ts":
+/*!********************************************!*\
+  !*** ./src/app/service/balance.service.ts ***!
+  \********************************************/
+/*! exports provided: BalanceService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BalanceService", function() { return BalanceService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _environments_environment_prod__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../environments/environment.prod */ "./src/environments/environment.prod.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
+/* harmony import */ var rxjs_Observable_timer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs/Observable/timer */ "./node_modules/rxjs-compat/_esm2015/Observable/timer.js");
+
+
+
+
+
+
+
+let BalanceService = class BalanceService {
+    constructor(http, ref) {
+        this.http = http;
+        this.ref = ref;
+        this.manualRefresh = new rxjs__WEBPACK_IMPORTED_MODULE_4__["Subject"]();
+        this.host = '';
+        this.loader = null;
+        // take in tokenArr and the element you'd like to add to front of array
+        this.update = (a, e) => {
+            var i = a.findIndex(o => o.tokenid === e);
+            i > 0 ? a.splice(0, 0, a.splice(i, 1)[0])
+                : i && a.splice(0, 0, e);
+            (a.length > 5) && a.length--;
+            return a;
+        };
+        this.host = _environments_environment_prod__WEBPACK_IMPORTED_MODULE_1__["environment"].defaultNode;
+        this.host = this.getHost();
+    }
+    /** API CALLS */
+    giveMe50() {
+        let apiUrl = this.host + 'gimme50';
+        return this.http.get(apiUrl);
+    }
+    getBalance() {
+        return this.request('balance');
+    }
+    getHost() {
+        if (localStorage.getItem('minima_host') == null) {
+            localStorage.setItem('minima_host', this.host);
+            return this.host;
+        }
+        else {
+            return localStorage.getItem('minima_host');
+        }
+    }
+    request(route) {
+        //let apiUrl = this.host + route; // this.host+'route' = "127.0.0.1:8999/'balance'"
+        //let balance$ = this.http.get(apiUrl);
+        // create custom observable to talk with minima.js
+        const balanceObservable = rxjs__WEBPACK_IMPORTED_MODULE_4__["Observable"].create(observer => {
+            observer.next(Minima.balance);
+            //console.log(Minima.balance);
+        });
+        let balance$ = balanceObservable;
+        return this.polledBalance$ = Object(rxjs_Observable_timer__WEBPACK_IMPORTED_MODULE_6__["timer"])(0, 2000).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["merge"])(this.manualRefresh), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["concatMap"])(_ => balance$), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])((res) => res));
+    }
+};
+BalanceService.ctorParameters = () => [
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"] },
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_3__["ChangeDetectorRef"] }
+];
+BalanceService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Injectable"])({
+        providedIn: 'root'
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"], _angular_core__WEBPACK_IMPORTED_MODULE_3__["ChangeDetectorRef"]])
+], BalanceService);
+
+
+
+/***/ }),
+
+/***/ "./src/environments/environment.prod.ts":
+/*!**********************************************!*\
+  !*** ./src/environments/environment.prod.ts ***!
+  \**********************************************/
+/*! exports provided: environment */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "environment", function() { return environment; });
+const environment = {
+    production: true,
+    defaultNode: 'http://127.0.0.1:8999/'
+};
+
+
 /***/ })
 
 }]);
