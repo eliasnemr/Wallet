@@ -44,6 +44,14 @@
     <ion-card-content>
       <ion-grid>
         <ion-row>
+          <ion-col class="small-text" id="varname">
+            Name
+          </ion-col>
+          <ion-col *ngIf="total" class="small-text" id="variable">
+             {{ name }}
+          </ion-col>
+         </ion-row>
+        <ion-row>
          <ion-col class="small-text" id="varname">
            Total Amount Available
          </ion-col>
