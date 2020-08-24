@@ -27,15 +27,6 @@ ion-footer ion-toolbar ion-buttons ion-button{
       font-size: large;
     }
 }
-.token-select {
-  font-weight: bolder;
-  max-width: 100% !important;
-  width: 100% !important;
-  padding-left: 0 !important;
-}
-.token-select .alert-wrapper.sc-ion-alert-md {
-  max-width: 50% !important;
-}
 .transparentBody {
 	background: none transparent !important;
 	--background: none transparent !important;
@@ -47,4 +38,10 @@ ion-footer ion-toolbar ion-buttons ion-button{
 }
 ion-toolbar {
   --background: var(--card-header-color);
+}
+.input {
+  opacity: 0.75 !important;
+}
+.length {
+  opacity: 0.5;
 }

@@ -7,5 +7,4 @@
  */
 import { RawSourceMap } from 'source-map';
 import * as webpack from 'webpack';
-export declare const buildOptimizerLoaderPath: string;
 export default function buildOptimizerLoader(this: webpack.loader.LoaderContext, content: string, previousSourceMap: RawSourceMap): void;

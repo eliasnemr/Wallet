@@ -1,6 +1,6 @@
 <ion-app>
 <ion-header>
-  <ion-toolbar >
+  <ion-toolbar>
     <ion-buttons slot="start">
       <ion-menu-button class="menu-icon"></ion-menu-button>
     </ion-buttons>
@@ -13,27 +13,34 @@
 <ion-content>
   <ion-card *ngIf="this.qrCode.length > 0">
     <ion-card-header>
-      Your Address << {{ qrCode.substring(0,5)+"..."+qrCode.substring(50, qrCode.length) }} >>
+      Wallet Address
     </ion-card-header>
     <ion-card-content>
     <ion-grid fixed>
       <ion-row>
-        <ion-col size="12">
+        <ion-col class="qr-container">
          
-          <div class="qr-container">
             <qrcode
               [qrdata]="qrCode"
               [level]="'Q'"
               *ngIf="qrCode!==''">
             </qrcode> 
-          </div>
 
         </ion-col>
       </ion-row>
     </ion-grid>  
     <ion-card-subtitle style="text-align: center; font-family:'Aeonik-light'">
-      This address can be used for any Minima or Token transaction.
       <br>
+        <div class="medium-text address">
+           
+           <ion-badge [hidden]="hide" (click)="shout()">{{ qrCode.substring(0,5)+"..."+qrCode.substring(50, qrCode.length) }} </ion-badge>
+          
+           <ion-badge [hidden]="!hide" (click)="shout()">{{ qrCode }} </ion-badge>
+
+          
+
+          </div>
+
       <ion-button 
         fill="clear"
         size="small"
@@ -41,15 +48,26 @@
         (click)="copyToClipPWA()">
         Copy
       </ion-button>
+
+      <br>
+
+
+      This address can be used for any Minima or Token transaction.
+
     </ion-card-subtitle>
     </ion-card-content>
   </ion-card>
 
   <!-- Web Sharing Options for clipboard -->
+  <web-social-share #share [show]="true" [share]="options" (closed)="close()">
 
+    <ion-icon src="../../assets/socials/fb-light.svg" style="display: block;" slot="facebook"></ion-icon>
+    <ion-icon src="../../assets/socials/whatsapp-light.svg" style="display: block;" slot="whatsapp"></ion-icon>
+    <ion-icon src="../../assets/socials/tg-light.svg" style="display: block;" slot="telegram"></ion-icon>
+    <ion-icon src="../../assets/socials/twitter-light.svg" style="display: block;" slot="twitter"></ion-icon>
+    <ion-icon src="../../assets/socials/messenger-light.svg" style="display: block;" slot="messenger"></ion-icon>
 
-
-  
+  </web-social-share>
 
 </ion-content>
 
@@ -61,10 +79,10 @@
       <ion-button     
           class="action-btn medium-text"
           expand="full"
-          (click)="socialShare()"
+          (click)="socialShare(qrCode)"
           [disabled]="!isEmpty">
       <ion-icon
-            name="copy" 
+            name="share-alt" 
             slot="start">
       </ion-icon> Share address
     </ion-button>

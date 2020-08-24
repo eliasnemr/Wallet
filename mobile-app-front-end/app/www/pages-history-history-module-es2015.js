@@ -106,7 +106,7 @@ let HistoryPage = class HistoryPage {
         this.categories = 0;
         this.ios = false;
         this.sliderOptions = {
-            initialSlide: 2,
+            initialSlide: 0,
             slidesPerView: 1,
             slideShadows: true,
             speed: 500

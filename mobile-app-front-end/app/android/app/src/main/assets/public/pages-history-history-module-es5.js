@@ -109,8 +109,8 @@ var HistoryPage = /** @class */ (function () {
         this.categories = 0;
         this.ios = false;
         this.sliderOptions = {
-            initialSlide: 2,
-            slidesPerView: 1,
+            initialSlide: 0,
+            slidesPerView: 1.0,
             slideShadows: true,
             speed: 500
         };

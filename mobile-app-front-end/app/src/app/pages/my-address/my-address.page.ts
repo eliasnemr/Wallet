@@ -1,4 +1,4 @@
-import { Platform, AlertController, IonContent, ToastController } from '@ionic/angular';
+import { Platform, AlertController, IonContent, ToastController, IonBadge } from '@ionic/angular';
 import { Component, OnInit, ViewChild, ElementRef, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { Clipboard } from '@ionic-native/clipboard/ngx';
 import { MinimaApiService } from '../../service/minima-api.service';
@@ -19,7 +19,44 @@ export class MyAddressPage implements OnInit {
   public canvasSize = 300;
   public canvasLength: number;
   public canvasWidth: number;
+  public hide: boolean = false;
   isEmpty: boolean;
+
+  // socials
+  public options = {
+    displayNames: true,
+    config: [{
+          facebook: {
+            socialShareQuote: 'MxFDAE143',
+            socialSharePopupWidth: 300,
+            socialSharePopupHeight: 500
+          }
+        },
+        {
+          whatsapp: {
+            socialShareText: 'MxFDAE143',
+            socialSharePopupWidth: 300,
+            socialSharePopupHeight: 500,
+          }
+        },
+        {
+          copy: {
+            
+            socialSharePopupWidth: 300,
+            socialSharePopupHeight: 500,
+          }
+        },
+        {
+          twitter: {
+            socialShareText: 'MxFDAE143',
+            socialSharePopupWidth: 300,
+            socialSharePopupHeight: 500,
+          }
+        }]
+  }
+  
+
+  @ViewChild('share', {static: false} ) shareComponent: HTMLDivElement;
 
   constructor(
     private socialSharing: SocialSharing,
@@ -36,6 +73,7 @@ export class MyAddressPage implements OnInit {
           this.canvasSize = this.platform.width() - 50;
         }
       });
+
     }
 
   ngOnInit() {}
@@ -43,6 +81,7 @@ export class MyAddressPage implements OnInit {
   ionViewWillEnter() {
     // return new address on enter
     this.newAddress();
+
   }
 
   /** API CALLS */
@@ -77,6 +116,17 @@ export class MyAddressPage implements OnInit {
     toast.present();
   }
 
+  shout() {
+    if(this.hide == true){
+      this.hide = false;
+    } else {
+      this.hide = true;
+    }
+  }
+  close() {
+
+  }
+
   /** MISC Functions */
   copyToClipboard() {
 
@@ -91,7 +141,8 @@ export class MyAddressPage implements OnInit {
 
   }
 
-  socialShare() {
+  socialShare(address: any) {
+    console.log("Sharing this addr:"+address);
    // Check if sharing via email is supported
   this.socialSharing.canShareViaEmail().then(() => {
     // Sharing via email is possible

@@ -9,12 +9,9 @@
 </ion-header>
 
 <ion-content>
-  <ion-card color="white">
+  <ion-card>
     <ion-card-header>
-      <ion-card-title>
-      <ion-icon size="small" name="clipboard"></ion-icon>
-      <ion-text style="position:relative; padding:8px 0 0 8px;" class="medium-text" [hidden]="tokenName.length === 0">Your transaction for the token, {{ tokenName }}</ion-text>
-      </ion-card-title>
+      Create a custom token
     </ion-card-header>
 
     <ion-card-content>
@@ -23,27 +20,26 @@
   
         <ion-item>
           <ion-label position="floating" class="medium-text">Name</ion-label>
-          <ion-input class="medium-text" #nameTextArea name="name" [(ngModel)]="data.name" (ionChange)="onUpdateTokenName($event)"></ion-input>
+          <ion-input class="medium-text input" #nameTextArea name="name" [(ngModel)]="data.name" (ionChange)="onUpdateTokenName($event)"></ion-input>
         </ion-item>
 
         <ion-item>
           <ion-label class="medium-text"  position="floating">Amount</ion-label>
-          <ion-input class="medium-text" #amountRef name="amount" [(ngModel)]="data.amount" (ionChange)="onAmountChanged($event)"></ion-input>
+          <ion-input class="medium-text input" #amountRef name="amount" [(ngModel)]="data.amount" (ionChange)="onAmountChanged($event)"></ion-input>
         </ion-item>
 
         <!-- Description -->
         <ion-item>
           <ion-label class="medium-text"  position="floating">Description (Optional)</ion-label>
           <ion-textarea #textarea 
-                    style="opacity: 0.75 !important;"
-                    class="small-text"
+                    class="small-text input"
                     name="description"
                     maxlength="255" 
                     auto-grow="true" 
                     [(ngModel)]="data.description" 
                     placeholder="write your description here...">
           </ion-textarea>
-          <p style="position: relative; left:80%; font-family:'Optima'">{{ data.description.length+"/255"}}</p>
+          <span class="length smaller-text">{{ data.description.length+"/255"}}</span>
         </ion-item>
         <!-- Icon Entry -->
         <ion-item [hidden]="iconEntry.isChecked">
@@ -53,7 +49,7 @@
 
         <ion-item [hidden]="!iconEntry.isChecked">
           <ion-label class="medium-text">Icon (Optional)</ion-label>
-          <ion-input class="medium-text" style="opacity: 0.75 !important;" name="icon" #iconURL [(ngModel)]="data.icon" placeholder="icon URL"></ion-input>
+          <ion-input class="medium-text input" name="icon" #iconURL [(ngModel)]="data.icon" placeholder="icon URL"></ion-input>
           <ion-checkbox class="checkbox" name="checkboxicon" [(ngModel)]="iconEntry.isChecked"></ion-checkbox>
         </ion-item>
         <ion-note class="medium-text" style="opacity: 0.5 !important;" [hidden]="!iconEntry.isChecked">To set an icon for your token, add the URL of the hosted icon.</ion-note>
@@ -66,7 +62,7 @@
 
         <ion-item [hidden]="!proofEntry.isChecked">
           <ion-label class="medium-text">Proof (Optional)</ion-label>
-          <ion-input  name="proof" class="medium-text" style="opacity: 0.75 !important;" #proofURL [(ngModel)]="data.proof" placeholder="proof URL"></ion-input>
+          <ion-input  name="proof" class="medium-text input" style="opacity: 0.75 !important;" #proofURL [(ngModel)]="data.proof" placeholder="proof URL"></ion-input>
           <ion-checkbox class="checkbox" name="checkboxproof" [(ngModel)]="proofEntry.isChecked"></ion-checkbox>
         </ion-item>
         <ion-note class="medium-text" style="opacity: 0.5 !important;" [hidden]="!proofEntry.isChecked">To set proof for your token, add to your host website a text file with the token ID.</ion-note>
@@ -76,7 +72,7 @@
           <ion-checkbox class="checkbox" name="NFT" [(ngModel)]="nft.isNonFungible"></ion-checkbox>
         </ion-item>
          <ion-note class="medium-text" [hidden]="!nft.isNonFungible" style="padding: 20px; color: #855EFC; font-weight: 800; opacity:0.5 !important;">
-          <ion-icon  size="small" name="images"></ion-icon>
+          <ion-icon size="small" name="images"></ion-icon>
           This token can be spent whole only
           </ion-note>  
       </form>

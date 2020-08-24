@@ -527,6 +527,41 @@ module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-title slot=\"start\" c
 
 /***/ }),
 
+/***/ "./node_modules/web-social-share/dist/esm-es5 lazy recursive ^\\.\\/.*\\.entry\\.js$ include: \\.entry\\.js$ exclude: \\.system\\.entry\\.js$":
+/*!**************************************************************************************************************************************************!*\
+  !*** ./node_modules/web-social-share/dist/esm-es5 lazy ^\.\/.*\.entry\.js$ include: \.entry\.js$ exclude: \.system\.entry\.js$ namespace object ***!
+  \**************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var map = {
+	"./web-social-share.entry.js": [
+		"./node_modules/web-social-share/dist/esm-es5/web-social-share.entry.js",
+		79
+	]
+};
+function webpackAsyncContext(req) {
+	if(!__webpack_require__.o(map, req)) {
+		return Promise.resolve().then(function() {
+			var e = new Error("Cannot find module '" + req + "'");
+			e.code = 'MODULE_NOT_FOUND';
+			throw e;
+		});
+	}
+
+	var ids = map[req], id = ids[0];
+	return __webpack_require__.e(ids[1]).then(function() {
+		return __webpack_require__(id);
+	});
+}
+webpackAsyncContext.keys = function webpackAsyncContextKeys() {
+	return Object.keys(map);
+};
+webpackAsyncContext.id = "./node_modules/web-social-share/dist/esm-es5 lazy recursive ^\\.\\/.*\\.entry\\.js$ include: \\.entry\\.js$ exclude: \\.system\\.entry\\.js$";
+module.exports = webpackAsyncContext;
+
+/***/ }),
+
 /***/ "./src/app/app-routing.module.ts":
 /*!***************************************!*\
   !*** ./src/app/app-routing.module.ts ***!
@@ -915,6 +950,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 /*
   NgModules configure the injector and the compiler and help organize related things together.
 
@@ -940,7 +976,8 @@ var AppModule = /** @class */ (function () {
                 { provide: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouteReuseStrategy"], useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonicRouteStrategy"] },
                 { provide: _angular_common__WEBPACK_IMPORTED_MODULE_13__["LocationStrategy"], useClass: _angular_common__WEBPACK_IMPORTED_MODULE_13__["HashLocationStrategy"] },
             ],
-            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"]] // bootstrap from AppComponent when app launches
+            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"]],
+            schemas: [_angular_core__WEBPACK_IMPORTED_MODULE_1__["CUSTOM_ELEMENTS_SCHEMA"]]
         })
     ], AppModule);
     return AppModule;
@@ -1695,15 +1732,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/platform-browser-dynamic */ "./node_modules/@angular/platform-browser-dynamic/fesm5/platform-browser-dynamic.js");
 /* harmony import */ var _app_app_module__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./app/app.module */ "./src/app/app.module.ts");
 /* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./environments/environment */ "./src/environments/environment.ts");
+/* harmony import */ var web_social_share_dist_loader__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! web-social-share/dist/loader */ "./node_modules/web-social-share/dist/loader/index.mjs");
 
 
 
+
+// Note: loader import location set using "esmLoaderPath" within the output target config
 
 if (_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].production) {
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["enableProdMode"])();
 }
 Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformBrowserDynamic"])().bootstrapModule(_app_app_module__WEBPACK_IMPORTED_MODULE_2__["AppModule"])
     .catch(function (err) { return console.log(err); });
+Object(web_social_share_dist_loader__WEBPACK_IMPORTED_MODULE_4__["defineCustomElements"])();
+Object(web_social_share_dist_loader__WEBPACK_IMPORTED_MODULE_4__["applyPolyfills"])().then(function () {
+    Object(web_social_share_dist_loader__WEBPACK_IMPORTED_MODULE_4__["defineCustomElements"])();
+});
 
 
 /***/ }),

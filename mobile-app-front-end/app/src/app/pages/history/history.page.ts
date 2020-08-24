@@ -20,7 +20,7 @@ export class HistoryPage implements OnInit {
   categories: number = 0;
   ios: boolean = false;
   sliderOptions = {
-    initialSlide: 2,
+    initialSlide: 0,
     slidesPerView: 1,
     slideShadows: true,
     speed: 500

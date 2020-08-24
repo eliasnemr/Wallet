@@ -55,7 +55,10 @@ export class SendFundsPage implements OnInit {
     private balanceService: BalanceService,
     private platform: Platform,
     private route: ActivatedRoute,
-    private router: Router) {}
+    private router: Router) {
+
+      this.data.message = "";
+    }
 
   ngOnInit() {
     this.isCameraOpen = false;
@@ -361,7 +364,17 @@ export class SendFundsPage implements OnInit {
     });
   }
 
+  // work around for weird ion-textarea height: 0 + auto-grow='true'
+  checkTextarea(){
+    return this.message.getInputElement().then((element) => {
+      if(element.style.height == '0px'){
+       return  element.style.height = 'auto';
+      } else {
+        setTimeout(()=> this.checkTextarea(),100)};
+      })
+  }
   checkboxValue(ev: any, messageEntry: any){
+    this.checkTextarea();
     if(messageEntry === false){
       this.data.message = undefined;
     } 

@@ -38,7 +38,7 @@
           <ion-label class="medium-text" position="floating">Tokens</ion-label>
           <ion-select
               interface = 'alert'
-              class="token-select medium-text"
+              class="smaller-text input"
               [(ngModel)]="itemSelected"
               (ionChange)="onItemSelection($event)"> 
           <ion-select-option *ngFor="let token of tokenArr;" [value]="token" class="token-option">
@@ -58,7 +58,7 @@
 
         <ion-item>
           <ion-label class="medium-text" position="floating">Address</ion-label>
-          <ion-input #address name="address" [(ngModel)]="data.address" clearInput="true"></ion-input>
+          <ion-input #address class="input" name="address" [(ngModel)]="data.address" clearInput="true"></ion-input>
           
         </ion-item>
         <ion-item lines="none" slot="end" [hidden]="checkPlatform()">
@@ -79,7 +79,7 @@
         </ion-item>
         <ion-item>
           <ion-label class="medium-text" position="floating">Amount</ion-label>
-          <ion-input #amount type="number" name="amount" [(ngModel)]="data.amount"></ion-input>
+          <ion-input #amount type="number" name="amount" class="input" [(ngModel)]="data.amount"></ion-input>
         </ion-item>
         <ion-item lines="none">
         <!-- Disabled Checkbox -->
@@ -89,13 +89,14 @@
         </ion-item>
         <ion-item [hidden]="!messageEntry.isChecked">
             <ion-textarea 
-            class="medium-text"
+            class="medium-text input"
+            auto-grow="true"
             #message 
             [(ngModel)]="data.message" 
             placeholder="type your message..."
-            maxlength="255"
-            autogrow="true"></ion-textarea>
-            
+            maxlength="255">
+            </ion-textarea>
+          <span class="length smaller-text">{{ data.message.length+"/255"}}</span>
         </ion-item>
         
     </ion-card-content>

@@ -11,6 +11,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HttpClientModule} from '@angular/common/http';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
@@ -53,6 +54,7 @@ import { SocialSharing } from '@ionic-native/social-sharing/ngx';
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: LocationStrategy, useClass: HashLocationStrategy },
   ],
-  bootstrap: [AppComponent] // bootstrap from AppComponent when app launches
+  bootstrap: [AppComponent], // bootstrap from AppComponent when app launches
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule {}

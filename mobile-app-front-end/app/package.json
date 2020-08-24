@@ -70,6 +70,7 @@
     "rxjs-compat": "^6.5.4",
     "tlite": "^0.1.9",
     "tslib": "^1.9.0",
+    "web-social-share": "^6.4.1",
     "xterm": "^4.3.0",
     "xterm-addon-fit": "^0.3.0",
     "xterm-addon-web-links": "^0.2.1",

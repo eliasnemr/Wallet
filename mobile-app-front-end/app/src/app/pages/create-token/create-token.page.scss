@@ -29,13 +29,7 @@ ion-toolbar ion-title {
 }
 .action-btn:hover {
     height: 72px;
-
-    ion-icon {
-        font-size: large;
-      }
 }
-
-
 
 
 /** t-lite */
@@ -114,4 +108,12 @@ ion-toolbar ion-title {
   }
   ion-card-header {
     background: var(--ion-card-header);
+  }
+  .input {
+    opacity: 0.75 !important;
+  }
+  .length {
+    position: relative;
+    left:90%;
+    opacity: 0.5;
   }
