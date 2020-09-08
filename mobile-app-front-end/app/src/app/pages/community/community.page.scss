@@ -6,3 +6,26 @@
     --background: var(--card-header-color);
   }
   
+  .social-card {
+    cursor: pointer;
+    background-color: rgba(242, 242, 242, 0.5);
+  }
+  
+  .social-card ion-card-header {
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    text-align: center;
+    background-color: transparent;
+  }
+  .social-card ion-card-content {
+    text-align: center;
+    justify-content: center !important;
+    width: 100%;
+    align-content: center;
+    display: flex;
+    
+  }
+
+  .socials {
+    width: 5vh;
+  }

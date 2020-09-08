@@ -128,7 +128,7 @@ getHost() {
   }
 
 //api calls
-request(route) {
+request(route: any) {
     if(route === 'printchain'){
       return new Promise((resolve, reject) => {
         this.http.get(this.host + route, { responseType: 'text' }).subscribe(( d: any ) => {

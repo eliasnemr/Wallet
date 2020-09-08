@@ -17,9 +17,10 @@ export class HistoryService {
   private host = '';
 
   constructor(private http: HttpClient) {
-      this.host = environment.defaultNode;
-      this.host = this.getHost();
-      }
+
+    this.host = environment.defaultNode;
+
+  }
       
   getHistory() {
     return this.request('history');

@@ -38,18 +38,18 @@
           <ion-label class="medium-text" position="floating">Tokens</ion-label>
           <ion-select
               interface = 'alert'
-              class="smaller-text input"
+              class="medium-text input"
               [(ngModel)]="itemSelected"
               (ionChange)="onItemSelection($event)"> 
           <ion-select-option *ngFor="let token of tokenArr;" [value]="token" class="token-option">
           
             <ion-text class="medium-text" *ngIf="token.tokenid === '0x00'">
-            {{ token.token +" {"+  token.tokenid + "}" }} 
+            {{ token.token +" - "+  token.tokenid + "" }} 
 
             </ion-text>
 
             <ion-text class="medium-text" *ngIf="token.tokenid !== '0x00'">
-            {{ token.token +" {"+ token.tokenid.substring(0, 12)+"...}"  }} 
+            {{ token.token + " - " + token.tokenid.substring(0, 60)  }} 
             </ion-text>
           </ion-select-option>
 

@@ -2,12 +2,10 @@ import { MinimaApiService } from './service/minima-api.service';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Platform, MenuController } from '@ionic/angular';
-import { darkMode } from './service/darkMode.service';
 import { Storage } from '@ionic/storage';
-import { Plugins, Toast } from '@capacitor/core';
-const { SplashScreen } = Plugins;
 
-declare var Minima: any;
+declare var Minima: any; // Front-end RPC 
+declare var ServiceJS: any; // Back-end RPC with Minima Node
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -15,8 +13,7 @@ declare var Minima: any;
 })
 export class AppComponent {
 
-  overlayHidden: boolean = false;
-  private currentRoute:string='';
+  toggleValue: boolean = false;
   currentMode: boolean = false;
   currentVersion = 0;
   activePage: any;
@@ -28,32 +25,29 @@ export class AppComponent {
     private menu: MenuController,
     private router: Router,
     private api: MinimaApiService,
-    private darkMode: darkMode,
-    private storage: Storage) {
+    private storage: Storage
+  ) {
   
-    this.getPages();  /** this returns pages if on mobile or desktop, (different layouts) */ 
-    this.getPlatform(); /** Turn getPlatform() off if you want to use desktop version with desktop node */ 
-    this.initializeApp();
+      this.getPages();  /** this returns pages if on mobile or desktop, (different layouts) */ 
+      this.initializeApp();
 
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)'); /** check user preference */
-
-    this.setLocalStorage(); /** set localStorages  */
+      this.setLocalStorage(); /** set localStorages  */
 
   }
 
   /** @@@@@@@@@@@@@ Lifecycle @@@@@@@@@@@@@@@ */
   ionViewWillEnter(){
    this.initializeApp();
-   localStorage.setItem('overlayVal', 'true');
   }
 
   initializeApp() {
-    console.log('Minima initialized');
     this.platform.ready().then(() => {
-      // set host.. taken from Minima.js
-      Minima.init();
-      this.api.setHost('http://'+ Minima.host + '/');
-
+      Minima.init((msg:any) => { 
+        if(msg.event === 'connected'){
+          console.log('@M:connected');
+        }
+      });
+      this.api.setHost(Minima.rpchost+'/');
     });
   }
 
@@ -65,25 +59,7 @@ export class AppComponent {
         { title:'Balance', routerLink: '/balance', icon: 'card', line: 'none', hidden: false},
         { title:'Send', routerLink: '/send-funds', icon: 'send', line: 'none', hidden: false},
         { title:'Receive', routerLink: '/my-address', icon: 'arrow-down', line: 'none', hidden: false},
-        { title:'History', routerLink: '/history', icon: 'book', line: 'full', hidden: false},
-        
-      ]
-  
-      this.advanced =
-      [
-        { title:'Token', routerLink: '/create-token', icon: 'brush', line: 'none', hidden: false},
-        { title:'Status', routerLink: '/status', icon: 'analytics', line: 'none', hidden: false},
-        { title:'Terminal', routerLink: '/mini-term', icon: 'code', line: 'full', hidden: false},
-        { title:'Web', routerLink: '/web-scanner', icon: 'desktop', line: 'full', hidden: true},
-        { title:'Community', routerLink: '/community', icon: 'share', line: 'none', hidden: false},
-      ]
-    } else {
-      this.basic =
-      [
-        { title:'Balance', routerLink: '/balance', icon: 'card', line: 'none', hidden: false},
-        { title:'Send', routerLink: '/send-funds', icon: 'send', line: 'none', hidden: false},
-        { title:'Receive', routerLink: '/my-address', icon: 'arrow-down', line: 'none', hidden: false},
-        { title:'History', routerLink: '/history', icon: 'book', line: 'full', hidden: false},
+        { title:'History', routerLink: '/history', icon: 'book', line: 'half', hidden: false},
         
       ]
   
@@ -93,15 +69,31 @@ export class AppComponent {
         { title:'Status', routerLink: '/status', icon: 'analytics', line: 'none', hidden: false},
         { title:'Terminal', routerLink: '/mini-term', icon: 'code', line: 'none', hidden: false},
         { title:'Web', routerLink: '/web-scanner', icon: 'desktop', line: 'full', hidden: true},
-        { title:'Community', routerLink: '/community', icon: 'share', line: 'none', hidden: false},
+        { title:'Community', routerLink: '/community', icon: 'share', line: 'half', hidden: false},
+        { title:'Settings', routerLink: '/settings', icon: 'build', line: 'none', hidden: true},
+
+      ]
+    } else {
+      this.basic =
+      [
+        { title:'Balance', routerLink: '/balance', icon: 'card', line: 'none', hidden: false},
+        { title:'Send', routerLink: '/send-funds', icon: 'send', line: 'none', hidden: false},
+        { title:'Receive', routerLink: '/my-address', icon: 'arrow-down', line: 'none', hidden: false},
+        { title:'History', routerLink: '/history', icon: 'book', line: 'half', hidden: false},
+        
+      ]
+  
+      this.advanced =
+      [
+        { title:'Token', routerLink: '/create-token', icon: 'brush', line: 'none', hidden: false},
+        { title:'Status', routerLink: '/status', icon: 'analytics', line: 'none', hidden: false},
+        { title:'Terminal', routerLink: '/mini-term', icon: 'code', line: 'none', hidden: false},
+        { title:'Web', routerLink: '/web-scanner', icon: 'desktop', line: 'full', hidden: true},
+        { title:'Community', routerLink: '/community', icon: 'share', line: 'half', hidden: false},
+        { title:'Settings', routerLink: '/settings', icon: 'build', line: 'none', hidden: true},
+
       ]
     }
-  }
-  // HIDE OVERLAY
-  public hideOverlay() {
-    setTimeout(() => {
-      this.overlayHidden = true;
-    }, 400);
   }
 
   // localStorage
@@ -114,20 +106,27 @@ export class AppComponent {
       document.body.classList.toggle('dark', false);
     }
 
-    //check cookies for overlay welcome screen
-    if(localStorage.getItem('overlayVal') === 'true'){
-      this.overlayHidden = true;
+    if(localStorage.getItem('toggleVal') === 'true'){
+      this.toggleValue = true;
     } else {
-      this.overlayHidden = false;
+      this.toggleValue = false;
     }
-
-    // localStoraghe - overlayVal
-    localStorage.setItem('overlayVal', 'true');
 
     // localStorage - termFontSize
     if(!localStorage.getItem('termFontSize')){
       localStorage.setItem('termFontSize', ""+14);
     }
+  }
+
+  checkToggle(e: Event) {
+    if(this.toggleValue === false) {
+      localStorage.setItem('toggleVal', 'false')
+      document.body.classList.toggle('dark', false);
+    } else {
+      localStorage.setItem('toggleVal', 'true')
+      document.body.classList.toggle('dark', true);
+    }
+
   }
 
   // get a key/value object
@@ -144,68 +143,6 @@ export class AppComponent {
     }
     }
 
-  // returns logo that should be used with dark mode/light 
-  getImg() {
-
-  if(document.body.classList.contains('dark')){
-      return './assets/MINIMADARKMODE.svg';
-    } else if(this.currentMode === false) {
-      return './assets/MINIMALIGHTMODE.svg';
-    }  
-  }
-
-  // checking if desktop
-  isThisDesktop() {
-    if(this.platform.is('desktop')) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  // return platform to assert Minima Web or Minima Native
-  getPlatform() {
-    //Minima.logout();
-    
-    /*  If on desktop do this.. */
-    if(this.platform.is('desktop')) {
-      window.addEventListener('load', (ev: Event) => {
-        // Page loaded
-        window.addEventListener('MinimaEvent', (evt: any)=> {
-          // Event connection success
-          if(evt.detail.event === 'connected') {
-            // now connected with host minima.host
-            this.api.setHost('http://'+ Minima.host + '/');
-          } else if(evt.detail.event === 'newbalance') {
-            
-            this.notifyMe();
-
-          } else if(evt.detail.event === 'newblock') {
-            
-          }
-        });
-        
-        Minima.init();
-      });
-    } else if (this.platform.is('ios')){
-      console.log('Running Minima on iOS');
-    } else if (this.platform.is('android')){
-      console.log('Running Minima on Android');
-    }
-  }
-
-  getVersion() {
-    this.api.getStatus().then((res : any) => {
-
-      // Check node's version..
-      this.currentVersion = res.response.version;
-      
-    });
-  }
-
-  betaTap() {
-    alert("Minima Node Version 0.4");
-  }
 
   notifyMe() {
     //let notificationIcon = '../assets/icon/icon.png';

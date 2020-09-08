@@ -1,19 +1,74 @@
 <ion-app>
-  <ion-header>
+  <ion-header translucent="true">
     <ion-toolbar>
       <ion-buttons slot="start">
         <ion-menu-button class="menu-icon"></ion-menu-button>
         </ion-buttons>
-      <ion-title class="large-text">Transaction History</ion-title>
+        
+        <ion-title class="large-text">History</ion-title>
+
+        <ion-segment value="all" (ionChange)="segmentChanged($event)" *ngIf="ios">
+          <ion-segment-button value="all">
+            <ion-label>All</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="Transactions">
+            <ion-label>Transactions</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="Tokens">
+            <ion-label>Tokens Created</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+
+        <ion-segment (ionChange)="segmentChanged($event)" *ngIf="!ios">
+          <ion-segment-button value="all">
+            <ion-label>All</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="Transactions">
+            <ion-label>Transactions</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="Tokens">
+            <ion-label>Tokens Created</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+
     </ion-toolbar>
   </ion-header>
   
-  <ion-content>
+  <ion-content fullscreen="true">
+    <ion-header collapse="condense">
+      <ion-toolbar>
+        <ion-title size="large">History</ion-title>
+      </ion-toolbar>
+    </ion-header>
 
-  <ion-card>
+
+    <ion-list #historyList>
+      <ion-item-group>
+        <ion-label>
+          8:00 AM
+        </ion-label>
+      </ion-item-group>
+
+      <ion-item-sliding #slidingItem [attr.track]="">
+        <ion-item>
+
+        </ion-item>
+      </ion-item-sliding>
+    </ion-list>
+
+
+
+
+
+
+
+
+
+
+
+  <!-- <ion-card>
   
   <ion-card-header>
-  <!-- Category Segment -->
   <ion-segment (ionChange)="segmentChanged($event, slides)" [(ngModel)] = "categories">
     <ion-segment-button value="0" class="seg">
       <ion-label>Transactions</ion-label>
@@ -33,10 +88,8 @@
              (ionSlideDidChange)="slideChanged(slides)" 
              (ionSlideDidLoad)="slideChanged(slides)">
 
-  <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@ Transactions @@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
   <ion-slide>
     <ion-card-content>
-    <!-- NO TRANSACTIONS -->
     <ion-text *ngIf="isEmpty" class="medium-text">No activities to display.</ion-text>
 
     <span *ngFor="let transaction of transactions;">
@@ -55,12 +108,10 @@
                   transaction.values[0].name,
                   transaction.txpow.body.txn.outputs[0].address)">
 
-      <!-- TXN Icon -- desktop only -->
       <ion-col size="1" [hidden]="ios">
         <ion-icon [name]="getTXNType(transaction.values[0].amount)" class="large-text"></ion-icon>
       </ion-col>
 
-      <!-- TXN Date -->
       <ion-col size="2" fixed="true">
       <span>
       <p class="small-text" id="day">
@@ -73,8 +124,6 @@
       </ion-col>
 
 
-      <!-- If it's minima do this.. -->
-        <!-- TXN Description -->
       <ion-col *ngIf="!transaction.values[0].name.name" size="4" fixed="true" [hidden]="ios">
         <span class="medium-text" *ngIf="transaction.values[0].amount.substring(0,1) == '-'"> 
           Sent Minima
@@ -85,7 +134,6 @@
         </span>
       </ion-col>
 
-      <!-- TXN Description -->
       <ion-col *ngIf="!transaction.values[0].name.name" size="6" fixed="true" [hidden]="!ios">
         <span class="medium-text" *ngIf="transaction.values[0].amount.substring(0,1) == '-'"> 
           Sent Minima
@@ -96,8 +144,6 @@
         </span>
       </ion-col>
 
-      <!-- If it's a TOKEN.. do this.. -->
-        <!-- TXN Description -->
       <ion-col *ngIf="transaction.values[0].name.name" size="4" fixed="true" [hidden]="ios">
         <span class="medium-text" *ngIf="transaction.values[0].amount.substring(0,1) == '-'"> 
           Sent {{ transaction.values[0].name.name }}
@@ -108,7 +154,6 @@
         </span>
       </ion-col>
 
-      <!-- TXN Description -->
       <ion-col *ngIf="transaction.values[0].name.name" size="6" fixed="true" [hidden]="!ios">
         <span class="medium-text" *ngIf="transaction.values[0].amount.substring(0,1) == '-'"> 
           Sent {{ transaction.values[0].name.name }}
@@ -120,7 +165,6 @@
       </ion-col>
       
 
-      <!-- TXN AMOUNT -->
       <ion-col size="4" fixed="true">
         <span  *ngIf="transaction.values[0].amount.substring(0,1) == '-'"> 
           <h2 class="negative medium-text">{{ transaction.values[0].amount}}</h2>
@@ -131,7 +175,6 @@
         </span>
       </ion-col>
 
-      <!-- TXN Message -->
       <ion-col size="4" class="medium-text" *ngIf="transaction.txpow.body.txn.state.length > 0" [hidden]="ios">
       <p *ngIf="transaction.txpow.body.txn.state[1].data.length <= 15" class="msg-details">{{transaction.txpow.body.txn.state[1].data.substring(0, 15)}}</p>
       <p *ngIf="transaction.txpow.body.txn.state[1].data.length > 15" class="msg-details">{{transaction.txpow.body.txn.state[1].data.substring(0, 8) + "..."}}</p>
@@ -144,7 +187,6 @@
         </ion-card-content>
           </ion-slide>
 
-    <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@ Token Creation @@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
     <ion-slide>
       <ion-card-content style="width: 100%; text-align: center;">
     
@@ -166,12 +208,10 @@
                   transaction.txpow.body.txn.tokengen.total,
                   transaction.txpow.body.txn.tokengen.description)">
       
-      <!-- TXN Icon -->
       <ion-col size="1" [hidden]="ios">
       <ion-icon name="brush" class="large-text"></ion-icon>
       </ion-col>
 
-      <!-- TXN Date -->
       <ion-col size="2" fixed="true">
       <span>
       <p id="day">
@@ -183,7 +223,6 @@
       </span>
       </ion-col>
 
-      <!-- TXN Description -->
       <ion-col size="4" class="col-transtype" fixed="true" [hidden]="ios">
         <span id="transaction">
         <h2 class="h2-type medium-text">
@@ -192,7 +231,6 @@
         <p class="medium-text" id="token-name">{{ transaction.txpow.body.txn.tokengen.token }}</p>
         </span>
       </ion-col>
-      <!-- TXN Description -->
       <ion-col size="5" class="col-transtype" fixed="true" [hidden]="!ios">
         <span id="transaction">
         <h2 class="h2-type medium-text">
@@ -203,7 +241,6 @@
       </ion-col>
 
 
-      <!-- TXN AMOUNT -->
       <ion-col id="amount" size="4" fixed="true">
         <span *ngIf="transaction.values[0].amount.substring(0,1) == '-'"> 
           <h2 class="positive medium-text">{{ "+" + transaction.txpow.body.txn.tokengen.total }}</h2>
@@ -223,7 +260,6 @@
         </ion-card-content>
          </ion-slide>
 
-    <!-- @@@@@@@@@@@@@@@@@@@@@@@@@ All @@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
     <ion-slide>
       <ion-card-content>
 
@@ -242,12 +278,10 @@
                   transaction.txpow.isblock,
                   transaction.values[0].name)">
 
-      <!-- TXN Icon -->
       <ion-col size="1" [hidden]="ios">
       <ion-icon [name]="getTXNType(transaction.values[0].amount)" class="large-text"></ion-icon>
       </ion-col>
 
-      <!-- TXN Date -->
       <ion-col size="2" class="col-month" fixed="true">
       <ion-label>
       <p class="small-text" id="day">
@@ -259,8 +293,6 @@
       </ion-label>
       </ion-col>
 
-      <!-- If it's minima do this.. -->
-        <!-- TXN Description -->
       <ion-col *ngIf="!transaction.values[0].name.name" size="4" fixed="true" [hidden]="ios">
         <span class="medium-text" *ngIf="transaction.values[0].amount.substring(0,1) == '-'"> 
           Sent Minima
@@ -271,7 +303,6 @@
         </span>
       </ion-col>
 
-      <!-- TXN Description -->
       <ion-col *ngIf="!transaction.values[0].name.name" size="6" fixed="true" [hidden]="!ios">
         <span class="medium-text" *ngIf="transaction.values[0].amount.substring(0,1) == '-'"> 
           Sent Minima
@@ -282,8 +313,6 @@
         </span>
       </ion-col>
 
-      <!-- If it's a TOKEN.. do this.. -->
-        <!-- TXN Description -->
       <ion-col *ngIf="transaction.values[0].name.name" size="4" fixed="true" [hidden]="ios">
         <span class="medium-text" *ngIf="transaction.values[0].amount.substring(0,1) == '-'"> 
           Sent {{ transaction.values[0].name.name }}
@@ -294,7 +323,6 @@
         </span>
       </ion-col>
 
-      <!-- TXN Description -->
       <ion-col *ngIf="transaction.values[0].name.name" size="6" fixed="true" [hidden]="!ios">
         <span class="medium-text" *ngIf="transaction.values[0].amount.substring(0,1) == '-'"> 
           Sent {{ transaction.values[0].name.name }}
@@ -305,7 +333,6 @@
         </span>
       </ion-col>
 
-      <!-- TXN AMOUNT -->
       <ion-col size="4" fixed="true">
         <span *ngIf="transaction.values[0].amount.substring(0,1) == '-'"> 
           <h2 class="negative medium-text">{{ transaction.values[0].amount}}</h2>
@@ -316,13 +343,11 @@
         </span>
       </ion-col>
 
-      <!-- TXN Message -->
       <ion-col size="4" *ngIf="transaction.txpow.body.txn.state.length > 0" [hidden]="ios">
       <p *ngIf="transaction.txpow.body.txn.state[1].data.length <= 15" class="msg-details small-text">{{transaction.txpow.body.txn.state[1].data.substring(0, 15)}}</p>
       <p *ngIf="transaction.txpow.body.txn.state[1].data.length > 15" class="msg-details small-text">{{transaction.txpow.body.txn.state[1].data.substring(0, 15) + "..."}}</p>
       </ion-col>
     </ion-item>
-    <!-- Tokens -->
     </ion-row>
     
     <ion-row *ngIf="transactions.length >= 1 && transaction.values[0].name === 'Create Token';">
@@ -340,12 +365,10 @@
                   transaction.txpow.body.txn.tokengen.token,
                   transaction.txpow.body.txn.tokengen.total,
                   transaction.txpow.body.txn.tokengen.description)">
-      <!-- TXN Icon -->
       <ion-col size="1" [hidden]="ios">
       <ion-icon name="brush" class="large-text"></ion-icon>
       </ion-col>
 
-      <!-- TXN Date -->
       <ion-col size="2" fixed="true">
       <span>
       <p  class="small-text" id="day">
@@ -357,7 +380,6 @@
       </span>
       </ion-col>
 
-      <!-- TXN Description -->
       <ion-col size="4" class="col-transtype" fixed="true" [hidden]="ios">
         <span id="transaction">
         <h2 class="h2-type medium-text">
@@ -366,7 +388,6 @@
         <p class="small-text" id="token-name">{{ transaction.txpow.body.txn.tokengen.token }}</p>
         </span>
       </ion-col>
-      <!-- TXN Description -->
       <ion-col size="5" class="col-transtype" fixed="true" [hidden]="!ios">
         <span id="transaction">
         <h2 class="h2-type medium-text">
@@ -377,7 +398,6 @@
       </ion-col>
 
 
-      <!-- TXN AMOUNT -->
       <ion-col id="amount" size="4" fixed="true">
         <span *ngIf="transaction.values[0].amount.substring(0,1) == '-'"> 
           <h2 class="positive medium-text">{{ "+" + transaction.txpow.body.txn.tokengen.total }}</h2>
@@ -399,18 +419,15 @@
 
 
     <ion-slide>
-    <!-- SKELETON FOR UX LOADING -->
   <span *ngFor="let length of t_summarySpoof">
   <ion-grid>
     <ion-row *ngIf="length.values[0].name !== 'Create Token' && transactions.length < 1">
       <ion-item  class="activity-skeleton" lines="full">
 
-    <!-- TXN Icon Skeleton -->
     <ion-col size="1" [hidden]="ios">
     <ion-skeleton-text animated style="width: 50%; height: 50%;"></ion-skeleton-text>
     </ion-col>
 
-    <!-- TXN Date Skeleton -->
     <ion-col size="2" class="col-month" fixed="true">
       <ion-label>
       <p id="day">
@@ -421,7 +438,6 @@
       </h1>
       </ion-label>
     </ion-col>
-  <!-- TXN Details Skeleton -->
   <ion-col size="2"class="col-transtype" fixed="true">
     <ion-label id="transaction">
       <h2 class="h2-type">
@@ -429,7 +445,6 @@
       </h2>
     </ion-label>
   </ion-col>
-  <!-- TXN Amount Skeleton-->
   <ion-col size="6" class="col-transamnt" fixed="true">
     <ion-label class="amount">
       <h2 class="amount-h2">
@@ -438,7 +453,7 @@
     </ion-label> 
   </ion-col>
 
-  <!-- TXN Message Skeleton -->
+
   <ion-col size="4" [hidden]="ios">
   <ion-skeleton-text animated style="width: 50%; height: 10%;"></ion-skeleton-text>
   </ion-col>
@@ -449,7 +464,7 @@
       </span>
         </ion-slide>
       </ion-slides>
-  </ion-card>
+  </ion-card> -->
 
 
   

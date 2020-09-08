@@ -16,9 +16,9 @@
       Wallet Address
     </ion-card-header>
     <ion-card-content>
-    <ion-grid fixed>
+    <ion-grid>
       <ion-row>
-        <ion-col class="qr-container">
+        <ion-col size-md="6" size-xs="12" size="12" size-lg="6" size-xl="6">
          
             <qrcode
               [qrdata]="qrCode"
@@ -59,7 +59,7 @@
   </ion-card>
 
   <!-- Web Sharing Options for clipboard -->
-  <web-social-share #share [show]="true" [share]="options" (closed)="close()">
+  <!-- <web-social-share #share [show]="true" [share]="options" (closed)="close()">
 
     <ion-icon src="../../assets/socials/fb-light.svg" style="display: block;" slot="facebook"></ion-icon>
     <ion-icon src="../../assets/socials/whatsapp-light.svg" style="display: block;" slot="whatsapp"></ion-icon>
@@ -67,7 +67,7 @@
     <ion-icon src="../../assets/socials/twitter-light.svg" style="display: block;" slot="twitter"></ion-icon>
     <ion-icon src="../../assets/socials/messenger-light.svg" style="display: block;" slot="messenger"></ion-icon>
 
-  </web-social-share>
+  </web-social-share> -->
 
 </ion-content>
 
@@ -79,7 +79,7 @@
       <ion-button     
           class="action-btn medium-text"
           expand="full"
-          (click)="socialShare(qrCode)"
+          (click)="copyToClipPWA()"
           [disabled]="!isEmpty">
       <ion-icon
             name="share-alt" 

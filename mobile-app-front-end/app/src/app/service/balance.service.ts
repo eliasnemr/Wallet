@@ -34,7 +34,7 @@ export class BalanceService {
   }
 
   private getHost() {
-    if (localStorage.getItem('minima_host') == null) {
+    if (localStorage.getItem('minima_host')) {
       localStorage.setItem('minima_host', this.host);
       return this.host;
     } else {
@@ -47,11 +47,9 @@ export class BalanceService {
     //let balance$ = this.http.get(apiUrl);
 
     // create custom observable to talk with minima.js
-    const balanceObservable = Observable.create(observer => {
+    const balanceObservable = Observable.create((observer: any) => {
 
       observer.next(Minima.balance);
-
-      //console.log(Minima.balance);
 
     });
 

@@ -1,10 +1,9 @@
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
-
 export const environment = {
   production: false,
-  defaultNode: 'http://127.0.0.1:8999/',
+  defaultNode: "127.0.0.1:9002/",
   newLine: '/(\r\n|\n|\r)/gm'
 };
 

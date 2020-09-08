@@ -2,16 +2,16 @@
   <ion-toolbar>
     <ion-title slot="start" class="large-text">
     
-    <span *ngIf="name && name.length <= 10" class="large-text">{{ name + " " }}</span>
-    <span *ngIf="name && name.length > 10" class="large-text">{{ name.substring(0, 10)+"... " }}</span>
+    <span *ngIf="name && name.length <= 10" class="large-text title">{{ name + " " }}</span>
+    <span *ngIf="name && name.length > 10" class="large-text title">{{ name.substring(0, 20)+"... " }}</span>
 
-    <span class="medium-text" [hidden]="tokenid == '0x00'">{{ tokenid.substring(0,8) + "..."}}</span>
-    <span class="medium-text" [hidden]="tokenid !== '0x00'">{{ tokenid }}</span>
+    <span class="small-text" [hidden]="tokenid == '0x00'">{{ tokenid.substring(0,8) + "..."}}</span>
+    <span class="small-text" [hidden]="tokenid !== '0x00'">{{ tokenid }}</span>
     <ion-icon (click)="copyToClipboard()" name="clipboard"></ion-icon>
     </ion-title>
   
   <ion-button 
-  class="medium-text"
+  class="small-text dismiss-btn"
   slot="end"
   fill="clear"
   (click)="dismiss()">
@@ -26,9 +26,9 @@
     <ion-card-header>
       <ion-grid>
         <ion-row>
-          <ion-col >
-            <img style="max-width: 250px; min-height:75px;"[hidden]="tokenid == '0x00'" src="{{ icon }}"/>
-            <img style="max-width: 250px; min-height:75px;" [hidden]="tokenid !== '0x00'" src="assets/icon/icon.png"/>
+          <ion-col>
+            <img style="max-width: 250px; min-height:75px;"[hidden]="!icon" src="{{ icon }}"/>
+            <img style="max-width: 250px; min-height:75px;" [hidden]="icon" src="assets/icon/icon.png"/>
           </ion-col>
         </ion-row>
         <ion-row>

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import {MinimaApiService } from '../../service/minima-api.service';
 import { ToastController } from '@ionic/angular';
-import { darkMode } from '../../service/darkMode.service';
 
 @Component({
   selector: 'app-settings',
@@ -15,8 +14,11 @@ export class SettingsPage implements OnInit {
   toggleValue: boolean = false;
   host = '';
 
-  constructor(private api: MinimaApiService, public alertController: AlertController,
-    public toastController: ToastController, private darkMode: darkMode) {
+  constructor(
+    private api: MinimaApiService,
+    public alertController: AlertController,
+    public toastController: ToastController
+  ) {
       
     if(localStorage.getItem('toggleVal') === 'true'){
       this.toggleValue = true;

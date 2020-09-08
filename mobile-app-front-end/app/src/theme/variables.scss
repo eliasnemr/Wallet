@@ -96,16 +96,39 @@
     --ion-card-color: #FFFFFF;
     --ion-card-header: linear-gradient(0deg, rgba(255,255,255,1) 14%, rgba(242,242,242,1) 100%);
 
+    /** Minima Icon */
+    --st0: #FF671D;
+    --st1: #00ABC8;
+    --st2: #939598;
+    --st3: #231F20;
+    --st4: #FFFFFF;
+    --st5: #00ABC7;
+    --st6: #F26725;
+    --minima-icon-word: #000000;
+
   
     $alert-ios-content-max-height:700px !default;
     $alert-md-content-max-height:400px !default;
+
+    ion-title {
+      font-size: 20px !important;
+      letter-spacing: -0.02em !important;
+      font-weight: 600;
+      opacity: 0.8;
+      letter-spacing: -0.02em;
+    }
+
+    ion-menu-button {
+      width: 50px;
+      font-weight: 600;
+    }
 
 
   }
   // FIX POP UP IN SEND-FUNDS.. WON'T WORK OTHERWISE
   .alert-wrapper.sc-ion-alert-md {
-    max-width: 20% !important;
-    width: 50% !important;
+    max-width: 40% !important;
+    width: 100% !important;
   }
   .ios .alert-wrapper.sc-ion-alert-md {
     max-width: 20% !important;
@@ -241,21 +264,21 @@
       }
 
       .large-text {
-        font-size: 10px;
+        font-size: 14px;
       }
       
       .medium-text {
-        font-size: 9px;
+        font-size: 12px;
       
       }
       
       .small-text {
-        font-size: 8px;
+        font-size: 10px;
       
       }
       
       .smaller-text {
-        font-size: 6px;
+        font-size: 8px;
       
       }
 
@@ -287,7 +310,3 @@
   
   }
 }
-
-
-
-

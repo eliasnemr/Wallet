@@ -275,7 +275,7 @@ export class SendFundsPage implements OnInit {
 
   sendFunds(){
     if(this.data.address&&this.data.address!==''&&this.data.amount&&this.data.amount>0&&
-    this.data.tokenid&&this.data.tokenid!==''&&this.data.message===undefined){
+    this.data.tokenid&&this.data.tokenid!==''&&!this.data.message){
       this.api.sendFunds(this.data).then((res:any)=>{
         if(res.status === true) {
           //clear inputs
@@ -291,7 +291,7 @@ export class SendFundsPage implements OnInit {
     } else if(this.data.address&&this.data.address!==''&&this.data.amount&&this.data.amount>0&&
     this.data.tokenid&&this.data.tokenid!==''&&this.data.message!==undefined&&this.data.message.length >= 0) {
       this.api.createTXN(this.data).then((res:any)=> {
-        if(res[4].status === true) {
+        if(res[5].status === true) {
           //clear inputs
           this.address.value = "";
           this.amount.value = "";

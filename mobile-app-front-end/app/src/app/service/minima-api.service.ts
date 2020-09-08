@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { LoadingController } from '@ionic/angular';
 import { environment } from '../../environments/environment';
 
-
 declare var Minima: any;
 @Injectable({
   providedIn: 'root'
@@ -13,13 +12,10 @@ export class MinimaApiService {
   private host = '';
   private loader: any = null;
 
-  constructor(private http: HttpClient, 
-    public loadingController: LoadingController) {
-
-    this.host = environment.defaultNode;
-    this.host = this.getHost();
-
-  }
+  constructor(
+    private http: HttpClient, 
+    public loadingController: LoadingController
+  ) {}
 
   async showLoader() {
     if (this.loader == null) {
@@ -45,7 +41,6 @@ export class MinimaApiService {
   }
 
   createTXN(data: any){
-    console.log("createTXN"+ data.message);
     const txnidentifier = Math.floor(Math.random()*1000000000);
     const port254 = 254;
     const port255 = 255;

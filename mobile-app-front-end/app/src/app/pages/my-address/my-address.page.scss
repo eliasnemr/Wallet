@@ -41,13 +41,6 @@ ion-footer ion-toolbar ion-buttons ion-button {
 .addr-title {
     padding: 10px;
 }
-.qr-container {
-    padding-top: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
 
 // ion-grid, ion-row, ion-col 
 ion-grid {
@@ -56,6 +49,10 @@ ion-grid {
     --ion-grid-width-xl: 360px;
     --ion-grid-width-lg: 360px;
     --ion-grid-width-md: 450px;
+}
+
+ion-col {
+    margin-top: 15px;
 }
 
 ion-toolbar {
@@ -73,4 +70,10 @@ ion-badge {
     word-break: break-all;
     white-space: normal;
     cursor: pointer;
+}
+
+ion-row {
+    display: flexbox;
+    justify-content: center !important;
+    align-content: center !important;
 }

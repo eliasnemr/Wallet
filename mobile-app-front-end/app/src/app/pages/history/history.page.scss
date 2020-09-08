@@ -14,6 +14,23 @@ ion-card-header {
     
 }
 
+ion-toolbar {
+    --padding-top: 15px;
+}
+.ios ion-toolbar {
+    --padding-top: 30px;
+    --padding-left: 10px;
+    --padding-right: 5px;
+    --padding-bottom: 5px;
+
+}
+.ios ion-segment {
+    padding-top: 5px;
+}
+.ios ion-title {
+    padding-bottom: 15px;
+}
+
 ion-card-content {
     width: 100%;
     text-align: center;    

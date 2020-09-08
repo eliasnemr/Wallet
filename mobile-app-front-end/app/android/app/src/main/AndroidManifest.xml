@@ -11,6 +11,11 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
 
+        <service
+            android:name=".ForegroundService"
+            android:enabled="true"
+            android:exported="true"></service>
+
         <activity
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale"
             android:name="global.minima.telco.MainActivity"

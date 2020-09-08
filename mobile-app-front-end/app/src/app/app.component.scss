@@ -1,52 +1,11 @@
-/** OVERLAY MENU */
-.my-overlay {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background: var(--ion-background-color, #f2f2f2);
-  opacity: 100%;
-  z-index: 20;
-  top: 0;
-  left: auto;
-  right: auto;
-  padding: 10%;
-}
-.ripple-parent {
-  position: relative; 
-  overflow: hidden;
-  --ripple-color: #f2f2f2;
-}
-.my-overlay ion-card ion-card-header ion-item {
-  padding-bottom: 5%;
-}
-.my-overlay img {
-  padding-bottom: 5%;
-}
-.my-overlay p {
-  padding-bottom: 5%;
-}
-.my-overlay-btn {
-  position: relative;
-  top: 25%;
-}
-.my-overlay ion-card {
-  opacity: 100%;
-  --background: var(--ion-background-color, #f2f2f2);
-  padding: 25px;
-  top: 20%;
-  padding: 20px;
-  text-align: center;
-}
-.hide-chckbox {
-  font-size: 12px;
-}
-/** */
-.medium-text {
-  opacity: 1.5;
-  font-weight: 700;
+.large-text {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
 }
 .footer-content {
-  padding-top: 10px;
+  top: 10%;
 }
 ion-menu {
   --background: var(--ion-background-color, #f2f2f2);
@@ -80,64 +39,53 @@ ion-menu ion-item {
 .social-lbl {
     color:white;
 }
-
 .menu-logo {
-    height: auto;
-    width: 190px;
-    margin: auto;
-    margin-bottom: 10px;
-    position: relative;
-    padding: 10px 70px 0px 0;
+  height: auto;
+  width: auto;
 }
-
 /** Desktop Version */
 @media only screen and (min-width: 992px) {
 
-    .splitpane {
-        margin-left: 180px;
-        margin-right: 180px;
-        margin-top: 100px;
-        margin-bottom: 100px;
-        // box-shadow: 2px 2px 5px grey;
-    }
-    ion-app {
-        background-image: url('../assets/miniTiles.png');
-    }
-    ion-menu-toggle {
-      height: 72px;
-    }
-    .menu-logo {
-        height: auto;
-        width: 150px;
-        margin: auto;
-        position: relative;
-        padding: 10px 20px 15px 0px;
-    }
-    .my-overlay ion-card {
-      top: 0%;
-      width: 650px;
-      height: auto;
-      margin-left: 28%;
-    }
-    .my-overlay img {
-      padding-bottom: 5%;
-      width: 250px;
-    }
-    .my-overlay h2 {
-      font-size: 1.5rem;
-      padding-bottom: 0px;
-    }
-    .my-overlay p {
-      font-size: 1.5rem;
-      padding-bottom: 0%;
-    }
-    .my-overlay ion-card-header {
-      display:inline-block;
-      height:auto;
-      width:30%;
-      padding-bottom: 6%;
-      margin: 0 auto;
-    }
+  .splitpane {
+    left: 10%;
+    right: 10%;
+    top: 18%;
+    bottom: 18%;
+  }
+  ion-app {
+      background-image: url('../assets/miniTiles.png');
+  }
+  ion-menu-toggle {
+    height: 72px;
+  }
+  .menu-logo {
+  
+  }
+  .my-overlay ion-card {
+    top: 0%;
+    width: 650px;
+    height: auto;
+    margin-left: 28%;
+  }
+  .my-overlay img {
+    padding-bottom: 5%;
+    width: 250px;
+  }
+  .my-overlay h2 {
+    font-size: 1.5rem;
+    padding-bottom: 0px;
+  }
+  .my-overlay p {
+    font-size: 1.5rem;
+    padding-bottom: 0%;
+  }
+  .my-overlay ion-card-header {
+    display:inline-block;
+    height:auto;
+    width:30%;
+    padding-bottom: 6%;
+    margin: 0 auto;
+  }
 }
 /*
  * Material Design Menu
@@ -160,7 +108,7 @@ ion-menu.md ion-list {
     background: linear-gradient(to left,  var(--ion-background-color, #fff) 0%, var(--ion-background-color, #f2f2f2) 100%) !important;
   }
 ion-menu.md ion-list {
-    padding-bottom: 0px !important;
+  padding-bottom: 0px !important;
 }
 
 /*
@@ -174,18 +122,7 @@ ion-menu.md ion-list {
     --padding-start: 16px;
     --min-height: 50px;
   }
-  .ios .menu-logo-title {
-    font-family: 'Ridley-normal';
-    font-weight: normal;
-    font-size: 12px;
-    padding-bottom: 2px;
-        
-  }
-  .ios ion-note ion-badge {
-    margin: auto;
-    color: #FF671E;
-    font-size: 8px;
-  }
+  
   .ios .footer-content {
     padding: 18px;
   }
@@ -212,4 +149,49 @@ ion-toolbar {
 }
 ion-menu-toggle ion-footer  {
   background: var(--card-header-color) !important;
+}
+
+
+
+/** Minima Icon */
+
+#icon .st0 {
+  fill: var(--st0);
+}
+#icon .st1 {
+  fill: var(--st1);
+}
+#icon .st2 {
+  fill: var(--st2);
+}
+#icon .st3 {
+  fill: var(--st3);
+}
+#icon .st4 {
+  fill: var(--st4);
+}
+#icon .st5 {
+  fill: var(--st5);
+}
+#icon .st6 {
+  fill: var(--st6);
+}
+#icon-M, #icon-I, #icon-N, #icon-I, #icon-M, #icon-A {
+  fill: var(--minima-icon-word);
+}
+
+@media only screen and (max-width: 650px) {
+  #icon {
+    width: 120px;
+  }
+}
+@media only screen and (min-width: 650px) {
+  #icon {
+    width: 145px;
+  }
+}
+
+ion-toggle {
+  --handle-background-checked: rgb(132, 0, 255);
+  --background-checked: rgba(132, 0, 255, 0.5);
 }

@@ -45,6 +45,24 @@ ion-card-header ion-col {
 }
 
 ion-card {
-    --background: var(--ion-background-color, #f2f2f2);
+    --overflow: hidden;
     background: linear-gradient(to bottom,  var(--ion-background-color, #fff) 0%, var(--ion-background-color, #f2f2f2) 100%) !important;
+}
+
+ion-content {
+    --background: transparent;
+}
+
+.dismiss-btn {
+    height: auto;
+    float: right;
+    color: #48D2D3;
+
+    --color-hover: #EE6E73;
+}
+
+.title {
+    white-space: normal;
+    word-break: break-all;
+    
 }

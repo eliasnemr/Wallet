@@ -1,5 +1,5 @@
 import { MinimaApiService } from '../../service/minima-api.service';
-import { PopoverController, IonSlides, ModalController, Platform } from '@ionic/angular';
+import { PopoverController, IonSlides, ModalController, Platform, IonList } from '@ionic/angular';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { HistoryService } from '../../service/history.service';
@@ -8,6 +8,9 @@ import { History } from '../../models/history.model';
 import { HistorymodalPage } from '../../components/historymodal/historymodal.page';
 import { HistorytokenmodalPage } from '../../components/historytokenmodal/historytokenmodal.page';
 
+import { HistoryData } from './../../providers/historydata';
+
+
 @Component({
   selector: 'app-history',
   templateUrl: './history.page.html',
@@ -15,16 +18,12 @@ import { HistorytokenmodalPage } from '../../components/historytokenmodal/histor
 })
 export class HistoryPage implements OnInit {
 
-  isEmpty: boolean = true;
+  @ViewChild('historyList', { static: true }) historyList: IonList;
+
+  ios: boolean;
   selectedSlide: any;
   categories: number = 0;
-  ios: boolean = false;
-  sliderOptions = {
-    initialSlide: 0,
-    slidesPerView: 1,
-    slideShadows: true,
-    speed: 500
-  }
+  
   // + vars
   public transactions: History[] = [];
   public minimaTransactions: History[] = [];
@@ -38,8 +37,13 @@ export class HistoryPage implements OnInit {
   // - vars
   private lastJSON: string = '';
 
-  constructor(private api: MinimaApiService, private historyService: HistoryService,
-     public modalController: ModalController, private platform: Platform) {}
+  constructor(
+    private api: MinimaApiService,
+    private historyService: HistoryService,
+    public modalController: ModalController, 
+    private platform: Platform,
+    public histData: HistoryData
+   ) {}
 
   ngOnInit() {
     if(this.platform.is('ios') || this.platform.is('android')){
@@ -148,7 +152,7 @@ export class HistoryPage implements OnInit {
       this.t_summarySpoof = res.response.history;
       /** Check if we have any txn */
       if(this.t_summarySpoof.length > 0) {
-        this.isEmpty = false;
+        //this.isEmpty = false;
       }
     });
   }
