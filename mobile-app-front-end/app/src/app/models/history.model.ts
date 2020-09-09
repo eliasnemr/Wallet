@@ -1,11 +1,12 @@
 export interface History {
 
     txpow: {
+        txpowid: string,
         isblock: boolean,
         istransaction: boolean,
-        txpowid: string,
         superblock: number,
-        header:{
+        size: number,
+        header: {
             block: string,
             blkdiff: string,
             cascadelevels: number,
@@ -22,9 +23,9 @@ export interface History {
             timesecs: string,
             date: string
         },
-    hasbody: boolean,
 
-    body:{
+    hasbody: boolean,
+    body: {
         txndiff: string
     txn: {
     inputs:[{
@@ -43,40 +44,41 @@ export interface History {
         floating: boolean,
         remainder: boolean
     }],
-    state: [],
+    state: [{port: string, data: string, keeper: boolean}],
     tokengen: any,
     linkhash: string
     }
     },
-        witness:{
-        signatures: [],
-        mmrproofs: [],
-        tokens:[],
-        scripts:[{
-            script:string,
-            proof:{
+    witness: {
+        
+    signatures: [],
+    mmrproofs: [],
+    tokens:[],
+    scripts:[{
+        script: string,
+        proof: {
             data: string,
             hashbits: number,
-            proofchain:[],
+            proofchain: [],
             chainsha:string,
             finalhash:string
-            }
-        }]
-        },
-        burnttxn:{
-        inputs:[],
-        outputs:[],
-        state:[],
-        linkhash:string
-        },
-        burntwitness:{
-        signatures:[],
-        mmrproofs:[],
-        tokens:[],
-        scripts:[]
-        },
-        txnlist:[],
-        magic: string,
+        }
+    }]
+    },
+    burnttxn:{
+    inputs:[],
+    outputs:[],
+    state:[],
+    linkhash:string
+    },
+    burntwitness:{
+    signatures:[],
+    mmrproofs:[],
+    tokens:[],
+    scripts:[]
+    },
+    txnlist:[],
+    magic: string,
     }
     values:[{
         token: string,

@@ -11,144 +11,82 @@
 </ion-header>
 
 <ion-content>
-        <ion-list *ngIf="statusOfStatus === 'updated' ">
-        <ion-list-header class="small-text">
-        Minima Node {{ "v"+status?.version }}
-        </ion-list-header>
-          <ion-item>
-            <ion-icon name="checkmark-circle" slot="start" class="active-icons"></ion-icon>
-            <ion-label>
-            <h2 class="medium-text">Status</h2>
-            <p *ngIf="status?.version" class="status-on small-text"> Online</p>
-            <p *ngIf="!status?.version" class="status-off small-text"> Offline</p>
-            </ion-label>
-          </ion-item>
-          <ion-item>
-            <ion-icon name="checkmark-circle" slot="start" class="active-icons"></ion-icon>
-            <ion-label>
-            <h2 class="medium-text">Node Version</h2>
-            <p class="small-text">{{ "v"+status?.version }}</p>
-            </ion-label>
-          </ion-item>
-          <ion-item>
-            <ion-icon name="checkmark-circle" slot="start" class="active-icons"></ion-icon>
-            <ion-label>
-            <h2 class="medium-text">Node uptime</h2>
-            <p class="small-text">{{ status?.uptime.substring(0,51) }}</p>
-            </ion-label>
-          </ion-item>
-          <ion-item>
-            <ion-icon name="checkmark-circle" slot="start" class="active-icons"></ion-icon>
-            <ion-label>
-            <h2 class="medium-text">Configuration path</h2>
-            <p class="small-text">{{ status?.conf }}</p>
-            </ion-label>
-          </ion-item>
-          <ion-item>
-            <ion-icon name="checkmark-circle" slot="start" class="active-icons"></ion-icon>
-            <ion-label>
-            <h2 class="medium-text">Hosting IP</h2>
-            <p class="small-text">{{ status?.host +':' }}{{ status?.port }}</p>
-            </ion-label>
-          </ion-item>
-          <ion-item>
-            <ion-icon name="checkmark-circle" slot="start" class="active-icons"></ion-icon>
-            <ion-label>
-            <h2 class="medium-text">RPC Port</h2>
-            <p class="small-text">{{ status?.rpcport }}</p>
-            </ion-label>
-          </ion-item>
-          <ion-item>
-            <ion-icon name="checkmark-circle" slot="start" class="active-icons"></ion-icon>
-            <ion-label>
-            <h2 class="medium-text">Last block number</h2>
-            <p class="small-text">{{ status?.lastblock }}</p>
-            </ion-label>
-          </ion-item>
-          <ion-item lines="none">
-            <ion-icon name="checkmark-circle" slot="start" class="active-icons"></ion-icon>
-            <ion-label>
-            <h2 class="medium-text">Last block time relayed</h2>
-            <p class="small-text"> {{ status?.lasttime.substring(4, 30) }}</p>
-            </ion-label>
-          </ion-item>
-        </ion-list>
-
-        <!-- SKELETON UX FOR LOADING -->
-        <div *ngIf="statusOfStatus === 'empty'">
-        <ion-list>
-        <ion-list-header>
-        Minima Node Version
-        </ion-list-header>
-          <ion-item>
-            <ion-icon name="timer" slot="start" class="inactive-icons"></ion-icon>
-            <ion-label>
-            <h2>Status</h2>
-            <p> <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text></p>
-            </ion-label>
-          </ion-item>
-          <ion-item>
-            <ion-icon name="timer" slot="start" class="inactive-icons"></ion-icon>
-            <ion-label>
-            <h2>Node Version</h2>
-            <p> <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text></p>
-            </ion-label>
-          </ion-item>
-          <ion-item>
-            <ion-icon name="timer" slot="start" class="inactive-icons"></ion-icon>
-            <ion-label>
-            <h2>Node uptime</h2>
-            <p> <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text></p>
-            <p> <ion-skeleton-text animated style="width: 25%" [hidden]="checkPlatform()" ></ion-skeleton-text></p>
-            </ion-label>
-          </ion-item>
-          <ion-item>
-            <ion-icon name="timer" slot="start" class="inactive-icons"></ion-icon>
-            <ion-label>
-            <h2>Configuration path</h2>
-            <p> <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text></p>
-            </ion-label>
-          </ion-item>
-          <ion-item>
-            <ion-icon name="timer" slot="start" class="inactive-icons"></ion-icon>
-            <ion-label>
-            <h2>Hosting IP</h2>
-            <p> <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text></p>
-            </ion-label>
-          </ion-item>
-          <ion-item>
-            <ion-icon name="timer" slot="start" class="inactive-icons"></ion-icon>
-            <ion-label>
-            <h2>RPC Port</h2>
-            <p> <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text></p>
-            </ion-label>
-          </ion-item>
-          <ion-item>
-            <ion-icon name="timer" slot="start" class="inactive-icons"></ion-icon>
-            <ion-label>
-            <h2>Last block number</h2>
-            <p> <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text></p>
-            </ion-label>
-          </ion-item>
-          <ion-item lines="none">
-            <ion-icon name="timer" slot="start" class="inactive-icons"></ion-icon>
-            <ion-label>
-            <h2>Last block time relayed</h2>
-            <p> <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text></p>
-            </ion-label>
-          </ion-item>
-        </ion-list>
-        </div>
+  <ion-card>
+    <ion-card-header>
+     Minima Node{{ " Version "+ status?.version }}
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="12">
+              <h5>
+                Status
+              </h5>
+              <p *ngIf="status?.version" class="status-on small-text"> Online</p>
+              <p *ngIf="!status?.version" class="status-off small-text"> Offline</p>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12">
+              <h5>
+                Node Version
+              </h5>
+              <p class="small-text">{{ "v"+status?.version }}</p>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12">
+              <h5>
+                Uptime
+              </h5>
+              <p class="small-text">{{ status?.uptime.substring(0,51) }}</p>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12">
+              <h5>
+                Configuration path
+              </h5>
+              <p class="small-text">{{ status?.conf }}</p>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12">
+              <h5>
+                Host IP
+              </h5>
+              <p class="small-text">{{ status?.host +':' }}{{ status?.minimaport }}</p>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12">
+              <h5>
+                RPC Port
+              </h5>
+              <p class="small-text">{{ status?.rpcport }}</p>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12">
+              <h5>
+                Last Block Number
+              </h5>
+              <p class="small-text">{{ status?.lastblock }}</p>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12">
+              <h5>
+                Relayed Time
+              </h5>
+              <p class="small-text"> {{ status?.lasttime.substring(4, 30) }}</p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-list> 
+    </ion-card-content>
+  </ion-card>
 
 </ion-content>
-
-<ion-footer>
-     <ion-list lines="none">
-       <ion-item>
-       <ion-icon slot="start" name="notifications"></ion-icon>
-       <p class="medium-text">Call "status" in 
-         <a style="font-style: normal;" routerLink="/mini-term">terminal</a> for more details of the node's status.</p> 
-      </ion-item>
-     </ion-list>
-</ion-footer>
 </ion-app>

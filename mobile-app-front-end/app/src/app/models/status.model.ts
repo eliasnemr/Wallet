@@ -5,7 +5,10 @@ export interface Status {
     conf: string;
     host: string;
     port: number;
+    minimaport: number;
     rpcport: number;
+    websocketport: number;
+    minidappserver: number;
     automine: boolean, 
     root: string;
     tip: string,
@@ -16,13 +19,10 @@ export interface Status {
     difficulty: string,
     coindb: number,
     txpowdb: number,
-    txpowfiles: number,
-    txpowfolder: string,
     mempooltxn: number,
     mempoolcoins: number,
-    chainlength: number,
     chainspeed: number,
+    chainlength: number,
     chainweight: string,
-    IBD: string,
     connections: number
 }

@@ -1,13 +1,12 @@
-import { MinimaApiService } from '../../service/minima-api.service';
-import { PopoverController, IonSlides, ModalController, Platform, IonList } from '@ionic/angular';
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
+import { IonSlides, ModalController, Platform, IonList, AlertController, ToastController, Config, NavParams } from '@ionic/angular';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { HistoryService } from '../../service/history.service';
 import { map } from 'rxjs/operators';
 import { History } from '../../models/history.model';
-import { HistorymodalPage } from '../../components/historymodal/historymodal.page';
-import { HistorytokenmodalPage } from '../../components/historytokenmodal/historytokenmodal.page';
 
+import { UserData } from './../../providers/user-data';
 import { HistoryData } from './../../providers/historydata';
 
 
@@ -23,14 +22,11 @@ export class HistoryPage implements OnInit {
   ios: boolean;
   selectedSlide: any;
   categories: number = 0;
+  segment = 'all';
   
   // + vars
   public transactions: History[] = [];
-  public minimaTransactions: History[] = [];
-  public allTransactions: History[] = [];
-  public tokens: History[] = [];
-  public tokenTransactions: History[] = [];
-  public t_summarySpoof: History[] = [];
+  public saved: History[] = [];
 
   polledHistorySubscription: Subscription;
 
@@ -38,145 +34,132 @@ export class HistoryPage implements OnInit {
   private lastJSON: string = '';
 
   constructor(
-    private api: MinimaApiService,
     private historyService: HistoryService,
     public modalController: ModalController, 
     private platform: Platform,
-    public histData: HistoryData
-   ) {}
+    public histData: HistoryData,
+    public user: UserData,
+    public alertCtrl: AlertController,
+    public toastCtrl: ToastController,
+    public config: Config, 
+    public router: RouterModule
+   ) { }
 
   ngOnInit() {
-    if(this.platform.is('ios') || this.platform.is('android')){
-      this.ios = true;
-    }
-  }
+    this.pullInHistorySummary();
 
-  ionViewDidEnter(){ 
-    this.pullInHistoryLength(); // get length for skeleton
-    
-    setTimeout(() => {
-      this.pullInHistorySummary(); // subscribe and polls history
-    }, 500);
+    this.ios = this.config.get('mode') === 'ios';
   }
 
   ionViewDidLeave(){
-
     if(this.polledHistorySubscription){
-      
       this.polledHistorySubscription.unsubscribe();
-
     }
-
-  }
-
-  /** Modals */
-  async presentModal(_txpowid: string, _amount: any,
-     _message: any, _block: number, _tokenid: string, _date: string, _isBlock: boolean,
-     _name: string, _address: string) {
-    const modal = await this.modalController.create({
-      component: HistorymodalPage,
-      cssClass: 'history-pop',
-      componentProps: {
-        'TXPOW_ID': _txpowid,
-        'Amount': _amount,
-        'Message': _message,
-        'Block': _block,
-        'TokenID': _tokenid,
-        'Date': _date,
-        'isBlock': _isBlock,
-        'TokenName': _name,
-        'Address': _address
-      }
+    
+    this.user.storage.set('saved_transactions', this.user.saved).then((val:any)=>{
+      console.log(val);
     });
-    return await modal.present();
+
+    
   }
-  async presentTokenModal(_txpowid: string, _amount: any,
-    _message: any,  _block: number, _tokenid: string, _date: string, _isBlock: boolean,
-    _name: string, _tokenNameGiven: string, _amountCreated: string, _description) {
-   const modal = await this.modalController.create({
-     component: HistorytokenmodalPage,
-     cssClass: 'token-pop',
-     componentProps: {
-       'TXPOW_ID': _txpowid,
-       'Amount': _amount,
-       'Message': _message,
-       'Block': _block,
-       'TokenID': _tokenid,
-       'Date': _date,
-       'isBlock': _isBlock,
-       'TokenName': _name,
-       'tokenNameGiven': _tokenNameGiven,
-       'amountCreated': _amountCreated,
-       'description': _description
-     }
-   });
-   return await modal.present();
- }
 
-
-  /** MISC Functions */
-  
-  getTXNType(amount: string) {
-    if(amount.substring(0,1) === "-"){
-      return "arrow-round-back";
+  async saveItem(slidingItem: HTMLIonItemSlidingElement, txn: any) {
+    if (this.user.hasSaved(txn.txpow.txpowid)) {
+      // Prompt to remove as saved
+      this.removeItem(slidingItem, txn.txpow.txpowid, 'This has already been saved');
+      // saved = 'false' now
+      txn.saved = 'false';
     } else {
-      return "arrow-round-forward";
-    }
-  }
+      // Add to Saved
+      this.user.addToSaved(txn.txpow.txpowid);
+      // Add true attribute to this txn
+      txn.saved = "true";
 
-  //LATER USE, history order
-  getUserOrderPref() {
-    if(true){
-    return 't_summaryArr.slice().reverse()';
-    }
-  }
+      // close the open item
+      slidingItem.close();
 
-  // Categories Segment
-  async segmentChanged(ev: Event, slides: IonSlides){
-    this.selectedSlide = slides;
-    await this.selectedSlide.slideTo(this.categories);
-  }
-  // Slide, after segment button clicked..
-  async slideChanged(slides: IonSlides){
-    this.selectedSlide = slides;
-    slides.getActiveIndex().then(selectedValue => {
-      this.categories = selectedValue;
-    });
+      // Create a Toast
+      const toast = await this.toastCtrl.create({
+        header: `Transaction with ID:${txn.txpow.txpowid.substring(0, 15)+"..."} was successfully saved.`,
+        duration: 3000,
+        buttons: [{
+          text: 'Close',
+          role: 'cancel'
+        }]
+      });
+      await toast.present();
+    }
   
   }
 
-  /** API CALLS */
-  // get length of history
-  pullInHistoryLength() {
-    this.historyService.getHistory().subscribe( (res: {status: boolean, minifunc: string, message: string, response: {history: History[]} })=> {
-      this.t_summarySpoof = res.response.history;
-      /** Check if we have any txn */
-      if(this.t_summarySpoof.length > 0) {
-        //this.isEmpty = false;
-      }
+  async removeItem(slidingItem: HTMLIonItemSlidingElement, txn: any, title: string) {
+    const alert = await this.alertCtrl.create({
+      header: title,
+      message: "Would you like to remove this transaction from your saved transactions?",
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: () => {
+            // Cancel button clicked, do not remove the transaction
+            // Close the sliding item and hide the option buttons
+            slidingItem.close();
+          }
+        },
+        {
+          text: 'Remove',
+          handler: () => {
+            // they want to remove this transaction from their saved transactions
+            this.user.removeFromSaved(txn.txpow.txpowid);
+
+            // close the sliding item and hide the option buttons
+            slidingItem.close();
+
+          }
+        }
+      ]
     });
+    // now present the alert on top of all other content
+    await alert.present();
   }
+
+  updateHistory() {
+    
+    if(this.historyList) {
+      this.historyList.closeSlidingItems();
+    }
   
+    if(this.segment == 'saved') {
+      this.filterHistory();
+    } else if (this.segment == 'all') {
+      this.pullInHistorySummary();
+    }
+
+  }
+
+
+
+  filterHistory() {
+
+    this.transactions = this.transactions.filter((txn: any) => {
+      return txn.saved == 'true';
+    });
+    
+  }
+
   // Get all users activities+transactions history
   pullInHistorySummary() {
   this.polledHistorySubscription = this.historyService.getHistory().pipe(map(responseData => {
     responseData.response.history.forEach((element: any)=> {
       let name = element.values[0].name;
-
-      if(name.substring(0,1) === '{'){
+      
+      if(name.substring(0, 1) === '{') {
         element.values[0].name = JSON.parse(name);
-        this.transactions.push(element);
-        this.allTransactions.push(element);
-      } else if(name === 'Create Token'){
-        this.allTransactions.push(element);
-        this.tokens.push(element);
-      } else {
-        this.transactions.push(element);
-        this.allTransactions.push(element);
-
       }
+      
+      this.transactions.push(element);
 
     });
+
   })).subscribe(responseData => {
     
     if(this.lastJSON !== JSON.stringify(responseData)){

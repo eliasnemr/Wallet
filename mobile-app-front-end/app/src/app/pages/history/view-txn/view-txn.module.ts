@@ -5,12 +5,12 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { HistorymodalPage } from './historymodal.page';
+import { ViewTXNPage } from './view-txn.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: HistorymodalPage
+    component: ViewTXNPage
   }
 ];
 
@@ -21,6 +21,6 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [HistorymodalPage]
+  declarations: [ViewTXNPage]
 })
-export class HistorymodalPageModule {}
+export class ViewTXNPageModule {}

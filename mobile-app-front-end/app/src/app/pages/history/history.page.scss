@@ -13,7 +13,13 @@ ion-card-header {
     background: linear-gradient(to bottom,  var(--ion-background-color, #fff) 0%, var(--ion-background-color, #f2f2f2) 100%) !important;
     
 }
-
+ion-segment {
+    padding-left: 0;
+    padding-right: 0;
+}
+.ios ion-title {
+    font-size: 30px !important;
+}
 ion-toolbar {
     --padding-top: 15px;
 }
@@ -26,9 +32,6 @@ ion-toolbar {
 }
 .ios ion-segment {
     padding-top: 5px;
-}
-.ios ion-title {
-    padding-bottom: 15px;
 }
 
 ion-card-content {
@@ -52,162 +55,33 @@ ion-grid {
 ion-row:hover {
     background: var(--ion-background-color, #f2f2f2);
 }
-.list-md {
-    padding: 0px 0px 0px 0px !important;
-}
 
-/** @@@@@@ TXN Details @@@@@@ **/
-.date {
-    display: block;
-}
-.amount {
-    margin-left: 120px;
-}
-.ios .amount {
-    margin-left: 0px;
-}
-.md .amount {
-    margin-left: 0px;
-}
-.activity {
-    width: 100%;
-    border-left: 2px solid #07ABC8;
-}
-.activity-tokens {
-    width: 100%;
-    border-left: 2px solid rgb(109, 204, 146);
-}
-.divider {
-    padding: 5px;
-}
-.activity-skeleton {
-    width: 100%;
-    border-left: 2px solid #f2f2f2;
-}
 ion-row {
-    width: 95%;
-}
-.activity div h1 {
-    font-size: 14px;
-    text-transform: uppercase;
-}
-#amount {
-    font-weight: 500;
-    font-size: 18px;
-}
-#month {
-    font-weight: 700;
-    font-size: 20px;
-    color: #00AAC7;
-}
-#day {
-    font-weight: 700;
-    font-size: 22px;
-    color: #FF671D;
-}
-#token-name {
-    font-weight: 700;
-}
-.p-tokenid {
-    font-weight: bolder;
-    font-size: 18px;
-}   
-.amount-p {
-    font-weight: bolder;
-    font-size: 20px;
-}
-.amount-h2 {
-    font-weight: bolder;
-    font-size: 20px;
-}
-
-.msg-details {
-    font-size: --minima-text;
-    hyphens: auto;
-    white-space: normal;
-    word-wrap: break-word;
-    word-break: break-all;
-}
-#token-name {
-    font-weight: 300;
-    color: #b3b3b3;
-}
-#mini-amnt {
-    font-weight: 300;
-    font-size: 12px;
-    color: #b3b3b3;
-}
-.negative {
-    color: #F07473;
-    font-weight: 500;
-}
-.positive {
-    color: #48D2D3;
-    font-weight: 800;
-}
-
-/** @@@@@@@@@@@@@@@@@ iOS @@@@@@@@@@@@@@@@@@@ */
-.ios ion-card-content {
-    padding-inline-start: 0px;
-    padding-inline-end: 0px;
-}
-.ios #month {
-    font-size: 13px;
-    color: #00AAC7;
-}
-.ios #day {
-    font-size: 12px;
-    color: #FF671D;
-}
-
-.ios .h2-type {
-    font-size: 14px;
-}
-.ios .p-tokenid {
-    font-size: 12px;
-}   
-.ios .amount-p {
-    font-size: 14px;
-}
-.ios .amount-h2 {
-    font-size: 14px;
-}
-
-/** @@@@@@@@@@@@@@@@@ Material Design @@@@@@@@@@@@@@@@@@@ */
-.md ion-card-content {
-    padding-inline-start: 0px;
-    padding-inline-end: 0px;
-}
-.md #month {
-    font-size: 14px;
-    color: #00AAC7;
-}
-.md #day {
-    font-size: 12px;
-    color: #FF671D;
-}
-
-.md .h2-type {
-    font-size: 14px;
-}
-.md .p-tokenid {
-    font-size: 12px;
-}   
-.md .amount-p {
-    font-size: 14px;
-}
-.md .amount-h2 {
-    font-size: 14px;
-}
-.md .seg {
-    font-size: 12px;
-}
-
-.no-activity-item {
-    padding-left: 2%;
+    width: 100%;
 }
 
 ion-toolbar {
     --background: var(--card-header-color);
-  }
+}
 
+h5 {
+    font-weight: 600;
+    opacity: 0.8;
+}
+ion-col img {
+    display:block;
+    height:100%;
+}
+.align-middle {
+    display: block;
+    height: 100%;
+}
+.date p {
+    margin-top: 8px;
+    margin-bottom: 0;
+    font-weight: 500;
+}
+.date h5 {
+    margin: 0;
+    font-weight: 600;
+}

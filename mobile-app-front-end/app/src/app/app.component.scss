@@ -47,44 +47,16 @@ ion-menu ion-item {
 @media only screen and (min-width: 992px) {
 
   .splitpane {
-    left: 10%;
-    right: 10%;
-    top: 18%;
-    bottom: 18%;
+    left: 6%;
+    right: 6%;
+    top: 13%;
+    bottom: 13%;
   }
   ion-app {
       background-image: url('../assets/miniTiles.png');
   }
   ion-menu-toggle {
     height: 72px;
-  }
-  .menu-logo {
-  
-  }
-  .my-overlay ion-card {
-    top: 0%;
-    width: 650px;
-    height: auto;
-    margin-left: 28%;
-  }
-  .my-overlay img {
-    padding-bottom: 5%;
-    width: 250px;
-  }
-  .my-overlay h2 {
-    font-size: 1.5rem;
-    padding-bottom: 0px;
-  }
-  .my-overlay p {
-    font-size: 1.5rem;
-    padding-bottom: 0%;
-  }
-  .my-overlay ion-card-header {
-    display:inline-block;
-    height:auto;
-    width:30%;
-    padding-bottom: 6%;
-    margin: 0 auto;
   }
 }
 /*

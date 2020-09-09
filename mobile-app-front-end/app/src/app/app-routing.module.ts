@@ -18,8 +18,9 @@ const routes: Routes = [
   { path: 'web-scanner', loadChildren: () => import('./pages/web-scanner/web-scanner.module').then(m => m.WebScannerPageModule) },
   { path: 'community', loadChildren: () => import('./pages/community/community.module').then(m => m.CommunityPageModule) },
   { path: 'history', loadChildren: () => import('./pages/history/history.module').then(m => m.HistoryPageModule) },
-  { path: 'historymodal', loadChildren: './components/historymodal/historymodal.module#HistorymodalPageModule' },
-  { path: 'historytokenmodal', loadChildren: './components/historytokenmodal/historytokenmodal.module#HistorytokenmodalPageModule' },
+  { path: 'view-txn', loadChildren: () => import('./pages/history/view-txn/view-txn.module').then(m => m.ViewTXNPageModule) }
+
+
 ];
 
 

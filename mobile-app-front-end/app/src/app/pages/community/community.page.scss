@@ -23,9 +23,11 @@
     width: 100%;
     align-content: center;
     display: flex;
-    
   }
-
   .socials {
     width: 5vh;
+  }
+  .social-card:hover {
+    opacity: 0.8;
+    transform: scale(0.9);
   }

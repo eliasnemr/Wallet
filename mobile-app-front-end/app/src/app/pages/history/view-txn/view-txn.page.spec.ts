@@ -1,22 +1,22 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HistorymodalPage } from './historymodal.page';
+import { ViewTXNPage } from './view-txn.page';
 
-describe('HistorymodalPage', () => {
-  let component: HistorymodalPage;
-  let fixture: ComponentFixture<HistorymodalPage>;
+describe('ViewTXNPage', () => {
+  let component: ViewTXNPage;
+  let fixture: ComponentFixture<ViewTXNPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HistorymodalPage ],
+      declarations: [ ViewTXNPage ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HistorymodalPage);
+    fixture = TestBed.createComponent(ViewTXNPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

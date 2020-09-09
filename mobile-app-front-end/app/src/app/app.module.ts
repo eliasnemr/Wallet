@@ -1,3 +1,4 @@
+import { ViewTXNPage } from './history/view-txn/view-txn.page';
 /* 
   Created by Elias Nemr
   
@@ -26,8 +27,6 @@ import { LocationStrategy, HashLocationStrategy} from '@angular/common';
 import { IonicStorageModule } from '@ionic/storage';
 import * as MiniDAPP from 'src/assets/JS/minima.js';
 import * as ServiceJS from 'src/assets/JS/service.js';
-import { HistorymodalPage } from './components/historymodal/historymodal.page';
-import { HistorytokenmodalPage } from './components/historytokenmodal/historytokenmodal.page';
 import { TokenDescrComponent } from './components/token-descr/token-descr.component'; 
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 
@@ -43,8 +42,8 @@ import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 */
 
 @NgModule({
-  declarations: [AppComponent, PopOverComponent, PopTermComponent, HistorymodalPage, HistorytokenmodalPage, TokenDescrComponent],
-  entryComponents: [AppComponent, PopOverComponent, PopTermComponent, HistorymodalPage, HistorytokenmodalPage, TokenDescrComponent], // entryComponents declare components that are not previously defined in the template, so it'll create offline factories for them to be created runtime.
+  declarations: [AppComponent, PopOverComponent, PopTermComponent, TokenDescrComponent, ViewTXNPage],
+  entryComponents: [AppComponent, PopOverComponent, PopTermComponent, TokenDescrComponent, ViewTXNPage], // entryComponents declare components that are not previously defined in the template, so it'll create offline factories for them to be created runtime.
   imports: [FormsModule, HttpClientModule, BrowserModule, IonicModule.forRoot(), AppRoutingModule, IonicStorageModule.forRoot()],
   providers: [
     SocialSharing,

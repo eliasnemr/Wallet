@@ -10,7 +10,13 @@ import { HistoryPage } from './history.page';
 const routes: Routes = [
   {
     path: '',
-    component: HistoryPage
+    component: HistoryPage,
+    children: [
+      {
+        path: 'view-txn',
+        loadChildren: () => import('./view-txn/view-txn.module').then(m => m.ViewTXNPageModule)
+      }
+    ]
   }
 ];
 

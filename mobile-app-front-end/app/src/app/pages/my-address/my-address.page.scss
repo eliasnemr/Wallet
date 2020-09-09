@@ -66,12 +66,14 @@ ion-toolbar {
 .address {
     font-weight: 700;
 }
+ion-badge:hover {
+    transform: scale(1.1);
+}
 ion-badge {
     word-break: break-all;
     white-space: normal;
     cursor: pointer;
 }
-
 ion-row {
     display: flexbox;
     justify-content: center !important;

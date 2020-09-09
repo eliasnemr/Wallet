@@ -17,7 +17,6 @@ export class MiniStatusPage implements OnInit {
   status: { status: boolean, minifunc: string, message: string, response: Status};
   statusSubscription: Subscription;
 
-  public statusOfStatus: string = 'empty';
   public lastJSON: string;
 
   // - vars
@@ -31,7 +30,6 @@ export class MiniStatusPage implements OnInit {
   ionViewWillEnter() {
     setTimeout(() => {
       this.updateStatus(); // subscribes & polls status
-      this.statusOfStatus = 'updated';
     }, 500);
 
     window.addEventListener('MinimaEvent', (evt: any)=> {
@@ -39,12 +37,7 @@ export class MiniStatusPage implements OnInit {
       if(evt.detail.event === 'newblock') {
 
         this.updateStatus();
-        this.statusOfStatus = 'updated';
-        // setTimeout(() => {
-        //   this.updateStatus(); // subscribes & polls status
-        // }, 3500);
         
-  
       } 
     });
   }
@@ -89,7 +82,6 @@ export class MiniStatusPage implements OnInit {
       
       if(this.lastJSON != JSON.stringify(res)){
         this.status = res;
-        this.statusOfStatus = 'updated';
         this.lastJSON = JSON.stringify(res);
       } 
       
