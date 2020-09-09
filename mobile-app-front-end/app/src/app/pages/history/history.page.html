@@ -43,7 +43,7 @@
       </ion-item-group>
 
       <ion-item-sliding *ngFor="let txn of transactions" #slidingItem [attr.track]="">
-        <ion-item routerLink="/view-txn" routerDirection="forward">
+        <ion-item routerLink="/view-txn/{{ txn.txpow.txpowid }}" routerDirection="forward">
           
           <ion-row>
             <ion-col size="1" size-md="1" size-lg="1" size-s="1" size-xs="0">

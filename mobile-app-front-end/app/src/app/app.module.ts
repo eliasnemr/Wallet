@@ -1,4 +1,3 @@
-import { ViewTXNPage } from './history/view-txn/view-txn.page';
 /* 
   Created by Elias Nemr
   
@@ -42,8 +41,8 @@ import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 */
 
 @NgModule({
-  declarations: [AppComponent, PopOverComponent, PopTermComponent, TokenDescrComponent, ViewTXNPage],
-  entryComponents: [AppComponent, PopOverComponent, PopTermComponent, TokenDescrComponent, ViewTXNPage], // entryComponents declare components that are not previously defined in the template, so it'll create offline factories for them to be created runtime.
+  declarations: [AppComponent, PopOverComponent, PopTermComponent, TokenDescrComponent],
+  entryComponents: [AppComponent, PopOverComponent, PopTermComponent, TokenDescrComponent], // entryComponents declare components that are not previously defined in the template, so it'll create offline factories for them to be created runtime.
   imports: [FormsModule, HttpClientModule, BrowserModule, IonicModule.forRoot(), AppRoutingModule, IonicStorageModule.forRoot()],
   providers: [
     SocialSharing,
