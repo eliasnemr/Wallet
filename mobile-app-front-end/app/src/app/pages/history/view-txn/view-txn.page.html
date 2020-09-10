@@ -1,14 +1,244 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>ViewTXN</ion-title>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/history"> 
-
-      </ion-back-button>
+      <ion-back-button defaultHref="/history"></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" size-md="12">
 
+        <h5>
+          TxPoW   
+          
+          <ion-note class="medium-text" [hidden]="hide" (click)="shout()"> {{ "&mdash; "+id?.substring(0, 5) + "..." + id?.substring(5, 15) }} </ion-note>
+          <ion-note class="medium-text" [hidden]="!hide" (click)="shout()"> {{ id?.substring(0,5) + id?.substring(id?.length-10, id?.length-1) }}</ion-note>
+          
+        </h5>
+      
+        
+        <ion-datetime disabled displayFormat="HH:mm:ss A - MMMM YYYY" value="{{ relaytime }}" display-timezone="utc" ></ion-datetime>
+      </ion-col>
+    </ion-row>
+    
+    <ion-list>
+      <ion-list-header>
+        Details
+      </ion-list-header>
+
+      <ion-item>
+        <ion-col class="title">
+          Status
+        </ion-col>
+        <ion-col class="value completed">
+          Completed.
+        </ion-col>
+      </ion-item>
+
+      <ion-item>
+        <ion-col class="title">
+          Hash
+          <a class="copy" (click)="copyToClipPWA(id)">
+            Copy 
+          </a>
+        </ion-col>
+        <ion-col class="value">
+          {{ id?.substring(0,5)+"..."+id?.substring(id?.length-50,id?.length) }}
+        </ion-col>
+      </ion-item>
+
+      <ion-item>
+        <ion-col class="title">
+          Size
+        </ion-col>
+        <ion-col class="value">
+          {{ size }}
+        </ion-col>
+      </ion-item>
+
+      <ion-item>
+        <ion-col class="title">
+          Is A Block
+        </ion-col>
+        <ion-col class="value">
+          {{ isblock }}
+        </ion-col>
+      </ion-item>
+
+      <ion-item>
+        <ion-col class="title">
+          Is In A block
+        </ion-col>
+        <ion-col class="value">
+          {{ isinblock }}
+        </ion-col>
+      </ion-item>
+
+      <ion-item>
+        <ion-col *ngIf="isinblock === true" class="title">
+          In Block
+        </ion-col>
+        <ion-col *ngIf="isinblock === false" class="title">
+          Would of been Block
+        </ion-col>
+        <ion-col class="value">
+          {{ blocknumber }}
+        </ion-col>
+      </ion-item>
+
+      <ion-item>
+        <ion-col class="title">
+          Nonce
+        </ion-col>
+        <ion-col class="value">
+          {{ nonce }}
+        </ion-col>
+      </ion-item>
+
+      <ion-item>
+        <ion-col class="title">
+          Transaction Type
+        </ion-col>
+        <ion-col class="value">
+          {{ type }}
+        </ion-col>
+      </ion-item>
+      
+      <ion-item *ngIf="type === 'Token Creation.'">
+        <ion-col class="title">
+          Token Name
+        </ion-col>
+        <ion-col class="value">
+          {{ tokenname }}
+        </ion-col>
+      </ion-item>
+
+      <ion-item *ngIf="type === 'Token Creation.'">
+        <ion-col class="title">
+          Token Total
+        </ion-col>
+        <ion-col class="value">
+          {{ tokentotal }}
+        </ion-col>
+      </ion-item>
+      
+
+    </ion-list>
+
+    <ion-grid>
+      <ion-list-header>
+        Overview
+      </ion-list-header>
+
+      <ion-list-header class="inputs">
+        Inputs
+      </ion-list-header>
+      <ion-col size="12" *ngFor="let input of inputs; let i=index;">
+
+        <ion-row>
+          <ion-col>
+            <ion-card>
+              <ion-list>
+                <ion-item lines="half">
+                  <ion-col>
+                    Index <a>{{ "#"+ i }}</a>
+                  </ion-col>
+                </ion-item>
+
+                <ion-item>
+                  <ion-col class="title">
+                    Coinid <span class="value">{{ input.coinid }}</span>
+                  </ion-col>
+                </ion-item>
+
+                <ion-item>
+                  <ion-col class="title">
+                    Address <span class="value">{{ input.address }}</span>
+                    <a class="copy" (click)="copyToClipPWA(input.address)">
+                      Copy
+                    </a>
+                  </ion-col>                 
+                </ion-item>
+
+                <ion-item>
+                  <ion-col class="title">
+                    Amount <span class="value">{{ input.amount }}</span>
+                  </ion-col>                 
+                </ion-item>
+
+                <ion-item lines="none">
+                  <ion-col class="title">
+                    TokenID <span class="value">{{ input.tokenid }}</span>
+                  </ion-col>                 
+                </ion-item>
+
+                
+
+              </ion-list>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+
+      </ion-col>
+
+      <ion-list-header class="outputs">
+        Outputs
+      </ion-list-header>
+      <ion-col size="12" *ngFor="let output of outputs; let i=index;">
+
+        <ion-row>
+          <ion-col>
+            <ion-card>
+              <ion-list>
+                <ion-item lines="half">
+                  <ion-col>
+                    Index <a>{{ "#"+ i }}</a>
+                  </ion-col>
+                </ion-item>
+
+                <ion-item>
+                  <ion-col class="title">
+                    Coinid <span class="value">{{ output.coinid }}</span>
+                  </ion-col>
+                </ion-item>
+
+                <ion-item>
+                  <ion-col class="title">
+                    Address <span class="value">{{ output.address }}</span>
+                      <a class="copy" (click)="copyToClipPWA(output.address)">
+                        Copy
+                      </a>
+                  </ion-col>                 
+                </ion-item>
+
+                <ion-item>
+                  <ion-col class="title">
+                    Amount <span class="value">{{ output.amount }}</span>
+                  </ion-col>                 
+                </ion-item>
+
+                <ion-item lines="none">
+                  <ion-col class="title">
+                    TokenID <span class="value">{{ output.tokenid }}</span>
+                  </ion-col>                 
+                </ion-item>
+
+              </ion-list>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+
+      </ion-col>
+
+      
+      
+    </ion-grid>
+
+
+  </ion-grid>
+  
 </ion-content>

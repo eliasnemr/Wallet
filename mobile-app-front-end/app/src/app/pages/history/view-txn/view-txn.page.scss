@@ -1,0 +1,58 @@
+ion-note {
+    white-space: normal;
+    word-break: break-all;
+    cursor: pointer;
+    background-color: #f2f2f2;
+}
+ion-note:hover {
+    transform: scale(0.9);
+}
+h5 {
+    letter-spacing: -0.02em;
+    font-weight: 600;
+    font-size: 1.5rem;
+}
+ion-datetime {
+    padding-bottom: 5px;
+    padding-left: 5px;
+}
+.copy {
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+ion-list-header {
+    font-weight: 600;
+    font-size: 1.5rem;
+    letter-spacing: -0.02em;
+}
+.title {
+    letter-spacing: -0.02em;
+    float: left;
+    font-weight: 500;
+}
+.value {
+    font-size: 0.8rem;
+    opacity: 0.8;
+    text-align: right;
+    float: right;
+    white-space: pre-wrap;
+    word-wrap: none;
+    word-break: break-all;
+}
+.relay {
+    display: inline-block;
+    width: 100%;
+}
+.chevron {
+    width: 15px;
+}
+.inputs, .outputs {
+    font-size: 1.2rem;
+    opacity: 0.5;
+}
+.completed {
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: rgba(75,222,131, 0.7);
+}
