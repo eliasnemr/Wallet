@@ -640,9 +640,7 @@ var AppComponent = /** @class */ (function () {
                 }
                 else if (msg.event === 'newbalance') {
                     // subscribe to observable of Minima.balance
-                    _this.api.updatedBalance.subscribe(function (res) {
-                        _this.api.updatedBalance.next(res);
-                    });
+                    _this.api.updatedBalance.next(Minima.balance);
                 }
             });
         });
@@ -1222,7 +1220,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var BalanceService = /** @class */ (function () {
     function BalanceService() {
-        this.updatedBalance = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"]([]);
+        this.updatedBalance = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"](Minima.balance);
         this.currentBalance = this.updatedBalance.asObservable();
         // take in tokenArr and the element you'd like to add to front of array
         this.update = function (a, e) {
@@ -1233,24 +1231,6 @@ var BalanceService = /** @class */ (function () {
             return a;
         };
     }
-    BalanceService.prototype.getUpdatedBalance = function () {
-        var _this = this;
-        Minima.cmd('balance', function (res) {
-            _this.updatedBalance.next(res);
-            return _this.updatedBalance;
-        });
-        return this.updatedBalance;
-        // create custom observable to talk with minima.js
-        // const balanceObservable = Observable.create((observer: any) => {
-        //   observer.next(minima_balance);
-        //   this.updatedBalance.next(minima_balance);
-        // });
-        // let balance$ = balanceObservable;
-        // return this.polledBalance$ = timer(0, 2000).pipe(
-        //   concatMap(_ => balance$),
-        //   map((res: Tokens[]) => res),
-        // );
-    };
     BalanceService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
             providedIn: 'root'
@@ -1429,36 +1409,6 @@ var UserTerminal = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/environments/environment.ts":
-/*!*****************************************!*\
-  !*** ./src/environments/environment.ts ***!
-  \*****************************************/
-/*! exports provided: environment */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "environment", function() { return environment; });
-// This file can be replaced during build by using the `fileReplacements` array.
-// `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
-// The list of file replacements can be found in `angular.json`.
-var environment = {
-    production: false,
-    //defaultNode: "127.0.0.1:9002/",
-    newLine: '/(\r\n|\n|\r)/gm'
-};
-/*
- * For easier debugging in development mode, you can import the following file
- * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
- *
- * This import should be commented out in production mode because it will have a negative impact
- * on performance if an error is thrown.
- */
-// import 'zone.js/dist/zone-error';  // Included with Angular CLI.
-
-
-/***/ }),
-
 /***/ "./src/main.ts":
 /*!*********************!*\
   !*** ./src/main.ts ***!
@@ -1471,22 +1421,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/platform-browser-dynamic */ "./node_modules/@angular/platform-browser-dynamic/fesm5/platform-browser-dynamic.js");
 /* harmony import */ var _app_app_module__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./app/app.module */ "./src/app/app.module.ts");
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./environments/environment */ "./src/environments/environment.ts");
-/* harmony import */ var web_social_share_dist_loader__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! web-social-share/dist/loader */ "./node_modules/web-social-share/dist/loader/index.mjs");
-
+/* harmony import */ var web_social_share_dist_loader__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! web-social-share/dist/loader */ "./node_modules/web-social-share/dist/loader/index.mjs");
 
 
 
 // Note: loader import location set using "esmLoaderPath" within the output target config
 
-if (_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].production) {
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["enableProdMode"])();
-}
+Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["enableProdMode"])();
 Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformBrowserDynamic"])().bootstrapModule(_app_app_module__WEBPACK_IMPORTED_MODULE_2__["AppModule"])
     .catch(function (err) { return console.log(err); });
-Object(web_social_share_dist_loader__WEBPACK_IMPORTED_MODULE_4__["defineCustomElements"])();
-Object(web_social_share_dist_loader__WEBPACK_IMPORTED_MODULE_4__["applyPolyfills"])().then(function () {
-    Object(web_social_share_dist_loader__WEBPACK_IMPORTED_MODULE_4__["defineCustomElements"])();
+Object(web_social_share_dist_loader__WEBPACK_IMPORTED_MODULE_3__["defineCustomElements"])();
+Object(web_social_share_dist_loader__WEBPACK_IMPORTED_MODULE_3__["applyPolyfills"])().then(function () {
+    Object(web_social_share_dist_loader__WEBPACK_IMPORTED_MODULE_3__["defineCustomElements"])();
 });
 
 

@@ -179,7 +179,17 @@ export class SendFundsPage implements OnInit {
     this.scanSub = null;
     this.identifyPlatformToScan_Remove();
     this.isCameraOpen = false;
-    this.qrScanner.destroy();
+    if(this.platform.is['mobile']
+     || this.platform.is['capacitor']
+     || this.platform.is['cordova']
+     || this.platform.is['mobileweb']
+     || this.platform.is['iphone']
+     || this.platform.is['ipad']
+     || this.platform.is['hybrid']
+     || this.platform.is['android']
+     || this.platform.is['tablet'] ) {
+      this.qrScanner.destroy();
+    }
   }
 
   
@@ -223,7 +233,7 @@ export class SendFundsPage implements OnInit {
             this.minimaToken = element.tokenid;
           }
           tokenArr.push({
-            tokenid: element.tokenid,
+            tokenid: element.balance.tokenid,
             token: element.token,
             description: element.description,
             icon: element.icon,

@@ -20,10 +20,10 @@
 
   <ion-grid style="width: 100%;" *ngFor="let token of tokenArr;">
     <ion-row>    
-      <ion-item-sliding>
+      <ion-item-sliding #slidingItem>
       <ion-item-options side="start">
-      <ion-item-option class="receive-slide small-text" routerLink="/my-address">Receive</ion-item-option>
-      <ion-item-option class="send-slide small-text" (click)="sendTokenOver(token.tokenid)">Send</ion-item-option>
+      <ion-item-option class="receive-slide small-text" (click)="closeSliding(slidingItem)" routerLink="/my-address">Receive</ion-item-option>
+      <ion-item-option class="send-slide small-text" (click)="sendTokenOver(slidingItem, token.tokenid)">Send</ion-item-option>
       </ion-item-options>
 
   <!-- TOKENS ONLY -->
@@ -113,7 +113,7 @@
   
 
   <ion-item-options side="end">
-    <ion-item-option class="small-text" (click)="presentPopover($event, token.tokenid)">Token ID</ion-item-option>
+    <ion-item-option class="small-text" (click)="presentPopover(slidingItem, $event, token.tokenid)">Token ID</ion-item-option>
   </ion-item-options>
   </ion-item-sliding>
     </ion-row>

@@ -57,7 +57,6 @@ export class HistoryPage implements OnInit {
     }
     
     this.user.storage.set('saved_transactions', this.user.saved).then((val:any)=>{
-      console.log(val);
     });
 
     

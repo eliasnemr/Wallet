@@ -1,10 +1,7 @@
 // create a tokens model/interface for tokens
 export interface Tokens {
-    status: boolean,
-    minifunc: string,
-    message: string,
-    balance: {
-        tokenid: string;
+
+        tokenid: any,
         token: string;
         description: string;
         icon: string;
@@ -18,5 +15,5 @@ export interface Tokens {
         unconfirmed: any;
         mempool: number;
         sendable: number;
-    }
+    
 }

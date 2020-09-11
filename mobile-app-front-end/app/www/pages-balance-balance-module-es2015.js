@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n    <ion-toolbar>\n      <ion-buttons slot=\"start\">\n        <ion-menu-button class=\"menu-icon\"></ion-menu-button>\n      </ion-buttons>\n      <ion-title class=\"large-text\">\n        Balance\n      </ion-title>\n    </ion-toolbar>\n\n  </ion-header>\n\n  <ion-content>\n\n  <ion-card>\n      <ion-card-header>\n        Your tokens\n      </ion-card-header>\n  <ion-card-content>\n\n  <ion-grid style=\"width: 100%;\" *ngFor=\"let token of tokenArr;\">\n    <ion-row>    \n      <ion-item-sliding>\n      <ion-item-options side=\"start\">\n      <ion-item-option class=\"receive-slide small-text\" routerLink=\"/my-address\">Receive</ion-item-option>\n      <ion-item-option class=\"send-slide small-text\" (click)=\"sendTokenOver(token.tokenid)\">Send</ion-item-option>\n      </ion-item-options>\n\n  <!-- TOKENS ONLY -->\n  <ion-item lines=\"full\" \n            (click)=\"presentTokenDescr(token.tokenid, token.token, token.description,\n                                      token.icon, token.proof, token.total, token.script,\n                                      token.coinid, token.totalamount, token.scale, token.confirmed,\n                                      token.unconfirmed, token.mempool, token.sendable)\">\n    <ion-avatar slot=\"start\">\n      <img *ngIf=\"token.icon\" alt=\"Avatar\" class=\"balance-token\" src=\"{{ token.icon }}\">\n      <img *ngIf=\"!token.icon || token.icon.length <= 0\" alt=\"Avatar\" class=\"balance-token\" src=\"assets/icon/icon.png\">\n    </ion-avatar>\n\n  <ion-col size=\"9\" style=\"padding: 12px;\" slot=\"start\">\n\n    <!-- if token name is shorter than 15 -->\n    <div *ngIf=\"token.token.length < 15\">\n      <ion-row style=\"border: none; padding-left: 5px;\">\n        <ion-text class=\"medium-text\"> {{ token.token}} </ion-text>\n      </ion-row>\n    </div>\n    <!-- if token name is longer than 15 and smaller than 30 -->   \n    <div *ngIf=\"token.token.length >= 15 && token.token.length < 30\" >\n      <ion-row style=\"border:none; padding-left: 5px;\">\n        <ion-text class=\"medium-text\"> {{ token.token.substring(0,15)+\"-\" }} </ion-text>\n      </ion-row>\n      <ion-row style=\"border:none; padding-left: 5px;\">\n        <ion-text class=\"small-text\"> {{ token.token.substring(15, 30) }} </ion-text>\n      </ion-row>\n    </div>\n    <!-- if token name is longer than 30 and smaller than 45 -->   \n    <div *ngIf=\"token.token.length >= 15 && token.token.length < 45\" >\n      <ion-row style=\"border:none; padding-left: 5px;\">\n        <ion-text class=\"medium-text\"> {{ token.token.substring(0,15)+\"-\" }} </ion-text>\n      </ion-row>\n      <ion-row style=\"border:none; padding-left: 5px;\">\n        <ion-text class=\"small-text\"> {{ token.token.substring(15, 30)+\"-\" }} </ion-text>\n      </ion-row>\n      <ion-row style=\"border:none; padding-left: 5px;\">\n        <ion-text class=\"smaller-text\"> {{ token.token.substring(30, 45) }} </ion-text>\n      </ion-row>\n    </div>\n    <!-- if token name is longer than 45... -->   \n    <div *ngIf=\"token.token.length >= 45\" >\n      <ion-row style=\"border:none; padding-left: 5px;\">\n        <ion-text class=\"medium-text\"> {{ token.token.substring(0,15)+\"-\" }} </ion-text>\n      </ion-row>\n      <ion-row style=\"border:none; padding-left: 5px;\">\n        <ion-text class=\"small-text\"> {{ token.token.substring(15, 30)+\"-\" }} </ion-text>\n      </ion-row>\n      <ion-row style=\"border:none; padding-left: 5px;\">\n        <ion-text class=\"smaller-text\"> {{ token.token.substring(30, 45)+\"...\" }} </ion-text>\n      </ion-row>\n    </div>\n    \n\n    <ion-row style=\"border:none; padding-left: 5px;\">\n      <ion-text class=\"abbr-name small-text\"> {{ token.token.substring(0,3) }} </ion-text>\n    </ion-row>\n\n  </ion-col>\n\n\n    <ion-col size=\"3\" slot=\"end\">\n\n      <ion-row style=\"border:none;\">\n        <span *ngIf=\"token.confirmed !== token.sendable\" class=\"confirmed-amount medium-text\">{{ token.confirmed }}</span>\n        <span *ngIf=\"token.confirmed === token.sendable\" class=\"confirmed-amount medium-text\">{{ token.confirmed +\"/\"+token.sendable }}</span>\n      </ion-row>\n\n      <ion-row *ngIf=\"token.unconfirmed !== 0\" style=\"border:none;\">\n        <span class=\"unconfirmed-amount medium-text\">\n          {{ token.unconfirmed }}\n        </span>\n      </ion-row>\n\n      <ion-row *ngIf=\"token.mempool === 0\" style=\"border:none;\">\n        <span class=\"mempool-amount medium-text\">\n          {{ token.mempool }}\n        </span>\n      </ion-row>\n\n    </ion-col>\n\n  \n  </ion-item>\n  \n\n  <ion-item-options side=\"end\">\n    <ion-item-option class=\"small-text\" (click)=\"presentPopover($event, token.tokenid)\">Token ID</ion-item-option>\n  </ion-item-options>\n  </ion-item-sliding>\n    </ion-row>\n      </ion-grid>\n\n  \n\n  </ion-card-content>\n  </ion-card>\n  </ion-content>\n\n  <ion-footer>\n    <ion-toolbar>\n      <ion-buttons>\n        <ion-button class=\"action-btn medium-text\" shape=\"\" expand=\"block\" type=\"button\" (click)=\"giveMe50()\">\n          <ion-icon name=\"cash\" slot=\"start\"></ion-icon> Gimme 50\n        </ion-button>\n      </ion-buttons>\n    </ion-toolbar>\n  </ion-footer>"
+module.exports = "<ion-header>\n    <ion-toolbar>\n      <ion-buttons slot=\"start\">\n        <ion-menu-button class=\"menu-icon\"></ion-menu-button>\n      </ion-buttons>\n      <ion-title class=\"large-text\">\n        Balance\n      </ion-title>\n    </ion-toolbar>\n\n  </ion-header>\n\n  <ion-content>\n\n  <ion-card>\n      <ion-card-header>\n        Your tokens\n      </ion-card-header>\n  <ion-card-content>\n\n  <ion-grid style=\"width: 100%;\" *ngFor=\"let token of tokenArr;\">\n    <ion-row>    \n      <ion-item-sliding #slidingItem>\n      <ion-item-options side=\"start\">\n      <ion-item-option class=\"receive-slide small-text\" (click)=\"closeSliding(slidingItem)\" routerLink=\"/my-address\">Receive</ion-item-option>\n      <ion-item-option class=\"send-slide small-text\" (click)=\"sendTokenOver(slidingItem, token.tokenid)\">Send</ion-item-option>\n      </ion-item-options>\n\n  <!-- TOKENS ONLY -->\n  <ion-item lines=\"full\" \n            (click)=\"presentTokenDescr(token.tokenid, token.token, token.description,\n                                      token.icon, token.proof, token.total, token.script,\n                                      token.coinid, token.totalamount, token.scale, token.confirmed,\n                                      token.unconfirmed, token.mempool, token.sendable)\">\n    <ion-avatar slot=\"start\">\n      <img *ngIf=\"token.icon\" alt=\"Avatar\" class=\"balance-token\" src=\"{{ token.icon }}\">\n      <img *ngIf=\"!token.icon || token.icon.length <= 0\" alt=\"Avatar\" class=\"balance-token\" src=\"assets/icon/icon.png\">\n    </ion-avatar>\n\n  <ion-col size=\"9\" style=\"padding: 12px;\" slot=\"start\">\n\n    <!-- if token name is shorter than 15 -->\n    <div *ngIf=\"token.token.length < 15\">\n      <ion-row style=\"border: none; padding-left: 5px;\">\n        <ion-text class=\"medium-text\"> {{ token.token}} </ion-text>\n      </ion-row>\n    </div>\n    <!-- if token name is longer than 15 and smaller than 30 -->   \n    <div *ngIf=\"token.token.length >= 15 && token.token.length < 30\" >\n      <ion-row style=\"border:none; padding-left: 5px;\">\n        <ion-text class=\"medium-text\"> {{ token.token.substring(0,15)+\"-\" }} </ion-text>\n      </ion-row>\n      <ion-row style=\"border:none; padding-left: 5px;\">\n        <ion-text class=\"small-text\"> {{ token.token.substring(15, 30) }} </ion-text>\n      </ion-row>\n    </div>\n    <!-- if token name is longer than 30 and smaller than 45 -->   \n    <div *ngIf=\"token.token.length >= 15 && token.token.length < 45\" >\n      <ion-row style=\"border:none; padding-left: 5px;\">\n        <ion-text class=\"medium-text\"> {{ token.token.substring(0,15)+\"-\" }} </ion-text>\n      </ion-row>\n      <ion-row style=\"border:none; padding-left: 5px;\">\n        <ion-text class=\"small-text\"> {{ token.token.substring(15, 30)+\"-\" }} </ion-text>\n      </ion-row>\n      <ion-row style=\"border:none; padding-left: 5px;\">\n        <ion-text class=\"smaller-text\"> {{ token.token.substring(30, 45) }} </ion-text>\n      </ion-row>\n    </div>\n    <!-- if token name is longer than 45... -->   \n    <div *ngIf=\"token.token.length >= 45\" >\n      <ion-row style=\"border:none; padding-left: 5px;\">\n        <ion-text class=\"medium-text\"> {{ token.token.substring(0,15)+\"-\" }} </ion-text>\n      </ion-row>\n      <ion-row style=\"border:none; padding-left: 5px;\">\n        <ion-text class=\"small-text\"> {{ token.token.substring(15, 30)+\"-\" }} </ion-text>\n      </ion-row>\n      <ion-row style=\"border:none; padding-left: 5px;\">\n        <ion-text class=\"smaller-text\"> {{ token.token.substring(30, 45)+\"...\" }} </ion-text>\n      </ion-row>\n    </div>\n    \n\n    <ion-row style=\"border:none; padding-left: 5px;\">\n      <ion-text class=\"abbr-name small-text\"> {{ token.token.substring(0,3) }} </ion-text>\n    </ion-row>\n\n  </ion-col>\n\n\n    <ion-col size=\"3\" slot=\"end\">\n\n      <ion-row style=\"border:none;\">\n        <span *ngIf=\"token.confirmed !== token.sendable\" class=\"confirmed-amount medium-text\">{{ token.confirmed }}</span>\n        <span *ngIf=\"token.confirmed === token.sendable\" class=\"confirmed-amount medium-text\">{{ token.confirmed +\"/\"+token.sendable }}</span>\n      </ion-row>\n\n      <ion-row *ngIf=\"token.unconfirmed !== 0\" style=\"border:none;\">\n        <span class=\"unconfirmed-amount medium-text\">\n          {{ token.unconfirmed }}\n        </span>\n      </ion-row>\n\n      <ion-row *ngIf=\"token.mempool === 0\" style=\"border:none;\">\n        <span class=\"mempool-amount medium-text\">\n          {{ token.mempool }}\n        </span>\n      </ion-row>\n\n    </ion-col>\n\n  \n  </ion-item>\n  \n\n  <ion-item-options side=\"end\">\n    <ion-item-option class=\"small-text\" (click)=\"presentPopover(slidingItem, $event, token.tokenid)\">Token ID</ion-item-option>\n  </ion-item-options>\n  </ion-item-sliding>\n    </ion-row>\n      </ion-grid>\n\n  \n\n  </ion-card-content>\n  </ion-card>\n  </ion-content>\n\n  <ion-footer>\n    <ion-toolbar>\n      <ion-buttons>\n        <ion-button class=\"action-btn medium-text\" shape=\"\" expand=\"block\" type=\"button\" (click)=\"giveMe50()\">\n          <ion-icon name=\"cash\" slot=\"start\"></ion-icon> Gimme 50\n        </ion-button>\n      </ion-buttons>\n    </ion-toolbar>\n  </ion-footer>"
 
 /***/ }),
 
@@ -110,12 +110,10 @@ let BalancePage = class BalancePage {
         this.tokenSpoof = [];
         // - vars
         this.lastJSON = '';
-        this.host = '';
         this.MINIMA = '0x00';
-    }
-    ionViewWillEnter() {
         this.pullInTokens();
     }
+    ionViewWillEnter() { }
     giveMe50() {
         this.api.giveMe50().then((res) => {
             if (res.status === true) {
@@ -126,16 +124,7 @@ let BalancePage = class BalancePage {
             }
         });
     }
-    ngOnInit() {
-        // window.addEventListener('MinimaEvent', (evt: any)=> {
-        //   // Event connection success
-        //   if(evt.detail.event === 'newbalance') {
-        //     this.pullInTokens();
-        //   } else if(evt.detail.event === 'connected') {
-        //     this.pullInTokens();
-        //   }
-        // });
-    }
+    ngOnInit() { }
     ionViewWillLeave() {
         this.balanceSubscription.unsubscribe(); // unsubs
     }
@@ -149,7 +138,11 @@ let BalancePage = class BalancePage {
             yield alert.present();
         });
     }
-    sendTokenOver(id) {
+    closeSliding(slidingItem) {
+        slidingItem.close();
+    }
+    sendTokenOver(slidingItem, id) {
+        slidingItem.close();
         this.route.navigate(['/send-funds/' + id]);
     }
     presentTokenDescr(id, token, descr, icon, proof, total, script, coinid, totalamnt, scale, conf, unconf, memp, sendable) {
@@ -177,7 +170,7 @@ let BalancePage = class BalancePage {
             return yield modal.present();
         });
     }
-    presentPopover(ev, id) {
+    presentPopover(slidingItem, ev, id) {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
             const popover = yield this.popoverController.create({
                 component: _components_pop_over_pop_over_component__WEBPACK_IMPORTED_MODULE_5__["PopOverComponent"],
@@ -186,22 +179,17 @@ let BalancePage = class BalancePage {
                 translucent: false,
                 componentProps: { 'tokenid': id },
             });
+            slidingItem.close();
             return yield popover.present();
         });
     }
-    // pullArrLength() {
-    //   this.service.getUpdatedBalance.subscribe(res => {
-    //     res.forEach(element => {
-    //       this.tokenSpoof.push(element);
-    //     })
-    //   });
-    // }
     pullInTokens() {
-        this.balanceSubscription = this.service.getUpdatedBalance().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(responseData => {
+        this.balanceSubscription = this.service.updatedBalance
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])((responseData) => {
             const tokenArr = [];
-            for (const key in responseData) {
-                if (responseData.hasOwnProperty(key)) {
-                    let element = responseData[key];
+            for (const key in Minima.balance) {
+                if (Minima.balance.hasOwnProperty(key)) {
+                    let element = Minima.balance[key];
                     // round up confirmed && unconfirmed
                     let tempConfirmed = (Math.round(element.confirmed * 1000) / 1000);
                     let tempUnconfirmed = (Math.round(element.unconfirmed * 1000) / 1000);
@@ -259,7 +247,6 @@ BalancePage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
         selector: 'app-balance',
         template: __webpack_require__(/*! raw-loader!./balance.page.html */ "./node_modules/raw-loader/index.js!./src/app/pages/balance/balance.page.html"),
-        providers: [_service_balance_service__WEBPACK_IMPORTED_MODULE_6__["BalanceService"]],
         styles: [__webpack_require__(/*! ./balance.page.scss */ "./src/app/pages/balance/balance.page.scss")]
     }),
     tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_service_balance_service__WEBPACK_IMPORTED_MODULE_6__["BalanceService"],

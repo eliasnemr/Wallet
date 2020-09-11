@@ -130,7 +130,6 @@ let HistoryPage = class HistoryPage {
             this.polledHistorySubscription.unsubscribe();
         }
         this.user.storage.set('saved_transactions', this.user.saved).then((val) => {
-            console.log(val);
         });
     }
     saveItem(slidingItem, txn) {

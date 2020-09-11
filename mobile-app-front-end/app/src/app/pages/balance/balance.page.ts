@@ -1,7 +1,7 @@
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { MinimaApiService } from '../../service/minima-api.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AlertController, PopoverController, ModalController } from '@ionic/angular';
 import { Tokens } from '../../models/tokens.model';
 import { PopOverComponent } from '../../components/pop-over/pop-over.component';
@@ -66,8 +66,16 @@ export class BalancePage implements OnInit {
     await alert.present();
   }
 
-  public sendTokenOver(id: string) {
+  closeSliding(slidingItem: HTMLIonItemSlidingElement) {
+    slidingItem.close();
+  }
+
+  public sendTokenOver(slidingItem: HTMLIonItemSlidingElement, id: string) {
+    
+    slidingItem.close();
+
     this.route.navigate(['/send-funds/'+id]); 
+
   }
 
   async presentTokenDescr(
@@ -96,7 +104,7 @@ export class BalancePage implements OnInit {
    return await modal.present();
  }
  
-  async presentPopover(ev: any, id: string) {
+  async presentPopover(slidingItem: HTMLIonItemSlidingElement, ev: any, id: string) {
     const popover = await this.popoverController.create({
       component: PopOverComponent,
       event: ev,
@@ -104,7 +112,11 @@ export class BalancePage implements OnInit {
       translucent: false,
       componentProps:{'tokenid': id},
     });
+
+    slidingItem.close();
+
     return await popover.present();
+
 
   }
 

@@ -15,7 +15,7 @@ export class BalanceService {
   ) { }
 
   // take in tokenArr and the element you'd like to add to front of array
-  update = (a : Tokens[], e) => { var i = a.findIndex(o => o.balance.tokenid === e);
+  update = (a : Tokens[], e) => { var i = a.findIndex(o => o.tokenid === e);
     i > 0 ? a.splice(0,0,a.splice(i,1)[0]) 
           : i && a.splice(0,0,e);
     (a.length > 5) && a.length--

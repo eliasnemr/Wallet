@@ -133,7 +133,6 @@ var HistoryPage = /** @class */ (function () {
             this.polledHistorySubscription.unsubscribe();
         }
         this.user.storage.set('saved_transactions', this.user.saved).then(function (val) {
-            console.log(val);
         });
     };
     HistoryPage.prototype.saveItem = function (slidingItem, txn) {

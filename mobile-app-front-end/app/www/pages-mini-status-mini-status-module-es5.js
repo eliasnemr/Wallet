@@ -214,7 +214,9 @@ var StatusService = /** @class */ (function () {
     };
     StatusService.prototype.request = function (route) {
         var statusObservable = rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"].create(function (observer) {
-            observer.next(Minima.status);
+            Minima.cmd('status', function (res) {
+                observer.next(res.response);
+            });
         });
         var status$ = statusObservable;
         return this.polledStatus$ = Object(rxjs_Observable_timer__WEBPACK_IMPORTED_MODULE_4__["timer"])(0, 3000).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["concatMap"])(function (_) { return status$; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (res) { return res; }));
