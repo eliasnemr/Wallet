@@ -96,7 +96,7 @@
             placeholder="type your message..."
             maxlength="255">
             </ion-textarea>
-          <span class="length smaller-text">{{ data.message?.length+"/255"}}</span>
+          <span *ngIf="data.message" class="length smaller-text">{{ data.message.length +"/255"}}</span>
         </ion-item>
         
     </ion-card-content>
