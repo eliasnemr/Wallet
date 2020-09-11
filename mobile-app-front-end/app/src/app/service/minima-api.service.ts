@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { LoadingController } from '@ionic/angular';
-import { environment } from '../../environments/environment';
 
 declare var Minima: any;
 @Injectable({
@@ -9,13 +8,11 @@ declare var Minima: any;
 })
 export class MinimaApiService {
 
-  private host = '';
   private loader: any = null;
 
-  constructor(
-    private http: HttpClient, 
+  constructor(  
     public loadingController: LoadingController
-  ) {}
+  ) { }
 
   async showLoader() {
     if (this.loader == null) {
@@ -65,19 +62,8 @@ export class MinimaApiService {
     return this.req('weblink+' + data.url);
   }
 
-  getHost() {
-    if (localStorage.getItem('minima_host') == null) {
-      localStorage.setItem('minima_host', this.host);
-      return this.host;
-    } else {
-      return localStorage.getItem('minima_host');
-    }
-  }
-
   setHost(newHost: string) {
     localStorage.setItem('minima_host', newHost);
-    environment.defaultNode = newHost;
-    this.host = newHost;
   }
 
   newAddress() {
@@ -106,18 +92,6 @@ export class MinimaApiService {
 
   getStatus() {
     return this.req('status');
-  }
-
-  // old api
-  request(route: any) {
-    let apiUrl = this.host + route; // this.host = "127.0.0.1:8999/" ** route = "balance" (for example)
-    let promise = new Promise((resolve, reject) => {
-      this.http.get(apiUrl, {responseType: 'json'})
-        .subscribe(data => {
-          resolve(data);
-        });
-    });
-    return promise;
   }
 
   // Use minima.js instead..

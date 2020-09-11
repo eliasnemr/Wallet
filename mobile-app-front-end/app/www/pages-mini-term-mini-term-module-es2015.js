@@ -109,8 +109,6 @@ let MiniTermPage = class MiniTermPage {
         this.host = '';
         this.lastLine = '';
         this.loader = null;
-        this.host = _environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].defaultNode;
-        this.host = this.getHost();
         // Disable up and down keys.
         window.addEventListener("keydown", function (e) {
             if ([37, 38, 39, 40].indexOf(e.keyCode) > -1) {
@@ -189,39 +187,31 @@ let MiniTermPage = class MiniTermPage {
     request(route) {
         if (route === 'printchain') {
             return new Promise((resolve, reject) => {
-                this.http.get(this.host + route, { responseType: 'text' }).subscribe((d) => {
-                    const regex = d.replace(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].newLine, "\\n"); // replace \n with <br/> has all 3 \n|\r|\r\n
+                Minima.cmd('printchain', (res) => {
+                    const regex = res.replace(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].newLine, "\\n"); // replace \n with <br/> has all 3 \n|\r|\r\n
                     this.terminal.nativeElement.value += regex;
                     this.terminal.nativeElement.scrollTop = this.terminal.nativeElement.scrollHeight;
-                    resolve(d);
-                }, (err) => {
-                    this.hideLoader();
-                    console.log('Error ' + err);
-                    reject(err);
+                    resolve(res);
                 });
             });
         }
         else if (route === 'tutorial' || route === 'Tutorial') {
             return new Promise((resolve, reject) => {
-                this.http.get(this.host + route, { responseType: 'json' }).subscribe((d) => {
-                    const regex = JSON.stringify(d, undefined, 2).replace("\\\\n", "\n");
+                Minima.cmd('tutorial', (res) => {
+                    const regex = JSON.stringify(res, undefined, 2).replace("\\\\n", "\n");
                     console.log(regex);
                     this.terminal.nativeElement.value += regex;
                     this.terminal.nativeElement.scrollTop = this.terminal.nativeElement.scrollHeight;
-                    resolve(d);
+                    resolve(res);
                 });
             });
         }
         else {
             return new Promise((resolve, reject) => {
-                this.http.get(this.host + route, { responseType: 'json' }).subscribe((d) => {
-                    this.terminal.nativeElement.value += JSON.stringify(d, undefined, 2) + "\n";
+                Minima.cmd(route, (res) => {
+                    this.terminal.nativeElement.value += JSON.stringify(res, undefined, 2) + "\n";
                     this.terminal.nativeElement.scrollTop = this.terminal.nativeElement.scrollHeight;
-                    resolve(d);
-                }, (err) => {
-                    this.hideLoader();
-                    console.log('Error ' + err);
-                    reject(err);
+                    resolve(res);
                 });
             });
         }

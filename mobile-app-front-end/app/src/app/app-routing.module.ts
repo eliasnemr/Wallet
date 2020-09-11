@@ -15,7 +15,6 @@ const routes: Routes = [
   { path: 'mini-term', loadChildren: () => import('./pages/mini-term/mini-term.module').then(m => m.MiniTermPageModule) },
   { path: 'mini-status', loadChildren: () => import('./pages/mini-status/mini-status.module').then(m => m.MiniStatusPageModule) },
   { path: 'create-token', loadChildren: () => import('./pages/create-token/create-token.module').then(m => m.CreateTokenPageModule) },
-  { path: 'web-scanner', loadChildren: () => import('./pages/web-scanner/web-scanner.module').then(m => m.WebScannerPageModule) },
   { path: 'community', loadChildren: () => import('./pages/community/community.module').then(m => m.CommunityPageModule) },
   { path: 'history', loadChildren: () => import('./pages/history/history.module').then(m => m.HistoryPageModule) },
   { path: 'view-txn', loadChildren: () => import('./pages/history/view-txn/view-txn.module').then(m => m.ViewTXNPageModule) },

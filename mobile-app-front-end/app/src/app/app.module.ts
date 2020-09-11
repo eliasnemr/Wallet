@@ -25,7 +25,6 @@ import { UserTerminal } from './service/userterminal.service';
 import { LocationStrategy, HashLocationStrategy} from '@angular/common';
 import { IonicStorageModule } from '@ionic/storage';
 import * as MiniDAPP from 'src/assets/JS/minima.js';
-import * as ServiceJS from 'src/assets/JS/service.js';
 import { TokenDescrComponent } from './components/token-descr/token-descr.component'; 
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 

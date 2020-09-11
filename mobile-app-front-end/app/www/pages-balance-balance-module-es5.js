@@ -102,12 +102,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var BalancePage = /** @class */ (function () {
-    function BalancePage(service, api, alertController, popoverController, ref, route, modalController) {
+    function BalancePage(service, api, alertController, popoverController, route, modalController) {
         this.service = service;
         this.api = api;
         this.alertController = alertController;
         this.popoverController = popoverController;
-        this.ref = ref;
         this.route = route;
         this.modalController = modalController;
         this.tokenArr = [];
@@ -120,17 +119,26 @@ var BalancePage = /** @class */ (function () {
     BalancePage.prototype.ionViewWillEnter = function () {
         this.pullInTokens();
     };
-    BalancePage.prototype.ngOnInit = function () {
+    BalancePage.prototype.giveMe50 = function () {
         var _this = this;
-        window.addEventListener('MinimaEvent', function (evt) {
-            // Event connection success
-            if (evt.detail.event === 'newbalance') {
-                _this.pullInTokens();
+        this.api.giveMe50().then(function (res) {
+            if (res.status === true) {
+                _this.presentAlert(res.message, "Success.");
             }
-            else if (evt.detail.event === 'connected') {
-                _this.pullInTokens();
+            else {
+                _this.presentAlert(res.message, "Something went wrong.");
             }
         });
+    };
+    BalancePage.prototype.ngOnInit = function () {
+        // window.addEventListener('MinimaEvent', (evt: any)=> {
+        //   // Event connection success
+        //   if(evt.detail.event === 'newbalance') {
+        //     this.pullInTokens();
+        //   } else if(evt.detail.event === 'connected') {
+        //     this.pullInTokens();
+        //   }
+        // });
     };
     BalancePage.prototype.ionViewWillLeave = function () {
         this.balanceSubscription.unsubscribe(); // unsubs
@@ -158,38 +166,6 @@ var BalancePage = /** @class */ (function () {
     BalancePage.prototype.sendTokenOver = function (id) {
         this.route.navigate(['/send-funds/' + id]);
     };
-    BalancePage.prototype.giveMe50 = function () {
-        var _this = this;
-        this.service.giveMe50().subscribe(function (res) {
-            if (res.status === true) {
-                _this.pullInTokens();
-                setTimeout(function () {
-                    _this.presentAlert('A transfer of 50 is on the way...', 'Minima');
-                }, 600);
-            }
-            else if (res.status === false) {
-                _this.presentAlert(res.message + '!', 'Unsuccessful');
-            }
-        });
-    };
-    /** Async Pop ups */
-    /** Tokens
-   *
-  tokenid?: string;
-  token: string;
-  description: string;
-  icon: string;
-  proof: string;
-  total: string;
-  script: string;
-  coinid: string;
-  totalamount: number;
-  scale: string;
-  confirmed: number;
-  unconfirmed: any;
-  mempool: string;
-  sendable: string;
-   */
     BalancePage.prototype.presentTokenDescr = function (id, token, descr, icon, proof, total, script, coinid, totalamnt, scale, conf, unconf, memp, sendable) {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
             var modal;
@@ -243,17 +219,16 @@ var BalancePage = /** @class */ (function () {
             });
         });
     };
-    BalancePage.prototype.pullArrLength = function () {
-        var _this = this;
-        this.service.getBalance().subscribe(function (res) {
-            res.forEach(function (element) {
-                _this.tokenSpoof.push(element);
-            });
-        });
-    };
+    // pullArrLength() {
+    //   this.service.getUpdatedBalance.subscribe(res => {
+    //     res.forEach(element => {
+    //       this.tokenSpoof.push(element);
+    //     })
+    //   });
+    // }
     BalancePage.prototype.pullInTokens = function () {
         var _this = this;
-        this.balanceSubscription = this.service.getBalance().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(function (responseData) {
+        this.balanceSubscription = this.service.getUpdatedBalance().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(function (responseData) {
             var tokenArr = [];
             for (var key in responseData) {
                 if (responseData.hasOwnProperty(key)) {
@@ -307,7 +282,6 @@ var BalancePage = /** @class */ (function () {
         { type: _service_minima_api_service__WEBPACK_IMPORTED_MODULE_2__["MinimaApiService"] },
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["AlertController"] },
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["PopoverController"] },
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_3__["ChangeDetectorRef"] },
         { type: _angular_router__WEBPACK_IMPORTED_MODULE_7__["Router"] },
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ModalController"] }
     ]; };
@@ -322,7 +296,6 @@ var BalancePage = /** @class */ (function () {
             _service_minima_api_service__WEBPACK_IMPORTED_MODULE_2__["MinimaApiService"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["AlertController"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["PopoverController"],
-            _angular_core__WEBPACK_IMPORTED_MODULE_3__["ChangeDetectorRef"],
             _angular_router__WEBPACK_IMPORTED_MODULE_7__["Router"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ModalController"]])
     ], BalancePage);

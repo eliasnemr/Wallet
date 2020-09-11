@@ -1,17 +1,19 @@
-import { MinimaApiService } from './service/minima-api.service';
+import { Tokens } from './models/tokens.model';
+import { BalanceService } from './service/balance.service';
+
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { Platform, MenuController } from '@ionic/angular';
+import { Platform } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 
 declare var Minima: any; // Front-end RPC 
-declare var ServiceJS: any; // Back-end RPC with Minima Node
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
+
+  currentBalance: Tokens[];
 
   toggleValue: boolean = false;
   currentMode: boolean = false;
@@ -22,10 +24,8 @@ export class AppComponent {
 
   constructor(
     private platform: Platform,
-    private menu: MenuController,
-    private router: Router,
-    private api: MinimaApiService,
-    private storage: Storage
+    private storage: Storage,
+    private api: BalanceService
   ) {
   
       this.getPages();  /** this returns pages if on mobile or desktop, (different layouts) */ 
@@ -42,12 +42,17 @@ export class AppComponent {
 
   initializeApp() {
     this.platform.ready().then(() => {
+      
       Minima.init((msg:any) => { 
         if(msg.event === 'connected'){
           console.log('@M:connected');
+
+        } else if(msg.event === 'newbalance') {
+          // subscribe to observable of Minima.balance
+            this.api.updatedBalance.next(Minima.balance);
+            
         }
       });
-      this.api.setHost(Minima.rpchost+'/');
     });
   }
 

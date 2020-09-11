@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-app>\n<ion-header>\n  <ion-toolbar>\n\n    <ion-buttons slot=\"start\">\n      <ion-menu-button class=\"menu-icon\"></ion-menu-button>\n    </ion-buttons>\n\n    <ion-title class=\"large-text\">\n      Settings\n    </ion-title>\n\n    <ion-buttons slot=\"end\">\n      <ion-button (click)= \"presentQuitAlert()\">\n          <ion-icon name=\"power\" color=\"danger\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n    <form>\n      <ion-item [hidden]=\"true\">\n        <ion-icon slot=\"start\" name=\"link\" style=\"padding: 10px;\"></ion-icon>\n        <span class=\"medium-text\" position=\"floating\" color=\"primary\">Host</span>\n        <ion-input name=\"host\" [(ngModel)]=\"host\"></ion-input>\n      </ion-item>\n    </form>\n   \n    <ion-item lines=\"full\">\n      <ion-icon slot=\"start\" name=\"moon\" style=\"padding: 10px;\"></ion-icon>\n      <span class=\"medium-text\">Night Mode</span>\n      <ion-toggle  slot=\"end\" #darkToggle [(ngModel)]=\"toggleValue\" (ionChange)=\"checkToggle()\"></ion-toggle>\n    </ion-item>\n\n    <ion-item lines=\"none\">\n      <ion-icon slot=\"start\" name=\"exit\" style=\"padding: 10px;\"></ion-icon>\n      <span class=\"hide-chckbox medium-text\">Hide Welcome Screen Overlay</span>\n      <ion-toggle  slot=\"end\" color=\"primary\" [(ngModel)]=\"overlayHidePref\" (ionChange)=\"checkOverlayToggle()\"></ion-toggle>\n    </ion-item>\n    \n</ion-content>\n</ion-app>\n"
+module.exports = "<ion-app>\n<ion-header>\n  <ion-toolbar>\n\n    <ion-buttons slot=\"start\">\n      <ion-menu-button class=\"menu-icon\"></ion-menu-button>\n    </ion-buttons>\n\n    <ion-title class=\"large-text\">\n      Settings\n    </ion-title>\n\n    <ion-buttons slot=\"end\">\n      <ion-button (click)= \"presentQuitAlert()\">\n          <ion-icon name=\"power\" color=\"danger\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n    <form>\n      <ion-item [hidden]=\"true\">\n        <ion-icon slot=\"start\" name=\"link\" style=\"padding: 10px;\"></ion-icon>\n        <span class=\"medium-text\" position=\"floating\" color=\"primary\">Host</span>\n        <ion-input name=\"host\" [(ngModel)]=\"host\"></ion-input>\n      </ion-item>\n    </form>\n   \n    <ion-item lines=\"full\">\n      <ion-icon slot=\"start\" name=\"moon\" style=\"padding: 10px;\"></ion-icon>\n      <span class=\"medium-text\">Night Mode</span>\n      <ion-toggle  slot=\"end\" #darkToggle [(ngModel)]=\"toggleValue\" (ionChange)=\"checkToggle()\"></ion-toggle>\n    </ion-item>\n\n    \n</ion-content>\n</ion-app>\n"
 
 /***/ }),
 
@@ -84,19 +84,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var _service_minima_api_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../service/minima-api.service */ "./src/app/service/minima-api.service.ts");
-/* harmony import */ var _service_darkMode_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../service/darkMode.service */ "./src/app/service/darkMode.service.ts");
-
 
 
 
 
 
 let SettingsPage = class SettingsPage {
-    constructor(api, alertController, toastController, darkMode) {
+    constructor(api, alertController, toastController) {
         this.api = api;
         this.alertController = alertController;
         this.toastController = toastController;
-        this.darkMode = darkMode;
         this.overlayHidePref = false;
         this.toggleValue = false;
         this.host = '';
@@ -115,9 +112,6 @@ let SettingsPage = class SettingsPage {
     }
     /** LIFE CYCLES */
     ngOnInit() { }
-    ionViewWillEnter() {
-        this.host = this.api.getHost();
-    }
     ionViewWillLeave() {
         this.saveUserPreferences();
     }
@@ -229,8 +223,7 @@ let SettingsPage = class SettingsPage {
 SettingsPage.ctorParameters = () => [
     { type: _service_minima_api_service__WEBPACK_IMPORTED_MODULE_3__["MinimaApiService"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"] },
-    { type: _service_darkMode_service__WEBPACK_IMPORTED_MODULE_4__["darkMode"] }
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"] }
 ];
 SettingsPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -238,8 +231,9 @@ SettingsPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         template: __webpack_require__(/*! raw-loader!./settings.page.html */ "./node_modules/raw-loader/index.js!./src/app/pages/settings/settings.page.html"),
         styles: [__webpack_require__(/*! ./settings.page.scss */ "./src/app/pages/settings/settings.page.scss")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_service_minima_api_service__WEBPACK_IMPORTED_MODULE_3__["MinimaApiService"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"],
-        _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"], _service_darkMode_service__WEBPACK_IMPORTED_MODULE_4__["darkMode"]])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_service_minima_api_service__WEBPACK_IMPORTED_MODULE_3__["MinimaApiService"],
+        _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"],
+        _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"]])
 ], SettingsPage);
 
 

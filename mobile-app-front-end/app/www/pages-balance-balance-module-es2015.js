@@ -99,12 +99,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let BalancePage = class BalancePage {
-    constructor(service, api, alertController, popoverController, ref, route, modalController) {
+    constructor(service, api, alertController, popoverController, route, modalController) {
         this.service = service;
         this.api = api;
         this.alertController = alertController;
         this.popoverController = popoverController;
-        this.ref = ref;
         this.route = route;
         this.modalController = modalController;
         this.tokenArr = [];
@@ -117,16 +116,25 @@ let BalancePage = class BalancePage {
     ionViewWillEnter() {
         this.pullInTokens();
     }
-    ngOnInit() {
-        window.addEventListener('MinimaEvent', (evt) => {
-            // Event connection success
-            if (evt.detail.event === 'newbalance') {
-                this.pullInTokens();
+    giveMe50() {
+        this.api.giveMe50().then((res) => {
+            if (res.status === true) {
+                this.presentAlert(res.message, "Success.");
             }
-            else if (evt.detail.event === 'connected') {
-                this.pullInTokens();
+            else {
+                this.presentAlert(res.message, "Something went wrong.");
             }
         });
+    }
+    ngOnInit() {
+        // window.addEventListener('MinimaEvent', (evt: any)=> {
+        //   // Event connection success
+        //   if(evt.detail.event === 'newbalance') {
+        //     this.pullInTokens();
+        //   } else if(evt.detail.event === 'connected') {
+        //     this.pullInTokens();
+        //   }
+        // });
     }
     ionViewWillLeave() {
         this.balanceSubscription.unsubscribe(); // unsubs
@@ -144,37 +152,6 @@ let BalancePage = class BalancePage {
     sendTokenOver(id) {
         this.route.navigate(['/send-funds/' + id]);
     }
-    giveMe50() {
-        this.service.giveMe50().subscribe((res) => {
-            if (res.status === true) {
-                this.pullInTokens();
-                setTimeout(() => {
-                    this.presentAlert('A transfer of 50 is on the way...', 'Minima');
-                }, 600);
-            }
-            else if (res.status === false) {
-                this.presentAlert(res.message + '!', 'Unsuccessful');
-            }
-        });
-    }
-    /** Async Pop ups */
-    /** Tokens
-   *
-  tokenid?: string;
-  token: string;
-  description: string;
-  icon: string;
-  proof: string;
-  total: string;
-  script: string;
-  coinid: string;
-  totalamount: number;
-  scale: string;
-  confirmed: number;
-  unconfirmed: any;
-  mempool: string;
-  sendable: string;
-   */
     presentTokenDescr(id, token, descr, icon, proof, total, script, coinid, totalamnt, scale, conf, unconf, memp, sendable) {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
             const modal = yield this.modalController.create({
@@ -212,15 +189,15 @@ let BalancePage = class BalancePage {
             return yield popover.present();
         });
     }
-    pullArrLength() {
-        this.service.getBalance().subscribe(res => {
-            res.forEach(element => {
-                this.tokenSpoof.push(element);
-            });
-        });
-    }
+    // pullArrLength() {
+    //   this.service.getUpdatedBalance.subscribe(res => {
+    //     res.forEach(element => {
+    //       this.tokenSpoof.push(element);
+    //     })
+    //   });
+    // }
     pullInTokens() {
-        this.balanceSubscription = this.service.getBalance().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(responseData => {
+        this.balanceSubscription = this.service.getUpdatedBalance().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(responseData => {
             const tokenArr = [];
             for (const key in responseData) {
                 if (responseData.hasOwnProperty(key)) {
@@ -275,7 +252,6 @@ BalancePage.ctorParameters = () => [
     { type: _service_minima_api_service__WEBPACK_IMPORTED_MODULE_2__["MinimaApiService"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["AlertController"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["PopoverController"] },
-    { type: _angular_core__WEBPACK_IMPORTED_MODULE_3__["ChangeDetectorRef"] },
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_7__["Router"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ModalController"] }
 ];
@@ -290,7 +266,6 @@ BalancePage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         _service_minima_api_service__WEBPACK_IMPORTED_MODULE_2__["MinimaApiService"],
         _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["AlertController"],
         _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["PopoverController"],
-        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ChangeDetectorRef"],
         _angular_router__WEBPACK_IMPORTED_MODULE_7__["Router"],
         _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ModalController"]])
 ], BalancePage);

@@ -19,10 +19,6 @@ export class MiniStatusPage implements OnInit {
 
   public lastJSON: string;
 
-  // - vars
-  private host = '';
-  private loader: any = null;
-
   constructor(private service: StatusService, private ref: ChangeDetectorRef, private plat: Platform) {}
  
   ngOnInit() { }

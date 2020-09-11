@@ -10,6 +10,7 @@ import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import QrScanner from 'qr-scanner';
 
+declare var Minima:any;
 @Component({
   selector: 'app-send-funds',
   templateUrl: './send-funds.page.html',
@@ -206,11 +207,13 @@ export class SendFundsPage implements OnInit {
 
   // API CALLS
   pullInTokens() {
-    this.balanceSubscription =this.balanceService.getBalance().pipe(map(responseData => {
+    this.balanceSubscription =this.balanceService.updatedBalance
+    .pipe(
+      map((responseData: any) => {
       const tokenArr: Tokens[] = [];
-      for(const key in responseData){
+      for(const key in Minima.balance){
         if(responseData.hasOwnProperty(key)){
-          let element = responseData[key];
+          let element = Minima.balance[key];
           // round up confirmed && unconfirmed
           
           let tempConfirmed = (Math.round(element.confirmed * 100)/100);

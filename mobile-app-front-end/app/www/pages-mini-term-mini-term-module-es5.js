@@ -112,8 +112,6 @@ var MiniTermPage = /** @class */ (function () {
         this.host = '';
         this.lastLine = '';
         this.loader = null;
-        this.host = _environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].defaultNode;
-        this.host = this.getHost();
         // Disable up and down keys.
         window.addEventListener("keydown", function (e) {
             if ([37, 38, 39, 40].indexOf(e.keyCode) > -1) {
@@ -196,39 +194,31 @@ var MiniTermPage = /** @class */ (function () {
         var _this = this;
         if (route === 'printchain') {
             return new Promise(function (resolve, reject) {
-                _this.http.get(_this.host + route, { responseType: 'text' }).subscribe(function (d) {
-                    var regex = d.replace(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].newLine, "\\n"); // replace \n with <br/> has all 3 \n|\r|\r\n
+                Minima.cmd('printchain', function (res) {
+                    var regex = res.replace(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].newLine, "\\n"); // replace \n with <br/> has all 3 \n|\r|\r\n
                     _this.terminal.nativeElement.value += regex;
                     _this.terminal.nativeElement.scrollTop = _this.terminal.nativeElement.scrollHeight;
-                    resolve(d);
-                }, function (err) {
-                    _this.hideLoader();
-                    console.log('Error ' + err);
-                    reject(err);
+                    resolve(res);
                 });
             });
         }
         else if (route === 'tutorial' || route === 'Tutorial') {
             return new Promise(function (resolve, reject) {
-                _this.http.get(_this.host + route, { responseType: 'json' }).subscribe(function (d) {
-                    var regex = JSON.stringify(d, undefined, 2).replace("\\\\n", "\n");
+                Minima.cmd('tutorial', function (res) {
+                    var regex = JSON.stringify(res, undefined, 2).replace("\\\\n", "\n");
                     console.log(regex);
                     _this.terminal.nativeElement.value += regex;
                     _this.terminal.nativeElement.scrollTop = _this.terminal.nativeElement.scrollHeight;
-                    resolve(d);
+                    resolve(res);
                 });
             });
         }
         else {
             return new Promise(function (resolve, reject) {
-                _this.http.get(_this.host + route, { responseType: 'json' }).subscribe(function (d) {
-                    _this.terminal.nativeElement.value += JSON.stringify(d, undefined, 2) + "\n";
+                Minima.cmd(route, function (res) {
+                    _this.terminal.nativeElement.value += JSON.stringify(res, undefined, 2) + "\n";
                     _this.terminal.nativeElement.scrollTop = _this.terminal.nativeElement.scrollHeight;
-                    resolve(d);
-                }, function (err) {
-                    _this.hideLoader();
-                    console.log('Error ' + err);
-                    reject(err);
+                    resolve(res);
                 });
             });
         }

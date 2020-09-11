@@ -1,14 +1,13 @@
 import { Observable, Subscription } from 'rxjs';
 import { PopTermComponent } from '../../components/pop-term/pop-term.component';
-import { Component, OnInit, ViewChild, ElementRef, Renderer2, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { LoadingController, NavController, IonContent, PopoverController, Platform } from '@ionic/angular';
 import { environment } from '../../../environments/environment';
-import { map } from 'rxjs/operators';
 import { UserTerminal } from '../../service/userterminal.service';
 import { Storage } from '@ionic/storage';
 
-
+declare var Minima: any;
 @Component({
   selector: 'app-mini-term',
   templateUrl: './mini-term.page.html',
@@ -35,9 +34,7 @@ export class MiniTermPage implements OnInit {
              public userTerminal: UserTerminal,
              private storage: Storage,
              private platform: Platform) {
-      
-      this.host = environment.defaultNode;
-      this.host = this.getHost();
+
     // Disable up and down keys.
       window.addEventListener("keydown", function(e) {
         if([37, 38, 39, 40].indexOf(e.keyCode) > -1) {
@@ -131,55 +128,47 @@ getHost() {
 request(route: any) {
     if(route === 'printchain'){
       return new Promise((resolve, reject) => {
-        this.http.get(this.host + route, { responseType: 'text' }).subscribe(( d: any ) => {
-          
-          const regex = d.replace(environment.newLine, "\\n"); // replace \n with <br/> has all 3 \n|\r|\r\n
+
+        Minima.cmd('printchain', (res: any) => {
+
+          const regex = res.replace(environment.newLine, "\\n"); // replace \n with <br/> has all 3 \n|\r|\r\n
 
           this.terminal.nativeElement.value += regex;
 
           this.terminal.nativeElement.scrollTop = this.terminal.nativeElement.scrollHeight;
 
-          resolve(d);
-        }, (err) => {
+          resolve(res);
 
-          this.hideLoader();
-
-          console.log('Error ' + err );
-
-          reject(err);
         });
       });
     } else if (route === 'tutorial' || route === 'Tutorial') {
     
         return new Promise((resolve, reject) => {
-          this.http.get(this.host + route, { responseType: 'json' }).subscribe(( d: any ) => {
+          
+          Minima.cmd('tutorial', (res: any) => {
             
-            const regex = JSON.stringify(d, undefined, 2).replace("\\\\n", "\n");
+            const regex = JSON.stringify(res, undefined, 2).replace("\\\\n", "\n");
             console.log(regex);
             this.terminal.nativeElement.value += regex;
 
             this.terminal.nativeElement.scrollTop = this.terminal.nativeElement.scrollHeight;
 
-            resolve(d);
+            resolve(res);
           });
         });
     }
     else {
       return new Promise((resolve, reject) => {
-        this.http.get(this.host + route, { responseType: 'json' }).subscribe(( d: any ) => {
+        
+        Minima.cmd(route, ( res: any) => {
 
-          this.terminal.nativeElement.value += JSON.stringify(d, undefined, 2) + "\n";
+        
+
+          this.terminal.nativeElement.value += JSON.stringify(res, undefined, 2) + "\n";
 
           this.terminal.nativeElement.scrollTop = this.terminal.nativeElement.scrollHeight;
 
-          resolve(d);
-        }, (err) => {
-
-          this.hideLoader();
-          
-          console.log('Error ' + err );
-
-          reject(err);
+          resolve(res);
         });
       });
     }

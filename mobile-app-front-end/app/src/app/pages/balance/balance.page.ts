@@ -1,20 +1,19 @@
-import { Observable, Subscription, Subject, interval } from 'rxjs';
-import { map, concatMap } from 'rxjs/operators';
-import { timer } from 'rxjs/Observable/timer';
+import { Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { MinimaApiService } from '../../service/minima-api.service';
-import { Component, ChangeDetectorRef, AfterContentChecked, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
-import { AlertController, PopoverController, NavController, IonLabel, IonInput, ModalController } from '@ionic/angular';
+import { Component, OnInit } from '@angular/core';
+import { AlertController, PopoverController, ModalController } from '@ionic/angular';
 import { Tokens } from '../../models/tokens.model';
 import { PopOverComponent } from '../../components/pop-over/pop-over.component';
 import { BalanceService } from '../../service/balance.service';
 import { Router } from '@angular/router';
 import { TokenDescrComponent } from '../../components/token-descr/token-descr.component';
 
+declare var Minima: any;
 @Component({
   selector: 'app-balance',
   templateUrl: './balance.page.html',
   styleUrls: ['./balance.page.scss'],
-  providers: [ BalanceService ],
 })
 
 export class BalancePage implements OnInit {
@@ -26,7 +25,6 @@ export class BalancePage implements OnInit {
 
   // - vars
   private lastJSON = '';
-  private host: any = '';
   private MINIMA = '0x00';
 
   constructor(
@@ -34,27 +32,25 @@ export class BalancePage implements OnInit {
     private api: MinimaApiService,
     public alertController: AlertController,
     public popoverController: PopoverController,
-    private ref: ChangeDetectorRef,
     private route: Router,
-    private modalController: ModalController) {}
+    private modalController: ModalController) {
+      this.pullInTokens();
+    }
 
-  ionViewWillEnter() {
-    this.pullInTokens();
-  }
-  
-  ngOnInit(){
-    window.addEventListener('MinimaEvent', (evt: any)=> {
+  ionViewWillEnter() { }
 
-      // Event connection success
-      if(evt.detail.event === 'newbalance') {
-
-        this.pullInTokens();
-
-      } else if(evt.detail.event === 'connected') {
-        this.pullInTokens();
+  giveMe50() {
+    this.api.giveMe50().then((res:any)=> {
+      if(res.status === true) {
+        this.presentAlert(res.message, "Success.");
+      } else {
+        this.presentAlert(res.message, "Something went wrong.");
       }
     });
   }
+  
+  ngOnInit()
+  { }
   
   ionViewWillLeave(){
     this.balanceSubscription.unsubscribe(); // unsubs
@@ -74,39 +70,6 @@ export class BalancePage implements OnInit {
     this.route.navigate(['/send-funds/'+id]); 
   }
 
-  giveMe50() {
-    this.service.giveMe50().subscribe((res:{ status: boolean, minifunc: string, message: string, response: any})=> {  
-      if(res.status === true) {
-
-        this.pullInTokens();
-  
-        setTimeout(() => {
-          this.presentAlert('A transfer of 50 is on the way...', 'Minima');
-        }, 600);
-      } else if(res.status === false) {
-        this.presentAlert(res.message+'!', 'Unsuccessful' );
-      }
-    });
-  }
-
-  /** Async Pop ups */
-      /** Tokens
-     * 
-    tokenid?: string;
-    token: string;
-    description: string;
-    icon: string;
-    proof: string;
-    total: string;
-    script: string;
-    coinid: string;
-    totalamount: number;
-    scale: string; 
-    confirmed: number;
-    unconfirmed: any;
-    mempool: string;
-    sendable: string;
-     */
   async presentTokenDescr(
     id: string, token: string, descr: string, icon:string, proof: string, total: string,
      script: string, coinid: string, totalamnt: string, scale:string, conf: number, unconf:any, memp: string, sendable: string) {
@@ -145,22 +108,20 @@ export class BalancePage implements OnInit {
 
   }
 
-  pullArrLength() {
-    this.service.getBalance().subscribe(res => {
-      res.forEach(element => {
-        this.tokenSpoof.push(element);
-      })
-    });
-  }
-
   pullInTokens() {
-    this.balanceSubscription = this.service.getBalance().pipe(map(responseData => {
+
+    this.balanceSubscription = this.service.updatedBalance
+      .pipe(
+        map((responseData:any) => {
+
       const tokenArr: Tokens[] = [];
-      for(const key in responseData){
-        if(responseData.hasOwnProperty(key)){
-          let element = responseData[key];
+      for(const key in Minima.balance){
+
+        if(Minima.balance.hasOwnProperty(key)){
+
+          let element = Minima.balance[key];
+
           // round up confirmed && unconfirmed
-          
           let tempConfirmed = (Math.round(element.confirmed * 1000)/1000);
           let tempUnconfirmed = (Math.round(element.unconfirmed * 1000)/1000);
 
@@ -195,6 +156,7 @@ export class BalancePage implements OnInit {
               mempool: element.mempool,
               sendable: element.sendable
             });
+
           }
 
           }
@@ -204,7 +166,7 @@ export class BalancePage implements OnInit {
       })
     )
     .subscribe(responseData => {
-      
+
       //check if changed
       if(this.lastJSON !== JSON.stringify(responseData)){
         this.tokenArr = [...responseData];

@@ -36,10 +36,7 @@ export class SettingsPage implements OnInit {
     
   /** LIFE CYCLES */
   ngOnInit() {}
-  
-  ionViewWillEnter() {
-    this.host = this.api.getHost();
-  }
+
   ionViewWillLeave(){
    this.saveUserPreferences();
   }
