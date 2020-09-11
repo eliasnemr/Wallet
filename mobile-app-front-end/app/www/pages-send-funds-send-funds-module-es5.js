@@ -329,7 +329,7 @@ var SendFundsPage = /** @class */ (function () {
                         _this.minimaToken = element.tokenid;
                     }
                     tokenArr.push({
-                        tokenid: element.balance.tokenid,
+                        tokenid: element.tokenid,
                         token: element.token,
                         description: element.description,
                         icon: element.icon,
