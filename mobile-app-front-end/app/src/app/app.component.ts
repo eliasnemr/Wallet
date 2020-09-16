@@ -4,6 +4,7 @@ import { BalanceService } from './service/balance.service';
 import { Component } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
+import { equal } from 'assert';
 
 declare var Minima: any; // Front-end RPC 
 @Component({

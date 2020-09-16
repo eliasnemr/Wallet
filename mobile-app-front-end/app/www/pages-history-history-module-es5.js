@@ -106,10 +106,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var HistoryPage = /** @class */ (function () {
-    function HistoryPage(historyService, modalController, platform, histData, user, alertCtrl, toastCtrl, config, router) {
+    function HistoryPage(historyService, modalController, histData, user, alertCtrl, toastCtrl, config, router) {
         this.historyService = historyService;
         this.modalController = modalController;
-        this.platform = platform;
         this.histData = histData;
         this.user = user;
         this.alertCtrl = alertCtrl;
@@ -251,7 +250,6 @@ var HistoryPage = /** @class */ (function () {
     HistoryPage.ctorParameters = function () { return [
         { type: _service_history_service__WEBPACK_IMPORTED_MODULE_4__["HistoryService"] },
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"] },
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Platform"] },
         { type: _providers_historydata__WEBPACK_IMPORTED_MODULE_7__["HistoryData"] },
         { type: _providers_user_data__WEBPACK_IMPORTED_MODULE_6__["UserData"] },
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"] },
@@ -271,7 +269,6 @@ var HistoryPage = /** @class */ (function () {
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_service_history_service__WEBPACK_IMPORTED_MODULE_4__["HistoryService"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"],
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Platform"],
             _providers_historydata__WEBPACK_IMPORTED_MODULE_7__["HistoryData"],
             _providers_user_data__WEBPACK_IMPORTED_MODULE_6__["UserData"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"],

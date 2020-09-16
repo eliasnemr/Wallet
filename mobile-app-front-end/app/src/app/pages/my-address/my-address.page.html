@@ -16,9 +16,9 @@
       Wallet Address
     </ion-card-header>
     <ion-card-content>
-    <ion-grid>
+    <ion-grid fixed>
       <ion-row>
-        <ion-col size-md="6" size-xs="12" size="12" size-lg="4" size-xl="4">
+        <ion-col size-md="6" size-xs="8" size-s="6" size="12" size-lg="4" size-xl="4">
          
             <qrcode
               [qrdata]="qrCode"
@@ -33,7 +33,7 @@
       <br>
         <div class="medium-text address">
            
-           <ion-badge [hidden]="hide" (click)="shout()">{{ qrCode.substring(0,5)+"..."+qrCode.substring(50, qrCode.length) }} </ion-badge>
+           <ion-badge [hidden]="hide" (click)="shout()">{{ qrCode.substring(0,5)+"..."+qrCode.substring(qrCode.length/2, qrCode.length) }} </ion-badge>
           
            <ion-badge [hidden]="!hide" (click)="shout()">{{ qrCode }} </ion-badge>
 

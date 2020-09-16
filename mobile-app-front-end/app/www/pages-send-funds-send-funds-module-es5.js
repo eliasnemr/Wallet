@@ -32,7 +32,7 @@ else{let d,f;d=()=>{a.removeEventListener("load",d);a.removeEventListener("error
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-app>\n<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-menu-button class=\"menu-icon\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title class=\"large-text\">\n      Send\n    </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content *ngIf=\"isCameraOpen==false\">\n\n  <ion-card class=\"webscan-canvas\" *ngIf=\"!checkPlatform() && isWebCameraOpen\">\n    <ion-card-header class=\"medium-text\">\n\n    Scan Your Minima QR address now...\n    <ion-progress-bar type=\"indeterminate\" reversed=\"true\"></ion-progress-bar>\n    </ion-card-header>\n\n    <video height=\"240\" #videoElem></video>\n    <hr>\n    <ion-button block=\"full\" (click)=\"stopWebScanQR()\">Stop Scanning</ion-button>\n    <hr>\n  </ion-card>\n\n  <ion-card *ngIf=\"!isWebCameraOpen\">\n    <ion-card-header>\n      Post a transaction\n      <ion-card-title>\n          <ion-icon style=\" font-size:2.0rem;\" slot=\"start\" name=\"send\" class=\"icon-head medium-text\" ></ion-icon>\n      </ion-card-title>\n    </ion-card-header>\n\n    <ion-card-content>\n        <ion-item>\n          <ion-label class=\"medium-text\" position=\"floating\">Tokens</ion-label>\n          <ion-select\n              interface = 'alert'\n              class=\"medium-text input\"\n              [(ngModel)]=\"itemSelected\"\n              (ionChange)=\"onItemSelection($event)\"> \n          <ion-select-option *ngFor=\"let token of tokenArr;\" [value]=\"token\" class=\"token-option\">\n          \n            <ion-text class=\"medium-text\" *ngIf=\"token.tokenid === '0x00'\">\n            {{ token.token +\" - \"+  token.tokenid + \"\" }} \n\n            </ion-text>\n\n            <ion-text class=\"medium-text\" *ngIf=\"token.tokenid !== '0x00'\">\n            {{ token.token + \" - \" + token.tokenid.substring(0, 60)  }} \n            </ion-text>\n          </ion-select-option>\n\n        </ion-select>\n        </ion-item>\n\n        <ion-item>\n          <ion-label class=\"medium-text\" position=\"floating\">Address</ion-label>\n          <ion-input #address class=\"input\" name=\"address\" [(ngModel)]=\"data.address\" clearInput=\"true\"></ion-input>\n          \n        </ion-item>\n        <ion-item lines=\"none\" slot=\"end\" [hidden]=\"checkPlatform()\">\n          <ion-button type=\"button\" class=\"util-btns\" size=\"small\" (click)=\"webScanQR()\">\n            <ion-label class=\"small-text\" slot=\"start\" style=\"padding:2px\">SCAN QR</ion-label>\n            <ion-icon  name=\"qr-scanner\" ></ion-icon>\n          </ion-button>\n        </ion-item>\n        <ion-item lines=\"none\" slot=\"end\" [hidden]=\"!checkPlatform()\">\n          <ion-button type=\"button\" class=\"util-btns\" size=\"small\" (click)=\"scanQR()\">\n            <ion-label class=\"small-text\" slot=\"start\" style=\"padding:2px\">SCAN QR</ion-label>\n            <ion-icon  size=\"small\" name=\"qr-scanner\" ></ion-icon>\n          </ion-button>\n          <ion-button type=\"button\" size=\"small\" class=\"util-btns\" (click)=\"pasteFromClipboard()\">\n            <ion-label class=\"small-text\" slot=\"start\" style=\"padding:5px\">CLIPBOARD</ion-label>\n            <ion-icon size=\"small\" name=\"clipboard\" ></ion-icon>\n          </ion-button>\n        </ion-item>\n        <ion-item>\n          <ion-label class=\"medium-text\" position=\"floating\">Amount</ion-label>\n          <ion-input #amount type=\"number\" name=\"amount\" class=\"input\" [(ngModel)]=\"data.amount\"></ion-input>\n        </ion-item>\n        <ion-item lines=\"none\">\n        <!-- Disabled Checkbox -->\n        <ion-checkbox [(ngModel)]=\"messageEntry.isChecked\" (ionChange)=\"checkboxValue($event, messageEntry.isChecked)\"></ion-checkbox>\n        <ion-label class=\"medium-text\" [hidden]=\"messageEntry.isChecked\" style=\"padding-left: 10px;\">Message</ion-label>\n        <ion-label class=\"medium-text\" [hidden]=\"!messageEntry.isChecked\" style=\"padding-left: 10px;\">This message is public</ion-label>\n        </ion-item>\n        <ion-item [hidden]=\"!messageEntry.isChecked\">\n            <ion-textarea \n            class=\"medium-text input\"\n            auto-grow=\"true\"\n            #message \n            [(ngModel)]=\"data.message\" \n            placeholder=\"type your message...\"\n            maxlength=\"255\">\n            </ion-textarea>\n          <span class=\"length smaller-text\">{{ data.message?.length+\"/255\"}}</span>\n        </ion-item>\n        \n    </ion-card-content>\n  </ion-card>\n\n</ion-content>\n<ion-footer>\n  <ion-toolbar>\n    <ion-buttons> \n      <ion-button class=\"action-btn medium-text\" expand=\"block\" (click)=\"stopCamera()\"  *ngIf=\"isCameraOpen==true\">\n        Stop scanning\n       </ion-button>\n      <ion-button class=\"action-btn medium-text\" expand=\"block\" (click)=\"sendFunds()\" *ngIf=\"isCameraOpen==false\">\n        <ion-icon name=\"send\" slot=\"start\"></ion-icon> Send\n      </ion-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-footer>\n</ion-app>\n\n"
+module.exports = "<ion-app>\n<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-menu-button class=\"menu-icon\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title class=\"large-text\">\n      Send\n    </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content *ngIf=\"isCameraOpen==false\">\n\n  <ion-card class=\"webscan-canvas\" *ngIf=\"!checkPlatform() && isWebCameraOpen\">\n    <ion-card-header class=\"medium-text\">\n\n    Scan Your Minima QR address now...\n    <ion-progress-bar type=\"indeterminate\" reversed=\"true\"></ion-progress-bar>\n    </ion-card-header>\n\n    <video height=\"240\" #videoElem></video>\n    <hr>\n    <ion-button block=\"full\" (click)=\"stopWebScanQR()\">Stop Scanning</ion-button>\n    <hr>\n  </ion-card>\n\n  <ion-card *ngIf=\"!isWebCameraOpen\">\n    <ion-card-header>\n      Post a transaction\n      <ion-card-title>\n          <ion-icon style=\" font-size:2.0rem;\" slot=\"start\" name=\"send\" class=\"icon-head medium-text\" ></ion-icon>\n      </ion-card-title>\n    </ion-card-header>\n\n    <ion-card-content>\n        <ion-item>\n          <ion-label class=\"medium-text\" position=\"floating\">Tokens</ion-label>\n          <ion-select\n              interface = 'alert'\n              class=\"medium-text input\"\n              [(ngModel)]=\"itemSelected\"\n              (ionChange)=\"onItemSelection($event)\"> \n          <ion-select-option *ngFor=\"let token of tokenArr;\" [value]=\"token\" class=\"token-option\">\n          \n            <ion-text class=\"medium-text\" *ngIf=\"token.tokenid === '0x00'\">\n            {{ token.token +\" - \"+  token.tokenid + \"\" }} \n\n            </ion-text>\n\n            <ion-text class=\"medium-text\" *ngIf=\"token.tokenid !== '0x00'\">\n            {{ token.token + \" - \" + token.tokenid.substring(0, 60)  }} \n            </ion-text>\n          </ion-select-option>\n\n        </ion-select>\n        </ion-item>\n\n        <ion-item>\n          <ion-label class=\"medium-text\" position=\"floating\">Address</ion-label>\n          <ion-input #address class=\"input\" name=\"address\" [(ngModel)]=\"data.address\" clearInput=\"true\"></ion-input>\n          \n        </ion-item>\n        <ion-item lines=\"none\" slot=\"end\" [hidden]=\"checkPlatform()\">\n          <ion-button type=\"button\" class=\"util-btns\" size=\"small\" (click)=\"webScanQR()\">\n            <ion-label class=\"small-text\" slot=\"start\" style=\"padding:2px\">SCAN QR</ion-label>\n            <ion-icon  name=\"qr-scanner\" ></ion-icon>\n          </ion-button>\n        </ion-item>\n        <ion-item lines=\"none\" slot=\"end\" [hidden]=\"!checkPlatform()\">\n          <ion-button type=\"button\" class=\"util-btns\" size=\"small\" (click)=\"scanQR()\">\n            <ion-label class=\"small-text\" slot=\"start\" style=\"padding:2px\">SCAN QR</ion-label>\n            <ion-icon  size=\"small\" name=\"qr-scanner\" ></ion-icon>\n          </ion-button>\n          <ion-button type=\"button\" size=\"small\" class=\"util-btns\" (click)=\"pasteFromClipboard()\">\n            <ion-label class=\"small-text\" slot=\"start\" style=\"padding:5px\">CLIPBOARD</ion-label>\n            <ion-icon size=\"small\" name=\"clipboard\" ></ion-icon>\n          </ion-button>\n        </ion-item>\n        <ion-item>\n          <ion-label class=\"medium-text\" position=\"floating\">Amount</ion-label>\n          <ion-input #amount type=\"number\" name=\"amount\" class=\"input\" [(ngModel)]=\"data.amount\"></ion-input>\n        </ion-item>\n        <ion-item lines=\"none\">\n        <!-- Disabled Checkbox -->\n        <ion-checkbox [(ngModel)]=\"messageEntry.isChecked\" (ionChange)=\"checkboxValue($event, messageEntry.isChecked)\"></ion-checkbox>\n        <ion-label class=\"medium-text\" [hidden]=\"messageEntry.isChecked\" style=\"padding-left: 10px;\">Message</ion-label>\n        <ion-label class=\"medium-text\" [hidden]=\"!messageEntry.isChecked\" style=\"padding-left: 10px;\">This message is public</ion-label>\n        </ion-item>\n        <ion-item [hidden]=\"!messageEntry.isChecked\">\n            <ion-textarea \n            class=\"medium-text input\"\n            auto-grow=\"true\"\n            #message \n            [(ngModel)]=\"data.message\" \n            placeholder=\"type your message...\"\n            maxlength=\"255\">\n            </ion-textarea>\n          <span *ngIf=\"data.message\" class=\"length smaller-text\">{{ data.message.length +\"/255\"}}</span>\n        </ion-item>\n        \n    </ion-card-content>\n  </ion-card>\n\n</ion-content>\n<ion-footer>\n  <ion-toolbar>\n    <ion-buttons> \n      <ion-button class=\"action-btn medium-text\" expand=\"block\" (click)=\"stopCamera()\"  *ngIf=\"isCameraOpen==true\">\n        Stop scanning\n       </ion-button>\n      <ion-button class=\"action-btn medium-text\" expand=\"block\" (click)=\"sendFunds()\" *ngIf=\"isCameraOpen==false\">\n        <ion-icon name=\"send\" slot=\"start\"></ion-icon> Send\n      </ion-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-footer>\n</ion-app>\n\n"
 
 /***/ }),
 
@@ -153,28 +153,12 @@ var SendFundsPage = /** @class */ (function () {
         this.lastJSON = '';
         this.scanSub = null;
         this.data.message = "";
-    }
-    SendFundsPage.prototype.ngOnInit = function () {
-        this.isCameraOpen = false;
-    };
-    SendFundsPage.prototype.ionViewWillEnter = function () {
-        var _this = this;
-        // check for updates
-        window.addEventListener('load', function (ev) {
-            // Page loaded
-            window.addEventListener('MinimaEvent', function (evt) {
-                // Event connection success
-                if (evt.detail.event === 'newbalance') {
-                    _this.pullInTokens();
-                }
-            });
-        });
         this.pullInTokens();
-        this.isCameraOpen = false;
-    };
+    }
+    SendFundsPage.prototype.ngOnInit = function () { };
+    SendFundsPage.prototype.ionViewWillEnter = function () { this.isCameraOpen = false; };
     SendFundsPage.prototype.ionViewWillLeave = function () {
-        // unsubscribe
-        this.balanceSubscription.unsubscribe();
+        this.balanceSubscription.unsubscribe(); // unsubscribe
         this.stopCamera();
     };
     // get token selected or set Minima as default
@@ -300,6 +284,10 @@ var SendFundsPage = /** @class */ (function () {
                     case 0: return [4 /*yield*/, this.toastController.create({
                             message: msg,
                             duration: 4000,
+                            buttons: [{
+                                    text: 'Close',
+                                    role: 'cancel'
+                                }],
                             color: type,
                             keyboardClose: true,
                             translucent: true,
@@ -320,7 +308,7 @@ var SendFundsPage = /** @class */ (function () {
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["map"])(function (responseData) {
             var tokenArr = [];
             for (var key in Minima.balance) {
-                if (responseData.hasOwnProperty(key)) {
+                if (Minima.balance.hasOwnProperty(key)) {
                     var element = Minima.balance[key];
                     // round up confirmed && unconfirmed
                     var tempConfirmed = (Math.round(element.confirmed * 100) / 100);
@@ -561,7 +549,6 @@ var SendFundsPage = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Component"])({
             selector: 'app-send-funds',
             template: __webpack_require__(/*! raw-loader!./send-funds.page.html */ "./node_modules/raw-loader/index.js!./src/app/pages/send-funds/send-funds.page.html"),
-            providers: [_service_balance_service__WEBPACK_IMPORTED_MODULE_1__["BalanceService"]],
             styles: [__webpack_require__(/*! ./send-funds.page.scss */ "./src/app/pages/send-funds/send-funds.page.scss")]
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_3__["QRScanner"], _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_4__["Clipboard"],

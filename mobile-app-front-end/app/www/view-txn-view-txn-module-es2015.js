@@ -139,6 +139,10 @@ let ViewTXNPage = class ViewTXNPage {
             const toast = yield this.toastController.create({
                 message: msg,
                 duration: 4000,
+                buttons: [{
+                        text: 'Close',
+                        role: 'cancel'
+                    }],
                 color: type,
                 keyboardClose: true,
                 translucent: true,

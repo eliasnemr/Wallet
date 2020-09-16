@@ -147,6 +147,10 @@ var ViewTXNPage = /** @class */ (function () {
                     case 0: return [4 /*yield*/, this.toastController.create({
                             message: msg,
                             duration: 4000,
+                            buttons: [{
+                                    text: 'Close',
+                                    role: 'cancel'
+                                }],
                             color: type,
                             keyboardClose: true,
                             translucent: true,

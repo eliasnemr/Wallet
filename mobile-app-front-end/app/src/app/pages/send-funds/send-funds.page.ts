@@ -15,7 +15,6 @@ declare var Minima:any;
   selector: 'app-send-funds',
   templateUrl: './send-funds.page.html',
   styleUrls: ['./send-funds.page.scss'],
-  providers: [ BalanceService ],
 })
 export class SendFundsPage implements OnInit {
 
@@ -56,36 +55,21 @@ export class SendFundsPage implements OnInit {
     private balanceService: BalanceService,
     private platform: Platform,
     private route: ActivatedRoute,
-    private router: Router) {
-
+    private router: Router) 
+    {
       this.data.message = "";
+      this.pullInTokens();
     }
 
-  ngOnInit() {
-    this.isCameraOpen = false;
-  }
+  ngOnInit() 
+  { }
 
-  ionViewWillEnter(){
-    // check for updates
-    window.addEventListener('load', (ev: Event) => {
-      // Page loaded
-      window.addEventListener('MinimaEvent', (evt: any)=> {
-        // Event connection success
-        if(evt.detail.event === 'newbalance') {
+  ionViewWillEnter()
+  { this.isCameraOpen = false; }
 
-          this.pullInTokens();
-
-        } 
-      });
-    });
-
-    this.pullInTokens();
-    this.isCameraOpen = false;
-  }
-
-  ionViewWillLeave() {
-    // unsubscribe
-    this.balanceSubscription.unsubscribe();
+  ionViewWillLeave() 
+  {
+    this.balanceSubscription.unsubscribe(); // unsubscribe
     this.stopCamera();
   }
 
@@ -126,7 +110,7 @@ export class SendFundsPage implements OnInit {
     })
   }
   // fn to update tokenid
-  updateTokenId(id) {
+  updateTokenId(id: string) {
     this.data.tokenid = id;
   }
 
@@ -207,6 +191,10 @@ export class SendFundsPage implements OnInit {
     const toast = await this.toastController.create({
       message: msg,
       duration: 4000,
+      buttons: [{
+        text: 'Close',
+        role: 'cancel'
+      }],
       color: type,
       keyboardClose: true,
       translucent: true,
@@ -220,9 +208,10 @@ export class SendFundsPage implements OnInit {
     this.balanceSubscription =this.balanceService.updatedBalance
     .pipe(
       map((responseData: any) => {
+        
       const tokenArr: Tokens[] = [];
       for(const key in Minima.balance){
-        if(responseData.hasOwnProperty(key)){
+        if(Minima.balance.hasOwnProperty(key)){
           let element = Minima.balance[key];
           // round up confirmed && unconfirmed
           

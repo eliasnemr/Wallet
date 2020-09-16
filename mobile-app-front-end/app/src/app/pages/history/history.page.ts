@@ -36,7 +36,6 @@ export class HistoryPage implements OnInit {
   constructor(
     private historyService: HistoryService,
     public modalController: ModalController, 
-    private platform: Platform,
     public histData: HistoryData,
     public user: UserData,
     public alertCtrl: AlertController,

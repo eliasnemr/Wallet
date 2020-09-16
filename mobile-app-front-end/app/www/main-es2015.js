@@ -1101,6 +1101,10 @@ let TokenDescrComponent = class TokenDescrComponent {
             const toast = yield this.toastController.create({
                 message: msg,
                 duration: 4000,
+                buttons: [{
+                        text: 'Close',
+                        role: 'cancel'
+                    }],
                 color: type,
                 keyboardClose: true,
                 translucent: true,
@@ -1352,21 +1356,19 @@ UserTerminal = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var _angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/platform-browser-dynamic */ "./node_modules/@angular/platform-browser-dynamic/fesm2015/platform-browser-dynamic.js");
-/* harmony import */ var _app_app_module__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./app/app.module */ "./src/app/app.module.ts");
-/* harmony import */ var web_social_share_dist_loader__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! web-social-share/dist/loader */ "./node_modules/web-social-share/dist/loader/index.es2017.mjs");
-
+/* harmony import */ var _angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/platform-browser-dynamic */ "./node_modules/@angular/platform-browser-dynamic/fesm2015/platform-browser-dynamic.js");
+/* harmony import */ var _app_app_module__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./app/app.module */ "./src/app/app.module.ts");
+/* harmony import */ var web_social_share_dist_loader__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! web-social-share/dist/loader */ "./node_modules/web-social-share/dist/loader/index.es2017.mjs");
 
 
 // Note: loader import location set using "esmLoaderPath" within the output target config
 
-Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["enableProdMode"])();
-Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformBrowserDynamic"])().bootstrapModule(_app_app_module__WEBPACK_IMPORTED_MODULE_2__["AppModule"])
+//enableProdMode();
+Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_0__["platformBrowserDynamic"])().bootstrapModule(_app_app_module__WEBPACK_IMPORTED_MODULE_1__["AppModule"])
     .catch(err => console.log(err));
-Object(web_social_share_dist_loader__WEBPACK_IMPORTED_MODULE_3__["defineCustomElements"])();
-Object(web_social_share_dist_loader__WEBPACK_IMPORTED_MODULE_3__["applyPolyfills"])().then(() => {
-    Object(web_social_share_dist_loader__WEBPACK_IMPORTED_MODULE_3__["defineCustomElements"])();
+Object(web_social_share_dist_loader__WEBPACK_IMPORTED_MODULE_2__["defineCustomElements"])();
+Object(web_social_share_dist_loader__WEBPACK_IMPORTED_MODULE_2__["applyPolyfills"])().then(() => {
+    Object(web_social_share_dist_loader__WEBPACK_IMPORTED_MODULE_2__["defineCustomElements"])();
 });
 
 

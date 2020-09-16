@@ -108,6 +108,10 @@ export class CreateTokenPage implements OnInit {
       message: msg,
       duration: 4000,
       color: type,
+      buttons: [{
+        text: 'Close',
+        role: 'cancel'
+      }],
       keyboardClose: true,
       translucent: true,
       position:  'top'
