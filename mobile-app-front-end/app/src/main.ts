@@ -7,7 +7,7 @@ import { environment } from './environments/environment';
 import { defineCustomElements, applyPolyfills } from 'web-social-share/dist/loader';
 
 
-//enableProdMode();
+enableProdMode();
 
 platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => console.log(err));

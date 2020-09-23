@@ -42,11 +42,6 @@ var Minima = {
 	block : 0,
 	
 	/** 
-	 * The TxPoWID of the current top block
-	 */
-	txpowid : "0x00",
-
-	/** 
 	 * The Full TxPoW Top Block
 	 */
 	txpow : {},
@@ -70,6 +65,9 @@ var Minima = {
 	
 	//Are we in DEBUG mode - if so don't touch the host settings..
 	debug : false,
+	
+	//Show mining messages
+	showmining : false,
 	
 	/**
 	 * Minima Startup - with the callback function used for all Minima messages
@@ -491,10 +489,20 @@ function MinimaWebSocketListener(){
 			}
 							
 		}else if(jmsg.event == "txpowstart"){
-			Minima.notify("Mining Transaction Started..","#55DD55");	
-			
+			var info = { "transaction" : jmsg.transaction };
+			MinimaPostMessage("miningstart", info);
+		
+			if(Minima.showmining){
+				Minima.notify("Mining Transaction Started..","#55DD55");	
+			}
+				
 		}else if(jmsg.event == "txpowend"){
-			Minima.notify("Mining Transaction Finished","#DD5555");
+			var info = { "transaction" : jmsg.transaction };
+			MinimaPostMessage("miningstop", info);
+		
+			if(Minima.showmining){
+				Minima.notify("Mining Transaction Finished","#DD5555");
+			}
 		}
 	};
 		
@@ -503,6 +511,7 @@ function MinimaWebSocketListener(){
 	
 		//Start her up in a minute..
 		setTimeout(function(){ MinimaWebSocketListener(); }, 10000);
+		
 	};
 
 	MINIMA_WEBSOCKET.onerror = function(error) {
@@ -547,6 +556,7 @@ function MinimaCreateNotification(text, bgcolor){
 	notifydiv.style.right 		 = "0";
 	notifydiv.style.width 	     = "400";
 	notifydiv.style.height 	     = "90";
+	notifydiv.style.zIndex	     = 10;
 	
 	//Regular or specific color
 	if(bgcolor){

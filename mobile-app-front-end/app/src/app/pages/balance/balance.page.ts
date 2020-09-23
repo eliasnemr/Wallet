@@ -134,8 +134,8 @@ export class BalancePage implements OnInit {
           let element = Minima.balance[key];
 
           // round up confirmed && unconfirmed
-          let tempConfirmed = (Math.round(element.confirmed * 1000)/1000);
-          let tempUnconfirmed = (Math.round(element.unconfirmed * 1000)/1000);
+          // let tempConfirmed = (Math.round(element.confirmed * 10000)/10000);
+          // let tempUnconfirmed = (Math.round(element.unconfirmed * 10000)/10000);
 
           tokenArr.push({
               tokenid: element.tokenid,
@@ -148,8 +148,8 @@ export class BalancePage implements OnInit {
               coinid: element.coinid,
               totalamount: element.totalamount,
               scale: element.scale,
-              confirmed: tempConfirmed,
-              unconfirmed: tempUnconfirmed,
+              confirmed: element.confirmed,
+              unconfirmed: element.unconfirmed,
               mempool: element.mempool,
               sendable: element.sendable
           });
@@ -163,8 +163,8 @@ export class BalancePage implements OnInit {
               tokenid: element.tokenid,
               token: element.token,
               total: element.total,
-              confirmed: tempConfirmed,
-              unconfirmed: tempUnconfirmed,
+              confirmed: element.confirmed,
+              unconfirmed: element.unconfirmed,
               mempool: element.mempool,
               sendable: element.sendable
             });

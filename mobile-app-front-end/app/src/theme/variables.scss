@@ -117,7 +117,15 @@
       opacity: 0.8;
       letter-spacing: -0.02em;
     }
-
+    ion-card-header {
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+    ion-label {
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      opacity: 0.6;
+    }
     ion-menu-button {
       width: 50px;
       font-weight: 600;

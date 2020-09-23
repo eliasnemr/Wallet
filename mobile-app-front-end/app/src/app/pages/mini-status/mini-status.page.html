@@ -12,9 +12,12 @@
 
 <ion-content>
   <ion-card>
-    <ion-card-header>
+    <ion-card-header *ngIf="status?.version">
      Minima Node{{ " Version "+ status?.version }}
     </ion-card-header>
+    <ion-card-header *ngIf="!status?.version">
+      Minima Node{{ " Version ..loading"}}
+     </ion-card-header>
     <ion-card-content>
       <ion-list>
         <ion-grid>
@@ -32,7 +35,8 @@
               <h5>
                 Node Version
               </h5>
-              <p class="small-text">{{ "v"+status?.version }}</p>
+              <p *ngIf="status?.version" class="small-text">{{ "v"+status?.version }}</p>
+              <p *ngIf="!status?.version" class="small-text">{{ "v ..loading" }}</p>
             </ion-col>
           </ion-row>
           <ion-row>

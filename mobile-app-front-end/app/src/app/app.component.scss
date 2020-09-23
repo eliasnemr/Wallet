@@ -1,6 +1,6 @@
 .large-text {
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 400 !important;
   text-transform: uppercase;
   letter-spacing: 0.2em;
 }
@@ -106,10 +106,6 @@ ion-menu.md ion-list {
   ion-menu.ios ion-list {
     padding-bottom: 0px !important;
   }
-
-
-
-
 
 #footer-item {
   --padding-bottom: 0px;

@@ -2,7 +2,7 @@ import { Tokens } from './models/tokens.model';
 import { BalanceService } from './service/balance.service';
 
 import { Component } from '@angular/core';
-import { Platform } from '@ionic/angular';
+import { Platform, ToastController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { equal } from 'assert';
 
@@ -26,7 +26,8 @@ export class AppComponent {
   constructor(
     private platform: Platform,
     private storage: Storage,
-    private api: BalanceService
+    private api: BalanceService,
+    public toastCtrl: ToastController
   ) {
   
       this.getPages();  /** this returns pages if on mobile or desktop, (different layouts) */ 
@@ -52,6 +53,14 @@ export class AppComponent {
           // subscribe to observable of Minima.balance
             this.api.updatedBalance.next(Minima.balance);
             
+        } else if (msg.event === 'miningstart') {
+
+          this.presentToast("Mining Transaction in progress...", "success");
+
+        } else if(msg.event === 'miningstop') {
+          
+          this.presentToast("Mining Transaction stopped...", "danger");
+
         }
       });
     });
@@ -187,6 +196,21 @@ export class AppComponent {
 
   // At last, if the user has denied notifications, and you 
   // want to be respectful there is no need to bother them any more.
+  }
+  
+
+  async presentToast(txt: string, color: string) {
+    // Create a Toast
+    const toast = await this.toastCtrl.create({
+      header: txt,
+      duration: 3000,
+      color: color,
+      buttons: [{
+        text: 'Close',
+        role: 'cancel'
+      }]
+    });
+    await toast.present();
   }
 
 }
