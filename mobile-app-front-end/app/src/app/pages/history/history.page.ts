@@ -1,5 +1,5 @@
-import { Router, RouterModule } from '@angular/router';
-import { IonSlides, ModalController, Platform, IonList, AlertController, ToastController, Config, NavParams } from '@ionic/angular';
+import { RouterModule } from '@angular/router';
+import { ModalController, Platform, IonList, AlertController, ToastController, Config } from '@ionic/angular';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { HistoryService } from '../../service/history.service';

@@ -5,18 +5,12 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { BalancePage } from './balance.page';
+import { ViewTokensPage } from './view-tokens.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: BalancePage,
-    children: [
-      {
-        path: 'view-txn',
-        loadChildren: () => import('./view-tokens/view-tokens.module').then(m => m.ViewTokensPageModule)
-      }
-    ]
+    component: ViewTokensPage
   }
 ];
 
@@ -27,6 +21,6 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [BalancePage]
+  declarations: [ViewTokensPage]
 })
-export class BalancePageModule {}
+export class ViewTokensPageModule {}

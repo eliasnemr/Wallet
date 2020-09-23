@@ -27,11 +27,7 @@
       </ion-item-options>
 
   <!-- TOKENS ONLY -->
-  <ion-item lines="full" 
-            (click)="presentTokenDescr(token.tokenid, token.token, token.description,
-                                      token.icon, token.proof, token.total, token.script,
-                                      token.coinid, token.totalamount, token.scale, token.confirmed,
-                                      token.unconfirmed, token.mempool, token.sendable)">
+  <ion-item lines="full" routerLink="/view-tokens/{{ token.tokenid }}">
   <ion-avatar slot="start">
     <img *ngIf="token.icon" alt="Avatar" class="balance-token" src="{{ token.icon }}">
     <img *ngIf="!token.icon || token.icon.length <= 0" alt="Avatar" class="balance-token" src="assets/icon/icon.png">

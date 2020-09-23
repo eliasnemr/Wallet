@@ -1,0 +1,131 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/balance"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title>{{ token }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>
+        <img src={{icon}} alt="icon" style="width: 5vh;"> 
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      {{description}}
+    </ion-card-content>
+  </ion-card>
+
+  <ion-list>
+      <ion-list-header>
+        Token Details
+      </ion-list-header>
+      <ion-item>
+        <ion-col class="title">
+          Name
+        </ion-col>
+        <ion-col class="value">
+          {{token}}
+        </ion-col>
+      </ion-item>
+      <ion-item>
+        <ion-col class="title">
+          Token ID
+        <a class="copy" (click)="copyToClipPWA(tokenid)">
+          Copy 
+        </a>
+        </ion-col>
+        <ion-col class="value">
+          {{tokenid}}
+        </ion-col>
+      </ion-item>
+      <ion-item [hidden]="tokenid == '0x00'">
+        <ion-col class="title">
+          Coin ID
+        <a class="copy" (click)="copyToClipPWA(coinid)">
+          Copy 
+        </a>
+        </ion-col>
+        <ion-col class="value">
+          {{coinid}}
+        </ion-col>
+      </ion-item>
+      <ion-item>
+        <ion-col class="title">
+          Total
+        </ion-col>
+        <ion-col class="value">
+          {{total}}
+        </ion-col>
+      </ion-item>
+      <ion-item>
+        <ion-col class="title">
+          Confirmed Amount
+        </ion-col>
+        <ion-col class="value">
+          {{confirmed}}
+        </ion-col>
+      </ion-item>
+      <ion-item>
+        <ion-col class="title">
+          Unconfirmed Amount
+        </ion-col>
+        <ion-col class="value">
+          {{unconfirmed}}
+        </ion-col>
+      </ion-item>
+            <ion-item>
+        <ion-col class="title">
+          Sendable Amount
+        </ion-col>
+        <ion-col class="value">
+          {{sendable}}
+        </ion-col>
+      </ion-item>
+            <ion-item>
+        <ion-col class="title">
+          Mempool Amount
+        </ion-col>
+        <ion-col class="value">
+          {{mempool}}
+        </ion-col>
+      </ion-item>
+      <ion-item [hidden]="tokenid == '0x00'">
+        <ion-col class="title">
+          Token Type
+        </ion-col>
+        <ion-col class="value">
+          {{script}}
+        </ion-col>
+      </ion-item>
+      <ion-item [hidden]="tokenid == '0x00' || !proof">
+        <ion-col class="title">
+          Proof
+        </ion-col>
+        <ion-col class="value">
+          {{proof}}
+        </ion-col>
+      </ion-item>
+      <ion-item [hidden]="tokenid == '0x00' || !proof ">
+        <ion-col class="title">
+          Validate Proof
+        </ion-col>
+        <ion-col class="value">
+          <ion-button *ngIf="proof" class="small-text" size="small" (click)="validateProof(tokenid)">
+            Validate
+          </ion-button> 
+        </ion-col>
+      </ion-item>    
+
+
+               
+
+
+    </ion-list>
+
+</ion-content>

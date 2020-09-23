@@ -1,0 +1,52 @@
+ion-card {
+    border-radius: 50px;
+}
+ion-card:hover {
+    background-color: #f2f2f2;
+    transform: scale(0.9);
+}
+ion-card-content {
+    text-align: center;
+    justify-content: center !important;
+    align-content: center;
+    display: flex;
+    height: auto;
+}
+ion-card-header {
+    text-align: center;
+    justify-content: center !important;
+    align-content: center;
+    display: flex;
+    border-radius: 50px;
+    height: auto;
+}
+ion-card-content {
+    margin-left: 5%;
+    margin-right: 5%;
+    white-space: normal;
+    overflow: auto;
+}
+ion-list-header {
+    font-weight: 600;
+    font-size: 1.5rem;
+    letter-spacing: -0.02em;
+}
+.title {
+    letter-spacing: -0.02em;
+    float: left;
+    font-weight: 500;
+}
+.value {
+    font-size: 0.8rem;
+    opacity: 0.8;
+    text-align: right;
+    float: right;
+    white-space: pre-wrap;
+    word-wrap: none;
+    word-break: break-all;
+}
+.copy {
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
