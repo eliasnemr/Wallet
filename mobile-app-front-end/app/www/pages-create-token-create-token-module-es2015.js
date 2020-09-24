@@ -130,9 +130,7 @@ let CreateTokenPage = class CreateTokenPage {
     ionViewDidEnter() { }
     ngOnInit() { }
     createTokenAdvanced(f) {
-        console.log(f);
         if (f.value.name && f.value.name.length > 0 && f.value.amount && f.value.amount > 0) {
-            console.log("passed check 1");
             this.data.name = f.value.name;
             this.data.amount = f.value.amount;
             this.data.description = f.value.description;

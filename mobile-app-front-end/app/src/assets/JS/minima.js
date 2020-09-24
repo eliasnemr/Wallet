@@ -64,7 +64,7 @@ var Minima = {
 	logging : false,
 	
 	//Are we in DEBUG mode - if so don't touch the host settings..
-	debug : true,
+	debug : false,
 	
 	//Show mining messages
 	showmining : false,
