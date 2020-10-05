@@ -1,7 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources>
-    <string name="app_name">Minima</string>
-    <string name="title_activity_main">Minima</string>
-    <string name="package_name">global.minima.telco</string>
-    <string name="custom_url_scheme">global.minima.telco</string>
-</resources>
