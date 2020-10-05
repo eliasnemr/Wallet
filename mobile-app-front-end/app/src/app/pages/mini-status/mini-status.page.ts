@@ -5,6 +5,7 @@ import { Component, OnInit, ChangeDetectorRef, Input } from '@angular/core';
 import { Status } from '../../models/status.model';
 import { Platform } from '@ionic/angular';
 
+declare var Minima: any;
 @Component({
   selector: 'app-mini-status',
   templateUrl: './mini-status.page.html',
@@ -15,6 +16,7 @@ import { Platform } from '@ionic/angular';
 export class MiniStatusPage implements OnInit {
 
   status: { status: boolean, minifunc: string, message: string, response: Status};
+  ibd: string = "";
   statusSubscription: Subscription;
 
   public lastJSON: string;
@@ -31,6 +33,12 @@ export class MiniStatusPage implements OnInit {
     window.addEventListener('MinimaEvent', (evt: any)=> {
       // Event connection success
       if(evt.detail.event === 'newblock') {
+
+        Minima.cmd('status full', (res: any) => {
+
+          this.ibd = res.response.IBD;
+
+        });
 
         this.updateStatus();
         
