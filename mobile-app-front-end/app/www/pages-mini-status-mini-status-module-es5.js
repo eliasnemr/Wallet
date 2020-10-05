@@ -121,14 +121,14 @@ var MiniStatusPage = /** @class */ (function () {
     MiniStatusPage.prototype.ionViewWillEnter = function () {
         var _this = this;
         setTimeout(function () {
+            Minima.cmd('status full', function (res) {
+                _this.ibd = res.response.IBD;
+            });
             _this.updateStatus(); // subscribes & polls status
         }, 500);
         window.addEventListener('MinimaEvent', function (evt) {
             // Event connection success
             if (evt.detail.event === 'newblock') {
-                Minima.cmd('status full', function (res) {
-                    _this.ibd = res.response.IBD;
-                });
                 _this.updateStatus();
             }
         });

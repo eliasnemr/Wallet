@@ -27,18 +27,17 @@ export class MiniStatusPage implements OnInit {
 
   ionViewWillEnter() {
     setTimeout(() => {
+
+      Minima.cmd('status full', (res: any) => {
+        this.ibd = res.response.IBD;
+      });
+
       this.updateStatus(); // subscribes & polls status
     }, 500);
 
     window.addEventListener('MinimaEvent', (evt: any)=> {
       // Event connection success
       if(evt.detail.event === 'newblock') {
-
-        Minima.cmd('status full', (res: any) => {
-
-          this.ibd = res.response.IBD;
-
-        });
 
         this.updateStatus();
         

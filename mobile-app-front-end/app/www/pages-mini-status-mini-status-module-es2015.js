@@ -117,14 +117,14 @@ let MiniStatusPage = class MiniStatusPage {
     ngOnInit() { }
     ionViewWillEnter() {
         setTimeout(() => {
+            Minima.cmd('status full', (res) => {
+                this.ibd = res.response.IBD;
+            });
             this.updateStatus(); // subscribes & polls status
         }, 500);
         window.addEventListener('MinimaEvent', (evt) => {
             // Event connection success
             if (evt.detail.event === 'newblock') {
-                Minima.cmd('status full', (res) => {
-                    this.ibd = res.response.IBD;
-                });
                 this.updateStatus();
             }
         });
