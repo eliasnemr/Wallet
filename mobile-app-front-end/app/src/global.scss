@@ -114,8 +114,15 @@ body.dark {
   --ion-color-light-tint: #383a3e;
 
   .socials {
-    fill: blue;
+    filter: invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%);
   }
+
+  #history-icon {
+    filter: invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%);
+  }
+
+
+
 }
 
 /*
@@ -339,7 +346,7 @@ body.dark {
   }
 
 
-/* miniterm.page.ts popover */
+/* mini-term.page.ts popover */
   .terminal-pop ion-backdrop {
     opacity: 0.4 !important;
   }
