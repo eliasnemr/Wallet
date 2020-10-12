@@ -13,14 +13,14 @@ declare var Minima: any;
 @Component({
   selector: 'app-balance',
   templateUrl: './balance.page.html',
-  styleUrls: ['./balance.page.scss'],
+  styleUrls: ['./balance.page.scss']
 })
 
 export class BalancePage implements OnInit {
 
   tokenArr: Tokens[] = [];
   tokenSpoof: Tokens[] = [];
-  
+
   balanceSubscription: Subscription;
 
   // - vars
@@ -32,33 +32,31 @@ export class BalancePage implements OnInit {
     private api: MinimaApiService,
     public alertController: AlertController,
     public popoverController: PopoverController,
-    private route: Router,
-    private modalController: ModalController) {
+    private route: Router) {
       this.pullInTokens();
     }
 
   ionViewWillEnter() { }
 
   giveMe50() {
-    this.api.giveMe50().then((res:any)=> {
+    this.api.giveMe50().then((res: any) => {
       if(res.status === true) {
-        this.presentAlert(res.message, "Success.");
+        this.presentAlert(res.message, 'Success.');
       } else {
-        this.presentAlert(res.message, "Something went wrong.");
+        this.presentAlert(res.message, 'Something went wrong.');
       }
     });
   }
-  
-  ngOnInit()
-  { }
-  
-  ionViewWillLeave(){
+
+  ngOnInit() { }
+
+  ionViewWillLeave() {
     this.balanceSubscription.unsubscribe(); // unsubs
   }
-  
-  async presentAlert(msg:string,header:string) {
+
+  async presentAlert(msg: string, hdr: string) {
     const alert = await this.alertController.create({
-      header: header,
+      header: hdr,
       message: msg,
       buttons: ['Cancel', 'Ok']
     });
@@ -71,38 +69,12 @@ export class BalancePage implements OnInit {
   }
 
   public sendTokenOver(slidingItem: HTMLIonItemSlidingElement, id: string) {
-    
+
     slidingItem.close();
 
-    this.route.navigate(['/send-funds/'+id]); 
+    this.route.navigate(['/send-funds/' + id]);
 
   }
-
-  async presentTokenDescr(
-    id: string, token: string, descr: string, icon:string, proof: string, total: string,
-     script: string, coinid: string, totalamnt: string, scale:string, conf: number, unconf:any, memp: string, sendable: string) {
-  const modal = await this.modalController.create({
-     component: TokenDescrComponent,
-     cssClass: 'tokenDescr-modal',
-     componentProps: {
-       'tokenid': id,
-       'name': token,
-       'description': descr,
-       'icon': icon,
-       'proof': proof,
-       'total': total,
-       'script': script,
-       'coinid': coinid,
-       'totalamount': totalamnt,
-       'scale': scale,
-       'confirmed': conf,
-       'unconfirmed': unconf,
-       'mempool': memp,
-       'sendable': sendable,
-     }
-   });
-   return await modal.present();
- }
  
   async presentPopover(slidingItem: HTMLIonItemSlidingElement, ev: any, id: string) {
     const popover = await this.popoverController.create({
@@ -110,7 +82,7 @@ export class BalancePage implements OnInit {
       event: ev,
       cssClass: 'balance-popover',
       translucent: false,
-      componentProps:{'tokenid': id},
+      componentProps: { tokenid : id},
     });
 
     slidingItem.close();
@@ -121,22 +93,16 @@ export class BalancePage implements OnInit {
   }
 
   pullInTokens() {
-
     this.balanceSubscription = this.service.updatedBalance
       .pipe(
-        map((responseData:any) => {
+        map((responseData: any) => {
 
       const tokenArr: Tokens[] = [];
       for(const key in Minima.balance){
 
-        if(Minima.balance.hasOwnProperty(key)){
+        if (Minima.balance.hasOwnProperty(key)) {
 
-          let element = Minima.balance[key];
-
-          // round up confirmed && unconfirmed
-          // let tempConfirmed = (Math.round(element.confirmed * 10000)/10000);
-          // let tempUnconfirmed = (Math.round(element.unconfirmed * 10000)/10000);
-
+          const element = Minima.balance[key];
           tokenArr.push({
               tokenid: element.tokenid,
               token: element.token,
@@ -155,7 +121,7 @@ export class BalancePage implements OnInit {
           });
 
           // add Minima always to the top
-          if(element.tokenid === this.MINIMA){
+          if (element.tokenid === this.MINIMA) {
             tokenArr.pop(); // pop it
             this.service.update(
             tokenArr,
@@ -173,22 +139,19 @@ export class BalancePage implements OnInit {
 
           }
         }
-        return tokenArr;
-        
+
+      return tokenArr;
+
       })
     )
     .subscribe(responseData => {
 
-      //check if changed
+      // check if changed
       if(this.lastJSON !== JSON.stringify(responseData)){
         this.tokenArr = [...responseData];
         this.lastJSON = JSON.stringify(responseData);
       }
 
     });
-
-    
   }
-  
-
 }

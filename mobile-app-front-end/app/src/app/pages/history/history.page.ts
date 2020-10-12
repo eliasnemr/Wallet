@@ -5,15 +5,13 @@ import { Subscription } from 'rxjs';
 import { HistoryService } from '../../service/history.service';
 import { map } from 'rxjs/operators';
 import { History } from '../../models/history.model';
-
 import { UserData } from './../../providers/user-data';
-import { HistoryData } from './../../providers/historydata';
 
-
+declare var Minima: any;
 @Component({
   selector: 'app-history',
   templateUrl: './history.page.html',
-  styleUrls: ['./history.page.scss'],
+  styleUrls: ['./history.page.scss']
 })
 export class HistoryPage implements OnInit {
 
@@ -23,24 +21,23 @@ export class HistoryPage implements OnInit {
   selectedSlide: any;
   categories: number = 0;
   segment = 'all';
-  
+
   // + vars
   public transactions: History[] = [];
   public saved: History[] = [];
 
-  polledHistorySubscription: Subscription;
+  historySub: Subscription;
 
   // - vars
   private lastJSON: string = '';
 
   constructor(
-    private historyService: HistoryService,
-    public modalController: ModalController, 
-    public histData: HistoryData,
+    private service: HistoryService,
+    public modalController: ModalController,
     public user: UserData,
     public alertCtrl: AlertController,
     public toastCtrl: ToastController,
-    public config: Config, 
+    public config: Config,
     public router: RouterModule
    ) { }
 
@@ -51,14 +48,12 @@ export class HistoryPage implements OnInit {
   }
 
   ionViewDidLeave(){
-    if(this.polledHistorySubscription){
-      this.polledHistorySubscription.unsubscribe();
+    if(this.historySub){
+      this.historySub.unsubscribe();
     }
-    
-    this.user.storage.set('saved_transactions', this.user.saved).then((val:any)=>{
-    });
 
-    
+    this.user.storage.set('saved_transactions', this.user.saved).then((val: any)=>{
+    });
   }
 
   async saveItem(slidingItem: HTMLIonItemSlidingElement, txn: any) {
@@ -71,14 +66,14 @@ export class HistoryPage implements OnInit {
       // Add to Saved
       this.user.addToSaved(txn.txpow.txpowid);
       // Add true attribute to this txn
-      txn.saved = "true";
+      txn.saved = 'true';
 
       // close the open item
       slidingItem.close();
 
       // Create a Toast
       const toast = await this.toastCtrl.create({
-        header: `Transaction with ID:${txn.txpow.txpowid.substring(0, 15)+"..."} was successfully saved.`,
+        header: `Transaction with ID:${txn.txpow.txpowid.substring(0, 15) + '...'} was successfully saved.`,
         duration: 3000,
         buttons: [{
           text: 'Close',
@@ -87,13 +82,12 @@ export class HistoryPage implements OnInit {
       });
       await toast.present();
     }
-  
   }
 
   async removeItem(slidingItem: HTMLIonItemSlidingElement, txn: any, title: string) {
     const alert = await this.alertCtrl.create({
       header: title,
-      message: "Would you like to remove this transaction from your saved transactions?",
+      message: 'Would you like to remove this transaction from your saved transactions?',
       buttons: [
         {
           text: 'Cancel',
@@ -121,52 +115,48 @@ export class HistoryPage implements OnInit {
   }
 
   updateHistory() {
-    
     if(this.historyList) {
       this.historyList.closeSlidingItems();
     }
-  
-    if(this.segment == 'saved') {
+    if(this.segment === 'saved') {
       this.filterHistory();
-    } else if (this.segment == 'all') {
+    } else if (this.segment === 'all') {
       this.pullInHistorySummary();
     }
 
   }
 
-
-
   filterHistory() {
-
     this.transactions = this.transactions.filter((txn: any) => {
-      return txn.saved == 'true';
+      return txn.saved === 'true';
     });
-    
   }
 
   // Get all users activities+transactions history
   pullInHistorySummary() {
-  this.polledHistorySubscription = this.historyService.getHistory().pipe(map(responseData => {
-    responseData.response.history.forEach((element: any)=> {
-      let name = element.values[0].name;
-      
-      if(name.substring(0, 1) === '{') {
-        element.values[0].name = JSON.parse(name);
-      }
-      
-      this.transactions.push(element);
 
+  this.historySub = this.service.history
+  .pipe(map((res) => {
+
+    Minima.cmd('history', res => {
+      res.response.history.forEach((element: any) => {
+        const name = element.values[0].name;
+  
+        if (name.substring(0, 1) === '{') {
+          element.values[0].name = JSON.parse(name);
+        }
+        this.transactions.push(element);
+      });
     });
-
-  })).subscribe(responseData => {
     
-    if(this.lastJSON !== JSON.stringify(responseData)){
-      //this.transactions = responseData;
-      this.lastJSON = JSON.stringify(responseData);
+
+  })).subscribe(res => {
+
+    if (this.lastJSON !== JSON.stringify(res)){
+      // this.transactions = responseData;
+      this.lastJSON = JSON.stringify(res);
     }
 
   });
-    
   }
-
 }

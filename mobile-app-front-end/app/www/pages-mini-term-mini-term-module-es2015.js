@@ -66,7 +66,7 @@ MiniTermPageModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".terminal {\n  min-height: 100%;\n  width: 100%;\n  background-color: var(--ion-background-color, #ffffff);\n  color: var(--minima-text);\n  padding: 5px;\n  font-family: monospace;\n}\n\n.resize-tool-btn {\n  font-family: \"Aeonik\";\n  font-size: 16px;\n  padding-right: 15px;\n  color: #929396;\n  text-transform: none;\n}\n\n.no-scroll {\n  --overflow: hidden;\n}\n\nion-content {\n  --overflow: hidden;\n}\n\ntextarea:hover,\ninput:hover,\ntextarea:active,\ninput:active,\ntextarea:focus,\ninput:focus,\nbutton:focus,\nbutton:active,\nbutton:hover,\nlabel:focus,\n.btn:active,\n.btn.active {\n  outline: 0px !important;\n  -webkit-appearance: none;\n  box-shadow: none !important;\n}\n\n@media only screen and (min-width: 990px) {\n  .terminal {\n    font-size: 16px;\n    border: 0px;\n  }\n}\n\nion-toolbar {\n  --background: var(--card-header-color);\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9lbGlhcy9Qcm9qZWN0cy9taW5pbWFjb3JlL21vYmlsZS1hcHAtZnJvbnQtZW5kL2FwcC9zcmMvYXBwL3BhZ2VzL21pbmktdGVybS9taW5pLXRlcm0ucGFnZS5zY3NzIiwic3JjL2FwcC9wYWdlcy9taW5pLXRlcm0vbWluaS10ZXJtLnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLGdCQUFBO0VBQ0EsV0FBQTtFQUNBLHNEQUFBO0VBQ0EseUJBQUE7RUFDQSxZQUFBO0VBQ0Esc0JBQUE7QUNDSjs7QURFQTtFQUNJLHFCQUFBO0VBQ0EsZUFBQTtFQUNBLG1CQUFBO0VBQ0EsY0FBQTtFQUNBLG9CQUFBO0FDQ0o7O0FERUE7RUFDSSxrQkFBQTtBQ0NKOztBRENBO0VBQ0ksa0JBQUE7QUNFSjs7QURDQTs7Ozs7Ozs7Ozs7O0VBYUksdUJBQUE7RUFDQSx3QkFBQTtFQUNBLDJCQUFBO0FDQ0o7O0FERUE7RUFDSTtJQUNJLGVBQUE7SUFDQSxXQUFBO0VDQ047QUFDRjs7QURFQTtFQUNJLHNDQUFBO0FDQUoiLCJmaWxlIjoic3JjL2FwcC9wYWdlcy9taW5pLXRlcm0vbWluaS10ZXJtLnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi50ZXJtaW5hbCB7XG4gICAgbWluLWhlaWdodDogMTAwJTtcbiAgICB3aWR0aDogMTAwJTtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiB2YXIoLS1pb24tYmFja2dyb3VuZC1jb2xvciwgI2ZmZmZmZik7XG4gICAgY29sb3I6IHZhcigtLW1pbmltYS10ZXh0KTtcbiAgICBwYWRkaW5nOiA1cHg7XG4gICAgZm9udC1mYW1pbHk6IG1vbm9zcGFjZTtcbn1cblxuLnJlc2l6ZS10b29sLWJ0biB7XG4gICAgZm9udC1mYW1pbHk6ICdBZW9uaWsnO1xuICAgIGZvbnQtc2l6ZTogMTZweDtcbiAgICBwYWRkaW5nLXJpZ2h0OiAxNXB4O1xuICAgIGNvbG9yOiAjOTI5Mzk2O1xuICAgIHRleHQtdHJhbnNmb3JtOiBub25lO1xufVxuXG4ubm8tc2Nyb2xsIHtcbiAgICAtLW92ZXJmbG93OiBoaWRkZW47XG59XG5pb24tY29udGVudCB7XG4gICAgLS1vdmVyZmxvdzogaGlkZGVuO1xufVxuXG50ZXh0YXJlYTpob3ZlciwgXG5pbnB1dDpob3ZlciwgXG50ZXh0YXJlYTphY3RpdmUsIFxuaW5wdXQ6YWN0aXZlLCBcbnRleHRhcmVhOmZvY3VzLCBcbmlucHV0OmZvY3VzLFxuYnV0dG9uOmZvY3VzLFxuYnV0dG9uOmFjdGl2ZSxcbmJ1dHRvbjpob3ZlcixcbmxhYmVsOmZvY3VzLFxuLmJ0bjphY3RpdmUsXG4uYnRuLmFjdGl2ZVxue1xuICAgIG91dGxpbmU6MHB4ICFpbXBvcnRhbnQ7XG4gICAgLXdlYmtpdC1hcHBlYXJhbmNlOm5vbmU7XG4gICAgYm94LXNoYWRvdzogbm9uZSAhaW1wb3J0YW50O1xufVxuXG5AbWVkaWEgb25seSBzY3JlZW4gYW5kIChtaW4td2lkdGg6IDk5MHB4KSB7XG4gICAgLnRlcm1pbmFsIHtcbiAgICAgICAgZm9udC1zaXplOiAxNnB4O1xuICAgICAgICBib3JkZXI6IDBweDtcbiAgICB9XG4gICAgIFxufVxuaW9uLXRvb2xiYXIge1xuICAgIC0tYmFja2dyb3VuZDogdmFyKC0tY2FyZC1oZWFkZXItY29sb3IpO1xufSIsIi50ZXJtaW5hbCB7XG4gIG1pbi1oZWlnaHQ6IDEwMCU7XG4gIHdpZHRoOiAxMDAlO1xuICBiYWNrZ3JvdW5kLWNvbG9yOiB2YXIoLS1pb24tYmFja2dyb3VuZC1jb2xvciwgI2ZmZmZmZik7XG4gIGNvbG9yOiB2YXIoLS1taW5pbWEtdGV4dCk7XG4gIHBhZGRpbmc6IDVweDtcbiAgZm9udC1mYW1pbHk6IG1vbm9zcGFjZTtcbn1cblxuLnJlc2l6ZS10b29sLWJ0biB7XG4gIGZvbnQtZmFtaWx5OiBcIkFlb25pa1wiO1xuICBmb250LXNpemU6IDE2cHg7XG4gIHBhZGRpbmctcmlnaHQ6IDE1cHg7XG4gIGNvbG9yOiAjOTI5Mzk2O1xuICB0ZXh0LXRyYW5zZm9ybTogbm9uZTtcbn1cblxuLm5vLXNjcm9sbCB7XG4gIC0tb3ZlcmZsb3c6IGhpZGRlbjtcbn1cblxuaW9uLWNvbnRlbnQge1xuICAtLW92ZXJmbG93OiBoaWRkZW47XG59XG5cbnRleHRhcmVhOmhvdmVyLFxuaW5wdXQ6aG92ZXIsXG50ZXh0YXJlYTphY3RpdmUsXG5pbnB1dDphY3RpdmUsXG50ZXh0YXJlYTpmb2N1cyxcbmlucHV0OmZvY3VzLFxuYnV0dG9uOmZvY3VzLFxuYnV0dG9uOmFjdGl2ZSxcbmJ1dHRvbjpob3ZlcixcbmxhYmVsOmZvY3VzLFxuLmJ0bjphY3RpdmUsXG4uYnRuLmFjdGl2ZSB7XG4gIG91dGxpbmU6IDBweCAhaW1wb3J0YW50O1xuICAtd2Via2l0LWFwcGVhcmFuY2U6IG5vbmU7XG4gIGJveC1zaGFkb3c6IG5vbmUgIWltcG9ydGFudDtcbn1cblxuQG1lZGlhIG9ubHkgc2NyZWVuIGFuZCAobWluLXdpZHRoOiA5OTBweCkge1xuICAudGVybWluYWwge1xuICAgIGZvbnQtc2l6ZTogMTZweDtcbiAgICBib3JkZXI6IDBweDtcbiAgfVxufVxuaW9uLXRvb2xiYXIge1xuICAtLWJhY2tncm91bmQ6IHZhcigtLWNhcmQtaGVhZGVyLWNvbG9yKTtcbn0iXX0= */"
+module.exports = ".terminal {\n  min-height: 100%;\n  width: 100%;\n  background-color: var(--ion-background-color, #ffffff);\n  color: var(--minima-text);\n  padding: 5px;\n  font-family: monospace;\n}\n\n.resize-tool-btn {\n  font-family: \"Aeonik\";\n  font-size: 16px;\n  padding-right: 15px;\n  color: #929396;\n  text-transform: none;\n}\n\n.no-scroll {\n  --overflow: hidden;\n}\n\nion-content {\n  --overflow: hidden;\n}\n\ntextarea:hover,\ninput:hover,\ntextarea:active,\ninput:active,\ntextarea:focus,\ninput:focus,\nbutton:focus,\nbutton:active,\nbutton:hover,\nlabel:focus,\n.btn:active,\n.btn.active {\n  outline: 0px !important;\n  -webkit-appearance: none;\n  box-shadow: none !important;\n}\n\n@media only screen and (min-width: 990px) {\n  .terminal {\n    font-size: 16px;\n    border: 0px;\n  }\n}\n\nion-toolbar {\n  --background: var(--card-header-color);\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9lbGlhc25lbXIvcHJvamVjdHMvV0FMTEVUL21vYmlsZS1hcHAtZnJvbnQtZW5kL2FwcC9zcmMvYXBwL3BhZ2VzL21pbmktdGVybS9taW5pLXRlcm0ucGFnZS5zY3NzIiwic3JjL2FwcC9wYWdlcy9taW5pLXRlcm0vbWluaS10ZXJtLnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLGdCQUFBO0VBQ0EsV0FBQTtFQUNBLHNEQUFBO0VBQ0EseUJBQUE7RUFDQSxZQUFBO0VBQ0Esc0JBQUE7QUNDSjs7QURFQTtFQUNJLHFCQUFBO0VBQ0EsZUFBQTtFQUNBLG1CQUFBO0VBQ0EsY0FBQTtFQUNBLG9CQUFBO0FDQ0o7O0FERUE7RUFDSSxrQkFBQTtBQ0NKOztBRENBO0VBQ0ksa0JBQUE7QUNFSjs7QURDQTs7Ozs7Ozs7Ozs7O0VBYUksdUJBQUE7RUFDQSx3QkFBQTtFQUNBLDJCQUFBO0FDQ0o7O0FERUE7RUFDSTtJQUNJLGVBQUE7SUFDQSxXQUFBO0VDQ047QUFDRjs7QURFQTtFQUNJLHNDQUFBO0FDQUoiLCJmaWxlIjoic3JjL2FwcC9wYWdlcy9taW5pLXRlcm0vbWluaS10ZXJtLnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi50ZXJtaW5hbCB7XG4gICAgbWluLWhlaWdodDogMTAwJTtcbiAgICB3aWR0aDogMTAwJTtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiB2YXIoLS1pb24tYmFja2dyb3VuZC1jb2xvciwgI2ZmZmZmZik7XG4gICAgY29sb3I6IHZhcigtLW1pbmltYS10ZXh0KTtcbiAgICBwYWRkaW5nOiA1cHg7XG4gICAgZm9udC1mYW1pbHk6IG1vbm9zcGFjZTtcbn1cblxuLnJlc2l6ZS10b29sLWJ0biB7XG4gICAgZm9udC1mYW1pbHk6ICdBZW9uaWsnO1xuICAgIGZvbnQtc2l6ZTogMTZweDtcbiAgICBwYWRkaW5nLXJpZ2h0OiAxNXB4O1xuICAgIGNvbG9yOiAjOTI5Mzk2O1xuICAgIHRleHQtdHJhbnNmb3JtOiBub25lO1xufVxuXG4ubm8tc2Nyb2xsIHtcbiAgICAtLW92ZXJmbG93OiBoaWRkZW47XG59XG5pb24tY29udGVudCB7XG4gICAgLS1vdmVyZmxvdzogaGlkZGVuO1xufVxuXG50ZXh0YXJlYTpob3ZlciwgXG5pbnB1dDpob3ZlciwgXG50ZXh0YXJlYTphY3RpdmUsIFxuaW5wdXQ6YWN0aXZlLCBcbnRleHRhcmVhOmZvY3VzLCBcbmlucHV0OmZvY3VzLFxuYnV0dG9uOmZvY3VzLFxuYnV0dG9uOmFjdGl2ZSxcbmJ1dHRvbjpob3ZlcixcbmxhYmVsOmZvY3VzLFxuLmJ0bjphY3RpdmUsXG4uYnRuLmFjdGl2ZVxue1xuICAgIG91dGxpbmU6MHB4ICFpbXBvcnRhbnQ7XG4gICAgLXdlYmtpdC1hcHBlYXJhbmNlOm5vbmU7XG4gICAgYm94LXNoYWRvdzogbm9uZSAhaW1wb3J0YW50O1xufVxuXG5AbWVkaWEgb25seSBzY3JlZW4gYW5kIChtaW4td2lkdGg6IDk5MHB4KSB7XG4gICAgLnRlcm1pbmFsIHtcbiAgICAgICAgZm9udC1zaXplOiAxNnB4O1xuICAgICAgICBib3JkZXI6IDBweDtcbiAgICB9XG4gICAgIFxufVxuaW9uLXRvb2xiYXIge1xuICAgIC0tYmFja2dyb3VuZDogdmFyKC0tY2FyZC1oZWFkZXItY29sb3IpO1xufSIsIi50ZXJtaW5hbCB7XG4gIG1pbi1oZWlnaHQ6IDEwMCU7XG4gIHdpZHRoOiAxMDAlO1xuICBiYWNrZ3JvdW5kLWNvbG9yOiB2YXIoLS1pb24tYmFja2dyb3VuZC1jb2xvciwgI2ZmZmZmZik7XG4gIGNvbG9yOiB2YXIoLS1taW5pbWEtdGV4dCk7XG4gIHBhZGRpbmc6IDVweDtcbiAgZm9udC1mYW1pbHk6IG1vbm9zcGFjZTtcbn1cblxuLnJlc2l6ZS10b29sLWJ0biB7XG4gIGZvbnQtZmFtaWx5OiBcIkFlb25pa1wiO1xuICBmb250LXNpemU6IDE2cHg7XG4gIHBhZGRpbmctcmlnaHQ6IDE1cHg7XG4gIGNvbG9yOiAjOTI5Mzk2O1xuICB0ZXh0LXRyYW5zZm9ybTogbm9uZTtcbn1cblxuLm5vLXNjcm9sbCB7XG4gIC0tb3ZlcmZsb3c6IGhpZGRlbjtcbn1cblxuaW9uLWNvbnRlbnQge1xuICAtLW92ZXJmbG93OiBoaWRkZW47XG59XG5cbnRleHRhcmVhOmhvdmVyLFxuaW5wdXQ6aG92ZXIsXG50ZXh0YXJlYTphY3RpdmUsXG5pbnB1dDphY3RpdmUsXG50ZXh0YXJlYTpmb2N1cyxcbmlucHV0OmZvY3VzLFxuYnV0dG9uOmZvY3VzLFxuYnV0dG9uOmFjdGl2ZSxcbmJ1dHRvbjpob3ZlcixcbmxhYmVsOmZvY3VzLFxuLmJ0bjphY3RpdmUsXG4uYnRuLmFjdGl2ZSB7XG4gIG91dGxpbmU6IDBweCAhaW1wb3J0YW50O1xuICAtd2Via2l0LWFwcGVhcmFuY2U6IG5vbmU7XG4gIGJveC1zaGFkb3c6IG5vbmUgIWltcG9ydGFudDtcbn1cblxuQG1lZGlhIG9ubHkgc2NyZWVuIGFuZCAobWluLXdpZHRoOiA5OTBweCkge1xuICAudGVybWluYWwge1xuICAgIGZvbnQtc2l6ZTogMTZweDtcbiAgICBib3JkZXI6IDBweDtcbiAgfVxufVxuaW9uLXRvb2xiYXIge1xuICAtLWJhY2tncm91bmQ6IHZhcigtLWNhcmQtaGVhZGVyLWNvbG9yKTtcbn0iXX0= */"
 
 /***/ }),
 
@@ -83,13 +83,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/pop-term/pop-term.component */ "./src/app/components/pop-term/pop-term.component.ts");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../environments/environment */ "./src/environments/environment.ts");
-/* harmony import */ var _service_userterminal_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../service/userterminal.service */ "./src/app/service/userterminal.service.ts");
-/* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm2015/ionic-storage.js");
-
-
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../environments/environment */ "./src/environments/environment.ts");
+/* harmony import */ var _service_userterminal_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../service/userterminal.service */ "./src/app/service/userterminal.service.ts");
 
 
 
@@ -97,20 +93,17 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let MiniTermPage = class MiniTermPage {
-    constructor(http, loadingController, navCtrl, renderer, popoverController, userTerminal, storage, platform) {
-        this.http = http;
+    constructor(loadingController, navCtrl, renderer, popoverController, userTerminal) {
         this.loadingController = loadingController;
         this.navCtrl = navCtrl;
         this.renderer = renderer;
         this.popoverController = popoverController;
         this.userTerminal = userTerminal;
-        this.storage = storage;
-        this.platform = platform;
         this.host = '';
         this.lastLine = '';
         this.loader = null;
         // Disable up and down keys.
-        window.addEventListener("keydown", function (e) {
+        window.addEventListener('keydown', function (e) {
             if ([37, 38, 39, 40].indexOf(e.keyCode) > -1) {
                 e.preventDefault();
             }
@@ -122,39 +115,38 @@ let MiniTermPage = class MiniTermPage {
         // Stored subscription that watches if we activated button on PopTerm
         this.fontSubscription =
             this.userTerminal.fontSizeEmitter.subscribe(didActivate => {
-                if (this.size != didActivate) {
+                if (this.size !== didActivate) {
                     if (this.size > 0 && this.size <= 50) {
                         this.size += didActivate;
-                        localStorage.setItem('termFontSize', "" + this.size);
+                        localStorage.setItem('termFontSize', '' + this.size);
                     }
                     else {
                         this.size = 14;
-                        localStorage.setItem('termFontSize', "" + this.size);
+                        localStorage.setItem('termFontSize', '' + this.size);
                     }
                 }
             });
     }
-    ionViewWillEnter() {
-    }
+    ionViewWillEnter() { }
     ionViewWillLeave() {
-        localStorage.setItem('termFontSize', "" + this.size);
+        localStorage.setItem('termFontSize', '' + this.size);
         this.fontSubscription.unsubscribe();
     }
     ngAfterViewInit() {
-        this.terminal.nativeElement.value += "**********************************************\n";
-        this.terminal.nativeElement.value += "*  __  __  ____  _  _  ____  __  __    __    *\n";
-        this.terminal.nativeElement.value += "* (  \\/  )(_  _)( \\( )(_  _)(  \\/  )  /__\\   *\n";
-        this.terminal.nativeElement.value += "*  )    (  _)(_  )  (  _)(_  )    (  /(__)\\  *\n";
-        this.terminal.nativeElement.value += "* (_/\\/\\_)(____)(_)\\_)(____)(_/\\/\\_)(__)(__) *\n";
-        this.terminal.nativeElement.value += "*                                            *\n";
-        this.terminal.nativeElement.value += "**********************************************\n";
-        this.terminal.nativeElement.value += "Welcome to Minima. For assistance type help. Then press enter.\n";
+        this.terminal.nativeElement.value += '**********************************************\n';
+        this.terminal.nativeElement.value += '*  __  __  ____  _  _  ____  __  __    __    *\n';
+        this.terminal.nativeElement.value += '* (  \\/  )(_  _)( \\( )(_  _)(  \\/  )  /__\\   *\n';
+        this.terminal.nativeElement.value += '*  )    (  _)(_  )  (  _)(_  )    (  /(__)\\  *\n';
+        this.terminal.nativeElement.value += '* (_/\\/\\_)(____)(_)\\_)(____)(_/\\/\\_)(__)(__) *\n';
+        this.terminal.nativeElement.value += '*                                            *\n';
+        this.terminal.nativeElement.value += '**********************************************\n';
+        this.terminal.nativeElement.value += 'Welcome to Minima. For assistance type help. Then press enter.\n';
         this.globalInstance = this.renderer.listen(this.terminal.nativeElement, 'keydown', (e) => {
             if ([13].indexOf(e.keyCode) > -1) {
                 // get the whole textarea text..
-                var msg = this.terminal.nativeElement.value;
+                const msg = this.terminal.nativeElement.value;
                 // get the last line...
-                this.lastLine = msg.substr(msg.lastIndexOf("\n") + 1);
+                this.lastLine = msg.substr(msg.lastIndexOf('\n') + 1);
                 if (this.lastLine.length > 1) {
                     // get the json call
                     this.request(this.lastLine);
@@ -162,18 +154,18 @@ let MiniTermPage = class MiniTermPage {
             }
         });
     }
-    //PopTerm Editing methods
+    // PopTerm Editing methods
     getFontSize() {
         return this.size + 'px';
     }
-    //end of PopTerm Editing methods
+    // end of PopTerm Editing methods
     scrollToBottomOnInit() {
-        //scrolling
+        // scroll
         setTimeout(() => {
             this.ionContent.scrollToBottom(300);
         }, 200);
     }
-    //Minima Api Service
+    // Minima Api Service
     getHost() {
         if (localStorage.getItem('minima_host') == null) {
             localStorage.setItem('minima_host', this.host);
@@ -183,12 +175,12 @@ let MiniTermPage = class MiniTermPage {
             return localStorage.getItem('minima_host');
         }
     }
-    //api calls
+    // api calls
     request(route) {
         if (route === 'printchain') {
-            return new Promise((resolve, reject) => {
+            return new Promise((resolve) => {
                 Minima.cmd('printchain', (res) => {
-                    const regex = res.replace(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].newLine, "\\n"); // replace \n with <br/> has all 3 \n|\r|\r\n
+                    const regex = res.replace(_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].newLine, '\\n'); // replace \n with <br/> has all 3 \n|\r|\r\n
                     this.terminal.nativeElement.value += regex;
                     this.terminal.nativeElement.scrollTop = this.terminal.nativeElement.scrollHeight;
                     resolve(res);
@@ -198,8 +190,7 @@ let MiniTermPage = class MiniTermPage {
         else if (route === 'tutorial' || route === 'Tutorial') {
             return new Promise((resolve, reject) => {
                 Minima.cmd('tutorial', (res) => {
-                    const regex = JSON.stringify(res, undefined, 2).replace("\\\\n", "\n");
-                    console.log(regex);
+                    const regex = JSON.stringify(res, undefined, 2).replace('\\\\n', '\n');
                     this.terminal.nativeElement.value += regex;
                     this.terminal.nativeElement.scrollTop = this.terminal.nativeElement.scrollHeight;
                     resolve(res);
@@ -209,7 +200,7 @@ let MiniTermPage = class MiniTermPage {
         else {
             return new Promise((resolve, reject) => {
                 Minima.cmd(route, (res) => {
-                    this.terminal.nativeElement.value += JSON.stringify(res, undefined, 2) + "\n";
+                    this.terminal.nativeElement.value += JSON.stringify(res, undefined, 2) + '\n';
                     this.terminal.nativeElement.scrollTop = this.terminal.nativeElement.scrollHeight;
                     resolve(res);
                 });
@@ -241,25 +232,22 @@ let MiniTermPage = class MiniTermPage {
                 component: _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_1__["PopTermComponent"],
                 cssClass: 'terminal-pop',
                 event: ev,
-                translucent: false,
+                translucent: false
             });
             return yield popover.present();
         });
     }
 };
 MiniTermPage.ctorParameters = () => [
-    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["NavController"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["LoadingController"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["NavController"] },
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_2__["Renderer2"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["PopoverController"] },
-    { type: _service_userterminal_service__WEBPACK_IMPORTED_MODULE_6__["UserTerminal"] },
-    { type: _ionic_storage__WEBPACK_IMPORTED_MODULE_7__["Storage"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["Platform"] }
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["PopoverController"] },
+    { type: _service_userterminal_service__WEBPACK_IMPORTED_MODULE_5__["UserTerminal"] }
 ];
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ViewChild"])(_ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonContent"], { static: false }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonContent"])
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ViewChild"])(_ionic_angular__WEBPACK_IMPORTED_MODULE_3__["IonContent"], { static: false }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["IonContent"])
 ], MiniTermPage.prototype, "ionContent", void 0);
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ViewChild"])('terminal', { static: false }),
@@ -271,13 +259,10 @@ MiniTermPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         template: __webpack_require__(/*! raw-loader!./mini-term.page.html */ "./node_modules/raw-loader/index.js!./src/app/pages/mini-term/mini-term.page.html"),
         styles: [__webpack_require__(/*! ./mini-term.page.scss */ "./src/app/pages/mini-term/mini-term.page.scss")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"],
-        _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"],
-        _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["NavController"], _angular_core__WEBPACK_IMPORTED_MODULE_2__["Renderer2"],
-        _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["PopoverController"],
-        _service_userterminal_service__WEBPACK_IMPORTED_MODULE_6__["UserTerminal"],
-        _ionic_storage__WEBPACK_IMPORTED_MODULE_7__["Storage"],
-        _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["Platform"]])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_3__["LoadingController"],
+        _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["NavController"], _angular_core__WEBPACK_IMPORTED_MODULE_2__["Renderer2"],
+        _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["PopoverController"],
+        _service_userterminal_service__WEBPACK_IMPORTED_MODULE_5__["UserTerminal"]])
 ], MiniTermPage);
 
 

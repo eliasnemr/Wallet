@@ -34,25 +34,29 @@ export class ViewTXNPage implements OnInit {
   }
 
   ngOnInit() {
-    Minima.cmd('txpowinfo '+ this.txn, (res: any) =>{
-      this.id = res.response.txpow.txpowid;
-      this.relaytime = new Date(res.response.txpow.header.timesecs*1000).toISOString();
-      this.size = res.response.txpow.size;
-      this.isblock = res.response.txpow.isblock;
-      this.isinblock = res.response.isinblock;
-      this.blocknumber = res.response.inblock;
-      this.nonce = res.response.txpow.header.nonce;
-      this.inputs = res.response.txpow.body.txn.inputs;
-      this.outputs = res.response.txpow.body.txn.outputs;
-      // is token created
-      if(res.response.txpow.body.txn.tokengen){
-        this.type = "Token Creation.";
-        this.tokenname = res.response.txpow.body.txn.tokengen.token;
-        this.tokentotal = res.response.txpow.body.txn.tokengen.total;
+    Minima.cmd('txpowinfo '+ this.txn, (res: any) => {
+      if(res.status){
+        this.id = res.response.txpow.txpowid;
+        this.relaytime = new Date(res.response.txpow.header.timesecs*1000).toISOString();
+        this.size = res.response.txpow.size;
+        this.isblock = res.response.txpow.isblock;
+        this.isinblock = res.response.isinblock;
+        this.blocknumber = res.response.inblock;
+        this.nonce = res.response.txpow.header.nonce;
+        this.inputs = res.response.txpow.body.txn.inputs;
+        this.outputs = res.response.txpow.body.txn.outputs;
+        // is token created
+        if(res.response.txpow.body.txn.tokengen){
+          this.type = "Token Creation.";
+          this.tokenname = res.response.txpow.body.txn.tokengen.token;
+          this.tokentotal = res.response.txpow.body.txn.tokengen.total;
+        } else {
+          this.type = "Value Transfer.";
+        }
       } else {
-        this.type = "Value Transfer.";
+        console.log(res.message);
       }
-    })
+    });
   }
   
   shout() {
@@ -88,8 +92,5 @@ export class ViewTXNPage implements OnInit {
     });
     toast.present();
   }
-
-
-  
 
 }

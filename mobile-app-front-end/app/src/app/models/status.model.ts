@@ -9,20 +9,23 @@ export interface Status {
     rpcport: number;
     websocketport: number;
     minidappserver: number;
-    automine: boolean, 
+    automine: boolean;
     root: string;
-    tip: string,
-    total: string,
-    lastblock: number,
-    lasttime: string,
-    cascade: string,
-    difficulty: string,
-    coindb: number,
-    txpowdb: number,
-    mempooltxn: number,
-    mempoolcoins: number,
-    chainspeed: number,
-    chainlength: number,
-    chainweight: string,
-    connections: number
+    tip: string;
+    total: string;
+    lastblock: number;
+    lasttime: string;
+    cascade: string;
+    difficulty: string;
+    coindb: number;
+    txpowdb: number;
+    txpowfiles: string;
+    txpowfolder: string;
+    IBD: string;
+    mempooltxn: number;
+    mempoolcoins: number;
+    chainspeed: number;
+    chainlength: number;
+    chainweight: string;
+    connections: number;
 }

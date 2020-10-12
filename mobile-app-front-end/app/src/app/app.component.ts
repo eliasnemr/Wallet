@@ -1,6 +1,6 @@
 import { Tokens } from './models/tokens.model';
 import { BalanceService } from './service/balance.service';
-
+import { StatusService } from './service/status.service';
 import { Component } from '@angular/core';
 import { Platform, ToastController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
@@ -24,6 +24,7 @@ export class AppComponent {
   advanced: {title: string, routerLink: string, icon: string, line: string, hidden: boolean}[];
 
   constructor(
+    private status: StatusService,
     private platform: Platform,
     private storage: Storage,
     private api: BalanceService,
@@ -50,9 +51,17 @@ export class AppComponent {
           console.log('@M:connected');
 
         } else if(msg.event === 'newbalance') {
-          // subscribe to observable of Minima.balance
-            this.api.updatedBalance.next(Minima.balance);
+          // add new value to observable
+          this.api.updatedBalance.next(Minima.balance);
             
+        } else if (msg.event == 'newblock') {
+
+          Minima.cmd('status full', (res: any) => {
+
+            this.status.updatedStatus.next(res.response);
+
+          });
+
         } else if (msg.event === 'miningstart') {
 
           this.presentToast("Mining Transaction in progress...", "success");
