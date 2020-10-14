@@ -90,9 +90,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var _service_history_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../service/history.service */ "./src/app/service/history.service.ts");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
-/* harmony import */ var _providers_user_data__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../../providers/user-data */ "./src/app/providers/user-data.ts");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
+/* harmony import */ var _service_history_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../service/history.service */ "./src/app/service/history.service.ts");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
+/* harmony import */ var _providers_user_data__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./../../providers/user-data */ "./src/app/providers/user-data.ts");
+
 
 
 
@@ -203,29 +205,37 @@ let HistoryPage = class HistoryPage {
     }
     // Get all users activities+transactions history
     pullInHistorySummary() {
-        this.historySub = this.service.history
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])((res) => {
-            Minima.cmd('history', res => {
-                res.response.history.forEach((element) => {
-                    const name = element.values[0].name;
-                    if (name.substring(0, 1) === '{') {
-                        element.values[0].name = JSON.parse(name);
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            yield new Promise((resolve, reject) => {
+                Minima.cmd('history', (res) => {
+                    this.service.historyData$ = new rxjs__WEBPACK_IMPORTED_MODULE_4__["BehaviorSubject"](res);
+                    resolve(this.service.historyData$);
+                });
+            }).then((res) => {
+                this.historySub = res.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])((resp) => {
+                    this.transactions = [];
+                    resp.response.history.forEach((element) => {
+                        const name = element.values[0].name;
+                        if (name.substring(0, 1) === '{') {
+                            element.values[0].name = JSON.parse(name);
+                        }
+                        this.transactions.push(element);
+                    });
+                    return this.transactions;
+                })).subscribe((resp) => {
+                    if (this.lastJSON !== JSON.stringify(resp)) {
+                        // this.transactions = responseData;
+                        this.lastJSON = JSON.stringify(resp);
                     }
-                    this.transactions.push(element);
                 });
             });
-        })).subscribe(res => {
-            if (this.lastJSON !== JSON.stringify(res)) {
-                // this.transactions = responseData;
-                this.lastJSON = JSON.stringify(res);
-            }
         });
     }
 };
 HistoryPage.ctorParameters = () => [
-    { type: _service_history_service__WEBPACK_IMPORTED_MODULE_4__["HistoryService"] },
+    { type: _service_history_service__WEBPACK_IMPORTED_MODULE_5__["HistoryService"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"] },
-    { type: _providers_user_data__WEBPACK_IMPORTED_MODULE_6__["UserData"] },
+    { type: _providers_user_data__WEBPACK_IMPORTED_MODULE_7__["UserData"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Config"] },
@@ -241,9 +251,9 @@ HistoryPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         template: __webpack_require__(/*! raw-loader!./history.page.html */ "./node_modules/raw-loader/index.js!./src/app/pages/history/history.page.html"),
         styles: [__webpack_require__(/*! ./history.page.scss */ "./src/app/pages/history/history.page.scss")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_service_history_service__WEBPACK_IMPORTED_MODULE_4__["HistoryService"],
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_service_history_service__WEBPACK_IMPORTED_MODULE_5__["HistoryService"],
         _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"],
-        _providers_user_data__WEBPACK_IMPORTED_MODULE_6__["UserData"],
+        _providers_user_data__WEBPACK_IMPORTED_MODULE_7__["UserData"],
         _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"],
         _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"],
         _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Config"],
@@ -317,17 +327,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HistoryService", function() { return HistoryService; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
-
 
 
 let HistoryService = class HistoryService {
-    constructor() {
-        this.history = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"](this.hist);
-        Minima.cmd('history', (res) => {
-            this.history.next(res);
-        });
-    }
+    constructor() { }
 };
 HistoryService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({

@@ -19,7 +19,7 @@
   <ion-card-content>
 
   <ion-grid style="width: 100%;" *ngFor="let token of tokenArr;">
-    <ion-row>    
+    <ion-row>
       <ion-item-sliding #slidingItem>
       <ion-item-options side="start">
       <ion-item-option class="receive-slide small-text" (click)="closeSliding(slidingItem)" routerLink="/my-address">Receive</ion-item-option>
@@ -95,10 +95,6 @@
       <span *ngIf="token.confirmed != token.sendable && token.mempool == 0 && token.unconfirmed != 0" class="confirmed-amount medium-text">{{ token.confirmed +"/"+token.unconfirmed+"/"+token.sendable}}</span>
       
       <span *ngIf="token.confirmed != token.sendable && token.mempool != 0 && token.unconfirmed == 0" class="confirmed-amount medium-text">{{ token.confirmed +"/"+token.sendable + "/" + token.mempool}}</span>
-
-      
-
-      
 
   </ion-col>
 

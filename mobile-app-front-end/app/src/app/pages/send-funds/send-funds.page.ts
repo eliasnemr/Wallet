@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import QrScanner from 'qr-scanner';
 
-declare var Minima:any;
+declare var Minima: any;
 @Component({
   selector: 'app-send-funds',
   templateUrl: './send-funds.page.html',
@@ -27,27 +27,24 @@ export class SendFundsPage implements OnInit {
   webQrScanner: any;
   compareWith: any;
   itemSelected: any;
-  isCameraOpen: boolean = false;
-  isWebCameraOpen: boolean = false;
+  isCameraOpen = false;
+  isWebCameraOpen = false;
   minimaToken: any;
   data: any = {};
 
-  //checkboxValue
-  messageEntry: any = {
-    isChecked: false
-  }
-  
+  // checkboxValue
+  messageEntry: any = { isChecked: false };
   balanceSubscription: Subscription;
- 
 
   // Token Array Type
   tokenArr: Tokens[] = [];
   MINIMA_TOKEN_ID = '0x00'; 
 
-  private lastJSON: string = '';
-  private scanSub:any=null;
-  
-  constructor(private qrScanner: QRScanner, private clipboard: Clipboard, 
+  private lastJSON = '';
+  private scanSub: any = null;
+  constructor(
+    private qrScanner: QRScanner,
+    private clipboard: Clipboard,
     public alertController: AlertController,
     public toastController: ToastController,
     private zone: NgZone, 
@@ -55,42 +52,36 @@ export class SendFundsPage implements OnInit {
     private balanceService: BalanceService,
     private platform: Platform,
     private route: ActivatedRoute,
-    private router: Router) 
-    {
-      this.data.message = "";
+    private router: Router) {
+      this.data.message = '';
       this.pullInTokens();
     }
 
-  ngOnInit() 
-  { }
+  ngOnInit() { }
 
-  ionViewWillEnter()
-  { this.isCameraOpen = false; }
+  ionViewWillEnter() { this.isCameraOpen = false; }
 
-  ionViewWillLeave() 
-  {
+  ionViewWillLeave() {
     this.balanceSubscription.unsubscribe(); // unsubscribe
     this.stopCamera();
   }
 
   // get token selected or set Minima as default
-  getTokenSelected() {    
+  getTokenSelected() {
     // check url snapshot
     const empty = undefined;
     const param = this.route.snapshot.params['id'];
     // check param
     if(param === empty || param === this.MINIMA_TOKEN_ID){
-    
       this.itemSelected = this.tokenArr[0];
-      this.updateTokenId("0x00");
-    
-    } else if(param !== empty && param !== this.MINIMA_TOKEN_ID ){
+      this.updateTokenId('0x00');
+    } else if (param !== empty && param !== this.MINIMA_TOKEN_ID ) {
     this.tokenArr.forEach(element => {
-      if(param === element.tokenid){
+      if(param === element.tokenid) {
         this.itemSelected = element;
         this.updateTokenId(element.tokenid);
       }
-    })
+    });
   }
   }
 
@@ -98,16 +89,14 @@ export class SendFundsPage implements OnInit {
   onItemSelection($event) {
     const param = this.route.snapshot.params['id'];
     this.tokenArr.forEach(element => {
-      if(this.itemSelected === element && param !== element.tokenid){
+      if (this.itemSelected === element && param !== element.tokenid) {
         this.itemSelected = element;
-        
-        this.router.navigate(["/send-funds", {id: element.tokenid}]);
+        this.router.navigate(['/send-funds', {id: element.tokenid}]);
 
-        //console.log(this.itemSelected)
         // update tokenid
         this.updateTokenId(element.tokenid);
       }
-    })
+    });
   }
   // fn to update tokenid
   updateTokenId(id: string) {
@@ -115,12 +104,11 @@ export class SendFundsPage implements OnInit {
   }
 
   /** ScanQR: Native */
-  scanQR() { 
+  scanQR() {
     if(this.platform.is('ios') || this.platform.is('android')){
       this.qrScanner.prepare()
       .then((status: QRScannerStatus) => {
         if (status.authorized) {
-          
           // Which class adding should I use?
           this.identifyPlatformToScan_Add();
 
@@ -128,18 +116,18 @@ export class SendFundsPage implements OnInit {
           this.isCameraOpen = true;
 
           this.scanSub = this.qrScanner.scan().subscribe((text: string) => {
-            this.zone.run(()=>{
+            this.zone.run(() => {
               this.data.address = text;
               this.stopCamera();
 
               this.identifyPlatformToScan_Remove();
 
               this.isCameraOpen = false;
-              })
+              });
 
           }, (err) => {
             console.log('Scanned failed', err);
-          })
+          });
 
         } else if (status.denied) {
           // camera permission was permanently denied
@@ -156,14 +144,14 @@ export class SendFundsPage implements OnInit {
   }
 
   stopCamera() {
-    if(this.scanSub!==null){
+    if(this.scanSub !== null) {
       this.qrScanner.hide();
       this.scanSub.unsubscribe();
     }
     this.scanSub = null;
     this.identifyPlatformToScan_Remove();
     this.isCameraOpen = false;
-    if(this.platform.is['mobile']
+    if( this.platform.is['mobile']
      || this.platform.is['capacitor']
      || this.platform.is['cordova']
      || this.platform.is['mobileweb']
@@ -176,11 +164,10 @@ export class SendFundsPage implements OnInit {
     }
   }
 
-  
   /** ALERTS */
-  async presentAlert(msg:string,header:string) {
+  async presentAlert(msg: string, hdr: string) {
     const alert = await this.alertController.create({
-      header: header,
+      header: hdr,
       message: msg,
       buttons: ['OK']
     });
@@ -205,18 +192,16 @@ export class SendFundsPage implements OnInit {
 
   // API CALLS
   pullInTokens() {
-    this.balanceSubscription =this.balanceService.updatedBalance
+    this.balanceSubscription = this.balanceService.updatedBalance
     .pipe(
       map((responseData: any) => {
-        
       const tokenArr: Tokens[] = [];
-      for(const key in Minima.balance){
-        if(Minima.balance.hasOwnProperty(key)){
+      for (const key in Minima.balance) {
+        if (Minima.balance.hasOwnProperty(key)) {
           let element = Minima.balance[key];
           // round up confirmed && unconfirmed
-          
-          let tempConfirmed = (Math.round(element.confirmed * 100)/100);
-          let tempUnconfirmed = (Math.round(element.unconfirmed * 100)/100);
+          let tempConfirmed = (Math.round(element.confirmed * 100) / 100);
+          let tempUnconfirmed = (Math.round(element.unconfirmed * 100) / 100);
 
           if(this.MINIMA_TOKEN_ID === element.tokenid){
             this.minimaToken = element.tokenid;
@@ -239,7 +224,7 @@ export class SendFundsPage implements OnInit {
           });
 
           // add Minima always to the top
-          if(element.tokenid === this.MINIMA_TOKEN_ID){
+          if (element.tokenid === this.MINIMA_TOKEN_ID){
             tokenArr.pop(); // pop it
             this.balanceService.update(
             tokenArr,
@@ -256,55 +241,45 @@ export class SendFundsPage implements OnInit {
 
           }
         }
-
-        return tokenArr;
-        
-      })
-    )
-    .subscribe(responseData => {
-      
-      //check if changed
-      if(this.lastJSON !== JSON.stringify(responseData)){
+      return tokenArr;
+      })).subscribe(responseData => {
+      // check if changed
+      if (this.lastJSON !== JSON.stringify(responseData)){
         this.tokenArr = [...responseData];
         this.lastJSON = JSON.stringify(responseData);
 
         // add tokens
         this.getTokenSelected();
-      } 
-
+      }
     });
   }
 
   sendFunds(){
-    if(this.data.address&&this.data.address!==''&&this.data.amount&&this.data.amount>0&&
-    this.data.tokenid&&this.data.tokenid!==''&&!this.data.message){
-      this.api.sendFunds(this.data).then((res:any)=>{
-        if(res.status === true) {
-          //clear inputs
-          this.address.value = "";
-          this.amount.value = "";
-          //success
-          this.presentToast("Success!  Your transaction has been posted!", "success");
+    if(this.data.address && this.data.address !== '' && this.data.amount && this.data.amount > 0 &&
+    this.data.tokenid && this.data.tokenid !== '' && !this.data.message) {
+      this.api.sendFunds(this.data).then((res: any) => {
+        if (res.status === true) {
+          // clear inputs
+          this.address.value = '';
+          this.amount.value = '';
+          // success
+          this.presentToast('Success! Your transaction has been posted!', 'success');
         } else {
-          this.presentToast("Insufficient funds.  Check your funds.", "danger");
-          
+          this.presentToast('Insufficient funds.  Please check your balance.', 'danger');
         }
-      })
-    } else if(this.data.address&&this.data.address!==''&&this.data.amount&&this.data.amount>0&&
-    this.data.tokenid&&this.data.tokenid!==''&&this.data.message!==undefined&&this.data.message.length >= 0) {
-      this.api.createTXN(this.data).then((res:any)=> {
-        if(res[5].status === true) {
-          //clear inputs
-          this.address.value = "";
-          this.amount.value = "";
-          this.message.value = "";
-          //success
-          this.presentToast("Success!  Your transaction has been posted!", "success");
+      });
+    } else if(this.data.address && this.data.address !== '' && this.data.amount && this.data.amount > 0 &&
+    this.data.tokenid && this.data.tokenid !== '' && this.data.message !== undefined && this.data.message.length >= 0) {
+      this.api.createTXN(this.data).then((res: any)=> {
+        if (res[5].status === true) {
+          // clear inputs
+          this.address.value = '';
+          this.amount.value = '';
+          this.message.value = '';
+          // success
+          this.presentToast('Success! Your transaction has been posted!', 'success');
         } else if(res[4].status === false) {
-          this.presentToast("Insufficient funds.  Check your funds.", "danger");
-        }
-        else {
-          
+          this.presentToast('Insufficient funds.  Please check your balance.', 'danger');
         }
       })
     } else {
@@ -312,12 +287,11 @@ export class SendFundsPage implements OnInit {
     }
   }
 
-  
   /** MISC FUNCS */
-  identifyPlatformToScan_Add(){
-    document.addEventListener("DOMContentLoaded", function(event) { 
-      //Do work
-      if(this.platform.is('ios')){
+  identifyPlatformToScan_Add() {
+    document.addEventListener('DOMContentLoaded', function(event) {
+      // Do work
+      if (this.platform.is('ios')) {
         setTimeout( () => {
           window.document.querySelectorAll('ion-content')
             .forEach(element => {
@@ -326,7 +300,7 @@ export class SendFundsPage implements OnInit {
             .replace('--background:var(--ion-background-color,#fff);', '--background: transparent');
           });
         }, 300);
-      } else if(this.platform.is('android')) {
+      } else if (this.platform.is('android')) {
         // window.document.querySelector('ion-content').classList.add('transparentBody');
         setTimeout( () => {
         window.document.querySelectorAll('ion-content')
@@ -339,10 +313,9 @@ export class SendFundsPage implements OnInit {
       }
     });
   }
-  identifyPlatformToScan_Remove(){
-    document.addEventListener("DOMContentLoaded", function(event) {
-    if(this.platform.is('ios')){
-      
+  identifyPlatformToScan_Remove() {
+    document.addEventListener('DOMContentLoaded', function(event) {
+    if (this.platform.is('ios')) {
       setTimeout( () => {
         window.document.querySelectorAll('ion-content')
           .forEach(element => {
@@ -351,7 +324,7 @@ export class SendFundsPage implements OnInit {
           .replace('--background: transparent', '--background:var(--ion-background-color,#fff);');
         });
       }, 300);
-    } else if(this.platform.is('android')) {
+    } else if (this.platform.is('android')) {
       // window.document.querySelector('ion-content').classList.remove('transparentBody');
       setTimeout( () => {
         window.document.querySelectorAll('ion-content')
@@ -367,19 +340,19 @@ export class SendFundsPage implements OnInit {
   }
 
   // work around for weird ion-textarea height: 0 + auto-grow='true'
-  checkTextarea(){
+  async checkTextarea() {
     return this.message.getInputElement().then((element) => {
       if(element.style.height == '0px'){
        return  element.style.height = 'auto';
       } else {
-        setTimeout(()=> this.checkTextarea(),100)};
-      })
+        setTimeout(() => this.checkTextarea(), 100)}
+      });
   }
-  checkboxValue(ev: any, messageEntry: any){
+  checkboxValue(ev: any, messageEntry: any) {
     this.checkTextarea();
-    if(messageEntry === false){
+    if (messageEntry === false) {
       this.data.message = undefined;
-    } 
+    }
   }
 
   // Display/hide mobile buttons with this..
@@ -406,7 +379,6 @@ export class SendFundsPage implements OnInit {
         }
       );
     }
-  
   }
 
   pasteFromPWA() {

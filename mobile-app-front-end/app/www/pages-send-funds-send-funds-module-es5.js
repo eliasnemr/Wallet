@@ -143,16 +143,14 @@ var SendFundsPage = /** @class */ (function () {
         this.isCameraOpen = false;
         this.isWebCameraOpen = false;
         this.data = {};
-        //checkboxValue
-        this.messageEntry = {
-            isChecked: false
-        };
+        // checkboxValue
+        this.messageEntry = { isChecked: false };
         // Token Array Type
         this.tokenArr = [];
         this.MINIMA_TOKEN_ID = '0x00';
         this.lastJSON = '';
         this.scanSub = null;
-        this.data.message = "";
+        this.data.message = '';
         this.pullInTokens();
     }
     SendFundsPage.prototype.ngOnInit = function () { };
@@ -170,7 +168,7 @@ var SendFundsPage = /** @class */ (function () {
         // check param
         if (param === empty || param === this.MINIMA_TOKEN_ID) {
             this.itemSelected = this.tokenArr[0];
-            this.updateTokenId("0x00");
+            this.updateTokenId('0x00');
         }
         else if (param !== empty && param !== this.MINIMA_TOKEN_ID) {
             this.tokenArr.forEach(function (element) {
@@ -188,8 +186,7 @@ var SendFundsPage = /** @class */ (function () {
         this.tokenArr.forEach(function (element) {
             if (_this.itemSelected === element && param !== element.tokenid) {
                 _this.itemSelected = element;
-                _this.router.navigate(["/send-funds", { id: element.tokenid }]);
-                //console.log(this.itemSelected)
+                _this.router.navigate(['/send-funds', { id: element.tokenid }]);
                 // update tokenid
                 _this.updateTokenId(element.tokenid);
             }
@@ -256,13 +253,13 @@ var SendFundsPage = /** @class */ (function () {
         }
     };
     /** ALERTS */
-    SendFundsPage.prototype.presentAlert = function (msg, header) {
+    SendFundsPage.prototype.presentAlert = function (msg, hdr) {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
             var alert;
             return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.alertController.create({
-                            header: header,
+                            header: hdr,
                             message: msg,
                             buttons: ['OK']
                         })];
@@ -348,9 +345,8 @@ var SendFundsPage = /** @class */ (function () {
                 }
             }
             return tokenArr;
-        }))
-            .subscribe(function (responseData) {
-            //check if changed
+        })).subscribe(function (responseData) {
+            // check if changed
             if (_this.lastJSON !== JSON.stringify(responseData)) {
                 _this.tokenArr = responseData.slice();
                 _this.lastJSON = JSON.stringify(responseData);
@@ -365,14 +361,14 @@ var SendFundsPage = /** @class */ (function () {
             this.data.tokenid && this.data.tokenid !== '' && !this.data.message) {
             this.api.sendFunds(this.data).then(function (res) {
                 if (res.status === true) {
-                    //clear inputs
-                    _this.address.value = "";
-                    _this.amount.value = "";
-                    //success
-                    _this.presentToast("Success!  Your transaction has been posted!", "success");
+                    // clear inputs
+                    _this.address.value = '';
+                    _this.amount.value = '';
+                    // success
+                    _this.presentToast('Success! Your transaction has been posted!', 'success');
                 }
                 else {
-                    _this.presentToast("Insufficient funds.  Check your funds.", "danger");
+                    _this.presentToast('Insufficient funds.  Please check your balance.', 'danger');
                 }
             });
         }
@@ -380,17 +376,15 @@ var SendFundsPage = /** @class */ (function () {
             this.data.tokenid && this.data.tokenid !== '' && this.data.message !== undefined && this.data.message.length >= 0) {
             this.api.createTXN(this.data).then(function (res) {
                 if (res[5].status === true) {
-                    //clear inputs
-                    _this.address.value = "";
-                    _this.amount.value = "";
-                    _this.message.value = "";
-                    //success
-                    _this.presentToast("Success!  Your transaction has been posted!", "success");
+                    // clear inputs
+                    _this.address.value = '';
+                    _this.amount.value = '';
+                    _this.message.value = '';
+                    // success
+                    _this.presentToast('Success! Your transaction has been posted!', 'success');
                 }
                 else if (res[4].status === false) {
-                    _this.presentToast("Insufficient funds.  Check your funds.", "danger");
-                }
-                else {
+                    _this.presentToast('Insufficient funds.  Please check your balance.', 'danger');
                 }
             });
         }
@@ -400,8 +394,8 @@ var SendFundsPage = /** @class */ (function () {
     };
     /** MISC FUNCS */
     SendFundsPage.prototype.identifyPlatformToScan_Add = function () {
-        document.addEventListener("DOMContentLoaded", function (event) {
-            //Do work
+        document.addEventListener('DOMContentLoaded', function (event) {
+            // Do work
             if (this.platform.is('ios')) {
                 setTimeout(function () {
                     window.document.querySelectorAll('ion-content')
@@ -426,7 +420,7 @@ var SendFundsPage = /** @class */ (function () {
         });
     };
     SendFundsPage.prototype.identifyPlatformToScan_Remove = function () {
-        document.addEventListener("DOMContentLoaded", function (event) {
+        document.addEventListener('DOMContentLoaded', function (event) {
             if (this.platform.is('ios')) {
                 setTimeout(function () {
                     window.document.querySelectorAll('ion-content')
@@ -452,15 +446,18 @@ var SendFundsPage = /** @class */ (function () {
     };
     // work around for weird ion-textarea height: 0 + auto-grow='true'
     SendFundsPage.prototype.checkTextarea = function () {
-        var _this = this;
-        return this.message.getInputElement().then(function (element) {
-            if (element.style.height == '0px') {
-                return element.style.height = 'auto';
-            }
-            else {
-                setTimeout(function () { return _this.checkTextarea(); }, 100);
-            }
-            ;
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var _this = this;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                return [2 /*return*/, this.message.getInputElement().then(function (element) {
+                        if (element.style.height == '0px') {
+                            return element.style.height = 'auto';
+                        }
+                        else {
+                            setTimeout(function () { return _this.checkTextarea(); }, 100);
+                        }
+                    })];
+            });
         });
     };
     SendFundsPage.prototype.checkboxValue = function (ev, messageEntry) {
@@ -551,7 +548,8 @@ var SendFundsPage = /** @class */ (function () {
             template: __webpack_require__(/*! raw-loader!./send-funds.page.html */ "./node_modules/raw-loader/index.js!./src/app/pages/send-funds/send-funds.page.html"),
             styles: [__webpack_require__(/*! ./send-funds.page.scss */ "./src/app/pages/send-funds/send-funds.page.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_3__["QRScanner"], _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_4__["Clipboard"],
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_3__["QRScanner"],
+            _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_4__["Clipboard"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["AlertController"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["ToastController"],
             _angular_core__WEBPACK_IMPORTED_MODULE_2__["NgZone"],

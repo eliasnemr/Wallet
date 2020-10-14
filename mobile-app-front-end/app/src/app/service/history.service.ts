@@ -8,13 +8,8 @@ declare var Minima: any;
 })
 export class HistoryService {
 
-  hist: History[];
-  history: BehaviorSubject<History[]> = new BehaviorSubject<History[]>(this.hist);
+  historyData$: BehaviorSubject<History>;
 
-  constructor() {
-    Minima.cmd('history', (res: any) => {
-      this.history.next(res);
-    });
-  }
+  constructor() {}
 
 }

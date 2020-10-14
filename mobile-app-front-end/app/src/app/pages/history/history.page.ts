@@ -1,7 +1,7 @@
 import { RouterModule } from '@angular/router';
-import { ModalController, Platform, IonList, AlertController, ToastController, Config } from '@ionic/angular';
+import { ModalController, IonList, AlertController, ToastController, Config } from '@ionic/angular';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { HistoryService } from '../../service/history.service';
 import { map } from 'rxjs/operators';
 import { History } from '../../models/history.model';
@@ -133,30 +133,38 @@ export class HistoryPage implements OnInit {
   }
 
   // Get all users activities+transactions history
-  pullInHistorySummary() {
+  async pullInHistorySummary() {
 
-  this.historySub = this.service.history
-  .pipe(map((res) => {
+    await new Promise((resolve, reject) => {
+      Minima.cmd('history', (res: any) => {
+        this.service.historyData$ = new BehaviorSubject(res);
+        resolve(this.service.historyData$);
+      });
+    }).then((res: any) => {
 
-    Minima.cmd('history', res => {
-      res.response.history.forEach((element: any) => {
-        const name = element.values[0].name;
-  
-        if (name.substring(0, 1) === '{') {
-          element.values[0].name = JSON.parse(name);
+      this.historySub = res.pipe(map((resp: any) => {
+        this.transactions = [];
+        resp.response.history.forEach((element: any) => {
+          const name = element.values[0].name;
+
+          if (name.substring(0, 1) === '{') {
+            element.values[0].name = JSON.parse(name);
+          }
+
+          this.transactions.push(element);
+        });
+
+        return this.transactions;
+      })).subscribe((resp: any) => {
+
+        if (this.lastJSON !== JSON.stringify(resp)) {
+          // this.transactions = responseData;
+          this.lastJSON = JSON.stringify(resp);
         }
-        this.transactions.push(element);
+
       });
     });
-    
 
-  })).subscribe(res => {
+}
 
-    if (this.lastJSON !== JSON.stringify(res)){
-      // this.transactions = responseData;
-      this.lastJSON = JSON.stringify(res);
-    }
-
-  });
-  }
 }
