@@ -1,12 +1,3 @@
-// ion-grid, ion-row, ion-col 
-ion-grid {
-    --ion-grid-padding: 0;
-    --ion-grid-column-padding: 0;
-    --ion-grid-width-xl: 360px;
-    --ion-grid-width-lg: 360px;
-    --ion-grid-padding-md: 90px;
-}
-
 ion-card-header {
 
     --background: var(--ion-background-color, #f2f2f2);
@@ -45,15 +36,14 @@ ion-segment {
 ion-card-content ion-text {
     margin-top: 10px;
 }
-ion-row {
-    padding: 2px;
-} 
 
-ion-grid {
-    padding: 0px;
-}
+
 ion-row:hover {
-    background: var(--ion-background-color, #f2f2f2);
+    
+    ion-row {
+        transform: scale(0.999);
+        background: var(--ion-background-color, #f2f2f2);
+    }
 }
 
 ion-row {
@@ -72,10 +62,14 @@ ion-col img {
     display:block;
     height:100%;
 }
-.align-middle {
-    display: block;
-    height: 100%;
+ion-col {
+    padding: 0 !important;
 }
+ion-row, ion-item {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
 .date p {
     margin-top: 8px;
     margin-bottom: 0;
@@ -84,4 +78,28 @@ ion-col img {
 .date h5 {
     margin: 0;
     font-weight: 600;
+}
+
+
+@media only screen and (max-width: 767px) {
+
+    .date {
+        background-color: rgb(242,242,242, 0.1);
+    }
+    #amnt {
+        background-color: rgba(242,242,242, 0.1);
+
+    }
+
+}
+@media only screen and (min-width: 768px) {
+
+    .date {
+        background-color: none !important;
+    }
+    #amnt {
+        background-color: none !important;
+
+    }
+
 }

@@ -2,7 +2,7 @@ ion-card {
     border-radius: 50px;
 }
 ion-card:hover {
-    background-color: #f2f2f2;
+    background-color: --minima-color;
     transform: scale(0.9);
 }
 ion-card-content {

@@ -10,7 +10,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content *ngIf="isCameraOpen==false">
+<ion-content class="ion-padding" *ngIf="isCameraOpen==false">
 
   <ion-card class="webscan-canvas" *ngIf="!checkPlatform() && isWebCameraOpen">
     <ion-card-header class="medium-text">

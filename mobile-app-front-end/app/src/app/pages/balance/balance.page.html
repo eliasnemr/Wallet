@@ -1,119 +1,73 @@
 <ion-header>
-<ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-menu-button class="menu-icon"></ion-menu-button>
-      </ion-buttons>
-      <ion-title class="large-text">
-        Balance
-      </ion-title>
-    </ion-toolbar>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button class="menu-icon"></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="large-text">
+      Balance
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
 
-  </ion-header>
-
-  <ion-content>
-
+  <ion-content class="ion-padding">
   <ion-card>
       <ion-card-header>
         Your tokens
       </ion-card-header>
   <ion-card-content>
 
-  <ion-grid style="width: 100%;" *ngFor="let token of tokenArr;">
-    <ion-row>
+  <ion-grid *ngFor="let token of tokenArr;">
       <ion-item-sliding #slidingItem>
-      <ion-item-options side="start">
-      <ion-item-option class="receive-slide small-text" (click)="closeSliding(slidingItem)" routerLink="/my-address">Receive</ion-item-option>
-      <ion-item-option class="send-slide small-text" (click)="sendTokenOver(slidingItem, token.tokenid)">Send</ion-item-option>
-      </ion-item-options>
-
+        <ion-item-options side="start">
+        <ion-item-option id="receive" class="small-text" (click)="closeSliding(slidingItem)" routerLink="/my-address">Receive</ion-item-option>
+        <ion-item-option id="send" class="small-text" (click)="sendTokenOver(slidingItem, token.tokenid)">Send</ion-item-option>
+        </ion-item-options>
   <!-- TOKENS ONLY -->
   <ion-item lines="full" routerLink="/view-tokens/{{ token.tokenid }}">
-  <ion-avatar slot="start">
-    <img *ngIf="token.icon" alt="Avatar" class="balance-token" src="{{ token.icon }}">
-    <img *ngIf="!token.icon || token.icon.length <= 0" alt="Avatar" class="balance-token" src="assets/icon/icon.png">
-  </ion-avatar>
 
-  <ion-col size="9" style="padding: 12px;" slot="start">
+    <ion-row>
+    <ion-col sizeLg="2" sizeMd="2" sizeSm="1" sizeXl="2" sizeXs="12" align-self-center>
+      <ion-avatar>
+        <img *ngIf="token.icon" alt="Avatar" class="balance-token" src="{{ token.icon }}">
+        <img *ngIf="!token.icon || token.icon.length <= 0" alt="Avatar" class="balance-token" src="assets/icon/icon.png">
+      </ion-avatar>
+    </ion-col>
 
-    <!-- if token name is shorter than 15 -->
-    <div *ngIf="token.token.length < 15">
-      <ion-row style="border: none; padding-left: 5px;">
-        <ion-text class="medium-text"> {{ token.token}} </ion-text>
-      </ion-row>
-    </div>
-    <!-- if token name is longer than 15 and smaller than 30 -->   
-    <div *ngIf="token.token.length >= 15 && token.token.length < 30" >
-      <ion-row style="border:none; padding-left: 5px;">
-        <ion-text class="medium-text"> {{ token.token.substring(0,15)+"-" }} </ion-text>
-      </ion-row>
-      <ion-row style="border:none; padding-left: 5px;">
-        <ion-text class="small-text"> {{ token.token.substring(15, 30) }} </ion-text>
-      </ion-row>
-    </div>
-    <!-- if token name is longer than 30 and smaller than 45 -->   
-    <div *ngIf="token.token.length >= 15 && token.token.length < 45" >
-      <ion-row style="border:none; padding-left: 5px;">
-        <ion-text class="medium-text"> {{ token.token.substring(0,15)+"-" }} </ion-text>
-      </ion-row>
-      <ion-row style="border:none; padding-left: 5px;">
-        <ion-text class="small-text"> {{ token.token.substring(15, 30)+"-" }} </ion-text>
-      </ion-row>
-      <ion-row style="border:none; padding-left: 5px;">
-        <ion-text class="smaller-text"> {{ token.token.substring(30, 45) }} </ion-text>
-      </ion-row>
-    </div>
-    <!-- if token name is longer than 45... -->   
-    <div *ngIf="token.token.length >= 45" >
-      <ion-row style="border:none; padding-left: 5px;">
-        <ion-text class="medium-text"> {{ token.token.substring(0,15)+"-" }} </ion-text>
-      </ion-row>
-      <ion-row style="border:none; padding-left: 5px;">
-        <ion-text class="small-text"> {{ token.token.substring(15, 30)+"-" }} </ion-text>
-      </ion-row>
-      <ion-row style="border:none; padding-left: 5px;">
-        <ion-text class="smaller-text"> {{ token.token.substring(30, 45)+"..." }} </ion-text>
-      </ion-row>
-    </div>
-    
+    <ion-col sizeLg="7" sizeMd="8" sizeSm="8" sizeXl="8" sizeXs="12" align-self-center> 
+      <span class="medium-text"> {{ token.token  }} &#8212; </span> 
+      <span class="abbr-name small-text"> {{ token.token.substring(0,3) }} </span>
+    </ion-col>
 
-    <ion-row style="border:none; padding-left: 5px;">
-      <ion-text class="abbr-name small-text"> {{ token.token.substring(0,3) }} </ion-text>
-    </ion-row>
-
-  </ion-col>
-
-  <ion-col slot="end" size="3">
-
-      <span *ngIf="token.confirmed == token.sendable && token.mempool == 0 && token.unconfirmed == 0;" class="confirmed-amount medium-text">{{ token.confirmed }}</span>
-
-      <span *ngIf="token.confirmed == token.sendable && token.mempool == 0 && token.unconfirmed != 0" class="confirmed-amount medium-text">{{ token.confirmed+"/"+token.unconfirmed }}</span>
-
-      <span *ngIf="token.confirmed == token.sendable && token.mempool != 0 && token.unconfirmed == 0" class="confirmed-amount medium-text">{{ token.confirmed +"/"+ token.mempool}} </span>
-
-      <span *ngIf="token.confirmed != token.sendable && token.mempool == 0 && token.unconfirmed == 0" class="confirmed-amount medium-text">{{ token.confirmed +"/"+token.sendable}}</span>
-
-      <span *ngIf="token.confirmed != token.sendable && token.mempool == 0 && token.unconfirmed != 0" class="confirmed-amount medium-text">{{ token.confirmed +"/"+token.unconfirmed+"/"+token.sendable}}</span>
+    <ion-col id="balance" sizeLg="3" sizeMd="2" sizeSm="3" sizeXl="2" sizeXs="12" align-self-center> 
       
-      <span *ngIf="token.confirmed != token.sendable && token.mempool != 0 && token.unconfirmed == 0" class="confirmed-amount medium-text">{{ token.confirmed +"/"+token.sendable + "/" + token.mempool}}</span>
+        <span *ngIf="token.confirmed == token.sendable && token.mempool == 0 && token.unconfirmed == 0;" class="confirmed-amount medium-text">{{ token.confirmed }}</span>
 
-  </ion-col>
+        <span *ngIf="token.confirmed == token.sendable && token.mempool == 0 && token.unconfirmed != 0" class="confirmed-amount medium-text">{{ token.confirmed+"/"+token.unconfirmed }}</span>
 
+        <span *ngIf="token.confirmed == token.sendable && token.mempool != 0 && token.unconfirmed == 0" class="confirmed-amount medium-text">{{ token.confirmed +"/"+ token.mempool}} </span>
+
+        <span *ngIf="token.confirmed != token.sendable && token.mempool == 0 && token.unconfirmed == 0" class="confirmed-amount medium-text">{{ token.confirmed +"/"+token.sendable}}</span>
+
+        <span *ngIf="token.confirmed != token.sendable && token.mempool == 0 && token.unconfirmed != 0" class="confirmed-amount medium-text">{{ token.confirmed +"/"+token.unconfirmed+"/"+token.sendable}}</span>
+        
+        <span *ngIf="token.confirmed != token.sendable && token.mempool != 0 && token.unconfirmed == 0" class="confirmed-amount medium-text">{{ token.confirmed +"/"+token.sendable + "/" + token.mempool}}</span>
+
+    </ion-col> 
+  </ion-row>
   
   </ion-item>
-  
-
-  <ion-item-options side="end">
-    <ion-item-option class="small-text" (click)="presentPopover(slidingItem, $event, token.tokenid)">Token ID</ion-item-option>
-  </ion-item-options>
-  </ion-item-sliding>
-    </ion-row>
-      </ion-grid>
-
-  
-
+          <ion-item-options side="end">
+          <ion-item-option class="small-text" (click)="presentPopover(slidingItem, $event, token.tokenid)">Token ID</ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+    </ion-grid> 
   </ion-card-content>
   </ion-card>
+
+
   </ion-content>
+
+  
 
   <ion-footer>
     <ion-toolbar>
