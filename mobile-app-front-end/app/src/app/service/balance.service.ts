@@ -7,7 +7,7 @@ declare var Minima: any;
   providedIn: 'root'
 })
 export class BalanceService {
-  
+
   updatedBalance: BehaviorSubject<Tokens[]> = new BehaviorSubject<Tokens[]>(Minima.balance);
   currentBalance: Observable<Tokens[]> = this.updatedBalance.asObservable();
 

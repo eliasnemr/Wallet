@@ -40,17 +40,8 @@
 
     <ion-col id="balance" sizeLg="3" sizeMd="2" sizeSm="3" sizeXl="2" sizeXs="12" align-self-center> 
 
-        <span *ngIf="token.confirmed == token.sendable && token.mempool == 0 && token.unconfirmed == 0;" class="confirmed-amount medium-text">{{ token.confirmed }}</span>
-
-        <span *ngIf="token.confirmed == token.sendable && token.mempool == 0 && token.unconfirmed != 0" class="confirmed-amount medium-text">{{ token.confirmed+"/"+token.unconfirmed }}</span>
-
-        <span *ngIf="token.confirmed == token.sendable && token.mempool != 0 && token.unconfirmed == 0" class="confirmed-amount medium-text">{{ token.confirmed +"/"+ token.mempool}} </span>
-
-        <span *ngIf="token.confirmed != token.sendable && token.mempool == 0 && token.unconfirmed == 0" class="confirmed-amount medium-text">{{ token.confirmed +"/"+token.sendable}}</span>
-
-        <span *ngIf="token.confirmed != token.sendable && token.mempool == 0 && token.unconfirmed != 0" class="confirmed-amount medium-text">{{ token.confirmed +"/"+token.unconfirmed+"/"+token.sendable}}</span>
-        
-        <span *ngIf="token.confirmed != token.sendable && token.mempool != 0 && token.unconfirmed == 0" class="confirmed-amount medium-text">{{ token.confirmed +"/"+token.sendable + "/" + token.mempool}}</span>
+      <span *ngIf="token.unconfirmed != 0;" class="confirmed-amount medium-text">{{ token.sendable + "/" + token.unconfirmed  }}</span>
+      <span *ngIf="token.unconfirmed == 0;" class="confirmed-amount medium-text">{{ token.sendable }} </span>
 
     </ion-col> 
   </ion-row>

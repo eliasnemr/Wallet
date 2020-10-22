@@ -33,10 +33,10 @@ export class BalancePage implements OnInit {
     public alertController: AlertController,
     public popoverController: PopoverController,
     private route: Router) {
-      this.pullInTokens();
+      
     }
 
-  ionViewWillEnter() { }
+  ionViewWillEnter() { this.pullInTokens(); }
 
   giveMe50() {
     this.api.giveMe50().then((res: any) => {
@@ -93,12 +93,13 @@ export class BalancePage implements OnInit {
   }
 
   pullInTokens() {
+
     this.balanceSubscription = this.service.updatedBalance
       .pipe(
         map((responseData: any) => {
 
       const tokenArr: Tokens[] = [];
-      for(const key in Minima.balance){
+      for (const key in Minima.balance) {
 
         if (Minima.balance.hasOwnProperty(key)) {
 

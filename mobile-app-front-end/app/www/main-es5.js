@@ -646,9 +646,10 @@ var AppComponent = /** @class */ (function () {
                 }
                 else if (msg.event === 'newbalance') {
                     // add new value to observable
+                    console.log("Balance change.");
                     _this.api.updatedBalance.next(Minima.balance);
                 }
-                else if (msg.event == 'newblock') {
+                else if (msg.event === 'newblock') {
                     Minima.cmd('status full', function (res) {
                         _this.status.updatedStatus.next(res.response);
                     });
@@ -703,7 +704,7 @@ var AppComponent = /** @class */ (function () {
     };
     // localStorage
     AppComponent.prototype.setLocalStorage = function () {
-        //check cookies for theme
+        // check cookies for theme
         if (localStorage.getItem('toggleVal') === 'true') {
             document.body.classList.toggle('dark', true);
         }
@@ -718,7 +719,7 @@ var AppComponent = /** @class */ (function () {
         }
         // localStorage - termFontSize
         if (!localStorage.getItem('termFontSize')) {
-            localStorage.setItem('termFontSize', "" + 14);
+            localStorage.setItem('termFontSize', '' + 14);
         }
     };
     AppComponent.prototype.checkToggle = function (e) {

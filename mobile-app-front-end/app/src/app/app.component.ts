@@ -45,16 +45,18 @@ export class AppComponent {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      
-      Minima.init((msg:any) => { 
-        if(msg.event === 'connected'){
+
+      Minima.init((msg: any) => {
+        if (msg.event === 'connected') {
+
           console.log('@M:connected');
 
-        } else if(msg.event === 'newbalance') {
+        } else if (msg.event === 'newbalance') {
           // add new value to observable
+          console.log("Balance change.");
           this.api.updatedBalance.next(Minima.balance);
-            
-        } else if (msg.event == 'newblock') {
+
+        } else if (msg.event === 'newblock') {
 
           Minima.cmd('status full', (res: any) => {
 
@@ -66,8 +68,8 @@ export class AppComponent {
 
           this.presentToast("Mining Transaction in progress...", "success");
 
-        } else if(msg.event === 'miningstop') {
-          
+        } else if (msg.event === 'miningstop') {
+
           this.presentToast("Mining Transaction stopped...", "danger");
 
         }
@@ -80,13 +82,11 @@ export class AppComponent {
     if(this.platform.is('desktop') || this.platform.is('pwa')) {
       this.basic =
       [
-        { title:'Balance', routerLink: '/balance', icon: 'card', line: 'none', hidden: false},
-        { title:'Send', routerLink: '/send-funds', icon: 'send', line: 'none', hidden: false},
-        { title:'Receive', routerLink: '/my-address', icon: 'arrow-down', line: 'none', hidden: false},
-        { title:'History', routerLink: '/history', icon: 'book', line: 'half', hidden: false},
-        
+        { title: 'Balance', routerLink: '/balance', icon: 'card', line: 'none', hidden: false},
+        { title: 'Send', routerLink: '/send-funds', icon: 'send', line: 'none', hidden: false},
+        { title: 'Receive', routerLink: '/my-address', icon: 'arrow-down', line: 'none', hidden: false},
+        { title: 'History', routerLink: '/history', icon: 'book', line: 'half', hidden: false},
       ]
-  
       this.advanced =
       [
         { title:'Token', routerLink: '/create-token', icon: 'brush', line: 'none', hidden: false},
@@ -100,13 +100,11 @@ export class AppComponent {
     } else {
       this.basic =
       [
-        { title:'Balance', routerLink: '/balance', icon: 'card', line: 'none', hidden: false},
-        { title:'Send', routerLink: '/send-funds', icon: 'send', line: 'none', hidden: false},
-        { title:'Receive', routerLink: '/my-address', icon: 'arrow-down', line: 'none', hidden: false},
-        { title:'History', routerLink: '/history', icon: 'book', line: 'half', hidden: false},
-        
+        { title: 'Balance', routerLink: '/balance', icon: 'card', line: 'none', hidden: false},
+        { title: 'Send', routerLink: '/send-funds', icon: 'send', line: 'none', hidden: false},
+        { title: 'Receive', routerLink: '/my-address', icon: 'arrow-down', line: 'none', hidden: false},
+        { title: 'History', routerLink: '/history', icon: 'book', line: 'half', hidden: false},
       ]
-  
       this.advanced =
       [
         { title:'Token', routerLink: '/create-token', icon: 'brush', line: 'none', hidden: false},
@@ -122,10 +120,10 @@ export class AppComponent {
 
   // localStorage
   setLocalStorage() {
-    //check cookies for theme
+    // check cookies for theme
     if(localStorage.getItem('toggleVal') === 'true'){
       document.body.classList.toggle('dark', true);
-    
+
     } else {
       document.body.classList.toggle('dark', false);
     }
@@ -137,8 +135,8 @@ export class AppComponent {
     }
 
     // localStorage - termFontSize
-    if(!localStorage.getItem('termFontSize')){
-      localStorage.setItem('termFontSize', ""+14);
+    if (!localStorage.getItem('termFontSize')) {
+      localStorage.setItem('termFontSize', '' + 14);
     }
   }
 

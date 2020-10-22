@@ -636,9 +636,10 @@ let AppComponent = class AppComponent {
                 }
                 else if (msg.event === 'newbalance') {
                     // add new value to observable
+                    console.log("Balance change.");
                     this.api.updatedBalance.next(Minima.balance);
                 }
-                else if (msg.event == 'newblock') {
+                else if (msg.event === 'newblock') {
                     Minima.cmd('status full', (res) => {
                         this.status.updatedStatus.next(res.response);
                     });
@@ -693,7 +694,7 @@ let AppComponent = class AppComponent {
     }
     // localStorage
     setLocalStorage() {
-        //check cookies for theme
+        // check cookies for theme
         if (localStorage.getItem('toggleVal') === 'true') {
             document.body.classList.toggle('dark', true);
         }
@@ -708,7 +709,7 @@ let AppComponent = class AppComponent {
         }
         // localStorage - termFontSize
         if (!localStorage.getItem('termFontSize')) {
-            localStorage.setItem('termFontSize', "" + 14);
+            localStorage.setItem('termFontSize', '' + 14);
         }
     }
     checkToggle(e) {
