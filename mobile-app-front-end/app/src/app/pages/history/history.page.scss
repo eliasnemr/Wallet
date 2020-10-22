@@ -25,10 +25,6 @@ ion-toolbar {
     padding-top: 5px;
 }
 
-ion-card-content {
-    width: 100%;
-    text-align: center;    
-}
 ion-segment {
     margin-top: 5px;
     padding: 0px 10px 0px 10px;
@@ -39,15 +35,18 @@ ion-card-content ion-text {
 
 
 ion-row:hover {
-    
-    ion-row {
-        transform: scale(0.999);
+    transform: scale(0.99);
+    ion-item {
         background: var(--ion-background-color, #f2f2f2);
     }
-}
 
+}
+ion-item {
+    border-left: 1px solid var(--ion-background-color, rgba(113,113,114, 0.7));
+}
 ion-row {
     width: 100%;
+
 }
 
 ion-toolbar {
@@ -65,41 +64,29 @@ ion-col img {
 ion-col {
     padding: 0 !important;
 }
-ion-row, ion-item {
-    padding-top: 5px;
-    padding-bottom: 5px;
+ion-row {
+    padding: 2px;
 }
 
-.date p {
-    margin-top: 8px;
-    margin-bottom: 0;
-    font-weight: 500;
+#month {
+    font-weight: 600;
+    opacity: 0.7;
 }
-.date h5 {
+#day {
     margin: 0;
     font-weight: 600;
+    opacity: 0.7;
+}
+#time {
+    margin: 0;
+    opacity: 0.7;
+    font-weight: 120;
 }
 
-
-@media only screen and (max-width: 767px) {
-
-    .date {
-        background-color: rgb(242,242,242, 0.1);
-    }
-    #amnt {
-        background-color: rgba(242,242,242, 0.1);
-
-    }
-
+#txnType h5 {
+    margin: 0 !important;
 }
-@media only screen and (min-width: 768px) {
 
-    .date {
-        background-color: none !important;
-    }
-    #amnt {
-        background-color: none !important;
-
-    }
-
+ion-content {
+    overflow-y: scroll;
 }

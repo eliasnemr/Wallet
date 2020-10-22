@@ -6,6 +6,7 @@ import { HistoryService } from '../../service/history.service';
 import { map } from 'rxjs/operators';
 import { History } from '../../models/history.model';
 import { UserData } from './../../providers/user-data';
+import * as moment from 'moment';
 
 declare var Minima: any;
 @Component({
@@ -21,6 +22,9 @@ export class HistoryPage implements OnInit {
   selectedSlide: any;
   categories: number = 0;
   segment = 'all';
+  month: string;
+  day: string;
+  time: string;
 
   // + vars
   public transactions: History[] = [];
@@ -147,6 +151,10 @@ export class HistoryPage implements OnInit {
         resp.response.history.forEach((element: any) => {
           const name = element.values[0].name;
 
+          element.values[0].time = moment(element.txpow.header.timesecs * 1000).format("H:mm");
+          element.values[0].day = moment(element.txpow.header.timesecs * 1000).format("DD");
+          element.values[0].month = moment(element.txpow.header.timesecs * 1000).format("MMMM");
+
           if (name.substring(0, 1) === '{') {
             element.values[0].name = JSON.parse(name);
           }
@@ -154,7 +162,7 @@ export class HistoryPage implements OnInit {
           this.transactions.push(element);
         });
 
-        return this.transactions;
+        return this.transactions.reverse();
       })).subscribe((resp: any) => {
 
         if (this.lastJSON !== JSON.stringify(resp)) {

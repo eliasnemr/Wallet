@@ -36,67 +36,60 @@
     </ion-header>
 
     <ion-list #historyList>
-      <ion-item-group sticky>
-        <ion-label>
-          
-        </ion-label>
-      </ion-item-group>
 
-      <ion-item-sliding *ngFor="let txn of transactions" #slidingItem [attr.track]="">
+      <ion-grid *ngFor="let txn of transactions">
+      <ion-item-sliding  #slidingItem [attr.track]="">
         <ion-item routerLink="/view-txn/{{ txn.txpow.txpowid }}" routerDirection="forward">
           
           <ion-row>
-            <ion-col  sizeLg="1" sizeMd="1" sizeSm="12" sizeXl="1" sizeXs="12" align-self-center>
-              <img style="width: 25px;" id="history-icon" src="./assets/sent.svg" alt="send-receive">
+            <ion-col sizeLg="1" sizeMd="1" sizeSm="12" sizeXl="1" sizeXs="2" align-self-center>
+              <img style="width: 22px;" id="history-icon" src="./assets/sent.svg" alt="send-receive">
             </ion-col>
 
-            <ion-col  sizeLg="2" sizeMd="2" sizeSm="12" sizeXl="2" sizeXs="12" align-self-center>
-              <div class="align-middle date">
-                <p class="small-text">
-                  {{ txn.txpow.header.date.substring(4, 7) }} 
-                </p>
-                <h5 class="small-text">
-                  {{ txn.txpow.header.date.substring(8, 10) }}
-                </h5>
+            <ion-col sizeLg="8" sizeMd="8" sizeSm="12" sizeXl="8" sizeXs="6" align-self-center>
+              
+              <div id="txnType" *ngIf="!txn.values[0].name.name  && txn.values[0].name !== 'Create Token'">
+                <span *ngIf="txn.values[0].amount.substring(0,1) == '-'"> 
+                  <h5 class="medium-text">
+                    Sent Minima
+                  </h5>
+                </span>
+        
+                <span class="medium-text" *ngIf="txn.values[0].amount.substring(0,1) !== '-'">
+                  <h5 class="medium-text">
+                    Received Minima
+                  </h5>
+                </span>
               </div>
-            </ion-col>
 
-            <ion-col sizeLg="6" sizeMd="6" sizeSm="12" sizeXl="6" sizeXs="12" align-self-center *ngIf="!txn.values[0].name.name  && txn.values[0].name !== 'Create Token'">
-              <span *ngIf="txn.values[0].amount.substring(0,1) == '-'"> 
-                <h5 class="medium-text">
-                  Sent Minima
-                </h5>
-              </span>
-      
-              <span class="medium-text" *ngIf="txn.values[0].amount.substring(0,1) !== '-'">
-                <h5 class="medium-text">
-                  Received Minima
-                </h5>
-              </span>
-            </ion-col>
-      
-            <ion-col sizeLg="3" sizeMd="3" sizeSm="12" sizeXl="3" sizeXs="12" align-self-center *ngIf="txn.values[0].name.name">
-              <span class="medium-text" *ngIf="txn.values[0].amount.substring(0,1) == '-'"> 
-                <h5 class="medium-text">
-                  Sent {{ txn.values[0].name.name }}
-                </h5>
-              </span>
-      
-              <span class="medium-text" *ngIf="txn.values[0].amount.substring(0,1) !== '-'">
-                <h5 class="medium-text">
-                  Received {{ txn.values[0].name.name }}
-                </h5>
-              </span>
-            </ion-col>
+              <div id="txnType" *ngIf="txn.values[0].name.name">
+                <span class="medium-text" *ngIf="txn.values[0].amount.substring(0,1) == '-'"> 
+                  <h5 class="medium-text">
+                    Sent {{ txn.values[0].name.name }}
+                  </h5>
+                </span>
+        
+                <span class="medium-text" *ngIf="txn.values[0].amount.substring(0,1) !== '-'">
+                  <h5 class="medium-text">
+                    Received {{ txn.values[0].name.name }}
+                  </h5>
+                </span>
+              </div>
 
-            <ion-col sizeLg="3" sizeMd="3" sizeSm="12" sizeXl="3" sizeXs="12" align-self-center *ngIf="!txn.values[0].name.name && txn.values[0].name === 'Create Token'">
+              <div id="txnType" *ngIf="!txn.values[0].name.name && txn.values[0].name === 'Create Token'">
                 <h5 class="medium-text" style="margin-top:8px; margin-bottom:0;">
                   Created a Token
                 </h5>
                 <p class="small-text" style="margin:0;opacity:0.8;"> &mdash; {{ txn.txpow.body.txn.tokengen.token }}</p>
+              </div>
+              
+              
+              <span id="time" class="small-text"> {{ txn.values[0].time  }} &mdash; </span> <span id="month" class="small-text"> {{ txn.values[0].month }} </span> <span id="day" class="small-text"> {{ txn.values[0].day }} </span>
+              
+              
             </ion-col>
 
-            <ion-col id="amnt" sizeLg="3" sizeMd="3" sizeSm="12" sizeXl="3" sizeXs="12" align-self-center *ngIf="txn.values[0].name !== 'Create Token'">
+            <ion-col id="amnt" sizeLg="3" sizeMd="3" sizeSm="12" sizeXl="3" sizeXs="4" align-self-center *ngIf="txn.values[0].name !== 'Create Token'">
               <span *ngIf="txn.values[0].amount.substring(0,1) == '-'"> 
                 <h5 class="medium-text">{{ txn.values[0].amount}}</h5>
               </span>
@@ -106,14 +99,15 @@
               </span>
             </ion-col>
 
-            <ion-col id="amnt" sizeLg="3" sizeMd="3" sizeSm="12" sizeXl="3" sizeXs="12" align-self-center *ngIf="txn.values[0].name === 'Create Token'">
-              <h2 class="medium-text" style="margin-top:8px; margin-bottom:0;">{{ "+" + txn.txpow.body.txn.tokengen.total }}</h2>
+            <ion-col id="amnt" sizeLg="3" sizeMd="3" sizeSm="12" sizeXl="3" sizeXs="4" align-self-center *ngIf="txn.values[0].name === 'Create Token'">
+              <h5 class="medium-text" style="margin-top:8px; margin-bottom:0;">{{ "+" + txn.txpow.body.txn.tokengen.total }}</h5>
               <p class="small-text" style="margin:0;opacity:0.8;"> {{ "-" + txn.values[0].amount + " MINI"}}</p>
             </ion-col>
 
           </ion-row>
-
+        
         </ion-item>
+      
         <ion-item-options>
           <ion-item-option color="success" (click)="saveItem(slidingItem, txn)" *ngIf="segment === 'all'">
             Save
@@ -121,9 +115,9 @@
           <ion-item-option color="danger" (click)="removeItem(slidingItem, txn, 'Remove Transaction.')" *ngIf="segment === 'saved'">
             Remove
           </ion-item-option>
-          
         </ion-item-options>
       </ion-item-sliding>
+      </ion-grid>
     </ion-list>
 
 
