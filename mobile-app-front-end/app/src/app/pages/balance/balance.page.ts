@@ -1,13 +1,12 @@
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { MinimaApiService } from '../../service/minima-api.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { AlertController, PopoverController, ModalController } from '@ionic/angular';
+import { Component, OnInit } from '@angular/core';
+import { AlertController, PopoverController } from '@ionic/angular';
 import { Tokens } from '../../models/tokens.model';
 import { PopOverComponent } from '../../components/pop-over/pop-over.component';
 import { BalanceService } from '../../service/balance.service';
 import { Router } from '@angular/router';
-import { TokenDescrComponent } from '../../components/token-descr/token-descr.component';
 
 declare var Minima: any;
 @Component({
@@ -33,10 +32,14 @@ export class BalancePage implements OnInit {
     public alertController: AlertController,
     public popoverController: PopoverController,
     private route: Router) {
-      
+
     }
 
-  ionViewWillEnter() { this.pullInTokens(); }
+  ionViewWillEnter() {
+    setTimeout(() => {
+      this.pullInTokens();
+    }, 1000);
+  }
 
   giveMe50() {
     this.api.giveMe50().then((res: any) => {
@@ -148,7 +151,7 @@ export class BalancePage implements OnInit {
     .subscribe(responseData => {
 
       // check if changed
-      if(this.lastJSON !== JSON.stringify(responseData)){
+      if(this.lastJSON !== JSON.stringify(responseData)) {
         this.tokenArr = [...responseData];
         this.lastJSON = JSON.stringify(responseData);
       }

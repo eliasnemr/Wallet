@@ -16,6 +16,7 @@
       </ion-card-header>
   <ion-card-content>
 
+  <div *ngIf="tokenArr && tokenArr.length > 0">
   <ion-grid *ngFor="let token of tokenArr;">
       <ion-item-sliding #slidingItem>
         <ion-item-options side="start">
@@ -52,6 +53,46 @@
           </ion-item-options>
         </ion-item-sliding>
     </ion-grid> 
+  </div>
+
+  <!-- Balance Skeleton View -->
+  <div *ngIf="tokenArr.length == 0">
+
+    <ion-grid>
+      <ion-item-sliding #slidingItem>
+        <ion-item-options side="start">
+        <ion-item-option id="receive" class="small-text"><ion-skeleton-text animated style="width: 10%"></ion-skeleton-text></ion-item-option>
+        <ion-item-option id="send" class="small-text"><ion-skeleton-text animated style="width: 10%"></ion-skeleton-text></ion-item-option>
+        </ion-item-options>
+  <!-- TOKENS ONLY -->
+  <ion-item lines="full">
+
+    <ion-row>
+    <ion-col sizeLg="2" sizeMd="2" sizeSm="1" sizeXl="2" sizeXs="12" align-self-center>
+      <ion-avatar>
+        <img alt="Avatar" class="balance-token" src="assets/icon/icon.png">
+      </ion-avatar>
+    </ion-col>
+
+    <ion-col sizeLg="6" sizeMd="8" sizeSm="8" sizeXl="7" sizeXs="12" align-self-center> 
+      <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+    </ion-col> 
+    <ion-col sizeLg="3" sizeMd="2" sizeSm="3" sizeXl="2" sizeXs="12" align-self-center> 
+      <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+    </ion-col> 
+    
+  </ion-row>
+  
+  </ion-item>
+          <ion-item-options side="end">
+          <ion-item-option class="small-text">Token ID</ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+    </ion-grid> 
+
+  </div>
+
+
   </ion-card-content>
   </ion-card>
 
