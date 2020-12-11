@@ -1,14 +1,17 @@
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { MinimaApiService } from '../../service/minima-api.service';
-import { Component, OnInit } from '@angular/core';
-import { AlertController, PopoverController } from '@ionic/angular';
-import { Tokens } from '../../models/tokens.model';
-import { PopOverComponent } from '../../components/pop-over/pop-over.component';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { AlertController, IonInfiniteScroll, ToastController } from '@ionic/angular';
+import { Token } from '../../models/tokens.model';
+import { Mini } from '../../models/minima.model';
 import { BalanceService } from '../../service/balance.service';
 import { Router } from '@angular/router';
+import * as SparkMD5 from 'spark-md5';
 
-declare var Minima: any;
+import { Minima } from 'minima';
+
+// declare var Minima: any;
 @Component({
   selector: 'app-balance',
   templateUrl: './balance.page.html',
@@ -17,8 +20,13 @@ declare var Minima: any;
 
 export class BalancePage implements OnInit {
 
-  tokenArr: Tokens[] = [];
-  tokenSpoof: Tokens[] = [];
+  @ViewChild(IonInfiniteScroll, {static: false}) infiniteScroll: IonInfiniteScroll;
+
+
+  avatar: any;
+  hideMe: boolean = false;
+  tokenArr: Token[] | Mini[] = [];
+  tokenSpoof: Token[] = [];
 
   balanceSubscription: Subscription;
 
@@ -30,8 +38,8 @@ export class BalancePage implements OnInit {
     private service: BalanceService,
     private api: MinimaApiService,
     public alertController: AlertController,
-    public popoverController: PopoverController,
-    private route: Router) {
+    private route: Router,
+    public toastController: ToastController) {
 
     }
 
@@ -57,6 +65,37 @@ export class BalancePage implements OnInit {
     this.balanceSubscription.unsubscribe(); // unsubs
   }
 
+  // hide welcomeCard
+  hide() {
+    this.hideMe = true;
+  }
+
+  loadData(event) {
+    setTimeout(() => {
+      console.log('Done');
+      event.target.complete();
+
+      // App logic to determine if all data is loaded
+      // and disable the infinite scroll
+      if (this.tokenArr.length == 5) {
+        event.target.disabled = true;
+      }
+    }, 500);
+  }
+
+  toggleInfiniteScroll() {
+    this.infiniteScroll.disabled = !this.infiniteScroll.disabled;
+  }
+
+
+  async presentToast(msg: string) {
+    const toast = await this.toastController.create({
+      message: msg,
+      duration: 2000
+    });
+    toast.present();
+  }
+
   async presentAlert(msg: string, hdr: string) {
     const alert = await this.alertController.create({
       header: hdr,
@@ -71,6 +110,11 @@ export class BalancePage implements OnInit {
     slidingItem.close();
   }
 
+  createIdenticon(tokenid: string) {
+    
+    return this.avatar = 'https://www.gravatar.com/avatar/' + SparkMD5.hash(tokenid) + '?d=identicon';
+  }
+
   public sendTokenOver(slidingItem: HTMLIonItemSlidingElement, id: string) {
 
     slidingItem.close();
@@ -78,70 +122,65 @@ export class BalancePage implements OnInit {
     this.route.navigate(['/send-funds/' + id]);
 
   }
- 
-  async presentPopover(slidingItem: HTMLIonItemSlidingElement, ev: any, id: string) {
-    const popover = await this.popoverController.create({
-      component: PopOverComponent,
-      event: ev,
-      cssClass: 'balance-popover',
-      translucent: false,
-      componentProps: { tokenid : id},
-    });
-
-    slidingItem.close();
-
-    return await popover.present();
-
-
+  // check if it's a token, or a Mini
+  instanceOfToken(data: any) {
+    return 'script' in data;
   }
-
+ 
   pullInTokens() {
 
     this.balanceSubscription = this.service.updatedBalance
       .pipe(
-        map((responseData: any) => {
+        map((balance: Token[] | Mini[]) => {
+          
+      const tokenArr: Token[] | Mini[] = [];
+      
+      for (const key in balance) {
 
-      const tokenArr: Tokens[] = [];
-      for (const key in Minima.balance) {
+        if (balance.hasOwnProperty(key)) {
 
-        if (Minima.balance.hasOwnProperty(key)) {
+          if (this.instanceOfToken(balance[key])) {
 
-          const element = Minima.balance[key];
-          tokenArr.push({
-              tokenid: element.tokenid,
-              token: element.token,
-              description: element.description,
-              icon: element.icon,
-              proof: element.proof,
-              total: element.total,
-              script: element.script,
-              coinid: element.coinid,
-              totalamount: element.totalamount,
-              scale: element.scale,
-              confirmed: element.confirmed,
-              unconfirmed: element.unconfirmed,
-              mempool: element.mempool,
-              sendable: element.sendable
-          });
-
-          // add Minima always to the top
-          if (element.tokenid === this.MINIMA) {
-            tokenArr.pop(); // pop it
-            this.service.update(
-            tokenArr,
-            {
-              tokenid: element.tokenid,
-              token: element.token,
-              total: element.total,
-              confirmed: element.confirmed,
-              unconfirmed: element.unconfirmed,
-              mempool: element.mempool,
-              sendable: element.sendable
+              const element = balance[key];
+              tokenArr.push({
+                tokenid: element.tokenid,
+                token: element.token,
+                description: element.description,
+                icon: element.icon,
+                proof: element.proof,
+                total: element.total,
+                script: element.script,
+                coinid: element.coinid,
+                totalamount: element.totalamount,
+                scale: element.scale,
+                confirmed: element.confirmed,
+                unconfirmed: element.unconfirmed,
+                mempool: element.mempool,
+                sendable: element.sendable
             });
 
-          }
+            } else {
 
-          }
+              const element = balance[key];
+              // add Minima always to the top
+              tokenArr.pop(); // pop it
+              this.service.update(
+              tokenArr,
+              {
+                tokenid: element.tokenid,
+                token: element.token,
+                total: element.total,
+                confirmed: element.confirmed,
+                unconfirmed: element.unconfirmed,
+                mempool: element.mempool,
+                sendable: element.sendable
+              });
+              
+
+            }
+
+            }
+            
         }
 
       return tokenArr;

@@ -1,20 +1,18 @@
-import { Tokens } from './models/tokens.model';
 import { BalanceService } from './service/balance.service';
 import { StatusService } from './service/status.service';
 import { Component } from '@angular/core';
 import { Platform, ToastController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
-import { equal } from 'assert';
+import { Minima } from 'minima';
 
-declare var Minima: any; // Front-end RPC 
+//declare var Minima: any; // Front-end RPC 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss']
 })
-export class AppComponent {
 
-  currentBalance: Tokens[];
+export class AppComponent {
 
   toggleValue: boolean = false;
   currentMode: boolean = false;
@@ -25,9 +23,9 @@ export class AppComponent {
 
   constructor(
     private status: StatusService,
+    private api: BalanceService,
     private platform: Platform,
     private storage: Storage,
-    private api: BalanceService,
     public toastCtrl: ToastController
   ) {
   
@@ -48,13 +46,10 @@ export class AppComponent {
 
       Minima.init((msg: any) => {
         if (msg.event === 'connected') {
-
-          console.log('@M:connected');
-
-        } else if (msg.event === 'newbalance') {
-          // add new value to observable
-          console.log("Balance change.");
           this.api.updatedBalance.next(Minima.balance);
+        } else if (msg.event === 'newbalance') {
+          
+          this.api.updatedBalance.next(msg.info.balance);
 
         } else if (msg.event === 'newblock') {
 
@@ -79,43 +74,22 @@ export class AppComponent {
 
 /** @@@@@@@@@@ Misc Functions @@@@@@@@@@@ */
   getPages() {
-    if(this.platform.is('desktop') || this.platform.is('pwa')) {
-      this.basic =
-      [
-        { title: 'Balance', routerLink: '/balance', icon: 'card', line: 'none', hidden: false},
-        { title: 'Send', routerLink: '/send-funds', icon: 'send', line: 'none', hidden: false},
-        { title: 'Receive', routerLink: '/my-address', icon: 'arrow-down', line: 'none', hidden: false},
-        { title: 'History', routerLink: '/history', icon: 'book', line: 'half', hidden: false},
-      ]
-      this.advanced =
-      [
-        { title:'Token', routerLink: '/create-token', icon: 'brush', line: 'none', hidden: false},
-        { title:'Status', routerLink: '/status', icon: 'analytics', line: 'none', hidden: false},
-        { title:'Terminal', routerLink: '/mini-term', icon: 'code', line: 'none', hidden: false},
-        { title:'Web', routerLink: '/web-scanner', icon: 'desktop', line: 'full', hidden: true},
-        { title:'Community', routerLink: '/community', icon: 'share', line: 'half', hidden: false},
-        { title:'Settings', routerLink: '/settings', icon: 'build', line: 'none', hidden: true},
+    this.basic =
+    [
+      { title: 'Balance', routerLink: '/balance', icon: 'card', line: 'none', hidden: false},
+      { title: 'Send', routerLink: '/send-funds', icon: 'send', line: 'none', hidden: false},
+      { title: 'Receive', routerLink: '/my-address', icon: 'arrow-down', line: 'none', hidden: false},
+      { title: 'History', routerLink: '/history', icon: 'book', line: 'half', hidden: false},
+    ]
+    this.advanced =
+    [
+      { title:'Token', routerLink: '/create-token', icon: 'brush', line: 'none', hidden: false},
+      { title:'Status', routerLink: '/status', icon: 'analytics', line: 'none', hidden: false},
+      { title:'Terminal', routerLink: '/mini-term', icon: 'code', line: 'none', hidden: false},
+      { title:'Community', routerLink: '/community', icon: 'share', line: 'half', hidden: false},
+      { title:'Settings', routerLink: '/settings', icon: 'build', line: 'none', hidden: true},
 
-      ]
-    } else {
-      this.basic =
-      [
-        { title: 'Balance', routerLink: '/balance', icon: 'card', line: 'none', hidden: false},
-        { title: 'Send', routerLink: '/send-funds', icon: 'send', line: 'none', hidden: false},
-        { title: 'Receive', routerLink: '/my-address', icon: 'arrow-down', line: 'none', hidden: false},
-        { title: 'History', routerLink: '/history', icon: 'book', line: 'half', hidden: false},
-      ]
-      this.advanced =
-      [
-        { title:'Token', routerLink: '/create-token', icon: 'brush', line: 'none', hidden: false},
-        { title:'Status', routerLink: '/status', icon: 'analytics', line: 'none', hidden: false},
-        { title:'Terminal', routerLink: '/mini-term', icon: 'code', line: 'none', hidden: false},
-        { title:'Web', routerLink: '/web-scanner', icon: 'desktop', line: 'full', hidden: true},
-        { title:'Community', routerLink: '/community', icon: 'share', line: 'half', hidden: false},
-        { title:'Settings', routerLink: '/settings', icon: 'build', line: 'none', hidden: true},
-
-      ]
-    }
+    ]
   }
 
   // localStorage

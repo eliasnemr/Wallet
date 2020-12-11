@@ -3,7 +3,7 @@
   <ion-menu side="start" contentId="mainMenu">
 
     <ion-header>
-      <ion-toolbar class="menu-toolbar">
+      <ion-toolbar class="border-b">
       <ion-title> 
         <!-- Minima Icon -->
         <svg version="1.1" id="icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -47,7 +47,7 @@
         <ion-menu-toggle auto-hide="false" *ngFor="let p of basic; let i = index">
           
             <ion-item 
-            class="ripple-parent ion-activatable large-text"
+            class="ripple-parent ion-activatable"
             detail="false"
             routerLinkActive="selected"
             routerDirection="root"
@@ -67,7 +67,7 @@
         <ion-menu-toggle auto-hide="false" *ngFor="let p of advanced; let i = index">
           
             <ion-item 
-            class="ripple-parent ion-activatable large-text"
+            class="ripple-parent ion-activatable"
             detail="false"
             routerLinkActive="selected"
             routerDirection="root"
@@ -85,12 +85,12 @@
 
   </ion-content>
 
-  <ion-footer>
+  <ion-footer class="border-t">
     <ion-row>
       <ion-col>
-        <ion-item lines="full">
-          <ion-icon slot="start" name="moon" style="padding: 10px; color: rgb(132, 0, 255);"></ion-icon>
-          <span class="medium-text">Dark Mode</span>
+        <ion-item lines="none">
+          <ion-icon slot="start" name="moon"></ion-icon>
+          <span class="medium-text">Night Mode</span>
           <ion-toggle  slot="end" #darkToggle [(ngModel)]="toggleValue" (ionChange)="checkToggle()"></ion-toggle>
         </ion-item>
       </ion-col>

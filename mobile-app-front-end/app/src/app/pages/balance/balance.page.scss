@@ -1,35 +1,70 @@
-ion-item {
-  border-left: 2px solid rgba(246,102,31, 0.3);
-  border-right: 2px solid rgba(56,180,205, 0.3);
-  width: 100%;
+ion-toolbar {
+  --background: var(--ion-m-background);
+  font-family: manrope-bold;
+  color: var(--ion-color-tertiary);
+  ion-title {
+    font-size: 1.0rem;
+  }
+  ion-buttons ion-menu-button {
+    font-size: 1.0rem;
+    color: var(--ion-color-tertiary);
+  }
 }
 ion-row {
   width: 100%;
 }
+ion-item {
+  background-color: var(--ion-gray-one);
+  border-left: 2px solid var(--ion-color-secondary);
+  border-right: 2px solid var(--ion-color-primary);
+  width: 100%;
+}
 ion-item:hover {
-  background: var(--ion-background-color, rgba(255,255,255, 0.8));
   border-left: 2px solid rgba(246,102,31, 0.7);
   border-right: 2px solid rgba(56,180,205, 0.7);
+
   ion-row {
     transform: scale(1.01);
   }
+  .image-cropper {
+    margin-left: 10%;
+  }
+  .minima-numeric {
+    margin-right: 5%;
+  }
+}
+#token-card:hover, #tutorial-card:hover {
+  transform: scale(1.01);
 }
 ion-card-content {
-
-  background: var(--ion-card-color);
+  background: var(--ion-m-background);
 }
 ion-card-header {
-  background: var(--ion-card-header);
+  font-family: manrope-bold;
+  color: var(--ion-color-tertiary);
+  background-color: var(--ion-gray-two);
+  background: var(--ion-m-background);
 }
 ion-item-option {
   font-size: 1.0rem;
   letter-spacing: -0.02em;
 }
-
 #send {
-  background-color: #FF671E;
+  color: #FFFFFF;
+  font-family: var(--ion-font-family-bold);
+  background-color: var(--ion-color-secondary) !important;
+  text-transform: none;
 }
-
+#receive {
+  color: #FFFFFF;
+  font-family: var(--ion-font-family-bold);
+  background-color: var(--ion-color-primary);
+}
+#tokenid-slide {
+  color: var(--ion-text-color);
+  font-family: var(--ion-font-family-bold);
+  background-color: var(--ion-color-primary);
+}
 ion-avatar {
   width:100% !important;  
   height : 100% !important;  
@@ -37,35 +72,82 @@ ion-avatar {
   max-height: 150px !important; //any size 
 }
 img {
-  transform: scale(0.8);
-  padding: 6px !important;
-  border: 1.25px solid var(--minima-icons);
-  max-width: 165px;
-  max-height: 85px;
-  width: 120px;
-  border-radius: 50%;
+  width: 100px;
 }
-ion-footer ion-toolbar ion-buttons ion-button{
+ion-footer ion-toolbar ion-buttons ion-button {
     width: 100%;
+    height: 58px;
  }
-.balance-token {
-  max-height: 40px;
-  max-width: 35px;
-  padding-right: 5px;
-}
-.balance-tokenname {
-  letter-spacing: -0.02em;
-  padding-top: 5px;
-  font-size: 17px;
-  font-weight: 1200;
-}
 .abbr-name {
-  font-style: oblique;
-  font-weight: 400;
+  font-family: manrope-light;
   text-transform: uppercase;
-  }
+}
 
-
+#img-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#img-wrapper img {
+  height: 100%;
+  vertical-align: middle;
+  display: inline-block;
+}
+#token-wrapper {
+  white-space: pre;
+  max-height: 100px;
+  text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#token-wrapper h6 {
+  margin: 0;
+  display: inline-block;
+  font-size: 1.0rem!important;
+  max-width: 180px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+#token-wrapper p {
+  margin:0;
+}
+#details {
+  display: inline;
+}
+#details a {
+  z-index: 99999;
+  float: right;
+  font-family: manrope-light;
+  color: var(--ion-color-primary)
+}
+.description {
+  display: inline;
+}
+.description p {
+  display: inline-block;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 200px;
+}
+.custom-icon {
+  height: auto;
+  width: auto;
+  max-height: 25.19px;
+  max-width: 25.19px;
+}
+.nft {
+  position: absolute;
+  z-index:1; 
+  top: 0;
+  right:0;
+  z-index:1; 
+  width:22px;
+}
+.nft:hover {
+  transform: scale(1.1);
+}
 .tokenDescr-modal .modal-wrapper{
   width: 1500px;
   height: auto;
@@ -74,16 +156,32 @@ ion-footer ion-toolbar ion-buttons ion-button{
   font-weight: 500;
   opacity: 0.75;
 }
-ion-toolbar {
-  --background: var(--card-header-color);
+
+.image-cropper {
+  width: 25px;
+  height: 25px;
+  max-width: 25px;
+  max-height: 25px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+  border: 2px solid #5B5B5D;
 }
-ion-col {
-  padding: 0 !important;
+.image-cropper img {
+  display: inline;
+  margin: 0 auto;
+  height: 100%;
+  width: auto;
 }
-#balance span {
-  margin-left: 7px;
+
+#dismiss {
+  cursor: pointer;
+  float: right;
+  font-size: 2.0rem;
 }
 #balance {
-  font-weight: 600;
-  opacity: 0.7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
 }

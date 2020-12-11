@@ -37,7 +37,7 @@ ion-footer ion-toolbar ion-buttons ion-button{
  	--background: none transparent !important;
 }
 ion-toolbar {
-  --background: var(--card-header-color);
+  --background: var(--ion-m-background);
 }
 .input {
   opacity: 0.75 !important;

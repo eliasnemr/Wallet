@@ -1,4 +1,5 @@
-import { Tokens } from '../../models/tokens.model';
+import { Mini } from './../../models/minima.model';
+import { Token } from '../../models/tokens.model';
 import { BalanceService } from '../../service/balance.service';
 import { Component, OnInit, NgZone, ViewChild, ElementRef } from '@angular/core';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
@@ -10,7 +11,7 @@ import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import QrScanner from 'qr-scanner';
 
-declare var Minima: any;
+
 @Component({
   selector: 'app-send-funds',
   templateUrl: './send-funds.page.html',
@@ -37,7 +38,7 @@ export class SendFundsPage implements OnInit {
   balanceSubscription: Subscription;
 
   // Token Array Type
-  tokenArr: Tokens[] = [];
+  tokenArr: Token[] | Mini[] = [];
   MINIMA_TOKEN_ID = '0x00'; 
 
   private lastJSON = '';
@@ -49,7 +50,7 @@ export class SendFundsPage implements OnInit {
     public toastController: ToastController,
     private zone: NgZone, 
     private api: MinimaApiService,
-    private balanceService: BalanceService,
+    private service: BalanceService,
     private platform: Platform,
     private route: ActivatedRoute,
     private router: Router) {
@@ -189,68 +190,81 @@ export class SendFundsPage implements OnInit {
     });
     toast.present();
   }
-
-  // API CALLS
+  // check if it's a token, or a Mini
+  instanceOfToken(data: any) {
+    return 'script' in data;
+  }
   pullInTokens() {
-    this.balanceSubscription = this.balanceService.updatedBalance
-    .pipe(
-      map((responseData: any) => {
-      const tokenArr: Tokens[] = [];
-      for (const key in Minima.balance) {
-        if (Minima.balance.hasOwnProperty(key)) {
-          let element = Minima.balance[key];
-          // round up confirmed && unconfirmed
-          let tempConfirmed = (Math.round(element.confirmed * 100) / 100);
-          let tempUnconfirmed = (Math.round(element.unconfirmed * 100) / 100);
 
-          if(this.MINIMA_TOKEN_ID === element.tokenid){
-            this.minimaToken = element.tokenid;
-          }
-          tokenArr.push({
-            tokenid: element.tokenid,
-            token: element.token,
-            description: element.description,
-            icon: element.icon,
-            proof: element.proof,
-            total: element.total,
-            script: element.script,
-            coinid: element.coinid,
-            totalamount: element.totalamount,
-            scale: element.scale,
-            confirmed: tempConfirmed,
-            unconfirmed: tempUnconfirmed,
-            mempool: element.mempool,
-            sendable: element.sendable
-          });
+    this.balanceSubscription = this.service.updatedBalance
+      .pipe(
+        map((balance: Token[] | Mini[]) => {
+          
+      const tokenArr: Token[] | Mini[] = [];
+      
+      for (const key in balance) {
 
-          // add Minima always to the top
-          if (element.tokenid === this.MINIMA_TOKEN_ID){
-            tokenArr.pop(); // pop it
-            this.balanceService.update(
-            tokenArr,
-            {
-              tokenid: element.tokenid,
-              token: element.token,
-              total: element.total,
-              confirmed: tempConfirmed,
-              unconfirmed: tempUnconfirmed,
-              mempool: element.mempool,
-              sendable: element.sendable
+        if (balance.hasOwnProperty(key)) {
+
+          if (this.instanceOfToken(balance[key])) {
+
+              const element = balance[key];
+              tokenArr.push({
+                tokenid: element.tokenid,
+                token: element.token,
+                description: element.description,
+                icon: element.icon,
+                proof: element.proof,
+                total: element.total,
+                script: element.script,
+                coinid: element.coinid,
+                totalamount: element.totalamount,
+                scale: element.scale,
+                confirmed: element.confirmed,
+                unconfirmed: element.unconfirmed,
+                mempool: element.mempool,
+                sendable: element.sendable
             });
-          }
 
-          }
+            } else {
+
+              const element = balance[key];
+              // add Minima always to the top
+              tokenArr.pop(); // pop it
+              this.service.update(
+              tokenArr,
+              {
+                tokenid: element.tokenid,
+                token: element.token,
+                total: element.total,
+                confirmed: element.confirmed,
+                unconfirmed: element.unconfirmed,
+                mempool: element.mempool,
+                sendable: element.sendable
+              });
+              
+
+            }
+
+            }
+            
         }
+
       return tokenArr;
-      })).subscribe(responseData => {
+
+      })
+    )
+    .subscribe(responseData => {
+
       // check if changed
-      if (this.lastJSON !== JSON.stringify(responseData)){
+      if(this.lastJSON !== JSON.stringify(responseData)) {
         this.tokenArr = [...responseData];
         this.lastJSON = JSON.stringify(responseData);
 
         // add tokens
         this.getTokenSelected();
       }
+
     });
   }
 

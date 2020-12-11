@@ -1,62 +1,34 @@
-.large-text {
-  font-size: 13px;
-  font-weight: 400 !important;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-}
-.footer-content {
-  top: 10%;
-}
-ion-menu {
-  --background: var(--ion-background-color, #f2f2f2);
-}
-ion-menu ion-header {
-  --background: var(--ion-background-color, #f2f2f2);
-}
-ion-menu ion-header ion-toolbar {
-  --background: var(--ion-background-color, #f2f2f2);
-}
-ion-menu ion-content {
-    --padding-top: 12px;
-    --padding-bottom: 20px;
-    --background: var(--ion-item-background, var(--ion-background-color, #fff));
+  ion-menu {
+    --background: var(--ion-m-background);
   }
-
-ion-icon {
-    color: #FF671D;
-}
-ion-menu ion-item.selected{
-  --background: var(--ion-background-color, #f2f2f2);
-  --background: linear-gradient(to right,  var(--ion-background-color, #fff) 0%, var(--ion-background-color, #f2f2f2) 100%) !important;
-}
-
-ion-menu ion-item {
-    --transition: none;
+  ion-menu ion-header {
+    --background: var(--ion-m-background);
   }
-.social-web {
-    margin: auto;
-}
-.social-lbl {
-    color:white;
-}
-.menu-logo {
-  height: auto;
-  width: auto;
-}
+  ion-menu ion-header ion-toolbar {
+    --background: var(--ion-m-background);
+  }
+  ion-menu ion-content {
+      --background: var(--ion-m-background);
+  }
+  ion-item {
+    font-family: manrope-bold;
+    padding-left: 1%;
+    color: var(--minima-text);
+  }
+  ion-icon {
+      color: var(--ion-color-tertiary);
+  }
 /** Desktop Version */
 @media only screen and (min-width: 992px) {
-
   .splitpane {
-    left: 3%;
-    right: 3%;
+    border: 1px solid #FAFAFF;
+    left: 12%;
+    right: 12%;
     top: 6%;
     bottom: 6%;
   }
   ion-app {
-      background-image: url('../assets/miniTiles.png');
-  }
-  ion-menu-toggle {
-    height: 72px;
+    background-color: #031D32;
   }
 }
 /*
@@ -64,65 +36,49 @@ ion-menu ion-item {
 */
 ion-menu.md ion-list {
     padding: 0px 0;
-  }
-  
-  ion-menu.md ion-item {
-    --padding-start: 18px;
-  
-    margin-right: 10px;
-  
-    border-radius: 0 50px 50px 0;
-  
-    font-weight: 500;
-  }
-  ion-menu.md ion-item.selected {
-    --background: var(--ion-background-color, #f2f2f2);
-    background: linear-gradient(to left,  var(--ion-background-color, #fff) 0%, var(--ion-background-color, #f2f2f2) 100%) !important;
-  }
-ion-menu.md ion-list {
-  padding-bottom: 0px !important;
 }
+  
+ion-menu.md ion-item {
+  --padding-start: 18px;
+  margin-right: 10px;
+  border-radius: 0 50px 50px 0;
+}
+ion-menu.md ion-item.selected {
+  color: var(--ion-color-primary);
+  ion-icon {
+    color: var(--ion-color-primary);
+  }
+}
+
 
 /*
- * iOS Design Menu
+  * iOS Design Menu
 */
-  ion-menu.ios ion-list {
-    padding: 0px 0 0;
-    margin-bottom: 10px;
-  }
-  ion-menu.ios ion-item {
-    --padding-start: 16px;
-    --min-height: 50px;
-  }
-  
-  .ios .footer-content {
-    padding: 18px;
-  }
-    
-  ion-menu.ios ion-item.selected {
-    --background: linear-gradient(to left,  var(--ion-background-color, #fff) 0%, var(--ion-background-color, #f2f2f2) 100%) !important;
-  }
-  
-  ion-menu.ios ion-list {
-    padding-bottom: 0px !important;
-  }
-
-#footer-item {
-  --padding-bottom: 0px;
-  --padding-start: 15px;
+ion-menu.ios ion-list {
+  padding: 0px 0 0;
+  margin-bottom: 10px;
 }
-
+ion-menu.ios ion-item {
+  --padding-start: 16px;
+  --min-height: 50px;
+}
+ 
 ion-toolbar {
-  --background: var(--card-header-color) !important;
+  --background: var(--ion-m-background);
 }
-ion-menu-toggle ion-footer  {
-  background: var(--card-header-color) !important;
+ion-footer ion-item, ion-footer ion-col, ion-footer {
+  --background: #91919D !important;
+  background: #91919D;
 }
-
-
+ion-footer ion-item span {
+  color: #FAFAFF;
+}
+ion-toggle {
+  --handle-background-checked: var(--ion-m-background);
+  --background-checked: #F0F0F9;
+}
 
 /** Minima Icon */
-
 #icon .st0 {
   fill: var(--st0);
 }
@@ -159,7 +115,4 @@ ion-menu-toggle ion-footer  {
   }
 }
 
-ion-toggle {
-  --handle-background-checked: rgb(132, 0, 255);
-  --background-checked: rgba(132, 0, 255, 0.5);
-}
+
