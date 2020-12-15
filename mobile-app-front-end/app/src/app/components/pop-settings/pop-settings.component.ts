@@ -1,7 +1,7 @@
 import { UserconfigService } from './../../service/userconfig.service';
 import { UserConfig } from './../../models/userConfig.model';
 import { Minima } from 'minima';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone, ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-pop-settings',
@@ -24,7 +24,9 @@ export class PopSettingsComponent implements OnInit {
   };
 
   change(ev: any) {
-    this.userConfigService.userConfig.value.tokenDisplayMode = ev.detail.value;
+    let temp = this.userConfigService.userConfig.value;
+    temp.tokenDisplayMode = ev.detail.value;
+    this.userConfigService.userConfig.next(temp);
     this.userConfigService.saveUserConfig(this.userConfigService.userConfig.value);
   }
 }

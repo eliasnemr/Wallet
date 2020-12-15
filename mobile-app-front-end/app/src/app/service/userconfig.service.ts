@@ -24,7 +24,7 @@ export class UserconfigService {
           if (res.success) { }
         });
       } else {
-        console.log(JSON.parse(res.data))
+        //console.log(JSON.parse(res.data))
         this.userConfig.next(JSON.parse(res.data));
       }
     });
@@ -35,7 +35,7 @@ export class UserconfigService {
       if (res.success) {
         let data = res.data;
         if(data !== JSON.stringify(currentValue)) { 
-          console.log(JSON.stringify(currentValue));
+          //console.log(JSON.stringify(currentValue));
           Minima.file.save(JSON.stringify(currentValue), 'UserConfig.txt', (res: any) => {
             if (res.success) {
               //console.log('Updated UserConfig!');

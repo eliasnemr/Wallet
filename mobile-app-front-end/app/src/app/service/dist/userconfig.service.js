@@ -27,7 +27,7 @@ var UserconfigService = /** @class */ (function () {
                 });
             }
             else {
-                console.log(JSON.parse(res.data));
+                //console.log(JSON.parse(res.data))
                 _this.userConfig.next(JSON.parse(res.data));
             }
         });
@@ -37,7 +37,7 @@ var UserconfigService = /** @class */ (function () {
             if (res.success) {
                 var data = res.data;
                 if (data !== JSON.stringify(currentValue)) {
-                    console.log(JSON.stringify(currentValue));
+                    //console.log(JSON.stringify(currentValue));
                     minima_1.Minima.file.save(JSON.stringify(currentValue), 'UserConfig.txt', function (res) {
                         if (res.success) {
                             //console.log('Updated UserConfig!');

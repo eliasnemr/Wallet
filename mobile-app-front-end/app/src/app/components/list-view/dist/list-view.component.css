@@ -1,0 +1,22 @@
+.custom-icon {
+  width: 30px;
+  height: 30px;
+}
+
+.item-avatar {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 75px !important;
+  max-height: 75px !important;
+}
+
+#token-name {
+  margin: 0;
+  display: inline-block;
+  white-space: nowrap;
+  font-size: 1rem !important;
+  max-width: inherit;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-family: manrope-bold;
+}

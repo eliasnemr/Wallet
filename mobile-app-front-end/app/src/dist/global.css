@@ -8,16 +8,13 @@
  * For more information on global stylesheets, visit the documentation:
  * https://ionicframework.com/docs/layout/global-stylesheets
  */
-
 /* Core CSS required for Ionic components to work properly */
 @import "~@ionic/angular/css/core.css";
-
 /* Basic CSS for apps built with Ionic */
 @import "~@ionic/angular/css/normalize.css";
 @import "~@ionic/angular/css/structure.css";
 @import "~@ionic/angular/css/typography.css";
 @import '~@ionic/angular/css/display.css';
-
 /* Optional CSS utils that can be commented out */
 @import "~@ionic/angular/css/padding.css";
 @import "~@ionic/angular/css/float-elements.css";
@@ -25,91 +22,7 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 @import '../node_modules/@syncfusion/ej2-layouts/styles/material.css';
-
-
-//CSS Fallback 
 body.dark {
-
-  /** Minima Icon */
-  --st0: #FAFAFF;
-  --st1: #FAFAFF;
-  --st2: #FAFAFF;
-  --st3: #FAFAFF;
-  --st4: #FAFAFF;
-  --st5: #FAFAFF;
-  --st6: #FAFAFF;
-  --minima-icon-word: #FAFAFF; // M I N I M A Dark Mode
-
-
-  --ion-m-background: #031B32;
-  --card-header-color: #111417;
-  --ion-card-color: #031B32;
-  --ion-card-header: linear-gradient(121deg, rgba(17,20,23,1) 17%, rgba(18,18,18,0.865983893557423) 89%);
-
-
-  --ion-color-success: #004a45;
-  --ion-color-danger: #b86e00;
-
-  --minima-text: #FAFAFF;
-  --minima-icons: #FAFAFF;
-
-  /** primary **/
-  --ion-color-primary: #317aff;
-  --ion-color-primary-rgb: 49, 122, 255;
-
-  /** secondary **/
-  --ion-color-secondary: #FF512F;
-  --ion-color-secondary-rgb: 255, 81, 47;
-  /** tertiary **/
-  --ion-color-tertiary: #FAFAFF;
-  --ion-color-tertiary-rgb: 250,250,255;
-
-  --ion-color-success: #004a45;
-  --ion-color-success-rgb: 47,223,117;
-
-  --ion-color-warning: #ffd534;
-  --ion-color-warning-rgb: 255,213,52;
-
-  --ion-color-danger: #b86e00;
-  --ion-color-danger-rgb: 255,73,97;
-
-  --ion-color-dark: #000000;
-  --ion-color-dark-rgb: 244,245,248;
-
-  --ion-color-medium: #989aa2;
-  --ion-color-medium-rgb: 152,154,162;
-
-  --ion-color-light: #222428;
-  --ion-color-light-rgb: 34,36,40;
-  
-  .borders {
-    border: 1px solid #FAFAFF;
-  }
-  .border-b {
-    border-bottom: 1px solid #FAFAFF;
-  }
-  .border-t {
-    border-top: 1px solid #FAFAFF;
-  }
-  .split-pane-md {
-    --border: 1px solid #FAFAFF;
-  }
-  .socials {
-    filter: invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%);
-  }
-
-  #history-icon {
-    filter: invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%);
-  }
-}
-
-/*
- * iOS Dark Theme
- * -------------------------------------------
- */
-
-.ios body.dark {
-
   /** Minima Icon */
   --st0: #FAFAFF;
   --st1: #FAFAFF;
@@ -119,22 +32,78 @@ body.dark {
   --st5: #FAFAFF;
   --st6: #FAFAFF;
   --minima-icon-word: #FAFAFF;
-
-
   --ion-m-background: #031B32;
   --card-header-color: #111417;
   --ion-card-color: #031B32;
   --ion-card-header: linear-gradient(121deg, rgba(17,20,23,1) 17%, rgba(18,18,18,0.865983893557423) 89%);
-
-  --ion-background-color: #031B32;
-
-
   --ion-color-success: #004a45;
   --ion-color-danger: #b86e00;
+  --minima-text: #FAFAFF;
+  --minima-icons: #FAFAFF;
+  /** primary **/
+  --ion-color-primary: #317aff;
+  --ion-color-primary-rgb: 49, 122, 255;
+  /** secondary **/
+  --ion-color-secondary: #FF512F;
+  --ion-color-secondary-rgb: 255, 81, 47;
+  /** tertiary **/
+  --ion-color-tertiary: #FAFAFF;
+  --ion-color-tertiary-rgb: 250,250,255;
+  --ion-color-success: #004a45;
+  --ion-color-success-rgb: 47,223,117;
+  --ion-color-warning: #ffd534;
+  --ion-color-warning-rgb: 255,213,52;
+  --ion-color-danger: #b86e00;
+  --ion-color-danger-rgb: 255,73,97;
+  --ion-color-dark: #000000;
+  --ion-color-dark-rgb: 244,245,248;
+  --ion-color-medium: #989aa2;
+  --ion-color-medium-rgb: 152,154,162;
+  --ion-color-light: #222428;
+  --ion-color-light-rgb: 34,36,40;
+}
+body.dark .borders {
+  border: 1px solid #FAFAFF;
+}
+body.dark .border-b {
+  border-bottom: 1px solid #FAFAFF;
+}
+body.dark .border-t {
+  border-top: 1px solid #FAFAFF;
+}
+body.dark .split-pane-md {
+  --border: 1px solid #FAFAFF;
+}
+body.dark .socials {
+  filter: invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%);
+}
+body.dark #history-icon {
+  filter: invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%);
+}
 
+/*
+ * iOS Dark Theme
+ * -------------------------------------------
+ */
+.ios body.dark {
+  /** Minima Icon */
+  --st0: #FAFAFF;
+  --st1: #FAFAFF;
+  --st2: #FAFAFF;
+  --st3: #FAFAFF;
+  --st4: #FAFAFF;
+  --st5: #FAFAFF;
+  --st6: #FAFAFF;
+  --minima-icon-word: #FAFAFF;
+  --ion-m-background: #031B32;
+  --card-header-color: #111417;
+  --ion-card-color: #031B32;
+  --ion-card-header: linear-gradient(121deg, rgba(17,20,23,1) 17%, rgba(18,18,18,0.865983893557423) 89%);
+  --ion-background-color: #031B32;
+  --ion-color-success: #004a45;
+  --ion-color-danger: #b86e00;
   --ion-text-color: #ffffff;
   --ion-text-color-rgb: 255,255,255;
-
   --ion-color-step-50: #0d0d0d;
   --ion-color-step-100: #1a1a1a;
   --ion-color-step-150: #262626;
@@ -154,22 +123,12 @@ body.dark {
   --ion-color-step-850: #d9d9d9;
   --ion-color-step-900: #e6e6e6;
   --ion-color-step-950: #f2f2f2;
-
   --ion-toolbar-background: #031B32;
-
   --ion-item-background: #031B32;
   --ion-item-background-activated: #031B32;
-  
 }
 
-
-// /*
-//  * Material Design Dark Theme
-//  * -------------------------------------------
-//  */
-
 .md body.dark {
-
   /** Minima Icon */
   --st0: #FAFAFF;
   --st1: #FAFAFF;
@@ -179,25 +138,17 @@ body.dark {
   --st5: #FAFAFF;
   --st6: #FAFAFF;
   --minima-icon-word: #FAFAFF;
-
-
   /** Dark Mode text */
   --card-header-color: #031B32;
   --ion-card-color: #031B32;
-
   --minima-text: #FAFAFF;
   --ion-background-color: #031B32;
   --ion-background-color-rgb: 18,18,18;
-
   --ion-color-success: #004a45;
   --ion-color-danger: #b86e00;
-
   --ion-text-color: #ffffff;
   --ion-text-color-rgb: 255,255,255;
-
   --ion-border-color: #222222;
-  
-
   --ion-color-step-50: #1e1e1e;
   --ion-color-step-100: #2a2a2a;
   --ion-color-step-150: #363636;
@@ -217,118 +168,79 @@ body.dark {
   --ion-color-step-850: #dbdbdb;
   --ion-color-step-900: #e7e7e7;
   --ion-color-step-950: #f3f3f3;
-
   --ion-item-background: #031B32;
-
-  
 }
 
 /* History.page.ts - modal */
-@media only screen and (min-width: 900px){
-  
-  .history-pop {
-      
-    .modal-wrapper {
-      min-width: 300px;
-      min-height: 500px;
-      height: auto !important;
-      display: block;
-      background: transparent !important;  
-    }
-
-    .modal-wrapper .ion-page {
-      background: transparent;
-    }
-
-    ion-backdrop {
-      opacity: 0.4 !important;
-    }
-    
+@media only screen and (min-width: 900px) {
+  .history-pop .modal-wrapper {
+    min-width: 300px;
+    min-height: 500px;
+    height: auto !important;
+    display: block;
+    background: transparent !important;
   }
-
-  .token-pop {
-    
-    .modal-wrapper {
-      min-height: 475px;
-      height: auto;
-      height: auto !important;
-      display: block;
-      background: transparent !important;  
-    }
-
-    .modal-wrapper .ion-page {
-      background: transparent;
-    }
-
-    ion-backdrop {
-      opacity: 0.4 !important;
-    }
-    
+  .history-pop .modal-wrapper .ion-page {
+    background: transparent;
   }
-}
-
-
-/* Balance.page.ts - popover Component */
-
-  ion-popover{
-    ion-backdrop{
-      opacity: 0.5 !important
-    }
-    .popover-wrapper{
-      .popover-content{
-        width: 50vw;
-        height: 55vw;
-        max-height: 150px;
-        max-width: 350px;
-      }
-    }
-  }
-
-  @media only screen and (min-width: 601px) {
-    
-    ion-popover{
-      ion-backdrop{
-        opacity: 0.5 !important
-      }
-      .popover-wrapper{
-        .popover-content{
-          width: 50vw;
-          height: 55vw;
-          max-height: 135px;
-          max-width: 240px;
-        }
-      }
-    }
-
-
-  }
-
-
-  @media only screen and (max-width: 600px) {
-
-    ion-popover {
-      ion-backdrop  {
-        opacity: 0.20 !important
-      }
-      .popover-wrapper{
-        .popover-content{
-          width: 50vw;
-          height: 55vw;
-          max-height: 100px;
-          max-width: 250px;
-        }
-      }
-    }
-
-  }
-
-
-/* mini-term.page.ts popover */
-  .terminal-pop ion-backdrop {
+  .history-pop ion-backdrop {
     opacity: 0.4 !important;
   }
-  .terminal-pop .popover-content  {
-      overflow-y: hidden;
-      max-height: 65px !important;
-      max-width: 148px !important;
+
+  .token-pop .modal-wrapper {
+    min-height: 475px;
+    height: auto;
+    height: auto !important;
+    display: block;
+    background: transparent !important;
   }
+  .token-pop .modal-wrapper .ion-page {
+    background: transparent;
+  }
+  .token-pop ion-backdrop {
+    opacity: 0.4 !important;
+  }
+}
+/* Balance.page.ts - popover Component */
+ion-popover ion-backdrop {
+  opacity: 0.5 !important;
+}
+ion-popover .popover-wrapper .popover-content {
+  width: 50vw;
+  height: 55vw;
+  max-height: 150px;
+  max-width: 350px;
+}
+
+@media only screen and (min-width: 601px) {
+  ion-popover ion-backdrop {
+    opacity: 0.5 !important;
+  }
+  ion-popover .popover-wrapper .popover-content {
+    width: 50vw;
+    height: 55vw;
+    max-height: 135px;
+    max-width: 240px;
+  }
+}
+@media only screen and (max-width: 600px) {
+  ion-popover ion-backdrop {
+    opacity: 0.2 !important;
+  }
+  ion-popover .popover-wrapper .popover-content {
+    width: 50vw;
+    height: 55vw;
+    max-height: 100px;
+    max-width: 250px;
+  }
+}
+/* mini-term.page.ts popover */
+.terminal-pop ion-backdrop {
+  opacity: 0.4 !important;
+}
+
+.terminal-pop .popover-content {
+  overflow-y: hidden;
+  max-height: 65px !important;
+  max-width: 148px !important;
+}

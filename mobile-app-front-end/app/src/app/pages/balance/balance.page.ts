@@ -1,8 +1,9 @@
+import { UserconfigService } from './../../service/userconfig.service';
 import { PopSettingsComponent } from './../../components/pop-settings/pop-settings.component';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { MinimaApiService } from '../../service/minima-api.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, NgZone, ChangeDetectorRef } from '@angular/core';
 import { AlertController, IonInfiniteScroll, ToastController, PopoverController } from '@ionic/angular';
 import { Mini } from '../../models/mini.model';
 import { BalanceService } from '../../service/balance.service';
@@ -22,7 +23,7 @@ export class BalancePage implements OnInit {
 
   @ViewChild(IonInfiniteScroll, {static: false}) infiniteScroll: IonInfiniteScroll;
 
-  displayMode: number = 1;
+  displayMode: string = '1';
   avatar: any;
   hideMe: boolean = false;
   tokenArr: Token[] = [];
@@ -40,12 +41,22 @@ export class BalancePage implements OnInit {
     public alertController: AlertController,
     private route: Router,
     public toastController: ToastController,
-    public popoverController: PopoverController) { }
+    public popoverController: PopoverController,
+    public userConfigService: UserconfigService,
+    private ngZone: NgZone) { }
 
   ionViewWillEnter() {
     setTimeout(() => {
       this.pullInTokens();
     }, 1000);
+    
+    this.userConfigService.userConfig.subscribe((res: any) => {
+      // ngZone re-renders onChange
+      this.ngZone.run(() => {
+        this.displayMode = res.tokenDisplayMode;
+      });
+    });
+
   }
 
   async presentSettings(ev: any) {
@@ -67,8 +78,6 @@ export class BalancePage implements OnInit {
       }
     });
   }
-
-  ngOnInit() { }
 
   ionViewWillLeave() {
     this.balanceSubscription.unsubscribe(); // unsubs

@@ -49,7 +49,6 @@ var GridViewComponent = /** @class */ (function () {
     function GridViewComponent(toastController) {
         this.toastController = toastController;
         this.tokenArr = [];
-        console.log("Grid view component!");
     }
     GridViewComponent.prototype.ngOnInit = function () { };
     GridViewComponent.prototype.createIcon = function (tokenid) {

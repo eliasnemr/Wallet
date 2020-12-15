@@ -1,5 +1,6 @@
 import { Token } from './../../models/token.model';
 import { Mini } from './../../models/mini.model';
+import * as SparkMD5 from 'spark-md5';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
@@ -15,6 +16,12 @@ export class ListViewComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {}
+
+  createIcon(tokenid: string) {
+    
+    return this.avatar = 'https://www.gravatar.com/avatar/' + SparkMD5.hash(tokenid) + '?d=identicon';
+  
+  }
 
   
 }

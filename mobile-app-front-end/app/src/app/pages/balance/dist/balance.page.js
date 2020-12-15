@@ -57,14 +57,16 @@ var angular_1 = require("@ionic/angular");
 var SparkMD5 = require("spark-md5");
 // declare var Minima: any;
 var BalancePage = /** @class */ (function () {
-    function BalancePage(service, api, alertController, route, toastController, popoverController) {
+    function BalancePage(service, api, alertController, route, toastController, popoverController, userConfigService, ngZone) {
         this.service = service;
         this.api = api;
         this.alertController = alertController;
         this.route = route;
         this.toastController = toastController;
         this.popoverController = popoverController;
-        this.displayMode = 1;
+        this.userConfigService = userConfigService;
+        this.ngZone = ngZone;
+        this.displayMode = '1';
         this.hideMe = false;
         this.tokenArr = [];
         this.tokenSpoof = [];
@@ -77,6 +79,12 @@ var BalancePage = /** @class */ (function () {
         setTimeout(function () {
             _this.pullInTokens();
         }, 1000);
+        this.userConfigService.userConfig.subscribe(function (res) {
+            // ngZone re-renders onChange
+            _this.ngZone.run(function () {
+                _this.displayMode = res.tokenDisplayMode;
+            });
+        });
     };
     BalancePage.prototype.presentSettings = function (ev) {
         return __awaiter(this, void 0, void 0, function () {
@@ -108,7 +116,6 @@ var BalancePage = /** @class */ (function () {
             }
         });
     };
-    BalancePage.prototype.ngOnInit = function () { };
     BalancePage.prototype.ionViewWillLeave = function () {
         this.balanceSubscription.unsubscribe(); // unsubs
     };

@@ -21,7 +21,9 @@ var PopSettingsComponent = /** @class */ (function () {
     };
     ;
     PopSettingsComponent.prototype.change = function (ev) {
-        this.userConfigService.userConfig.value.tokenDisplayMode = ev.detail.value;
+        var temp = this.userConfigService.userConfig.value;
+        temp.tokenDisplayMode = ev.detail.value;
+        this.userConfigService.userConfig.next(temp);
         this.userConfigService.saveUserConfig(this.userConfigService.userConfig.value);
     };
     PopSettingsComponent = __decorate([

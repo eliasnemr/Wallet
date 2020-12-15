@@ -14,9 +14,7 @@ export class GridViewComponent implements OnInit {
   @Input() tokenArr: Mini[] | Token[] = [];
   public avatar: string;
 
-  constructor(private toastController: ToastController) {
-    console.log("Grid view component!");
-  }
+  constructor(private toastController: ToastController) { }
 
   ngOnInit() {}
 

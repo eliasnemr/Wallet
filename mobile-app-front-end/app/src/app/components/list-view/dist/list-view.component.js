@@ -7,12 +7,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 exports.__esModule = true;
 exports.ListViewComponent = void 0;
+var SparkMD5 = require("spark-md5");
 var core_1 = require("@angular/core");
 var ListViewComponent = /** @class */ (function () {
     function ListViewComponent() {
         this.tokenArr = [];
     }
     ListViewComponent.prototype.ngOnInit = function () { };
+    ListViewComponent.prototype.createIcon = function (tokenid) {
+        return this.avatar = 'https://www.gravatar.com/avatar/' + SparkMD5.hash(tokenid) + '?d=identicon';
+    };
     __decorate([
         core_1.Input()
     ], ListViewComponent.prototype, "tokenArr");
