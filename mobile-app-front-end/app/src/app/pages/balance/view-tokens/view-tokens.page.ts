@@ -1,6 +1,6 @@
 import { ToastController } from '@ionic/angular';
 import { MinimaApiService } from './../../../service/minima-api.service';
-import { Tokens } from './../../../models/tokens.model';
+import { Token } from '../../../models/token.model';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 

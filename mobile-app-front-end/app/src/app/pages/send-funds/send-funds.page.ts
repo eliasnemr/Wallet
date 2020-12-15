@@ -1,5 +1,5 @@
-import { Mini } from './../../models/minima.model';
-import { Token } from '../../models/tokens.model';
+import { Mini } from '../../models/mini.model';
+import { Token } from '../../models/token.model';
 import { BalanceService } from '../../service/balance.service';
 import { Component, OnInit, NgZone, ViewChild, ElementRef } from '@angular/core';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
@@ -198,7 +198,7 @@ export class SendFundsPage implements OnInit {
 
     this.balanceSubscription = this.service.updatedBalance
       .pipe(
-        map((balance: Token[] | Mini[]) => {
+        map((balance: any) => {
           
       const tokenArr: Token[] | Mini[] = [];
       

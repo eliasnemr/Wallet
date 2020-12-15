@@ -1,5 +1,3 @@
-import { PopTermComponent } from './components/pop-term/pop-term.component';
-
 /* 
   Created by Elias Nemr
   
@@ -23,9 +21,10 @@ import { Clipboard } from '@ionic-native/clipboard/ngx';
 import { QRScanner } from '@ionic-native/qr-scanner/ngx';
 import { LocationStrategy, HashLocationStrategy} from '@angular/common';
 import { IonicStorageModule } from '@ionic/storage';
-import * as MiniDAPP from 'src/assets/JS/minima.js';
 import { TokenDescrComponent } from './components/token-descr/token-descr.component'; 
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+import { PopTermComponent } from './components/pop-term/pop-term.component';
+import { PopSettingsComponent } from './components/pop-settings/pop-settings.component';
 
 /*
   NgModules configure the injector and the compiler and help organize related things together.
@@ -38,8 +37,8 @@ import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 */
 
 @NgModule({
-  declarations: [AppComponent, TokenDescrComponent, PopTermComponent],
-  entryComponents: [AppComponent, TokenDescrComponent, PopTermComponent], // entryComponents declare components that are not previously defined in the template, so it'll create offline factories for them to be created runtime.
+  declarations: [AppComponent, TokenDescrComponent, PopTermComponent, PopSettingsComponent],
+  entryComponents: [AppComponent, TokenDescrComponent, PopTermComponent, PopSettingsComponent], // entryComponents declare components that are not previously defined in the template, so it'll create offline factories for them to be created runtime.
   imports: [FormsModule, HttpClientModule, BrowserModule, IonicModule.forRoot(), AppRoutingModule, IonicStorageModule.forRoot()],
   providers: [
     SocialSharing,

@@ -1,0 +1,12 @@
+
+  <ion-list>
+    <ion-list-header>Balance Settings</ion-list-header>
+
+    <ion-item>
+      <ion-label>Display Mode</ion-label>
+      <ion-select (ionChange)="change($event)" [compareWith]="compareWithFn" value="{{userConfig.tokenDisplayMode}}">
+      <ion-select-option value="1">Grid View</ion-select-option>
+      <ion-select-option value="2">List View</ion-select-option>
+      </ion-select>
+    </ion-item>      
+  </ion-list>

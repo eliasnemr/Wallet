@@ -7,6 +7,9 @@ import { IonicModule } from '@ionic/angular';
 
 import { BalancePage } from './balance.page';
 
+import { GridViewComponent } from '../../components/grid-view/grid-view.component';
+import { ListViewComponent } from './../../components/list-view/list-view.component';
+
 const routes: Routes = [
   {
     path: '',
@@ -27,6 +30,6 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [BalancePage]
+  declarations: [BalancePage, ListViewComponent, GridViewComponent]
 })
 export class BalancePageModule {}

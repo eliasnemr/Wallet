@@ -1,0 +1,44 @@
+<ion-grid>
+  <ion-row>
+    <ion-col *ngFor="let token of tokenArr; let i = index;" size="12" size-md="6">
+      <ion-card class="borders" *ngIf="i <= tokenArr.length" id="token-card" [ngStyle] = "{'border-right':  token.script && token.script !== 'RETURN TRUE' ? '3px solid var(--ion-color-primary)' : '1px solid #FAFAFF'}">
+        <ion-card-header>
+          <ion-row>
+            <ion-col id="img-wrapper" size-lg="2" size-md="1" size-sm="1" size-xs="2">
+              <span *ngIf="token.tokenid !== '0x00' && token.icon.length == 0" style="margin-right: 1%" class="e-avatar e-avatar-xsmall"><img [src]="createIcon( token.tokenid )" /></span>
+              <span *ngIf="token.tokenid !== '0x00' && token.icon.length > 0" style="margin-right: 1%"><img class="custom-icon" [src]="token.icon" /></span>
+              <img *ngIf="token.tokenid == '0x00'" class="custom-icon" alt="minima" src="assets/icon/logoreg-s.svg">
+            </ion-col>
+            <ion-col id="token-wrapper" size-lg="4"  size-md="5" size-sm="5" size-xs="4">
+              
+                <h6 class="medium-text">
+                  {{ token.token }}
+                </h6>
+              
+            </ion-col>
+            <ion-col id="balance" size="6">
+              <span *ngIf="token.unconfirmed != 0;" class="confirmed-amount medium-text minima-numeric">{{ token.sendable + "/" + token.unconfirmed  }}</span>
+              <span *ngIf="token.unconfirmed == 0;" class="confirmed-amount medium-text minima-numeric">{{ token.sendable }} </span>
+            </ion-col>
+          </ion-row>
+          <ion-badge *ngIf="token.script && token.script !=='RETURN TRUE'" class="nft" color="primary"><img alt="nft" src="assets/n.svg"></ion-badge>             
+        </ion-card-header>
+        <ion-card-content>
+          <ion-row>
+            <ion-col size="9">
+              <div class="description" *ngIf="token.tokenid == '0x00'">
+                <p>Minima's official token</p>
+              </div>
+              <div class="description" *ngIf="token.tokenid !== '0x00'">
+                <p>{{ token.description }}</p>
+              </div>
+            </ion-col>
+            <ion-col size="3">
+              <span id="details"> <a routerLink="/view-tokens/{{ token.tokenid }}"><img style="width: 22px;" alt="more" src="assets/add.svg"> </a></span>
+            </ion-col>
+          </ion-row>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-grid>

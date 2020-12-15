@@ -1,5 +1,4 @@
 import { UserTerminal } from '../../service/userterminal.service';
-import { Observable } from 'rxjs';
 import { Component, OnInit  } from '@angular/core';
 
 

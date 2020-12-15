@@ -1,14 +1,14 @@
-import { Mini } from './../models/minima.model';
-import { Token } from '../models/tokens.model';
+import { Mini } from '../models/mini.model';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-
+import { Token } from 'minima';
 @Injectable({
   providedIn: 'root'
 })
+
 export class BalanceService {
   
-  updatedBalance: BehaviorSubject<Token[] | Mini[]> = new BehaviorSubject<Mini[] | Token[]>([]);
+  updatedBalance: BehaviorSubject<Token[]> = new BehaviorSubject<Token[]>([]);
 
   constructor() { }
 

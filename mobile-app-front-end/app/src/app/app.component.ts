@@ -1,11 +1,13 @@
+import { Token } from './models/token.model';
+import { Mini } from './models/mini.model';
 import { BalanceService } from './service/balance.service';
 import { StatusService } from './service/status.service';
+import { UserconfigService } from './service/userconfig.service';
 import { Component } from '@angular/core';
 import { Platform, ToastController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { Minima } from 'minima';
 
-//declare var Minima: any; // Front-end RPC 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -26,6 +28,7 @@ export class AppComponent {
     private api: BalanceService,
     private platform: Platform,
     private storage: Storage,
+    private UserconfigService: UserconfigService,
     public toastCtrl: ToastController
   ) {
   
@@ -46,7 +49,9 @@ export class AppComponent {
 
       Minima.init((msg: any) => {
         if (msg.event === 'connected') {
+          
           this.api.updatedBalance.next(Minima.balance);
+
         } else if (msg.event === 'newbalance') {
           
           this.api.updatedBalance.next(msg.info.balance);
@@ -178,8 +183,6 @@ export class AppComponent {
   // At last, if the user has denied notifications, and you 
   // want to be respectful there is no need to bother them any more.
   }
-  
-
   async presentToast(txt: string, color: string) {
     // Create a Toast
     const toast = await this.toastCtrl.create({

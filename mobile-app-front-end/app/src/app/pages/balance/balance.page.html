@@ -6,6 +6,7 @@
     <ion-title>
       Balance
     </ion-title>
+    <ion-icon (click)="presentSettings($event)" id="settings" slot="end" name="options"></ion-icon>
   </ion-toolbar>
 </ion-header>
 
@@ -14,7 +15,7 @@
       <ion-row>
         <ion-col size="12">
           <ion-card class="borders" id="tutorial-card">
-            <ion-card-header class="text-center"> Welcome to Minima's first official wallet! <img style="width:22px; display:inline; margin-left:1%" src="assets/confetti.svg" alt="confetti"> <span (click)="hide()" id="dismiss">&times;</span></ion-card-header>
+            <ion-card-header class="text-center"> <img style="width:35px; display:inline;" src="assets/confetti.svg" alt="confetti"> <span>Welcome to Minima's first official wallet!</span>   <span (click)="hide()" id="dismiss">&times;</span></ion-card-header>
             <ion-card-content>
               <p>Here you will find your <span style="font-family:manrope-bold">Minima</span> token balance and any <span style="font-family: manrope-bold;">custom</span> token's balance you create or receive.</p>
             </ion-card-content>
@@ -23,143 +24,21 @@
       </ion-row>
     </ion-grid>
 
-    <ion-grid *ngIf="tokenArr && tokenArr.length > 0">
+    <ion-grid *ngIf="tokenArr.length == 0">
       <ion-row>
-        <ion-col *ngFor="let token of tokenArr; let i = index;" size="12" size-md="6">
-          <ion-card class="borders" *ngIf="i < 4" id="token-card" [ngStyle] = "{'border-right':  token.script && token.script !== 'RETURN TRUE' ? '3px solid var(--ion-color-primary)' : '1px solid #FAFAFF'}">
-            <ion-card-header>
-              <ion-row>
-                <ion-col id="img-wrapper" size-lg="2" size-md="1" size-sm="1" size-xs="2">
-                  <span *ngIf="token.tokenid !== '0x00' && token.icon.length == 0" style="margin-right: 1%" class="e-avatar e-avatar-xsmall"><img [src]="createIdenticon( token.tokenid )" /></span>
-                  <span *ngIf="token.tokenid !== '0x00' && token.icon.length > 0" style="margin-right: 1%"><img class="custom-icon" [src]="token.icon" /></span>
-                  <img *ngIf="token.tokenid == '0x00'" class="custom-icon" alt="minima" src="assets/icon/logoreg-s.svg">
-                </ion-col>
-                <ion-col id="token-wrapper" size-lg="4"  size-md="5" size-sm="5" size-xs="4">
-                  
-                    <h6 class="medium-text">
-                      {{ token.token }}
-                    </h6>
-                  
-                </ion-col>
-                <ion-col id="balance" size="6">
-                  <span *ngIf="token.unconfirmed != 0;" class="confirmed-amount medium-text minima-numeric">{{ token.sendable + "/" + token.unconfirmed  }}</span>
-                  <span *ngIf="token.unconfirmed == 0;" class="confirmed-amount medium-text minima-numeric">{{ token.sendable }} </span>
-                </ion-col>
-              </ion-row>
-              <ion-badge (click)="presentToast('This token is Non-fungible.  It can only be spent whole and not in fractions.')" *ngIf="token.script && token.script !=='RETURN TRUE'" class="nft" color="primary"><img alt="nft" src="assets/n.svg"></ion-badge>             
-            </ion-card-header>
-            <ion-card-content>
-              <ion-row>
-                <ion-col size="9">
-                  <div class="description" *ngIf="token.tokenid == '0x00'">
-                    <p>Minima's official token</p>
-                  </div>
-                  <div class="description" *ngIf="token.tokenid !== '0x00'">
-                    <p>{{ token.description }}</p>
-                  </div>
-                </ion-col>
-                <ion-col size="3">
-                  <span id="details"> <a routerLink="/view-tokens/{{ token.tokenid }}"><img style="width: 22px;" alt="more" src="assets/add.svg"> </a></span>
-                </ion-col>
-              </ion-row>
-            </ion-card-content>
-          </ion-card>
+        <ion-col style="display: flex; align-items:center; justify-content:center" size="12">
+          <ion-label>Fetching tokens...</ion-label>
         </ion-col>
       </ion-row>
     </ion-grid>
 
+    <div *ngIf="displayMode === 1">
+      <app-grid-view *ngIf="tokenArr && tokenArr.length > 0" [tokenArr] = "tokenArr"></app-grid-view>
+    </div>
 
-
-  <ion-card>
-      <ion-card-header>
-        All tokens
-      </ion-card-header>
-  <ion-card-content>
-  <div *ngIf="tokenArr && tokenArr.length > 0">
-  <ion-grid *ngFor="let token of tokenArr;">
-      <ion-item-sliding #slidingItem>
-        <ion-item-options side="start">
-          <ion-item-option id="send" class="small-text" (click)="sendTokenOver(slidingItem, token.tokenid)">Send</ion-item-option>
-        </ion-item-options>
-  <!-- TOKENS ONLY -->
-  <ion-item lines="full" routerLink="/view-tokens/{{ token.tokenid }}">
-    <ion-row>
-      <ion-col sizeLg="2" sizeMd="2" sizeSm="1" sizeXl="2" sizeXs="12" align-self-center>
-        <div class="circular-portrait">
-          <div class="image-cropper">
-            <img class="rounded" *ngIf="token.icon" alt="logo" src="{{ token.icon }}">
-            <img class="rounded" *ngIf="!token.icon || token.icon.length <= 0" alt="logo" src="assets/icon/icon.png">
-          </div>
-        </div>
-      </ion-col>
-
-      <ion-col sizeLg="7" sizeMd="8" sizeSm="8" sizeXl="8" sizeXs="12" align-self-center> 
-        <span class="medium-text minima-token"> {{ token.token  }} &#8212; </span> 
-        <span class="abbr-name small-text minima-token"> {{ token.token.substring(0,3) }} </span>
-      </ion-col>
-
-      <ion-col id="balance" sizeLg="3" sizeMd="2" sizeSm="3" sizeXl="2" sizeXs="12" align-self-center> 
-
-        <span *ngIf="token.unconfirmed != 0;" class="confirmed-amount medium-text minima-numeric">{{ token.sendable + "/" + token.unconfirmed  }}</span>
-        <span *ngIf="token.unconfirmed == 0;" class="confirmed-amount medium-text minima-numeric">{{ token.sendable }} </span>
-
-      </ion-col> 
-  </ion-row>
-  
-  </ion-item>
-          <ion-item-options side="end">
-            <ion-item-option id="receive" class="small-text" (click)="closeSliding(slidingItem)" routerLink="/my-address">Receive</ion-item-option>
-          </ion-item-options>
-        </ion-item-sliding>
-    </ion-grid>
-    
-    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
-      <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
-      </ion-infinite-scroll-content>
-    </ion-infinite-scroll>
-  </div>
-
-  <!-- Balance Skeleton View -->
-  <div *ngIf="tokenArr.length == 0">
-
-    <ion-grid>
-      <ion-item-sliding #slidingItem>
-        <ion-item-options side="start">
-        <ion-item-option id="receive" class="small-text"><ion-skeleton-text animated style="width: 10%"></ion-skeleton-text></ion-item-option>
-        <ion-item-option id="send" class="small-text"><ion-skeleton-text animated style="width: 10%"></ion-skeleton-text></ion-item-option>
-        </ion-item-options>
-  <!-- TOKENS ONLY -->
-  <ion-item lines="full">
-
-    <ion-row>
-    <ion-col sizeLg="2" sizeMd="2" sizeSm="1" sizeXl="2" sizeXs="12" align-self-center>
-      <div style="background-color: var(--ion-gray-one);" class="image-cropper">
-
-      </div>
-    </ion-col>
-
-    <ion-col sizeLg="6" sizeMd="8" sizeSm="8" sizeXl="7" sizeXs="12" align-self-center> 
-      <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
-    </ion-col> 
-    <ion-col sizeLg="3" sizeMd="2" sizeSm="3" sizeXl="2" sizeXs="12" align-self-center> 
-      <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
-    </ion-col> 
-    
-  </ion-row>
-  
-  </ion-item>
-          <ion-item-options side="end">
-          <ion-item-option class="small-text">Token ID</ion-item-option>
-          </ion-item-options>
-        </ion-item-sliding>
-    </ion-grid> 
-
-  </div>
-
-
-  </ion-card-content>
-  </ion-card>
-
+    <div *ngIf="displayMode === 2">
+      <app-list-view *ngIf="tokenArr && tokenArr.length > 0" [tokenArr] = "tokenArr"></app-list-view>
+    </div>
 
   </ion-content>
 

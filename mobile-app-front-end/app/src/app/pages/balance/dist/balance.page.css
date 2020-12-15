@@ -2,40 +2,47 @@ ion-toolbar {
   --background: var(--ion-m-background);
   font-family: manrope-bold;
   color: var(--ion-color-tertiary);
-  ion-title {
-    font-size: 1.0rem;
-  }
-  ion-buttons ion-menu-button {
-    font-size: 1.0rem;
-    color: var(--ion-color-tertiary);
-  }
 }
+ion-toolbar ion-title {
+  font-size: 1rem;
+}
+ion-toolbar ion-buttons ion-menu-button {
+  font-size: 1rem;
+  color: var(--ion-color-tertiary);
+}
+
 ion-row {
   width: 100%;
 }
+
 #tutorial-card:hover {
   transform: scale(1.01);
 }
+
 ion-card-content {
   background: var(--ion-m-background);
 }
+
 ion-card-header {
   font-family: manrope-bold;
   color: var(--ion-color-tertiary);
   background-color: var(--ion-gray-two);
   background: var(--ion-m-background);
 }
+
 ion-footer ion-toolbar ion-buttons ion-button {
-    width: 100%;
-    height: 58px;
-    text-transform: none;
-    font-family: manrope-bold;
- }
+  width: 100%;
+  height: 58px;
+  text-transform: none;
+  font-family: manrope-bold;
+}
+
 #dismiss {
   cursor: pointer;
   float: right;
-  font-size: 2.0rem;
+  font-size: 2rem;
 }
+
 #settings {
   margin-right: 5%;
   cursor: pointer;

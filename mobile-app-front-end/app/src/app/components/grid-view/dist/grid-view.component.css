@@ -1,0 +1,133 @@
+ion-row {
+  width: 100%;
+}
+
+#token-card:hover {
+  transform: scale(1.01);
+}
+
+ion-card-content {
+  background: var(--ion-m-background);
+}
+
+ion-card-header {
+  font-family: manrope-bold;
+  color: var(--ion-color-tertiary);
+  background-color: var(--ion-gray-two);
+  background: var(--ion-m-background);
+}
+
+img {
+  width: 100px;
+}
+
+#img-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#img-wrapper img {
+  height: 100%;
+  vertical-align: middle;
+  display: inline-block;
+}
+
+#token-wrapper {
+  white-space: pre;
+  max-height: 100px;
+  text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#token-wrapper h6 {
+  margin: 0;
+  display: inline-block;
+  font-size: 1rem !important;
+  max-width: 180px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+#token-wrapper p {
+  margin: 0;
+}
+
+#details {
+  display: inline;
+}
+
+#details a {
+  z-index: 99999;
+  float: right;
+  font-family: manrope-light;
+  color: var(--ion-color-primary);
+}
+
+.description {
+  display: inline;
+}
+
+.description p {
+  display: inline-block;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 200px;
+}
+
+.custom-icon {
+  height: auto;
+  width: auto;
+  max-height: 25.19px;
+  max-width: 25.19px;
+}
+
+.nft {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  width: 22px;
+}
+
+.nft:hover {
+  transform: scale(1.1);
+}
+
+.tokenDescr-modal .modal-wrapper {
+  width: 1500px;
+  height: auto;
+}
+
+.small-text {
+  font-weight: 500;
+  opacity: 0.75;
+}
+
+.image-cropper {
+  width: 25px;
+  height: 25px;
+  max-width: 25px;
+  max-height: 25px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+  border: 2px solid #5B5B5D;
+}
+
+.image-cropper img {
+  display: inline;
+  margin: 0 auto;
+  height: 100%;
+  width: auto;
+}
+
+#balance {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

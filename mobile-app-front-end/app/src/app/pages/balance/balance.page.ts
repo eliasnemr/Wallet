@@ -1,15 +1,15 @@
+import { PopSettingsComponent } from './../../components/pop-settings/pop-settings.component';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { MinimaApiService } from '../../service/minima-api.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { AlertController, IonInfiniteScroll, ToastController } from '@ionic/angular';
-import { Token } from '../../models/tokens.model';
-import { Mini } from '../../models/minima.model';
+import { AlertController, IonInfiniteScroll, ToastController, PopoverController } from '@ionic/angular';
+import { Mini } from '../../models/mini.model';
 import { BalanceService } from '../../service/balance.service';
 import { Router } from '@angular/router';
 import * as SparkMD5 from 'spark-md5';
 
-import { Minima } from 'minima';
+import { Token } from 'minima';
 
 // declare var Minima: any;
 @Component({
@@ -22,10 +22,10 @@ export class BalancePage implements OnInit {
 
   @ViewChild(IonInfiniteScroll, {static: false}) infiniteScroll: IonInfiniteScroll;
 
-
+  displayMode: number = 1;
   avatar: any;
   hideMe: boolean = false;
-  tokenArr: Token[] | Mini[] = [];
+  tokenArr: Token[] = [];
   tokenSpoof: Token[] = [];
 
   balanceSubscription: Subscription;
@@ -39,14 +39,23 @@ export class BalancePage implements OnInit {
     private api: MinimaApiService,
     public alertController: AlertController,
     private route: Router,
-    public toastController: ToastController) {
-
-    }
+    public toastController: ToastController,
+    public popoverController: PopoverController) { }
 
   ionViewWillEnter() {
     setTimeout(() => {
       this.pullInTokens();
     }, 1000);
+  }
+
+  async presentSettings(ev: any) {
+    const popover = await this.popoverController.create({
+      component: PopSettingsComponent,
+      cssClass: 'my-custom-class',
+      event: ev,
+      translucent: true
+    });
+    return await popover.present();
   }
 
   giveMe50() {
@@ -111,7 +120,6 @@ export class BalancePage implements OnInit {
   }
 
   createIdenticon(tokenid: string) {
-    
     return this.avatar = 'https://www.gravatar.com/avatar/' + SparkMD5.hash(tokenid) + '?d=identicon';
   }
 
@@ -131,12 +139,12 @@ export class BalancePage implements OnInit {
 
     this.balanceSubscription = this.service.updatedBalance
       .pipe(
-        map((balance: Token[] | Mini[]) => {
+        map((balance: Token[]) => {
           
-      const tokenArr: Token[] | Mini[] = [];
+      const tokenArr: Token[] = [];
       
       for (const key in balance) {
-
+        
         if (balance.hasOwnProperty(key)) {
 
           if (this.instanceOfToken(balance[key])) {
