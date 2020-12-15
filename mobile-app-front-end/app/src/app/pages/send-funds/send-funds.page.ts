@@ -1,5 +1,3 @@
-import { Mini } from '../../models/mini.model';
-import { Token } from '../../models/token.model';
 import { BalanceService } from '../../service/balance.service';
 import { Component, OnInit, NgZone, ViewChild, ElementRef } from '@angular/core';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
@@ -11,7 +9,7 @@ import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import QrScanner from 'qr-scanner';
 
-
+import { Token } from 'minima';
 @Component({
   selector: 'app-send-funds',
   templateUrl: './send-funds.page.html',
@@ -38,7 +36,7 @@ export class SendFundsPage implements OnInit {
   balanceSubscription: Subscription;
 
   // Token Array Type
-  tokenArr: Token[] | Mini[] = [];
+  tokenArr: Token[] = [];
   MINIMA_TOKEN_ID = '0x00'; 
 
   private lastJSON = '';
@@ -200,7 +198,7 @@ export class SendFundsPage implements OnInit {
       .pipe(
         map((balance: any) => {
           
-      const tokenArr: Token[] | Mini[] = [];
+      const tokenArr: Token[] = [];
       
       for (const key in balance) {
 

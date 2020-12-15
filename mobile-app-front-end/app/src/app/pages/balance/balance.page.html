@@ -15,7 +15,17 @@
       <ion-row>
         <ion-col size="12">
           <ion-card class="borders" id="tutorial-card">
-            <ion-card-header class="text-center"> <img style="width:35px; display:inline;" src="assets/confetti.svg" alt="confetti"> <span>Welcome to Minima's first official wallet!</span>   <span (click)="hide()" id="dismiss">&times;</span></ion-card-header>
+            <span (click)="hide()" id="dismiss">&times;</span>
+            <ion-card-header class="text-center">
+              
+              <ion-card-title>
+                <ion-avatar>
+                  <img src="assets/confetti.svg" alt="confetti" id="confetti">
+                </ion-avatar>
+                Welcome to Minima's first official wallet! 
+
+              </ion-card-title>
+            </ion-card-header>
             <ion-card-content>
               <p>Here you will find your <span style="font-family:manrope-bold">Minima</span> token balance and any <span style="font-family: manrope-bold;">custom</span> token's balance you create or receive.</p>
             </ion-card-content>

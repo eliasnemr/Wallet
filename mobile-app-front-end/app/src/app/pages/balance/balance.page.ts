@@ -59,6 +59,8 @@ export class BalancePage implements OnInit {
 
   }
 
+  ngOnInit() {}
+
   async presentSettings(ev: any) {
     const popover = await this.popoverController.create({
       component: PopSettingsComponent,

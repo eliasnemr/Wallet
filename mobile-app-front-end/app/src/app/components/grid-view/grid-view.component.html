@@ -21,7 +21,7 @@
               <span *ngIf="token.unconfirmed == 0;" class="confirmed-amount medium-text minima-numeric">{{ token.sendable }} </span>
             </ion-col>
           </ion-row>
-          <ion-badge *ngIf="token.script && token.script !=='RETURN TRUE'" class="nft" color="primary"><img alt="nft" src="assets/n.svg"></ion-badge>             
+          <ion-badge *ngIf="token.script && token.script !=='RETURN TRUE'" (click)="presentToast('This is a non-fungible token.  It can only be spent whole.')" class="nft" color="primary">NFT</ion-badge>             
         </ion-card-header>
         <ion-card-content>
           <ion-row>
@@ -33,11 +33,9 @@
                 <p>{{ token.description }}</p>
               </div>
             </ion-col>
-            <ion-col size="3">
-              <span id="details"> <a routerLink="/view-tokens/{{ token.tokenid }}"><img style="width: 22px;" alt="more" src="assets/add.svg"> </a></span>
-            </ion-col>
           </ion-row>
         </ion-card-content>
+        <ion-icon id="details" routerLink="/view-tokens/{{ token.tokenid }}" alt="more" src="assets/md-ellipsis-vertical-outline.svg"></ion-icon>
       </ion-card>
     </ion-col>
   </ion-row>

@@ -56,12 +56,11 @@ img {
 }
 
 #details {
-  display: inline;
-}
-
-#details a {
-  z-index: 99999;
+  padding: 0 1% 2.5% 0;
   float: right;
+  font-size: 1.2rem;
+  cursor: pointer;
+  z-index: 99999;
   font-family: manrope-light;
   color: var(--ion-color-primary);
 }
@@ -86,12 +85,13 @@ img {
 }
 
 .nft {
+  cursor: pointer;
+  font-size: 1rem;
   position: absolute;
   z-index: 1;
   top: 0;
-  right: 0;
+  right: 1%;
   z-index: 1;
-  width: 22px;
 }
 
 .nft:hover {
@@ -130,4 +130,8 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+#balance span {
+  float: right;
 }

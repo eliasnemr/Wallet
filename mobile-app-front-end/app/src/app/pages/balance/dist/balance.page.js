@@ -86,6 +86,7 @@ var BalancePage = /** @class */ (function () {
             });
         });
     };
+    BalancePage.prototype.ngOnInit = function () { };
     BalancePage.prototype.presentSettings = function (ev) {
         return __awaiter(this, void 0, void 0, function () {
             var popover;

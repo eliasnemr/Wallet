@@ -46,11 +46,11 @@
     margin:0;
   }
   #details {
-    display: inline;
-  }
-  #details a {
+    padding: 0 1% 2.5% 0;
+    float:right;
+    font-size: 1.2rem;
+    cursor: pointer;
     z-index: 99999;
-    float: right;
     font-family: manrope-light;
     color: var(--ion-color-primary)
   }
@@ -71,12 +71,13 @@
     max-width: 25.19px;
   }
   .nft {
+    cursor: pointer;
+    font-size: 1.0rem;
     position: absolute;
     z-index:1; 
     top: 0;
-    right:0;
-    z-index:1; 
-    width:22px;
+    right: 1%;
+    z-index:1;
   }
   .nft:hover {
     transform: scale(1.1);
@@ -110,4 +111,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+  #balance span {
+    float: right;
   }
