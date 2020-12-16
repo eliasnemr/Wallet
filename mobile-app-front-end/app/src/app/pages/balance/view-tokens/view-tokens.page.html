@@ -1,122 +1,122 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar class="border-b">
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/balance"></ion-back-button>
     </ion-buttons>
 
-    <ion-title>{{ token }}</ion-title>
+    <ion-title>{{ token.token }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
   <ion-card>
     <ion-card-header>
       <ion-card-title>
-        <img src={{icon}} alt="icon" style="width: 5vh;"> 
+        <span *ngIf="token.tokenid !== '0x00' && token.icon.length == 0" class="e-avatar e-avatar-smal"><img [src]="createIcon( token.tokenid )" /></span>
+        <span *ngIf="token.tokenid !== '0x00' && token.icon.length > 0"><img class="custom-icon" [src]="token.icon" /></span>
+        <img *ngIf="token.tokenid == '0x00'" class="custom-icon" alt="minima" src="assets/icon/logoreg-s.svg"> 
       </ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      {{description}}
+      {{token.description}}
     </ion-card-content>
-  </ion-card>
-
-  <ion-list>
+    <ion-item-divider class="border-b"></ion-item-divider>
+    <ion-list>
       <ion-list-header>
         Token Details
       </ion-list-header>
-      <ion-item>
-        <ion-col class="title">
+      <ion-item class="border-b">
+        <ion-col size-md="3"  size-s="4" class="title">
           Name
         </ion-col>
         <ion-col class="value">
-          {{token}}
+          {{token.token}}
         </ion-col>
       </ion-item>
-      <ion-item>
-        <ion-col class="title">
+      <ion-item class="border-b">
+        <ion-col size-md="3"  size-s="4" class="title">
           Token ID
-        <a class="copy" (click)="copyToClipPWA(tokenid)">
+        <a class="copy" (click)="copyToClipPWA(token.tokenid)">
           Copy 
         </a>
         </ion-col>
         <ion-col class="value">
-          {{tokenid}}
+          {{token.tokenid}}
         </ion-col>
       </ion-item>
-      <ion-item [hidden]="tokenid == '0x00'">
-        <ion-col class="title">
+      <ion-item class="border-b" [hidden]="token.tokenid == '0x00'">
+        <ion-col size-md="3"  size-sm="6" class="title">
           Coin ID
-        <a class="copy" (click)="copyToClipPWA(coinid)">
+        <a class="copy" (click)="copyToClipPWA(token.coinid)">
           Copy 
         </a>
         </ion-col>
         <ion-col class="value">
-          {{coinid}}
+          {{token.coinid}}
         </ion-col>
       </ion-item>
-      <ion-item>
-        <ion-col class="title">
+      <ion-item class="border-b">
+        <ion-col size-md="3"  size-sm="6" class="title">
           Total
         </ion-col>
         <ion-col class="value">
-          {{total}}
+          {{token.total}}
         </ion-col>
       </ion-item>
-      <ion-item>
-        <ion-col class="title">
+      <ion-item class="border-b">
+        <ion-col size-md="3"  size-sm="6" class="title">
           Confirmed Amount
         </ion-col>
         <ion-col class="value">
-          {{confirmed}}
+          {{token.confirmed}}
         </ion-col>
       </ion-item>
-      <ion-item>
-        <ion-col class="title">
+      <ion-item class="border-b">
+        <ion-col size-md="3"  size-sm="6" class="title">
           Unconfirmed Amount
         </ion-col>
         <ion-col class="value">
-          {{unconfirmed}}
+          {{token.unconfirmed}}
         </ion-col>
       </ion-item>
-            <ion-item>
-        <ion-col class="title">
+        <ion-item class="border-b">
+        <ion-col size-md="3"  size-sm="6" class="title">
           Sendable Amount
         </ion-col>
         <ion-col class="value">
-          {{sendable}}
+          {{token.sendable}}
         </ion-col>
       </ion-item>
-            <ion-item>
-        <ion-col class="title">
+        <ion-item class="border-b">
+        <ion-col size-md="3"  size-sm="6" class="title">
           Mempool Amount
         </ion-col>
         <ion-col class="value">
-          {{mempool}}
+          {{token.mempool}}
         </ion-col>
       </ion-item>
-      <ion-item [hidden]="tokenid == '0x00'">
-        <ion-col class="title">
+      <ion-item class="border-b" [hidden]="token.tokenid == '0x00'">
+        <ion-col size-md="3"  size-sm="6" class="title">
           Token Type
         </ion-col>
         <ion-col class="value">
-          {{script}}
+          {{type}}
         </ion-col>
       </ion-item>
-      <ion-item [hidden]="tokenid == '0x00' || !proof">
-        <ion-col class="title">
+      <ion-item class="border-b" [hidden]="token.tokenid == '0x00' || !token.proof">
+        <ion-col size-md="3"  size-sm="6" class="title">
           Proof
         </ion-col>
         <ion-col class="value">
-          {{proof}}
+          {{token.proof}}
         </ion-col>
       </ion-item>
-      <ion-item [hidden]="tokenid == '0x00' || !proof ">
+      <ion-item class="border-b" size-md="3" size-sm="6" [hidden]="token.tokenid == '0x00' || !token.proof ">
         <ion-col class="title">
           Validate Proof
         </ion-col>
         <ion-col class="value">
-          <ion-button *ngIf="proof" class="small-text" size="small" (click)="validateProof(tokenid)">
+          <ion-button *ngIf="token.proof" class="small-text" size="small" (click)="validateProof(token.tokenid)">
             Validate
           </ion-button> 
         </ion-col>
@@ -127,5 +127,12 @@
 
 
     </ion-list>
+
+
+
+
+  </ion-card>
+
+  
 
 </ion-content>

@@ -1,0 +1,192 @@
+/** Minima Color Palette **/
+:root {
+  /** font-family **/
+  --ion-font-family: manrope-regular;
+  --ion-font-family-bold: manrope-bold;
+  --ion-font-family-light: manrope-light;
+  /** Light Skin **/
+  --ion-m-background: #FAFAFF;
+  --ion-m-background-rgb: rgb(240, 240, 250);
+  --ion-background-color: #FAFAFF;
+  /** primary **/
+  --ion-color-primary: #317aff;
+  --ion-color-primary-rgb: 49, 122, 255;
+  /** secondary **/
+  --ion-color-secondary: #FF512F;
+  --ion-color-secondary-rgb: 255, 81, 47;
+  /** tertiary **/
+  --ion-color-tertiary: #001C32;
+  --ion-color-tertiary-rgb: 0, 28, 50;
+  /** success **/
+  --ion-color-success: #00b887;
+  --ion-color-success-rgb: 16, 220, 96;
+  /** warning **/
+  --ion-color-warning: #ffce00;
+  --ion-color-warning-rgb: 255, 206, 0;
+  /** danger **/
+  --ion-color-danger: #d33939;
+  --ion-color-danger-rgb: 245, 61, 61;
+  /** icon **/
+  --ion-color-icon: #FF512F;
+  --ion-color-icon-rgb: 255, 81, 47;
+  /** gray 1 **/
+  --ion-gray-one: #C8C8D4;
+  --ion-gray-one-rgb: rgb(200, 200, 212);
+  /** gray 2 **/
+  --ion-gray-two: #FAFAFF;
+  --ion-gray-two-rgb: rgb(250, 250, 255);
+  /** gray 3 **/
+  --ion-gray-three: #AAAABE;
+  --ion-gray-three-rgb: rgb(170, 170, 190);
+  /** gray 4 **/
+  --ion-gray-four: #91919D;
+  --ion-gray-four-rgb: rgb(145, 145, 157);
+  /** custom Minima css vars **/
+  --minima-terminal-size: 12px;
+  --overflow: hidden;
+  /** Minima Icon */
+  --st0: #FF512F;
+  --st1: #317AFF;
+  --st2: #91919D;
+  --st3: #001C32;
+  --st4: #FFFFFF;
+  --st5: #317AFF;
+  --st6: #FF512F;
+  --minima-icon-word: #031D32;
+}
+:root .border-b {
+  border: none;
+}
+:root .border-t {
+  border: none;
+}
+:root .split-pane-md {
+  --border: 1px solid #031D32;
+}
+:root ion-menu-button {
+  width: 50px;
+  font-weight: 600;
+}
+
+ion-content {
+  --offset-bottom: auto!important;
+  --overflow: hidden;
+  overflow: auto;
+  background: var(--ion-m-background);
+}
+ion-content::-webkit-scrollbar {
+  display: none;
+}
+
+.minima-numeric {
+  font-variant-numeric: tabular-nums;
+  float: right;
+  color: var(--ion-gray-four);
+  font-family: manrope-bold;
+}
+
+.minima-token {
+  font-family: manrope-bold;
+}
+
+/** FONT FAMILIES */
+@font-face {
+  font-family: "Monotype";
+  font-style: normal;
+  font-weight: normal;
+  src: url("../fonts/monotype.ttf");
+}
+@font-face {
+  font-family: "manrope-bold";
+  src: url("../fonts/manrope-bold.otf");
+}
+@font-face {
+  font-family: "manrope-light";
+  src: url("../fonts/manrope-light.otf");
+}
+@font-face {
+  font-family: "manrope-regular";
+  src: url("../fonts/manrope-regular.otf");
+}
+.menu-icon {
+  font-size: 18px;
+  color: var(--minima-text);
+}
+
+.large-text {
+  font-size: large;
+  color: var(--minima-text);
+}
+
+.medium-text {
+  font-size: 13.5px;
+  color: var(--minima-text);
+}
+
+.small-text {
+  font-size: 8px;
+  color: var(--minima-text);
+}
+
+.smaller-text {
+  font-size: 12px;
+  color: var(--minima-text);
+}
+
+@media only screen and (max-width: 600px) {
+  .menu-icon {
+    font-size: 18px;
+  }
+
+  .large-text {
+    font-size: 14px;
+  }
+
+  .medium-text {
+    font-size: 12px;
+  }
+
+  .small-text {
+    font-size: 10px;
+  }
+
+  .smaller-text {
+    font-size: 8px;
+  }
+}
+@media only screen and (max-width: 600px) and (max-width: 400px) {
+  .menu-icon {
+    font-size: 18px;
+  }
+
+  .large-text {
+    font-size: 14px;
+  }
+
+  .medium-text {
+    font-size: 12px;
+  }
+
+  .small-text {
+    font-size: 10px;
+  }
+
+  .smaller-text {
+    font-size: 8px;
+  }
+}
+.ios .menu-icon {
+  font-size: 18px;
+}
+.ios .large-text {
+  font-size: 14px;
+}
+.ios .medium-text {
+  font-size: 12px;
+}
+.ios .small-text {
+  font-size: 10px;
+}
+.ios .smaller-text {
+  font-size: 8px;
+}

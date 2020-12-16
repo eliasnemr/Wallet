@@ -1,8 +1,10 @@
+import { BalanceService } from './../../../service/balance.service';
 import { ToastController } from '@ionic/angular';
 import { MinimaApiService } from './../../../service/minima-api.service';
-import { Token } from '../../../models/token.model';
+import { Token } from 'minima';
+import * as SparkMD5 from 'spark-md5';
 import { ActivatedRoute } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 declare var Minima: any;
 @Component({
@@ -12,65 +14,45 @@ declare var Minima: any;
 })
 export class ViewTokensPage implements OnInit {
 
-  public tokenid: string;
-  public token: string;
-  public coinid: string;
-  public total: string;
-  public totalamount: string;
-  public confirmed: string;
-  public unconfirmed: string;
-  public sendable: string;
-  public mempool: string;
-  public description: string;
-  public icon: string;
-  public proof: string;
-  public scale: string;
-  public script: string;
+  public urlID: string = '';
+  public token: Token;
+  public tokenArr: Token[];
+  public type: string = '';
+  public avatar: string;
 
-  constructor(public route: ActivatedRoute, public api: MinimaApiService, public toastController: ToastController) 
-  { this.tokenid = this.route.snapshot.paramMap.get("id"); }
+  constructor(public route: ActivatedRoute, public api: MinimaApiService, public toastController: ToastController, public balanceService: BalanceService) {
+  
+    this.balanceService.updatedBalance.subscribe((res) => {
+      this.tokenArr = res;
+      this.urlID = this.route.snapshot.paramMap.get("id");
 
-  ngOnInit() {
-    Minima.cmd('balance', (res: any) => {
-      res.response.balance.forEach((tkn: any) => {
-
-        if(tkn.tokenid == this.tokenid) {
-
-          this.tokenid = tkn.tokenid;
-          this.token = tkn.token;
-          this.coinid = tkn.coinid;
-          this.total = tkn.total; // Token total
-          this.totalamount = tkn.totalamount; // Minima total
-          this.confirmed = tkn.confirmed;
-          this.unconfirmed = tkn.unconfirmed;
-          this.sendable = tkn.sendable;
-          this.mempool = tkn.mempool;
-          if(this.tokenid == "0x00") {
-            this.description = "Minima's Official Token."
+      this.tokenArr.forEach((tkn: any) => {
+        
+        if(tkn.tokenid == this.urlID) {
+          this.token = tkn;
+          if(this.token.tokenid == "0x00") {
+            this.token.description = "Minima's Official Token."
           } else {
-            this.description = tkn.description;
+            this.token.description = tkn.description;
           }
-          if(tkn.tokenid!="0x00" && tkn.icon.length == 0) {
-            this.icon = "assets/icon/icon.png";
-          } else if(tkn.tokenid == "0x00") {
-            this.icon = "assets/icon/icon.png";
+          if(tkn.token.tokenid!="0x00" && tkn.token.icon) {
+            this.token.icon = "assets/icon/icon.png";
+          } else if(tkn.token.tokenid == "0x00") {
+            this.token.icon = "assets/icon/icon.png";
           } else {
-            this.icon = tkn.icon;
+            this.token.icon = tkn.icon;
           }
-          this.proof = tkn.proof;
-          this.scale = tkn.scale;
-          this.script = tkn.script;
-          if(this.script === "RETURN TRUE") {
-            this.script = "Normal";
+          if(this.token.script === "RETURN TRUE") {
+            this.type = "Value Transfer";
           } else {
-            this.script = "Non-Fungible Token";
+            this.type = "Non-Fungible Token";
           }
-          
         }
-
       });
     });
   }
+
+  ngOnInit() { }
 
   validateProof(tokenid: string) {
     this.api.validateTokenID(tokenid).then((res: any)=>{
@@ -82,6 +64,11 @@ export class ViewTokensPage implements OnInit {
     });
   }
 
+  createIcon(tokenid: string) {
+    
+    return this.avatar = 'https://www.gravatar.com/avatar/' + SparkMD5.hash(tokenid) + '?d=identicon';
+  
+  }
   //Alerts
   async presentToast(msg: string, type: string) {
     const toast = await this.toastController.create({

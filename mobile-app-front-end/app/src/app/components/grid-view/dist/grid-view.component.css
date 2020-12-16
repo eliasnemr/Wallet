@@ -8,6 +8,7 @@ ion-row {
 
 ion-card-content {
   background: var(--ion-m-background);
+  padding-bottom: 0;
 }
 
 ion-card-header {
