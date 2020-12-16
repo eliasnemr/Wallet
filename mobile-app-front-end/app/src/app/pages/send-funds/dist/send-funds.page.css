@@ -29,10 +29,15 @@ ion-item ion-label {
 
 ion-select {
   display: inherit;
+  font-family: manrope-bold;
   background-color: #ffffff;
   outline: 1px solid #91919D;
   font-size: 1rem;
-  color: var(--ion-color-tertiary);
+  color: var(--ion-color-primary);
+}
+
+ion-select-option {
+  font-family: manrope-bold;
 }
 
 ion-input {
@@ -57,7 +62,7 @@ ion-input {
   display: flex;
   justify-content: center;
   align-items: center;
-  color: black !important;
+  color: var(--ion-color-primary) !important;
 }
 
 .icon-head {

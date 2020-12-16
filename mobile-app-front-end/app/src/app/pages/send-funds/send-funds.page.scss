@@ -24,10 +24,14 @@ ion-item ion-label {
 }
 ion-select {
   display: inherit;
+  font-family: manrope-bold;
   background-color: #ffffff;
   outline: 1px solid #91919D;
   font-size: 1.0rem;
-  color: var(--ion-color-tertiary);
+  color: var(--ion-color-primary);
+}
+ion-select-option {
+  font-family: manrope-bold;
 }
 ion-input {
   color: #000;
@@ -49,8 +53,9 @@ ion-input {
   display: flex;
   justify-content: center;
   align-items: center;
-  color: black!important;
+  color: var(--ion-color-primary)!important;
 }
+
 .icon-head{
   color: #1FB4CD;
 }
