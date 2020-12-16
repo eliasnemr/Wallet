@@ -121,6 +121,28 @@ var SendFundsPage = /** @class */ (function () {
     SendFundsPage.prototype.updateTokenId = function (id) {
         this.data.tokenid = id;
     };
+    SendFundsPage.prototype.fillAmount = function (type) {
+        var _this = this;
+        var empty = undefined;
+        var param = this.route.snapshot.params['id'];
+        if (param === empty) {
+            param = '0x00';
+        }
+        this.tokenArr.forEach(function (element) {
+            if (param === element.tokenid) {
+                _this.max = element.sendable;
+                if (type === 'max') {
+                    _this.amount.value = _this.max;
+                }
+                else if (type === 'half') {
+                    _this.amount.value = (parseFloat(_this.max) / 2.0).toString();
+                }
+                else if (type === 'quarter') {
+                    _this.amount.value = (parseFloat(_this.max) / 4.0).toString();
+                }
+            }
+        });
+    };
     /** ScanQR: Native */
     SendFundsPage.prototype.scanQR = function () {
         var _this = this;

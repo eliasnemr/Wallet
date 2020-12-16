@@ -1,6 +1,6 @@
 <ion-app>
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar class="border-b">
     <ion-buttons slot="start">
       <ion-menu-button class="menu-icon"></ion-menu-button>
     </ion-buttons>
@@ -11,7 +11,7 @@
 </ion-header>
 
 <ion-content *ngIf="isCameraOpen==false">
-  <ion-card class="webscan-canvas" *ngIf="!checkPlatform() && isWebCameraOpen">
+  <ion-card  class="webscan-canvas" *ngIf="!checkPlatform() && isWebCameraOpen">
     <ion-card-header class="medium-text">
     Scan Your Minima QR address now...
     <ion-progress-bar type="indeterminate" reversed="true"></ion-progress-bar>
@@ -22,91 +22,78 @@
     <hr>
   </ion-card>
 
-  <ion-card *ngIf="!isWebCameraOpen">
+  <ion-card class="borders" *ngIf="!isWebCameraOpen">
     <ion-card-header>
-      Post a transaction
+      Post A Transaction
       <ion-card-title>
-          <ion-icon style=" font-size:2.0rem;" slot="start" name="send" class="icon-head medium-text" ></ion-icon>
+          <ion-icon style=" font-size:1.2rem;" slot="start" name="send" class="icon-head medium-text" ></ion-icon>
       </ion-card-title>
     </ion-card-header>
 
     <ion-card-content>
+      <ion-list>
         <ion-item>
-          <ion-label class="medium-text" position="floating">Tokens</ion-label>
+          <ion-label position="fixed" class="medium-text">Token</ion-label>
           <ion-select
               interface = 'alert'
               class="medium-text input"
               [(ngModel)]="itemSelected"
               (ionChange)="onItemSelection($event)"> 
           <ion-select-option *ngFor="let token of tokenArr;" [value]="token" class="token-option">
-          
-            <ion-text class="medium-text" *ngIf="token.tokenid === '0x00'">
-            {{ token.token +" - "+  token.tokenid + "" }} 
-
-            </ion-text>
-
-            <ion-text class="medium-text" *ngIf="token.tokenid !== '0x00'">
-            {{ token.token + " - " + token.tokenid.substring(0, 60)  }} 
-            </ion-text>
+            {{ token.token + "&mdash;"+ token.tokenid }}
           </ion-select-option>
-
         </ion-select>
         </ion-item>
+        <ion-item>
+          <ion-label class="medium-text" position="fixed">Address</ion-label>
+          <span (click)="webScanQR()" id="qrIcon"> <ion-icon alt="qrCode" src="assets/scan-outline.svg"></ion-icon></span>
+          <ion-input #address class="medium-text input" name="address" [(ngModel)]="data.address" clearInput="true" placeholder="address"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label class="medium-text" position="fixed">Amount</ion-label>
+          <ion-input #amount type="number" name="amount" class="input medium-text" [(ngModel)]="data.amount" placeholder="amount"></ion-input>
+        </ion-item>
+        <ion-row id="quickAmount">
+          <ion-col size="3">
 
-        <ion-item>
-          <ion-label class="medium-text" position="floating">Address</ion-label>
-          <ion-input #address class="input" name="address" [(ngModel)]="data.address" clearInput="true"></ion-input>
-          
-        </ion-item>
-        <ion-item lines="none" slot="end" [hidden]="checkPlatform()">
-          <ion-button type="button" class="util-btns" size="small" (click)="webScanQR()">
-            <ion-label class="small-text" slot="start" style="padding:2px">SCAN QR</ion-label>
-            <ion-icon  name="qr-scanner" ></ion-icon>
-          </ion-button>
-        </ion-item>
-        <ion-item lines="none" slot="end" [hidden]="!checkPlatform()">
-          <ion-button type="button" class="util-btns" size="small" (click)="scanQR()">
-            <ion-label class="small-text" slot="start" style="padding:2px">SCAN QR</ion-label>
-            <ion-icon  size="small" name="qr-scanner" ></ion-icon>
-          </ion-button>
-          <ion-button type="button" size="small" class="util-btns" (click)="pasteFromClipboard()">
-            <ion-label class="small-text" slot="start" style="padding:5px">CLIPBOARD</ion-label>
-            <ion-icon size="small" name="clipboard" ></ion-icon>
-          </ion-button>
-        </ion-item>
-        <ion-item>
-          <ion-label class="medium-text" position="floating">Amount</ion-label>
-          <ion-input #amount type="number" name="amount" class="input" [(ngModel)]="data.amount"></ion-input>
-        </ion-item>
+          </ion-col>
+          <ion-col size="9">
+            <ion-button class="medium-text" (click)="fillAmount('max')" size="small" fill="outline">Send Max</ion-button>
+            <ion-button class="medium-text" (click)="fillAmount('half')" size="small" fill="outline">Send 1/2</ion-button>
+            <ion-button class="medium-text" (click)="fillAmount('quarter')" size="small" fill="outline">Send 1/4</ion-button>
+          </ion-col>
+        </ion-row>
         <ion-item lines="none">
-        <!-- Disabled Checkbox -->
-        <ion-checkbox [(ngModel)]="messageEntry.isChecked" (ionChange)="checkboxValue($event, messageEntry.isChecked)"></ion-checkbox>
-        <ion-label class="medium-text" [hidden]="messageEntry.isChecked" style="padding-left: 10px;">Message</ion-label>
-        <ion-label class="medium-text" [hidden]="!messageEntry.isChecked" style="padding-left: 10px;">This message is public</ion-label>
-        </ion-item>
-        <ion-item [hidden]="!messageEntry.isChecked">
-            <ion-textarea 
-            class="medium-text input"
-            auto-grow="true"
-            #message 
-            [(ngModel)]="data.message" 
-            placeholder="type your message..."
-            maxlength="255">
-            </ion-textarea>
-          <span *ngIf="data.message" class="length smaller-text">{{ data.message.length +"/255"}}</span>
-        </ion-item>
+          <!-- Disabled Checkbox -->
+          <ion-checkbox [(ngModel)]="messageEntry.isChecked" (ionChange)="checkboxValue($event, messageEntry.isChecked)"></ion-checkbox>
+          <ion-label class="medium-text" [hidden]="messageEntry.isChecked" style="padding-left: 10px;">Message</ion-label>
+          <ion-label class="medium-text" [hidden]="!messageEntry.isChecked" style="padding-left: 10px;">This message is public</ion-label>
+          </ion-item>
+          <ion-item [hidden]="!messageEntry.isChecked">
+              <ion-textarea 
+              class="medium-text input"
+              auto-grow="true"
+              #message 
+              [(ngModel)]="data.message" 
+              placeholder="type your message..."
+              maxlength="255">
+              </ion-textarea>
+            <span *ngIf="data.message" class="length">{{ data.message.length +"/255"}}</span>
+          </ion-item>
+      </ion-list>
+        
         
     </ion-card-content>
   </ion-card>
 
 </ion-content>
 <ion-footer>
-  <ion-toolbar>
+  <ion-toolbar class="border-t">
     <ion-buttons> 
-      <ion-button class="action-btn medium-text" expand="block" (click)="stopCamera()"  *ngIf="isCameraOpen==true">
+      <ion-button type="button" class="action-btn medium-text" expand="block" (click)="stopCamera()"  *ngIf="isCameraOpen==true">
         Stop scanning
        </ion-button>
-      <ion-button class="action-btn medium-text" expand="block" (click)="sendFunds()" *ngIf="isCameraOpen==false">
+      <ion-button type="button" class="action-btn medium-text" expand="block" (click)="sendFunds()" *ngIf="isCameraOpen==false">
         <ion-icon name="send" slot="start"></ion-icon> Send
       </ion-button>
     </ion-buttons>

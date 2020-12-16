@@ -23,6 +23,7 @@ export class SendFundsPage implements OnInit {
 
   @ViewChild('videoElem', {static: false}) videoElem: ElementRef;
 
+  max: string; // max sendable amount for quickAmount
   webQrScanner: any;
   compareWith: any;
   itemSelected: any;
@@ -100,6 +101,40 @@ export class SendFundsPage implements OnInit {
   // fn to update tokenid
   updateTokenId(id: string) {
     this.data.tokenid = id;
+  }
+
+  fillAmount(type: string) {
+    const empty = undefined;
+    let param = this.route.snapshot.params['id'];
+    if(param === empty) {
+        param = '0x00';
+    }
+    this.tokenArr.forEach(element => {
+
+      if (param === element.tokenid) {
+        
+        this.max = element.sendable;
+
+        if(type === 'max') {
+
+          this.amount.value = this.max;
+        
+        
+        } else if(type === 'half') {
+          
+          this.amount.value = (parseFloat(this.max)/2.0).toString();
+
+        } else if(type === 'quarter') {
+          this.amount.value = (parseFloat(this.max)/4.0).toString();
+          
+        
+        }
+
+      }
+
+    });
+    
+
   }
 
   /** ScanQR: Native */
