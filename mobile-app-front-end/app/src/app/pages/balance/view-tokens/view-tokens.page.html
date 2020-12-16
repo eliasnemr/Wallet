@@ -3,11 +3,9 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/balance"></ion-back-button>
     </ion-buttons>
-
     <ion-title>{{ token.token }}</ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
   <ion-card>
     <ion-card-header>
@@ -26,7 +24,7 @@
         Token Details
       </ion-list-header>
       <ion-item class="border-b">
-        <ion-col size-md="3"  size-s="4" class="title">
+        <ion-col size-md="3"  size-sm="6" class="title">
           Name
         </ion-col>
         <ion-col class="value">
@@ -34,7 +32,7 @@
         </ion-col>
       </ion-item>
       <ion-item class="border-b">
-        <ion-col size-md="3"  size-s="4" class="title">
+        <ion-col size-md="3"  size-sm="6" class="title">
           Token ID
         <a class="copy" (click)="copyToClipPWA(token.tokenid)">
           Copy 
@@ -51,7 +49,7 @@
           Copy 
         </a>
         </ion-col>
-        <ion-col class="value">
+        <ion-col class="minima-numeric value">
           {{token.coinid}}
         </ion-col>
       </ion-item>
@@ -59,7 +57,7 @@
         <ion-col size-md="3"  size-sm="6" class="title">
           Total
         </ion-col>
-        <ion-col class="value">
+        <ion-col class="minima-numeric value">
           {{token.total}}
         </ion-col>
       </ion-item>
@@ -67,7 +65,7 @@
         <ion-col size-md="3"  size-sm="6" class="title">
           Confirmed Amount
         </ion-col>
-        <ion-col class="value">
+        <ion-col class="minima-numeric value">
           {{token.confirmed}}
         </ion-col>
       </ion-item>
@@ -75,15 +73,15 @@
         <ion-col size-md="3"  size-sm="6" class="title">
           Unconfirmed Amount
         </ion-col>
-        <ion-col class="value">
+        <ion-col class="minima-numeric value">
           {{token.unconfirmed}}
         </ion-col>
       </ion-item>
         <ion-item class="border-b">
-        <ion-col size-md="3"  size-sm="6" class="title">
+        <ion-col size-md="3" size-sm="6" class="title">
           Sendable Amount
         </ion-col>
-        <ion-col class="value">
+        <ion-col class="value minima-numeric">
           {{token.sendable}}
         </ion-col>
       </ion-item>
@@ -91,7 +89,7 @@
         <ion-col size-md="3"  size-sm="6" class="title">
           Mempool Amount
         </ion-col>
-        <ion-col class="value">
+        <ion-col class="minima-numeric value">
           {{token.mempool}}
         </ion-col>
       </ion-item>
@@ -121,18 +119,6 @@
           </ion-button> 
         </ion-col>
       </ion-item>    
-
-
-               
-
-
     </ion-list>
-
-
-
-
   </ion-card>
-
-  
-
 </ion-content>

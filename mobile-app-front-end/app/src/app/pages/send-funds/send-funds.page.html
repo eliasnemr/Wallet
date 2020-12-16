@@ -10,15 +10,12 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding" *ngIf="isCameraOpen==false">
-
+<ion-content *ngIf="isCameraOpen==false">
   <ion-card class="webscan-canvas" *ngIf="!checkPlatform() && isWebCameraOpen">
     <ion-card-header class="medium-text">
-
     Scan Your Minima QR address now...
     <ion-progress-bar type="indeterminate" reversed="true"></ion-progress-bar>
     </ion-card-header>
-
     <video height="240" #videoElem></video>
     <hr>
     <ion-button block="full" (click)="stopWebScanQR()">Stop Scanning</ion-button>

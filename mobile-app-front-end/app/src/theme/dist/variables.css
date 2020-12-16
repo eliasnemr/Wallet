@@ -81,7 +81,6 @@ ion-content::-webkit-scrollbar {
 .minima-numeric {
   font-variant-numeric: tabular-nums;
   float: right;
-  color: var(--ion-gray-four);
   font-family: manrope-bold;
 }
 
