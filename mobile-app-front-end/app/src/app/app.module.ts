@@ -19,7 +19,6 @@ import { QRScanner } from '@ionic-native/qr-scanner/ngx';
 import { LocationStrategy, HashLocationStrategy} from '@angular/common';
 import { IonicStorageModule } from '@ionic/storage';
 import { TokenDescrComponent } from './components/token-descr/token-descr.component';
-import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { PopTermComponent } from './components/pop-term/pop-term.component';
 import { PopSettingsComponent } from './components/pop-settings/pop-settings.component';
 
@@ -42,7 +41,6 @@ import { PopSettingsComponent } from './components/pop-settings/pop-settings.com
     AppRoutingModule,
     IonicStorageModule.forRoot()],
     providers: [
-    SocialSharing,
     Storage,
     Clipboard,
     QRScanner,

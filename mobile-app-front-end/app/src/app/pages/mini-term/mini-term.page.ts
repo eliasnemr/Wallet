@@ -1,7 +1,6 @@
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { PopTermComponent } from '../../components/pop-term/pop-term.component';
 import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { LoadingController, NavController, IonContent, PopoverController } from '@ionic/angular';
 import { environment } from '../../../environments/environment';
 import { UserTerminal } from '../../service/userterminal.service';

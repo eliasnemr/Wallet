@@ -3,7 +3,7 @@ import { PopSettingsComponent } from './../../components/pop-settings/pop-settin
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { MinimaApiService } from '../../service/minima-api.service';
-import { Component, OnInit, ViewChild, NgZone, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild, NgZone } from '@angular/core';
 import { AlertController, IonInfiniteScroll, ToastController, PopoverController, IonButton } from '@ionic/angular';
 import { BalanceService } from '../../service/balance.service';
 import { Router } from '@angular/router';

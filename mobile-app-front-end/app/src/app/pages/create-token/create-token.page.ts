@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MinimaApiService } from '../../service/minima-api.service';
-import { IonTextarea, IonSlide, IonRange, IonInput, AlertController, ToastController } from '@ionic/angular';
+import { IonTextarea, IonInput, AlertController, ToastController } from '@ionic/angular';
 import { NgForm } from '@angular/forms';
 
 @Component({
