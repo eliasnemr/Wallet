@@ -1,0 +1,80 @@
+@media screen and (min-width: 900px) {
+  .skeleton-address {
+    height: auto;
+    width: auto;
+    --background: var(--ion-background-color, #f2f2f2);
+  }
+}
+ion-content {
+  --overflow: hidden;
+}
+
+ion-toolbar {
+  --background: var(--ion-m-background);
+  font-family: manrope-bold;
+  color: var(--ion-color-tertiary);
+}
+ion-toolbar ion-title {
+  font-size: 1rem;
+}
+ion-toolbar ion-buttons ion-menu-button {
+  font-size: 1rem;
+  color: var(--ion-color-tertiary);
+}
+
+ion-card-content {
+  background: var(--ion-card-color);
+}
+
+ion-card-header {
+  --color: var(--ion-text-color,#000);
+}
+
+ion-footer ion-toolbar ion-buttons ion-button {
+  width: 100%;
+  height: 58px;
+  text-transform: none;
+  font-family: manrope-bold;
+}
+
+ion-footer ion-toolbar {
+  height: 58px;
+}
+
+.ios .skeleton-address {
+  height: 280px;
+  width: 100%;
+}
+
+.qrCanvas {
+  width: 50px;
+  height: auto;
+}
+
+.addr-title {
+  padding: 10px;
+}
+
+.copy-btn {
+  text-decoration: underline;
+  text-transform: none;
+  font-family: manrope-bold;
+  color: var(--ion-color-tertiary);
+}
+
+ion-badge:hover {
+  transform: scale(1.01);
+}
+
+ion-badge {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  --background: #FF512F;
+}
+
+ion-row {
+  display: flexbox;
+  justify-content: center !important;
+  align-content: center !important;
+}

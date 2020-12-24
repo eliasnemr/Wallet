@@ -1,11 +1,9 @@
-import { Platform, AlertController, IonContent, ToastController, IonBadge } from '@ionic/angular';
-import { Component, OnInit, ViewChild, ElementRef, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Platform, AlertController, ToastController, IonButton } from '@ionic/angular';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Clipboard } from '@ionic-native/clipboard/ngx';
 import { MinimaApiService } from '../../service/minima-api.service';
-import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
-import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+import { Address } from 'minima';
 
-declare let window: any;
 @Component({
   selector: 'app-my-address',
   templateUrl: './my-address.page.html',
@@ -13,68 +11,17 @@ declare let window: any;
 })
 export class MyAddressPage implements OnInit {
 
-  @ViewChild('canvasDimension', {static: false}) canvasDimension: ElementRef;
-
   public qrCode = '';
-  public canvasSize = 300;
-  public canvasLength: number;
-  public canvasWidth: number;
-  public hide: boolean = false;
   isEmpty: boolean;
 
-  // socials
-  public options = {
-    displayNames: true,
-    config: [{
-          facebook: {
-            socialShareQuote: 'MxFDAE143',
-            socialSharePopupWidth: 300,
-            socialSharePopupHeight: 500
-          }
-        },
-        {
-          whatsapp: {
-            socialShareText: 'MxFDAE143',
-            socialSharePopupWidth: 300,
-            socialSharePopupHeight: 500,
-          }
-        },
-        {
-          copy: {
-            
-            socialSharePopupWidth: 300,
-            socialSharePopupHeight: 500,
-          }
-        },
-        {
-          twitter: {
-            socialShareText: 'MxFDAE143',
-            socialSharePopupWidth: 300,
-            socialSharePopupHeight: 500,
-          }
-        }]
-  }
-  
-
-  @ViewChild('share', {static: false} ) shareComponent: HTMLDivElement;
+  @ViewChild('generateAddressBtn', {static: false}) generateAddressBtn: IonButton;
 
   constructor(
-    private socialSharing: SocialSharing,
-    private clipboard: Clipboard, 
-    private qrScanner: QRScanner, 
+    private clipboard: Clipboard,
     private api: MinimaApiService,
-    private platform : Platform,
+    private platform: Platform,
     private alertController: AlertController,
-    public toastController: ToastController) {
-
-      // Needed this to fix android's build wonky
-      this.platform.ready().then((readySource) => {
-        if(this.platform.is('android')){
-          this.canvasSize = this.platform.width() - 50;
-        }
-      });
-
-    }
+    public toastController: ToastController) { }
 
   ngOnInit() {}
 
@@ -84,84 +31,61 @@ export class MyAddressPage implements OnInit {
 
   }
 
-  /** API CALLS */
+  public generateAddress() {
+    this.newAddress();
+    this.generateAddressBtn.disabled = true;
+    this.presentToast('Generated a new address.', 'success', "middle");
+    setTimeout(() => {
+    this.generateAddressBtn.disabled = false;
+    }, 2000);
+  }
+
   public newAddress() {
     setTimeout(() => {
-      this.api.newAddress().then((res: {status: boolean, minifunc: string, message: string, response: {address: {script: string, hexaddress: string, miniaddress: string}}}) => {
-        if (res.response.address.miniaddress) {
+      this.api.newAddress().then((res: {status: boolean, message: string; response: {address: Address}}) => {
+        if (res.status) {
           this.qrCode = res.response.address.miniaddress;
           this.isEmpty = true;
         }
       });
     }, 0);
   }
-  /** Alerts */
-  async presentAlert(msg:string,header:string) {
+
+  async presentAlert(msg: string, hdr: string) {
     const alert = await this.alertController.create({
-      header: header,
+      header: hdr,
       message: msg,
       buttons: ['Cancel', 'Ok']
     });
     await alert.present();
   }
-  async presentToast(msg: string, type: string) {
+
+  async presentToast(msg: string, type: string, posn: "top" | "bottom" | "middle") {
     const toast = await this.toastController.create({
       message: msg,
       duration: 4000,
       color: type,
       keyboardClose: true,
       translucent: true,
-      position:  'bottom'
+      position: posn
     });
     toast.present();
   }
 
-  shout() {
-    if(this.hide == true){
-      this.hide = false;
-    } else {
-      this.hide = true;
-    }
-  }
-  close() {
-
-  }
-
-  /** MISC Functions */
   copyToClipboard() {
-
-    if(this.platform.is('desktop') || this.platform.is('pwa')) {
+    if (this.platform.is('desktop') || this.platform.is('pwa')) {
       this.copyToClipPWA();
-      this.presentToast("Copied to clipboard", "success");
+      this.presentToast('Copied to clipboard', 'success', 'bottom');
     } else {
       this.clipboard.copy(this.qrCode);
-      this.presentToast("Copied to clipboard", "success");
-
+      this.presentToast('Copied to clipboard', 'success', 'bottom');
     }
-
-  }
-
-  socialShare(address: any) {
-    console.log("Sharing this addr:"+address);
-   // Check if sharing via email is supported
-  this.socialSharing.canShareViaEmail().then(() => {
-    // Sharing via email is possible
-  }).catch(() => {
-    // Sharing via email is not possible
-  });
-
-  // Share via email
-  this.socialSharing.shareViaEmail('Body', 'Subject', ['recipient@example.org']).then(() => {
-    // Success!
-  }).catch(() => {
-    // Error!
-  }); 
   }
 
   copyToClipPWA() {
     document.addEventListener('copy', (e: ClipboardEvent) => {
       e.clipboardData.setData('text/plain', this.qrCode);
-      this.presentToast("Copied to Clipboard", "success");
+      this.presentToast('Copied to clipboard', 'success', 'bottom');
       e.preventDefault();
       document.removeEventListener('copy', null);
     });
@@ -169,12 +93,10 @@ export class MyAddressPage implements OnInit {
   }
 
   checkPlatform() {
-    if(this.platform.is('desktop')){
+    if (this.platform.is('desktop')) {
       return true;
     } else {
       return false;
     }
   }
-
-
 }

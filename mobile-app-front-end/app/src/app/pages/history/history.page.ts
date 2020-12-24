@@ -1,14 +1,13 @@
+import * as moment from 'moment';
 import { RouterModule } from '@angular/router';
 import { ModalController, IonList, AlertController, ToastController, Config } from '@ionic/angular';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { HistoryService } from '../../service/history.service';
-import { map } from 'rxjs/operators';
-import { History } from '../../models/history.model';
 import { UserData } from './../../providers/user-data';
-import * as moment from 'moment';
+import { History, Minima } from 'minima';
+import { map } from 'rxjs/operators';
 
-declare var Minima: any;
 @Component({
   selector: 'app-history',
   templateUrl: './history.page.html',
@@ -52,7 +51,7 @@ export class HistoryPage implements OnInit {
   }
 
   ionViewDidLeave(){
-    if(this.historySub){
+    if (this.historySub) {
       this.historySub.unsubscribe();
     }
 

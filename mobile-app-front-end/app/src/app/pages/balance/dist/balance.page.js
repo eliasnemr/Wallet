@@ -111,6 +111,10 @@ var BalancePage = /** @class */ (function () {
         this.api.giveMe50().then(function (res) {
             if (res.status === true) {
                 _this.presentAlert(res.message, 'Success.');
+                _this.gimme50Btn.disabled = true;
+                setTimeout(function () {
+                    _this.gimme50Btn.disabled = false;
+                }, (10 * 60));
             }
             else {
                 _this.presentAlert(res.message, 'Something went wrong.');
@@ -245,6 +249,9 @@ var BalancePage = /** @class */ (function () {
     __decorate([
         core_1.ViewChild(angular_1.IonInfiniteScroll, { static: false })
     ], BalancePage.prototype, "infiniteScroll");
+    __decorate([
+        core_1.ViewChild('gimme50Btn', { static: false })
+    ], BalancePage.prototype, "gimme50Btn");
     BalancePage = __decorate([
         core_1.Component({
             selector: 'app-balance',

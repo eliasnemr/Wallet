@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { History } from '../models/history.model';
+import { BehaviorSubject } from 'rxjs';
+import { History } from 'minima';
 
 declare var Minima: any;
 @Injectable({

@@ -79,10 +79,10 @@ img {
 }
 
 .custom-icon {
-  height: auto;
-  width: auto;
-  max-height: 25.19px;
-  max-width: 25.19px;
+  height: 25.19px;
+  width: 25.19px;
+  max-height: 25.19px !important;
+  max-width: 25.19px !important;
 }
 
 .nft {
@@ -135,4 +135,8 @@ img {
 
 #balance span {
   float: right;
+}
+
+p {
+  margin: 0;
 }

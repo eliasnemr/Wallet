@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { LoadingController } from '@ionic/angular';
+import { Minima } from 'minima';
 
-declare var Minima: any;
 @Injectable({
   providedIn: 'root'
 })

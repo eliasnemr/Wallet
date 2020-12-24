@@ -10,6 +10,7 @@
 var map = {
 	"./pages/balance/balance.module": [
 		"./src/app/pages/balance/balance.module.ts",
+		"default~pages-balance-balance-module~pages-balance-view-tokens-view-tokens-module",
 		"pages-balance-balance-module"
 	]
 };
@@ -23,7 +24,7 @@ function webpackAsyncContext(req) {
 	}
 
 	var ids = map[req], id = ids[0];
-	return __webpack_require__.e(ids[1]).then(function() {
+	return Promise.all(ids.slice(1).map(__webpack_require__.e)).then(function() {
 		return __webpack_require__(id);
 	});
 }
@@ -459,18 +460,18 @@ module.exports = webpackAsyncContext;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-app>\n  <ion-split-pane when=\"lg\" contentId=\"mainMenu\" class=\"splitpane\" >\n  <ion-menu side=\"start\" contentId=\"mainMenu\">\n\n    <ion-header>\n      <ion-toolbar class=\"menu-toolbar\">\n      <ion-title> \n        <!-- Minima Icon -->\n        <svg version=\"1.1\" id=\"icon\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\"\n\t           viewBox=\"0 0 385.51 76.54\" style=\"enable-background:new 0 0 100 100;\" xml:space=\"preserve\">\n          <g>\n            <path id=\"icon-M\" d=\"M109.13,31.51c0-1.21,1.04-2.25,2.25-2.25h0.52c0.98,0,1.67,0.52,2.13,1.21l14.4,21.66l14.4-21.66\n              c0.46-0.75,1.21-1.21,2.13-1.21h0.52c1.21,0,2.25,1.04,2.25,2.25v36.23c0,1.27-1.04,2.3-2.25,2.3c-1.27,0-2.3-1.09-2.3-2.3V37.67\n              l-12.9,18.95c-0.52,0.75-1.09,1.15-1.9,1.15c-0.81,0-1.44-0.4-1.96-1.15l-12.84-18.89V67.8c0,1.27-0.98,2.25-2.25,2.25\n              c-1.21,0-2.19-0.98-2.19-2.25V31.51z\"/>\n            <path id=\"icon-I\" d=\"M171.04,31.45c0-1.27,1.04-2.3,2.25-2.3c1.27,0,2.3,1.04,2.3,2.3v36.29c0,1.27-1.04,2.3-2.3,2.3\n              c-1.21,0-2.25-1.04-2.25-2.3V31.45z\"/>\n            <path id=\"icon-N\" d=\"M198.92,31.51c0-1.21,1.04-2.25,2.25-2.25h0.63c1.04,0,1.67,0.52,2.3,1.32l24.48,31.22V31.39c0-1.21,0.98-2.25,2.25-2.25\n              c1.21,0,2.19,1.04,2.19,2.25v36.4c0,1.21-0.86,2.13-2.07,2.13h-0.23c-0.98,0-1.67-0.58-2.36-1.38l-25-31.97V67.8\n              c0,1.21-0.98,2.25-2.25,2.25c-1.21,0-2.19-1.04-2.19-2.25V31.51z\"/>\n            <path id=\"icon-I\" d=\"M256.34,31.45c0-1.27,1.04-2.3,2.25-2.3c1.27,0,2.3,1.04,2.3,2.3v36.29c0,1.27-1.04,2.3-2.3,2.3\n              c-1.21,0-2.25-1.04-2.25-2.3V31.45z\"/>\n            <path id=\"icon-M\" d=\"M284.22,31.51c0-1.21,1.04-2.25,2.25-2.25h0.52c0.98,0,1.67,0.52,2.13,1.21l14.4,21.66l14.4-21.66\n              c0.46-0.75,1.21-1.21,2.13-1.21h0.52c1.21,0,2.25,1.04,2.25,2.25v36.23c0,1.27-1.04,2.3-2.25,2.3c-1.27,0-2.3-1.09-2.3-2.3V37.67\n              l-12.9,18.95c-0.52,0.75-1.09,1.15-1.9,1.15c-0.81,0-1.44-0.4-1.96-1.15l-12.84-18.89V67.8c0,1.27-0.98,2.25-2.25,2.25\n              c-1.21,0-2.19-0.98-2.19-2.25V31.51z\"/>\n            <path id=\"icon-A\" d=\"M343.26,66.76l16.36-35.77c0.58-1.27,1.44-2.02,2.88-2.02h0.23c1.38,0,2.3,0.75,2.82,2.02L381.9,66.7\n              c0.17,0.4,0.29,0.81,0.29,1.15c0,1.21-0.98,2.19-2.19,2.19c-1.09,0-1.84-0.75-2.25-1.67l-4.2-9.27h-22.12l-4.2,9.39\n              c-0.4,0.98-1.15,1.56-2.19,1.56c-1.15,0-2.07-0.92-2.07-2.07C342.97,67.62,343.02,67.22,343.26,66.76z M371.77,54.95l-9.27-20.62\n              l-9.27,20.62H371.77z\"/>\n          </g>\n          <g>\n            <polygon points=\"37.48,20.64 52.72,20.64 64.53,70.04 49.29,70.04 \t\"/>\n            <polygon points=\"31.66,12.14 41.55,70.04 26.31,70.04 16.42,12.14 \t\"/>\n            <polygon class=\"st0\" points=\"3.32,70.04 18.57,70.04 31.66,12.14 17.7,6.49 \t\"/>\n            <polygon class=\"st1\" points=\"26.31,70.04 41.55,70.04 52.72,20.64 38.76,15 \t\"/>\n            <polygon class=\"st2\" points=\"59.82,23.51 49.29,70.04 64.53,70.04 73.78,29.15 \t\"/>\n          </g>\n      </svg>\n      </ion-title>      \n      </ion-toolbar>\n    </ion-header>\n    \n    <ion-content>\n      <ion-list main>\n        \n        <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let p of basic; let i = index\">\n          \n            <ion-item \n            class=\"ripple-parent ion-activatable large-text\"\n            detail=\"false\"\n            routerLinkActive=\"selected\"\n            routerDirection=\"root\"\n            [hidden] = \"p.hidden\" \n            [routerLink]=\"p.routerLink\"\n            lines=\"{{ p.line }}\">\n              <ion-ripple-effect type=\"unbounded\"></ion-ripple-effect>\n\n            <ion-icon name=\"{{ p.icon }}\" slot=\"start\"></ion-icon> {{ p.title }}\n\n            </ion-item>\n        </ion-menu-toggle>\n      </ion-list>\n\n      <ion-list main>\n        \n        <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let p of advanced; let i = index\">\n          \n            <ion-item \n            class=\"ripple-parent ion-activatable large-text\"\n            detail=\"false\"\n            routerLinkActive=\"selected\"\n            routerDirection=\"root\"\n            [hidden] = \"p.hidden\" \n            routerLink=\"{{ p.routerLink }}\"\n            lines=\"{{ p.line }}\">\n              <ion-ripple-effect type=\"unbounded\"></ion-ripple-effect>\n\n\n            <ion-icon name=\"{{ p.icon }}\" slot=\"start\"></ion-icon> {{ p.title }}\n\n            </ion-item>\n        </ion-menu-toggle>\n      </ion-list>\n\n  </ion-content>\n\n  <ion-footer>\n    <ion-row>\n      <ion-col>\n        <ion-item lines=\"full\">\n          <ion-icon slot=\"start\" name=\"moon\" style=\"padding: 10px; color: rgb(132, 0, 255);\"></ion-icon>\n          <span class=\"medium-text\">Dark Mode</span>\n          <ion-toggle  slot=\"end\" #darkToggle [(ngModel)]=\"toggleValue\" (ionChange)=\"checkToggle()\"></ion-toggle>\n        </ion-item>\n      </ion-col>\n    </ion-row>\n  </ion-footer>\n\n  </ion-menu>\n\n  <ion-router-outlet main id=\"mainMenu\"></ion-router-outlet>\n  </ion-split-pane>\n\n</ion-app>\n"
+module.exports = "<ion-app>\n  <ion-split-pane when=\"lg\" contentId=\"mainMenu\" class=\"splitpane\" >\n  <ion-menu side=\"start\" contentId=\"mainMenu\">\n\n    <ion-header>\n      <ion-toolbar class=\"border-b\">\n      <ion-title> \n        <!-- Minima Icon -->\n        <svg version=\"1.1\" id=\"icon\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\"\n\t           viewBox=\"0 0 385.51 76.54\" style=\"enable-background:new 0 0 100 100;\" xml:space=\"preserve\">\n          <g>\n            <path id=\"icon-M\" d=\"M109.13,31.51c0-1.21,1.04-2.25,2.25-2.25h0.52c0.98,0,1.67,0.52,2.13,1.21l14.4,21.66l14.4-21.66\n              c0.46-0.75,1.21-1.21,2.13-1.21h0.52c1.21,0,2.25,1.04,2.25,2.25v36.23c0,1.27-1.04,2.3-2.25,2.3c-1.27,0-2.3-1.09-2.3-2.3V37.67\n              l-12.9,18.95c-0.52,0.75-1.09,1.15-1.9,1.15c-0.81,0-1.44-0.4-1.96-1.15l-12.84-18.89V67.8c0,1.27-0.98,2.25-2.25,2.25\n              c-1.21,0-2.19-0.98-2.19-2.25V31.51z\"/>\n            <path id=\"icon-I\" d=\"M171.04,31.45c0-1.27,1.04-2.3,2.25-2.3c1.27,0,2.3,1.04,2.3,2.3v36.29c0,1.27-1.04,2.3-2.3,2.3\n              c-1.21,0-2.25-1.04-2.25-2.3V31.45z\"/>\n            <path id=\"icon-N\" d=\"M198.92,31.51c0-1.21,1.04-2.25,2.25-2.25h0.63c1.04,0,1.67,0.52,2.3,1.32l24.48,31.22V31.39c0-1.21,0.98-2.25,2.25-2.25\n              c1.21,0,2.19,1.04,2.19,2.25v36.4c0,1.21-0.86,2.13-2.07,2.13h-0.23c-0.98,0-1.67-0.58-2.36-1.38l-25-31.97V67.8\n              c0,1.21-0.98,2.25-2.25,2.25c-1.21,0-2.19-1.04-2.19-2.25V31.51z\"/>\n            <path id=\"icon-I\" d=\"M256.34,31.45c0-1.27,1.04-2.3,2.25-2.3c1.27,0,2.3,1.04,2.3,2.3v36.29c0,1.27-1.04,2.3-2.3,2.3\n              c-1.21,0-2.25-1.04-2.25-2.3V31.45z\"/>\n            <path id=\"icon-M\" d=\"M284.22,31.51c0-1.21,1.04-2.25,2.25-2.25h0.52c0.98,0,1.67,0.52,2.13,1.21l14.4,21.66l14.4-21.66\n              c0.46-0.75,1.21-1.21,2.13-1.21h0.52c1.21,0,2.25,1.04,2.25,2.25v36.23c0,1.27-1.04,2.3-2.25,2.3c-1.27,0-2.3-1.09-2.3-2.3V37.67\n              l-12.9,18.95c-0.52,0.75-1.09,1.15-1.9,1.15c-0.81,0-1.44-0.4-1.96-1.15l-12.84-18.89V67.8c0,1.27-0.98,2.25-2.25,2.25\n              c-1.21,0-2.19-0.98-2.19-2.25V31.51z\"/>\n            <path id=\"icon-A\" d=\"M343.26,66.76l16.36-35.77c0.58-1.27,1.44-2.02,2.88-2.02h0.23c1.38,0,2.3,0.75,2.82,2.02L381.9,66.7\n              c0.17,0.4,0.29,0.81,0.29,1.15c0,1.21-0.98,2.19-2.19,2.19c-1.09,0-1.84-0.75-2.25-1.67l-4.2-9.27h-22.12l-4.2,9.39\n              c-0.4,0.98-1.15,1.56-2.19,1.56c-1.15,0-2.07-0.92-2.07-2.07C342.97,67.62,343.02,67.22,343.26,66.76z M371.77,54.95l-9.27-20.62\n              l-9.27,20.62H371.77z\"/>\n          </g>\n          <g>\n            <polygon points=\"37.48,20.64 52.72,20.64 64.53,70.04 49.29,70.04 \t\"/>\n            <polygon points=\"31.66,12.14 41.55,70.04 26.31,70.04 16.42,12.14 \t\"/>\n            <polygon class=\"st0\" points=\"3.32,70.04 18.57,70.04 31.66,12.14 17.7,6.49 \t\"/>\n            <polygon class=\"st1\" points=\"26.31,70.04 41.55,70.04 52.72,20.64 38.76,15 \t\"/>\n            <polygon class=\"st2\" points=\"59.82,23.51 49.29,70.04 64.53,70.04 73.78,29.15 \t\"/>\n          </g>\n      </svg>\n      </ion-title>      \n      </ion-toolbar>\n    </ion-header>\n    \n    <ion-content>\n      <ion-list main>\n        \n        <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let p of basic; let i = index\">\n          \n            <ion-item \n            class=\"ripple-parent ion-activatable\"\n            detail=\"false\"\n            routerLinkActive=\"selected\"\n            routerDirection=\"root\"\n            [hidden] = \"p.hidden\" \n            [routerLink]=\"p.routerLink\"\n            lines=\"{{ p.line }}\">\n              <ion-ripple-effect type=\"unbounded\"></ion-ripple-effect>\n\n            <ion-icon name=\"{{ p.icon }}\" slot=\"start\"></ion-icon> {{ p.title }}\n\n            </ion-item>\n        </ion-menu-toggle>\n      </ion-list>\n\n      <ion-list main>\n        \n        <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let p of advanced; let i = index\">\n          \n            <ion-item \n            class=\"ripple-parent ion-activatable\"\n            detail=\"false\"\n            routerLinkActive=\"selected\"\n            routerDirection=\"root\"\n            [hidden] = \"p.hidden\" \n            routerLink=\"{{ p.routerLink }}\"\n            lines=\"{{ p.line }}\">\n              <ion-ripple-effect type=\"unbounded\"></ion-ripple-effect>\n\n\n            <ion-icon name=\"{{ p.icon }}\" slot=\"start\"></ion-icon> {{ p.title }}\n\n            </ion-item>\n        </ion-menu-toggle>\n      </ion-list>\n\n  </ion-content>\n\n  <ion-footer class=\"border-t\">\n    <ion-row>\n      <ion-col>\n        <ion-item lines=\"none\">\n          <ion-icon slot=\"start\" name=\"moon\"></ion-icon>\n          <span class=\"medium-text\">Night Mode</span>\n          <ion-toggle  slot=\"end\" #darkToggle [(ngModel)]=\"toggleValue\" (ionChange)=\"checkToggle()\"></ion-toggle>\n        </ion-item>\n      </ion-col>\n    </ion-row>\n  </ion-footer>\n  </ion-menu>\n  <ion-router-outlet main id=\"mainMenu\"></ion-router-outlet>\n  </ion-split-pane>\n\n</ion-app>\n"
 
 /***/ }),
 
-/***/ "./node_modules/raw-loader/index.js!./src/app/components/pop-over/pop-over.component.html":
-/*!***************************************************************************************!*\
-  !*** ./node_modules/raw-loader!./src/app/components/pop-over/pop-over.component.html ***!
-  \***************************************************************************************/
+/***/ "./node_modules/raw-loader/index.js!./src/app/components/pop-settings/pop-settings.component.html":
+/*!***********************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/components/pop-settings/pop-settings.component.html ***!
+  \***********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-app>\n\n    <ion-grid>\n        <ion-row>\n            <ion-col size=\"12\" style=\"text-align: center;\">\n                <p [hidden]=\"refTokenid == '0x00'\" class=\"small-text\" id=\"copythis\">{{refTokenid.substring(0, 45)+\"...\"}}</p>\n                <p [hidden]=\"refTokenid !== '0x00'\" class=\"small-text\" id=\"copythis\">{{ refTokenid }}</p>    \n            </ion-col>\n        </ion-row>\n        <ion-row>\n            <ion-col size=\"12\">\n                <ion-button \n                (click)=\"copyToClipboard()\" \n                class=\"popover-btn small-text\" \n                fill=\"clear\" \n                size=\"small\" \n                expand=\"full\"\n                style=\"width:100%\">\n                \n                <ion-icon name=\"copy\"></ion-icon> \n                \n                </ion-button>\n            </ion-col>\n        </ion-row>\n\n    </ion-grid>\n\n</ion-app>\n\n"
+module.exports = "\n  <ion-list>\n    <ion-list-header>Balance Settings</ion-list-header>\n\n    <ion-item>\n      <ion-label class=\"medium-text\">Display Mode</ion-label>\n      <ion-select (ionChange)=\"change($event)\" [compareWith]=\"compareWithFn\" value=\"{{userConfig.tokenDisplayMode}}\">\n      <ion-select-option value=\"1\">Grid View</ion-select-option>\n      <ion-select-option value=\"2\">List View</ion-select-option>\n      </ion-select>\n    </ion-item>      \n  </ion-list>"
 
 /***/ }),
 
@@ -550,7 +551,7 @@ __webpack_require__.r(__webpack_exports__);
 var routes = [
     { path: '', loadChildren: './pages/balance/balance.module#BalancePageModule' },
     { path: '', redirectTo: 'balance', pathMatch: 'full' },
-    { path: 'balance', loadChildren: function () { return __webpack_require__.e(/*! import() | pages-balance-balance-module */ "pages-balance-balance-module").then(__webpack_require__.bind(null, /*! ./pages/balance/balance.module */ "./src/app/pages/balance/balance.module.ts")).then(function (m) { return m.BalancePageModule; }); } },
+    { path: 'balance', loadChildren: function () { return Promise.all(/*! import() | pages-balance-balance-module */[__webpack_require__.e("default~pages-balance-balance-module~pages-balance-view-tokens-view-tokens-module"), __webpack_require__.e("pages-balance-balance-module")]).then(__webpack_require__.bind(null, /*! ./pages/balance/balance.module */ "./src/app/pages/balance/balance.module.ts")).then(function (m) { return m.BalancePageModule; }); } },
     { path: 'send-funds', loadChildren: function () { return __webpack_require__.e(/*! import() | pages-send-funds-send-funds-module */ "pages-send-funds-send-funds-module").then(__webpack_require__.bind(null, /*! ./pages/send-funds/send-funds.module */ "./src/app/pages/send-funds/send-funds.module.ts")).then(function (m) { return m.SendFundsPageModule; }); } },
     { path: 'send-funds/:id', loadChildren: function () { return __webpack_require__.e(/*! import() | pages-send-funds-send-funds-module */ "pages-send-funds-send-funds-module").then(__webpack_require__.bind(null, /*! ./pages/send-funds/send-funds.module */ "./src/app/pages/send-funds/send-funds.module.ts")).then(function (m) { return m.SendFundsPageModule; }); } },
     { path: 'create-token', loadChildren: function () { return __webpack_require__.e(/*! import() | pages-create-token-create-token-module */ "pages-create-token-create-token-module").then(__webpack_require__.bind(null, /*! ./pages/create-token/create-token.module */ "./src/app/pages/create-token/create-token.module.ts")).then(function (m) { return m.CreateTokenPageModule; }); } },
@@ -565,8 +566,8 @@ var routes = [
     { path: 'history', loadChildren: function () { return __webpack_require__.e(/*! import() | pages-history-history-module */ "pages-history-history-module").then(__webpack_require__.bind(null, /*! ./pages/history/history.module */ "./src/app/pages/history/history.module.ts")).then(function (m) { return m.HistoryPageModule; }); } },
     { path: 'view-txn', loadChildren: function () { return __webpack_require__.e(/*! import() | pages-history-view-txn-view-txn-module */ "view-txn-view-txn-module").then(__webpack_require__.bind(null, /*! ./pages/history/view-txn/view-txn.module */ "./src/app/pages/history/view-txn/view-txn.module.ts")).then(function (m) { return m.ViewTXNPageModule; }); } },
     { path: 'view-txn/:id', loadChildren: function () { return __webpack_require__.e(/*! import() | pages-history-view-txn-view-txn-module */ "view-txn-view-txn-module").then(__webpack_require__.bind(null, /*! ./pages/history/view-txn/view-txn.module */ "./src/app/pages/history/view-txn/view-txn.module.ts")).then(function (m) { return m.ViewTXNPageModule; }); } },
-    { path: 'view-tokens', loadChildren: function () { return __webpack_require__.e(/*! import() | pages-balance-view-tokens-view-tokens-module */ "view-tokens-view-tokens-module").then(__webpack_require__.bind(null, /*! ./pages/balance/view-tokens/view-tokens.module */ "./src/app/pages/balance/view-tokens/view-tokens.module.ts")).then(function (m) { return m.ViewTokensPageModule; }); } },
-    { path: 'view-tokens/:id', loadChildren: function () { return __webpack_require__.e(/*! import() | pages-balance-view-tokens-view-tokens-module */ "view-tokens-view-tokens-module").then(__webpack_require__.bind(null, /*! ./pages/balance/view-tokens/view-tokens.module */ "./src/app/pages/balance/view-tokens/view-tokens.module.ts")).then(function (m) { return m.ViewTokensPageModule; }); } },
+    { path: 'view-tokens', loadChildren: function () { return Promise.all(/*! import() | pages-balance-view-tokens-view-tokens-module */[__webpack_require__.e("default~pages-balance-balance-module~pages-balance-view-tokens-view-tokens-module"), __webpack_require__.e("default~pages-balance-view-tokens-view-tokens-module~view-tokens-view-tokens-module")]).then(__webpack_require__.bind(null, /*! ./pages/balance/view-tokens/view-tokens.module */ "./src/app/pages/balance/view-tokens/view-tokens.module.ts")).then(function (m) { return m.ViewTokensPageModule; }); } },
+    { path: 'view-tokens/:id', loadChildren: function () { return Promise.all(/*! import() | pages-balance-view-tokens-view-tokens-module */[__webpack_require__.e("default~pages-balance-balance-module~pages-balance-view-tokens-view-tokens-module"), __webpack_require__.e("default~pages-balance-view-tokens-view-tokens-module~view-tokens-view-tokens-module")]).then(__webpack_require__.bind(null, /*! ./pages/balance/view-tokens/view-tokens.module */ "./src/app/pages/balance/view-tokens/view-tokens.module.ts")).then(function (m) { return m.ViewTokensPageModule; }); } },
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
@@ -593,7 +594,7 @@ var AppRoutingModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".large-text {\n  font-size: 13px;\n  font-weight: 400 !important;\n  text-transform: uppercase;\n  letter-spacing: 0.2em;\n}\n\n.footer-content {\n  top: 10%;\n}\n\nion-menu {\n  --background: var(--ion-background-color, #f2f2f2);\n}\n\nion-menu ion-header {\n  --background: var(--ion-background-color, #f2f2f2);\n}\n\nion-menu ion-header ion-toolbar {\n  --background: var(--ion-background-color, #f2f2f2);\n}\n\nion-menu ion-content {\n  --padding-top: 12px;\n  --padding-bottom: 20px;\n  --background: var(--ion-item-background, var(--ion-background-color, #fff));\n}\n\nion-icon {\n  color: #FF671D;\n}\n\nion-menu ion-item.selected {\n  --background: var(--ion-background-color, #f2f2f2);\n  --background: linear-gradient(to right, var(--ion-background-color, #fff) 0%, var(--ion-background-color, #f2f2f2) 100%) !important;\n}\n\nion-menu ion-item {\n  --transition: none;\n}\n\n.social-web {\n  margin: auto;\n}\n\n.social-lbl {\n  color: white;\n}\n\n.menu-logo {\n  height: auto;\n  width: auto;\n}\n\n/** Desktop Version */\n\n@media only screen and (min-width: 992px) {\n  .splitpane {\n    left: 3%;\n    right: 3%;\n    top: 6%;\n    bottom: 6%;\n  }\n\n  ion-app {\n    background-image: url('miniTiles.png');\n  }\n\n  ion-menu-toggle {\n    height: 72px;\n  }\n}\n\n/*\n * Material Design Menu\n*/\n\nion-menu.md ion-list {\n  padding: 0px 0;\n}\n\nion-menu.md ion-item {\n  --padding-start: 18px;\n  margin-right: 10px;\n  border-radius: 0 50px 50px 0;\n  font-weight: 500;\n}\n\nion-menu.md ion-item.selected {\n  --background: var(--ion-background-color, #f2f2f2);\n  background: -webkit-gradient(linear, right top, left top, from(var(--ion-background-color, #fff)), to(var(--ion-background-color, #f2f2f2))) !important;\n  background: linear-gradient(to left, var(--ion-background-color, #fff) 0%, var(--ion-background-color, #f2f2f2) 100%) !important;\n}\n\nion-menu.md ion-list {\n  padding-bottom: 0px !important;\n}\n\n/*\n * iOS Design Menu\n*/\n\nion-menu.ios ion-list {\n  padding: 0px 0 0;\n  margin-bottom: 10px;\n}\n\nion-menu.ios ion-item {\n  --padding-start: 16px;\n  --min-height: 50px;\n}\n\n.ios .footer-content {\n  padding: 18px;\n}\n\nion-menu.ios ion-item.selected {\n  --background: linear-gradient(to left, var(--ion-background-color, #fff) 0%, var(--ion-background-color, #f2f2f2) 100%) !important;\n}\n\nion-menu.ios ion-list {\n  padding-bottom: 0px !important;\n}\n\n#footer-item {\n  --padding-bottom: 0px;\n  --padding-start: 15px;\n}\n\nion-toolbar {\n  --background: var(--card-header-color) !important;\n}\n\nion-menu-toggle ion-footer {\n  background: var(--card-header-color) !important;\n}\n\n/** Minima Icon */\n\n#icon .st0 {\n  fill: var(--st0);\n}\n\n#icon .st1 {\n  fill: var(--st1);\n}\n\n#icon .st2 {\n  fill: var(--st2);\n}\n\n#icon .st3 {\n  fill: var(--st3);\n}\n\n#icon .st4 {\n  fill: var(--st4);\n}\n\n#icon .st5 {\n  fill: var(--st5);\n}\n\n#icon .st6 {\n  fill: var(--st6);\n}\n\n#icon-M, #icon-I, #icon-N, #icon-I, #icon-M, #icon-A {\n  fill: var(--minima-icon-word);\n}\n\n@media only screen and (max-width: 650px) {\n  #icon {\n    width: 120px;\n  }\n}\n\n@media only screen and (min-width: 650px) {\n  #icon {\n    width: 145px;\n  }\n}\n\nion-toggle {\n  --handle-background-checked: rgb(132, 0, 255);\n  --background-checked: rgba(132, 0, 255, 0.5);\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9lbGlhc25lbXIvcHJvamVjdHMvV0FMTEVUL21vYmlsZS1hcHAtZnJvbnQtZW5kL2FwcC9zcmMvYXBwL2FwcC5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvYXBwLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsZUFBQTtFQUNBLDJCQUFBO0VBQ0EseUJBQUE7RUFDQSxxQkFBQTtBQ0NGOztBRENBO0VBQ0UsUUFBQTtBQ0VGOztBREFBO0VBQ0Usa0RBQUE7QUNHRjs7QUREQTtFQUNFLGtEQUFBO0FDSUY7O0FERkE7RUFDRSxrREFBQTtBQ0tGOztBREhBO0VBQ0ksbUJBQUE7RUFDQSxzQkFBQTtFQUNBLDJFQUFBO0FDTUo7O0FESEE7RUFDSSxjQUFBO0FDTUo7O0FESkE7RUFDRSxrREFBQTtFQUNBLG1JQUFBO0FDT0Y7O0FESkE7RUFDSSxrQkFBQTtBQ09KOztBRExBO0VBQ0ksWUFBQTtBQ1FKOztBRE5BO0VBQ0ksWUFBQTtBQ1NKOztBRFBBO0VBQ0UsWUFBQTtFQUNBLFdBQUE7QUNVRjs7QURSQSxxQkFBQTs7QUFDQTtFQUVFO0lBQ0UsUUFBQTtJQUNBLFNBQUE7SUFDQSxPQUFBO0lBQ0EsVUFBQTtFQ1VGOztFRFJBO0lBQ0ksc0NBQUE7RUNXSjs7RURUQTtJQUNFLFlBQUE7RUNZRjtBQUNGOztBRFZBOztDQUFBOztBQUdBO0VBQ0ksY0FBQTtBQ1lKOztBRFRFO0VBQ0UscUJBQUE7RUFFQSxrQkFBQTtFQUVBLDRCQUFBO0VBRUEsZ0JBQUE7QUNTSjs7QURQRTtFQUNFLGtEQUFBO0VBQ0EsdUpBQUE7RUFBQSxnSUFBQTtBQ1VKOztBRFJBO0VBQ0UsOEJBQUE7QUNXRjs7QURSQTs7Q0FBQTs7QUFHRTtFQUNFLGdCQUFBO0VBQ0EsbUJBQUE7QUNXSjs7QURURTtFQUNFLHFCQUFBO0VBQ0Esa0JBQUE7QUNZSjs7QURURTtFQUNFLGFBQUE7QUNZSjs7QURURTtFQUNFLGtJQUFBO0FDWUo7O0FEVEU7RUFDRSw4QkFBQTtBQ1lKOztBRFRBO0VBQ0UscUJBQUE7RUFDQSxxQkFBQTtBQ1lGOztBRFRBO0VBQ0UsaURBQUE7QUNZRjs7QURWQTtFQUNFLCtDQUFBO0FDYUY7O0FEUkEsaUJBQUE7O0FBRUE7RUFDRSxnQkFBQTtBQ1VGOztBRFJBO0VBQ0UsZ0JBQUE7QUNXRjs7QURUQTtFQUNFLGdCQUFBO0FDWUY7O0FEVkE7RUFDRSxnQkFBQTtBQ2FGOztBRFhBO0VBQ0UsZ0JBQUE7QUNjRjs7QURaQTtFQUNFLGdCQUFBO0FDZUY7O0FEYkE7RUFDRSxnQkFBQTtBQ2dCRjs7QURkQTtFQUNFLDZCQUFBO0FDaUJGOztBRGRBO0VBQ0U7SUFDRSxZQUFBO0VDaUJGO0FBQ0Y7O0FEZkE7RUFDRTtJQUNFLFlBQUE7RUNpQkY7QUFDRjs7QURkQTtFQUNFLDZDQUFBO0VBQ0EsNENBQUE7QUNnQkYiLCJmaWxlIjoic3JjL2FwcC9hcHAuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIubGFyZ2UtdGV4dCB7XG4gIGZvbnQtc2l6ZTogMTNweDtcbiAgZm9udC13ZWlnaHQ6IDQwMCAhaW1wb3J0YW50O1xuICB0ZXh0LXRyYW5zZm9ybTogdXBwZXJjYXNlO1xuICBsZXR0ZXItc3BhY2luZzogMC4yZW07XG59XG4uZm9vdGVyLWNvbnRlbnQge1xuICB0b3A6IDEwJTtcbn1cbmlvbi1tZW51IHtcbiAgLS1iYWNrZ3JvdW5kOiB2YXIoLS1pb24tYmFja2dyb3VuZC1jb2xvciwgI2YyZjJmMik7XG59XG5pb24tbWVudSBpb24taGVhZGVyIHtcbiAgLS1iYWNrZ3JvdW5kOiB2YXIoLS1pb24tYmFja2dyb3VuZC1jb2xvciwgI2YyZjJmMik7XG59XG5pb24tbWVudSBpb24taGVhZGVyIGlvbi10b29sYmFyIHtcbiAgLS1iYWNrZ3JvdW5kOiB2YXIoLS1pb24tYmFja2dyb3VuZC1jb2xvciwgI2YyZjJmMik7XG59XG5pb24tbWVudSBpb24tY29udGVudCB7XG4gICAgLS1wYWRkaW5nLXRvcDogMTJweDtcbiAgICAtLXBhZGRpbmctYm90dG9tOiAyMHB4O1xuICAgIC0tYmFja2dyb3VuZDogdmFyKC0taW9uLWl0ZW0tYmFja2dyb3VuZCwgdmFyKC0taW9uLWJhY2tncm91bmQtY29sb3IsICNmZmYpKTtcbiAgfVxuXG5pb24taWNvbiB7XG4gICAgY29sb3I6ICNGRjY3MUQ7XG59XG5pb24tbWVudSBpb24taXRlbS5zZWxlY3RlZHtcbiAgLS1iYWNrZ3JvdW5kOiB2YXIoLS1pb24tYmFja2dyb3VuZC1jb2xvciwgI2YyZjJmMik7XG4gIC0tYmFja2dyb3VuZDogbGluZWFyLWdyYWRpZW50KHRvIHJpZ2h0LCAgdmFyKC0taW9uLWJhY2tncm91bmQtY29sb3IsICNmZmYpIDAlLCB2YXIoLS1pb24tYmFja2dyb3VuZC1jb2xvciwgI2YyZjJmMikgMTAwJSkgIWltcG9ydGFudDtcbn1cblxuaW9uLW1lbnUgaW9uLWl0ZW0ge1xuICAgIC0tdHJhbnNpdGlvbjogbm9uZTtcbiAgfVxuLnNvY2lhbC13ZWIge1xuICAgIG1hcmdpbjogYXV0bztcbn1cbi5zb2NpYWwtbGJsIHtcbiAgICBjb2xvcjp3aGl0ZTtcbn1cbi5tZW51LWxvZ28ge1xuICBoZWlnaHQ6IGF1dG87XG4gIHdpZHRoOiBhdXRvO1xufVxuLyoqIERlc2t0b3AgVmVyc2lvbiAqL1xuQG1lZGlhIG9ubHkgc2NyZWVuIGFuZCAobWluLXdpZHRoOiA5OTJweCkge1xuXG4gIC5zcGxpdHBhbmUge1xuICAgIGxlZnQ6IDMlO1xuICAgIHJpZ2h0OiAzJTtcbiAgICB0b3A6IDYlO1xuICAgIGJvdHRvbTogNiU7XG4gIH1cbiAgaW9uLWFwcCB7XG4gICAgICBiYWNrZ3JvdW5kLWltYWdlOiB1cmwoJy4uL2Fzc2V0cy9taW5pVGlsZXMucG5nJyk7XG4gIH1cbiAgaW9uLW1lbnUtdG9nZ2xlIHtcbiAgICBoZWlnaHQ6IDcycHg7XG4gIH1cbn1cbi8qXG4gKiBNYXRlcmlhbCBEZXNpZ24gTWVudVxuKi9cbmlvbi1tZW51Lm1kIGlvbi1saXN0IHtcbiAgICBwYWRkaW5nOiAwcHggMDtcbiAgfVxuICBcbiAgaW9uLW1lbnUubWQgaW9uLWl0ZW0ge1xuICAgIC0tcGFkZGluZy1zdGFydDogMThweDtcbiAgXG4gICAgbWFyZ2luLXJpZ2h0OiAxMHB4O1xuICBcbiAgICBib3JkZXItcmFkaXVzOiAwIDUwcHggNTBweCAwO1xuICBcbiAgICBmb250LXdlaWdodDogNTAwO1xuICB9XG4gIGlvbi1tZW51Lm1kIGlvbi1pdGVtLnNlbGVjdGVkIHtcbiAgICAtLWJhY2tncm91bmQ6IHZhcigtLWlvbi1iYWNrZ3JvdW5kLWNvbG9yLCAjZjJmMmYyKTtcbiAgICBiYWNrZ3JvdW5kOiBsaW5lYXItZ3JhZGllbnQodG8gbGVmdCwgIHZhcigtLWlvbi1iYWNrZ3JvdW5kLWNvbG9yLCAjZmZmKSAwJSwgdmFyKC0taW9uLWJhY2tncm91bmQtY29sb3IsICNmMmYyZjIpIDEwMCUpICFpbXBvcnRhbnQ7XG4gIH1cbmlvbi1tZW51Lm1kIGlvbi1saXN0IHtcbiAgcGFkZGluZy1ib3R0b206IDBweCAhaW1wb3J0YW50O1xufVxuXG4vKlxuICogaU9TIERlc2lnbiBNZW51XG4qL1xuICBpb24tbWVudS5pb3MgaW9uLWxpc3Qge1xuICAgIHBhZGRpbmc6IDBweCAwIDA7XG4gICAgbWFyZ2luLWJvdHRvbTogMTBweDtcbiAgfVxuICBpb24tbWVudS5pb3MgaW9uLWl0ZW0ge1xuICAgIC0tcGFkZGluZy1zdGFydDogMTZweDtcbiAgICAtLW1pbi1oZWlnaHQ6IDUwcHg7XG4gIH1cbiAgXG4gIC5pb3MgLmZvb3Rlci1jb250ZW50IHtcbiAgICBwYWRkaW5nOiAxOHB4O1xuICB9XG4gICAgXG4gIGlvbi1tZW51LmlvcyBpb24taXRlbS5zZWxlY3RlZCB7XG4gICAgLS1iYWNrZ3JvdW5kOiBsaW5lYXItZ3JhZGllbnQodG8gbGVmdCwgIHZhcigtLWlvbi1iYWNrZ3JvdW5kLWNvbG9yLCAjZmZmKSAwJSwgdmFyKC0taW9uLWJhY2tncm91bmQtY29sb3IsICNmMmYyZjIpIDEwMCUpICFpbXBvcnRhbnQ7XG4gIH1cbiAgXG4gIGlvbi1tZW51LmlvcyBpb24tbGlzdCB7XG4gICAgcGFkZGluZy1ib3R0b206IDBweCAhaW1wb3J0YW50O1xuICB9XG5cbiNmb290ZXItaXRlbSB7XG4gIC0tcGFkZGluZy1ib3R0b206IDBweDtcbiAgLS1wYWRkaW5nLXN0YXJ0OiAxNXB4O1xufVxuXG5pb24tdG9vbGJhciB7XG4gIC0tYmFja2dyb3VuZDogdmFyKC0tY2FyZC1oZWFkZXItY29sb3IpICFpbXBvcnRhbnQ7XG59XG5pb24tbWVudS10b2dnbGUgaW9uLWZvb3RlciAge1xuICBiYWNrZ3JvdW5kOiB2YXIoLS1jYXJkLWhlYWRlci1jb2xvcikgIWltcG9ydGFudDtcbn1cblxuXG5cbi8qKiBNaW5pbWEgSWNvbiAqL1xuXG4jaWNvbiAuc3QwIHtcbiAgZmlsbDogdmFyKC0tc3QwKTtcbn1cbiNpY29uIC5zdDEge1xuICBmaWxsOiB2YXIoLS1zdDEpO1xufVxuI2ljb24gLnN0MiB7XG4gIGZpbGw6IHZhcigtLXN0Mik7XG59XG4jaWNvbiAuc3QzIHtcbiAgZmlsbDogdmFyKC0tc3QzKTtcbn1cbiNpY29uIC5zdDQge1xuICBmaWxsOiB2YXIoLS1zdDQpO1xufVxuI2ljb24gLnN0NSB7XG4gIGZpbGw6IHZhcigtLXN0NSk7XG59XG4jaWNvbiAuc3Q2IHtcbiAgZmlsbDogdmFyKC0tc3Q2KTtcbn1cbiNpY29uLU0sICNpY29uLUksICNpY29uLU4sICNpY29uLUksICNpY29uLU0sICNpY29uLUEge1xuICBmaWxsOiB2YXIoLS1taW5pbWEtaWNvbi13b3JkKTtcbn1cblxuQG1lZGlhIG9ubHkgc2NyZWVuIGFuZCAobWF4LXdpZHRoOiA2NTBweCkge1xuICAjaWNvbiB7XG4gICAgd2lkdGg6IDEyMHB4O1xuICB9XG59XG5AbWVkaWEgb25seSBzY3JlZW4gYW5kIChtaW4td2lkdGg6IDY1MHB4KSB7XG4gICNpY29uIHtcbiAgICB3aWR0aDogMTQ1cHg7XG4gIH1cbn1cblxuaW9uLXRvZ2dsZSB7XG4gIC0taGFuZGxlLWJhY2tncm91bmQtY2hlY2tlZDogcmdiKDEzMiwgMCwgMjU1KTtcbiAgLS1iYWNrZ3JvdW5kLWNoZWNrZWQ6IHJnYmEoMTMyLCAwLCAyNTUsIDAuNSk7XG59XG4iLCIubGFyZ2UtdGV4dCB7XG4gIGZvbnQtc2l6ZTogMTNweDtcbiAgZm9udC13ZWlnaHQ6IDQwMCAhaW1wb3J0YW50O1xuICB0ZXh0LXRyYW5zZm9ybTogdXBwZXJjYXNlO1xuICBsZXR0ZXItc3BhY2luZzogMC4yZW07XG59XG5cbi5mb290ZXItY29udGVudCB7XG4gIHRvcDogMTAlO1xufVxuXG5pb24tbWVudSB7XG4gIC0tYmFja2dyb3VuZDogdmFyKC0taW9uLWJhY2tncm91bmQtY29sb3IsICNmMmYyZjIpO1xufVxuXG5pb24tbWVudSBpb24taGVhZGVyIHtcbiAgLS1iYWNrZ3JvdW5kOiB2YXIoLS1pb24tYmFja2dyb3VuZC1jb2xvciwgI2YyZjJmMik7XG59XG5cbmlvbi1tZW51IGlvbi1oZWFkZXIgaW9uLXRvb2xiYXIge1xuICAtLWJhY2tncm91bmQ6IHZhcigtLWlvbi1iYWNrZ3JvdW5kLWNvbG9yLCAjZjJmMmYyKTtcbn1cblxuaW9uLW1lbnUgaW9uLWNvbnRlbnQge1xuICAtLXBhZGRpbmctdG9wOiAxMnB4O1xuICAtLXBhZGRpbmctYm90dG9tOiAyMHB4O1xuICAtLWJhY2tncm91bmQ6IHZhcigtLWlvbi1pdGVtLWJhY2tncm91bmQsIHZhcigtLWlvbi1iYWNrZ3JvdW5kLWNvbG9yLCAjZmZmKSk7XG59XG5cbmlvbi1pY29uIHtcbiAgY29sb3I6ICNGRjY3MUQ7XG59XG5cbmlvbi1tZW51IGlvbi1pdGVtLnNlbGVjdGVkIHtcbiAgLS1iYWNrZ3JvdW5kOiB2YXIoLS1pb24tYmFja2dyb3VuZC1jb2xvciwgI2YyZjJmMik7XG4gIC0tYmFja2dyb3VuZDogbGluZWFyLWdyYWRpZW50KHRvIHJpZ2h0LCB2YXIoLS1pb24tYmFja2dyb3VuZC1jb2xvciwgI2ZmZikgMCUsIHZhcigtLWlvbi1iYWNrZ3JvdW5kLWNvbG9yLCAjZjJmMmYyKSAxMDAlKSAhaW1wb3J0YW50O1xufVxuXG5pb24tbWVudSBpb24taXRlbSB7XG4gIC0tdHJhbnNpdGlvbjogbm9uZTtcbn1cblxuLnNvY2lhbC13ZWIge1xuICBtYXJnaW46IGF1dG87XG59XG5cbi5zb2NpYWwtbGJsIHtcbiAgY29sb3I6IHdoaXRlO1xufVxuXG4ubWVudS1sb2dvIHtcbiAgaGVpZ2h0OiBhdXRvO1xuICB3aWR0aDogYXV0bztcbn1cblxuLyoqIERlc2t0b3AgVmVyc2lvbiAqL1xuQG1lZGlhIG9ubHkgc2NyZWVuIGFuZCAobWluLXdpZHRoOiA5OTJweCkge1xuICAuc3BsaXRwYW5lIHtcbiAgICBsZWZ0OiAzJTtcbiAgICByaWdodDogMyU7XG4gICAgdG9wOiA2JTtcbiAgICBib3R0b206IDYlO1xuICB9XG5cbiAgaW9uLWFwcCB7XG4gICAgYmFja2dyb3VuZC1pbWFnZTogdXJsKFwiLi4vYXNzZXRzL21pbmlUaWxlcy5wbmdcIik7XG4gIH1cblxuICBpb24tbWVudS10b2dnbGUge1xuICAgIGhlaWdodDogNzJweDtcbiAgfVxufVxuLypcbiAqIE1hdGVyaWFsIERlc2lnbiBNZW51XG4qL1xuaW9uLW1lbnUubWQgaW9uLWxpc3Qge1xuICBwYWRkaW5nOiAwcHggMDtcbn1cblxuaW9uLW1lbnUubWQgaW9uLWl0ZW0ge1xuICAtLXBhZGRpbmctc3RhcnQ6IDE4cHg7XG4gIG1hcmdpbi1yaWdodDogMTBweDtcbiAgYm9yZGVyLXJhZGl1czogMCA1MHB4IDUwcHggMDtcbiAgZm9udC13ZWlnaHQ6IDUwMDtcbn1cblxuaW9uLW1lbnUubWQgaW9uLWl0ZW0uc2VsZWN0ZWQge1xuICAtLWJhY2tncm91bmQ6IHZhcigtLWlvbi1iYWNrZ3JvdW5kLWNvbG9yLCAjZjJmMmYyKTtcbiAgYmFja2dyb3VuZDogbGluZWFyLWdyYWRpZW50KHRvIGxlZnQsIHZhcigtLWlvbi1iYWNrZ3JvdW5kLWNvbG9yLCAjZmZmKSAwJSwgdmFyKC0taW9uLWJhY2tncm91bmQtY29sb3IsICNmMmYyZjIpIDEwMCUpICFpbXBvcnRhbnQ7XG59XG5cbmlvbi1tZW51Lm1kIGlvbi1saXN0IHtcbiAgcGFkZGluZy1ib3R0b206IDBweCAhaW1wb3J0YW50O1xufVxuXG4vKlxuICogaU9TIERlc2lnbiBNZW51XG4qL1xuaW9uLW1lbnUuaW9zIGlvbi1saXN0IHtcbiAgcGFkZGluZzogMHB4IDAgMDtcbiAgbWFyZ2luLWJvdHRvbTogMTBweDtcbn1cblxuaW9uLW1lbnUuaW9zIGlvbi1pdGVtIHtcbiAgLS1wYWRkaW5nLXN0YXJ0OiAxNnB4O1xuICAtLW1pbi1oZWlnaHQ6IDUwcHg7XG59XG5cbi5pb3MgLmZvb3Rlci1jb250ZW50IHtcbiAgcGFkZGluZzogMThweDtcbn1cblxuaW9uLW1lbnUuaW9zIGlvbi1pdGVtLnNlbGVjdGVkIHtcbiAgLS1iYWNrZ3JvdW5kOiBsaW5lYXItZ3JhZGllbnQodG8gbGVmdCwgdmFyKC0taW9uLWJhY2tncm91bmQtY29sb3IsICNmZmYpIDAlLCB2YXIoLS1pb24tYmFja2dyb3VuZC1jb2xvciwgI2YyZjJmMikgMTAwJSkgIWltcG9ydGFudDtcbn1cblxuaW9uLW1lbnUuaW9zIGlvbi1saXN0IHtcbiAgcGFkZGluZy1ib3R0b206IDBweCAhaW1wb3J0YW50O1xufVxuXG4jZm9vdGVyLWl0ZW0ge1xuICAtLXBhZGRpbmctYm90dG9tOiAwcHg7XG4gIC0tcGFkZGluZy1zdGFydDogMTVweDtcbn1cblxuaW9uLXRvb2xiYXIge1xuICAtLWJhY2tncm91bmQ6IHZhcigtLWNhcmQtaGVhZGVyLWNvbG9yKSAhaW1wb3J0YW50O1xufVxuXG5pb24tbWVudS10b2dnbGUgaW9uLWZvb3RlciB7XG4gIGJhY2tncm91bmQ6IHZhcigtLWNhcmQtaGVhZGVyLWNvbG9yKSAhaW1wb3J0YW50O1xufVxuXG4vKiogTWluaW1hIEljb24gKi9cbiNpY29uIC5zdDAge1xuICBmaWxsOiB2YXIoLS1zdDApO1xufVxuXG4jaWNvbiAuc3QxIHtcbiAgZmlsbDogdmFyKC0tc3QxKTtcbn1cblxuI2ljb24gLnN0MiB7XG4gIGZpbGw6IHZhcigtLXN0Mik7XG59XG5cbiNpY29uIC5zdDMge1xuICBmaWxsOiB2YXIoLS1zdDMpO1xufVxuXG4jaWNvbiAuc3Q0IHtcbiAgZmlsbDogdmFyKC0tc3Q0KTtcbn1cblxuI2ljb24gLnN0NSB7XG4gIGZpbGw6IHZhcigtLXN0NSk7XG59XG5cbiNpY29uIC5zdDYge1xuICBmaWxsOiB2YXIoLS1zdDYpO1xufVxuXG4jaWNvbi1NLCAjaWNvbi1JLCAjaWNvbi1OLCAjaWNvbi1JLCAjaWNvbi1NLCAjaWNvbi1BIHtcbiAgZmlsbDogdmFyKC0tbWluaW1hLWljb24td29yZCk7XG59XG5cbkBtZWRpYSBvbmx5IHNjcmVlbiBhbmQgKG1heC13aWR0aDogNjUwcHgpIHtcbiAgI2ljb24ge1xuICAgIHdpZHRoOiAxMjBweDtcbiAgfVxufVxuQG1lZGlhIG9ubHkgc2NyZWVuIGFuZCAobWluLXdpZHRoOiA2NTBweCkge1xuICAjaWNvbiB7XG4gICAgd2lkdGg6IDE0NXB4O1xuICB9XG59XG5pb24tdG9nZ2xlIHtcbiAgLS1oYW5kbGUtYmFja2dyb3VuZC1jaGVja2VkOiByZ2IoMTMyLCAwLCAyNTUpO1xuICAtLWJhY2tncm91bmQtY2hlY2tlZDogcmdiYSgxMzIsIDAsIDI1NSwgMC41KTtcbn0iXX0= */"
+module.exports = "ion-menu {\n  --background: var(--ion-m-background);\n}\n\nion-menu ion-header {\n  --background: var(--ion-m-background);\n}\n\nion-menu ion-header ion-toolbar {\n  --background: var(--ion-m-background);\n}\n\nion-menu ion-content {\n  --background: var(--ion-m-background);\n}\n\nion-item {\n  font-family: manrope-bold;\n  padding-left: 1%;\n  color: var(--minima-text);\n}\n\nion-icon {\n  color: var(--ion-color-tertiary);\n}\n\n/** Desktop Version */\n\n@media only screen and (min-width: 992px) {\n  .splitpane {\n    border: 1px solid #FAFAFF;\n    left: 12%;\n    right: 12%;\n    top: 6%;\n    bottom: 6%;\n  }\n\n  ion-app {\n    background-color: #031D32;\n  }\n}\n\n/*\n * Material Design Menu\n*/\n\nion-menu.md ion-list {\n  padding: 0px 0;\n}\n\nion-menu.md ion-item {\n  --padding-start: 18px;\n  margin-right: 10px;\n  border-radius: 0 50px 50px 0;\n}\n\nion-menu.md ion-item.selected {\n  color: var(--ion-color-primary);\n}\n\nion-menu.md ion-item.selected ion-icon {\n  color: var(--ion-color-primary);\n}\n\n/*\n  * iOS Design Menu\n*/\n\nion-menu.ios ion-list {\n  padding: 0px 0 0;\n  margin-bottom: 10px;\n}\n\nion-menu.ios ion-item {\n  --padding-start: 16px;\n  --min-height: 50px;\n}\n\nion-toolbar {\n  --background: var(--ion-m-background);\n}\n\nion-footer ion-item, ion-footer ion-col, ion-footer {\n  --background: #91919D !important;\n  background: #91919D;\n}\n\nion-footer ion-item span {\n  color: #FAFAFF;\n}\n\nion-toggle {\n  --handle-background-checked: var(--ion-m-background);\n  --background-checked: #F0F0F9;\n}\n\n/** Minima Icon */\n\n#icon .st0 {\n  fill: var(--st0);\n}\n\n#icon .st1 {\n  fill: var(--st1);\n}\n\n#icon .st2 {\n  fill: var(--st2);\n}\n\n#icon .st3 {\n  fill: var(--st3);\n}\n\n#icon .st4 {\n  fill: var(--st4);\n}\n\n#icon .st5 {\n  fill: var(--st5);\n}\n\n#icon .st6 {\n  fill: var(--st6);\n}\n\n#icon-M, #icon-I, #icon-N, #icon-I, #icon-M, #icon-A {\n  fill: var(--minima-icon-word);\n}\n\n@media only screen and (max-width: 650px) {\n  #icon {\n    width: 120px;\n  }\n}\n\n@media only screen and (min-width: 650px) {\n  #icon {\n    width: 145px;\n  }\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9lbGlhc25lbXIvcHJvamVjdHMvV0FMTEVUL21vYmlsZS1hcHAtZnJvbnQtZW5kL2FwcC9zcmMvYXBwL2FwcC5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvYXBwLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFFO0VBQ0UscUNBQUE7QUNDSjs7QURDRTtFQUNFLHFDQUFBO0FDRUo7O0FEQUU7RUFDRSxxQ0FBQTtBQ0dKOztBRERFO0VBQ0kscUNBQUE7QUNJTjs7QURGRTtFQUNFLHlCQUFBO0VBQ0EsZ0JBQUE7RUFDQSx5QkFBQTtBQ0tKOztBREhFO0VBQ0ksZ0NBQUE7QUNNTjs7QURKQSxxQkFBQTs7QUFDQTtFQUNFO0lBQ0UseUJBQUE7SUFDQSxTQUFBO0lBQ0EsVUFBQTtJQUNBLE9BQUE7SUFDQSxVQUFBO0VDT0Y7O0VETEE7SUFDRSx5QkFBQTtFQ1FGO0FBQ0Y7O0FETkE7O0NBQUE7O0FBR0E7RUFDSSxjQUFBO0FDUUo7O0FETEE7RUFDRSxxQkFBQTtFQUNBLGtCQUFBO0VBQ0EsNEJBQUE7QUNRRjs7QUROQTtFQUNFLCtCQUFBO0FDU0Y7O0FEUkU7RUFDRSwrQkFBQTtBQ1VKOztBRExBOztDQUFBOztBQUdBO0VBQ0UsZ0JBQUE7RUFDQSxtQkFBQTtBQ1FGOztBRE5BO0VBQ0UscUJBQUE7RUFDQSxrQkFBQTtBQ1NGOztBRE5BO0VBQ0UscUNBQUE7QUNTRjs7QURQQTtFQUNFLGdDQUFBO0VBQ0EsbUJBQUE7QUNVRjs7QURSQTtFQUNFLGNBQUE7QUNXRjs7QURUQTtFQUNFLG9EQUFBO0VBQ0EsNkJBQUE7QUNZRjs7QURUQSxpQkFBQTs7QUFDQTtFQUNFLGdCQUFBO0FDWUY7O0FEVkE7RUFDRSxnQkFBQTtBQ2FGOztBRFhBO0VBQ0UsZ0JBQUE7QUNjRjs7QURaQTtFQUNFLGdCQUFBO0FDZUY7O0FEYkE7RUFDRSxnQkFBQTtBQ2dCRjs7QURkQTtFQUNFLGdCQUFBO0FDaUJGOztBRGZBO0VBQ0UsZ0JBQUE7QUNrQkY7O0FEaEJBO0VBQ0UsNkJBQUE7QUNtQkY7O0FEaEJBO0VBQ0U7SUFDRSxZQUFBO0VDbUJGO0FBQ0Y7O0FEakJBO0VBQ0U7SUFDRSxZQUFBO0VDbUJGO0FBQ0YiLCJmaWxlIjoic3JjL2FwcC9hcHAuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIgIGlvbi1tZW51IHtcbiAgICAtLWJhY2tncm91bmQ6IHZhcigtLWlvbi1tLWJhY2tncm91bmQpO1xuICB9XG4gIGlvbi1tZW51IGlvbi1oZWFkZXIge1xuICAgIC0tYmFja2dyb3VuZDogdmFyKC0taW9uLW0tYmFja2dyb3VuZCk7XG4gIH1cbiAgaW9uLW1lbnUgaW9uLWhlYWRlciBpb24tdG9vbGJhciB7XG4gICAgLS1iYWNrZ3JvdW5kOiB2YXIoLS1pb24tbS1iYWNrZ3JvdW5kKTtcbiAgfVxuICBpb24tbWVudSBpb24tY29udGVudCB7XG4gICAgICAtLWJhY2tncm91bmQ6IHZhcigtLWlvbi1tLWJhY2tncm91bmQpO1xuICB9XG4gIGlvbi1pdGVtIHtcbiAgICBmb250LWZhbWlseTogbWFucm9wZS1ib2xkO1xuICAgIHBhZGRpbmctbGVmdDogMSU7XG4gICAgY29sb3I6IHZhcigtLW1pbmltYS10ZXh0KTtcbiAgfVxuICBpb24taWNvbiB7XG4gICAgICBjb2xvcjogdmFyKC0taW9uLWNvbG9yLXRlcnRpYXJ5KTtcbiAgfVxuLyoqIERlc2t0b3AgVmVyc2lvbiAqL1xuQG1lZGlhIG9ubHkgc2NyZWVuIGFuZCAobWluLXdpZHRoOiA5OTJweCkge1xuICAuc3BsaXRwYW5lIHtcbiAgICBib3JkZXI6IDFweCBzb2xpZCAjRkFGQUZGO1xuICAgIGxlZnQ6IDEyJTtcbiAgICByaWdodDogMTIlO1xuICAgIHRvcDogNiU7XG4gICAgYm90dG9tOiA2JTtcbiAgfVxuICBpb24tYXBwIHtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjMDMxRDMyO1xuICB9XG59XG4vKlxuICogTWF0ZXJpYWwgRGVzaWduIE1lbnVcbiovXG5pb24tbWVudS5tZCBpb24tbGlzdCB7XG4gICAgcGFkZGluZzogMHB4IDA7XG59XG4gIFxuaW9uLW1lbnUubWQgaW9uLWl0ZW0ge1xuICAtLXBhZGRpbmctc3RhcnQ6IDE4cHg7XG4gIG1hcmdpbi1yaWdodDogMTBweDtcbiAgYm9yZGVyLXJhZGl1czogMCA1MHB4IDUwcHggMDtcbn1cbmlvbi1tZW51Lm1kIGlvbi1pdGVtLnNlbGVjdGVkIHtcbiAgY29sb3I6IHZhcigtLWlvbi1jb2xvci1wcmltYXJ5KTtcbiAgaW9uLWljb24ge1xuICAgIGNvbG9yOiB2YXIoLS1pb24tY29sb3ItcHJpbWFyeSk7XG4gIH1cbn1cblxuXG4vKlxuICAqIGlPUyBEZXNpZ24gTWVudVxuKi9cbmlvbi1tZW51LmlvcyBpb24tbGlzdCB7XG4gIHBhZGRpbmc6IDBweCAwIDA7XG4gIG1hcmdpbi1ib3R0b206IDEwcHg7XG59XG5pb24tbWVudS5pb3MgaW9uLWl0ZW0ge1xuICAtLXBhZGRpbmctc3RhcnQ6IDE2cHg7XG4gIC0tbWluLWhlaWdodDogNTBweDtcbn1cbiBcbmlvbi10b29sYmFyIHtcbiAgLS1iYWNrZ3JvdW5kOiB2YXIoLS1pb24tbS1iYWNrZ3JvdW5kKTtcbn1cbmlvbi1mb290ZXIgaW9uLWl0ZW0sIGlvbi1mb290ZXIgaW9uLWNvbCwgaW9uLWZvb3RlciB7XG4gIC0tYmFja2dyb3VuZDogIzkxOTE5RCAhaW1wb3J0YW50O1xuICBiYWNrZ3JvdW5kOiAjOTE5MTlEO1xufVxuaW9uLWZvb3RlciBpb24taXRlbSBzcGFuIHtcbiAgY29sb3I6ICNGQUZBRkY7XG59XG5pb24tdG9nZ2xlIHtcbiAgLS1oYW5kbGUtYmFja2dyb3VuZC1jaGVja2VkOiB2YXIoLS1pb24tbS1iYWNrZ3JvdW5kKTtcbiAgLS1iYWNrZ3JvdW5kLWNoZWNrZWQ6ICNGMEYwRjk7XG59XG5cbi8qKiBNaW5pbWEgSWNvbiAqL1xuI2ljb24gLnN0MCB7XG4gIGZpbGw6IHZhcigtLXN0MCk7XG59XG4jaWNvbiAuc3QxIHtcbiAgZmlsbDogdmFyKC0tc3QxKTtcbn1cbiNpY29uIC5zdDIge1xuICBmaWxsOiB2YXIoLS1zdDIpO1xufVxuI2ljb24gLnN0MyB7XG4gIGZpbGw6IHZhcigtLXN0Myk7XG59XG4jaWNvbiAuc3Q0IHtcbiAgZmlsbDogdmFyKC0tc3Q0KTtcbn1cbiNpY29uIC5zdDUge1xuICBmaWxsOiB2YXIoLS1zdDUpO1xufVxuI2ljb24gLnN0NiB7XG4gIGZpbGw6IHZhcigtLXN0Nik7XG59XG4jaWNvbi1NLCAjaWNvbi1JLCAjaWNvbi1OLCAjaWNvbi1JLCAjaWNvbi1NLCAjaWNvbi1BIHtcbiAgZmlsbDogdmFyKC0tbWluaW1hLWljb24td29yZCk7XG59XG5cbkBtZWRpYSBvbmx5IHNjcmVlbiBhbmQgKG1heC13aWR0aDogNjUwcHgpIHtcbiAgI2ljb24ge1xuICAgIHdpZHRoOiAxMjBweDtcbiAgfVxufVxuQG1lZGlhIG9ubHkgc2NyZWVuIGFuZCAobWluLXdpZHRoOiA2NTBweCkge1xuICAjaWNvbiB7XG4gICAgd2lkdGg6IDE0NXB4O1xuICB9XG59XG5cblxuIiwiaW9uLW1lbnUge1xuICAtLWJhY2tncm91bmQ6IHZhcigtLWlvbi1tLWJhY2tncm91bmQpO1xufVxuXG5pb24tbWVudSBpb24taGVhZGVyIHtcbiAgLS1iYWNrZ3JvdW5kOiB2YXIoLS1pb24tbS1iYWNrZ3JvdW5kKTtcbn1cblxuaW9uLW1lbnUgaW9uLWhlYWRlciBpb24tdG9vbGJhciB7XG4gIC0tYmFja2dyb3VuZDogdmFyKC0taW9uLW0tYmFja2dyb3VuZCk7XG59XG5cbmlvbi1tZW51IGlvbi1jb250ZW50IHtcbiAgLS1iYWNrZ3JvdW5kOiB2YXIoLS1pb24tbS1iYWNrZ3JvdW5kKTtcbn1cblxuaW9uLWl0ZW0ge1xuICBmb250LWZhbWlseTogbWFucm9wZS1ib2xkO1xuICBwYWRkaW5nLWxlZnQ6IDElO1xuICBjb2xvcjogdmFyKC0tbWluaW1hLXRleHQpO1xufVxuXG5pb24taWNvbiB7XG4gIGNvbG9yOiB2YXIoLS1pb24tY29sb3ItdGVydGlhcnkpO1xufVxuXG4vKiogRGVza3RvcCBWZXJzaW9uICovXG5AbWVkaWEgb25seSBzY3JlZW4gYW5kIChtaW4td2lkdGg6IDk5MnB4KSB7XG4gIC5zcGxpdHBhbmUge1xuICAgIGJvcmRlcjogMXB4IHNvbGlkICNGQUZBRkY7XG4gICAgbGVmdDogMTIlO1xuICAgIHJpZ2h0OiAxMiU7XG4gICAgdG9wOiA2JTtcbiAgICBib3R0b206IDYlO1xuICB9XG5cbiAgaW9uLWFwcCB7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogIzAzMUQzMjtcbiAgfVxufVxuLypcbiAqIE1hdGVyaWFsIERlc2lnbiBNZW51XG4qL1xuaW9uLW1lbnUubWQgaW9uLWxpc3Qge1xuICBwYWRkaW5nOiAwcHggMDtcbn1cblxuaW9uLW1lbnUubWQgaW9uLWl0ZW0ge1xuICAtLXBhZGRpbmctc3RhcnQ6IDE4cHg7XG4gIG1hcmdpbi1yaWdodDogMTBweDtcbiAgYm9yZGVyLXJhZGl1czogMCA1MHB4IDUwcHggMDtcbn1cblxuaW9uLW1lbnUubWQgaW9uLWl0ZW0uc2VsZWN0ZWQge1xuICBjb2xvcjogdmFyKC0taW9uLWNvbG9yLXByaW1hcnkpO1xufVxuaW9uLW1lbnUubWQgaW9uLWl0ZW0uc2VsZWN0ZWQgaW9uLWljb24ge1xuICBjb2xvcjogdmFyKC0taW9uLWNvbG9yLXByaW1hcnkpO1xufVxuXG4vKlxuICAqIGlPUyBEZXNpZ24gTWVudVxuKi9cbmlvbi1tZW51LmlvcyBpb24tbGlzdCB7XG4gIHBhZGRpbmc6IDBweCAwIDA7XG4gIG1hcmdpbi1ib3R0b206IDEwcHg7XG59XG5cbmlvbi1tZW51LmlvcyBpb24taXRlbSB7XG4gIC0tcGFkZGluZy1zdGFydDogMTZweDtcbiAgLS1taW4taGVpZ2h0OiA1MHB4O1xufVxuXG5pb24tdG9vbGJhciB7XG4gIC0tYmFja2dyb3VuZDogdmFyKC0taW9uLW0tYmFja2dyb3VuZCk7XG59XG5cbmlvbi1mb290ZXIgaW9uLWl0ZW0sIGlvbi1mb290ZXIgaW9uLWNvbCwgaW9uLWZvb3RlciB7XG4gIC0tYmFja2dyb3VuZDogIzkxOTE5RCAhaW1wb3J0YW50O1xuICBiYWNrZ3JvdW5kOiAjOTE5MTlEO1xufVxuXG5pb24tZm9vdGVyIGlvbi1pdGVtIHNwYW4ge1xuICBjb2xvcjogI0ZBRkFGRjtcbn1cblxuaW9uLXRvZ2dsZSB7XG4gIC0taGFuZGxlLWJhY2tncm91bmQtY2hlY2tlZDogdmFyKC0taW9uLW0tYmFja2dyb3VuZCk7XG4gIC0tYmFja2dyb3VuZC1jaGVja2VkOiAjRjBGMEY5O1xufVxuXG4vKiogTWluaW1hIEljb24gKi9cbiNpY29uIC5zdDAge1xuICBmaWxsOiB2YXIoLS1zdDApO1xufVxuXG4jaWNvbiAuc3QxIHtcbiAgZmlsbDogdmFyKC0tc3QxKTtcbn1cblxuI2ljb24gLnN0MiB7XG4gIGZpbGw6IHZhcigtLXN0Mik7XG59XG5cbiNpY29uIC5zdDMge1xuICBmaWxsOiB2YXIoLS1zdDMpO1xufVxuXG4jaWNvbiAuc3Q0IHtcbiAgZmlsbDogdmFyKC0tc3Q0KTtcbn1cblxuI2ljb24gLnN0NSB7XG4gIGZpbGw6IHZhcigtLXN0NSk7XG59XG5cbiNpY29uIC5zdDYge1xuICBmaWxsOiB2YXIoLS1zdDYpO1xufVxuXG4jaWNvbi1NLCAjaWNvbi1JLCAjaWNvbi1OLCAjaWNvbi1JLCAjaWNvbi1NLCAjaWNvbi1BIHtcbiAgZmlsbDogdmFyKC0tbWluaW1hLWljb24td29yZCk7XG59XG5cbkBtZWRpYSBvbmx5IHNjcmVlbiBhbmQgKG1heC13aWR0aDogNjUwcHgpIHtcbiAgI2ljb24ge1xuICAgIHdpZHRoOiAxMjBweDtcbiAgfVxufVxuQG1lZGlhIG9ubHkgc2NyZWVuIGFuZCAobWluLXdpZHRoOiA2NTBweCkge1xuICAjaWNvbiB7XG4gICAgd2lkdGg6IDE0NXB4O1xuICB9XG59Il19 */"
 
 /***/ }),
 
@@ -610,9 +611,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _service_balance_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./service/balance.service */ "./src/app/service/balance.service.ts");
 /* harmony import */ var _service_status_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./service/status.service */ "./src/app/service/status.service.ts");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
-/* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm5/ionic-storage.js");
+/* harmony import */ var _service_userconfig_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./service/userconfig.service */ "./src/app/service/userconfig.service.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm5/ionic-storage.js");
+/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! minima */ "./node_modules/minima/dist/minima.js");
+/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(minima__WEBPACK_IMPORTED_MODULE_7__);
+
+
 
 
 
@@ -620,11 +626,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var AppComponent = /** @class */ (function () {
-    function AppComponent(status, platform, storage, api, toastCtrl) {
+    function AppComponent(status, api, platform, storage, UserconfigService, toastCtrl) {
         this.status = status;
+        this.api = api;
         this.platform = platform;
         this.storage = storage;
-        this.api = api;
+        this.UserconfigService = UserconfigService;
         this.toastCtrl = toastCtrl;
         this.toggleValue = false;
         this.currentMode = false;
@@ -640,17 +647,15 @@ var AppComponent = /** @class */ (function () {
     AppComponent.prototype.initializeApp = function () {
         var _this = this;
         this.platform.ready().then(function () {
-            Minima.init(function (msg) {
+            minima__WEBPACK_IMPORTED_MODULE_7__["Minima"].init(function (msg) {
                 if (msg.event === 'connected') {
-                    console.log('@M:connected');
+                    _this.api.updatedBalance.next(minima__WEBPACK_IMPORTED_MODULE_7__["Minima"].balance);
                 }
                 else if (msg.event === 'newbalance') {
-                    // add new value to observable
-                    console.log("Balance change.");
-                    _this.api.updatedBalance.next(Minima.balance);
+                    _this.api.updatedBalance.next(msg.info.balance);
                 }
                 else if (msg.event === 'newblock') {
-                    Minima.cmd('status full', function (res) {
+                    minima__WEBPACK_IMPORTED_MODULE_7__["Minima"].cmd('status full', function (res) {
                         _this.status.updatedStatus.next(res.response);
                     });
                 }
@@ -665,42 +670,21 @@ var AppComponent = /** @class */ (function () {
     };
     /** @@@@@@@@@@ Misc Functions @@@@@@@@@@@ */
     AppComponent.prototype.getPages = function () {
-        if (this.platform.is('desktop') || this.platform.is('pwa')) {
-            this.basic =
-                [
-                    { title: 'Balance', routerLink: '/balance', icon: 'card', line: 'none', hidden: false },
-                    { title: 'Send', routerLink: '/send-funds', icon: 'send', line: 'none', hidden: false },
-                    { title: 'Receive', routerLink: '/my-address', icon: 'arrow-down', line: 'none', hidden: false },
-                    { title: 'History', routerLink: '/history', icon: 'book', line: 'half', hidden: false },
-                ];
-            this.advanced =
-                [
-                    { title: 'Token', routerLink: '/create-token', icon: 'brush', line: 'none', hidden: false },
-                    { title: 'Status', routerLink: '/status', icon: 'analytics', line: 'none', hidden: false },
-                    { title: 'Terminal', routerLink: '/mini-term', icon: 'code', line: 'none', hidden: false },
-                    { title: 'Web', routerLink: '/web-scanner', icon: 'desktop', line: 'full', hidden: true },
-                    { title: 'Community', routerLink: '/community', icon: 'share', line: 'half', hidden: false },
-                    { title: 'Settings', routerLink: '/settings', icon: 'build', line: 'none', hidden: true },
-                ];
-        }
-        else {
-            this.basic =
-                [
-                    { title: 'Balance', routerLink: '/balance', icon: 'card', line: 'none', hidden: false },
-                    { title: 'Send', routerLink: '/send-funds', icon: 'send', line: 'none', hidden: false },
-                    { title: 'Receive', routerLink: '/my-address', icon: 'arrow-down', line: 'none', hidden: false },
-                    { title: 'History', routerLink: '/history', icon: 'book', line: 'half', hidden: false },
-                ];
-            this.advanced =
-                [
-                    { title: 'Token', routerLink: '/create-token', icon: 'brush', line: 'none', hidden: false },
-                    { title: 'Status', routerLink: '/status', icon: 'analytics', line: 'none', hidden: false },
-                    { title: 'Terminal', routerLink: '/mini-term', icon: 'code', line: 'none', hidden: false },
-                    { title: 'Web', routerLink: '/web-scanner', icon: 'desktop', line: 'full', hidden: true },
-                    { title: 'Community', routerLink: '/community', icon: 'share', line: 'half', hidden: false },
-                    { title: 'Settings', routerLink: '/settings', icon: 'build', line: 'none', hidden: true },
-                ];
-        }
+        this.basic =
+            [
+                { title: 'Balance', routerLink: '/balance', icon: 'card', line: 'none', hidden: false },
+                { title: 'Send', routerLink: '/send-funds', icon: 'send', line: 'none', hidden: false },
+                { title: 'Receive', routerLink: '/my-address', icon: 'arrow-down', line: 'none', hidden: false },
+                { title: 'History', routerLink: '/history', icon: 'book', line: 'half', hidden: false },
+            ];
+        this.advanced =
+            [
+                { title: 'Token', routerLink: '/create-token', icon: 'brush', line: 'none', hidden: false },
+                { title: 'Status', routerLink: '/status', icon: 'analytics', line: 'none', hidden: false },
+                { title: 'Terminal', routerLink: '/mini-term', icon: 'code', line: 'none', hidden: false },
+                { title: 'Community', routerLink: '/community', icon: 'share', line: 'half', hidden: false },
+                { title: 'Settings', routerLink: '/settings', icon: 'build', line: 'none', hidden: true },
+            ];
     };
     // localStorage
     AppComponent.prototype.setLocalStorage = function () {
@@ -812,22 +796,24 @@ var AppComponent = /** @class */ (function () {
     };
     AppComponent.ctorParameters = function () { return [
         { type: _service_status_service__WEBPACK_IMPORTED_MODULE_2__["StatusService"] },
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["Platform"] },
-        { type: _ionic_storage__WEBPACK_IMPORTED_MODULE_5__["Storage"] },
         { type: _service_balance_service__WEBPACK_IMPORTED_MODULE_1__["BalanceService"] },
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ToastController"] }
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["Platform"] },
+        { type: _ionic_storage__WEBPACK_IMPORTED_MODULE_6__["Storage"] },
+        { type: _service_userconfig_service__WEBPACK_IMPORTED_MODULE_3__["UserconfigService"] },
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["ToastController"] }
     ]; };
     AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Component"])({
             selector: 'app-root',
             template: __webpack_require__(/*! raw-loader!./app.component.html */ "./node_modules/raw-loader/index.js!./src/app/app.component.html"),
             styles: [__webpack_require__(/*! ./app.component.scss */ "./src/app/app.component.scss")]
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_service_status_service__WEBPACK_IMPORTED_MODULE_2__["StatusService"],
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["Platform"],
-            _ionic_storage__WEBPACK_IMPORTED_MODULE_5__["Storage"],
             _service_balance_service__WEBPACK_IMPORTED_MODULE_1__["BalanceService"],
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ToastController"]])
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["Platform"],
+            _ionic_storage__WEBPACK_IMPORTED_MODULE_6__["Storage"],
+            _service_userconfig_service__WEBPACK_IMPORTED_MODULE_3__["UserconfigService"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["ToastController"]])
     ], AppComponent);
     return AppComponent;
 }());
@@ -857,12 +843,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
 /* harmony import */ var _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ionic-native/clipboard/ngx */ "./node_modules/@ionic-native/clipboard/ngx/index.js");
 /* harmony import */ var _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @ionic-native/qr-scanner/ngx */ "./node_modules/@ionic-native/qr-scanner/ngx/index.js");
-/* harmony import */ var _components_pop_over_pop_over_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/pop-over/pop-over.component */ "./src/app/components/pop-over/pop-over.component.ts");
-/* harmony import */ var _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/pop-term/pop-term.component */ "./src/app/components/pop-term/pop-term.component.ts");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
-/* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm5/ionic-storage.js");
-/* harmony import */ var _components_token_descr_token_descr_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/token-descr/token-descr.component */ "./src/app/components/token-descr/token-descr.component.ts");
-/* harmony import */ var _ionic_native_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @ionic-native/social-sharing/ngx */ "./node_modules/@ionic-native/social-sharing/ngx/index.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm5/ionic-storage.js");
+/* harmony import */ var _components_token_descr_token_descr_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/token-descr/token-descr.component */ "./src/app/components/token-descr/token-descr.component.ts");
+/* harmony import */ var _ionic_native_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @ionic-native/social-sharing/ngx */ "./node_modules/@ionic-native/social-sharing/ngx/index.js");
+/* harmony import */ var _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/pop-term/pop-term.component */ "./src/app/components/pop-term/pop-term.component.ts");
+/* harmony import */ var _components_pop_settings_pop_settings_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/pop-settings/pop-settings.component */ "./src/app/components/pop-settings/pop-settings.component.ts");
 /*
   Created by Elias Nemr
   
@@ -904,16 +890,16 @@ var AppModule = /** @class */ (function () {
     }
     AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-            declarations: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"], _components_pop_over_pop_over_component__WEBPACK_IMPORTED_MODULE_11__["PopOverComponent"], _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_12__["PopTermComponent"], _components_token_descr_token_descr_component__WEBPACK_IMPORTED_MODULE_15__["TokenDescrComponent"]],
-            entryComponents: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"], _components_pop_over_pop_over_component__WEBPACK_IMPORTED_MODULE_11__["PopOverComponent"], _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_12__["PopTermComponent"], _components_token_descr_token_descr_component__WEBPACK_IMPORTED_MODULE_15__["TokenDescrComponent"]],
-            imports: [_angular_forms__WEBPACK_IMPORTED_MODULE_6__["FormsModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClientModule"], _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"], _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonicModule"].forRoot(), _app_routing_module__WEBPACK_IMPORTED_MODULE_8__["AppRoutingModule"], _ionic_storage__WEBPACK_IMPORTED_MODULE_14__["IonicStorageModule"].forRoot()],
+            declarations: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"], _components_token_descr_token_descr_component__WEBPACK_IMPORTED_MODULE_13__["TokenDescrComponent"], _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_15__["PopTermComponent"], _components_pop_settings_pop_settings_component__WEBPACK_IMPORTED_MODULE_16__["PopSettingsComponent"]],
+            entryComponents: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"], _components_token_descr_token_descr_component__WEBPACK_IMPORTED_MODULE_13__["TokenDescrComponent"], _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_15__["PopTermComponent"], _components_pop_settings_pop_settings_component__WEBPACK_IMPORTED_MODULE_16__["PopSettingsComponent"]],
+            imports: [_angular_forms__WEBPACK_IMPORTED_MODULE_6__["FormsModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClientModule"], _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"], _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonicModule"].forRoot(), _app_routing_module__WEBPACK_IMPORTED_MODULE_8__["AppRoutingModule"], _ionic_storage__WEBPACK_IMPORTED_MODULE_12__["IonicStorageModule"].forRoot()],
             providers: [
-                _ionic_native_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_16__["SocialSharing"],
+                _ionic_native_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_14__["SocialSharing"],
                 Storage,
                 _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_9__["Clipboard"],
                 _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_10__["QRScanner"],
                 { provide: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouteReuseStrategy"], useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonicRouteStrategy"] },
-                { provide: _angular_common__WEBPACK_IMPORTED_MODULE_13__["LocationStrategy"], useClass: _angular_common__WEBPACK_IMPORTED_MODULE_13__["HashLocationStrategy"] },
+                { provide: _angular_common__WEBPACK_IMPORTED_MODULE_11__["LocationStrategy"], useClass: _angular_common__WEBPACK_IMPORTED_MODULE_11__["HashLocationStrategy"] },
             ],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"]],
             schemas: [_angular_core__WEBPACK_IMPORTED_MODULE_1__["CUSTOM_ELEMENTS_SCHEMA"]]
@@ -926,126 +912,63 @@ var AppModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/components/pop-over/pop-over.component.scss":
-/*!*************************************************************!*\
-  !*** ./src/app/components/pop-over/pop-over.component.scss ***!
-  \*************************************************************/
+/***/ "./src/app/components/pop-settings/pop-settings.component.scss":
+/*!*********************************************************************!*\
+  !*** ./src/app/components/pop-settings/pop-settings.component.scss ***!
+  \*********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "p {\n  word-break: break-all;\n  word-wrap: break-word;\n  white-space: normal;\n  -webkit-hyphens: auto;\n      -ms-hyphens: auto;\n          hyphens: auto;\n}\n\n/** no scrolling on pop-over */\n\nion-app.disable-scroll ion-content > .scroll-content {\n  overflow: hidden;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9lbGlhc25lbXIvcHJvamVjdHMvV0FMTEVUL21vYmlsZS1hcHAtZnJvbnQtZW5kL2FwcC9zcmMvYXBwL2NvbXBvbmVudHMvcG9wLW92ZXIvcG9wLW92ZXIuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL2NvbXBvbmVudHMvcG9wLW92ZXIvcG9wLW92ZXIuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBT0E7RUFDSSxxQkFBQTtFQUNBLHFCQUFBO0VBQ0EsbUJBQUE7RUFDQSxxQkFBQTtNQUFBLGlCQUFBO1VBQUEsYUFBQTtBQ05KOztBRFNBLDhCQUFBOztBQUVJO0VBQ0ksZ0JBQUE7QUNQUiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvcG9wLW92ZXIvcG9wLW92ZXIuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIvLyBAbWVkaWEgb25seSBzY3JlZW4gYW5kIChtaW4td2lkdGg6IDk5MnB4KSB7XG4vLyAgICAgaW9uLWxpc3Qge1xuLy8gICAgICAgICBiYWNrZ3JvdW5kLWltYWdlOiB1cmwoJy4uLy4uL2Fzc2V0cy9taW5pbWF0aWxlLnBuZycpO1xuICAgICAgICBcbi8vICAgICB9XG4vLyB9XG5cbnAge1xuICAgIHdvcmQtYnJlYWs6IGJyZWFrLWFsbDtcbiAgICB3b3JkLXdyYXA6IGJyZWFrLXdvcmQ7XG4gICAgd2hpdGUtc3BhY2U6IG5vcm1hbDtcbiAgICBoeXBoZW5zOiBhdXRvO1xufVxuXG4vKiogbm8gc2Nyb2xsaW5nIG9uIHBvcC1vdmVyICovXG5pb24tYXBwLmRpc2FibGUtc2Nyb2xsIHtcbiAgICBpb24tY29udGVudD4uc2Nyb2xsLWNvbnRlbnQge1xuICAgICAgICBvdmVyZmxvdzogaGlkZGVuO1xuICAgIH1cbn1cblxuXG4iLCJwIHtcbiAgd29yZC1icmVhazogYnJlYWstYWxsO1xuICB3b3JkLXdyYXA6IGJyZWFrLXdvcmQ7XG4gIHdoaXRlLXNwYWNlOiBub3JtYWw7XG4gIGh5cGhlbnM6IGF1dG87XG59XG5cbi8qKiBubyBzY3JvbGxpbmcgb24gcG9wLW92ZXIgKi9cbmlvbi1hcHAuZGlzYWJsZS1zY3JvbGwgaW9uLWNvbnRlbnQgPiAuc2Nyb2xsLWNvbnRlbnQge1xuICBvdmVyZmxvdzogaGlkZGVuO1xufSJdfQ== */"
+module.exports = "ion-list ion-item ion-label {\n  white-space: normal;\n}\n\nion-list-header {\n  text-transform: none;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9lbGlhc25lbXIvcHJvamVjdHMvV0FMTEVUL21vYmlsZS1hcHAtZnJvbnQtZW5kL2FwcC9zcmMvYXBwL2NvbXBvbmVudHMvcG9wLXNldHRpbmdzL3BvcC1zZXR0aW5ncy5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvY29tcG9uZW50cy9wb3Atc2V0dGluZ3MvcG9wLXNldHRpbmdzLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksbUJBQUE7QUNDSjs7QURDQTtFQUNJLG9CQUFBO0FDRUoiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL3BvcC1zZXR0aW5ncy9wb3Atc2V0dGluZ3MuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJpb24tbGlzdCBpb24taXRlbSBpb24tbGFiZWwge1xuICAgIHdoaXRlLXNwYWNlOiBub3JtYWw7XG59XG5pb24tbGlzdC1oZWFkZXIge1xuICAgIHRleHQtdHJhbnNmb3JtOiBub25lO1xufSIsImlvbi1saXN0IGlvbi1pdGVtIGlvbi1sYWJlbCB7XG4gIHdoaXRlLXNwYWNlOiBub3JtYWw7XG59XG5cbmlvbi1saXN0LWhlYWRlciB7XG4gIHRleHQtdHJhbnNmb3JtOiBub25lO1xufSJdfQ== */"
 
 /***/ }),
 
-/***/ "./src/app/components/pop-over/pop-over.component.ts":
-/*!***********************************************************!*\
-  !*** ./src/app/components/pop-over/pop-over.component.ts ***!
-  \***********************************************************/
-/*! exports provided: PopOverComponent */
+/***/ "./src/app/components/pop-settings/pop-settings.component.ts":
+/*!*******************************************************************!*\
+  !*** ./src/app/components/pop-settings/pop-settings.component.ts ***!
+  \*******************************************************************/
+/*! exports provided: PopSettingsComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PopOverComponent", function() { return PopOverComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PopSettingsComponent", function() { return PopSettingsComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
-/* harmony import */ var _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic-native/clipboard/ngx */ "./node_modules/@ionic-native/clipboard/ngx/index.js");
+/* harmony import */ var _service_userconfig_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../service/userconfig.service */ "./src/app/service/userconfig.service.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 
 
 
-
-var PopOverComponent = /** @class */ (function () {
-    function PopOverComponent(navParams, clipboard, alertController, platform, toastCtrl) {
-        this.navParams = navParams;
-        this.clipboard = clipboard;
-        this.alertController = alertController;
-        this.platform = platform;
-        this.toastCtrl = toastCtrl;
-        this.refTokenid = '';
+var PopSettingsComponent = /** @class */ (function () {
+    function PopSettingsComponent(userConfigService) {
+        this.userConfigService = userConfigService;
+        this.userConfig = { tokenDisplayMode: 1 };
+        // set default value from observable
+        this.userConfig.tokenDisplayMode = this.userConfigService.userConfig.value.tokenDisplayMode;
     }
-    PopOverComponent.prototype.ngOnInit = function () {
-        this.refTokenid = this.navParams.get('tokenid');
+    PopSettingsComponent.prototype.ngOnInit = function () { };
+    PopSettingsComponent.prototype.compareWithFn = function (o1, o2) {
+        return o1 === o2;
     };
-    PopOverComponent.prototype.ionViewWillEnter = function () {
-        document.getElementsByTagName("ion-app").item(0).classList.add("disable-scroll"); //ATTACH .disable-scroll css
+    ;
+    PopSettingsComponent.prototype.change = function (ev) {
+        var temp = this.userConfigService.userConfig.value;
+        temp.tokenDisplayMode = ev.detail.value;
+        this.userConfigService.userConfig.next(temp);
+        this.userConfigService.saveUserConfig(this.userConfigService.userConfig.value);
     };
-    PopOverComponent.prototype.ionViewWillLeave = function () {
-        if (document.getElementsByTagName("ion-app").item(0).classList.contains("disable-scroll"))
-            document.getElementsByTagName("ion-app").item(0).classList.remove("disable-scroll"); //DETACH .disable-scroll css
-    };
-    PopOverComponent.prototype.copyToClipboard = function () {
-        if (this.platform.is('desktop') || this.platform.is('pwa')) {
-            this.copyToClipPWA();
-            this.presentAlert("Copied to clipboard.", "Success");
-        }
-        else {
-            this.clipboard.copy(this.refTokenid);
-            this.presentAlert("Copied to clipboard", "Success");
-        }
-    };
-    PopOverComponent.prototype.copyToClipPWA = function () {
-        var _this = this;
-        document.addEventListener('copy', function (e) {
-            e.clipboardData.setData('text/plain', _this.refTokenid);
-            e.preventDefault();
-            document.removeEventListener('copy', null);
-        });
-        document.execCommand('copy');
-    };
-    PopOverComponent.prototype.presentAlert = function (msg, header) {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
-            var alert;
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.alertController.create({
-                            header: header,
-                            message: msg,
-                            cssClass: "no-scroll",
-                            buttons: ['Cancel', 'Ok']
-                        })];
-                    case 1:
-                        alert = _a.sent();
-                        return [4 /*yield*/, alert.present()];
-                    case 2:
-                        _a.sent();
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
-    PopOverComponent.ctorParameters = function () { return [
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavParams"] },
-        { type: _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_3__["Clipboard"] },
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"] },
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Platform"] },
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"] }
+    PopSettingsComponent.ctorParameters = function () { return [
+        { type: _service_userconfig_service__WEBPACK_IMPORTED_MODULE_1__["UserconfigService"] }
     ]; };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])("tokenName"),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], PopOverComponent.prototype, "tokenName", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])("tokenId"),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], PopOverComponent.prototype, "tokenId", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])('textToCopy'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], PopOverComponent.prototype, "textToCopy", void 0);
-    PopOverComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-pop-over',
-            template: __webpack_require__(/*! raw-loader!./pop-over.component.html */ "./node_modules/raw-loader/index.js!./src/app/components/pop-over/pop-over.component.html"),
-            styles: [__webpack_require__(/*! ./pop-over.component.scss */ "./src/app/components/pop-over/pop-over.component.scss")]
+    PopSettingsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Component"])({
+            selector: 'app-pop-settings',
+            template: __webpack_require__(/*! raw-loader!./pop-settings.component.html */ "./node_modules/raw-loader/index.js!./src/app/components/pop-settings/pop-settings.component.html"),
+            styles: [__webpack_require__(/*! ./pop-settings.component.scss */ "./src/app/components/pop-settings/pop-settings.component.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavParams"],
-            _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_3__["Clipboard"],
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"],
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Platform"],
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"]])
-    ], PopOverComponent);
-    return PopOverComponent;
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_service_userconfig_service__WEBPACK_IMPORTED_MODULE_1__["UserconfigService"]])
+    ], PopSettingsComponent);
+    return PopSettingsComponent;
 }());
 
 
@@ -1270,8 +1193,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var BalanceService = /** @class */ (function () {
     function BalanceService() {
-        this.updatedBalance = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"](Minima.balance);
-        this.currentBalance = this.updatedBalance.asObservable();
+        this.updatedBalance = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"]([]);
         // take in tokenArr and the element you'd like to add to front of array
         this.update = function (a, e) {
             var i = a.findIndex(function (o) { return o.tokenid === e; });
@@ -1439,28 +1361,108 @@ var MinimaApiService = /** @class */ (function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StatusService", function() { return StatusService; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! minima */ "./node_modules/minima/dist/minima.js");
+/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(minima__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+
 
 
 
 var StatusService = /** @class */ (function () {
     function StatusService() {
         var _this = this;
-        Minima.cmd('status full', function (res) {
+        minima__WEBPACK_IMPORTED_MODULE_1__["Minima"].cmd('status full', function (res) {
             if (res.status) {
-                _this.updatedStatus = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"](res.response);
-                _this.currentStatus = _this.updatedStatus.asObservable();
+                var first = res.response;
+                _this.updatedStatus = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"](first);
             }
         });
     }
     StatusService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Injectable"])({
             providedIn: 'root'
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
     ], StatusService);
     return StatusService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/service/userconfig.service.ts":
+/*!***********************************************!*\
+  !*** ./src/app/service/userconfig.service.ts ***!
+  \***********************************************/
+/*! exports provided: UserconfigService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserconfigService", function() { return UserconfigService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! minima */ "./node_modules/minima/dist/minima.js");
+/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(minima__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+
+
+
+
+var UserconfigService = /** @class */ (function () {
+    function UserconfigService() {
+        this.defaultConfig = { systemMode: 'light', terminalFontSize: '12', tokenDisplayMode: 1 };
+        this.userConfig = new rxjs__WEBPACK_IMPORTED_MODULE_1__["BehaviorSubject"](this.defaultConfig);
+        this.createUserConfig(this.defaultConfig);
+    }
+    UserconfigService.prototype.createUserConfig = function (defaultConfig) {
+        var _this = this;
+        minima__WEBPACK_IMPORTED_MODULE_2__["Minima"].file.load('UserConfig.txt', function (res) {
+            //console.log(res);
+            if (!res.success && !res.exists) {
+                var data = defaultConfig;
+                minima__WEBPACK_IMPORTED_MODULE_2__["Minima"].file.save(JSON.stringify(data), 'UserConfig.txt', function (res) {
+                    if (res.success) { }
+                });
+            }
+            else {
+                //console.log(JSON.parse(res.data))
+                _this.userConfig.next(JSON.parse(res.data));
+            }
+        });
+    };
+    UserconfigService.prototype.saveUserConfig = function (currentValue) {
+        minima__WEBPACK_IMPORTED_MODULE_2__["Minima"].file.load('UserConfig.txt', function (res) {
+            if (res.success) {
+                var data = res.data;
+                if (data !== JSON.stringify(currentValue)) {
+                    //console.log(JSON.stringify(currentValue));
+                    minima__WEBPACK_IMPORTED_MODULE_2__["Minima"].file.save(JSON.stringify(currentValue), 'UserConfig.txt', function (res) {
+                        if (res.success) {
+                            //console.log('Updated UserConfig!');
+                        }
+                    });
+                }
+            }
+        });
+    };
+    UserconfigService.prototype.loadUserConfig = function (userConfig) {
+        minima__WEBPACK_IMPORTED_MODULE_2__["Minima"].file.load('userConfig.txt', function (res) {
+            if (res.success) {
+                userConfig = JSON.parse(res.data);
+            }
+        });
+        return;
+    };
+    UserconfigService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], UserconfigService);
+    return UserconfigService;
 }());
 
 

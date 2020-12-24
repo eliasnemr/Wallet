@@ -7,7 +7,7 @@
         
          <ion-title *ngIf="!ios" class="large-text">History</ion-title>
 
-        <ion-segment [(ngModel)]="segment" (ionChange)="updateHistory()" *ngIf="ios" color="primary">
+        <ion-segment [(ngModel)]="segment" (ionChange)="updateHistory()" *ngIf="ios && transactions.length > 0" color="primary">
           <ion-segment-button (ionChange)="updateHistory()" value="all">
             <ion-label>All</ion-label>
           </ion-segment-button>
@@ -16,7 +16,7 @@
           </ion-segment-button>
         </ion-segment>
 
-        <ion-segment [(ngModel)]="segment" (ionChange)="updateHistory()" *ngIf="!ios" color="tertiary">
+        <ion-segment [(ngModel)]="segment" (ionChange)="updateHistory()" *ngIf="!ios && transactions.length > 0" color="tertiary">
           <ion-segment-button (ionChange)="updateHistory()" value="all">
             <ion-label>All</ion-label>
           </ion-segment-button>
@@ -28,7 +28,7 @@
     </ion-toolbar>
   </ion-header>
   
-  <ion-content class="ion-padding" fullscreen="true">
+  <ion-content fullscreen="true">
     <ion-header collapse="condense">
       <ion-toolbar>
         <ion-title size="large">History</ion-title>
@@ -120,10 +120,13 @@
       </ion-grid>
     </ion-list>
 
-
-    <ion-list-header [hidden]="transactions.length > 0">
-      No Activities Yet
-    </ion-list-header>
+    <ion-grid *ngIf="transactions.length == 0">
+      <ion-row>
+        <ion-col style="display: flex; align-items:center; justify-content:center" size="12">
+          <ion-label>Fetching history...</ion-label>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
 
 
 </ion-content>

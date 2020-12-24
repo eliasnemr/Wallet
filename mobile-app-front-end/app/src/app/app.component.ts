@@ -1,5 +1,3 @@
-import { Token } from './models/token.model';
-import { Mini } from './models/mini.model';
 import { BalanceService } from './service/balance.service';
 import { StatusService } from './service/status.service';
 import { UserconfigService } from './service/userconfig.service';

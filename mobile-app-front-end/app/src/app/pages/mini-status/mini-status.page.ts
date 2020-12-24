@@ -1,11 +1,9 @@
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { StatusService } from './../../service/status.service';
-import { Component, OnInit, ChangeDetectorRef, Input } from '@angular/core';
-import { Status } from '../../models/status.model';
-import { Platform } from '@ionic/angular';
+import { Component, OnInit } from '@angular/core';
+import { Status } from 'minima';
 
-declare var Minima: any;
 @Component({
   selector: 'app-mini-status',
   templateUrl: './mini-status.page.html',
@@ -13,7 +11,7 @@ declare var Minima: any;
 })
 export class MiniStatusPage implements OnInit {
 
-  status: { status: boolean, minifunc: string, message: string, response: Status};
+  status: Status;
   statusSubscription: Subscription;
 
   public lastJSON: string;

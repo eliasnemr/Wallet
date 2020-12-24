@@ -6,14 +6,14 @@
       <span slot="start">
         <span *ngIf="token.tokenid !== '0x00' && token.icon.length == 0" style="margin-right: 1%" class="e-avatar e-avatar-xsmall"><img [src]="createIcon( token.tokenid )" /></span>
         <span *ngIf="token.tokenid !== '0x00' && token.icon.length > 0" style="margin-right: 1%"><img class="custom-icon" [src]="token.icon" /></span>
-        <img *ngIf="token.tokenid == '0x00'" class="custom-icon" alt="minima" src="assets/icon/logoreg-s.svg">
+        <img *ngIf="token.tokenid == '0x00'" class="custom-icon" alt="minima" src="assets/logoreg-s.svg">
       </span>
       <span id="token-name">{{ token.token }}</span>
       
       
       <ion-label slot="end">
-        <span *ngIf="token.unconfirmed != 0;" class="confirmed-amount medium-text minima-numeric">{{ token.sendable + "/" + token.unconfirmed  }}</span>
-        <span *ngIf="token.unconfirmed == 0;" class="confirmed-amount medium-text minima-numeric">{{ token.sendable }} </span>
+        <span *ngIf="token.unconfirmed != '0';" class="confirmed-amount medium-text minima-numeric">{{ token.sendable + "/" + token.unconfirmed  }}</span>
+        <span *ngIf="token.unconfirmed == '0';" class="confirmed-amount medium-text minima-numeric">{{ token.sendable }} </span>
       </ion-label>
     </ion-item>
     

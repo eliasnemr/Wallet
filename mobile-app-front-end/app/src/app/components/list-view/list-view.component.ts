@@ -1,5 +1,4 @@
-import { Token } from './../../models/token.model';
-import { Mini } from './../../models/mini.model';
+import { Token } from 'minima';
 import * as SparkMD5 from 'spark-md5';
 import { Component, OnInit, Input } from '@angular/core';
 
@@ -10,7 +9,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ListViewComponent implements OnInit {
 
-  @Input() tokenArr: Mini[] | Token[] = [];
+  @Input() tokenArr: Token[] = [];
   public avatar: string;
 
   constructor() { }

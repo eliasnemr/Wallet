@@ -4,8 +4,7 @@ import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { MinimaApiService } from '../../service/minima-api.service';
 import { Component, OnInit, ViewChild, NgZone, ChangeDetectorRef } from '@angular/core';
-import { AlertController, IonInfiniteScroll, ToastController, PopoverController } from '@ionic/angular';
-import { Mini } from '../../models/mini.model';
+import { AlertController, IonInfiniteScroll, ToastController, PopoverController, IonButton } from '@ionic/angular';
 import { BalanceService } from '../../service/balance.service';
 import { Router } from '@angular/router';
 import * as SparkMD5 from 'spark-md5';
@@ -22,6 +21,7 @@ import { Token } from 'minima';
 export class BalancePage implements OnInit {
 
   @ViewChild(IonInfiniteScroll, {static: false}) infiniteScroll: IonInfiniteScroll;
+  @ViewChild('gimme50Btn', {static: false}) gimme50Btn: IonButton;
 
   displayMode: string = '1';
   avatar: any;
@@ -75,6 +75,13 @@ export class BalancePage implements OnInit {
     this.api.giveMe50().then((res: any) => {
       if(res.status === true) {
         this.presentAlert(res.message, 'Success.');
+
+        this.gimme50Btn.disabled = true;
+
+        setTimeout(() => {
+          this.gimme50Btn.disabled = false;
+        }, (10 * 60));
+
       } else {
         this.presentAlert(res.message, 'Something went wrong.');
       }

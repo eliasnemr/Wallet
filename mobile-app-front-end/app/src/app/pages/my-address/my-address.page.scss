@@ -6,30 +6,38 @@
     }
 }
 ion-content {
-    --overflow: hidden;
+  --overflow: hidden;
 }
+
+ion-toolbar {
+    --background: var(--ion-m-background);
+    font-family: manrope-bold;
+    color: var(--ion-color-tertiary);
+    ion-title {
+      font-size: 1.0rem;
+    }
+    ion-buttons ion-menu-button {
+      font-size: 1.0rem;
+      color: var(--ion-color-tertiary);
+    }
+  }
+
 
 ion-card-content {
     background: var(--ion-card-color);
 }
 ion-card-header {
-    background: var(--ion-card-header);
+    --color: var(--ion-text-color,#000);
 }
 ion-footer ion-toolbar ion-buttons ion-button {
     width: 100%;
- }
-
-.action-btn {
-    height: 72px;
+    height: 58px;
+    text-transform: none;
+    font-family: manrope-bold;
 }
-.action-btn:hover {
-    height: 72px;
-
-    ion-icon {
-        font-size: large;
-      }
+ion-footer ion-toolbar {
+    height: 58px;
 }
-
 .ios .skeleton-address {
     height: 280px;
     width: 100%;
@@ -42,37 +50,21 @@ ion-footer ion-toolbar ion-buttons ion-button {
     padding: 10px;
 }
 
-// ion-grid, ion-row, ion-col 
-// ion-grid {
-//     --ion-grid-padding: 0;
-//     --ion-grid-column-padding: 0;
-//     --ion-grid-width-xl: 360px;
-//     --ion-grid-width-lg: 360px;
-//     --ion-grid-width-md: 450px;
-// }
-
-ion-col {
-    margin-top: 15px;
-}
-
-ion-toolbar {
-    --background: var(--ion-m-background);
-}
-
 .copy-btn {
     text-decoration: underline;
+    text-transform: none;
+    font-family: manrope-bold;
+    color: var(--ion-color-tertiary);
 }
 
-.address {
-    font-weight: 700;
-}
 ion-badge:hover {
-    transform: scale(1.1);
+    transform: scale(1.01);
 }
 ion-badge {
-    word-break: break-all;
-    white-space: normal;
+    white-space: nowrap;
+    text-overflow: ellipsis;
     cursor: pointer;
+    --background: #FF512F;
 }
 ion-row {
     display: flexbox;
