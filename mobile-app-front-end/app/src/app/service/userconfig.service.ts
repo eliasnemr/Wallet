@@ -8,7 +8,7 @@ import { Injectable } from '@angular/core';
 })
 export class UserconfigService {
 
-  defaultConfig: UserConfig = {systemMode:'light', terminalFontSize:'12', tokenDisplayMode:1};
+  defaultConfig: UserConfig = {systemMode:'light', terminalFontSize:'12', tokenDisplayMode:1, historyOrderByMode:1};
   userConfig: BehaviorSubject<UserConfig> = new BehaviorSubject<UserConfig>(this.defaultConfig);
 
   constructor() { 

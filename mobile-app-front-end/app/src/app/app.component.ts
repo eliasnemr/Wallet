@@ -64,11 +64,11 @@ export class AppComponent {
 
         } else if (msg.event === 'miningstart') {
 
-          this.presentToast("Mining Transaction in progress...", "success");
+          this.presentToast("Mining transaction in progress...", "primary");
 
         } else if (msg.event === 'miningstop') {
 
-          this.presentToast("Mining Transaction stopped...", "danger");
+          this.presentToast("Mining transaction completed.", "secondary");
 
         }
       });

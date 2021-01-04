@@ -31,10 +31,10 @@ export class MyAddressPage implements OnInit {
 
   }
 
-  public generateAddress() {
+  public generateAddress(code: string) {
     this.newAddress();
     this.generateAddressBtn.disabled = true;
-    this.presentToast('Generated a new address.', 'success', "middle");
+    this.presentToast('Generated a new address', 'primary', "bottom");
     setTimeout(() => {
     this.generateAddressBtn.disabled = false;
     }, 2000);
@@ -67,7 +67,14 @@ export class MyAddressPage implements OnInit {
       color: type,
       keyboardClose: true,
       translucent: true,
-      position: posn
+      position: posn,
+      cssClass: 'toast',
+      buttons: [{
+        text: 'Dismiss', 
+        role: 'cancel',
+        handler: () => {
+        }
+      }]
     });
     toast.present();
   }
@@ -75,17 +82,16 @@ export class MyAddressPage implements OnInit {
   copyToClipboard() {
     if (this.platform.is('desktop') || this.platform.is('pwa')) {
       this.copyToClipPWA();
-      this.presentToast('Copied to clipboard', 'success', 'bottom');
     } else {
       this.clipboard.copy(this.qrCode);
-      this.presentToast('Copied to clipboard', 'success', 'bottom');
+      this.presentToast('Copied to Clipboard', 'primary', 'bottom');
     }
   }
-
+ß
   copyToClipPWA() {
     document.addEventListener('copy', (e: ClipboardEvent) => {
       e.clipboardData.setData('text/plain', this.qrCode);
-      this.presentToast('Copied to clipboard', 'success', 'bottom');
+      this.presentToast('Copied To Clipboard', 'primary', 'bottom');
       e.preventDefault();
       document.removeEventListener('copy', null);
     });

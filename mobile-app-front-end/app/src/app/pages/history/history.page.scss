@@ -4,12 +4,18 @@ ion-card-header {
     background: linear-gradient(to bottom,  var(--ion-background-color, #fff) 0%, var(--ion-background-color, #f2f2f2) 100%) !important;
     
 }
+ion-toolbar {
+    font-family: manrope-bold;
+    ion-title {
+        font-size: 1.0rem;
+    }
+}
 ion-segment {
     padding-left: 0;
     padding-right: 0;
 }
 .ios ion-title {
-    font-size: 30px !important;
+    font-size: 1.0rem;
 }
 ion-toolbar {
     --padding-top: 15px;
@@ -89,4 +95,11 @@ ion-row {
 
 ion-content {
     overflow-y: scroll;
+}
+
+#filter-settings {
+    position: absolute;
+    right: 5%;
+    top: 15%;
+    cursor: pointer;
 }

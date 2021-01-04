@@ -465,7 +465,7 @@ module.exports = "<ion-app>\n  <ion-split-pane when=\"lg\" contentId=\"mainMenu\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n  <ion-list>\n    <ion-list-header>Balance Settings</ion-list-header>\n\n    <ion-item>\n      <ion-label class=\"medium-text\">Display Mode</ion-label>\n      <ion-select (ionChange)=\"change($event)\" [compareWith]=\"compareWithFn\" value=\"{{userConfig.tokenDisplayMode}}\">\n      <ion-select-option value=\"1\">Grid View</ion-select-option>\n      <ion-select-option value=\"2\">List View</ion-select-option>\n      </ion-select>\n    </ion-item>      \n  </ion-list>"
+module.exports = "\n  <ion-list>\n    <ion-list-header>Balance Settings</ion-list-header>\n\n    <ion-item>\n      <ion-label>Display Mode</ion-label>\n      <ion-select (ionChange)=\"change($event)\" [compareWith]=\"compareWithFn\" value=\"{{userConfig.tokenDisplayMode}}\">\n      <ion-select-option value=\"1\">Grid View</ion-select-option>\n      <ion-select-option value=\"2\">List View</ion-select-option>\n      </ion-select>\n    </ion-item>      \n  </ion-list>"
 
 /***/ }),
 
@@ -488,41 +488,6 @@ module.exports = "<ion-grid>\n  <ion-row style=\"padding:0px;\">\n    <ion-col s
 /***/ (function(module, exports) {
 
 module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-title slot=\"start\" class=\"large-text\">\n    \n    <span *ngIf=\"name && name.length <= 10\" class=\"large-text title\">{{ name + \" \" }}</span>\n    <span *ngIf=\"name && name.length > 10\" class=\"large-text title\">{{ name.substring(0, 20)+\"... \" }}</span>\n\n    <span class=\"small-text\" [hidden]=\"tokenid == '0x00'\">{{ tokenid.substring(0,8) + \"...\"}}</span>\n    <span class=\"small-text\" [hidden]=\"tokenid !== '0x00'\">{{ tokenid }}</span>\n    <ion-icon (click)=\"copyToClipboard()\" name=\"clipboard\"></ion-icon>\n    </ion-title>\n  \n  <ion-button \n  class=\"small-text dismiss-btn\"\n  slot=\"end\"\n  fill=\"clear\"\n  (click)=\"dismiss()\">\n  Dismiss\n  </ion-button>\n  </ion-toolbar>\n</ion-header>\n\n<!-- Only if custom token -->\n<ion-content [hidden]=\"tokenid == '0x00'\">\n  <ion-card> \n    <ion-card-header>\n      <ion-grid>\n        <ion-row>\n          <ion-col>\n            <img style=\"max-width: 250px; min-height:75px;\"[hidden]=\"!icon\" src=\"{{ icon }}\"/>\n            <img style=\"max-width: 250px; min-height:75px;\" [hidden]=\"icon\" src=\"assets/icon/icon.png\"/>\n          </ion-col>\n        </ion-row>\n        <ion-row>\n          <ion-col class=\"medium-text\" [hidden]=\"tokenid === '0x00'\">\n          {{ description }}\n          </ion-col>\n          <ion-col class=\"medium-text\" [hidden]=\"tokenid !== '0x00'\">\n            Minima's Official Token\n          </ion-col>\n        </ion-row>\n      </ion-grid>\n    </ion-card-header>\n    <ion-card-content>\n      <ion-grid>\n        <ion-row>\n          <ion-col class=\"small-text\" id=\"varname\">\n            Name\n          </ion-col>\n          <ion-col *ngIf=\"total\" class=\"small-text\" id=\"variable\">\n             {{ name }}\n          </ion-col>\n         </ion-row>\n        <ion-row>\n         <ion-col class=\"small-text\" id=\"varname\">\n           Total Amount Available\n         </ion-col>\n         <ion-col *ngIf=\"total\" class=\"small-text\" id=\"variable\">\n            {{ total }}\n         </ion-col>\n        </ion-row>\n        <ion-row [hidden]=\"tokenid == '0x00'\">\n         <ion-col class=\"small-text\" id=\"varname\">\n           Total Amount Available (Minima)\n         </ion-col>\n         <ion-col *ngIf=\"totalamount\" class=\"small-text\" id=\"variable\">\n            {{ totalamount }}\n         </ion-col>\n        </ion-row>\n        <ion-row>\n         <ion-col class=\"small-text\" id=\"varname\">\n           Token Type\n         </ion-col>\n         <ion-col class=\"small-text\" [hidden]=\"script !== 'RETURN TRUE'\" id=\"variable\">   \n            Fungible\n         </ion-col>\n         <ion-col class=\"small-text\" [hidden]=\"script == 'RETURN TRUE'\" id=\"variable\">\n            Non-Fungible\n         </ion-col>\n        </ion-row>\n        <ion-row>\n         <ion-col class=\"small-text\" id=\"varname\">\n           Proof Availability\n         </ion-col>\n         <ion-col class=\"small-text\" *ngIf=\"proof\" [hidden]=\"proof.length > 0\" id=\"variable\">   \n            False\n         </ion-col>\n         <ion-col class=\"small-text\" *ngIf=\"proof\" [hidden]=\"proof.length == 0\" id=\"variable\">\n            True\n         </ion-col>\n        </ion-row>\n        <ion-row id=\"varname\" *ngIf=\"proof\" [hidden]=\"proof.length <= 0\">\n         <ion-col class=\"small-text\">\n           Proof URL\n         </ion-col>\n         <ion-col class=\"small-text\" id=\"variable\">   \n             {{ proof }}\n         </ion-col>\n        </ion-row>\n        <ion-row id=\"varname\" *ngIf=\"proof\" [hidden]=\"proof.length <= 0\">\n         <ion-col class=\"small-text\">\n           Validate Proof\n         </ion-col>\n         <ion-col id=\"variable\">   \n          <ion-button *ngIf=\"proof\" class=\"small-text\" size=\"small\" (click)=\"validateProof(tokenid)\">\n            Validate\n          </ion-button>\n         </ion-col>\n        </ion-row>\n        <ion-row>\n         <ion-col class=\"small-text\" id=\"varname\" >\n           Confirmed/Sendable Amount\n         </ion-col>\n         <ion-col *ngIf=\"confirmed || sendable\" class=\"small-text\" id=\"variable\">   \n             {{ confirmed + \"/\" + sendable }}\n         </ion-col>\n        </ion-row>\n        <ion-row>\n         <ion-col class=\"small-text\" id=\"varname\">\n           Unconfirmed Amount\n         </ion-col>\n         <ion-col *ngIf=\"unconfirmed\" class=\"small-text\" id=\"variable\">   \n             {{ unconfirmed }}\n         </ion-col>\n        </ion-row>\n        <ion-row>\n         <ion-col class=\"small-text\" id=\"varname\">\n           Mempool\n         </ion-col>\n         <ion-col *ngIf=\"mempool\" class=\"small-text\" id=\"variable\">   \n             {{ mempool }}\n         </ion-col>\n        </ion-row>\n        <ion-row>\n         <ion-col class=\"small-text\" size=\"3\" id=\"varname\">\n           Script\n         </ion-col>\n         <ion-col *ngIf=\"script\" class=\"small-text\" size=\"9\" id=\"variable\">   \n             {{ script }}\n         </ion-col>\n        </ion-row>\n        \n      </ion-grid>\n    </ion-card-content>\n  </ion-card>\n  <!-- fab placed to the bottom end -->\n  <ion-fab vertical=\"bottom\" horizontal=\"start\" slot=\"fixed\">\n    <ion-fab-button size=\"55px;\" color=\"minima-text\" (click)=\"sendTokenOver(tokenid)\">\n      <ion-icon size=\"45px;\" name=\"send\" color=\"tertiary\"></ion-icon>\n    </ion-fab-button>\n  </ion-fab>\n\n</ion-content>\n\n<!-- Only if Minima token -->\n<ion-content [hidden]=\"tokenid !== '0x00'\">\n  <ion-card> \n    <ion-card-header>\n      <ion-grid>\n        <ion-row>\n          <ion-col>\n            <img style=\"max-width: 250px; min-height:75px;\" [hidden]=\"tokenid !== '0x00'\" src=\"assets/icon/icon.png\"/>\n          </ion-col>\n        </ion-row>\n        <ion-row>\n          <ion-col>\n            Minima - The Mobile Cryptocurrency\n          </ion-col>\n        </ion-row>\n      </ion-grid>\n    </ion-card-header>\n    \n  </ion-card>\n  <!-- fab placed to the bottom end -->\n  <ion-fab vertical=\"bottom\" horizontal=\"start\" slot=\"fixed\">\n    <ion-fab-button size=\"55px;\" color=\"minima-text\" (click)=\"sendTokenOver(tokenid)\">\n      <ion-icon size=\"45px;\" name=\"send\" color=\"tertiary\"></ion-icon>\n    </ion-fab-button>\n  </ion-fab>\n\n</ion-content>"
-
-/***/ }),
-
-/***/ "./node_modules/web-social-share/dist/esm lazy recursive ^\\.\\/.*\\.entry\\.js$ include: \\.entry\\.js$ exclude: \\.system\\.entry\\.js$":
-/*!**********************************************************************************************************************************************!*\
-  !*** ./node_modules/web-social-share/dist/esm lazy ^\.\/.*\.entry\.js$ include: \.entry\.js$ exclude: \.system\.entry\.js$ namespace object ***!
-  \**********************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var map = {
-	"./web-social-share.entry.js": [
-		"./node_modules/web-social-share/dist/esm/web-social-share.entry.js",
-		78
-	]
-};
-function webpackAsyncContext(req) {
-	if(!__webpack_require__.o(map, req)) {
-		return Promise.resolve().then(function() {
-			var e = new Error("Cannot find module '" + req + "'");
-			e.code = 'MODULE_NOT_FOUND';
-			throw e;
-		});
-	}
-
-	var ids = map[req], id = ids[0];
-	return __webpack_require__.e(ids[1]).then(function() {
-		return __webpack_require__(id);
-	});
-}
-webpackAsyncContext.keys = function webpackAsyncContextKeys() {
-	return Object.keys(map);
-};
-webpackAsyncContext.id = "./node_modules/web-social-share/dist/esm lazy recursive ^\\.\\/.*\\.entry\\.js$ include: \\.entry\\.js$ exclude: \\.system\\.entry\\.js$";
-module.exports = webpackAsyncContext;
 
 /***/ }),
 
@@ -818,18 +783,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm2015/common.js");
 /* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm2015/ionic-storage.js");
 /* harmony import */ var _components_token_descr_token_descr_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/token-descr/token-descr.component */ "./src/app/components/token-descr/token-descr.component.ts");
-/* harmony import */ var _ionic_native_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @ionic-native/social-sharing/ngx */ "./node_modules/@ionic-native/social-sharing/ngx/index.js");
-/* harmony import */ var _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/pop-term/pop-term.component */ "./src/app/components/pop-term/pop-term.component.ts");
-/* harmony import */ var _components_pop_settings_pop_settings_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/pop-settings/pop-settings.component */ "./src/app/components/pop-settings/pop-settings.component.ts");
-/*
-  Created by Elias Nemr
-  
-  01/11/2019
-  
-  Minima, Global
-
-  Wallet
-*/
+/* harmony import */ var _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/pop-term/pop-term.component */ "./src/app/components/pop-term/pop-term.component.ts");
+/* harmony import */ var _components_pop_settings_pop_settings_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/pop-settings/pop-settings.component */ "./src/app/components/pop-settings/pop-settings.component.ts");
+/**
+ * Created By Elias Nemr
+ * 01/11/19
+ * Minima Global
+ * WALLET
+ */
 
 
 
@@ -847,25 +808,31 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-/*
-  NgModules configure the injector and the compiler and help organize related things together.
-
-  An NgModule is a class marked by the @NgModule decorator. @NgModule takes a metadata object that
-    describes how to compile a component's template and how to create an injector at runtime. It
-    identifies the module's own components, directives, and pipes, making some of them public,
-    through the exports property, so that external components can use them. @NgModule can also add
-    service providers to the application dependency injectors.
-*/
 let AppModule = class AppModule {
 };
 AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-        declarations: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"], _components_token_descr_token_descr_component__WEBPACK_IMPORTED_MODULE_13__["TokenDescrComponent"], _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_15__["PopTermComponent"], _components_pop_settings_pop_settings_component__WEBPACK_IMPORTED_MODULE_16__["PopSettingsComponent"]],
-        entryComponents: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"], _components_token_descr_token_descr_component__WEBPACK_IMPORTED_MODULE_13__["TokenDescrComponent"], _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_15__["PopTermComponent"], _components_pop_settings_pop_settings_component__WEBPACK_IMPORTED_MODULE_16__["PopSettingsComponent"]],
-        imports: [_angular_forms__WEBPACK_IMPORTED_MODULE_6__["FormsModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClientModule"], _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"], _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonicModule"].forRoot(), _app_routing_module__WEBPACK_IMPORTED_MODULE_8__["AppRoutingModule"], _ionic_storage__WEBPACK_IMPORTED_MODULE_12__["IonicStorageModule"].forRoot()],
+        declarations: [
+            _app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"],
+            _components_token_descr_token_descr_component__WEBPACK_IMPORTED_MODULE_13__["TokenDescrComponent"],
+            _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_14__["PopTermComponent"],
+            _components_pop_settings_pop_settings_component__WEBPACK_IMPORTED_MODULE_15__["PopSettingsComponent"]
+        ],
+        entryComponents: [
+            _app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"],
+            _components_token_descr_token_descr_component__WEBPACK_IMPORTED_MODULE_13__["TokenDescrComponent"],
+            _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_14__["PopTermComponent"],
+            _components_pop_settings_pop_settings_component__WEBPACK_IMPORTED_MODULE_15__["PopSettingsComponent"]
+        ],
+        imports: [
+            _angular_forms__WEBPACK_IMPORTED_MODULE_6__["FormsModule"],
+            _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClientModule"],
+            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonicModule"].forRoot(),
+            _app_routing_module__WEBPACK_IMPORTED_MODULE_8__["AppRoutingModule"],
+            _ionic_storage__WEBPACK_IMPORTED_MODULE_12__["IonicStorageModule"].forRoot()
+        ],
         providers: [
-            _ionic_native_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_14__["SocialSharing"],
             Storage,
             _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_9__["Clipboard"],
             _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_10__["QRScanner"],
@@ -888,7 +855,7 @@ AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "ion-list ion-item ion-label {\n  white-space: normal;\n}\n\nion-list-header {\n  text-transform: none;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9lbGlhc25lbXIvcHJvamVjdHMvV0FMTEVUL21vYmlsZS1hcHAtZnJvbnQtZW5kL2FwcC9zcmMvYXBwL2NvbXBvbmVudHMvcG9wLXNldHRpbmdzL3BvcC1zZXR0aW5ncy5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvY29tcG9uZW50cy9wb3Atc2V0dGluZ3MvcG9wLXNldHRpbmdzLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksbUJBQUE7QUNDSjs7QURDQTtFQUNJLG9CQUFBO0FDRUoiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL3BvcC1zZXR0aW5ncy9wb3Atc2V0dGluZ3MuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJpb24tbGlzdCBpb24taXRlbSBpb24tbGFiZWwge1xuICAgIHdoaXRlLXNwYWNlOiBub3JtYWw7XG59XG5pb24tbGlzdC1oZWFkZXIge1xuICAgIHRleHQtdHJhbnNmb3JtOiBub25lO1xufSIsImlvbi1saXN0IGlvbi1pdGVtIGlvbi1sYWJlbCB7XG4gIHdoaXRlLXNwYWNlOiBub3JtYWw7XG59XG5cbmlvbi1saXN0LWhlYWRlciB7XG4gIHRleHQtdHJhbnNmb3JtOiBub25lO1xufSJdfQ== */"
+module.exports = "ion-list ion-item ion-label {\n  white-space: normal;\n  font-size: 0.7rem !important;\n}\n\nion-list ion-item ion-select {\n  font-size: 0.7rem !important;\n  line-height: 23px;\n}\n\nion-list-header {\n  text-transform: none;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9lbGlhc25lbXIvcHJvamVjdHMvV0FMTEVUL21vYmlsZS1hcHAtZnJvbnQtZW5kL2FwcC9zcmMvYXBwL2NvbXBvbmVudHMvcG9wLXNldHRpbmdzL3BvcC1zZXR0aW5ncy5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvY29tcG9uZW50cy9wb3Atc2V0dGluZ3MvcG9wLXNldHRpbmdzLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksbUJBQUE7RUFDQSw0QkFBQTtBQ0NKOztBRENBO0VBQ0ksNEJBQUE7RUFDQSxpQkFBQTtBQ0VKOztBREFBO0VBQ0ksb0JBQUE7QUNHSiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvcG9wLXNldHRpbmdzL3BvcC1zZXR0aW5ncy5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImlvbi1saXN0IGlvbi1pdGVtIGlvbi1sYWJlbCB7XG4gICAgd2hpdGUtc3BhY2U6IG5vcm1hbDtcbiAgICBmb250LXNpemU6IDAuN3JlbSAhaW1wb3J0YW50O1xufVxuaW9uLWxpc3QgaW9uLWl0ZW0gaW9uLXNlbGVjdCB7XG4gICAgZm9udC1zaXplOiAwLjdyZW0gIWltcG9ydGFudDtcbiAgICBsaW5lLWhlaWdodDogMjNweDtcbn1cbmlvbi1saXN0LWhlYWRlciB7XG4gICAgdGV4dC10cmFuc2Zvcm06IG5vbmU7XG59XG4iLCJpb24tbGlzdCBpb24taXRlbSBpb24tbGFiZWwge1xuICB3aGl0ZS1zcGFjZTogbm9ybWFsO1xuICBmb250LXNpemU6IDAuN3JlbSAhaW1wb3J0YW50O1xufVxuXG5pb24tbGlzdCBpb24taXRlbSBpb24tc2VsZWN0IHtcbiAgZm9udC1zaXplOiAwLjdyZW0gIWltcG9ydGFudDtcbiAgbGluZS1oZWlnaHQ6IDIzcHg7XG59XG5cbmlvbi1saXN0LWhlYWRlciB7XG4gIHRleHQtdHJhbnNmb3JtOiBub25lO1xufSJdfQ== */"
 
 /***/ }),
 
@@ -1183,6 +1150,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! minima */ "./node_modules/minima/dist/minima.js");
+/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(minima__WEBPACK_IMPORTED_MODULE_3__);
+
 
 
 
@@ -1265,7 +1235,7 @@ let MinimaApiService = class MinimaApiService {
     // Use minima.js instead..
     req(fnc) {
         let promise = new Promise((resolve, reject) => {
-            Minima.cmd(fnc, function (resp) {
+            minima__WEBPACK_IMPORTED_MODULE_3__["Minima"].cmd(fnc, function (resp) {
                 //console.log(resp);
                 resolve(resp);
             });
@@ -1443,19 +1413,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/platform-browser-dynamic */ "./node_modules/@angular/platform-browser-dynamic/fesm2015/platform-browser-dynamic.js");
 /* harmony import */ var _app_app_module__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./app/app.module */ "./src/app/app.module.ts");
-/* harmony import */ var web_social_share_dist_loader__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! web-social-share/dist/loader */ "./node_modules/web-social-share/dist/loader/index.es2017.mjs");
 
 
-
-// Note: loader import location set using "esmLoaderPath" within the output target config
 
 Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["enableProdMode"])();
 Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformBrowserDynamic"])().bootstrapModule(_app_app_module__WEBPACK_IMPORTED_MODULE_2__["AppModule"])
     .catch(err => console.log(err));
-Object(web_social_share_dist_loader__WEBPACK_IMPORTED_MODULE_3__["defineCustomElements"])();
-Object(web_social_share_dist_loader__WEBPACK_IMPORTED_MODULE_3__["applyPolyfills"])().then(() => {
-    Object(web_social_share_dist_loader__WEBPACK_IMPORTED_MODULE_3__["defineCustomElements"])();
-});
 
 
 /***/ }),

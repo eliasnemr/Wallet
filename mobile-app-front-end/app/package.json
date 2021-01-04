@@ -50,7 +50,7 @@
     "cordova-plugin-qrscanner": "3.0.1",
     "core-js": "^2.6.11",
     "ionic-angular": "^3.9.9",
-    "minima": "file:../../../npm/minima.js/minima-0.96.17.tgz",
+    "minima": "file:../../../npm/minima.js/minima-0.96.14.tgz",
     "moment": "^2.29.1",
     "qr-scanner": "^1.1.1",
     "rxjs": "^6.5.4",

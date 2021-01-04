@@ -1,8 +1,8 @@
+import { PopFilterComponent } from './../../components/pop-filter/pop-filter.component';
 import * as moment from 'moment';
 import { RouterModule } from '@angular/router';
-import { ModalController, IonList, AlertController, ToastController, Config } from '@ionic/angular';
+import { ModalController, IonList, AlertController, ToastController, Config, PopoverController } from '@ionic/angular';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { BehaviorSubject, Subscription } from 'rxjs';
 import { HistoryService } from '../../service/history.service';
 import { UserData } from './../../providers/user-data';
 import { History, Minima } from 'minima';
@@ -29,8 +29,6 @@ export class HistoryPage implements OnInit {
   public transactions: History[] = [];
   public saved: History[] = [];
 
-  historySub: Subscription;
-
   // - vars
   private lastJSON: string = '';
 
@@ -40,6 +38,7 @@ export class HistoryPage implements OnInit {
     public user: UserData,
     public alertCtrl: AlertController,
     public toastCtrl: ToastController,
+    public popoverController: PopoverController,
     public config: Config,
     public router: RouterModule
    ) { }
@@ -51,10 +50,6 @@ export class HistoryPage implements OnInit {
   }
 
   ionViewDidLeave(){
-    if (this.historySub) {
-      this.historySub.unsubscribe();
-    }
-
     this.user.storage.set('saved_transactions', this.user.saved).then((val: any)=>{
     });
   }
@@ -117,6 +112,16 @@ export class HistoryPage implements OnInit {
     await alert.present();
   }
 
+  async presentFilterSettings(ev: Event) {
+    const popover = await this.popoverController.create({
+      component: PopFilterComponent,
+      event: ev,
+      translucent: true,
+      animated: true 
+    });
+    return await popover.present();
+  }
+
   updateHistory() {
     if(this.historyList) {
       this.historyList.closeSlidingItems();
@@ -139,13 +144,13 @@ export class HistoryPage implements OnInit {
   async pullInHistorySummary() {
 
     await new Promise((resolve, reject) => {
-      Minima.cmd('history', (res: any) => {
-        this.service.historyData$ = new BehaviorSubject(res);
-        resolve(this.service.historyData$);
+      Minima.cmd('history', (res: History) => {
+        this.service.updatedHistory.next(res);
+        resolve(this.service.updatedHistory);
       });
     }).then((res: any) => {
 
-      this.historySub = res.pipe(map((resp: any) => {
+      res.pipe(map((resp: any) => {
         this.transactions = [];
         resp.response.history.forEach((element: any) => {
           const name = element.values[0].name;

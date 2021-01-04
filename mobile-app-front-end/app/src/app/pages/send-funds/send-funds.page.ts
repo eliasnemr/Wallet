@@ -4,12 +4,13 @@ import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 import { Clipboard } from '@ionic-native/clipboard/ngx';
 import { AlertController, Platform, NavParams, IonInput, IonTextarea, ToastController } from '@ionic/angular';
 import { MinimaApiService } from '../../service/minima-api.service';
-import { map } from 'rxjs/operators';
+import { map, subscribeOn } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import QrScanner from 'qr-scanner';
 
 import { Token } from 'minima';
+import { holdReady } from 'jquery';
 @Component({
   selector: 'app-send-funds',
   templateUrl: './send-funds.page.html',
@@ -46,7 +47,6 @@ export class SendFundsPage implements OnInit {
     private qrScanner: QRScanner,
     private clipboard: Clipboard,
     public alertController: AlertController,
-    public toastController: ToastController,
     private zone: NgZone, 
     private api: MinimaApiService,
     private service: BalanceService,
@@ -167,10 +167,11 @@ export class SendFundsPage implements OnInit {
           // camera permission was permanently denied
           // you must use QRScanner.openSettings() method to guide the user to the settings page
           // then they can grant the permission from there
-          this.presentAlert('Please check camera permission','Error');
+          this.presentAlert('Error', 'Please check camera permission', 'Camera status');
         } else {
           // permission was denied, but not permanently. You can ask for permission again at a later time.
-          this.presentAlert('Please check camera permission','Error');
+          this.presentAlert('Error',  'Please check camera permission', 'Camera status');
+
         }
       })
       .catch((e: any) => console.log('Error is', e));
@@ -197,32 +198,19 @@ export class SendFundsPage implements OnInit {
       this.qrScanner.destroy();
     }
   }
-
-  /** ALERTS */
-  async presentAlert(msg: string, hdr: string) {
-    const alert = await this.alertController.create({
-      header: hdr,
-      message: msg,
-      buttons: ['OK']
-    });
-
-    await alert.present();
+  
+  async presentAlert(hdr: string, msg: string, sub: string) {
+   const alert = await this.alertController.create({
+     cssClass: 'alert',
+     header: hdr,
+     subHeader: sub,
+     message: msg,
+     buttons: ['OK']
+   });
+   
+   await alert.present();
   }
-  async presentToast(msg: string, type: string) {
-    const toast = await this.toastController.create({
-      message: msg,
-      duration: 4000,
-      buttons: [{
-        text: 'Close',
-        role: 'cancel'
-      }],
-      color: type,
-      keyboardClose: true,
-      translucent: true,
-      position:  'top'
-    });
-    toast.present();
-  }
+
   // check if it's a token, or a Mini
   instanceOfToken(data: any) {
     return 'script' in data;
@@ -310,9 +298,9 @@ export class SendFundsPage implements OnInit {
           this.address.value = '';
           this.amount.value = '';
           // success
-          this.presentToast('Success! Your transaction has been posted!', 'success');
+          this.presentAlert('Success', 'Your transaction has been successfully posted!', 'Transaction Status');
         } else {
-          this.presentToast('Insufficient funds.  Please check your balance.', 'danger');
+          this.presentAlert('Error', res.message, 'Transaction Status');
         }
       });
     } else if(this.data.address && this.data.address !== '' && this.data.amount && this.data.amount > 0 &&
@@ -324,13 +312,16 @@ export class SendFundsPage implements OnInit {
           this.amount.value = '';
           this.message.value = '';
           // success
-          this.presentToast('Success! Your transaction has been posted!', 'success');
+          this.presentAlert('Success', 'Your transaction has been successfully posted!', 'Transaction Status');
+      
         } else if(res[4].status === false) {
-          this.presentToast('Insufficient funds.  Please check your balance.', 'danger');
+          this.presentAlert('Error', res.message, 'Transaction Status');
+          
         }
       })
     } else {
-      this.presentAlert('Please check the input fields', 'Error');
+      this.presentAlert('Error', 'Please check your input fields.', 'Transaction Status');
+      
     }
   }
 

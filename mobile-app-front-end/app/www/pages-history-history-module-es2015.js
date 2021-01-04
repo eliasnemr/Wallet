@@ -21699,7 +21699,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
 /* harmony import */ var _service_history_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../service/history.service */ "./src/app/service/history.service.ts");
 /* harmony import */ var _providers_user_data__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./../../providers/user-data */ "./src/app/providers/user-data.ts");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
+/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! minima */ "./node_modules/minima/dist/minima.js");
+/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(minima__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
+
 
 
 
@@ -21814,12 +21817,12 @@ let HistoryPage = class HistoryPage {
     pullInHistorySummary() {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
             yield new Promise((resolve, reject) => {
-                Minima.cmd('history', (res) => {
+                minima__WEBPACK_IMPORTED_MODULE_8__["Minima"].cmd('history', (res) => {
                     this.service.historyData$ = new rxjs__WEBPACK_IMPORTED_MODULE_5__["BehaviorSubject"](res);
                     resolve(this.service.historyData$);
                 });
             }).then((res) => {
-                this.historySub = res.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_8__["map"])((resp) => {
+                this.historySub = res.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["map"])((resp) => {
                     this.transactions = [];
                     resp.response.history.forEach((element) => {
                         const name = element.values[0].name;

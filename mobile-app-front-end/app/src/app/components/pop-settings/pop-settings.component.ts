@@ -1,7 +1,6 @@
 import { UserconfigService } from './../../service/userconfig.service';
 import { UserConfig } from './../../models/userConfig.model';
-import { Minima } from 'minima';
-import { Component, OnInit, NgZone, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit  } from '@angular/core';
 
 @Component({
   selector: 'app-pop-settings',
@@ -21,7 +20,7 @@ export class PopSettingsComponent implements OnInit {
 
   compareWithFn(o1, o2) {
     return o1 === o2;
-  };
+  }
 
   change(ev: any) {
     let temp = this.userConfigService.userConfig.value;

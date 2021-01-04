@@ -33,7 +33,6 @@ export class BalancePage implements OnInit {
 
   // - vars
   private lastJSON = '';
-  private MINIMA = '0x00';
 
   constructor(
     private service: BalanceService,
@@ -66,6 +65,7 @@ export class BalancePage implements OnInit {
       component: PopSettingsComponent,
       cssClass: 'my-custom-class',
       event: ev,
+      animated: true,
       translucent: true
     });
     return await popover.present();
@@ -75,15 +75,8 @@ export class BalancePage implements OnInit {
     this.api.giveMe50().then((res: any) => {
       if(res.status === true) {
         this.presentAlert(res.message, 'Success.');
-
-        this.gimme50Btn.disabled = true;
-
-        setTimeout(() => {
-          this.gimme50Btn.disabled = false;
-        }, (10 * 60));
-
       } else {
-        this.presentAlert(res.message, 'Something went wrong.');
+        this.presentAlert(res.message, 'Transaction failed.');
       }
     });
   }

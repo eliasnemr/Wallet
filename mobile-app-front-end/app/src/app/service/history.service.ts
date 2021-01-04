@@ -7,8 +7,7 @@ import { History } from 'minima';
 })
 export class HistoryService {
 
-  historyData$: BehaviorSubject<History>;
+  updatedHistory: BehaviorSubject<History> = new BehaviorSubject<History>({status: false, minifunc: '', message: '', response:{}});
 
   constructor() {}
-
 }

@@ -2,11 +2,10 @@
   <ion-header translucent="true">
     <ion-toolbar>
       <ion-buttons slot="start">
-        <ion-menu-button class="menu-icon"></ion-menu-button>
-        </ion-buttons>
+        <ion-menu-button class="menu-icon"></ion-menu-button>  
+      </ion-buttons>
         
          <ion-title *ngIf="!ios" class="large-text">History</ion-title>
-
         <ion-segment [(ngModel)]="segment" (ionChange)="updateHistory()" *ngIf="ios && transactions.length > 0" color="primary">
           <ion-segment-button (ionChange)="updateHistory()" value="all">
             <ion-label>All</ion-label>
@@ -24,6 +23,8 @@
             <ion-label>Saved</ion-label>
           </ion-segment-button>
         </ion-segment>
+
+        <ion-icon (click)="presentFilterSettings($event)" id="filter-settings" slot="end" name="options"></ion-icon>
 
     </ion-toolbar>
   </ion-header>

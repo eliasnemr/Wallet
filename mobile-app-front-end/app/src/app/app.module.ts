@@ -1,3 +1,4 @@
+import { PopFilterComponent } from './components/pop-filter/pop-filter.component';
 /**
  * Created By Elias Nemr
  * 01/11/19
@@ -27,12 +28,14 @@ import { PopSettingsComponent } from './components/pop-settings/pop-settings.com
     AppComponent,
     TokenDescrComponent,
     PopTermComponent,
-    PopSettingsComponent],
+    PopSettingsComponent,
+    PopFilterComponent],
   entryComponents: [
     AppComponent,
     TokenDescrComponent,
     PopTermComponent,
-    PopSettingsComponent],
+    PopSettingsComponent,
+    PopFilterComponent],
   imports: [
     FormsModule,
     HttpClientModule,
