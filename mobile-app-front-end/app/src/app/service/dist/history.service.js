@@ -8,8 +8,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 exports.__esModule = true;
 exports.HistoryService = void 0;
 var core_1 = require("@angular/core");
+var rxjs_1 = require("rxjs");
 var HistoryService = /** @class */ (function () {
     function HistoryService() {
+        this.updatedHistory = new rxjs_1.BehaviorSubject({ status: false, minifunc: '', message: '', response: {} });
     }
     HistoryService = __decorate([
         core_1.Injectable({

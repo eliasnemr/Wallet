@@ -1,4 +1,4 @@
-import { Minima, Status, History } from 'minima';
+import { Minima, NetworkStatus, History } from 'minima';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 
@@ -8,13 +8,13 @@ import { BehaviorSubject, Subject } from 'rxjs';
 export class StatusService {
   valueTransfer: History;
 
-  updatedStatus: Subject<Status>;
+  updatedStatus: Subject<NetworkStatus>;
 
   constructor() {
     Minima.cmd('status full', (res: any) => {
       if (res.status) {
         const first = res.response;
-        this.updatedStatus = new BehaviorSubject<Status>(first);
+        this.updatedStatus = new BehaviorSubject<NetworkStatus>(first);
       }
     });
   }

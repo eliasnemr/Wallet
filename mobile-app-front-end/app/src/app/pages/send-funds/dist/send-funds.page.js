@@ -54,11 +54,10 @@ var core_1 = require("@angular/core");
 var operators_1 = require("rxjs/operators");
 var qr_scanner_1 = require("qr-scanner");
 var SendFundsPage = /** @class */ (function () {
-    function SendFundsPage(qrScanner, clipboard, alertController, toastController, zone, api, service, platform, route, router) {
+    function SendFundsPage(qrScanner, clipboard, alertController, zone, api, service, platform, route, router) {
         this.qrScanner = qrScanner;
         this.clipboard = clipboard;
         this.alertController = alertController;
-        this.toastController = toastController;
         this.zone = zone;
         this.api = api;
         this.service = service;
@@ -169,11 +168,11 @@ var SendFundsPage = /** @class */ (function () {
                     // camera permission was permanently denied
                     // you must use QRScanner.openSettings() method to guide the user to the settings page
                     // then they can grant the permission from there
-                    _this.presentAlert('Please check camera permission', 'Error');
+                    _this.presentAlert('Error', 'Please check camera permission', 'Camera status');
                 }
                 else {
                     // permission was denied, but not permanently. You can ask for permission again at a later time.
-                    _this.presentAlert('Please check camera permission', 'Error');
+                    _this.presentAlert('Error', 'Please check camera permission', 'Camera status');
                 }
             })["catch"](function (e) { return console.log('Error is', e); });
         }
@@ -198,14 +197,15 @@ var SendFundsPage = /** @class */ (function () {
             this.qrScanner.destroy();
         }
     };
-    /** ALERTS */
-    SendFundsPage.prototype.presentAlert = function (msg, hdr) {
+    SendFundsPage.prototype.presentAlert = function (hdr, msg, sub) {
         return __awaiter(this, void 0, void 0, function () {
             var alert;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.alertController.create({
+                            cssClass: 'alert',
                             header: hdr,
+                            subHeader: sub,
                             message: msg,
                             buttons: ['OK']
                         })];
@@ -214,31 +214,6 @@ var SendFundsPage = /** @class */ (function () {
                         return [4 /*yield*/, alert.present()];
                     case 2:
                         _a.sent();
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
-    SendFundsPage.prototype.presentToast = function (msg, type) {
-        return __awaiter(this, void 0, void 0, function () {
-            var toast;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.toastController.create({
-                            message: msg,
-                            duration: 4000,
-                            buttons: [{
-                                    text: 'Close',
-                                    role: 'cancel'
-                                }],
-                            color: type,
-                            keyboardClose: true,
-                            translucent: true,
-                            position: 'top'
-                        })];
-                    case 1:
-                        toast = _a.sent();
-                        toast.present();
                         return [2 /*return*/];
                 }
             });
@@ -312,10 +287,10 @@ var SendFundsPage = /** @class */ (function () {
                     _this.address.value = '';
                     _this.amount.value = '';
                     // success
-                    _this.presentToast('Success! Your transaction has been posted!', 'success');
+                    _this.presentAlert('Success', 'Your transaction has been successfully posted!', 'Transaction Status');
                 }
                 else {
-                    _this.presentToast('Insufficient funds.  Please check your balance.', 'danger');
+                    _this.presentAlert('Error', res.message, 'Transaction Status');
                 }
             });
         }
@@ -328,15 +303,15 @@ var SendFundsPage = /** @class */ (function () {
                     _this.amount.value = '';
                     _this.message.value = '';
                     // success
-                    _this.presentToast('Success! Your transaction has been posted!', 'success');
+                    _this.presentAlert('Success', 'Your transaction has been successfully posted!', 'Transaction Status');
                 }
                 else if (res[4].status === false) {
-                    _this.presentToast('Insufficient funds.  Please check your balance.', 'danger');
+                    _this.presentAlert('Error', res.message, 'Transaction Status');
                 }
             });
         }
         else {
-            this.presentAlert('Please check the input fields', 'Error');
+            this.presentAlert('Error', 'Please check your input fields.', 'Transaction Status');
         }
     };
     /** MISC FUNCS */

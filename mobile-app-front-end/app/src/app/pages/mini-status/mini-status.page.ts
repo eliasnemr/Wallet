@@ -2,7 +2,7 @@ import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { StatusService } from './../../service/status.service';
 import { Component, OnInit } from '@angular/core';
-import { Status } from 'minima';
+import { NetworkStatus } from 'minima';
 
 @Component({
   selector: 'app-mini-status',
@@ -11,7 +11,7 @@ import { Status } from 'minima';
 })
 export class MiniStatusPage implements OnInit {
 
-  status: Status;
+  status: NetworkStatus;
   statusSubscription: Subscription;
 
   public lastJSON: string;
@@ -32,7 +32,7 @@ export class MiniStatusPage implements OnInit {
 
   updateStatus() {
     this.statusSubscription = this.service.updatedStatus
-    .pipe(map((responseData: Status) => {
+    .pipe(map((responseData: NetworkStatus) => {
       return responseData;
     })
     )

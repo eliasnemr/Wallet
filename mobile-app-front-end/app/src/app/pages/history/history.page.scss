@@ -10,6 +10,9 @@ ion-toolbar {
         font-size: 1.0rem;
     }
 }
+img.icon {
+    width: 1.5rem;
+}
 ion-segment {
     padding-left: 0;
     padding-right: 0;
@@ -91,6 +94,9 @@ ion-row {
 
 #txnType h5 {
     margin: 0 !important;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 ion-content {

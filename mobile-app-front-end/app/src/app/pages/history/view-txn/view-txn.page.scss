@@ -1,20 +1,16 @@
-ion-note {
-    white-space: normal;
-    word-break: break-all;
-    cursor: pointer;
-    background-color: #f2f2f2;
+ion-datetime {
+    font-family: manrope-bold;
+    padding: 0;
+    margin-left: 1%;
 }
-ion-note:hover {
-    transform: scale(0.9);
+ion-title {
+    font-family: manrope-bold;
+    font-size: 1.0rem;
 }
 h5 {
     letter-spacing: -0.02em;
     font-weight: 600;
     font-size: 1.5rem;
-}
-ion-datetime {
-    padding-bottom: 5px;
-    padding-left: 5px;
 }
 .copy {
     text-decoration: underline;
@@ -27,18 +23,22 @@ ion-list-header {
     letter-spacing: -0.02em;
 }
 .title {
-    letter-spacing: -0.02em;
+    font-family: manrope-bold;
+    font-size: 1.0rem;
     float: left;
-    font-weight: 500;
+    text-overflow: ellipsis;
+    max-width: inherit;
+    white-space: normal;
+    word-wrap: normal;
 }
 .value {
-    font-size: 0.8rem;
-    opacity: 0.8;
-    text-align: right;
-    float: right;
-    white-space: pre-wrap;
-    word-wrap: none;
-    word-break: break-all;
+    font-family: manrope-light;
+    text-align: left;
+    float:left;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: inherit;
+    overflow: hidden;
 }
 .relay {
     display: inline-block;

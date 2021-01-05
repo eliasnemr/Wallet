@@ -43,36 +43,32 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 exports.HistoryPage = void 0;
+var pop_filter_component_1 = require("./../../components/pop-filter/pop-filter.component");
 var moment = require("moment");
 var core_1 = require("@angular/core");
-var rxjs_1 = require("rxjs");
 var minima_1 = require("minima");
 var operators_1 = require("rxjs/operators");
 var HistoryPage = /** @class */ (function () {
-    function HistoryPage(service, modalController, user, alertCtrl, toastCtrl, config, router) {
-        this.service = service;
+    function HistoryPage(historyService, modalController, user, alertCtrl, toastCtrl, popoverController, config, router) {
+        this.historyService = historyService;
         this.modalController = modalController;
         this.user = user;
         this.alertCtrl = alertCtrl;
         this.toastCtrl = toastCtrl;
+        this.popoverController = popoverController;
         this.config = config;
         this.router = router;
         this.categories = 0;
         this.segment = 'all';
-        // + vars
+        this.prompt = 'Fetching your history...';
         this.transactions = [];
         this.saved = [];
-        // - vars
-        this.lastJSON = '';
     }
     HistoryPage.prototype.ngOnInit = function () {
         this.pullInHistorySummary();
         this.ios = this.config.get('mode') === 'ios';
     };
     HistoryPage.prototype.ionViewDidLeave = function () {
-        if (this.historySub) {
-            this.historySub.unsubscribe();
-        }
         this.user.storage.set('saved_transactions', this.user.saved).then(function (val) {
         });
     };
@@ -155,6 +151,25 @@ var HistoryPage = /** @class */ (function () {
             });
         });
     };
+    HistoryPage.prototype.presentFilterSettings = function (ev) {
+        return __awaiter(this, void 0, void 0, function () {
+            var popover;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.popoverController.create({
+                            component: pop_filter_component_1.PopFilterComponent,
+                            event: ev,
+                            translucent: true,
+                            animated: true
+                        })];
+                    case 1:
+                        popover = _a.sent();
+                        return [4 /*yield*/, popover.present()];
+                    case 2: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
     HistoryPage.prototype.updateHistory = function () {
         if (this.historyList) {
             this.historyList.closeSlidingItems();
@@ -171,19 +186,22 @@ var HistoryPage = /** @class */ (function () {
             return txn.saved === 'true';
         });
     };
-    // Get all users activities+transactions history
     HistoryPage.prototype.pullInHistorySummary = function () {
         return __awaiter(this, void 0, void 0, function () {
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, new Promise(function (resolve, reject) {
+                    case 0: 
+                    // await response of history function
+                    return [4 /*yield*/, new Promise(function (resolve, reject) {
                             minima_1.Minima.cmd('history', function (res) {
-                                _this.service.historyData$ = new rxjs_1.BehaviorSubject(res);
-                                resolve(_this.service.historyData$);
+                                // update observable
+                                _this.historyService.updatedHistory.next(res);
+                                resolve(_this.historyService.updatedHistory);
                             });
                         }).then(function (res) {
-                            _this.historySub = res.pipe(operators_1.map(function (resp) {
+                            // rxjs operator PIPE the input observable value
+                            res.pipe(operators_1.map(function (resp) {
                                 _this.transactions = [];
                                 resp.response.history.forEach(function (element) {
                                     var name = element.values[0].name;
@@ -196,14 +214,14 @@ var HistoryPage = /** @class */ (function () {
                                     _this.transactions.push(element);
                                 });
                                 return _this.transactions.reverse();
-                            })).subscribe(function (resp) {
-                                if (_this.lastJSON !== JSON.stringify(resp)) {
-                                    // this.transactions = responseData;
-                                    _this.lastJSON = JSON.stringify(resp);
+                            })).subscribe(function (result) {
+                                if (result.length === 0) {
+                                    _this.prompt = 'No transactions found in your history.';
                                 }
                             });
                         })];
                     case 1:
+                        // await response of history function
                         _a.sent();
                         return [2 /*return*/];
                 }

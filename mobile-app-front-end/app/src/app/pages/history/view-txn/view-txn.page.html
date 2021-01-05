@@ -3,26 +3,15 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/history"></ion-back-button>
     </ion-buttons>
+    <ion-title class="large-text">TxPoW Details</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  
   <ion-grid>
     <ion-row>
       <ion-col size="12" size-md="12">
-
-        <h5>
-          TxPoW   
-          
-          <ion-note class="medium-text" [hidden]="hide" (click)="shout()"> {{ "&mdash; "+id?.substring(0, 5) + "..." + id?.substring(5, 15) }} </ion-note>
-          <ion-note class="medium-text" [hidden]="!hide" (click)="shout()"> {{ id }}</ion-note>
-
-          
-        </h5>
-      
-        
-        <ion-datetime disabled displayFormat="HH:mm:ss A - D MMMM YYYY" value="{{ relaytime }}" display-timezone="utc" ></ion-datetime>
+        <ion-datetime disabled displayFormat="D MMMM YYYY &mdash; HH:mm:ss" value="{{ relaytime }}" display-timezone="utc" ></ion-datetime>
       </ion-col>
     </ion-row>
     
@@ -32,7 +21,7 @@
       </ion-list-header>
 
       <ion-item>
-        <ion-col class="title">
+        <ion-col size-md="3"  size-sm="6" class="title">
           Status
         </ion-col>
         <ion-col class="value completed">
@@ -41,19 +30,19 @@
       </ion-item>
 
       <ion-item>
-        <ion-col class="title">
+        <ion-col size-md="3"  size-sm="6" class="title">
           Hash
           <a class="copy" (click)="copyToClipPWA(id)">
             Copy 
           </a>
         </ion-col>
         <ion-col class="value">
-          {{ id?.substring(0,5)+"..."+id?.substring(id?.length-50,id?.length) }}
+          {{ id }}
         </ion-col>
       </ion-item>
 
       <ion-item>
-        <ion-col class="title">
+        <ion-col size-md="3"  size-sm="6" class="title">
           Size
         </ion-col>
         <ion-col class="value">
@@ -62,7 +51,7 @@
       </ion-item>
 
       <ion-item>
-        <ion-col class="title">
+        <ion-col size-md="3"  size-sm="6" class="title">
           Is A Block
         </ion-col>
         <ion-col class="value">
@@ -71,7 +60,7 @@
       </ion-item>
 
       <ion-item>
-        <ion-col class="title">
+        <ion-col size-md="3"  size-sm="6" class="title">
           Is In A block
         </ion-col>
         <ion-col class="value">
@@ -80,10 +69,10 @@
       </ion-item>
 
       <ion-item>
-        <ion-col *ngIf="isinblock === true" class="title">
+        <ion-col size-md="3"  size-sm="6" *ngIf="isinblock === true" class="title">
           In Block
         </ion-col>
-        <ion-col *ngIf="isinblock === false" class="title">
+        <ion-col size-md="3"  size-sm="6" *ngIf="isinblock === false" class="title">
           Would of been Block
         </ion-col>
         <ion-col class="value">
@@ -92,7 +81,7 @@
       </ion-item>
 
       <ion-item>
-        <ion-col class="title">
+        <ion-col size-md="3"  size-sm="6" class="title">
           Nonce
         </ion-col>
         <ion-col class="value">
@@ -101,7 +90,7 @@
       </ion-item>
 
       <ion-item>
-        <ion-col class="title">
+        <ion-col size-md="3"  size-sm="6" class="title">
           Transaction Type
         </ion-col>
         <ion-col class="value">
@@ -110,7 +99,7 @@
       </ion-item>
       
       <ion-item *ngIf="type === 'Token Creation.'">
-        <ion-col class="title">
+        <ion-col size-md="3"  size-sm="6" class="title">
           Token Name
         </ion-col>
         <ion-col class="value">
@@ -119,7 +108,7 @@
       </ion-item>
 
       <ion-item *ngIf="type === 'Token Creation.'">
-        <ion-col class="title">
+        <ion-col size-md="3"  size-sm="6" class="title">
           Token Total
         </ion-col>
         <ion-col class="value">
@@ -138,43 +127,55 @@
       <ion-list-header class="inputs">
         Inputs
       </ion-list-header>
-      <ion-col size="12" *ngFor="let input of inputs; let i=index;">
+      <ion-col class="ion-no-padding" size="12" *ngFor="let input of inputs; let i=index;">
 
         <ion-row>
           <ion-col>
             <ion-card>
               <ion-list>
                 <ion-item lines="half">
-                  <ion-col>
+                  <ion-col size-md="3"  size-sm="6">
                     Index <a>{{ "#"+ i }}</a>
                   </ion-col>
                 </ion-item>
 
                 <ion-item>
-                  <ion-col class="title">
-                    Coinid <span class="value">{{ input.coinid }}</span>
+                  <ion-col size-md="3"  size-sm="6" class="title">
+                    Coinid
+                  </ion-col>
+                  <ion-col class="value">
+                    {{ input.coinid }}
                   </ion-col>
                 </ion-item>
 
                 <ion-item>
-                  <ion-col class="title">
-                    Address <span class="value">{{ input.address }}</span>
+                  <ion-col size-md="3"  size-sm="6" class="title">
+                    Address
                     <a class="copy" (click)="copyToClipPWA(input.address)">
                       Copy
                     </a>
-                  </ion-col>                 
+                  </ion-col>  
+                  <ion-col class="value">
+                    {{ input.address }}
+                  </ion-col>               
                 </ion-item>
 
                 <ion-item>
-                  <ion-col class="title">
-                    Amount <span class="value">{{ input.amount }}</span>
-                  </ion-col>                 
+                  <ion-col size-md="3"  size-sm="6" class="title">
+                    Amount
+                  </ion-col>
+                  <ion-col class="value">
+                    {{ input.amount }}
+                  </ion-col>              
                 </ion-item>
 
                 <ion-item lines="none">
-                  <ion-col class="title">
-                    TokenID <span class="value">{{ input.tokenid }}</span>
-                  </ion-col>                 
+                  <ion-col size-md="3"  size-sm="6" class="title">
+                    TokenID
+                  </ion-col>  
+                  <ion-col class="value">
+                    {{ input.tokenid }}
+                  </ion-col>               
                 </ion-item>
 
                 
@@ -189,57 +190,62 @@
       <ion-list-header class="outputs">
         Outputs
       </ion-list-header>
-      <ion-col size="12" *ngFor="let output of outputs; let i=index;">
+      <ion-col class="ion-no-padding" size="12" *ngFor="let output of outputs; let i=index;">
 
         <ion-row>
           <ion-col>
             <ion-card>
               <ion-list>
                 <ion-item lines="half">
-                  <ion-col>
+                  <ion-col size-md="3"  size-sm="6">
                     Index <a>{{ "#"+ i }}</a>
                   </ion-col>
                 </ion-item>
 
                 <ion-item>
-                  <ion-col class="title">
-                    Coinid <span class="value">{{ output.coinid }}</span>
+                  <ion-col size-md="3"  size-sm="6" class="title">
+                    Coinid
+                  </ion-col>
+                  <ion-col class="value">
+                    {{ output.coinid }}
                   </ion-col>
                 </ion-item>
 
                 <ion-item>
-                  <ion-col class="title">
-                    Address <span class="value">{{ output.address }}</span>
+                  <ion-col size-md="3"  size-sm="6" class="title">
+                    Address
                       <a class="copy" (click)="copyToClipPWA(output.address)">
                         Copy
                       </a>
-                  </ion-col>                 
+                  </ion-col>
+                  <ion-col class="value">
+                    {{ output.address }}
+                  </ion-col>              
                 </ion-item>
 
                 <ion-item>
-                  <ion-col class="title">
-                    Amount <span class="value">{{ output.amount }}</span>
-                  </ion-col>                 
+                  <ion-col size-md="3"  size-sm="6" class="title">
+                    Amount
+                  </ion-col>
+                  <ion-col class="value">
+                    {{ output.amount }}
+                  </ion-col>              
                 </ion-item>
 
                 <ion-item lines="none">
-                  <ion-col class="title">
-                    TokenID <span class="value">{{ output.tokenid }}</span>
-                  </ion-col>                 
+                  <ion-col size-md="3"  size-sm="6" class="title">
+                    TokenID
+                  </ion-col>  
+                  <ion-col class="value">
+                    {{ output.tokenid }}
+                  </ion-col>               
                 </ion-item>
 
               </ion-list>
             </ion-card>
           </ion-col>
         </ion-row>
-
       </ion-col>
-
-      
-      
     </ion-grid>
-
-
   </ion-grid>
-  
 </ion-content>

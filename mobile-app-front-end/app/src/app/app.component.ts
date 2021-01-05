@@ -1,10 +1,11 @@
+import { HistoryService } from './service/history.service';
 import { BalanceService } from './service/balance.service';
 import { StatusService } from './service/status.service';
 import { UserconfigService } from './service/userconfig.service';
 import { Component } from '@angular/core';
 import { Platform, ToastController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
-import { Minima } from 'minima';
+import { Minima, History } from 'minima';
 
 @Component({
   selector: 'app-root',
@@ -14,12 +15,13 @@ import { Minima } from 'minima';
 
 export class AppComponent {
 
-  toggleValue: boolean = false;
-  currentMode: boolean = false;
+  toggleValue = false;
+  currentMode = false;
   currentVersion = 0;
   activePage: any;
   basic: {title: string, routerLink: string, icon: string, line: string, hidden: boolean}[];
   advanced: {title: string, routerLink: string, icon: string, line: string, hidden: boolean}[];
+  lastHistory: string;
 
   constructor(
     private status: StatusService,
@@ -27,55 +29,46 @@ export class AppComponent {
     private platform: Platform,
     private storage: Storage,
     private UserconfigService: UserconfigService,
-    public toastCtrl: ToastController
-  ) {
-  
-      this.getPages();  /** this returns pages if on mobile or desktop, (different layouts) */ 
-      this.initializeApp();
-
-      this.setLocalStorage(); /** set localStorages  */
-
+    public toastCtrl: ToastController,
+    private historyService: HistoryService) {
+    this.getPages();
+    this.initializeApp();
+    this.setLocalStorage();
   }
 
-  /** @@@@@@@@@@@@@ Lifecycle @@@@@@@@@@@@@@@ */
-  ionViewWillEnter(){
+  ionViewWillEnter() {
    this.initializeApp();
   }
 
   initializeApp() {
     this.platform.ready().then(() => {
-
       Minima.init((msg: any) => {
         if (msg.event === 'connected') {
-          
           this.api.updatedBalance.next(Minima.balance);
-
         } else if (msg.event === 'newbalance') {
-          
           this.api.updatedBalance.next(msg.info.balance);
-
         } else if (msg.event === 'newblock') {
-
+          // update status observable
           Minima.cmd('status full', (res: any) => {
-
             this.status.updatedStatus.next(res.response);
-
           });
-
+          // update history observable+historyPage
+          Minima.cmd('history', (res: History) => {
+            const temp = JSON.stringify(res);
+            if (res.response.history.length > 0 && temp !== this.lastHistory) {
+              this.lastHistory = JSON.stringify(res);
+              this.historyService.updatedHistory.next(res);
+            }
+          });
         } else if (msg.event === 'miningstart') {
-
-          this.presentToast("Mining transaction in progress...", "primary");
-
+          this.presentToast('Mining transaction in progress...', 'primary');
         } else if (msg.event === 'miningstop') {
-
-          this.presentToast("Mining transaction completed.", "secondary");
-
+          this.presentToast('Mining transaction completed.', 'secondary');
         }
       });
     });
   }
 
-/** @@@@@@@@@@ Misc Functions @@@@@@@@@@@ */
   getPages() {
     this.basic =
     [
@@ -86,21 +79,19 @@ export class AppComponent {
     ]
     this.advanced =
     [
-      { title:'Token', routerLink: '/create-token', icon: 'brush', line: 'none', hidden: false},
-      { title:'Status', routerLink: '/status', icon: 'analytics', line: 'none', hidden: false},
-      { title:'Terminal', routerLink: '/mini-term', icon: 'code', line: 'none', hidden: false},
-      { title:'Community', routerLink: '/community', icon: 'share', line: 'half', hidden: false},
-      { title:'Settings', routerLink: '/settings', icon: 'build', line: 'none', hidden: true},
-
+      { title: 'Token', routerLink: '/create-token', icon: 'brush', line: 'none', hidden: false},
+      { title: 'Status', routerLink: '/status', icon: 'analytics', line: 'none', hidden: false},
+      { title: 'Terminal', routerLink: '/mini-term', icon: 'code', line: 'none', hidden: false},
+      { title: 'Community', routerLink: '/community', icon: 'share', line: 'half', hidden: false},
+      { title: 'Settings', routerLink: '/settings', icon: 'build', line: 'none', hidden: true}
     ]
   }
 
   // localStorage
   setLocalStorage() {
     // check cookies for theme
-    if(localStorage.getItem('toggleVal') === 'true'){
+    if (localStorage.getItem('toggleVal') === 'true') {
       document.body.classList.toggle('dark', true);
-
     } else {
       document.body.classList.toggle('dark', false);
     }
@@ -125,61 +116,6 @@ export class AppComponent {
       localStorage.setItem('toggleVal', 'true')
       document.body.classList.toggle('dark', true);
     }
-
-  }
-
-  // get a key/value object
-  async getObject(key: string): Promise<any> {
-    try {
-    const result = await this.storage.get(key);
-    if (result != null) {
-    return JSON.parse(result);
-    }
-    return null;
-    } catch (reason) {
-    console.log(reason);
-    return null;
-    }
-    }
-
-
-  notifyMe() {
-    //let notificationIcon = '../assets/icon/icon.png';
-    let notificationBody = 'You just received some tokens';
-    // Let's check if the browser supports notifications
-  if (!("Notification" in window)) {
-    alert("This browser does not support desktop notification");
-  }
-
-  // Let's check whether notification permissions have already been granted
-  else if (Notification.permission === "granted") {
-    // If it's okay let's create a notification
-    
-    var notification = new Notification("Minima",
-    {
-      //icon: notificationIcon,
-      body: notificationBody
-    });
-  }
-
-  // Otherwise, we need to ask the user for permission
-  else if (Notification.permission !== "denied") {
-    Notification.requestPermission().then(function (permission) {
-      // If the user accepts, let's create a notification
-      if (permission === "granted") {
-        
-        var notification = new Notification("Minima", 
-        {
-          //icon: notificationIcon,
-          body: notificationBody
-        } );
-        
-      }
-    });
-  }
-
-  // At last, if the user has denied notifications, and you 
-  // want to be respectful there is no need to bother them any more.
   }
   async presentToast(txt: string, color: string) {
     // Create a Toast

@@ -69,6 +69,7 @@ ion-list-header {
     white-space: nowrap;
     text-overflow: ellipsis;
     max-width: inherit;
+    overflow: hidden;
 }
 .copy {
     text-decoration: underline;

@@ -10,7 +10,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import QrScanner from 'qr-scanner';
 
 import { Token } from 'minima';
-import { holdReady } from 'jquery';
 @Component({
   selector: 'app-send-funds',
   templateUrl: './send-funds.page.html',

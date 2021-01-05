@@ -46,21 +46,21 @@ exports.AppComponent = void 0;
 var core_1 = require("@angular/core");
 var minima_1 = require("minima");
 var AppComponent = /** @class */ (function () {
-    function AppComponent(status, api, platform, storage, UserconfigService, toastCtrl) {
+    function AppComponent(status, api, platform, storage, UserconfigService, toastCtrl, historyService) {
         this.status = status;
         this.api = api;
         this.platform = platform;
         this.storage = storage;
         this.UserconfigService = UserconfigService;
         this.toastCtrl = toastCtrl;
+        this.historyService = historyService;
         this.toggleValue = false;
         this.currentMode = false;
         this.currentVersion = 0;
-        this.getPages(); /** this returns pages if on mobile or desktop, (different layouts) */
+        this.getPages();
         this.initializeApp();
-        this.setLocalStorage(); /** set localStorages  */
+        this.setLocalStorage();
     }
-    /** @@@@@@@@@@@@@ Lifecycle @@@@@@@@@@@@@@@ */
     AppComponent.prototype.ionViewWillEnter = function () {
         this.initializeApp();
     };
@@ -75,20 +75,28 @@ var AppComponent = /** @class */ (function () {
                     _this.api.updatedBalance.next(msg.info.balance);
                 }
                 else if (msg.event === 'newblock') {
+                    // update status observable
                     minima_1.Minima.cmd('status full', function (res) {
                         _this.status.updatedStatus.next(res.response);
                     });
+                    // update history observable+historyPage
+                    minima_1.Minima.cmd('history', function (res) {
+                        var temp = JSON.stringify(res);
+                        if (res.response.history.length > 0 && temp !== _this.lastHistory) {
+                            _this.lastHistory = JSON.stringify(res);
+                            _this.historyService.updatedHistory.next(res);
+                        }
+                    });
                 }
                 else if (msg.event === 'miningstart') {
-                    _this.presentToast("Mining Transaction in progress...", "success");
+                    _this.presentToast('Mining transaction in progress...', 'primary');
                 }
                 else if (msg.event === 'miningstop') {
-                    _this.presentToast("Mining Transaction stopped...", "danger");
+                    _this.presentToast('Mining transaction completed.', 'secondary');
                 }
             });
         });
     };
-    /** @@@@@@@@@@ Misc Functions @@@@@@@@@@@ */
     AppComponent.prototype.getPages = function () {
         this.basic =
             [
@@ -103,7 +111,7 @@ var AppComponent = /** @class */ (function () {
                 { title: 'Status', routerLink: '/status', icon: 'analytics', line: 'none', hidden: false },
                 { title: 'Terminal', routerLink: '/mini-term', icon: 'code', line: 'none', hidden: false },
                 { title: 'Community', routerLink: '/community', icon: 'share', line: 'half', hidden: false },
-                { title: 'Settings', routerLink: '/settings', icon: 'build', line: 'none', hidden: true },
+                { title: 'Settings', routerLink: '/settings', icon: 'build', line: 'none', hidden: true }
             ];
     };
     // localStorage
@@ -135,60 +143,6 @@ var AppComponent = /** @class */ (function () {
             localStorage.setItem('toggleVal', 'true');
             document.body.classList.toggle('dark', true);
         }
-    };
-    // get a key/value object
-    AppComponent.prototype.getObject = function (key) {
-        return __awaiter(this, void 0, Promise, function () {
-            var result, reason_1;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, this.storage.get(key)];
-                    case 1:
-                        result = _a.sent();
-                        if (result != null) {
-                            return [2 /*return*/, JSON.parse(result)];
-                        }
-                        return [2 /*return*/, null];
-                    case 2:
-                        reason_1 = _a.sent();
-                        console.log(reason_1);
-                        return [2 /*return*/, null];
-                    case 3: return [2 /*return*/];
-                }
-            });
-        });
-    };
-    AppComponent.prototype.notifyMe = function () {
-        //let notificationIcon = '../assets/icon/icon.png';
-        var notificationBody = 'You just received some tokens';
-        // Let's check if the browser supports notifications
-        if (!("Notification" in window)) {
-            alert("This browser does not support desktop notification");
-        }
-        // Let's check whether notification permissions have already been granted
-        else if (Notification.permission === "granted") {
-            // If it's okay let's create a notification
-            var notification = new Notification("Minima", {
-                //icon: notificationIcon,
-                body: notificationBody
-            });
-        }
-        // Otherwise, we need to ask the user for permission
-        else if (Notification.permission !== "denied") {
-            Notification.requestPermission().then(function (permission) {
-                // If the user accepts, let's create a notification
-                if (permission === "granted") {
-                    var notification = new Notification("Minima", {
-                        //icon: notificationIcon,
-                        body: notificationBody
-                    });
-                }
-            });
-        }
-        // At last, if the user has denied notifications, and you 
-        // want to be respectful there is no need to bother them any more.
     };
     AppComponent.prototype.presentToast = function (txt, color) {
         return __awaiter(this, void 0, void 0, function () {
