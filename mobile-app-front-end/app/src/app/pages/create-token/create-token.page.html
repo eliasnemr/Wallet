@@ -1,5 +1,5 @@
 <ion-app>
-<ion-header>
+<ion-header class="border-b">
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-menu-button class="menu-icon"></ion-menu-button>
@@ -8,14 +8,41 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-  <ion-card>
+<ion-content>
+  <ion-card class="borders">
     <ion-card-header>
-      Create a custom token
+      Create A Custom Token
     </ion-card-header>
 
     <ion-card-content>
-      <!-- Token FORM -->
+      <ion-list lines="none">
+        <ion-item>
+          <ion-label position="fixed" class="medium-text">Token Name</ion-label>
+          <ion-input placeholder="token name" class="medium-text input" #nameTextArea name="name" [(ngModel)]="data.name" (ionChange)="onUpdateTokenName($event)"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="fixed" class="medium-text">Amount</ion-label>
+          <ion-input placeholder="amount" class="medium-text input" #amountRef name="amount" [(ngModel)]="data.amount" (ionChange)="onAmountChanged($event)"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="fixed" class="medium-text">Description (Optional)</ion-label>
+          <ion-textarea 
+          #textarea 
+          class="medium-text input"
+          name="description"
+          maxlength="255" 
+          auto-grow="true" 
+          [(ngModel)]="data.description" 
+          placeholder="type your description here...">
+          </ion-textarea>
+          <span class="length smaller-text">{{ data.description.length+"/255"}}</span>
+        </ion-item>
+
+      </ion-list>
+
+      <!-- 
       <form (ngSubmit)="createTokenAdvanced(f)" #f="ngForm" id='my-form'>
   
         <ion-item>
@@ -28,7 +55,7 @@
           <ion-input class="medium-text input" #amountRef name="amount" [(ngModel)]="data.amount" (ionChange)="onAmountChanged($event)"></ion-input>
         </ion-item>
 
-        <!-- Description -->
+
         <ion-item>
           <ion-label class="medium-text" position="floating">Description (Optional)</ion-label>
           <ion-textarea #textarea 
@@ -41,7 +68,7 @@
           </ion-textarea>
           <span class="length smaller-text">{{ data.description.length+"/255"}}</span>
         </ion-item>
-        <!-- Icon Entry -->
+
         <ion-item [hidden]="iconEntry.isChecked">
           <ion-label class="medium-text">Icon</ion-label>
           <ion-checkbox class="checkbox" name="checkboxicon" [(ngModel)]="iconEntry.isChecked"></ion-checkbox>
@@ -53,7 +80,6 @@
           <ion-checkbox class="checkbox" name="checkboxicon" [(ngModel)]="iconEntry.isChecked"></ion-checkbox>
         </ion-item>
         <ion-note class="medium-text" style="opacity: 0.5 !important;" [hidden]="!iconEntry.isChecked">To set an icon for your token, add the URL of the hosted icon.</ion-note>
-        <!-- Proof Entry -->
 
        <ion-item [hidden]="proofEntry.isChecked">
           <ion-label class="medium-text">Proof</ion-label>
@@ -76,6 +102,7 @@
           This token can be spent whole only
           </ion-note>  
       </form>
+      -->
     </ion-card-content>
 
     
@@ -83,7 +110,7 @@
   </ion-card>
 
 </ion-content>
-<ion-footer>
+<ion-footer class="border-t">
   <ion-toolbar>
     <ion-buttons>
       <button form="my-form" style="width: 100%; background-color:transparent;">
@@ -93,7 +120,7 @@
         expand="fill" 
         type="submit" >
       <ion-icon name="brush" slot="start"></ion-icon>
-        Create token
+        Create Token
       </ion-button>
       </button>
     </ion-buttons>

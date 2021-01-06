@@ -1,18 +1,26 @@
-ion-list ion-item ion-range ion-label {
-    font-size: 1.0rem;
-    font-weight: 300;
-    position:relative;
+ion-input {
+  color: #000;
+  line-height: 16px;
+  background-color: #ffffff;
+  border: 1px solid #91919D;
 }
-.checkbox {
-    padding-left: 5px;
-    padding-top: 5px;
+ion-checkbox.checkbox {
+  padding-left: 5px;
+  padding-top: 5px;
 }
-.amount-font{
-    font-size: 1rem;
+ion-footer ion-toolbar ion-buttons ion-button {
+  width: 100%;
+  height: 58px;
+  text-transform: none;
+  font-family: manrope-bold;
 }
-
-ion-footer ion-toolbar ion-buttons ion-button{
-   width: 100%;
+ion-textarea {
+  color: black!important;
+  background: #ffffff;
+  border: 1px solid #91919D;
+  font-size: 1.0rem;
+  padding-left: 1%;
+  margin-bottom: 1%;
 }
 .tokenStyle {
     color: #FF671D;
@@ -98,21 +106,36 @@ ion-footer ion-toolbar ion-buttons ion-button{
 
   ion-toolbar {
     --background: var(--ion-m-background);
+    font-family: manrope-bold;
+    color: var(--ion-color-tertiary);
+    ion-title {
+      font-size: 1.0rem;
+    }
+    ion-buttons ion-menu-button {
+      font-size: 1.0rem;
+      color: var(--ion-color-tertiary);
+    }
   }
   ion-card-content {
     background: var(--ion-card-color);
   }
   ion-card-header {
-    background: var(--ion-card-header);
+    --color: var(--ion-text-color,#000);
+
   }
   .input {
     opacity: 0.75 !important;
   }
   .length {
-    position: relative;
-    left:90%;
-    bottom: 25%;
-    opacity: 0.5;
+    position: absolute;
+    right: 5%;
+    z-index: 2000;
+    font-family: manrope-bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.0rem;
+    color: black!important;
   }
   ion-label {
     font-weight: 600;
