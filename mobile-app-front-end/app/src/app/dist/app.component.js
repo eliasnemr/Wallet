@@ -46,12 +46,11 @@ exports.AppComponent = void 0;
 var core_1 = require("@angular/core");
 var minima_1 = require("minima");
 var AppComponent = /** @class */ (function () {
-    function AppComponent(status, api, platform, storage, UserconfigService, toastCtrl, historyService) {
+    function AppComponent(status, api, userConfigService, platform, toastCtrl, historyService) {
         this.status = status;
         this.api = api;
+        this.userConfigService = userConfigService;
         this.platform = platform;
-        this.storage = storage;
-        this.UserconfigService = UserconfigService;
         this.toastCtrl = toastCtrl;
         this.historyService = historyService;
         this.toggleValue = false;

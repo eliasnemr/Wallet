@@ -23,7 +23,9 @@ var UserConfigService = /** @class */ (function () {
             if (!res.success && !res.exists) {
                 var data = defaultConfig;
                 minima_1.Minima.file.save(JSON.stringify(data), 'UserConfig.txt', function (res) {
-                    if (res.success) { }
+                    if (res.success) {
+                        console.log('User Configuration File has been created.');
+                    }
                 });
             }
             else {

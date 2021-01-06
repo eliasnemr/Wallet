@@ -43,11 +43,11 @@
       </ion-row>
     </ion-grid>
 
-    <div *ngIf="displayMode === '1'">
+    <div *ngIf="displayMode && displayMode === 1">
       <app-grid-view *ngIf="tokenArr && tokenArr.length > 0" [tokenArr] = "tokenArr"></app-grid-view>
     </div>
 
-    <div *ngIf="displayMode === '2'">
+    <div *ngIf="displayMode && displayMode === 2">
       <app-list-view *ngIf="tokenArr && tokenArr.length > 0" [tokenArr] = "tokenArr"></app-list-view>
     </div>
 

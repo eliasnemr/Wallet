@@ -26,9 +26,8 @@ export class AppComponent {
   constructor(
     private status: StatusService,
     private api: BalanceService,
+    private userConfigService: UserConfigService,
     private platform: Platform,
-    private storage: Storage,
-    private UserconfigService: UserConfigService,
     public toastCtrl: ToastController,
     private historyService: HistoryService) {
     this.getPages();

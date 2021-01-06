@@ -21,7 +21,7 @@ export class UserConfigService {
       if (!res.success && !res.exists) {
         const data = defaultConfig;
         Minima.file.save(JSON.stringify(data), 'UserConfig.txt', (res: any) => {
-          if (res.success) { }
+          if (res.success) { console.log('User Configuration File has been created.') }
         });
       } else {
         //console.log(JSON.parse(res.data))

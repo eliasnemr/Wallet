@@ -43,17 +43,16 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 exports.HistoryPage = void 0;
-var pop_filter_component_1 = require("./../../components/pop-filter/pop-filter.component");
-var moment = require("moment");
 var core_1 = require("@angular/core");
+var pop_filter_component_1 = require("./../../components/pop-filter/pop-filter.component");
 var minima_1 = require("minima");
+var moment = require("moment");
 var operators_1 = require("rxjs/operators");
 var HistoryPage = /** @class */ (function () {
-    function HistoryPage(historyService, modalController, userHistorySavedData, userConfigService, alertCtrl, toastCtrl, popoverController, config, router) {
+    function HistoryPage(historyService, userHistorySavedData, modalController, alertCtrl, toastCtrl, popoverController, config, router) {
         this.historyService = historyService;
-        this.modalController = modalController;
         this.userHistorySavedData = userHistorySavedData;
-        this.userConfigService = userConfigService;
+        this.modalController = modalController;
         this.alertCtrl = alertCtrl;
         this.toastCtrl = toastCtrl;
         this.popoverController = popoverController;
@@ -69,7 +68,6 @@ var HistoryPage = /** @class */ (function () {
         this.pullInHistorySummary();
         this.ios = this.config.get('mode') === 'ios';
     };
-    HistoryPage.prototype.ionViewDidLeave = function () { };
     HistoryPage.prototype.saveItem = function (slidingItem, txn) {
         return __awaiter(this, void 0, void 0, function () {
             var toast;
@@ -181,9 +179,6 @@ var HistoryPage = /** @class */ (function () {
     };
     HistoryPage.prototype.filterHistory = function () {
         this.transactions = this.transactions.filter(function (txn) {
-            var temp = JSON.stringify(txn);
-            minima_1.Minima.file.save(temp, 'UserConfig.txt', function () {
-            });
             return txn.saved === 'true';
         });
     };

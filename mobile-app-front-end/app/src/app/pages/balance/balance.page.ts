@@ -23,7 +23,7 @@ export class BalancePage implements OnInit {
   @ViewChild(IonInfiniteScroll, {static: false}) infiniteScroll: IonInfiniteScroll;
   @ViewChild('gimme50Btn', {static: false}) gimme50Btn: IonButton;
 
-  displayMode: string = '1';
+  displayMode = 1;
   avatar: any;
   hideMe: boolean = false;
   tokenArr: Token[] = [];
@@ -48,7 +48,7 @@ export class BalancePage implements OnInit {
     setTimeout(() => {
       this.pullInTokens();
     }, 1000);
-    
+
     this.userConfigService.userConfig.subscribe((res: any) => {
       // ngZone re-renders onChange
       this.ngZone.run(() => {
