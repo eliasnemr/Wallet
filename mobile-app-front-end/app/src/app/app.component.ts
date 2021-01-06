@@ -1,7 +1,7 @@
 import { HistoryService } from './service/history.service';
 import { BalanceService } from './service/balance.service';
 import { StatusService } from './service/status.service';
-import { UserconfigService } from './service/userconfig.service';
+import { UserConfigService } from './service/userconfig.service';
 import { Component } from '@angular/core';
 import { Platform, ToastController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
@@ -28,7 +28,7 @@ export class AppComponent {
     private api: BalanceService,
     private platform: Platform,
     private storage: Storage,
-    private UserconfigService: UserconfigService,
+    private UserconfigService: UserConfigService,
     public toastCtrl: ToastController,
     private historyService: HistoryService) {
     this.getPages();

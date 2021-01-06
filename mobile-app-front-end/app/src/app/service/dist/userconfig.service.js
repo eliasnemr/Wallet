@@ -6,17 +6,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 exports.__esModule = true;
-exports.UserconfigService = void 0;
+exports.UserConfigService = void 0;
 var rxjs_1 = require("rxjs");
 var minima_1 = require("minima");
 var core_1 = require("@angular/core");
-var UserconfigService = /** @class */ (function () {
-    function UserconfigService() {
-        this.defaultConfig = { systemMode: 'light', terminalFontSize: '12', tokenDisplayMode: 1 };
+var UserConfigService = /** @class */ (function () {
+    function UserConfigService() {
+        this.defaultConfig = { systemMode: 'light', terminalFontSize: '12', tokenDisplayMode: 1, historyOrderByMode: 1, historySaved: '' };
         this.userConfig = new rxjs_1.BehaviorSubject(this.defaultConfig);
         this.createUserConfig(this.defaultConfig);
     }
-    UserconfigService.prototype.createUserConfig = function (defaultConfig) {
+    UserConfigService.prototype.createUserConfig = function (defaultConfig) {
         var _this = this;
         minima_1.Minima.file.load('UserConfig.txt', function (res) {
             //console.log(res);
@@ -32,7 +32,7 @@ var UserconfigService = /** @class */ (function () {
             }
         });
     };
-    UserconfigService.prototype.saveUserConfig = function (currentValue) {
+    UserConfigService.prototype.saveUserConfig = function (currentValue) {
         minima_1.Minima.file.load('UserConfig.txt', function (res) {
             if (res.success) {
                 var data = res.data;
@@ -47,7 +47,7 @@ var UserconfigService = /** @class */ (function () {
             }
         });
     };
-    UserconfigService.prototype.loadUserConfig = function (userConfig) {
+    UserConfigService.prototype.loadUserConfig = function (userConfig) {
         minima_1.Minima.file.load('userConfig.txt', function (res) {
             if (res.success) {
                 userConfig = JSON.parse(res.data);
@@ -55,11 +55,11 @@ var UserconfigService = /** @class */ (function () {
         });
         return;
     };
-    UserconfigService = __decorate([
+    UserConfigService = __decorate([
         core_1.Injectable({
             providedIn: 'root'
         })
-    ], UserconfigService);
-    return UserconfigService;
+    ], UserConfigService);
+    return UserConfigService;
 }());
-exports.UserconfigService = UserconfigService;
+exports.UserConfigService = UserConfigService;

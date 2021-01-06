@@ -72,7 +72,6 @@ var BalancePage = /** @class */ (function () {
         this.tokenSpoof = [];
         // - vars
         this.lastJSON = '';
-        this.MINIMA = '0x00';
     }
     BalancePage.prototype.ionViewWillEnter = function () {
         var _this = this;
@@ -96,6 +95,7 @@ var BalancePage = /** @class */ (function () {
                             component: pop_settings_component_1.PopSettingsComponent,
                             cssClass: 'my-custom-class',
                             event: ev,
+                            animated: true,
                             translucent: true
                         })];
                     case 1:
@@ -111,13 +111,9 @@ var BalancePage = /** @class */ (function () {
         this.api.giveMe50().then(function (res) {
             if (res.status === true) {
                 _this.presentAlert(res.message, 'Success.');
-                _this.gimme50Btn.disabled = true;
-                setTimeout(function () {
-                    _this.gimme50Btn.disabled = false;
-                }, (10 * 60));
             }
             else {
-                _this.presentAlert(res.message, 'Something went wrong.');
+                _this.presentAlert(res.message, 'Transaction failed.');
             }
         });
     };

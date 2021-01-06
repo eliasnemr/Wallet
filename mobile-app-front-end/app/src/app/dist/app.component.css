@@ -1,0 +1,134 @@
+ion-menu {
+  --background: var(--ion-m-background);
+}
+
+ion-menu ion-header {
+  --background: var(--ion-m-background);
+}
+
+ion-menu ion-header ion-toolbar {
+  --background: var(--ion-m-background);
+}
+
+ion-menu ion-content {
+  --background: var(--ion-m-background);
+}
+
+ion-item {
+  font-family: manrope-bold;
+  padding-left: 1%;
+  color: var(--minima-text);
+}
+
+ion-icon {
+  color: var(--ion-color-tertiary);
+}
+
+/** Desktop Version */
+@media only screen and (min-width: 992px) {
+  .splitpane {
+    border: 1px solid #FAFAFF;
+    left: 12%;
+    right: 12%;
+    top: 6%;
+    bottom: 6%;
+  }
+
+  ion-app {
+    background-color: #031D32;
+  }
+}
+/*
+ * Material Design Menu
+*/
+ion-menu.md ion-list {
+  padding: 0px 0;
+}
+
+ion-menu.md ion-item {
+  --padding-start: 18px;
+  margin-right: 10px;
+  border-radius: 0 50px 50px 0;
+}
+
+ion-menu.md ion-item.selected {
+  color: var(--ion-color-primary);
+}
+ion-menu.md ion-item.selected ion-icon {
+  color: var(--ion-color-primary);
+}
+
+/*
+  * iOS Design Menu
+*/
+ion-menu.ios ion-list {
+  padding: 0px 0 0;
+  margin-bottom: 10px;
+}
+
+ion-menu.ios ion-item {
+  --padding-start: 16px;
+  --min-height: 50px;
+}
+
+ion-toolbar {
+  --background: var(--ion-m-background);
+}
+
+ion-footer ion-item, ion-footer ion-col, ion-footer {
+  --background: #91919D !important;
+  background: #91919D;
+}
+
+ion-footer ion-item span {
+  color: #FAFAFF;
+}
+
+ion-toggle {
+  --handle-background-checked: var(--ion-m-background);
+  --background-checked: #F0F0F9;
+}
+
+/** Minima Icon */
+#icon .st0 {
+  fill: var(--st0);
+}
+
+#icon .st1 {
+  fill: var(--st1);
+}
+
+#icon .st2 {
+  fill: var(--st2);
+}
+
+#icon .st3 {
+  fill: var(--st3);
+}
+
+#icon .st4 {
+  fill: var(--st4);
+}
+
+#icon .st5 {
+  fill: var(--st5);
+}
+
+#icon .st6 {
+  fill: var(--st6);
+}
+
+#icon-M, #icon-I, #icon-N, #icon-I, #icon-M, #icon-A {
+  fill: var(--minima-icon-word);
+}
+
+@media only screen and (max-width: 650px) {
+  #icon {
+    width: 120px;
+  }
+}
+@media only screen and (min-width: 650px) {
+  #icon {
+    width: 145px;
+  }
+}

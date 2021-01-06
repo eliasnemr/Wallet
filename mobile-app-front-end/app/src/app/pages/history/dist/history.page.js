@@ -49,10 +49,11 @@ var core_1 = require("@angular/core");
 var minima_1 = require("minima");
 var operators_1 = require("rxjs/operators");
 var HistoryPage = /** @class */ (function () {
-    function HistoryPage(historyService, modalController, user, alertCtrl, toastCtrl, popoverController, config, router) {
+    function HistoryPage(historyService, modalController, userHistorySavedData, userConfigService, alertCtrl, toastCtrl, popoverController, config, router) {
         this.historyService = historyService;
         this.modalController = modalController;
-        this.user = user;
+        this.userHistorySavedData = userHistorySavedData;
+        this.userConfigService = userConfigService;
         this.alertCtrl = alertCtrl;
         this.toastCtrl = toastCtrl;
         this.popoverController = popoverController;
@@ -68,17 +69,14 @@ var HistoryPage = /** @class */ (function () {
         this.pullInHistorySummary();
         this.ios = this.config.get('mode') === 'ios';
     };
-    HistoryPage.prototype.ionViewDidLeave = function () {
-        this.user.storage.set('saved_transactions', this.user.saved).then(function (val) {
-        });
-    };
+    HistoryPage.prototype.ionViewDidLeave = function () { };
     HistoryPage.prototype.saveItem = function (slidingItem, txn) {
         return __awaiter(this, void 0, void 0, function () {
             var toast;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        if (!this.user.hasSaved(txn.txpow.txpowid)) return [3 /*break*/, 1];
+                        if (!this.userHistorySavedData.hasSaved(txn.txpow.txpowid)) return [3 /*break*/, 1];
                         // Prompt to remove as saved
                         this.removeItem(slidingItem, txn.txpow.txpowid, 'This has already been saved');
                         // saved = 'false' now
@@ -86,7 +84,7 @@ var HistoryPage = /** @class */ (function () {
                         return [3 /*break*/, 4];
                     case 1:
                         // Add to Saved
-                        this.user.addToSaved(txn.txpow.txpowid);
+                        this.userHistorySavedData.addToSaved(txn.txpow.txpowid);
                         // Add true attribute to this txn
                         txn.saved = 'true';
                         // close the open item
@@ -132,7 +130,7 @@ var HistoryPage = /** @class */ (function () {
                                     text: 'Remove',
                                     handler: function () {
                                         // they want to remove this transaction from their saved transactions
-                                        _this.user.removeFromSaved(txn.txpow.txpowid);
+                                        _this.userHistorySavedData.removeFromSaved(txn.txpow.txpowid);
                                         // close the sliding item and hide the option buttons
                                         slidingItem.close();
                                     }
@@ -183,6 +181,9 @@ var HistoryPage = /** @class */ (function () {
     };
     HistoryPage.prototype.filterHistory = function () {
         this.transactions = this.transactions.filter(function (txn) {
+            var temp = JSON.stringify(txn);
+            minima_1.Minima.file.save(temp, 'UserConfig.txt', function () {
+            });
             return txn.saved === 'true';
         });
     };

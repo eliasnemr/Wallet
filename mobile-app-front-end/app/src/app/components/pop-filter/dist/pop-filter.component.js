@@ -6,32 +6,32 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 exports.__esModule = true;
-exports.PopSettingsComponent = void 0;
+exports.PopFilterComponent = void 0;
 var core_1 = require("@angular/core");
-var PopSettingsComponent = /** @class */ (function () {
-    function PopSettingsComponent(userConfigService) {
+var PopFilterComponent = /** @class */ (function () {
+    function PopFilterComponent(userConfigService) {
         this.userConfigService = userConfigService;
-        this.userConfig = { tokenDisplayMode: 1 };
+        this.userConfig = { historyOrderByMode: 1 };
         // set default value from observable
-        this.userConfig.tokenDisplayMode = this.userConfigService.userConfig.value.tokenDisplayMode;
+        this.userConfig.historyOrderByMode = this.userConfigService.userConfig.value.historyOrderByMode;
     }
-    PopSettingsComponent.prototype.ngOnInit = function () { };
-    PopSettingsComponent.prototype.compareWithFn = function (o1, o2) {
-        return o1 === o2;
+    PopFilterComponent.prototype.ngOnInit = function () { };
+    PopFilterComponent.prototype.compareWithFn = function (o1, o2) {
+        return o1 == o2;
     };
-    PopSettingsComponent.prototype.change = function (ev) {
+    PopFilterComponent.prototype.change = function (ev) {
         var temp = this.userConfigService.userConfig.value;
-        temp.tokenDisplayMode = ev.detail.value;
+        temp.historyOrderByMode = ev.detail.value;
         this.userConfigService.userConfig.next(temp);
         this.userConfigService.saveUserConfig(this.userConfigService.userConfig.value);
     };
-    PopSettingsComponent = __decorate([
+    PopFilterComponent = __decorate([
         core_1.Component({
-            selector: 'app-pop-settings',
-            templateUrl: './pop-settings.component.html',
-            styleUrls: ['./pop-settings.component.scss']
+            selector: 'app-pop-filter',
+            templateUrl: './pop-filter.component.html',
+            styleUrls: ['./pop-filter.component.scss']
         })
-    ], PopSettingsComponent);
-    return PopSettingsComponent;
+    ], PopFilterComponent);
+    return PopFilterComponent;
 }());
-exports.PopSettingsComponent = PopSettingsComponent;
+exports.PopFilterComponent = PopFilterComponent;

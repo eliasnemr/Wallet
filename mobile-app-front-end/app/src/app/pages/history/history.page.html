@@ -4,9 +4,8 @@
       <ion-buttons slot="start">
         <ion-menu-button class="menu-icon"></ion-menu-button>  
       </ion-buttons>
-        
          <ion-title *ngIf="!ios" class="large-text">History</ion-title>
-        <ion-segment [(ngModel)]="segment" (ionChange)="updateHistory()" *ngIf="ios && transactions.length > 0" color="primary">
+        <ion-segment [(ngModel)]="segment" (ionChange)="updateHistory()" *ngIf="ios && transactions.length > 0">
           <ion-segment-button (ionChange)="updateHistory()" value="all">
             <ion-label>All</ion-label>
           </ion-segment-button>
@@ -15,7 +14,7 @@
           </ion-segment-button>
         </ion-segment>
 
-        <ion-segment [(ngModel)]="segment" (ionChange)="updateHistory()" *ngIf="!ios && transactions.length > 0" color="tertiary">
+        <ion-segment [(ngModel)]="segment" (ionChange)="updateHistory()" *ngIf="!ios && transactions.length > 0">
           <ion-segment-button (ionChange)="updateHistory()" value="all">
             <ion-label>All</ion-label>
           </ion-segment-button>
@@ -43,28 +42,25 @@
         <ion-item routerLink="/view-txn/{{ txn.txpow.txpowid }}" routerDirection="forward">
           
           <ion-row>
-            <ion-col size-s="1" size-xs="2">
-              <img *ngIf="txn.values[0].amount.substring(0,1) == '-'" class="icon" src="./assets/sent.svg" alt="send-receive">
-              <img *ngIf="txn.values[0].amount.substring(0,1) !== '-' && txn.values[0].name !== 'Create Token'" class="icon" src="./assets/receive.svg" alt="send-receive">
-              <img *ngIf="!txn.values[0].name.name && txn.values[0].name === 'Create Token'" class="icon" src="./assets/paint-brush.svg" alt="send-receive">
+            <ion-col size-md="1" size-s="1" size-xs="2">
+              <ion-icon *ngIf="txn.values[0].amount.substring(0,1) == '-'" class="icon" name="send" alt="send-receive"></ion-icon>
+              <ion-icon *ngIf="txn.values[0].amount.substring(0,1) !== '-' && txn.values[0].name !== 'Create Token'" class="icon" name="arrow-down" alt="send-receive"></ion-icon>
+              <ion-icon *ngIf="!txn.values[0].name.name && txn.values[0].name === 'Create Token'" class="icon" name="brush" alt="send-receive"></ion-icon>
             </ion-col>
 
             <ion-col size-xs="7">
-              
               <div id="txnType" *ngIf="!txn.values[0].name.name  && txn.values[0].name !== 'Create Token'">
                 <span *ngIf="txn.values[0].amount.substring(0,1) == '-'"> 
                   <h5 class="medium-text">
                     Sent Minima
                   </h5>
                 </span>
-        
                 <span class="medium-text" *ngIf="txn.values[0].amount.substring(0,1) !== '-'">
                   <h5 class="medium-text">
                     Received Minima
                   </h5>
                 </span>
               </div>
-
               <div id="txnType" *ngIf="txn.values[0].name.name">
                 <span class="medium-text" *ngIf="txn.values[0].amount.substring(0,1) == '-'"> 
                   <h5 class="medium-text">
@@ -80,10 +76,10 @@
               </div>
 
               <div id="txnType" *ngIf="!txn.values[0].name.name && txn.values[0].name === 'Create Token'">
-                <h5 class="medium-text" style="margin-top:8px; margin-bottom:0;">
+                <h5 class="medium-text">
                   Created a Token
                 </h5>
-                <p class="small-text" style="margin:0;opacity:0.8;"> &mdash; {{ txn.txpow.body.txn.tokengen.token }}</p>
+                <span class="small-text tokenName"> &mdash; {{ txn.txpow.body.txn.tokengen.token }}</span>
               </div>
               
               
@@ -103,8 +99,7 @@
             </ion-col>
 
             <ion-col id="amnt" *ngIf="txn.values[0].name === 'Create Token'">
-              <h5 class="medium-text" style="margin-top:8px; margin-bottom:0;">{{ "+" + txn.txpow.body.txn.tokengen.total }}</h5>
-              <p class="small-text" style="margin:0;opacity:0.8;"> {{ "-" + txn.values[0].amount + " MINI"}}</p>
+              <h5 class="medium-text minima-numeric">{{ "+" + txn.txpow.body.txn.tokengen.total }} <br> <span class="small-text minima-numeric">{{ "- " + txn.values[0].amount + " MINI"}}</span> </h5>
             </ion-col>
 
           </ion-row>

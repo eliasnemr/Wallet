@@ -1,10 +1,11 @@
+import { UserConfigService } from './../../service/userconfig.service';
 import { PopFilterComponent } from './../../components/pop-filter/pop-filter.component';
 import * as moment from 'moment';
 import { RouterModule } from '@angular/router';
 import { ModalController, IonList, AlertController, ToastController, Config, PopoverController } from '@ionic/angular';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { HistoryService } from '../../service/history.service';
-import { UserData } from './../../providers/user-data';
+import { UserHistorySavedData } from './../../providers/user-data';
 import { History, Minima, CompleteTransaction, Value } from 'minima';
 import { map } from 'rxjs/operators';
 
@@ -38,12 +39,13 @@ export class HistoryPage implements OnInit {
   constructor(
     private historyService: HistoryService,
     public modalController: ModalController,
-    public user: UserData,
+    public userHistorySavedData: UserHistorySavedData,
+    public userConfigService: UserConfigService,
     public alertCtrl: AlertController,
     public toastCtrl: ToastController,
     public popoverController: PopoverController,
     public config: Config,
-     public router: RouterModule
+    public router: RouterModule
     ) { }
  
    ngOnInit() {
@@ -51,24 +53,20 @@ export class HistoryPage implements OnInit {
      this.ios = this.config.get('mode') === 'ios';
    }
  
-   ionViewDidLeave() {
-     this.user.storage.set('saved_transactions', this.user.saved).then((val: any) => {
- 
-     });
-   }
+   ionViewDidLeave() {}
  
    async saveItem(slidingItem: HTMLIonItemSlidingElement, txn: any) {
-     if (this.user.hasSaved(txn.txpow.txpowid)) {
+     if (this.userHistorySavedData.hasSaved(txn.txpow.txpowid)) {
        // Prompt to remove as saved
        this.removeItem(slidingItem, txn.txpow.txpowid, 'This has already been saved');
        // saved = 'false' now
        txn.saved = 'false';
      } else {
        // Add to Saved
-       this.user.addToSaved(txn.txpow.txpowid);
+       this.userHistorySavedData.addToSaved(txn.txpow.txpowid);
        // Add true attribute to this txn
        txn.saved = 'true';
- 
+      
        // close the open item
        slidingItem.close();
  
@@ -102,7 +100,7 @@ export class HistoryPage implements OnInit {
            text: 'Remove',
            handler: () => {
              // they want to remove this transaction from their saved transactions
-             this.user.removeFromSaved(txn.txpow.txpowid);
+             this.userHistorySavedData.removeFromSaved(txn.txpow.txpowid);
  
              // close the sliding item and hide the option buttons
              slidingItem.close();
@@ -138,7 +136,14 @@ export class HistoryPage implements OnInit {
    }
  
    filterHistory() {
+
      this.transactions = this.transactions.filter((txn: any) => {
+        const temp = JSON.stringify(txn);
+        
+        Minima.file.save(temp, 'UserConfig.txt', () => {
+
+        });
+
        return txn.saved === 'true';
      });
    }

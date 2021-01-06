@@ -3,4 +3,5 @@ export interface UserConfig {
   tokenDisplayMode?: number;
   terminalFontSize?: string;
   historyOrderByMode?: number;
+  historySaved?: string;
 }

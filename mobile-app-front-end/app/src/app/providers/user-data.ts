@@ -1,16 +1,14 @@
+import { BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { Storage } from '@ionic/storage';
 
 @Injectable({
     providedIn: 'root'
 })
-export class UserData {
+export class UserHistorySavedData {
 
     saved: any = [];
-
-    constructor(
-        public storage: Storage
-    ) { }
+    
+    constructor() { }
 
     // has the user saved this?
     hasSaved(txn_txpow_txpowid: string): boolean {

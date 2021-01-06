@@ -1,4 +1,4 @@
-import { UserconfigService } from './../../service/userconfig.service';
+import { UserConfigService } from './../../service/userconfig.service';
 import { UserConfig } from './../../models/userConfig.model';
 import { Component, OnInit } from '@angular/core';
 
@@ -11,7 +11,7 @@ export class PopFilterComponent implements OnInit {
 
   public userConfig: UserConfig = {historyOrderByMode: 1};
 
-  constructor(private userConfigService: UserconfigService) {
+  constructor(private userConfigService: UserConfigService) {
     // set default value from observable
     this.userConfig.historyOrderByMode = this.userConfigService.userConfig.value.historyOrderByMode;
   }

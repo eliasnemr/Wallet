@@ -1,4 +1,4 @@
-import { UserconfigService } from './../../service/userconfig.service';
+import { UserConfigService } from './../../service/userconfig.service';
 import { PopSettingsComponent } from './../../components/pop-settings/pop-settings.component';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -41,7 +41,7 @@ export class BalancePage implements OnInit {
     private route: Router,
     public toastController: ToastController,
     public popoverController: PopoverController,
-    public userConfigService: UserconfigService,
+    public userConfigService: UserConfigService,
     private ngZone: NgZone) { }
 
   ionViewWillEnter() {

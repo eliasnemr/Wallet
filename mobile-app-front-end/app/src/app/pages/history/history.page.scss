@@ -1,17 +1,15 @@
-ion-card-header {
-
-    --background: var(--ion-background-color, #f2f2f2);
-    background: linear-gradient(to bottom,  var(--ion-background-color, #fff) 0%, var(--ion-background-color, #f2f2f2) 100%) !important;
-    
-}
 ion-toolbar {
     font-family: manrope-bold;
     ion-title {
         font-size: 1.0rem;
     }
 }
-img.icon {
-    width: 1.5rem;
+ion-icon.icon {
+    width: 1.2rem;
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+    color: var(--ion-color-tertiary);
 }
 ion-segment {
     padding-left: 0;
@@ -28,12 +26,10 @@ ion-toolbar {
     --padding-left: 10px;
     --padding-right: 5px;
     --padding-bottom: 5px;
-
 }
 .ios ion-segment {
     padding-top: 5px;
 }
-
 ion-segment {
     margin-top: 5px;
     padding: 0px 10px 0px 10px;
@@ -41,25 +37,8 @@ ion-segment {
 ion-card-content ion-text {
     margin-top: 10px;
 }
-
-
-ion-row:hover {
-    transform: scale(0.99);
-    ion-item {
-        background: var(--ion-background-color, #f2f2f2);
-    }
-
-}
-ion-item {
-    border-left: 1px solid var(--ion-background-color, rgba(113,113,114, 0.7));
-}
 ion-row {
     width: 100%;
-
-}
-
-ion-toolbar {
-    --background: var(--ion-m-background);
 }
 
 h5 {
@@ -71,7 +50,7 @@ ion-col img {
     height:100%;
 }
 ion-col {
-    padding: 0 !important;
+    padding:0;
 }
 ion-row {
     padding: 2px;
@@ -97,6 +76,10 @@ ion-row {
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
+    color: var(--ion-color-primary);
+}
+#txnType span {
+    color: var(--ion-color-secondary);
 }
 
 ion-content {
@@ -108,4 +91,12 @@ ion-content {
     right: 5%;
     top: 15%;
     cursor: pointer;
+}
+
+span.tokenName {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100px;
+    display: inline-block;
 }
