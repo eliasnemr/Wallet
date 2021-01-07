@@ -21578,7 +21578,7 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-app>\n  <ion-header translucent=\"true\">\n    <ion-toolbar>\n      <ion-buttons slot=\"start\">\n        <ion-menu-button class=\"menu-icon\"></ion-menu-button>\n        </ion-buttons>\n        \n         <ion-title *ngIf=\"!ios\" class=\"large-text\">History</ion-title>\n\n        <ion-segment [(ngModel)]=\"segment\" (ionChange)=\"updateHistory()\" *ngIf=\"ios && transactions.length > 0\" color=\"primary\">\n          <ion-segment-button (ionChange)=\"updateHistory()\" value=\"all\">\n            <ion-label>All</ion-label>\n          </ion-segment-button>\n          <ion-segment-button  value=\"saved\">\n            <ion-label>Saved</ion-label>\n          </ion-segment-button>\n        </ion-segment>\n\n        <ion-segment [(ngModel)]=\"segment\" (ionChange)=\"updateHistory()\" *ngIf=\"!ios && transactions.length > 0\" color=\"tertiary\">\n          <ion-segment-button (ionChange)=\"updateHistory()\" value=\"all\">\n            <ion-label>All</ion-label>\n          </ion-segment-button>\n          <ion-segment-button value=\"saved\">\n            <ion-label>Saved</ion-label>\n          </ion-segment-button>\n        </ion-segment>\n\n    </ion-toolbar>\n  </ion-header>\n  \n  <ion-content fullscreen=\"true\">\n    <ion-header collapse=\"condense\">\n      <ion-toolbar>\n        <ion-title size=\"large\">History</ion-title>\n      </ion-toolbar>\n    </ion-header>\n\n    <ion-list #historyList>\n\n      <ion-grid *ngFor=\"let txn of transactions\">\n      <ion-item-sliding  #slidingItem [attr.track]=\"\">\n        <ion-item routerLink=\"/view-txn/{{ txn.txpow.txpowid }}\" routerDirection=\"forward\">\n          \n          <ion-row>\n            <ion-col sizeLg=\"1\" sizeMd=\"1\" sizeSm=\"12\" sizeXl=\"1\" sizeXs=\"2\" align-self-center>\n              <img style=\"width: 22px;\" id=\"history-icon\" src=\"./assets/sent.svg\" alt=\"send-receive\">\n            </ion-col>\n\n            <ion-col sizeLg=\"8\" sizeMd=\"8\" sizeSm=\"12\" sizeXl=\"8\" sizeXs=\"6\" align-self-center>\n              \n              <div id=\"txnType\" *ngIf=\"!txn.values[0].name.name  && txn.values[0].name !== 'Create Token'\">\n                <span *ngIf=\"txn.values[0].amount.substring(0,1) == '-'\"> \n                  <h5 class=\"medium-text\">\n                    Sent Minima\n                  </h5>\n                </span>\n        \n                <span class=\"medium-text\" *ngIf=\"txn.values[0].amount.substring(0,1) !== '-'\">\n                  <h5 class=\"medium-text\">\n                    Received Minima\n                  </h5>\n                </span>\n              </div>\n\n              <div id=\"txnType\" *ngIf=\"txn.values[0].name.name\">\n                <span class=\"medium-text\" *ngIf=\"txn.values[0].amount.substring(0,1) == '-'\"> \n                  <h5 class=\"medium-text\">\n                    Sent {{ txn.values[0].name.name }}\n                  </h5>\n                </span>\n        \n                <span class=\"medium-text\" *ngIf=\"txn.values[0].amount.substring(0,1) !== '-'\">\n                  <h5 class=\"medium-text\">\n                    Received {{ txn.values[0].name.name }}\n                  </h5>\n                </span>\n              </div>\n\n              <div id=\"txnType\" *ngIf=\"!txn.values[0].name.name && txn.values[0].name === 'Create Token'\">\n                <h5 class=\"medium-text\" style=\"margin-top:8px; margin-bottom:0;\">\n                  Created a Token\n                </h5>\n                <p class=\"small-text\" style=\"margin:0;opacity:0.8;\"> &mdash; {{ txn.txpow.body.txn.tokengen.token }}</p>\n              </div>\n              \n              \n              <span id=\"time\" class=\"small-text\"> {{ txn.values[0].time  }} &mdash; </span> <span id=\"month\" class=\"small-text\"> {{ txn.values[0].month }} </span> <span id=\"day\" class=\"small-text\"> {{ txn.values[0].day }} </span>\n              \n              \n            </ion-col>\n\n            <ion-col id=\"amnt\" sizeLg=\"3\" sizeMd=\"3\" sizeSm=\"12\" sizeXl=\"3\" sizeXs=\"4\" align-self-center *ngIf=\"txn.values[0].name !== 'Create Token'\">\n              <span *ngIf=\"txn.values[0].amount.substring(0,1) == '-'\"> \n                <h5 class=\"medium-text\">{{ txn.values[0].amount}}</h5>\n              </span>\n      \n              <span *ngIf=\"txn.values[0].amount.substring(0,1) !== '-'\">\n                <h5 class=\"medium-text\">{{ \"+\"+ txn.values[0].amount}}</h5>\n              </span>\n            </ion-col>\n\n            <ion-col id=\"amnt\" sizeLg=\"3\" sizeMd=\"3\" sizeSm=\"12\" sizeXl=\"3\" sizeXs=\"4\" align-self-center *ngIf=\"txn.values[0].name === 'Create Token'\">\n              <h5 class=\"medium-text\" style=\"margin-top:8px; margin-bottom:0;\">{{ \"+\" + txn.txpow.body.txn.tokengen.total }}</h5>\n              <p class=\"small-text\" style=\"margin:0;opacity:0.8;\"> {{ \"-\" + txn.values[0].amount + \" MINI\"}}</p>\n            </ion-col>\n\n          </ion-row>\n        \n        </ion-item>\n      \n        <ion-item-options>\n          <ion-item-option color=\"success\" (click)=\"saveItem(slidingItem, txn)\" *ngIf=\"segment === 'all'\">\n            Save\n          </ion-item-option>\n          <ion-item-option color=\"danger\" (click)=\"removeItem(slidingItem, txn, 'Remove Transaction.')\" *ngIf=\"segment === 'saved'\">\n            Remove\n          </ion-item-option>\n        </ion-item-options>\n      </ion-item-sliding>\n      </ion-grid>\n    </ion-list>\n\n    <ion-grid *ngIf=\"transactions.length == 0\">\n      <ion-row>\n        <ion-col style=\"display: flex; align-items:center; justify-content:center\" size=\"12\">\n          <ion-label>Fetching history...</ion-label>\n        </ion-col>\n      </ion-row>\n    </ion-grid>\n\n\n</ion-content>\n  </ion-app>"
+module.exports = "<ion-app>\n  <ion-header>\n    <ion-toolbar>\n      <ion-buttons slot=\"start\">\n        <ion-menu-button class=\"menu-icon\"></ion-menu-button>  \n      </ion-buttons>\n         <ion-title *ngIf=\"!ios\" class=\"large-text\">History</ion-title>\n        <ion-segment [(ngModel)]=\"segment\" (ionChange)=\"updateHistory()\" *ngIf=\"ios && transactions.length > 0\">\n          <ion-segment-button (ionChange)=\"updateHistory()\" value=\"all\">\n            <ion-label>All</ion-label>\n          </ion-segment-button>\n          <ion-segment-button  value=\"saved\">\n            <ion-label>Saved</ion-label>\n          </ion-segment-button>\n        </ion-segment>\n\n        <ion-segment [(ngModel)]=\"segment\" (ionChange)=\"updateHistory()\" *ngIf=\"!ios && transactions.length > 0\">\n          <ion-segment-button (ionChange)=\"updateHistory()\" value=\"all\">\n            <ion-label>All</ion-label>\n          </ion-segment-button>\n          <ion-segment-button value=\"saved\">\n            <ion-label>Saved</ion-label>\n          </ion-segment-button>\n        </ion-segment>\n\n        <ion-icon (click)=\"presentFilterSettings($event)\" id=\"filter-settings\" slot=\"end\" name=\"options\"></ion-icon>\n\n    </ion-toolbar>\n  </ion-header>\n  \n  <ion-content>\n    <ion-header collapse=\"condense\">\n      <ion-toolbar>\n        <ion-title size=\"large\">History</ion-title>\n      </ion-toolbar>\n    </ion-header>\n\n    <ion-list #historyList>\n\n      <ion-grid *ngFor=\"let txn of transactions\">\n      <ion-item-sliding  #slidingItem [attr.track]=\"\">\n        <ion-item routerLink=\"/view-txn/{{ txn.txpow.txpowid }}\" routerDirection=\"forward\">\n          \n          <ion-row>\n            <ion-col size-md=\"1\" size-s=\"1\" size-xs=\"2\">\n              <ion-icon *ngIf=\"txn.values[0].amount.substring(0,1) == '-'\" class=\"icon\" name=\"send\" alt=\"send-receive\"></ion-icon>\n              <ion-icon *ngIf=\"txn.values[0].amount.substring(0,1) !== '-' && txn.values[0].name !== 'Create Token'\" class=\"icon\" name=\"arrow-down\" alt=\"send-receive\"></ion-icon>\n              <ion-icon *ngIf=\"!txn.values[0].name.name && txn.values[0].name === 'Create Token'\" class=\"icon\" name=\"brush\" alt=\"send-receive\"></ion-icon>\n            </ion-col>\n\n            <ion-col size-xs=\"7\">\n              <div id=\"txnType\" *ngIf=\"!txn.values[0].name.name  && txn.values[0].name !== 'Create Token'\">\n                <span *ngIf=\"txn.values[0].amount.substring(0,1) == '-'\"> \n                  <h5 class=\"medium-text\">\n                    Sent Minima\n                  </h5>\n                </span>\n                <span class=\"medium-text\" *ngIf=\"txn.values[0].amount.substring(0,1) !== '-'\">\n                  <h5 class=\"medium-text\">\n                    Received Minima\n                  </h5>\n                </span>\n              </div>\n              <div id=\"txnType\" *ngIf=\"txn.values[0].name.name\">\n                <span class=\"medium-text\" *ngIf=\"txn.values[0].amount.substring(0,1) == '-'\"> \n                  <h5 class=\"medium-text\">\n                    Sent {{ txn.values[0].name.name }}\n                  </h5>\n                </span>\n        \n                <span class=\"medium-text\" *ngIf=\"txn.values[0].amount.substring(0,1) !== '-'\">\n                  <h5 class=\"medium-text\">\n                    Received {{ txn.values[0].name.name }}\n                  </h5>\n                </span>\n              </div>\n\n              <div id=\"txnType\" *ngIf=\"!txn.values[0].name.name && txn.values[0].name === 'Create Token'\">\n                <h5 class=\"medium-text\">\n                  Created a Token\n                </h5>\n                <span class=\"small-text tokenName\"> &mdash; {{ txn.txpow.body.txn.tokengen.token }}</span>\n              </div>\n              \n              \n              <span id=\"time\" class=\"small-text\"> {{ txn.values[0].time  }} &mdash; </span> <span id=\"month\" class=\"small-text\"> {{ txn.values[0].month }} </span> <span id=\"day\" class=\"small-text\"> {{ txn.values[0].day }} </span>\n              \n              \n            </ion-col>\n\n            <ion-col id=\"amnt\" *ngIf=\"txn.values[0].name !== 'Create Token'\">\n              <span *ngIf=\"txn.values[0].amount.substring(0,1) == '-'\"> \n                <h5 class=\"medium-text minima-numeric\">{{ txn.values[0].amount}}</h5>\n              </span>\n      \n              <span *ngIf=\"txn.values[0].amount.substring(0,1) !== '-'\">\n                <h5 class=\"medium-text minima-numeric\">{{ \"+\"+ txn.values[0].amount}}</h5>\n              </span>\n            </ion-col>\n\n            <ion-col id=\"amnt\" *ngIf=\"txn.values[0].name === 'Create Token'\">\n              <h5 class=\"medium-text minima-numeric\">{{ \"+\" + txn.txpow.body.txn.tokengen.total }} <br> <span class=\"small-text minima-numeric\">{{ \"- \" + txn.values[0].amount + \" MINI\"}}</span> </h5>\n            </ion-col>\n\n          </ion-row>\n        \n        </ion-item>\n      \n        <ion-item-options>\n          <ion-item-option color=\"success\" (click)=\"saveItem(slidingItem, txn)\" *ngIf=\"segment === 'all'\">\n            Save\n          </ion-item-option>\n          <ion-item-option color=\"danger\" (click)=\"removeItem(slidingItem, txn, 'Remove Transaction.')\" *ngIf=\"segment === 'saved'\">\n            Remove\n          </ion-item-option>\n        </ion-item-options>\n      </ion-item-sliding>\n      </ion-grid>\n    </ion-list>\n\n    <ion-grid *ngIf=\"transactions.length == 0\">\n      <ion-row>\n        <ion-col style=\"display: flex; align-items:center; justify-content:center\" size=\"12\">\n          <ion-label>{{ prompt }}</ion-label>\n        </ion-col>\n      </ion-row>\n    </ion-grid>\n\n\n  </ion-content>\n</ion-app>"
 
 /***/ }),
 
@@ -21679,7 +21679,7 @@ var HistoryPageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "ion-card-header {\n  --background: var(--ion-background-color, #f2f2f2);\n  background: -webkit-gradient(linear, left top, left bottom, from(var(--ion-background-color, #fff)), to(var(--ion-background-color, #f2f2f2))) !important;\n  background: linear-gradient(to bottom, var(--ion-background-color, #fff) 0%, var(--ion-background-color, #f2f2f2) 100%) !important;\n}\n\nion-segment {\n  padding-left: 0;\n  padding-right: 0;\n}\n\n.ios ion-title {\n  font-size: 30px !important;\n}\n\nion-toolbar {\n  --padding-top: 15px;\n}\n\n.ios ion-toolbar {\n  --padding-top: 30px;\n  --padding-left: 10px;\n  --padding-right: 5px;\n  --padding-bottom: 5px;\n}\n\n.ios ion-segment {\n  padding-top: 5px;\n}\n\nion-segment {\n  margin-top: 5px;\n  padding: 0px 10px 0px 10px;\n}\n\nion-card-content ion-text {\n  margin-top: 10px;\n}\n\nion-row:hover {\n  -webkit-transform: scale(0.99);\n          transform: scale(0.99);\n}\n\nion-row:hover ion-item {\n  background: var(--ion-background-color, #f2f2f2);\n}\n\nion-item {\n  border-left: 1px solid var(--ion-background-color, rgba(113, 113, 114, 0.7));\n}\n\nion-row {\n  width: 100%;\n}\n\nion-toolbar {\n  --background: var(--ion-m-background);\n}\n\nh5 {\n  font-weight: 600;\n  opacity: 0.8;\n}\n\nion-col img {\n  display: block;\n  height: 100%;\n}\n\nion-col {\n  padding: 0 !important;\n}\n\nion-row {\n  padding: 2px;\n}\n\n#month {\n  font-weight: 600;\n  opacity: 0.7;\n}\n\n#day {\n  margin: 0;\n  font-weight: 600;\n  opacity: 0.7;\n}\n\n#time {\n  margin: 0;\n  opacity: 0.7;\n  font-weight: 120;\n}\n\n#txnType h5 {\n  margin: 0 !important;\n}\n\nion-content {\n  overflow-y: scroll;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9lbGlhc25lbXIvcHJvamVjdHMvV0FMTEVUL21vYmlsZS1hcHAtZnJvbnQtZW5kL2FwcC9zcmMvYXBwL3BhZ2VzL2hpc3RvcnkvaGlzdG9yeS5wYWdlLnNjc3MiLCJzcmMvYXBwL3BhZ2VzL2hpc3RvcnkvaGlzdG9yeS5wYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFFSSxrREFBQTtFQUNBLHlKQUFBO0VBQUEsa0lBQUE7QUNBSjs7QURHQTtFQUNJLGVBQUE7RUFDQSxnQkFBQTtBQ0FKOztBREVBO0VBQ0ksMEJBQUE7QUNDSjs7QURDQTtFQUNJLG1CQUFBO0FDRUo7O0FEQUE7RUFDSSxtQkFBQTtFQUNBLG9CQUFBO0VBQ0Esb0JBQUE7RUFDQSxxQkFBQTtBQ0dKOztBREFBO0VBQ0ksZ0JBQUE7QUNHSjs7QURBQTtFQUNJLGVBQUE7RUFDQSwwQkFBQTtBQ0dKOztBRERBO0VBQ0ksZ0JBQUE7QUNJSjs7QURBQTtFQUNJLDhCQUFBO1VBQUEsc0JBQUE7QUNHSjs7QURGSTtFQUNJLGdEQUFBO0FDSVI7O0FEQUE7RUFDSSw0RUFBQTtBQ0dKOztBRERBO0VBQ0ksV0FBQTtBQ0lKOztBREFBO0VBQ0kscUNBQUE7QUNHSjs7QURBQTtFQUNJLGdCQUFBO0VBQ0EsWUFBQTtBQ0dKOztBRERBO0VBQ0ksY0FBQTtFQUNBLFlBQUE7QUNJSjs7QURGQTtFQUNJLHFCQUFBO0FDS0o7O0FESEE7RUFDSSxZQUFBO0FDTUo7O0FESEE7RUFDSSxnQkFBQTtFQUNBLFlBQUE7QUNNSjs7QURKQTtFQUNJLFNBQUE7RUFDQSxnQkFBQTtFQUNBLFlBQUE7QUNPSjs7QURMQTtFQUNJLFNBQUE7RUFDQSxZQUFBO0VBQ0EsZ0JBQUE7QUNRSjs7QURMQTtFQUNJLG9CQUFBO0FDUUo7O0FETEE7RUFDSSxrQkFBQTtBQ1FKIiwiZmlsZSI6InNyYy9hcHAvcGFnZXMvaGlzdG9yeS9oaXN0b3J5LnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImlvbi1jYXJkLWhlYWRlciB7XG5cbiAgICAtLWJhY2tncm91bmQ6IHZhcigtLWlvbi1iYWNrZ3JvdW5kLWNvbG9yLCAjZjJmMmYyKTtcbiAgICBiYWNrZ3JvdW5kOiBsaW5lYXItZ3JhZGllbnQodG8gYm90dG9tLCAgdmFyKC0taW9uLWJhY2tncm91bmQtY29sb3IsICNmZmYpIDAlLCB2YXIoLS1pb24tYmFja2dyb3VuZC1jb2xvciwgI2YyZjJmMikgMTAwJSkgIWltcG9ydGFudDtcbiAgICBcbn1cbmlvbi1zZWdtZW50IHtcbiAgICBwYWRkaW5nLWxlZnQ6IDA7XG4gICAgcGFkZGluZy1yaWdodDogMDtcbn1cbi5pb3MgaW9uLXRpdGxlIHtcbiAgICBmb250LXNpemU6IDMwcHggIWltcG9ydGFudDtcbn1cbmlvbi10b29sYmFyIHtcbiAgICAtLXBhZGRpbmctdG9wOiAxNXB4O1xufVxuLmlvcyBpb24tdG9vbGJhciB7XG4gICAgLS1wYWRkaW5nLXRvcDogMzBweDtcbiAgICAtLXBhZGRpbmctbGVmdDogMTBweDtcbiAgICAtLXBhZGRpbmctcmlnaHQ6IDVweDtcbiAgICAtLXBhZGRpbmctYm90dG9tOiA1cHg7XG5cbn1cbi5pb3MgaW9uLXNlZ21lbnQge1xuICAgIHBhZGRpbmctdG9wOiA1cHg7XG59XG5cbmlvbi1zZWdtZW50IHtcbiAgICBtYXJnaW4tdG9wOiA1cHg7XG4gICAgcGFkZGluZzogMHB4IDEwcHggMHB4IDEwcHg7XG59XG5pb24tY2FyZC1jb250ZW50IGlvbi10ZXh0IHtcbiAgICBtYXJnaW4tdG9wOiAxMHB4O1xufVxuXG5cbmlvbi1yb3c6aG92ZXIge1xuICAgIHRyYW5zZm9ybTogc2NhbGUoMC45OSk7XG4gICAgaW9uLWl0ZW0ge1xuICAgICAgICBiYWNrZ3JvdW5kOiB2YXIoLS1pb24tYmFja2dyb3VuZC1jb2xvciwgI2YyZjJmMik7XG4gICAgfVxuXG59XG5pb24taXRlbSB7XG4gICAgYm9yZGVyLWxlZnQ6IDFweCBzb2xpZCB2YXIoLS1pb24tYmFja2dyb3VuZC1jb2xvciwgcmdiYSgxMTMsMTEzLDExNCwgMC43KSk7XG59XG5pb24tcm93IHtcbiAgICB3aWR0aDogMTAwJTtcblxufVxuXG5pb24tdG9vbGJhciB7XG4gICAgLS1iYWNrZ3JvdW5kOiB2YXIoLS1pb24tbS1iYWNrZ3JvdW5kKTtcbn1cblxuaDUge1xuICAgIGZvbnQtd2VpZ2h0OiA2MDA7XG4gICAgb3BhY2l0eTogMC44O1xufVxuaW9uLWNvbCBpbWcge1xuICAgIGRpc3BsYXk6YmxvY2s7XG4gICAgaGVpZ2h0OjEwMCU7XG59XG5pb24tY29sIHtcbiAgICBwYWRkaW5nOiAwICFpbXBvcnRhbnQ7XG59XG5pb24tcm93IHtcbiAgICBwYWRkaW5nOiAycHg7XG59XG5cbiNtb250aCB7XG4gICAgZm9udC13ZWlnaHQ6IDYwMDtcbiAgICBvcGFjaXR5OiAwLjc7XG59XG4jZGF5IHtcbiAgICBtYXJnaW46IDA7XG4gICAgZm9udC13ZWlnaHQ6IDYwMDtcbiAgICBvcGFjaXR5OiAwLjc7XG59XG4jdGltZSB7XG4gICAgbWFyZ2luOiAwO1xuICAgIG9wYWNpdHk6IDAuNztcbiAgICBmb250LXdlaWdodDogMTIwO1xufVxuXG4jdHhuVHlwZSBoNSB7XG4gICAgbWFyZ2luOiAwICFpbXBvcnRhbnQ7XG59XG5cbmlvbi1jb250ZW50IHtcbiAgICBvdmVyZmxvdy15OiBzY3JvbGw7XG59IiwiaW9uLWNhcmQtaGVhZGVyIHtcbiAgLS1iYWNrZ3JvdW5kOiB2YXIoLS1pb24tYmFja2dyb3VuZC1jb2xvciwgI2YyZjJmMik7XG4gIGJhY2tncm91bmQ6IGxpbmVhci1ncmFkaWVudCh0byBib3R0b20sIHZhcigtLWlvbi1iYWNrZ3JvdW5kLWNvbG9yLCAjZmZmKSAwJSwgdmFyKC0taW9uLWJhY2tncm91bmQtY29sb3IsICNmMmYyZjIpIDEwMCUpICFpbXBvcnRhbnQ7XG59XG5cbmlvbi1zZWdtZW50IHtcbiAgcGFkZGluZy1sZWZ0OiAwO1xuICBwYWRkaW5nLXJpZ2h0OiAwO1xufVxuXG4uaW9zIGlvbi10aXRsZSB7XG4gIGZvbnQtc2l6ZTogMzBweCAhaW1wb3J0YW50O1xufVxuXG5pb24tdG9vbGJhciB7XG4gIC0tcGFkZGluZy10b3A6IDE1cHg7XG59XG5cbi5pb3MgaW9uLXRvb2xiYXIge1xuICAtLXBhZGRpbmctdG9wOiAzMHB4O1xuICAtLXBhZGRpbmctbGVmdDogMTBweDtcbiAgLS1wYWRkaW5nLXJpZ2h0OiA1cHg7XG4gIC0tcGFkZGluZy1ib3R0b206IDVweDtcbn1cblxuLmlvcyBpb24tc2VnbWVudCB7XG4gIHBhZGRpbmctdG9wOiA1cHg7XG59XG5cbmlvbi1zZWdtZW50IHtcbiAgbWFyZ2luLXRvcDogNXB4O1xuICBwYWRkaW5nOiAwcHggMTBweCAwcHggMTBweDtcbn1cblxuaW9uLWNhcmQtY29udGVudCBpb24tdGV4dCB7XG4gIG1hcmdpbi10b3A6IDEwcHg7XG59XG5cbmlvbi1yb3c6aG92ZXIge1xuICB0cmFuc2Zvcm06IHNjYWxlKDAuOTkpO1xufVxuaW9uLXJvdzpob3ZlciBpb24taXRlbSB7XG4gIGJhY2tncm91bmQ6IHZhcigtLWlvbi1iYWNrZ3JvdW5kLWNvbG9yLCAjZjJmMmYyKTtcbn1cblxuaW9uLWl0ZW0ge1xuICBib3JkZXItbGVmdDogMXB4IHNvbGlkIHZhcigtLWlvbi1iYWNrZ3JvdW5kLWNvbG9yLCByZ2JhKDExMywgMTEzLCAxMTQsIDAuNykpO1xufVxuXG5pb24tcm93IHtcbiAgd2lkdGg6IDEwMCU7XG59XG5cbmlvbi10b29sYmFyIHtcbiAgLS1iYWNrZ3JvdW5kOiB2YXIoLS1pb24tbS1iYWNrZ3JvdW5kKTtcbn1cblxuaDUge1xuICBmb250LXdlaWdodDogNjAwO1xuICBvcGFjaXR5OiAwLjg7XG59XG5cbmlvbi1jb2wgaW1nIHtcbiAgZGlzcGxheTogYmxvY2s7XG4gIGhlaWdodDogMTAwJTtcbn1cblxuaW9uLWNvbCB7XG4gIHBhZGRpbmc6IDAgIWltcG9ydGFudDtcbn1cblxuaW9uLXJvdyB7XG4gIHBhZGRpbmc6IDJweDtcbn1cblxuI21vbnRoIHtcbiAgZm9udC13ZWlnaHQ6IDYwMDtcbiAgb3BhY2l0eTogMC43O1xufVxuXG4jZGF5IHtcbiAgbWFyZ2luOiAwO1xuICBmb250LXdlaWdodDogNjAwO1xuICBvcGFjaXR5OiAwLjc7XG59XG5cbiN0aW1lIHtcbiAgbWFyZ2luOiAwO1xuICBvcGFjaXR5OiAwLjc7XG4gIGZvbnQtd2VpZ2h0OiAxMjA7XG59XG5cbiN0eG5UeXBlIGg1IHtcbiAgbWFyZ2luOiAwICFpbXBvcnRhbnQ7XG59XG5cbmlvbi1jb250ZW50IHtcbiAgb3ZlcmZsb3cteTogc2Nyb2xsO1xufSJdfQ== */"
+module.exports = "ion-toolbar {\n  font-family: manrope-bold;\n}\nion-toolbar ion-title {\n  font-size: 1rem;\n}\nion-icon.icon {\n  width: 1.2rem;\n  display: inline-block;\n  vertical-align: middle;\n  height: 100%;\n  color: var(--ion-color-tertiary);\n}\nion-segment {\n  padding-left: 0;\n  padding-right: 0;\n}\n.ios ion-title {\n  font-size: 1rem;\n}\nion-toolbar {\n  --padding-top: 15px;\n}\n.ios ion-toolbar {\n  --padding-top: 30px;\n  --padding-left: 10px;\n  --padding-right: 5px;\n  --padding-bottom: 5px;\n}\n.ios ion-segment {\n  padding-top: 5px;\n}\nion-segment {\n  margin-top: 5px;\n  padding: 0px 10px 0px 10px;\n}\nion-card-content ion-text {\n  margin-top: 10px;\n}\nion-row {\n  width: 100%;\n}\nh5 {\n  font-weight: 600;\n  opacity: 0.8;\n}\nion-col img {\n  display: block;\n  height: 100%;\n}\nion-col {\n  padding: 0;\n}\nion-row {\n  padding: 2px;\n}\n#month {\n  font-weight: 600;\n  opacity: 0.7;\n}\n#day {\n  margin: 0;\n  font-weight: 600;\n  opacity: 0.7;\n}\n#time {\n  margin: 0;\n  opacity: 0.7;\n  font-weight: 120;\n}\n#txnType h5 {\n  margin: 0 !important;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  overflow: hidden;\n  color: var(--ion-color-primary);\n}\n#txnType span {\n  color: var(--ion-color-secondary);\n}\nion-content {\n  overflow-y: scroll;\n}\n#filter-settings {\n  position: absolute;\n  right: 5%;\n  top: 15%;\n  cursor: pointer;\n}\nspan.tokenName {\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  max-width: 100px;\n  display: inline-block;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9lbGlhc25lbXIvcHJvamVjdHMvV0FMTEVUL21vYmlsZS1hcHAtZnJvbnQtZW5kL2FwcC9zcmMvYXBwL3BhZ2VzL2hpc3RvcnkvaGlzdG9yeS5wYWdlLnNjc3MiLCJzcmMvYXBwL3BhZ2VzL2hpc3RvcnkvaGlzdG9yeS5wYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSx5QkFBQTtBQ0NKO0FEQUk7RUFDSSxlQUFBO0FDRVI7QURDQTtFQUNJLGFBQUE7RUFDQSxxQkFBQTtFQUNBLHNCQUFBO0VBQ0EsWUFBQTtFQUNBLGdDQUFBO0FDRUo7QURBQTtFQUNJLGVBQUE7RUFDQSxnQkFBQTtBQ0dKO0FEREE7RUFDSSxlQUFBO0FDSUo7QURGQTtFQUNJLG1CQUFBO0FDS0o7QURIQTtFQUNJLG1CQUFBO0VBQ0Esb0JBQUE7RUFDQSxvQkFBQTtFQUNBLHFCQUFBO0FDTUo7QURKQTtFQUNJLGdCQUFBO0FDT0o7QURMQTtFQUNJLGVBQUE7RUFDQSwwQkFBQTtBQ1FKO0FETkE7RUFDSSxnQkFBQTtBQ1NKO0FEUEE7RUFDSSxXQUFBO0FDVUo7QURQQTtFQUNJLGdCQUFBO0VBQ0EsWUFBQTtBQ1VKO0FEUkE7RUFDSSxjQUFBO0VBQ0EsWUFBQTtBQ1dKO0FEVEE7RUFDSSxVQUFBO0FDWUo7QURWQTtFQUNJLFlBQUE7QUNhSjtBRFZBO0VBQ0ksZ0JBQUE7RUFDQSxZQUFBO0FDYUo7QURYQTtFQUNJLFNBQUE7RUFDQSxnQkFBQTtFQUNBLFlBQUE7QUNjSjtBRFpBO0VBQ0ksU0FBQTtFQUNBLFlBQUE7RUFDQSxnQkFBQTtBQ2VKO0FEWkE7RUFDSSxvQkFBQTtFQUNBLHVCQUFBO0VBQ0EsbUJBQUE7RUFDQSxnQkFBQTtFQUNBLCtCQUFBO0FDZUo7QURiQTtFQUNJLGlDQUFBO0FDZ0JKO0FEYkE7RUFDSSxrQkFBQTtBQ2dCSjtBRGJBO0VBQ0ksa0JBQUE7RUFDQSxTQUFBO0VBQ0EsUUFBQTtFQUNBLGVBQUE7QUNnQko7QURiQTtFQUNJLGdCQUFBO0VBQ0EsdUJBQUE7RUFDQSxtQkFBQTtFQUNBLGdCQUFBO0VBQ0EscUJBQUE7QUNnQkoiLCJmaWxlIjoic3JjL2FwcC9wYWdlcy9oaXN0b3J5L2hpc3RvcnkucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiaW9uLXRvb2xiYXIge1xuICAgIGZvbnQtZmFtaWx5OiBtYW5yb3BlLWJvbGQ7XG4gICAgaW9uLXRpdGxlIHtcbiAgICAgICAgZm9udC1zaXplOiAxLjByZW07XG4gICAgfVxufVxuaW9uLWljb24uaWNvbiB7XG4gICAgd2lkdGg6IDEuMnJlbTtcbiAgICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG4gICAgdmVydGljYWwtYWxpZ246IG1pZGRsZTtcbiAgICBoZWlnaHQ6IDEwMCU7XG4gICAgY29sb3I6IHZhcigtLWlvbi1jb2xvci10ZXJ0aWFyeSk7XG59XG5pb24tc2VnbWVudCB7XG4gICAgcGFkZGluZy1sZWZ0OiAwO1xuICAgIHBhZGRpbmctcmlnaHQ6IDA7XG59XG4uaW9zIGlvbi10aXRsZSB7XG4gICAgZm9udC1zaXplOiAxLjByZW07XG59XG5pb24tdG9vbGJhciB7XG4gICAgLS1wYWRkaW5nLXRvcDogMTVweDtcbn1cbi5pb3MgaW9uLXRvb2xiYXIge1xuICAgIC0tcGFkZGluZy10b3A6IDMwcHg7XG4gICAgLS1wYWRkaW5nLWxlZnQ6IDEwcHg7XG4gICAgLS1wYWRkaW5nLXJpZ2h0OiA1cHg7XG4gICAgLS1wYWRkaW5nLWJvdHRvbTogNXB4O1xufVxuLmlvcyBpb24tc2VnbWVudCB7XG4gICAgcGFkZGluZy10b3A6IDVweDtcbn1cbmlvbi1zZWdtZW50IHtcbiAgICBtYXJnaW4tdG9wOiA1cHg7XG4gICAgcGFkZGluZzogMHB4IDEwcHggMHB4IDEwcHg7XG59XG5pb24tY2FyZC1jb250ZW50IGlvbi10ZXh0IHtcbiAgICBtYXJnaW4tdG9wOiAxMHB4O1xufVxuaW9uLXJvdyB7XG4gICAgd2lkdGg6IDEwMCU7XG59XG5cbmg1IHtcbiAgICBmb250LXdlaWdodDogNjAwO1xuICAgIG9wYWNpdHk6IDAuODtcbn1cbmlvbi1jb2wgaW1nIHtcbiAgICBkaXNwbGF5OmJsb2NrO1xuICAgIGhlaWdodDoxMDAlO1xufVxuaW9uLWNvbCB7XG4gICAgcGFkZGluZzowO1xufVxuaW9uLXJvdyB7XG4gICAgcGFkZGluZzogMnB4O1xufVxuXG4jbW9udGgge1xuICAgIGZvbnQtd2VpZ2h0OiA2MDA7XG4gICAgb3BhY2l0eTogMC43O1xufVxuI2RheSB7XG4gICAgbWFyZ2luOiAwO1xuICAgIGZvbnQtd2VpZ2h0OiA2MDA7XG4gICAgb3BhY2l0eTogMC43O1xufVxuI3RpbWUge1xuICAgIG1hcmdpbjogMDtcbiAgICBvcGFjaXR5OiAwLjc7XG4gICAgZm9udC13ZWlnaHQ6IDEyMDtcbn1cblxuI3R4blR5cGUgaDUge1xuICAgIG1hcmdpbjogMCAhaW1wb3J0YW50O1xuICAgIHRleHQtb3ZlcmZsb3c6IGVsbGlwc2lzO1xuICAgIHdoaXRlLXNwYWNlOiBub3dyYXA7XG4gICAgb3ZlcmZsb3c6IGhpZGRlbjtcbiAgICBjb2xvcjogdmFyKC0taW9uLWNvbG9yLXByaW1hcnkpO1xufVxuI3R4blR5cGUgc3BhbiB7XG4gICAgY29sb3I6IHZhcigtLWlvbi1jb2xvci1zZWNvbmRhcnkpO1xufVxuXG5pb24tY29udGVudCB7XG4gICAgb3ZlcmZsb3cteTogc2Nyb2xsO1xufVxuXG4jZmlsdGVyLXNldHRpbmdzIHtcbiAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgcmlnaHQ6IDUlO1xuICAgIHRvcDogMTUlO1xuICAgIGN1cnNvcjogcG9pbnRlcjtcbn1cblxuc3Bhbi50b2tlbk5hbWUge1xuICAgIG92ZXJmbG93OiBoaWRkZW47XG4gICAgdGV4dC1vdmVyZmxvdzogZWxsaXBzaXM7XG4gICAgd2hpdGUtc3BhY2U6IG5vd3JhcDtcbiAgICBtYXgtd2lkdGg6IDEwMHB4O1xuICAgIGRpc3BsYXk6IGlubGluZS1ibG9jaztcbn0iLCJpb24tdG9vbGJhciB7XG4gIGZvbnQtZmFtaWx5OiBtYW5yb3BlLWJvbGQ7XG59XG5pb24tdG9vbGJhciBpb24tdGl0bGUge1xuICBmb250LXNpemU6IDFyZW07XG59XG5cbmlvbi1pY29uLmljb24ge1xuICB3aWR0aDogMS4ycmVtO1xuICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG4gIHZlcnRpY2FsLWFsaWduOiBtaWRkbGU7XG4gIGhlaWdodDogMTAwJTtcbiAgY29sb3I6IHZhcigtLWlvbi1jb2xvci10ZXJ0aWFyeSk7XG59XG5cbmlvbi1zZWdtZW50IHtcbiAgcGFkZGluZy1sZWZ0OiAwO1xuICBwYWRkaW5nLXJpZ2h0OiAwO1xufVxuXG4uaW9zIGlvbi10aXRsZSB7XG4gIGZvbnQtc2l6ZTogMXJlbTtcbn1cblxuaW9uLXRvb2xiYXIge1xuICAtLXBhZGRpbmctdG9wOiAxNXB4O1xufVxuXG4uaW9zIGlvbi10b29sYmFyIHtcbiAgLS1wYWRkaW5nLXRvcDogMzBweDtcbiAgLS1wYWRkaW5nLWxlZnQ6IDEwcHg7XG4gIC0tcGFkZGluZy1yaWdodDogNXB4O1xuICAtLXBhZGRpbmctYm90dG9tOiA1cHg7XG59XG5cbi5pb3MgaW9uLXNlZ21lbnQge1xuICBwYWRkaW5nLXRvcDogNXB4O1xufVxuXG5pb24tc2VnbWVudCB7XG4gIG1hcmdpbi10b3A6IDVweDtcbiAgcGFkZGluZzogMHB4IDEwcHggMHB4IDEwcHg7XG59XG5cbmlvbi1jYXJkLWNvbnRlbnQgaW9uLXRleHQge1xuICBtYXJnaW4tdG9wOiAxMHB4O1xufVxuXG5pb24tcm93IHtcbiAgd2lkdGg6IDEwMCU7XG59XG5cbmg1IHtcbiAgZm9udC13ZWlnaHQ6IDYwMDtcbiAgb3BhY2l0eTogMC44O1xufVxuXG5pb24tY29sIGltZyB7XG4gIGRpc3BsYXk6IGJsb2NrO1xuICBoZWlnaHQ6IDEwMCU7XG59XG5cbmlvbi1jb2wge1xuICBwYWRkaW5nOiAwO1xufVxuXG5pb24tcm93IHtcbiAgcGFkZGluZzogMnB4O1xufVxuXG4jbW9udGgge1xuICBmb250LXdlaWdodDogNjAwO1xuICBvcGFjaXR5OiAwLjc7XG59XG5cbiNkYXkge1xuICBtYXJnaW46IDA7XG4gIGZvbnQtd2VpZ2h0OiA2MDA7XG4gIG9wYWNpdHk6IDAuNztcbn1cblxuI3RpbWUge1xuICBtYXJnaW46IDA7XG4gIG9wYWNpdHk6IDAuNztcbiAgZm9udC13ZWlnaHQ6IDEyMDtcbn1cblxuI3R4blR5cGUgaDUge1xuICBtYXJnaW46IDAgIWltcG9ydGFudDtcbiAgdGV4dC1vdmVyZmxvdzogZWxsaXBzaXM7XG4gIHdoaXRlLXNwYWNlOiBub3dyYXA7XG4gIG92ZXJmbG93OiBoaWRkZW47XG4gIGNvbG9yOiB2YXIoLS1pb24tY29sb3ItcHJpbWFyeSk7XG59XG5cbiN0eG5UeXBlIHNwYW4ge1xuICBjb2xvcjogdmFyKC0taW9uLWNvbG9yLXNlY29uZGFyeSk7XG59XG5cbmlvbi1jb250ZW50IHtcbiAgb3ZlcmZsb3cteTogc2Nyb2xsO1xufVxuXG4jZmlsdGVyLXNldHRpbmdzIHtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICByaWdodDogNSU7XG4gIHRvcDogMTUlO1xuICBjdXJzb3I6IHBvaW50ZXI7XG59XG5cbnNwYW4udG9rZW5OYW1lIHtcbiAgb3ZlcmZsb3c6IGhpZGRlbjtcbiAgdGV4dC1vdmVyZmxvdzogZWxsaXBzaXM7XG4gIHdoaXRlLXNwYWNlOiBub3dyYXA7XG4gIG1heC13aWR0aDogMTAwcHg7XG4gIGRpc3BsYXk6IGlubGluZS1ibG9jaztcbn0iXX0= */"
 
 /***/ }),
 
@@ -21694,16 +21694,16 @@ module.exports = "ion-card-header {\n  --background: var(--ion-background-color,
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HistoryPage", function() { return HistoryPage; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var _service_history_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../service/history.service */ "./src/app/service/history.service.ts");
-/* harmony import */ var _providers_user_data__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./../../providers/user-data */ "./src/app/providers/user-data.ts");
-/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! minima */ "./node_modules/minima/dist/minima.js");
-/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(minima__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _components_pop_filter_pop_filter_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../../components/pop-filter/pop-filter.component */ "./src/app/components/pop-filter/pop-filter.component.ts");
+/* harmony import */ var _service_history_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../service/history.service */ "./src/app/service/history.service.ts");
+/* harmony import */ var _providers_user_data__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../../providers/user-data */ "./src/app/providers/user-data.ts");
+/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! minima */ "./node_modules/minima/dist/minima.js");
+/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(minima__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_8__);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
 
 
@@ -21716,32 +21716,24 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var HistoryPage = /** @class */ (function () {
-    function HistoryPage(service, modalController, user, alertCtrl, toastCtrl, config, router) {
-        this.service = service;
+    function HistoryPage(historyService, userHistorySavedData, modalController, alertCtrl, toastCtrl, popoverController, config, router) {
+        this.historyService = historyService;
+        this.userHistorySavedData = userHistorySavedData;
         this.modalController = modalController;
-        this.user = user;
         this.alertCtrl = alertCtrl;
         this.toastCtrl = toastCtrl;
+        this.popoverController = popoverController;
         this.config = config;
         this.router = router;
         this.categories = 0;
         this.segment = 'all';
-        // + vars
+        this.prompt = 'Fetching your history...';
         this.transactions = [];
         this.saved = [];
-        // - vars
-        this.lastJSON = '';
     }
     HistoryPage.prototype.ngOnInit = function () {
         this.pullInHistorySummary();
         this.ios = this.config.get('mode') === 'ios';
-    };
-    HistoryPage.prototype.ionViewDidLeave = function () {
-        if (this.historySub) {
-            this.historySub.unsubscribe();
-        }
-        this.user.storage.set('saved_transactions', this.user.saved).then(function (val) {
-        });
     };
     HistoryPage.prototype.saveItem = function (slidingItem, txn) {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
@@ -21749,7 +21741,7 @@ var HistoryPage = /** @class */ (function () {
             return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        if (!this.user.hasSaved(txn.txpow.txpowid)) return [3 /*break*/, 1];
+                        if (!this.userHistorySavedData.hasSaved(txn.txpow.txpowid)) return [3 /*break*/, 1];
                         // Prompt to remove as saved
                         this.removeItem(slidingItem, txn.txpow.txpowid, 'This has already been saved');
                         // saved = 'false' now
@@ -21757,7 +21749,7 @@ var HistoryPage = /** @class */ (function () {
                         return [3 /*break*/, 4];
                     case 1:
                         // Add to Saved
-                        this.user.addToSaved(txn.txpow.txpowid);
+                        this.userHistorySavedData.addToSaved(txn.txpow.txpowid);
                         // Add true attribute to this txn
                         txn.saved = 'true';
                         // close the open item
@@ -21803,7 +21795,7 @@ var HistoryPage = /** @class */ (function () {
                                     text: 'Remove',
                                     handler: function () {
                                         // they want to remove this transaction from their saved transactions
-                                        _this.user.removeFromSaved(txn.txpow.txpowid);
+                                        _this.userHistorySavedData.removeFromSaved(txn.txpow.txpowid);
                                         // close the sliding item and hide the option buttons
                                         slidingItem.close();
                                     }
@@ -21818,6 +21810,25 @@ var HistoryPage = /** @class */ (function () {
                         // now present the alert on top of all other content
                         _a.sent();
                         return [2 /*return*/];
+                }
+            });
+        });
+    };
+    HistoryPage.prototype.presentFilterSettings = function (ev) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var popover;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.popoverController.create({
+                            component: _components_pop_filter_pop_filter_component__WEBPACK_IMPORTED_MODULE_4__["PopFilterComponent"],
+                            event: ev,
+                            translucent: true,
+                            animated: true
+                        })];
+                    case 1:
+                        popover = _a.sent();
+                        return [4 /*yield*/, popover.present()];
+                    case 2: return [2 /*return*/, _a.sent()];
                 }
             });
         });
@@ -21838,39 +21849,42 @@ var HistoryPage = /** @class */ (function () {
             return txn.saved === 'true';
         });
     };
-    // Get all users activities+transactions history
     HistoryPage.prototype.pullInHistorySummary = function () {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
             var _this = this;
             return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, new Promise(function (resolve, reject) {
-                            minima__WEBPACK_IMPORTED_MODULE_8__["Minima"].cmd('history', function (res) {
-                                _this.service.historyData$ = new rxjs__WEBPACK_IMPORTED_MODULE_5__["BehaviorSubject"](res);
-                                resolve(_this.service.historyData$);
+                    case 0: 
+                    // await response of history function
+                    return [4 /*yield*/, new Promise(function (resolve, reject) {
+                            minima__WEBPACK_IMPORTED_MODULE_7__["Minima"].cmd('history', function (res) {
+                                // update observable
+                                _this.historyService.updatedHistory.next(res);
+                                resolve(_this.historyService.updatedHistory);
                             });
                         }).then(function (res) {
-                            _this.historySub = res.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["map"])(function (resp) {
+                            // rxjs operator PIPE the input observable value
+                            res.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["map"])(function (resp) {
                                 _this.transactions = [];
                                 resp.response.history.forEach(function (element) {
                                     var name = element.values[0].name;
-                                    element.values[0].time = moment__WEBPACK_IMPORTED_MODULE_1__(element.txpow.header.timesecs * 1000).format("H:mm");
-                                    element.values[0].day = moment__WEBPACK_IMPORTED_MODULE_1__(element.txpow.header.timesecs * 1000).format("DD");
-                                    element.values[0].month = moment__WEBPACK_IMPORTED_MODULE_1__(element.txpow.header.timesecs * 1000).format("MMMM");
+                                    element.values[0].time = moment__WEBPACK_IMPORTED_MODULE_8__(element.txpow.header.timesecs * 1000).format("H:mm");
+                                    element.values[0].day = moment__WEBPACK_IMPORTED_MODULE_8__(element.txpow.header.timesecs * 1000).format("DD");
+                                    element.values[0].month = moment__WEBPACK_IMPORTED_MODULE_8__(element.txpow.header.timesecs * 1000).format("MMMM");
                                     if (name.substring(0, 1) === '{') {
                                         element.values[0].name = JSON.parse(name);
                                     }
                                     _this.transactions.push(element);
                                 });
                                 return _this.transactions.reverse();
-                            })).subscribe(function (resp) {
-                                if (_this.lastJSON !== JSON.stringify(resp)) {
-                                    // this.transactions = responseData;
-                                    _this.lastJSON = JSON.stringify(resp);
+                            })).subscribe(function (result) {
+                                if (result.length === 0) {
+                                    _this.prompt = 'No transactions found in your history.';
                                 }
                             });
                         })];
                     case 1:
+                        // await response of history function
                         _a.sent();
                         return [2 /*return*/];
                 }
@@ -21878,31 +21892,33 @@ var HistoryPage = /** @class */ (function () {
         });
     };
     HistoryPage.ctorParameters = function () { return [
-        { type: _service_history_service__WEBPACK_IMPORTED_MODULE_6__["HistoryService"] },
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["ModalController"] },
-        { type: _providers_user_data__WEBPACK_IMPORTED_MODULE_7__["UserData"] },
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["AlertController"] },
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["ToastController"] },
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["Config"] },
-        { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"] }
+        { type: _service_history_service__WEBPACK_IMPORTED_MODULE_5__["HistoryService"] },
+        { type: _providers_user_data__WEBPACK_IMPORTED_MODULE_6__["UserHistorySavedData"] },
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"] },
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"] },
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"] },
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["PopoverController"] },
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Config"] },
+        { type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"] }
     ]; };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["ViewChild"])('historyList', { static: true }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["IonList"])
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ViewChild"])('historyList', { static: true }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonList"])
     ], HistoryPage.prototype, "historyList", void 0);
     HistoryPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Component"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
             selector: 'app-history',
             template: __webpack_require__(/*! raw-loader!./history.page.html */ "./node_modules/raw-loader/index.js!./src/app/pages/history/history.page.html"),
             styles: [__webpack_require__(/*! ./history.page.scss */ "./src/app/pages/history/history.page.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_service_history_service__WEBPACK_IMPORTED_MODULE_6__["HistoryService"],
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["ModalController"],
-            _providers_user_data__WEBPACK_IMPORTED_MODULE_7__["UserData"],
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["AlertController"],
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["ToastController"],
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["Config"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_service_history_service__WEBPACK_IMPORTED_MODULE_5__["HistoryService"],
+            _providers_user_data__WEBPACK_IMPORTED_MODULE_6__["UserHistorySavedData"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["PopoverController"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Config"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]])
     ], HistoryPage);
     return HistoryPage;
 }());
@@ -21915,78 +21931,42 @@ var HistoryPage = /** @class */ (function () {
 /*!****************************************!*\
   !*** ./src/app/providers/user-data.ts ***!
   \****************************************/
-/*! exports provided: UserData */
+/*! exports provided: UserHistorySavedData */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserData", function() { return UserData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserHistorySavedData", function() { return UserHistorySavedData; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm5/ionic-storage.js");
 
 
-
-var UserData = /** @class */ (function () {
-    function UserData(storage) {
-        this.storage = storage;
+var UserHistorySavedData = /** @class */ (function () {
+    function UserHistorySavedData() {
         this.saved = [];
     }
     // has the user saved this?
-    UserData.prototype.hasSaved = function (txn_txpow_txpowid) {
+    UserHistorySavedData.prototype.hasSaved = function (txn_txpow_txpowid) {
         return (this.saved.indexOf(txn_txpow_txpowid) > -1);
     };
     // add txn as saved
-    UserData.prototype.addToSaved = function (txn_txpow_txpowid) {
+    UserHistorySavedData.prototype.addToSaved = function (txn_txpow_txpowid) {
         this.saved.push(txn_txpow_txpowid);
     };
     // remove txn from saved
-    UserData.prototype.removeFromSaved = function (txn_txpow_txpowid) {
+    UserHistorySavedData.prototype.removeFromSaved = function (txn_txpow_txpowid) {
         var index = this.saved.indexOf(txn_txpow_txpowid);
         if (index > -1) {
             this.saved.splice(index, 1);
         }
     };
-    UserData.ctorParameters = function () { return [
-        { type: _ionic_storage__WEBPACK_IMPORTED_MODULE_2__["Storage"] }
-    ]; };
-    UserData = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-            providedIn: 'root'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_storage__WEBPACK_IMPORTED_MODULE_2__["Storage"]])
-    ], UserData);
-    return UserData;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/service/history.service.ts":
-/*!********************************************!*\
-  !*** ./src/app/service/history.service.ts ***!
-  \********************************************/
-/*! exports provided: HistoryService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HistoryService", function() { return HistoryService; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-
-
-var HistoryService = /** @class */ (function () {
-    function HistoryService() {
-    }
-    HistoryService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    UserHistorySavedData = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
             providedIn: 'root'
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], HistoryService);
-    return HistoryService;
+    ], UserHistorySavedData);
+    return UserHistorySavedData;
 }());
 
 

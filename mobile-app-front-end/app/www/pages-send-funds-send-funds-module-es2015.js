@@ -126,11 +126,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let SendFundsPage = class SendFundsPage {
-    constructor(qrScanner, clipboard, alertController, toastController, zone, api, service, platform, route, router) {
+    constructor(qrScanner, clipboard, alertController, zone, api, service, platform, route, router) {
         this.qrScanner = qrScanner;
         this.clipboard = clipboard;
         this.alertController = alertController;
-        this.toastController = toastController;
         this.zone = zone;
         this.api = api;
         this.service = service;
@@ -237,11 +236,11 @@ let SendFundsPage = class SendFundsPage {
                     // camera permission was permanently denied
                     // you must use QRScanner.openSettings() method to guide the user to the settings page
                     // then they can grant the permission from there
-                    this.presentAlert('Please check camera permission', 'Error');
+                    this.presentAlert('Error', 'Please check camera permission', 'Camera status');
                 }
                 else {
                     // permission was denied, but not permanently. You can ask for permission again at a later time.
-                    this.presentAlert('Please check camera permission', 'Error');
+                    this.presentAlert('Error', 'Please check camera permission', 'Camera status');
                 }
             })
                 .catch((e) => console.log('Error is', e));
@@ -267,32 +266,16 @@ let SendFundsPage = class SendFundsPage {
             this.qrScanner.destroy();
         }
     }
-    /** ALERTS */
-    presentAlert(msg, hdr) {
+    presentAlert(hdr, msg, sub) {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
             const alert = yield this.alertController.create({
+                cssClass: 'alert',
                 header: hdr,
+                subHeader: sub,
                 message: msg,
                 buttons: ['OK']
             });
             yield alert.present();
-        });
-    }
-    presentToast(msg, type) {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
-            const toast = yield this.toastController.create({
-                message: msg,
-                duration: 4000,
-                buttons: [{
-                        text: 'Close',
-                        role: 'cancel'
-                    }],
-                color: type,
-                keyboardClose: true,
-                translucent: true,
-                position: 'top'
-            });
-            toast.present();
         });
     }
     // check if it's a token, or a Mini
@@ -361,10 +344,10 @@ let SendFundsPage = class SendFundsPage {
                     this.address.value = '';
                     this.amount.value = '';
                     // success
-                    this.presentToast('Success! Your transaction has been posted!', 'success');
+                    this.presentAlert('Success', 'Your transaction has been successfully posted!', 'Transaction Status');
                 }
                 else {
-                    this.presentToast('Insufficient funds.  Please check your balance.', 'danger');
+                    this.presentAlert('Error', res.message, 'Transaction Status');
                 }
             });
         }
@@ -377,15 +360,15 @@ let SendFundsPage = class SendFundsPage {
                     this.amount.value = '';
                     this.message.value = '';
                     // success
-                    this.presentToast('Success! Your transaction has been posted!', 'success');
+                    this.presentAlert('Success', 'Your transaction has been successfully posted!', 'Transaction Status');
                 }
                 else if (res[4].status === false) {
-                    this.presentToast('Insufficient funds.  Please check your balance.', 'danger');
+                    this.presentAlert('Error', res.message, 'Transaction Status');
                 }
             });
         }
         else {
-            this.presentAlert('Please check the input fields', 'Error');
+            this.presentAlert('Error', 'Please check your input fields.', 'Transaction Status');
         }
     }
     /** MISC FUNCS */
@@ -509,7 +492,6 @@ SendFundsPage.ctorParameters = () => [
     { type: _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_3__["QRScanner"] },
     { type: _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_4__["Clipboard"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["AlertController"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["ToastController"] },
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_2__["NgZone"] },
     { type: _service_minima_api_service__WEBPACK_IMPORTED_MODULE_6__["MinimaApiService"] },
     { type: _service_balance_service__WEBPACK_IMPORTED_MODULE_1__["BalanceService"] },
@@ -542,7 +524,6 @@ SendFundsPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_3__["QRScanner"],
         _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_4__["Clipboard"],
         _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["AlertController"],
-        _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["ToastController"],
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["NgZone"],
         _service_minima_api_service__WEBPACK_IMPORTED_MODULE_6__["MinimaApiService"],
         _service_balance_service__WEBPACK_IMPORTED_MODULE_1__["BalanceService"],
