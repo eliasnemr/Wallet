@@ -460,7 +460,18 @@ module.exports = webpackAsyncContext;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-app>\n  <ion-split-pane when=\"lg\" contentId=\"mainMenu\" class=\"splitpane\" >\n  <ion-menu side=\"start\" contentId=\"mainMenu\">\n\n    <ion-header>\n      <ion-toolbar class=\"border-b\">\n      <ion-title> \n        <!-- Minima Icon -->\n        <svg version=\"1.1\" id=\"icon\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\"\n\t           viewBox=\"0 0 385.51 76.54\" style=\"enable-background:new 0 0 100 100;\" xml:space=\"preserve\">\n          <g>\n            <path id=\"icon-M\" d=\"M109.13,31.51c0-1.21,1.04-2.25,2.25-2.25h0.52c0.98,0,1.67,0.52,2.13,1.21l14.4,21.66l14.4-21.66\n              c0.46-0.75,1.21-1.21,2.13-1.21h0.52c1.21,0,2.25,1.04,2.25,2.25v36.23c0,1.27-1.04,2.3-2.25,2.3c-1.27,0-2.3-1.09-2.3-2.3V37.67\n              l-12.9,18.95c-0.52,0.75-1.09,1.15-1.9,1.15c-0.81,0-1.44-0.4-1.96-1.15l-12.84-18.89V67.8c0,1.27-0.98,2.25-2.25,2.25\n              c-1.21,0-2.19-0.98-2.19-2.25V31.51z\"/>\n            <path id=\"icon-I\" d=\"M171.04,31.45c0-1.27,1.04-2.3,2.25-2.3c1.27,0,2.3,1.04,2.3,2.3v36.29c0,1.27-1.04,2.3-2.3,2.3\n              c-1.21,0-2.25-1.04-2.25-2.3V31.45z\"/>\n            <path id=\"icon-N\" d=\"M198.92,31.51c0-1.21,1.04-2.25,2.25-2.25h0.63c1.04,0,1.67,0.52,2.3,1.32l24.48,31.22V31.39c0-1.21,0.98-2.25,2.25-2.25\n              c1.21,0,2.19,1.04,2.19,2.25v36.4c0,1.21-0.86,2.13-2.07,2.13h-0.23c-0.98,0-1.67-0.58-2.36-1.38l-25-31.97V67.8\n              c0,1.21-0.98,2.25-2.25,2.25c-1.21,0-2.19-1.04-2.19-2.25V31.51z\"/>\n            <path id=\"icon-I\" d=\"M256.34,31.45c0-1.27,1.04-2.3,2.25-2.3c1.27,0,2.3,1.04,2.3,2.3v36.29c0,1.27-1.04,2.3-2.3,2.3\n              c-1.21,0-2.25-1.04-2.25-2.3V31.45z\"/>\n            <path id=\"icon-M\" d=\"M284.22,31.51c0-1.21,1.04-2.25,2.25-2.25h0.52c0.98,0,1.67,0.52,2.13,1.21l14.4,21.66l14.4-21.66\n              c0.46-0.75,1.21-1.21,2.13-1.21h0.52c1.21,0,2.25,1.04,2.25,2.25v36.23c0,1.27-1.04,2.3-2.25,2.3c-1.27,0-2.3-1.09-2.3-2.3V37.67\n              l-12.9,18.95c-0.52,0.75-1.09,1.15-1.9,1.15c-0.81,0-1.44-0.4-1.96-1.15l-12.84-18.89V67.8c0,1.27-0.98,2.25-2.25,2.25\n              c-1.21,0-2.19-0.98-2.19-2.25V31.51z\"/>\n            <path id=\"icon-A\" d=\"M343.26,66.76l16.36-35.77c0.58-1.27,1.44-2.02,2.88-2.02h0.23c1.38,0,2.3,0.75,2.82,2.02L381.9,66.7\n              c0.17,0.4,0.29,0.81,0.29,1.15c0,1.21-0.98,2.19-2.19,2.19c-1.09,0-1.84-0.75-2.25-1.67l-4.2-9.27h-22.12l-4.2,9.39\n              c-0.4,0.98-1.15,1.56-2.19,1.56c-1.15,0-2.07-0.92-2.07-2.07C342.97,67.62,343.02,67.22,343.26,66.76z M371.77,54.95l-9.27-20.62\n              l-9.27,20.62H371.77z\"/>\n          </g>\n          <g>\n            <polygon points=\"37.48,20.64 52.72,20.64 64.53,70.04 49.29,70.04 \t\"/>\n            <polygon points=\"31.66,12.14 41.55,70.04 26.31,70.04 16.42,12.14 \t\"/>\n            <polygon class=\"st0\" points=\"3.32,70.04 18.57,70.04 31.66,12.14 17.7,6.49 \t\"/>\n            <polygon class=\"st1\" points=\"26.31,70.04 41.55,70.04 52.72,20.64 38.76,15 \t\"/>\n            <polygon class=\"st2\" points=\"59.82,23.51 49.29,70.04 64.53,70.04 73.78,29.15 \t\"/>\n          </g>\n      </svg>\n      </ion-title>      \n      </ion-toolbar>\n    </ion-header>\n    \n    <ion-content>\n      <ion-list main>\n        \n        <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let p of basic; let i = index\">\n          \n            <ion-item \n            class=\"ripple-parent ion-activatable\"\n            detail=\"false\"\n            routerLinkActive=\"selected\"\n            routerDirection=\"root\"\n            [hidden] = \"p.hidden\" \n            [routerLink]=\"p.routerLink\"\n            lines=\"{{ p.line }}\">\n              <ion-ripple-effect type=\"unbounded\"></ion-ripple-effect>\n\n            <ion-icon name=\"{{ p.icon }}\" slot=\"start\"></ion-icon> {{ p.title }}\n\n            </ion-item>\n        </ion-menu-toggle>\n      </ion-list>\n\n      <ion-list main>\n        \n        <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let p of advanced; let i = index\">\n          \n            <ion-item \n            class=\"ripple-parent ion-activatable\"\n            detail=\"false\"\n            routerLinkActive=\"selected\"\n            routerDirection=\"root\"\n            [hidden] = \"p.hidden\" \n            routerLink=\"{{ p.routerLink }}\"\n            lines=\"{{ p.line }}\">\n              <ion-ripple-effect type=\"unbounded\"></ion-ripple-effect>\n\n\n            <ion-icon name=\"{{ p.icon }}\" slot=\"start\"></ion-icon> {{ p.title }}\n\n            </ion-item>\n        </ion-menu-toggle>\n      </ion-list>\n\n  </ion-content>\n\n  <ion-footer class=\"border-t\">\n    <ion-row>\n      <ion-col>\n        <ion-item lines=\"none\">\n          <ion-icon slot=\"start\" name=\"moon\"></ion-icon>\n          <span class=\"medium-text\">Night Mode</span>\n          <ion-toggle  slot=\"end\" #darkToggle [(ngModel)]=\"toggleValue\" (ionChange)=\"checkToggle()\"></ion-toggle>\n        </ion-item>\n      </ion-col>\n    </ion-row>\n  </ion-footer>\n  </ion-menu>\n  <ion-router-outlet main id=\"mainMenu\"></ion-router-outlet>\n  </ion-split-pane>\n\n</ion-app>\n"
+module.exports = "<ion-app>\n  <ion-split-pane when=\"lg\" contentId=\"mainMenu\" class=\"splitpane\" >\n  <ion-menu side=\"start\" contentId=\"mainMenu\">\n\n    <ion-header>\n      <ion-toolbar class=\"border-b\">\n      <ion-title> \n        <!-- Minima Icon -->\n        <svg version=\"1.1\" id=\"icon\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\"\n\t           viewBox=\"0 0 385.51 76.54\" style=\"enable-background:new 0 0 100 100;\" xml:space=\"preserve\">\n          <g>\n            <path id=\"icon-M\" d=\"M109.13,31.51c0-1.21,1.04-2.25,2.25-2.25h0.52c0.98,0,1.67,0.52,2.13,1.21l14.4,21.66l14.4-21.66\n              c0.46-0.75,1.21-1.21,2.13-1.21h0.52c1.21,0,2.25,1.04,2.25,2.25v36.23c0,1.27-1.04,2.3-2.25,2.3c-1.27,0-2.3-1.09-2.3-2.3V37.67\n              l-12.9,18.95c-0.52,0.75-1.09,1.15-1.9,1.15c-0.81,0-1.44-0.4-1.96-1.15l-12.84-18.89V67.8c0,1.27-0.98,2.25-2.25,2.25\n              c-1.21,0-2.19-0.98-2.19-2.25V31.51z\"/>\n            <path id=\"icon-I\" d=\"M171.04,31.45c0-1.27,1.04-2.3,2.25-2.3c1.27,0,2.3,1.04,2.3,2.3v36.29c0,1.27-1.04,2.3-2.3,2.3\n              c-1.21,0-2.25-1.04-2.25-2.3V31.45z\"/>\n            <path id=\"icon-N\" d=\"M198.92,31.51c0-1.21,1.04-2.25,2.25-2.25h0.63c1.04,0,1.67,0.52,2.3,1.32l24.48,31.22V31.39c0-1.21,0.98-2.25,2.25-2.25\n              c1.21,0,2.19,1.04,2.19,2.25v36.4c0,1.21-0.86,2.13-2.07,2.13h-0.23c-0.98,0-1.67-0.58-2.36-1.38l-25-31.97V67.8\n              c0,1.21-0.98,2.25-2.25,2.25c-1.21,0-2.19-1.04-2.19-2.25V31.51z\"/>\n            <path id=\"icon-I\" d=\"M256.34,31.45c0-1.27,1.04-2.3,2.25-2.3c1.27,0,2.3,1.04,2.3,2.3v36.29c0,1.27-1.04,2.3-2.3,2.3\n              c-1.21,0-2.25-1.04-2.25-2.3V31.45z\"/>\n            <path id=\"icon-M\" d=\"M284.22,31.51c0-1.21,1.04-2.25,2.25-2.25h0.52c0.98,0,1.67,0.52,2.13,1.21l14.4,21.66l14.4-21.66\n              c0.46-0.75,1.21-1.21,2.13-1.21h0.52c1.21,0,2.25,1.04,2.25,2.25v36.23c0,1.27-1.04,2.3-2.25,2.3c-1.27,0-2.3-1.09-2.3-2.3V37.67\n              l-12.9,18.95c-0.52,0.75-1.09,1.15-1.9,1.15c-0.81,0-1.44-0.4-1.96-1.15l-12.84-18.89V67.8c0,1.27-0.98,2.25-2.25,2.25\n              c-1.21,0-2.19-0.98-2.19-2.25V31.51z\"/>\n            <path id=\"icon-A\" d=\"M343.26,66.76l16.36-35.77c0.58-1.27,1.44-2.02,2.88-2.02h0.23c1.38,0,2.3,0.75,2.82,2.02L381.9,66.7\n              c0.17,0.4,0.29,0.81,0.29,1.15c0,1.21-0.98,2.19-2.19,2.19c-1.09,0-1.84-0.75-2.25-1.67l-4.2-9.27h-22.12l-4.2,9.39\n              c-0.4,0.98-1.15,1.56-2.19,1.56c-1.15,0-2.07-0.92-2.07-2.07C342.97,67.62,343.02,67.22,343.26,66.76z M371.77,54.95l-9.27-20.62\n              l-9.27,20.62H371.77z\"/>\n          </g>\n          <g>\n            <polygon points=\"37.48,20.64 52.72,20.64 64.53,70.04 49.29,70.04 \t\"/>\n            <polygon points=\"31.66,12.14 41.55,70.04 26.31,70.04 16.42,12.14 \t\"/>\n            <polygon class=\"st0\" points=\"3.32,70.04 18.57,70.04 31.66,12.14 17.7,6.49 \t\"/>\n            <polygon class=\"st1\" points=\"26.31,70.04 41.55,70.04 52.72,20.64 38.76,15 \t\"/>\n            <polygon class=\"st2\" points=\"59.82,23.51 49.29,70.04 64.53,70.04 73.78,29.15 \t\"/>\n          </g>\n      </svg>\n      </ion-title>      \n      </ion-toolbar>\n    </ion-header>\n    \n    <ion-content>\n      <ion-list main>\n        \n        <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let p of basic; let i = index\">\n          \n            <ion-item \n            class=\"ripple-parent ion-activatable\"\n            detail=\"false\"\n            routerLinkActive=\"selected\"\n            routerDirection=\"root\"\n            [hidden] = \"p.hidden\" \n            [routerLink]=\"p.routerLink\"\n            lines=\"{{ p.line }}\">\n              <ion-ripple-effect type=\"unbounded\"></ion-ripple-effect>\n\n            <ion-icon name=\"{{ p.icon }}\" slot=\"start\"></ion-icon> {{ p.title }}\n\n            </ion-item>\n        </ion-menu-toggle>\n      </ion-list>\n\n      <ion-list main>\n        \n        <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let p of advanced; let i = index\">\n          \n            <ion-item \n            class=\"ripple-parent ion-activatable\"\n            detail=\"false\"\n            routerLinkActive=\"selected\"\n            routerDirection=\"root\"\n            [hidden] = \"p.hidden\" \n            routerLink=\"{{ p.routerLink }}\"\n            lines=\"{{ p.line }}\">\n            <ion-ripple-effect type=\"unbounded\"></ion-ripple-effect>\n\n            <ion-icon name=\"{{ p.icon }}\" slot=\"start\"></ion-icon> {{ p.title }}\n\n            </ion-item>\n        </ion-menu-toggle>\n      </ion-list>\n\n  </ion-content>\n\n  <ion-footer class=\"border-t\">\n    <ion-row>\n      <ion-col>\n        <ion-item lines=\"none\">\n          <ion-icon slot=\"start\" name=\"moon\"></ion-icon>\n          <span class=\"medium-text\">Night Mode</span>\n          <ion-toggle  slot=\"end\" #darkToggle [(ngModel)]=\"toggleValue\" (ionChange)=\"checkToggle()\"></ion-toggle>\n        </ion-item>\n      </ion-col>\n    </ion-row>\n  </ion-footer>\n  </ion-menu>\n  <ion-router-outlet main id=\"mainMenu\"></ion-router-outlet>\n  </ion-split-pane>\n\n</ion-app>\n"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/components/pop-filter/pop-filter.component.html":
+/*!*******************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/components/pop-filter/pop-filter.component.html ***!
+  \*******************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<ion-list>\n  <ion-list-header>\n    Filter Settings\n  </ion-list-header>\n\n  <ion-item>\n    <ion-label>Order by</ion-label>\n    <ion-select (ionChange)=\"change($event)\" [compareWith]=\"compareWithFn\" value=\"{{userConfig.historyOrderByMode}}\">\n    <ion-select-option value=\"1\">Latest transaction</ion-select-option>\n    <ion-select-option value=\"2\">Earliest transaction</ion-select-option>\n    </ion-select>\n  </ion-item>\n</ion-list>\n"
 
 /***/ }),
 
@@ -574,12 +585,12 @@ module.exports = "ion-menu {\n  --background: var(--ion-m-background);\n}\n\nion
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppComponent", function() { return AppComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _service_balance_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./service/balance.service */ "./src/app/service/balance.service.ts");
-/* harmony import */ var _service_status_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./service/status.service */ "./src/app/service/status.service.ts");
-/* harmony import */ var _service_userconfig_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./service/userconfig.service */ "./src/app/service/userconfig.service.ts");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
-/* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm5/ionic-storage.js");
+/* harmony import */ var _service_history_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./service/history.service */ "./src/app/service/history.service.ts");
+/* harmony import */ var _service_balance_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./service/balance.service */ "./src/app/service/balance.service.ts");
+/* harmony import */ var _service_status_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./service/status.service */ "./src/app/service/status.service.ts");
+/* harmony import */ var _service_userconfig_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./service/userconfig.service */ "./src/app/service/userconfig.service.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! minima */ "./node_modules/minima/dist/minima.js");
 /* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(minima__WEBPACK_IMPORTED_MODULE_7__);
 
@@ -591,21 +602,20 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var AppComponent = /** @class */ (function () {
-    function AppComponent(status, api, platform, storage, UserconfigService, toastCtrl) {
+    function AppComponent(status, api, userConfigService, platform, toastCtrl, historyService) {
         this.status = status;
         this.api = api;
+        this.userConfigService = userConfigService;
         this.platform = platform;
-        this.storage = storage;
-        this.UserconfigService = UserconfigService;
         this.toastCtrl = toastCtrl;
+        this.historyService = historyService;
         this.toggleValue = false;
         this.currentMode = false;
         this.currentVersion = 0;
-        this.getPages(); /** this returns pages if on mobile or desktop, (different layouts) */
+        this.getPages();
         this.initializeApp();
-        this.setLocalStorage(); /** set localStorages  */
+        this.setLocalStorage();
     }
-    /** @@@@@@@@@@@@@ Lifecycle @@@@@@@@@@@@@@@ */
     AppComponent.prototype.ionViewWillEnter = function () {
         this.initializeApp();
     };
@@ -620,20 +630,28 @@ var AppComponent = /** @class */ (function () {
                     _this.api.updatedBalance.next(msg.info.balance);
                 }
                 else if (msg.event === 'newblock') {
+                    // update status observable
                     minima__WEBPACK_IMPORTED_MODULE_7__["Minima"].cmd('status full', function (res) {
                         _this.status.updatedStatus.next(res.response);
                     });
+                    // update history observable+historyPage
+                    minima__WEBPACK_IMPORTED_MODULE_7__["Minima"].cmd('history', function (res) {
+                        var temp = JSON.stringify(res);
+                        if (res.response.history.length > 0 && temp !== _this.lastHistory) {
+                            _this.lastHistory = JSON.stringify(res);
+                            _this.historyService.updatedHistory.next(res);
+                        }
+                    });
                 }
                 else if (msg.event === 'miningstart') {
-                    _this.presentToast("Mining Transaction in progress...", "success");
+                    _this.presentToast('Mining transaction in progress...', 'primary');
                 }
                 else if (msg.event === 'miningstop') {
-                    _this.presentToast("Mining Transaction stopped...", "danger");
+                    _this.presentToast('Mining transaction completed.', 'secondary');
                 }
             });
         });
     };
-    /** @@@@@@@@@@ Misc Functions @@@@@@@@@@@ */
     AppComponent.prototype.getPages = function () {
         this.basic =
             [
@@ -648,7 +666,7 @@ var AppComponent = /** @class */ (function () {
                 { title: 'Status', routerLink: '/status', icon: 'analytics', line: 'none', hidden: false },
                 { title: 'Terminal', routerLink: '/mini-term', icon: 'code', line: 'none', hidden: false },
                 { title: 'Community', routerLink: '/community', icon: 'share', line: 'half', hidden: false },
-                { title: 'Settings', routerLink: '/settings', icon: 'build', line: 'none', hidden: true },
+                { title: 'Settings', routerLink: '/settings', icon: 'build', line: 'none', hidden: true }
             ];
     };
     // localStorage
@@ -681,60 +699,6 @@ var AppComponent = /** @class */ (function () {
             document.body.classList.toggle('dark', true);
         }
     };
-    // get a key/value object
-    AppComponent.prototype.getObject = function (key) {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
-            var result, reason_1;
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, this.storage.get(key)];
-                    case 1:
-                        result = _a.sent();
-                        if (result != null) {
-                            return [2 /*return*/, JSON.parse(result)];
-                        }
-                        return [2 /*return*/, null];
-                    case 2:
-                        reason_1 = _a.sent();
-                        console.log(reason_1);
-                        return [2 /*return*/, null];
-                    case 3: return [2 /*return*/];
-                }
-            });
-        });
-    };
-    AppComponent.prototype.notifyMe = function () {
-        //let notificationIcon = '../assets/icon/icon.png';
-        var notificationBody = 'You just received some tokens';
-        // Let's check if the browser supports notifications
-        if (!("Notification" in window)) {
-            alert("This browser does not support desktop notification");
-        }
-        // Let's check whether notification permissions have already been granted
-        else if (Notification.permission === "granted") {
-            // If it's okay let's create a notification
-            var notification = new Notification("Minima", {
-                //icon: notificationIcon,
-                body: notificationBody
-            });
-        }
-        // Otherwise, we need to ask the user for permission
-        else if (Notification.permission !== "denied") {
-            Notification.requestPermission().then(function (permission) {
-                // If the user accepts, let's create a notification
-                if (permission === "granted") {
-                    var notification = new Notification("Minima", {
-                        //icon: notificationIcon,
-                        body: notificationBody
-                    });
-                }
-            });
-        }
-        // At last, if the user has denied notifications, and you 
-        // want to be respectful there is no need to bother them any more.
-    };
     AppComponent.prototype.presentToast = function (txt, color) {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
             var toast;
@@ -760,25 +724,25 @@ var AppComponent = /** @class */ (function () {
         });
     };
     AppComponent.ctorParameters = function () { return [
-        { type: _service_status_service__WEBPACK_IMPORTED_MODULE_2__["StatusService"] },
-        { type: _service_balance_service__WEBPACK_IMPORTED_MODULE_1__["BalanceService"] },
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["Platform"] },
-        { type: _ionic_storage__WEBPACK_IMPORTED_MODULE_6__["Storage"] },
-        { type: _service_userconfig_service__WEBPACK_IMPORTED_MODULE_3__["UserconfigService"] },
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["ToastController"] }
+        { type: _service_status_service__WEBPACK_IMPORTED_MODULE_3__["StatusService"] },
+        { type: _service_balance_service__WEBPACK_IMPORTED_MODULE_2__["BalanceService"] },
+        { type: _service_userconfig_service__WEBPACK_IMPORTED_MODULE_4__["UserConfigService"] },
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["Platform"] },
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["ToastController"] },
+        { type: _service_history_service__WEBPACK_IMPORTED_MODULE_1__["HistoryService"] }
     ]; };
     AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Component"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_5__["Component"])({
             selector: 'app-root',
             template: __webpack_require__(/*! raw-loader!./app.component.html */ "./node_modules/raw-loader/index.js!./src/app/app.component.html"),
             styles: [__webpack_require__(/*! ./app.component.scss */ "./src/app/app.component.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_service_status_service__WEBPACK_IMPORTED_MODULE_2__["StatusService"],
-            _service_balance_service__WEBPACK_IMPORTED_MODULE_1__["BalanceService"],
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["Platform"],
-            _ionic_storage__WEBPACK_IMPORTED_MODULE_6__["Storage"],
-            _service_userconfig_service__WEBPACK_IMPORTED_MODULE_3__["UserconfigService"],
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["ToastController"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_service_status_service__WEBPACK_IMPORTED_MODULE_3__["StatusService"],
+            _service_balance_service__WEBPACK_IMPORTED_MODULE_2__["BalanceService"],
+            _service_userconfig_service__WEBPACK_IMPORTED_MODULE_4__["UserConfigService"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["Platform"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["ToastController"],
+            _service_history_service__WEBPACK_IMPORTED_MODULE_1__["HistoryService"]])
     ], AppComponent);
     return AppComponent;
 }());
@@ -798,21 +762,24 @@ var AppComponent = /** @class */ (function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppModule", function() { return AppModule; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
-/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
-/* harmony import */ var _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ionic-native/clipboard/ngx */ "./node_modules/@ionic-native/clipboard/ngx/index.js");
-/* harmony import */ var _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @ionic-native/qr-scanner/ngx */ "./node_modules/@ionic-native/qr-scanner/ngx/index.js");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
-/* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm5/ionic-storage.js");
-/* harmony import */ var _components_token_descr_token_descr_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/token-descr/token-descr.component */ "./src/app/components/token-descr/token-descr.component.ts");
-/* harmony import */ var _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/pop-term/pop-term.component */ "./src/app/components/pop-term/pop-term.component.ts");
-/* harmony import */ var _components_pop_settings_pop_settings_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/pop-settings/pop-settings.component */ "./src/app/components/pop-settings/pop-settings.component.ts");
+/* harmony import */ var _components_pop_filter_pop_filter_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/pop-filter/pop-filter.component */ "./src/app/components/pop-filter/pop-filter.component.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
+/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
+/* harmony import */ var _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @ionic-native/clipboard/ngx */ "./node_modules/@ionic-native/clipboard/ngx/index.js");
+/* harmony import */ var _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @ionic-native/qr-scanner/ngx */ "./node_modules/@ionic-native/qr-scanner/ngx/index.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm5/ionic-storage.js");
+/* harmony import */ var _components_token_descr_token_descr_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/token-descr/token-descr.component */ "./src/app/components/token-descr/token-descr.component.ts");
+/* harmony import */ var _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/pop-term/pop-term.component */ "./src/app/components/pop-term/pop-term.component.ts");
+/* harmony import */ var _components_pop_settings_pop_settings_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/pop-settings/pop-settings.component */ "./src/app/components/pop-settings/pop-settings.component.ts");
+
+
 /**
  * Created By Elias Nemr
  * 01/11/19
@@ -835,44 +802,107 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["NgModule"])({
             declarations: [
-                _app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"],
-                _components_token_descr_token_descr_component__WEBPACK_IMPORTED_MODULE_13__["TokenDescrComponent"],
-                _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_14__["PopTermComponent"],
-                _components_pop_settings_pop_settings_component__WEBPACK_IMPORTED_MODULE_15__["PopSettingsComponent"]
+                _app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"],
+                _components_token_descr_token_descr_component__WEBPACK_IMPORTED_MODULE_14__["TokenDescrComponent"],
+                _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_15__["PopTermComponent"],
+                _components_pop_settings_pop_settings_component__WEBPACK_IMPORTED_MODULE_16__["PopSettingsComponent"],
+                _components_pop_filter_pop_filter_component__WEBPACK_IMPORTED_MODULE_1__["PopFilterComponent"]
             ],
             entryComponents: [
-                _app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"],
-                _components_token_descr_token_descr_component__WEBPACK_IMPORTED_MODULE_13__["TokenDescrComponent"],
-                _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_14__["PopTermComponent"],
-                _components_pop_settings_pop_settings_component__WEBPACK_IMPORTED_MODULE_15__["PopSettingsComponent"]
+                _app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"],
+                _components_token_descr_token_descr_component__WEBPACK_IMPORTED_MODULE_14__["TokenDescrComponent"],
+                _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_15__["PopTermComponent"],
+                _components_pop_settings_pop_settings_component__WEBPACK_IMPORTED_MODULE_16__["PopSettingsComponent"],
+                _components_pop_filter_pop_filter_component__WEBPACK_IMPORTED_MODULE_1__["PopFilterComponent"]
             ],
             imports: [
-                _angular_forms__WEBPACK_IMPORTED_MODULE_6__["FormsModule"],
-                _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClientModule"],
-                _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"],
-                _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonicModule"].forRoot(),
-                _app_routing_module__WEBPACK_IMPORTED_MODULE_8__["AppRoutingModule"],
-                _ionic_storage__WEBPACK_IMPORTED_MODULE_12__["IonicStorageModule"].forRoot()
+                _angular_forms__WEBPACK_IMPORTED_MODULE_7__["FormsModule"],
+                _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HttpClientModule"],
+                _angular_platform_browser__WEBPACK_IMPORTED_MODULE_3__["BrowserModule"],
+                _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["IonicModule"].forRoot(),
+                _app_routing_module__WEBPACK_IMPORTED_MODULE_9__["AppRoutingModule"],
+                _ionic_storage__WEBPACK_IMPORTED_MODULE_13__["IonicStorageModule"].forRoot()
             ],
             providers: [
                 Storage,
-                _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_9__["Clipboard"],
-                _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_10__["QRScanner"],
-                { provide: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouteReuseStrategy"], useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonicRouteStrategy"] },
-                { provide: _angular_common__WEBPACK_IMPORTED_MODULE_11__["LocationStrategy"], useClass: _angular_common__WEBPACK_IMPORTED_MODULE_11__["HashLocationStrategy"] },
+                _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_10__["Clipboard"],
+                _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_11__["QRScanner"],
+                { provide: _angular_router__WEBPACK_IMPORTED_MODULE_4__["RouteReuseStrategy"], useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["IonicRouteStrategy"] },
+                { provide: _angular_common__WEBPACK_IMPORTED_MODULE_12__["LocationStrategy"], useClass: _angular_common__WEBPACK_IMPORTED_MODULE_12__["HashLocationStrategy"] },
             ],
-            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"]],
-            schemas: [_angular_core__WEBPACK_IMPORTED_MODULE_1__["CUSTOM_ELEMENTS_SCHEMA"]]
+            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"]],
+            schemas: [_angular_core__WEBPACK_IMPORTED_MODULE_2__["CUSTOM_ELEMENTS_SCHEMA"]]
         })
     ], AppModule);
     return AppModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/components/pop-filter/pop-filter.component.scss":
+/*!*****************************************************************!*\
+  !*** ./src/app/components/pop-filter/pop-filter.component.scss ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvcG9wLWZpbHRlci9wb3AtZmlsdGVyLmNvbXBvbmVudC5zY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./src/app/components/pop-filter/pop-filter.component.ts":
+/*!***************************************************************!*\
+  !*** ./src/app/components/pop-filter/pop-filter.component.ts ***!
+  \***************************************************************/
+/*! exports provided: PopFilterComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PopFilterComponent", function() { return PopFilterComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _service_userconfig_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../service/userconfig.service */ "./src/app/service/userconfig.service.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+
+
+
+var PopFilterComponent = /** @class */ (function () {
+    function PopFilterComponent(userConfigService) {
+        this.userConfigService = userConfigService;
+        this.userConfig = { historyOrderByMode: 1 };
+        // set default value from observable
+        this.userConfig.historyOrderByMode = this.userConfigService.userConfig.value.historyOrderByMode;
+    }
+    PopFilterComponent.prototype.ngOnInit = function () { };
+    PopFilterComponent.prototype.compareWithFn = function (o1, o2) {
+        return o1 == o2;
+    };
+    PopFilterComponent.prototype.change = function (ev) {
+        var temp = this.userConfigService.userConfig.value;
+        temp.historyOrderByMode = ev.detail.value;
+        this.userConfigService.userConfig.next(temp);
+        this.userConfigService.saveUserConfig(this.userConfigService.userConfig.value);
+    };
+    PopFilterComponent.ctorParameters = function () { return [
+        { type: _service_userconfig_service__WEBPACK_IMPORTED_MODULE_1__["UserConfigService"] }
+    ]; };
+    PopFilterComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Component"])({
+            selector: 'app-pop-filter',
+            template: __webpack_require__(/*! raw-loader!./pop-filter.component.html */ "./node_modules/raw-loader/index.js!./src/app/components/pop-filter/pop-filter.component.html"),
+            styles: [__webpack_require__(/*! ./pop-filter.component.scss */ "./src/app/components/pop-filter/pop-filter.component.scss")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_service_userconfig_service__WEBPACK_IMPORTED_MODULE_1__["UserConfigService"]])
+    ], PopFilterComponent);
+    return PopFilterComponent;
 }());
 
 
@@ -886,7 +916,7 @@ var AppModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "ion-list ion-item ion-label {\n  white-space: normal;\n  font-size: 0.7rem !important;\n}\n\nion-list ion-item ion-select {\n  font-size: 0.7rem !important;\n  line-height: 23px;\n}\n\nion-list-header {\n  text-transform: none;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9lbGlhc25lbXIvcHJvamVjdHMvV0FMTEVUL21vYmlsZS1hcHAtZnJvbnQtZW5kL2FwcC9zcmMvYXBwL2NvbXBvbmVudHMvcG9wLXNldHRpbmdzL3BvcC1zZXR0aW5ncy5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvY29tcG9uZW50cy9wb3Atc2V0dGluZ3MvcG9wLXNldHRpbmdzLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksbUJBQUE7RUFDQSw0QkFBQTtBQ0NKOztBRENBO0VBQ0ksNEJBQUE7RUFDQSxpQkFBQTtBQ0VKOztBREFBO0VBQ0ksb0JBQUE7QUNHSiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvcG9wLXNldHRpbmdzL3BvcC1zZXR0aW5ncy5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImlvbi1saXN0IGlvbi1pdGVtIGlvbi1sYWJlbCB7XG4gICAgd2hpdGUtc3BhY2U6IG5vcm1hbDtcbiAgICBmb250LXNpemU6IDAuN3JlbSAhaW1wb3J0YW50O1xufVxuaW9uLWxpc3QgaW9uLWl0ZW0gaW9uLXNlbGVjdCB7XG4gICAgZm9udC1zaXplOiAwLjdyZW0gIWltcG9ydGFudDtcbiAgICBsaW5lLWhlaWdodDogMjNweDtcbn1cbmlvbi1saXN0LWhlYWRlciB7XG4gICAgdGV4dC10cmFuc2Zvcm06IG5vbmU7XG59XG4iLCJpb24tbGlzdCBpb24taXRlbSBpb24tbGFiZWwge1xuICB3aGl0ZS1zcGFjZTogbm9ybWFsO1xuICBmb250LXNpemU6IDAuN3JlbSAhaW1wb3J0YW50O1xufVxuXG5pb24tbGlzdCBpb24taXRlbSBpb24tc2VsZWN0IHtcbiAgZm9udC1zaXplOiAwLjdyZW0gIWltcG9ydGFudDtcbiAgbGluZS1oZWlnaHQ6IDIzcHg7XG59XG5cbmlvbi1saXN0LWhlYWRlciB7XG4gIHRleHQtdHJhbnNmb3JtOiBub25lO1xufSJdfQ== */"
+module.exports = "ion-list ion-item ion-label {\n  white-space: normal;\n  font-size: 0.7rem !important;\n  font-family: manrope-bold;\n}\n\nion-list ion-item ion-select {\n  font-size: 0.7rem !important;\n  line-height: 23px;\n}\n\nion-list-header {\n  text-transform: none;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9lbGlhc25lbXIvcHJvamVjdHMvV0FMTEVUL21vYmlsZS1hcHAtZnJvbnQtZW5kL2FwcC9zcmMvYXBwL2NvbXBvbmVudHMvcG9wLXNldHRpbmdzL3BvcC1zZXR0aW5ncy5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvY29tcG9uZW50cy9wb3Atc2V0dGluZ3MvcG9wLXNldHRpbmdzLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksbUJBQUE7RUFDQSw0QkFBQTtFQUNBLHlCQUFBO0FDQ0o7O0FEQ0E7RUFDSSw0QkFBQTtFQUNBLGlCQUFBO0FDRUo7O0FEQUE7RUFDSSxvQkFBQTtBQ0dKIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9wb3Atc2V0dGluZ3MvcG9wLXNldHRpbmdzLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiaW9uLWxpc3QgaW9uLWl0ZW0gaW9uLWxhYmVsIHtcbiAgICB3aGl0ZS1zcGFjZTogbm9ybWFsO1xuICAgIGZvbnQtc2l6ZTogMC43cmVtICFpbXBvcnRhbnQ7XG4gICAgZm9udC1mYW1pbHk6IG1hbnJvcGUtYm9sZDtcbn1cbmlvbi1saXN0IGlvbi1pdGVtIGlvbi1zZWxlY3Qge1xuICAgIGZvbnQtc2l6ZTogMC43cmVtICFpbXBvcnRhbnQ7XG4gICAgbGluZS1oZWlnaHQ6IDIzcHg7XG59XG5pb24tbGlzdC1oZWFkZXIge1xuICAgIHRleHQtdHJhbnNmb3JtOiBub25lO1xufVxuIiwiaW9uLWxpc3QgaW9uLWl0ZW0gaW9uLWxhYmVsIHtcbiAgd2hpdGUtc3BhY2U6IG5vcm1hbDtcbiAgZm9udC1zaXplOiAwLjdyZW0gIWltcG9ydGFudDtcbiAgZm9udC1mYW1pbHk6IG1hbnJvcGUtYm9sZDtcbn1cblxuaW9uLWxpc3QgaW9uLWl0ZW0gaW9uLXNlbGVjdCB7XG4gIGZvbnQtc2l6ZTogMC43cmVtICFpbXBvcnRhbnQ7XG4gIGxpbmUtaGVpZ2h0OiAyM3B4O1xufVxuXG5pb24tbGlzdC1oZWFkZXIge1xuICB0ZXh0LXRyYW5zZm9ybTogbm9uZTtcbn0iXX0= */"
 
 /***/ }),
 
@@ -917,15 +947,14 @@ var PopSettingsComponent = /** @class */ (function () {
     PopSettingsComponent.prototype.compareWithFn = function (o1, o2) {
         return o1 === o2;
     };
-    ;
     PopSettingsComponent.prototype.change = function (ev) {
         var temp = this.userConfigService.userConfig.value;
-        temp.tokenDisplayMode = ev.detail.value;
+        temp.tokenDisplayMode = parseInt(ev.detail.value);
         this.userConfigService.userConfig.next(temp);
         this.userConfigService.saveUserConfig(this.userConfigService.userConfig.value);
     };
     PopSettingsComponent.ctorParameters = function () { return [
-        { type: _service_userconfig_service__WEBPACK_IMPORTED_MODULE_1__["UserconfigService"] }
+        { type: _service_userconfig_service__WEBPACK_IMPORTED_MODULE_1__["UserConfigService"] }
     ]; };
     PopSettingsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Component"])({
@@ -933,7 +962,7 @@ var PopSettingsComponent = /** @class */ (function () {
             template: __webpack_require__(/*! raw-loader!./pop-settings.component.html */ "./node_modules/raw-loader/index.js!./src/app/components/pop-settings/pop-settings.component.html"),
             styles: [__webpack_require__(/*! ./pop-settings.component.scss */ "./src/app/components/pop-settings/pop-settings.component.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_service_userconfig_service__WEBPACK_IMPORTED_MODULE_1__["UserconfigService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_service_userconfig_service__WEBPACK_IMPORTED_MODULE_1__["UserConfigService"]])
     ], PopSettingsComponent);
     return PopSettingsComponent;
 }());
@@ -1182,6 +1211,39 @@ var BalanceService = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/service/history.service.ts":
+/*!********************************************!*\
+  !*** ./src/app/service/history.service.ts ***!
+  \********************************************/
+/*! exports provided: HistoryService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HistoryService", function() { return HistoryService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+
+
+
+var HistoryService = /** @class */ (function () {
+    function HistoryService() {
+        this.updatedHistory = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"]({ status: false, minifunc: '', message: '', response: {} });
+    }
+    HistoryService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], HistoryService);
+    return HistoryService;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/service/minima-api.service.ts":
 /*!***********************************************!*\
   !*** ./src/app/service/minima-api.service.ts ***!
@@ -1366,12 +1428,12 @@ var StatusService = /** @class */ (function () {
 /*!***********************************************!*\
   !*** ./src/app/service/userconfig.service.ts ***!
   \***********************************************/
-/*! exports provided: UserconfigService */
+/*! exports provided: UserConfigService */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserconfigService", function() { return UserconfigService; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserConfigService", function() { return UserConfigService; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
 /* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! minima */ "./node_modules/minima/dist/minima.js");
@@ -1381,20 +1443,22 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var UserconfigService = /** @class */ (function () {
-    function UserconfigService() {
-        this.defaultConfig = { systemMode: 'light', terminalFontSize: '12', tokenDisplayMode: 1 };
+var UserConfigService = /** @class */ (function () {
+    function UserConfigService() {
+        this.defaultConfig = { systemMode: 'light', terminalFontSize: '12', tokenDisplayMode: 1, historyOrderByMode: 1, historySaved: '' };
         this.userConfig = new rxjs__WEBPACK_IMPORTED_MODULE_1__["BehaviorSubject"](this.defaultConfig);
         this.createUserConfig(this.defaultConfig);
     }
-    UserconfigService.prototype.createUserConfig = function (defaultConfig) {
+    UserConfigService.prototype.createUserConfig = function (defaultConfig) {
         var _this = this;
         minima__WEBPACK_IMPORTED_MODULE_2__["Minima"].file.load('UserConfig.txt', function (res) {
             //console.log(res);
             if (!res.success && !res.exists) {
                 var data = defaultConfig;
                 minima__WEBPACK_IMPORTED_MODULE_2__["Minima"].file.save(JSON.stringify(data), 'UserConfig.txt', function (res) {
-                    if (res.success) { }
+                    if (res.success) {
+                        console.log('User Configuration File has been created.');
+                    }
                 });
             }
             else {
@@ -1403,7 +1467,7 @@ var UserconfigService = /** @class */ (function () {
             }
         });
     };
-    UserconfigService.prototype.saveUserConfig = function (currentValue) {
+    UserConfigService.prototype.saveUserConfig = function (currentValue) {
         minima__WEBPACK_IMPORTED_MODULE_2__["Minima"].file.load('UserConfig.txt', function (res) {
             if (res.success) {
                 var data = res.data;
@@ -1418,7 +1482,7 @@ var UserconfigService = /** @class */ (function () {
             }
         });
     };
-    UserconfigService.prototype.loadUserConfig = function (userConfig) {
+    UserConfigService.prototype.loadUserConfig = function (userConfig) {
         minima__WEBPACK_IMPORTED_MODULE_2__["Minima"].file.load('userConfig.txt', function (res) {
             if (res.success) {
                 userConfig = JSON.parse(res.data);
@@ -1426,13 +1490,13 @@ var UserconfigService = /** @class */ (function () {
         });
         return;
     };
-    UserconfigService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    UserConfigService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Injectable"])({
             providedIn: 'root'
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], UserconfigService);
-    return UserconfigService;
+    ], UserConfigService);
+    return UserConfigService;
 }());
 
 
