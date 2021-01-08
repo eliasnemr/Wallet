@@ -62,7 +62,7 @@
 
 :host(.menu-side-start) .menu-inner {
   --ion-safe-area-right: 0px;
-  /* stylelint-disable property-blacklist */
+  /* stylelint-disable property-disallowed-list */
   right: auto;
   left: 0;
 }
@@ -71,7 +71,7 @@
   --ion-safe-area-left: 0px;
   right: 0;
   left: auto;
-  /* stylelint-enable property-blacklist */
+  /* stylelint-enable property-disallowed-list */
 }
 
 ion-backdrop {

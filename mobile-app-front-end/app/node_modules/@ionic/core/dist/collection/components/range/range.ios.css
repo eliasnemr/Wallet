@@ -79,7 +79,7 @@
   }
 }
 [dir=rtl] .range-knob-handle, :host-context([dir=rtl]) .range-knob-handle {
-  /* stylelint-disable-next-line property-blacklist */
+  /* stylelint-disable-next-line property-disallowed-list */
   left: unset;
 }
 
@@ -104,7 +104,7 @@
 }
 
 [dir=rtl] .range-bar, :host-context([dir=rtl]) .range-bar {
-  /* stylelint-disable-next-line property-blacklist */
+  /* stylelint-disable-next-line property-disallowed-list */
   left: unset;
 }
 
@@ -127,7 +127,7 @@
 }
 
 [dir=rtl] .range-knob, :host-context([dir=rtl]) .range-knob {
-  /* stylelint-disable-next-line property-blacklist */
+  /* stylelint-disable-next-line property-disallowed-list */
   left: unset;
 }
 
