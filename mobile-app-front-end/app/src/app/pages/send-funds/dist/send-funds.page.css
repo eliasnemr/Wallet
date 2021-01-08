@@ -40,7 +40,6 @@ ion-input {
   color: #000;
   line-height: 16px;
   background-color: #ffffff;
-  border: 1px solid #91919D;
 }
 
 #quickAmount ion-col ion-button {
@@ -116,8 +115,6 @@ ion-toolbar {
 ion-textarea {
   color: black !important;
   background: #ffffff;
-  border: 1px solid #91919D;
-  font-size: 1rem;
   padding-left: 1%;
   margin-bottom: 1%;
 }

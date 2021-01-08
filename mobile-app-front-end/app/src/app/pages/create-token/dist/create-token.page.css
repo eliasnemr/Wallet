@@ -2,7 +2,6 @@ ion-input {
   color: #000;
   line-height: 16px;
   background-color: #ffffff;
-  border: 1px solid #91919D;
 }
 
 ion-item ion-label {
@@ -21,16 +20,19 @@ ion-footer ion-toolbar ion-buttons ion-button {
   font-family: manrope-bold;
 }
 
+ion-note {
+  color: var(--ion-color-secondary);
+  font-family: manrope-bold;
+  text-align: center;
+}
+
 ion-textarea {
   color: black !important;
   background: #ffffff;
-  border: 1px solid #91919D;
-  font-size: 1rem;
-  margin-bottom: 1%;
 }
 
-ion-textarea textarea {
-  height: 70px !important;
+ion-checkbox {
+  --size: 22px;
 }
 
 ion-toolbar {
@@ -54,6 +56,10 @@ ion-card-header {
   --color: var(--ion-text-color,#000);
 }
 
+.input {
+  font-family: manrope-light;
+}
+
 .length {
   position: absolute;
   right: 5%;
@@ -64,4 +70,24 @@ ion-card-header {
   align-items: center;
   font-size: 1rem;
   color: black !important;
+}
+
+ion-input[name=amount] {
+  max-width: 30%;
+  margin-right: auto;
+}
+
+ion-card.tokenType {
+  cursor: pointer;
+}
+
+ion-card.tokenType:hover {
+  transform: scale(1.01);
+}
+
+ion-card.tokenType ion-card-content ion-list ion-item {
+  --padding:0;
+  margin: 0;
+  height: 32px;
+  font-size: 0.7rem;
 }

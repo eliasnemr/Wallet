@@ -79,14 +79,14 @@
           <ion-label class="medium-text" [hidden]="!messageEntry.isChecked" style="padding-left: 10px;">This message is public</ion-label>
           </ion-item>
           <ion-item [hidden]="!messageEntry.isChecked" lines="none">
-            <ion-textarea 
-            class="medium-text input"
-            auto-grow="true"
-            #message 
-            [(ngModel)]="data.message" 
-            placeholder="type your message..."
-            maxlength="255">
-            </ion-textarea>
+              <ion-textarea 
+              class="medium-text input"
+              auto-grow="true"
+              #message 
+              [(ngModel)]="data.message" 
+              placeholder="type your message..."
+              maxlength="255">
+              </ion-textarea>
             <span *ngIf="data.message" class="length">{{ data.message.length +"/255"}}</span>
           </ion-item>
       </ion-list>

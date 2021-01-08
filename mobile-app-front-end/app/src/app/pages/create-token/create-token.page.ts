@@ -16,8 +16,10 @@ export class CreateTokenPage implements OnInit {
   @ViewChild('amountRef', {static:false}) amountRef: IonInput;
   @ViewChild('proofURL', {static:false}) proofURL: IonInput;
   @ViewChild('iconURL', {static:false}) iconURL: IonInput;
-  @ViewChild('textarea', {static: false}) textArea: IonTextarea;
+  @ViewChild('description', {static: false}) description: IonTextarea;
 
+  basic = false;
+  advanced = false;
   customToken: CustomToken = {name:'', amount:0, description:'',script:'', icon:'', proof:''};
   descrEntry = {
     isChecked: false
@@ -32,12 +34,40 @@ export class CreateTokenPage implements OnInit {
     isNonFungible: false
   }
   
-
   constructor(private api: MinimaApiService, public alertController: AlertController, public toastController: ToastController) {}
 
   ionViewDidEnter(){}
+
   ngOnInit() {}
 
+  async presentToast(msg: string, type: string) {
+    const toast = await this.toastController.create({
+      message: msg,
+      duration: 4000,
+      color: type,
+      buttons: [{
+        text: 'Close',
+        role: 'cancel'
+      }],
+      keyboardClose: true,
+      translucent: true,
+      position:  'top'
+    });
+    toast.present();
+  }
+  
+  async presentAlert(hdr: string, message: string, subtitle: string) {
+    const alert = await this.alertController.create({
+      cssClass: 'alertContainer',
+      header: hdr,
+      subHeader: subtitle,
+      message: message,
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+  
   createTokenAdvanced(f: any) {
 
     if(f.value.name&&f.value.name.length>0&&f.value.amount&&f.value.amount>0){
@@ -78,42 +108,17 @@ export class CreateTokenPage implements OnInit {
         this.presentToast('There is an error with your inputs.', 'danger');
       }
   }
-
-  //Alerts
-  async presentToast(msg: string, type: string) {
-    const toast = await this.toastController.create({
-      message: msg,
-      duration: 4000,
-      color: type,
-      buttons: [{
-        text: 'Close',
-        role: 'cancel'
-      }],
-      keyboardClose: true,
-      translucent: true,
-      position:  'top'
-    });
-    toast.present();
-  }
-  async presentAlert(hdr: string, message: string, subtitle: string) {
-    const alert = await this.alertController.create({
-      cssClass: 'alertContainer',
-      header: hdr,
-      subHeader: subtitle,
-      message: message,
-      buttons: ['OK']
-    });
-
-    await alert.present();
-  }
+  
   resetForm() {
     this.nameText.value = '';
     this.amountRef.value = '';
     this.proofURL.value = '';
     this.iconURL.value = '';
-    this.textArea.value = '';
+    this.description.value = '';
     this.iconEntry.isChecked = false;
     this.proofEntry.isChecked = false;
     this.nft.isNonFungible = false;
   }
+  
+
 }

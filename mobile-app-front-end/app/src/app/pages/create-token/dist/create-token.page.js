@@ -49,6 +49,8 @@ var CreateTokenPage = /** @class */ (function () {
         this.api = api;
         this.alertController = alertController;
         this.toastController = toastController;
+        this.basic = false;
+        this.advanced = false;
         this.customToken = { name: '', amount: 0, description: '', script: '', icon: '', proof: '' };
         this.descrEntry = {
             isChecked: false
@@ -65,48 +67,6 @@ var CreateTokenPage = /** @class */ (function () {
     }
     CreateTokenPage.prototype.ionViewDidEnter = function () { };
     CreateTokenPage.prototype.ngOnInit = function () { };
-    CreateTokenPage.prototype.createTokenAdvanced = function (f) {
-        var _this = this;
-        if (f.value.name && f.value.name.length > 0 && f.value.amount && f.value.amount > 0) {
-            this.customToken.name = f.value.name;
-            this.customToken.amount = f.value.amount;
-            // Optional Values 
-            if (f.value.description && f.value.description.length > 0) {
-                this.customToken.description = f.value.description;
-            }
-            if (f.value.checkboxproof === false) {
-                this.customToken.proof = "";
-            }
-            else {
-                this.customToken.proof = f.value.proof;
-            }
-            if (f.checkboxicon === false || f.value.icon === "" || f.value.icon.length <= 0) {
-                this.customToken.icon = "";
-            }
-            else {
-                this.customToken.icon = f.value.icon;
-            }
-            if (f.value.NFT === false) {
-                this.customToken.script = "RETURN TRUE";
-            }
-            else if (f.value.NFT === true) {
-                this.customToken.script = "ASSERT FLOOR ( @AMOUNT ) EQ @AMOUNT LET checkout = 0 WHILE ( checkout LT @TOTOUT ) DO IF GETOUTTOK ( checkout ) EQ @TOKENID THEN LET outamt = GETOUTAMT ( checkout ) ASSERT FLOOR ( outamt ) EQ outamt ENDIF LET checkout = INC ( checkout ) ENDWHILE RETURN TRUE";
-            }
-            this.api.createToken(this.customToken).then(function (res) {
-                if (res.status === true) {
-                    _this.presentAlert('Success', 'Token ' + _this.customToken.name + ' has been created.', 'Token Creation Status');
-                    _this.resetForm();
-                }
-                else {
-                    _this.presentAlert('Error', 'Something went wrong.', 'Token Creation Status');
-                }
-            });
-        }
-        else {
-            this.presentToast('There is an error with your inputs.', 'danger');
-        }
-    };
-    //Alerts
     CreateTokenPage.prototype.presentToast = function (msg, type) {
         return __awaiter(this, void 0, void 0, function () {
             var toast;
@@ -154,12 +114,53 @@ var CreateTokenPage = /** @class */ (function () {
             });
         });
     };
+    CreateTokenPage.prototype.createTokenAdvanced = function (f) {
+        var _this = this;
+        if (f.value.name && f.value.name.length > 0 && f.value.amount && f.value.amount > 0) {
+            this.customToken.name = f.value.name;
+            this.customToken.amount = f.value.amount;
+            // Optional Values 
+            if (f.value.description && f.value.description.length > 0) {
+                this.customToken.description = f.value.description;
+            }
+            if (f.value.checkboxproof === false) {
+                this.customToken.proof = "";
+            }
+            else {
+                this.customToken.proof = f.value.proof;
+            }
+            if (f.checkboxicon === false || f.value.icon === "" || f.value.icon.length <= 0) {
+                this.customToken.icon = "";
+            }
+            else {
+                this.customToken.icon = f.value.icon;
+            }
+            if (f.value.NFT === false) {
+                this.customToken.script = "RETURN TRUE";
+            }
+            else if (f.value.NFT === true) {
+                this.customToken.script = "ASSERT FLOOR ( @AMOUNT ) EQ @AMOUNT LET checkout = 0 WHILE ( checkout LT @TOTOUT ) DO IF GETOUTTOK ( checkout ) EQ @TOKENID THEN LET outamt = GETOUTAMT ( checkout ) ASSERT FLOOR ( outamt ) EQ outamt ENDIF LET checkout = INC ( checkout ) ENDWHILE RETURN TRUE";
+            }
+            this.api.createToken(this.customToken).then(function (res) {
+                if (res.status === true) {
+                    _this.presentAlert('Success', 'Token ' + _this.customToken.name + ' has been created.', 'Token Creation Status');
+                    _this.resetForm();
+                }
+                else {
+                    _this.presentAlert('Error', 'Something went wrong.', 'Token Creation Status');
+                }
+            });
+        }
+        else {
+            this.presentToast('There is an error with your inputs.', 'danger');
+        }
+    };
     CreateTokenPage.prototype.resetForm = function () {
         this.nameText.value = '';
         this.amountRef.value = '';
         this.proofURL.value = '';
         this.iconURL.value = '';
-        this.textArea.value = '';
+        this.description.value = '';
         this.iconEntry.isChecked = false;
         this.proofEntry.isChecked = false;
         this.nft.isNonFungible = false;
@@ -180,8 +181,8 @@ var CreateTokenPage = /** @class */ (function () {
         core_1.ViewChild('iconURL', { static: false })
     ], CreateTokenPage.prototype, "iconURL");
     __decorate([
-        core_1.ViewChild('textarea', { static: false })
-    ], CreateTokenPage.prototype, "textArea");
+        core_1.ViewChild('description', { static: false })
+    ], CreateTokenPage.prototype, "description");
     CreateTokenPage = __decorate([
         core_1.Component({
             selector: 'app-create-token',
