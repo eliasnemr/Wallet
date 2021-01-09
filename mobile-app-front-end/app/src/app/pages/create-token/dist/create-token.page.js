@@ -45,12 +45,14 @@ exports.__esModule = true;
 exports.CreateTokenPage = void 0;
 var core_1 = require("@angular/core");
 var CreateTokenPage = /** @class */ (function () {
-    function CreateTokenPage(api, alertController, toastController) {
+    function CreateTokenPage(api, animationCtrl, alertController, toastController) {
         this.api = api;
+        this.animationCtrl = animationCtrl;
         this.alertController = alertController;
         this.toastController = toastController;
         this.basic = false;
         this.advanced = false;
+        this.isPlaying = false;
         this.customToken = { name: '', amount: 0, description: '', script: '', icon: '', proof: '' };
         this.descrEntry = {
             isChecked: false
@@ -65,6 +67,29 @@ var CreateTokenPage = /** @class */ (function () {
             isNonFungible: false
         };
     }
+    CreateTokenPage.prototype.ngAfterViewInit = function () {
+        this.anim = this.animationCtrl.create('cardAnimation');
+        this.anim
+            .addElement(document.getElementById('basicCard'))
+            .duration(1000)
+            .easing('ease-out')
+            .iterations(1)
+            .fromTo('transform', 'translateY(0px)', 'translateY(-25px)')
+            .fromTo('opacity', 1, 0.2);
+    };
+    CreateTokenPage.prototype.toggleAnimation = function () {
+        console.log('toggled');
+        if (this.isPlaying) {
+            this.anim.stop();
+        }
+        else {
+            this.anim.play();
+            setTimeout(function () {
+                document.getElementById('basicCard').style.display = 'none';
+            }, 500);
+        }
+        this.isPlaying = !this.isPlaying;
+    };
     CreateTokenPage.prototype.ionViewDidEnter = function () { };
     CreateTokenPage.prototype.ngOnInit = function () { };
     CreateTokenPage.prototype.presentToast = function (msg, type) {

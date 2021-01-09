@@ -241,7 +241,7 @@ const Slides = class {
         const finalOptions = this.normalizeOptions();
         // init swiper core
         // @ts-ignore
-        const { Swiper } = await __webpack_require__.e(/*! import() | swiper-bundle-ccdaac54-js */ "swiper-bundle-ccdaac54-js").then(__webpack_require__.bind(null, /*! ./swiper.bundle-ccdaac54.js */ "./node_modules/@ionic/core/dist/esm/swiper.bundle-ccdaac54.js"));
+        const { Swiper } = await __webpack_require__.e(/*! import() | swiper-bundle-8bab85e6-js */ "swiper-bundle-8bab85e6-js").then(__webpack_require__.bind(null, /*! ./swiper.bundle-8bab85e6.js */ "./node_modules/@ionic/core/dist/esm/swiper.bundle-8bab85e6.js"));
         await waitForSlides(this.el);
         const swiper = new Swiper(this.el, finalOptions);
         this.swiperReady = true;

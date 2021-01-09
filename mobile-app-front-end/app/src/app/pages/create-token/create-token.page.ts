@@ -1,7 +1,7 @@
 import { CustomToken } from './../../models/customToken.model';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MinimaApiService } from '../../service/minima-api.service';
-import { IonTextarea, IonInput, AlertController, ToastController } from '@ionic/angular';
+import { IonTextarea, IonInput, AlertController, ToastController, Animation, AnimationController, IonCard } from '@ionic/angular';
 import { NgForm } from '@angular/forms';
 
 @Component({
@@ -9,7 +9,7 @@ import { NgForm } from '@angular/forms';
   templateUrl: './create-token.page.html',
   styleUrls: ['./create-token.page.scss'],
 })
-export class CreateTokenPage implements OnInit {
+export class CreateTokenPage implements OnInit, AfterViewInit {
 
   @ViewChild('f', {static:false}) tokenForm: NgForm;
   @ViewChild('nameTextArea', {static: false}) nameText: IonInput;
@@ -18,23 +18,58 @@ export class CreateTokenPage implements OnInit {
   @ViewChild('iconURL', {static:false}) iconURL: IonInput;
   @ViewChild('description', {static: false}) description: IonTextarea;
 
+  anim: Animation;
   basic = false;
   advanced = false;
-  customToken: CustomToken = {name:'', amount:0, description:'',script:'', icon:'', proof:''};
+  isPlaying = false;
+  customToken: CustomToken = {name: '', amount: 0, description: '', script: '', icon: '', proof: ''};
   descrEntry = {
     isChecked: false
-  }
+  };
+
   iconEntry = {
     isChecked: false
-  }
+  };
+
   proofEntry = {
     isChecked: false
-  }
+  };
+
   nft = {
     isNonFungible: false
+  };
+
+
+  ngAfterViewInit() {
+    this.anim = this.animationCtrl.create('cardAnimation');
+    this.anim
+      .addElement(document.getElementById('basicCard'))
+      .duration(1000)
+      .easing('ease-out')
+      .iterations(1)
+      .fromTo('transform', 'translateY(0px)', 'translateY(-25px)')
+      .fromTo('opacity', 1, 0.2);
+    }
+
+  toggleAnimation() {
+    console.log('toggled');
+    if (this.isPlaying) {
+      this.anim.stop();
+    } else {
+      this.anim.play();
+      setTimeout(() => {
+        document.getElementById('basicCard').style.display = 'none';
+      }, 500);
+
+    }
+    this.isPlaying = !this.isPlaying;
   }
-  
-  constructor(private api: MinimaApiService, public alertController: AlertController, public toastController: ToastController) {}
+
+  constructor(
+    private api: MinimaApiService,
+    public animationCtrl: AnimationController,
+    public alertController: AlertController,
+    public toastController: ToastController) {}
 
   ionViewDidEnter(){}
 

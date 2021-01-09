@@ -26,7 +26,7 @@
 
         <ion-row>
           <ion-col size-xs="12">
-            <ion-card class="tokenType">
+            <ion-card (click)="toggleAnimation()" id="basicCard" class="tokenType">
               <ion-card-header>
                 Basic Token
               </ion-card-header>
@@ -43,7 +43,7 @@
             </ion-card>
           </ion-col>
           <ion-col size-xs="12">
-            <ion-card class="tokenType">
+            <ion-card #advancedCard class="tokenType">
               <ion-card-header>
                 Advanced Token
               </ion-card-header>
