@@ -2,11 +2,16 @@
   "name": "wallet",
   "version": "0.98.8",
   "author": "Elias Nemr, Minima.",
+  "description": "Minima's Official Wallet",
   "homepage": "https://minima.global/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eliasnemr/Wallet"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build", 
     "test": "ng test",
     "lint": "ng lint",
     "live:ios": "ionic cordova emulate ios --livereload --no-native-run",
@@ -92,7 +97,6 @@
     "tslint": "~5.15.0",
     "typescript": "^3.4.5"
   },
-  "description": "Minima, evolution will not be centralised.",
   "cordova": {
     "plugins": {
       "cordova-plugin-whitelist": {},
