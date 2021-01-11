@@ -73,8 +73,12 @@ ion-badge {
   --background: #FF512F;
 }
 
-ion-row {
-  display: flexbox;
-  justify-content: center !important;
-  align-content: center !important;
+ion-grid ion-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toast {
+  --width: 50%;
 }

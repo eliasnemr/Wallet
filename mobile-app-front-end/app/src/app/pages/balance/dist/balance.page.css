@@ -23,6 +23,10 @@ ion-card-content {
   background: var(--ion-m-background);
 }
 
+ion-card-content p {
+  color: var(--ion-color-tertiary);
+}
+
 ion-card-header {
   font-family: manrope-bold;
   color: var(--ion-color-tertiary);
