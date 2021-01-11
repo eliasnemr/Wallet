@@ -1,7 +1,7 @@
 import { CustomToken } from './../../models/customToken.model';
-import { AfterViewInit, Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MinimaApiService } from '../../service/minima-api.service';
-import { IonTextarea, IonInput, AlertController, ToastController, Animation, AnimationController, IonCard } from '@ionic/angular';
+import { IonTextarea, IonInput, AlertController, ToastController, Animation, AnimationController } from '@ionic/angular';
 import { NgForm } from '@angular/forms';
 
 @Component({

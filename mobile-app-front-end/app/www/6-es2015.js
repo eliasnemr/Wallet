@@ -1,895 +1,395 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[6],{
 
-/***/ "./node_modules/@ionic/core/dist/esm/ion-app_8-md.entry.js":
+/***/ "./node_modules/@ionic/core/dist/esm/ion-button_2.entry.js":
 /*!*****************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm/ion-app_8-md.entry.js ***!
+  !*** ./node_modules/@ionic/core/dist/esm/ion-button_2.entry.js ***!
   \*****************************************************************/
-/*! exports provided: ion_app, ion_buttons, ion_content, ion_footer, ion_header, ion_router_outlet, ion_title, ion_toolbar */
+/*! exports provided: ion_button, ion_icon */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ion_app", function() { return App; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ion_buttons", function() { return Buttons; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ion_content", function() { return Content; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ion_footer", function() { return Footer; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ion_header", function() { return Header; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ion_router_outlet", function() { return RouterOutlet; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ion_title", function() { return ToolbarTitle; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ion_toolbar", function() { return Toolbar; });
-/* harmony import */ var _core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./core-feeeff0d.js */ "./node_modules/@ionic/core/dist/esm/core-feeeff0d.js");
-/* harmony import */ var _config_3c7f3790_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./config-3c7f3790.js */ "./node_modules/@ionic/core/dist/esm/config-3c7f3790.js");
-/* harmony import */ var _helpers_46f4a262_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helpers-46f4a262.js */ "./node_modules/@ionic/core/dist/esm/helpers-46f4a262.js");
-/* harmony import */ var _constants_3c3e1099_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./constants-3c3e1099.js */ "./node_modules/@ionic/core/dist/esm/constants-3c3e1099.js");
-/* harmony import */ var _theme_18cbe2cc_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./theme-18cbe2cc.js */ "./node_modules/@ionic/core/dist/esm/theme-18cbe2cc.js");
-/* harmony import */ var _framework_delegate_c2e2e1f4_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./framework-delegate-c2e2e1f4.js */ "./node_modules/@ionic/core/dist/esm/framework-delegate-c2e2e1f4.js");
-/* harmony import */ var _index_4d91f03a_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./index-4d91f03a.js */ "./node_modules/@ionic/core/dist/esm/index-4d91f03a.js");
-/* harmony import */ var _cubic_bezier_2812fda3_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./cubic-bezier-2812fda3.js */ "./node_modules/@ionic/core/dist/esm/cubic-bezier-2812fda3.js");
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ion_button", function() { return Button; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ion_icon", function() { return Icon; });
+/* harmony import */ var _index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index-e806d1f6.js */ "./node_modules/@ionic/core/dist/esm/index-e806d1f6.js");
+/* harmony import */ var _ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ionic-global-9d5c8ee3.js */ "./node_modules/@ionic/core/dist/esm/ionic-global-9d5c8ee3.js");
+/* harmony import */ var _helpers_90f46169_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helpers-90f46169.js */ "./node_modules/@ionic/core/dist/esm/helpers-90f46169.js");
+/* harmony import */ var _theme_ff3fc52f_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./theme-ff3fc52f.js */ "./node_modules/@ionic/core/dist/esm/theme-ff3fc52f.js");
 
 
 
 
 
-
-
-
-
-const App = class {
-    constructor(hostRef) {
-        Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["r"])(this, hostRef);
-    }
-    componentDidLoad() {
-        {
-            rIC(() => {
-                const isHybrid = Object(_config_3c7f3790_js__WEBPACK_IMPORTED_MODULE_1__["i"])(window, 'hybrid');
-                if (!_config_3c7f3790_js__WEBPACK_IMPORTED_MODULE_1__["b"].getBoolean('_testing')) {
-                    __webpack_require__.e(/*! import() | tap-click-ca00ce7f-js */ "tap-click-ca00ce7f-js").then(__webpack_require__.bind(null, /*! ./tap-click-ca00ce7f.js */ "./node_modules/@ionic/core/dist/esm/tap-click-ca00ce7f.js")).then(module => module.startTapClick(_config_3c7f3790_js__WEBPACK_IMPORTED_MODULE_1__["b"]));
-                }
-                if (_config_3c7f3790_js__WEBPACK_IMPORTED_MODULE_1__["b"].getBoolean('statusTap', isHybrid)) {
-                    __webpack_require__.e(/*! import() | status-tap-32c72c43-js */ "status-tap-32c72c43-js").then(__webpack_require__.bind(null, /*! ./status-tap-32c72c43.js */ "./node_modules/@ionic/core/dist/esm/status-tap-32c72c43.js")).then(module => module.startStatusTap());
-                }
-                if (_config_3c7f3790_js__WEBPACK_IMPORTED_MODULE_1__["b"].getBoolean('inputShims', needInputShims())) {
-                    __webpack_require__.e(/*! import() | input-shims-a4fc53ac-js */ "input-shims-a4fc53ac-js").then(__webpack_require__.bind(null, /*! ./input-shims-a4fc53ac.js */ "./node_modules/@ionic/core/dist/esm/input-shims-a4fc53ac.js")).then(module => module.startInputShims(_config_3c7f3790_js__WEBPACK_IMPORTED_MODULE_1__["b"]));
-                }
-                if (_config_3c7f3790_js__WEBPACK_IMPORTED_MODULE_1__["b"].getBoolean('hardwareBackButton', isHybrid)) {
-                    __webpack_require__.e(/*! import() | hardware-back-button-5afe3cb0-js */ "hardware-back-button-5afe3cb0-js").then(__webpack_require__.bind(null, /*! ./hardware-back-button-5afe3cb0.js */ "./node_modules/@ionic/core/dist/esm/hardware-back-button-5afe3cb0.js")).then(module => module.startHardwareBackButton());
-                }
-                __webpack_require__.e(/*! import() | focus-visible-70713a0c-js */ "focus-visible-70713a0c-js").then(__webpack_require__.bind(null, /*! ./focus-visible-70713a0c.js */ "./node_modules/@ionic/core/dist/esm/focus-visible-70713a0c.js")).then(module => module.startFocusVisible());
-            });
-        }
-    }
-    render() {
-        const mode = Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this);
-        return (Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["h"])(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["H"], { class: {
-                [mode]: true,
-                'ion-page': true,
-                'force-statusbar-padding': _config_3c7f3790_js__WEBPACK_IMPORTED_MODULE_1__["b"].getBoolean('_forceStatusbarPadding')
-            } }));
-    }
-    get el() { return Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this); }
-    static get style() { return "html.plt-mobile ion-app{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}ion-app.force-statusbar-padding{--ion-safe-area-top:20px}"; }
-};
-const needInputShims = () => {
-    return Object(_config_3c7f3790_js__WEBPACK_IMPORTED_MODULE_1__["i"])(window, 'ios') && Object(_config_3c7f3790_js__WEBPACK_IMPORTED_MODULE_1__["i"])(window, 'mobile');
-};
-const rIC = (callback) => {
-    if ('requestIdleCallback' in window) {
-        window.requestIdleCallback(callback);
+let CACHED_MAP;
+const getIconMap = () => {
+    if (typeof window === 'undefined') {
+        return new Map();
     }
     else {
-        setTimeout(callback, 32);
+        if (!CACHED_MAP) {
+            const win = window;
+            win.Ionicons = win.Ionicons || {};
+            CACHED_MAP = win.Ionicons.map = win.Ionicons.map || new Map();
+        }
+        return CACHED_MAP;
     }
 };
-
-const Buttons = class {
-    constructor(hostRef) {
-        Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["r"])(this, hostRef);
-        /**
-         * If true, buttons will disappear when its
-         * parent toolbar has fully collapsed if the toolbar
-         * is not the first toolbar. If the toolbar is the
-         * first toolbar, the buttons will be hidden and will
-         * only be shown once all toolbars have fully collapsed.
-         *
-         * Only applies in `ios` mode with `collapse` set to
-         * `true` on `ion-header`.
-         *
-         * Typically used for [Collapsible Large Titles](https://ionicframework.com/docs/api/title#collapsible-large-titles)
-         */
-        this.collapse = false;
+const getUrl = (i) => {
+    let url = getSrc(i.src);
+    if (url) {
+        return url;
     }
-    render() {
-        const mode = Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this);
-        return (Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["h"])(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["H"], { class: {
-                [mode]: true,
-                ['buttons-collapse']: this.collapse
-            } }));
+    url = getName(i.name, i.icon, i.mode, i.ios, i.md);
+    if (url) {
+        return getNamedUrl(url);
     }
-    static get style() { return ".sc-ion-buttons-md-h{display:-ms-flexbox;display:flex;-ms-flex-align:center;align-items:center;-webkit-transform:translateZ(0);transform:translateZ(0);z-index:99}.sc-ion-buttons-md-s  ion-button {margin-left:0;margin-right:0;margin-top:0;margin-bottom:0;--padding-top:0;--padding-bottom:0;--padding-start:8px;--padding-end:8px;--box-shadow:none;margin-left:2px;margin-right:2px;height:32px;font-size:14px;font-weight:500}\@supports ((-webkit-margin-start:0) or (margin-inline-start:0)) or (-webkit-margin-start:0){.sc-ion-buttons-md-s  ion-button {margin-left:unset;margin-right:unset;-webkit-margin-start:2px;margin-inline-start:2px;-webkit-margin-end:2px;margin-inline-end:2px}}.sc-ion-buttons-md-s  ion-button:not(.button-round) {--border-radius:2px}.sc-ion-buttons-md-h.ion-color.sc-ion-buttons-md-s  .button , .ion-color .sc-ion-buttons-md-h.sc-ion-buttons-md-s  .button {--color:initial;--color-focused:var(--ion-color-contrast);--color-hover:var(--ion-color-contrast);--background-hover:rgba(var(--ion-color-contrast-rgb),0.08);--background-focused:rgba(var(--ion-color-contrast-rgb),0.24)}.sc-ion-buttons-md-h.ion-color.sc-ion-buttons-md-s  .button-solid , .ion-color .sc-ion-buttons-md-h.sc-ion-buttons-md-s  .button-solid {--background:var(--ion-color-contrast);--background-activated:var(--ion-color-contrast);--background-focused:var(--ion-color-shade);--background-hover:var(--ion-color-tint);--color:var(--ion-color-base);--color-focused:var(--ion-color-base);--color-hover:var(--ion-color-base)}.sc-ion-buttons-md-h.ion-color.sc-ion-buttons-md-s  .button-outline , .ion-color .sc-ion-buttons-md-h.sc-ion-buttons-md-s  .button-outline {--border-color:var(--ion-color-contrast)}.sc-ion-buttons-md-s  .button-has-icon-only.button-clear {--padding-top:12px;--padding-end:12px;--padding-bottom:12px;--padding-start:12px;--border-radius:50%;margin-left:0;margin-right:0;margin-top:0;margin-bottom:0;width:48px;height:48px}.sc-ion-buttons-md-s  .button {--background-hover:rgba(66,66,66,0.08)}.sc-ion-buttons-md-s  .button-solid {--color:var(--ion-toolbar-background,var(--ion-background-color,#fff));--color-activated:var(--ion-toolbar-background,var(--ion-background-color,#fff));--background:var(--ion-toolbar-color,var(--ion-text-color,#424242));--background-activated:var(--ion-toolbar-color,var(--ion-text-color,#424242));--background-focused:var(--ion-toolbar-color-activated,#4a4a4a);--background-hover:rgba(66,66,66,0.92)}.sc-ion-buttons-md-s  .button-outline {--background:transparent;--background-activated:transparent;--border-color:var(--ion-toolbar-color,var(--ion-text-color,#424242));--background-focused:rgba(66,66,66,0.1)}.sc-ion-buttons-md-s  .button-clear , .sc-ion-buttons-md-s  .button-outline {--color:initial;--color-activated:currentColor;--color-focused:var(--ion-toolbar-color,var(--ion-text-color,#424242))}.sc-ion-buttons-md-s  .button-clear {--background:transparent;--background-focused:rgba(66,66,66,0.1)}.sc-ion-buttons-md-s  ion-icon[slot=start] {margin-left:0;margin-right:0;margin-top:0;margin-bottom:0;margin-right:.3em;font-size:1.4em}\@supports ((-webkit-margin-start:0) or (margin-inline-start:0)) or (-webkit-margin-start:0){.sc-ion-buttons-md-s  ion-icon[slot=start] {margin-right:unset;-webkit-margin-end:.3em;margin-inline-end:.3em}}.sc-ion-buttons-md-s  ion-icon[slot=end] {margin-left:0;margin-right:0;margin-top:0;margin-bottom:0;margin-left:.4em;font-size:1.4em}\@supports ((-webkit-margin-start:0) or (margin-inline-start:0)) or (-webkit-margin-start:0){.sc-ion-buttons-md-s  ion-icon[slot=end] {margin-left:unset;-webkit-margin-start:.4em;margin-inline-start:.4em}}.sc-ion-buttons-md-s  ion-icon[slot=icon-only] {padding-left:0;padding-right:0;padding-top:0;padding-bottom:0;margin-left:0;margin-right:0;margin-top:0;margin-bottom:0;font-size:1.8em}"; }
-};
-
-const Content = class {
-    constructor(hostRef) {
-        Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["r"])(this, hostRef);
-        this.isScrolling = false;
-        this.lastScroll = 0;
-        this.queued = false;
-        this.cTop = -1;
-        this.cBottom = -1;
-        this.mode = Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this);
-        // Detail is used in a hot loop in the scroll event, by allocating it here
-        // V8 will be able to inline any read/write to it since it's a monomorphic class.
-        // https://mrale.ph/blog/2015/01/11/whats-up-with-monomorphism.html
-        this.detail = {
-            scrollTop: 0,
-            scrollLeft: 0,
-            type: 'scroll',
-            event: undefined,
-            startX: 0,
-            startY: 0,
-            startTimeStamp: 0,
-            currentX: 0,
-            currentY: 0,
-            velocityX: 0,
-            velocityY: 0,
-            deltaX: 0,
-            deltaY: 0,
-            timeStamp: 0,
-            data: undefined,
-            isScrolling: true,
-        };
-        /**
-         * If `true`, the content will scroll behind the headers
-         * and footers. This effect can easily be seen by setting the toolbar
-         * to transparent.
-         */
-        this.fullscreen = false;
-        /**
-         * If you want to enable the content scrolling in the X axis, set this property to `true`.
-         */
-        this.scrollX = false;
-        /**
-         * If you want to disable the content scrolling in the Y axis, set this property to `false`.
-         */
-        this.scrollY = true;
-        /**
-         * Because of performance reasons, ionScroll events are disabled by default, in order to enable them
-         * and start listening from (ionScroll), set this property to `true`.
-         */
-        this.scrollEvents = false;
-        this.ionScrollStart = Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["d"])(this, "ionScrollStart", 7);
-        this.ionScroll = Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["d"])(this, "ionScroll", 7);
-        this.ionScrollEnd = Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["d"])(this, "ionScrollEnd", 7);
-    }
-    disconnectedCallback() {
-        this.onScrollEnd();
-    }
-    componentDidLoad() {
-        this.resize();
-    }
-    onClick(ev) {
-        if (this.isScrolling) {
-            ev.preventDefault();
-            ev.stopPropagation();
+    if (i.icon) {
+        url = getSrc(i.icon);
+        if (url) {
+            return url;
         }
-    }
-    shouldForceOverscroll() {
-        const { forceOverscroll, mode } = this;
-        return forceOverscroll === undefined
-            ? mode === 'ios' && Object(_config_3c7f3790_js__WEBPACK_IMPORTED_MODULE_1__["i"])('ios')
-            : forceOverscroll;
-    }
-    resize() {
-        if (this.fullscreen) {
-            Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["f"])(this.readDimensions.bind(this));
+        url = getSrc(i.icon[i.mode]);
+        if (url) {
+            return url;
         }
-        else if (this.cTop !== 0 || this.cBottom !== 0) {
-            this.cTop = this.cBottom = 0;
-            this.el.forceUpdate();
-        }
-    }
-    readDimensions() {
-        const page = getPageElement(this.el);
-        const top = Math.max(this.el.offsetTop, 0);
-        const bottom = Math.max(page.offsetHeight - top - this.el.offsetHeight, 0);
-        const dirty = top !== this.cTop || bottom !== this.cBottom;
-        if (dirty) {
-            this.cTop = top;
-            this.cBottom = bottom;
-            this.el.forceUpdate();
-        }
-    }
-    onScroll(ev) {
-        const timeStamp = Date.now();
-        const shouldStart = !this.isScrolling;
-        this.lastScroll = timeStamp;
-        if (shouldStart) {
-            this.onScrollStart();
-        }
-        if (!this.queued && this.scrollEvents) {
-            this.queued = true;
-            Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["f"])(ts => {
-                this.queued = false;
-                this.detail.event = ev;
-                updateScrollDetail(this.detail, this.scrollEl, ts, shouldStart);
-                this.ionScroll.emit(this.detail);
-            });
-        }
-    }
-    /**
-     * Get the element where the actual scrolling takes place.
-     * This element can be used to subscribe to `scroll` events or manually modify
-     * `scrollTop`. However, it's recommended to use the API provided by `ion-content`:
-     *
-     * i.e. Using `ionScroll`, `ionScrollStart`, `ionScrollEnd` for scrolling events
-     * and `scrollToPoint()` to scroll the content into a certain point.
-     */
-    getScrollElement() {
-        return Promise.resolve(this.scrollEl);
-    }
-    /**
-     * Scroll to the top of the component.
-     *
-     * @param duration The amount of time to take scrolling to the top. Defaults to `0`.
-     */
-    scrollToTop(duration = 0) {
-        return this.scrollToPoint(undefined, 0, duration);
-    }
-    /**
-     * Scroll to the bottom of the component.
-     *
-     * @param duration The amount of time to take scrolling to the bottom. Defaults to `0`.
-     */
-    scrollToBottom(duration = 0) {
-        const y = this.scrollEl.scrollHeight - this.scrollEl.clientHeight;
-        return this.scrollToPoint(undefined, y, duration);
-    }
-    /**
-     * Scroll by a specified X/Y distance in the component.
-     *
-     * @param x The amount to scroll by on the horizontal axis.
-     * @param y The amount to scroll by on the vertical axis.
-     * @param duration The amount of time to take scrolling by that amount.
-     */
-    scrollByPoint(x, y, duration) {
-        return this.scrollToPoint(x + this.scrollEl.scrollLeft, y + this.scrollEl.scrollTop, duration);
-    }
-    /**
-     * Scroll to a specified X/Y location in the component.
-     *
-     * @param x The point to scroll to on the horizontal axis.
-     * @param y The point to scroll to on the vertical axis.
-     * @param duration The amount of time to take scrolling to that point. Defaults to `0`.
-     */
-    async scrollToPoint(x, y, duration = 0) {
-        const el = this.scrollEl;
-        if (duration < 32) {
-            if (y != null) {
-                el.scrollTop = y;
-            }
-            if (x != null) {
-                el.scrollLeft = x;
-            }
-            return;
-        }
-        let resolve;
-        let startTime = 0;
-        const promise = new Promise(r => resolve = r);
-        const fromY = el.scrollTop;
-        const fromX = el.scrollLeft;
-        const deltaY = y != null ? y - fromY : 0;
-        const deltaX = x != null ? x - fromX : 0;
-        // scroll loop
-        const step = (timeStamp) => {
-            const linearTime = Math.min(1, ((timeStamp - startTime) / duration)) - 1;
-            const easedT = Math.pow(linearTime, 3) + 1;
-            if (deltaY !== 0) {
-                el.scrollTop = Math.floor((easedT * deltaY) + fromY);
-            }
-            if (deltaX !== 0) {
-                el.scrollLeft = Math.floor((easedT * deltaX) + fromX);
-            }
-            if (easedT < 1) {
-                // do not use DomController here
-                // must use nativeRaf in order to fire in the next frame
-                // TODO: remove as any
-                requestAnimationFrame(step);
-            }
-            else {
-                resolve();
-            }
-        };
-        // chill out for a frame first
-        requestAnimationFrame(ts => {
-            startTime = ts;
-            step(ts);
-        });
-        return promise;
-    }
-    onScrollStart() {
-        this.isScrolling = true;
-        this.ionScrollStart.emit({
-            isScrolling: true
-        });
-        if (this.watchDog) {
-            clearInterval(this.watchDog);
-        }
-        // watchdog
-        this.watchDog = setInterval(() => {
-            if (this.lastScroll < Date.now() - 120) {
-                this.onScrollEnd();
-            }
-        }, 100);
-    }
-    onScrollEnd() {
-        clearInterval(this.watchDog);
-        this.watchDog = null;
-        if (this.isScrolling) {
-            this.isScrolling = false;
-            this.ionScrollEnd.emit({
-                isScrolling: false
-            });
-        }
-    }
-    render() {
-        const { scrollX, scrollY } = this;
-        const mode = Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this);
-        const forceOverscroll = this.shouldForceOverscroll();
-        const transitionShadow = (mode === 'ios' && _config_3c7f3790_js__WEBPACK_IMPORTED_MODULE_1__["b"].getBoolean('experimentalTransitionShadow', true));
-        this.resize();
-        return (Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["h"])(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["H"], { class: Object.assign(Object.assign({}, Object(_theme_18cbe2cc_js__WEBPACK_IMPORTED_MODULE_4__["c"])(this.color)), { [mode]: true, 'content-sizing': Object(_theme_18cbe2cc_js__WEBPACK_IMPORTED_MODULE_4__["h"])('ion-popover', this.el), 'overscroll': forceOverscroll }), style: {
-                '--offset-top': `${this.cTop}px`,
-                '--offset-bottom': `${this.cBottom}px`,
-            } }, Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["h"])("main", { class: {
-                'inner-scroll': true,
-                'scroll-x': scrollX,
-                'scroll-y': scrollY,
-                'overscroll': (scrollX || scrollY) && forceOverscroll
-            }, ref: el => this.scrollEl = el, onScroll: ev => this.onScroll(ev) }, Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["h"])("slot", null)), transitionShadow ? (Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "transition-effect" }, Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "transition-cover" }), Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "transition-shadow" }))) : null, Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["h"])("slot", { name: "fixed" })));
-    }
-    get el() { return Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this); }
-    static get style() { return ":host{--background:var(--ion-background-color,#fff);--color:var(--ion-text-color,#000);--padding-top:0px;--padding-bottom:0px;--padding-start:0px;--padding-end:0px;--keyboard-offset:0px;--offset-top:0px;--offset-bottom:0px;--overflow:auto;display:block;position:relative;-ms-flex:1;flex:1;width:100%;height:100%;margin:0!important;padding:0!important;font-family:var(--ion-font-family,inherit);contain:size style}:host(.ion-color) .inner-scroll{background:var(--ion-color-base);color:var(--ion-color-contrast)}:host(.outer-content){--background:var(--ion-color-step-50,#f2f2f2)}.inner-scroll{left:0;right:0;top:calc(var(--offset-top) * -1);bottom:calc(var(--offset-bottom) * -1);padding-left:var(--padding-start);padding-right:var(--padding-end);padding-top:calc(var(--padding-top) + var(--offset-top));padding-bottom:calc(var(--padding-bottom) + var(--keyboard-offset) + var(--offset-bottom));position:absolute;background:var(--background);color:var(--color);-webkit-box-sizing:border-box;box-sizing:border-box;overflow:hidden}\@supports ((-webkit-margin-start:0) or (margin-inline-start:0)) or (-webkit-margin-start:0){.inner-scroll{padding-left:unset;padding-right:unset;-webkit-padding-start:var(--padding-start);padding-inline-start:var(--padding-start);-webkit-padding-end:var(--padding-end);padding-inline-end:var(--padding-end)}}.scroll-x,.scroll-y{-webkit-overflow-scrolling:touch;will-change:scroll-position;-ms-scroll-chaining:none;overscroll-behavior:contain}.scroll-y{-ms-touch-action:pan-y;touch-action:pan-y;overflow-y:var(--overflow)}.scroll-x{-ms-touch-action:pan-x;touch-action:pan-x;overflow-x:var(--overflow)}.scroll-x.scroll-y{-ms-touch-action:auto;touch-action:auto}.overscroll:after,.overscroll:before{position:absolute;width:1px;height:1px;content:\"\"}.overscroll:before{bottom:-1px}.overscroll:after{top:-1px}:host(.content-sizing){contain:none}:host(.content-sizing) .inner-scroll{position:relative}.transition-effect{left:-100%;opacity:0;pointer-events:none}.transition-cover,.transition-effect{position:absolute;width:100%;height:100%}.transition-cover{right:0;background:#000;opacity:.1}.transition-shadow{display:block;position:absolute;right:0;width:10px;height:100%;background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAgCAYAAAAIXrg4AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyhpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTQ1IDc5LjE2MzQ5OSwgMjAxOC8wOC8xMy0xNjo0MDoyMiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTkgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MTE3MDgzRkQ5QTkyMTFFOUEwNzQ5MkJFREE1NUY2MjQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MTE3MDgzRkU5QTkyMTFFOUEwNzQ5MkJFREE1NUY2MjQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDoxMTcwODNGQjlBOTIxMUU5QTA3NDkyQkVEQTU1RjYyNCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDoxMTcwODNGQzlBOTIxMUU5QTA3NDkyQkVEQTU1RjYyNCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PmePEuQAAABNSURBVHjaYvz//z8DIxAwMDAwATGMhmFmPDQuOSZks0AMmoJBaQHjkPfB0Lfg/2gQjVow+HPy/yHvg9GiYjQfjMbBqAWjFgy/4hogwADYqwdzxy5BuwAAAABJRU5ErkJggg==);background-repeat:repeat-y;background-size:10px 16px}"; }
-};
-const getParentElement = (el) => {
-    if (el.parentElement) {
-        // normal element with a parent element
-        return el.parentElement;
-    }
-    if (el.parentNode && el.parentNode.host) {
-        // shadow dom's document fragment
-        return el.parentNode.host;
     }
     return null;
 };
-const getPageElement = (el) => {
-    const tabs = el.closest('ion-tabs');
-    if (tabs) {
-        return tabs;
+const getNamedUrl = (iconName) => {
+    const url = getIconMap().get(iconName);
+    if (url) {
+        return url;
     }
-    const page = el.closest('ion-app,ion-page,.ion-page,page-inner');
-    if (page) {
-        return page;
-    }
-    return getParentElement(el);
+    return Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["k"])(`svg/${iconName}.svg`);
 };
-// ******** DOM READ ****************
-const updateScrollDetail = (detail, el, timestamp, shouldStart) => {
-    const prevX = detail.currentX;
-    const prevY = detail.currentY;
-    const prevT = detail.timeStamp;
-    const currentX = el.scrollLeft;
-    const currentY = el.scrollTop;
-    const timeDelta = timestamp - prevT;
-    if (shouldStart) {
-        // remember the start positions
-        detail.startTimeStamp = timestamp;
-        detail.startX = currentX;
-        detail.startY = currentY;
-        detail.velocityX = detail.velocityY = 0;
+const getName = (iconName, icon, mode, ios, md) => {
+    // default to "md" if somehow the mode wasn't set
+    mode = (mode && toLower(mode)) === 'ios' ? 'ios' : 'md';
+    // if an icon was passed in using the ios or md attributes
+    // set the iconName to whatever was passed in
+    if (ios && mode === 'ios') {
+        iconName = toLower(ios);
     }
-    detail.timeStamp = timestamp;
-    detail.currentX = detail.scrollLeft = currentX;
-    detail.currentY = detail.scrollTop = currentY;
-    detail.deltaX = currentX - detail.startX;
-    detail.deltaY = currentY - detail.startY;
-    if (timeDelta > 0 && timeDelta < 100) {
-        const velocityX = (currentX - prevX) / timeDelta;
-        const velocityY = (currentY - prevY) / timeDelta;
-        detail.velocityX = velocityX * 0.7 + detail.velocityX * 0.3;
-        detail.velocityY = velocityY * 0.7 + detail.velocityY * 0.3;
-    }
-};
-
-const Footer = class {
-    constructor(hostRef) {
-        Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["r"])(this, hostRef);
-        /**
-         * If `true`, the footer will be translucent.
-         * Only applies when the mode is `"ios"` and the device supports
-         * [`backdrop-filter`](https://developer.mozilla.org/en-US/docs/Web/CSS/backdrop-filter#Browser_compatibility).
-         *
-         * Note: In order to scroll content behind the footer, the `fullscreen`
-         * attribute needs to be set on the content.
-         */
-        this.translucent = false;
-    }
-    render() {
-        const mode = Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this);
-        const translucent = this.translucent;
-        return (Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["h"])(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["H"], { role: "contentinfo", class: {
-                [mode]: true,
-                // Used internally for styling
-                [`footer-${mode}`]: true,
-                [`footer-translucent`]: translucent,
-                [`footer-translucent-${mode}`]: translucent,
-            } }));
-    }
-    static get style() { return "ion-footer{display:block;position:relative;-ms-flex-order:1;order:1;width:100%;z-index:10}ion-footer ion-toolbar:last-child{padding-bottom:var(--ion-safe-area-bottom,0)}.footer-md:before{left:0;top:-2px;bottom:auto;background-position:left 0 top 0;position:absolute;width:100%;height:2px;background-image:url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAHBAMAAADzDtBxAAAAD1BMVEUAAAAAAAAAAAAAAAAAAABPDueNAAAABXRSTlMUCS0gBIh/TXEAAAAaSURBVAjXYxCEAgY4UIICBmMogMsgFLtAAQCNSwXZKOdPxgAAAABJRU5ErkJggg==\");background-repeat:repeat-x;content:\"\"}:host-context([dir=rtl]) .footer-md:before,[dir=rtl] .footer-md:before{left:unset;right:unset;right:0;background-position:right 0 top 0}.footer-md[no-border]:before{display:none}"; }
-};
-
-const TRANSITION = 'all 0.2s ease-in-out';
-const cloneElement = (tagName) => {
-    const getCachedEl = document.querySelector(`${tagName}.ion-cloned-element`);
-    if (getCachedEl !== null) {
-        return getCachedEl;
-    }
-    const clonedEl = document.createElement(tagName);
-    clonedEl.classList.add('ion-cloned-element');
-    clonedEl.style.setProperty('display', 'none');
-    document.body.appendChild(clonedEl);
-    return clonedEl;
-};
-const createHeaderIndex = (headerEl) => {
-    if (!headerEl) {
-        return;
-    }
-    const toolbars = headerEl.querySelectorAll('ion-toolbar');
-    return {
-        el: headerEl,
-        toolbars: Array.from(toolbars).map((toolbar) => {
-            const ionTitleEl = toolbar.querySelector('ion-title');
-            return {
-                el: toolbar,
-                background: toolbar.shadowRoot.querySelector('.toolbar-background'),
-                ionTitleEl,
-                innerTitleEl: (ionTitleEl) ? ionTitleEl.shadowRoot.querySelector('.toolbar-title') : null,
-                ionButtonsEl: Array.from(toolbar.querySelectorAll('ion-buttons')) || []
-            };
-        }) || [[]]
-    };
-};
-const handleContentScroll = (scrollEl, scrollHeaderIndex) => {
-    Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["f"])(() => {
-        const scrollTop = scrollEl.scrollTop;
-        const scale = Object(_helpers_46f4a262_js__WEBPACK_IMPORTED_MODULE_2__["c"])(1, 1 + (-scrollTop / 500), 1.1);
-        Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["w"])(() => {
-            scaleLargeTitles(scrollHeaderIndex.toolbars, scale);
-        });
-    });
-};
-const setToolbarBackgroundOpacity = (toolbar, opacity) => {
-    if (opacity === undefined) {
-        toolbar.background.style.removeProperty('--opacity');
+    else if (md && mode === 'md') {
+        iconName = toLower(md);
     }
     else {
-        toolbar.background.style.setProperty('--opacity', opacity.toString());
+        if (!iconName && icon && !isSrc(icon)) {
+            iconName = icon;
+        }
+        if (isStr(iconName)) {
+            iconName = toLower(iconName);
+        }
     }
-};
-const handleToolbarBorderIntersection = (ev, mainHeaderIndex) => {
-    if (!ev[0].isIntersecting) {
-        return;
+    if (!isStr(iconName) || iconName.trim() === '') {
+        return null;
     }
-    const scale = ((1 - ev[0].intersectionRatio) * 100) / 75;
-    setToolbarBackgroundOpacity(mainHeaderIndex.toolbars[0], (scale === 1) ? undefined : scale);
+    // only allow alpha characters and dash
+    const invalidChars = iconName.replace(/[a-z]|-|\d/gi, '');
+    if (invalidChars !== '') {
+        return null;
+    }
+    return iconName;
 };
-/**
- * If toolbars are intersecting, hide the scrollable toolbar content
- * and show the primary toolbar content. If the toolbars are not intersecting,
- * hide the primary toolbar content and show the scrollable toolbar content
- */
-const handleToolbarIntersection = (ev, mainHeaderIndex, scrollHeaderIndex) => {
-    Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["w"])(() => {
-        handleToolbarBorderIntersection(ev, mainHeaderIndex);
-        const event = ev[0];
-        const intersection = event.intersectionRect;
-        const intersectionArea = intersection.width * intersection.height;
-        const rootArea = event.rootBounds.width * event.rootBounds.height;
-        const isPageHidden = intersectionArea === 0 && rootArea === 0;
-        const leftDiff = Math.abs(intersection.left - event.boundingClientRect.left);
-        const rightDiff = Math.abs(intersection.right - event.boundingClientRect.right);
-        const isPageTransitioning = intersectionArea > 0 && (leftDiff >= 5 || rightDiff >= 5);
-        if (isPageHidden || isPageTransitioning) {
-            return;
+const getSrc = (src) => {
+    if (isStr(src)) {
+        src = src.trim();
+        if (isSrc(src)) {
+            return src;
         }
-        if (event.isIntersecting) {
-            setHeaderActive(mainHeaderIndex, false);
-            setHeaderActive(scrollHeaderIndex);
-        }
-        else {
-            /**
-             * There is a bug with IntersectionObserver on Safari
-             * where `event.isIntersecting === false` when cancelling
-             * a swipe to go back gesture. Checking the intersection
-             * x, y, width, and height provides a workaround. This bug
-             * does not happen when using Safari + Web Animations,
-             * only Safari + CSS Animations.
-             */
-            const hasValidIntersection = (intersection.x === 0 && intersection.y === 0) || (intersection.width !== 0 && intersection.height !== 0);
-            if (hasValidIntersection) {
-                setHeaderActive(mainHeaderIndex);
-                setHeaderActive(scrollHeaderIndex, false);
-                setToolbarBackgroundOpacity(mainHeaderIndex.toolbars[0], 1);
-            }
-        }
-    });
+    }
+    return null;
 };
-const setHeaderActive = (headerIndex, active = true) => {
-    Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["w"])(() => {
-        if (active) {
-            headerIndex.el.classList.remove('header-collapse-condense-inactive');
+const isSrc = (str) => str.length > 0 && /(\/|\.)/.test(str);
+const isStr = (val) => typeof val === 'string';
+const toLower = (val) => val.toLowerCase();
+
+const buttonIosCss = ":host{--overflow:hidden;--ripple-color:currentColor;--border-width:initial;--border-color:initial;--border-style:initial;--color-activated:var(--color);--color-focused:var(--color);--color-hover:var(--color);--box-shadow:none;display:inline-block;width:auto;color:var(--color);font-family:var(--ion-font-family, inherit);text-align:center;text-decoration:none;text-overflow:ellipsis;white-space:nowrap;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;vertical-align:top;vertical-align:-webkit-baseline-middle;pointer-events:auto;-webkit-font-kerning:none;font-kerning:none}:host(.button-disabled){cursor:default;opacity:0.5;pointer-events:none}:host(.button-solid){--background:var(--ion-color-primary, #3880ff);--color:var(--ion-color-primary-contrast, #fff)}:host(.button-outline){--border-color:var(--ion-color-primary, #3880ff);--background:transparent;--color:var(--ion-color-primary, #3880ff)}:host(.button-clear){--border-width:0;--background:transparent;--color:var(--ion-color-primary, #3880ff)}:host(.button-block){display:block}:host(.button-block) .button-native{margin-left:0;margin-right:0;display:block;width:100%;clear:both;contain:content}:host(.button-block) .button-native::after{clear:both}:host(.button-full){display:block}:host(.button-full) .button-native{margin-left:0;margin-right:0;display:block;width:100%;contain:content}:host(.button-full:not(.button-round)) .button-native{border-radius:0;border-right-width:0;border-left-width:0}.button-native{border-radius:var(--border-radius);-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;margin-left:0;margin-right:0;margin-top:0;margin-bottom:0;padding-left:var(--padding-start);padding-right:var(--padding-end);padding-top:var(--padding-top);padding-bottom:var(--padding-bottom);font-family:inherit;font-size:inherit;font-style:inherit;font-weight:inherit;letter-spacing:inherit;text-decoration:inherit;text-indent:inherit;text-overflow:inherit;text-transform:inherit;text-align:inherit;white-space:inherit;color:inherit;display:block;position:relative;width:100%;height:100%;-webkit-transition:var(--transition);transition:var(--transition);border-width:var(--border-width);border-style:var(--border-style);border-color:var(--border-color);outline:none;background:var(--background);line-height:1;-webkit-box-shadow:var(--box-shadow);box-shadow:var(--box-shadow);contain:layout style;cursor:pointer;opacity:var(--opacity);overflow:var(--overflow);z-index:0;-webkit-box-sizing:border-box;box-sizing:border-box;-webkit-appearance:none;-moz-appearance:none;appearance:none}@supports ((-webkit-margin-start: 0) or (margin-inline-start: 0)) or (-webkit-margin-start: 0){.button-native{padding-left:unset;padding-right:unset;-webkit-padding-start:var(--padding-start);padding-inline-start:var(--padding-start);-webkit-padding-end:var(--padding-end);padding-inline-end:var(--padding-end)}}.button-native::-moz-focus-inner{border:0}.button-inner{display:-ms-flexbox;display:flex;position:relative;-ms-flex-flow:row nowrap;flex-flow:row nowrap;-ms-flex-negative:0;flex-shrink:0;-ms-flex-align:center;align-items:center;-ms-flex-pack:center;justify-content:center;width:100%;height:100%;z-index:1}::slotted(ion-icon){font-size:1.4em;pointer-events:none}::slotted(ion-icon[slot=start]){margin-left:-0.3em;margin-right:0.3em;margin-top:0;margin-bottom:0}@supports ((-webkit-margin-start: 0) or (margin-inline-start: 0)) or (-webkit-margin-start: 0){::slotted(ion-icon[slot=start]){margin-left:unset;margin-right:unset;-webkit-margin-start:-0.3em;margin-inline-start:-0.3em;-webkit-margin-end:0.3em;margin-inline-end:0.3em}}::slotted(ion-icon[slot=end]){margin-left:0.3em;margin-right:-0.2em;margin-top:0;margin-bottom:0}@supports ((-webkit-margin-start: 0) or (margin-inline-start: 0)) or (-webkit-margin-start: 0){::slotted(ion-icon[slot=end]){margin-left:unset;margin-right:unset;-webkit-margin-start:0.3em;margin-inline-start:0.3em;-webkit-margin-end:-0.2em;margin-inline-end:-0.2em}}::slotted(ion-icon[slot=icon-only]){font-size:1.8em}ion-ripple-effect{color:var(--ripple-color)}.button-native::after{left:0;right:0;top:0;bottom:0;position:absolute;content:\"\";opacity:0}:host(.ion-activated){color:var(--color-activated)}:host(.ion-activated) .button-native::after{background:var(--background-activated);opacity:var(--background-activated-opacity)}:host(.ion-focused){color:var(--color-focused)}:host(.ion-focused) .button-native::after{background:var(--background-focused);opacity:var(--background-focused-opacity)}@media (any-hover: hover){:host(:hover){color:var(--color-hover)}:host(:hover) .button-native::after{background:var(--background-hover);opacity:var(--background-hover-opacity)}}:host(.button-solid.ion-color) .button-native{background:var(--ion-color-base);color:var(--ion-color-contrast)}:host(.button-outline.ion-color) .button-native{border-color:var(--ion-color-base);background:transparent;color:var(--ion-color-base)}:host(.button-clear.ion-color) .button-native{background:transparent;color:var(--ion-color-base)}:host(.in-toolbar:not(.ion-color):not(.in-toolbar-color)) .button-native{color:var(--ion-toolbar-color, var(--color))}:host(.button-outline.in-toolbar:not(.ion-color):not(.in-toolbar-color)) .button-native{border-color:var(--ion-toolbar-color, var(--color, var(--border-color)))}:host(.button-solid.in-toolbar:not(.ion-color):not(.in-toolbar-color)) .button-native{background:var(--ion-toolbar-color, var(--background));color:var(--ion-toolbar-background, var(--color))}:host{--border-radius:10px;--padding-top:0;--padding-bottom:0;--padding-start:1em;--padding-end:1em;--transition:background-color, opacity 100ms linear;margin-left:2px;margin-right:2px;margin-top:4px;margin-bottom:4px;height:2.8em;font-size:16px;font-weight:500;letter-spacing:-0.03em}@supports ((-webkit-margin-start: 0) or (margin-inline-start: 0)) or (-webkit-margin-start: 0){:host{margin-left:unset;margin-right:unset;-webkit-margin-start:2px;margin-inline-start:2px;-webkit-margin-end:2px;margin-inline-end:2px}}:host(.button-solid){--background-activated:var(--ion-color-primary-shade, #3171e0);--background-focused:var(--ion-color-primary-shade, #3171e0);--background-hover:var(--ion-color-primary-tint, #4c8dff);--background-activated-opacity:1;--background-focused-opacity:1;--background-hover-opacity:1}:host(.button-outline){--border-radius:10px;--border-width:1px;--border-style:solid;--background-activated:var(--ion-color-primary, #3880ff);--background-focused:var(--ion-color-primary, #3880ff);--background-hover:transparent;--background-focused-opacity:.1;--color-activated:var(--ion-color-primary-contrast, #fff)}:host(.button-clear){--background-activated:transparent;--background-focused:var(--ion-color-primary, #3880ff);--background-hover:transparent;--background-focused-opacity:.1;font-size:17px;font-weight:normal;letter-spacing:0}:host(.button-large){--border-radius:12px;--padding-top:0;--padding-start:1em;--padding-end:1em;--padding-bottom:0;height:2.8em;font-size:20px}:host(.button-small){--border-radius:6px;--padding-top:0;--padding-start:0.9em;--padding-end:0.9em;--padding-bottom:0;height:2.1em;font-size:13px}:host(.button-round){--border-radius:64px;--padding-top:0;--padding-start:26px;--padding-end:26px;--padding-bottom:0}:host(.button-strong){font-weight:600}:host(.button-clear.ion-activated){opacity:0.4}:host(.button-outline.ion-activated.ion-color) .button-native{color:var(--ion-color-contrast)}:host(.button-outline.ion-activated.ion-color) .button-native::after{background:var(--ion-color-base)}:host(.button-solid.ion-color.ion-activated) .button-native::after{background:var(--ion-color-shade)}:host(.button-outline.ion-focused.ion-color) .button-native,:host(.button-clear.ion-focused.ion-color) .button-native{color:var(--ion-color-base)}:host(.button-outline.ion-focused.ion-color) .button-native::after,:host(.button-clear.ion-focused.ion-color) .button-native::after{background:var(--ion-color-base)}:host(.button-solid.ion-color.ion-focused) .button-native::after{background:var(--ion-color-shade)}@media (any-hover: hover){:host(.button-clear:hover),:host(.button-outline:hover){opacity:0.6}:host(.button-clear.ion-color:hover) .button-native,:host(.button-outline.ion-color:hover) .button-native{color:var(--ion-color-base)}:host(.button-clear.ion-color:hover) .button-native::after,:host(.button-outline.ion-color:hover) .button-native::after{background:transparent}:host(.button-solid.ion-color:hover) .button-native::after{background:var(--ion-color-tint)}:host(:hover.button-solid.in-toolbar:not(.ion-color):not(.in-toolbar-color)) .button-native::after{background:#fff;opacity:0.1}}";
+
+const buttonMdCss = ":host{--overflow:hidden;--ripple-color:currentColor;--border-width:initial;--border-color:initial;--border-style:initial;--color-activated:var(--color);--color-focused:var(--color);--color-hover:var(--color);--box-shadow:none;display:inline-block;width:auto;color:var(--color);font-family:var(--ion-font-family, inherit);text-align:center;text-decoration:none;text-overflow:ellipsis;white-space:nowrap;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;vertical-align:top;vertical-align:-webkit-baseline-middle;pointer-events:auto;-webkit-font-kerning:none;font-kerning:none}:host(.button-disabled){cursor:default;opacity:0.5;pointer-events:none}:host(.button-solid){--background:var(--ion-color-primary, #3880ff);--color:var(--ion-color-primary-contrast, #fff)}:host(.button-outline){--border-color:var(--ion-color-primary, #3880ff);--background:transparent;--color:var(--ion-color-primary, #3880ff)}:host(.button-clear){--border-width:0;--background:transparent;--color:var(--ion-color-primary, #3880ff)}:host(.button-block){display:block}:host(.button-block) .button-native{margin-left:0;margin-right:0;display:block;width:100%;clear:both;contain:content}:host(.button-block) .button-native::after{clear:both}:host(.button-full){display:block}:host(.button-full) .button-native{margin-left:0;margin-right:0;display:block;width:100%;contain:content}:host(.button-full:not(.button-round)) .button-native{border-radius:0;border-right-width:0;border-left-width:0}.button-native{border-radius:var(--border-radius);-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;margin-left:0;margin-right:0;margin-top:0;margin-bottom:0;padding-left:var(--padding-start);padding-right:var(--padding-end);padding-top:var(--padding-top);padding-bottom:var(--padding-bottom);font-family:inherit;font-size:inherit;font-style:inherit;font-weight:inherit;letter-spacing:inherit;text-decoration:inherit;text-indent:inherit;text-overflow:inherit;text-transform:inherit;text-align:inherit;white-space:inherit;color:inherit;display:block;position:relative;width:100%;height:100%;-webkit-transition:var(--transition);transition:var(--transition);border-width:var(--border-width);border-style:var(--border-style);border-color:var(--border-color);outline:none;background:var(--background);line-height:1;-webkit-box-shadow:var(--box-shadow);box-shadow:var(--box-shadow);contain:layout style;cursor:pointer;opacity:var(--opacity);overflow:var(--overflow);z-index:0;-webkit-box-sizing:border-box;box-sizing:border-box;-webkit-appearance:none;-moz-appearance:none;appearance:none}@supports ((-webkit-margin-start: 0) or (margin-inline-start: 0)) or (-webkit-margin-start: 0){.button-native{padding-left:unset;padding-right:unset;-webkit-padding-start:var(--padding-start);padding-inline-start:var(--padding-start);-webkit-padding-end:var(--padding-end);padding-inline-end:var(--padding-end)}}.button-native::-moz-focus-inner{border:0}.button-inner{display:-ms-flexbox;display:flex;position:relative;-ms-flex-flow:row nowrap;flex-flow:row nowrap;-ms-flex-negative:0;flex-shrink:0;-ms-flex-align:center;align-items:center;-ms-flex-pack:center;justify-content:center;width:100%;height:100%;z-index:1}::slotted(ion-icon){font-size:1.4em;pointer-events:none}::slotted(ion-icon[slot=start]){margin-left:-0.3em;margin-right:0.3em;margin-top:0;margin-bottom:0}@supports ((-webkit-margin-start: 0) or (margin-inline-start: 0)) or (-webkit-margin-start: 0){::slotted(ion-icon[slot=start]){margin-left:unset;margin-right:unset;-webkit-margin-start:-0.3em;margin-inline-start:-0.3em;-webkit-margin-end:0.3em;margin-inline-end:0.3em}}::slotted(ion-icon[slot=end]){margin-left:0.3em;margin-right:-0.2em;margin-top:0;margin-bottom:0}@supports ((-webkit-margin-start: 0) or (margin-inline-start: 0)) or (-webkit-margin-start: 0){::slotted(ion-icon[slot=end]){margin-left:unset;margin-right:unset;-webkit-margin-start:0.3em;margin-inline-start:0.3em;-webkit-margin-end:-0.2em;margin-inline-end:-0.2em}}::slotted(ion-icon[slot=icon-only]){font-size:1.8em}ion-ripple-effect{color:var(--ripple-color)}.button-native::after{left:0;right:0;top:0;bottom:0;position:absolute;content:\"\";opacity:0}:host(.ion-activated){color:var(--color-activated)}:host(.ion-activated) .button-native::after{background:var(--background-activated);opacity:var(--background-activated-opacity)}:host(.ion-focused){color:var(--color-focused)}:host(.ion-focused) .button-native::after{background:var(--background-focused);opacity:var(--background-focused-opacity)}@media (any-hover: hover){:host(:hover){color:var(--color-hover)}:host(:hover) .button-native::after{background:var(--background-hover);opacity:var(--background-hover-opacity)}}:host(.button-solid.ion-color) .button-native{background:var(--ion-color-base);color:var(--ion-color-contrast)}:host(.button-outline.ion-color) .button-native{border-color:var(--ion-color-base);background:transparent;color:var(--ion-color-base)}:host(.button-clear.ion-color) .button-native{background:transparent;color:var(--ion-color-base)}:host(.in-toolbar:not(.ion-color):not(.in-toolbar-color)) .button-native{color:var(--ion-toolbar-color, var(--color))}:host(.button-outline.in-toolbar:not(.ion-color):not(.in-toolbar-color)) .button-native{border-color:var(--ion-toolbar-color, var(--color, var(--border-color)))}:host(.button-solid.in-toolbar:not(.ion-color):not(.in-toolbar-color)) .button-native{background:var(--ion-toolbar-color, var(--background));color:var(--ion-toolbar-background, var(--color))}:host{--border-radius:4px;--padding-top:0;--padding-bottom:0;--padding-start:1.1em;--padding-end:1.1em;--transition:box-shadow 280ms cubic-bezier(.4, 0, .2, 1),\n                background-color 15ms linear,\n                color 15ms linear;margin-left:2px;margin-right:2px;margin-top:4px;margin-bottom:4px;height:36px;font-size:14px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase}@supports ((-webkit-margin-start: 0) or (margin-inline-start: 0)) or (-webkit-margin-start: 0){:host{margin-left:unset;margin-right:unset;-webkit-margin-start:2px;margin-inline-start:2px;-webkit-margin-end:2px;margin-inline-end:2px}}:host(.button-solid){--background-activated:transparent;--background-hover:var(--ion-color-primary-contrast, #fff);--background-focused:var(--ion-color-primary-contrast, #fff);--background-activated-opacity:0;--background-focused-opacity:.24;--background-hover-opacity:.08;--box-shadow:0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12)}:host(.button-solid.ion-activated){--box-shadow:0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12)}:host(.button-outline){--border-width:2px;--border-style:solid;--box-shadow:none;--background-activated:transparent;--background-focused:var(--ion-color-primary, #3880ff);--background-hover:var(--ion-color-primary, #3880ff);--background-activated-opacity:0;--background-focused-opacity:.12;--background-hover-opacity:.04}:host(.button-outline.ion-activated.ion-color) .button-native{background:transparent}:host(.button-clear){--background-activated:transparent;--background-focused:var(--ion-color-primary, #3880ff);--background-hover:var(--ion-color-primary, #3880ff);--background-activated-opacity:0;--background-focused-opacity:.12;--background-hover-opacity:.04}:host(.button-round){--border-radius:64px;--padding-top:0;--padding-start:26px;--padding-end:26px;--padding-bottom:0}:host(.button-large){--padding-top:0;--padding-start:1em;--padding-end:1em;--padding-bottom:0;height:2.8em;font-size:20px}:host(.button-small){--padding-top:0;--padding-start:0.9em;--padding-end:0.9em;--padding-bottom:0;height:2.1em;font-size:13px}:host(.button-strong){font-weight:bold}::slotted(ion-icon[slot=icon-only]){padding-left:0;padding-right:0;padding-top:0;padding-bottom:0}:host(.button-solid.ion-color.ion-focused) .button-native::after{background:var(--ion-color-contrast);opacity:0.24}:host(.button-clear.ion-color.ion-focused) .button-native::after,:host(.button-outline.ion-color.ion-focused) .button-native::after{background:var(--ion-color-base);opacity:0.12}@media (any-hover: hover){:host(.button-solid.ion-color:hover) .button-native::after{background:var(--ion-color-contrast);opacity:0.08}:host(.button-clear.ion-color:hover) .button-native::after,:host(.button-outline.ion-color:hover) .button-native::after{background:var(--ion-color-base);opacity:0.04}}";
+
+const Button = class {
+  constructor(hostRef) {
+    Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["r"])(this, hostRef);
+    this.ionFocus = Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this, "ionFocus", 7);
+    this.ionBlur = Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this, "ionBlur", 7);
+    this.inItem = false;
+    this.inListHeader = false;
+    this.inToolbar = false;
+    this.inheritedAttributes = {};
+    /**
+     * The type of button.
+     */
+    this.buttonType = 'button';
+    /**
+     * If `true`, the user cannot interact with the button.
+     */
+    this.disabled = false;
+    /**
+     * When using a router, it specifies the transition direction when navigating to
+     * another page using `href`.
+     */
+    this.routerDirection = 'forward';
+    /**
+     * If `true`, activates a button with a heavier font weight.
+     */
+    this.strong = false;
+    /**
+     * The type of the button.
+     */
+    this.type = 'button';
+    this.handleClick = (ev) => {
+      if (this.type === 'button') {
+        Object(_theme_ff3fc52f_js__WEBPACK_IMPORTED_MODULE_3__["o"])(this.href, ev, this.routerDirection, this.routerAnimation);
+      }
+      else if (Object(_helpers_90f46169_js__WEBPACK_IMPORTED_MODULE_2__["j"])(this.el)) {
+        // this button wants to specifically submit a form
+        // climb up the dom to see if we're in a <form>
+        // and if so, then use JS to submit it
+        const form = this.el.closest('form');
+        if (form) {
+          ev.preventDefault();
+          const fakeButton = document.createElement('button');
+          fakeButton.type = this.type;
+          fakeButton.style.display = 'none';
+          form.appendChild(fakeButton);
+          fakeButton.click();
+          fakeButton.remove();
         }
-        else {
-            headerIndex.el.classList.add('header-collapse-condense-inactive');
-        }
-    });
+      }
+    };
+    this.onFocus = () => {
+      this.ionFocus.emit();
+    };
+    this.onBlur = () => {
+      this.ionBlur.emit();
+    };
+  }
+  componentWillLoad() {
+    this.inToolbar = !!this.el.closest('ion-buttons');
+    this.inListHeader = !!this.el.closest('ion-list-header');
+    this.inItem = !!this.el.closest('ion-item') || !!this.el.closest('ion-item-divider');
+    this.inheritedAttributes = Object(_helpers_90f46169_js__WEBPACK_IMPORTED_MODULE_2__["i"])(this.el, ['aria-label']);
+  }
+  get hasIconOnly() {
+    return !!this.el.querySelector('[slot="icon-only"]');
+  }
+  get rippleType() {
+    const hasClearFill = this.fill === undefined || this.fill === 'clear';
+    // If the button is in a toolbar, has a clear fill (which is the default)
+    // and only has an icon we use the unbounded "circular" ripple effect
+    if (hasClearFill && this.hasIconOnly && this.inToolbar) {
+      return 'unbounded';
+    }
+    return 'bounded';
+  }
+  render() {
+    const mode = Object(_ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this);
+    const { buttonType, type, disabled, rel, target, size, href, color, expand, hasIconOnly, shape, strong, inheritedAttributes } = this;
+    const finalSize = size === undefined && this.inItem ? 'small' : size;
+    const TagType = href === undefined ? 'button' : 'a';
+    const attrs = (TagType === 'button')
+      ? { type }
+      : {
+        download: this.download,
+        href,
+        rel,
+        target
+      };
+    let fill = this.fill;
+    if (fill === undefined) {
+      fill = this.inToolbar || this.inListHeader ? 'clear' : 'solid';
+    }
+    return (Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["H"], { onClick: this.handleClick, "aria-disabled": disabled ? 'true' : null, class: Object(_theme_ff3fc52f_js__WEBPACK_IMPORTED_MODULE_3__["c"])(color, {
+        [mode]: true,
+        [buttonType]: true,
+        [`${buttonType}-${expand}`]: expand !== undefined,
+        [`${buttonType}-${finalSize}`]: finalSize !== undefined,
+        [`${buttonType}-${shape}`]: shape !== undefined,
+        [`${buttonType}-${fill}`]: true,
+        [`${buttonType}-strong`]: strong,
+        'in-toolbar': Object(_theme_ff3fc52f_js__WEBPACK_IMPORTED_MODULE_3__["h"])('ion-toolbar', this.el),
+        'in-toolbar-color': Object(_theme_ff3fc52f_js__WEBPACK_IMPORTED_MODULE_3__["h"])('ion-toolbar[color]', this.el),
+        'button-has-icon-only': hasIconOnly,
+        'button-disabled': disabled,
+        'ion-activatable': true,
+        'ion-focusable': true,
+      }) }, Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])(TagType, Object.assign({}, attrs, { class: "button-native", part: "native", disabled: disabled, onFocus: this.onFocus, onBlur: this.onBlur }, inheritedAttributes), Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("span", { class: "button-inner" }, Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("slot", { name: "icon-only" }), Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("slot", { name: "start" }), Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("slot", null), Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("slot", { name: "end" })), mode === 'md' && Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("ion-ripple-effect", { type: this.rippleType }))));
+  }
+  get el() { return Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["i"])(this); }
 };
-const scaleLargeTitles = (toolbars = [], scale = 1, transition = false) => {
-    toolbars.forEach(toolbar => {
-        const ionTitle = toolbar.ionTitleEl;
-        const titleDiv = toolbar.innerTitleEl;
-        if (!ionTitle || ionTitle.size !== 'large') {
-            return;
-        }
-        titleDiv.style.transformOrigin = 'left center';
-        titleDiv.style.transition = (transition) ? TRANSITION : '';
-        titleDiv.style.transform = `scale3d(${scale}, ${scale}, 1)`;
-    });
+Button.style = {
+  ios: buttonIosCss,
+  md: buttonMdCss
 };
 
-const Header = class {
-    constructor(hostRef) {
-        Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["r"])(this, hostRef);
-        this.collapsibleHeaderInitialized = false;
-        /**
-         * If `true`, the header will be translucent.
-         * Only applies when the mode is `"ios"` and the device supports
-         * [`backdrop-filter`](https://developer.mozilla.org/en-US/docs/Web/CSS/backdrop-filter#Browser_compatibility).
-         *
-         * Note: In order to scroll content behind the header, the `fullscreen`
-         * attribute needs to be set on the content.
-         */
-        this.translucent = false;
-    }
-    async componentDidLoad() {
-        await this.checkCollapsibleHeader();
-    }
-    async componentDidUpdate() {
-        await this.checkCollapsibleHeader();
-    }
-    componentDidUnload() {
-        this.destroyCollapsibleHeader();
-    }
-    async checkCollapsibleHeader() {
-        // Determine if the header can collapse
-        const hasCollapse = this.collapse === 'condense';
-        const canCollapse = (hasCollapse && Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this) === 'ios') ? hasCollapse : false;
-        if (!canCollapse && this.collapsibleHeaderInitialized) {
-            this.destroyCollapsibleHeader();
-        }
-        else if (canCollapse && !this.collapsibleHeaderInitialized) {
-            const pageEl = this.el.closest('ion-app,ion-page,.ion-page,page-inner');
-            const contentEl = (pageEl) ? pageEl.querySelector('ion-content') : null;
-            await this.setupCollapsibleHeader(contentEl, pageEl);
-        }
-    }
-    destroyCollapsibleHeader() {
-        if (this.intersectionObserver) {
-            this.intersectionObserver.disconnect();
-            this.intersectionObserver = undefined;
-        }
-        if (this.scrollEl && this.contentScrollCallback) {
-            this.scrollEl.removeEventListener('scroll', this.contentScrollCallback);
-            this.contentScrollCallback = undefined;
-        }
-    }
-    async setupCollapsibleHeader(contentEl, pageEl) {
-        if (!contentEl || !pageEl) {
-            console.error('ion-header requires a content to collapse, make sure there is an ion-content.');
-            return;
-        }
-        this.scrollEl = await contentEl.getScrollElement();
-        Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["f"])(() => {
-            const headers = pageEl.querySelectorAll('ion-header');
-            const mainHeader = Array.from(headers).find((header) => header.collapse !== 'condense');
-            if (!mainHeader || !this.scrollEl) {
-                return;
+const validateContent = (svgContent) => {
+    if (svgContent && typeof document !== 'undefined') {
+        const div = document.createElement('div');
+        div.innerHTML = svgContent;
+        // setup this way to ensure it works on our buddy IE
+        for (let i = div.childNodes.length - 1; i >= 0; i--) {
+            if (div.childNodes[i].nodeName.toLowerCase() !== 'svg') {
+                div.removeChild(div.childNodes[i]);
             }
-            const mainHeaderIndex = createHeaderIndex(mainHeader);
-            const scrollHeaderIndex = createHeaderIndex(this.el);
-            if (!mainHeaderIndex || !scrollHeaderIndex) {
-                return;
+        }
+        // must only have 1 root element
+        const svgElm = div.firstElementChild;
+        if (svgElm && svgElm.nodeName.toLowerCase() === 'svg') {
+            const svgClass = svgElm.getAttribute('class') || '';
+            svgElm.setAttribute('class', (svgClass + ' s-ion-icon').trim());
+            // root element must be an svg
+            // lets double check we've got valid elements
+            // do not allow scripts
+            if (isValid(svgElm)) {
+                return div.innerHTML;
             }
-            setHeaderActive(mainHeaderIndex, false);
-            Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["f"])(() => {
-                const mainHeaderHeight = mainHeaderIndex.el.clientHeight;
-                /**
-                 * Handle interaction between toolbar collapse and
-                 * showing/hiding content in the primary ion-header
-                 * as well as progressively showing/hiding the main header
-                 * border as the top-most toolbar collapses or expands.
-                 */
-                const toolbarIntersection = (ev) => { handleToolbarIntersection(ev, mainHeaderIndex, scrollHeaderIndex); };
-                this.intersectionObserver = new IntersectionObserver(toolbarIntersection, { threshold: [0.25, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1], rootMargin: `-${mainHeaderHeight}px 0px 0px 0px` });
-                this.intersectionObserver.observe(scrollHeaderIndex.toolbars[0].el);
+        }
+    }
+    return '';
+};
+const isValid = (elm) => {
+    if (elm.nodeType === 1) {
+        if (elm.nodeName.toLowerCase() === 'script') {
+            return false;
+        }
+        for (let i = 0; i < elm.attributes.length; i++) {
+            const val = elm.attributes[i].value;
+            if (isStr(val) && val.toLowerCase().indexOf('on') === 0) {
+                return false;
+            }
+        }
+        for (let i = 0; i < elm.childNodes.length; i++) {
+            if (!isValid(elm.childNodes[i])) {
+                return false;
+            }
+        }
+    }
+    return true;
+};
+
+const ioniconContent = new Map();
+const requests = new Map();
+const getSvgContent = (url) => {
+    // see if we already have a request for this url
+    let req = requests.get(url);
+    if (!req) {
+        if (typeof fetch !== 'undefined') {
+            // we don't already have a request
+            req = fetch(url).then(rsp => {
+                if (rsp.ok) {
+                    return rsp.text().then(svgContent => {
+                        ioniconContent.set(url, validateContent(svgContent));
+                    });
+                }
+                ioniconContent.set(url, '');
             });
-            /**
-             * Handle scaling of large iOS titles and
-             * showing/hiding border on last toolbar
-             * in primary header
-             */
-            this.contentScrollCallback = () => { handleContentScroll(this.scrollEl, scrollHeaderIndex); };
-            this.scrollEl.addEventListener('scroll', this.contentScrollCallback);
-        });
-        Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["w"])(() => {
-            cloneElement('ion-title');
-            cloneElement('ion-back-button');
-        });
-        this.collapsibleHeaderInitialized = true;
+            // cache for the same requests
+            requests.set(url, req);
+        }
+        else {
+            // set to empty for ssr scenarios and resolve promise
+            ioniconContent.set(url, '');
+            return Promise.resolve();
+        }
     }
-    render() {
-        const mode = Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this);
-        const collapse = this.collapse || 'none';
-        return (Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["h"])(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["H"], { role: "banner", class: {
-                [mode]: true,
-                // Used internally for styling
-                [`header-${mode}`]: true,
-                [`header-translucent`]: this.translucent,
-                [`header-collapse-${collapse}`]: true,
-                [`header-translucent-${mode}`]: this.translucent,
-            } }));
-    }
-    get el() { return Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this); }
-    static get style() { return "ion-header{display:block;position:relative;-ms-flex-order:-1;order:-1;width:100%;z-index:10}ion-header ion-toolbar:first-child{padding-top:var(--ion-safe-area-top,0)}.header-md:after{left:0;bottom:-5px;background-position:left 0 top -2px;position:absolute;width:100%;height:5px;background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAHBAMAAADzDtBxAAAAD1BMVEUAAAAAAAAAAAAAAAAAAABPDueNAAAABXRSTlMUCS0gBIh/TXEAAAAaSURBVAjXYxCEAgY4UIICBmMogMsgFLtAAQCNSwXZKOdPxgAAAABJRU5ErkJggg==);background-repeat:repeat-x;content:\"\"}:host-context([dir=rtl]) .header-md:after,[dir=rtl] .header-md:after{left:unset;right:unset;right:0;background-position:right 0 top -2px}.header-collapse-condense,.header-md[no-border]:after{display:none}"; }
+    return req;
 };
 
-const RouterOutlet = class {
-    constructor(hostRef) {
-        Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["r"])(this, hostRef);
-        this.animationEnabled = true;
-        /**
-         * The mode determines which platform styles to use.
-         */
-        this.mode = Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this);
-        /**
-         * If `true`, the router-outlet should animate the transition of components.
-         */
-        this.animated = true;
-        this.ionNavWillLoad = Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["d"])(this, "ionNavWillLoad", 7);
-        this.ionNavWillChange = Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["d"])(this, "ionNavWillChange", 3);
-        this.ionNavDidChange = Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["d"])(this, "ionNavDidChange", 3);
-    }
-    swipeHandlerChanged() {
-        if (this.gesture) {
-            this.gesture.setDisabled(this.swipeHandler === undefined);
-        }
-    }
-    async connectedCallback() {
-        this.gesture = (await __webpack_require__.e(/*! import() | swipe-back-35ad8e37-js */ "swipe-back-35ad8e37-js").then(__webpack_require__.bind(null, /*! ./swipe-back-35ad8e37.js */ "./node_modules/@ionic/core/dist/esm/swipe-back-35ad8e37.js"))).createSwipeBackGesture(this.el, () => !!this.swipeHandler && this.swipeHandler.canStart() && this.animationEnabled, () => this.swipeHandler && this.swipeHandler.onStart(), step => this.ani && this.ani.progressStep(step), (shouldComplete, step, dur) => {
-            if (this.ani) {
-                this.animationEnabled = false;
-                this.ani.onFinish(() => {
-                    this.animationEnabled = true;
-                    if (this.swipeHandler) {
-                        this.swipeHandler.onEnd(shouldComplete);
-                    }
-                }, { oneTimeCallback: true });
-                // Account for rounding errors in JS
-                let newStepValue = (shouldComplete) ? -0.001 : 0.001;
-                /**
-                 * Animation will be reversed here, so need to
-                 * reverse the easing curve as well
-                 *
-                 * Additionally, we need to account for the time relative
-                 * to the new easing curve, as `stepValue` is going to be given
-                 * in terms of a linear curve.
-                 */
-                if (!shouldComplete) {
-                    this.ani.easing('cubic-bezier(1, 0, 0.68, 0.28)');
-                    newStepValue += Object(_cubic_bezier_2812fda3_js__WEBPACK_IMPORTED_MODULE_7__["g"])(new _cubic_bezier_2812fda3_js__WEBPACK_IMPORTED_MODULE_7__["P"](0, 0), new _cubic_bezier_2812fda3_js__WEBPACK_IMPORTED_MODULE_7__["P"](1, 0), new _cubic_bezier_2812fda3_js__WEBPACK_IMPORTED_MODULE_7__["P"](0.68, 0.28), new _cubic_bezier_2812fda3_js__WEBPACK_IMPORTED_MODULE_7__["P"](1, 1), step);
-                }
-                else {
-                    newStepValue += Object(_cubic_bezier_2812fda3_js__WEBPACK_IMPORTED_MODULE_7__["g"])(new _cubic_bezier_2812fda3_js__WEBPACK_IMPORTED_MODULE_7__["P"](0, 0), new _cubic_bezier_2812fda3_js__WEBPACK_IMPORTED_MODULE_7__["P"](0.32, 0.72), new _cubic_bezier_2812fda3_js__WEBPACK_IMPORTED_MODULE_7__["P"](0, 1), new _cubic_bezier_2812fda3_js__WEBPACK_IMPORTED_MODULE_7__["P"](1, 1), step);
-                }
-                this.ani.progressEnd(shouldComplete ? 1 : 0, newStepValue, dur);
-            }
-        });
-        this.swipeHandlerChanged();
-    }
-    componentWillLoad() {
-        this.ionNavWillLoad.emit();
-    }
-    disconnectedCallback() {
-        if (this.gesture) {
-            this.gesture.destroy();
-            this.gesture = undefined;
-        }
-    }
-    /** @internal */
-    async commit(enteringEl, leavingEl, opts) {
-        const unlock = await this.lock();
-        let changed = false;
-        try {
-            changed = await this.transition(enteringEl, leavingEl, opts);
-        }
-        catch (e) {
-            console.error(e);
-        }
-        unlock();
-        return changed;
-    }
-    /** @internal */
-    async setRouteId(id, params, direction) {
-        const changed = await this.setRoot(id, params, {
-            duration: direction === 'root' ? 0 : undefined,
-            direction: direction === 'back' ? 'back' : 'forward',
-        });
-        return {
-            changed,
-            element: this.activeEl
-        };
-    }
-    /** @internal */
-    async getRouteId() {
-        const active = this.activeEl;
-        return active ? {
-            id: active.tagName,
-            element: active,
-        } : undefined;
-    }
-    async setRoot(component, params, opts) {
-        if (this.activeComponent === component) {
-            return false;
-        }
-        // attach entering view to DOM
-        const leavingEl = this.activeEl;
-        const enteringEl = await Object(_framework_delegate_c2e2e1f4_js__WEBPACK_IMPORTED_MODULE_5__["a"])(this.delegate, this.el, component, ['ion-page', 'ion-page-invisible'], params);
-        this.activeComponent = component;
-        this.activeEl = enteringEl;
-        // commit animation
-        await this.commit(enteringEl, leavingEl, opts);
-        await Object(_framework_delegate_c2e2e1f4_js__WEBPACK_IMPORTED_MODULE_5__["d"])(this.delegate, leavingEl);
-        return true;
-    }
-    async transition(enteringEl, leavingEl, opts = {}) {
-        if (leavingEl === enteringEl) {
-            return false;
-        }
-        // emit nav will change event
-        this.ionNavWillChange.emit();
-        const { el, mode } = this;
-        const animated = this.animated && _config_3c7f3790_js__WEBPACK_IMPORTED_MODULE_1__["b"].getBoolean('animated', true);
-        const animationBuilder = this.animation || opts.animationBuilder || _config_3c7f3790_js__WEBPACK_IMPORTED_MODULE_1__["b"].get('navAnimation');
-        await Object(_index_4d91f03a_js__WEBPACK_IMPORTED_MODULE_6__["t"])(Object.assign({ mode,
-            animated,
-            animationBuilder,
-            enteringEl,
-            leavingEl, baseEl: el, progressCallback: (opts.progressAnimation
-                ? ani => this.ani = ani
-                : undefined) }, opts));
-        // emit nav changed event
-        this.ionNavDidChange.emit();
-        return true;
-    }
-    async lock() {
-        const p = this.waitPromise;
-        let resolve;
-        this.waitPromise = new Promise(r => resolve = r);
-        if (p !== undefined) {
-            await p;
-        }
-        return resolve;
-    }
-    render() {
-        return (Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["h"])("slot", null));
-    }
-    get el() { return Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this); }
-    static get watchers() { return {
-        "swipeHandler": ["swipeHandlerChanged"]
-    }; }
-    static get style() { return ":host{left:0;right:0;top:0;bottom:0;position:absolute;contain:layout size style;overflow:hidden;z-index:0}"; }
-};
+const iconCss = ":host{display:inline-block;width:1em;height:1em;contain:strict;fill:currentColor;-webkit-box-sizing:content-box !important;box-sizing:content-box !important}:host .ionicon{stroke:currentColor}.ionicon-fill-none{fill:none}.ionicon-stroke-width{stroke-width:32px;stroke-width:var(--ionicon-stroke-width, 32px)}.icon-inner,.ionicon,svg{display:block;height:100%;width:100%}:host(.flip-rtl) .icon-inner{-webkit-transform:scaleX(-1);transform:scaleX(-1)}:host(.icon-small){font-size:18px !important}:host(.icon-large){font-size:32px !important}:host(.ion-color){color:var(--ion-color-base) !important}:host(.ion-color-primary){--ion-color-base:var(--ion-color-primary, #3880ff)}:host(.ion-color-secondary){--ion-color-base:var(--ion-color-secondary, #0cd1e8)}:host(.ion-color-tertiary){--ion-color-base:var(--ion-color-tertiary, #f4a942)}:host(.ion-color-success){--ion-color-base:var(--ion-color-success, #10dc60)}:host(.ion-color-warning){--ion-color-base:var(--ion-color-warning, #ffce00)}:host(.ion-color-danger){--ion-color-base:var(--ion-color-danger, #f14141)}:host(.ion-color-light){--ion-color-base:var(--ion-color-light, #f4f5f8)}:host(.ion-color-medium){--ion-color-base:var(--ion-color-medium, #989aa2)}:host(.ion-color-dark){--ion-color-base:var(--ion-color-dark, #222428)}";
 
-const ToolbarTitle = class {
-    constructor(hostRef) {
-        Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["r"])(this, hostRef);
-        this.ionStyle = Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["d"])(this, "ionStyle", 7);
+const Icon = class {
+  constructor(hostRef) {
+    Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["r"])(this, hostRef);
+    this.isVisible = false;
+    /**
+     * The mode determines which platform styles to use.
+     */
+    this.mode = getIonMode();
+    /**
+     * If enabled, ion-icon will be loaded lazily when it's visible in the viewport.
+     * Default, `false`.
+     */
+    this.lazy = false;
+  }
+  connectedCallback() {
+    // purposely do not return the promise here because loading
+    // the svg file should not hold up loading the app
+    // only load the svg if it's visible
+    this.waitUntilVisible(this.el, '50px', () => {
+      this.isVisible = true;
+      this.loadIcon();
+    });
+  }
+  disconnectedCallback() {
+    if (this.io) {
+      this.io.disconnect();
+      this.io = undefined;
     }
-    sizeChanged() {
-        this.emitStyle();
+  }
+  waitUntilVisible(el, rootMargin, cb) {
+    if ( this.lazy && typeof window !== 'undefined' && window.IntersectionObserver) {
+      const io = this.io = new window.IntersectionObserver((data) => {
+        if (data[0].isIntersecting) {
+          io.disconnect();
+          this.io = undefined;
+          cb();
+        }
+      }, { rootMargin });
+      io.observe(el);
     }
-    connectedCallback() {
-        this.emitStyle();
+    else {
+      // browser doesn't support IntersectionObserver
+      // so just fallback to always show it
+      cb();
     }
-    emitStyle() {
-        const size = this.getSize();
-        this.ionStyle.emit({
-            [`title-${size}`]: true
-        });
+  }
+  loadIcon() {
+    if ( this.isVisible) {
+      const url = getUrl(this);
+      if (url) {
+        if (ioniconContent.has(url)) {
+          // sync if it's already loaded
+          this.svgContent = ioniconContent.get(url);
+        }
+        else {
+          // async if it hasn't been loaded
+          getSvgContent(url).then(() => this.svgContent = ioniconContent.get(url));
+        }
+      }
     }
-    getSize() {
-        return (this.size !== undefined) ? this.size : 'default';
+    if (!this.ariaLabel) {
+      const label = getName(this.name, this.icon, this.mode, this.ios, this.md);
+      // user did not provide a label
+      // come up with the label based on the icon name
+      if (label) {
+        this.ariaLabel = label.replace(/\-/g, ' ');
+      }
     }
-    getMode() {
-        const mode = Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this);
-        const toolbar = this.el.closest('ion-toolbar');
-        return (toolbar && toolbar.mode) || mode;
-    }
-    render() {
-        const mode = this.getMode();
-        const size = this.getSize();
-        return (Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["h"])(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["H"], { class: Object.assign({ [mode]: true, [`title-${mode}`]: true, [`title-${size}`]: true }, Object(_theme_18cbe2cc_js__WEBPACK_IMPORTED_MODULE_4__["c"])(this.color)) }, Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "toolbar-title" }, Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["h"])("slot", null))));
-    }
-    get el() { return Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this); }
-    static get watchers() { return {
-        "size": ["sizeChanged"]
-    }; }
-    static get style() { return ":host{--color:initial;display:-ms-flexbox;display:flex;-ms-flex:1;flex:1;-ms-flex-align:center;align-items:center;-webkit-transform:translateZ(0);transform:translateZ(0);color:var(--color)}:host(.title-ios.title-default),:host(.title-ios.title-large){left:0;top:0;padding-left:90px;padding-right:90px;padding-top:0;padding-bottom:0;position:absolute;width:100%;height:100%;-webkit-transform:translateZ(0);transform:translateZ(0);font-size:17px;font-weight:600;text-align:center;-webkit-box-sizing:border-box;box-sizing:border-box;pointer-events:none}:host-context([dir=rtl]).title-ios.title-default,:host-context([dir=rtl]).title-ios.title-large,:host-context([dir=rtl]):host(.title-ios.title-default),:host-context([dir=rtl]):host(.title-ios.title-large){left:unset;right:unset;right:0}\@supports ((-webkit-margin-start:0) or (margin-inline-start:0)) or (-webkit-margin-start:0){:host(.title-ios.title-default),:host(.title-ios.title-large){padding-left:unset;padding-right:unset;-webkit-padding-start:90px;padding-inline-start:90px;-webkit-padding-end:90px;padding-inline-end:90px}}:host(.title-md){padding-left:20px;padding-right:20px;padding-top:0;padding-bottom:0;font-size:20px;font-weight:500;letter-spacing:.0125em}\@supports ((-webkit-margin-start:0) or (margin-inline-start:0)) or (-webkit-margin-start:0){:host(.title-md){padding-left:unset;padding-right:unset;-webkit-padding-start:20px;padding-inline-start:20px;-webkit-padding-end:20px;padding-inline-end:20px}}:host(.ion-color){color:var(--ion-color-base)}.toolbar-title{display:block;width:100%;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;pointer-events:auto}:host(.title-small) .toolbar-title{white-space:normal}:host(.title-ios.title-small){padding-left:9px;padding-right:9px;padding-top:6px;padding-bottom:16px;width:100%;height:100%;font-size:13px;text-align:center}\@supports ((-webkit-margin-start:0) or (margin-inline-start:0)) or (-webkit-margin-start:0){:host(.title-ios.title-small){padding-left:unset;padding-right:unset;-webkit-padding-start:9px;padding-inline-start:9px;-webkit-padding-end:9px;padding-inline-end:9px}}:host(.title-md.title-small){width:100%;height:100%;font-size:15px;font-weight:400}:host(.title-ios.title-large){padding-left:16px;padding-right:16px;padding-top:0;padding-bottom:0;bottom:0;-ms-flex-align:end;align-items:flex-end;min-width:100%;padding-bottom:6px;font-size:34px;font-weight:700;text-align:start}\@supports ((-webkit-margin-start:0) or (margin-inline-start:0)) or (-webkit-margin-start:0){:host(.title-ios.title-large){padding-left:unset;padding-right:unset;-webkit-padding-start:16px;padding-inline-start:16px;-webkit-padding-end:16px;padding-inline-end:16px}}"; }
+  }
+  render() {
+    const mode = this.mode || 'md';
+    const flipRtl = this.flipRtl || (this.ariaLabel && (this.ariaLabel.indexOf('arrow') > -1 || this.ariaLabel.indexOf('chevron') > -1) && this.flipRtl !== false);
+    return (Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["H"], { role: "img", class: Object.assign(Object.assign({ [mode]: true }, createColorClasses(this.color)), { [`icon-${this.size}`]: !!this.size, 'flip-rtl': !!flipRtl && this.el.ownerDocument.dir === 'rtl' }) }, (( this.svgContent)
+      ? Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "icon-inner", innerHTML: this.svgContent })
+      : Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "icon-inner" }))));
+  }
+  static get assetsDirs() { return ["svg"]; }
+  get el() { return Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["i"])(this); }
+  static get watchers() { return {
+    "name": ["loadIcon"],
+    "src": ["loadIcon"],
+    "icon": ["loadIcon"]
+  }; }
 };
-
-const Toolbar = class {
-    constructor(hostRef) {
-        Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["r"])(this, hostRef);
-        this.childrenStyles = new Map();
-    }
-    componentWillLoad() {
-        const buttons = Array.from(this.el.querySelectorAll('ion-buttons'));
-        const firstButtons = buttons.find(button => {
-            return button.slot === 'start';
-        });
-        if (firstButtons) {
-            firstButtons.classList.add('buttons-first-slot');
-        }
-        const buttonsReversed = buttons.reverse();
-        const lastButtons = buttonsReversed.find(button => button.slot === 'end') ||
-            buttonsReversed.find(button => button.slot === 'primary') ||
-            buttonsReversed.find(button => button.slot === 'secondary');
-        if (lastButtons) {
-            lastButtons.classList.add('buttons-last-slot');
-        }
-    }
-    childrenStyle(ev) {
-        ev.stopPropagation();
-        const tagName = ev.target.tagName;
-        const updatedStyles = ev.detail;
-        const newStyles = {};
-        const childStyles = this.childrenStyles.get(tagName) || {};
-        let hasStyleChange = false;
-        Object.keys(updatedStyles).forEach(key => {
-            const childKey = `toolbar-${key}`;
-            const newValue = updatedStyles[key];
-            if (newValue !== childStyles[childKey]) {
-                hasStyleChange = true;
-            }
-            if (newValue) {
-                newStyles[childKey] = true;
-            }
-        });
-        if (hasStyleChange) {
-            this.childrenStyles.set(tagName, newStyles);
-            this.el.forceUpdate();
-        }
-    }
-    render() {
-        const mode = Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this);
-        const childStyles = {};
-        this.childrenStyles.forEach(value => {
-            Object.assign(childStyles, value);
-        });
-        return (Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["h"])(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["H"], { class: Object.assign(Object.assign({ 'in-toolbar': Object(_theme_18cbe2cc_js__WEBPACK_IMPORTED_MODULE_4__["h"])('ion-toolbar', this.el), [mode]: true }, childStyles), Object(_theme_18cbe2cc_js__WEBPACK_IMPORTED_MODULE_4__["c"])(this.color)) }, Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "toolbar-background" }), Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "toolbar-container" }, Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["h"])("slot", { name: "start" }), Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["h"])("slot", { name: "secondary" }), Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "toolbar-content" }, Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["h"])("slot", null)), Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["h"])("slot", { name: "primary" }), Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["h"])("slot", { name: "end" }))));
-    }
-    get el() { return Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this); }
-    static get style() { return ":host{--border-width:0;--border-style:solid;--opacity:1;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;padding-left:var(--ion-safe-area-left);padding-right:var(--ion-safe-area-right);display:block;position:relative;width:100%;color:var(--color);font-family:var(--ion-font-family,inherit);contain:content;z-index:10;-webkit-box-sizing:border-box;box-sizing:border-box}\@supports ((-webkit-margin-start:0) or (margin-inline-start:0)) or (-webkit-margin-start:0){:host{padding-left:unset;padding-right:unset;-webkit-padding-start:var(--ion-safe-area-left);padding-inline-start:var(--ion-safe-area-left);-webkit-padding-end:var(--ion-safe-area-right);padding-inline-end:var(--ion-safe-area-right)}}:host(.ion-color){color:var(--ion-color-contrast)}:host(.ion-color) .toolbar-background{background:var(--ion-color-base)}.toolbar-container{padding-left:var(--padding-start);padding-right:var(--padding-end);padding-top:var(--padding-top);padding-bottom:var(--padding-bottom);display:-ms-flexbox;display:flex;position:relative;-ms-flex-direction:row;flex-direction:row;-ms-flex-align:center;align-items:center;-ms-flex-pack:justify;justify-content:space-between;width:100%;min-height:var(--min-height);contain:content;overflow:hidden;z-index:10;-webkit-box-sizing:border-box;box-sizing:border-box}\@supports ((-webkit-margin-start:0) or (margin-inline-start:0)) or (-webkit-margin-start:0){.toolbar-container{padding-left:unset;padding-right:unset;-webkit-padding-start:var(--padding-start);padding-inline-start:var(--padding-start);-webkit-padding-end:var(--padding-end);padding-inline-end:var(--padding-end)}}.toolbar-background{top:0;-webkit-transform:translateZ(0);transform:translateZ(0);border-width:var(--border-width);border-style:var(--border-style);border-color:var(--border-color);background:var(--background);contain:strict;opacity:var(--opacity);z-index:-1;pointer-events:none}.toolbar-background,::slotted(ion-progress-bar){left:0;right:0;bottom:0;position:absolute}:host{--background:var(--ion-toolbar-background,var(--ion-background-color,#fff));--color:var(--ion-toolbar-color,var(--ion-text-color,#424242));--border-color:var(--ion-toolbar-border-color,var(--ion-border-color,var(--ion-color-step-150,#c1c4cd)));--padding-top:0;--padding-bottom:0;--padding-start:0;--padding-end:0;--min-height:56px}.toolbar-content{-ms-flex:1;flex:1;-ms-flex-order:3;order:3;min-width:0;max-width:100%}::slotted(ion-segment){min-height:var(--min-height)}::slotted(.buttons-first-slot){margin-left:4px}\@supports ((-webkit-margin-start:0) or (margin-inline-start:0)) or (-webkit-margin-start:0){::slotted(.buttons-first-slot){margin-left:unset;-webkit-margin-start:4px;margin-inline-start:4px}}::slotted(.buttons-last-slot){margin-right:4px}\@supports ((-webkit-margin-start:0) or (margin-inline-start:0)) or (-webkit-margin-start:0){::slotted(.buttons-last-slot){margin-right:unset;-webkit-margin-end:4px;margin-inline-end:4px}}::slotted([slot=start]){-ms-flex-order:2;order:2}::slotted([slot=secondary]){-ms-flex-order:4;order:4}::slotted([slot=primary]){-ms-flex-order:5;order:5;text-align:end}::slotted([slot=end]){-ms-flex-order:6;order:6;text-align:end}"; }
+const getIonMode = () => ( typeof document !== 'undefined' && document.documentElement.getAttribute('mode')) || 'md';
+const createColorClasses = (color) => {
+  return (color) ? {
+    'ion-color': true,
+    [`ion-color-${color}`]: true
+  } : null;
 };
+Icon.style = iconCss;
 
 
 

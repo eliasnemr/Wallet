@@ -1,301 +1,73 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["common"],{
 
-/***/ "./node_modules/@ionic/core/dist/esm-es5/cubic-bezier-2812fda3.js":
-/*!************************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm-es5/cubic-bezier-2812fda3.js ***!
-  \************************************************************************/
-/*! exports provided: P, g */
+/***/ "./node_modules/@ionic/core/dist/esm-es5/button-active-a6787d69.js":
+/*!*************************************************************************!*\
+  !*** ./node_modules/@ionic/core/dist/esm-es5/button-active-a6787d69.js ***!
+  \*************************************************************************/
+/*! exports provided: c */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "P", function() { return Point; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return getTimeGivenProgression; });
-/**
- * Based on:
- * https://stackoverflow.com/questions/7348009/y-coordinate-for-a-given-x-cubic-bezier
- * https://math.stackexchange.com/questions/26846/is-there-an-explicit-form-for-cubic-b%C3%A9zier-curves
- * TODO: Reduce rounding error
- */
-var Point = /** @class */ (function () {
-    function Point(x, y) {
-        this.x = x;
-        this.y = y;
-    }
-    return Point;
-}());
-/**
- * Given a cubic-bezier curve, get the x value (time) given
- * the y value (progression).
- * Ex: cubic-bezier(0.32, 0.72, 0, 1);
- * P0: (0, 0)
- * P1: (0.32, 0.72)
- * P2: (0, 1)
- * P3: (1, 1)
- *
- * If you give a cubic bezier curve that never reaches the
- * provided progression, this function will return NaN.
- */
-var getTimeGivenProgression = function (p0, p1, p2, p3, progression) {
-    var tValues = solveCubicBezier(p0.y, p1.y, p2.y, p3.y, progression);
-    return solveCubicParametricEquation(p0.x, p1.x, p2.x, p3.x, tValues[0]); // TODO: Add better strategy for dealing with multiple solutions
-};
-/**
- * Solve a cubic equation in one dimension (time)
- */
-var solveCubicParametricEquation = function (p0, p1, p2, p3, t) {
-    var partA = (3 * p1) * Math.pow(t - 1, 2);
-    var partB = (-3 * p2 * t) + (3 * p2) + (p3 * t);
-    var partC = p0 * Math.pow(t - 1, 3);
-    return t * (partA + (t * partB)) - partC;
-};
-/**
- * Find the `t` value for a cubic bezier using Cardano's formula
- */
-var solveCubicBezier = function (p0, p1, p2, p3, refPoint) {
-    p0 -= refPoint;
-    p1 -= refPoint;
-    p2 -= refPoint;
-    p3 -= refPoint;
-    var roots = solveCubicEquation(p3 - 3 * p2 + 3 * p1 - p0, 3 * p2 - 6 * p1 + 3 * p0, 3 * p1 - 3 * p0, p0);
-    return roots.filter(function (root) { return root >= 0 && root <= 1; });
-};
-var solveQuadraticEquation = function (a, b, c) {
-    var discriminant = b * b - 4 * a * c;
-    if (discriminant < 0) {
-        return [];
-    }
-    else {
-        return [
-            (-b + Math.sqrt(discriminant)) / (2 * a),
-            (-b - Math.sqrt(discriminant)) / (2 * a)
-        ];
-    }
-};
-var solveCubicEquation = function (a, b, c, d) {
-    if (a === 0) {
-        return solveQuadraticEquation(b, c, d);
-    }
-    b /= a;
-    c /= a;
-    d /= a;
-    var p = (3 * c - b * b) / 3;
-    var q = (2 * b * b * b - 9 * b * c + 27 * d) / 27;
-    if (p === 0) {
-        return [Math.pow(-q, 1 / 3)];
-    }
-    else if (q === 0) {
-        return [Math.sqrt(-p), -Math.sqrt(-p)];
-    }
-    var discriminant = Math.pow(q / 2, 2) + Math.pow(p / 3, 3);
-    if (discriminant === 0) {
-        return [Math.pow(q / 2, 1 / 2) - b / 3];
-    }
-    else if (discriminant > 0) {
-        return [Math.pow(-(q / 2) + Math.sqrt(discriminant), 1 / 3) - Math.pow((q / 2) + Math.sqrt(discriminant), 1 / 3) - b / 3];
-    }
-    var r = Math.sqrt(Math.pow(-(p / 3), 3));
-    var phi = Math.acos(-(q / (2 * Math.sqrt(Math.pow(-(p / 3), 3)))));
-    var s = 2 * Math.pow(r, 1 / 3);
-    return [
-        s * Math.cos(phi / 3) - b / 3,
-        s * Math.cos((phi + 2 * Math.PI) / 3) - b / 3,
-        s * Math.cos((phi + 4 * Math.PI) / 3) - b / 3
-    ];
-};
-
-
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return createButtonActiveGesture; });
+/* harmony import */ var _index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index-e806d1f6.js */ "./node_modules/@ionic/core/dist/esm-es5/index-e806d1f6.js");
+/* harmony import */ var _index_f49d994d_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index-f49d994d.js */ "./node_modules/@ionic/core/dist/esm-es5/index-f49d994d.js");
+/* harmony import */ var _haptic_27b3f981_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./haptic-27b3f981.js */ "./node_modules/@ionic/core/dist/esm-es5/haptic-27b3f981.js");
+var createButtonActiveGesture=function(t,e){var n;var r;var i=function(t,r,i){if(typeof document==="undefined"){return}var o=document.elementFromPoint(t,r);if(!o||!e(o)){c();return}if(o!==n){c();a(o,i)}};var a=function(t,e){n=t;if(!r){r=n}var i=n;Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["c"])((function(){return i.classList.add("ion-activated")}));e()};var c=function(t){if(t===void 0){t=false}if(!n){return}var e=n;Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["c"])((function(){return e.classList.remove("ion-activated")}));if(t&&r!==n){n.click()}n=undefined};return Object(_index_f49d994d_js__WEBPACK_IMPORTED_MODULE_1__["createGesture"])({el:t,gestureName:"buttonActiveDrag",threshold:0,onStart:function(t){return i(t.currentX,t.currentY,_haptic_27b3f981_js__WEBPACK_IMPORTED_MODULE_2__["a"])},onMove:function(t){return i(t.currentX,t.currentY,_haptic_27b3f981_js__WEBPACK_IMPORTED_MODULE_2__["b"])},onEnd:function(){c(true);Object(_haptic_27b3f981_js__WEBPACK_IMPORTED_MODULE_2__["h"])();r=undefined}})};
 
 /***/ }),
 
-/***/ "./node_modules/@ionic/core/dist/esm-es5/haptic-c8f1473e.js":
+/***/ "./node_modules/@ionic/core/dist/esm-es5/framework-delegate-4584ab5a.js":
+/*!******************************************************************************!*\
+  !*** ./node_modules/@ionic/core/dist/esm-es5/framework-delegate-4584ab5a.js ***!
+  \******************************************************************************/
+/*! exports provided: a, d */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return attachComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return detachComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+var attachComponent=function(e,t,n,r,o){return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(void 0,void 0,void 0,(function(){var a;return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"])(this,(function(i){switch(i.label){case 0:if(e){return[2,e.attachViewToDom(t,n,o,r)]}if(typeof n!=="string"&&!(n instanceof HTMLElement)){throw new Error("framework delegate is missing")}a=typeof n==="string"?t.ownerDocument&&t.ownerDocument.createElement(n):n;if(r){r.forEach((function(e){return a.classList.add(e)}))}if(o){Object.assign(a,o)}t.appendChild(a);if(!a.componentOnReady)return[3,2];return[4,a.componentOnReady()];case 1:i.sent();i.label=2;case 2:return[2,a]}}))}))};var detachComponent=function(e,t){if(t){if(e){var n=t.parentElement;return e.removeViewFromDom(n,t)}t.remove()}return Promise.resolve()};
+
+/***/ }),
+
+/***/ "./node_modules/@ionic/core/dist/esm-es5/haptic-27b3f981.js":
 /*!******************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm-es5/haptic-c8f1473e.js ***!
+  !*** ./node_modules/@ionic/core/dist/esm-es5/haptic-27b3f981.js ***!
   \******************************************************************/
-/*! exports provided: a, b, c, h */
+/*! exports provided: a, b, c, d, h */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return hapticSelectionStart; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return hapticSelectionChanged; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return hapticSelectionEnd; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return hapticSelection; });
-/**
- * Check to see if the Haptic Plugin is available
- * @return Returns `true` or false if the plugin is available
- */
-/**
- * Trigger a selection changed haptic event. Good for one-time events
- * (not for gestures)
- */
-var hapticSelection = function () {
-    var engine = window.TapticEngine;
-    if (engine) {
-        engine.selection();
-    }
-};
-/**
- * Tell the haptic engine that a gesture for a selection change is starting.
- */
-var hapticSelectionStart = function () {
-    var engine = window.TapticEngine;
-    if (engine) {
-        engine.gestureSelectionStart();
-    }
-};
-/**
- * Tell the haptic engine that a selection changed during a gesture.
- */
-var hapticSelectionChanged = function () {
-    var engine = window.TapticEngine;
-    if (engine) {
-        engine.gestureSelectionChanged();
-    }
-};
-/**
- * Tell the haptic engine we are done with a gesture. This needs to be
- * called lest resources are not properly recycled.
- */
-var hapticSelectionEnd = function () {
-    var engine = window.TapticEngine;
-    if (engine) {
-        engine.gestureSelectionEnd();
-    }
-};
-
-
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return hapticSelection; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return hapticImpact; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return hapticSelectionEnd; });
+var HapticEngine={getEngine:function(){var t=window;return t.TapticEngine||t.Capacitor&&t.Capacitor.isPluginAvailable("Haptics")&&t.Capacitor.Plugins.Haptics},available:function(){return!!this.getEngine()},isCordova:function(){return!!window.TapticEngine},isCapacitor:function(){var t=window;return!!t.Capacitor},impact:function(t){var i=this.getEngine();if(!i){return}var n=this.isCapacitor()?t.style.toUpperCase():t.style;i.impact({style:n})},notification:function(t){var i=this.getEngine();if(!i){return}var n=this.isCapacitor()?t.style.toUpperCase():t.style;i.notification({style:n})},selection:function(){this.impact({style:"light"})},selectionStart:function(){var t=this.getEngine();if(!t){return}if(this.isCapacitor()){t.selectionStart()}else{t.gestureSelectionStart()}},selectionChanged:function(){var t=this.getEngine();if(!t){return}if(this.isCapacitor()){t.selectionChanged()}else{t.gestureSelectionChanged()}},selectionEnd:function(){var t=this.getEngine();if(!t){return}if(this.isCapacitor()){t.selectionEnd()}else{t.gestureSelectionEnd()}}};var hapticSelection=function(){HapticEngine.selection()};var hapticSelectionStart=function(){HapticEngine.selectionStart()};var hapticSelectionChanged=function(){HapticEngine.selectionChanged()};var hapticSelectionEnd=function(){HapticEngine.selectionEnd()};var hapticImpact=function(t){HapticEngine.impact(t)};
 
 /***/ }),
 
-/***/ "./node_modules/@ionic/core/dist/esm-es5/index-3476b023.js":
-/*!*****************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm-es5/index-3476b023.js ***!
-  \*****************************************************************/
-/*! exports provided: s */
+/***/ "./node_modules/@ionic/core/dist/esm-es5/spinner-configs-cd7845af.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/@ionic/core/dist/esm-es5/spinner-configs-cd7845af.js ***!
+  \***************************************************************************/
+/*! exports provided: S */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return sanitizeDOMString; });
-/**
- * Does a simple sanitization of all elements
- * in an untrusted string
- */
-var sanitizeDOMString = function (untrustedString) {
-    try {
-        if (typeof untrustedString !== 'string' || untrustedString === '') {
-            return untrustedString;
-        }
-        /**
-         * Create a document fragment
-         * separate from the main DOM,
-         * create a div to do our work in
-         */
-        var documentFragment_1 = document.createDocumentFragment();
-        var workingDiv = document.createElement('div');
-        documentFragment_1.appendChild(workingDiv);
-        workingDiv.innerHTML = untrustedString;
-        /**
-         * Remove any elements
-         * that are blocked
-         */
-        blockedTags.forEach(function (blockedTag) {
-            var getElementsToRemove = documentFragment_1.querySelectorAll(blockedTag);
-            for (var elementIndex = getElementsToRemove.length - 1; elementIndex >= 0; elementIndex--) {
-                var element = getElementsToRemove[elementIndex];
-                if (element.parentNode) {
-                    element.parentNode.removeChild(element);
-                }
-                else {
-                    documentFragment_1.removeChild(element);
-                }
-                /**
-                 * We still need to sanitize
-                 * the children of this element
-                 * as they are left behind
-                 */
-                var childElements = getElementChildren(element);
-                /* tslint:disable-next-line */
-                for (var childIndex = 0; childIndex < childElements.length; childIndex++) {
-                    sanitizeElement(childElements[childIndex]);
-                }
-            }
-        });
-        /**
-         * Go through remaining elements and remove
-         * non-allowed attribs
-         */
-        // IE does not support .children on document fragments, only .childNodes
-        var dfChildren = getElementChildren(documentFragment_1);
-        /* tslint:disable-next-line */
-        for (var childIndex = 0; childIndex < dfChildren.length; childIndex++) {
-            sanitizeElement(dfChildren[childIndex]);
-        }
-        // Append document fragment to div
-        var fragmentDiv = document.createElement('div');
-        fragmentDiv.appendChild(documentFragment_1);
-        // First child is always the div we did our work in
-        var getInnerDiv = fragmentDiv.querySelector('div');
-        return (getInnerDiv !== null) ? getInnerDiv.innerHTML : fragmentDiv.innerHTML;
-    }
-    catch (err) {
-        console.error(err);
-        return '';
-    }
-};
-/**
- * Clean up current element based on allowed attributes
- * and then recursively dig down into any child elements to
- * clean those up as well
- */
-var sanitizeElement = function (element) {
-    // IE uses childNodes, so ignore nodes that are not elements
-    if (element.nodeType && element.nodeType !== 1) {
-        return;
-    }
-    for (var i = element.attributes.length - 1; i >= 0; i--) {
-        var attribute = element.attributes.item(i);
-        var attributeName = attribute.name;
-        // remove non-allowed attribs
-        if (!allowedAttributes.includes(attributeName.toLowerCase())) {
-            element.removeAttribute(attributeName);
-            continue;
-        }
-        // clean up any allowed attribs
-        // that attempt to do any JS funny-business
-        var attributeValue = attribute.value;
-        /* tslint:disable-next-line */
-        if (attributeValue != null && attributeValue.toLowerCase().includes('javascript:')) {
-            element.removeAttribute(attributeName);
-        }
-    }
-    /**
-     * Sanitize any nested children
-     */
-    var childElements = getElementChildren(element);
-    /* tslint:disable-next-line */
-    for (var i = 0; i < childElements.length; i++) {
-        sanitizeElement(childElements[i]);
-    }
-};
-/**
- * IE doesn't always support .children
- * so we revert to .childNodes instead
- */
-var getElementChildren = function (el) {
-    return (el.children != null) ? el.children : el.childNodes;
-};
-var allowedAttributes = ['class', 'id', 'href', 'src', 'name', 'slot'];
-var blockedTags = ['script', 'style', 'iframe', 'meta', 'link', 'object', 'embed'];
-
-
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "S", function() { return SPINNERS; });
+var spinners={bubbles:{dur:1e3,circles:9,fn:function(r,n,e){var t=r*n/e-r+"ms";var a=2*Math.PI*n/e;return{r:5,style:{top:9*Math.sin(a)+"px",left:9*Math.cos(a)+"px","animation-delay":t}}}},circles:{dur:1e3,circles:8,fn:function(r,n,e){var t=n/e;var a=r*t-r+"ms";var s=2*Math.PI*t;return{r:5,style:{top:9*Math.sin(s)+"px",left:9*Math.cos(s)+"px","animation-delay":a}}}},circular:{dur:1400,elmDuration:true,circles:1,fn:function(){return{r:20,cx:48,cy:48,fill:"none",viewBox:"24 24 48 48",transform:"translate(0,0)",style:{}}}},crescent:{dur:750,circles:1,fn:function(){return{r:26,style:{}}}},dots:{dur:750,circles:3,fn:function(r,n){var e=-(110*n)+"ms";return{r:6,style:{left:9-9*n+"px","animation-delay":e}}}},lines:{dur:1e3,lines:12,fn:function(r,n,e){var t="rotate("+(30*n+(n<6?180:-180))+"deg)";var a=r*n/e-r+"ms";return{y1:17,y2:29,style:{transform:t,"animation-delay":a}}}},"lines-small":{dur:1e3,lines:12,fn:function(r,n,e){var t="rotate("+(30*n+(n<6?180:-180))+"deg)";var a=r*n/e-r+"ms";return{y1:12,y2:20,style:{transform:t,"animation-delay":a}}}}};var SPINNERS=spinners;
 
 /***/ }),
 
-/***/ "./node_modules/@ionic/core/dist/esm-es5/theme-18cbe2cc.js":
+/***/ "./node_modules/@ionic/core/dist/esm-es5/theme-ff3fc52f.js":
 /*!*****************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm-es5/theme-18cbe2cc.js ***!
+  !*** ./node_modules/@ionic/core/dist/esm-es5/theme-ff3fc52f.js ***!
   \*****************************************************************/
 /*! exports provided: c, g, h, o */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -307,99 +79,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return hostContext; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return openURL; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-
-var hostContext = function (selector, el) {
-    return el.closest(selector) !== null;
-};
-/**
- * Create the mode and color classes for the component based on the classes passed in
- */
-var createColorClasses = function (color) {
-    var _a;
-    return (typeof color === 'string' && color.length > 0) ? (_a = {
-            'ion-color': true
-        },
-        _a["ion-color-" + color] = true,
-        _a) : undefined;
-};
-var getClassList = function (classes) {
-    if (classes !== undefined) {
-        var array = Array.isArray(classes) ? classes : classes.split(' ');
-        return array
-            .filter(function (c) { return c != null; })
-            .map(function (c) { return c.trim(); })
-            .filter(function (c) { return c !== ''; });
-    }
-    return [];
-};
-var getClassMap = function (classes) {
-    var map = {};
-    getClassList(classes).forEach(function (c) { return map[c] = true; });
-    return map;
-};
-var SCHEME = /^[a-z][a-z0-9+\-.]*:/;
-var openURL = function (url, ev, direction) { return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(void 0, void 0, void 0, function () {
-    var router;
-    return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"])(this, function (_a) {
-        if (url != null && url[0] !== '#' && !SCHEME.test(url)) {
-            router = document.querySelector('ion-router');
-            if (router) {
-                if (ev != null) {
-                    ev.preventDefault();
-                }
-                return [2 /*return*/, router.push(url, direction)];
-            }
-        }
-        return [2 /*return*/, false];
-    });
-}); };
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ionic/core/dist/esm-es5/watch-options-2af96011.js":
-/*!*************************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm-es5/watch-options-2af96011.js ***!
-  \*************************************************************************/
-/*! exports provided: f, w */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return findCheckedOption; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "w", function() { return watchForOptions; });
-var watchForOptions = function (containerEl, tagName, onChange) {
-    var mutation = new MutationObserver(function (mutationList) {
-        onChange(getSelectedOption(mutationList, tagName));
-    });
-    mutation.observe(containerEl, {
-        childList: true,
-        subtree: true
-    });
-    return mutation;
-};
-var getSelectedOption = function (mutationList, tagName) {
-    var newOption;
-    mutationList.forEach(function (mut) {
-        // tslint:disable-next-line: prefer-for-of
-        for (var i = 0; i < mut.addedNodes.length; i++) {
-            newOption = findCheckedOption(mut.addedNodes[i], tagName) || newOption;
-        }
-    });
-    return newOption;
-};
-var findCheckedOption = function (el, tagName) {
-    if (el.nodeType !== 1) {
-        return undefined;
-    }
-    var options = (el.tagName === tagName.toUpperCase())
-        ? [el]
-        : Array.from(el.querySelectorAll(tagName));
-    return options.find(function (o) { return o.checked === true; });
-};
-
-
+var hostContext=function(r,t){return t.closest(r)!==null};var createColorClasses=function(r,t){var e;return typeof r==="string"&&r.length>0?Object.assign((e={"ion-color":true},e["ion-color-"+r]=true,e),t):t};var getClassList=function(r){if(r!==undefined){var t=Array.isArray(r)?r:r.split(" ");return t.filter((function(r){return r!=null})).map((function(r){return r.trim()})).filter((function(r){return r!==""}))}return[]};var getClassMap=function(r){var t={};getClassList(r).forEach((function(r){return t[r]=true}));return t};var SCHEME=/^[a-z][a-z0-9+\-.]*:/;var openURL=function(r,t,e,n){return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(void 0,void 0,void 0,(function(){var o;return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"])(this,(function(a){if(r!=null&&r[0]!=="#"&&!SCHEME.test(r)){o=document.querySelector("ion-router");if(o){if(t!=null){t.preventDefault()}return[2,o.push(r,e,n)]}}return[2,false]}))}))};
 
 /***/ })
 
