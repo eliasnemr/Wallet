@@ -58,5 +58,11 @@
         "witness"
     ],
     "compile-hero.disable-compile-files-on-did-save-code": false,
-    "git.ignoreLimitWarning": true
+    "git.ignoreLimitWarning": true,
+    "cSpell.words": [
+        "angular",
+        "browser",
+        "build",
+        "devkit"
+    ]
 }
