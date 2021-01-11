@@ -1,367 +1,554 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[42],{
 
-/***/ "./node_modules/@ionic/core/dist/esm/ion-popover-ios.entry.js":
-/*!********************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm/ion-popover-ios.entry.js ***!
-  \********************************************************************/
-/*! exports provided: ion_popover */
+/***/ "./node_modules/@ionic/core/dist/esm/ion-virtual-scroll.entry.js":
+/*!***********************************************************************!*\
+  !*** ./node_modules/@ionic/core/dist/esm/ion-virtual-scroll.entry.js ***!
+  \***********************************************************************/
+/*! exports provided: ion_virtual_scroll */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ion_popover", function() { return Popover; });
-/* harmony import */ var _core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./core-feeeff0d.js */ "./node_modules/@ionic/core/dist/esm/core-feeeff0d.js");
-/* harmony import */ var _config_3c7f3790_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./config-3c7f3790.js */ "./node_modules/@ionic/core/dist/esm/config-3c7f3790.js");
-/* harmony import */ var _helpers_46f4a262_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helpers-46f4a262.js */ "./node_modules/@ionic/core/dist/esm/helpers-46f4a262.js");
-/* harmony import */ var _animation_af478fe9_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./animation-af478fe9.js */ "./node_modules/@ionic/core/dist/esm/animation-af478fe9.js");
-/* harmony import */ var _constants_3c3e1099_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./constants-3c3e1099.js */ "./node_modules/@ionic/core/dist/esm/constants-3c3e1099.js");
-/* harmony import */ var _overlays_10640d86_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./overlays-10640d86.js */ "./node_modules/@ionic/core/dist/esm/overlays-10640d86.js");
-/* harmony import */ var _theme_18cbe2cc_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./theme-18cbe2cc.js */ "./node_modules/@ionic/core/dist/esm/theme-18cbe2cc.js");
-/* harmony import */ var _framework_delegate_c2e2e1f4_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./framework-delegate-c2e2e1f4.js */ "./node_modules/@ionic/core/dist/esm/framework-delegate-c2e2e1f4.js");
-/* harmony import */ var _index_4d91f03a_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./index-4d91f03a.js */ "./node_modules/@ionic/core/dist/esm/index-4d91f03a.js");
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ion_virtual_scroll", function() { return VirtualScroll; });
+/* harmony import */ var _index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index-e806d1f6.js */ "./node_modules/@ionic/core/dist/esm/index-e806d1f6.js");
 
 
+const CELL_TYPE_ITEM = 'item';
+const CELL_TYPE_HEADER = 'header';
+const CELL_TYPE_FOOTER = 'footer';
+const NODE_CHANGE_NONE = 0;
+const NODE_CHANGE_POSITION = 1;
+const NODE_CHANGE_CELL = 2;
 
-
-
-
-
-
-
-
-/**
- * iOS Popover Enter Animation
- */
-const iosEnterAnimation = (baseEl, ev) => {
-    let originY = 'top';
-    let originX = 'left';
-    const contentEl = baseEl.querySelector('.popover-content');
-    const contentDimentions = contentEl.getBoundingClientRect();
-    const contentWidth = contentDimentions.width;
-    const contentHeight = contentDimentions.height;
-    const bodyWidth = baseEl.ownerDocument.defaultView.innerWidth;
-    const bodyHeight = baseEl.ownerDocument.defaultView.innerHeight;
-    // If ev was passed, use that for target element
-    const targetDim = ev && ev.target && ev.target.getBoundingClientRect();
-    const targetTop = targetDim != null && 'top' in targetDim ? targetDim.top : bodyHeight / 2 - contentHeight / 2;
-    const targetLeft = targetDim != null && 'left' in targetDim ? targetDim.left : bodyWidth / 2;
-    const targetWidth = (targetDim && targetDim.width) || 0;
-    const targetHeight = (targetDim && targetDim.height) || 0;
-    const arrowEl = baseEl.querySelector('.popover-arrow');
-    const arrowDim = arrowEl.getBoundingClientRect();
-    const arrowWidth = arrowDim.width;
-    const arrowHeight = arrowDim.height;
-    if (targetDim == null) {
-        arrowEl.style.display = 'none';
+const MIN_READS = 2;
+const updateVDom = (dom, heightIndex, cells, range) => {
+  // reset dom
+  for (const node of dom) {
+    node.change = NODE_CHANGE_NONE;
+    node.d = true;
+  }
+  // try to match into exisiting dom
+  const toMutate = [];
+  const end = range.offset + range.length;
+  for (let i = range.offset; i < end; i++) {
+    const cell = cells[i];
+    const node = dom.find(n => n.d && n.cell === cell);
+    if (node) {
+      const top = heightIndex[i];
+      if (top !== node.top) {
+        node.top = top;
+        node.change = NODE_CHANGE_POSITION;
+      }
+      node.d = false;
     }
-    const arrowCSS = {
-        top: targetTop + targetHeight,
-        left: targetLeft + targetWidth / 2 - arrowWidth / 2
+    else {
+      toMutate.push(cell);
+    }
+  }
+  // needs to append
+  const pool = dom.filter(n => n.d);
+  for (const cell of toMutate) {
+    const node = pool.find(n => n.d && n.cell.type === cell.type);
+    const index = cell.i;
+    if (node) {
+      node.d = false;
+      node.change = NODE_CHANGE_CELL;
+      node.cell = cell;
+      node.top = heightIndex[index];
+    }
+    else {
+      dom.push({
+        d: false,
+        cell,
+        visible: true,
+        change: NODE_CHANGE_CELL,
+        top: heightIndex[index],
+      });
+    }
+  }
+  dom
+    .filter(n => n.d && n.top !== -9999)
+    .forEach(n => {
+    n.change = NODE_CHANGE_POSITION;
+    n.top = -9999;
+  });
+};
+const doRender = (el, nodeRender, dom, updateCellHeight) => {
+  const children = Array.from(el.children).filter(n => n.tagName !== 'TEMPLATE');
+  const childrenNu = children.length;
+  let child;
+  for (let i = 0; i < dom.length; i++) {
+    const node = dom[i];
+    const cell = node.cell;
+    // the cell change, the content must be updated
+    if (node.change === NODE_CHANGE_CELL) {
+      if (i < childrenNu) {
+        child = children[i];
+        nodeRender(child, cell, i);
+      }
+      else {
+        const newChild = createNode(el, cell.type);
+        child = nodeRender(newChild, cell, i) || newChild;
+        child.classList.add('virtual-item');
+        el.appendChild(child);
+      }
+      child['$ionCell'] = cell;
+    }
+    else {
+      child = children[i];
+    }
+    // only update position when it changes
+    if (node.change !== NODE_CHANGE_NONE) {
+      child.style.transform = `translate3d(0,${node.top}px,0)`;
+    }
+    // update visibility
+    const visible = cell.visible;
+    if (node.visible !== visible) {
+      if (visible) {
+        child.classList.remove('virtual-loading');
+      }
+      else {
+        child.classList.add('virtual-loading');
+      }
+      node.visible = visible;
+    }
+    // dynamic height
+    if (cell.reads > 0) {
+      updateCellHeight(cell, child);
+      cell.reads--;
+    }
+  }
+};
+const createNode = (el, type) => {
+  const template = getTemplate(el, type);
+  if (template && el.ownerDocument) {
+    return el.ownerDocument.importNode(template.content, true).children[0];
+  }
+  return null;
+};
+const getTemplate = (el, type) => {
+  switch (type) {
+    case CELL_TYPE_ITEM: return el.querySelector('template:not([name])');
+    case CELL_TYPE_HEADER: return el.querySelector('template[name=header]');
+    case CELL_TYPE_FOOTER: return el.querySelector('template[name=footer]');
+  }
+};
+const getViewport = (scrollTop, vierportHeight, margin) => {
+  return {
+    top: Math.max(scrollTop - margin, 0),
+    bottom: scrollTop + vierportHeight + margin
+  };
+};
+const getRange = (heightIndex, viewport, buffer) => {
+  const topPos = viewport.top;
+  const bottomPos = viewport.bottom;
+  // find top index
+  let i = 0;
+  for (; i < heightIndex.length; i++) {
+    if (heightIndex[i] > topPos) {
+      break;
+    }
+  }
+  const offset = Math.max(i - buffer - 1, 0);
+  // find bottom index
+  for (; i < heightIndex.length; i++) {
+    if (heightIndex[i] >= bottomPos) {
+      break;
+    }
+  }
+  const end = Math.min(i + buffer, heightIndex.length);
+  const length = end - offset;
+  return { offset, length };
+};
+const getShouldUpdate = (dirtyIndex, currentRange, range) => {
+  const end = range.offset + range.length;
+  return (dirtyIndex <= end ||
+    currentRange.offset !== range.offset ||
+    currentRange.length !== range.length);
+};
+const findCellIndex = (cells, index) => {
+  const max = cells.length > 0 ? cells[cells.length - 1].index : 0;
+  if (index === 0) {
+    return 0;
+  }
+  else if (index === max + 1) {
+    return cells.length;
+  }
+  else {
+    return cells.findIndex(c => c.index === index);
+  }
+};
+const inplaceUpdate = (dst, src, offset) => {
+  if (offset === 0 && src.length >= dst.length) {
+    return src;
+  }
+  for (let i = 0; i < src.length; i++) {
+    dst[i + offset] = src[i];
+  }
+  return dst;
+};
+const calcCells = (items, itemHeight, headerHeight, footerHeight, headerFn, footerFn, approxHeaderHeight, approxFooterHeight, approxItemHeight, j, offset, len) => {
+  const cells = [];
+  const end = len + offset;
+  for (let i = offset; i < end; i++) {
+    const item = items[i];
+    if (headerFn) {
+      const value = headerFn(item, i, items);
+      if (value != null) {
+        cells.push({
+          i: j++,
+          type: CELL_TYPE_HEADER,
+          value,
+          index: i,
+          height: headerHeight ? headerHeight(value, i) : approxHeaderHeight,
+          reads: headerHeight ? 0 : MIN_READS,
+          visible: !!headerHeight,
+        });
+      }
+    }
+    cells.push({
+      i: j++,
+      type: CELL_TYPE_ITEM,
+      value: item,
+      index: i,
+      height: itemHeight ? itemHeight(item, i) : approxItemHeight,
+      reads: itemHeight ? 0 : MIN_READS,
+      visible: !!itemHeight,
+    });
+    if (footerFn) {
+      const value = footerFn(item, i, items);
+      if (value != null) {
+        cells.push({
+          i: j++,
+          type: CELL_TYPE_FOOTER,
+          value,
+          index: i,
+          height: footerHeight ? footerHeight(value, i) : approxFooterHeight,
+          reads: footerHeight ? 0 : MIN_READS,
+          visible: !!footerHeight,
+        });
+      }
+    }
+  }
+  return cells;
+};
+const calcHeightIndex = (buf, cells, index) => {
+  let acum = buf[index];
+  for (let i = index; i < buf.length; i++) {
+    buf[i] = acum;
+    acum += cells[i].height;
+  }
+  return acum;
+};
+const resizeBuffer = (buf, len) => {
+  if (!buf) {
+    return new Uint32Array(len);
+  }
+  if (buf.length === len) {
+    return buf;
+  }
+  else if (len > buf.length) {
+    const newBuf = new Uint32Array(len);
+    newBuf.set(buf);
+    return newBuf;
+  }
+  else {
+    return buf.subarray(0, len);
+  }
+};
+const positionForIndex = (index, cells, heightIndex) => {
+  const cell = cells.find(c => c.type === CELL_TYPE_ITEM && c.index === index);
+  if (cell) {
+    return heightIndex[cell.i];
+  }
+  return -1;
+};
+
+const virtualScrollCss = "ion-virtual-scroll{display:block;position:relative;width:100%;contain:strict;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}ion-virtual-scroll>.virtual-loading{opacity:0}ion-virtual-scroll>.virtual-item{position:absolute !important;top:0 !important;right:0 !important;left:0 !important;-webkit-transition-duration:0ms;transition-duration:0ms;will-change:transform}";
+
+const VirtualScroll = class {
+  constructor(hostRef) {
+    Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["r"])(this, hostRef);
+    this.range = { offset: 0, length: 0 };
+    this.viewportHeight = 0;
+    this.cells = [];
+    this.virtualDom = [];
+    this.isEnabled = false;
+    this.viewportOffset = 0;
+    this.currentScrollTop = 0;
+    this.indexDirty = 0;
+    this.lastItemLen = 0;
+    this.totalHeight = 0;
+    /**
+     * It is important to provide this
+     * if virtual item height will be significantly larger than the default
+     * The approximate height of each virtual item template's cell.
+     * This dimension is used to help determine how many cells should
+     * be created when initialized, and to help calculate the height of
+     * the scrollable area. This height value can only use `px` units.
+     * Note that the actual rendered size of each cell comes from the
+     * app's CSS, whereas this approximation is used to help calculate
+     * initial dimensions before the item has been rendered.
+     */
+    this.approxItemHeight = 45;
+    /**
+     * The approximate height of each header template's cell.
+     * This dimension is used to help determine how many cells should
+     * be created when initialized, and to help calculate the height of
+     * the scrollable area. This height value can only use `px` units.
+     * Note that the actual rendered size of each cell comes from the
+     * app's CSS, whereas this approximation is used to help calculate
+     * initial dimensions before the item has been rendered.
+     */
+    this.approxHeaderHeight = 30;
+    /**
+     * The approximate width of each footer template's cell.
+     * This dimension is used to help determine how many cells should
+     * be created when initialized, and to help calculate the height of
+     * the scrollable area. This height value can only use `px` units.
+     * Note that the actual rendered size of each cell comes from the
+     * app's CSS, whereas this approximation is used to help calculate
+     * initial dimensions before the item has been rendered.
+     */
+    this.approxFooterHeight = 30;
+    this.onScroll = () => {
+      this.updateVirtualScroll();
     };
-    const popoverCSS = {
-        top: targetTop + targetHeight + (arrowHeight - 1),
-        left: targetLeft + targetWidth / 2 - contentWidth / 2
+  }
+  itemsChanged() {
+    this.calcCells();
+    this.updateVirtualScroll();
+  }
+  async connectedCallback() {
+    const contentEl = this.el.closest('ion-content');
+    if (!contentEl) {
+      console.error('<ion-virtual-scroll> must be used inside an <ion-content>');
+      return;
+    }
+    this.scrollEl = await contentEl.getScrollElement();
+    this.contentEl = contentEl;
+    this.calcCells();
+    this.updateState();
+  }
+  componentDidUpdate() {
+    this.updateState();
+  }
+  disconnectedCallback() {
+    this.scrollEl = undefined;
+  }
+  onResize() {
+    this.calcCells();
+    this.updateVirtualScroll();
+  }
+  /**
+   * Returns the position of the virtual item at the given index.
+   */
+  positionForItem(index) {
+    return Promise.resolve(positionForIndex(index, this.cells, this.getHeightIndex()));
+  }
+  /**
+   * This method marks a subset of items as dirty, so they can be re-rendered. Items should be marked as
+   * dirty any time the content or their style changes.
+   *
+   * The subset of items to be updated can are specifing by an offset and a length.
+   */
+  async checkRange(offset, len = -1) {
+    // TODO: kind of hacky how we do in-place updated of the cells
+    // array. this part needs a complete refactor
+    if (!this.items) {
+      return;
+    }
+    const length = (len === -1)
+      ? this.items.length - offset
+      : len;
+    const cellIndex = findCellIndex(this.cells, offset);
+    const cells = calcCells(this.items, this.itemHeight, this.headerHeight, this.footerHeight, this.headerFn, this.footerFn, this.approxHeaderHeight, this.approxFooterHeight, this.approxItemHeight, cellIndex, offset, length);
+    this.cells = inplaceUpdate(this.cells, cells, cellIndex);
+    this.lastItemLen = this.items.length;
+    this.indexDirty = Math.max(offset - 1, 0);
+    this.scheduleUpdate();
+  }
+  /**
+   * This method marks the tail the items array as dirty, so they can be re-rendered.
+   *
+   * It's equivalent to calling:
+   *
+   * ```js
+   * virtualScroll.checkRange(lastItemLen);
+   * ```
+   */
+  async checkEnd() {
+    if (this.items) {
+      this.checkRange(this.lastItemLen);
+    }
+  }
+  updateVirtualScroll() {
+    // do nothing if virtual-scroll is disabled
+    if (!this.isEnabled || !this.scrollEl) {
+      return;
+    }
+    // unschedule future updates
+    if (this.timerUpdate) {
+      clearTimeout(this.timerUpdate);
+      this.timerUpdate = undefined;
+    }
+    // schedule DOM operations into the stencil queue
+    Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["f"])(this.readVS.bind(this));
+    Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this.writeVS.bind(this));
+  }
+  readVS() {
+    const { contentEl, scrollEl, el } = this;
+    let topOffset = 0;
+    let node = el;
+    while (node && node !== contentEl) {
+      topOffset += node.offsetTop;
+      node = node.offsetParent;
+    }
+    this.viewportOffset = topOffset;
+    if (scrollEl) {
+      this.viewportHeight = scrollEl.offsetHeight;
+      this.currentScrollTop = scrollEl.scrollTop;
+    }
+  }
+  writeVS() {
+    const dirtyIndex = this.indexDirty;
+    // get visible viewport
+    const scrollTop = this.currentScrollTop - this.viewportOffset;
+    const viewport = getViewport(scrollTop, this.viewportHeight, 100);
+    // compute lazily the height index
+    const heightIndex = this.getHeightIndex();
+    // get array bounds of visible cells base in the viewport
+    const range = getRange(heightIndex, viewport, 2);
+    // fast path, do nothing
+    const shouldUpdate = getShouldUpdate(dirtyIndex, this.range, range);
+    if (!shouldUpdate) {
+      return;
+    }
+    this.range = range;
+    // in place mutation of the virtual DOM
+    updateVDom(this.virtualDom, heightIndex, this.cells, range);
+    // Write DOM
+    // Different code paths taken depending of the render API used
+    if (this.nodeRender) {
+      doRender(this.el, this.nodeRender, this.virtualDom, this.updateCellHeight.bind(this));
+    }
+    else if (this.domRender) {
+      this.domRender(this.virtualDom);
+    }
+    else if (this.renderItem) {
+      Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["j"])(this);
+    }
+  }
+  updateCellHeight(cell, node) {
+    const update = () => {
+      if (node['$ionCell'] === cell) {
+        const style = window.getComputedStyle(node);
+        const height = node.offsetHeight + parseFloat(style.getPropertyValue('margin-bottom'));
+        this.setCellHeight(cell, height);
+      }
     };
-    // If the popover left is less than the padding it is off screen
-    // to the left so adjust it, else if the width of the popover
-    // exceeds the body width it is off screen to the right so adjust
-    //
-    let checkSafeAreaLeft = false;
-    let checkSafeAreaRight = false;
-    // If the popover left is less than the padding it is off screen
-    // to the left so adjust it, else if the width of the popover
-    // exceeds the body width it is off screen to the right so adjust
-    // 25 is a random/arbitrary number. It seems to work fine for ios11
-    // and iPhoneX. Is it perfect? No. Does it work? Yes.
-    if (popoverCSS.left < POPOVER_IOS_BODY_PADDING + 25) {
-        checkSafeAreaLeft = true;
-        popoverCSS.left = POPOVER_IOS_BODY_PADDING;
+    if (node && node.componentOnReady) {
+      node.componentOnReady().then(update);
     }
-    else if (contentWidth + POPOVER_IOS_BODY_PADDING + popoverCSS.left + 25 > bodyWidth) {
-        // Ok, so we're on the right side of the screen,
-        // but now we need to make sure we're still a bit further right
-        // cus....notchurally... Again, 25 is random. It works tho
-        checkSafeAreaRight = true;
-        popoverCSS.left = bodyWidth - contentWidth - POPOVER_IOS_BODY_PADDING;
-        originX = 'right';
+    else {
+      update();
     }
-    // make it pop up if there's room above
-    if (targetTop + targetHeight + contentHeight > bodyHeight && targetTop - contentHeight > 0) {
-        arrowCSS.top = targetTop - (arrowHeight + 1);
-        popoverCSS.top = targetTop - contentHeight - (arrowHeight - 1);
-        baseEl.className = baseEl.className + ' popover-bottom';
-        originY = 'bottom';
-        // If there isn't room for it to pop up above the target cut it off
+  }
+  setCellHeight(cell, height) {
+    const index = cell.i;
+    // the cell might changed since the height update was scheduled
+    if (cell !== this.cells[index]) {
+      return;
     }
-    else if (targetTop + targetHeight + contentHeight > bodyHeight) {
-        contentEl.style.bottom = POPOVER_IOS_BODY_PADDING + '%';
+    if (cell.height !== height || cell.visible !== true) {
+      cell.visible = true;
+      cell.height = height;
+      this.indexDirty = Math.min(this.indexDirty, index);
+      this.scheduleUpdate();
     }
-    arrowEl.style.top = arrowCSS.top + 'px';
-    arrowEl.style.left = arrowCSS.left + 'px';
-    contentEl.style.top = popoverCSS.top + 'px';
-    contentEl.style.left = popoverCSS.left + 'px';
-    if (checkSafeAreaLeft) {
-        contentEl.style.left = `calc(${popoverCSS.left}px + var(--ion-safe-area-left, 0px))`;
+  }
+  scheduleUpdate() {
+    clearTimeout(this.timerUpdate);
+    this.timerUpdate = setTimeout(() => this.updateVirtualScroll(), 100);
+  }
+  updateState() {
+    const shouldEnable = !!(this.scrollEl &&
+      this.cells);
+    if (shouldEnable !== this.isEnabled) {
+      this.enableScrollEvents(shouldEnable);
+      if (shouldEnable) {
+        this.updateVirtualScroll();
+      }
     }
-    if (checkSafeAreaRight) {
-        contentEl.style.left = `calc(${popoverCSS.left}px - var(--ion-safe-area-right, 0px))`;
+  }
+  calcCells() {
+    if (!this.items) {
+      return;
     }
-    contentEl.style.transformOrigin = originY + ' ' + originX;
-    const baseAnimation = Object(_animation_af478fe9_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
-    const backdropAnimation = Object(_animation_af478fe9_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
-    const wrapperAnimation = Object(_animation_af478fe9_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
-    backdropAnimation
-        .addElement(baseEl.querySelector('ion-backdrop'))
-        .fromTo('opacity', 0.01, 0.08);
-    wrapperAnimation
-        .addElement(baseEl.querySelector('.popover-wrapper'))
-        .fromTo('opacity', 0.01, 1);
-    return baseAnimation
-        .addElement(baseEl)
-        .easing('ease')
-        .duration(100)
-        .addAnimation([backdropAnimation, wrapperAnimation]);
+    this.lastItemLen = this.items.length;
+    this.cells = calcCells(this.items, this.itemHeight, this.headerHeight, this.footerHeight, this.headerFn, this.footerFn, this.approxHeaderHeight, this.approxFooterHeight, this.approxItemHeight, 0, 0, this.lastItemLen);
+    this.indexDirty = 0;
+  }
+  getHeightIndex() {
+    if (this.indexDirty !== Infinity) {
+      this.calcHeightIndex(this.indexDirty);
+    }
+    return this.heightIndex;
+  }
+  calcHeightIndex(index = 0) {
+    // TODO: optimize, we don't need to calculate all the cells
+    this.heightIndex = resizeBuffer(this.heightIndex, this.cells.length);
+    this.totalHeight = calcHeightIndex(this.heightIndex, this.cells, index);
+    this.indexDirty = Infinity;
+  }
+  enableScrollEvents(shouldListen) {
+    if (this.rmEvent) {
+      this.rmEvent();
+      this.rmEvent = undefined;
+    }
+    const scrollEl = this.scrollEl;
+    if (scrollEl) {
+      this.isEnabled = shouldListen;
+      scrollEl.addEventListener('scroll', this.onScroll);
+      this.rmEvent = () => {
+        scrollEl.removeEventListener('scroll', this.onScroll);
+      };
+    }
+  }
+  renderVirtualNode(node) {
+    const { type, value, index } = node.cell;
+    switch (type) {
+      case CELL_TYPE_ITEM: return this.renderItem(value, index);
+      case CELL_TYPE_HEADER: return this.renderHeader(value, index);
+      case CELL_TYPE_FOOTER: return this.renderFooter(value, index);
+    }
+  }
+  render() {
+    return (Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["H"], { style: {
+        height: `${this.totalHeight}px`
+      } }, this.renderItem && (Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])(VirtualProxy, { dom: this.virtualDom }, this.virtualDom.map(node => this.renderVirtualNode(node))))));
+  }
+  get el() { return Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["i"])(this); }
+  static get watchers() { return {
+    "itemHeight": ["itemsChanged"],
+    "headerHeight": ["itemsChanged"],
+    "footerHeight": ["itemsChanged"],
+    "items": ["itemsChanged"]
+  }; }
 };
-const POPOVER_IOS_BODY_PADDING = 5;
-
-/**
- * iOS Popover Leave Animation
- */
-const iosLeaveAnimation = (baseEl) => {
-    const baseAnimation = Object(_animation_af478fe9_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
-    const backdropAnimation = Object(_animation_af478fe9_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
-    const wrapperAnimation = Object(_animation_af478fe9_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
-    backdropAnimation
-        .addElement(baseEl.querySelector('ion-backdrop'))
-        .fromTo('opacity', 0.08, 0);
-    wrapperAnimation
-        .addElement(baseEl.querySelector('.popover-wrapper'))
-        .fromTo('opacity', 0.99, 0);
-    return baseAnimation
-        .addElement(baseEl)
-        .easing('ease')
-        .duration(500)
-        .addAnimation([backdropAnimation, wrapperAnimation]);
+const VirtualProxy = ({ dom }, children, utils) => {
+  return utils.map(children, (child, i) => {
+    const node = dom[i];
+    const vattrs = child.vattrs || {};
+    let classes = vattrs.class || '';
+    classes += 'virtual-item ';
+    if (!node.visible) {
+      classes += 'virtual-loading';
+    }
+    return Object.assign(Object.assign({}, child), { vattrs: Object.assign(Object.assign({}, vattrs), { class: classes, style: Object.assign(Object.assign({}, vattrs.style), { transform: `translate3d(0,${node.top}px,0)` }) }) });
+  });
 };
-
-/**
- * Md Popover Enter Animation
- */
-const mdEnterAnimation = (baseEl, ev) => {
-    const POPOVER_MD_BODY_PADDING = 12;
-    const doc = baseEl.ownerDocument;
-    const isRTL = doc.dir === 'rtl';
-    let originY = 'top';
-    let originX = isRTL ? 'right' : 'left';
-    const contentEl = baseEl.querySelector('.popover-content');
-    const contentDimentions = contentEl.getBoundingClientRect();
-    const contentWidth = contentDimentions.width;
-    const contentHeight = contentDimentions.height;
-    const bodyWidth = doc.defaultView.innerWidth;
-    const bodyHeight = doc.defaultView.innerHeight;
-    // If ev was passed, use that for target element
-    const targetDim = ev && ev.target && ev.target.getBoundingClientRect();
-    // As per MD spec, by default position the popover below the target (trigger) element
-    const targetTop = targetDim != null && 'bottom' in targetDim
-        ? targetDim.bottom
-        : bodyHeight / 2 - contentHeight / 2;
-    const targetLeft = targetDim != null && 'left' in targetDim
-        ? isRTL
-            ? targetDim.left - contentWidth + targetDim.width
-            : targetDim.left
-        : bodyWidth / 2 - contentWidth / 2;
-    const targetHeight = (targetDim && targetDim.height) || 0;
-    const popoverCSS = {
-        top: targetTop,
-        left: targetLeft
-    };
-    // If the popover left is less than the padding it is off screen
-    // to the left so adjust it, else if the width of the popover
-    // exceeds the body width it is off screen to the right so adjust
-    if (popoverCSS.left < POPOVER_MD_BODY_PADDING) {
-        popoverCSS.left = POPOVER_MD_BODY_PADDING;
-        // Same origin in this case for both LTR & RTL
-        // Note: in LTR, originX is already 'left'
-        originX = 'left';
-    }
-    else if (contentWidth + POPOVER_MD_BODY_PADDING + popoverCSS.left >
-        bodyWidth) {
-        popoverCSS.left = bodyWidth - contentWidth - POPOVER_MD_BODY_PADDING;
-        // Same origin in this case for both LTR & RTL
-        // Note: in RTL, originX is already 'right'
-        originX = 'right';
-    }
-    // If the popover when popped down stretches past bottom of screen,
-    // make it pop up if there's room above
-    if (targetTop + targetHeight + contentHeight > bodyHeight &&
-        targetTop - contentHeight > 0) {
-        popoverCSS.top = targetTop - contentHeight - targetHeight;
-        baseEl.className = baseEl.className + ' popover-bottom';
-        originY = 'bottom';
-        // If there isn't room for it to pop up above the target cut it off
-    }
-    else if (targetTop + targetHeight + contentHeight > bodyHeight) {
-        contentEl.style.bottom = POPOVER_MD_BODY_PADDING + 'px';
-    }
-    const baseAnimation = Object(_animation_af478fe9_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
-    const backdropAnimation = Object(_animation_af478fe9_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
-    const wrapperAnimation = Object(_animation_af478fe9_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
-    const contentAnimation = Object(_animation_af478fe9_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
-    const viewportAnimation = Object(_animation_af478fe9_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
-    backdropAnimation
-        .addElement(baseEl.querySelector('ion-backdrop'))
-        .fromTo('opacity', 0.01, 0.32);
-    wrapperAnimation
-        .addElement(baseEl.querySelector('.popover-wrapper'))
-        .fromTo('opacity', 0.01, 1);
-    contentAnimation
-        .addElement(contentEl)
-        .beforeStyles({
-        'top': `${popoverCSS.top}px`,
-        'left': `${popoverCSS.left}px`,
-        'transform-origin': `${originY} ${originX}`
-    })
-        .fromTo('transform', 'scale(0.001)', 'scale(1)');
-    viewportAnimation
-        .addElement(baseEl.querySelector('.popover-viewport'))
-        .fromTo('opacity', 0.01, 1);
-    return baseAnimation
-        .addElement(baseEl)
-        .easing('cubic-bezier(0.36,0.66,0.04,1)')
-        .duration(300)
-        .addAnimation([backdropAnimation, wrapperAnimation, contentAnimation, viewportAnimation]);
-};
-
-/**
- * Md Popover Leave Animation
- */
-const mdLeaveAnimation = (baseEl) => {
-    const baseAnimation = Object(_animation_af478fe9_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
-    const backdropAnimation = Object(_animation_af478fe9_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
-    const wrapperAnimation = Object(_animation_af478fe9_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
-    backdropAnimation
-        .addElement(baseEl.querySelector('ion-backdrop'))
-        .fromTo('opacity', 0.32, 0);
-    wrapperAnimation
-        .addElement(baseEl.querySelector('.popover-wrapper'))
-        .fromTo('opacity', 0.99, 0);
-    return baseAnimation
-        .addElement(baseEl)
-        .easing('ease')
-        .duration(500)
-        .addAnimation([backdropAnimation, wrapperAnimation]);
-};
-
-const Popover = class {
-    constructor(hostRef) {
-        Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["r"])(this, hostRef);
-        this.presented = false;
-        this.mode = Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this);
-        /**
-         * If `true`, the keyboard will be automatically dismissed when the overlay is presented.
-         */
-        this.keyboardClose = true;
-        /**
-         * If `true`, the popover will be dismissed when the backdrop is clicked.
-         */
-        this.backdropDismiss = true;
-        /**
-         * If `true`, a backdrop will be displayed behind the popover.
-         */
-        this.showBackdrop = true;
-        /**
-         * If `true`, the popover will be translucent.
-         * Only applies when the mode is `"ios"` and the device supports
-         * [`backdrop-filter`](https://developer.mozilla.org/en-US/docs/Web/CSS/backdrop-filter#Browser_compatibility).
-         */
-        this.translucent = false;
-        /**
-         * If `true`, the popover will animate.
-         */
-        this.animated = true;
-        this.onDismiss = (ev) => {
-            ev.stopPropagation();
-            ev.preventDefault();
-            this.dismiss();
-        };
-        this.onBackdropTap = () => {
-            this.dismiss(undefined, _overlays_10640d86_js__WEBPACK_IMPORTED_MODULE_5__["B"]);
-        };
-        this.onLifecycle = (modalEvent) => {
-            const el = this.usersElement;
-            const name = LIFECYCLE_MAP[modalEvent.type];
-            if (el && name) {
-                const event = new CustomEvent(name, {
-                    bubbles: false,
-                    cancelable: false,
-                    detail: modalEvent.detail
-                });
-                el.dispatchEvent(event);
-            }
-        };
-        Object(_overlays_10640d86_js__WEBPACK_IMPORTED_MODULE_5__["d"])(this.el);
-        this.didPresent = Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["d"])(this, "ionPopoverDidPresent", 7);
-        this.willPresent = Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["d"])(this, "ionPopoverWillPresent", 7);
-        this.willDismiss = Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["d"])(this, "ionPopoverWillDismiss", 7);
-        this.didDismiss = Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["d"])(this, "ionPopoverDidDismiss", 7);
-    }
-    /**
-     * Present the popover overlay after it has been created.
-     */
-    async present() {
-        if (this.presented) {
-            return;
-        }
-        const container = this.el.querySelector('.popover-content');
-        if (!container) {
-            throw new Error('container is undefined');
-        }
-        const data = Object.assign(Object.assign({}, this.componentProps), { popover: this.el });
-        this.usersElement = await Object(_framework_delegate_c2e2e1f4_js__WEBPACK_IMPORTED_MODULE_7__["a"])(this.delegate, container, this.component, ['popover-viewport', this.el['s-sc']], data);
-        await Object(_index_4d91f03a_js__WEBPACK_IMPORTED_MODULE_8__["d"])(this.usersElement);
-        return Object(_overlays_10640d86_js__WEBPACK_IMPORTED_MODULE_5__["e"])(this, 'popoverEnter', iosEnterAnimation, mdEnterAnimation, this.event);
-    }
-    /**
-     * Dismiss the popover overlay after it has been presented.
-     *
-     * @param data Any data to emit in the dismiss events.
-     * @param role The role of the element that is dismissing the popover. For example, 'cancel' or 'backdrop'.
-     */
-    async dismiss(data, role) {
-        const shouldDismiss = await Object(_overlays_10640d86_js__WEBPACK_IMPORTED_MODULE_5__["f"])(this, data, role, 'popoverLeave', iosLeaveAnimation, mdLeaveAnimation, this.event);
-        if (shouldDismiss) {
-            await Object(_framework_delegate_c2e2e1f4_js__WEBPACK_IMPORTED_MODULE_7__["d"])(this.delegate, this.usersElement);
-        }
-        return shouldDismiss;
-    }
-    /**
-     * Returns a promise that resolves when the popover did dismiss.
-     */
-    onDidDismiss() {
-        return Object(_overlays_10640d86_js__WEBPACK_IMPORTED_MODULE_5__["g"])(this.el, 'ionPopoverDidDismiss');
-    }
-    /**
-     * Returns a promise that resolves when the popover will dismiss.
-     */
-    onWillDismiss() {
-        return Object(_overlays_10640d86_js__WEBPACK_IMPORTED_MODULE_5__["g"])(this.el, 'ionPopoverWillDismiss');
-    }
-    render() {
-        const mode = Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this);
-        const { onLifecycle } = this;
-        return (Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["h"])(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["H"], { "aria-modal": "true", "no-router": true, style: {
-                zIndex: `${20000 + this.overlayIndex}`,
-            }, class: Object.assign(Object.assign({}, Object(_theme_18cbe2cc_js__WEBPACK_IMPORTED_MODULE_6__["g"])(this.cssClass)), { [mode]: true, 'popover-translucent': this.translucent }), onIonPopoverDidPresent: onLifecycle, onIonPopoverWillPresent: onLifecycle, onIonPopoverWillDismiss: onLifecycle, onIonPopoverDidDismiss: onLifecycle, onIonDismiss: this.onDismiss, onIonBackdropTap: this.onBackdropTap }, Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["h"])("ion-backdrop", { tappable: this.backdropDismiss, visible: this.showBackdrop }), Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "popover-wrapper" }, Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "popover-arrow" }), Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "popover-content" }))));
-    }
-    get el() { return Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this); }
-    static get style() { return ".sc-ion-popover-ios-h{--background:var(--ion-background-color,#fff);--min-width:0;--min-height:0;--max-width:auto;--height:auto;left:0;right:0;top:0;bottom:0;display:-ms-flexbox;display:flex;position:fixed;-ms-flex-align:center;align-items:center;-ms-flex-pack:center;justify-content:center;color:var(--ion-text-color,#000);z-index:1001}.overlay-hidden.sc-ion-popover-ios-h{display:none}.popover-wrapper.sc-ion-popover-ios{opacity:0;z-index:10}.popover-content.sc-ion-popover-ios{display:-ms-flexbox;display:flex;position:absolute;-ms-flex-direction:column;flex-direction:column;width:var(--width);min-width:var(--min-width);max-width:var(--max-width);height:var(--height);min-height:var(--min-height);max-height:var(--max-height);background:var(--background);-webkit-box-shadow:var(--box-shadow);box-shadow:var(--box-shadow);overflow:auto;z-index:10}.popover-viewport.sc-ion-popover-ios{--ion-safe-area-top:0px;--ion-safe-area-right:0px;--ion-safe-area-bottom:0px;--ion-safe-area-left:0px}.sc-ion-popover-ios-h{--width:200px;--max-height:90%;--box-shadow:none}.popover-content.sc-ion-popover-ios{border-radius:10px}.popover-arrow.sc-ion-popover-ios{display:block;position:absolute;width:20px;height:10px;overflow:hidden}.popover-arrow.sc-ion-popover-ios:after{left:3px;top:3px;border-radius:3px;position:absolute;width:14px;height:14px;-webkit-transform:rotate(45deg);transform:rotate(45deg);background:var(--background);content:\"\";z-index:10}[dir=rtl].sc-ion-popover-ios-h .popover-arrow.sc-ion-popover-ios:after, [dir=rtl] .sc-ion-popover-ios-h .popover-arrow.sc-ion-popover-ios:after, [dir=rtl].sc-ion-popover-ios .popover-arrow.sc-ion-popover-ios:after{left:unset;right:unset;right:3px}.popover-bottom.sc-ion-popover-ios-h .popover-arrow.sc-ion-popover-ios{top:auto;bottom:-10px}.popover-bottom.sc-ion-popover-ios-h .popover-arrow.sc-ion-popover-ios:after{top:-6px}\@supports ((-webkit-backdrop-filter:blur(0)) or (backdrop-filter:blur(0))){.popover-translucent.sc-ion-popover-ios-h .popover-arrow.sc-ion-popover-ios:after, .popover-translucent.sc-ion-popover-ios-h .popover-content.sc-ion-popover-ios{background:rgba(var(--ion-background-color-rgb,255,255,255),.8);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px)}}"; }
-};
-const LIFECYCLE_MAP = {
-    'ionPopoverDidPresent': 'ionViewDidEnter',
-    'ionPopoverWillPresent': 'ionViewWillEnter',
-    'ionPopoverWillDismiss': 'ionViewWillLeave',
-    'ionPopoverDidDismiss': 'ionViewDidLeave',
-};
+VirtualScroll.style = virtualScrollCss;
 
 
 

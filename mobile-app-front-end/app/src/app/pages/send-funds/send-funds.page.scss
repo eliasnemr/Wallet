@@ -4,9 +4,6 @@ ion-card-content {
 ion-card-header {
   --color: var(--ion-text-color,#000);
 }
-ion-footer ion-toolbar ion-buttons ion-button {
-  width: 100%;
-}
 ion-toolbar {
   --background: var(--ion-m-background);
   font-family: manrope-bold;
@@ -37,7 +34,6 @@ ion-input {
   color: #000;
   line-height: 16px;
   background-color: #ffffff;
-  border: 1px solid #91919D;
 }
  #quickAmount ion-col ion-button {
   float: right;
@@ -105,8 +101,6 @@ ion-toolbar {
 ion-textarea {
   color: black!important;
   background: #ffffff;
-  border: 1px solid #91919D;
-  font-size: 1.0rem;
   padding-left: 1%;
   margin-bottom: 1%;
 }

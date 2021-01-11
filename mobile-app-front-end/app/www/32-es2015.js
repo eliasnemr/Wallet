@@ -1,433 +1,502 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[32],{
 
-/***/ "./node_modules/@ionic/core/dist/esm/ion-item-option_3-md.entry.js":
-/*!*************************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm/ion-item-option_3-md.entry.js ***!
-  \*************************************************************************/
-/*! exports provided: ion_item_option, ion_item_options, ion_item_sliding */
+/***/ "./node_modules/@ionic/core/dist/esm/ion-select_3.entry.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/@ionic/core/dist/esm/ion-select_3.entry.js ***!
+  \*****************************************************************/
+/*! exports provided: ion_select, ion_select_option, ion_select_popover */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ion_item_option", function() { return ItemOption; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ion_item_options", function() { return ItemOptions; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ion_item_sliding", function() { return ItemSliding; });
-/* harmony import */ var _core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./core-feeeff0d.js */ "./node_modules/@ionic/core/dist/esm/core-feeeff0d.js");
-/* harmony import */ var _config_3c7f3790_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./config-3c7f3790.js */ "./node_modules/@ionic/core/dist/esm/config-3c7f3790.js");
-/* harmony import */ var _helpers_46f4a262_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helpers-46f4a262.js */ "./node_modules/@ionic/core/dist/esm/helpers-46f4a262.js");
-/* harmony import */ var _theme_18cbe2cc_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./theme-18cbe2cc.js */ "./node_modules/@ionic/core/dist/esm/theme-18cbe2cc.js");
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ion_select", function() { return Select; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ion_select_option", function() { return SelectOption; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ion_select_popover", function() { return SelectPopover; });
+/* harmony import */ var _index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index-e806d1f6.js */ "./node_modules/@ionic/core/dist/esm/index-e806d1f6.js");
+/* harmony import */ var _ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ionic-global-9d5c8ee3.js */ "./node_modules/@ionic/core/dist/esm/ionic-global-9d5c8ee3.js");
+/* harmony import */ var _helpers_90f46169_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helpers-90f46169.js */ "./node_modules/@ionic/core/dist/esm/helpers-90f46169.js");
+/* harmony import */ var _hardware_back_button_4a6b37fb_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./hardware-back-button-4a6b37fb.js */ "./node_modules/@ionic/core/dist/esm/hardware-back-button-4a6b37fb.js");
+/* harmony import */ var _overlays_12c20431_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./overlays-12c20431.js */ "./node_modules/@ionic/core/dist/esm/overlays-12c20431.js");
+/* harmony import */ var _theme_ff3fc52f_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./theme-ff3fc52f.js */ "./node_modules/@ionic/core/dist/esm/theme-ff3fc52f.js");
 
 
 
 
 
-const ItemOption = class {
-    constructor(hostRef) {
-        Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["r"])(this, hostRef);
-        /**
-         * If `true`, the user cannot interact with the item option.
-         */
-        this.disabled = false;
-        /**
-         * If `true`, the option will expand to take up the available width and cover any other options.
-         */
-        this.expandable = false;
-        /**
-         * The type of the button.
-         */
-        this.type = 'button';
-        this.onClick = (ev) => {
-            const el = ev.target.closest('ion-item-option');
-            if (el) {
-                ev.preventDefault();
-            }
-        };
+
+
+const watchForOptions = (containerEl, tagName, onChange) => {
+  /* tslint:disable-next-line */
+  if (typeof MutationObserver === 'undefined') {
+    return;
+  }
+  const mutation = new MutationObserver(mutationList => {
+    onChange(getSelectedOption(mutationList, tagName));
+  });
+  mutation.observe(containerEl, {
+    childList: true,
+    subtree: true
+  });
+  return mutation;
+};
+const getSelectedOption = (mutationList, tagName) => {
+  let newOption;
+  mutationList.forEach(mut => {
+    // tslint:disable-next-line: prefer-for-of
+    for (let i = 0; i < mut.addedNodes.length; i++) {
+      newOption = findCheckedOption(mut.addedNodes[i], tagName) || newOption;
     }
-    render() {
-        const { disabled, expandable, href } = this;
-        const TagType = href === undefined ? 'button' : 'a';
-        const mode = Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this);
-        const attrs = (TagType === 'button')
-            ? { type: this.type }
-            : {
-                download: this.download,
-                href: this.href,
-                target: this.target
-            };
-        return (Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["h"])(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["H"], { onClick: this.onClick, class: Object.assign(Object.assign({}, Object(_theme_18cbe2cc_js__WEBPACK_IMPORTED_MODULE_3__["c"])(this.color)), { [mode]: true, 'item-option-disabled': disabled, 'item-option-expandable': expandable, 'ion-activatable': true }) }, Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["h"])(TagType, Object.assign({}, attrs, { class: "button-native", disabled: disabled }), Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["h"])("span", { class: "button-inner" }, Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["h"])("slot", { name: "top" }), Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "horizontal-wrapper" }, Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["h"])("slot", { name: "start" }), Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["h"])("slot", { name: "icon-only" }), Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["h"])("slot", null), Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["h"])("slot", { name: "end" })), Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["h"])("slot", { name: "bottom" })), mode === 'md' && Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["h"])("ion-ripple-effect", null))));
-    }
-    get el() { return Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this); }
-    static get style() { return ":host{--background:var(--ion-color-primary,#3880ff);--color:var(--ion-color-primary-contrast,#fff);background:var(--background);color:var(--color);font-family:var(--ion-font-family,inherit)}:host(.in-list.item-options-end:last-child){padding-right:calc(.7em + var(--ion-safe-area-right))}\@supports ((-webkit-margin-start:0) or (margin-inline-start:0)) or (-webkit-margin-start:0){:host(.in-list.item-options-end:last-child){padding-right:unset;-webkit-padding-end:calc(.7em + var(--ion-safe-area-right));padding-inline-end:calc(.7em + var(--ion-safe-area-right))}}:host(.in-list.item-options-start:first-child){padding-left:calc(.7em + var(--ion-safe-area-left))}\@supports ((-webkit-margin-start:0) or (margin-inline-start:0)) or (-webkit-margin-start:0){:host(.in-list.item-options-start:first-child){padding-left:unset;-webkit-padding-start:calc(.7em + var(--ion-safe-area-left));padding-inline-start:calc(.7em + var(--ion-safe-area-left))}}:host(.ion-color){background:var(--ion-color-base);color:var(--ion-color-contrast)}.button-native{font-family:inherit;font-size:inherit;font-style:inherit;font-weight:inherit;letter-spacing:inherit;text-decoration:inherit;text-overflow:inherit;text-transform:inherit;text-align:inherit;white-space:inherit;color:inherit;padding-left:.7em;padding-right:.7em;padding-top:0;padding-bottom:0;display:inline-block;position:relative;width:100%;height:100%;border:0;outline:none;background:transparent;cursor:pointer;-webkit-appearance:none;-moz-appearance:none;appearance:none;-webkit-box-sizing:border-box;box-sizing:border-box}\@supports ((-webkit-margin-start:0) or (margin-inline-start:0)) or (-webkit-margin-start:0){.button-native{padding-left:unset;padding-right:unset;-webkit-padding-start:.7em;padding-inline-start:.7em;-webkit-padding-end:.7em;padding-inline-end:.7em}}.button-inner{-ms-flex-flow:column nowrap;flex-flow:column nowrap;height:100%}.button-inner,.horizontal-wrapper{display:-ms-flexbox;display:flex;-ms-flex-negative:0;flex-shrink:0;-ms-flex-align:center;align-items:center;-ms-flex-pack:center;justify-content:center;width:100%}.horizontal-wrapper{-ms-flex-flow:row nowrap;flex-flow:row nowrap}::slotted(*){-ms-flex-negative:0;flex-shrink:0}::slotted([slot=start]){margin-left:0;margin-right:5px;margin-top:0;margin-bottom:0}\@supports ((-webkit-margin-start:0) or (margin-inline-start:0)) or (-webkit-margin-start:0){::slotted([slot=start]){margin-left:unset;margin-right:unset;-webkit-margin-start:0;margin-inline-start:0;-webkit-margin-end:5px;margin-inline-end:5px}}::slotted([slot=end]){margin-left:5px;margin-right:0;margin-top:0;margin-bottom:0}\@supports ((-webkit-margin-start:0) or (margin-inline-start:0)) or (-webkit-margin-start:0){::slotted([slot=end]){margin-left:unset;margin-right:unset;-webkit-margin-start:5px;margin-inline-start:5px;-webkit-margin-end:0;margin-inline-end:0}}::slotted([slot=icon-only]){padding-left:0;padding-right:0;padding-top:0;padding-bottom:0;margin-left:10px;margin-right:10px;margin-top:0;margin-bottom:0;min-width:.9em;font-size:1.8em}\@supports ((-webkit-margin-start:0) or (margin-inline-start:0)) or (-webkit-margin-start:0){::slotted([slot=icon-only]){margin-left:unset;margin-right:unset;-webkit-margin-start:10px;margin-inline-start:10px;-webkit-margin-end:10px;margin-inline-end:10px}}:host(.item-option-expandable){-ms-flex-negative:0;flex-shrink:0;-webkit-transition-duration:0;transition-duration:0;-webkit-transition-property:none;transition-property:none;-webkit-transition-timing-function:cubic-bezier(.65,.05,.36,1);transition-timing-function:cubic-bezier(.65,.05,.36,1)}:host(.item-option-disabled){pointer-events:none}:host(.item-option-disabled) .button-native{cursor:default;opacity:.5;pointer-events:none}:host{font-size:14px;font-weight:500;text-transform:uppercase}"; }
+  });
+  return newOption;
+};
+const findCheckedOption = (el, tagName) => {
+  if (el.nodeType !== 1) {
+    return undefined;
+  }
+  const options = (el.tagName === tagName.toUpperCase())
+    ? [el]
+    : Array.from(el.querySelectorAll(tagName));
+  return options.find((o) => o.value === el.value);
 };
 
-const ItemOptions = class {
-    constructor(hostRef) {
-        Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["r"])(this, hostRef);
-        /**
-         * The side the option button should be on. Possible values: `"start"` and `"end"`. If you have multiple `ion-item-options`, a side must be provided for each.
-         *
-         */
-        this.side = 'end';
-        this.ionSwipe = Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["d"])(this, "ionSwipe", 7);
-    }
-    /** @internal */
-    async fireSwipeEvent() {
-        this.ionSwipe.emit({
-            side: this.side
-        });
-    }
-    render() {
-        const mode = Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this);
-        const isEnd = Object(_helpers_46f4a262_js__WEBPACK_IMPORTED_MODULE_2__["i"])(this.side);
-        return (Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["h"])(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["H"], { class: {
-                [mode]: true,
-                // Used internally for styling
-                [`item-options-${mode}`]: true,
-                'item-options-start': !isEnd,
-                'item-options-end': isEnd
-            } }));
-    }
-    get el() { return Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this); }
-    static get style() { return "ion-item-options{top:0;right:0;-ms-flex-pack:end;justify-content:flex-end;display:none;position:absolute;height:100%;font-size:14px;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;z-index:1}:host-context([dir=rtl]) ion-item-options,[dir=rtl] ion-item-options{-ms-flex-pack:start;justify-content:flex-start}:host-context([dir=rtl]) ion-item-options:not(.item-options-end),[dir=rtl] ion-item-options:not(.item-options-end){right:auto;left:0;-ms-flex-pack:end;justify-content:flex-end}.item-options-start{right:auto;left:0;-ms-flex-pack:start;justify-content:flex-start}:host-context([dir=rtl]) .item-options-start,[dir=rtl] .item-options-start{-ms-flex-pack:end;justify-content:flex-end}.item-options-start ion-item-option:first-child{padding-right:var(--ion-safe-area-left)}\@supports ((-webkit-margin-start:0) or (margin-inline-start:0)) or (-webkit-margin-start:0){.item-options-start ion-item-option:first-child{padding-right:unset;-webkit-padding-end:var(--ion-safe-area-left);padding-inline-end:var(--ion-safe-area-left)}}.item-options-end ion-item-option:last-child{padding-right:var(--ion-safe-area-right)}\@supports ((-webkit-margin-start:0) or (margin-inline-start:0)) or (-webkit-margin-start:0){.item-options-end ion-item-option:last-child{padding-right:unset;-webkit-padding-end:var(--ion-safe-area-right);padding-inline-end:var(--ion-safe-area-right)}}:host-context([dir=rtl]) .item-sliding-active-slide.item-sliding-active-options-start ion-item-options:not(.item-options-end),[dir=rtl] .item-sliding-active-slide.item-sliding-active-options-start ion-item-options:not(.item-options-end){width:100%;visibility:visible}.item-sliding-active-slide ion-item-options{display:-ms-flexbox;display:flex;visibility:hidden}.item-sliding-active-slide.item-sliding-active-options-end ion-item-options:not(.item-options-start),.item-sliding-active-slide.item-sliding-active-options-start .item-options-start{width:100%;visibility:visible}.item-options-md{border-bottom-style:solid;border-bottom-color:var(--ion-item-border-color,var(--ion-border-color,var(--ion-color-step-150,rgba(0,0,0,.13))))}.item-options-md,.list-md-lines-none .item-options-md{border-bottom-width:0}.list-md-lines-full .item-options-md,.list-md-lines-inset .item-options-md.item-options-end{border-bottom-width:1px}"; }
-};
+const selectIosCss = ":host{--placeholder-color:currentColor;--placeholder-opacity:0.33;padding-left:var(--padding-start);padding-right:var(--padding-end);padding-top:var(--padding-top);padding-bottom:var(--padding-bottom);display:-ms-flexbox;display:flex;position:relative;-ms-flex-align:center;align-items:center;font-family:var(--ion-font-family, inherit);overflow:hidden;z-index:2}@supports ((-webkit-margin-start: 0) or (margin-inline-start: 0)) or (-webkit-margin-start: 0){:host{padding-left:unset;padding-right:unset;-webkit-padding-start:var(--padding-start);padding-inline-start:var(--padding-start);-webkit-padding-end:var(--padding-end);padding-inline-end:var(--padding-end)}}:host(.in-item){position:static;max-width:45%}:host(.select-disabled){opacity:0.4;pointer-events:none}:host(.ion-focused) button{border:2px solid #5e9ed6}.select-placeholder{color:var(--placeholder-color);opacity:var(--placeholder-opacity)}label{left:0;top:0;margin-left:0;margin-right:0;margin-top:0;margin-bottom:0;position:absolute;width:100%;height:100%;border:0;background:transparent;cursor:pointer;-webkit-appearance:none;-moz-appearance:none;appearance:none;outline:none;display:-ms-flexbox;display:flex;-ms-flex-align:center;align-items:center;opacity:0}[dir=rtl] label,:host-context([dir=rtl]) label{left:unset;right:unset;right:0}label::-moz-focus-inner{border:0}button{position:absolute;top:0;left:0;right:0;bottom:0;width:100%;height:100%;margin:0;padding:0;border:0;outline:0;clip:rect(0 0 0 0);opacity:0;overflow:hidden;-webkit-appearance:none;-moz-appearance:none}.select-icon{position:relative;opacity:0.33}.select-text{-ms-flex:1;flex:1;min-width:16px;font-size:inherit;text-overflow:ellipsis;white-space:nowrap;overflow:hidden}.select-icon-inner{left:5px;top:50%;margin-top:-2px;position:absolute;width:0;height:0;border-top:5px solid;border-right:5px solid transparent;border-left:5px solid transparent;color:currentColor;pointer-events:none}[dir=rtl] .select-icon-inner,:host-context([dir=rtl]) .select-icon-inner{left:unset;right:unset;right:5px}:host{--padding-top:10px;--padding-end:10px;--padding-bottom:10px;--padding-start:20px}.select-icon{width:12px;height:18px}";
 
-const SWIPE_MARGIN = 30;
-const ELASTIC_FACTOR = 0.55;
-let openSlidingItem;
-const ItemSliding = class {
-    constructor(hostRef) {
-        Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["r"])(this, hostRef);
-        this.item = null;
-        this.openAmount = 0;
-        this.initialOpenAmount = 0;
-        this.optsWidthRightSide = 0;
-        this.optsWidthLeftSide = 0;
-        this.sides = 0 /* None */;
-        this.optsDirty = true;
-        this.state = 2 /* Disabled */;
-        /**
-         * If `true`, the user cannot interact with the sliding item.
-         */
-        this.disabled = false;
-        this.ionDrag = Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["d"])(this, "ionDrag", 7);
-    }
-    disabledChanged() {
-        if (this.gesture) {
-            this.gesture.setDisabled(this.disabled);
-        }
-    }
-    async connectedCallback() {
-        this.item = this.el.querySelector('ion-item');
-        await this.updateOptions();
-        this.gesture = (await Promise.resolve(/*! import() */).then(__webpack_require__.bind(null, /*! ./index-624eea58.js */ "./node_modules/@ionic/core/dist/esm/index-624eea58.js"))).createGesture({
-            el: this.el,
-            gestureName: 'item-swipe',
-            gesturePriority: 100,
-            threshold: 5,
-            canStart: () => this.canStart(),
-            onStart: () => this.onStart(),
-            onMove: ev => this.onMove(ev),
-            onEnd: ev => this.onEnd(ev),
-        });
-        this.disabledChanged();
-    }
-    disconnectedCallback() {
-        if (this.gesture) {
-            this.gesture.destroy();
-            this.gesture = undefined;
-        }
-        this.item = null;
-        this.leftOptions = this.rightOptions = undefined;
-        if (openSlidingItem === this.el) {
-            openSlidingItem = undefined;
-        }
-    }
+const selectMdCss = ":host{--placeholder-color:currentColor;--placeholder-opacity:0.33;padding-left:var(--padding-start);padding-right:var(--padding-end);padding-top:var(--padding-top);padding-bottom:var(--padding-bottom);display:-ms-flexbox;display:flex;position:relative;-ms-flex-align:center;align-items:center;font-family:var(--ion-font-family, inherit);overflow:hidden;z-index:2}@supports ((-webkit-margin-start: 0) or (margin-inline-start: 0)) or (-webkit-margin-start: 0){:host{padding-left:unset;padding-right:unset;-webkit-padding-start:var(--padding-start);padding-inline-start:var(--padding-start);-webkit-padding-end:var(--padding-end);padding-inline-end:var(--padding-end)}}:host(.in-item){position:static;max-width:45%}:host(.select-disabled){opacity:0.4;pointer-events:none}:host(.ion-focused) button{border:2px solid #5e9ed6}.select-placeholder{color:var(--placeholder-color);opacity:var(--placeholder-opacity)}label{left:0;top:0;margin-left:0;margin-right:0;margin-top:0;margin-bottom:0;position:absolute;width:100%;height:100%;border:0;background:transparent;cursor:pointer;-webkit-appearance:none;-moz-appearance:none;appearance:none;outline:none;display:-ms-flexbox;display:flex;-ms-flex-align:center;align-items:center;opacity:0}[dir=rtl] label,:host-context([dir=rtl]) label{left:unset;right:unset;right:0}label::-moz-focus-inner{border:0}button{position:absolute;top:0;left:0;right:0;bottom:0;width:100%;height:100%;margin:0;padding:0;border:0;outline:0;clip:rect(0 0 0 0);opacity:0;overflow:hidden;-webkit-appearance:none;-moz-appearance:none}.select-icon{position:relative;opacity:0.33}.select-text{-ms-flex:1;flex:1;min-width:16px;font-size:inherit;text-overflow:ellipsis;white-space:nowrap;overflow:hidden}.select-icon-inner{left:5px;top:50%;margin-top:-2px;position:absolute;width:0;height:0;border-top:5px solid;border-right:5px solid transparent;border-left:5px solid transparent;color:currentColor;pointer-events:none}[dir=rtl] .select-icon-inner,:host-context([dir=rtl]) .select-icon-inner{left:unset;right:unset;right:5px}:host{--padding-top:10px;--padding-end:0;--padding-bottom:10px;--padding-start:16px}.select-icon{width:19px;height:19px}:host-context(.item-label-floating) .select-icon{-webkit-transform:translate3d(0,  -9px,  0);transform:translate3d(0,  -9px,  0)}";
+
+const Select = class {
+  constructor(hostRef) {
+    Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["r"])(this, hostRef);
+    this.ionChange = Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this, "ionChange", 7);
+    this.ionCancel = Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this, "ionCancel", 7);
+    this.ionFocus = Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this, "ionFocus", 7);
+    this.ionBlur = Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this, "ionBlur", 7);
+    this.ionStyle = Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this, "ionStyle", 7);
+    this.inputId = `ion-sel-${selectIds++}`;
+    this.didInit = false;
+    this.isExpanded = false;
     /**
-     * Get the amount the item is open in pixels.
+     * If `true`, the user cannot interact with the select.
      */
-    getOpenAmount() {
-        return Promise.resolve(this.openAmount);
-    }
+    this.disabled = false;
     /**
-     * Get the ratio of the open amount of the item compared to the width of the options.
-     * If the number returned is positive, then the options on the right side are open.
-     * If the number returned is negative, then the options on the left side are open.
-     * If the absolute value of the number is greater than 1, the item is open more than
-     * the width of the options.
+     * The text to display on the cancel button.
      */
-    getSlidingRatio() {
-        return Promise.resolve(this.getSlidingRatioSync());
-    }
+    this.cancelText = 'Cancel';
     /**
-     * Open the sliding item.
+     * The text to display on the ok button.
+     */
+    this.okText = 'OK';
+    /**
+     * The name of the control, which is submitted with the form data.
+     */
+    this.name = this.inputId;
+    /**
+     * If `true`, the select can accept multiple values.
+     */
+    this.multiple = false;
+    /**
+     * The interface the select should use: `action-sheet`, `popover` or `alert`.
+     */
+    this.interface = 'alert';
+    /**
+     * Any additional options that the `alert`, `action-sheet` or `popover` interface
+     * can take. See the [ion-alert docs](../alert), the
+     * [ion-action-sheet docs](../action-sheet) and the
+     * [ion-popover docs](../popover) for the
+     * create options for each interface.
      *
-     * @param side The side of the options to open. If a side is not provided, it will open the first set of options it finds within the item.
+     * Note: `interfaceOptions` will not override `inputs` or `buttons` with the `alert` interface.
      */
-    async open(side) {
-        if (this.item === null) {
-            return;
-        }
-        const optionsToOpen = this.getOptions(side);
-        if (!optionsToOpen) {
-            return;
-        }
-        /**
-         * If side is not set, we need to infer the side
-         * so we know which direction to move the options
-         */
-        if (side === undefined) {
-            side = (optionsToOpen === this.leftOptions) ? 'start' : 'end';
-        }
-        // In RTL we want to switch the sides
-        side = Object(_helpers_46f4a262_js__WEBPACK_IMPORTED_MODULE_2__["i"])(side) ? 'end' : 'start';
-        const isStartOpen = this.openAmount < 0;
-        const isEndOpen = this.openAmount > 0;
-        /**
-         * If a side is open and a user tries to
-         * re-open the same side, we should not do anything
-         */
-        if (isStartOpen && optionsToOpen === this.leftOptions) {
-            return;
-        }
-        if (isEndOpen && optionsToOpen === this.rightOptions) {
-            return;
-        }
-        this.closeOpened();
-        this.state = 4 /* Enabled */;
-        requestAnimationFrame(() => {
-            this.calculateOptsWidth();
-            const width = (side === 'end') ? this.optsWidthRightSide : -this.optsWidthLeftSide;
-            openSlidingItem = this.el;
-            this.setOpenAmount(width, false);
-            this.state = (side === 'end') ? 8 /* End */ : 16 /* Start */;
-        });
+    this.interfaceOptions = {};
+    this.onClick = (ev) => {
+      this.setFocus();
+      this.open(ev);
+    };
+    this.onFocus = () => {
+      this.ionFocus.emit();
+    };
+    this.onBlur = () => {
+      this.ionBlur.emit();
+    };
+  }
+  disabledChanged() {
+    this.emitStyle();
+  }
+  valueChanged() {
+    this.emitStyle();
+    if (this.didInit) {
+      this.ionChange.emit({
+        value: this.value,
+      });
     }
-    /**
-     * Close the sliding item. Items can also be closed from the [List](../../list/List).
-     */
-    async close() {
-        this.setOpenAmount(0, true);
+  }
+  async connectedCallback() {
+    this.updateOverlayOptions();
+    this.emitStyle();
+    this.mutationO = watchForOptions(this.el, 'ion-select-option', async () => {
+      this.updateOverlayOptions();
+    });
+  }
+  disconnectedCallback() {
+    if (this.mutationO) {
+      this.mutationO.disconnect();
+      this.mutationO = undefined;
     }
-    /**
-     * Close all of the sliding items in the list. Items can also be closed from the [List](../../list/List).
-     */
-    async closeOpened() {
-        if (openSlidingItem !== undefined) {
-            openSlidingItem.close();
-            openSlidingItem = undefined;
-            return true;
-        }
-        return false;
+  }
+  componentDidLoad() {
+    this.didInit = true;
+  }
+  /**
+   * Open the select overlay. The overlay is either an alert, action sheet, or popover,
+   * depending on the `interface` property on the `ion-select`.
+   *
+   * @param event The user interface event that called the open.
+   */
+  async open(event) {
+    if (this.disabled || this.isExpanded) {
+      return undefined;
     }
-    /**
-     * Given an optional side, return the ion-item-options element.
-     *
-     * @param side This side of the options to get. If a side is not provided it will
-     * return the first one available.
-     */
-    getOptions(side) {
-        if (side === undefined) {
-            return this.leftOptions || this.rightOptions;
-        }
-        else if (side === 'start') {
-            return this.leftOptions;
-        }
-        else {
-            return this.rightOptions;
-        }
+    const overlay = this.overlay = await this.createOverlay(event);
+    this.isExpanded = true;
+    overlay.onDidDismiss().then(() => {
+      this.overlay = undefined;
+      this.isExpanded = false;
+      this.setFocus();
+    });
+    await overlay.present();
+    return overlay;
+  }
+  createOverlay(ev) {
+    let selectInterface = this.interface;
+    if ((selectInterface === 'action-sheet' || selectInterface === 'popover') && this.multiple) {
+      console.warn(`Select interface cannot be "${selectInterface}" with a multi-value select. Using the "alert" interface instead.`);
+      selectInterface = 'alert';
     }
-    async updateOptions() {
-        const options = this.el.querySelectorAll('ion-item-options');
-        let sides = 0;
-        // Reset left and right options in case they were removed
-        this.leftOptions = this.rightOptions = undefined;
-        for (let i = 0; i < options.length; i++) {
-            const option = await options.item(i).componentOnReady();
-            const side = Object(_helpers_46f4a262_js__WEBPACK_IMPORTED_MODULE_2__["i"])(option.side) ? 'end' : 'start';
-            if (side === 'start') {
-                this.leftOptions = option;
-                sides |= 1 /* Start */;
-            }
-            else {
-                this.rightOptions = option;
-                sides |= 2 /* End */;
-            }
-        }
-        this.optsDirty = true;
-        this.sides = sides;
+    if (selectInterface === 'popover' && !ev) {
+      console.warn('Select interface cannot be a "popover" without passing an event. Using the "alert" interface instead.');
+      selectInterface = 'alert';
     }
-    canStart() {
-        const selected = openSlidingItem;
-        if (selected && selected !== this.el) {
-            this.closeOpened();
-            return false;
-        }
-        return !!(this.rightOptions || this.leftOptions);
+    if (selectInterface === 'popover') {
+      return this.openPopover(ev);
     }
-    onStart() {
-        openSlidingItem = this.el;
-        if (this.tmr !== undefined) {
-            clearTimeout(this.tmr);
-            this.tmr = undefined;
-        }
-        if (this.openAmount === 0) {
-            this.optsDirty = true;
-            this.state = 4 /* Enabled */;
-        }
-        this.initialOpenAmount = this.openAmount;
-        if (this.item) {
-            this.item.style.transition = 'none';
-        }
+    if (selectInterface === 'action-sheet') {
+      return this.openActionSheet();
     }
-    onMove(gesture) {
-        if (this.optsDirty) {
-            this.calculateOptsWidth();
-        }
-        let openAmount = this.initialOpenAmount - gesture.deltaX;
-        switch (this.sides) {
-            case 2 /* End */:
-                openAmount = Math.max(0, openAmount);
-                break;
-            case 1 /* Start */:
-                openAmount = Math.min(0, openAmount);
-                break;
-            case 3 /* Both */: break;
-            case 0 /* None */: return;
-            default:
-                console.warn('invalid ItemSideFlags value', this.sides);
-                break;
-        }
-        let optsWidth;
-        if (openAmount > this.optsWidthRightSide) {
-            optsWidth = this.optsWidthRightSide;
-            openAmount = optsWidth + (openAmount - optsWidth) * ELASTIC_FACTOR;
-        }
-        else if (openAmount < -this.optsWidthLeftSide) {
-            optsWidth = -this.optsWidthLeftSide;
-            openAmount = optsWidth + (openAmount - optsWidth) * ELASTIC_FACTOR;
-        }
-        this.setOpenAmount(openAmount, false);
+    return this.openAlert();
+  }
+  updateOverlayOptions() {
+    const overlay = this.overlay;
+    if (!overlay) {
+      return;
     }
-    onEnd(gesture) {
-        const velocity = gesture.velocityX;
-        let restingPoint = (this.openAmount > 0)
-            ? this.optsWidthRightSide
-            : -this.optsWidthLeftSide;
-        // Check if the drag didn't clear the buttons mid-point
-        // and we aren't moving fast enough to swipe open
-        const isResetDirection = (this.openAmount > 0) === !(velocity < 0);
-        const isMovingFast = Math.abs(velocity) > 0.3;
-        const isOnCloseZone = Math.abs(this.openAmount) < Math.abs(restingPoint / 2);
-        if (swipeShouldReset(isResetDirection, isMovingFast, isOnCloseZone)) {
-            restingPoint = 0;
+    const childOpts = this.childOpts;
+    const value = this.value;
+    switch (this.interface) {
+      case 'action-sheet':
+        overlay.buttons = this.createActionSheetButtons(childOpts, value);
+        break;
+      case 'popover':
+        const popover = overlay.querySelector('ion-select-popover');
+        if (popover) {
+          popover.options = this.createPopoverOptions(childOpts, value);
         }
-        const state = this.state;
-        this.setOpenAmount(restingPoint, true);
-        if ((state & 32 /* SwipeEnd */) !== 0 && this.rightOptions) {
-            this.rightOptions.fireSwipeEvent();
-        }
-        else if ((state & 64 /* SwipeStart */) !== 0 && this.leftOptions) {
-            this.leftOptions.fireSwipeEvent();
-        }
+        break;
+      case 'alert':
+        const inputType = (this.multiple ? 'checkbox' : 'radio');
+        overlay.inputs = this.createAlertInputs(childOpts, inputType, value);
+        break;
     }
-    calculateOptsWidth() {
-        this.optsWidthRightSide = 0;
-        if (this.rightOptions) {
-            this.rightOptions.style.display = 'flex';
-            this.optsWidthRightSide = this.rightOptions.offsetWidth;
-            this.rightOptions.style.display = '';
+  }
+  createActionSheetButtons(data, selectValue) {
+    const actionSheetButtons = data.map(option => {
+      const value = getOptionValue(option);
+      // Remove hydrated before copying over classes
+      const copyClasses = Array.from(option.classList).filter(cls => cls !== 'hydrated').join(' ');
+      const optClass = `${OPTION_CLASS} ${copyClasses}`;
+      return {
+        role: (isOptionSelected(value, selectValue, this.compareWith) ? 'selected' : ''),
+        text: option.textContent,
+        cssClass: optClass,
+        handler: () => {
+          this.value = value;
         }
-        this.optsWidthLeftSide = 0;
-        if (this.leftOptions) {
-            this.leftOptions.style.display = 'flex';
-            this.optsWidthLeftSide = this.leftOptions.offsetWidth;
-            this.leftOptions.style.display = '';
+      };
+    });
+    // Add "cancel" button
+    actionSheetButtons.push({
+      text: this.cancelText,
+      role: 'cancel',
+      handler: () => {
+        this.ionCancel.emit();
+      }
+    });
+    return actionSheetButtons;
+  }
+  createAlertInputs(data, inputType, selectValue) {
+    const alertInputs = data.map(option => {
+      const value = getOptionValue(option);
+      // Remove hydrated before copying over classes
+      const copyClasses = Array.from(option.classList).filter(cls => cls !== 'hydrated').join(' ');
+      const optClass = `${OPTION_CLASS} ${copyClasses}`;
+      return {
+        type: inputType,
+        cssClass: optClass,
+        label: option.textContent || '',
+        value,
+        checked: isOptionSelected(value, selectValue, this.compareWith),
+        disabled: option.disabled
+      };
+    });
+    return alertInputs;
+  }
+  createPopoverOptions(data, selectValue) {
+    const popoverOptions = data.map(option => {
+      const value = getOptionValue(option);
+      // Remove hydrated before copying over classes
+      const copyClasses = Array.from(option.classList).filter(cls => cls !== 'hydrated').join(' ');
+      const optClass = `${OPTION_CLASS} ${copyClasses}`;
+      return {
+        text: option.textContent || '',
+        cssClass: optClass,
+        value,
+        checked: isOptionSelected(value, selectValue, this.compareWith),
+        disabled: option.disabled,
+        handler: () => {
+          this.value = value;
+          this.close();
         }
-        this.optsDirty = false;
+      };
+    });
+    return popoverOptions;
+  }
+  async openPopover(ev) {
+    const interfaceOptions = this.interfaceOptions;
+    const mode = Object(_ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this);
+    const value = this.value;
+    const popoverOpts = Object.assign(Object.assign({ mode }, interfaceOptions), { component: 'ion-select-popover', cssClass: ['select-popover', interfaceOptions.cssClass], event: ev, componentProps: {
+        header: interfaceOptions.header,
+        subHeader: interfaceOptions.subHeader,
+        message: interfaceOptions.message,
+        value,
+        options: this.createPopoverOptions(this.childOpts, value)
+      } });
+    return _overlays_12c20431_js__WEBPACK_IMPORTED_MODULE_4__["c"].create(popoverOpts);
+  }
+  async openActionSheet() {
+    const mode = Object(_ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this);
+    const interfaceOptions = this.interfaceOptions;
+    const actionSheetOpts = Object.assign(Object.assign({ mode }, interfaceOptions), { buttons: this.createActionSheetButtons(this.childOpts, this.value), cssClass: ['select-action-sheet', interfaceOptions.cssClass] });
+    return _overlays_12c20431_js__WEBPACK_IMPORTED_MODULE_4__["b"].create(actionSheetOpts);
+  }
+  async openAlert() {
+    const label = this.getLabel();
+    const labelText = (label) ? label.textContent : null;
+    const interfaceOptions = this.interfaceOptions;
+    const inputType = (this.multiple ? 'checkbox' : 'radio');
+    const mode = Object(_ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this);
+    const alertOpts = Object.assign(Object.assign({ mode }, interfaceOptions), { header: interfaceOptions.header ? interfaceOptions.header : labelText, inputs: this.createAlertInputs(this.childOpts, inputType, this.value), buttons: [
+        {
+          text: this.cancelText,
+          role: 'cancel',
+          handler: () => {
+            this.ionCancel.emit();
+          }
+        },
+        {
+          text: this.okText,
+          handler: (selectedValues) => {
+            this.value = selectedValues;
+          }
+        }
+      ], cssClass: ['select-alert', interfaceOptions.cssClass,
+        (this.multiple ? 'multiple-select-alert' : 'single-select-alert')] });
+    return _overlays_12c20431_js__WEBPACK_IMPORTED_MODULE_4__["a"].create(alertOpts);
+  }
+  /**
+   * Close the select interface.
+   */
+  close() {
+    // TODO check !this.overlay || !this.isFocus()
+    if (!this.overlay) {
+      return Promise.resolve(false);
     }
-    setOpenAmount(openAmount, isFinal) {
-        if (this.tmr !== undefined) {
-            clearTimeout(this.tmr);
-            this.tmr = undefined;
-        }
-        if (!this.item) {
-            return;
-        }
-        const style = this.item.style;
-        this.openAmount = openAmount;
-        if (isFinal) {
-            style.transition = '';
-        }
-        if (openAmount > 0) {
-            this.state = (openAmount >= (this.optsWidthRightSide + SWIPE_MARGIN))
-                ? 8 /* End */ | 32 /* SwipeEnd */
-                : 8 /* End */;
-        }
-        else if (openAmount < 0) {
-            this.state = (openAmount <= (-this.optsWidthLeftSide - SWIPE_MARGIN))
-                ? 16 /* Start */ | 64 /* SwipeStart */
-                : 16 /* Start */;
-        }
-        else {
-            this.tmr = setTimeout(() => {
-                this.state = 2 /* Disabled */;
-                this.tmr = undefined;
-            }, 600);
-            openSlidingItem = undefined;
-            style.transform = '';
-            return;
-        }
-        style.transform = `translate3d(${-openAmount}px,0,0)`;
-        this.ionDrag.emit({
-            amount: openAmount,
-            ratio: this.getSlidingRatioSync()
-        });
+    return this.overlay.dismiss();
+  }
+  getLabel() {
+    return Object(_helpers_90f46169_js__WEBPACK_IMPORTED_MODULE_2__["f"])(this.el);
+  }
+  hasValue() {
+    return this.getText() !== '';
+  }
+  get childOpts() {
+    return Array.from(this.el.querySelectorAll('ion-select-option'));
+  }
+  getText() {
+    const selectedText = this.selectedText;
+    if (selectedText != null && selectedText !== '') {
+      return selectedText;
     }
-    getSlidingRatioSync() {
-        if (this.openAmount > 0) {
-            return this.openAmount / this.optsWidthRightSide;
-        }
-        else if (this.openAmount < 0) {
-            return this.openAmount / this.optsWidthLeftSide;
-        }
-        else {
-            return 0;
-        }
+    return generateText(this.childOpts, this.value, this.compareWith);
+  }
+  setFocus() {
+    if (this.focusEl) {
+      this.focusEl.focus();
     }
-    render() {
-        const mode = Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this);
-        return (Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["h"])(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["H"], { class: {
-                [mode]: true,
-                'item-sliding-active-slide': (this.state !== 2 /* Disabled */),
-                'item-sliding-active-options-end': (this.state & 8 /* End */) !== 0,
-                'item-sliding-active-options-start': (this.state & 16 /* Start */) !== 0,
-                'item-sliding-active-swipe-end': (this.state & 32 /* SwipeEnd */) !== 0,
-                'item-sliding-active-swipe-start': (this.state & 64 /* SwipeStart */) !== 0
-            } }));
+  }
+  emitStyle() {
+    this.ionStyle.emit({
+      'interactive': true,
+      'select': true,
+      'has-placeholder': this.placeholder != null,
+      'has-value': this.hasValue(),
+      'interactive-disabled': this.disabled,
+      'select-disabled': this.disabled
+    });
+  }
+  render() {
+    const { disabled, el, inputId, isExpanded, name, placeholder, value } = this;
+    const mode = Object(_ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this);
+    const { labelText, labelId } = Object(_helpers_90f46169_js__WEBPACK_IMPORTED_MODULE_2__["c"])(el, inputId);
+    Object(_helpers_90f46169_js__WEBPACK_IMPORTED_MODULE_2__["d"])(true, el, name, parseValue(value), disabled);
+    const displayValue = this.getText();
+    let addPlaceholderClass = false;
+    let selectText = displayValue;
+    if (selectText === '' && placeholder != null) {
+      selectText = placeholder;
+      addPlaceholderClass = true;
     }
-    get el() { return Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this); }
-    static get watchers() { return {
-        "disabled": ["disabledChanged"]
-    }; }
-    static get style() { return "ion-item-sliding{display:block;position:relative;width:100%;overflow:hidden}ion-item-sliding,ion-item-sliding .item{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.item-sliding-active-slide .item{position:relative;-webkit-transition:-webkit-transform .5s cubic-bezier(.36,.66,.04,1);transition:-webkit-transform .5s cubic-bezier(.36,.66,.04,1);transition:transform .5s cubic-bezier(.36,.66,.04,1);transition:transform .5s cubic-bezier(.36,.66,.04,1),-webkit-transform .5s cubic-bezier(.36,.66,.04,1);opacity:1;z-index:2;pointer-events:none;will-change:transform}.item-sliding-active-swipe-end .item-options-end .item-option-expandable{padding-left:100%;-ms-flex-order:1;order:1;-webkit-transition-duration:.6s;transition-duration:.6s;-webkit-transition-property:padding-left;transition-property:padding-left}:host-context([dir=rtl]) .item-sliding-active-swipe-end .item-options-end .item-option-expandable,[dir=rtl] .item-sliding-active-swipe-end .item-options-end .item-option-expandable{-ms-flex-order:-1;order:-1}.item-sliding-active-swipe-start .item-options-start .item-option-expandable{padding-right:100%;-ms-flex-order:-1;order:-1;-webkit-transition-duration:.6s;transition-duration:.6s;-webkit-transition-property:padding-right;transition-property:padding-right}:host-context([dir=rtl]) .item-sliding-active-swipe-start .item-options-start .item-option-expandable,[dir=rtl] .item-sliding-active-swipe-start .item-options-start .item-option-expandable{-ms-flex-order:1;order:1}"; }
+    const selectTextClasses = {
+      'select-text': true,
+      'select-placeholder': addPlaceholderClass
+    };
+    const textPart = addPlaceholderClass ? 'placeholder' : 'text';
+    // If there is a label then we need to concatenate it with the
+    // current value (or placeholder) and a comma so it separates
+    // nicely when the screen reader announces it, otherwise just
+    // announce the value / placeholder
+    const displayLabel = labelText !== undefined
+      ? (selectText !== '' ? `${selectText}, ${labelText}` : labelText)
+      : selectText;
+    return (Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["H"], { onClick: this.onClick, role: "button", "aria-haspopup": "listbox", "aria-disabled": disabled ? 'true' : null, "aria-label": displayLabel, class: {
+        [mode]: true,
+        'in-item': Object(_theme_ff3fc52f_js__WEBPACK_IMPORTED_MODULE_5__["h"])('ion-item', el),
+        'select-disabled': disabled,
+      } }, Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { "aria-hidden": "true", class: selectTextClasses, part: textPart }, selectText), Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "select-icon", role: "presentation", part: "icon" }, Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "select-icon-inner" })), Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("label", { id: labelId }, displayLabel), Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("button", { type: "button", disabled: disabled, id: inputId, "aria-labelledby": labelId, "aria-haspopup": "listbox", "aria-expanded": `${isExpanded}`, onFocus: this.onFocus, onBlur: this.onBlur, ref: (focusEl => this.focusEl = focusEl) })));
+  }
+  get el() { return Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["i"])(this); }
+  static get watchers() { return {
+    "disabled": ["disabledChanged"],
+    "placeholder": ["disabledChanged"],
+    "value": ["valueChanged"]
+  }; }
 };
-const swipeShouldReset = (isResetDirection, isMovingFast, isOnResetZone) => {
-    // The logic required to know when the sliding item should close (openAmount=0)
-    // depends on three booleans (isResetDirection, isMovingFast, isOnResetZone)
-    // and it ended up being too complicated to be written manually without errors
-    // so the truth table is attached below: (0=false, 1=true)
-    // isResetDirection | isMovingFast | isOnResetZone || shouldClose
-    //         0        |       0      |       0       ||    0
-    //         0        |       0      |       1       ||    1
-    //         0        |       1      |       0       ||    0
-    //         0        |       1      |       1       ||    0
-    //         1        |       0      |       0       ||    0
-    //         1        |       0      |       1       ||    1
-    //         1        |       1      |       0       ||    1
-    //         1        |       1      |       1       ||    1
-    // The resulting expression was generated by resolving the K-map (Karnaugh map):
-    return (!isMovingFast && isOnResetZone) || (isResetDirection && isMovingFast);
+const isOptionSelected = (currentValue, compareValue, compareWith) => {
+  if (currentValue === undefined) {
+    return false;
+  }
+  if (Array.isArray(currentValue)) {
+    return currentValue.some(val => compareOptions(val, compareValue, compareWith));
+  }
+  else {
+    return compareOptions(currentValue, compareValue, compareWith);
+  }
 };
+const getOptionValue = (el) => {
+  const value = el.value;
+  return (value === undefined)
+    ? el.textContent || ''
+    : value;
+};
+const parseValue = (value) => {
+  if (value == null) {
+    return undefined;
+  }
+  if (Array.isArray(value)) {
+    return value.join(',');
+  }
+  return value.toString();
+};
+const compareOptions = (currentValue, compareValue, compareWith) => {
+  if (typeof compareWith === 'function') {
+    return compareWith(currentValue, compareValue);
+  }
+  else if (typeof compareWith === 'string') {
+    return currentValue[compareWith] === compareValue[compareWith];
+  }
+  else {
+    return Array.isArray(compareValue) ? compareValue.includes(currentValue) : currentValue === compareValue;
+  }
+};
+const generateText = (opts, value, compareWith) => {
+  if (value === undefined) {
+    return '';
+  }
+  if (Array.isArray(value)) {
+    return value
+      .map(v => textForValue(opts, v, compareWith))
+      .filter(opt => opt !== null)
+      .join(', ');
+  }
+  else {
+    return textForValue(opts, value, compareWith) || '';
+  }
+};
+const textForValue = (opts, value, compareWith) => {
+  const selectOpt = opts.find(opt => {
+    return compareOptions(getOptionValue(opt), value, compareWith);
+  });
+  return selectOpt
+    ? selectOpt.textContent
+    : null;
+};
+let selectIds = 0;
+const OPTION_CLASS = 'select-interface-option';
+Select.style = {
+  ios: selectIosCss,
+  md: selectMdCss
+};
+
+const selectOptionCss = ":host{display:none}";
+
+const SelectOption = class {
+  constructor(hostRef) {
+    Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["r"])(this, hostRef);
+    this.inputId = `ion-selopt-${selectOptionIds++}`;
+    /**
+     * If `true`, the user cannot interact with the select option. This property does not apply when `interface="action-sheet"` as `ion-action-sheet` does not allow for disabled buttons.
+     */
+    this.disabled = false;
+  }
+  render() {
+    return (Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["H"], { role: "option", id: this.inputId, class: Object(_ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this) }));
+  }
+  get el() { return Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["i"])(this); }
+};
+let selectOptionIds = 0;
+SelectOption.style = selectOptionCss;
+
+const selectPopoverCss = ".sc-ion-select-popover-h ion-list.sc-ion-select-popover{margin-left:0;margin-right:0;margin-top:-1px;margin-bottom:-1px}.sc-ion-select-popover-h ion-list-header.sc-ion-select-popover,.sc-ion-select-popover-h ion-label.sc-ion-select-popover{margin-left:0;margin-right:0;margin-top:0;margin-bottom:0}";
+
+const SelectPopover = class {
+  constructor(hostRef) {
+    Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["r"])(this, hostRef);
+    /** Array of options for the popover */
+    this.options = [];
+  }
+  onSelect(ev) {
+    const option = this.options.find(o => o.value === ev.target.value);
+    if (option) {
+      Object(_overlays_12c20431_js__WEBPACK_IMPORTED_MODULE_4__["s"])(option.handler);
+    }
+  }
+  render() {
+    const checkedOption = this.options.find(o => o.checked);
+    const checkedValue = checkedOption ? checkedOption.value : undefined;
+    return (Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["H"], { class: Object(_ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this) }, Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("ion-list", null, this.header !== undefined && Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("ion-list-header", null, this.header), (this.subHeader !== undefined || this.message !== undefined) &&
+      Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("ion-item", null, Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("ion-label", { class: "ion-text-wrap" }, this.subHeader !== undefined && Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("h3", null, this.subHeader), this.message !== undefined && Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("p", null, this.message))), Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("ion-radio-group", { value: checkedValue }, this.options.map(option => Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("ion-item", { class: Object(_theme_ff3fc52f_js__WEBPACK_IMPORTED_MODULE_5__["g"])(option.cssClass) }, Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("ion-label", null, option.text), Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("ion-radio", { value: option.value, disabled: option.disabled })))))));
+  }
+};
+SelectPopover.style = selectPopoverCss;
 
 
 
