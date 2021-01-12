@@ -50,6 +50,7 @@ var CreateTokenPage = /** @class */ (function () {
         this.animationCtrl = animationCtrl;
         this.alertController = alertController;
         this.toastController = toastController;
+        this.advancedFormInputsChecked = { description: false, icon: false, proof: false, nft: false };
         this.basic = false;
         this.advanced = false;
         this.isPlaying = false;
@@ -69,6 +70,10 @@ var CreateTokenPage = /** @class */ (function () {
     }
     CreateTokenPage.prototype.ngAfterViewInit = function () {
         this.anim = this.animationCtrl.create('cardAnimation');
+        this.animAdvanced = this.animationCtrl.create('advancedCardAnimation');
+        this.animSecond = this.animationCtrl.create('cardAnimationSec');
+        this.animAdvancedSecond = this.animationCtrl.create('advancedCardAnimationTwo');
+        this.formAnim = this.animationCtrl.create('formAnimation');
         this.anim
             .addElement(document.getElementById('basicCard'))
             .duration(1000)
@@ -76,22 +81,96 @@ var CreateTokenPage = /** @class */ (function () {
             .iterations(1)
             .fromTo('transform', 'translateY(0px)', 'translateY(-25px)')
             .fromTo('opacity', 1, 0.2);
+        this.animAdvanced
+            .addElement(document.getElementById('advancedCard'))
+            .duration(1000)
+            .easing('ease-out')
+            .iterations(1)
+            .fromTo('transform', 'translateX(0px)', 'translateX(50px)')
+            .fromTo('opacity', 1, 0.2);
+        this.animSecond
+            .addElement(document.getElementById('basicCard'))
+            .duration(1000)
+            .easing('ease-out')
+            .iterations(1)
+            .fromTo('transform', 'translateX(0px)', 'translateX(50px)')
+            .fromTo('opacity', 1, 0.2);
+        this.animAdvancedSecond
+            .addElement(document.getElementById('advancedCard'))
+            .duration(1000)
+            .easing('ease-out')
+            .iterations(1)
+            .fromTo('transform', 'translateY(0px)', 'translateY(50px)')
+            .fromTo('opacity', 1, 0.2);
     };
     CreateTokenPage.prototype.toggleAnimation = function () {
-        console.log('toggled');
         if (this.isPlaying) {
             this.anim.stop();
+            this.animAdvanced.stop();
         }
         else {
             this.anim.play();
+            this.animAdvanced.play();
             setTimeout(function () {
                 document.getElementById('basicCard').style.display = 'none';
+                document.getElementById('advancedCard').style.display = 'none';
             }, 500);
+            document.getElementById('footer').style.display = 'block';
+            document.getElementById('my-form').hidden = false;
+            document.getElementById('createTknBtn2').style.display = 'block';
+        }
+        this.isPlaying = !this.isPlaying;
+    };
+    CreateTokenPage.prototype.toggleAdvAnimation = function () {
+        if (this.isPlaying) {
+            this.animSecond.stop();
+            this.animAdvancedSecond.stop();
+        }
+        else {
+            this.animSecond.play();
+            this.animAdvancedSecond.play();
+            setTimeout(function () {
+                document.getElementById('basicCard').style.display = 'none';
+                document.getElementById('advancedCard').style.display = 'none';
+            }, 500);
+            document.getElementById('footer').style.display = 'block';
+            document.getElementById('my-form').hidden = false;
+            document.getElementById('createTknBtn2').style.display = 'block';
         }
         this.isPlaying = !this.isPlaying;
     };
     CreateTokenPage.prototype.ionViewDidEnter = function () { };
     CreateTokenPage.prototype.ngOnInit = function () { };
+    CreateTokenPage.prototype.isChecked = function (ev) {
+        if (ev.detail.checked) {
+            if (ev.target.id == 'description') {
+                this.advancedFormInputsChecked.description = true;
+            }
+            else if (ev.target.id == 'icon') {
+                this.advancedFormInputsChecked.icon = true;
+            }
+            else if (ev.target.id == 'proof') {
+                this.advancedFormInputsChecked.proof = true;
+            }
+            else if (ev.target.id == 'nft') {
+                this.advancedFormInputsChecked.nft = true;
+            }
+        }
+        else if (!ev.detail.checked) {
+            if (ev.target.id == 'description') {
+                this.advancedFormInputsChecked.description = false;
+            }
+            else if (ev.target.id == 'icon') {
+                this.advancedFormInputsChecked.icon = false;
+            }
+            else if (ev.target.id == 'proof') {
+                this.advancedFormInputsChecked.proof = false;
+            }
+            else if (ev.target.id == 'nft') {
+                this.advancedFormInputsChecked.nft = false;
+            }
+        }
+    };
     CreateTokenPage.prototype.presentToast = function (msg, type) {
         return __awaiter(this, void 0, void 0, function () {
             var toast;
@@ -161,9 +240,11 @@ var CreateTokenPage = /** @class */ (function () {
                 this.customToken.icon = f.value.icon;
             }
             if (f.value.NFT === false) {
+                console.log('NFT False');
                 this.customToken.script = "RETURN TRUE";
             }
             else if (f.value.NFT === true) {
+                console.log('NFT False');
                 this.customToken.script = "ASSERT FLOOR ( @AMOUNT ) EQ @AMOUNT LET checkout = 0 WHILE ( checkout LT @TOTOUT ) DO IF GETOUTTOK ( checkout ) EQ @TOKENID THEN LET outamt = GETOUTAMT ( checkout ) ASSERT FLOOR ( outamt ) EQ outamt ENDIF LET checkout = INC ( checkout ) ENDWHILE RETURN TRUE";
             }
             this.api.createToken(this.customToken).then(function (res) {
@@ -208,6 +289,9 @@ var CreateTokenPage = /** @class */ (function () {
     __decorate([
         core_1.ViewChild('description', { static: false })
     ], CreateTokenPage.prototype, "description");
+    __decorate([
+        core_1.ViewChild('createTknBtn', { static: false })
+    ], CreateTokenPage.prototype, "createTknBtn");
     CreateTokenPage = __decorate([
         core_1.Component({
             selector: 'app-create-token',
