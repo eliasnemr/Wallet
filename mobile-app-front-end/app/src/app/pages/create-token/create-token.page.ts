@@ -1,7 +1,7 @@
 import { CustomToken } from './../../models/customToken.model';
 import { AfterViewInit, Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MinimaApiService } from '../../service/minima-api.service';
-import { IonTextarea, IonInput, AlertController, ToastController, Animation, AnimationController, IonButton, IonFooter } from '@ionic/angular';
+import { IonTextarea, IonInput, AlertController, ToastController, Animation, AnimationController } from '@ionic/angular';
 import { NgForm } from '@angular/forms';
 
 @Component({
@@ -58,7 +58,7 @@ export class CreateTokenPage implements OnInit, AfterViewInit {
       .iterations(1)
       .fromTo('transform', 'translateY(0px)', 'translateY(-25px)')
       .fromTo('opacity', 1, 0.2);
-    
+
     this.animAdvanced
       .addElement(document.getElementById('advancedCard'))
       .duration(1000)
@@ -66,7 +66,7 @@ export class CreateTokenPage implements OnInit, AfterViewInit {
       .iterations(1)
       .fromTo('transform', 'translateX(0px)', 'translateX(50px)')
       .fromTo('opacity', 1, 0.2);
-      
+
     this.animSecond
       .addElement(document.getElementById('basicCard'))
       .duration(1000)
@@ -74,7 +74,7 @@ export class CreateTokenPage implements OnInit, AfterViewInit {
       .iterations(1)
       .fromTo('transform', 'translateX(0px)', 'translateX(50px)')
       .fromTo('opacity', 1, 0.2);
-    
+
     this.animAdvancedSecond
       .addElement(document.getElementById('advancedCard'))
       .duration(1000)
@@ -97,6 +97,7 @@ export class CreateTokenPage implements OnInit, AfterViewInit {
         document.getElementById('basicCard').style.display = 'none';
         document.getElementById('advancedCard').style.display = 'none';
       }, 500);
+      document.getElementById('cardHeader').innerHTML = 'Fill Out Your Token Details';
       document.getElementById('footer').style.display = 'block';
       document.getElementById('my-form').hidden = false;
       document.getElementById('createTknBtn2').style.display = 'block';
@@ -115,6 +116,7 @@ export class CreateTokenPage implements OnInit, AfterViewInit {
         document.getElementById('basicCard').style.display = 'none';
         document.getElementById('advancedCard').style.display = 'none';
       }, 500);
+      document.getElementById('cardHeader').innerHTML = 'Fill Out Your Token Details';
       document.getElementById('footer').style.display = 'block';
       document.getElementById('my-form').hidden = false;
       document.getElementById('createTknBtn2').style.display = 'block';
@@ -128,29 +130,29 @@ export class CreateTokenPage implements OnInit, AfterViewInit {
     public alertController: AlertController,
     public toastController: ToastController) {}
 
-  ionViewDidEnter(){}
+  ionViewDidEnter() {}
 
   ngOnInit() {}
 
   isChecked(ev: any) {
-    if(ev.detail.checked) {
-      if(ev.target.id == 'description') {
+    if (ev.detail.checked) {
+      if (ev.target.id === 'description') {
         this.advancedFormInputsChecked.description = true;
-      } else if(ev.target.id == 'icon') {
+      } else if (ev.target.id === 'icon') {
         this.advancedFormInputsChecked.icon = true;
-      } else if(ev.target.id == 'proof') {
+      } else if (ev.target.id === 'proof') {
         this.advancedFormInputsChecked.proof = true;
-      } else if(ev.target.id == 'nft') {
+      } else if (ev.target.id === 'nft') {
         this.advancedFormInputsChecked.nft = true;
       }
-    } else if(!ev.detail.checked) {
-      if(ev.target.id == 'description') {
+    } else if (!ev.detail.checked) {
+      if (ev.target.id === 'description') {
         this.advancedFormInputsChecked.description = false;
-      } else if(ev.target.id == 'icon') {
+      } else if (ev.target.id === 'icon') {
         this.advancedFormInputsChecked.icon = false;
-      } else if(ev.target.id == 'proof') {
+      } else if (ev.target.id === 'proof') {
         this.advancedFormInputsChecked.proof = false;
-      } else if(ev.target.id == 'nft') {
+      } else if (ev.target.id === 'nft') {
         this.advancedFormInputsChecked.nft = false;
       }
     }

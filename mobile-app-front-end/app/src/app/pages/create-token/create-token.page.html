@@ -10,17 +10,16 @@
 
 <ion-content>
   <ion-card class="borders">
-    <ion-card-header>
+    <ion-card-header id="cardHeader">
       Choose A Token Type
     </ion-card-header>
 
     <ion-card-content>
 
       <ion-list>
-
         <ion-row>
           <ion-col size-xs="12">
-            <ion-card id="basicCard" class="tokenType">
+            <ion-card id="basicCard" class="tokenType borders">
               <ion-card-header>
                 Basic Token
               </ion-card-header>
@@ -46,7 +45,7 @@
             </ion-card>
           </ion-col>
           <ion-col size-xs="12">
-            <ion-card #advancedCard id="advancedCard" class="tokenType">
+            <ion-card #advancedCard id="advancedCard" class="tokenType borders">
               <ion-card-header>
                 Advanced Token &mdash; <ion-note style="font-style:oblique; font-family:manrope-light">A Basic Token With Optional Values</ion-note>
               </ion-card-header>

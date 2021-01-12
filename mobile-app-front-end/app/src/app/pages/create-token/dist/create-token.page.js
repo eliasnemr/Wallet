@@ -115,6 +115,7 @@ var CreateTokenPage = /** @class */ (function () {
                 document.getElementById('basicCard').style.display = 'none';
                 document.getElementById('advancedCard').style.display = 'none';
             }, 500);
+            document.getElementById('cardHeader').innerHTML = 'Fill Out Your Token Details';
             document.getElementById('footer').style.display = 'block';
             document.getElementById('my-form').hidden = false;
             document.getElementById('createTknBtn2').style.display = 'block';
@@ -133,6 +134,7 @@ var CreateTokenPage = /** @class */ (function () {
                 document.getElementById('basicCard').style.display = 'none';
                 document.getElementById('advancedCard').style.display = 'none';
             }, 500);
+            document.getElementById('cardHeader').innerHTML = 'Fill Out Your Token Details';
             document.getElementById('footer').style.display = 'block';
             document.getElementById('my-form').hidden = false;
             document.getElementById('createTknBtn2').style.display = 'block';
@@ -143,30 +145,30 @@ var CreateTokenPage = /** @class */ (function () {
     CreateTokenPage.prototype.ngOnInit = function () { };
     CreateTokenPage.prototype.isChecked = function (ev) {
         if (ev.detail.checked) {
-            if (ev.target.id == 'description') {
+            if (ev.target.id === 'description') {
                 this.advancedFormInputsChecked.description = true;
             }
-            else if (ev.target.id == 'icon') {
+            else if (ev.target.id === 'icon') {
                 this.advancedFormInputsChecked.icon = true;
             }
-            else if (ev.target.id == 'proof') {
+            else if (ev.target.id === 'proof') {
                 this.advancedFormInputsChecked.proof = true;
             }
-            else if (ev.target.id == 'nft') {
+            else if (ev.target.id === 'nft') {
                 this.advancedFormInputsChecked.nft = true;
             }
         }
         else if (!ev.detail.checked) {
-            if (ev.target.id == 'description') {
+            if (ev.target.id === 'description') {
                 this.advancedFormInputsChecked.description = false;
             }
-            else if (ev.target.id == 'icon') {
+            else if (ev.target.id === 'icon') {
                 this.advancedFormInputsChecked.icon = false;
             }
-            else if (ev.target.id == 'proof') {
+            else if (ev.target.id === 'proof') {
                 this.advancedFormInputsChecked.proof = false;
             }
-            else if (ev.target.id == 'nft') {
+            else if (ev.target.id === 'nft') {
                 this.advancedFormInputsChecked.nft = false;
             }
         }
