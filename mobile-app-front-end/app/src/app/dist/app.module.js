@@ -25,11 +25,10 @@ var app_routing_module_1 = require("./app-routing.module");
 var ngx_1 = require("@ionic-native/clipboard/ngx");
 var ngx_2 = require("@ionic-native/qr-scanner/ngx");
 var common_1 = require("@angular/common");
-var storage_1 = require("@ionic/storage");
 var token_descr_component_1 = require("./components/token-descr/token-descr.component");
-var ngx_3 = require("@ionic-native/social-sharing/ngx");
 var pop_term_component_1 = require("./components/pop-term/pop-term.component");
 var pop_settings_component_1 = require("./components/pop-settings/pop-settings.component");
+var pop_filter_component_1 = require("./components/pop-filter/pop-filter.component");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -39,24 +38,18 @@ var AppModule = /** @class */ (function () {
                 app_component_1.AppComponent,
                 token_descr_component_1.TokenDescrComponent,
                 pop_term_component_1.PopTermComponent,
-                pop_settings_component_1.PopSettingsComponent
+                pop_settings_component_1.PopSettingsComponent,
+                pop_filter_component_1.PopFilterComponent
             ],
-            entryComponents: [
-                app_component_1.AppComponent,
-                token_descr_component_1.TokenDescrComponent,
-                pop_term_component_1.PopTermComponent,
-                pop_settings_component_1.PopSettingsComponent
-            ],
+            entryComponents: [pop_settings_component_1.PopSettingsComponent, pop_filter_component_1.PopFilterComponent, pop_term_component_1.PopTermComponent],
             imports: [
                 forms_1.FormsModule,
                 http_1.HttpClientModule,
                 platform_browser_1.BrowserModule,
                 angular_1.IonicModule.forRoot(),
-                app_routing_module_1.AppRoutingModule,
-                storage_1.IonicStorageModule.forRoot()
+                app_routing_module_1.AppRoutingModule
             ],
             providers: [
-                ngx_3.SocialSharing,
                 Storage,
                 ngx_1.Clipboard,
                 ngx_2.QRScanner,

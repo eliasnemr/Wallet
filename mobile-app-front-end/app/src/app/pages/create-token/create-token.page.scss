@@ -26,7 +26,7 @@ ion-textarea {
   background: #ffffff;
 }
 ion-checkbox {
-  --size: 22px;
+  --size: 15px;
 }
 ion-toolbar {
   --background: var(--ion-m-background);
@@ -45,6 +45,7 @@ ion-card-content {
 }
 ion-card-header {
   --color: var(--ion-text-color,#000);
+  font-family: manrope-bold;
 }
 .input {
   font-family: manrope-light;
@@ -61,14 +62,21 @@ ion-card-header {
   color: black!important;
 }
 
-ion-input[name="amount"] {
-  max-width: 30%;
-  margin-right: auto;
-
+ion-card.tokenType ion-card-subtitle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-
-ion-card.tokenType {
-  
+ion-card.tokenType ion-card-subtitle ion-buttons ion-button {
+  text-transform: none;
+}
+ion-card.tokenType ion-card-subtitle ion-buttons ion-button {
+  --background-hover: var(--ion-color-tertiary);
+  --color: var(--ion-color-primary);
+}
+ion-button.createBtn:hover {
+  transform: scale(1.01);
+  --background-hover: none!important;
 }
 ion-card.tokenType {
   cursor: pointer;
@@ -76,9 +84,13 @@ ion-card.tokenType {
 ion-card.tokenType:hover {
   transform: scale(1.01);
 }
-ion-card.tokenType ion-card-content ion-list ion-item {
-    --padding:0;
-    margin:0;
-    height: 32px;
-    font-size: 0.7rem;
+.backBtn {
+  text-transform: none;
+  font-size: 1.0rem;
+  --background-hover: var(--ion-color-tertiary);
+  --color: var(--ion-color-primary);
+}
+.backBtn:hover {
+  transform: scale(1.01);
+  --background-hover: none!important;
 }

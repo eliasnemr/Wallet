@@ -1,4 +1,3 @@
-import { PopFilterComponent } from './components/pop-filter/pop-filter.component';
 /**
  * Created By Elias Nemr
  * 01/11/19
@@ -18,10 +17,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { Clipboard } from '@ionic-native/clipboard/ngx';
 import { QRScanner } from '@ionic-native/qr-scanner/ngx';
 import { LocationStrategy, HashLocationStrategy} from '@angular/common';
-import { IonicStorageModule } from '@ionic/storage';
 import { TokenDescrComponent } from './components/token-descr/token-descr.component';
 import { PopTermComponent } from './components/pop-term/pop-term.component';
 import { PopSettingsComponent } from './components/pop-settings/pop-settings.component';
+import { PopFilterComponent } from './components/pop-filter/pop-filter.component';
+
 
 @NgModule({
   declarations: [
@@ -30,19 +30,13 @@ import { PopSettingsComponent } from './components/pop-settings/pop-settings.com
     PopTermComponent,
     PopSettingsComponent,
     PopFilterComponent],
-  entryComponents: [
-    AppComponent,
-    TokenDescrComponent,
-    PopTermComponent,
-    PopSettingsComponent,
-    PopFilterComponent],
+  entryComponents: [PopSettingsComponent, PopFilterComponent, PopTermComponent],
   imports: [
     FormsModule,
     HttpClientModule,
     BrowserModule,
     IonicModule.forRoot(),
-    AppRoutingModule,
-    IonicStorageModule.forRoot()],
+    AppRoutingModule],
     providers: [
     Storage,
     Clipboard,

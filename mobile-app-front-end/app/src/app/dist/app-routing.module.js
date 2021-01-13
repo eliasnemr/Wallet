@@ -10,8 +10,6 @@ exports.AppRoutingModule = void 0;
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var routes = [
-    { path: '', loadChildren: './pages/balance/balance.module#BalancePageModule' },
-    { path: '', redirectTo: 'balance', pathMatch: 'full' },
     { path: 'balance', loadChildren: function () { return Promise.resolve().then(function () { return require('./pages/balance/balance.module'); }).then(function (m) { return m.BalancePageModule; }); } },
     { path: 'send-funds', loadChildren: function () { return Promise.resolve().then(function () { return require('./pages/send-funds/send-funds.module'); }).then(function (m) { return m.SendFundsPageModule; }); } },
     { path: 'send-funds/:id', loadChildren: function () { return Promise.resolve().then(function () { return require('./pages/send-funds/send-funds.module'); }).then(function (m) { return m.SendFundsPageModule; }); } },
@@ -29,6 +27,8 @@ var routes = [
     { path: 'view-txn/:id', loadChildren: function () { return Promise.resolve().then(function () { return require('./pages/history/view-txn/view-txn.module'); }).then(function (m) { return m.ViewTXNPageModule; }); } },
     { path: 'view-tokens', loadChildren: function () { return Promise.resolve().then(function () { return require('./pages/balance/view-tokens/view-tokens.module'); }).then(function (m) { return m.ViewTokensPageModule; }); } },
     { path: 'view-tokens/:id', loadChildren: function () { return Promise.resolve().then(function () { return require('./pages/balance/view-tokens/view-tokens.module'); }).then(function (m) { return m.ViewTokensPageModule; }); } },
+    { path: '**', loadChildren: function () { return Promise.resolve().then(function () { return require('./pages/balance/balance.module'); }).then(function (m) { return m.BalancePageModule; }); } },
+    { path: '', redirectTo: 'balance', pathMatch: 'full' },
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {

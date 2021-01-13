@@ -50,9 +50,9 @@ var CreateTokenPage = /** @class */ (function () {
         this.animationCtrl = animationCtrl;
         this.alertController = alertController;
         this.toastController = toastController;
+        this.advancedFormInputsChecked = { description: false, icon: false, proof: false, nft: false };
         this.basic = false;
         this.advanced = false;
-        this.isPlaying = false;
         this.customToken = { name: '', amount: 0, description: '', script: '', icon: '', proof: '' };
         this.descrEntry = {
             isChecked: false
@@ -67,31 +67,65 @@ var CreateTokenPage = /** @class */ (function () {
             isNonFungible: false
         };
     }
-    CreateTokenPage.prototype.ngAfterViewInit = function () {
-        this.anim = this.animationCtrl.create('cardAnimation');
-        this.anim
-            .addElement(document.getElementById('basicCard'))
-            .duration(1000)
-            .easing('ease-out')
-            .iterations(1)
-            .fromTo('transform', 'translateY(0px)', 'translateY(-25px)')
-            .fromTo('opacity', 1, 0.2);
-    };
+    CreateTokenPage.prototype.ngAfterViewInit = function () { };
     CreateTokenPage.prototype.toggleAnimation = function () {
-        console.log('toggled');
-        if (this.isPlaying) {
-            this.anim.stop();
-        }
-        else {
-            this.anim.play();
-            setTimeout(function () {
-                document.getElementById('basicCard').style.display = 'none';
-            }, 500);
-        }
-        this.isPlaying = !this.isPlaying;
+        this.basic = true;
+        document.getElementById('listCardOptions').style.display = 'none';
+        document.getElementById('my-form').style.display = 'block';
+        document.getElementById('footer').style.display = 'block';
+        document.getElementById('createTknBtn2').style.display = 'block';
+        document.getElementById('cardHeader').innerHTML = 'Enter Your Token Details';
+    };
+    CreateTokenPage.prototype.toggleAdvAnimation = function () {
+        this.advanced = true;
+        document.getElementById('listCardOptions').style.display = 'none';
+        document.getElementById('my-form').style.display = 'block';
+        document.getElementById('footer').style.display = 'block';
+        document.getElementById('createTknBtn2').style.display = 'block';
+        document.getElementById('cardHeader').innerHTML = 'Enter Your Token Details';
+    };
+    CreateTokenPage.prototype.toggleBackAnimation = function () {
+        this.advanced = false;
+        this.basic = false;
+        this.resetForm();
+        document.getElementById('cardHeader').innerHTML = 'Choose A Token Type';
+        document.getElementById('listCardOptions').style.display = 'block';
+        document.getElementById('my-form').style.display = 'none';
+        document.getElementById('footer').style.display = 'none';
+        document.getElementById('createTknBtn2').style.display = 'none';
     };
     CreateTokenPage.prototype.ionViewDidEnter = function () { };
     CreateTokenPage.prototype.ngOnInit = function () { };
+    CreateTokenPage.prototype.isChecked = function (ev) {
+        if (ev.detail.checked) {
+            if (ev.target.id === 'description') {
+                this.advancedFormInputsChecked.description = true;
+            }
+            else if (ev.target.id === 'icon') {
+                this.advancedFormInputsChecked.icon = true;
+            }
+            else if (ev.target.id === 'proof') {
+                this.advancedFormInputsChecked.proof = true;
+            }
+            else if (ev.target.id === 'nft') {
+                this.advancedFormInputsChecked.nft = true;
+            }
+        }
+        else if (!ev.detail.checked) {
+            if (ev.target.id === 'description') {
+                this.advancedFormInputsChecked.description = false;
+            }
+            else if (ev.target.id === 'icon') {
+                this.advancedFormInputsChecked.icon = false;
+            }
+            else if (ev.target.id === 'proof') {
+                this.advancedFormInputsChecked.proof = false;
+            }
+            else if (ev.target.id === 'nft') {
+                this.advancedFormInputsChecked.nft = false;
+            }
+        }
+    };
     CreateTokenPage.prototype.presentToast = function (msg, type) {
         return __awaiter(this, void 0, void 0, function () {
             var toast;
@@ -161,9 +195,11 @@ var CreateTokenPage = /** @class */ (function () {
                 this.customToken.icon = f.value.icon;
             }
             if (f.value.NFT === false) {
+                console.log('NFT False');
                 this.customToken.script = "RETURN TRUE";
             }
             else if (f.value.NFT === true) {
+                console.log('NFT False');
                 this.customToken.script = "ASSERT FLOOR ( @AMOUNT ) EQ @AMOUNT LET checkout = 0 WHILE ( checkout LT @TOTOUT ) DO IF GETOUTTOK ( checkout ) EQ @TOKENID THEN LET outamt = GETOUTAMT ( checkout ) ASSERT FLOOR ( outamt ) EQ outamt ENDIF LET checkout = INC ( checkout ) ENDWHILE RETURN TRUE";
             }
             this.api.createToken(this.customToken).then(function (res) {

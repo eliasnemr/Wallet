@@ -3,6 +3,13 @@ ion-datetime {
     padding: 0;
     margin-left: 1%;
 }
+ion-back-button .button-native .button-inner ion-icon {
+    font-size: 1.2rem!important;
+}
+ion-back-button:hover {
+    --background-hover: none;
+    --color: var(--ion-color-secondary);
+}
 ion-title {
     font-family: manrope-bold;
     font-size: 1.0rem;

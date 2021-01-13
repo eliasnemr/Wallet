@@ -1,9 +1,8 @@
+import { BalancePage } from './pages/balance/balance.page';
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  { path: '', loadChildren: './pages/balance/balance.module#BalancePageModule' },
-  { path: '', redirectTo: 'balance', pathMatch: 'full' },
   { path: 'balance', loadChildren: () => import('./pages/balance/balance.module').then( m => m.BalancePageModule) },
   { path: 'send-funds', loadChildren: () => import('./pages/send-funds/send-funds.module').then(m => m.SendFundsPageModule) },
   { path: 'send-funds/:id', loadChildren: () => import('./pages/send-funds/send-funds.module').then(m => m.SendFundsPageModule) },
@@ -20,8 +19,10 @@ const routes: Routes = [
   { path: 'view-txn', loadChildren: () => import('./pages/history/view-txn/view-txn.module').then(m => m.ViewTXNPageModule) },
   { path: 'view-txn/:id', loadChildren: () => import('./pages/history/view-txn/view-txn.module').then(m => m.ViewTXNPageModule) },
   { path: 'view-tokens', loadChildren: () => import('./pages/balance/view-tokens/view-tokens.module').then(m => m.ViewTokensPageModule) },
-  { path: 'view-tokens/:id', loadChildren: () => import('./pages/balance/view-tokens/view-tokens.module').then(m => m.ViewTokensPageModule) },
-
+  { path: 'view-tokens/:id', loadChildren: () => import('./pages/balance/view-tokens/view-tokens.module')
+    .then(m => m.ViewTokensPageModule) },
+  { path: '**', loadChildren: () =>  import('./pages/balance/balance.module').then( m => m.BalancePageModule ) },
+  { path: '', redirectTo: 'balance', pathMatch: 'full' },
 ];
 
 @NgModule({
@@ -30,4 +31,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

@@ -16,15 +16,13 @@
       <ion-row>
         <ion-col size="12">
           <ion-card *ngIf="tokenArr.length > 0" class="borders" id="tutorial-card">
-            <span (click)="hide()" id="dismiss">&times;</span>
+            <ion-icon (click)="hide()" id="dismiss">&times;</ion-icon>
             <ion-card-header class="text-center">
-              
               <ion-card-title>
                 <ion-avatar>
                   <img src="assets/confetti.svg" alt="confetti" id="confetti">
                 </ion-avatar>
                 Welcome to Minima's first official wallet! 
-
               </ion-card-title>
             </ion-card-header>
             <ion-card-content>
