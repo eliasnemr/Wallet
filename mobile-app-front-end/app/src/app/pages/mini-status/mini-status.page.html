@@ -33,7 +33,7 @@
           <ion-icon *ngIf="!status?.version" name="close" color="danger"></ion-icon>
         </ion-chip>
         <ion-chip>
-          <ion-label>{{ "v"+status?.version}} </ion-label>
+          <ion-label><span style="color:var(--ion-color-secondary)">v</span>{{ status?.version}} </ion-label>
         </ion-chip>
       </ion-col>
     </ion-row>

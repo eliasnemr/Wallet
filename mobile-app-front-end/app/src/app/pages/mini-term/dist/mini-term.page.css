@@ -8,6 +8,11 @@
   height: 600px;
 }
 
+ion-header ion-toolbar ion-title {
+  font-family: manrope-bold;
+  font-size: 1rem;
+}
+
 .resize-tool-btn {
   font-family: manrope-bold;
   font-size: 1rem;

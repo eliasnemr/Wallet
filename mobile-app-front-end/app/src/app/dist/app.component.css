@@ -27,7 +27,7 @@ ion-icon {
 /** Desktop Version */
 @media only screen and (min-width: 992px) {
   .splitpane {
-    border: 1px solid #FAFAFF;
+    border: 1px solid #1E3346;
     left: 12%;
     right: 12%;
     top: 6%;

@@ -1,3 +1,8 @@
+* {
+  font-family: manrope-bold;
+  text-transform: none;
+  font-size: 1.0rem;
+}
 .small-text {
     opacity: 1.5;
   }
@@ -8,16 +13,18 @@
   
   .social-card {
     cursor: pointer;
-    background-color: rgba(242, 242, 242, 0.5);
+    background: transparent;
+    color: var(--ion-color-tertiary);
   }
   
   .social-card ion-card-header {
-    text-transform: uppercase;
-    letter-spacing: -0.02em;
+    color: var(--ion-color-tertiary);
+    text-transform: none;
     text-align: center;
     background-color: transparent;
   }
   .social-card ion-card-content {
+    color: var(--ion-color-tertiary);
     text-align: center;
     justify-content: center !important;
     width: 100%;
@@ -25,9 +32,9 @@
     display: flex;
   }
   .socials {
-    width: 5vh;
+    font-size: 1.5rem;
   }
   .social-card:hover {
     opacity: 0.8;
-    transform: scale(0.9);
+    transform: scale(1.02);
   }
