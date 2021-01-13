@@ -1,0 +1,44 @@
+* {
+  font-family: manrope-bold;
+  text-transform: none;
+  font-size: 1rem;
+}
+
+.small-text {
+  opacity: 1.5;
+}
+
+ion-toolbar {
+  --background: var(--ion-m-background);
+}
+
+.social-card {
+  cursor: pointer;
+  background: transparent;
+  color: var(--ion-color-tertiary);
+}
+
+.social-card ion-card-header {
+  color: var(--ion-color-tertiary);
+  text-transform: none;
+  text-align: center;
+  background-color: transparent;
+}
+
+.social-card ion-card-content {
+  color: var(--ion-color-tertiary);
+  text-align: center;
+  justify-content: center !important;
+  width: 100%;
+  align-content: center;
+  display: flex;
+}
+
+.socials {
+  font-size: 1.5rem;
+}
+
+.social-card:hover {
+  opacity: 0.8;
+  transform: scale(1.02);
+}
