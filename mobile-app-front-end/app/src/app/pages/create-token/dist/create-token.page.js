@@ -53,7 +53,6 @@ var CreateTokenPage = /** @class */ (function () {
         this.advancedFormInputsChecked = { description: false, icon: false, proof: false, nft: false };
         this.basic = false;
         this.advanced = false;
-        this.isPlaying = false;
         this.customToken = { name: '', amount: 0, description: '', script: '', icon: '', proof: '' };
         this.descrEntry = {
             isChecked: false
@@ -68,78 +67,32 @@ var CreateTokenPage = /** @class */ (function () {
             isNonFungible: false
         };
     }
-    CreateTokenPage.prototype.ngAfterViewInit = function () {
-        this.anim = this.animationCtrl.create('cardAnimation');
-        this.animAdvanced = this.animationCtrl.create('advancedCardAnimation');
-        this.animSecond = this.animationCtrl.create('cardAnimationSec');
-        this.animAdvancedSecond = this.animationCtrl.create('advancedCardAnimationTwo');
-        this.formAnim = this.animationCtrl.create('formAnimation');
-        this.anim
-            .addElement(document.getElementById('basicCard'))
-            .duration(1000)
-            .easing('ease-out')
-            .iterations(1)
-            .fromTo('transform', 'translateY(0px)', 'translateY(-25px)')
-            .fromTo('opacity', 1, 0.2);
-        this.animAdvanced
-            .addElement(document.getElementById('advancedCard'))
-            .duration(1000)
-            .easing('ease-out')
-            .iterations(1)
-            .fromTo('transform', 'translateX(0px)', 'translateX(50px)')
-            .fromTo('opacity', 1, 0.2);
-        this.animSecond
-            .addElement(document.getElementById('basicCard'))
-            .duration(1000)
-            .easing('ease-out')
-            .iterations(1)
-            .fromTo('transform', 'translateX(0px)', 'translateX(50px)')
-            .fromTo('opacity', 1, 0.2);
-        this.animAdvancedSecond
-            .addElement(document.getElementById('advancedCard'))
-            .duration(1000)
-            .easing('ease-out')
-            .iterations(1)
-            .fromTo('transform', 'translateY(0px)', 'translateY(50px)')
-            .fromTo('opacity', 1, 0.2);
-    };
+    CreateTokenPage.prototype.ngAfterViewInit = function () { };
     CreateTokenPage.prototype.toggleAnimation = function () {
-        if (this.isPlaying) {
-            this.anim.stop();
-            this.animAdvanced.stop();
-        }
-        else {
-            this.anim.play();
-            this.animAdvanced.play();
-            setTimeout(function () {
-                document.getElementById('basicCard').style.display = 'none';
-                document.getElementById('advancedCard').style.display = 'none';
-            }, 500);
-            document.getElementById('cardHeader').innerHTML = 'Fill Out Your Token Details';
-            document.getElementById('footer').style.display = 'block';
-            document.getElementById('my-form').hidden = false;
-            document.getElementById('createTknBtn2').style.display = 'block';
-        }
-        this.isPlaying = !this.isPlaying;
+        this.basic = true;
+        document.getElementById('listCardOptions').style.display = 'none';
+        document.getElementById('my-form').style.display = 'block';
+        document.getElementById('footer').style.display = 'block';
+        document.getElementById('createTknBtn2').style.display = 'block';
+        document.getElementById('cardHeader').innerHTML = 'Enter Your Token Details';
     };
     CreateTokenPage.prototype.toggleAdvAnimation = function () {
-        if (this.isPlaying) {
-            this.animSecond.stop();
-            this.animAdvancedSecond.stop();
-        }
-        else {
-            this.animSecond.play();
-            this.animAdvancedSecond.play();
-            setTimeout(function () {
-                document.getElementById('basicCard').style.display = 'none';
-                document.getElementById('advancedCard').style.display = 'none';
-            }, 500);
-            document.getElementById('cardHeader').innerHTML = 'Fill Out Your Token Details';
-            document.getElementById('footer').style.display = 'block';
-            document.getElementById('my-form').hidden = false;
-            document.getElementById('createTknBtn2').style.display = 'block';
-        }
-        this.isPlaying = !this.isPlaying;
+        this.advanced = true;
+        document.getElementById('listCardOptions').style.display = 'none';
+        document.getElementById('my-form').style.display = 'block';
+        document.getElementById('footer').style.display = 'block';
+        document.getElementById('createTknBtn2').style.display = 'block';
+        document.getElementById('cardHeader').innerHTML = 'Enter Your Token Details';
+    };
+    CreateTokenPage.prototype.toggleBackAnimation = function () {
+        this.advanced = false;
+        this.basic = false;
+        this.resetForm();
+        document.getElementById('cardHeader').innerHTML = 'Choose A Token Type';
+        document.getElementById('listCardOptions').style.display = 'block';
+        document.getElementById('my-form').style.display = 'none';
+        document.getElementById('footer').style.display = 'none';
+        document.getElementById('createTknBtn2').style.display = 'none';
     };
     CreateTokenPage.prototype.ionViewDidEnter = function () { };
     CreateTokenPage.prototype.ngOnInit = function () { };
@@ -291,9 +244,6 @@ var CreateTokenPage = /** @class */ (function () {
     __decorate([
         core_1.ViewChild('description', { static: false })
     ], CreateTokenPage.prototype, "description");
-    __decorate([
-        core_1.ViewChild('createTknBtn', { static: false })
-    ], CreateTokenPage.prototype, "createTknBtn");
     CreateTokenPage = __decorate([
         core_1.Component({
             selector: 'app-create-token',

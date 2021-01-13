@@ -70,13 +70,27 @@ ion-card.tokenType ion-card-subtitle {
 ion-card.tokenType ion-card-subtitle ion-buttons ion-button {
   text-transform: none;
 }
-ion-card.tokenType ion-card-subtitle ion-buttons ion-button:hover {
-  --background-hover: none;
-  --color: var(--ion-color-secondary);
+ion-card.tokenType ion-card-subtitle ion-buttons ion-button {
+  --background-hover: var(--ion-color-tertiary);
+  --color: var(--ion-color-primary);
+}
+ion-button.createBtn:hover {
+  transform: scale(1.01);
+  --background-hover: none!important;
 }
 ion-card.tokenType {
   cursor: pointer;
 }
 ion-card.tokenType:hover {
   transform: scale(1.01);
+}
+.backBtn {
+  text-transform: none;
+  font-size: 1.0rem;
+  --background-hover: var(--ion-color-tertiary);
+  --color: var(--ion-color-primary);
+}
+.backBtn:hover {
+  transform: scale(1.01);
+  --background-hover: none!important;
 }

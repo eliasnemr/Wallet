@@ -17,17 +17,10 @@ export class CreateTokenPage implements OnInit, AfterViewInit {
   @ViewChild('proofURL', {static:false}) proofURL: IonInput;
   @ViewChild('iconURL', {static:false}) iconURL: IonInput;
   @ViewChild('description', {static: false}) description: IonTextarea;
-  @ViewChild('createTknBtn', {static: false}) createTknBtn: ElementRef;
 
-  anim: Animation;
-  animAdvanced: Animation;
-  animSecond: Animation;
-  animAdvancedSecond: Animation;
-  formAnim: Animation;
   advancedFormInputsChecked = {description: false, icon: false, proof: false, nft: false};
   basic = false;
   advanced = false;
-  isPlaying = false;
   customToken: CustomToken = {name: '', amount: 0, description: '', script: '', icon: '', proof: ''};
   descrEntry = {
     isChecked: false
@@ -45,83 +38,37 @@ export class CreateTokenPage implements OnInit, AfterViewInit {
     isNonFungible: false
   };
 
-  ngAfterViewInit() {
-    this.anim = this.animationCtrl.create('cardAnimation');
-    this.animAdvanced = this.animationCtrl.create('advancedCardAnimation');
-    this.animSecond = this.animationCtrl.create('cardAnimationSec');
-    this.animAdvancedSecond = this.animationCtrl.create('advancedCardAnimationTwo');
-    this.formAnim = this.animationCtrl.create('formAnimation');
-    this.anim
-      .addElement(document.getElementById('basicCard'))
-      .duration(1000)
-      .easing('ease-out')
-      .iterations(1)
-      .fromTo('transform', 'translateY(0px)', 'translateY(-25px)')
-      .fromTo('opacity', 1, 0.2);
-
-    this.animAdvanced
-      .addElement(document.getElementById('advancedCard'))
-      .duration(1000)
-      .easing('ease-out')
-      .iterations(1)
-      .fromTo('transform', 'translateX(0px)', 'translateX(50px)')
-      .fromTo('opacity', 1, 0.2);
-
-    this.animSecond
-      .addElement(document.getElementById('basicCard'))
-      .duration(1000)
-      .easing('ease-out')
-      .iterations(1)
-      .fromTo('transform', 'translateX(0px)', 'translateX(50px)')
-      .fromTo('opacity', 1, 0.2);
-
-    this.animAdvancedSecond
-      .addElement(document.getElementById('advancedCard'))
-      .duration(1000)
-      .easing('ease-out')
-      .iterations(1)
-      .fromTo('transform', 'translateY(0px)', 'translateY(50px)')
-      .fromTo('opacity', 1, 0.2);
-
-
-  }
+  ngAfterViewInit() {}
 
   toggleAnimation() {
-    if (this.isPlaying) {
-      this.anim.stop();
-      this.animAdvanced.stop();
-    } else {
-      this.anim.play();
-      this.animAdvanced.play();
-      setTimeout(() => {
-        document.getElementById('basicCard').style.display = 'none';
-        document.getElementById('advancedCard').style.display = 'none';
-      }, 500);
-      document.getElementById('cardHeader').innerHTML = 'Fill Out Your Token Details';
-      document.getElementById('footer').style.display = 'block';
-      document.getElementById('my-form').hidden = false;
-      document.getElementById('createTknBtn2').style.display = 'block';
-    }
-    this.isPlaying = !this.isPlaying;
+    this.basic = true;
+    document.getElementById('listCardOptions').style.display = 'none';
+    document.getElementById('my-form').style.display = 'block';
+    document.getElementById('footer').style.display = 'block';
+    document.getElementById('createTknBtn2').style.display = 'block';
+    document.getElementById('cardHeader').innerHTML = 'Enter Your Token Details';
+
   }
 
   toggleAdvAnimation() {
-    if (this.isPlaying) {
-      this.animSecond.stop();
-      this.animAdvancedSecond.stop();
-    } else {
-      this.animSecond.play();
-      this.animAdvancedSecond.play();
-      setTimeout(() => {
-        document.getElementById('basicCard').style.display = 'none';
-        document.getElementById('advancedCard').style.display = 'none';
-      }, 500);
-      document.getElementById('cardHeader').innerHTML = 'Fill Out Your Token Details';
-      document.getElementById('footer').style.display = 'block';
-      document.getElementById('my-form').hidden = false;
-      document.getElementById('createTknBtn2').style.display = 'block';
-    }
-    this.isPlaying = !this.isPlaying;
+    this.advanced = true;
+    document.getElementById('listCardOptions').style.display = 'none';
+    document.getElementById('my-form').style.display = 'block';
+    document.getElementById('footer').style.display = 'block';
+    document.getElementById('createTknBtn2').style.display = 'block';
+    document.getElementById('cardHeader').innerHTML = 'Enter Your Token Details';
+
+  }
+
+  toggleBackAnimation() {
+    this.advanced = false;
+    this.basic = false;
+    this.resetForm();
+    document.getElementById('cardHeader').innerHTML = 'Choose A Token Type';
+    document.getElementById('listCardOptions').style.display = 'block';
+    document.getElementById('my-form').style.display = 'none';
+    document.getElementById('footer').style.display = 'none';
+    document.getElementById('createTknBtn2').style.display = 'none';
   }
 
   constructor(
@@ -228,7 +175,7 @@ export class CreateTokenPage implements OnInit, AfterViewInit {
         this.presentToast('There is an error with your inputs.', 'danger');
       }
   }
-  
+
   resetForm() {
     this.nameText.value = '';
     this.amountRef.value = '';

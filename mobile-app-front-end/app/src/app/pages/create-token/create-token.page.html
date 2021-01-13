@@ -6,6 +6,8 @@
     </ion-buttons>
     <ion-title class="large-text">Token</ion-title>
   </ion-toolbar>
+
+
 </ion-header>
 
 <ion-content>
@@ -13,10 +15,9 @@
     <ion-card-header id="cardHeader">
       Choose A Token Type
     </ion-card-header>
-
+    
     <ion-card-content>
-
-      <ion-list>
+      <ion-list id="listCardOptions">
         <ion-row>
           <ion-col size-xs="12">
             <ion-card id="basicCard" class="tokenType borders">
@@ -37,7 +38,7 @@
               </ion-card-content>
               <ion-card-subtitle>
                 <ion-buttons>
-                  <ion-button (click)="toggleAnimation()" color="primary">
+                  <ion-button class="createBtn" (click)="toggleAnimation()">
                     Create Basic Token
                   </ion-button>
                 </ion-buttons>
@@ -72,7 +73,7 @@
 
               <ion-card-subtitle>
                 <ion-buttons>
-                  <ion-button (click)="toggleAdvAnimation()" color="primary">
+                  <ion-button class="createBtn" (click)="toggleAdvAnimation()">
                     Create Advanced Token
                   </ion-button>
                 </ion-buttons>
@@ -126,6 +127,13 @@
           </ion-note>  
         
       </ion-list>
+
+      <ion-buttons>
+        <ion-button class="backBtn" (click)="toggleBackAnimation()">
+          <ion-icon name="arrow-back" style="padding-right:1%" ></ion-icon>
+          Back To Token Selection
+        </ion-button>
+      </ion-buttons>
       </form>
     </ion-card-content>
 
