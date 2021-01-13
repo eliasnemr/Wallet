@@ -3,10 +3,12 @@ ion-list ion-item ion-label {
   font-size: 0.7rem !important;
   font-family: manrope-bold;
 }
+
 ion-list ion-item ion-select {
   font-size: 0.7rem !important;
   line-height: 23px;
 }
+
 ion-list-header {
   text-transform: none;
 }
