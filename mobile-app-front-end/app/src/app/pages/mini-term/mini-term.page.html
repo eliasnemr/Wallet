@@ -1,5 +1,5 @@
 <ion-app>
-<ion-header>
+<ion-header class="border-b">
 
   <ion-toolbar>
     <ion-buttons slot="start">
@@ -19,16 +19,14 @@
 
 <ion-content #ionContent>
   <!-- Terminal -->
-  <ion-text>
   <textarea
   #terminal
+  background="transparent"
   class="terminal"
   [ngStyle] = "{'font-size': getFontSize()}" 
   autocapitalize="false"
   spellcheck="false"
   autocorrect="off"></textarea>
-
-  </ion-text>
 </ion-content>
 </ion-app>
 <!-- <div class="terminal">

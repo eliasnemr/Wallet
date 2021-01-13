@@ -47,6 +47,7 @@ var pop_term_component_1 = require("../../components/pop-term/pop-term.component
 var core_1 = require("@angular/core");
 var angular_1 = require("@ionic/angular");
 var environment_1 = require("../../../environments/environment");
+var minima_1 = require("minima");
 var MiniTermPage = /** @class */ (function () {
     function MiniTermPage(loadingController, navCtrl, renderer, popoverController, userTerminal) {
         this.loadingController = loadingController;
@@ -138,7 +139,7 @@ var MiniTermPage = /** @class */ (function () {
         var _this = this;
         if (route === 'printchain') {
             return new Promise(function (resolve) {
-                Minima.cmd('printchain', function (res) {
+                minima_1.Minima.cmd('printchain', function (res) {
                     var regex = res.replace(environment_1.environment.newLine, '\\n'); // replace \n with <br/> has all 3 \n|\r|\r\n
                     _this.terminal.nativeElement.value += regex;
                     _this.terminal.nativeElement.scrollTop = _this.terminal.nativeElement.scrollHeight;
@@ -148,7 +149,7 @@ var MiniTermPage = /** @class */ (function () {
         }
         else if (route === 'tutorial' || route === 'Tutorial') {
             return new Promise(function (resolve, reject) {
-                Minima.cmd('tutorial', function (res) {
+                minima_1.Minima.cmd('tutorial', function (res) {
                     var regex = JSON.stringify(res, undefined, 2).replace('\\\\n', '\n');
                     _this.terminal.nativeElement.value += regex;
                     _this.terminal.nativeElement.scrollTop = _this.terminal.nativeElement.scrollHeight;
@@ -158,7 +159,7 @@ var MiniTermPage = /** @class */ (function () {
         }
         else {
             return new Promise(function (resolve, reject) {
-                Minima.cmd(route, function (res) {
+                minima_1.Minima.cmd(route, function (res) {
                     _this.terminal.nativeElement.value += JSON.stringify(res, undefined, 2) + '\n';
                     _this.terminal.nativeElement.scrollTop = _this.terminal.nativeElement.scrollHeight;
                     resolve(res);

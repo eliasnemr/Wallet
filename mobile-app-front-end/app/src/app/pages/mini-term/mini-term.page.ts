@@ -4,9 +4,8 @@ import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/co
 import { LoadingController, NavController, IonContent, PopoverController } from '@ionic/angular';
 import { environment } from '../../../environments/environment';
 import { UserTerminal } from '../../service/userterminal.service';
-import { Storage } from '@ionic/storage';
+import { Minima } from 'minima';
 
-declare var Minima: any;
 @Component({
   selector: 'app-mini-term',
   templateUrl: './mini-term.page.html',
@@ -20,7 +19,7 @@ export class MiniTermPage implements OnInit {
   public size: number;
   private host = '';
   public lastLine = '';
-  public isEnabled: boolean; 
+  public isEnabled: boolean;
   private loader: any = null;
   public globalInstance: any;
   public fontSubscription: Subscription;

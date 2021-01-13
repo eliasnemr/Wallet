@@ -1,0 +1,55 @@
+.terminal {
+  width: 100%;
+  background-color: var(--ion-background-color, #ffffff);
+  color: var(--ion-color-tertiary);
+  padding-left: 1%;
+  font-family: monospace;
+  height: 100%;
+  height: 600px;
+}
+
+.resize-tool-btn {
+  font-family: manrope-bold;
+  font-size: 1rem;
+  padding-right: 5%;
+  cursor: pointer;
+  color: var(--ion-color-tertiary);
+  text-transform: none;
+}
+
+.no-scroll {
+  --overflow: hidden;
+}
+
+ion-content {
+  --overflow: hidden;
+  height: 100% !important;
+  max-height: 100% !important;
+}
+
+textarea:hover,
+input:hover,
+textarea:active,
+input:active,
+textarea:focus,
+input:focus,
+button:focus,
+button:active,
+button:hover,
+label:focus,
+.btn:active,
+.btn.active {
+  outline: 0px !important;
+  -webkit-appearance: none;
+  box-shadow: none !important;
+}
+
+@media only screen and (min-width: 990px) {
+  .terminal {
+    font-size: 16px;
+    border: 0px;
+  }
+}
+ion-toolbar {
+  --background: var(--ion-m-background);
+}
