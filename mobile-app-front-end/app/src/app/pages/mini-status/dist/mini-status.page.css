@@ -1,0 +1,36 @@
+* {
+  color: var(--ion-color-tertiary);
+}
+
+ion-header ion-title {
+  font-family: manrope-bold;
+  font-size: 1rem;
+}
+
+ion-chip {
+  background-color: var(--ion-color-chip);
+}
+
+ion-chip ion-label {
+  font-family: manrope-bold;
+}
+
+.title {
+  font-family: manrope-bold;
+  font-size: 1rem;
+  float: left;
+  text-overflow: ellipsis;
+  max-width: inherit;
+  white-space: normal;
+  word-wrap: normal;
+}
+
+.value {
+  font-family: manrope-light;
+  text-align: left;
+  float: left;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: inherit;
+  overflow: hidden;
+}

@@ -26,6 +26,12 @@ var MiniStatusPage = /** @class */ (function () {
         var _this = this;
         this.statusSubscription = this.service.updatedStatus
             .pipe(operators_1.map(function (responseData) {
+            responseData.uptime = responseData.uptime.replace(/0 Years|0 Months|0 Weeks|0 Days|0 Hours|0 Minutes|0 Seconds|0 Milliseconds/gi, " ");
+            responseData.uptime = responseData.uptime.replace(/1 Minutes/gi, "1 Minute");
+            responseData.uptime = responseData.uptime.replace(/1 Seconds/gi, "1 Second");
+            responseData.uptime = responseData.uptime.replace(/1 Years/gi, "1 Year");
+            responseData.uptime = responseData.uptime.replace(/1 Milliseconds/gi, "1 Millisecond");
+            responseData.uptime = responseData.uptime.replace(/1 Hours/gi, "1 Hour");
             return responseData;
         }))
             .subscribe(function (res) {

@@ -2,7 +2,7 @@ import { HistoryService } from './service/history.service';
 import { BalanceService } from './service/balance.service';
 import { StatusService } from './service/status.service';
 import { UserConfigService } from './service/userconfig.service';
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { Platform, ToastController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { Minima, History } from 'minima';
@@ -29,7 +29,8 @@ export class AppComponent {
     private userConfigService: UserConfigService,
     private platform: Platform,
     public toastCtrl: ToastController,
-    private historyService: HistoryService) {
+    private historyService: HistoryService,
+    private ngZone: NgZone) {
     this.getPages();
     this.initializeApp();
     this.setLocalStorage();
@@ -49,7 +50,9 @@ export class AppComponent {
         } else if (msg.event === 'newblock') {
           // update status observable
           Minima.cmd('status full', (res: any) => {
+            this.ngZone.run(() => {
             this.status.updatedStatus.next(res.response);
+            });
           });
           // update history observable+historyPage
           Minima.cmd('history', (res: History) => {

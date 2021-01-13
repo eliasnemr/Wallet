@@ -46,13 +46,14 @@ exports.AppComponent = void 0;
 var core_1 = require("@angular/core");
 var minima_1 = require("minima");
 var AppComponent = /** @class */ (function () {
-    function AppComponent(status, api, userConfigService, platform, toastCtrl, historyService) {
+    function AppComponent(status, api, userConfigService, platform, toastCtrl, historyService, ngZone) {
         this.status = status;
         this.api = api;
         this.userConfigService = userConfigService;
         this.platform = platform;
         this.toastCtrl = toastCtrl;
         this.historyService = historyService;
+        this.ngZone = ngZone;
         this.toggleValue = false;
         this.currentMode = false;
         this.currentVersion = 0;
@@ -76,7 +77,9 @@ var AppComponent = /** @class */ (function () {
                 else if (msg.event === 'newblock') {
                     // update status observable
                     minima_1.Minima.cmd('status full', function (res) {
-                        _this.status.updatedStatus.next(res.response);
+                        _this.ngZone.run(function () {
+                            _this.status.updatedStatus.next(res.response);
+                        });
                     });
                     // update history observable+historyPage
                     minima_1.Minima.cmd('history', function (res) {
