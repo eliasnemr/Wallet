@@ -106,6 +106,7 @@ ion-card.tokenType:hover {
 }
 
 .backBtn:hover {
-  transform: scale(1.01);
+  transform: scale(1.02);
   --background-hover: none!important;
+  --color: var(--ion-color-secondary);
 }

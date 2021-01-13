@@ -75,6 +75,7 @@ var CreateTokenPage = /** @class */ (function () {
         document.getElementById('footer').style.display = 'block';
         document.getElementById('createTknBtn2').style.display = 'block';
         document.getElementById('cardHeader').innerHTML = 'Enter Your Token Details';
+        document.getElementById('backBtnWrapper').style.display = 'block';
     };
     CreateTokenPage.prototype.toggleAdvAnimation = function () {
         this.advanced = true;
@@ -83,8 +84,10 @@ var CreateTokenPage = /** @class */ (function () {
         document.getElementById('footer').style.display = 'block';
         document.getElementById('createTknBtn2').style.display = 'block';
         document.getElementById('cardHeader').innerHTML = 'Enter Your Token Details';
+        document.getElementById('backBtnWrapper').style.display = 'block';
     };
     CreateTokenPage.prototype.toggleBackAnimation = function () {
+        document.getElementById('backBtnWrapper').style.display = 'none';
         this.advanced = false;
         this.basic = false;
         this.resetForm();
@@ -205,7 +208,7 @@ var CreateTokenPage = /** @class */ (function () {
             this.api.createToken(this.customToken).then(function (res) {
                 if (res.status === true) {
                     _this.presentAlert('Success', 'Token ' + _this.customToken.name + ' has been created.', 'Token Creation Status');
-                    _this.resetForm();
+                    _this.toggleBackAnimation();
                 }
                 else {
                     _this.presentAlert('Error', 'Something went wrong.', 'Token Creation Status');

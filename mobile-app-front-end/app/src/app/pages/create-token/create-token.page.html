@@ -12,6 +12,11 @@
 
 <ion-content>
   <ion-card class="borders">
+    <ion-buttons style="display: none;" id="backBtnWrapper">
+      <ion-button class="backBtn" (click)="toggleBackAnimation()">
+        <ion-icon name="arrow-back" style="padding-right:1%" ></ion-icon>
+      </ion-button>
+    </ion-buttons>
     <ion-card-header id="cardHeader">
       Choose A Token Type
     </ion-card-header>
@@ -125,12 +130,7 @@
         
       </ion-list>
 
-      <ion-buttons>
-        <ion-button class="backBtn" (click)="toggleBackAnimation()">
-          <ion-icon name="arrow-back" style="padding-right:1%" ></ion-icon>
-          Back To Token Selection
-        </ion-button>
-      </ion-buttons>
+      
       </form>
     </ion-card-content>
 

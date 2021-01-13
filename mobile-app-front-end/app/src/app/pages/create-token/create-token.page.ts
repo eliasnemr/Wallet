@@ -47,6 +47,8 @@ export class CreateTokenPage implements OnInit, AfterViewInit {
     document.getElementById('footer').style.display = 'block';
     document.getElementById('createTknBtn2').style.display = 'block';
     document.getElementById('cardHeader').innerHTML = 'Enter Your Token Details';
+    document.getElementById('backBtnWrapper').style.display = 'block';
+
 
   }
 
@@ -57,10 +59,12 @@ export class CreateTokenPage implements OnInit, AfterViewInit {
     document.getElementById('footer').style.display = 'block';
     document.getElementById('createTknBtn2').style.display = 'block';
     document.getElementById('cardHeader').innerHTML = 'Enter Your Token Details';
+    document.getElementById('backBtnWrapper').style.display = 'block';
 
   }
 
   toggleBackAnimation() {
+    document.getElementById('backBtnWrapper').style.display = 'none';
     this.advanced = false;
     this.basic = false;
     this.resetForm();
@@ -165,7 +169,7 @@ export class CreateTokenPage implements OnInit, AfterViewInit {
         this.api.createToken(this.customToken).then((res: any) => {
           if(res.status === true){
             this.presentAlert('Success', 'Token '+this.customToken.name+' has been created.', 'Token Creation Status');
-            this.resetForm();
+            this.toggleBackAnimation();
           } else {
             this.presentAlert('Error', 'Something went wrong.', 'Token Creation Status');
 
