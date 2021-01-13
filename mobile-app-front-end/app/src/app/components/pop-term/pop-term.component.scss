@@ -1,12 +1,17 @@
 .activate-btn-minus {
-    color: #929396;
+    color: var(--ion-color-tertiary);
     text-align: centre;
-    font-size: 12px;
+    font-size: 1.0rem;
 }
 .activate-btn-add {
-    color: #929396;
+    color: var(--ion-color-tertiary);
     text-align: center;
-    font-size: 20px;
+    font-size: 1.0rem;
+}
+
+ion-button {
+    text-transform: none;
+    font-family: manrope-bold;
 }
 
 // iOS edit.
