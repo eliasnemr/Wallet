@@ -89,14 +89,11 @@ ion-toolbar {
 }
 .length {
   position: absolute;
-  right: 5%;
   z-index: 2000;
-  font-family: manrope-bold;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.0rem;
-  color: black!important;
+  font-family: manrope-light;
+  color: #000!important;
+  right: 5%;
+  bottom: 0;
 }
 ion-textarea {
   color: black!important;
