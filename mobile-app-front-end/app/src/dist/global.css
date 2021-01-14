@@ -83,6 +83,13 @@ body.dark {
   --ion-color-light-rgb: 34,36,40;
   /** ion-chip color */
   --ion-color-chip: #1D3147;
+  /** Token Card Colors */
+  --ion-color-token-cards: #F7F7FE;
+  --ion-color-token-cards-rgb: 247,247,254;
+  --ion-color-token-cards-contrast: #000000;
+  --ion-color-token-cards-contrast-rgb: 0,0,0;
+  --ion-color-token-cards-shade: #d9d9e0;
+  --ion-color-token-cards-tint: #f8f8fe;
 }
 body.dark .borders {
   border: 1px solid rgba(250, 250, 255, 0.1);

@@ -100,8 +100,18 @@
           <ion-input placeholder="token name" class="medium-text input" #nameTextArea name="name" [(ngModel)]="customToken.name"></ion-input>
         </ion-item>
 
+        <ion-item lines="none" [hidden]="!advancedFormInputsChecked.icon" lines="none">
+          <ion-label position="fixed" class="medium-text">Icon <span style="font-family: manrope-light; color:var(--ion-color-primary)">(Optional)</span></ion-label>
+          <ion-input class="medium-text input" name="icon" #iconURL [(ngModel)]="customToken.icon" placeholder="add the URL of your icon here..."></ion-input>
+        </ion-item>
+
+        <ion-item lines="none" [hidden]="!advancedFormInputsChecked.proof" lines="none">
+          <ion-label position="fixed" class="medium-text">Proof <span style="font-family: manrope-light; color:var(--ion-color-primary)">(Optional)</span></ion-label>
+          <ion-input  name="proof" class="medium-text input" #proofURL [(ngModel)]="customToken.proof" placeholder="add to host website a text file with a token ID."></ion-input>
+        </ion-item>
+
         <ion-item lines="none" [hidden]="!advancedFormInputsChecked.description" lines="none">
-          <ion-label position="fixed" class="medium-text">Description <span style="font-family: manrope-light; color:var(--ion-color-primary)">(Optional)</span></ion-label>
+          <ion-label position="stacked"  class="medium-text">Description <span style="font-family: manrope-light; color:var(--ion-color-primary)">(Optional)</span></ion-label>
           <ion-textarea
           #description 
           class="medium-text input"
@@ -110,23 +120,17 @@
           [(ngModel)]="customToken.description" 
           placeholder="type your description here...">
           </ion-textarea>
-          <span class="length smaller-text">{{ customToken.description.length+"/255"}}</span>
+        </ion-item>
+        <ion-item class="length" *ngIf="customToken.description && customToken.description.length > 0">
+          <ion-note>{{ customToken.description.length+'/255'}}</ion-note>
         </ion-item>
 
-        <ion-item lines="none" [hidden]="!advancedFormInputsChecked.icon">
-          <ion-label position="fixed" class="medium-text">Icon <span style="font-family: manrope-light; color:var(--ion-color-primary)">(Optional)</span></ion-label>
-          <ion-input class="medium-text input" name="icon" #iconURL [(ngModel)]="customToken.icon" placeholder="add the URL of your icon here..."></ion-input>
+        <ion-item>
+          <ion-note class="medium-text" [hidden]="!advancedFormInputsChecked.nft">
+            <ion-icon size="small" name="images"></ion-icon> This token can be spent whole only.
+          </ion-note> 
         </ion-item>
-
-        <ion-item lines="none" [hidden]="!advancedFormInputsChecked.proof">
-          <ion-label position="fixed" class="medium-text">Proof <span style="font-family: manrope-light; color:var(--ion-color-primary)">(Optional)</span></ion-label>
-          <ion-input  name="proof" class="medium-text input" #proofURL [(ngModel)]="customToken.proof" placeholder="add to host website a text file with a token ID."></ion-input>
-        </ion-item>
-
-         <ion-note class="medium-text" [hidden]="!advancedFormInputsChecked.nft">
-          <ion-icon size="small" name="images"></ion-icon>
-          This token can be spent whole only.
-          </ion-note>  
+ 
         
       </ion-list>
 

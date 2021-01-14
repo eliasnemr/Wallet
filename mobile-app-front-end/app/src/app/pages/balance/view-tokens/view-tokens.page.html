@@ -12,7 +12,7 @@
       <ion-card-title>
         <span *ngIf="token.tokenid !== '0x00' && token.icon.length == 0" class="e-avatar e-avatar-smal"><img [src]="createIcon( token.tokenid )" /></span>
         <span *ngIf="token.tokenid !== '0x00' && token.icon.length > 0"><img class="custom-icon" [src]="token.icon" /></span>
-        <img *ngIf="token.tokenid == '0x00'" class="custom-icon" alt="minima" src="assets/logoreg-s.svg"> 
+        <img *ngIf="token.tokenid === '0x00'" class="custom-icon" alt="minima" src="assets/logoreg-s.svg"> 
       </ion-card-title>
     </ion-card-header>
     <ion-card-content>

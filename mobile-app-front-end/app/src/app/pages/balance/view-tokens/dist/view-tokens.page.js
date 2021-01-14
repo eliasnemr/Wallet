@@ -58,28 +58,28 @@ var ViewTokensPage = /** @class */ (function () {
             _this.tokenArr = res;
             _this.urlID = _this.route.snapshot.paramMap.get("id");
             _this.tokenArr.forEach(function (tkn) {
-                if (tkn.tokenid == _this.urlID) {
+                if (tkn.tokenid === _this.urlID) {
                     _this.token = tkn;
-                    if (_this.token.tokenid == "0x00") {
-                        _this.token.description = "Minima's Official Token.";
+                    if (_this.token.tokenid === '0x00') {
+                        _this.token.description = 'Minima\'s Official Token.';
                     }
                     else {
                         _this.token.description = tkn.description;
                     }
-                    if (tkn.token.tokenid != "0x00" && tkn.token.icon) {
-                        _this.token.icon = "assets/icon/icon.png";
+                    if (tkn.token.tokenid !== '0x00' && tkn.token.icon) {
+                        _this.token.icon = 'assets/icon/icon.png';
                     }
-                    else if (tkn.token.tokenid == "0x00") {
-                        _this.token.icon = "assets/icon/icon.png";
+                    else if (tkn.token.tokenid === '0x00') {
+                        _this.token.icon = 'assets/icon/icon.png';
                     }
                     else {
                         _this.token.icon = tkn.icon;
                     }
-                    if (_this.token.script === "RETURN TRUE") {
-                        _this.type = "Value Transfer";
+                    if (_this.token.script === 'RETURN TRUE') {
+                        _this.type = 'Value Transfer';
                     }
                     else {
-                        _this.type = "Non-Fungible Token";
+                        _this.type = 'Non Fungible Token';
                     }
                 }
             });
@@ -90,17 +90,17 @@ var ViewTokensPage = /** @class */ (function () {
         var _this = this;
         this.api.validateTokenID(tokenid).then(function (res) {
             if (res.response.valid === true) {
-                _this.presentToast("This proof is valid.", "success");
+                _this.presentToast('This proof is valid.', 'success');
             }
             else {
-                _this.presentToast("Proof Mismatch - Proof is invalid.", "danger");
+                _this.presentToast('Proof mismatch - not a valid proof', 'danger');
             }
         });
     };
     ViewTokensPage.prototype.createIcon = function (tokenid) {
         return this.avatar = 'https://www.gravatar.com/avatar/' + SparkMD5.hash(tokenid) + '?d=identicon';
     };
-    //Alerts
+    // Alerts
     ViewTokensPage.prototype.presentToast = function (msg, type) {
         return __awaiter(this, void 0, void 0, function () {
             var toast;

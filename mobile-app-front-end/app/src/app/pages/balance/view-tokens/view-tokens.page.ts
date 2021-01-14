@@ -27,25 +27,24 @@ export class ViewTokensPage implements OnInit {
       this.urlID = this.route.snapshot.paramMap.get("id");
 
       this.tokenArr.forEach((tkn: any) => {
-        
-        if(tkn.tokenid == this.urlID) {
+        if(tkn.tokenid === this.urlID) {
           this.token = tkn;
-          if(this.token.tokenid == "0x00") {
-            this.token.description = "Minima's Official Token."
+          if(this.token.tokenid === '0x00') {
+            this.token.description = 'Minima\'s Official Token.';
           } else {
             this.token.description = tkn.description;
           }
-          if(tkn.token.tokenid!="0x00" && tkn.token.icon) {
-            this.token.icon = "assets/icon/icon.png";
-          } else if(tkn.token.tokenid == "0x00") {
-            this.token.icon = "assets/icon/icon.png";
+          if(tkn.token.tokenid !== '0x00' && tkn.token.icon) {
+            this.token.icon = 'assets/icon/icon.png';
+          } else if(tkn.token.tokenid === '0x00') {
+            this.token.icon = 'assets/icon/icon.png';
           } else {
             this.token.icon = tkn.icon;
           }
-          if(this.token.script === "RETURN TRUE") {
-            this.type = "Value Transfer";
+          if(this.token.script === 'RETURN TRUE') {
+            this.type = 'Value Transfer';
           } else {
-            this.type = "Non-Fungible Token";
+            this.type = 'Non Fungible Token';
           }
         }
       });
@@ -57,19 +56,19 @@ export class ViewTokensPage implements OnInit {
   validateProof(tokenid: string) {
     this.api.validateTokenID(tokenid).then((res: any)=>{
        if(res.response.valid === true){
-         this.presentToast("This proof is valid.", "success");
+         this.presentToast('This proof is valid.', 'success');
        } else {
-        this.presentToast("Proof Mismatch - Proof is invalid.", "danger");
+        this.presentToast('Proof mismatch - not a valid proof', 'danger');
        }
     });
   }
 
   createIcon(tokenid: string) {
-    
+
     return this.avatar = 'https://www.gravatar.com/avatar/' + SparkMD5.hash(tokenid) + '?d=identicon';
-  
+ 
   }
-  //Alerts
+  // Alerts
   async presentToast(msg: string, type: string) {
     const toast = await this.toastController.create({
       message: msg,

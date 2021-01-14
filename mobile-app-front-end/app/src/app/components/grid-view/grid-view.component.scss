@@ -11,7 +11,6 @@
   ion-card-header {
     font-family: manrope-bold;
     color: var(--ion-color-tertiary);
-    background-color: var(--ion-gray-two);
     background: var(--ion-m-background);
   }
   img {
@@ -59,6 +58,8 @@
     display: inline;
   }
   .description p {
+    color: var(--ion-color-tertiary);
+    opacity: 0.5;
     display: inline-block;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -66,16 +67,16 @@
     max-width: 200px;
   }
   .custom-icon {
-    height: 25.19px;
-    width: 25.19px;
-    max-height: 25.19px!important;
-    max-width: 25.19px!important;
+    height: 32px;
+    width: 30px;
+    max-height: 32px!important;
+    max-width: 30px!important;
   }
   .e-avatar {
-    height: 25.19px;
-    width: 25.19px;
-    max-height: 25.19px!important;
-    max-width: 25.19px!important;
+    height: 32px;
+    width: 30px;
+    max-height: 32px!important;
+    max-width: 30px!important;
   }
   .nft {
     cursor: pointer;
@@ -117,6 +118,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+  #balance .minima-numeric {
+    font-size: 1.0rem;
   }
   #balance span {
     float: right;

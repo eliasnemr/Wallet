@@ -41,6 +41,7 @@ ion-card-content {
   align-content: center;
   display: flex;
   height: auto;
+  color: var(--ion-color-tertiary);
 }
 
 ion-card-header {
