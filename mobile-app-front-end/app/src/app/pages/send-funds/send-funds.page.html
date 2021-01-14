@@ -87,7 +87,9 @@
               placeholder="type your message..."
               maxlength="255">
               </ion-textarea>
-            <span *ngIf="data.message" class="length">{{ data.message.length +"/255"}}</span>
+          </ion-item>
+          <ion-item *ngIf="data.message" class="length">
+            <ion-note>{{ data.message.length +"/255" }}</ion-note>
           </ion-item>
       </ion-list>
         

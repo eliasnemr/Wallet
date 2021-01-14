@@ -101,12 +101,11 @@ ion-toolbar {
 }
 
 .length {
-  position: absolute;
+  position: relative;
+  float: right;
   z-index: 2000;
   font-family: manrope-light;
   color: #000 !important;
-  right: 5%;
-  bottom: 0;
 }
 
 ion-textarea {
