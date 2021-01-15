@@ -17,7 +17,7 @@
       </ion-avatar>
     </ion-card-header>
     <ion-card-content>
-      <form [formGroup]="contactForm">
+      <form [formGroup]="contactForm" id="contactForm" (ngSubmit)="addContact()">
         Value : {{ contactForm.value | json }}
       <ion-list>
         <ion-item lines="none">
@@ -28,6 +28,13 @@
           <ion-label position="fixed">Address *</ion-label>
           <ion-input name="address" placeholder="wallet address..." formControlName="address"></ion-input>
         </ion-item>
+        <ion-item class="error" lines="none" *ngIf="address.invalid && address.touched">
+          <ion-label position="fixed"></ion-label>
+          <ion-note class="error-message">
+            <ion-icon name="alert-circle"></ion-icon> <span>A wallet address is required.</span> 
+          </ion-note>
+        </ion-item>
+        
         <ion-item lines="none">
           <ion-label position="fixed">Description</ion-label>
           <ion-input name="description" placeholder="description..." formControlName="description"></ion-input>
@@ -45,8 +52,8 @@
 <ion-footer class="border-t">
   <ion-toolbar>
     <ion-buttons>
-      <ion-button class="footer" expand="block" class="medium-text">
-        Create Contact
+      <ion-button [disabled]="contactForm.invalid" class="footer" expand="block" class="medium-text">
+        <button type="submit" id="submitBtn" form="contactForm">Create Contact</button>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>

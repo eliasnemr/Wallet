@@ -14,7 +14,7 @@ export interface Contact {
 })
 export class ContactService {
 
-  data: Subject<Contact[]> = new ReplaySubject<Contact[]>();
+  data: Subject<Contact[]> = new ReplaySubject<Contact[]>(1);
   qContacts: string;
   constructor() {
     this.qContacts = 'CREATE TABLE IF NOT EXISTS contacts (' +
@@ -25,40 +25,41 @@ export class ContactService {
 
     Minima.sql(this.qContacts + ';SELECT * FROM contacts', (res: any) => {
       if (Minima.util.checkAllResponses(res)) {
-        console.log(res);
+        this.data.next(res.response[1].rows);
+        // this.data.subscribe((val: any) => {
+        //   console.log(val);
+        // });
       }
     });
 
   }
 
-  loadContacts() {
-    this.qContacts = 'SELECT * FROM contact';
-    Minima.sql(this.qContacts, (res: any) => {
-      if (res.status) {
-        console.log(res);
-      }
+  loadContacts(): Contact[] {
+    this.data.subscribe((val: any) => {
+      return val;
     });
+    return null;
   }
 
-  addContact(address: string, name: string, description: string, avatar: string) {
-    if (name.length === 0) {
-      name = 'Anonymous';
-      this.qContacts = 'INSERT INTO contacts VALUES(' +
-                     '"' + address + '",' +
-                     '"' + name + '",' +
-                     '"' + description + '",' +
-                     '"' + avatar + '")';
+   addContact(newContact: Contact) {
+    if (newContact.name.length === 0) {
+      newContact.name = 'Anonymous';
+      this.qContacts = "INSERT INTO contacts VALUES(" +
+      "'" + newContact.address + "'," +
+      "'" + newContact.name + "'," +
+      "'" + newContact.description + "'," +
+      "'" + newContact.avatar + "')";
     } else {
-      this.qContacts = 'INSERT INTO contacts VALUES(' +
-      '"' + address + '",' +
-      '"' + name + '",' +
-      '"' + description + '",' +
-      '"' + avatar + '")';
+      this.qContacts = "INSERT INTO contacts VALUES(" +
+      "'" + newContact.address + "'," +
+      "'" + newContact.name + "'," +
+      "'" + newContact.description + "'," +
+      "'" + newContact.avatar + "')";
     }
 
-    Minima.sql(this.qContacts, (res: any) => {
-      if (res.status) {
-        console.log('Added new contact to SQL');
+    Minima.sql(this.qContacts+';SELECT * FROM CONTACTS', (res: any) => {
+      if (res.status && res.response[0].status) {
+        this.data.next(res.response[1].rows);
       }
     });
   }

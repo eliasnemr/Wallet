@@ -29,10 +29,36 @@ ion-button {
   font-family: manrope-bold;
   color: var(--ion-color-tertiary)!important;
 }
+#submitBtn {
+  width: 100%;
+  background: transparent;
+  color: var(--ion-color-tertiary)!important;
+  font-size: 1.0rem;
+}
 ion-header ion-toolbar ion-buttons ion-button {
   color: var(--ion-color-primary)!important;
 }
 ion-header ion-toolbar ion-buttons ion-button:hover {
   --background-hover: none;
   --color: var(--ion-color-secondary);
+}
+ion-item.error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+ion-item.error span {
+  color: var(--ion-color-tertiary);
+  display: inline-block;
+  vertical-align: middle;
+}
+ion-note.error-message ion-icon {
+  color: var(--ion-color-secondary);
+  font-size: 1.0rem;
+  display: inline-block;
+  vertical-align: middle;
+}
+ion-note.error-message { 
+  display: block;
 }

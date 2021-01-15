@@ -12,7 +12,8 @@ var minima_1 = require("minima");
 var core_1 = require("@angular/core");
 var ContactService = /** @class */ (function () {
     function ContactService() {
-        this.data = new rxjs_1.ReplaySubject();
+        var _this = this;
+        this.data = new rxjs_1.ReplaySubject(1);
         this.qContacts = 'CREATE TABLE IF NOT EXISTS contacts (' +
             'address varchar(255) PRIMARY KEY,' +
             'name varchar(255),' +
@@ -20,37 +21,39 @@ var ContactService = /** @class */ (function () {
             'avatar varchar(255))';
         minima_1.Minima.sql(this.qContacts + ';SELECT * FROM contacts', function (res) {
             if (minima_1.Minima.util.checkAllResponses(res)) {
-                console.log(res);
+                _this.data.next(res.response[1].rows);
+                // this.data.subscribe((val: any) => {
+                //   console.log(val);
+                // });
             }
         });
     }
     ContactService.prototype.loadContacts = function () {
-        this.qContacts = 'SELECT * FROM contact';
-        minima_1.Minima.sql(this.qContacts, function (res) {
-            if (res.status) {
-                console.log(res);
-            }
+        this.data.subscribe(function (val) {
+            return val;
         });
+        return null;
     };
-    ContactService.prototype.addContact = function (address, name, description, avatar) {
-        if (name.length === 0) {
-            name = 'Anonymous';
-            this.qContacts = 'INSERT INTO contacts VALUES(' +
-                '"' + address + '",' +
-                '"' + name + '",' +
-                '"' + description + '",' +
-                '"' + avatar + '")';
+    ContactService.prototype.addContact = function (newContact) {
+        var _this = this;
+        if (newContact.name.length === 0) {
+            newContact.name = 'Anonymous';
+            this.qContacts = "INSERT INTO contacts VALUES(" +
+                "'" + newContact.address + "'," +
+                "'" + newContact.name + "'," +
+                "'" + newContact.description + "'," +
+                "'" + newContact.avatar + "')";
         }
         else {
-            this.qContacts = 'INSERT INTO contacts VALUES(' +
-                '"' + address + '",' +
-                '"' + name + '",' +
-                '"' + description + '",' +
-                '"' + avatar + '")';
+            this.qContacts = "INSERT INTO contacts VALUES(" +
+                "'" + newContact.address + "'," +
+                "'" + newContact.name + "'," +
+                "'" + newContact.description + "'," +
+                "'" + newContact.avatar + "')";
         }
-        minima_1.Minima.sql(this.qContacts, function (res) {
-            if (res.status) {
-                console.log('Added new contact to SQL');
+        minima_1.Minima.sql(this.qContacts + ';SELECT * FROM CONTACTS', function (res) {
+            if (res.status && res.response[0].status) {
+                _this.data.next(res.response[1].rows);
             }
         });
     };
