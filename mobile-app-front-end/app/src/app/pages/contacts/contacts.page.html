@@ -1,0 +1,27 @@
+<ion-header class="border-b">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Contacts</ion-title>
+    <ion-icon (click)="presentAddContactForm()" id="addButton" slot="end" name="add"></ion-icon>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list>
+    
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+      </ion-avatar>
+      <ion-label> 
+        <h3>Paddy</h3>
+        <p>MxTL6BQ34O7EVVJW6JTXFMNBDXRK6KS3O5</p>
+      </ion-label>
+      <ion-button *ngIf="editMode" slot="end">Delete</ion-button>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

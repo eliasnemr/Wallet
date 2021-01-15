@@ -1,10 +1,4 @@
 "use strict";
-/**
- * Created By Elias Nemr
- * 01/11/19
- * Minima Global
- * WALLET
- */
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -13,10 +7,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 exports.__esModule = true;
 exports.AppModule = void 0;
+var contacts_modal_page_1 = require("./components/contacts-modal/contacts-modal.page");
+/**
+ * Created By Elias Nemr
+ * 01/11/19
+ * Minima Global
+ * WALLET
+ */
 var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var router_1 = require("@angular/router");
-var core_2 = require("@angular/core");
 var http_1 = require("@angular/common/http");
 var angular_1 = require("@ionic/angular");
 var forms_1 = require("@angular/forms");
@@ -39,11 +39,13 @@ var AppModule = /** @class */ (function () {
                 token_descr_component_1.TokenDescrComponent,
                 pop_term_component_1.PopTermComponent,
                 pop_settings_component_1.PopSettingsComponent,
-                pop_filter_component_1.PopFilterComponent
+                pop_filter_component_1.PopFilterComponent,
+                contacts_modal_page_1.ContactsModalPage
             ],
-            entryComponents: [pop_settings_component_1.PopSettingsComponent, pop_filter_component_1.PopFilterComponent, pop_term_component_1.PopTermComponent],
+            entryComponents: [pop_settings_component_1.PopSettingsComponent, pop_filter_component_1.PopFilterComponent, pop_term_component_1.PopTermComponent, contacts_modal_page_1.ContactsModalPage],
             imports: [
                 forms_1.FormsModule,
+                forms_1.ReactiveFormsModule,
                 http_1.HttpClientModule,
                 platform_browser_1.BrowserModule,
                 angular_1.IonicModule.forRoot(),
@@ -56,8 +58,7 @@ var AppModule = /** @class */ (function () {
                 { provide: router_1.RouteReuseStrategy, useClass: angular_1.IonicRouteStrategy },
                 { provide: common_1.LocationStrategy, useClass: common_1.HashLocationStrategy },
             ],
-            bootstrap: [app_component_1.AppComponent],
-            schemas: [core_2.CUSTOM_ELEMENTS_SCHEMA]
+            bootstrap: [app_component_1.AppComponent]
         })
     ], AppModule);
     return AppModule;

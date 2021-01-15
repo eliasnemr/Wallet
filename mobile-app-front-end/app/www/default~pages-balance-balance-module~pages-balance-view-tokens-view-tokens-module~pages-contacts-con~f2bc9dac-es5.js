@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["default~pages-balance-balance-module~pages-balance-view-tokens-view-tokens-module"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["default~pages-balance-balance-module~pages-balance-view-tokens-view-tokens-module~pages-contacts-con~f2bc9dac"],{
 
 /***/ "./node_modules/spark-md5/spark-md5.js":
 /*!*********************************************!*\
@@ -749,4 +749,4 @@
 /***/ })
 
 }]);
-//# sourceMappingURL=default~pages-balance-balance-module~pages-balance-view-tokens-view-tokens-module-es2015.js.map
+//# sourceMappingURL=default~pages-balance-balance-module~pages-balance-view-tokens-view-tokens-module~pages-contacts-con~f2bc9dac-es5.js.map

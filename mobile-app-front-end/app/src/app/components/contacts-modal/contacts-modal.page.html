@@ -1,0 +1,53 @@
+<ion-header class="border-b">
+  <ion-toolbar>
+    <ion-title>New Contact</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()" class="header">
+        Dismiss
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card class="borders">
+    <ion-card-header>
+      <ion-avatar>
+        <img src="../../../assets/user.svg">
+      </ion-avatar>
+    </ion-card-header>
+    <ion-card-content>
+      <form [formGroup]="contactForm">
+        Value : {{ contactForm.value | json }}
+      <ion-list>
+        <ion-item lines="none">
+          <ion-label position="fixed">Name</ion-label>
+          <ion-input name="name" placeholder="anonymous" formControlName="name"></ion-input>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label position="fixed">Address *</ion-label>
+          <ion-input name="address" placeholder="wallet address..." formControlName="address"></ion-input>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label position="fixed">Description</ion-label>
+          <ion-input name="description" placeholder="description..." formControlName="description"></ion-input>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label position="fixed">Custom Avatar</ion-label>
+          <ion-input name="avatar" placeholder="avatar url..." formControlName="avatar"></ion-input>
+        </ion-item>
+      </ion-list>
+    </form>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>
+<ion-footer class="border-t">
+  <ion-toolbar>
+    <ion-buttons>
+      <ion-button class="footer" expand="block" class="medium-text">
+        Create Contact
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

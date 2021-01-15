@@ -21,6 +21,9 @@ const routes: Routes = [
   { path: 'view-tokens', loadChildren: () => import('./pages/balance/view-tokens/view-tokens.module').then(m => m.ViewTokensPageModule) },
   { path: 'view-tokens/:id', loadChildren: () => import('./pages/balance/view-tokens/view-tokens.module')
     .then(m => m.ViewTokensPageModule) },
+  { path: 'contacts-modal', loadChildren: () => import('./components/contacts-modal/contacts-modal.module')
+    .then(m => m.ContactsModalPageModule) },
+  { path: 'contacts', loadChildren: () => import('./pages/contacts/contacts.module').then(m => m.ContactsPageModule)},
   { path: '**', loadChildren: () =>  import('./pages/balance/balance.module').then( m => m.BalancePageModule ) },
   { path: '', redirectTo: 'balance', pathMatch: 'full' },
 ];
@@ -31,4 +34,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

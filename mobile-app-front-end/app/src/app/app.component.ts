@@ -1,3 +1,4 @@
+import { ContactService } from './service/contacts.service';
 import { HistoryService } from './service/history.service';
 import { BalanceService } from './service/balance.service';
 import { StatusService } from './service/status.service';
@@ -27,6 +28,7 @@ export class AppComponent {
     private status: StatusService,
     private api: BalanceService,
     private userConfigService: UserConfigService,
+    private contactsService: ContactService,
     private platform: Platform,
     public toastCtrl: ToastController,
     private historyService: HistoryService,

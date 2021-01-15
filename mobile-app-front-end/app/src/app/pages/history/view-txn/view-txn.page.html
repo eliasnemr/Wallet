@@ -20,7 +20,7 @@
         Details
       </ion-list-header>
 
-      <ion-item>
+      <ion-item lines="none">
         <ion-col size-md="3"  size-sm="6" class="title">
           Status
         </ion-col>
@@ -29,7 +29,7 @@
         </ion-col>
       </ion-item>
 
-      <ion-item>
+      <ion-item lines="none">
         <ion-col size-md="3"  size-sm="6" class="title">
           Hash
           <a class="copy" (click)="copyToClipPWA(id)">
@@ -41,7 +41,7 @@
         </ion-col>
       </ion-item>
 
-      <ion-item>
+      <ion-item lines="none">
         <ion-col size-md="3"  size-sm="6" class="title">
           Size
         </ion-col>
@@ -50,7 +50,7 @@
         </ion-col>
       </ion-item>
 
-      <ion-item>
+      <ion-item lines="none">
         <ion-col size-md="3"  size-sm="6" class="title">
           Is A Block
         </ion-col>
@@ -59,7 +59,7 @@
         </ion-col>
       </ion-item>
 
-      <ion-item>
+      <ion-item lines="none">
         <ion-col size-md="3"  size-sm="6" class="title">
           Is In A block
         </ion-col>
@@ -68,7 +68,7 @@
         </ion-col>
       </ion-item>
 
-      <ion-item>
+      <ion-item lines="none">
         <ion-col size-md="3"  size-sm="6" *ngIf="isinblock === true" class="title">
           In Block
         </ion-col>
@@ -80,7 +80,7 @@
         </ion-col>
       </ion-item>
 
-      <ion-item>
+      <ion-item lines="none">
         <ion-col size-md="3"  size-sm="6" class="title">
           Nonce
         </ion-col>
@@ -89,7 +89,7 @@
         </ion-col>
       </ion-item>
 
-      <ion-item>
+      <ion-item lines="none">
         <ion-col size-md="3"  size-sm="6" class="title">
           Transaction Type
         </ion-col>
@@ -98,7 +98,7 @@
         </ion-col>
       </ion-item>
       
-      <ion-item *ngIf="type === 'Token Creation.'">
+      <ion-item lines="none" *ngIf="type === 'Token Creation.'">
         <ion-col size-md="3"  size-sm="6" class="title">
           Token Name
         </ion-col>
@@ -107,7 +107,7 @@
         </ion-col>
       </ion-item>
 
-      <ion-item *ngIf="type === 'Token Creation.'">
+      <ion-item lines="none" *ngIf="type === 'Token Creation.'">
         <ion-col size-md="3"  size-sm="6" class="title">
           Token Total
         </ion-col>
@@ -131,15 +131,15 @@
 
         <ion-row>
           <ion-col>
-            <ion-card>
+            <ion-card class="borders">
               <ion-list>
-                <ion-item lines="half">
+                <ion-item lines="none">
                   <ion-col size-md="3"  size-sm="6">
                     Index <a>{{ "#"+ i }}</a>
                   </ion-col>
                 </ion-item>
 
-                <ion-item>
+                <ion-item lines="none">
                   <ion-col size-md="3"  size-sm="6" class="title">
                     Coinid
                   </ion-col>
@@ -148,7 +148,7 @@
                   </ion-col>
                 </ion-item>
 
-                <ion-item>
+                <ion-item lines="none">
                   <ion-col size-md="3"  size-sm="6" class="title">
                     Address
                     <a class="copy" (click)="copyToClipPWA(input.address)">
@@ -160,7 +160,7 @@
                   </ion-col>               
                 </ion-item>
 
-                <ion-item>
+                <ion-item lines="none">
                   <ion-col size-md="3"  size-sm="6" class="title">
                     Amount
                   </ion-col>
@@ -194,15 +194,15 @@
 
         <ion-row>
           <ion-col>
-            <ion-card>
+            <ion-card class="borders">
               <ion-list>
-                <ion-item lines="half">
+                <ion-item lines="none">
                   <ion-col size-md="3"  size-sm="6">
                     Index <a>{{ "#"+ i }}</a>
                   </ion-col>
                 </ion-item>
 
-                <ion-item>
+                <ion-item lines="none">
                   <ion-col size-md="3"  size-sm="6" class="title">
                     Coinid
                   </ion-col>
@@ -211,7 +211,7 @@
                   </ion-col>
                 </ion-item>
 
-                <ion-item>
+                <ion-item lines="none">
                   <ion-col size-md="3"  size-sm="6" class="title">
                     Address
                       <a class="copy" (click)="copyToClipPWA(output.address)">
@@ -223,7 +223,7 @@
                   </ion-col>              
                 </ion-item>
 
-                <ion-item>
+                <ion-item lines="none">
                   <ion-col size-md="3"  size-sm="6" class="title">
                     Amount
                   </ion-col>

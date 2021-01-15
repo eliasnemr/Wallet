@@ -1,3 +1,4 @@
+import { ContactsModalPage } from './components/contacts-modal/contacts-modal.page';
 /**
  * Created By Elias Nemr
  * 01/11/19
@@ -8,10 +9,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HttpClientModule} from '@angular/common/http';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { Clipboard } from '@ionic-native/clipboard/ngx';
@@ -29,10 +29,12 @@ import { PopFilterComponent } from './components/pop-filter/pop-filter.component
     TokenDescrComponent,
     PopTermComponent,
     PopSettingsComponent,
-    PopFilterComponent],
-  entryComponents: [PopSettingsComponent, PopFilterComponent, PopTermComponent],
+    PopFilterComponent,
+    ContactsModalPage],
+  entryComponents: [PopSettingsComponent, PopFilterComponent, PopTermComponent, ContactsModalPage],
   imports: [
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     BrowserModule,
     IonicModule.forRoot(),
@@ -44,7 +46,6 @@ import { PopFilterComponent } from './components/pop-filter/pop-filter.component
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: LocationStrategy, useClass: HashLocationStrategy },
   ],
-  bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  bootstrap: [AppComponent]
 })
 export class AppModule {}

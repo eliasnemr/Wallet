@@ -27,6 +27,8 @@ var routes = [
     { path: 'view-txn/:id', loadChildren: function () { return Promise.resolve().then(function () { return require('./pages/history/view-txn/view-txn.module'); }).then(function (m) { return m.ViewTXNPageModule; }); } },
     { path: 'view-tokens', loadChildren: function () { return Promise.resolve().then(function () { return require('./pages/balance/view-tokens/view-tokens.module'); }).then(function (m) { return m.ViewTokensPageModule; }); } },
     { path: 'view-tokens/:id', loadChildren: function () { return Promise.resolve().then(function () { return require('./pages/balance/view-tokens/view-tokens.module'); }).then(function (m) { return m.ViewTokensPageModule; }); } },
+    { path: 'contacts-modal', loadChildren: function () { return Promise.resolve().then(function () { return require('./components/contacts-modal/contacts-modal.module'); }).then(function (m) { return m.ContactsModalPageModule; }); } },
+    { path: 'contacts', loadChildren: function () { return Promise.resolve().then(function () { return require('./pages/contacts/contacts.module'); }).then(function (m) { return m.ContactsPageModule; }); } },
     { path: '**', loadChildren: function () { return Promise.resolve().then(function () { return require('./pages/balance/balance.module'); }).then(function (m) { return m.BalancePageModule; }); } },
     { path: '', redirectTo: 'balance', pathMatch: 'full' },
 ];
