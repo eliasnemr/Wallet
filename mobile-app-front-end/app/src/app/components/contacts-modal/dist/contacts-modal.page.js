@@ -45,12 +45,14 @@ exports.__esModule = true;
 exports.ContactsModalPage = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
+var SparkMD5 = require("spark-md5");
 var ContactsModalPage = /** @class */ (function () {
     function ContactsModalPage(modalCtrl, contactService, formBuilder, toastCtrl) {
         this.modalCtrl = modalCtrl;
         this.contactService = contactService;
         this.formBuilder = formBuilder;
         this.toastCtrl = toastCtrl;
+        this.av = '';
         // State Items
         this.loading = false;
         this.success = false;
@@ -81,6 +83,17 @@ var ContactsModalPage = /** @class */ (function () {
         this.modalCtrl.dismiss({
             dismissed: true
         });
+    };
+    ContactsModalPage.prototype.createIcon = function (address) {
+        return this.av = 'https://www.gravatar.com/avatar/' + SparkMD5.hash(address) + '?d=identicon';
+    };
+    ContactsModalPage.prototype.changeIcon = function (ev) {
+        if (ev.target.value === 0) {
+            this.av = '';
+        }
+        else {
+            this.createIcon(ev.target.value);
+        }
     };
     ContactsModalPage.prototype.addContact = function () {
         var _this = this;

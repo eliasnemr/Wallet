@@ -2,6 +2,7 @@ import { ContactService, Contact } from 'src/app/service/contacts.service';
 import { ModalController, ToastController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import * as SparkMD5 from 'spark-md5';
 
 
 @Component({
@@ -13,7 +14,7 @@ export class ContactsModalPage implements OnInit {
 
   contactForm: FormGroup;
   myContact: Contact;
-  av: string;
+  av = '';
 
   // State Items
   loading = false;
@@ -52,6 +53,17 @@ export class ContactsModalPage implements OnInit {
     this.modalCtrl.dismiss({
       dismissed: true
     });
+  }
+
+  createIcon(address: string): string {
+    return this.av = 'https://www.gravatar.com/avatar/' + SparkMD5.hash(address) + '?d=identicon';
+  }
+  changeIcon(ev: any) {
+    if(ev.target.value === 0) {
+      this.av = '';
+    } else {
+      this.createIcon(ev.target.value);
+    }
   }
 
   addContact() {

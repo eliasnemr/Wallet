@@ -13,7 +13,8 @@
   <ion-card class="borders">
     <ion-card-header>
       <ion-avatar>
-        <img src="../../../assets/user.svg">
+        <img *ngIf="av.length === 0" src="assets/user.svg">
+        <img *ngIf="av.length !== 0" [src]="av">
       </ion-avatar>
     </ion-card-header>
     <ion-card-content>
@@ -32,7 +33,7 @@
         </ion-item>
         <ion-item lines="none">
           <ion-label position="fixed">Address *</ion-label>
-          <ion-input name="address" placeholder="wallet address..." formControlName="ADDRESS"></ion-input>
+          <ion-input (ionChange)="changeIcon($event)" name="address" placeholder="wallet address..." formControlName="ADDRESS"></ion-input>
         </ion-item>
         <ion-item class="error" lines="none" *ngIf="address.invalid && address.touched">
           <ion-label position="fixed"></ion-label>
