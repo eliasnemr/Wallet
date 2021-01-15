@@ -22,11 +22,11 @@
       <ion-list>
         <ion-item lines="none">
           <ion-label position="fixed">Name</ion-label>
-          <ion-input name="name" placeholder="anonymous" formControlName="name"></ion-input>
+          <ion-input name="name" placeholder="anonymous" formControlName="NAME"></ion-input>
         </ion-item>
         <ion-item lines="none">
           <ion-label position="fixed">Address *</ion-label>
-          <ion-input name="address" placeholder="wallet address..." formControlName="address"></ion-input>
+          <ion-input name="address" placeholder="wallet address..." formControlName="ADDRESS"></ion-input>
         </ion-item>
         <ion-item class="error" lines="none" *ngIf="address.invalid && address.touched">
           <ion-label position="fixed"></ion-label>
@@ -37,11 +37,11 @@
         
         <ion-item lines="none">
           <ion-label position="fixed">Description</ion-label>
-          <ion-input name="description" placeholder="description..." formControlName="description"></ion-input>
+          <ion-input name="description" placeholder="description..." formControlName="DESCRIPTION"></ion-input>
         </ion-item>
         <ion-item lines="none">
           <ion-label position="fixed">Custom Avatar</ion-label>
-          <ion-input name="avatar" placeholder="avatar url..." formControlName="avatar"></ion-input>
+          <ion-input name="avatar" placeholder="avatar url..." formControlName="AVATAR"></ion-input>
         </ion-item>
       </ion-list>
     </form>
@@ -52,8 +52,8 @@
 <ion-footer class="border-t">
   <ion-toolbar>
     <ion-buttons>
-      <ion-button [disabled]="contactForm.invalid" class="footer" expand="block" class="medium-text">
-        <button type="submit" id="submitBtn" form="contactForm">Create Contact</button>
+      <ion-button [disabled]="contactForm.invalid" expand="block">
+        <button type="submit" class="footer" id="submitBtn" form="contactForm">Create Contact</button>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>

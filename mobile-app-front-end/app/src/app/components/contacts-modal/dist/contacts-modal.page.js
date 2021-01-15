@@ -57,10 +57,10 @@ var ContactsModalPage = /** @class */ (function () {
     }
     ContactsModalPage.prototype.ngOnInit = function () {
         this.contactForm = this.formBuilder.group({
-            name: ['', [forms_1.Validators.maxLength(255)]],
-            address: ['', [forms_1.Validators.required, forms_1.Validators.maxLength(255)]],
-            description: ['', [forms_1.Validators.maxLength(255)]],
-            avatar: ['', [forms_1.Validators.maxLength(255)]]
+            NAME: ['', [forms_1.Validators.maxLength(255)]],
+            ADDRESS: ['', [forms_1.Validators.required, forms_1.Validators.maxLength(255)]],
+            DESCRIPTION: ['', [forms_1.Validators.maxLength(255)]],
+            AVATAR: ['', [forms_1.Validators.maxLength(255)]]
         });
     };
     ContactsModalPage.prototype.dismiss = function () {
@@ -69,24 +69,19 @@ var ContactsModalPage = /** @class */ (function () {
         });
     };
     ContactsModalPage.prototype.addContact = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var newContact;
-            var _this = this;
-            return __generator(this, function (_a) {
-                this.loading = true;
-                newContact = this.contactForm.value;
-                this.contactService.addContact(newContact);
-                this.contactService.data.subscribe(function (val) {
-                    _this.success = true;
-                    _this.showToast();
-                    // clear form
-                    // dismiss form
-                    _this.loading = false;
-                });
-                this.loading = false;
-                return [2 /*return*/];
-            });
+        var _this = this;
+        this.loading = true;
+        var newContact = this.contactForm.value;
+        this.contactService.addContact(newContact);
+        this.contactService.data.subscribe(function (val) {
+            if (val.length > 0) {
+                _this.success = true;
+                _this.showToast();
+                _this.modalCtrl.dismiss();
+                _this.loading = false;
+            }
         });
+        this.loading = false;
     };
     ContactsModalPage.prototype.showToast = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -94,13 +89,14 @@ var ContactsModalPage = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        if (this.contactForm.controls['name'].value === '') {
-                            this.contactForm.controls['name'].setValue('Anonymous');
+                        if (this.contactForm.controls['NAME'].value === '') {
+                            this.contactForm.controls['NAME'].setValue('Anonymous');
                         }
                         return [4 /*yield*/, this.toastCtrl.create({
                                 header: "Added A New Contact!",
                                 message: this.name.value + " was saved to your contacts!",
                                 position: "middle",
+                                duration: 1000,
                                 buttons: [{
                                         text: "Dismiss",
                                         role: "Cancel"
@@ -116,28 +112,28 @@ var ContactsModalPage = /** @class */ (function () {
     };
     Object.defineProperty(ContactsModalPage.prototype, "name", {
         get: function () {
-            return this.contactForm.get('name');
+            return this.contactForm.get('NAME');
         },
         enumerable: false,
         configurable: true
     });
     Object.defineProperty(ContactsModalPage.prototype, "address", {
         get: function () {
-            return this.contactForm.get('address');
+            return this.contactForm.get('ADDRESS');
         },
         enumerable: false,
         configurable: true
     });
     Object.defineProperty(ContactsModalPage.prototype, "description", {
         get: function () {
-            return this.contactForm.get('description');
+            return this.contactForm.get('DESCRIPTION');
         },
         enumerable: false,
         configurable: true
     });
     Object.defineProperty(ContactsModalPage.prototype, "avatar", {
         get: function () {
-            return this.contactForm.get('avatar');
+            return this.contactForm.get('AVATAR');
         },
         enumerable: false,
         configurable: true

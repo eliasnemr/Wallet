@@ -3,10 +3,10 @@ import { Minima } from 'minima';
 import { Injectable } from '@angular/core';
 
 export interface Contact {
-  address: string;
-  name?: string;
-  description?: string;
-  avatar?: string;
+  ADDRESS: string;
+  NAME?: string;
+  DESCRIPTION?: string;
+  AVATAR?: string;
 }
 
 @Injectable({
@@ -26,9 +26,6 @@ export class ContactService {
     Minima.sql(this.qContacts + ';SELECT * FROM contacts', (res: any) => {
       if (Minima.util.checkAllResponses(res)) {
         this.data.next(res.response[1].rows);
-        // this.data.subscribe((val: any) => {
-        //   console.log(val);
-        // });
       }
     });
 
@@ -42,22 +39,24 @@ export class ContactService {
   }
 
    addContact(newContact: Contact) {
-    if (newContact.name.length === 0) {
-      newContact.name = 'Anonymous';
+    console.log(newContact.NAME);
+    if (newContact.NAME.length === 0) {
+      newContact.NAME = 'Anonymous';
       this.qContacts = "INSERT INTO contacts VALUES(" +
-      "'" + newContact.address + "'," +
-      "'" + newContact.name + "'," +
-      "'" + newContact.description + "'," +
-      "'" + newContact.avatar + "')";
+      "'" + newContact.ADDRESS + "'," +
+      "'" + newContact.NAME + "'," +
+      "'" + newContact.DESCRIPTION + "'," +
+      "'" + newContact.AVATAR + "')";
     } else {
       this.qContacts = "INSERT INTO contacts VALUES(" +
-      "'" + newContact.address + "'," +
-      "'" + newContact.name + "'," +
-      "'" + newContact.description + "'," +
-      "'" + newContact.avatar + "')";
+      "'" + newContact.ADDRESS + "'," +
+      "'" + newContact.NAME + "'," +
+      "'" + newContact.DESCRIPTION + "'," +
+      "'" + newContact.AVATAR + "')";
     }
-
-    Minima.sql(this.qContacts+';SELECT * FROM CONTACTS', (res: any) => {
+    console.log("Bout to Post to SQL");
+    Minima.sql(this.qContacts + ';SELECT * FROM CONTACTS', (res: any) => {
+      console.log(res);
       if (res.status && res.response[0].status) {
         this.data.next(res.response[1].rows);
       }
@@ -65,6 +64,6 @@ export class ContactService {
   }
 
   removeContact(address: string) {
-    
+
   }
 }

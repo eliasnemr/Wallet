@@ -22,9 +22,6 @@ var ContactService = /** @class */ (function () {
         minima_1.Minima.sql(this.qContacts + ';SELECT * FROM contacts', function (res) {
             if (minima_1.Minima.util.checkAllResponses(res)) {
                 _this.data.next(res.response[1].rows);
-                // this.data.subscribe((val: any) => {
-                //   console.log(val);
-                // });
             }
         });
     }
@@ -36,22 +33,25 @@ var ContactService = /** @class */ (function () {
     };
     ContactService.prototype.addContact = function (newContact) {
         var _this = this;
-        if (newContact.name.length === 0) {
-            newContact.name = 'Anonymous';
+        console.log(newContact.NAME);
+        if (newContact.NAME.length === 0) {
+            newContact.NAME = 'Anonymous';
             this.qContacts = "INSERT INTO contacts VALUES(" +
-                "'" + newContact.address + "'," +
-                "'" + newContact.name + "'," +
-                "'" + newContact.description + "'," +
-                "'" + newContact.avatar + "')";
+                "'" + newContact.ADDRESS + "'," +
+                "'" + newContact.NAME + "'," +
+                "'" + newContact.DESCRIPTION + "'," +
+                "'" + newContact.AVATAR + "')";
         }
         else {
             this.qContacts = "INSERT INTO contacts VALUES(" +
-                "'" + newContact.address + "'," +
-                "'" + newContact.name + "'," +
-                "'" + newContact.description + "'," +
-                "'" + newContact.avatar + "')";
+                "'" + newContact.ADDRESS + "'," +
+                "'" + newContact.NAME + "'," +
+                "'" + newContact.DESCRIPTION + "'," +
+                "'" + newContact.AVATAR + "')";
         }
+        console.log("Bout to Post to SQL");
         minima_1.Minima.sql(this.qContacts + ';SELECT * FROM CONTACTS', function (res) {
+            console.log(res);
             if (res.status && res.response[0].status) {
                 _this.data.next(res.response[1].rows);
             }

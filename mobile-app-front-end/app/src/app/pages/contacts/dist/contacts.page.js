@@ -57,6 +57,7 @@ var ContactsPage = /** @class */ (function () {
         var _this = this;
         this.contactService.data.subscribe(function (res) {
             // set the list
+            console.log(res);
             _this.contacts = res;
         });
     };

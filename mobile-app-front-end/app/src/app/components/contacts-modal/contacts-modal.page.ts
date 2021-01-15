@@ -26,10 +26,10 @@ export class ContactsModalPage implements OnInit {
 
   ngOnInit() {
     this.contactForm = this.formBuilder.group({
-      name: ['', [Validators.maxLength(255)]],
-      address: ['', [Validators.required, Validators.maxLength(255)]],
-      description: ['', [Validators.maxLength(255)]],
-      avatar: ['', [Validators.maxLength(255)]]
+      NAME: ['', [Validators.maxLength(255)]],
+      ADDRESS: ['', [Validators.required, Validators.maxLength(255)]],
+      DESCRIPTION: ['', [Validators.maxLength(255)]],
+      AVATAR: ['', [Validators.maxLength(255)]]
     });
   }
 
@@ -39,7 +39,7 @@ export class ContactsModalPage implements OnInit {
     });
   }
 
-  async addContact() {
+  addContact() {
     this.loading = true;
 
     const newContact = this.contactForm.value;
@@ -47,22 +47,23 @@ export class ContactsModalPage implements OnInit {
     this.contactService.addContact(newContact);
 
     this.contactService.data.subscribe((val: Contact[]) => {
-      this.success = true;
-      this.showToast();
-      // clear form
-      // dismiss form
-      this.loading = false;
+      if (val.length > 0) {
+        this.success = true;
+        this.showToast();
+        this.modalCtrl.dismiss();
+        this.loading = false;
+      }
     });
-
     this.loading = false;
   }
 
   async showToast() {
-    if(this.contactForm.controls['name'].value === '') { this.contactForm.controls['name'].setValue('Anonymous'); }
+    if(this.contactForm.controls['NAME'].value === '') { this.contactForm.controls['NAME'].setValue('Anonymous'); }
     const toast = await this.toastCtrl.create({
       header: `Added A New Contact!`,
       message: `${ this.name.value } was saved to your contacts!`,
       position: `middle`,
+      duration: 1000,
       buttons: [{
         text: `Dismiss`,
         role: `Cancel`
@@ -72,16 +73,16 @@ export class ContactsModalPage implements OnInit {
   }
 
   get name() {
-    return this.contactForm.get('name');
+    return this.contactForm.get('NAME');
   }
   get address() {
-    return this.contactForm.get('address');
+    return this.contactForm.get('ADDRESS');
   }
   get description() {
-    return this.contactForm.get('description');
+    return this.contactForm.get('DESCRIPTION');
   }
   get avatar() {
-    return this.contactForm.get('avatar');
+    return this.contactForm.get('AVATAR');
   }
 
 }

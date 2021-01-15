@@ -21,6 +21,8 @@ export class ContactsPage implements OnInit {
   ngOnInit() {
     this.contactService.data.subscribe((res: Contact[]) => {
       // set the list
+
+      console.log(res);
       this.contacts = res;
     });
   }

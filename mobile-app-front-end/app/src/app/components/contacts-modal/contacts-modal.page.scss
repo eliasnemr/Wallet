@@ -25,9 +25,18 @@ ion-button {
   width: 100%;
   height: 58px;
   text-align: center;
+}
+button.footer {
+  width: 100%;
+  height: 58px;
+  text-align: center;
   text-transform: none;
   font-family: manrope-bold;
   color: var(--ion-color-tertiary)!important;
+}
+button.footer:hover {
+  cursor: pointer;
+  opacity: 0.6;
 }
 #submitBtn {
   width: 100%;
@@ -46,7 +55,6 @@ ion-item.error {
   display: flex;
   align-items: center;
   justify-content: center;
-
 }
 ion-item.error span {
   color: var(--ion-color-tertiary);
