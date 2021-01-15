@@ -10,6 +10,7 @@ exports.ContactService = void 0;
 var rxjs_1 = require("rxjs");
 var minima_1 = require("minima");
 var core_1 = require("@angular/core");
+var SparkMD5 = require("spark-md5");
 var ContactService = /** @class */ (function () {
     function ContactService() {
         var _this = this;
@@ -25,6 +26,9 @@ var ContactService = /** @class */ (function () {
             }
         });
     }
+    ContactService.prototype.createIcon = function (address) {
+        return 'https://www.gravatar.com/avatar/' + SparkMD5.hash(address) + '?d=identicon';
+    };
     ContactService.prototype.loadContacts = function () {
         this.data.subscribe(function (val) {
             return val;
@@ -33,7 +37,9 @@ var ContactService = /** @class */ (function () {
     };
     ContactService.prototype.addContact = function (newContact) {
         var _this = this;
-        console.log(newContact.NAME);
+        if (newContact.AVATAR.length === 0) {
+            newContact.AVATAR = this.createIcon(newContact.ADDRESS);
+        }
         if (newContact.NAME.length === 0) {
             newContact.NAME = 'Anonymous';
             this.qContacts = "INSERT INTO contacts VALUES(" +

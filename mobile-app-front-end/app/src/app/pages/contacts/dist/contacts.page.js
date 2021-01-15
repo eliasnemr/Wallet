@@ -45,7 +45,6 @@ exports.__esModule = true;
 exports.ContactsPage = void 0;
 var contacts_modal_page_1 = require("./../../components/contacts-modal/contacts-modal.page");
 var core_1 = require("@angular/core");
-var SparkMD5 = require("spark-md5");
 var ContactsPage = /** @class */ (function () {
     function ContactsPage(toastController, contactService, modalController) {
         this.toastController = toastController;
@@ -60,9 +59,6 @@ var ContactsPage = /** @class */ (function () {
             console.log(res);
             _this.contacts = res;
         });
-    };
-    ContactsPage.prototype.createIcon = function (address) {
-        return this.avatar = 'https://www.gravatar.com/avatar/' + SparkMD5.hash(address) + '?d=identicon';
     };
     ContactsPage.prototype.presentAddContactForm = function () {
         return __awaiter(this, void 0, void 0, function () {

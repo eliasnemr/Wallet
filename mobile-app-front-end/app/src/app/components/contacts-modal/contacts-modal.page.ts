@@ -2,7 +2,6 @@ import { ContactService, Contact } from 'src/app/service/contacts.service';
 import { ModalController, ToastController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import * as SparkMD5 from 'spark-md5';
 
 @Component({
   selector: 'app-contacts-modal',
@@ -13,6 +12,7 @@ export class ContactsModalPage implements OnInit {
 
   contactForm: FormGroup;
   myContact: Contact;
+  av: string;
 
   // State Items
   loading = false;
@@ -58,7 +58,7 @@ export class ContactsModalPage implements OnInit {
   }
 
   async showToast() {
-    if(this.contactForm.controls['NAME'].value === '') { this.contactForm.controls['NAME'].setValue('Anonymous'); }
+    if (this.contactForm.controls['NAME'].value === '') { this.contactForm.controls['NAME'].setValue('Anonymous'); }
     const toast = await this.toastCtrl.create({
       header: `Added A New Contact!`,
       message: `${ this.name.value } was saved to your contacts!`,

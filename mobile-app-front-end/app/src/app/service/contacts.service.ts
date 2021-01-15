@@ -1,6 +1,7 @@
 import { Subject, ReplaySubject } from 'rxjs';
 import { Minima } from 'minima';
 import { Injectable } from '@angular/core';
+import * as SparkMD5 from 'spark-md5';
 
 export interface Contact {
   ADDRESS: string;
@@ -31,6 +32,11 @@ export class ContactService {
 
   }
 
+
+  createIcon(address: string): string {
+    return 'https://www.gravatar.com/avatar/' + SparkMD5.hash(address) + '?d=identicon';
+  }
+
   loadContacts(): Contact[] {
     this.data.subscribe((val: any) => {
       return val;
@@ -39,7 +45,11 @@ export class ContactService {
   }
 
    addContact(newContact: Contact) {
-    console.log(newContact.NAME);
+    
+    if (newContact.AVATAR.length === 0) {
+      newContact.AVATAR = this.createIcon(newContact.ADDRESS);
+    }
+
     if (newContact.NAME.length === 0) {
       newContact.NAME = 'Anonymous';
       this.qContacts = "INSERT INTO contacts VALUES(" +

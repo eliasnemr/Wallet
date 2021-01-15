@@ -27,10 +27,6 @@ export class ContactsPage implements OnInit {
     });
   }
 
-  createIcon(address: string) {
-    return this.avatar = 'https://www.gravatar.com/avatar/' + SparkMD5.hash(address) + '?d=identicon';
-  }
-
   async presentAddContactForm() {
     const modal = await this.modalController.create({
       component: ContactsModalPage,
