@@ -45,7 +45,7 @@ export class ContactService {
   }
 
    addContact(newContact: Contact) {
-    
+
     if (newContact.AVATAR.length === 0) {
       newContact.AVATAR = this.createIcon(newContact.ADDRESS);
     }
@@ -64,7 +64,7 @@ export class ContactService {
       "'" + newContact.DESCRIPTION + "'," +
       "'" + newContact.AVATAR + "')";
     }
-    console.log("Bout to Post to SQL");
+
     Minima.sql(this.qContacts + ';SELECT * FROM CONTACTS', (res: any) => {
       console.log(res);
       if (res.status && res.response[0].status) {

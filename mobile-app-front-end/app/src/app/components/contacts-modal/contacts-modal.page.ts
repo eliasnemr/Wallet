@@ -3,6 +3,7 @@ import { ModalController, ToastController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
+
 @Component({
   selector: 'app-contacts-modal',
   templateUrl: './contacts-modal.page.html',
@@ -26,10 +27,24 @@ export class ContactsModalPage implements OnInit {
 
   ngOnInit() {
     this.contactForm = this.formBuilder.group({
-      NAME: ['', [Validators.maxLength(255)]],
-      ADDRESS: ['', [Validators.required, Validators.maxLength(255)]],
+      NAME: ['', [
+          Validators.maxLength(255),
+          Validators.pattern('[a-zA-Z0-9.\-\_]*$'),
+        ]
+        ],
+      ADDRESS: ['', [
+             Validators.required,
+             Validators.minLength(2),
+             Validators.maxLength(60),
+             Validators.pattern('[Mx|0x][a-zA-Z0-9]+')
+            ]
+        ],
       DESCRIPTION: ['', [Validators.maxLength(255)]],
-      AVATAR: ['', [Validators.maxLength(255)]]
+      AVATAR: ['', [
+            Validators.maxLength(255),
+            Validators.pattern('(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})')
+           ]
+      ]
     });
   }
 

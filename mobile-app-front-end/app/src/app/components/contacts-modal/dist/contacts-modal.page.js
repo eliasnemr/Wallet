@@ -57,10 +57,24 @@ var ContactsModalPage = /** @class */ (function () {
     }
     ContactsModalPage.prototype.ngOnInit = function () {
         this.contactForm = this.formBuilder.group({
-            NAME: ['', [forms_1.Validators.maxLength(255)]],
-            ADDRESS: ['', [forms_1.Validators.required, forms_1.Validators.maxLength(255)]],
+            NAME: ['', [
+                    forms_1.Validators.maxLength(255),
+                    forms_1.Validators.pattern('[a-zA-Z0-9.\-\_]*$'),
+                ]
+            ],
+            ADDRESS: ['', [
+                    forms_1.Validators.required,
+                    forms_1.Validators.minLength(2),
+                    forms_1.Validators.maxLength(60),
+                    forms_1.Validators.pattern('[Mx|0x][a-zA-Z0-9]+')
+                ]
+            ],
             DESCRIPTION: ['', [forms_1.Validators.maxLength(255)]],
-            AVATAR: ['', [forms_1.Validators.maxLength(255)]]
+            AVATAR: ['', [
+                    forms_1.Validators.maxLength(255),
+                    forms_1.Validators.pattern('(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})')
+                ]
+            ]
         });
     };
     ContactsModalPage.prototype.dismiss = function () {

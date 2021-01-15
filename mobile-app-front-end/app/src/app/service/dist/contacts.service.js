@@ -55,7 +55,6 @@ var ContactService = /** @class */ (function () {
                 "'" + newContact.DESCRIPTION + "'," +
                 "'" + newContact.AVATAR + "')";
         }
-        console.log("Bout to Post to SQL");
         minima_1.Minima.sql(this.qContacts + ';SELECT * FROM CONTACTS', function (res) {
             console.log(res);
             if (res.status && res.response[0].status) {

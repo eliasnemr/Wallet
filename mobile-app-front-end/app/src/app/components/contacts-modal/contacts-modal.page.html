@@ -18,11 +18,17 @@
     </ion-card-header>
     <ion-card-content>
       <form [formGroup]="contactForm" id="contactForm" (ngSubmit)="addContact()">
-        Value : {{ contactForm.value | json }}
       <ion-list>
         <ion-item lines="none">
           <ion-label position="fixed">Name</ion-label>
           <ion-input name="name" placeholder="anonymous" formControlName="NAME"></ion-input>
+        </ion-item>
+        <ion-item class="error" lines="none" *ngIf="name.invalid && name.touched">
+          <ion-label position="fixed"></ion-label>
+          <ion-note class="error-message">
+            <ion-icon name="alert-circle"></ion-icon> <span> Invalid name format!</span>
+            <span>&mdash; A name must be alphanumeric and can only contain a dot or underscore.</span> 
+          </ion-note>
         </ion-item>
         <ion-item lines="none">
           <ion-label position="fixed">Address *</ion-label>
@@ -40,8 +46,14 @@
           <ion-input name="description" placeholder="description..." formControlName="DESCRIPTION"></ion-input>
         </ion-item>
         <ion-item lines="none">
-          <ion-label position="fixed">Custom Avatar</ion-label>
+          <ion-label position="fixed">Avatar</ion-label>
           <ion-input name="avatar" placeholder="avatar url..." formControlName="AVATAR"></ion-input>
+        </ion-item>
+        <ion-item class="error" lines="none" *ngIf="avatar.invalid && avatar.touched">
+          <ion-label position="fixed"></ion-label>
+          <ion-note class="error-message">
+            <ion-icon name="alert-circle"></ion-icon> <span> Invalid URL format.</span> 
+          </ion-note>
         </ion-item>
       </ion-list>
     </form>
