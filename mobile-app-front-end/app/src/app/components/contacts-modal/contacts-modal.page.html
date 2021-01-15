@@ -38,7 +38,8 @@
         <ion-item class="error" lines="none" *ngIf="address.invalid && address.touched">
           <ion-label position="fixed"></ion-label>
           <ion-note class="error-message">
-            <ion-icon name="alert-circle"></ion-icon> <span>A wallet address is required.</span> 
+            <ion-icon name="alert-circle"></ion-icon> <span> A wallet address is required.</span>
+            <span style="display: block;">&mdash; An address must begin with 0x or Mx.</span> 
           </ion-note>
         </ion-item>
         

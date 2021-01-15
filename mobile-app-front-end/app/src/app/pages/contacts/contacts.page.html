@@ -10,8 +10,8 @@
 
 <ion-content>
 
-  <ion-list *ngFor="let contact of contacts">
-    <ion-item>
+  <ion-list class="ion-no-padding" *ngFor="let contact of contacts">
+    <ion-item class="contactItem" lines="half">
       <ion-avatar slot="start">
         <img src="{{contact.AVATAR}}">
       </ion-avatar>
