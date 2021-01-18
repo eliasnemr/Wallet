@@ -56,9 +56,23 @@ var ContactsPage = /** @class */ (function () {
         var _this = this;
         this.contactService.data.subscribe(function (res) {
             // set the list
-            console.log(res);
             _this.contacts = res;
         });
+    };
+    ContactsPage.prototype.queryContacts = function (qy) {
+        var _this = this;
+        qy = qy.toUpperCase();
+        if (qy.length > 0) {
+            this.contacts = this.contacts.filter(function (ele) {
+                return ele.NAME.toUpperCase().includes(qy) || ele.ADDRESS.toUpperCase().includes(qy);
+            });
+            console.log(this.filteredContacts);
+        }
+        else {
+            this.contactService.data.subscribe(function (res) {
+                _this.contacts = res;
+            });
+        }
     };
     ContactsPage.prototype.presentAddContactForm = function () {
         return __awaiter(this, void 0, void 0, function () {

@@ -5,10 +5,22 @@
     </ion-buttons>
     <ion-title>Contacts</ion-title>
     <ion-icon (click)="presentAddContactForm()" id="addButton" slot="end" name="add"></ion-icon>
+    <ion-icon id="deleteButton" slot="end" name="trash-outline"></ion-icon>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-toolbar>
+    <ion-searchbar (ionChange)="queryContacts($event.target.value)" placeholder="search for your contact..."></ion-searchbar>
+  </ion-toolbar>
+
+  <ion-grid *ngIf="contacts.length == 0">
+    <ion-row>
+      <ion-col style="display: flex; align-items:center; justify-content:center" size="12">
+        <ion-label>No contact(s) to display...</ion-label>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
   <ion-list class="ion-no-padding" *ngFor="let contact of contacts">
     <ion-item class="contactItem" lines="half">
