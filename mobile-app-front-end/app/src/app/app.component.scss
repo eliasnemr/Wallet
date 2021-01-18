@@ -13,10 +13,13 @@
   ion-item {
     font-family: manrope-bold;
     padding-left: 1%;
-    color: var(--minima-text);
+    color: var(--ion-color-tertiary)
   }
   ion-icon {
       color: var(--ion-color-tertiary);
+  }
+  .myMenu {
+    --width: 250px;
   }
 /** Desktop Version */
 @media only screen and (min-width: 992px) {
@@ -27,8 +30,8 @@
     top: 6%;
     bottom: 6%;
   }
-  ion-app {
-    background-color: #031D32;
+  ion-menu {
+    --width: 200px; 
   }
 }
 /*
@@ -40,16 +43,38 @@ ion-menu.md ion-list {
   
 ion-menu.md ion-item {
   --padding-start: 18px;
-  margin-right: 10px;
-  border-radius: 0 50px 50px 0;
 }
 ion-menu.md ion-item.selected {
-  color: var(--ion-color-primary);
+  --background: var(--ion-color-selected);
+  border-radius: 0px;
+}
+ion-menu.md ion-item.nightMode:hover {
+  transform: scale(1);
+
+}
+ion-menu.md ion-item:hover {
+  transform: scale(1.02);
+  color: var(--ion-color-secondary)!important;
+}
+ion-menu.md ion-item.selected {
+  color: #fff;
   ion-icon {
     color: var(--ion-color-primary);
   }
 }
-
+.my-menu-item {
+  display:inline;
+  vertical-align: middle;
+  margin: 0 auto;
+  padding:0;
+  font-size: 1.0rem;
+}
+.my-menu-item ion-icon {
+  font-size: 1.2rem;
+}
+border-b {
+  border-bottom: 1px solid red;;
+}
 
 /*
   * iOS Design Menu

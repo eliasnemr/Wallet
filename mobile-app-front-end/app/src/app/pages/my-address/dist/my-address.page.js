@@ -44,6 +44,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 exports.MyAddressPage = void 0;
 var core_1 = require("@angular/core");
+var minima_1 = require("minima");
 var MyAddressPage = /** @class */ (function () {
     function MyAddressPage(clipboard, api, platform, alertController, toastController) {
         this.clipboard = clipboard;
@@ -52,17 +53,29 @@ var MyAddressPage = /** @class */ (function () {
         this.alertController = alertController;
         this.toastController = toastController;
         this.qrCode = '';
+        this.lastCode = '';
     }
     MyAddressPage.prototype.ngOnInit = function () { };
     MyAddressPage.prototype.ionViewWillEnter = function () {
-        // return new address on enter
-        this.newAddress();
+        var _this = this;
+        minima_1.Minima.file.load('lastAddress.txt', function (res) {
+            if (res.success) {
+                var data = JSON.parse(res.data);
+                if (data.address.length === 0) {
+                    _this.newAddress();
+                }
+                else {
+                    _this.qrCode = data.address;
+                    _this.isEmpty = true;
+                }
+            }
+        });
     };
-    MyAddressPage.prototype.generateAddress = function () {
+    MyAddressPage.prototype.generateAddress = function (code) {
         var _this = this;
         this.newAddress();
         this.generateAddressBtn.disabled = true;
-        this.presentToast('Generated a new address.', 'success', "middle");
+        this.presentToast('Generated a new address', 'primary', "bottom");
         setTimeout(function () {
             _this.generateAddressBtn.disabled = false;
         }, 2000);
@@ -74,6 +87,11 @@ var MyAddressPage = /** @class */ (function () {
                 if (res.status) {
                     _this.qrCode = res.response.address.miniaddress;
                     _this.isEmpty = true;
+                    var data = { address: _this.qrCode };
+                    var send = JSON.stringify(data);
+                    minima_1.Minima.file.save(send, 'lastAddress.txt', function (res) {
+                        if (res.success) { }
+                    });
                 }
             });
         }, 0);
@@ -109,7 +127,14 @@ var MyAddressPage = /** @class */ (function () {
                             color: type,
                             keyboardClose: true,
                             translucent: true,
-                            position: posn
+                            position: posn,
+                            cssClass: 'toast',
+                            buttons: [{
+                                    text: 'Dismiss',
+                                    role: 'cancel',
+                                    handler: function () {
+                                    }
+                                }]
                         })];
                     case 1:
                         toast = _a.sent();
@@ -122,18 +147,17 @@ var MyAddressPage = /** @class */ (function () {
     MyAddressPage.prototype.copyToClipboard = function () {
         if (this.platform.is('desktop') || this.platform.is('pwa')) {
             this.copyToClipPWA();
-            this.presentToast('Copied to clipboard', 'success', 'bottom');
         }
         else {
             this.clipboard.copy(this.qrCode);
-            this.presentToast('Copied to clipboard', 'success', 'bottom');
+            this.presentToast('Copied to Clipboard', 'primary', 'bottom');
         }
     };
     MyAddressPage.prototype.copyToClipPWA = function () {
         var _this = this;
         document.addEventListener('copy', function (e) {
             e.clipboardData.setData('text/plain', _this.qrCode);
-            _this.presentToast('Copied to clipboard', 'success', 'bottom');
+            _this.presentToast('Copied To Clipboard', 'primary', 'bottom');
             e.preventDefault();
             document.removeEventListener('copy', null);
         });

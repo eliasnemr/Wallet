@@ -7,6 +7,7 @@ import { Component, NgZone } from '@angular/core';
 import { Platform, ToastController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { Minima, History } from 'minima';
+import { clearScreenDown } from 'readline';
 
 @Component({
   selector: 'app-root',
@@ -20,7 +21,7 @@ export class AppComponent {
   currentMode = false;
   currentVersion = 0;
   activePage: any;
-  basic: {title: string, routerLink: string, icon: string, line: string, hidden: boolean}[];
+  basic: {title: string, routerLink: string, icon: string, line: string, hidden: boolean, class: string}[];
   advanced: {title: string, routerLink: string, icon: string, line: string, hidden: boolean}[];
   lastHistory: string;
 
@@ -68,7 +69,7 @@ export class AppComponent {
           this.presentToast('Mining transaction in progress...', 'primary');
         } else if (msg.event === 'miningstop') {
           this.presentToast('Mining transaction completed.', 'secondary');
-        }
+        } 
       });
     });
   }
@@ -76,18 +77,17 @@ export class AppComponent {
   getPages() {
     this.basic =
     [
-      { title: 'Balance', routerLink: '/balance', icon: 'card', line: 'none', hidden: false},
-      { title: 'Send', routerLink: '/send-funds', icon: 'send', line: 'none', hidden: false},
-      { title: 'Receive', routerLink: '/my-address', icon: 'arrow-down', line: 'none', hidden: false},
-      { title: 'History', routerLink: '/history', icon: 'book', line: 'half', hidden: false},
+      { title: 'Balance', routerLink: '/balance', icon: 'card', line: 'none', hidden: false, class: ''},
+      { title: 'Send', routerLink: '/send-funds', icon: 'send', line: 'none', hidden: false, class:''},
+      { title: 'Receive', routerLink: '/my-address', icon: 'arrow-down', line: 'none', hidden: false, class: ''},
+      { title: 'History', routerLink: '/history', icon: 'book', line: 'none', hidden: false, class: 'border-b'},
     ]
     this.advanced =
     [
       { title: 'Token', routerLink: '/create-token', icon: 'brush', line: 'none', hidden: false},
       { title: 'Status', routerLink: '/status', icon: 'analytics', line: 'none', hidden: false},
       { title: 'Terminal', routerLink: '/mini-term', icon: 'code', line: 'none', hidden: false},
-      { title: 'Community', routerLink: '/community', icon: 'share', line: 'half', hidden: false},
-      { title: 'Settings', routerLink: '/settings', icon: 'build', line: 'none', hidden: true}
+      { title: 'Community', routerLink: '/community', icon: 'share', line: 'none', hidden: false},
     ]
   }
 

@@ -2,7 +2,7 @@ import { Platform, AlertController, ToastController, IonButton } from '@ionic/an
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Clipboard } from '@ionic-native/clipboard/ngx';
 import { MinimaApiService } from '../../service/minima-api.service';
-import { Address } from 'minima';
+import { Address, Minima } from 'minima';
 
 @Component({
   selector: 'app-my-address',
@@ -12,6 +12,7 @@ import { Address } from 'minima';
 export class MyAddressPage implements OnInit {
 
   public qrCode = '';
+  lastCode = '';
   isEmpty: boolean;
 
   @ViewChild('generateAddressBtn', {static: false}) generateAddressBtn: IonButton;
@@ -21,14 +22,22 @@ export class MyAddressPage implements OnInit {
     private api: MinimaApiService,
     private platform: Platform,
     private alertController: AlertController,
-    public toastController: ToastController) { }
+    public toastController: ToastController) {}
 
   ngOnInit() {}
 
   ionViewWillEnter() {
-    // return new address on enter
-    this.newAddress();
-
+    Minima.file.load('lastAddress.txt', (res: any) => {
+      if(res.success) {
+        const data = JSON.parse(res.data);
+        if(data.address.length === 0) {
+          this.newAddress();
+        }  else {
+          this.qrCode = data.address;
+          this.isEmpty = true;
+        }
+      }
+    })
   }
 
   public generateAddress(code: string) {
@@ -46,6 +55,11 @@ export class MyAddressPage implements OnInit {
         if (res.status) {
           this.qrCode = res.response.address.miniaddress;
           this.isEmpty = true;
+          let data = {address: this.qrCode};
+          let send = JSON.stringify(data);
+          Minima.file.save(send, 'lastAddress.txt', (res: any) => {
+            if(res.success){}
+          });
         }
       });
     }, 0);

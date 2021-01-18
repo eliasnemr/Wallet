@@ -103,18 +103,17 @@ var AppComponent = /** @class */ (function () {
     AppComponent.prototype.getPages = function () {
         this.basic =
             [
-                { title: 'Balance', routerLink: '/balance', icon: 'card', line: 'none', hidden: false },
-                { title: 'Send', routerLink: '/send-funds', icon: 'send', line: 'none', hidden: false },
-                { title: 'Receive', routerLink: '/my-address', icon: 'arrow-down', line: 'none', hidden: false },
-                { title: 'History', routerLink: '/history', icon: 'book', line: 'half', hidden: false },
+                { title: 'Balance', routerLink: '/balance', icon: 'card', line: 'none', hidden: false, "class": '' },
+                { title: 'Send', routerLink: '/send-funds', icon: 'send', line: 'none', hidden: false, "class": '' },
+                { title: 'Receive', routerLink: '/my-address', icon: 'arrow-down', line: 'none', hidden: false, "class": '' },
+                { title: 'History', routerLink: '/history', icon: 'book', line: 'none', hidden: false, "class": 'border-b' },
             ];
         this.advanced =
             [
                 { title: 'Token', routerLink: '/create-token', icon: 'brush', line: 'none', hidden: false },
                 { title: 'Status', routerLink: '/status', icon: 'analytics', line: 'none', hidden: false },
                 { title: 'Terminal', routerLink: '/mini-term', icon: 'code', line: 'none', hidden: false },
-                { title: 'Community', routerLink: '/community', icon: 'share', line: 'half', hidden: false },
-                { title: 'Settings', routerLink: '/settings', icon: 'build', line: 'none', hidden: true }
+                { title: 'Community', routerLink: '/community', icon: 'share', line: 'none', hidden: false },
             ];
     };
     // localStorage

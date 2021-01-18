@@ -1,6 +1,6 @@
 <ion-app>
   <ion-split-pane when="lg" contentId="mainMenu" class="splitpane" >
-  <ion-menu side="start" contentId="mainMenu">
+  <ion-menu side="start" contentId="mainMenu" class="myMenu">
 
     <ion-header>
       <ion-toolbar class="border-b">
@@ -47,7 +47,7 @@
         <ion-menu-toggle auto-hide="false" *ngFor="let p of basic; let i = index">
           
             <ion-item 
-            class="ripple-parent ion-activatable"
+            class="ripple-parent ion-activatable my-menu-item {{p.class}}"
             detail="false"
             routerLinkActive="selected"
             routerDirection="root"
@@ -67,7 +67,7 @@
         <ion-menu-toggle auto-hide="false" *ngFor="let p of advanced; let i = index">
           
             <ion-item 
-            class="ripple-parent ion-activatable"
+            class="ripple-parent ion-activatable my-menu-item"
             detail="false"
             routerLinkActive="selected"
             routerDirection="root"
@@ -87,8 +87,8 @@
   <ion-footer class="border-t">
     <ion-row>
       <ion-col>
-        <ion-item lines="none">
-          <ion-icon slot="start" name="moon"></ion-icon>
+        <ion-item lines="none" class="nightMode my-menu-item">
+          <ion-icon  slot="start" name="moon"></ion-icon>
           <span class="medium-text">Night Mode</span>
           <ion-toggle  slot="end" #darkToggle [(ngModel)]="toggleValue" (ionChange)="checkToggle()"></ion-toggle>
         </ion-item>

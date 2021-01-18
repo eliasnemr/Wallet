@@ -97,6 +97,7 @@
   /** custom Minima css vars **/
   --minima-terminal-size: 12px;
   --overflow: hidden;
+  --ion-color-selected: #223649;
   /** Minima Icon */
   --st0: #FF512F;
   --st1: #317AFF;
