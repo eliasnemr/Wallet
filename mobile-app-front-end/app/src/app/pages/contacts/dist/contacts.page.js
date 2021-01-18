@@ -67,7 +67,6 @@ var ContactsPage = /** @class */ (function () {
             this.contacts = this.contacts.filter(function (ele) {
                 return ele.NAME.toUpperCase().includes(qy) || ele.ADDRESS.toUpperCase().includes(qy);
             });
-            console.log(this.filteredContacts);
         }
         else {
             this.contactService.data.subscribe(function (res) {

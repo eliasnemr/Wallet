@@ -20,7 +20,7 @@ var ContactService = /** @class */ (function () {
             'name varchar(255),' +
             'description varchar(255),' +
             'avatar varchar(255))';
-        minima_1.Minima.sql(this.qContacts + ';SELECT * FROM contacts', function (res) {
+        minima_1.Minima.sql(this.qContacts + ';SELECT * FROM contacts ORDER BY NAME', function (res) {
             if (minima_1.Minima.util.checkAllResponses(res)) {
                 _this.data.next(res.response[1].rows);
             }
@@ -55,7 +55,7 @@ var ContactService = /** @class */ (function () {
                 "'" + newContact.DESCRIPTION + "'," +
                 "'" + newContact.AVATAR + "')";
         }
-        minima_1.Minima.sql(this.qContacts + ';SELECT * FROM CONTACTS', function (res) {
+        minima_1.Minima.sql(this.qContacts + ';SELECT * FROM CONTACTS ORDER BY NAME', function (res) {
             console.log(res);
             if (res.status && res.response[0].status) {
                 _this.data.next(res.response[1].rows);

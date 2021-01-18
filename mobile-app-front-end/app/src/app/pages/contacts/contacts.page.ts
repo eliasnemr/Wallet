@@ -33,7 +33,6 @@ export class ContactsPage implements OnInit {
       this.contacts = this.contacts.filter( ele => {
         return ele.NAME.toUpperCase().includes(qy) || ele.ADDRESS.toUpperCase().includes(qy);
       });
-      console.log(this.filteredContacts);
     } else {
       this.contactService.data.subscribe((res:any) => {
         this.contacts = res;

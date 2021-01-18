@@ -80,6 +80,7 @@ export class AppComponent {
       { title: 'Balance', routerLink: '/balance', icon: 'card', line: 'none', hidden: false, class: ''},
       { title: 'Send', routerLink: '/send-funds', icon: 'send', line: 'none', hidden: false, class:''},
       { title: 'Receive', routerLink: '/my-address', icon: 'arrow-down', line: 'none', hidden: false, class: ''},
+      { title: 'Contacts', routerLink: '/contacts', icon: 'people', line: 'none', hidden: false, class: ''},
       { title: 'History', routerLink: '/history', icon: 'book', line: 'none', hidden: false, class: 'border-b'},
     ]
     this.advanced =
