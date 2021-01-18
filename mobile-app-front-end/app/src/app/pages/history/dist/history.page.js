@@ -45,7 +45,6 @@ exports.__esModule = true;
 exports.HistoryPage = void 0;
 var core_1 = require("@angular/core");
 var pop_filter_component_1 = require("./../../components/pop-filter/pop-filter.component");
-var minima_1 = require("minima");
 var moment = require("moment");
 var operators_1 = require("rxjs/operators");
 var HistoryPage = /** @class */ (function () {
@@ -183,46 +182,25 @@ var HistoryPage = /** @class */ (function () {
         });
     };
     HistoryPage.prototype.pullInHistorySummary = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var _this = this;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: 
-                    // await response of history function
-                    return [4 /*yield*/, new Promise(function (resolve, reject) {
-                            minima_1.Minima.cmd('history', function (res) {
-                                // update observable
-                                _this.historyService.updatedHistory.next(res);
-                                resolve(_this.historyService.updatedHistory);
-                            });
-                        }).then(function (res) {
-                            // rxjs operator PIPE the input observable value
-                            res.pipe(operators_1.map(function (resp) {
-                                _this.transactions = [];
-                                resp.response.history.forEach(function (element) {
-                                    var name = element.values[0].name;
-                                    element.values[0].time = moment(element.txpow.header.timesecs * 1000).format("H:mm");
-                                    element.values[0].day = moment(element.txpow.header.timesecs * 1000).format("DD");
-                                    element.values[0].month = moment(element.txpow.header.timesecs * 1000).format("MMMM");
-                                    if (name.substring(0, 1) === '{') {
-                                        element.values[0].name = JSON.parse(name);
-                                    }
-                                    _this.transactions.push(element);
-                                });
-                                return _this.transactions.reverse();
-                            })).subscribe(function (result) {
-                                if (result.length === 0) {
-                                    _this.prompt = 'No transactions found in your history.';
-                                }
-                            });
-                        })];
-                    case 1:
-                        // await response of history function
-                        _a.sent();
-                        return [2 /*return*/];
+        var _this = this;
+        this.historyService.data.pipe(operators_1.map(function (res) {
+            res.history.forEach(function (txpow) {
+                var name = txpow.values[0].name;
+                txpow.values[0].time = moment(txpow.txpow.header.timesecs * 1000).format('H:mm');
+                txpow.values[0].day = moment(txpow.txpow.header.timesecs * 1000).format("DD");
+                txpow.values[0].month = moment(txpow.txpow.header.timesecs * 1000).format("MMMM");
+                if (name.substring(0, 1) === '{') {
+                    txpow.values[0].name = JSON.parse(name);
                 }
             });
+            return res.history;
+        })).subscribe(function (res) {
+            _this.transactions = res;
+            _this.transactions.reverse();
         });
+        if (this.transactions.length === 0) {
+            this.prompt = 'No recent transactions found...';
+        }
     };
     __decorate([
         core_1.ViewChild('historyList', { static: true })

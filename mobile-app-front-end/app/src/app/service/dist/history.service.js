@@ -9,10 +9,20 @@ exports.__esModule = true;
 exports.HistoryService = void 0;
 var core_1 = require("@angular/core");
 var rxjs_1 = require("rxjs");
+var minima_1 = require("minima");
 var HistoryService = /** @class */ (function () {
     function HistoryService() {
-        this.updatedHistory = new rxjs_1.BehaviorSubject({ status: false, minifunc: '', message: '', response: {} });
+        this.data = new rxjs_1.ReplaySubject(1);
+        this.loadHistory();
     }
+    HistoryService.prototype.loadHistory = function () {
+        var _this = this;
+        minima_1.Minima.cmd('history', function (res) {
+            if (res.status) {
+                _this.data.next(res.response);
+            }
+        });
+    };
     HistoryService = __decorate([
         core_1.Injectable({
             providedIn: 'root'

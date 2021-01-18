@@ -1,14 +1,24 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { History } from 'minima';
+import { ReplaySubject, Subject } from 'rxjs';
+import { History, Minima } from 'minima';
 
 @Injectable({
     providedIn: 'root'
 })
 export class HistoryService {
 
-  updatedHistory: BehaviorSubject<History> = new BehaviorSubject<History>({status: false, minifunc: '', message: '', response: {}});
+  data: Subject<History> = new ReplaySubject<History>(1);
 
-  constructor() {}
+  constructor() {
+    this.loadHistory();
+  }
+
+  loadHistory() {
+    Minima.cmd('history', (res: {status: boolean; message: string; minifunc: string; response: History}) => {
+      if (res.status) {
+        this.data.next(res.response);
+      }
+    });
+  }
 
 }
