@@ -63,6 +63,12 @@ var ContactService = /** @class */ (function () {
         });
     };
     ContactService.prototype.removeContact = function (address) {
+        var _this = this;
+        minima_1.Minima.sql("DELETE FROM CONTACTS WHERE ADDRESS='" + address + "';SELECT * FROM CONTACTS", function (res) {
+            if (minima_1.Minima.util.checkAllResponses(res)) {
+                _this.data.next(res.response[1].rows); // update data observable
+            }
+        });
     };
     ContactService = __decorate([
         core_1.Injectable({

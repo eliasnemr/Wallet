@@ -1,8 +1,7 @@
 import { ContactsModalPage } from './../../components/contacts-modal/contacts-modal.page';
-import { ToastController, ModalController } from '@ionic/angular';
-import { Component, OnInit } from '@angular/core';
+import { ToastController, ModalController, AlertController, IonList } from '@ionic/angular';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Contact, ContactService } from 'src/app/service/contacts.service';
-import { ValueAccessor } from '@ionic/angular/directives/control-value-accessors/value-accessor';
 
 @Component({
   selector: 'app-contacts',
@@ -15,7 +14,9 @@ export class ContactsPage implements OnInit {
   avatar: string;
   contacts: Contact[];
   filteredContacts: Contact[];
+  @ViewChild('contactList', {static:false}) ContactList: IonList;
   constructor(private toastController: ToastController,
+              public alertController: AlertController,
               private contactService: ContactService,
               public modalController: ModalController) { }
 
@@ -38,6 +39,55 @@ export class ContactsPage implements OnInit {
         this.contacts = res;
       });
     }
+  }
+  toggleDeleteMode() {
+    if(this.editMode){
+      this.editMode = false;
+    } else {
+      this.editMode = true;
+    }
+  }
+  removeContact(addr: string) {
+    this.presentAlert(addr);
+  }
+
+  async presentAlert(addr: string) {
+    const alert = await this.alertController.create({
+      header: 'Delete Contact',
+      subHeader: 'Once this contact is deleted, you can\'t revert!',
+      message: 'Are you sure?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel'
+        },
+        {
+          text: 'Ok',
+          handler: () => {
+            this.contactService.removeContact(addr);
+          }
+        }]
+    });
+    await alert.present();
+  }
+  async presentToast(msg: string, color: string, posn: "top" | "bottom" | "middle") {
+    const toast = await this.toastController.create({
+      message: msg,
+      color: color,
+      position: posn,
+      buttons: ['cancel']
+    });
+    await toast.present();
+  }
+  copyAddress(addr: string) {
+    document.addEventListener('copy', (e: ClipboardEvent) => {
+      e.clipboardData.setData('text/plain', addr);
+      this.presentToast('Copied To Clipboard', 'primary', 'bottom');
+      this.ContactList.closeSlidingItems();
+      e.preventDefault();
+      document.removeEventListener('copy', null);
+    });
+    document.execCommand('copy');
     
   }
 

@@ -27,3 +27,7 @@ ion-searchbar {
   --box-shadow: 0;
   --icon-color: var(--ion-color-primary);
 }
+
+ion-item-option {
+  text-transform: none;
+}

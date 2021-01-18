@@ -5,7 +5,7 @@
     </ion-buttons>
     <ion-title>Contacts</ion-title>
     <ion-icon (click)="presentAddContactForm()" id="addButton" slot="end" name="add"></ion-icon>
-    <ion-icon id="deleteButton" slot="end" name="trash-outline"></ion-icon>
+    <ion-icon [ngStyle]="{'color': !editMode ? 'var(--ion-color-tertiary)' : '#EE5C5C'}" (click)="toggleDeleteMode()" id="deleteButton" slot="end" name="trash-outline"></ion-icon>
   </ion-toolbar>
 </ion-header>
 
@@ -22,7 +22,8 @@
     </ion-row>
   </ion-grid>
 
-  <ion-list class="ion-no-padding" *ngFor="let contact of contacts">
+  <ion-list #contactList class="ion-no-padding" *ngFor="let contact of contacts">
+    <ion-item-sliding>
     <ion-item class="contactItem" lines="half">
       <ion-avatar slot="start">
         <img src="{{contact.AVATAR}}">
@@ -31,8 +32,14 @@
         <h3>{{ contact.NAME }}</h3>
         <p>{{ contact.ADDRESS }}</p>
       </ion-label>
-      <ion-button *ngIf="editMode" slot="end">Delete</ion-button>
+      <ion-icon *ngIf="editMode" (click)="removeContact(contact.ADDRESS)" name="trash-outline" slot="end"></ion-icon>
     </ion-item>
+    <ion-item-options side="end">
+      <ion-item-option (click)="copyAddress(contact.ADDRESS)" color="primary" expandable>
+        Copy Address
+      </ion-item-option>
+    </ion-item-options>
+  </ion-item-sliding>
   </ion-list>
 
 </ion-content>

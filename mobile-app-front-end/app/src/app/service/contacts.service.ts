@@ -74,6 +74,10 @@ export class ContactService {
   }
 
   removeContact(address: string) {
-
+    Minima.sql("DELETE FROM CONTACTS WHERE ADDRESS='"+address+"';SELECT * FROM CONTACTS", (res: any) => {
+      if (Minima.util.checkAllResponses(res)) {
+        this.data.next(res.response[1].rows); // update data observable
+      }
+    });
   }
 }

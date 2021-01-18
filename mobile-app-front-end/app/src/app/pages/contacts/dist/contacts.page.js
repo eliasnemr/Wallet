@@ -46,8 +46,9 @@ exports.ContactsPage = void 0;
 var contacts_modal_page_1 = require("./../../components/contacts-modal/contacts-modal.page");
 var core_1 = require("@angular/core");
 var ContactsPage = /** @class */ (function () {
-    function ContactsPage(toastController, contactService, modalController) {
+    function ContactsPage(toastController, alertController, contactService, modalController) {
         this.toastController = toastController;
+        this.alertController = alertController;
         this.contactService = contactService;
         this.modalController = modalController;
         this.editMode = false;
@@ -74,6 +75,82 @@ var ContactsPage = /** @class */ (function () {
             });
         }
     };
+    ContactsPage.prototype.toggleDeleteMode = function () {
+        if (this.editMode) {
+            this.editMode = false;
+        }
+        else {
+            this.editMode = true;
+        }
+    };
+    ContactsPage.prototype.removeContact = function (addr) {
+        this.presentAlert(addr);
+    };
+    ContactsPage.prototype.presentAlert = function (addr) {
+        return __awaiter(this, void 0, void 0, function () {
+            var alert;
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.alertController.create({
+                            header: 'Delete Contact',
+                            subHeader: 'Once this contact is deleted, you can\'t revert!',
+                            message: 'Are you sure?',
+                            buttons: [
+                                {
+                                    text: 'Cancel',
+                                    role: 'cancel'
+                                },
+                                {
+                                    text: 'Ok',
+                                    handler: function () {
+                                        _this.contactService.removeContact(addr);
+                                    }
+                                }
+                            ]
+                        })];
+                    case 1:
+                        alert = _a.sent();
+                        return [4 /*yield*/, alert.present()];
+                    case 2:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    ContactsPage.prototype.presentToast = function (msg, color, posn) {
+        return __awaiter(this, void 0, void 0, function () {
+            var toast;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.toastController.create({
+                            message: msg,
+                            color: color,
+                            position: posn,
+                            buttons: ['cancel']
+                        })];
+                    case 1:
+                        toast = _a.sent();
+                        return [4 /*yield*/, toast.present()];
+                    case 2:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    ContactsPage.prototype.copyAddress = function (addr) {
+        var _this = this;
+        document.addEventListener('copy', function (e) {
+            e.clipboardData.setData('text/plain', addr);
+            _this.presentToast('Copied To Clipboard', 'primary', 'bottom');
+            _this.ContactList.closeSlidingItems();
+            e.preventDefault();
+            document.removeEventListener('copy', null);
+        });
+        document.execCommand('copy');
+    };
     ContactsPage.prototype.presentAddContactForm = function () {
         return __awaiter(this, void 0, void 0, function () {
             var modal;
@@ -91,6 +168,9 @@ var ContactsPage = /** @class */ (function () {
             });
         });
     };
+    __decorate([
+        core_1.ViewChild('contactList', { static: false })
+    ], ContactsPage.prototype, "ContactList");
     ContactsPage = __decorate([
         core_1.Component({
             selector: 'app-contacts',
