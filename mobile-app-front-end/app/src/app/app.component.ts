@@ -7,7 +7,6 @@ import { Component, NgZone } from '@angular/core';
 import { Platform, ToastController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { Minima, History } from 'minima';
-import { clearScreenDown } from 'readline';
 
 @Component({
   selector: 'app-root',
@@ -58,11 +57,11 @@ export class AppComponent {
             });
           });
           // update history observable+historyPage
-          Minima.cmd('history', (res: History) => {
+          Minima.cmd('history', (res: {status: boolean; minifunc: string; message: string; response: History}) => {
             const temp = JSON.stringify(res);
             if (res.response.history.length > 0 && temp !== this.lastHistory) {
-              this.lastHistory = JSON.stringify(res);
-              this.historyService.updatedHistory.next(res);
+              this.lastHistory = JSON.stringify(res.response);
+              this.historyService.data.next(res.response);
             }
           });
         } else if (msg.event === 'miningstart') {

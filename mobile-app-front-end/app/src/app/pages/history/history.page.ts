@@ -1,11 +1,10 @@
 import { RouterModule } from '@angular/router';
 import { ModalController, IonList, AlertController, ToastController, Config, PopoverController } from '@ionic/angular';
 import { Component, OnInit, ViewChild } from '@angular/core';
-
 import { PopFilterComponent } from './../../components/pop-filter/pop-filter.component';
 import { HistoryService } from '../../service/history.service';
 import { UserHistorySavedData } from './../../providers/user-data';
-import { History, Minima, CompleteTransaction, Value } from 'minima';
+import { History, CompleteTransaction, Value } from 'minima';
 import * as moment from 'moment';
 import { map } from 'rxjs/operators';
 
@@ -13,6 +12,7 @@ interface TimeValue extends Value {
   time: string;
   day: string;
   month: string;
+  year: string;
 }
 interface CompleteTransactionTime extends CompleteTransaction {
   values: TimeValue[];
@@ -46,7 +46,7 @@ export class HistoryPage implements OnInit {
     public popoverController: PopoverController,
     public config: Config,
     public router: RouterModule) { }
- 
+  
   ngOnInit() {
     this.pullInHistorySummary();
     this.ios = this.config.get('mode') === 'ios';
@@ -79,7 +79,6 @@ export class HistoryPage implements OnInit {
       await toast.present();
     }
   }
-
   async removeItem(slidingItem: HTMLIonItemSlidingElement, txn: any, title: string) {
     const alert = await this.alertCtrl.create({
       header: title,
@@ -119,7 +118,7 @@ export class HistoryPage implements OnInit {
     });
     return await popover.present();
   }
- 
+
   updateHistory() {
     if (this.historyList) {
       this.historyList.closeSlidingItems();
@@ -129,47 +128,34 @@ export class HistoryPage implements OnInit {
     } else if (this.segment === 'all') {
       this.pullInHistorySummary();
     }
-
   }
- 
+
   filterHistory() {
     this.transactions = this.transactions.filter((txn: any) => {
       return txn.saved === 'true';
     });
   }
- 
-  async pullInHistorySummary() {
-    // await response of history function
-    await new Promise((resolve, reject) => {
-      Minima.cmd('history', (res: History) => {
-        // update observable
-        this.historyService.updatedHistory.next(res);
-        resolve(this.historyService.updatedHistory);
-      });
-    }).then((res: any) => {
-      // rxjs operator PIPE the input observable value
-      res.pipe(map((resp: History) => {
-        this.transactions = [];
-        resp.response.history.forEach((element: any) => {
-          const name = element.values[0].name;
 
-          element.values[0].time = moment(element.txpow.header.timesecs * 1000).format("H:mm");
-          element.values[0].day = moment(element.txpow.header.timesecs * 1000).format("DD");
-          element.values[0].month = moment(element.txpow.header.timesecs * 1000).format("MMMM");
-
-          if (name.substring(0, 1) === '{') {
-            element.values[0].name = JSON.parse(name);
-          }
-          this.transactions.push(element);
-        });
-        return this.transactions.reverse();
-      })).subscribe((result: any) => {
-        if (result.length === 0) {
-          this.prompt = 'No transactions found in your history.';
+  pullInHistorySummary() {
+    this.historyService.data.pipe(map((res: History) => {
+      res.history.forEach((txpow: CompleteTransactionTime) => {
+        const name = txpow.values[0].name;
+        txpow.values[0].time = moment( txpow.txpow.header.timesecs * 1000).format('hh:mm A');
+        txpow.values[0].day = moment(txpow.txpow.header.timesecs * 1000).format("DD");
+        txpow.values[0].month = moment(txpow.txpow.header.timesecs * 1000).format("MMM");
+        txpow.values[0].year = moment(txpow.txpow.header.timesecs * 1000).format("YYYY");
+        if (name.substring(0, 1) === '{') {
+          txpow.values[0].name = JSON.parse(name);
         }
       });
+      return res.history;
+    })).subscribe((res: any) => {
+      this.transactions = res;
+      this.transactions.reverse();
     });
-
+    if (this.transactions.length === 0) {
+      this.prompt = 'No recent transactions found...';
+    }
   }
  
  }

@@ -86,8 +86,8 @@ var AppComponent = /** @class */ (function () {
                     minima_1.Minima.cmd('history', function (res) {
                         var temp = JSON.stringify(res);
                         if (res.response.history.length > 0 && temp !== _this.lastHistory) {
-                            _this.lastHistory = JSON.stringify(res);
-                            _this.historyService.updatedHistory.next(res);
+                            _this.lastHistory = JSON.stringify(res.response);
+                            _this.historyService.data.next(res.response);
                         }
                     });
                 }
