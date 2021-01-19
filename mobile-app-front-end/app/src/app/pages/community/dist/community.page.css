@@ -25,17 +25,29 @@ ion-toolbar {
   background-color: transparent;
 }
 
-.social-card ion-card-content {
+.social-card ion-card-header ion-icon {
+  font-size: 77px;
+}
+
+.social-card ion-card-content h3 {
   color: var(--ion-color-tertiary);
   text-align: center;
   justify-content: center !important;
   width: 100%;
   align-content: center;
   display: flex;
+  font-size: 0.8rem;
 }
 
-.socials {
-  font-size: 1.5rem;
+.social-card ion-card-content p {
+  color: var(--ion-color-tertiary);
+  opacity: 0.7;
+  text-align: center;
+  justify-content: center !important;
+  width: 100%;
+  align-content: center;
+  display: flex;
+  font-size: 0.7rem;
 }
 
 .social-card:hover {

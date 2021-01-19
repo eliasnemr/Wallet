@@ -28,6 +28,15 @@ ion-searchbar {
   --icon-color: var(--ion-color-primary);
 }
 
-ion-item-option {
+ion-item-option div.block {
+  width: 100%;
   text-transform: none;
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+ion-item-option div.block ion-icon {
+  font-size: 1.2rem;
 }
