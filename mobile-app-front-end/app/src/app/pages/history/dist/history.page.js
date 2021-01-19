@@ -186,9 +186,10 @@ var HistoryPage = /** @class */ (function () {
         this.historyService.data.pipe(operators_1.map(function (res) {
             res.history.forEach(function (txpow) {
                 var name = txpow.values[0].name;
-                txpow.values[0].time = moment(txpow.txpow.header.timesecs * 1000).format('H:mm');
+                txpow.values[0].time = moment(txpow.txpow.header.timesecs * 1000).format('hh:mm A');
                 txpow.values[0].day = moment(txpow.txpow.header.timesecs * 1000).format("DD");
-                txpow.values[0].month = moment(txpow.txpow.header.timesecs * 1000).format("MMMM");
+                txpow.values[0].month = moment(txpow.txpow.header.timesecs * 1000).format("MMM");
+                txpow.values[0].year = moment(txpow.txpow.header.timesecs * 1000).format("YYYY");
                 if (name.substring(0, 1) === '{') {
                     txpow.values[0].name = JSON.parse(name);
                 }

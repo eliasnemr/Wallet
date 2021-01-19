@@ -90,6 +90,7 @@ body.dark {
   --ion-color-token-cards-contrast-rgb: 0,0,0;
   --ion-color-token-cards-shade: #d9d9e0;
   --ion-color-token-cards-tint: #f8f8fe;
+  --ion-color-line: rgba(250,250,255, 0.1);
 }
 body.dark .borders {
   border: 1px solid rgba(250, 250, 255, 0.1);

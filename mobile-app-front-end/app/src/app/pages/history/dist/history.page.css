@@ -6,11 +6,13 @@ ion-toolbar ion-title {
 }
 
 ion-icon.icon {
-  width: 1.2rem;
+  width: 1.5rem;
+  margin-left: 5%;
   display: inline-block;
   vertical-align: middle;
+  justify-content: center;
+  align-content: center;
   height: 100%;
-  color: var(--ion-color-tertiary);
 }
 
 ion-segment {
@@ -46,55 +48,44 @@ ion-card-content ion-text {
   margin-top: 10px;
 }
 
-ion-row {
-  width: 100%;
+ion-list ion-item {
+  padding-left: 0.5%;
+  padding-bottom: 1%;
+  --border-color: var(--ion-color-line);
 }
 
-h5 {
-  font-weight: 600;
-  opacity: 0.8;
+ion-list ion-item:hover {
+  transform: scale(1.01);
 }
 
-ion-col img {
-  display: block;
-  height: 100%;
-}
-
-ion-col {
-  padding: 0;
-}
-
-ion-row {
-  padding: 2px;
-}
-
-#month {
-  font-weight: 600;
-  opacity: 0.7;
-}
-
-#day {
-  margin: 0;
-  font-weight: 600;
-  opacity: 0.7;
-}
-
-#time {
-  margin: 0;
-  opacity: 0.7;
-  font-weight: 120;
-}
-
-#txnType h5 {
-  margin: 0 !important;
+ion-label {
+  max-width: auto;
+  display: inline-block;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  color: var(--ion-color-primary);
 }
 
-#txnType span {
-  color: var(--ion-color-secondary);
+ion-label.transactionLabel h3 {
+  padding: 0;
+  margin: 0;
+}
+
+ion-label.transactionLabel p {
+  font-family: manrope-light;
+  padding: 0;
+  margin: 0;
+}
+
+ion-label.transactionLabel p.time {
+  color: var(--ion-color-gray-three);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+ion-label.transactionAmount p {
+  font-family: manrope-light;
 }
 
 ion-content {
