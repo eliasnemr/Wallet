@@ -36,6 +36,7 @@ export class HistoryPage implements OnInit {
   prompt = 'Fetching your history...';
   transactions: CompleteTransactionTime[] = [];
   saved: History[] = [];
+  lastJSON = '';
 
   constructor(
     private historyService: HistoryService,
@@ -150,8 +151,11 @@ export class HistoryPage implements OnInit {
       });
       return res.history;
     })).subscribe((res: any) => {
-      this.transactions = res;
-      this.transactions.reverse();
+      const currentJSON = JSON.stringify(res);
+      if (this.lastJSON !== currentJSON) {
+        this.transactions = res.reverse();
+      }
+      this.lastJSON = currentJSON;
     });
     if (this.transactions.length === 0) {
       this.prompt = 'No recent transactions found...';

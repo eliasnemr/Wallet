@@ -62,6 +62,7 @@ var HistoryPage = /** @class */ (function () {
         this.prompt = 'Fetching your history...';
         this.transactions = [];
         this.saved = [];
+        this.lastJSON = '';
     }
     HistoryPage.prototype.ngOnInit = function () {
         this.pullInHistorySummary();
@@ -196,8 +197,11 @@ var HistoryPage = /** @class */ (function () {
             });
             return res.history;
         })).subscribe(function (res) {
-            _this.transactions = res;
-            _this.transactions.reverse();
+            var currentJSON = JSON.stringify(res);
+            if (_this.lastJSON !== currentJSON) {
+                _this.transactions = res.reverse();
+            }
+            _this.lastJSON = currentJSON;
         });
         if (this.transactions.length === 0) {
             this.prompt = 'No recent transactions found...';
