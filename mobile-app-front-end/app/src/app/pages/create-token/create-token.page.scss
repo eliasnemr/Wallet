@@ -19,7 +19,24 @@ ion-footer ion-toolbar ion-buttons ion-button {
 ion-note {
   color: var(--ion-color-secondary);
   font-family: manrope-bold;
+}
+button.footer {
+  font-size: 1.0rem;
+  width: 100%;
+  height: 58px;
   text-align: center;
+  text-transform: none;
+  font-family: manrope-bold;
+  color: var(--ion-color-tertiary)!important;
+  background-color: transparent;
+  display: none;
+}
+button.footer ion-icon {
+  font-size: 1.0rem;
+}
+button.footer:hover {
+  cursor: pointer;
+  opacity: 0.6;
 }
 ion-icon.nftIcon {
   font-size: 1.9rem;
@@ -104,4 +121,23 @@ ion-card.tokenType:hover {
   transform: scale(1.02);
   --background-hover: none!important;
   --color: var(--ion-color-secondary);
+}
+ion-item.error {
+  display: flex;
+  align-items: left;
+  justify-content: left;
+}
+ion-item.error span {
+  color: var(--ion-color-tertiary);
+  display: inline-block;
+  vertical-align: middle;
+}
+ion-note.error-message ion-icon {
+  color: var(--ion-color-secondary);
+  font-size: 1.0rem;
+  display: inline-block;
+  vertical-align: middle;
+}
+ion-note.error-message { 
+  display: block;
 }

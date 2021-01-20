@@ -85,10 +85,24 @@
         <ion-label position="fixed" class="medium-text">Amount</ion-label>
         <ion-input placeholder="amount" type="number" class="medium-text input" #amountRef name="amount" formControlName="amount"></ion-input>
       </ion-item>
+      <ion-item class="error" lines="none" *ngIf="amount.invalid && amount.touched">
+        <ion-label position="fixed"></ion-label>
+        <ion-note class="error-message">
+          <ion-icon name="alert-circle"></ion-icon> <span> An amount is required!</span> <br>
+          <span>&mdash; An amount must be numeric and greater than 0.</span> 
+        </ion-note>
+      </ion-item>
 
       <ion-item lines="none">
         <ion-label position="fixed" class="medium-text">Token Name</ion-label>
         <ion-input placeholder="token name" class="medium-text input" #nameTextArea name="name" formControlName="name"></ion-input>
+      </ion-item>
+      <ion-item class="error" lines="none" *ngIf="name.invalid && name.touched">
+        <ion-label position="fixed"></ion-label>
+        <ion-note class="error-message">
+          <ion-icon name="alert-circle"></ion-icon> <span> A name is required!</span> <br>
+          <span>&mdash; A name must be a maximum length of 255 characters.</span> 
+        </ion-note>
       </ion-item>
 
       <ion-item lines="none" [hidden]="!advancedFormInputsChecked.icon" lines="none">
@@ -134,17 +148,11 @@
 <ion-footer id="footer" style="display: none;" class="border-t">
   <ion-toolbar>
     <ion-buttons>
-      <button id="createTknBtn2" form="tokenCreationForm" style="width: 100%; background-color:transparent; display:none">
-      <ion-button
-        #createTokenBtn
-        class="action-btn medium-text" 
-        shape="fill"  
-        expand="fill" 
-        type="submit">
-      <ion-icon name="brush" slot="start"></ion-icon>
-        Create Token
-      </ion-button>
+      <ion-button [disabled]="tokenCreationForm.invalid" expand="block">
+      <button type="submit" class="footer" id="createTknBtn2" form="tokenCreationForm">
+        <ion-icon name="brush" slot="start"></ion-icon> Create Token
       </button>
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-footer>

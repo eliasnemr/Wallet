@@ -65,8 +65,8 @@ export class CreateTokenPage implements OnInit {
 
   ngOnInit() {
     this.tokenCreationForm = this.formBuilder.group({
-      name: '',
-      amount: 0,
+      name: ['', [Validators.required, Validators.maxLength(255)]],
+      amount: ['', [Validators.required, Validators.maxLength(255)]],
       description: '',
       script: '',
       icon: '',
@@ -170,43 +170,6 @@ export class CreateTokenPage implements OnInit {
         }
       })
     }
-
-
-    // if(f.value.name&&f.value.name.length>0&&f.value.amount&&f.value.amount>0){
-
-    //     this.customToken.name = f.value.name;
-    //     this.customToken.amount = f.value.amount;
-
-    //     // Optional Values 
-    //     if(f.value.description && f.value.description.length > 0) {
-    //       this.customToken.description = f.value.description;
-    //     }
-    //     if(f.value.checkboxproof === false){
-    //       this.customToken.proof = "";
-    //     } else {
-    //       this.customToken.proof = f.value.proof;
-    //     }
-    //     if(f.checkboxicon === false || f.value.icon === "" || f.value.icon.length <= 0){
-    //       this.customToken.icon = "";
-    //     } else {
-    //       this.customToken.icon = f.value.icon;
-    //     }
-    //     if(f.value.NFT === false){
-    //       this.customToken.script = "RETURN TRUE";
-    //     } else if(f.value.NFT === true) {
-    //       this.customToken.script = "ASSERT FLOOR ( @AMOUNT ) EQ @AMOUNT LET checkout = 0 WHILE ( checkout LT @TOTOUT ) DO IF GETOUTTOK ( checkout ) EQ @TOKENID THEN LET outamt = GETOUTAMT ( checkout ) ASSERT FLOOR ( outamt ) EQ outamt ENDIF LET checkout = INC ( checkout ) ENDWHILE RETURN TRUE";
-    //     }
-    //     this.api.createToken(this.customToken).then((res: any) => {
-    //       if(res.status === true){
-    //         this.presentAlert('Success', 'Token '+this.customToken.name+' has been created.', 'Token Creation Status');
-    //       } else {
-    //         this.presentAlert('Error', 'Something went wrong.', 'Token Creation Status');
-
-    //       }
-    //     });
-    //   } else {
-    //     this.presentToast('There is an error with your inputs.', 'danger');
-    //   }
   }
 
   resetForm() {
@@ -218,6 +181,22 @@ export class CreateTokenPage implements OnInit {
     this.iconEntry.isChecked = false;
     this.proofEntry.isChecked = false;
     this.nft.isNonFungible = false;
+  }
+
+  get name() {
+    return this.tokenCreationForm.get('name');
+  }
+  get descr() {
+    return this.tokenCreationForm.get('description');
+  }
+  get icon() {
+    return this.tokenCreationForm.get('icon');
+  }
+  get proof() {
+    return this.tokenCreationForm.get('proof');
+  }
+  get amount() {
+    return this.tokenCreationForm.get('amount');
   }
   
 

@@ -44,6 +44,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 exports.CreateTokenPage = void 0;
 var core_1 = require("@angular/core");
+var forms_1 = require("@angular/forms");
 var CreateTokenPage = /** @class */ (function () {
     function CreateTokenPage(api, formBuilder, alertController, toastController) {
         this.api = api;
@@ -80,8 +81,8 @@ var CreateTokenPage = /** @class */ (function () {
     CreateTokenPage.prototype.ionViewDidEnter = function () { };
     CreateTokenPage.prototype.ngOnInit = function () {
         this.tokenCreationForm = this.formBuilder.group({
-            name: '',
-            amount: 0,
+            name: ['', [forms_1.Validators.required, forms_1.Validators.maxLength(255)]],
+            amount: ['', [forms_1.Validators.required, forms_1.Validators.maxLength(255)]],
             description: '',
             script: '',
             icon: '',
@@ -203,38 +204,6 @@ var CreateTokenPage = /** @class */ (function () {
                 }
             });
         }
-        // if(f.value.name&&f.value.name.length>0&&f.value.amount&&f.value.amount>0){
-        //     this.customToken.name = f.value.name;
-        //     this.customToken.amount = f.value.amount;
-        //     // Optional Values 
-        //     if(f.value.description && f.value.description.length > 0) {
-        //       this.customToken.description = f.value.description;
-        //     }
-        //     if(f.value.checkboxproof === false){
-        //       this.customToken.proof = "";
-        //     } else {
-        //       this.customToken.proof = f.value.proof;
-        //     }
-        //     if(f.checkboxicon === false || f.value.icon === "" || f.value.icon.length <= 0){
-        //       this.customToken.icon = "";
-        //     } else {
-        //       this.customToken.icon = f.value.icon;
-        //     }
-        //     if(f.value.NFT === false){
-        //       this.customToken.script = "RETURN TRUE";
-        //     } else if(f.value.NFT === true) {
-        //       this.customToken.script = "ASSERT FLOOR ( @AMOUNT ) EQ @AMOUNT LET checkout = 0 WHILE ( checkout LT @TOTOUT ) DO IF GETOUTTOK ( checkout ) EQ @TOKENID THEN LET outamt = GETOUTAMT ( checkout ) ASSERT FLOOR ( outamt ) EQ outamt ENDIF LET checkout = INC ( checkout ) ENDWHILE RETURN TRUE";
-        //     }
-        //     this.api.createToken(this.customToken).then((res: any) => {
-        //       if(res.status === true){
-        //         this.presentAlert('Success', 'Token '+this.customToken.name+' has been created.', 'Token Creation Status');
-        //       } else {
-        //         this.presentAlert('Error', 'Something went wrong.', 'Token Creation Status');
-        //       }
-        //     });
-        //   } else {
-        //     this.presentToast('There is an error with your inputs.', 'danger');
-        //   }
     };
     CreateTokenPage.prototype.resetForm = function () {
         this.nameText.value = '';
@@ -246,6 +215,41 @@ var CreateTokenPage = /** @class */ (function () {
         this.proofEntry.isChecked = false;
         this.nft.isNonFungible = false;
     };
+    Object.defineProperty(CreateTokenPage.prototype, "name", {
+        get: function () {
+            return this.tokenCreationForm.get('name');
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(CreateTokenPage.prototype, "descr", {
+        get: function () {
+            return this.tokenCreationForm.get('description');
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(CreateTokenPage.prototype, "icon", {
+        get: function () {
+            return this.tokenCreationForm.get('icon');
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(CreateTokenPage.prototype, "proof", {
+        get: function () {
+            return this.tokenCreationForm.get('proof');
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(CreateTokenPage.prototype, "amount", {
+        get: function () {
+            return this.tokenCreationForm.get('amount');
+        },
+        enumerable: false,
+        configurable: true
+    });
     __decorate([
         core_1.ViewChild('nameTextArea', { static: false })
     ], CreateTokenPage.prototype, "nameText");
