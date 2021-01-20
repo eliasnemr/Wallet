@@ -45,7 +45,8 @@ ion-list ion-item {
     --border-color: var(--ion-color-line);
 }
 ion-list ion-item:hover {
-    transform: scale(1.01);
+    transform: scale(1.001);
+    --border-color: var(--ion-color-primary);
 }
 ion-label {
     max-width: auto;

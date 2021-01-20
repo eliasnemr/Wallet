@@ -54,7 +54,7 @@ export class MinimaApiService {
     // Clear the txn
     "txndelete "+txnidentifier+";";
 
-    return this.req(customTXN)
+    return this.req(customTXN);
   }
 
   webLink(data: any) { 

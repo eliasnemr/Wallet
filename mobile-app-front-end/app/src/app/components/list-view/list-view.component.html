@@ -2,13 +2,14 @@
   <ion-list>
     <ion-list-header>All Tokens</ion-list-header>
 
-    <ion-item *ngFor="let token of tokenArr" routerLink="/view-tokens/{{ token.tokenid }}">
-      <span slot="start">
-        <span *ngIf="token.tokenid !== '0x00' && token.icon.length == 0" style="margin-right: 1%" class="e-avatar e-avatar-xsmall"><img [src]="createIcon( token.tokenid )" /></span>
-        <span *ngIf="token.tokenid !== '0x00' && token.icon.length > 0" style="margin-right: 1%"><img class="custom-icon" [src]="token.icon" /></span>
-        <img *ngIf="token.tokenid == '0x00'" class="custom-icon" alt="minima" src="assets/logoreg-s.svg">
-      </span>
-      <span id="token-name">{{ token.token }}</span>
+    <ion-item lines="half" *ngFor="let token of tokenArr" routerLink="/view-tokens/{{ token.tokenid }}" [ngStyle] = "{'border-left':  token.script && token.script === 'RETURN_TRUE' ? '3px solid var(--ion-color-secondary)' : '1px solid var(--ion-color-primary)'}">
+      <ion-avatar slot="start">
+        <img *ngIf="token.tokenid !== '0x00' && token.icon.length == 0" [src]="createIcon( token.tokenid )" class="custom-icon" />
+        <img *ngIf="token.tokenid !== '0x00' && token.icon.length > 0" class="custom-icon" [src]="token.icon"/>
+        <img *ngIf="token.tokenid == '0x00'" class="custom-icon" alt="minima" src="assets/minimaBox.svg">
+      </ion-avatar>
+
+      <ion-label id="token-name">{{ token.token }}</ion-label>
       
       
       <ion-label slot="end">

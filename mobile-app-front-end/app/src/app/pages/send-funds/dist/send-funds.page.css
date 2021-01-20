@@ -120,3 +120,46 @@ ion-textarea {
   padding-left: 1%;
   margin-bottom: 1%;
 }
+
+ion-item.error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+ion-item.error span {
+  color: var(--ion-color-tertiary);
+  display: inline-block;
+  vertical-align: middle;
+}
+
+ion-note.error-message ion-icon {
+  color: var(--ion-color-secondary);
+  font-size: 1rem;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+ion-note.error-message {
+  display: block;
+}
+
+button.footer {
+  width: 100%;
+  height: 58px;
+  font-size: 1rem;
+  text-align: center;
+  text-transform: none;
+  font-family: manrope-bold;
+  background: transparent;
+  color: var(--ion-color-tertiary);
+}
+
+button.footer:hover {
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+button.footer ion-icon {
+  font-size: 1rem;
+}

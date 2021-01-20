@@ -1,15 +1,15 @@
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { BalanceService } from '../../service/balance.service';
 import { Component, OnInit, NgZone, ViewChild, ElementRef } from '@angular/core';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 import { Clipboard } from '@ionic-native/clipboard/ngx';
-import { AlertController, Platform, NavParams, IonInput, IonTextarea, ToastController } from '@ionic/angular';
+import { AlertController, Platform, IonInput, IonTextarea} from '@ionic/angular';
 import { MinimaApiService } from '../../service/minima-api.service';
-import { map, subscribeOn } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import QrScanner from 'qr-scanner';
 
-import { Token } from 'minima';
+import { Token, Minima } from 'minima';
 @Component({
   selector: 'app-send-funds',
   templateUrl: './send-funds.page.html',
@@ -23,6 +23,8 @@ export class SendFundsPage implements OnInit {
 
   @ViewChild('videoElem', {static: false}) videoElem: ElementRef;
 
+  sendForm: FormGroup;
+
   max: string; // max sendable amount for quickAmount
   webQrScanner: any;
   compareWith: any;
@@ -33,22 +35,20 @@ export class SendFundsPage implements OnInit {
   data: any = {};
 
   // checkboxValue
-  messageEntry: any = { isChecked: false };
+  messageToggle = false;
   balanceSubscription: Subscription;
-
-  // Token Array Type
   tokenArr: Token[] = [];
-  MINIMA_TOKEN_ID = '0x00'; 
 
   private lastJSON = '';
   private scanSub: any = null;
   constructor(
+    private formBuilder: FormBuilder,
     private qrScanner: QRScanner,
     private clipboard: Clipboard,
     public alertController: AlertController,
-    private zone: NgZone, 
+    private zone: NgZone,
     private api: MinimaApiService,
-    private service: BalanceService,
+    private balanceService: BalanceService,
     private platform: Platform,
     private route: ActivatedRoute,
     private router: Router) {
@@ -56,12 +56,25 @@ export class SendFundsPage implements OnInit {
       this.pullInTokens();
     }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.sendForm = this.formBuilder.group({
+      token: '',
+      address: ['', [
+        Validators.required,
+        Validators.minLength(2),
+        Validators.maxLength(60),
+        Validators.pattern('[Mx|0x][a-zA-Z0-9]+')]],
+      amount: ['', [Validators.required] ],
+      message: ''
+    });
+  }
 
-  ionViewWillEnter() { this.isCameraOpen = false; }
+  ionViewWillEnter() {
+    this.isCameraOpen = false;
+    this.getTokenSelected();
+  }
 
   ionViewWillLeave() {
-    this.balanceSubscription.unsubscribe(); // unsubscribe
     this.stopCamera();
   }
 
@@ -71,10 +84,11 @@ export class SendFundsPage implements OnInit {
     const empty = undefined;
     const param = this.route.snapshot.params['id'];
     // check param
-    if(param === empty || param === this.MINIMA_TOKEN_ID){
+    const mMinimaToken = '0x00'
+    if(param === empty || param === mMinimaToken){
       this.itemSelected = this.tokenArr[0];
       this.updateTokenId('0x00');
-    } else if (param !== empty && param !== this.MINIMA_TOKEN_ID ) {
+    } else if (param !== empty && param !== mMinimaToken) {
     this.tokenArr.forEach(element => {
       if(param === element.tokenid) {
         this.itemSelected = element;
@@ -105,35 +119,21 @@ export class SendFundsPage implements OnInit {
   fillAmount(type: string) {
     const empty = undefined;
     let param = this.route.snapshot.params['id'];
-    if(param === empty) {
+    if (param === empty) {
         param = '0x00';
     }
     this.tokenArr.forEach(element => {
-
       if (param === element.tokenid) {
-        
         this.max = element.sendable;
-
-        if(type === 'max') {
-
+        if (type === 'max') {
           this.amount.value = this.max;
-        
-        
         } else if(type === 'half') {
-          
-          this.amount.value = (parseFloat(this.max)/2.0).toString();
-
+          this.amount.value = (parseFloat(this.max) / 2.0).toString();
         } else if(type === 'quarter') {
-          this.amount.value = (parseFloat(this.max)/4.0).toString();
-          
-        
+          this.amount.value = (parseFloat(this.max) / 4.0).toString();
         }
-
       }
-
     });
-    
-
   }
 
   /** ScanQR: Native */
@@ -178,26 +178,16 @@ export class SendFundsPage implements OnInit {
   }
 
   stopCamera() {
-    if(this.scanSub !== null) {
+    if (this.scanSub !== null) {
       this.qrScanner.hide();
       this.scanSub.unsubscribe();
     }
     this.scanSub = null;
     this.identifyPlatformToScan_Remove();
     this.isCameraOpen = false;
-    if( this.platform.is['mobile']
-     || this.platform.is['capacitor']
-     || this.platform.is['cordova']
-     || this.platform.is['mobileweb']
-     || this.platform.is['iphone']
-     || this.platform.is['ipad']
-     || this.platform.is['hybrid']
-     || this.platform.is['android']
-     || this.platform.is['tablet'] ) {
-      this.qrScanner.destroy();
-    }
+    this.qrScanner.destroy();
   }
-  
+
   async presentAlert(hdr: string, msg: string, sub: string) {
    const alert = await this.alertController.create({
      cssClass: 'alert',
@@ -206,122 +196,51 @@ export class SendFundsPage implements OnInit {
      message: msg,
      buttons: ['OK']
    });
-   
    await alert.present();
   }
 
-  // check if it's a token, or a Mini
-  instanceOfToken(data: any) {
-    return 'script' in data;
-  }
   pullInTokens() {
-
-    this.balanceSubscription = this.service.updatedBalance
-      .pipe(
-        map((balance: any) => {
-          
-      const tokenArr: Token[] = [];
-      
-      for (const key in balance) {
-
-        if (balance.hasOwnProperty(key)) {
-
-          if (this.instanceOfToken(balance[key])) {
-
-              const element = balance[key];
-              tokenArr.push({
-                tokenid: element.tokenid,
-                token: element.token,
-                description: element.description,
-                icon: element.icon,
-                proof: element.proof,
-                total: element.total,
-                script: element.script,
-                coinid: element.coinid,
-                totalamount: element.totalamount,
-                scale: element.scale,
-                confirmed: element.confirmed,
-                unconfirmed: element.unconfirmed,
-                mempool: element.mempool,
-                sendable: element.sendable
-            });
-
-            } else {
-
-              const element = balance[key];
-              // add Minima always to the top
-              tokenArr.pop(); // pop it
-              this.service.update(
-              tokenArr,
-              {
-                tokenid: element.tokenid,
-                token: element.token,
-                total: element.total,
-                confirmed: element.confirmed,
-                unconfirmed: element.unconfirmed,
-                mempool: element.mempool,
-                sendable: element.sendable
-              });
-              
-
-            }
-
-            }
-            
-        }
-
-      return tokenArr;
-
-      })
-    )
-    .subscribe(responseData => {
-
-      // check if changed
-      if(this.lastJSON !== JSON.stringify(responseData)) {
-        this.tokenArr = [...responseData];
-        this.lastJSON = JSON.stringify(responseData);
-
-        // add tokens
-        this.getTokenSelected();
-      }
-
+    this.balanceService.data.subscribe((balance: Token[]) => {
+      this.tokenArr = balance;
     });
   }
 
-  sendFunds(){
-    if(this.data.address && this.data.address !== '' && this.data.amount && this.data.amount > 0 &&
-    this.data.tokenid && this.data.tokenid !== '' && !this.data.message) {
-      this.api.sendFunds(this.data).then((res: any) => {
-        if (res.status === true) {
-          // clear inputs
-          this.address.value = '';
-          this.amount.value = '';
-          // success
-          this.presentAlert('Success', 'Your transaction has been successfully posted!', 'Transaction Status');
+  sendFunds() {
+    const data = this.sendForm.value;
+
+    data.tokenid = data.token.tokenid;
+
+    if (data.message.length > 0) {
+      this.api.createTXN(data).then((res: any) => {
+        console.log('Complicated TXN')
+        console.log(res);
+        if (Minima.util.checkAllResponses(res)) {
+          this.presentAlert('Transaction Status', 'Transaction has been posted to the network!', 'Successful');
+          this.resetForm();
         } else {
-          this.presentAlert('Error', res.message, 'Transaction Status');
+          this.presentAlert('Transaction Status', res.message, 'Failed');
         }
       });
-    } else if(this.data.address && this.data.address !== '' && this.data.amount && this.data.amount > 0 &&
-    this.data.tokenid && this.data.tokenid !== '' && this.data.message !== undefined && this.data.message.length >= 0) {
-      this.api.createTXN(this.data).then((res: any)=> {
-        if (res[5].status === true) {
-          // clear inputs
-          this.address.value = '';
-          this.amount.value = '';
-          this.message.value = '';
-          // success
-          this.presentAlert('Success', 'Your transaction has been successfully posted!', 'Transaction Status');
-      
-        } else if(res[4].status === false) {
-          this.presentAlert('Error', res.message, 'Transaction Status');
-          
-        }
-      })
     } else {
-      this.presentAlert('Error', 'Please check your input fields.', 'Transaction Status');
-      
+      this.api.sendFunds(data).then((res: any) => {
+        console.log('ez TXN')
+
+        console.log(res);
+
+        if (res.status) {
+          this.presentAlert('Transaction Status', 'Transaction has been posted to the network!', 'Successful');
+          this.resetForm();
+        } else {
+          this.presentAlert('Transaction Status', res.message, 'Failed');
+        }
+      });
     }
+  }
+
+  resetForm() {
+    this.address.value = '';
+    this.amount.value = '';
+    this.message.value = '';
   }
 
   /** MISC FUNCS */
@@ -376,57 +295,20 @@ export class SendFundsPage implements OnInit {
     });
   }
 
-  // work around for weird ion-textarea height: 0 + auto-grow='true'
-  async checkTextarea() {
-    return this.message.getInputElement().then((element) => {
-      if(element.style.height == '0px'){
-       return  element.style.height = 'auto';
-      } else {
-        setTimeout(() => this.checkTextarea(), 100)}
-      });
-  }
-  checkboxValue(ev: any, messageEntry: any) {
-    this.checkTextarea();
-    if (messageEntry === false) {
-      this.data.message = undefined;
+  useMessage() {
+    if (this.messageToggle) {
+      this.messageToggle = false;
+    } else {
+      this.messageToggle = true;
     }
   }
 
-  // Display/hide mobile buttons with this..
   checkPlatform() {
-    if(this.platform.is('desktop')) {
+    if (this.platform.is('desktop')) {
       return false;
     } else {
       return true;
     }
-  }
-
-  pasteFromClipboard() {
-    if(this.platform.is('desktop')) {
-
-      this.pasteFromPWA();
-
-    } else {
-      this.clipboard.paste().then(
-        (resolve: string) => {
-          this.data.address = resolve;
-        },
-        (reject: string) => {
-          console.log('Error: ' + reject);
-        }
-      );
-    }
-  }
-
-  pasteFromPWA() {
-    document.addEventListener('paste', (e: ClipboardEvent) => {
-
-      this.data.address = e.clipboardData.getData('text');
-      
-      e.preventDefault();
-      document.removeEventListener('paste', null);
-    });
-    document.execCommand('paste');
   }
 
   webScanQR() {
@@ -441,13 +323,25 @@ export class SendFundsPage implements OnInit {
       });
       this.webQrScanner.start();
     }, 500);
-      
   }
 
   stopWebScanQR() {
     this.webQrScanner.destroy();
     this.webQrScanner = null;
     this.isWebCameraOpen = false;
+  }
+
+  get tokenFormItem() {
+    return this.sendForm.get('token');
+  }
+  get addressFormItem() {
+    return this.sendForm.get('address');
+  }
+  get amountFormItem() {
+    return this.sendForm.get('amount');
+  }
+  get messageFormItem() {
+    return this.sendForm.get('message');
   }
 }
 

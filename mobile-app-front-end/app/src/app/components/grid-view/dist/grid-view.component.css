@@ -3,12 +3,12 @@ ion-row {
 }
 
 #token-card:hover {
-  transform: scale(1.01);
+  transform: scale(1.001);
+  border-color: var(--ion-color-primary);
 }
 
-ion-card-content {
-  background: var(--ion-m-background);
-  padding-bottom: 0;
+#token-card ion-label {
+  margin: 0;
 }
 
 ion-card-header {
@@ -21,126 +21,21 @@ img {
   width: 200px;
 }
 
-#img-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-#img-wrapper img {
-  height: 100%;
-  vertical-align: middle;
-  display: inline-block;
-}
-
-#token-wrapper {
-  white-space: pre;
-  max-height: 100px;
-  text-overflow: ellipsis;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-#token-wrapper h6 {
-  margin: 0;
-  display: inline-block;
-  font-size: 1rem !important;
-  max-width: inherit;
-  text-overflow: ellipsis;
-  overflow: hidden;
-}
-
-#token-wrapper p {
-  margin: 0;
-}
-
-#details {
-  float: right;
-  padding-bottom: 10px;
-  font-size: 1.2rem;
-  cursor: pointer;
-  z-index: 99999;
-  color: var(--ion-color-primary);
-}
-
-#details:hover {
-  transform: scale(1.01);
-}
-
-.description {
-  display: inline;
-}
-
-.description p {
-  color: var(--ion-color-tertiary);
-  opacity: 0.5;
-  display: inline-block;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  max-width: 200px;
-}
-
 .custom-icon {
   max-height: 40px !important;
   max-width: 40px !important;
 }
 
-.nft {
-  cursor: pointer;
-  font-size: 1rem;
+ion-icon.nftIcon {
+  font-size: 2rem;
+  z-index: 1;
   position: absolute;
-  z-index: 1;
-  top: 0;
-  right: 1%;
-  z-index: 1;
+  right: 0;
+  bottom: 2%;
 }
 
-.nft:hover {
+ion-icon.nftIcon:hover {
   transform: scale(1.1);
-}
-
-.tokenDescr-modal .modal-wrapper {
-  width: 1500px;
-  height: auto;
-}
-
-.small-text {
-  font-weight: 500;
-  opacity: 0.75;
-}
-
-.image-cropper {
-  width: 25px;
-  height: 25px;
-  max-width: 25px;
-  max-height: 25px;
-  position: relative;
-  overflow: hidden;
-  border-radius: 50%;
-  border: 2px solid #5B5B5D;
-}
-
-.image-cropper img {
-  display: inline;
-  margin: 0 auto;
-  height: 100%;
-  width: auto;
-}
-
-#balance {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-#balance .minima-numeric {
-  font-size: 1rem;
-}
-
-#balance span {
-  float: right;
 }
 
 p {

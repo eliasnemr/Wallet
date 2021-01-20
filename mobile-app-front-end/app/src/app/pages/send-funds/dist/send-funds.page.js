@@ -41,26 +41,21 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __spreadArrays = (this && this.__spreadArrays) || function () {
-    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
-    for (var r = Array(s), k = 0, i = 0; i < il; i++)
-        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
-            r[k] = a[j];
-    return r;
-};
 exports.__esModule = true;
 exports.SendFundsPage = void 0;
+var forms_1 = require("@angular/forms");
 var core_1 = require("@angular/core");
-var operators_1 = require("rxjs/operators");
 var qr_scanner_1 = require("qr-scanner");
+var minima_1 = require("minima");
 var SendFundsPage = /** @class */ (function () {
-    function SendFundsPage(qrScanner, clipboard, alertController, zone, api, service, platform, route, router) {
+    function SendFundsPage(formBuilder, qrScanner, clipboard, alertController, zone, api, balanceService, platform, route, router) {
+        this.formBuilder = formBuilder;
         this.qrScanner = qrScanner;
         this.clipboard = clipboard;
         this.alertController = alertController;
         this.zone = zone;
         this.api = api;
-        this.service = service;
+        this.balanceService = balanceService;
         this.platform = platform;
         this.route = route;
         this.router = router;
@@ -68,19 +63,31 @@ var SendFundsPage = /** @class */ (function () {
         this.isWebCameraOpen = false;
         this.data = {};
         // checkboxValue
-        this.messageEntry = { isChecked: false };
-        // Token Array Type
+        this.messageToggle = false;
         this.tokenArr = [];
-        this.MINIMA_TOKEN_ID = '0x00';
         this.lastJSON = '';
         this.scanSub = null;
         this.data.message = '';
         this.pullInTokens();
     }
-    SendFundsPage.prototype.ngOnInit = function () { };
-    SendFundsPage.prototype.ionViewWillEnter = function () { this.isCameraOpen = false; };
+    SendFundsPage.prototype.ngOnInit = function () {
+        this.sendForm = this.formBuilder.group({
+            token: '',
+            address: ['', [
+                    forms_1.Validators.required,
+                    forms_1.Validators.minLength(2),
+                    forms_1.Validators.maxLength(60),
+                    forms_1.Validators.pattern('[Mx|0x][a-zA-Z0-9]+')
+                ]],
+            amount: ['', [forms_1.Validators.required]],
+            message: ''
+        });
+    };
+    SendFundsPage.prototype.ionViewWillEnter = function () {
+        this.isCameraOpen = false;
+        this.getTokenSelected();
+    };
     SendFundsPage.prototype.ionViewWillLeave = function () {
-        this.balanceSubscription.unsubscribe(); // unsubscribe
         this.stopCamera();
     };
     // get token selected or set Minima as default
@@ -90,11 +97,12 @@ var SendFundsPage = /** @class */ (function () {
         var empty = undefined;
         var param = this.route.snapshot.params['id'];
         // check param
-        if (param === empty || param === this.MINIMA_TOKEN_ID) {
+        var mMinimaToken = '0x00';
+        if (param === empty || param === mMinimaToken) {
             this.itemSelected = this.tokenArr[0];
             this.updateTokenId('0x00');
         }
-        else if (param !== empty && param !== this.MINIMA_TOKEN_ID) {
+        else if (param !== empty && param !== mMinimaToken) {
             this.tokenArr.forEach(function (element) {
                 if (param === element.tokenid) {
                     _this.itemSelected = element;
@@ -185,17 +193,7 @@ var SendFundsPage = /** @class */ (function () {
         this.scanSub = null;
         this.identifyPlatformToScan_Remove();
         this.isCameraOpen = false;
-        if (this.platform.is['mobile']
-            || this.platform.is['capacitor']
-            || this.platform.is['cordova']
-            || this.platform.is['mobileweb']
-            || this.platform.is['iphone']
-            || this.platform.is['ipad']
-            || this.platform.is['hybrid']
-            || this.platform.is['android']
-            || this.platform.is['tablet']) {
-            this.qrScanner.destroy();
-        }
+        this.qrScanner.destroy();
     };
     SendFundsPage.prototype.presentAlert = function (hdr, msg, sub) {
         return __awaiter(this, void 0, void 0, function () {
@@ -219,100 +217,47 @@ var SendFundsPage = /** @class */ (function () {
             });
         });
     };
-    // check if it's a token, or a Mini
-    SendFundsPage.prototype.instanceOfToken = function (data) {
-        return 'script' in data;
-    };
     SendFundsPage.prototype.pullInTokens = function () {
         var _this = this;
-        this.balanceSubscription = this.service.updatedBalance
-            .pipe(operators_1.map(function (balance) {
-            var tokenArr = [];
-            for (var key in balance) {
-                if (balance.hasOwnProperty(key)) {
-                    if (_this.instanceOfToken(balance[key])) {
-                        var element = balance[key];
-                        tokenArr.push({
-                            tokenid: element.tokenid,
-                            token: element.token,
-                            description: element.description,
-                            icon: element.icon,
-                            proof: element.proof,
-                            total: element.total,
-                            script: element.script,
-                            coinid: element.coinid,
-                            totalamount: element.totalamount,
-                            scale: element.scale,
-                            confirmed: element.confirmed,
-                            unconfirmed: element.unconfirmed,
-                            mempool: element.mempool,
-                            sendable: element.sendable
-                        });
-                    }
-                    else {
-                        var element = balance[key];
-                        // add Minima always to the top
-                        tokenArr.pop(); // pop it
-                        _this.service.update(tokenArr, {
-                            tokenid: element.tokenid,
-                            token: element.token,
-                            total: element.total,
-                            confirmed: element.confirmed,
-                            unconfirmed: element.unconfirmed,
-                            mempool: element.mempool,
-                            sendable: element.sendable
-                        });
-                    }
-                }
-            }
-            return tokenArr;
-        }))
-            .subscribe(function (responseData) {
-            // check if changed
-            if (_this.lastJSON !== JSON.stringify(responseData)) {
-                _this.tokenArr = __spreadArrays(responseData);
-                _this.lastJSON = JSON.stringify(responseData);
-                // add tokens
-                _this.getTokenSelected();
-            }
+        this.balanceService.data.subscribe(function (balance) {
+            _this.tokenArr = balance;
         });
     };
     SendFundsPage.prototype.sendFunds = function () {
         var _this = this;
-        if (this.data.address && this.data.address !== '' && this.data.amount && this.data.amount > 0 &&
-            this.data.tokenid && this.data.tokenid !== '' && !this.data.message) {
-            this.api.sendFunds(this.data).then(function (res) {
-                if (res.status === true) {
-                    // clear inputs
-                    _this.address.value = '';
-                    _this.amount.value = '';
-                    // success
-                    _this.presentAlert('Success', 'Your transaction has been successfully posted!', 'Transaction Status');
+        var data = this.sendForm.value;
+        data.tokenid = data.token.tokenid;
+        if (data.message.length > 0) {
+            this.api.createTXN(data).then(function (res) {
+                console.log('Complicated TXN');
+                console.log(res);
+                if (minima_1.Minima.util.checkAllResponses(res)) {
+                    _this.presentAlert('Transaction Status', 'Transaction has been posted to the network!', 'Successful');
+                    _this.resetForm();
                 }
                 else {
-                    _this.presentAlert('Error', res.message, 'Transaction Status');
-                }
-            });
-        }
-        else if (this.data.address && this.data.address !== '' && this.data.amount && this.data.amount > 0 &&
-            this.data.tokenid && this.data.tokenid !== '' && this.data.message !== undefined && this.data.message.length >= 0) {
-            this.api.createTXN(this.data).then(function (res) {
-                if (res[5].status === true) {
-                    // clear inputs
-                    _this.address.value = '';
-                    _this.amount.value = '';
-                    _this.message.value = '';
-                    // success
-                    _this.presentAlert('Success', 'Your transaction has been successfully posted!', 'Transaction Status');
-                }
-                else if (res[4].status === false) {
-                    _this.presentAlert('Error', res.message, 'Transaction Status');
+                    _this.presentAlert('Transaction Status', res.message, 'Failed');
                 }
             });
         }
         else {
-            this.presentAlert('Error', 'Please check your input fields.', 'Transaction Status');
+            this.api.sendFunds(data).then(function (res) {
+                console.log('ez TXN');
+                console.log(res);
+                if (res.status) {
+                    _this.presentAlert('Transaction Status', 'Transaction has been posted to the network!', 'Successful');
+                    _this.resetForm();
+                }
+                else {
+                    _this.presentAlert('Transaction Status', res.message, 'Failed');
+                }
+            });
         }
+    };
+    SendFundsPage.prototype.resetForm = function () {
+        this.address.value = '';
+        this.amount.value = '';
+        this.message.value = '';
     };
     /** MISC FUNCS */
     SendFundsPage.prototype.identifyPlatformToScan_Add = function () {
@@ -366,29 +311,14 @@ var SendFundsPage = /** @class */ (function () {
             }
         });
     };
-    // work around for weird ion-textarea height: 0 + auto-grow='true'
-    SendFundsPage.prototype.checkTextarea = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var _this = this;
-            return __generator(this, function (_a) {
-                return [2 /*return*/, this.message.getInputElement().then(function (element) {
-                        if (element.style.height == '0px') {
-                            return element.style.height = 'auto';
-                        }
-                        else {
-                            setTimeout(function () { return _this.checkTextarea(); }, 100);
-                        }
-                    })];
-            });
-        });
-    };
-    SendFundsPage.prototype.checkboxValue = function (ev, messageEntry) {
-        this.checkTextarea();
-        if (messageEntry === false) {
-            this.data.message = undefined;
+    SendFundsPage.prototype.useMessage = function () {
+        if (this.messageToggle) {
+            this.messageToggle = false;
+        }
+        else {
+            this.messageToggle = true;
         }
     };
-    // Display/hide mobile buttons with this..
     SendFundsPage.prototype.checkPlatform = function () {
         if (this.platform.is('desktop')) {
             return false;
@@ -396,28 +326,6 @@ var SendFundsPage = /** @class */ (function () {
         else {
             return true;
         }
-    };
-    SendFundsPage.prototype.pasteFromClipboard = function () {
-        var _this = this;
-        if (this.platform.is('desktop')) {
-            this.pasteFromPWA();
-        }
-        else {
-            this.clipboard.paste().then(function (resolve) {
-                _this.data.address = resolve;
-            }, function (reject) {
-                console.log('Error: ' + reject);
-            });
-        }
-    };
-    SendFundsPage.prototype.pasteFromPWA = function () {
-        var _this = this;
-        document.addEventListener('paste', function (e) {
-            _this.data.address = e.clipboardData.getData('text');
-            e.preventDefault();
-            document.removeEventListener('paste', null);
-        });
-        document.execCommand('paste');
     };
     SendFundsPage.prototype.webScanQR = function () {
         var _this = this;
@@ -436,6 +344,34 @@ var SendFundsPage = /** @class */ (function () {
         this.webQrScanner = null;
         this.isWebCameraOpen = false;
     };
+    Object.defineProperty(SendFundsPage.prototype, "tokenFormItem", {
+        get: function () {
+            return this.sendForm.get('token');
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(SendFundsPage.prototype, "addressFormItem", {
+        get: function () {
+            return this.sendForm.get('address');
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(SendFundsPage.prototype, "amountFormItem", {
+        get: function () {
+            return this.sendForm.get('amount');
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(SendFundsPage.prototype, "messageFormItem", {
+        get: function () {
+            return this.sendForm.get('message');
+        },
+        enumerable: false,
+        configurable: true
+    });
     __decorate([
         core_1.ViewChild('address', { static: false })
     ], SendFundsPage.prototype, "address");

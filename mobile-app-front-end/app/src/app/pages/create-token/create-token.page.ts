@@ -147,7 +147,6 @@ export class CreateTokenPage implements OnInit {
     this.loading = true;
 
     const newToken: CustomToken = this.tokenCreationForm.value;
-    console.log(newToken);
 
     if (this.advancedFormInputsChecked.nft) {
       newToken.script = this.myNFT; // script for non-fungible
@@ -160,10 +159,10 @@ export class CreateTokenPage implements OnInit {
         }
       });
     } else {
-      newToken.script = 'RETURN TRUE' // default script to spend token
+      newToken.script = 'RETURN TRUE'; // default script to spend token
       this.api.createToken(newToken).then((res: any) => {
         if (res.status) {
-          this.presentAlert('Success', 'Token '+this.customToken.name+' has been created.', 'Token Creation Status');
+          this.presentAlert('Success', 'Token ' + this.customToken.name + ' has been created.', 'Token Creation Status');
           this.toggleBackAnimation();
         } else {
           this.presentAlert('Something\'s wrong!', res.message, 'Token Creation Status');
@@ -198,6 +197,5 @@ export class CreateTokenPage implements OnInit {
   get amount() {
     return this.tokenCreationForm.get('amount');
   }
-  
 
 }

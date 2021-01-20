@@ -179,7 +179,6 @@ var CreateTokenPage = /** @class */ (function () {
         var _this = this;
         this.loading = true;
         var newToken = this.tokenCreationForm.value;
-        console.log(newToken);
         if (this.advancedFormInputsChecked.nft) {
             newToken.script = this.myNFT; // script for non-fungible
             this.api.createToken(newToken).then(function (res) {

@@ -16,7 +16,7 @@
       <ion-row>
         <ion-col size="12">
           <ion-card *ngIf="tokenArr.length > 0" class="borders" id="tutorial-card">
-            <ion-icon (click)="hide()" id="dismiss">&times;</ion-icon>
+            <span (click)="hide()" id="dismiss">&times;</span>
             <ion-card-header class="text-center">
               <ion-card-title>
                 <ion-avatar>
@@ -57,7 +57,7 @@
   <ion-footer class="border-t">
     <ion-toolbar>
       <ion-buttons>
-        <ion-button #gimme50Btn class="action-btn medium-text" expand="block" type="button" (click)="giveMe50()">
+        <ion-button #gimme50Btn expand="block" type="button" (click)="giveMe50()">
           <ion-icon name="cash" slot="start"></ion-icon> Gimme 50
         </ion-button>
       </ion-buttons>

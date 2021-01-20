@@ -39,14 +39,16 @@ ion-footer ion-toolbar ion-buttons ion-button {
   height: 58px;
   text-transform: none;
   font-family: manrope-bold;
+  color: var(--ion-color-tertiary);
 }
 
 #dismiss {
   cursor: pointer;
-  position: absolute;
   right: 2.5%;
   z-index: 99999;
   font-size: 2rem;
+  position: absolute;
+  color: var(--ion-color-tertiary);
 }
 
 #settings {
