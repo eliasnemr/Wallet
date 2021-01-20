@@ -70,10 +70,10 @@ var AppComponent = /** @class */ (function () {
         this.platform.ready().then(function () {
             minima_1.Minima.init(function (msg) {
                 if (msg.event === 'connected') {
-                    _this.api.updatedBalance.next(minima_1.Minima.balance);
+                    _this.api.data.next(minima_1.Minima.balance);
                 }
                 else if (msg.event === 'newbalance') {
-                    _this.api.updatedBalance.next(msg.info.balance);
+                    _this.api.data.next(msg.info.balance);
                 }
                 else if (msg.event === 'newblock') {
                     // update status observable

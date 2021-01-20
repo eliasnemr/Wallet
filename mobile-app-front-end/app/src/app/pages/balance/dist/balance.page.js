@@ -41,24 +41,16 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __spreadArrays = (this && this.__spreadArrays) || function () {
-    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
-    for (var r = Array(s), k = 0, i = 0; i < il; i++)
-        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
-            r[k] = a[j];
-    return r;
-};
 exports.__esModule = true;
 exports.BalancePage = void 0;
 var pop_settings_component_1 = require("./../../components/pop-settings/pop-settings.component");
-var operators_1 = require("rxjs/operators");
 var core_1 = require("@angular/core");
 var angular_1 = require("@ionic/angular");
 var SparkMD5 = require("spark-md5");
 // declare var Minima: any;
 var BalancePage = /** @class */ (function () {
-    function BalancePage(service, api, alertController, route, toastController, popoverController, userConfigService, ngZone) {
-        this.service = service;
+    function BalancePage(balanceService, api, alertController, route, toastController, popoverController, userConfigService, ngZone) {
+        this.balanceService = balanceService;
         this.api = api;
         this.alertController = alertController;
         this.route = route;
@@ -70,8 +62,6 @@ var BalancePage = /** @class */ (function () {
         this.hideMe = false;
         this.tokenArr = [];
         this.tokenSpoof = [];
-        // - vars
-        this.lastJSON = '';
     }
     BalancePage.prototype.ionViewWillEnter = function () {
         var _this = this;
@@ -116,9 +106,6 @@ var BalancePage = /** @class */ (function () {
                 _this.presentAlert(res.message, 'Transaction failed.');
             }
         });
-    };
-    BalancePage.prototype.ionViewWillLeave = function () {
-        this.balanceSubscription.unsubscribe(); // unsubs
     };
     // hide welcomeCard
     BalancePage.prototype.hide = function () {
@@ -192,54 +179,8 @@ var BalancePage = /** @class */ (function () {
     };
     BalancePage.prototype.pullInTokens = function () {
         var _this = this;
-        this.balanceSubscription = this.service.updatedBalance
-            .pipe(operators_1.map(function (balance) {
-            var tokenArr = [];
-            for (var key in balance) {
-                if (balance.hasOwnProperty(key)) {
-                    if (_this.instanceOfToken(balance[key])) {
-                        var element = balance[key];
-                        tokenArr.push({
-                            tokenid: element.tokenid,
-                            token: element.token,
-                            description: element.description,
-                            icon: element.icon,
-                            proof: element.proof,
-                            total: element.total,
-                            script: element.script,
-                            coinid: element.coinid,
-                            totalamount: element.totalamount,
-                            scale: element.scale,
-                            confirmed: element.confirmed,
-                            unconfirmed: element.unconfirmed,
-                            mempool: element.mempool,
-                            sendable: element.sendable
-                        });
-                    }
-                    else {
-                        var element = balance[key];
-                        // add Minima always to the top
-                        tokenArr.pop(); // pop it
-                        _this.service.update(tokenArr, {
-                            tokenid: element.tokenid,
-                            token: element.token,
-                            total: element.total,
-                            confirmed: element.confirmed,
-                            unconfirmed: element.unconfirmed,
-                            mempool: element.mempool,
-                            sendable: element.sendable
-                        });
-                    }
-                }
-            }
-            return tokenArr;
-        }))
-            .subscribe(function (responseData) {
-            // check if changed
-            if (_this.lastJSON !== JSON.stringify(responseData)) {
-                _this.tokenArr = __spreadArrays(responseData);
-                _this.lastJSON = JSON.stringify(responseData);
-            }
+        this.balanceService.data.subscribe(function (balance) {
+            _this.tokenArr = balance;
         });
     };
     __decorate([

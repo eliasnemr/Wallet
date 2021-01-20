@@ -1,46 +1,71 @@
 <ion-grid>
   <ion-row>
     <ion-col *ngFor="let token of tokenArr; let i = index;" size="12" size-md="6">
-      <ion-card class="borders" *ngIf="i <= tokenArr.length" id="token-card" [ngStyle] = "{'border-right':  token.script && token.script !== 'RETURN TRUE' ? '3px solid var(--ion-color-primary)' : '1px solid #FAFAFF'}">
+      <ion-card class="borders" *ngIf="i <= tokenArr.length" id="token-card" [ngStyle] = "{'border-right':  token.script && token.script === 'RETURN_TRUE' ? '3px solid var(--ion-color-secondary)' : '1px solid var(--ion-color-primary)'}">
         <ion-card-header>
-          <ion-row>
-            <ion-col id="img-wrapper" size-lg="2" size-md="1" size-sm="1" size-xs="2">
-              <span *ngIf="token.tokenid !== '0x00' && token.icon.length == 0" style="margin-right: 1%" class="e-avatar e-avatar-xsmall"><img [src]="createIcon( token.tokenid )" /></span>
-              <span *ngIf="token.tokenid !== '0x00' && token.icon.length > 0" style="margin-right: 1%"><img class="custom-icon" [src]="token.icon" /></span>
+          <ion-item lines="none">
+            <ion-avatar slot="start">
+              <img *ngIf="token.tokenid !== '0x00' && token.icon.length == 0" class="custom-icon" [src]="createIcon( token.tokenid )" />
+              <img *ngIf="token.tokenid !== '0x00' && token.icon.length > 0" class="custom-icon" [src]="token.icon"/>
               <img *ngIf="token.tokenid == '0x00'" class="custom-icon" alt="minima" src="assets/minimaBox.svg">
-            </ion-col>
-            <ion-col id="token-wrapper" size-lg="4"  size-md="5" size-sm="5" size-xs="4">
-              
-                <h6 class="medium-text">
-                  {{ token.token }}
-                </h6>
-              
-            </ion-col>
-            <ion-col id="balance" size="6">
+            </ion-avatar>
+            <ion-label>
+              <h3> {{ token.token }} </h3>
+              <p *ngIf="token.tokenid === '0x00'">Official Token</p>
+              <p *ngIf="token.tokenid !== '0x00'"> {{ token.description }} </p>
+            </ion-label>
+            <ion-label>
               <span *ngIf="token.unconfirmed != '0';" class="confirmed-amount medium-text minima-numeric">{{ token.sendable + "/" + token.unconfirmed  }}</span>
               <span *ngIf="token.unconfirmed == '0';" class="confirmed-amount medium-text minima-numeric">{{ token.sendable }} </span>
-            </ion-col>
-          </ion-row>
-          <ion-badge 
-            *ngIf="token.script && token.script !=='RETURN TRUE'"
-           (click)="presentToast('This is a non-fungible token.  It can only be spent whole.')" 
-           class="nft" 
-           color="primary">NFT</ion-badge>             
+            </ion-label>
+          </ion-item>
         </ion-card-header>
         <ion-card-content>
-          <ion-row>
-            <ion-col size="9">
-              <div class="description" *ngIf="token.tokenid == '0x00'">
-                <p>Minima's official token</p>
-              </div>
-              <div class="description" *ngIf="token.tokenid !== '0x00'">
-                <p>{{ token.description }}</p>
-              </div>
-            </ion-col>
-          </ion-row>
+          <ion-avatar slot="start" *ngIf="token.script === 'RETURN TRUE'" style="max-width: 20px; max-height: 20px">
+            <img src="assets/nft.svg"/>
+          </ion-avatar>
+          <ion-icon id="details" routerLink="/view-tokens/{{ token.tokenid }}" alt="more" name="expand-outline"></ion-icon>
         </ion-card-content>
-        <ion-icon id="details" routerLink="/view-tokens/{{ token.tokenid }}" alt="more" src="assets/md-ellipsis-vertical-outline.svg"></ion-icon>
       </ion-card>
     </ion-col>
   </ion-row>
 </ion-grid>
+
+
+
+<!-- 
+<ion-row>
+  <ion-col id="img-wrapper" size-lg="2" size-md="1" size-sm="1" size-xs="2">
+    <span *ngIf="token.tokenid !== '0x00' && token.icon.length == 0" style="margin-right: 1%" class="e-avatar e-avatar-xsmall"><img [src]="createIcon( token.tokenid )" /></span>
+    <span *ngIf="token.tokenid !== '0x00' && token.icon.length > 0" style="margin-right: 1%"><img class="custom-icon" [src]="token.icon" /></span>
+    <img *ngIf="token.tokenid == '0x00'" class="custom-icon" alt="minima" src="assets/minimaBox.svg">
+  </ion-col>
+  <ion-col id="token-wrapper" size-lg="4"  size-md="5" size-sm="5" size-xs="4">
+    
+      <h6 class="medium-text">
+        {{ token.token }}
+      </h6>
+    
+  </ion-col>
+  <ion-col id="balance" size="6">
+    <span *ngIf="token.unconfirmed != '0';" class="confirmed-amount medium-text minima-numeric">{{ token.sendable + "/" + token.unconfirmed  }}</span>
+    <span *ngIf="token.unconfirmed == '0';" class="confirmed-amount medium-text minima-numeric">{{ token.sendable }} </span>
+  </ion-col>
+</ion-row>
+<ion-badge 
+  *ngIf="token.script && token.script !=='RETURN TRUE'"
+ (click)="presentToast('This is a non-fungible token.  It can only be spent whole.')" 
+ class="nft" 
+ color="primary">NFT</ion-badge>             
+</ion-card-header>
+<ion-card-content>
+<ion-row>
+  <ion-col size="9">
+    <div class="description" *ngIf="token.tokenid == '0x00'">
+      <p>Minima's official token</p>
+    </div>
+    <div class="description" *ngIf="token.tokenid !== '0x00'">
+      <p>{{ token.description }}</p>
+    </div>
+  </ion-col>
+</ion-row> -->

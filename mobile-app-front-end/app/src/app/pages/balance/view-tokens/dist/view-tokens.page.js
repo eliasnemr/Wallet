@@ -54,7 +54,7 @@ var ViewTokensPage = /** @class */ (function () {
         this.balanceService = balanceService;
         this.urlID = '';
         this.type = '';
-        this.balanceService.updatedBalance.subscribe(function (res) {
+        this.balanceService.data.subscribe(function (res) {
             _this.tokenArr = res;
             _this.urlID = _this.route.snapshot.paramMap.get("id");
             _this.tokenArr.forEach(function (tkn) {
@@ -67,10 +67,10 @@ var ViewTokensPage = /** @class */ (function () {
                         _this.token.description = tkn.description;
                     }
                     if (tkn.token.tokenid !== '0x00' && tkn.token.icon) {
-                        _this.token.icon = 'assets/icon/icon.png';
+                        _this.token.icon = 'assets/minimaBox.svg';
                     }
                     else if (tkn.token.tokenid === '0x00') {
-                        _this.token.icon = 'assets/icon/icon.png';
+                        _this.token.icon = 'assets/minimaBox.svg';
                     }
                     else {
                         _this.token.icon = tkn.icon;

@@ -10,13 +10,18 @@
   <ion-card>
     <ion-card-header>
       <ion-card-title>
-        <span *ngIf="token.tokenid !== '0x00' && token.icon.length == 0" class="e-avatar e-avatar-smal"><img [src]="createIcon( token.tokenid )" /></span>
-        <span *ngIf="token.tokenid !== '0x00' && token.icon.length > 0"><img class="custom-icon" [src]="token.icon" /></span>
-        <img *ngIf="token.tokenid === '0x00'" class="custom-icon" alt="minima" src="assets/logoreg-s.svg"> 
+        <ion-avatar>
+          <img class="custom-icon" *ngIf="token.tokenid !== '0x00' && token.icon.length == 0" [src]="createIcon( token.tokenid )"/>
+          <img class="custom-icon" *ngIf="token.tokenid !== '0x00' && token.icon.length > 0" [src]="token.icon"/>
+          <img *ngIf="token.tokenid === '0x00'" class="custom-icon" alt="minima" src="assets/minimaBox.svg"> 
+        </ion-avatar>        
       </ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      {{token.description}}
+      <ion-label>
+        <h3>{{token.token}}</h3> 
+        <p>{{token.description}}</p>
+      </ion-label>
     </ion-card-content>
     <ion-item-divider class="border-b"></ion-item-divider>
     <ion-list lines="none">

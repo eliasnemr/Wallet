@@ -1,4 +1,10 @@
 "use strict";
+/**
+ * Created By Elias Nemr
+ * 01/11/19
+ * Minima Global
+ * WALLET
+ */
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -7,13 +13,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 exports.__esModule = true;
 exports.AppModule = void 0;
-var contacts_modal_page_1 = require("./components/contacts-modal/contacts-modal.page");
-/**
- * Created By Elias Nemr
- * 01/11/19
- * Minima Global
- * WALLET
- */
 var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var router_1 = require("@angular/router");
@@ -29,6 +28,7 @@ var token_descr_component_1 = require("./components/token-descr/token-descr.comp
 var pop_term_component_1 = require("./components/pop-term/pop-term.component");
 var pop_settings_component_1 = require("./components/pop-settings/pop-settings.component");
 var pop_filter_component_1 = require("./components/pop-filter/pop-filter.component");
+var contacts_modal_page_1 = require("./components/contacts-modal/contacts-modal.page");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -44,12 +44,12 @@ var AppModule = /** @class */ (function () {
             ],
             entryComponents: [pop_settings_component_1.PopSettingsComponent, pop_filter_component_1.PopFilterComponent, pop_term_component_1.PopTermComponent, contacts_modal_page_1.ContactsModalPage],
             imports: [
+                app_routing_module_1.AppRoutingModule,
                 forms_1.FormsModule,
                 forms_1.ReactiveFormsModule,
                 http_1.HttpClientModule,
                 platform_browser_1.BrowserModule,
-                angular_1.IonicModule.forRoot(),
-                app_routing_module_1.AppRoutingModule
+                angular_1.IonicModule.forRoot()
             ],
             providers: [
                 Storage,

@@ -14,7 +14,7 @@
     background: var(--ion-m-background);
   }
   img {
-    width: 100px;
+    width: 200px;
   }
   #img-wrapper {
     display: flex;
@@ -46,13 +46,15 @@
     margin:0;
   }
   #details {
-    padding: 0 1% 2.5% 0;
     float:right;
+    padding-bottom: 10px;
     font-size: 1.2rem;
     cursor: pointer;
     z-index: 99999;
-    font-family: manrope-light;
     color: var(--ion-color-primary)
+  }
+  #details:hover {
+    transform: scale(1.01);
   }
   .description {
     display: inline;
@@ -67,17 +69,10 @@
     max-width: 200px;
   }
   .custom-icon {
-    height: 32px;
-    width: 30px;
-    max-height: 32px!important;
-    max-width: 30px!important;
+    max-height: 40px !important;
+    max-width: 40px !important;   
   }
-  .e-avatar {
-    height: 32px;
-    width: 30px;
-    max-height: 32px!important;
-    max-width: 30px!important;
-  }
+ 
   .nft {
     cursor: pointer;
     font-size: 1.0rem;

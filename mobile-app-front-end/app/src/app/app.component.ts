@@ -46,9 +46,9 @@ export class AppComponent {
     this.platform.ready().then(() => {
       Minima.init((msg: any) => {
         if (msg.event === 'connected') {
-          this.api.updatedBalance.next(Minima.balance);
+          this.api.data.next(Minima.balance);
         } else if (msg.event === 'newbalance') {
-          this.api.updatedBalance.next(msg.info.balance);
+          this.api.data.next(msg.info.balance);
         } else if (msg.event === 'newblock') {
           // update status observable
           Minima.cmd('status full', (res: any) => {

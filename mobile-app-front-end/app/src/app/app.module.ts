@@ -1,4 +1,3 @@
-import { ContactsModalPage } from './components/contacts-modal/contacts-modal.page';
 /**
  * Created By Elias Nemr
  * 01/11/19
@@ -21,6 +20,7 @@ import { TokenDescrComponent } from './components/token-descr/token-descr.compon
 import { PopTermComponent } from './components/pop-term/pop-term.component';
 import { PopSettingsComponent } from './components/pop-settings/pop-settings.component';
 import { PopFilterComponent } from './components/pop-filter/pop-filter.component';
+import { ContactsModalPage } from './components/contacts-modal/contacts-modal.page';
 
 
 @NgModule({
@@ -33,12 +33,12 @@ import { PopFilterComponent } from './components/pop-filter/pop-filter.component
     ContactsModalPage],
   entryComponents: [PopSettingsComponent, PopFilterComponent, PopTermComponent, ContactsModalPage],
   imports: [
+    AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
     BrowserModule,
-    IonicModule.forRoot(),
-    AppRoutingModule],
+    IonicModule.forRoot()],
     providers: [
     Storage,
     Clipboard,

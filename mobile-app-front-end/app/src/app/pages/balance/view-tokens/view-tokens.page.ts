@@ -22,7 +22,7 @@ export class ViewTokensPage implements OnInit {
 
   constructor(public route: ActivatedRoute, public api: MinimaApiService, public toastController: ToastController, public balanceService: BalanceService) {
   
-    this.balanceService.updatedBalance.subscribe((res) => {
+    this.balanceService.data.subscribe((res) => {
       this.tokenArr = res;
       this.urlID = this.route.snapshot.paramMap.get("id");
 
@@ -35,9 +35,9 @@ export class ViewTokensPage implements OnInit {
             this.token.description = tkn.description;
           }
           if(tkn.token.tokenid !== '0x00' && tkn.token.icon) {
-            this.token.icon = 'assets/icon/icon.png';
+            this.token.icon = 'assets/minimaBox.svg';
           } else if(tkn.token.tokenid === '0x00') {
-            this.token.icon = 'assets/icon/icon.png';
+            this.token.icon = 'assets/minimaBox.svg';
           } else {
             this.token.icon = tkn.icon;
           }

@@ -24,10 +24,6 @@ ion-card-title .custom-icon {
     max-height: 75px;
     max-width: 75px;
 }
-ion-card-title span img {
-    max-height: 75px;
-    max-width: 75px;
-}
 ion-card-content {
     text-align: center;
     justify-content: center !important;
@@ -35,6 +31,13 @@ ion-card-content {
     display: flex;
     height: auto;
     color: var(--ion-color-tertiary);
+}
+ion-card-content h3 {
+    font-family: manrope-bold;
+    display: block;
+}
+ion-card-content p {
+    font-family: manrope-light;
 }
 ion-card-header {
     text-align: center;

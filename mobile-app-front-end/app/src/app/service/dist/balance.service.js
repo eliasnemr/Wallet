@@ -9,9 +9,10 @@ exports.__esModule = true;
 exports.BalanceService = void 0;
 var core_1 = require("@angular/core");
 var rxjs_1 = require("rxjs");
+var minima_1 = require("minima");
 var BalanceService = /** @class */ (function () {
     function BalanceService() {
-        this.updatedBalance = new rxjs_1.BehaviorSubject([]);
+        this.data = new rxjs_1.BehaviorSubject(minima_1.Minima.balance);
         // take in tokenArr and the element you'd like to add to front of array
         this.update = function (a, e) {
             var i = a.findIndex(function (o) { return o.tokenid === e; });

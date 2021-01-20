@@ -18,7 +18,7 @@ ion-card-header {
 }
 
 img {
-  width: 100px;
+  width: 200px;
 }
 
 #img-wrapper {
@@ -56,13 +56,16 @@ img {
 }
 
 #details {
-  padding: 0 1% 2.5% 0;
   float: right;
+  padding-bottom: 10px;
   font-size: 1.2rem;
   cursor: pointer;
   z-index: 99999;
-  font-family: manrope-light;
   color: var(--ion-color-primary);
+}
+
+#details:hover {
+  transform: scale(1.01);
 }
 
 .description {
@@ -80,17 +83,8 @@ img {
 }
 
 .custom-icon {
-  height: 32px;
-  width: 30px;
-  max-height: 32px !important;
-  max-width: 30px !important;
-}
-
-.e-avatar {
-  height: 32px;
-  width: 30px;
-  max-height: 32px !important;
-  max-width: 30px !important;
+  max-height: 40px !important;
+  max-width: 40px !important;
 }
 
 .nft {

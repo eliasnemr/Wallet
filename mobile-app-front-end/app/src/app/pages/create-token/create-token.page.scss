@@ -21,7 +21,11 @@ ion-note {
   font-family: manrope-bold;
   text-align: center;
 }
+ion-icon.nftIcon {
+  font-size: 1.9rem;
+}
 ion-textarea {
+  padding-left: 1%;
   color: black!important;
   background: #ffffff;
 }
@@ -40,6 +44,14 @@ ion-toolbar {
     color: var(--ion-color-tertiary);
   }
 }
+ion-title.cardHeader {
+  padding-top: 2%;
+  font-size: 0.9rem;
+  display: inline-block;
+}
+ion-title.cardHeader ion-icon {
+  cursor: pointer;
+}
 ion-card-content {
   background: var(--ion-card-color);
 }
@@ -57,7 +69,7 @@ ion-card-header {
 }
 .length ion-note {
   font-family: manrope-light!important;
-  color: #000!important;
+  color: var(--ion-color-tertiary)!important;
 }
 
 ion-card.tokenType ion-card-subtitle {
@@ -82,13 +94,13 @@ ion-card.tokenType {
 ion-card.tokenType:hover {
   transform: scale(1.01);
 }
-.backBtn {
-  text-transform: none;
-  font-size: 1.0rem;
+#backBtn {
+  cursor: pointer;
+  font-size: 1.2rem;
   --background-hover: var(--ion-color-tertiary);
   --color: var(--ion-color-primary);
 }
-.backBtn:hover {
+#backBtn:hover {
   transform: scale(1.02);
   --background-hover: none!important;
   --color: var(--ion-color-secondary);

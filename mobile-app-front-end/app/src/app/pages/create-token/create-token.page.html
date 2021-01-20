@@ -6,147 +6,135 @@
     </ion-buttons>
     <ion-title class="large-text">Token</ion-title>
   </ion-toolbar>
-
-
 </ion-header>
-
 <ion-content>
-  <ion-card class="borders">
-    <ion-buttons style="display: none;" id="backBtnWrapper">
-      <ion-button class="backBtn" (click)="toggleBackAnimation()">
-        <ion-icon name="arrow-back" style="padding-right:1%" ></ion-icon>
-      </ion-button>
-    </ion-buttons>
-    <ion-card-header id="cardHeader">
-      Choose A Token Type
-    </ion-card-header>
-    
+  <ion-title class="cardHeader">
+    <span id="cardText">Choose A Token Type</span>
+  </ion-title>
+    <ion-list id="listCardOptions">
+      <ion-row>
+        <ion-col size-xs="12">
+          <ion-card id="basicCard" class="tokenType borders">
+            <ion-card-header>
+              Basic Token
+            </ion-card-header>
+            <ion-card-content>
+              <ion-list lines="none">
+                <ion-item>
+                <ion-label>Name</ion-label>
+                <ion-checkbox disabled="true" checked="true"></ion-checkbox>
+                </ion-item>
+                <ion-item>
+                <ion-label>Amount</ion-label>
+                <ion-checkbox disabled="true" checked="true"></ion-checkbox>
+                </ion-item>
+              </ion-list>
+            </ion-card-content>
+            <ion-card-subtitle>
+              <ion-buttons>
+                <ion-button (click)="toggleBasicAnimation()" class="createBtn">
+                  Create Basic Token
+                </ion-button>
+              </ion-buttons>
+            </ion-card-subtitle>
+          </ion-card>
+        </ion-col>
+        <ion-col size-xs="12">
+          <ion-card #advancedCard id="advancedCard" class="tokenType borders">
+            <ion-card-header>
+              Advanced Token &mdash; <ion-note style="font-style:oblique; font-family:manrope-light">A Basic Token With Optional Values</ion-note>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-list>
+                <ion-item lines="none">
+                  <ion-label>Description</ion-label>
+                  <ion-checkbox id="description" disabled="false" checked="false" [(ngModel)]="advancedFormInputsChecked.description"></ion-checkbox>
+                </ion-item>
+                <ion-item lines="none">
+                  <ion-label>Custom Icon URL</ion-label>
+                  <ion-checkbox id="icon" disabled="false" checked="false" [(ngModel)]="advancedFormInputsChecked.icon"></ion-checkbox>
+                </ion-item>
+                <ion-item lines="none">
+                  <ion-label>Proof URL</ion-label>
+                  <ion-checkbox id="proof" disabled="false" checked="false" [(ngModel)]="advancedFormInputsChecked.proof"></ion-checkbox>
+                </ion-item>
+                <ion-item lines="none">
+                  <ion-label>Non-Fungible Token</ion-label>
+                  <ion-checkbox id="nft" disabled="false" checked="false" [(ngModel)]="advancedFormInputsChecked.nft"></ion-checkbox>
+                </ion-item>
+              </ion-list>
+            </ion-card-content>
+
+            <ion-card-subtitle>
+              <ion-buttons>
+                <ion-button (click)="toggleAdvAnimation()" class="createBtn">
+                  Create Advanced Token
+                </ion-button>
+              </ion-buttons>
+            </ion-card-subtitle>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-list>
+
+  <ion-card class="borders" *ngIf="basic || advanced">
     <ion-card-content>
-      <ion-list id="listCardOptions">
-        <ion-row>
-          <ion-col size-xs="12">
-            <ion-card id="basicCard" class="tokenType borders">
-              <ion-card-header>
-                Basic Token
-              </ion-card-header>
-              <ion-card-content>
-                <ion-list lines="none">
-                  <ion-item>
-                  <ion-label>Name</ion-label>
-                  <ion-checkbox disabled="true" checked="true"></ion-checkbox>
-                  </ion-item>
-                  <ion-item>
-                  <ion-label>Amount</ion-label>
-                  <ion-checkbox disabled="true" checked="true"></ion-checkbox>
-                  </ion-item>
-                </ion-list>
-              </ion-card-content>
-              <ion-card-subtitle>
-                <ion-buttons>
-                  <ion-button class="createBtn" (click)="toggleAnimation()">
-                    Create Basic Token
-                  </ion-button>
-                </ion-buttons>
-              </ion-card-subtitle>
-            </ion-card>
-          </ion-col>
-          <ion-col size-xs="12">
-            <ion-card #advancedCard id="advancedCard" class="tokenType borders">
-              <ion-card-header>
-                Advanced Token &mdash; <ion-note style="font-style:oblique; font-family:manrope-light">A Basic Token With Optional Values</ion-note>
-              </ion-card-header>
-              <ion-card-content>
-                <ion-list>
-                  <ion-item lines="none">
-                    <ion-label>Description</ion-label>
-                    <ion-checkbox id="description" disabled="false" checked="false" (ionChange)="isChecked($event)"></ion-checkbox>
-                  </ion-item>
-                  <ion-item lines="none">
-                    <ion-label>Custom Icon URL</ion-label>
-                    <ion-checkbox id="icon" disabled="false" checked="false" (ionChange)="isChecked($event)"></ion-checkbox>
-                  </ion-item>
-                  <ion-item lines="none">
-                    <ion-label>Proof URL</ion-label>
-                    <ion-checkbox id="proof" disabled="false" checked="false" (ionChange)="isChecked($event)"></ion-checkbox>
-                  </ion-item>
-                  <ion-item lines="none">
-                    <ion-label>Non-Fungible Token</ion-label>
-                    <ion-checkbox id="nft" disabled="false" checked="false" (ionChange)="isChecked($event)"></ion-checkbox>
-                  </ion-item>
-                </ion-list>
-              </ion-card-content>
+    <form (ngSubmit)="createTokenAdvanced()" [formGroup]="tokenCreationForm" id='tokenCreationForm'>
+    <ion-list lines="none">
+      <ion-item lines="none">
+        <ion-label position="fixed" class="medium-text">Amount</ion-label>
+        <ion-input placeholder="amount" type="number" class="medium-text input" #amountRef name="amount" formControlName="amount"></ion-input>
+      </ion-item>
 
-              <ion-card-subtitle>
-                <ion-buttons>
-                  <ion-button class="createBtn" (click)="toggleAdvAnimation()">
-                    Create Advanced Token
-                  </ion-button>
-                </ion-buttons>
-              </ion-card-subtitle>
-            </ion-card>
-          </ion-col>
-        </ion-row>
-      </ion-list>
+      <ion-item lines="none">
+        <ion-label position="fixed" class="medium-text">Token Name</ion-label>
+        <ion-input placeholder="token name" class="medium-text input" #nameTextArea name="name" formControlName="name"></ion-input>
+      </ion-item>
 
-      <form (ngSubmit)="createTokenAdvanced(f)" #f="ngForm" id='my-form' [hidden]="!basic && !advanced">
-      <ion-list lines="none">
-        <ion-item lines="none">
-          <ion-label position="fixed" class="medium-text">Amount</ion-label>
-          <ion-input placeholder="amount" type="number" class="medium-text input" #amountRef name="amount" [(ngModel)]="customToken.amount"></ion-input>
-        </ion-item>
+      <ion-item lines="none" [hidden]="!advancedFormInputsChecked.icon" lines="none">
+        <ion-label position="fixed" class="medium-text">Icon <span style="font-family: manrope-light; color:var(--ion-color-primary)">(Optional)</span></ion-label>
+        <ion-input class="medium-text input" name="icon" #iconURL formControlName="icon" placeholder="add the URL of your icon here..."></ion-input>
+      </ion-item>
 
-        <ion-item lines="none">
-          <ion-label position="fixed" class="medium-text">Token Name</ion-label>
-          <ion-input placeholder="token name" class="medium-text input" #nameTextArea name="name" [(ngModel)]="customToken.name"></ion-input>
-        </ion-item>
+      <ion-item lines="none" [hidden]="!advancedFormInputsChecked.proof" lines="none">
+        <ion-label position="fixed" class="medium-text">Proof <span style="font-family: manrope-light; color:var(--ion-color-primary)">(Optional)</span></ion-label>
+        <ion-input  name="proof" class="medium-text input" #proofURL formControlName="proof" placeholder="add to host website a text file with a token ID."></ion-input>
+      </ion-item>
 
-        <ion-item lines="none" [hidden]="!advancedFormInputsChecked.icon" lines="none">
-          <ion-label position="fixed" class="medium-text">Icon <span style="font-family: manrope-light; color:var(--ion-color-primary)">(Optional)</span></ion-label>
-          <ion-input class="medium-text input" name="icon" #iconURL [(ngModel)]="customToken.icon" placeholder="add the URL of your icon here..."></ion-input>
-        </ion-item>
+      <ion-item lines="none" [hidden]="!advancedFormInputsChecked.description" lines="none">
+        <ion-label position="stacked"  class="medium-text">Description <span style="font-family: manrope-light; color:var(--ion-color-primary)">(Optional)</span></ion-label>
+        <ion-textarea
+        #description 
+        class="medium-text input"
+        name="description"
+        maxlength="255"
+        [(ngModel)] = "customToken.description"
+        formControlName="description"
+        placeholder="type your description here...">
+        </ion-textarea>
+      </ion-item>
+      <ion-item class="length" *ngIf="customToken.description && customToken.description.length > 0">
+        <ion-note>{{ customToken.description.length+'/255'}}</ion-note>
+      </ion-item>
 
-        <ion-item lines="none" [hidden]="!advancedFormInputsChecked.proof" lines="none">
-          <ion-label position="fixed" class="medium-text">Proof <span style="font-family: manrope-light; color:var(--ion-color-primary)">(Optional)</span></ion-label>
-          <ion-input  name="proof" class="medium-text input" #proofURL [(ngModel)]="customToken.proof" placeholder="add to host website a text file with a token ID."></ion-input>
-        </ion-item>
-
-        <ion-item lines="none" [hidden]="!advancedFormInputsChecked.description" lines="none">
-          <ion-label position="stacked"  class="medium-text">Description <span style="font-family: manrope-light; color:var(--ion-color-primary)">(Optional)</span></ion-label>
-          <ion-textarea
-          #description 
-          class="medium-text input"
-          name="description"
-          maxlength="255" 
-          [(ngModel)]="customToken.description" 
-          placeholder="type your description here...">
-          </ion-textarea>
-        </ion-item>
-        <ion-item class="length" *ngIf="customToken.description && customToken.description.length > 0">
-          <ion-note>{{ customToken.description.length+'/255'}}</ion-note>
-        </ion-item>
-
-        <ion-item>
-          <ion-note class="medium-text" [hidden]="!advancedFormInputsChecked.nft">
-            <ion-icon size="small" name="images"></ion-icon> This token can be spent whole only.
-          </ion-note> 
-        </ion-item>
- 
-        
-      </ion-list>
-
-      
-      </form>
-    </ion-card-content>
-
-    
-      
+      <ion-item [hidden]="!advancedFormInputsChecked.nft">
+        <ion-label>
+          <ion-icon class="nftIcon" src="assets/nft2.svg"></ion-icon>
+          <ion-note>In the case you would like to spend this token, it must be spent whole.</ion-note>
+        </ion-label>
+      </ion-item>
+    </ion-list>      
+    </form>
+</ion-card-content>
   </ion-card>
-
+  <ion-button id="backBtn" style="display:none;" fill="clear" (click)="toggleBackAnimation()" name="arrow-back">
+    <ion-icon name="arrow-back"></ion-icon>
+  </ion-button>
 </ion-content>
 <ion-footer id="footer" style="display: none;" class="border-t">
   <ion-toolbar>
     <ion-buttons>
-      <button id="createTknBtn2" form="my-form" style="width: 100%; background-color:transparent; display:none">
+      <button id="createTknBtn2" form="tokenCreationForm" style="width: 100%; background-color:transparent; display:none">
       <ion-button
         #createTokenBtn
         class="action-btn medium-text" 

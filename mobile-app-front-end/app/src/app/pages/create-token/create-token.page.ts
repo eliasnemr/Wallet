@@ -1,27 +1,44 @@
 import { CustomToken } from './../../models/customToken.model';
-import { AfterViewInit, Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MinimaApiService } from '../../service/minima-api.service';
-import { IonTextarea, IonInput, AlertController, ToastController, Animation, AnimationController } from '@ionic/angular';
-import { NgForm } from '@angular/forms';
+import { IonTextarea, IonInput, AlertController, ToastController } from '@ionic/angular';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+
+interface AdvancedFormInputsCheck {
+  description: boolean;
+  icon: boolean;
+  proof: boolean;
+  nft: boolean;
+}
 
 @Component({
   selector: 'app-create-token',
   templateUrl: './create-token.page.html',
   styleUrls: ['./create-token.page.scss'],
 })
-export class CreateTokenPage implements OnInit, AfterViewInit {
-
-  @ViewChild('f', {static:false}) tokenForm: NgForm;
+export class CreateTokenPage implements OnInit {
   @ViewChild('nameTextArea', {static: false}) nameText: IonInput;
   @ViewChild('amountRef', {static:false}) amountRef: IonInput;
   @ViewChild('proofURL', {static:false}) proofURL: IonInput;
   @ViewChild('iconURL', {static:false}) iconURL: IonInput;
   @ViewChild('description', {static: false}) description: IonTextarea;
 
-  advancedFormInputsChecked = {description: false, icon: false, proof: false, nft: false};
+  tokenCreationForm: FormGroup;
+  advancedFormInputsChecked: AdvancedFormInputsCheck = {description: false, icon: false, proof: false, nft: false};
   basic = false;
   advanced = false;
-  customToken: CustomToken = {name: '', amount: 0, description: '', script: '', icon: '', proof: ''};
+  loading = false;
+  success = false;
+  myNFT = 'ASSERT FLOOR ( @AMOUNT ) EQ @AMOUNT LET checkout = 0 WHILE ( checkout LT @TOTOUT ) DO IF GETOUTTOK ( checkout ) EQ @TOKENID THEN LET outamt = GETOUTAMT ( checkout ) ASSERT FLOOR ( outamt ) EQ outamt ENDIF LET checkout = INC ( checkout ) ENDWHILE RETURN TRUE';
+  customToken: CustomToken =
+  {
+    name: '',
+    amount: 0,
+    icon: '',
+    proof: '',
+    script: '',
+    description: ''
+  };
   descrEntry = {
     isChecked: false
   };
@@ -38,76 +55,65 @@ export class CreateTokenPage implements OnInit, AfterViewInit {
     isNonFungible: false
   };
 
-  ngAfterViewInit() {}
-
-  toggleAnimation() {
-    this.basic = true;
-    document.getElementById('listCardOptions').style.display = 'none';
-    document.getElementById('my-form').style.display = 'block';
-    document.getElementById('footer').style.display = 'block';
-    document.getElementById('createTknBtn2').style.display = 'block';
-    document.getElementById('cardHeader').innerHTML = 'Enter Your Token Details';
-    document.getElementById('backBtnWrapper').style.display = 'block';
-
-
-  }
-
-  toggleAdvAnimation() {
-    this.advanced = true;
-    document.getElementById('listCardOptions').style.display = 'none';
-    document.getElementById('my-form').style.display = 'block';
-    document.getElementById('footer').style.display = 'block';
-    document.getElementById('createTknBtn2').style.display = 'block';
-    document.getElementById('cardHeader').innerHTML = 'Enter Your Token Details';
-    document.getElementById('backBtnWrapper').style.display = 'block';
-
-  }
-
-  toggleBackAnimation() {
-    document.getElementById('backBtnWrapper').style.display = 'none';
-    this.advanced = false;
-    this.basic = false;
-    this.resetForm();
-    document.getElementById('cardHeader').innerHTML = 'Choose A Token Type';
-    document.getElementById('listCardOptions').style.display = 'block';
-    document.getElementById('my-form').style.display = 'none';
-    document.getElementById('footer').style.display = 'none';
-    document.getElementById('createTknBtn2').style.display = 'none';
-  }
-
   constructor(
     private api: MinimaApiService,
-    public animationCtrl: AnimationController,
+    private formBuilder: FormBuilder,
     public alertController: AlertController,
     public toastController: ToastController) {}
 
   ionViewDidEnter() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.tokenCreationForm = this.formBuilder.group({
+      name: '',
+      amount: 0,
+      description: '',
+      script: '',
+      icon: '',
+      proof: ''
+    });
+  }
 
-  isChecked(ev: any) {
-    if (ev.detail.checked) {
-      if (ev.target.id === 'description') {
-        this.advancedFormInputsChecked.description = true;
-      } else if (ev.target.id === 'icon') {
-        this.advancedFormInputsChecked.icon = true;
-      } else if (ev.target.id === 'proof') {
-        this.advancedFormInputsChecked.proof = true;
-      } else if (ev.target.id === 'nft') {
-        this.advancedFormInputsChecked.nft = true;
-      }
-    } else if (!ev.detail.checked) {
-      if (ev.target.id === 'description') {
-        this.advancedFormInputsChecked.description = false;
-      } else if (ev.target.id === 'icon') {
-        this.advancedFormInputsChecked.icon = false;
-      } else if (ev.target.id === 'proof') {
-        this.advancedFormInputsChecked.proof = false;
-      } else if (ev.target.id === 'nft') {
-        this.advancedFormInputsChecked.nft = false;
-      }
+  toggleBasicAnimation() {
+    this.advancedFormInputsChecked.description = false;
+    this.advancedFormInputsChecked.icon = false;
+    this.advancedFormInputsChecked.nft = false;
+    this.advancedFormInputsChecked.proof = false;
+
+    this.basic = true;
+    document.getElementById('listCardOptions').style.display = 'none';
+    document.getElementById('footer').style.display = 'block';
+    document.getElementById('createTknBtn2').style.display = 'block';
+    document.getElementById('cardText').innerHTML = 'Enter Your Token Details';
+    document.getElementById('backBtn').style.display = 'block';
+  }
+  toggleAdvAnimation() {
+    this.advanced = false;
+    if(this.advancedFormInputsChecked.description === false && this.advancedFormInputsChecked.icon === false 
+      && this.advancedFormInputsChecked.nft === false && this.advancedFormInputsChecked.proof === false) {
+        this.advanced = false;
+        this.presentAlert('Advanced Token Creator', 'You have to pick an advanced token feature before proceeding.', 'Error');
+    } else {
+      this.advanced = true;
+      document.getElementById('listCardOptions').style.display = 'none';
+      document.getElementById('footer').style.display = 'block';
+      document.getElementById('createTknBtn2').style.display = 'block';
+      document.getElementById('cardText').innerHTML = 'Enter Your Token Details';
+      document.getElementById('backBtn').style.display = 'block';
     }
   }
+  toggleBackAnimation() {
+    document.getElementById('backBtn').style.display = 'none';
+    this.advanced = false;
+    this.basic = false;
+    this.resetForm();
+    document.getElementById('cardText').innerHTML = 'Choose A Token Type';
+    document.getElementById('listCardOptions').style.display = 'block';
+    document.getElementById('tokenCreationForm').style.display = 'none';
+    document.getElementById('footer').style.display = 'none';
+    document.getElementById('createTknBtn2').style.display = 'none';
+  }
+
 
   async presentToast(msg: string, type: string) {
     const toast = await this.toastController.create({
@@ -137,47 +143,70 @@ export class CreateTokenPage implements OnInit, AfterViewInit {
     await alert.present();
   }
   
-  createTokenAdvanced(f: any) {
+  createTokenAdvanced() {
+    this.loading = true;
 
-    if(f.value.name&&f.value.name.length>0&&f.value.amount&&f.value.amount>0){
+    const newToken: CustomToken = this.tokenCreationForm.value;
+    console.log(newToken);
 
-        this.customToken.name = f.value.name;
-        this.customToken.amount = f.value.amount;
-
-        // Optional Values 
-        if(f.value.description && f.value.description.length > 0) {
-          this.customToken.description = f.value.description;
-        }
-        if(f.value.checkboxproof === false){
-          this.customToken.proof = "";
+    if (this.advancedFormInputsChecked.nft) {
+      newToken.script = this.myNFT; // script for non-fungible
+      this.api.createToken(newToken).then((res: any) => {
+        if (res.status) {
+          this.presentAlert('Success', 'Token '+this.customToken.name+' has been created.', 'Token Creation Status');
+          this.toggleBackAnimation();
         } else {
-          this.customToken.proof = f.value.proof;
+          this.presentAlert('Something\'s wrong!', res.message, 'Token Creation Status');
         }
-        if(f.checkboxicon === false || f.value.icon === "" || f.value.icon.length <= 0){
-          this.customToken.icon = "";
+      });
+    } else {
+      newToken.script = 'RETURN TRUE' // default script to spend token
+      this.api.createToken(newToken).then((res: any) => {
+        if (res.status) {
+          this.presentAlert('Success', 'Token '+this.customToken.name+' has been created.', 'Token Creation Status');
+          this.toggleBackAnimation();
         } else {
-          this.customToken.icon = f.value.icon;
+          this.presentAlert('Something\'s wrong!', res.message, 'Token Creation Status');
         }
-        if(f.value.NFT === false){
-          console.log('NFT False')
-          this.customToken.script = "RETURN TRUE";
-        } else if(f.value.NFT === true) {
-          console.log('NFT False')
+      })
+    }
 
-          this.customToken.script = "ASSERT FLOOR ( @AMOUNT ) EQ @AMOUNT LET checkout = 0 WHILE ( checkout LT @TOTOUT ) DO IF GETOUTTOK ( checkout ) EQ @TOKENID THEN LET outamt = GETOUTAMT ( checkout ) ASSERT FLOOR ( outamt ) EQ outamt ENDIF LET checkout = INC ( checkout ) ENDWHILE RETURN TRUE";
-        }
-        this.api.createToken(this.customToken).then((res: any) => {
-          if(res.status === true){
-            this.presentAlert('Success', 'Token '+this.customToken.name+' has been created.', 'Token Creation Status');
-            this.toggleBackAnimation();
-          } else {
-            this.presentAlert('Error', 'Something went wrong.', 'Token Creation Status');
 
-          }
-        });
-      } else {
-        this.presentToast('There is an error with your inputs.', 'danger');
-      }
+    // if(f.value.name&&f.value.name.length>0&&f.value.amount&&f.value.amount>0){
+
+    //     this.customToken.name = f.value.name;
+    //     this.customToken.amount = f.value.amount;
+
+    //     // Optional Values 
+    //     if(f.value.description && f.value.description.length > 0) {
+    //       this.customToken.description = f.value.description;
+    //     }
+    //     if(f.value.checkboxproof === false){
+    //       this.customToken.proof = "";
+    //     } else {
+    //       this.customToken.proof = f.value.proof;
+    //     }
+    //     if(f.checkboxicon === false || f.value.icon === "" || f.value.icon.length <= 0){
+    //       this.customToken.icon = "";
+    //     } else {
+    //       this.customToken.icon = f.value.icon;
+    //     }
+    //     if(f.value.NFT === false){
+    //       this.customToken.script = "RETURN TRUE";
+    //     } else if(f.value.NFT === true) {
+    //       this.customToken.script = "ASSERT FLOOR ( @AMOUNT ) EQ @AMOUNT LET checkout = 0 WHILE ( checkout LT @TOTOUT ) DO IF GETOUTTOK ( checkout ) EQ @TOKENID THEN LET outamt = GETOUTAMT ( checkout ) ASSERT FLOOR ( outamt ) EQ outamt ENDIF LET checkout = INC ( checkout ) ENDWHILE RETURN TRUE";
+    //     }
+    //     this.api.createToken(this.customToken).then((res: any) => {
+    //       if(res.status === true){
+    //         this.presentAlert('Success', 'Token '+this.customToken.name+' has been created.', 'Token Creation Status');
+    //       } else {
+    //         this.presentAlert('Error', 'Something went wrong.', 'Token Creation Status');
+
+    //       }
+    //     });
+    //   } else {
+    //     this.presentToast('There is an error with your inputs.', 'danger');
+    //   }
   }
 
   resetForm() {

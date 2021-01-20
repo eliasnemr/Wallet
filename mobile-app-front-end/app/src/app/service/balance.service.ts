@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Token } from 'minima';
+import { Token, Minima } from 'minima';
 @Injectable({
   providedIn: 'root'
 })
 
 export class BalanceService {
   
-  updatedBalance: BehaviorSubject<Token[]> = new BehaviorSubject<Token[]>([]);
+  data: BehaviorSubject<Token[]> = new BehaviorSubject<Token[]>(Minima.balance);
 
   constructor() { }
 

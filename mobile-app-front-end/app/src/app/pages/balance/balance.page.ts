@@ -1,7 +1,5 @@
 import { UserConfigService } from './../../service/userconfig.service';
 import { PopSettingsComponent } from './../../components/pop-settings/pop-settings.component';
-import { Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { MinimaApiService } from '../../service/minima-api.service';
 import { Component, OnInit, ViewChild, NgZone } from '@angular/core';
 import { AlertController, IonInfiniteScroll, ToastController, PopoverController, IonButton } from '@ionic/angular';
@@ -29,13 +27,8 @@ export class BalancePage implements OnInit {
   tokenArr: Token[] = [];
   tokenSpoof: Token[] = [];
 
-  balanceSubscription: Subscription;
-
-  // - vars
-  private lastJSON = '';
-
   constructor(
-    private service: BalanceService,
+    private balanceService: BalanceService,
     private api: MinimaApiService,
     public alertController: AlertController,
     private route: Router,
@@ -81,10 +74,6 @@ export class BalancePage implements OnInit {
     });
   }
 
-  ionViewWillLeave() {
-    this.balanceSubscription.unsubscribe(); // unsubs
-  }
-
   // hide welcomeCard
   hide() {
     this.hideMe = true;
@@ -106,7 +95,6 @@ export class BalancePage implements OnInit {
   toggleInfiniteScroll() {
     this.infiniteScroll.disabled = !this.infiniteScroll.disabled;
   }
-
 
   async presentToast(msg: string) {
     const toast = await this.toastController.create({
@@ -147,73 +135,9 @@ export class BalancePage implements OnInit {
   }
  
   pullInTokens() {
-
-    this.balanceSubscription = this.service.updatedBalance
-      .pipe(
-        map((balance: Token[]) => {
-          
-      const tokenArr: Token[] = [];
-      
-      for (const key in balance) {
-        
-        if (balance.hasOwnProperty(key)) {
-
-          if (this.instanceOfToken(balance[key])) {
-
-              const element = balance[key];
-              tokenArr.push({
-                tokenid: element.tokenid,
-                token: element.token,
-                description: element.description,
-                icon: element.icon,
-                proof: element.proof,
-                total: element.total,
-                script: element.script,
-                coinid: element.coinid,
-                totalamount: element.totalamount,
-                scale: element.scale,
-                confirmed: element.confirmed,
-                unconfirmed: element.unconfirmed,
-                mempool: element.mempool,
-                sendable: element.sendable
-            });
-
-            } else {
-
-              const element = balance[key];
-              // add Minima always to the top
-              tokenArr.pop(); // pop it
-              this.service.update(
-              tokenArr,
-              {
-                tokenid: element.tokenid,
-                token: element.token,
-                total: element.total,
-                confirmed: element.confirmed,
-                unconfirmed: element.unconfirmed,
-                mempool: element.mempool,
-                sendable: element.sendable
-              });
-              
-
-            }
-
-            }
-            
-        }
-
-      return tokenArr;
-
-      })
-    )
-    .subscribe(responseData => {
-
-      // check if changed
-      if(this.lastJSON !== JSON.stringify(responseData)) {
-        this.tokenArr = [...responseData];
-        this.lastJSON = JSON.stringify(responseData);
-      }
-
+    this.balanceService.data.subscribe((balance: Token[]) => {
+      this.tokenArr = balance;
     });
   }
+
 }
