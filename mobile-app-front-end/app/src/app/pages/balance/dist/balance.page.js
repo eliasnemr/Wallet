@@ -58,8 +58,15 @@ var BalancePage = /** @class */ (function () {
         this.popoverController = popoverController;
         this.userConfigService = userConfigService;
         this.ngZone = ngZone;
-        this.displayMode = 1;
-        this.hideMe = false;
+        this.user = {
+            tokenDisplayMode: 1,
+            tips: {
+                balance: false,
+                balance2: false,
+                contacts: false,
+                address: false
+            }
+        };
         this.tokenArr = [];
         this.tokenSpoof = [];
     }
@@ -71,7 +78,7 @@ var BalancePage = /** @class */ (function () {
         this.userConfigService.userConfig.subscribe(function (res) {
             // ngZone re-renders onChange
             _this.ngZone.run(function () {
-                _this.displayMode = res.tokenDisplayMode;
+                _this.user = res;
             });
         });
     };
@@ -107,9 +114,16 @@ var BalancePage = /** @class */ (function () {
             }
         });
     };
+    BalancePage.prototype.hideTip = function () {
+        this.user.tips.balance2 = true;
+        this.userConfigService.userConfig.next(this.user);
+        this.userConfigService.saveUserConfig(this.user);
+    };
     // hide welcomeCard
     BalancePage.prototype.hide = function () {
-        this.hideMe = true;
+        this.user.tips.balance = true;
+        this.userConfigService.userConfig.next(this.user);
+        this.userConfigService.saveUserConfig(this.user);
     };
     BalancePage.prototype.loadData = function (event) {
         var _this = this;

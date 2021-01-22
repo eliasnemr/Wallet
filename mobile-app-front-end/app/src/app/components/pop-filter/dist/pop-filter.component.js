@@ -11,7 +11,6 @@ var core_1 = require("@angular/core");
 var PopFilterComponent = /** @class */ (function () {
     function PopFilterComponent(userConfigService) {
         this.userConfigService = userConfigService;
-        this.userConfig = { historyOrderByMode: 1 };
         // set default value from observable
         this.userConfig.historyOrderByMode = this.userConfigService.userConfig.value.historyOrderByMode;
     }

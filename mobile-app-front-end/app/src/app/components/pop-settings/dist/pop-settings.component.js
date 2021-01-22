@@ -10,20 +10,22 @@ exports.PopSettingsComponent = void 0;
 var core_1 = require("@angular/core");
 var PopSettingsComponent = /** @class */ (function () {
     function PopSettingsComponent(userConfigService) {
+        var _this = this;
         this.userConfigService = userConfigService;
-        this.userConfig = { tokenDisplayMode: 1 };
         // set default value from observable
-        this.userConfig.tokenDisplayMode = this.userConfigService.userConfig.value.tokenDisplayMode;
+        this.userConfigService.userConfig.subscribe(function (val) {
+            _this.user = val;
+        });
     }
     PopSettingsComponent.prototype.ngOnInit = function () { };
     PopSettingsComponent.prototype.compareWithFn = function (o1, o2) {
         return o1 === o2;
     };
     PopSettingsComponent.prototype.change = function (ev) {
-        var temp = this.userConfigService.userConfig.value;
-        temp.tokenDisplayMode = parseInt(ev.detail.value);
-        this.userConfigService.userConfig.next(temp);
-        this.userConfigService.saveUserConfig(this.userConfigService.userConfig.value);
+        // tslint:disable-next-line: radix
+        this.user.tokenDisplayMode = parseInt(ev.detail.value);
+        this.userConfigService.userConfig.next(this.user);
+        this.userConfigService.saveUserConfig(this.user);
     };
     PopSettingsComponent = __decorate([
         core_1.Component({

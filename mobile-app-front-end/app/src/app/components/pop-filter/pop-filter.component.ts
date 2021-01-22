@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PopFilterComponent implements OnInit {
 
-  public userConfig: UserConfig = {historyOrderByMode: 1};
+  public userConfig: UserConfig;
 
   constructor(private userConfigService: UserConfigService) {
     // set default value from observable

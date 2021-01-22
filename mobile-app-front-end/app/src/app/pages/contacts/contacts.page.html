@@ -9,12 +9,27 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="borders">
   <ion-toolbar>
+    <ion-badge *ngIf="user && user.tips && !user.tips.contacts && contacts.length > 0" id="tip">
+    <ion-row>
+      <ion-col class="center" size="1">
+        <ion-icon id="info" name="information-circle-outline"></ion-icon> 
+      </ion-col>
+      <ion-col class="center">
+        <ion-label>
+          Slide a contact to the left to copy their address. 
+        </ion-label>
+      </ion-col>
+      <ion-col class="center" size="1">
+        <span (click)="hideTip()" id="dismiss">&times;</span>
+      </ion-col>
+    </ion-row>
+    </ion-badge>
     <ion-searchbar (ionChange)="queryContacts($event.target.value)" placeholder="Search for your contact..."></ion-searchbar>
   </ion-toolbar>
 
-  <ion-grid *ngIf="contacts.length == 0">
+  <ion-grid *ngIf="contacts && contacts.length == 0">
     <ion-row>
       <ion-col style="display: flex; align-items:center; justify-content:center" size="12">
         <ion-label>No contact(s) to display...</ion-label>

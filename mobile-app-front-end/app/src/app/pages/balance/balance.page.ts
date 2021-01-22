@@ -1,3 +1,4 @@
+import { UserConfig } from './../../models/userConfig.model';
 import { UserConfigService } from './../../service/userconfig.service';
 import { PopSettingsComponent } from './../../components/pop-settings/pop-settings.component';
 import { MinimaApiService } from '../../service/minima-api.service';
@@ -21,9 +22,17 @@ export class BalancePage implements OnInit {
   @ViewChild(IonInfiniteScroll, {static: false}) infiniteScroll: IonInfiniteScroll;
   @ViewChild('gimme50Btn', {static: false}) gimme50Btn: IonButton;
 
-  displayMode = 1;
   avatar: any;
-  hideMe: boolean = false;
+  user: UserConfig = {
+    tokenDisplayMode: 1,
+    tips: {
+      balance: false,
+      balance2: false,
+      contacts: false,
+      address: false
+    }
+  };
+  
   tokenArr: Token[] = [];
   tokenSpoof: Token[] = [];
 
@@ -35,17 +44,17 @@ export class BalancePage implements OnInit {
     public toastController: ToastController,
     public popoverController: PopoverController,
     public userConfigService: UserConfigService,
-    private ngZone: NgZone) { }
+    private ngZone: NgZone) {}
 
   ionViewWillEnter() {
     setTimeout(() => {
       this.pullInTokens();
     }, 1000);
 
-    this.userConfigService.userConfig.subscribe((res: any) => {
+    this.userConfigService.userConfig.subscribe((res: UserConfig) => {
       // ngZone re-renders onChange
       this.ngZone.run(() => {
-        this.displayMode = res.tokenDisplayMode;
+        this.user = res;
       });
     });
 
@@ -74,9 +83,16 @@ export class BalancePage implements OnInit {
     });
   }
 
+  hideTip() {
+    this.user.tips.balance2 = true;
+    this.userConfigService.userConfig.next(this.user);
+    this.userConfigService.saveUserConfig(this.user);
+  }
   // hide welcomeCard
   hide() {
-    this.hideMe = true;
+    this.user.tips.balance = true;
+    this.userConfigService.userConfig.next(this.user);
+    this.userConfigService.saveUserConfig(this.user);
   }
 
   loadData(event) {

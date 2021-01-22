@@ -27,8 +27,6 @@ export class AppComponent {
   constructor(
     private status: StatusService,
     private api: BalanceService,
-    private userConfigService: UserConfigService,
-    private contactsService: ContactService,
     private platform: Platform,
     public toastCtrl: ToastController,
     private historyService: HistoryService,

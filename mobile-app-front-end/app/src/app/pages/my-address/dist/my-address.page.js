@@ -46,14 +46,22 @@ exports.MyAddressPage = void 0;
 var core_1 = require("@angular/core");
 var minima_1 = require("minima");
 var MyAddressPage = /** @class */ (function () {
-    function MyAddressPage(clipboard, api, platform, alertController, toastController) {
+    function MyAddressPage(clipboard, api, platform, ngZone, userConfigService, alertController, toastController) {
         this.clipboard = clipboard;
         this.api = api;
         this.platform = platform;
+        this.ngZone = ngZone;
+        this.userConfigService = userConfigService;
         this.alertController = alertController;
         this.toastController = toastController;
         this.qrCode = '';
         this.lastCode = '';
+        this.user = {
+            tokenDisplayMode: 1,
+            tips: {
+                address: false
+            }
+        };
     }
     MyAddressPage.prototype.ngOnInit = function () { };
     MyAddressPage.prototype.ionViewWillEnter = function () {
@@ -69,6 +77,15 @@ var MyAddressPage = /** @class */ (function () {
                     _this.isEmpty = true;
                 }
             }
+            else {
+                _this.newAddress();
+            }
+        });
+        this.userConfigService.userConfig.subscribe(function (res) {
+            // ngZone re-renders onChange
+            _this.ngZone.run(function () {
+                _this.user = res;
+            });
         });
     };
     MyAddressPage.prototype.generateAddress = function (code) {
@@ -95,6 +112,11 @@ var MyAddressPage = /** @class */ (function () {
                 }
             });
         }, 0);
+    };
+    MyAddressPage.prototype.hideTip = function () {
+        this.user.tips.address = true;
+        this.userConfigService.userConfig.next(this.user);
+        this.userConfigService.saveUserConfig(this.user);
     };
     MyAddressPage.prototype.presentAlert = function (msg, hdr) {
         return __awaiter(this, void 0, void 0, function () {

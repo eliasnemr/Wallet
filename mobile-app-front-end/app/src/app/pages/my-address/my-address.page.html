@@ -11,6 +11,23 @@
 </ion-header>
 
 <ion-content>
+  <ion-toolbar *ngIf="user && user.tips && !user.tips.address && qrCode.length > 0">
+    <ion-badge id="tip">
+    <ion-row>
+      <ion-col class="center" size="1">
+        <ion-icon id="info" name="information-circle-outline"></ion-icon>
+      </ion-col>
+      <ion-col class="center">
+        <ion-label>
+          You can use this address as many times as you wish, click generate for a new address.
+        </ion-label>
+      </ion-col>
+      <ion-col class="center" size="1">
+        <span (click)="hideTip()" id="dismiss">&times;</span>
+      </ion-col>
+    </ion-row>
+  </ion-badge>
+  </ion-toolbar>
 
   <ion-grid *ngIf="this.qrCode.length == 0">
     <ion-row>

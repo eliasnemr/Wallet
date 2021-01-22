@@ -1,3 +1,5 @@
+import { UserConfigService } from './../../service/userconfig.service';
+import { UserConfig } from './../../models/userConfig.model';
 import { ContactsModalPage } from './../../components/contacts-modal/contacts-modal.page';
 import { ToastController, ModalController, AlertController, IonList } from '@ionic/angular';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -12,10 +14,19 @@ export class ContactsPage implements OnInit {
 
   editMode = false;
   avatar: string;
-  contacts: Contact[];
+  contacts: Contact[] = [];
   filteredContacts: Contact[];
-  @ViewChild('contactList', {static:false}) ContactList: IonList;
+  user: UserConfig = {
+    tokenDisplayMode: 1,
+    tips: {
+      balance: false,
+      contacts: false,
+      address: false
+    }
+  };
+  @ViewChild('contactList', {static: false}) ContactList: IonList;
   constructor(private toastController: ToastController,
+              private userConfigService: UserConfigService,
               public alertController: AlertController,
               private contactService: ContactService,
               public modalController: ModalController) { }
@@ -25,22 +36,25 @@ export class ContactsPage implements OnInit {
       // set the list
       this.contacts = res;
     });
+    this.userConfigService.userConfig.subscribe((res: UserConfig) => {
+      this.user = res;
+    });
   }
 
   queryContacts(qy: string) {
     qy = qy.toUpperCase();
-    if(qy.length > 0){
+    if (qy.length > 0) {
       this.contacts = this.contacts.filter( ele => {
         return ele.NAME.toUpperCase().includes(qy) || ele.ADDRESS.toUpperCase().includes(qy);
       });
     } else {
-      this.contactService.data.subscribe((res:any) => {
+      this.contactService.data.subscribe((res: any) => {
         this.contacts = res;
       });
     }
   }
   toggleDeleteMode() {
-    if(this.editMode){
+    if (this.editMode){
       this.editMode = false;
     } else {
       this.editMode = true;
@@ -48,6 +62,12 @@ export class ContactsPage implements OnInit {
   }
   removeContact(addr: string) {
     this.presentAlert(addr);
+  }
+
+  hideTip() {
+    this.user.tips.contacts = true;
+    this.userConfigService.userConfig.next(this.user);
+    this.userConfigService.saveUserConfig(this.user);
   }
 
   async presentAlert(addr: string) {
@@ -69,10 +89,10 @@ export class ContactsPage implements OnInit {
     });
     await alert.present();
   }
-  async presentToast(msg: string, color: string, posn: "top" | "bottom" | "middle") {
+  async presentToast(msg: string, clr: string, posn: "top" | "bottom" | "middle") {
     const toast = await this.toastController.create({
       message: msg,
-      color: color,
+      color: clr,
       position: posn,
       buttons: ['cancel']
     });
@@ -87,7 +107,6 @@ export class ContactsPage implements OnInit {
       document.removeEventListener('copy', null);
     });
     document.execCommand('copy');
-    
   }
 
   async presentAddContactForm() {

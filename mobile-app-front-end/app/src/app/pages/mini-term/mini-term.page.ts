@@ -1,7 +1,7 @@
 import { Subscription } from 'rxjs';
 import { PopTermComponent } from '../../components/pop-term/pop-term.component';
 import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
-import { LoadingController, NavController, IonContent, PopoverController } from '@ionic/angular';
+import { LoadingController, NavController, IonContent, PopoverController, IonTextarea } from '@ionic/angular';
 import { environment } from '../../../environments/environment';
 import { UserTerminal } from '../../service/userterminal.service';
 import { Minima } from 'minima';
@@ -116,7 +116,7 @@ getHost() {
 
 // api calls
 request(route: any) {
-    if(route === 'printchain') {
+    if (route === 'printchain') {
       return new Promise((resolve) => {
 
         Minima.cmd('printchain', (res: any) => {

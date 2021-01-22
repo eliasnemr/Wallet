@@ -8,23 +8,28 @@ import { Injectable } from '@angular/core';
 })
 export class UserConfigService {
 
-  defaultConfig: UserConfig = {systemMode:'light', terminalFontSize:'12', tokenDisplayMode:1, historyOrderByMode:1, historySaved: ''};
+  defaultConfig: UserConfig = {
+    systemMode: 'light',
+    terminalFontSize: '12',
+    tokenDisplayMode: 1,
+    historyOrderByMode: 1,
+    historySaved: '',
+    tips: {balance: false, contacts: false, address: false}};
   userConfig: BehaviorSubject<UserConfig> = new BehaviorSubject<UserConfig>(this.defaultConfig);
 
-  constructor() { 
+  constructor() {
     this.createUserConfig(this.defaultConfig);
   }
 
   createUserConfig(defaultConfig: UserConfig) {
     Minima.file.load('UserConfig.txt', (res: any) => {
-      //console.log(res);
       if (!res.success && !res.exists) {
-        const data = defaultConfig;
-        Minima.file.save(JSON.stringify(data), 'UserConfig.txt', (res: any) => {
-          if (res.success) { console.log('User Configuration File has been created.') }
+        Minima.file.save(JSON.stringify(defaultConfig), 'UserConfig.txt', (resp: any) => {
+          if (resp.success) {
+            console.log('User Configuration File has been created with default values.');
+          }
         });
-      } else {
-        //console.log(JSON.parse(res.data))
+      } else { // if userConfig exists, update with latest values
         this.userConfig.next(JSON.parse(res.data));
       }
     });
@@ -33,27 +38,16 @@ export class UserConfigService {
   saveUserConfig(currentValue: any) {
     Minima.file.load('UserConfig.txt', (res: any) => {
       if (res.success) {
-        let data = res.data;
-        if(data !== JSON.stringify(currentValue)) { 
-          //console.log(JSON.stringify(currentValue));
+        if (res.data !== JSON.stringify(currentValue)) {
           Minima.file.save(JSON.stringify(currentValue), 'UserConfig.txt', (res: any) => {
             if (res.success) {
-              //console.log('Updated UserConfig!');
+            //  console.log('Updated UserConfig!');
             }
           });
         }
       }
-    })
-  }
-
-  loadUserConfig(userConfig: UserConfig) {
-    Minima.file.load('userConfig.txt', (res: any) => {
-      if (res.success) {
-        userConfig = JSON.parse(res.data); 
-      }
     });
-
-    return;
   }
+
 
 }

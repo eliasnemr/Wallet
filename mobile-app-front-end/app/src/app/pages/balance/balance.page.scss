@@ -10,11 +10,8 @@ ion-toolbar {
     color: var(--ion-color-tertiary);
   }
 }
-ion-row {
-  width: 100%;
-}
 #tutorial-card:hover {
-  transform: scale(1.01);
+  transform: scale(1.001);
 }
 ion-card-content {
   background: var(--ion-m-background);
@@ -61,4 +58,26 @@ ion-avatar img {
   display: inline;
   width: 75px;
   height: inherit;
+}
+ion-badge#tip {
+  white-space: normal;
+  align-self: center;
+  justify-content: center;
+  width: 100%;
+  font-size: 0.8rem;
+}
+ion-badge#tip ion-icon#info {
+  font-size: 1.0rem;
+}
+ion-badge#tip ion-col span#dismiss {
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #a63f44;
+}
+.center {
+  right: 2%;
+  align-items: center !important;
+  justify-content: center !important;
+  display: inline-flex !important;
+  text-align: center !important;
 }

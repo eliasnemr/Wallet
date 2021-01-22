@@ -82,3 +82,34 @@ ion-grid ion-row {
 .toast {
   --width: 50%;
 }
+
+ion-badge#tip {
+  white-space: normal;
+  align-self: center;
+  justify-content: center;
+  width: 100%;
+  font-size: 0.8rem;
+  --background: var(--ion-color-primary);
+}
+
+ion-badge#tip:hover {
+  transform: scale(1);
+}
+
+ion-badge#tip ion-icon#info {
+  font-size: 1rem;
+}
+
+ion-badge#tip ion-col span#dismiss {
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #a63f44;
+}
+
+.center {
+  right: 2%;
+  align-items: center !important;
+  justify-content: center !important;
+  display: inline-flex !important;
+  text-align: center !important;
+}

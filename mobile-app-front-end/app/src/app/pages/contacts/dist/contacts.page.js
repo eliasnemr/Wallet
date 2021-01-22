@@ -46,18 +46,31 @@ exports.ContactsPage = void 0;
 var contacts_modal_page_1 = require("./../../components/contacts-modal/contacts-modal.page");
 var core_1 = require("@angular/core");
 var ContactsPage = /** @class */ (function () {
-    function ContactsPage(toastController, alertController, contactService, modalController) {
+    function ContactsPage(toastController, userConfigService, alertController, contactService, modalController) {
         this.toastController = toastController;
+        this.userConfigService = userConfigService;
         this.alertController = alertController;
         this.contactService = contactService;
         this.modalController = modalController;
         this.editMode = false;
+        this.contacts = [];
+        this.user = {
+            tokenDisplayMode: 1,
+            tips: {
+                balance: false,
+                contacts: false,
+                address: false
+            }
+        };
     }
     ContactsPage.prototype.ngOnInit = function () {
         var _this = this;
         this.contactService.data.subscribe(function (res) {
             // set the list
             _this.contacts = res;
+        });
+        this.userConfigService.userConfig.subscribe(function (res) {
+            _this.user = res;
         });
     };
     ContactsPage.prototype.queryContacts = function (qy) {
@@ -84,6 +97,11 @@ var ContactsPage = /** @class */ (function () {
     };
     ContactsPage.prototype.removeContact = function (addr) {
         this.presentAlert(addr);
+    };
+    ContactsPage.prototype.hideTip = function () {
+        this.user.tips.contacts = true;
+        this.userConfigService.userConfig.next(this.user);
+        this.userConfigService.saveUserConfig(this.user);
     };
     ContactsPage.prototype.presentAlert = function (addr) {
         return __awaiter(this, void 0, void 0, function () {
@@ -118,14 +136,14 @@ var ContactsPage = /** @class */ (function () {
             });
         });
     };
-    ContactsPage.prototype.presentToast = function (msg, color, posn) {
+    ContactsPage.prototype.presentToast = function (msg, clr, posn) {
         return __awaiter(this, void 0, void 0, function () {
             var toast;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.toastController.create({
                             message: msg,
-                            color: color,
+                            color: clr,
                             position: posn,
                             buttons: ['cancel']
                         })];

@@ -1,5 +1,7 @@
+import { UserConfigService } from './../../service/userconfig.service';
+import { UserConfig } from './../../models/userConfig.model';
 import { Platform, AlertController, ToastController, IonButton } from '@ionic/angular';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, NgZone } from '@angular/core';
 import { Clipboard } from '@ionic-native/clipboard/ngx';
 import { MinimaApiService } from '../../service/minima-api.service';
 import { Address, Minima } from 'minima';
@@ -14,6 +16,12 @@ export class MyAddressPage implements OnInit {
   public qrCode = '';
   lastCode = '';
   isEmpty: boolean;
+  user: UserConfig = {
+    tokenDisplayMode: 1,
+    tips: {
+      address: false
+    }
+  };
 
   @ViewChild('generateAddressBtn', {static: false}) generateAddressBtn: IonButton;
 
@@ -21,6 +29,8 @@ export class MyAddressPage implements OnInit {
     private clipboard: Clipboard,
     private api: MinimaApiService,
     private platform: Platform,
+    private ngZone: NgZone,
+    private userConfigService: UserConfigService,
     private alertController: AlertController,
     public toastController: ToastController) {}
 
@@ -28,16 +38,24 @@ export class MyAddressPage implements OnInit {
 
   ionViewWillEnter() {
     Minima.file.load('lastAddress.txt', (res: any) => {
-      if(res.success) {
+      if (res.success) {
         const data = JSON.parse(res.data);
-        if(data.address.length === 0) {
+        if (data.address.length === 0) {
           this.newAddress();
         }  else {
           this.qrCode = data.address;
           this.isEmpty = true;
         }
+      } else {
+        this.newAddress();
       }
-    })
+    });
+    this.userConfigService.userConfig.subscribe((res: UserConfig) => {
+      // ngZone re-renders onChange
+      this.ngZone.run(() => {
+        this.user = res;
+      });
+    });
   }
 
   public generateAddress(code: string) {
@@ -63,6 +81,12 @@ export class MyAddressPage implements OnInit {
         }
       });
     }, 0);
+  }
+
+  hideTip() {
+    this.user.tips.address = true;
+    this.userConfigService.userConfig.next(this.user);
+    this.userConfigService.saveUserConfig(this.user);
   }
 
   async presentAlert(msg: string, hdr: string) {

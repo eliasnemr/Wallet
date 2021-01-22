@@ -21,6 +21,7 @@ var ContactService = /** @class */ (function () {
             'description varchar(255),' +
             'avatar varchar(255))';
         minima_1.Minima.sql(this.qContacts + ';SELECT * FROM contacts ORDER BY NAME', function (res) {
+            console.log(res);
             if (minima_1.Minima.util.checkAllResponses(res)) {
                 _this.data.next(res.response[1].rows);
             }
