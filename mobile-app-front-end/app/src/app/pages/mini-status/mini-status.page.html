@@ -119,6 +119,14 @@
               </ion-item>
               <ion-item>
                 <ion-col size-md="3" size-sm="6" class="title">
+                  RAM Used
+                </ion-col>
+                <ion-col style="white-space: normal!important;" class="value">
+                  {{ status?.ram }}
+                </ion-col>
+              </ion-item>
+              <ion-item>
+                <ion-col size-md="3" size-sm="6" class="title">
                   IBD
                 </ion-col>
                 <ion-col style="white-space: normal!important;" class="value">
@@ -131,6 +139,14 @@
                 </ion-col>
                 <ion-col style="white-space: normal!important;" class="value">
                   {{ status?.txpowdb }}
+                </ion-col>
+              </ion-item>
+              <ion-item>
+                <ion-col size-md="3" size-sm="6" class="title">
+                  Number of Connections
+                </ion-col>
+                <ion-col style="white-space: normal!important;" class="value">
+                  {{ status?.connections }}
                 </ion-col>
               </ion-item>
               <ion-item>
