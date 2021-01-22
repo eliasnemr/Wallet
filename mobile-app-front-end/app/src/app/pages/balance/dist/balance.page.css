@@ -84,6 +84,7 @@ ion-badge#tip {
 
 ion-badge#tip ion-icon#info {
   font-size: 1.5rem;
+  margin-left: 3%;
 }
 
 ion-badge#tip ion-col span#dismiss {

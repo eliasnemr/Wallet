@@ -120,6 +120,12 @@ ion-footer ion-item ion-icon {
 }
 
 ion-toggle {
-  --handle-background-checked: var(--ion-color-primary);
+  --handle-background-checked: var(--ion-color-gray-three);
   --background-checked: var(--ion-color-tertiary);
+  --handle-height: 100px;
+  --handle-max-height: 20px;
+  --handle-border-radius: 40px;
+  --border-radius: 50px;
+  height: 17px;
+  width: 44px;
 }

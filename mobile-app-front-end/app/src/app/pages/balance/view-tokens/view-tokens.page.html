@@ -13,7 +13,7 @@
         <ion-avatar>
           <img class="custom-icon" *ngIf="token.tokenid !== '0x00' && token.icon.length == 0" [src]="createIcon( token.tokenid )"/>
           <img class="custom-icon" *ngIf="token.tokenid !== '0x00' && token.icon.length > 0" [src]="token.icon"/>
-          <img *ngIf="token.tokenid === '0x00'" class="custom-icon" alt="minima" src="assets/minimaBox.svg"> 
+          <img *ngIf="token.tokenid === '0x00'" class="custom-icon" alt="minima" src="assets/minima-logo-box.svg"> 
         </ion-avatar>        
       </ion-card-title>
     </ion-card-header>
