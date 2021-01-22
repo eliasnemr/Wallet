@@ -47,6 +47,7 @@ export class MyAddressPage implements OnInit {
           this.isEmpty = true;
         }
       } else {
+        console.log('Already have this file')
         this.newAddress();
       }
     });

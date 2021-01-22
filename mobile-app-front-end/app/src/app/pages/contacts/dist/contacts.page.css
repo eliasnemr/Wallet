@@ -1,6 +1,7 @@
 ion-header ion-toolbar ion-title {
   font-family: manrope-bold;
-  font-size: 1rem;
+  font-size: 1.2rem;
+  padding-top: 5%;
 }
 
 #deleteButton {
@@ -56,10 +57,13 @@ ion-badge#tip {
   justify-content: center;
   width: 100%;
   font-size: 0.8rem;
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 2%;
 }
 
 ion-badge#tip ion-icon#info {
-  font-size: 1rem;
+  font-size: 1.5rem;
 }
 
 ion-badge#tip ion-col span#dismiss {

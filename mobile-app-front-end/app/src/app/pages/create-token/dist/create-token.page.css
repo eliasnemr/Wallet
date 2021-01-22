@@ -66,7 +66,8 @@ ion-toolbar {
   color: var(--ion-color-tertiary);
 }
 ion-toolbar ion-title {
-  font-size: 1rem;
+  font-size: 1.2rem;
+  padding-top: 5%;
 }
 ion-toolbar ion-buttons ion-menu-button {
   font-size: 1rem;

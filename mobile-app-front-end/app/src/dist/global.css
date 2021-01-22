@@ -22,11 +22,10 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 body.dark {
-  /** Minima Icon */
-  --ion-m-background: #031B32;
+  --ion-item-selected: #223649;
+  --ion-m-background: #001C32;
   --card-header-color: #111417;
-  --ion-card-color: #031B32;
-  --ion-card-header: linear-gradient(121deg, rgba(17,20,23,1) 17%, rgba(18,18,18,0.865983893557423) 89%);
+  --ion-card-color: #001C32;
   --minima-text: #FAFAFF;
   --minima-icons: #FAFAFF;
   /** primary **/
@@ -102,20 +101,10 @@ body.dark .split-pane-md {
  * -------------------------------------------
  */
 .ios body.dark {
-  /** Minima Icon */
-  --st0: #FAFAFF;
-  --st1: #FAFAFF;
-  --st2: #FAFAFF;
-  --st3: #FAFAFF;
-  --st4: #FAFAFF;
-  --st5: #FAFAFF;
-  --st6: #FAFAFF;
-  --minima-icon-word: #FAFAFF;
-  --ion-m-background: #031B32;
+  --ion-m-background: #001C32;
   --card-header-color: #111417;
-  --ion-card-color: #031B32;
-  --ion-card-header: linear-gradient(121deg, rgba(17,20,23,1) 17%, rgba(18,18,18,0.865983893557423) 89%);
-  --ion-background-color: #031B32;
+  --ion-card-color: #001C32;
+  --ion-background-color: #001C32;
   --ion-text-color: #ffffff;
   --ion-text-color-rgb: 255,255,255;
   --ion-color-step-50: #0d0d0d;
@@ -137,26 +126,18 @@ body.dark .split-pane-md {
   --ion-color-step-850: #d9d9d9;
   --ion-color-step-900: #e6e6e6;
   --ion-color-step-950: #f2f2f2;
-  --ion-toolbar-background: #031B32;
-  --ion-item-background: #031B32;
-  --ion-item-background-activated: #031B32;
+  --ion-toolbar-background: #001C32;
+  --ion-item-background: #001C32;
+  --ion-item-background-activated: #001C32;
 }
 
 .md body.dark {
-  /** Minima Icon */
-  --st0: #FAFAFF;
-  --st1: #FAFAFF;
-  --st2: #FAFAFF;
-  --st3: #FAFAFF;
-  --st4: #FAFAFF;
-  --st5: #FAFAFF;
-  --st6: #FAFAFF;
-  --minima-icon-word: #FAFAFF;
   /** Dark Mode text */
-  --card-header-color: #031B32;
-  --ion-card-color: #031B32;
+  --card-header-color: #001C32;
+  --ion-card-color: #001C32;
+  --ion-item-selected: #223649;
   --minima-text: #FAFAFF;
-  --ion-background-color: #031B32;
+  --ion-background-color: #001C32;
   --ion-background-color-rgb: 18,18,18;
   --ion-text-color: #ffffff;
   --ion-text-color-rgb: 255,255,255;
@@ -180,7 +161,7 @@ body.dark .split-pane-md {
   --ion-color-step-850: #dbdbdb;
   --ion-color-step-900: #e7e7e7;
   --ion-color-step-950: #f3f3f3;
-  --ion-item-background: #031B32;
+  --ion-item-background: #001C32;
 }
 
 /* History.page.ts - modal */

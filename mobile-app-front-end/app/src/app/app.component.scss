@@ -3,6 +3,7 @@
   }
   ion-menu ion-header {
     --background: var(--ion-m-background);
+    border-bottom: none;
   }
   ion-menu ion-header ion-toolbar {
     --background: var(--ion-m-background);
@@ -25,7 +26,7 @@
 /** Desktop Version */
 @media only screen and (min-width: 992px) {
   .splitpane {
-    border: 1px solid #1E3346;
+    border: 1px solid #1D3147;
     left: 12%;
     right: 12%;
     top: 6%;
@@ -87,21 +88,21 @@ ion-menu.ios ion-item {
   --padding-start: 16px;
   --min-height: 50px;
 }
- 
-ion-toolbar {
-  --background: var(--ion-m-background);
-}
+
 ion-footer ion-item, ion-footer ion-col, ion-footer {
-  --background: #91919D !important;
-  background: #91919D;
+  --background: #001C32;
+  background: #001C32;
   height: 58px;
   padding-top: 1%;
 }
-ion-footer ion-item span {
-  color: #FAFAFF;
+ion-footer ion-item ion-label {
+  color: #FAFAFF!important;
+}
+ion-footer ion-item ion-icon {
+  color: #FAFAFF!important;
 }
 ion-toggle {
-  --handle-background-checked: var(--ion-m-background);
-  --background-checked: #F0F0F9;
+  --handle-background-checked: var(--ion-color-primary);
+  --background-checked: var(--ion-color-tertiary);
 }
 

@@ -5,7 +5,8 @@ ion-card-header {
 }
 
 ion-title {
-  font-size: 1rem;
+  font-size: 1.2rem;
+  padding-top: 5%;
   font-family: manrope-bold;
   color: var(--ion-color-tertiary);
 }

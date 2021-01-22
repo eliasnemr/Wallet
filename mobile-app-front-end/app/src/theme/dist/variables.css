@@ -97,7 +97,7 @@
   /** custom Minima css vars **/
   --minima-terminal-size: 12px;
   --overflow: hidden;
-  --ion-color-selected: #223649;
+  --ion-color-selected: #001C32;
   --ion-color-line: #fff;
 }
 :root .border-b {
@@ -107,7 +107,7 @@
   border: none;
 }
 :root .split-pane-md {
-  --border: 1px solid #031D32;
+  --border: 1px solid #001C32;
 }
 :root ion-menu-button {
   width: 50px;

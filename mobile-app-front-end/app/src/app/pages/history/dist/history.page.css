@@ -2,7 +2,8 @@ ion-toolbar {
   font-family: manrope-bold;
 }
 ion-toolbar ion-title {
-  font-size: 1rem;
+  font-size: 1.2rem;
+  padding-top: 3%;
 }
 
 ion-icon.icon {
@@ -21,7 +22,7 @@ ion-segment {
 }
 
 .ios ion-title {
-  font-size: 1rem;
+  font-size: 1.2rem;
 }
 
 ion-toolbar {

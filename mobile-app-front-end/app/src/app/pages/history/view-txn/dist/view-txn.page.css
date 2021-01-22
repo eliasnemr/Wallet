@@ -15,7 +15,8 @@ ion-back-button:hover {
 
 ion-title {
   font-family: manrope-bold;
-  font-size: 1rem;
+  font-size: 1.2rem;
+  padding-top: 5%;
 }
 
 h5 {

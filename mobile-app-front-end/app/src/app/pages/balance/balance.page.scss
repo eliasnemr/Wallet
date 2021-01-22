@@ -3,7 +3,8 @@ ion-toolbar {
   font-family: manrope-bold;
   color: var(--ion-color-tertiary);
   ion-title {
-    font-size: 1.0rem;
+    padding-top: 5%;
+    font-size: 1.2rem;
   }
   ion-buttons ion-menu-button {
     font-size: 1.0rem;
@@ -35,10 +36,11 @@ ion-footer ion-toolbar ion-buttons ion-button {
 #dismiss {
   cursor: pointer;
   right: 2.5%;
-  z-index: 99999;
-  font-size: 2.0rem;
+  z-index: 1;
+  font-family: manrope-bold;
+  font-size: 1.5rem;
   position: absolute;
-  color: var(--ion-color-tertiary);
+  color: #a63f44;
 }
 #settings {
   margin-right: 5%;
@@ -65,9 +67,12 @@ ion-badge#tip {
   justify-content: center;
   width: 100%;
   font-size: 0.8rem;
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 2%;
 }
 ion-badge#tip ion-icon#info {
-  font-size: 1.0rem;
+  font-size: 1.5rem;
 }
 ion-badge#tip ion-col span#dismiss {
   font-size: 1.5rem;

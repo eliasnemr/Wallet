@@ -2,8 +2,8 @@
   <ion-split-pane when="lg" contentId="mainMenu" class="splitpane" >
   <ion-menu side="start" contentId="mainMenu" class="myMenu">
 
-    <ion-header>
-      <ion-toolbar class="border-b">
+    <ion-header class="ion-no-border">
+      <ion-toolbar>
       <ion-title> 
         <img *ngIf="toggleValue" src="assets/minima-logo-landscape-dark.svg" style="width: 144px">
         <img *ngIf="!toggleValue" src="assets/minima-logo-color.svg" style="width: 144px">
@@ -60,8 +60,8 @@
 
   </ion-content>
 
-  <ion-footer class="border-t">
-      <ion-item lines="none" class="nightMode my-menu-item">
+  <ion-footer>
+      <ion-item lines="none" class="nightMode my-menu-item border-t">
         <ion-icon  slot="start" name="moon"></ion-icon>
         <ion-label>Night Mode</ion-label>
         <ion-toggle  slot="end" #darkToggle [(ngModel)]="toggleValue" (ionChange)="checkToggle()"></ion-toggle>

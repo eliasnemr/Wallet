@@ -41,7 +41,6 @@
     "@ionic-native/splash-screen": "^5.30.0",
     "@ionic/angular": "^5.5.2",
     "@ionic/core": "^5.5.2",
-    "@ionic/storage": "^2.2.0",
     "angularx-qrcode": "^1.6.4",
     "babel": "^6.23.0",
     "clipboard": "^2.0.6",
@@ -56,7 +55,7 @@
     "cordova-plugin-qrscanner": "3.0.1",
     "core-js": "^2.6.12",
     "ionic-angular": "^3.9.10",
-    "minima": "file:../../../npm/minima.js/minima-0.96.14.tgz",
+    "minima": "file:../../../npm/minima.js/minima-0.96.15.tgz",
     "moment": "^2.29.1",
     "qr-scanner": "^1.2.0",
     "rxjs": "^6.6.3",
@@ -95,7 +94,7 @@
     "protractor": "^5.4.4",
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
-    "typescript": "3.4.5"
+    "typescript": "^3.4.5"
   },
   "cordova": {
     "plugins": {

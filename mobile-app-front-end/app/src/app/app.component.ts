@@ -5,7 +5,6 @@ import { StatusService } from './service/status.service';
 import { UserConfigService } from './service/userconfig.service';
 import { Component, NgZone } from '@angular/core';
 import { Platform, ToastController } from '@ionic/angular';
-import { Storage } from '@ionic/storage';
 import { Minima, History } from 'minima';
 
 @Component({

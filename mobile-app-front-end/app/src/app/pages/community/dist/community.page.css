@@ -4,6 +4,11 @@
   font-size: 1rem;
 }
 
+ion-title {
+  padding-top: 5%;
+  font-size: 1.2rem;
+}
+
 .small-text {
   opacity: 1.5;
 }

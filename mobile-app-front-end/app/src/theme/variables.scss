@@ -111,19 +111,8 @@
     --minima-terminal-size: 12px;
     --overflow: hidden;
 
-    --ion-color-selected: #223649;
+    --ion-color-selected: #001C32;
     --ion-color-line: #fff;
-
-
-    // /** Minima Icon */
-    // --st0: #FF512F;
-    // --st1: #317AFF;
-    // --st2: #91919D;
-    // --st3: #001C32;
-    // --st4: #FFFFFF;
-    // --st5: #317AFF;
-    // --st6: #FF512F;
-    // --minima-icon-word: #031D32;
 
     $alert-ios-content-max-height:700px !default;
     $alert-md-content-max-height:400px !default;
@@ -135,7 +124,7 @@
       border: none;
     }
     .split-pane-md {
-      --border: 1px solid #031D32;
+      --border: 1px solid #001C32;
     }
 
     ion-menu-button {

@@ -14,7 +14,8 @@ ion-toolbar {
     font-family: manrope-bold;
     color: var(--ion-color-tertiary);
     ion-title {
-      font-size: 1.0rem;
+      font-size: 1.2rem;
+      padding-top: 5%;
     }
     ion-buttons ion-menu-button {
       font-size: 1.0rem;
@@ -81,12 +82,15 @@ ion-badge#tip {
   width: 100%;
   font-size: 0.8rem;
   --background: var(--ion-color-primary);
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 2%;
 }
 ion-badge#tip:hover {
     transform: scale(1);
 }
 ion-badge#tip ion-icon#info {
-  font-size: 1.0rem;
+  font-size: 1.5rem;
 }
 ion-badge#tip ion-col span#dismiss {
   font-size: 1.5rem;
