@@ -212,8 +212,6 @@ export class SendFundsPage implements OnInit {
 
     if (data.message.length > 0) {
       this.api.createTXN(data).then((res: any) => {
-        console.log('Complicated TXN')
-        console.log(res);
         if (Minima.util.checkAllResponses(res)) {
           this.presentAlert('Transaction Status', 'Transaction has been posted to the network!', 'Successful');
           this.resetForm();
@@ -223,10 +221,6 @@ export class SendFundsPage implements OnInit {
       });
     } else {
       this.api.sendFunds(data).then((res: any) => {
-        console.log('ez TXN')
-
-        console.log(res);
-
         if (res.status) {
           this.presentAlert('Transaction Status', 'Transaction has been posted to the network!', 'Successful');
           this.resetForm();

@@ -99,15 +99,6 @@
   --overflow: hidden;
   --ion-color-selected: #223649;
   --ion-color-line: #fff;
-  /** Minima Icon */
-  --st0: #FF512F;
-  --st1: #317AFF;
-  --st2: #91919D;
-  --st3: #001C32;
-  --st4: #FFFFFF;
-  --st5: #317AFF;
-  --st6: #FF512F;
-  --minima-icon-word: #031D32;
 }
 :root .border-b {
   border: none;
@@ -123,16 +114,6 @@
   font-weight: 600;
 }
 
-ion-content {
-  --offset-bottom: auto!important;
-  --overflow: hidden;
-  overflow: auto;
-  background: var(--ion-m-background);
-}
-ion-content::-webkit-scrollbar {
-  display: none;
-}
-
 .minima-numeric {
   font-variant-numeric: tabular-nums;
   float: right;
@@ -141,6 +122,16 @@ ion-content::-webkit-scrollbar {
 
 .minima-token {
   font-family: manrope-bold;
+}
+
+ion-content {
+  --offset-bottom: auto!important;
+  --overflow: hidden;
+  overflow: auto;
+  background: var(--ion-m-background);
+}
+ion-content::-webkit-scrollbar {
+  display: none;
 }
 
 /** FONT FAMILIES */
@@ -152,7 +143,7 @@ ion-content::-webkit-scrollbar {
 }
 @font-face {
   font-family: "manrope-bold";
-  src: url("../fonts/manrope-bold.otf");
+  src: url("..//fonts/manrope-bold.otf");
 }
 @font-face {
   font-family: "manrope-light";
@@ -161,86 +152,4 @@ ion-content::-webkit-scrollbar {
 @font-face {
   font-family: "manrope-regular";
   src: url("../fonts/manrope-regular.otf");
-}
-.menu-icon {
-  font-size: 18px;
-  color: var(--minima-text);
-}
-
-.large-text {
-  font-size: large;
-  color: var(--minima-text);
-}
-
-.medium-text {
-  font-size: 13.5px;
-  color: var(--minima-text);
-}
-
-.small-text {
-  font-size: 8px;
-  color: var(--minima-text);
-}
-
-.smaller-text {
-  font-size: 12px;
-  color: var(--minima-text);
-}
-
-@media only screen and (max-width: 600px) {
-  .menu-icon {
-    font-size: 18px;
-  }
-
-  .large-text {
-    font-size: 14px;
-  }
-
-  .medium-text {
-    font-size: 12px;
-  }
-
-  .small-text {
-    font-size: 10px;
-  }
-
-  .smaller-text {
-    font-size: 8px;
-  }
-}
-@media only screen and (max-width: 600px) and (max-width: 400px) {
-  .menu-icon {
-    font-size: 18px;
-  }
-
-  .large-text {
-    font-size: 14px;
-  }
-
-  .medium-text {
-    font-size: 12px;
-  }
-
-  .small-text {
-    font-size: 10px;
-  }
-
-  .smaller-text {
-    font-size: 8px;
-  }
-}
-.ios .menu-icon {
-  font-size: 18px;
-}
-.ios .large-text {
-  font-size: 14px;
-}
-.ios .medium-text {
-  font-size: 12px;
-}
-.ios .small-text {
-  font-size: 10px;
-}
-.ios .smaller-text {
-  font-size: 8px;
 }

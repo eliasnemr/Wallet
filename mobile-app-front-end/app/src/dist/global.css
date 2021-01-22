@@ -23,14 +23,6 @@
 @import "~@ionic/angular/css/flex-utils.css";
 body.dark {
   /** Minima Icon */
-  --st0: #FAFAFF;
-  --st1: #FAFAFF;
-  --st2: #FAFAFF;
-  --st3: #FAFAFF;
-  --st4: #FAFAFF;
-  --st5: #FAFAFF;
-  --st6: #FAFAFF;
-  --minima-icon-word: #FAFAFF;
   --ion-m-background: #031B32;
   --card-header-color: #111417;
   --ion-card-color: #031B32;

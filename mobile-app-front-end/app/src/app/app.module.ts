@@ -16,7 +16,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { Clipboard } from '@ionic-native/clipboard/ngx';
 import { QRScanner } from '@ionic-native/qr-scanner/ngx';
 import { LocationStrategy, HashLocationStrategy} from '@angular/common';
-import { TokenDescrComponent } from './components/token-descr/token-descr.component';
 import { PopTermComponent } from './components/pop-term/pop-term.component';
 import { PopSettingsComponent } from './components/pop-settings/pop-settings.component';
 import { PopFilterComponent } from './components/pop-filter/pop-filter.component';
@@ -26,7 +25,6 @@ import { ContactsModalPage } from './components/contacts-modal/contacts-modal.pa
 @NgModule({
   declarations: [
     AppComponent,
-    TokenDescrComponent,
     PopTermComponent,
     PopSettingsComponent,
     PopFilterComponent,

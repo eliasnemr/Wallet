@@ -268,7 +268,7 @@ module.exports = webpackAsyncContext;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-app>\n  <ion-split-pane when=\"lg\" contentId=\"mainMenu\" class=\"splitpane\" >\n  <ion-menu side=\"start\" contentId=\"mainMenu\" class=\"myMenu\">\n\n    <ion-header>\n      <ion-toolbar class=\"border-b\">\n      <ion-title> \n        <!-- Minima Icon -->\n        <svg version=\"1.1\" id=\"icon\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\"\n\t           viewBox=\"0 0 385.51 76.54\" style=\"enable-background:new 0 0 100 100;\" xml:space=\"preserve\">\n          <g>\n            <path id=\"icon-M\" d=\"M109.13,31.51c0-1.21,1.04-2.25,2.25-2.25h0.52c0.98,0,1.67,0.52,2.13,1.21l14.4,21.66l14.4-21.66\n              c0.46-0.75,1.21-1.21,2.13-1.21h0.52c1.21,0,2.25,1.04,2.25,2.25v36.23c0,1.27-1.04,2.3-2.25,2.3c-1.27,0-2.3-1.09-2.3-2.3V37.67\n              l-12.9,18.95c-0.52,0.75-1.09,1.15-1.9,1.15c-0.81,0-1.44-0.4-1.96-1.15l-12.84-18.89V67.8c0,1.27-0.98,2.25-2.25,2.25\n              c-1.21,0-2.19-0.98-2.19-2.25V31.51z\"/>\n            <path id=\"icon-I\" d=\"M171.04,31.45c0-1.27,1.04-2.3,2.25-2.3c1.27,0,2.3,1.04,2.3,2.3v36.29c0,1.27-1.04,2.3-2.3,2.3\n              c-1.21,0-2.25-1.04-2.25-2.3V31.45z\"/>\n            <path id=\"icon-N\" d=\"M198.92,31.51c0-1.21,1.04-2.25,2.25-2.25h0.63c1.04,0,1.67,0.52,2.3,1.32l24.48,31.22V31.39c0-1.21,0.98-2.25,2.25-2.25\n              c1.21,0,2.19,1.04,2.19,2.25v36.4c0,1.21-0.86,2.13-2.07,2.13h-0.23c-0.98,0-1.67-0.58-2.36-1.38l-25-31.97V67.8\n              c0,1.21-0.98,2.25-2.25,2.25c-1.21,0-2.19-1.04-2.19-2.25V31.51z\"/>\n            <path id=\"icon-I\" d=\"M256.34,31.45c0-1.27,1.04-2.3,2.25-2.3c1.27,0,2.3,1.04,2.3,2.3v36.29c0,1.27-1.04,2.3-2.3,2.3\n              c-1.21,0-2.25-1.04-2.25-2.3V31.45z\"/>\n            <path id=\"icon-M\" d=\"M284.22,31.51c0-1.21,1.04-2.25,2.25-2.25h0.52c0.98,0,1.67,0.52,2.13,1.21l14.4,21.66l14.4-21.66\n              c0.46-0.75,1.21-1.21,2.13-1.21h0.52c1.21,0,2.25,1.04,2.25,2.25v36.23c0,1.27-1.04,2.3-2.25,2.3c-1.27,0-2.3-1.09-2.3-2.3V37.67\n              l-12.9,18.95c-0.52,0.75-1.09,1.15-1.9,1.15c-0.81,0-1.44-0.4-1.96-1.15l-12.84-18.89V67.8c0,1.27-0.98,2.25-2.25,2.25\n              c-1.21,0-2.19-0.98-2.19-2.25V31.51z\"/>\n            <path id=\"icon-A\" d=\"M343.26,66.76l16.36-35.77c0.58-1.27,1.44-2.02,2.88-2.02h0.23c1.38,0,2.3,0.75,2.82,2.02L381.9,66.7\n              c0.17,0.4,0.29,0.81,0.29,1.15c0,1.21-0.98,2.19-2.19,2.19c-1.09,0-1.84-0.75-2.25-1.67l-4.2-9.27h-22.12l-4.2,9.39\n              c-0.4,0.98-1.15,1.56-2.19,1.56c-1.15,0-2.07-0.92-2.07-2.07C342.97,67.62,343.02,67.22,343.26,66.76z M371.77,54.95l-9.27-20.62\n              l-9.27,20.62H371.77z\"/>\n          </g>\n          <g>\n            <polygon points=\"37.48,20.64 52.72,20.64 64.53,70.04 49.29,70.04 \t\"/>\n            <polygon points=\"31.66,12.14 41.55,70.04 26.31,70.04 16.42,12.14 \t\"/>\n            <polygon class=\"st0\" points=\"3.32,70.04 18.57,70.04 31.66,12.14 17.7,6.49 \t\"/>\n            <polygon class=\"st1\" points=\"26.31,70.04 41.55,70.04 52.72,20.64 38.76,15 \t\"/>\n            <polygon class=\"st2\" points=\"59.82,23.51 49.29,70.04 64.53,70.04 73.78,29.15 \t\"/>\n          </g>\n      </svg>\n      </ion-title>      \n      </ion-toolbar>\n    </ion-header>\n    \n    <ion-content>\n      <ion-list main>\n        \n        <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let p of basic; let i = index\">\n          \n            <ion-item \n            class=\"ripple-parent ion-activatable my-menu-item {{p.class}}\"\n            detail=\"false\"\n            routerLinkActive=\"selected\"\n            routerDirection=\"root\"\n            [hidden] = \"p.hidden\" \n            [routerLink]=\"p.routerLink\"\n            lines=\"{{ p.line }}\">\n              <ion-ripple-effect type=\"unbounded\"></ion-ripple-effect>\n\n            <ion-icon name=\"{{ p.icon }}\" slot=\"start\"></ion-icon> {{ p.title }}\n\n            </ion-item>\n        </ion-menu-toggle>\n      </ion-list>\n\n      <ion-list main>\n        \n        <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let p of advanced; let i = index\">\n          \n            <ion-item \n            class=\"ripple-parent ion-activatable my-menu-item\"\n            detail=\"false\"\n            routerLinkActive=\"selected\"\n            routerDirection=\"root\"\n            [hidden] = \"p.hidden\" \n            routerLink=\"{{ p.routerLink }}\"\n            lines=\"{{ p.line }}\">\n            <ion-ripple-effect type=\"unbounded\"></ion-ripple-effect>\n\n            <ion-icon name=\"{{ p.icon }}\" slot=\"start\"></ion-icon> {{ p.title }}\n\n            </ion-item>\n        </ion-menu-toggle>\n      </ion-list>\n\n  </ion-content>\n\n  <ion-footer class=\"border-t\">\n    <ion-row>\n      <ion-col>\n        <ion-item lines=\"none\" class=\"nightMode my-menu-item\">\n          <ion-icon  slot=\"start\" name=\"moon\"></ion-icon>\n          <span class=\"medium-text\">Night Mode</span>\n          <ion-toggle  slot=\"end\" #darkToggle [(ngModel)]=\"toggleValue\" (ionChange)=\"checkToggle()\"></ion-toggle>\n        </ion-item>\n      </ion-col>\n    </ion-row>\n  </ion-footer>\n  </ion-menu>\n  <ion-router-outlet main id=\"mainMenu\"></ion-router-outlet>\n  </ion-split-pane>\n\n</ion-app>\n"
+module.exports = "<ion-app>\n  <ion-split-pane when=\"lg\" contentId=\"mainMenu\" class=\"splitpane\" >\n  <ion-menu side=\"start\" contentId=\"mainMenu\" class=\"myMenu\">\n\n    <ion-header>\n      <ion-toolbar class=\"border-b\">\n      <ion-title> \n        <img src=\"\">\n\n      </ion-title>      \n      </ion-toolbar>\n    </ion-header>\n    \n    <ion-content>\n      <ion-list main>\n        \n        <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let p of basic; let i = index\">\n          \n            <ion-item \n            class=\"ripple-parent ion-activatable my-menu-item {{p.class}}\"\n            detail=\"false\"\n            routerLinkActive=\"selected\"\n            routerDirection=\"root\"\n            [hidden] = \"p.hidden\" \n            [routerLink]=\"p.routerLink\"\n            lines=\"{{ p.line }}\">\n              <ion-ripple-effect type=\"unbounded\"></ion-ripple-effect>\n\n            <ion-icon name=\"{{ p.icon }}\" slot=\"start\"></ion-icon> {{ p.title }}\n\n            </ion-item>\n        </ion-menu-toggle>\n      </ion-list>\n\n      <ion-list main>\n        \n        <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let p of advanced; let i = index\">\n          \n            <ion-item \n            class=\"ripple-parent ion-activatable my-menu-item\"\n            detail=\"false\"\n            routerLinkActive=\"selected\"\n            routerDirection=\"root\"\n            [hidden] = \"p.hidden\" \n            routerLink=\"{{ p.routerLink }}\"\n            lines=\"{{ p.line }}\">\n            <ion-ripple-effect type=\"unbounded\"></ion-ripple-effect>\n\n            <ion-icon name=\"{{ p.icon }}\" slot=\"start\"></ion-icon> {{ p.title }}\n\n            </ion-item>\n        </ion-menu-toggle>\n      </ion-list>\n\n  </ion-content>\n\n  <ion-footer class=\"border-t\">\n    <ion-row>\n      <ion-col>\n        <ion-item lines=\"none\" class=\"nightMode my-menu-item\">\n          <ion-icon  slot=\"start\" name=\"moon\"></ion-icon>\n          <span class=\"medium-text\">Night Mode</span>\n          <ion-toggle  slot=\"end\" #darkToggle [(ngModel)]=\"toggleValue\" (ionChange)=\"checkToggle()\"></ion-toggle>\n        </ion-item>\n      </ion-col>\n    </ion-row>\n  </ion-footer>\n  </ion-menu>\n  <ion-router-outlet main id=\"mainMenu\"></ion-router-outlet>\n  </ion-split-pane>\n\n</ion-app>\n"
 
 /***/ }),
 
@@ -316,17 +316,6 @@ module.exports = "<ion-grid>\n  <ion-row style=\"padding:0px;\">\n    <ion-col s
 
 /***/ }),
 
-/***/ "./node_modules/raw-loader/index.js!./src/app/components/token-descr/token-descr.component.html":
-/*!*********************************************************************************************!*\
-  !*** ./node_modules/raw-loader!./src/app/components/token-descr/token-descr.component.html ***!
-  \*********************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-title slot=\"start\" class=\"large-text\">\n    \n    <span *ngIf=\"name && name.length <= 10\" class=\"large-text title\">{{ name + \" \" }}</span>\n    <span *ngIf=\"name && name.length > 10\" class=\"large-text title\">{{ name.substring(0, 20)+\"... \" }}</span>\n\n    <span class=\"small-text\" [hidden]=\"tokenid == '0x00'\">{{ tokenid.substring(0,8) + \"...\"}}</span>\n    <span class=\"small-text\" [hidden]=\"tokenid !== '0x00'\">{{ tokenid }}</span>\n    <ion-icon (click)=\"copyToClipboard()\" name=\"clipboard\"></ion-icon>\n    </ion-title>\n  \n  <ion-button \n  class=\"small-text dismiss-btn\"\n  slot=\"end\"\n  fill=\"clear\"\n  (click)=\"dismiss()\">\n  Dismiss\n  </ion-button>\n  </ion-toolbar>\n</ion-header>\n\n<!-- Only if custom token -->\n<ion-content [hidden]=\"tokenid == '0x00'\">\n  <ion-card> \n    <ion-card-header>\n      <ion-grid>\n        <ion-row>\n          <ion-col>\n            <img style=\"max-width: 250px; min-height:75px;\"[hidden]=\"!icon\" src=\"{{ icon }}\"/>\n            <img style=\"max-width: 250px; min-height:75px;\" [hidden]=\"icon\" src=\"assets/icon/icon.png\"/>\n          </ion-col>\n        </ion-row>\n        <ion-row>\n          <ion-col class=\"medium-text\" [hidden]=\"tokenid === '0x00'\">\n          {{ description }}\n          </ion-col>\n          <ion-col class=\"medium-text\" [hidden]=\"tokenid !== '0x00'\">\n            Minima's Official Token\n          </ion-col>\n        </ion-row>\n      </ion-grid>\n    </ion-card-header>\n    <ion-card-content>\n      <ion-grid>\n        <ion-row>\n          <ion-col class=\"small-text\" id=\"varname\">\n            Name\n          </ion-col>\n          <ion-col *ngIf=\"total\" class=\"small-text\" id=\"variable\">\n             {{ name }}\n          </ion-col>\n         </ion-row>\n        <ion-row>\n         <ion-col class=\"small-text\" id=\"varname\">\n           Total Amount Available\n         </ion-col>\n         <ion-col *ngIf=\"total\" class=\"small-text\" id=\"variable\">\n            {{ total }}\n         </ion-col>\n        </ion-row>\n        <ion-row [hidden]=\"tokenid == '0x00'\">\n         <ion-col class=\"small-text\" id=\"varname\">\n           Total Amount Available (Minima)\n         </ion-col>\n         <ion-col *ngIf=\"totalamount\" class=\"small-text\" id=\"variable\">\n            {{ totalamount }}\n         </ion-col>\n        </ion-row>\n        <ion-row>\n         <ion-col class=\"small-text\" id=\"varname\">\n           Token Type\n         </ion-col>\n         <ion-col class=\"small-text\" [hidden]=\"script !== 'RETURN TRUE'\" id=\"variable\">   \n            Fungible\n         </ion-col>\n         <ion-col class=\"small-text\" [hidden]=\"script == 'RETURN TRUE'\" id=\"variable\">\n            Non-Fungible\n         </ion-col>\n        </ion-row>\n        <ion-row>\n         <ion-col class=\"small-text\" id=\"varname\">\n           Proof Availability\n         </ion-col>\n         <ion-col class=\"small-text\" *ngIf=\"proof\" [hidden]=\"proof.length > 0\" id=\"variable\">   \n            False\n         </ion-col>\n         <ion-col class=\"small-text\" *ngIf=\"proof\" [hidden]=\"proof.length == 0\" id=\"variable\">\n            True\n         </ion-col>\n        </ion-row>\n        <ion-row id=\"varname\" *ngIf=\"proof\" [hidden]=\"proof.length <= 0\">\n         <ion-col class=\"small-text\">\n           Proof URL\n         </ion-col>\n         <ion-col class=\"small-text\" id=\"variable\">   \n             {{ proof }}\n         </ion-col>\n        </ion-row>\n        <ion-row id=\"varname\" *ngIf=\"proof\" [hidden]=\"proof.length <= 0\">\n         <ion-col class=\"small-text\">\n           Validate Proof\n         </ion-col>\n         <ion-col id=\"variable\">   \n          <ion-button *ngIf=\"proof\" class=\"small-text\" size=\"small\" (click)=\"validateProof(tokenid)\">\n            Validate\n          </ion-button>\n         </ion-col>\n        </ion-row>\n        <ion-row>\n         <ion-col class=\"small-text\" id=\"varname\" >\n           Confirmed/Sendable Amount\n         </ion-col>\n         <ion-col *ngIf=\"confirmed || sendable\" class=\"small-text\" id=\"variable\">   \n             {{ confirmed + \"/\" + sendable }}\n         </ion-col>\n        </ion-row>\n        <ion-row>\n         <ion-col class=\"small-text\" id=\"varname\">\n           Unconfirmed Amount\n         </ion-col>\n         <ion-col *ngIf=\"unconfirmed\" class=\"small-text\" id=\"variable\">   \n             {{ unconfirmed }}\n         </ion-col>\n        </ion-row>\n        <ion-row>\n         <ion-col class=\"small-text\" id=\"varname\">\n           Mempool\n         </ion-col>\n         <ion-col *ngIf=\"mempool\" class=\"small-text\" id=\"variable\">   \n             {{ mempool }}\n         </ion-col>\n        </ion-row>\n        <ion-row>\n         <ion-col class=\"small-text\" size=\"3\" id=\"varname\">\n           Script\n         </ion-col>\n         <ion-col *ngIf=\"script\" class=\"small-text\" size=\"9\" id=\"variable\">   \n             {{ script }}\n         </ion-col>\n        </ion-row>\n        \n      </ion-grid>\n    </ion-card-content>\n  </ion-card>\n  <!-- fab placed to the bottom end -->\n  <ion-fab vertical=\"bottom\" horizontal=\"start\" slot=\"fixed\">\n    <ion-fab-button size=\"55px;\" color=\"minima-text\" (click)=\"sendTokenOver(tokenid)\">\n      <ion-icon size=\"45px;\" name=\"send\" color=\"tertiary\"></ion-icon>\n    </ion-fab-button>\n  </ion-fab>\n\n</ion-content>\n\n<!-- Only if Minima token -->\n<ion-content [hidden]=\"tokenid !== '0x00'\">\n  <ion-card> \n    <ion-card-header>\n      <ion-grid>\n        <ion-row>\n          <ion-col>\n            <img style=\"max-width: 250px; min-height:75px;\" [hidden]=\"tokenid !== '0x00'\" src=\"assets/icon/icon.png\"/>\n          </ion-col>\n        </ion-row>\n        <ion-row>\n          <ion-col>\n            Minima - The Mobile Cryptocurrency\n          </ion-col>\n        </ion-row>\n      </ion-grid>\n    </ion-card-header>\n    \n  </ion-card>\n  <!-- fab placed to the bottom end -->\n  <ion-fab vertical=\"bottom\" horizontal=\"start\" slot=\"fixed\">\n    <ion-fab-button size=\"55px;\" color=\"minima-text\" (click)=\"sendTokenOver(tokenid)\">\n      <ion-icon size=\"45px;\" name=\"send\" color=\"tertiary\"></ion-icon>\n    </ion-fab-button>\n  </ion-fab>\n\n</ion-content>"
-
-/***/ }),
-
 /***/ "./src/app/app-routing.module.ts":
 /*!***************************************!*\
   !*** ./src/app/app-routing.module.ts ***!
@@ -344,26 +333,26 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var routes = [
-    { path: 'balance', loadChildren: function () { return __webpack_require__.e(/*! import() | pages-balance-balance-module */ "pages-balance-balance-module").then(__webpack_require__.bind(null, /*! ./pages/balance/balance.module */ "./src/app/pages/balance/balance.module.ts")).then(function (m) { return m.BalancePageModule; }); } },
-    { path: 'send-funds', loadChildren: function () { return __webpack_require__.e(/*! import() | pages-send-funds-send-funds-module */ "pages-send-funds-send-funds-module").then(__webpack_require__.bind(null, /*! ./pages/send-funds/send-funds.module */ "./src/app/pages/send-funds/send-funds.module.ts")).then(function (m) { return m.SendFundsPageModule; }); } },
-    { path: 'send-funds/:id', loadChildren: function () { return __webpack_require__.e(/*! import() | pages-send-funds-send-funds-module */ "pages-send-funds-send-funds-module").then(__webpack_require__.bind(null, /*! ./pages/send-funds/send-funds.module */ "./src/app/pages/send-funds/send-funds.module.ts")).then(function (m) { return m.SendFundsPageModule; }); } },
+    { path: 'balance', loadChildren: function () { return Promise.all(/*! import() | pages-balance-balance-module */[__webpack_require__.e("common"), __webpack_require__.e("pages-balance-balance-module")]).then(__webpack_require__.bind(null, /*! ./pages/balance/balance.module */ "./src/app/pages/balance/balance.module.ts")).then(function (m) { return m.BalancePageModule; }); } },
+    { path: 'send-funds', loadChildren: function () { return Promise.all(/*! import() | pages-send-funds-send-funds-module */[__webpack_require__.e("common"), __webpack_require__.e("pages-send-funds-send-funds-module")]).then(__webpack_require__.bind(null, /*! ./pages/send-funds/send-funds.module */ "./src/app/pages/send-funds/send-funds.module.ts")).then(function (m) { return m.SendFundsPageModule; }); } },
+    { path: 'send-funds/:id', loadChildren: function () { return Promise.all(/*! import() | pages-send-funds-send-funds-module */[__webpack_require__.e("common"), __webpack_require__.e("pages-send-funds-send-funds-module")]).then(__webpack_require__.bind(null, /*! ./pages/send-funds/send-funds.module */ "./src/app/pages/send-funds/send-funds.module.ts")).then(function (m) { return m.SendFundsPageModule; }); } },
     { path: 'status', loadChildren: function () { return __webpack_require__.e(/*! import() | pages-mini-status-mini-status-module */ "pages-mini-status-mini-status-module").then(__webpack_require__.bind(null, /*! ./pages/mini-status/mini-status.module */ "./src/app/pages/mini-status/mini-status.module.ts")).then(function (m) { return m.MiniStatusPageModule; }); } },
-    { path: 'my-address', loadChildren: function () { return __webpack_require__.e(/*! import() | pages-my-address-my-address-module */ "pages-my-address-my-address-module").then(__webpack_require__.bind(null, /*! ./pages/my-address/my-address.module */ "./src/app/pages/my-address/my-address.module.ts")).then(function (m) { return m.MyAddressPageModule; }); } },
-    { path: 'code', loadChildren: function () { return __webpack_require__.e(/*! import() | pages-send-funds-send-funds-module */ "pages-send-funds-send-funds-module").then(__webpack_require__.bind(null, /*! ./pages/send-funds/send-funds.module */ "./src/app/pages/send-funds/send-funds.module.ts")).then(function (m) { return m.SendFundsPageModule; }); } },
+    { path: 'my-address', loadChildren: function () { return Promise.all(/*! import() | pages-my-address-my-address-module */[__webpack_require__.e("common"), __webpack_require__.e("pages-my-address-my-address-module")]).then(__webpack_require__.bind(null, /*! ./pages/my-address/my-address.module */ "./src/app/pages/my-address/my-address.module.ts")).then(function (m) { return m.MyAddressPageModule; }); } },
+    { path: 'code', loadChildren: function () { return Promise.all(/*! import() | pages-send-funds-send-funds-module */[__webpack_require__.e("common"), __webpack_require__.e("pages-send-funds-send-funds-module")]).then(__webpack_require__.bind(null, /*! ./pages/send-funds/send-funds.module */ "./src/app/pages/send-funds/send-funds.module.ts")).then(function (m) { return m.SendFundsPageModule; }); } },
     { path: 'mini-term', loadChildren: function () { return __webpack_require__.e(/*! import() | pages-mini-term-mini-term-module */ "pages-mini-term-mini-term-module").then(__webpack_require__.bind(null, /*! ./pages/mini-term/mini-term.module */ "./src/app/pages/mini-term/mini-term.module.ts")).then(function (m) { return m.MiniTermPageModule; }); } },
     { path: 'mini-status', loadChildren: function () { return __webpack_require__.e(/*! import() | pages-mini-status-mini-status-module */ "pages-mini-status-mini-status-module").then(__webpack_require__.bind(null, /*! ./pages/mini-status/mini-status.module */ "./src/app/pages/mini-status/mini-status.module.ts")).then(function (m) { return m.MiniStatusPageModule; }); } },
-    { path: 'create-token', loadChildren: function () { return __webpack_require__.e(/*! import() | pages-create-token-create-token-module */ "pages-create-token-create-token-module").then(__webpack_require__.bind(null, /*! ./pages/create-token/create-token.module */ "./src/app/pages/create-token/create-token.module.ts")).then(function (m) { return m.CreateTokenPageModule; }); } },
+    { path: 'create-token', loadChildren: function () { return Promise.all(/*! import() | pages-create-token-create-token-module */[__webpack_require__.e("common"), __webpack_require__.e("pages-create-token-create-token-module")]).then(__webpack_require__.bind(null, /*! ./pages/create-token/create-token.module */ "./src/app/pages/create-token/create-token.module.ts")).then(function (m) { return m.CreateTokenPageModule; }); } },
     { path: 'community', loadChildren: function () { return __webpack_require__.e(/*! import() | pages-community-community-module */ "pages-community-community-module").then(__webpack_require__.bind(null, /*! ./pages/community/community.module */ "./src/app/pages/community/community.module.ts")).then(function (m) { return m.CommunityPageModule; }); } },
     { path: 'history', loadChildren: function () { return __webpack_require__.e(/*! import() | pages-history-history-module */ "pages-history-history-module").then(__webpack_require__.bind(null, /*! ./pages/history/history.module */ "./src/app/pages/history/history.module.ts")).then(function (m) { return m.HistoryPageModule; }); } },
     { path: 'view-txn', loadChildren: function () { return __webpack_require__.e(/*! import() | pages-history-view-txn-view-txn-module */ "view-txn-view-txn-module").then(__webpack_require__.bind(null, /*! ./pages/history/view-txn/view-txn.module */ "./src/app/pages/history/view-txn/view-txn.module.ts")).then(function (m) { return m.ViewTXNPageModule; }); } },
     { path: 'view-txn/:id', loadChildren: function () { return __webpack_require__.e(/*! import() | pages-history-view-txn-view-txn-module */ "view-txn-view-txn-module").then(__webpack_require__.bind(null, /*! ./pages/history/view-txn/view-txn.module */ "./src/app/pages/history/view-txn/view-txn.module.ts")).then(function (m) { return m.ViewTXNPageModule; }); } },
-    { path: 'view-tokens', loadChildren: function () { return __webpack_require__.e(/*! import() | pages-balance-view-tokens-view-tokens-module */ "view-tokens-view-tokens-module").then(__webpack_require__.bind(null, /*! ./pages/balance/view-tokens/view-tokens.module */ "./src/app/pages/balance/view-tokens/view-tokens.module.ts")).then(function (m) { return m.ViewTokensPageModule; }); } },
-    { path: 'view-tokens/:id', loadChildren: function () { return __webpack_require__.e(/*! import() | pages-balance-view-tokens-view-tokens-module */ "view-tokens-view-tokens-module").then(__webpack_require__.bind(null, /*! ./pages/balance/view-tokens/view-tokens.module */ "./src/app/pages/balance/view-tokens/view-tokens.module.ts"))
+    { path: 'view-tokens', loadChildren: function () { return Promise.all(/*! import() | pages-balance-view-tokens-view-tokens-module */[__webpack_require__.e("default~pages-balance-view-tokens-view-tokens-module~view-tokens-view-tokens-module"), __webpack_require__.e("common")]).then(__webpack_require__.bind(null, /*! ./pages/balance/view-tokens/view-tokens.module */ "./src/app/pages/balance/view-tokens/view-tokens.module.ts")).then(function (m) { return m.ViewTokensPageModule; }); } },
+    { path: 'view-tokens/:id', loadChildren: function () { return Promise.all(/*! import() | pages-balance-view-tokens-view-tokens-module */[__webpack_require__.e("default~pages-balance-view-tokens-view-tokens-module~view-tokens-view-tokens-module"), __webpack_require__.e("common")]).then(__webpack_require__.bind(null, /*! ./pages/balance/view-tokens/view-tokens.module */ "./src/app/pages/balance/view-tokens/view-tokens.module.ts"))
             .then(function (m) { return m.ViewTokensPageModule; }); } },
     { path: 'contacts-modal', loadChildren: function () { return __webpack_require__.e(/*! import() | components-contacts-modal-contacts-modal-module */ "components-contacts-modal-contacts-modal-module").then(__webpack_require__.bind(null, /*! ./components/contacts-modal/contacts-modal.module */ "./src/app/components/contacts-modal/contacts-modal.module.ts"))
             .then(function (m) { return m.ContactsModalPageModule; }); } },
     { path: 'contacts', loadChildren: function () { return __webpack_require__.e(/*! import() | pages-contacts-contacts-module */ "pages-contacts-contacts-module").then(__webpack_require__.bind(null, /*! ./pages/contacts/contacts.module */ "./src/app/pages/contacts/contacts.module.ts")).then(function (m) { return m.ContactsPageModule; }); } },
-    { path: '**', loadChildren: function () { return __webpack_require__.e(/*! import() | pages-balance-balance-module */ "pages-balance-balance-module").then(__webpack_require__.bind(null, /*! ./pages/balance/balance.module */ "./src/app/pages/balance/balance.module.ts")).then(function (m) { return m.BalancePageModule; }); } },
+    { path: '**', loadChildren: function () { return Promise.all(/*! import() | pages-balance-balance-module */[__webpack_require__.e("common"), __webpack_require__.e("pages-balance-balance-module")]).then(__webpack_require__.bind(null, /*! ./pages/balance/balance.module */ "./src/app/pages/balance/balance.module.ts")).then(function (m) { return m.BalancePageModule; }); } },
     { path: '', redirectTo: 'balance', pathMatch: 'full' },
 ];
 var AppRoutingModule = /** @class */ (function () {
@@ -594,18 +583,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ionic-native/clipboard/ngx */ "./node_modules/@ionic-native/clipboard/ngx/index.js");
 /* harmony import */ var _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @ionic-native/qr-scanner/ngx */ "./node_modules/@ionic-native/qr-scanner/ngx/index.js");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
-/* harmony import */ var _components_token_descr_token_descr_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/token-descr/token-descr.component */ "./src/app/components/token-descr/token-descr.component.ts");
-/* harmony import */ var _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/pop-term/pop-term.component */ "./src/app/components/pop-term/pop-term.component.ts");
-/* harmony import */ var _components_pop_settings_pop_settings_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/pop-settings/pop-settings.component */ "./src/app/components/pop-settings/pop-settings.component.ts");
-/* harmony import */ var _components_pop_filter_pop_filter_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/pop-filter/pop-filter.component */ "./src/app/components/pop-filter/pop-filter.component.ts");
-/* harmony import */ var _components_contacts_modal_contacts_modal_page__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/contacts-modal/contacts-modal.page */ "./src/app/components/contacts-modal/contacts-modal.page.ts");
+/* harmony import */ var _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/pop-term/pop-term.component */ "./src/app/components/pop-term/pop-term.component.ts");
+/* harmony import */ var _components_pop_settings_pop_settings_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/pop-settings/pop-settings.component */ "./src/app/components/pop-settings/pop-settings.component.ts");
+/* harmony import */ var _components_pop_filter_pop_filter_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/pop-filter/pop-filter.component */ "./src/app/components/pop-filter/pop-filter.component.ts");
+/* harmony import */ var _components_contacts_modal_contacts_modal_page__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/contacts-modal/contacts-modal.page */ "./src/app/components/contacts-modal/contacts-modal.page.ts");
 /**
  * Created By Elias Nemr
  * 01/11/19
  * Minima Global
  * WALLET
  */
-
 
 
 
@@ -629,13 +616,12 @@ var AppModule = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
             declarations: [
                 _app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"],
-                _components_token_descr_token_descr_component__WEBPACK_IMPORTED_MODULE_12__["TokenDescrComponent"],
-                _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_13__["PopTermComponent"],
-                _components_pop_settings_pop_settings_component__WEBPACK_IMPORTED_MODULE_14__["PopSettingsComponent"],
-                _components_pop_filter_pop_filter_component__WEBPACK_IMPORTED_MODULE_15__["PopFilterComponent"],
-                _components_contacts_modal_contacts_modal_page__WEBPACK_IMPORTED_MODULE_16__["ContactsModalPage"]
+                _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_12__["PopTermComponent"],
+                _components_pop_settings_pop_settings_component__WEBPACK_IMPORTED_MODULE_13__["PopSettingsComponent"],
+                _components_pop_filter_pop_filter_component__WEBPACK_IMPORTED_MODULE_14__["PopFilterComponent"],
+                _components_contacts_modal_contacts_modal_page__WEBPACK_IMPORTED_MODULE_15__["ContactsModalPage"]
             ],
-            entryComponents: [_components_pop_settings_pop_settings_component__WEBPACK_IMPORTED_MODULE_14__["PopSettingsComponent"], _components_pop_filter_pop_filter_component__WEBPACK_IMPORTED_MODULE_15__["PopFilterComponent"], _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_13__["PopTermComponent"], _components_contacts_modal_contacts_modal_page__WEBPACK_IMPORTED_MODULE_16__["ContactsModalPage"]],
+            entryComponents: [_components_pop_settings_pop_settings_component__WEBPACK_IMPORTED_MODULE_13__["PopSettingsComponent"], _components_pop_filter_pop_filter_component__WEBPACK_IMPORTED_MODULE_14__["PopFilterComponent"], _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_12__["PopTermComponent"], _components_contacts_modal_contacts_modal_page__WEBPACK_IMPORTED_MODULE_15__["ContactsModalPage"]],
             imports: [
                 _app_routing_module__WEBPACK_IMPORTED_MODULE_8__["AppRoutingModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_6__["FormsModule"],
@@ -1020,149 +1006,6 @@ var PopTermComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/components/token-descr/token-descr.component.scss":
-/*!*******************************************************************!*\
-  !*** ./src/app/components/token-descr/token-descr.component.scss ***!
-  \*******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "/** Title */\nion-title {\n  color: var(--ion-text-color, #F6661D);\n}\nion-title ion-icon {\n  width: 16px;\n  position: absolute;\n  padding-top: 3px;\n  cursor: pointer;\n  font-weight: 300;\n}\nion-card-header {\n  width: 100%;\n  margin-left: auto;\n  margin-right: auto;\n  white-space: nowrap;\n  font-size: 16px;\n}\nion-card-header ion-grid {\n  text-align: center;\n}\nion-card-header ion-icon {\n  --ionicon-stroke-width: 45px;\n}\nion-card-header img {\n  width: 100px;\n  margin-left: auto;\n  margin-right: auto;\n}\nion-card-header ion-col {\n  white-space: normal;\n}\n#variable {\n  text-align: right;\n  font-weight: 400;\n}\n#varname {\n  font-weight: 700;\n}\nion-card {\n  --overflow: hidden;\n  background: -webkit-gradient(linear, left top, left bottom, from(var(--ion-background-color, #fff)), to(var(--ion-background-color, #f2f2f2))) !important;\n  background: linear-gradient(to bottom, var(--ion-background-color, #fff) 0%, var(--ion-background-color, #f2f2f2) 100%) !important;\n}\nion-content {\n  --background: transparent;\n}\n.dismiss-btn {\n  height: auto;\n  float: right;\n  color: #48D2D3;\n  --color-hover: #EE6E73;\n}\n.title {\n  white-space: normal;\n  word-break: break-all;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9lbGlhc25lbXIvcHJvamVjdHMvV0FMTEVUL21vYmlsZS1hcHAtZnJvbnQtZW5kL2FwcC9zcmMvYXBwL2NvbXBvbmVudHMvdG9rZW4tZGVzY3IvdG9rZW4tZGVzY3IuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL2NvbXBvbmVudHMvdG9rZW4tZGVzY3IvdG9rZW4tZGVzY3IuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsV0FBQTtBQUVBO0VBQ0sscUNBQUE7QUNBTDtBREVBO0VBQ0ksV0FBQTtFQUNBLGtCQUFBO0VBQ0EsZ0JBQUE7RUFDQSxlQUFBO0VBQ0EsZ0JBQUE7QUNDSjtBRElBO0VBQ0ksV0FBQTtFQUNBLGlCQUFBO0VBQ0Esa0JBQUE7RUFDQSxtQkFBQTtFQUNBLGVBQUE7QUNESjtBRElBO0VBQ0ksa0JBQUE7QUNESjtBREdBO0VBQ0ksNEJBQUE7QUNBSjtBREdBO0VBQ0ksWUFBQTtFQUNBLGlCQUFBO0VBQ0Esa0JBQUE7QUNBSjtBREVBO0VBQ0ksbUJBQUE7QUNDSjtBRENBO0VBQ0ksaUJBQUE7RUFDQSxnQkFBQTtBQ0VKO0FEQUE7RUFDSSxnQkFBQTtBQ0dKO0FEQUE7RUFDSSxrQkFBQTtFQUNBLHlKQUFBO0VBQUEsa0lBQUE7QUNHSjtBREFBO0VBQ0kseUJBQUE7QUNHSjtBREFBO0VBQ0ksWUFBQTtFQUNBLFlBQUE7RUFDQSxjQUFBO0VBRUEsc0JBQUE7QUNFSjtBRENBO0VBQ0ksbUJBQUE7RUFDQSxxQkFBQTtBQ0VKIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy90b2tlbi1kZXNjci90b2tlbi1kZXNjci5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi8qKiBUaXRsZSAqL1xuXG5pb24tdGl0bGUge1xuICAgICBjb2xvcjogIHZhcigtLWlvbi10ZXh0LWNvbG9yLCAjRjY2NjFEKTtcbn1cbmlvbi10aXRsZSBpb24taWNvbiB7XG4gICAgd2lkdGg6IDE2cHg7XG4gICAgcG9zaXRpb246IGFic29sdXRlO1xuICAgIHBhZGRpbmctdG9wOiAzcHg7XG4gICAgY3Vyc29yOiBwb2ludGVyO1xuICAgIGZvbnQtd2VpZ2h0OiAzMDA7XG59XG5pb24tdGl0bGUgc3BhbiB7XG4gICAgLy8gY29sb3I6ICB2YXIoLS1pb24tdGV4dC1jb2xvciwgIzAwMCk7XG59XG5pb24tY2FyZC1oZWFkZXIge1xuICAgIHdpZHRoOiAxMDAlO1xuICAgIG1hcmdpbi1sZWZ0OiBhdXRvO1xuICAgIG1hcmdpbi1yaWdodDogYXV0bztcbiAgICB3aGl0ZS1zcGFjZTogbm93cmFwO1xuICAgIGZvbnQtc2l6ZTogMTZweDtcbiAgICBcbn1cbmlvbi1jYXJkLWhlYWRlciBpb24tZ3JpZCB7XG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xufVxuaW9uLWNhcmQtaGVhZGVyIGlvbi1pY29uIHtcbiAgICAtLWlvbmljb24tc3Ryb2tlLXdpZHRoOiA0NXB4O1xuXG59XG5pb24tY2FyZC1oZWFkZXIgaW1nIHtcbiAgICB3aWR0aDogMTAwcHg7XG4gICAgbWFyZ2luLWxlZnQ6IGF1dG87XG4gICAgbWFyZ2luLXJpZ2h0OiBhdXRvO1xufVxuaW9uLWNhcmQtaGVhZGVyIGlvbi1jb2wge1xuICAgIHdoaXRlLXNwYWNlOiBub3JtYWw7XG59XG4jdmFyaWFibGUge1xuICAgIHRleHQtYWxpZ246IHJpZ2h0O1xuICAgIGZvbnQtd2VpZ2h0OiA0MDA7XG59XG4jdmFybmFtZSB7XG4gICAgZm9udC13ZWlnaHQ6IDcwMDtcbn1cblxuaW9uLWNhcmQge1xuICAgIC0tb3ZlcmZsb3c6IGhpZGRlbjtcbiAgICBiYWNrZ3JvdW5kOiBsaW5lYXItZ3JhZGllbnQodG8gYm90dG9tLCAgdmFyKC0taW9uLWJhY2tncm91bmQtY29sb3IsICNmZmYpIDAlLCB2YXIoLS1pb24tYmFja2dyb3VuZC1jb2xvciwgI2YyZjJmMikgMTAwJSkgIWltcG9ydGFudDtcbn1cblxuaW9uLWNvbnRlbnQge1xuICAgIC0tYmFja2dyb3VuZDogdHJhbnNwYXJlbnQ7XG59XG5cbi5kaXNtaXNzLWJ0biB7XG4gICAgaGVpZ2h0OiBhdXRvO1xuICAgIGZsb2F0OiByaWdodDtcbiAgICBjb2xvcjogIzQ4RDJEMztcblxuICAgIC0tY29sb3ItaG92ZXI6ICNFRTZFNzM7XG59XG5cbi50aXRsZSB7XG4gICAgd2hpdGUtc3BhY2U6IG5vcm1hbDtcbiAgICB3b3JkLWJyZWFrOiBicmVhay1hbGw7XG4gICAgXG59XG4iLCIvKiogVGl0bGUgKi9cbmlvbi10aXRsZSB7XG4gIGNvbG9yOiB2YXIoLS1pb24tdGV4dC1jb2xvciwgI0Y2NjYxRCk7XG59XG5cbmlvbi10aXRsZSBpb24taWNvbiB7XG4gIHdpZHRoOiAxNnB4O1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIHBhZGRpbmctdG9wOiAzcHg7XG4gIGN1cnNvcjogcG9pbnRlcjtcbiAgZm9udC13ZWlnaHQ6IDMwMDtcbn1cblxuaW9uLWNhcmQtaGVhZGVyIHtcbiAgd2lkdGg6IDEwMCU7XG4gIG1hcmdpbi1sZWZ0OiBhdXRvO1xuICBtYXJnaW4tcmlnaHQ6IGF1dG87XG4gIHdoaXRlLXNwYWNlOiBub3dyYXA7XG4gIGZvbnQtc2l6ZTogMTZweDtcbn1cblxuaW9uLWNhcmQtaGVhZGVyIGlvbi1ncmlkIHtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xufVxuXG5pb24tY2FyZC1oZWFkZXIgaW9uLWljb24ge1xuICAtLWlvbmljb24tc3Ryb2tlLXdpZHRoOiA0NXB4O1xufVxuXG5pb24tY2FyZC1oZWFkZXIgaW1nIHtcbiAgd2lkdGg6IDEwMHB4O1xuICBtYXJnaW4tbGVmdDogYXV0bztcbiAgbWFyZ2luLXJpZ2h0OiBhdXRvO1xufVxuXG5pb24tY2FyZC1oZWFkZXIgaW9uLWNvbCB7XG4gIHdoaXRlLXNwYWNlOiBub3JtYWw7XG59XG5cbiN2YXJpYWJsZSB7XG4gIHRleHQtYWxpZ246IHJpZ2h0O1xuICBmb250LXdlaWdodDogNDAwO1xufVxuXG4jdmFybmFtZSB7XG4gIGZvbnQtd2VpZ2h0OiA3MDA7XG59XG5cbmlvbi1jYXJkIHtcbiAgLS1vdmVyZmxvdzogaGlkZGVuO1xuICBiYWNrZ3JvdW5kOiBsaW5lYXItZ3JhZGllbnQodG8gYm90dG9tLCB2YXIoLS1pb24tYmFja2dyb3VuZC1jb2xvciwgI2ZmZikgMCUsIHZhcigtLWlvbi1iYWNrZ3JvdW5kLWNvbG9yLCAjZjJmMmYyKSAxMDAlKSAhaW1wb3J0YW50O1xufVxuXG5pb24tY29udGVudCB7XG4gIC0tYmFja2dyb3VuZDogdHJhbnNwYXJlbnQ7XG59XG5cbi5kaXNtaXNzLWJ0biB7XG4gIGhlaWdodDogYXV0bztcbiAgZmxvYXQ6IHJpZ2h0O1xuICBjb2xvcjogIzQ4RDJEMztcbiAgLS1jb2xvci1ob3ZlcjogI0VFNkU3Mztcbn1cblxuLnRpdGxlIHtcbiAgd2hpdGUtc3BhY2U6IG5vcm1hbDtcbiAgd29yZC1icmVhazogYnJlYWstYWxsO1xufSJdfQ== */"
-
-/***/ }),
-
-/***/ "./src/app/components/token-descr/token-descr.component.ts":
-/*!*****************************************************************!*\
-  !*** ./src/app/components/token-descr/token-descr.component.ts ***!
-  \*****************************************************************/
-/*! exports provided: TokenDescrComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TokenDescrComponent", function() { return TokenDescrComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/fesm5/ionic-angular.js");
-/* harmony import */ var _service_minima_api_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../service/minima-api.service */ "./src/app/service/minima-api.service.ts");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic-native/clipboard/ngx */ "./node_modules/@ionic-native/clipboard/ngx/index.js");
-
-
-
-
-
-
-var TokenDescrComponent = /** @class */ (function () {
-    function TokenDescrComponent(modalCtrl, api, toastController, route, platform, clipboard, navParams) {
-        this.modalCtrl = modalCtrl;
-        this.api = api;
-        this.toastController = toastController;
-        this.route = route;
-        this.platform = platform;
-        this.clipboard = clipboard;
-        this.navParams = navParams;
-    }
-    TokenDescrComponent.prototype.ngOnInit = function () {
-        this.refTokenid = this.navParams.get("tokenid");
-    };
-    TokenDescrComponent.prototype.dismiss = function () {
-        // using the injected ModalController this page
-        // can "dismiss" itself and optionally pass back data
-        this.modalCtrl.dismiss({
-            'dismissed': true
-        });
-    };
-    TokenDescrComponent.prototype.sendTokenOver = function (id) {
-        this.route.navigate(['/send-funds/' + id]);
-        this.dismiss();
-    };
-    TokenDescrComponent.prototype.validateProof = function (tokenid) {
-        var _this = this;
-        this.api.validateTokenID(tokenid).then(function (res) {
-            if (res.response.valid === true) {
-                _this.presentToast("This proof is valid.", "success");
-            }
-            else {
-                _this.presentToast("Proof Mismatch - Proof is invalid.", "danger");
-            }
-        });
-    };
-    //Alerts
-    TokenDescrComponent.prototype.presentToast = function (msg, type) {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
-            var toast;
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.toastController.create({
-                            message: msg,
-                            duration: 4000,
-                            buttons: [{
-                                    text: 'Close',
-                                    role: 'cancel'
-                                }],
-                            color: type,
-                            keyboardClose: true,
-                            translucent: true,
-                            position: 'top'
-                        })];
-                    case 1:
-                        toast = _a.sent();
-                        toast.present();
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
-    TokenDescrComponent.prototype.copyToClipboard = function () {
-        if (this.platform.is('desktop') || this.platform.is('pwa')) {
-            this.copyToClipPWA();
-            this.presentToast("Copied TokenID", "success");
-        }
-        else {
-            this.clipboard.copy(this.refTokenid);
-            this.presentToast("Can't copy to clipboard", "danger");
-        }
-    };
-    TokenDescrComponent.prototype.copyToClipPWA = function () {
-        var _this = this;
-        document.addEventListener('copy', function (e) {
-            e.clipboardData.setData('text/plain', _this.refTokenid);
-            e.preventDefault();
-            document.removeEventListener('copy', null);
-        });
-        document.execCommand('copy');
-    };
-    TokenDescrComponent.ctorParameters = function () { return [
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"] },
-        { type: _service_minima_api_service__WEBPACK_IMPORTED_MODULE_3__["MinimaApiService"] },
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"] },
-        { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] },
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Platform"] },
-        { type: _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_5__["Clipboard"] },
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavParams"] }
-    ]; };
-    TokenDescrComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-token-descr',
-            template: __webpack_require__(/*! raw-loader!./token-descr.component.html */ "./node_modules/raw-loader/index.js!./src/app/components/token-descr/token-descr.component.html"),
-            styles: [__webpack_require__(/*! ./token-descr.component.scss */ "./src/app/components/token-descr/token-descr.component.scss")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"],
-            _service_minima_api_service__WEBPACK_IMPORTED_MODULE_3__["MinimaApiService"],
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"],
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Platform"],
-            _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_5__["Clipboard"],
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavParams"]])
-    ], TokenDescrComponent);
-    return TokenDescrComponent;
-}());
-
-
-
-/***/ }),
-
 /***/ "./src/app/service/balance.service.ts":
 /*!********************************************!*\
   !*** ./src/app/service/balance.service.ts ***!
@@ -1340,144 +1183,6 @@ var HistoryService = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
     ], HistoryService);
     return HistoryService;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/service/minima-api.service.ts":
-/*!***********************************************!*\
-  !*** ./src/app/service/minima-api.service.ts ***!
-  \***********************************************/
-/*! exports provided: MinimaApiService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MinimaApiService", function() { return MinimaApiService; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/fesm5/ionic-angular.js");
-/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! minima */ "./node_modules/minima/dist/minima.js");
-/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(minima__WEBPACK_IMPORTED_MODULE_3__);
-
-
-
-
-var MinimaApiService = /** @class */ (function () {
-    function MinimaApiService(loadingController) {
-        this.loadingController = loadingController;
-        this.loader = null;
-    }
-    MinimaApiService.prototype.showLoader = function () {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
-            var _a;
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_b) {
-                switch (_b.label) {
-                    case 0:
-                        if (!(this.loader == null)) return [3 /*break*/, 2];
-                        _a = this;
-                        return [4 /*yield*/, this.loadingController.create({
-                                message: 'Loading'
-                            })];
-                    case 1:
-                        _a.loader = _b.sent();
-                        this.loader.present();
-                        _b.label = 2;
-                    case 2: return [2 /*return*/];
-                }
-            });
-        });
-    };
-    MinimaApiService.prototype.hideLoader = function () {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        if (!(this.loader !== null)) return [3 /*break*/, 2];
-                        return [4 /*yield*/, this.loader.dismiss()];
-                    case 1:
-                        _a.sent();
-                        this.loader = null;
-                        return [3 /*break*/, 2];
-                    case 2: return [2 /*return*/];
-                }
-            });
-        });
-    };
-    MinimaApiService.prototype.createToken = function (data) {
-        return this.req("tokencreate name:\"" + data.name + "\" amount:" + data.amount + " description:\"" + data.description + "\" script:\"" + data.script + "\" icon:" + data.icon + " proof:" + data.proof);
-    };
-    MinimaApiService.prototype.validateTokenID = function (tokenid) {
-        return this.req("tokenvalidate " + tokenid);
-    };
-    MinimaApiService.prototype.createTXN = function (data) {
-        var txnidentifier = Math.floor(Math.random() * 1000000000);
-        var port254 = 254;
-        var port255 = 255;
-        var customTXN = 
-        // Custom TXN with an ID
-        "txncreate " + txnidentifier + ";" +
-            // Add state variable 1
-            "txnstate " + txnidentifier + " 254 01000100" + ";" +
-            // Add User state variable 2
-            "txnstate " + txnidentifier + " 255 \"" + data.message + "\"" + ";" +
-            // Auto fill the transaction
-            "txnauto " + txnidentifier + " " + data.amount + " " + data.address + " " + data.tokenid + ";" +
-            // Post it!
-            "txnpost " + txnidentifier + ";" +
-            // Clear the txn
-            "txndelete " + txnidentifier + ";";
-        return this.req(customTXN);
-    };
-    MinimaApiService.prototype.webLink = function (data) {
-        return this.req('weblink+' + data.url);
-    };
-    MinimaApiService.prototype.setHost = function (newHost) {
-        localStorage.setItem('minima_host', newHost);
-    };
-    MinimaApiService.prototype.newAddress = function () {
-        return this.req('newaddress');
-    };
-    MinimaApiService.prototype.sendFunds = function (data) {
-        return this.req('send ' + data.amount + ' ' + data.address + ' ' + data.tokenid);
-    };
-    MinimaApiService.prototype.giveMe50 = function () {
-        return this.req('gimme50');
-    };
-    MinimaApiService.prototype.getBalance = function () {
-        return this.req('balance');
-    };
-    MinimaApiService.prototype.getHistory = function () {
-        return this.req('history');
-    };
-    MinimaApiService.prototype.clearMyHistory = function () {
-        return this.req('history clear');
-    };
-    MinimaApiService.prototype.getStatus = function () {
-        return this.req('status');
-    };
-    // Use minima.js instead..
-    MinimaApiService.prototype.req = function (fnc) {
-        var promise = new Promise(function (resolve, reject) {
-            minima__WEBPACK_IMPORTED_MODULE_3__["Minima"].cmd(fnc, function (resp) {
-                //console.log(resp);
-                resolve(resp);
-            });
-        });
-        return promise;
-    };
-    MinimaApiService.ctorParameters = function () { return [
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["LoadingController"] }
-    ]; };
-    MinimaApiService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-            providedIn: 'root'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["LoadingController"]])
-    ], MinimaApiService);
-    return MinimaApiService;
 }());
 
 

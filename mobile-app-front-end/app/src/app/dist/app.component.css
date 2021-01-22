@@ -14,10 +14,11 @@ ion-menu ion-content {
   --background: var(--ion-m-background);
 }
 
-ion-item {
+ion-item ion-label {
   font-family: manrope-bold;
   padding-left: 1%;
   color: var(--ion-color-tertiary);
+  font-size: 1rem;
 }
 
 ion-icon {
@@ -57,9 +58,12 @@ ion-menu.md ion-item.selected {
   --background: var(--ion-color-selected);
   border-radius: 0px;
 }
+ion-menu.md ion-item.selected ion-label {
+  color: var(--ion-color-gray-two);
+}
 
 ion-menu.md ion-item.nightMode:hover {
-  transform: scale(1);
+  transform: scale(1.001);
 }
 
 ion-menu.md ion-item:hover {
@@ -86,10 +90,6 @@ ion-menu.md ion-item.selected ion-icon {
   font-size: 1.2rem;
 }
 
-border-b {
-  border-bottom: 1px solid red;
-}
-
 /*
   * iOS Design Menu
 */
@@ -110,6 +110,8 @@ ion-toolbar {
 ion-footer ion-item, ion-footer ion-col, ion-footer {
   --background: #91919D !important;
   background: #91919D;
+  height: 58px;
+  padding-top: 1%;
 }
 
 ion-footer ion-item span {
@@ -119,48 +121,4 @@ ion-footer ion-item span {
 ion-toggle {
   --handle-background-checked: var(--ion-m-background);
   --background-checked: #F0F0F9;
-}
-
-/** Minima Icon */
-#icon .st0 {
-  fill: var(--st0);
-}
-
-#icon .st1 {
-  fill: var(--st1);
-}
-
-#icon .st2 {
-  fill: var(--st2);
-}
-
-#icon .st3 {
-  fill: var(--st3);
-}
-
-#icon .st4 {
-  fill: var(--st4);
-}
-
-#icon .st5 {
-  fill: var(--st5);
-}
-
-#icon .st6 {
-  fill: var(--st6);
-}
-
-#icon-M, #icon-I, #icon-N, #icon-I, #icon-M, #icon-A {
-  fill: var(--minima-icon-word);
-}
-
-@media only screen and (max-width: 650px) {
-  #icon {
-    width: 120px;
-  }
-}
-@media only screen and (min-width: 650px) {
-  #icon {
-    width: 145px;
-  }
 }

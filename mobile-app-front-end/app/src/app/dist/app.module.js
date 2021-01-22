@@ -24,7 +24,6 @@ var app_routing_module_1 = require("./app-routing.module");
 var ngx_1 = require("@ionic-native/clipboard/ngx");
 var ngx_2 = require("@ionic-native/qr-scanner/ngx");
 var common_1 = require("@angular/common");
-var token_descr_component_1 = require("./components/token-descr/token-descr.component");
 var pop_term_component_1 = require("./components/pop-term/pop-term.component");
 var pop_settings_component_1 = require("./components/pop-settings/pop-settings.component");
 var pop_filter_component_1 = require("./components/pop-filter/pop-filter.component");
@@ -36,7 +35,6 @@ var AppModule = /** @class */ (function () {
         core_1.NgModule({
             declarations: [
                 app_component_1.AppComponent,
-                token_descr_component_1.TokenDescrComponent,
                 pop_term_component_1.PopTermComponent,
                 pop_settings_component_1.PopSettingsComponent,
                 pop_filter_component_1.PopFilterComponent,

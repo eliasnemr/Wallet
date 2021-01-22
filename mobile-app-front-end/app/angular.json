@@ -22,13 +22,13 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "src/assets/",
+                "input": "src/assets",
                 "output": "assets"
               },
               {
                 "glob": "**/*.svg",
                 "input": "node_modules/ionicons/dist/ionicons/svg",
-                "output": "./svg/"
+                "output": "./svg"
               },
               {
                 "glob": "cash.svg",
@@ -149,9 +149,6 @@
               },
               {
                 "input": "node_modules/@ionic/angular/css/flex-utils.css"
-              },
-              {
-                "input": "src/theme/variables.css"
               }
             ],
             "scripts": []
