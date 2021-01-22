@@ -19,7 +19,7 @@
               <span *ngIf="token.unconfirmed == '0';" class="confirmed-amount medium-text minima-numeric">{{ token.sendable }} </span>
             </ion-label>
           </ion-item>
-          <ion-icon class="nftIcon" *ngIf="token.script === 'RETURN TRUE'" src="assets/nft2.svg"></ion-icon>
+          <ion-icon class="nftIcon" *ngIf="token.script && token.script === 'ASSERT FLOOR ( @AMOUNT ) EQ @AMOUNT LET checkout = 0 WHILE ( checkout LT @TOTOUT ) DO IF GETOUTTOK ( checkout ) EQ @TOKENID THEN LET outamt = GETOUTAMT ( checkout ) ASSERT FLOOR ( outamt ) EQ outamt ENDIF LET checkout = INC ( checkout ) ENDWHILE RETURN TRUE'" src="assets/nft2.svg"></ion-icon>
         </ion-card-header>
       </ion-card>
     </ion-col>

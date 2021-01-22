@@ -118,6 +118,7 @@ var CreateTokenPage = /** @class */ (function () {
         }
     };
     CreateTokenPage.prototype.toggleBackAnimation = function () {
+        this.submitBtn.disabled = false;
         document.getElementById('backBtn').style.display = 'none';
         this.advanced = false;
         this.basic = false;
@@ -180,6 +181,7 @@ var CreateTokenPage = /** @class */ (function () {
         this.loading = true;
         var newToken = this.tokenCreationForm.value;
         if (this.advancedFormInputsChecked.nft) {
+            this.submitBtn.disabled = true;
             newToken.script = this.myNFT; // script for non-fungible
             this.api.createToken(newToken).then(function (res) {
                 if (res.status) {
@@ -187,11 +189,15 @@ var CreateTokenPage = /** @class */ (function () {
                     _this.toggleBackAnimation();
                 }
                 else {
+                    setTimeout(function () {
+                        _this.submitBtn.disabled = false;
+                    }, 500);
                     _this.presentAlert('Something\'s wrong!', res.message, 'Token Creation Status');
                 }
             });
         }
         else {
+            this.submitBtn.disabled = true;
             newToken.script = 'RETURN TRUE'; // default script to spend token
             this.api.createToken(newToken).then(function (res) {
                 if (res.status) {
@@ -199,20 +205,16 @@ var CreateTokenPage = /** @class */ (function () {
                     _this.toggleBackAnimation();
                 }
                 else {
+                    setTimeout(function () {
+                        _this.submitBtn.disabled = false;
+                    }, 500);
                     _this.presentAlert('Something\'s wrong!', res.message, 'Token Creation Status');
                 }
             });
         }
     };
     CreateTokenPage.prototype.resetForm = function () {
-        this.nameText.value = '';
-        this.amountRef.value = '';
-        this.proofURL.value = '';
-        this.iconURL.value = '';
-        this.description.value = '';
-        this.iconEntry.isChecked = false;
-        this.proofEntry.isChecked = false;
-        this.nft.isNonFungible = false;
+        this.tokenCreationForm.reset();
     };
     Object.defineProperty(CreateTokenPage.prototype, "name", {
         get: function () {
@@ -250,20 +252,8 @@ var CreateTokenPage = /** @class */ (function () {
         configurable: true
     });
     __decorate([
-        core_1.ViewChild('nameTextArea', { static: false })
-    ], CreateTokenPage.prototype, "nameText");
-    __decorate([
-        core_1.ViewChild('amountRef', { static: false })
-    ], CreateTokenPage.prototype, "amountRef");
-    __decorate([
-        core_1.ViewChild('proofURL', { static: false })
-    ], CreateTokenPage.prototype, "proofURL");
-    __decorate([
-        core_1.ViewChild('iconURL', { static: false })
-    ], CreateTokenPage.prototype, "iconURL");
-    __decorate([
-        core_1.ViewChild('description', { static: false })
-    ], CreateTokenPage.prototype, "description");
+        core_1.ViewChild('submitBtn', { static: false })
+    ], CreateTokenPage.prototype, "submitBtn");
     CreateTokenPage = __decorate([
         core_1.Component({
             selector: 'app-create-token',

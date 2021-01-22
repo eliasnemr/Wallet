@@ -148,7 +148,7 @@
 <ion-footer id="footer" style="display: none;" class="border-t">
   <ion-toolbar>
     <ion-buttons>
-      <ion-button [disabled]="tokenCreationForm.invalid" expand="block">
+      <ion-button #submitBtn [disabled]="tokenCreationForm.invalid" expand="block">
       <button type="submit" class="footer" id="createTknBtn2" form="tokenCreationForm">
         <ion-icon name="brush" slot="start"></ion-icon> Create Token
       </button>

@@ -195,6 +195,7 @@ var BalancePage = /** @class */ (function () {
         var _this = this;
         this.balanceService.data.subscribe(function (balance) {
             _this.tokenArr = balance;
+            console.log(_this.tokenArr);
         });
     };
     __decorate([

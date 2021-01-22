@@ -1,7 +1,7 @@
 import { CustomToken } from './../../models/customToken.model';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MinimaApiService } from '../../service/minima-api.service';
-import { IonTextarea, IonInput, AlertController, ToastController } from '@ionic/angular';
+import { IonTextarea, IonInput, AlertController, ToastController, IonButton } from '@ionic/angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 interface AdvancedFormInputsCheck {
@@ -17,11 +17,7 @@ interface AdvancedFormInputsCheck {
   styleUrls: ['./create-token.page.scss'],
 })
 export class CreateTokenPage implements OnInit {
-  @ViewChild('nameTextArea', {static: false}) nameText: IonInput;
-  @ViewChild('amountRef', {static:false}) amountRef: IonInput;
-  @ViewChild('proofURL', {static:false}) proofURL: IonInput;
-  @ViewChild('iconURL', {static:false}) iconURL: IonInput;
-  @ViewChild('description', {static: false}) description: IonTextarea;
+  @ViewChild('submitBtn', {static : false}) submitBtn: IonButton;
 
   tokenCreationForm: FormGroup;
   advancedFormInputsChecked: AdvancedFormInputsCheck = {description: false, icon: false, proof: false, nft: false};
@@ -103,6 +99,7 @@ export class CreateTokenPage implements OnInit {
     }
   }
   toggleBackAnimation() {
+    this.submitBtn.disabled = false;
     document.getElementById('backBtn').style.display = 'none';
     this.advanced = false;
     this.basic = false;
@@ -149,37 +146,39 @@ export class CreateTokenPage implements OnInit {
     const newToken: CustomToken = this.tokenCreationForm.value;
 
     if (this.advancedFormInputsChecked.nft) {
+      this.submitBtn.disabled = true;
       newToken.script = this.myNFT; // script for non-fungible
       this.api.createToken(newToken).then((res: any) => {
         if (res.status) {
           this.presentAlert('Success', 'Token '+this.customToken.name+' has been created.', 'Token Creation Status');
           this.toggleBackAnimation();
         } else {
+          setTimeout(() => {
+            this.submitBtn.disabled = false;
+          }, 500)
           this.presentAlert('Something\'s wrong!', res.message, 'Token Creation Status');
         }
       });
     } else {
+      this.submitBtn.disabled = true;
       newToken.script = 'RETURN TRUE'; // default script to spend token
       this.api.createToken(newToken).then((res: any) => {
         if (res.status) {
           this.presentAlert('Success', 'Token ' + this.customToken.name + ' has been created.', 'Token Creation Status');
           this.toggleBackAnimation();
         } else {
+          setTimeout(() => {
+            this.submitBtn.disabled = false;
+          }, 500)
           this.presentAlert('Something\'s wrong!', res.message, 'Token Creation Status');
         }
       })
     }
   }
 
-  resetForm() {
-    this.nameText.value = '';
-    this.amountRef.value = '';
-    this.proofURL.value = '';
-    this.iconURL.value = '';
-    this.description.value = '';
-    this.iconEntry.isChecked = false;
-    this.proofEntry.isChecked = false;
-    this.nft.isNonFungible = false;
+  resetForm() { 
+    this.tokenCreationForm.reset();
+
   }
 
   get name() {
