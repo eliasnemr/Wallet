@@ -6,7 +6,7 @@ import { Token, Minima } from 'minima';
 })
 
 export class BalanceService {
-  
+
   data: BehaviorSubject<Token[]> = new BehaviorSubject<Token[]>(Minima.balance);
 
   constructor() { }

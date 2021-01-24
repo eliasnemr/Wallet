@@ -3,13 +3,21 @@ import { BalanceService } from '../../service/balance.service';
 import { Component, OnInit, NgZone, ViewChild, ElementRef } from '@angular/core';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 import { Clipboard } from '@ionic-native/clipboard/ngx';
-import { AlertController, Platform, IonInput, IonTextarea} from '@ionic/angular';
+import { AlertController, Platform, IonInput, IonTextarea, IonButton } from '@ionic/angular';
 import { MinimaApiService } from '../../service/minima-api.service';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import QrScanner from 'qr-scanner';
 
 import { Token, Minima } from 'minima';
+
+export interface SendFormObj {
+  tokenid?: string;
+  amount?: string;
+  address?: string;
+  message?: string;
+}
+
 @Component({
   selector: 'app-send-funds',
   templateUrl: './send-funds.page.html',
@@ -17,10 +25,8 @@ import { Token, Minima } from 'minima';
 })
 export class SendFundsPage implements OnInit {
 
-  @ViewChild('address', {static: false}) address: IonInput;
-  @ViewChild('amount', {static: false}) amount: IonInput;
-  @ViewChild('message', {static: false}) message: IonTextarea;
-
+  @ViewChild('submitBtn', {static: false}) submitBtn: IonButton;
+  @ViewChild('amount', {static: false}) amountInp: IonInput;
   @ViewChild('videoElem', {static: false}) videoElem: ElementRef;
 
   sendForm: FormGroup;
@@ -32,14 +38,11 @@ export class SendFundsPage implements OnInit {
   isCameraOpen = false;
   isWebCameraOpen = false;
   minimaToken: any;
-  data: any = {};
-
-  // checkboxValue
+  data: SendFormObj = {tokenid: '', amount: '', address:  '', message: ''};
   messageToggle = false;
   balanceSubscription: Subscription;
   tokenArr: Token[] = [];
 
-  private lastJSON = '';
   private scanSub: any = null;
   constructor(
     private formBuilder: FormBuilder,
@@ -52,22 +55,8 @@ export class SendFundsPage implements OnInit {
     private platform: Platform,
     private route: ActivatedRoute,
     private router: Router) {
-      this.data.message = '';
       this.pullInTokens();
     }
-
-  ngOnInit() {
-    this.sendForm = this.formBuilder.group({
-      token: '',
-      address: ['', [
-        Validators.required,
-        Validators.minLength(2),
-        Validators.maxLength(60),
-        Validators.pattern('[Mx|0x][a-zA-Z0-9]+')]],
-      amount: ['', [Validators.required] ],
-      message: ''
-    });
-  }
 
   ionViewWillEnter() {
     this.isCameraOpen = false;
@@ -78,42 +67,89 @@ export class SendFundsPage implements OnInit {
     this.stopCamera();
   }
 
-  // get token selected or set Minima as default
-  getTokenSelected() {
-    // check url snapshot
-    const empty = undefined;
-    const param = this.route.snapshot.params['id'];
-    // check param
-    const mMinimaToken = '0x00'
-    if(param === empty || param === mMinimaToken){
-      this.itemSelected = this.tokenArr[0];
-      this.updateTokenId('0x00');
-    } else if (param !== empty && param !== mMinimaToken) {
-    this.tokenArr.forEach(element => {
-      if(param === element.tokenid) {
-        this.itemSelected = element;
-        this.updateTokenId(element.tokenid);
-      }
+  ngOnInit() {
+    this.sendForm = this.formBuilder.group({
+      tokenid: '',
+      address: ['', [
+        Validators.required,
+        Validators.minLength(2),
+        Validators.maxLength(60),
+        Validators.pattern('[Mx|0x][a-zA-Z0-9]+')]],
+      amount: ['', [Validators.required] ],
+      message: ''
     });
   }
+
+  get tokenFormItem() {
+    return this.sendForm.get('token');
+  }
+  get addressFormItem() {
+    return this.sendForm.get('address');
+  }
+  get amountFormItem() {
+    return this.sendForm.get('amount');
+  }
+  get messageFormItem() {
+    return this.sendForm.get('message');
+  }
+
+  pullInTokens() {
+    this.balanceService.data.subscribe((balance: Token[]) => {
+      this.tokenArr = balance;
+    });
+  }
+
+  sendFunds() {
+    this.sendForm.value.amnt = this.sendForm.value.amount.toString();
+    const data: SendFormObj = this.sendForm.value;
+    if (data.message !== null && ( data.message || data.message.length > 0) ) {
+      this.submitBtn.disabled = true;
+      this.api.createTXN(data).then((res: any) => {
+        if (Minima.util.checkAllResponses(res)) {
+          setTimeout(() => {
+            this.submitBtn.disabled = false;
+          }, 500);
+          this.presentAlert('Transaction Status', 'Transaction has been posted to the network!', 'Successful');
+          this.sendForm.reset();
+        } else {
+          setTimeout(() => {
+            this.submitBtn.disabled = false;
+          }, 500);
+          this.presentAlert('Transaction Status', res.message, 'Failed');
+        }
+      });
+    } else {
+      this.submitBtn.disabled = true;
+      this.api.sendFunds(data).then((res: any) => {
+        if (res.status) {
+          setTimeout(() => {
+            this.submitBtn.disabled = false;
+          }, 500);
+          this.presentAlert('Transaction Status', 'Transaction has been posted to the network!', 'Successful');
+          this.sendForm.reset();
+        } else {
+          setTimeout(() => {
+            this.submitBtn.disabled = false;
+          }, 500);
+          this.presentAlert('Transaction Status', res.message, 'Failed');
+        }
+      });
+    }
+  }
+
+  // get token selected or set Minima as default
+  getTokenSelected() {
+    this.route.queryParamMap.subscribe((res: any) => {
+      this.itemSelected = res.params.id;
+      if (!res.params.id) {
+        this.itemSelected = '0x00';
+      }
+    });
   }
 
   // listen to selection change
-  onItemSelection($event) {
-    const param = this.route.snapshot.params['id'];
-    this.tokenArr.forEach(element => {
-      if (this.itemSelected === element && param !== element.tokenid) {
-        this.itemSelected = element;
-        this.router.navigate(['/send-funds', {id: element.tokenid}]);
-
-        // update tokenid
-        this.updateTokenId(element.tokenid);
-      }
-    });
-  }
-  // fn to update tokenid
-  updateTokenId(id: string) {
-    this.data.tokenid = id;
+  onItemSelection(ev: any) {
+    this.itemSelected = ev.detail.value;
   }
 
   fillAmount(type: string) {
@@ -126,11 +162,11 @@ export class SendFundsPage implements OnInit {
       if (param === element.tokenid) {
         this.max = element.sendable;
         if (type === 'max') {
-          this.amount.value = this.max;
+          this.amountInp.value = this.max;
         } else if(type === 'half') {
-          this.amount.value = (parseFloat(this.max) / 2.0).toString();
+          this.amountInp.value = (parseFloat(this.max) / 2.0).toString();
         } else if(type === 'quarter') {
-          this.amount.value = (parseFloat(this.max) / 4.0).toString();
+          this.amountInp.value = (parseFloat(this.max) / 4.0).toString();
         }
       }
     });
@@ -159,7 +195,7 @@ export class SendFundsPage implements OnInit {
               });
 
           }, (err) => {
-            console.log('Scanned failed', err);
+            //console.log('Scanned failed', err);
           });
 
         } else if (status.denied) {
@@ -197,44 +233,6 @@ export class SendFundsPage implements OnInit {
      buttons: ['OK']
    });
    await alert.present();
-  }
-
-  pullInTokens() {
-    this.balanceService.data.subscribe((balance: Token[]) => {
-      this.tokenArr = balance;
-    });
-  }
-
-  sendFunds() {
-    const data = this.sendForm.value;
-
-    data.tokenid = data.token.tokenid;
-
-    if (data.message.length > 0) {
-      this.api.createTXN(data).then((res: any) => {
-        if (Minima.util.checkAllResponses(res)) {
-          this.presentAlert('Transaction Status', 'Transaction has been posted to the network!', 'Successful');
-          this.resetForm();
-        } else {
-          this.presentAlert('Transaction Status', res.message, 'Failed');
-        }
-      });
-    } else {
-      this.api.sendFunds(data).then((res: any) => {
-        if (res.status) {
-          this.presentAlert('Transaction Status', 'Transaction has been posted to the network!', 'Successful');
-          this.resetForm();
-        } else {
-          this.presentAlert('Transaction Status', res.message, 'Failed');
-        }
-      });
-    }
-  }
-
-  resetForm() {
-    this.address.value = '';
-    this.amount.value = '';
-    this.message.value = '';
   }
 
   /** MISC FUNCS */
@@ -323,19 +321,6 @@ export class SendFundsPage implements OnInit {
     this.webQrScanner.destroy();
     this.webQrScanner = null;
     this.isWebCameraOpen = false;
-  }
-
-  get tokenFormItem() {
-    return this.sendForm.get('token');
-  }
-  get addressFormItem() {
-    return this.sendForm.get('address');
-  }
-  get amountFormItem() {
-    return this.sendForm.get('amount');
-  }
-  get messageFormItem() {
-    return this.sendForm.get('message');
   }
 }
 

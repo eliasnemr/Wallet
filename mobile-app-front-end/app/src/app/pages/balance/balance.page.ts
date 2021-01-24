@@ -153,7 +153,6 @@ export class BalancePage implements OnInit {
   pullInTokens() {
     this.balanceService.data.subscribe((balance: Token[]) => {
       this.tokenArr = balance;
-      console.log(this.tokenArr);
     });
   }
 
