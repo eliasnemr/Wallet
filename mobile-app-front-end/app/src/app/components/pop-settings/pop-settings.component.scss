@@ -10,3 +10,9 @@ ion-list ion-item ion-select {
 ion-list-header {
     text-transform: none;
 }
+ion-select-option {
+    color: var(--ion-color-primary);
+} 
+[aria-checked=true].sc-ion-alert-md .alert-radio-label.sc-ion-alert-md {
+    color: var(--ion-color-tertiary);
+}

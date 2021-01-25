@@ -59,6 +59,7 @@ var SendFundsPage = /** @class */ (function () {
         this.platform = platform;
         this.route = route;
         this.router = router;
+        this.nftScript = 'ASSERT FLOOR ( @AMOUNT ) EQ @AMOUNT LET checkout = 0 WHILE ( checkout LT @TOTOUT ) DO IF GETOUTTOK ( checkout ) EQ @TOKENID THEN LET outamt = GETOUTAMT ( checkout ) ASSERT FLOOR ( outamt ) EQ outamt ENDIF LET checkout = INC ( checkout ) ENDWHILE RETURN TRUE';
         this.isCameraOpen = false;
         this.isWebCameraOpen = false;
         this.data = { tokenid: '', amount: '', address: '', message: '' };
@@ -178,13 +179,9 @@ var SendFundsPage = /** @class */ (function () {
     };
     SendFundsPage.prototype.fillAmount = function (type) {
         var _this = this;
-        var empty = undefined;
-        var param = this.route.snapshot.params['id'];
-        if (param === empty) {
-            param = '0x00';
-        }
+        var param = this.sendForm.get('tokenid').value;
         this.tokenArr.forEach(function (element) {
-            if (param === element.tokenid) {
+            if (param === element.tokenid && element.script !== _this.nftScript) {
                 _this.max = element.sendable;
                 if (type === 'max') {
                     _this.amountInp.value = _this.max;
@@ -194,6 +191,18 @@ var SendFundsPage = /** @class */ (function () {
                 }
                 else if (type === 'quarter') {
                     _this.amountInp.value = (parseFloat(_this.max) / 4.0).toString();
+                }
+            }
+            else if (element.script === _this.nftScript) {
+                _this.max = element.sendable;
+                if (type === 'max') {
+                    _this.amountInp.value = _this.max;
+                }
+                else if (type === 'half') {
+                    _this.amountInp.value = Math.floor((parseFloat(_this.max) / 2.0)).toString();
+                }
+                else if (type === 'quarter') {
+                    _this.amountInp.value = Math.floor((parseFloat(_this.max) / 4.0)).toString();
                 }
             }
         });

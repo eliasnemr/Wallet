@@ -69,7 +69,7 @@
               </span>
             </div>
 
-            <div *ngIf="!txn.values[0].name.name && txn.values[0].name === 'Create Token'">
+            <div class="tokenName" *ngIf="!txn.values[0].name.name && txn.values[0].name === 'Create Token'">
               <h3>Token Created &mdash; {{ txn.txpow.body.txn.tokengen.token }}</h3>
               <!-- <p>&mdash; {{ txn.txpow.body.txn.tokengen.token }}</p> -->
               <p class="time">{{txn.values[0].day}} {{txn.values[0].month}}, {{ txn.values[0].year }} &mdash; {{txn.values[0].time}} </p>

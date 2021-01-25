@@ -56,6 +56,10 @@ ion-label {
     white-space: nowrap;
     overflow: hidden;
 }
+ion-label.transactionAmount {
+    margin:0;
+    padding:0;
+}
 ion-label.transactionLabel h3 {
     padding:0;
     margin:0;
@@ -85,10 +89,3 @@ ion-content {
     cursor: pointer;
 }
 
-span.tokenName {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    max-width: 100px;
-    display: inline-block;
-}

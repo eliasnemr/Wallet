@@ -31,6 +31,7 @@ export class SendFundsPage implements OnInit {
 
   sendForm: FormGroup;
 
+  nftScript: string = 'ASSERT FLOOR ( @AMOUNT ) EQ @AMOUNT LET checkout = 0 WHILE ( checkout LT @TOTOUT ) DO IF GETOUTTOK ( checkout ) EQ @TOKENID THEN LET outamt = GETOUTAMT ( checkout ) ASSERT FLOOR ( outamt ) EQ outamt ENDIF LET checkout = INC ( checkout ) ENDWHILE RETURN TRUE';
   max: string; // max sendable amount for quickAmount
   webQrScanner: any;
   compareWith: any;
@@ -153,13 +154,9 @@ export class SendFundsPage implements OnInit {
   }
 
   fillAmount(type: string) {
-    const empty = undefined;
-    let param = this.route.snapshot.params['id'];
-    if (param === empty) {
-        param = '0x00';
-    }
+    const param = this.sendForm.get('tokenid').value;
     this.tokenArr.forEach(element => {
-      if (param === element.tokenid) {
+      if (param === element.tokenid && element.script !== this.nftScript) {
         this.max = element.sendable;
         if (type === 'max') {
           this.amountInp.value = this.max;
@@ -167,6 +164,15 @@ export class SendFundsPage implements OnInit {
           this.amountInp.value = (parseFloat(this.max) / 2.0).toString();
         } else if(type === 'quarter') {
           this.amountInp.value = (parseFloat(this.max) / 4.0).toString();
+        }
+      } else if (element.script === this.nftScript) {
+        this.max = element.sendable;
+        if (type === 'max') {
+          this.amountInp.value = this.max;
+        } else if (type === 'half') {
+          this.amountInp.value = Math.floor((parseFloat(this.max) / 2.0)).toString();
+        } else if (type === 'quarter') {
+          this.amountInp.value = Math.floor((parseFloat(this.max) / 4.0)).toString();
         }
       }
     });

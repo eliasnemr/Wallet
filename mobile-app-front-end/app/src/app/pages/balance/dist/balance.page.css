@@ -58,6 +58,7 @@ ion-card-title {
   display: flex;
   align-items: center;
   justify-content: left;
+  color: var(--ion-color-primary);
 }
 
 ion-avatar {
