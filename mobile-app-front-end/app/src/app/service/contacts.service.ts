@@ -25,7 +25,7 @@ export class ContactService {
                 'avatar varchar(255))';
 
     Minima.sql(this.qContacts + ';SELECT * FROM contacts ORDER BY NAME', (res: any) => {
-      console.log(res);
+      //console.log(res);
       if (Minima.util.checkAllResponses(res)) {
         this.data.next(res.response[1].rows);
       }

@@ -47,7 +47,7 @@ export class HistoryPage implements OnInit {
     public popoverController: PopoverController,
     public config: Config,
     public router: RouterModule) { }
-  
+
   ngOnInit() {
     this.pullInHistorySummary();
     this.ios = this.config.get('mode') === 'ios';
@@ -64,7 +64,7 @@ export class HistoryPage implements OnInit {
       this.userHistorySavedData.addToSaved(txn.txpow.txpowid);
       // Add true attribute to this txn
       txn.saved = 'true';
-    
+
       // close the open item
       slidingItem.close();
 
@@ -145,7 +145,7 @@ export class HistoryPage implements OnInit {
         txpow.values[0].day = moment(txpow.txpow.header.timesecs * 1000).format("DD");
         txpow.values[0].month = moment(txpow.txpow.header.timesecs * 1000).format("MMM");
         txpow.values[0].year = moment(txpow.txpow.header.timesecs * 1000).format("YYYY");
-        if (name.substring(0, 1) === '{') {
+        if (name && !name.name && name.substring(0, 1) === '{') {
           txpow.values[0].name = JSON.parse(name);
         }
       });
@@ -161,6 +161,5 @@ export class HistoryPage implements OnInit {
       this.prompt = 'No recent transactions found...';
     }
   }
- 
+
  }
- 

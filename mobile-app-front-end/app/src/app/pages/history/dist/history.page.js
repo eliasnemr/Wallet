@@ -191,7 +191,7 @@ var HistoryPage = /** @class */ (function () {
                 txpow.values[0].day = moment(txpow.txpow.header.timesecs * 1000).format("DD");
                 txpow.values[0].month = moment(txpow.txpow.header.timesecs * 1000).format("MMM");
                 txpow.values[0].year = moment(txpow.txpow.header.timesecs * 1000).format("YYYY");
-                if (name.substring(0, 1) === '{') {
+                if (name && !name.name && name.substring(0, 1) === '{') {
                     txpow.values[0].name = JSON.parse(name);
                 }
             });
