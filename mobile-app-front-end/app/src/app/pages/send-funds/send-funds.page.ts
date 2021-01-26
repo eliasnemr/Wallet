@@ -31,7 +31,9 @@ export class SendFundsPage implements OnInit {
 
   sendForm: FormGroup;
 
-  nftScript: string = 'ASSERT FLOOR ( @AMOUNT ) EQ @AMOUNT LET checkout = 0 WHILE ( checkout LT @TOTOUT ) DO IF GETOUTTOK ( checkout ) EQ @TOKENID THEN LET outamt = GETOUTAMT ( checkout ) ASSERT FLOOR ( outamt ) EQ outamt ENDIF LET checkout = INC ( checkout ) ENDWHILE RETURN TRUE';
+  nftScript: string = 'ASSERT FLOOR ( @AMOUNT ) EQ @AMOUNT LET checkout = 0 WHILE ( checkout LT @TOTOUT )' +
+  'DO IF GETOUTTOK ( checkout ) EQ @TOKENID THEN LET outamt = GETOUTAMT ( checkout ) ASSERT FLOOR ( outamt )' +
+  'EQ outamt ENDIF LET checkout = INC ( checkout ) ENDWHILE RETURN TRUE';
   max: string; // max sendable amount for quickAmount
   webQrScanner: any;
   compareWith: any;
@@ -82,7 +84,7 @@ export class SendFundsPage implements OnInit {
   }
 
   get tokenFormItem() {
-    return this.sendForm.get('token');
+    return this.sendForm.get('tokenid');
   }
   get addressFormItem() {
     return this.sendForm.get('address');
@@ -103,9 +105,10 @@ export class SendFundsPage implements OnInit {
   sendFunds() {
     this.sendForm.value.amnt = this.sendForm.value.amount.toString();
     const data: SendFormObj = this.sendForm.value;
+
     if (data.message !== null && ( data.message || data.message.length > 0) ) {
       this.submitBtn.disabled = true;
-      this.api.createTXN(data).then((res: any) => {
+      this.api.sendMessageTransaction(data).then((res: any) => {
         if (Minima.util.checkAllResponses(res)) {
           setTimeout(() => {
             this.submitBtn.disabled = false;
@@ -150,29 +153,31 @@ export class SendFundsPage implements OnInit {
 
   // listen to selection change
   onItemSelection(ev: any) {
-    this.itemSelected = ev.detail.value;
+    this.itemSelected = this.sendForm.get('tokenid').value;
+    console.log('Token Selected: ' + this.itemSelected)
   }
 
   fillAmount(type: string) {
     const param = this.sendForm.get('tokenid').value;
+    this.amountInp.value = '';
     this.tokenArr.forEach(element => {
-      if (param === element.tokenid && element.script !== this.nftScript) {
-        this.max = element.sendable;
+    if (param === element.tokenid || (param === element.tokenid && element.script !== this.nftScript)) {
+        const maxAmmo = element.sendable;
         if (type === 'max') {
-          this.amountInp.value = this.max;
-        } else if(type === 'half') {
-          this.amountInp.value = (parseFloat(this.max) / 2.0).toString();
-        } else if(type === 'quarter') {
-          this.amountInp.value = (parseFloat(this.max) / 4.0).toString();
+        this.amountInp.value = maxAmmo;
+        } else if (type === 'half') {
+          this.amountInp.value = (parseFloat(maxAmmo) / 2.0).toString();
+        } else if (type === 'quarter') {
+          this.amountInp.value = (parseFloat(maxAmmo) / 4.0).toString();
         }
       } else if (element.script === this.nftScript) {
-        this.max = element.sendable;
+        const maxAmmo = element.sendable;
         if (type === 'max') {
-          this.amountInp.value = this.max;
+          this.amountInp.value = maxAmmo;
         } else if (type === 'half') {
-          this.amountInp.value = Math.floor((parseFloat(this.max) / 2.0)).toString();
+          this.amountInp.value = Math.floor((parseFloat(maxAmmo) / 2.0)).toString();
         } else if (type === 'quarter') {
-          this.amountInp.value = Math.floor((parseFloat(this.max) / 4.0)).toString();
+          this.amountInp.value = Math.floor((parseFloat(maxAmmo) / 4.0)).toString();
         }
       }
     });

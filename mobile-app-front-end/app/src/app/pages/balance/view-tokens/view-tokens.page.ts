@@ -14,22 +14,29 @@ declare var Minima: any;
 })
 export class ViewTokensPage implements OnInit {
 
-  public urlID: string = '';
+  public urlID = '';
   public token: Token;
   public tokenArr: Token[];
-  public type: string = '';
+  public type = '';
   public avatar: string;
 
-  constructor(public route: ActivatedRoute, public api: MinimaApiService, public toastController: ToastController, public balanceService: BalanceService) {
-  
+  constructor(
+    public route: ActivatedRoute, 
+    public api: MinimaApiService,
+    public toastController: ToastController,
+    public balanceService: BalanceService) {
+
+  }
+
+  ngOnInit() {
     this.balanceService.data.subscribe((res) => {
       this.tokenArr = res;
-      this.urlID = this.route.snapshot.paramMap.get("id");
+      this.urlID = this.route.snapshot.paramMap.get('id');
 
       this.tokenArr.forEach((tkn: any) => {
-        if(tkn.tokenid === this.urlID) {
+        if (tkn.tokenid === this.urlID) {
           this.token = tkn;
-          if(this.token.tokenid === '0x00') {
+          if (this.token.tokenid === '0x00') {
             this.token.description = 'Minima\'s Official Token.';
           } else {
             this.token.description = tkn.description;
@@ -49,9 +56,7 @@ export class ViewTokensPage implements OnInit {
         }
       });
     });
-  }
-
-  ngOnInit() { }
+   }
 
   validateProof(tokenid: string) {
     this.api.validateTokenID(tokenid).then((res: any)=>{

@@ -47,16 +47,18 @@ var SparkMD5 = require("spark-md5");
 var core_1 = require("@angular/core");
 var ViewTokensPage = /** @class */ (function () {
     function ViewTokensPage(route, api, toastController, balanceService) {
-        var _this = this;
         this.route = route;
         this.api = api;
         this.toastController = toastController;
         this.balanceService = balanceService;
         this.urlID = '';
         this.type = '';
+    }
+    ViewTokensPage.prototype.ngOnInit = function () {
+        var _this = this;
         this.balanceService.data.subscribe(function (res) {
             _this.tokenArr = res;
-            _this.urlID = _this.route.snapshot.paramMap.get("id");
+            _this.urlID = _this.route.snapshot.paramMap.get('id');
             _this.tokenArr.forEach(function (tkn) {
                 if (tkn.tokenid === _this.urlID) {
                     _this.token = tkn;
@@ -84,8 +86,7 @@ var ViewTokensPage = /** @class */ (function () {
                 }
             });
         });
-    }
-    ViewTokensPage.prototype.ngOnInit = function () { };
+    };
     ViewTokensPage.prototype.validateProof = function (tokenid) {
         var _this = this;
         this.api.validateTokenID(tokenid).then(function (res) {

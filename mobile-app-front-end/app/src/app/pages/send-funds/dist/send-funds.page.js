@@ -59,7 +59,9 @@ var SendFundsPage = /** @class */ (function () {
         this.platform = platform;
         this.route = route;
         this.router = router;
-        this.nftScript = 'ASSERT FLOOR ( @AMOUNT ) EQ @AMOUNT LET checkout = 0 WHILE ( checkout LT @TOTOUT ) DO IF GETOUTTOK ( checkout ) EQ @TOKENID THEN LET outamt = GETOUTAMT ( checkout ) ASSERT FLOOR ( outamt ) EQ outamt ENDIF LET checkout = INC ( checkout ) ENDWHILE RETURN TRUE';
+        this.nftScript = 'ASSERT FLOOR ( @AMOUNT ) EQ @AMOUNT LET checkout = 0 WHILE ( checkout LT @TOTOUT )' +
+            'DO IF GETOUTTOK ( checkout ) EQ @TOKENID THEN LET outamt = GETOUTAMT ( checkout ) ASSERT FLOOR ( outamt )' +
+            'EQ outamt ENDIF LET checkout = INC ( checkout ) ENDWHILE RETURN TRUE';
         this.isCameraOpen = false;
         this.isWebCameraOpen = false;
         this.data = { tokenid: '', amount: '', address: '', message: '' };
@@ -90,7 +92,7 @@ var SendFundsPage = /** @class */ (function () {
     };
     Object.defineProperty(SendFundsPage.prototype, "tokenFormItem", {
         get: function () {
-            return this.sendForm.get('token');
+            return this.sendForm.get('tokenid');
         },
         enumerable: false,
         configurable: true
@@ -128,7 +130,7 @@ var SendFundsPage = /** @class */ (function () {
         var data = this.sendForm.value;
         if (data.message !== null && (data.message || data.message.length > 0)) {
             this.submitBtn.disabled = true;
-            this.api.createTXN(data).then(function (res) {
+            this.api.sendMessageTransaction(data).then(function (res) {
                 if (minima_1.Minima.util.checkAllResponses(res)) {
                     setTimeout(function () {
                         _this.submitBtn.disabled = false;
@@ -175,34 +177,36 @@ var SendFundsPage = /** @class */ (function () {
     };
     // listen to selection change
     SendFundsPage.prototype.onItemSelection = function (ev) {
-        this.itemSelected = ev.detail.value;
+        this.itemSelected = this.sendForm.get('tokenid').value;
+        console.log('Token Selected: ' + this.itemSelected);
     };
     SendFundsPage.prototype.fillAmount = function (type) {
         var _this = this;
         var param = this.sendForm.get('tokenid').value;
+        this.amountInp.value = '';
         this.tokenArr.forEach(function (element) {
-            if (param === element.tokenid && element.script !== _this.nftScript) {
-                _this.max = element.sendable;
+            if (param === element.tokenid || (param === element.tokenid && element.script !== _this.nftScript)) {
+                var maxAmmo = element.sendable;
                 if (type === 'max') {
-                    _this.amountInp.value = _this.max;
+                    _this.amountInp.value = maxAmmo;
                 }
                 else if (type === 'half') {
-                    _this.amountInp.value = (parseFloat(_this.max) / 2.0).toString();
+                    _this.amountInp.value = (parseFloat(maxAmmo) / 2.0).toString();
                 }
                 else if (type === 'quarter') {
-                    _this.amountInp.value = (parseFloat(_this.max) / 4.0).toString();
+                    _this.amountInp.value = (parseFloat(maxAmmo) / 4.0).toString();
                 }
             }
             else if (element.script === _this.nftScript) {
-                _this.max = element.sendable;
+                var maxAmmo = element.sendable;
                 if (type === 'max') {
-                    _this.amountInp.value = _this.max;
+                    _this.amountInp.value = maxAmmo;
                 }
                 else if (type === 'half') {
-                    _this.amountInp.value = Math.floor((parseFloat(_this.max) / 2.0)).toString();
+                    _this.amountInp.value = Math.floor((parseFloat(maxAmmo) / 2.0)).toString();
                 }
                 else if (type === 'quarter') {
-                    _this.amountInp.value = Math.floor((parseFloat(_this.max) / 4.0)).toString();
+                    _this.amountInp.value = Math.floor((parseFloat(maxAmmo) / 4.0)).toString();
                 }
             }
         });

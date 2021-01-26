@@ -36,7 +36,7 @@ export class MinimaApiService {
     return this.req("tokenvalidate "+tokenid);
   }
 
-  createTXN(data: any){
+  sendMessageTransaction(data: any){
     const txnidentifier = Math.floor(Math.random()*1000000000);
     const port254 = 254;
     const port255 = 255;
@@ -95,12 +95,12 @@ export class MinimaApiService {
 
   // Use minima.js instead..
   req(fnc: any) {
-    let promise = new Promise((resolve, reject) => {
-      Minima.cmd(fnc, function(resp){
+    const promise = new Promise((resolve) => {
+      Minima.cmd(fnc, (resp: any) => {
         //console.log(resp);
         resolve(resp);
       });
-    })
+    });
     return promise;
   }
 }

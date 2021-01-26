@@ -13,13 +13,6 @@ var minima_1 = require("minima");
 var BalanceService = /** @class */ (function () {
     function BalanceService() {
         this.data = new rxjs_1.BehaviorSubject(minima_1.Minima.balance);
-        // take in tokenArr and the element you'd like to add to front of array
-        this.update = function (a, e) {
-            var i = a.findIndex(function (o) { return o.tokenid === e; });
-            i > 0 ? a.splice(0, 0, a.splice(i, 1)[0]) : i && a.splice(0, 0, e);
-            (a.length > 5) && a.length--;
-            return a;
-        };
     }
     BalanceService = __decorate([
         core_1.Injectable({
