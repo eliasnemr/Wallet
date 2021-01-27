@@ -1,284 +1,258 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[39],{
 
-/***/ "./node_modules/@ionic/core/dist/esm/ion-modal-ios.entry.js":
-/*!******************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm/ion-modal-ios.entry.js ***!
-  \******************************************************************/
-/*! exports provided: ion_modal */
+/***/ "./node_modules/@ionic/core/dist/esm/ion-textarea.entry.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/@ionic/core/dist/esm/ion-textarea.entry.js ***!
+  \*****************************************************************/
+/*! exports provided: ion_textarea */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ion_modal", function() { return Modal; });
-/* harmony import */ var _core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./core-feeeff0d.js */ "./node_modules/@ionic/core/dist/esm/core-feeeff0d.js");
-/* harmony import */ var _config_3c7f3790_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./config-3c7f3790.js */ "./node_modules/@ionic/core/dist/esm/config-3c7f3790.js");
-/* harmony import */ var _helpers_46f4a262_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helpers-46f4a262.js */ "./node_modules/@ionic/core/dist/esm/helpers-46f4a262.js");
-/* harmony import */ var _animation_af478fe9_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./animation-af478fe9.js */ "./node_modules/@ionic/core/dist/esm/animation-af478fe9.js");
-/* harmony import */ var _constants_3c3e1099_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./constants-3c3e1099.js */ "./node_modules/@ionic/core/dist/esm/constants-3c3e1099.js");
-/* harmony import */ var _overlays_10640d86_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./overlays-10640d86.js */ "./node_modules/@ionic/core/dist/esm/overlays-10640d86.js");
-/* harmony import */ var _theme_18cbe2cc_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./theme-18cbe2cc.js */ "./node_modules/@ionic/core/dist/esm/theme-18cbe2cc.js");
-/* harmony import */ var _framework_delegate_c2e2e1f4_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./framework-delegate-c2e2e1f4.js */ "./node_modules/@ionic/core/dist/esm/framework-delegate-c2e2e1f4.js");
-/* harmony import */ var _index_4d91f03a_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./index-4d91f03a.js */ "./node_modules/@ionic/core/dist/esm/index-4d91f03a.js");
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ion_textarea", function() { return Textarea; });
+/* harmony import */ var _index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index-e806d1f6.js */ "./node_modules/@ionic/core/dist/esm/index-e806d1f6.js");
+/* harmony import */ var _ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ionic-global-9d5c8ee3.js */ "./node_modules/@ionic/core/dist/esm/ionic-global-9d5c8ee3.js");
+/* harmony import */ var _helpers_90f46169_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helpers-90f46169.js */ "./node_modules/@ionic/core/dist/esm/helpers-90f46169.js");
+/* harmony import */ var _theme_ff3fc52f_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./theme-ff3fc52f.js */ "./node_modules/@ionic/core/dist/esm/theme-ff3fc52f.js");
 
 
 
 
 
+const textareaIosCss = ".sc-ion-textarea-ios-h{--background:initial;--color:initial;--placeholder-color:initial;--placeholder-font-style:initial;--placeholder-font-weight:initial;--placeholder-opacity:.5;--padding-top:0;--padding-end:0;--padding-bottom:0;--padding-start:0;--border-radius:0;display:block;position:relative;-ms-flex:1;flex:1;width:100%;background:var(--background);color:var(--color);font-family:var(--ion-font-family, inherit);white-space:pre-wrap;z-index:2;-webkit-box-sizing:border-box;box-sizing:border-box}.ion-color.sc-ion-textarea-ios-h{background:initial}.ion-color.sc-ion-textarea-ios-h{color:var(--ion-color-base)}ion-item.sc-ion-textarea-ios-h,ion-item .sc-ion-textarea-ios-h{-ms-flex-item-align:baseline;align-self:baseline}ion-item.sc-ion-textarea-ios-h:not(.item-label),ion-item:not(.item-label) .sc-ion-textarea-ios-h{--padding-start:0}.textarea-wrapper.sc-ion-textarea-ios{min-width:inherit;max-width:inherit;min-height:inherit;max-height:inherit}.native-textarea.sc-ion-textarea-ios{border-radius:var(--border-radius);margin-left:0;margin-right:0;margin-top:0;margin-bottom:0;padding-left:var(--padding-start);padding-right:var(--padding-end);padding-top:var(--padding-top);padding-bottom:var(--padding-bottom);font-family:inherit;font-size:inherit;font-style:inherit;font-weight:inherit;letter-spacing:inherit;text-decoration:inherit;text-indent:inherit;text-overflow:inherit;text-transform:inherit;text-align:inherit;white-space:inherit;color:inherit;display:block;width:100%;max-width:100%;max-height:100%;border:0;outline:none;background:transparent;-webkit-box-sizing:border-box;box-sizing:border-box;resize:none;-webkit-appearance:none;-moz-appearance:none;appearance:none}@supports ((-webkit-margin-start: 0) or (margin-inline-start: 0)) or (-webkit-margin-start: 0){.native-textarea.sc-ion-textarea-ios{padding-left:unset;padding-right:unset;-webkit-padding-start:var(--padding-start);padding-inline-start:var(--padding-start);-webkit-padding-end:var(--padding-end);padding-inline-end:var(--padding-end)}}.native-textarea.sc-ion-textarea-ios::-webkit-input-placeholder{padding-left:0;padding-right:0;padding-top:0;padding-bottom:0;color:var(--placeholder-color);font-family:inherit;font-style:var(--placeholder-font-style);font-weight:var(--placeholder-font-weight);opacity:var(--placeholder-opacity)}.native-textarea.sc-ion-textarea-ios::-moz-placeholder{padding-left:0;padding-right:0;padding-top:0;padding-bottom:0;color:var(--placeholder-color);font-family:inherit;font-style:var(--placeholder-font-style);font-weight:var(--placeholder-font-weight);opacity:var(--placeholder-opacity)}.native-textarea.sc-ion-textarea-ios:-ms-input-placeholder{padding-left:0;padding-right:0;padding-top:0;padding-bottom:0;color:var(--placeholder-color);font-family:inherit;font-style:var(--placeholder-font-style);font-weight:var(--placeholder-font-weight);opacity:var(--placeholder-opacity)}.native-textarea.sc-ion-textarea-ios::-ms-input-placeholder{padding-left:0;padding-right:0;padding-top:0;padding-bottom:0;color:var(--placeholder-color);font-family:inherit;font-style:var(--placeholder-font-style);font-weight:var(--placeholder-font-weight);opacity:var(--placeholder-opacity)}.native-textarea.sc-ion-textarea-ios::placeholder{padding-left:0;padding-right:0;padding-top:0;padding-bottom:0;color:var(--placeholder-color);font-family:inherit;font-style:var(--placeholder-font-style);font-weight:var(--placeholder-font-weight);opacity:var(--placeholder-opacity)}.native-textarea[disabled].sc-ion-textarea-ios{opacity:0.4}.cloned-input.sc-ion-textarea-ios{left:0;top:0;position:absolute;pointer-events:none}[dir=rtl].sc-ion-textarea-ios .cloned-input.sc-ion-textarea-ios,[dir=rtl].sc-ion-textarea-ios-h .cloned-input.sc-ion-textarea-ios,[dir=rtl] .sc-ion-textarea-ios-h .cloned-input.sc-ion-textarea-ios{left:unset;right:unset;right:0}.sc-ion-textarea-ios-h{--padding-top:10px;--padding-end:10px;--padding-bottom:10px;--padding-start:0;font-size:inherit}.item-label-stacked.sc-ion-textarea-ios-h,.item-label-stacked .sc-ion-textarea-ios-h,.item-label-floating.sc-ion-textarea-ios-h,.item-label-floating .sc-ion-textarea-ios-h{--padding-top:8px;--padding-bottom:8px;--padding-start:0px}";
 
+const textareaMdCss = ".sc-ion-textarea-md-h{--background:initial;--color:initial;--placeholder-color:initial;--placeholder-font-style:initial;--placeholder-font-weight:initial;--placeholder-opacity:.5;--padding-top:0;--padding-end:0;--padding-bottom:0;--padding-start:0;--border-radius:0;display:block;position:relative;-ms-flex:1;flex:1;width:100%;background:var(--background);color:var(--color);font-family:var(--ion-font-family, inherit);white-space:pre-wrap;z-index:2;-webkit-box-sizing:border-box;box-sizing:border-box}.ion-color.sc-ion-textarea-md-h{background:initial}.ion-color.sc-ion-textarea-md-h{color:var(--ion-color-base)}ion-item.sc-ion-textarea-md-h,ion-item .sc-ion-textarea-md-h{-ms-flex-item-align:baseline;align-self:baseline}ion-item.sc-ion-textarea-md-h:not(.item-label),ion-item:not(.item-label) .sc-ion-textarea-md-h{--padding-start:0}.textarea-wrapper.sc-ion-textarea-md{min-width:inherit;max-width:inherit;min-height:inherit;max-height:inherit}.native-textarea.sc-ion-textarea-md{border-radius:var(--border-radius);margin-left:0;margin-right:0;margin-top:0;margin-bottom:0;padding-left:var(--padding-start);padding-right:var(--padding-end);padding-top:var(--padding-top);padding-bottom:var(--padding-bottom);font-family:inherit;font-size:inherit;font-style:inherit;font-weight:inherit;letter-spacing:inherit;text-decoration:inherit;text-indent:inherit;text-overflow:inherit;text-transform:inherit;text-align:inherit;white-space:inherit;color:inherit;display:block;width:100%;max-width:100%;max-height:100%;border:0;outline:none;background:transparent;-webkit-box-sizing:border-box;box-sizing:border-box;resize:none;-webkit-appearance:none;-moz-appearance:none;appearance:none}@supports ((-webkit-margin-start: 0) or (margin-inline-start: 0)) or (-webkit-margin-start: 0){.native-textarea.sc-ion-textarea-md{padding-left:unset;padding-right:unset;-webkit-padding-start:var(--padding-start);padding-inline-start:var(--padding-start);-webkit-padding-end:var(--padding-end);padding-inline-end:var(--padding-end)}}.native-textarea.sc-ion-textarea-md::-webkit-input-placeholder{padding-left:0;padding-right:0;padding-top:0;padding-bottom:0;color:var(--placeholder-color);font-family:inherit;font-style:var(--placeholder-font-style);font-weight:var(--placeholder-font-weight);opacity:var(--placeholder-opacity)}.native-textarea.sc-ion-textarea-md::-moz-placeholder{padding-left:0;padding-right:0;padding-top:0;padding-bottom:0;color:var(--placeholder-color);font-family:inherit;font-style:var(--placeholder-font-style);font-weight:var(--placeholder-font-weight);opacity:var(--placeholder-opacity)}.native-textarea.sc-ion-textarea-md:-ms-input-placeholder{padding-left:0;padding-right:0;padding-top:0;padding-bottom:0;color:var(--placeholder-color);font-family:inherit;font-style:var(--placeholder-font-style);font-weight:var(--placeholder-font-weight);opacity:var(--placeholder-opacity)}.native-textarea.sc-ion-textarea-md::-ms-input-placeholder{padding-left:0;padding-right:0;padding-top:0;padding-bottom:0;color:var(--placeholder-color);font-family:inherit;font-style:var(--placeholder-font-style);font-weight:var(--placeholder-font-weight);opacity:var(--placeholder-opacity)}.native-textarea.sc-ion-textarea-md::placeholder{padding-left:0;padding-right:0;padding-top:0;padding-bottom:0;color:var(--placeholder-color);font-family:inherit;font-style:var(--placeholder-font-style);font-weight:var(--placeholder-font-weight);opacity:var(--placeholder-opacity)}.native-textarea[disabled].sc-ion-textarea-md{opacity:0.4}.cloned-input.sc-ion-textarea-md{left:0;top:0;position:absolute;pointer-events:none}[dir=rtl].sc-ion-textarea-md .cloned-input.sc-ion-textarea-md,[dir=rtl].sc-ion-textarea-md-h .cloned-input.sc-ion-textarea-md,[dir=rtl] .sc-ion-textarea-md-h .cloned-input.sc-ion-textarea-md{left:unset;right:unset;right:0}.sc-ion-textarea-md-h{--padding-top:10px;--padding-end:0;--padding-bottom:11px;--padding-start:8px;margin-left:0;margin-right:0;margin-top:8px;margin-bottom:0;font-size:inherit}.item-label-stacked.sc-ion-textarea-md-h,.item-label-stacked .sc-ion-textarea-md-h,.item-label-floating.sc-ion-textarea-md-h,.item-label-floating .sc-ion-textarea-md-h{--padding-top:8px;--padding-bottom:8px;--padding-start:0}";
 
-
-
-
-/**
- * iOS Modal Enter Animation
- */
-const iosEnterAnimation = (baseEl) => {
-    const baseAnimation = Object(_animation_af478fe9_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
-    const backdropAnimation = Object(_animation_af478fe9_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
-    const wrapperAnimation = Object(_animation_af478fe9_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
-    backdropAnimation
-        .addElement(baseEl.querySelector('ion-backdrop'))
-        .fromTo('opacity', 0.01, 0.4);
-    wrapperAnimation
-        .addElement(baseEl.querySelector('.modal-wrapper'))
-        .beforeStyles({ 'opacity': 1 })
-        .fromTo('transform', 'translateY(100%)', 'translateY(0%)');
-    return baseAnimation
-        .addElement(baseEl)
-        .easing('cubic-bezier(0.36,0.66,0.04,1)')
-        .duration(400)
-        .beforeAddClass('show-modal')
-        .addAnimation([backdropAnimation, wrapperAnimation]);
-};
-/**
- * Animations for modals
- */
-// export function modalSlideIn(rootEl: HTMLElement) {
-// }
-// export class ModalSlideOut {
-//   constructor(el: HTMLElement) {
-//     let backdrop = new Animation(this.plt, el.querySelector('ion-backdrop'));
-//     let wrapperEle = <HTMLElement>el.querySelector('.modal-wrapper');
-//     let wrapperEleRect = wrapperEle.getBoundingClientRect();
-//     let wrapper = new Animation(this.plt, wrapperEle);
-//     // height of the screen - top of the container tells us how much to scoot it down
-//     // so it's off-screen
-//     wrapper.fromTo('translateY', '0px', `${this.plt.height() - wrapperEleRect.top}px`);
-//     backdrop.fromTo('opacity', 0.4, 0.0);
-//     this
-//       .element(this.leavingView.pageRef())
-//       .easing('ease-out')
-//       .duration(250)
-//       .add(backdrop)
-//       .add(wrapper);
-//   }
-// }
-// export class ModalMDSlideIn {
-//   constructor(el: HTMLElement) {
-//     const backdrop = new Animation(this.plt, el.querySelector('ion-backdrop'));
-//     const wrapper = new Animation(this.plt, el.querySelector('.modal-wrapper'));
-//     backdrop.fromTo('opacity', 0.01, 0.4);
-//     wrapper.fromTo('translateY', '40px', '0px');
-//     wrapper.fromTo('opacity', 0.01, 1);
-//     const DURATION = 280;
-//     const EASING = 'cubic-bezier(0.36,0.66,0.04,1)';
-//     this.element(this.enteringView.pageRef()).easing(EASING).duration(DURATION)
-//       .add(backdrop)
-//       .add(wrapper);
-//   }
-// }
-// export class ModalMDSlideOut {
-//   constructor(el: HTMLElement) {
-//     const backdrop = new Animation(this.plt, el.querySelector('ion-backdrop'));
-//     const wrapper = new Animation(this.plt, el.querySelector('.modal-wrapper'));
-//     backdrop.fromTo('opacity', 0.4, 0.0);
-//     wrapper.fromTo('translateY', '0px', '40px');
-//     wrapper.fromTo('opacity', 0.99, 0);
-//     this
-//       .element(this.leavingView.pageRef())
-//       .duration(200)
-//       .easing('cubic-bezier(0.47,0,0.745,0.715)')
-//       .add(wrapper)
-//       .add(backdrop);
-//   }
-// }
-
-/**
- * iOS Modal Leave Animation
- */
-const iosLeaveAnimation = (baseEl) => {
-    const baseAnimation = Object(_animation_af478fe9_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
-    const backdropAnimation = Object(_animation_af478fe9_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
-    const wrapperAnimation = Object(_animation_af478fe9_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
-    const wrapperEl = baseEl.querySelector('.modal-wrapper');
-    const wrapperElRect = wrapperEl.getBoundingClientRect();
-    backdropAnimation
-        .addElement(baseEl.querySelector('ion-backdrop'))
-        .fromTo('opacity', 0.4, 0.0);
-    wrapperAnimation
-        .addElement(wrapperEl)
-        .beforeStyles({ 'opacity': 1 })
-        .fromTo('transform', 'translateY(0%)', `translateY(${baseEl.ownerDocument.defaultView.innerHeight - wrapperElRect.top}px)`);
-    return baseAnimation
-        .addElement(baseEl)
-        .easing('ease-out')
-        .duration(250)
-        .addAnimation([backdropAnimation, wrapperAnimation]);
-};
-
-/**
- * Md Modal Enter Animation
- */
-const mdEnterAnimation = (baseEl) => {
-    const baseAnimation = Object(_animation_af478fe9_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
-    const backdropAnimation = Object(_animation_af478fe9_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
-    const wrapperAnimation = Object(_animation_af478fe9_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
-    backdropAnimation
-        .addElement(baseEl.querySelector('ion-backdrop'))
-        .fromTo('opacity', 0.01, 0.32);
-    wrapperAnimation
-        .addElement(baseEl.querySelector('.modal-wrapper'))
-        .keyframes([
-        { offset: 0, opacity: 0.01, transform: 'translateY(40px)' },
-        { offset: 1, opacity: 1, transform: 'translateY(0px)' }
-    ]);
-    return baseAnimation
-        .addElement(baseEl)
-        .easing('cubic-bezier(0.36,0.66,0.04,1)')
-        .duration(280)
-        .beforeAddClass('show-modal')
-        .addAnimation([backdropAnimation, wrapperAnimation]);
-};
-
-/**
- * Md Modal Leave Animation
- */
-const mdLeaveAnimation = (baseEl) => {
-    const baseAnimation = Object(_animation_af478fe9_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
-    const backdropAnimation = Object(_animation_af478fe9_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
-    const wrapperAnimation = Object(_animation_af478fe9_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
-    const wrapperEl = baseEl.querySelector('.modal-wrapper');
-    backdropAnimation
-        .addElement(baseEl.querySelector('ion-backdrop'))
-        .fromTo('opacity', 0.32, 0.0);
-    wrapperAnimation
-        .addElement(wrapperEl)
-        .keyframes([
-        { offset: 0, opacity: 0.99, transform: 'translateY(0px)' },
-        { offset: 1, opacity: 0, transform: 'translateY(40px)' }
-    ]);
-    return baseAnimation
-        .addElement(baseEl)
-        .easing('cubic-bezier(0.47,0,0.745,0.715)')
-        .duration(200)
-        .addAnimation([backdropAnimation, wrapperAnimation]);
-};
-
-const Modal = class {
-    constructor(hostRef) {
-        Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["r"])(this, hostRef);
-        this.presented = false;
-        this.mode = Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this);
-        /**
-         * If `true`, the keyboard will be automatically dismissed when the overlay is presented.
-         */
-        this.keyboardClose = true;
-        /**
-         * If `true`, the modal will be dismissed when the backdrop is clicked.
-         */
-        this.backdropDismiss = true;
-        /**
-         * If `true`, a backdrop will be displayed behind the modal.
-         */
-        this.showBackdrop = true;
-        /**
-         * If `true`, the modal will animate.
-         */
-        this.animated = true;
-        this.onBackdropTap = () => {
-            this.dismiss(undefined, _overlays_10640d86_js__WEBPACK_IMPORTED_MODULE_5__["B"]);
-        };
-        this.onDismiss = (ev) => {
-            ev.stopPropagation();
-            ev.preventDefault();
-            this.dismiss();
-        };
-        this.onLifecycle = (modalEvent) => {
-            const el = this.usersElement;
-            const name = LIFECYCLE_MAP[modalEvent.type];
-            if (el && name) {
-                const ev = new CustomEvent(name, {
-                    bubbles: false,
-                    cancelable: false,
-                    detail: modalEvent.detail
-                });
-                el.dispatchEvent(ev);
-            }
-        };
-        Object(_overlays_10640d86_js__WEBPACK_IMPORTED_MODULE_5__["d"])(this.el);
-        this.didPresent = Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["d"])(this, "ionModalDidPresent", 7);
-        this.willPresent = Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["d"])(this, "ionModalWillPresent", 7);
-        this.willDismiss = Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["d"])(this, "ionModalWillDismiss", 7);
-        this.didDismiss = Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["d"])(this, "ionModalDidDismiss", 7);
-    }
+const Textarea = class {
+  constructor(hostRef) {
+    Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["r"])(this, hostRef);
+    this.ionChange = Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this, "ionChange", 7);
+    this.ionInput = Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this, "ionInput", 7);
+    this.ionStyle = Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this, "ionStyle", 7);
+    this.ionBlur = Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this, "ionBlur", 7);
+    this.ionFocus = Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this, "ionFocus", 7);
+    this.inputId = `ion-textarea-${textareaIds++}`;
+    this.didBlurAfterEdit = false;
+    this.inheritedAttributes = {};
     /**
-     * Present the modal overlay after it has been created.
-     */
-    async present() {
-        if (this.presented) {
-            return;
-        }
-        const container = this.el.querySelector(`.modal-wrapper`);
-        if (!container) {
-            throw new Error('container is undefined');
-        }
-        const componentProps = Object.assign(Object.assign({}, this.componentProps), { modal: this.el });
-        this.usersElement = await Object(_framework_delegate_c2e2e1f4_js__WEBPACK_IMPORTED_MODULE_7__["a"])(this.delegate, container, this.component, ['ion-page'], componentProps);
-        await Object(_index_4d91f03a_js__WEBPACK_IMPORTED_MODULE_8__["d"])(this.usersElement);
-        return Object(_overlays_10640d86_js__WEBPACK_IMPORTED_MODULE_5__["e"])(this, 'modalEnter', iosEnterAnimation, mdEnterAnimation);
-    }
-    /**
-     * Dismiss the modal overlay after it has been presented.
+     * This is required for a WebKit bug which requires us to
+     * blur and focus an input to properly focus the input in
+     * an item with delegatesFocus. It will no longer be needed
+     * with iOS 14.
      *
-     * @param data Any data to emit in the dismiss events.
-     * @param role The role of the element that is dismissing the modal. For example, 'cancel' or 'backdrop'.
+     * @internal
      */
-    async dismiss(data, role) {
-        const dismissed = await Object(_overlays_10640d86_js__WEBPACK_IMPORTED_MODULE_5__["f"])(this, data, role, 'modalLeave', iosLeaveAnimation, mdLeaveAnimation);
-        if (dismissed) {
-            await Object(_framework_delegate_c2e2e1f4_js__WEBPACK_IMPORTED_MODULE_7__["d"])(this.delegate, this.usersElement);
+    this.fireFocusEvents = true;
+    this.hasFocus = false;
+    /**
+     * Indicates whether and how the text value should be automatically capitalized as it is entered/edited by the user.
+     */
+    this.autocapitalize = 'none';
+    /**
+     * This Boolean attribute lets you specify that a form control should have input focus when the page loads.
+     */
+    this.autofocus = false;
+    /**
+     * If `true`, the value will be cleared after focus upon edit. Defaults to `true` when `type` is `"password"`, `false` for all other types.
+     */
+    this.clearOnEdit = false;
+    /**
+     * Set the amount of time, in milliseconds, to wait to trigger the `ionChange` event after each keystroke. This also impacts form bindings such as `ngModel` or `v-model`.
+     */
+    this.debounce = 0;
+    /**
+     * If `true`, the user cannot interact with the textarea.
+     */
+    this.disabled = false;
+    /**
+     * The name of the control, which is submitted with the form data.
+     */
+    this.name = this.inputId;
+    /**
+     * If `true`, the user cannot modify the value.
+     */
+    this.readonly = false;
+    /**
+     * If `true`, the user must fill in a value before submitting a form.
+     */
+    this.required = false;
+    /**
+     * If `true`, the element will have its spelling and grammar checked.
+     */
+    this.spellcheck = false;
+    /**
+     * If `true`, the element height will increase based on the value.
+     */
+    this.autoGrow = false;
+    /**
+     * The value of the textarea.
+     */
+    this.value = '';
+    this.onInput = (ev) => {
+      if (this.nativeInput) {
+        this.value = this.nativeInput.value;
+      }
+      this.emitStyle();
+      this.ionInput.emit(ev);
+    };
+    this.onFocus = (ev) => {
+      this.hasFocus = true;
+      this.focusChange();
+      if (this.fireFocusEvents) {
+        this.ionFocus.emit(ev);
+      }
+    };
+    this.onBlur = (ev) => {
+      this.hasFocus = false;
+      this.focusChange();
+      if (this.fireFocusEvents) {
+        this.ionBlur.emit(ev);
+      }
+    };
+    this.onKeyDown = () => {
+      this.checkClearOnEdit();
+    };
+  }
+  debounceChanged() {
+    this.ionChange = Object(_helpers_90f46169_js__WEBPACK_IMPORTED_MODULE_2__["e"])(this.ionChange, this.debounce);
+  }
+  disabledChanged() {
+    this.emitStyle();
+  }
+  /**
+   * Update the native input element when the value changes
+   */
+  valueChanged() {
+    const nativeInput = this.nativeInput;
+    const value = this.getValue();
+    if (nativeInput && nativeInput.value !== value) {
+      nativeInput.value = value;
+    }
+    this.runAutoGrow();
+    this.emitStyle();
+    this.ionChange.emit({ value });
+  }
+  connectedCallback() {
+    this.emitStyle();
+    this.debounceChanged();
+    {
+      document.dispatchEvent(new CustomEvent('ionInputDidLoad', {
+        detail: this.el
+      }));
+    }
+  }
+  disconnectedCallback() {
+    {
+      document.dispatchEvent(new CustomEvent('ionInputDidUnload', {
+        detail: this.el
+      }));
+    }
+  }
+  componentWillLoad() {
+    this.inheritedAttributes = Object(_helpers_90f46169_js__WEBPACK_IMPORTED_MODULE_2__["i"])(this.el, ['title']);
+  }
+  componentDidLoad() {
+    Object(_helpers_90f46169_js__WEBPACK_IMPORTED_MODULE_2__["r"])(() => this.runAutoGrow());
+  }
+  runAutoGrow() {
+    const nativeInput = this.nativeInput;
+    if (nativeInput && this.autoGrow) {
+      Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["f"])(() => {
+        nativeInput.style.height = 'auto';
+        nativeInput.style.height = nativeInput.scrollHeight + 'px';
+        if (this.textareaWrapper) {
+          this.textareaWrapper.style.height = nativeInput.scrollHeight + 'px';
         }
-        return dismissed;
+      });
     }
-    /**
-     * Returns a promise that resolves when the modal did dismiss.
-     */
-    onDidDismiss() {
-        return Object(_overlays_10640d86_js__WEBPACK_IMPORTED_MODULE_5__["g"])(this.el, 'ionModalDidDismiss');
+  }
+  /**
+   * Sets focus on the native `textarea` in `ion-textarea`. Use this method instead of the global
+   * `textarea.focus()`.
+   */
+  async setFocus() {
+    if (this.nativeInput) {
+      this.nativeInput.focus();
     }
-    /**
-     * Returns a promise that resolves when the modal will dismiss.
-     */
-    onWillDismiss() {
-        return Object(_overlays_10640d86_js__WEBPACK_IMPORTED_MODULE_5__["g"])(this.el, 'ionModalWillDismiss');
+  }
+  /**
+   * Sets blur on the native `textarea` in `ion-textarea`. Use this method instead of the global
+   * `textarea.blur()`.
+   * @internal
+   */
+  async setBlur() {
+    if (this.nativeInput) {
+      this.nativeInput.blur();
     }
-    render() {
-        const mode = Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this);
-        return (Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["h"])(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["H"], { "no-router": true, "aria-modal": "true", class: Object.assign({ [mode]: true }, Object(_theme_18cbe2cc_js__WEBPACK_IMPORTED_MODULE_6__["g"])(this.cssClass)), style: {
-                zIndex: `${20000 + this.overlayIndex}`,
-            }, onIonBackdropTap: this.onBackdropTap, onIonDismiss: this.onDismiss, onIonModalDidPresent: this.onLifecycle, onIonModalWillPresent: this.onLifecycle, onIonModalWillDismiss: this.onLifecycle, onIonModalDidDismiss: this.onLifecycle }, Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["h"])("ion-backdrop", { visible: this.showBackdrop, tappable: this.backdropDismiss }), Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { role: "dialog", class: {
-                [`modal-wrapper`]: true,
-                [mode]: true,
-            } })));
+  }
+  /**
+   * Returns the native `<textarea>` element used under the hood.
+   */
+  getInputElement() {
+    return Promise.resolve(this.nativeInput);
+  }
+  emitStyle() {
+    this.ionStyle.emit({
+      'interactive': true,
+      'textarea': true,
+      'input': true,
+      'interactive-disabled': this.disabled,
+      'has-placeholder': this.placeholder != null,
+      'has-value': this.hasValue(),
+      'has-focus': this.hasFocus
+    });
+  }
+  /**
+   * Check if we need to clear the text input if clearOnEdit is enabled
+   */
+  checkClearOnEdit() {
+    if (!this.clearOnEdit) {
+      return;
     }
-    get el() { return Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this); }
-    static get style() { return ".sc-ion-modal-ios-h{--width:100%;--min-width:auto;--max-width:auto;--height:100%;--min-height:auto;--max-height:auto;--overflow:hidden;--border-radius:0;--border-width:0;--border-style:none;--border-color:transparent;--background:var(--ion-background-color,#fff);--box-shadow:none;left:0;right:0;top:0;bottom:0;display:-ms-flexbox;display:flex;position:absolute;-ms-flex-align:center;align-items:center;-ms-flex-pack:center;justify-content:center;contain:strict}.overlay-hidden.sc-ion-modal-ios-h{display:none}.modal-wrapper.sc-ion-modal-ios{border-radius:var(--border-radius);width:var(--width);min-width:var(--min-width);max-width:var(--max-width);height:var(--height);min-height:var(--min-height);max-height:var(--max-height);border-width:var(--border-width);border-style:var(--border-style);border-color:var(--border-color);background:var(--background);-webkit-box-shadow:var(--box-shadow);box-shadow:var(--box-shadow);overflow:var(--overflow);z-index:10}\@media only screen and (min-width:768px) and (min-height:600px){.sc-ion-modal-ios-h{--width:600px;--height:500px;--ion-safe-area-top:0px;--ion-safe-area-bottom:0px;--ion-safe-area-right:0px;--ion-safe-area-left:0px}}\@media only screen and (min-width:768px) and (min-height:768px){.sc-ion-modal-ios-h{--width:600px;--height:600px}}\@media only screen and (min-width:768px) and (min-height:600px){.sc-ion-modal-ios-h{--border-radius:10px}}.modal-wrapper.sc-ion-modal-ios{-webkit-transform:translate3d(0,100%,0);transform:translate3d(0,100%,0)}"; }
+    // Did the input value change after it was blurred and edited?
+    if (this.didBlurAfterEdit && this.hasValue()) {
+      // Clear the input
+      this.value = '';
+    }
+    // Reset the flag
+    this.didBlurAfterEdit = false;
+  }
+  focusChange() {
+    // If clearOnEdit is enabled and the input blurred but has a value, set a flag
+    if (this.clearOnEdit && !this.hasFocus && this.hasValue()) {
+      this.didBlurAfterEdit = true;
+    }
+    this.emitStyle();
+  }
+  hasValue() {
+    return this.getValue() !== '';
+  }
+  getValue() {
+    return this.value || '';
+  }
+  render() {
+    const mode = Object(_ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this);
+    const value = this.getValue();
+    const labelId = this.inputId + '-lbl';
+    const label = Object(_helpers_90f46169_js__WEBPACK_IMPORTED_MODULE_2__["f"])(this.el);
+    if (label) {
+      label.id = labelId;
+    }
+    return (Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["H"], { "aria-disabled": this.disabled ? 'true' : null, class: Object(_theme_ff3fc52f_js__WEBPACK_IMPORTED_MODULE_3__["c"])(this.color, {
+        [mode]: true,
+      }) }, Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "textarea-wrapper", ref: el => this.textareaWrapper = el }, Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("textarea", Object.assign({ class: "native-textarea", "aria-labelledby": labelId, ref: el => this.nativeInput = el, autoCapitalize: this.autocapitalize, autoFocus: this.autofocus, enterKeyHint: this.enterkeyhint, inputMode: this.inputmode, disabled: this.disabled, maxLength: this.maxlength, minLength: this.minlength, name: this.name, placeholder: this.placeholder || '', readOnly: this.readonly, required: this.required, spellcheck: this.spellcheck, cols: this.cols, rows: this.rows, wrap: this.wrap, onInput: this.onInput, onBlur: this.onBlur, onFocus: this.onFocus, onKeyDown: this.onKeyDown }, this.inheritedAttributes), value))));
+  }
+  get el() { return Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["i"])(this); }
+  static get watchers() { return {
+    "debounce": ["debounceChanged"],
+    "disabled": ["disabledChanged"],
+    "value": ["valueChanged"]
+  }; }
 };
-const LIFECYCLE_MAP = {
-    'ionModalDidPresent': 'ionViewDidEnter',
-    'ionModalWillPresent': 'ionViewWillEnter',
-    'ionModalWillDismiss': 'ionViewWillLeave',
-    'ionModalDidDismiss': 'ionViewDidLeave',
+let textareaIds = 0;
+Textarea.style = {
+  ios: textareaIosCss,
+  md: textareaMdCss
 };
 
 

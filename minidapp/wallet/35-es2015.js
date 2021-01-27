@@ -1,213 +1,160 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[35],{
 
-/***/ "./node_modules/@ionic/core/dist/esm/ion-loading-ios.entry.js":
-/*!********************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm/ion-loading-ios.entry.js ***!
-  \********************************************************************/
-/*! exports provided: ion_loading */
+/***/ "./node_modules/@ionic/core/dist/esm/ion-split-pane.entry.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/@ionic/core/dist/esm/ion-split-pane.entry.js ***!
+  \*******************************************************************/
+/*! exports provided: ion_split_pane */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ion_loading", function() { return Loading; });
-/* harmony import */ var _core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./core-feeeff0d.js */ "./node_modules/@ionic/core/dist/esm/core-feeeff0d.js");
-/* harmony import */ var _config_3c7f3790_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./config-3c7f3790.js */ "./node_modules/@ionic/core/dist/esm/config-3c7f3790.js");
-/* harmony import */ var _helpers_46f4a262_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helpers-46f4a262.js */ "./node_modules/@ionic/core/dist/esm/helpers-46f4a262.js");
-/* harmony import */ var _animation_af478fe9_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./animation-af478fe9.js */ "./node_modules/@ionic/core/dist/esm/animation-af478fe9.js");
-/* harmony import */ var _overlays_10640d86_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./overlays-10640d86.js */ "./node_modules/@ionic/core/dist/esm/overlays-10640d86.js");
-/* harmony import */ var _theme_18cbe2cc_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./theme-18cbe2cc.js */ "./node_modules/@ionic/core/dist/esm/theme-18cbe2cc.js");
-/* harmony import */ var _index_3476b023_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./index-3476b023.js */ "./node_modules/@ionic/core/dist/esm/index-3476b023.js");
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ion_split_pane", function() { return SplitPane; });
+/* harmony import */ var _index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index-e806d1f6.js */ "./node_modules/@ionic/core/dist/esm/index-e806d1f6.js");
+/* harmony import */ var _ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ionic-global-9d5c8ee3.js */ "./node_modules/@ionic/core/dist/esm/ionic-global-9d5c8ee3.js");
 
 
 
+const splitPaneIosCss = ":host{--side-width:100%;left:0;right:0;top:0;bottom:0;display:-ms-flexbox;display:flex;position:absolute;-ms-flex-direction:row;flex-direction:row;-ms-flex-wrap:nowrap;flex-wrap:nowrap;contain:strict}::slotted(ion-menu.menu-pane-visible){-ms-flex:0 1 auto;flex:0 1 auto;width:var(--side-width);min-width:var(--side-min-width);max-width:var(--side-max-width)}:host(.split-pane-visible) ::slotted(.split-pane-side),:host(.split-pane-visible) ::slotted(.split-pane-main){left:0;right:0;top:0;bottom:0;position:relative;-webkit-box-shadow:none !important;box-shadow:none !important;z-index:0}:host(.split-pane-visible) ::slotted(.split-pane-main){-ms-flex:1;flex:1}:host(.split-pane-visible) ::slotted(.split-pane-side:not(ion-menu)),:host(.split-pane-visible) ::slotted(ion-menu.split-pane-side.menu-enabled){display:-ms-flexbox;display:flex;-ms-flex-negative:0;flex-shrink:0}::slotted(.split-pane-side:not(ion-menu)){display:none}:host(.split-pane-visible) ::slotted(.split-pane-side){-ms-flex-order:-1;order:-1}:host(.split-pane-visible) ::slotted(.split-pane-side[side=end]){-ms-flex-order:1;order:1}:host{--border:0.55px solid var(--ion-item-border-color, var(--ion-border-color, var(--ion-color-step-250, #c8c7cc)));--side-min-width:270px;--side-max-width:28%}:host(.split-pane-visible) ::slotted(.split-pane-side){border-left:0;border-right:var(--border);border-top:0;border-bottom:0;min-width:var(--side-min-width);max-width:var(--side-max-width)}@supports ((-webkit-margin-start: 0) or (margin-inline-start: 0)) or (-webkit-margin-start: 0){:host(.split-pane-visible) ::slotted(.split-pane-side){border-left:unset;border-right:unset;-webkit-border-start:0;border-inline-start:0;-webkit-border-end:var(--border);border-inline-end:var(--border)}}:host(.split-pane-visible) ::slotted(.split-pane-side[side=end]){border-left:var(--border);border-right:0;border-top:0;border-bottom:0;min-width:var(--side-min-width);max-width:var(--side-max-width)}@supports ((-webkit-margin-start: 0) or (margin-inline-start: 0)) or (-webkit-margin-start: 0){:host(.split-pane-visible) ::slotted(.split-pane-side[side=end]){border-left:unset;border-right:unset;-webkit-border-start:var(--border);border-inline-start:var(--border);-webkit-border-end:0;border-inline-end:0}}";
 
+const splitPaneMdCss = ":host{--side-width:100%;left:0;right:0;top:0;bottom:0;display:-ms-flexbox;display:flex;position:absolute;-ms-flex-direction:row;flex-direction:row;-ms-flex-wrap:nowrap;flex-wrap:nowrap;contain:strict}::slotted(ion-menu.menu-pane-visible){-ms-flex:0 1 auto;flex:0 1 auto;width:var(--side-width);min-width:var(--side-min-width);max-width:var(--side-max-width)}:host(.split-pane-visible) ::slotted(.split-pane-side),:host(.split-pane-visible) ::slotted(.split-pane-main){left:0;right:0;top:0;bottom:0;position:relative;-webkit-box-shadow:none !important;box-shadow:none !important;z-index:0}:host(.split-pane-visible) ::slotted(.split-pane-main){-ms-flex:1;flex:1}:host(.split-pane-visible) ::slotted(.split-pane-side:not(ion-menu)),:host(.split-pane-visible) ::slotted(ion-menu.split-pane-side.menu-enabled){display:-ms-flexbox;display:flex;-ms-flex-negative:0;flex-shrink:0}::slotted(.split-pane-side:not(ion-menu)){display:none}:host(.split-pane-visible) ::slotted(.split-pane-side){-ms-flex-order:-1;order:-1}:host(.split-pane-visible) ::slotted(.split-pane-side[side=end]){-ms-flex-order:1;order:1}:host{--border:1px solid var(--ion-item-border-color, var(--ion-border-color, var(--ion-color-step-150, rgba(0, 0, 0, 0.13))));--side-min-width:270px;--side-max-width:28%}:host(.split-pane-visible) ::slotted(.split-pane-side){border-left:0;border-right:var(--border);border-top:0;border-bottom:0;min-width:var(--side-min-width);max-width:var(--side-max-width)}@supports ((-webkit-margin-start: 0) or (margin-inline-start: 0)) or (-webkit-margin-start: 0){:host(.split-pane-visible) ::slotted(.split-pane-side){border-left:unset;border-right:unset;-webkit-border-start:0;border-inline-start:0;-webkit-border-end:var(--border);border-inline-end:var(--border)}}:host(.split-pane-visible) ::slotted(.split-pane-side[side=end]){border-left:var(--border);border-right:0;border-top:0;border-bottom:0;min-width:var(--side-min-width);max-width:var(--side-max-width)}@supports ((-webkit-margin-start: 0) or (margin-inline-start: 0)) or (-webkit-margin-start: 0){:host(.split-pane-visible) ::slotted(.split-pane-side[side=end]){border-left:unset;border-right:unset;-webkit-border-start:var(--border);border-inline-start:var(--border);-webkit-border-end:0;border-inline-end:0}}";
 
-
-
-
-/**
- * iOS Loading Enter Animation
- */
-const iosEnterAnimation = (baseEl) => {
-    const baseAnimation = Object(_animation_af478fe9_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
-    const backdropAnimation = Object(_animation_af478fe9_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
-    const wrapperAnimation = Object(_animation_af478fe9_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
-    backdropAnimation
-        .addElement(baseEl.querySelector('ion-backdrop'))
-        .fromTo('opacity', 0.01, 0.3);
-    wrapperAnimation
-        .addElement(baseEl.querySelector('.loading-wrapper'))
-        .keyframes([
-        { offset: 0, opacity: 0.01, transform: 'scale(1.1)' },
-        { offset: 1, opacity: 1, transform: 'scale(1)' }
-    ]);
-    return baseAnimation
-        .addElement(baseEl)
-        .easing('ease-in-out')
-        .duration(200)
-        .addAnimation([backdropAnimation, wrapperAnimation]);
+const SPLIT_PANE_MAIN = 'split-pane-main';
+const SPLIT_PANE_SIDE = 'split-pane-side';
+const QUERY = {
+  'xs': '(min-width: 0px)',
+  'sm': '(min-width: 576px)',
+  'md': '(min-width: 768px)',
+  'lg': '(min-width: 992px)',
+  'xl': '(min-width: 1200px)',
+  'never': ''
 };
-
-/**
- * iOS Loading Leave Animation
- */
-const iosLeaveAnimation = (baseEl) => {
-    const baseAnimation = Object(_animation_af478fe9_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
-    const backdropAnimation = Object(_animation_af478fe9_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
-    const wrapperAnimation = Object(_animation_af478fe9_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
-    backdropAnimation
-        .addElement(baseEl.querySelector('ion-backdrop'))
-        .fromTo('opacity', 0.3, 0);
-    wrapperAnimation
-        .addElement(baseEl.querySelector('.loading-wrapper'))
-        .keyframes([
-        { offset: 0, opacity: 0.99, transform: 'scale(1)' },
-        { offset: 1, opacity: 0, transform: 'scale(0.9)' }
-    ]);
-    return baseAnimation
-        .addElement(baseEl)
-        .easing('ease-in-out')
-        .duration(200)
-        .addAnimation([backdropAnimation, wrapperAnimation]);
-};
-
-/**
- * Md Loading Enter Animation
- */
-const mdEnterAnimation = (baseEl) => {
-    const baseAnimation = Object(_animation_af478fe9_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
-    const backdropAnimation = Object(_animation_af478fe9_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
-    const wrapperAnimation = Object(_animation_af478fe9_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
-    backdropAnimation
-        .addElement(baseEl.querySelector('ion-backdrop'))
-        .fromTo('opacity', 0.01, 0.32);
-    wrapperAnimation
-        .addElement(baseEl.querySelector('.loading-wrapper'))
-        .keyframes([
-        { offset: 0, opacity: 0.01, transform: 'scale(1.1)' },
-        { offset: 1, opacity: 1, transform: 'scale(1)' }
-    ]);
-    return baseAnimation
-        .addElement(baseEl)
-        .easing('ease-in-out')
-        .duration(200)
-        .addAnimation([backdropAnimation, wrapperAnimation]);
-};
-
-/**
- * Md Loading Leave Animation
- */
-const mdLeaveAnimation = (baseEl) => {
-    const baseAnimation = Object(_animation_af478fe9_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
-    const backdropAnimation = Object(_animation_af478fe9_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
-    const wrapperAnimation = Object(_animation_af478fe9_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
-    backdropAnimation
-        .addElement(baseEl.querySelector('ion-backdrop'))
-        .fromTo('opacity', 0.32, 0);
-    wrapperAnimation
-        .addElement(baseEl.querySelector('.loading-wrapper'))
-        .keyframes([
-        { offset: 0, opacity: 0.99, transform: 'scale(1)' },
-        { offset: 1, opacity: 0, transform: 'scale(0.9)' }
-    ]);
-    return baseAnimation
-        .addElement(baseEl)
-        .easing('ease-in-out')
-        .duration(200)
-        .addAnimation([backdropAnimation, wrapperAnimation]);
-};
-
-const Loading = class {
-    constructor(hostRef) {
-        Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["r"])(this, hostRef);
-        this.presented = false;
-        this.mode = Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this);
-        /**
-         * If `true`, the keyboard will be automatically dismissed when the overlay is presented.
-         */
-        this.keyboardClose = true;
-        /**
-         * Number of milliseconds to wait before dismissing the loading indicator.
-         */
-        this.duration = 0;
-        /**
-         * If `true`, the loading indicator will be dismissed when the backdrop is clicked.
-         */
-        this.backdropDismiss = false;
-        /**
-         * If `true`, a backdrop will be displayed behind the loading indicator.
-         */
-        this.showBackdrop = true;
-        /**
-         * If `true`, the loading indicator will be translucent.
-         * Only applies when the mode is `"ios"` and the device supports
-         * [`backdrop-filter`](https://developer.mozilla.org/en-US/docs/Web/CSS/backdrop-filter#Browser_compatibility).
-         */
-        this.translucent = false;
-        /**
-         * If `true`, the loading indicator will animate.
-         */
-        this.animated = true;
-        this.onBackdropTap = () => {
-            this.dismiss(undefined, _overlays_10640d86_js__WEBPACK_IMPORTED_MODULE_4__["B"]);
-        };
-        Object(_overlays_10640d86_js__WEBPACK_IMPORTED_MODULE_4__["d"])(this.el);
-        this.didPresent = Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["d"])(this, "ionLoadingDidPresent", 7);
-        this.willPresent = Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["d"])(this, "ionLoadingWillPresent", 7);
-        this.willDismiss = Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["d"])(this, "ionLoadingWillDismiss", 7);
-        this.didDismiss = Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["d"])(this, "ionLoadingDidDismiss", 7);
+const SplitPane = class {
+  constructor(hostRef) {
+    Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["r"])(this, hostRef);
+    this.ionSplitPaneVisible = Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this, "ionSplitPaneVisible", 7);
+    this.visible = false;
+    /**
+     * If `true`, the split pane will be hidden.
+     */
+    this.disabled = false;
+    /**
+     * When the split-pane should be shown.
+     * Can be a CSS media query expression, or a shortcut expression.
+     * Can also be a boolean expression.
+     */
+    this.when = QUERY['lg'];
+  }
+  visibleChanged(visible) {
+    const detail = { visible, isPane: this.isPane.bind(this) };
+    this.ionSplitPaneVisible.emit(detail);
+  }
+  connectedCallback() {
+    this.styleChildren();
+    this.updateState();
+  }
+  disconnectedCallback() {
+    if (this.rmL) {
+      this.rmL();
+      this.rmL = undefined;
     }
-    componentWillLoad() {
-        if (this.spinner === undefined) {
-            const mode = Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this);
-            this.spinner = _config_3c7f3790_js__WEBPACK_IMPORTED_MODULE_1__["b"].get('loadingSpinner', _config_3c7f3790_js__WEBPACK_IMPORTED_MODULE_1__["b"].get('spinner', mode === 'ios' ? 'lines' : 'crescent'));
+  }
+  updateState() {
+    if (this.rmL) {
+      this.rmL();
+      this.rmL = undefined;
+    }
+    // Check if the split-pane is disabled
+    if (this.disabled) {
+      this.visible = false;
+      return;
+    }
+    // When query is a boolean
+    const query = this.when;
+    if (typeof query === 'boolean') {
+      this.visible = query;
+      return;
+    }
+    // When query is a string, let's find first if it is a shortcut
+    const mediaQuery = QUERY[query] || query;
+    // Media query is empty or null, we hide it
+    if (mediaQuery.length === 0) {
+      this.visible = false;
+      return;
+    }
+    if (window.matchMedia) {
+      // Listen on media query
+      const callback = (q) => {
+        this.visible = q.matches;
+      };
+      const mediaList = window.matchMedia(mediaQuery);
+      mediaList.addListener(callback);
+      this.rmL = () => mediaList.removeListener(callback);
+      this.visible = mediaList.matches;
+    }
+  }
+  isPane(element) {
+    if (!this.visible) {
+      return false;
+    }
+    return element.parentElement === this.el
+      && element.classList.contains(SPLIT_PANE_SIDE);
+  }
+  styleChildren() {
+    const contentId = this.contentId;
+    const children = this.el.children;
+    const nu = this.el.childElementCount;
+    let foundMain = false;
+    for (let i = 0; i < nu; i++) {
+      const child = children[i];
+      const isMain = contentId !== undefined && child.id === contentId;
+      if (isMain) {
+        if (foundMain) {
+          console.warn('split pane cannot have more than one main node');
+          return;
         }
+        foundMain = true;
+      }
+      setPaneClass(child, isMain);
     }
-    /**
-     * Present the loading overlay after it has been created.
-     */
-    async present() {
-        await Object(_overlays_10640d86_js__WEBPACK_IMPORTED_MODULE_4__["e"])(this, 'loadingEnter', iosEnterAnimation, mdEnterAnimation, undefined);
-        if (this.duration > 0) {
-            this.durationTimeout = setTimeout(() => this.dismiss(), this.duration + 10);
-        }
+    if (!foundMain) {
+      console.warn('split pane does not have a specified main node');
     }
-    /**
-     * Dismiss the loading overlay after it has been presented.
-     *
-     * @param data Any data to emit in the dismiss events.
-     * @param role The role of the element that is dismissing the loading.
-     * This can be useful in a button handler for determining which button was
-     * clicked to dismiss the loading.
-     * Some examples include: ``"cancel"`, `"destructive"`, "selected"`, and `"backdrop"`.
-     */
-    dismiss(data, role) {
-        if (this.durationTimeout) {
-            clearTimeout(this.durationTimeout);
-        }
-        return Object(_overlays_10640d86_js__WEBPACK_IMPORTED_MODULE_4__["f"])(this, data, role, 'loadingLeave', iosLeaveAnimation, mdLeaveAnimation);
-    }
-    /**
-     * Returns a promise that resolves when the loading did dismiss.
-     */
-    onDidDismiss() {
-        return Object(_overlays_10640d86_js__WEBPACK_IMPORTED_MODULE_4__["g"])(this.el, 'ionLoadingDidDismiss');
-    }
-    /**
-     * Returns a promise that resolves when the loading will dismiss.
-     */
-    onWillDismiss() {
-        return Object(_overlays_10640d86_js__WEBPACK_IMPORTED_MODULE_4__["g"])(this.el, 'ionLoadingWillDismiss');
-    }
-    render() {
-        const { message, spinner } = this;
-        const mode = Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this);
-        return (Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["h"])(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["H"], { onIonBackdropTap: this.onBackdropTap, style: {
-                zIndex: `${40000 + this.overlayIndex}`
-            }, class: Object.assign(Object.assign({}, Object(_theme_18cbe2cc_js__WEBPACK_IMPORTED_MODULE_5__["g"])(this.cssClass)), { [mode]: true, 'loading-translucent': this.translucent }) }, Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["h"])("ion-backdrop", { visible: this.showBackdrop, tappable: this.backdropDismiss }), Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "loading-wrapper", role: "dialog" }, spinner && (Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "loading-spinner" }, Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["h"])("ion-spinner", { name: spinner }))), message && Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "loading-content", innerHTML: Object(_index_3476b023_js__WEBPACK_IMPORTED_MODULE_6__["s"])(message) }))));
-    }
-    get el() { return Object(_core_feeeff0d_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this); }
-    static get style() { return ".sc-ion-loading-ios-h{--min-width:auto;--width:auto;--min-height:auto;--height:auto;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;left:0;right:0;top:0;bottom:0;display:-ms-flexbox;display:flex;position:fixed;-ms-flex-align:center;align-items:center;-ms-flex-pack:center;justify-content:center;font-family:var(--ion-font-family,inherit);contain:strict;-ms-touch-action:none;touch-action:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;z-index:1001}.overlay-hidden.sc-ion-loading-ios-h{display:none}.loading-wrapper.sc-ion-loading-ios{display:-ms-flexbox;display:flex;-ms-flex-align:inherit;align-items:inherit;-ms-flex-pack:inherit;justify-content:inherit;width:var(--width);min-width:var(--min-width);max-width:var(--max-width);height:var(--height);min-height:var(--min-height);max-height:var(--max-height);background:var(--background);opacity:0;z-index:10}.spinner-bubbles.sc-ion-loading-ios, .spinner-circles.sc-ion-loading-ios, .spinner-crescent.sc-ion-loading-ios, .spinner-dots.sc-ion-loading-ios, .spinner-lines.sc-ion-loading-ios, .spinner-lines-small.sc-ion-loading-ios{color:var(--spinner-color)}.sc-ion-loading-ios-h{--background:var(--ion-overlay-background-color,var(--ion-color-step-100,#f9f9f9));--max-width:270px;--max-height:90%;--spinner-color:var(--ion-color-step-600,#666);color:var(--ion-text-color,#000);font-size:14px}.loading-wrapper.sc-ion-loading-ios{border-radius:8px;padding-left:34px;padding-right:34px;padding-top:24px;padding-bottom:24px}\@supports ((-webkit-margin-start:0) or (margin-inline-start:0)) or (-webkit-margin-start:0){.loading-wrapper.sc-ion-loading-ios{padding-left:unset;padding-right:unset;-webkit-padding-start:34px;padding-inline-start:34px;-webkit-padding-end:34px;padding-inline-end:34px}}\@supports ((-webkit-backdrop-filter:blur(0)) or (backdrop-filter:blur(0))){.loading-translucent.sc-ion-loading-ios-h .loading-wrapper.sc-ion-loading-ios{background-color:rgba(var(--ion-background-color-rgb,255,255,255),.8);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px)}}.loading-content.sc-ion-loading-ios{font-weight:700}.loading-spinner.sc-ion-loading-ios + .loading-content.sc-ion-loading-ios{margin-left:16px}\@supports ((-webkit-margin-start:0) or (margin-inline-start:0)) or (-webkit-margin-start:0){.loading-spinner.sc-ion-loading-ios + .loading-content.sc-ion-loading-ios{margin-left:unset;-webkit-margin-start:16px;margin-inline-start:16px}}"; }
+  }
+  render() {
+    const mode = Object(_ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this);
+    return (Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["H"], { class: {
+        [mode]: true,
+        // Used internally for styling
+        [`split-pane-${mode}`]: true,
+        'split-pane-visible': this.visible
+      } }, Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("slot", null)));
+  }
+  get el() { return Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["i"])(this); }
+  static get watchers() { return {
+    "visible": ["visibleChanged"],
+    "disabled": ["updateState"],
+    "when": ["updateState"]
+  }; }
+};
+const setPaneClass = (el, isMain) => {
+  let toAdd;
+  let toRemove;
+  if (isMain) {
+    toAdd = SPLIT_PANE_MAIN;
+    toRemove = SPLIT_PANE_SIDE;
+  }
+  else {
+    toAdd = SPLIT_PANE_SIDE;
+    toRemove = SPLIT_PANE_MAIN;
+  }
+  const classList = el.classList;
+  classList.add(toAdd);
+  classList.remove(toRemove);
+};
+SplitPane.style = {
+  ios: splitPaneIosCss,
+  md: splitPaneMdCss
 };
 
 

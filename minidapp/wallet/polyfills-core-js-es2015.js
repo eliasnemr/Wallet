@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["polyfills-core-js"],{
 
-/***/ "./node_modules/web-social-share/dist/esm/polyfills/core-js.js":
-/*!*********************************************************************!*\
-  !*** ./node_modules/web-social-share/dist/esm/polyfills/core-js.js ***!
-  \*********************************************************************/
+/***/ "./node_modules/@ionic/core/dist/esm/polyfills/core-js.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/@ionic/core/dist/esm/polyfills/core-js.js ***!
+  \****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
