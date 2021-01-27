@@ -3,7 +3,7 @@ import { BalanceService } from '../../service/balance.service';
 import { Component, OnInit, NgZone, ViewChild, ElementRef } from '@angular/core';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 import { Clipboard } from '@ionic-native/clipboard/ngx';
-import { AlertController, Platform, IonInput, IonTextarea, IonButton } from '@ionic/angular';
+import { AlertController, Platform, IonInput, IonButton } from '@ionic/angular';
 import { MinimaApiService } from '../../service/minima-api.service';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
