@@ -1,13 +1,11 @@
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { BalanceService } from '../../service/balance.service';
-import { Component, OnInit, NgZone, ViewChild, ElementRef } from '@angular/core';
-import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Clipboard } from '@ionic-native/clipboard/ngx';
-import { AlertController, Platform, IonInput, IonButton } from '@ionic/angular';
+import { AlertController, IonInput, IonButton } from '@ionic/angular';
 import { MinimaApiService } from '../../service/minima-api.service';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import QrScanner from 'qr-scanner';
 
 import { Token, Minima } from 'minima';
 
@@ -38,7 +36,6 @@ export class SendFundsPage implements OnInit {
   webQrScanner: any;
   compareWith: any;
   itemSelected: any;
-  isCameraOpen = false;
   isWebCameraOpen = false;
   minimaToken: any;
   data: SendFormObj = {tokenid: '', amount: '', address:  '', message: ''};
@@ -49,25 +46,21 @@ export class SendFundsPage implements OnInit {
   private scanSub: any = null;
   constructor(
     private formBuilder: FormBuilder,
-    private qrScanner: QRScanner,
     private clipboard: Clipboard,
     public alertController: AlertController,
-    private zone: NgZone,
     private api: MinimaApiService,
     private balanceService: BalanceService,
-    private platform: Platform,
     private route: ActivatedRoute,
     private router: Router) {
       this.pullInTokens();
     }
 
   ionViewWillEnter() {
-    this.isCameraOpen = false;
     this.getTokenSelected();
   }
 
   ionViewWillLeave() {
-    this.stopCamera();
+
   }
 
   ngOnInit() {
@@ -101,7 +94,7 @@ export class SendFundsPage implements OnInit {
       this.tokenArr = balance;
     });
   }
-
+  
   sendFunds() {
     this.sendForm.value.amnt = this.sendForm.value.amount.toString();
     const data: SendFormObj = this.sendForm.value;
@@ -140,7 +133,6 @@ export class SendFundsPage implements OnInit {
       });
     }
   }
-
   // get token selected or set Minima as default
   getTokenSelected() {
     this.route.queryParamMap.subscribe((res: any) => {
@@ -154,7 +146,6 @@ export class SendFundsPage implements OnInit {
   // listen to selection change
   onItemSelection(ev: any) {
     this.itemSelected = this.sendForm.get('tokenid').value;
-    console.log('Token Selected: ' + this.itemSelected)
   }
 
   fillAmount(type: string) {
@@ -183,56 +174,20 @@ export class SendFundsPage implements OnInit {
     });
   }
 
-  /** ScanQR: Native */
   scanQR() {
-    if(this.platform.is('ios') || this.platform.is('android')){
-      this.qrScanner.prepare()
-      .then((status: QRScannerStatus) => {
-        if (status.authorized) {
-          // Which class adding should I use?
-          this.identifyPlatformToScan_Add();
+    this.isWebCameraOpen = true;
+    console.log("Camera is now on: " + this.isWebCameraOpen);
+    const stream = navigator.mediaDevices.getUserMedia({
+      video: { facingMode: 'environment' }
+    });
 
-          this.qrScanner.show();
-          this.isCameraOpen = true;
-
-          this.scanSub = this.qrScanner.scan().subscribe((text: string) => {
-            this.zone.run(() => {
-              this.data.address = text;
-              this.stopCamera();
-
-              this.identifyPlatformToScan_Remove();
-
-              this.isCameraOpen = false;
-              });
-
-          }, (err) => {
-            //console.log('Scanned failed', err);
-          });
-
-        } else if (status.denied) {
-          // camera permission was permanently denied
-          // you must use QRScanner.openSettings() method to guide the user to the settings page
-          // then they can grant the permission from there
-          this.presentAlert('Error', 'Please check camera permission', 'Camera status');
-        } else {
-          // permission was denied, but not permanently. You can ask for permission again at a later time.
-          this.presentAlert('Error',  'Please check camera permission', 'Camera status');
-
-        }
-      })
-      .catch((e: any) => console.log('Error is', e));
-    }
+    this.videoElem.nativeElement.src = stream;
+    this.videoElem.nativeElement.setAttribute('playsinline', true); // iOS - do not open fullscreen
+    this.videoElem.nativeElement.play();
   }
 
-  stopCamera() {
-    if (this.scanSub !== null) {
-      this.qrScanner.hide();
-      this.scanSub.unsubscribe();
-    }
-    this.scanSub = null;
-    this.identifyPlatformToScan_Remove();
-    this.isCameraOpen = false;
-    this.qrScanner.destroy();
+  stopScanning() {
+    this.isWebCameraOpen = false;
   }
 
   async presentAlert(hdr: string, msg: string, sub: string) {
@@ -246,58 +201,6 @@ export class SendFundsPage implements OnInit {
    await alert.present();
   }
 
-  /** MISC FUNCS */
-  identifyPlatformToScan_Add() {
-    document.addEventListener('DOMContentLoaded', function(event) {
-      // Do work
-      if (this.platform.is('ios')) {
-        setTimeout( () => {
-          window.document.querySelectorAll('ion-content')
-            .forEach(element => {
-              const element1 = element.shadowRoot.querySelector('style');
-              element1.innerHTML = element1.innerHTML
-            .replace('--background:var(--ion-background-color,#fff);', '--background: transparent');
-          });
-        }, 300);
-      } else if (this.platform.is('android')) {
-        // window.document.querySelector('ion-content').classList.add('transparentBody');
-        setTimeout( () => {
-        window.document.querySelectorAll('ion-content')
-            .forEach(element => {
-              const element1 = element.shadowRoot.querySelector('style');
-              element1.innerHTML = element1.innerHTML
-            .replace('--background:var(--ion-background-color,#fff);', '--background: transparent');
-          });
-        }, 300);
-      }
-    });
-  }
-  identifyPlatformToScan_Remove() {
-    document.addEventListener('DOMContentLoaded', function(event) {
-    if (this.platform.is('ios')) {
-      setTimeout( () => {
-        window.document.querySelectorAll('ion-content')
-          .forEach(element => {
-            const element1 = element.shadowRoot.querySelector('style');
-            element1.innerHTML = element1.innerHTML
-          .replace('--background: transparent', '--background:var(--ion-background-color,#fff);');
-        });
-      }, 300);
-    } else if (this.platform.is('android')) {
-      // window.document.querySelector('ion-content').classList.remove('transparentBody');
-      setTimeout( () => {
-        window.document.querySelectorAll('ion-content')
-          .forEach(element => {
-            const element1 = element.shadowRoot.querySelector('style');
-            element1.innerHTML = element1.innerHTML
-          .replace('--background: transparent', '--background:var(--ion-background-color,#fff);');
-        });
-      }, 300);
-    }
-
-    });
-  }
-
   useMessage() {
     if (this.messageToggle) {
       this.messageToggle = false;
@@ -306,33 +209,6 @@ export class SendFundsPage implements OnInit {
     }
   }
 
-  checkPlatform() {
-    if (this.platform.is('desktop')) {
-      return false;
-    } else {
-      return true;
-    }
-  }
-
-  webScanQR() {
-    this.isWebCameraOpen = true;
-    QrScanner.WORKER_PATH = 'assets/JS/qr-scanner-worker.min.js';
-
-    setTimeout(() => {
-      this.webQrScanner = new QrScanner(this.videoElem.nativeElement, result => {
-        this.data.address = result;
-
-        this.isWebCameraOpen = false;
-      });
-      this.webQrScanner.start();
-    }, 500);
-  }
-
-  stopWebScanQR() {
-    this.webQrScanner.destroy();
-    this.webQrScanner = null;
-    this.isWebCameraOpen = false;
-  }
 }
 
 

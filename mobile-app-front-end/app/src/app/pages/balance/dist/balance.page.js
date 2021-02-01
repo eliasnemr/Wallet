@@ -59,7 +59,7 @@ var BalancePage = /** @class */ (function () {
         this.userConfigService = userConfigService;
         this.ngZone = ngZone;
         this.user = {
-            tokenDisplayMode: 1,
+            tokenDisplayMode: 2,
             tips: {
                 balance: false,
                 balance2: false,

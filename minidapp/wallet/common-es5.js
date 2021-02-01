@@ -149,7 +149,7 @@ var MinimaApiService = /** @class */ (function () {
     MinimaApiService.prototype.validateTokenID = function (tokenid) {
         return this.req("tokenvalidate " + tokenid);
     };
-    MinimaApiService.prototype.createTXN = function (data) {
+    MinimaApiService.prototype.sendMessageTransaction = function (data) {
         var txnidentifier = Math.floor(Math.random() * 1000000000);
         var port254 = 254;
         var port255 = 255;
@@ -197,7 +197,7 @@ var MinimaApiService = /** @class */ (function () {
     };
     // Use minima.js instead..
     MinimaApiService.prototype.req = function (fnc) {
-        var promise = new Promise(function (resolve, reject) {
+        var promise = new Promise(function (resolve) {
             minima__WEBPACK_IMPORTED_MODULE_3__["Minima"].cmd(fnc, function (resp) {
                 //console.log(resp);
                 resolve(resp);

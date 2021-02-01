@@ -46,8 +46,9 @@ exports.AppComponent = void 0;
 var core_1 = require("@angular/core");
 var minima_1 = require("minima");
 var AppComponent = /** @class */ (function () {
-    function AppComponent(status, api, platform, toastCtrl, historyService, ngZone) {
+    function AppComponent(status, route, api, platform, toastCtrl, historyService, ngZone) {
         this.status = status;
+        this.route = route;
         this.api = api;
         this.platform = platform;
         this.toastCtrl = toastCtrl;
@@ -65,6 +66,12 @@ var AppComponent = /** @class */ (function () {
     };
     AppComponent.prototype.initializeApp = function () {
         var _this = this;
+        this.route.params.subscribe(function (res) {
+            console.log(res);
+            if (!res) {
+                console.log('empty');
+            }
+        });
         this.platform.ready().then(function () {
             minima_1.Minima.init(function (msg) {
                 if (msg.event === 'connected') {
@@ -101,18 +108,15 @@ var AppComponent = /** @class */ (function () {
     AppComponent.prototype.getPages = function () {
         this.basic =
             [
-                { title: 'Balance', routerLink: '/balance', icon: 'card', line: 'none', hidden: false, "class": '' },
-                { title: 'Send', routerLink: '/send-funds', icon: 'send', line: 'none', hidden: false, "class": '' },
-                { title: 'Receive', routerLink: '/my-address', icon: 'arrow-down', line: 'none', hidden: false, "class": '' },
-                { title: 'Contacts', routerLink: '/contacts', icon: 'people', line: 'none', hidden: false, "class": '' },
-                { title: 'History', routerLink: '/history', icon: 'book', line: 'none', hidden: false, "class": 'border-b' },
-            ];
-        this.advanced =
-            [
-                { title: 'Token', routerLink: '/create-token', icon: 'brush', line: 'none', hidden: false },
-                { title: 'Status', routerLink: '/status', icon: 'analytics', line: 'none', hidden: false },
-                { title: 'Terminal', routerLink: '/mini-term', icon: 'code', line: 'none', hidden: false },
-                { title: 'Community', routerLink: '/community', icon: 'share', line: 'none', hidden: false },
+                { title: 'Balance', routerLink: '/balance', icon: 'assets/balanceIcon.svg', line: 'none', hidden: false, "class": '' },
+                { title: 'Send', routerLink: '/send-funds', icon: 'assets/sendIcon.svg', line: 'none', hidden: false, "class": '' },
+                { title: 'Receive', routerLink: '/my-address', icon: 'assets/receiveIcon.svg', line: 'none', hidden: false, "class": '' },
+                { title: 'Contacts', routerLink: '/contacts', icon: 'assets/contactsIcon.svg', line: 'none', hidden: false, "class": '' },
+                { title: 'History', routerLink: '/history', icon: 'assets/historyIcon.svg', line: 'none', hidden: false, "class": 'border-b' },
+                { title: 'Token', routerLink: '/create-token', icon: 'assets/createIcon.svg', line: 'none', hidden: false, "class": '' },
+                { title: 'Status', routerLink: '/status', icon: 'assets/statusIcon.svg', line: 'none', hidden: false, "class": '' },
+                { title: 'Terminal', routerLink: '/mini-term', icon: 'assets/terminalIcon.svg', line: 'none', hidden: false, "class": '' },
+                { title: 'Community', routerLink: '/community', icon: 'assets/communityIcon.svg', line: 'none', hidden: false, "class": '' },
             ];
     };
     // localStorage

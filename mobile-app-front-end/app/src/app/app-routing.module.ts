@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
+  { path: '', redirectTo: 'balance', pathMatch: 'full' },
   { path: 'balance', loadChildren: () => import('./pages/balance/balance.module').then( m => m.BalancePageModule) },
   { path: 'send-funds', loadChildren: () => import('./pages/send-funds/send-funds.module').then(m => m.SendFundsPageModule) },
   { path: 'send-funds/:id', loadChildren: () => import('./pages/send-funds/send-funds.module').then(m => m.SendFundsPageModule) },
@@ -22,7 +23,6 @@ const routes: Routes = [
     .then(m => m.ContactsModalPageModule) },
   { path: 'contacts', loadChildren: () => import('./pages/contacts/contacts.module').then(m => m.ContactsPageModule)},
   { path: '**', loadChildren: () =>  import('./pages/balance/balance.module').then( m => m.BalancePageModule ) },
-  { path: '', redirectTo: 'balance', pathMatch: 'full' },
 ];
 
 @NgModule({

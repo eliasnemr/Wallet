@@ -45,24 +45,19 @@ exports.__esModule = true;
 exports.SendFundsPage = void 0;
 var forms_1 = require("@angular/forms");
 var core_1 = require("@angular/core");
-var qr_scanner_1 = require("qr-scanner");
 var minima_1 = require("minima");
 var SendFundsPage = /** @class */ (function () {
-    function SendFundsPage(formBuilder, qrScanner, clipboard, alertController, zone, api, balanceService, platform, route, router) {
+    function SendFundsPage(formBuilder, clipboard, alertController, api, balanceService, route, router) {
         this.formBuilder = formBuilder;
-        this.qrScanner = qrScanner;
         this.clipboard = clipboard;
         this.alertController = alertController;
-        this.zone = zone;
         this.api = api;
         this.balanceService = balanceService;
-        this.platform = platform;
         this.route = route;
         this.router = router;
         this.nftScript = 'ASSERT FLOOR ( @AMOUNT ) EQ @AMOUNT LET checkout = 0 WHILE ( checkout LT @TOTOUT )' +
             'DO IF GETOUTTOK ( checkout ) EQ @TOKENID THEN LET outamt = GETOUTAMT ( checkout ) ASSERT FLOOR ( outamt )' +
             'EQ outamt ENDIF LET checkout = INC ( checkout ) ENDWHILE RETURN TRUE';
-        this.isCameraOpen = false;
         this.isWebCameraOpen = false;
         this.data = { tokenid: '', amount: '', address: '', message: '' };
         this.messageToggle = false;
@@ -71,11 +66,9 @@ var SendFundsPage = /** @class */ (function () {
         this.pullInTokens();
     }
     SendFundsPage.prototype.ionViewWillEnter = function () {
-        this.isCameraOpen = false;
         this.getTokenSelected();
     };
     SendFundsPage.prototype.ionViewWillLeave = function () {
-        this.stopCamera();
     };
     SendFundsPage.prototype.ngOnInit = function () {
         this.sendForm = this.formBuilder.group({
@@ -178,7 +171,6 @@ var SendFundsPage = /** @class */ (function () {
     // listen to selection change
     SendFundsPage.prototype.onItemSelection = function (ev) {
         this.itemSelected = this.sendForm.get('tokenid').value;
-        console.log('Token Selected: ' + this.itemSelected);
     };
     SendFundsPage.prototype.fillAmount = function (type) {
         var _this = this;
@@ -211,50 +203,18 @@ var SendFundsPage = /** @class */ (function () {
             }
         });
     };
-    /** ScanQR: Native */
     SendFundsPage.prototype.scanQR = function () {
-        var _this = this;
-        if (this.platform.is('ios') || this.platform.is('android')) {
-            this.qrScanner.prepare()
-                .then(function (status) {
-                if (status.authorized) {
-                    // Which class adding should I use?
-                    _this.identifyPlatformToScan_Add();
-                    _this.qrScanner.show();
-                    _this.isCameraOpen = true;
-                    _this.scanSub = _this.qrScanner.scan().subscribe(function (text) {
-                        _this.zone.run(function () {
-                            _this.data.address = text;
-                            _this.stopCamera();
-                            _this.identifyPlatformToScan_Remove();
-                            _this.isCameraOpen = false;
-                        });
-                    }, function (err) {
-                        //console.log('Scanned failed', err);
-                    });
-                }
-                else if (status.denied) {
-                    // camera permission was permanently denied
-                    // you must use QRScanner.openSettings() method to guide the user to the settings page
-                    // then they can grant the permission from there
-                    _this.presentAlert('Error', 'Please check camera permission', 'Camera status');
-                }
-                else {
-                    // permission was denied, but not permanently. You can ask for permission again at a later time.
-                    _this.presentAlert('Error', 'Please check camera permission', 'Camera status');
-                }
-            })["catch"](function (e) { return console.log('Error is', e); });
-        }
+        this.isWebCameraOpen = true;
+        console.log("Camera is now on: " + this.isWebCameraOpen);
+        var stream = navigator.mediaDevices.getUserMedia({
+            video: { facingMode: 'environment' }
+        });
+        this.videoElem.nativeElement.src = stream;
+        this.videoElem.nativeElement.setAttribute('playsinline', true); // iOS - do not open fullscreen
+        this.videoElem.nativeElement.play();
     };
-    SendFundsPage.prototype.stopCamera = function () {
-        if (this.scanSub !== null) {
-            this.qrScanner.hide();
-            this.scanSub.unsubscribe();
-        }
-        this.scanSub = null;
-        this.identifyPlatformToScan_Remove();
-        this.isCameraOpen = false;
-        this.qrScanner.destroy();
+    SendFundsPage.prototype.stopScanning = function () {
+        this.isWebCameraOpen = false;
     };
     SendFundsPage.prototype.presentAlert = function (hdr, msg, sub) {
         return __awaiter(this, void 0, void 0, function () {
@@ -278,58 +238,6 @@ var SendFundsPage = /** @class */ (function () {
             });
         });
     };
-    /** MISC FUNCS */
-    SendFundsPage.prototype.identifyPlatformToScan_Add = function () {
-        document.addEventListener('DOMContentLoaded', function (event) {
-            // Do work
-            if (this.platform.is('ios')) {
-                setTimeout(function () {
-                    window.document.querySelectorAll('ion-content')
-                        .forEach(function (element) {
-                        var element1 = element.shadowRoot.querySelector('style');
-                        element1.innerHTML = element1.innerHTML
-                            .replace('--background:var(--ion-background-color,#fff);', '--background: transparent');
-                    });
-                }, 300);
-            }
-            else if (this.platform.is('android')) {
-                // window.document.querySelector('ion-content').classList.add('transparentBody');
-                setTimeout(function () {
-                    window.document.querySelectorAll('ion-content')
-                        .forEach(function (element) {
-                        var element1 = element.shadowRoot.querySelector('style');
-                        element1.innerHTML = element1.innerHTML
-                            .replace('--background:var(--ion-background-color,#fff);', '--background: transparent');
-                    });
-                }, 300);
-            }
-        });
-    };
-    SendFundsPage.prototype.identifyPlatformToScan_Remove = function () {
-        document.addEventListener('DOMContentLoaded', function (event) {
-            if (this.platform.is('ios')) {
-                setTimeout(function () {
-                    window.document.querySelectorAll('ion-content')
-                        .forEach(function (element) {
-                        var element1 = element.shadowRoot.querySelector('style');
-                        element1.innerHTML = element1.innerHTML
-                            .replace('--background: transparent', '--background:var(--ion-background-color,#fff);');
-                    });
-                }, 300);
-            }
-            else if (this.platform.is('android')) {
-                // window.document.querySelector('ion-content').classList.remove('transparentBody');
-                setTimeout(function () {
-                    window.document.querySelectorAll('ion-content')
-                        .forEach(function (element) {
-                        var element1 = element.shadowRoot.querySelector('style');
-                        element1.innerHTML = element1.innerHTML
-                            .replace('--background: transparent', '--background:var(--ion-background-color,#fff);');
-                    });
-                }, 300);
-            }
-        });
-    };
     SendFundsPage.prototype.useMessage = function () {
         if (this.messageToggle) {
             this.messageToggle = false;
@@ -337,31 +245,6 @@ var SendFundsPage = /** @class */ (function () {
         else {
             this.messageToggle = true;
         }
-    };
-    SendFundsPage.prototype.checkPlatform = function () {
-        if (this.platform.is('desktop')) {
-            return false;
-        }
-        else {
-            return true;
-        }
-    };
-    SendFundsPage.prototype.webScanQR = function () {
-        var _this = this;
-        this.isWebCameraOpen = true;
-        qr_scanner_1["default"].WORKER_PATH = 'assets/JS/qr-scanner-worker.min.js';
-        setTimeout(function () {
-            _this.webQrScanner = new qr_scanner_1["default"](_this.videoElem.nativeElement, function (result) {
-                _this.data.address = result;
-                _this.isWebCameraOpen = false;
-            });
-            _this.webQrScanner.start();
-        }, 500);
-    };
-    SendFundsPage.prototype.stopWebScanQR = function () {
-        this.webQrScanner.destroy();
-        this.webQrScanner = null;
-        this.isWebCameraOpen = false;
     };
     __decorate([
         core_1.ViewChild('submitBtn', { static: false })

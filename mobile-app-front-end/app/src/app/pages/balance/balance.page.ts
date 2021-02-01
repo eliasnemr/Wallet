@@ -24,7 +24,7 @@ export class BalancePage implements OnInit {
 
   avatar: any;
   user: UserConfig = {
-    tokenDisplayMode: 1,
+    tokenDisplayMode: 2,
     tips: {
       balance: false,
       balance2: false,
