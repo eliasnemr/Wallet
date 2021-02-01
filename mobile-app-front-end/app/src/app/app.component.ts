@@ -1,3 +1,4 @@
+import { Router, ActivatedRoute } from '@angular/router';
 import { ContactService } from './service/contacts.service';
 import { HistoryService } from './service/history.service';
 import { BalanceService } from './service/balance.service';
@@ -25,6 +26,7 @@ export class AppComponent {
 
   constructor(
     private status: StatusService,
+    private route: ActivatedRoute,
     private api: BalanceService,
     private platform: Platform,
     public toastCtrl: ToastController,
@@ -40,6 +42,13 @@ export class AppComponent {
   }
 
   initializeApp() {
+    this.route.params.subscribe(res => {
+      console.log(res);
+      if (!res) {
+        console.log('empty')
+      }
+    });
+
     this.platform.ready().then(() => {
       Minima.init((msg: any) => {
         if (msg.event === 'connected') {
@@ -73,18 +82,15 @@ export class AppComponent {
   getPages() {
     this.basic =
     [
-      { title: 'Balance', routerLink: '/balance', icon: 'card', line: 'none', hidden: false, class: ''},
-      { title: 'Send', routerLink: '/send-funds', icon: 'send', line: 'none', hidden: false, class:''},
-      { title: 'Receive', routerLink: '/my-address', icon: 'arrow-down', line: 'none', hidden: false, class: ''},
-      { title: 'Contacts', routerLink: '/contacts', icon: 'people', line: 'none', hidden: false, class: ''},
-      { title: 'History', routerLink: '/history', icon: 'book', line: 'none', hidden: false, class: 'border-b'},
-    ]
-    this.advanced =
-    [
-      { title: 'Token', routerLink: '/create-token', icon: 'brush', line: 'none', hidden: false},
-      { title: 'Status', routerLink: '/status', icon: 'analytics', line: 'none', hidden: false},
-      { title: 'Terminal', routerLink: '/mini-term', icon: 'code', line: 'none', hidden: false},
-      { title: 'Community', routerLink: '/community', icon: 'share', line: 'none', hidden: false},
+      { title: 'Balance', routerLink: '/balance', icon: 'assets/balanceIcon.svg', line: 'none', hidden: false, class: ''},
+      { title: 'Send', routerLink: '/send-funds', icon: 'assets/sendIcon.svg', line: 'none', hidden: false, class:''},
+      { title: 'Receive', routerLink: '/my-address', icon: 'assets/receiveIcon.svg', line: 'none', hidden: false, class: ''},
+      { title: 'Contacts', routerLink: '/contacts', icon: 'assets/contactsIcon.svg', line: 'none', hidden: false, class: ''},
+      { title: 'History', routerLink: '/history', icon: 'assets/historyIcon.svg', line: 'none', hidden: false, class: 'border-b'},
+      { title: 'Token', routerLink: '/create-token', icon: 'assets/createIcon.svg', line: 'none', hidden: false, class:''},
+      { title: 'Status', routerLink: '/status', icon: 'assets/statusIcon.svg', line: 'none', hidden: false, class: ''},
+      { title: 'Terminal', routerLink: '/mini-term', icon: 'assets/terminalIcon.svg', line: 'none', hidden: false, class:'' },
+      { title: 'Community', routerLink: '/community', icon: 'assets/communityIcon.svg', line: 'none', hidden: false, class:''},
     ]
   }
 

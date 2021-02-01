@@ -9,37 +9,12 @@ ion-content {
   --overflow: hidden;
 }
 
-ion-toolbar {
-  --background: var(--ion-m-background);
-  font-family: manrope-bold;
-  color: var(--ion-color-tertiary);
-}
-ion-toolbar ion-title {
-  font-size: 1.2rem;
-  padding-top: 5%;
-}
-ion-toolbar ion-buttons ion-menu-button {
-  font-size: 1rem;
-  color: var(--ion-color-tertiary);
-}
-
 ion-card-content {
   background: var(--ion-card-color);
 }
 
 ion-card-header {
   --color: var(--ion-text-color,#000);
-}
-
-ion-footer ion-toolbar ion-buttons ion-button {
-  width: 100%;
-  height: 58px;
-  text-transform: none;
-  font-family: manrope-bold;
-}
-
-ion-footer ion-toolbar {
-  height: 58px;
 }
 
 .ios .skeleton-address {
@@ -56,11 +31,19 @@ ion-footer ion-toolbar {
   padding: 10px;
 }
 
-.copy-btn {
-  text-decoration: underline;
+ion-button.copy-btn {
   text-transform: none;
   font-family: manrope-bold;
-  color: var(--ion-color-tertiary);
+  color: #fff;
+  background-color: var(--ion-color-primary);
+}
+
+ion-button.gen-btn {
+  text-transform: none;
+  font-family: manrope-bold;
+  color: #000;
+  border: 1px solid #001C32;
+  box-shadow: none;
 }
 
 ion-badge:hover {
@@ -76,8 +59,22 @@ ion-badge {
 
 ion-grid ion-row {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: left;
+  justify-content: left;
+  margin-left: 19px;
+}
+
+ion-grid ion-row:first-child {
+  margin-top: 5px;
+}
+
+p.qrcode-box {
+  background-color: #fff;
+  color: #000;
+  margin-right: 23px;
+  margin-top: 7px;
+  padding: 1%;
+  font-size: 15px;
 }
 
 .toast {
@@ -116,4 +113,19 @@ ion-badge#tip ion-col span#dismiss {
   justify-content: center !important;
   display: inline-flex !important;
   text-align: center !important;
+}
+
+div.qr-box {
+  width: 226px;
+  height: 226px;
+  padding: 10%;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: 1px solid #001C32;
+}
+
+div.qr-box:hover {
+  outline-color: var(--ion-color-primary);
 }

@@ -1,12 +1,10 @@
-<ion-card class="borders">
   <ion-list>
-    <ion-list-header>All Tokens</ion-list-header>
 
-    <ion-item lines="half" *ngFor="let token of tokenArr" routerLink="/view-tokens/{{ token.tokenid }}" [ngStyle] = "{'border-left':  token.script && token.script === 'RETURN_TRUE' ? '3px solid var(--ion-color-secondary)' : '1px solid var(--ion-color-primary)'}">
+    <ion-item lines="none" *ngFor="let token of tokenArr" routerLink="/view-tokens/{{ token.tokenid }}">
       <ion-avatar slot="start">
         <img *ngIf="token.tokenid !== '0x00' && token.icon.length == 0" [src]="createIcon( token.tokenid )" class="custom-icon" />
         <img *ngIf="token.tokenid !== '0x00' && token.icon.length > 0" class="custom-icon" [src]="token.icon"/>
-        <img *ngIf="token.tokenid == '0x00'" class="custom-icon" alt="minima" src="assets/minima-logo-box.svg">
+        <img *ngIf="token.tokenid === '0x00'" class="minima-icon" alt="minima" src="assets/minima-logo-box.svg">
       </ion-avatar>
 
       <ion-label id="token-name">{{ token.token }}</ion-label>
@@ -17,7 +15,5 @@
         <span *ngIf="token.unconfirmed == '0';" class="confirmed-amount medium-text minima-numeric">{{ token.sendable }} </span>
       </ion-label>
     </ion-item>
-    
-    
+
   </ion-list>
-</ion-card>

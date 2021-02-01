@@ -2,20 +2,18 @@
   <ion-split-pane when="lg" contentId="mainMenu" class="splitpane" >
   <ion-menu side="start" contentId="mainMenu" class="myMenu">
 
-    <ion-header class="ion-no-border">
-      <ion-toolbar>
-      <ion-title> 
-        <img *ngIf="toggleValue" src="assets/minima-logo-landscape-dark.svg" style="width: 144px">
-        <img *ngIf="!toggleValue" src="assets/minima-logo-color.svg" style="width: 144px">
-      </ion-title>      
-      </ion-toolbar>
+    <ion-header class="ion-no-border" >      
+    <ion-title>
+      <ion-item lines="none" class="ion-no-padding">
+        <img *ngIf="toggleValue" src="assets/minima-logo-landscape-dark.svg">
+        <img *ngIf="!toggleValue" src="assets/minima-logo-color.svg">
+      </ion-item>
+    </ion-title>     
     </ion-header>
     
     <ion-content>
       <ion-list main>
-        
         <ion-menu-toggle auto-hide="false" *ngFor="let p of basic; let i = index">
-          
             <ion-item 
             class="ripple-parent ion-activatable my-menu-item {{p.class}}"
             detail="false"
@@ -24,47 +22,26 @@
             [hidden] = "p.hidden" 
             [routerLink]="p.routerLink"
             lines="{{ p.line }}">
-              <ion-ripple-effect type="unbounded"></ion-ripple-effect>
-
-            <ion-icon name="{{ p.icon }}" slot="start"></ion-icon> 
-            <ion-label>
-              {{ p.title }}
-            </ion-label>
-
-            </ion-item>
-        </ion-menu-toggle>
-      </ion-list>
-
-      <ion-list main>
-        
-        <ion-menu-toggle auto-hide="false" *ngFor="let p of advanced; let i = index">
-          
-            <ion-item 
-            class="ripple-parent ion-activatable my-menu-item"
-            detail="false"
-            routerLinkActive="selected"
-            routerDirection="root"
-            [hidden] = "p.hidden" 
-            routerLink="{{ p.routerLink }}"
-            lines="{{ p.line }}">
             <ion-ripple-effect type="unbounded"></ion-ripple-effect>
-
-            <ion-icon name="{{ p.icon }}" slot="start"></ion-icon> 
+            
+            <ion-icon src="{{p.icon}}"></ion-icon>
+            
             <ion-label>
               {{ p.title }}
             </ion-label>
-
             </ion-item>
         </ion-menu-toggle>
       </ion-list>
-
   </ion-content>
 
-  <ion-footer class="ion-no-border">
-      <ion-item lines="none" class="nightMode my-menu-item border-t">
-        <ion-icon  slot="start" name="moon"></ion-icon>
+  <ion-footer>
+      <ion-item lines="none" class="my-menu-item ion-no-padding">
+        <ion-avatar>
+          <ion-icon size="small" style="color: #FAFAFF;" name="moon"></ion-icon>
+          <!-- <img src="svg/moon.svg"/> -->
+        </ion-avatar>
         <ion-label>Night Mode</ion-label>
-        <ion-toggle  slot="end" #darkToggle [(ngModel)]="toggleValue" (ionChange)="checkToggle()"></ion-toggle>
+        <ion-toggle slot="end" #darkToggle [(ngModel)]="toggleValue" (ionChange)="checkToggle()"></ion-toggle>
       </ion-item>
   </ion-footer>
   </ion-menu>

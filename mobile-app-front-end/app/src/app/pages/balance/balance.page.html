@@ -5,51 +5,18 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      Balance
+      <ion-item lines="none" class="ion-no-padding">
+        Balance
+      </ion-item>
     </ion-title>
-    <ion-icon (click)="presentSettings($event)" id="settings" slot="end" name="options"></ion-icon>
   </ion-toolbar>
 </ion-header>
 
-  <ion-content>
-    <ion-toolbar *ngIf="user && user.tips && !user.tips.balance2 && tokenArr.length > 0">
-      <ion-badge id="tip">
-      <ion-row>
-        <ion-col class="center" size="1">
-          <ion-icon id="info" name="information-circle-outline"></ion-icon>
-        </ion-col>
-        <ion-col class="center">
-          <ion-label>
-            You can change your token-display mode by clicking the settings button (<ion-icon name="options"></ion-icon>) top-right.
-          </ion-label>
-        </ion-col>
-        <ion-col class="center" size="1">
-          <span (click)="hideTip()" id="dismiss">&times;</span>
-        </ion-col>
-      </ion-row>
-    </ion-badge>
-    </ion-toolbar>
-    <ion-grid *ngIf="user && user.tips && !user.tips.balance && tokenArr.length > 0">
-      <ion-row>
-        <ion-col size="12">
-          <ion-card *ngIf="tokenArr.length > 0" class="borders" id="tutorial-card">
-            <span (click)="hide()" id="dismiss">&times;</span>
-            <ion-card-header class="text-center">
-              <ion-card-title>
-                <ion-avatar>
-                  <img src="assets/confetti.svg" alt="confetti" id="confetti">
-                </ion-avatar>
-                Welcome to Minima's first official wallet! 
-              </ion-card-title>
-            </ion-card-header>
-            <ion-card-content>
-              <p>Here you will find your <span style="font-family:manrope-bold">Minima</span> token balance and any <span style="font-family: manrope-bold;">custom</span> token's balance you create or receive.</p>
-            </ion-card-content>
-          </ion-card>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+  <ion-item class="breadcrumb ion-no-padding" lines="none" *ngIf="tokenArr.length > 0">
+    All Tokens
+  </ion-item>
 
+  <ion-content>
     <ion-grid *ngIf="tokenArr.length == 0">
       <ion-row>
         <ion-col style="display: flex; align-items:center; justify-content:center" size="12">
@@ -61,23 +28,15 @@
       </ion-row>
     </ion-grid>
 
-    <div *ngIf="user.tokenDisplayMode && user.tokenDisplayMode === 1">
-      <app-grid-view *ngIf="tokenArr && tokenArr.length > 0" [tokenArr] = "tokenArr"></app-grid-view>
-    </div>
-
-    <div *ngIf="user.tokenDisplayMode && user.tokenDisplayMode === 2">
+    <div class="body">
       <app-list-view *ngIf="tokenArr && tokenArr.length > 0" [tokenArr] = "tokenArr"></app-list-view>
     </div>
 
   </ion-content>
 
-  <ion-footer class="border-t">
-    <ion-toolbar>
-      <ion-buttons>
-        <ion-button #gimme50Btn expand="block" type="button" (click)="giveMe50()">
-          <ion-icon name="cash" slot="start"></ion-icon> Gimme 50
-        </ion-button>
-      </ion-buttons>
-    </ion-toolbar>
+  <ion-footer>
+    <ion-button class="gimme50" fill="none">
+      Gimme 50
+    </ion-button>
   </ion-footer>
 </ion-app>
