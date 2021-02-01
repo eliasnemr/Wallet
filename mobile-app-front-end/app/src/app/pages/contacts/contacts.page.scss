@@ -1,29 +1,36 @@
-ion-header ion-toolbar ion-title {
-  font-family: manrope-bold;
-  font-size: 1.2rem;
-  padding-top: 5%;
-}
 #deleteButton {
-  padding-right: 4%;
-  font-size: 1.2rem;
+  font-size: 1.8rem;
   cursor: pointer;
 }
-#addButton {
-  padding-right: 5%;
-  font-size: 1.2rem;
+#addButton { 
+  font-size: 2.0rem;
   cursor: pointer;
 }
 ion-item.contactItem {
-  --border-color: var(--ion-color-line);
+  --border-color: #f0f0fa;
 }
 ion-item.contactItem:hover {
   transform: scale(1.001);
   --border-color: var(--ion-color-primary);
 }
+ion-list.tools {
+  margin-left: 2px;
+  margin-right: 9px;
+}
+ion-list.contacts {
+  margin-left: 10px;
+  margin-right: 28px;
+}
+ion-list.contacts ion-item {
+  margin-left: 15px;
+  margin-right: 5px;
+}
 
 ion-searchbar {
   --box-shadow: 0;
-  --icon-color: var(--ion-color-primary);
+  --icon-color: #000;
+  --background: #fff;
+  --border: 1px solid #f0f0fa;
 }
 ion-item-option div.block {
   width: 100%;
@@ -41,24 +48,6 @@ ion-icon.trashIcon {
 }
 ion-icon.trashIcon:hover {
   color: var(--ion-color-secondary);
-}
-ion-badge#tip {
-  white-space: normal;
-  align-self: center;
-  justify-content: center;
-  width: 100%;
-  font-size: 0.8rem;
-  width: 90%;
-  margin-left: 5%;
-  margin-right: 2%;
-}
-ion-badge#tip ion-icon#info {
-  font-size: 1.5rem;
-}
-ion-badge#tip ion-col span#dismiss {
-  font-size: 1.5rem;
-  cursor: pointer;
-  color: #a63f44;
 }
 .center {
   right: 2%;

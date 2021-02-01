@@ -4,42 +4,41 @@ ion-card-header {
   justify-content: center;
 }
 
+ion-card {
+  box-shadow: none;
+}
+
+ion-avatar {
+  border: 1px solid #f0f0fa;
+}
+
 ion-title {
   font-size: 1.2rem;
-  padding-top: 5%;
   font-family: manrope-bold;
   color: var(--ion-color-tertiary);
 }
 
 ion-input {
+  font-size: 12px;
+  padding-left: 2% !important;
   color: #000;
   line-height: 16px;
   background-color: #ffffff;
+  border: 1px solid #f0f0fa;
 }
 
 ion-item ion-label {
   white-space: normal;
   word-break: normal;
-}
-
-ion-button.header {
-  text-transform: none;
-  color: var(--ion-color-tertiary);
-}
-
-ion-button {
-  width: 100%;
-  height: 47px;
-  text-align: center;
+  margin-bottom: 7px;
 }
 
 button.footer {
   width: 100%;
-  height: 58px;
   text-align: center;
   text-transform: none;
   font-family: manrope-bold;
-  color: var(--ion-color-tertiary) !important;
+  color: #fff;
 }
 
 button.footer:hover {
@@ -49,12 +48,12 @@ button.footer:hover {
 #submitBtn {
   width: 100%;
   background: transparent;
-  color: var(--ion-color-tertiary) !important;
   font-size: 1rem;
 }
 
 ion-header ion-toolbar ion-buttons ion-button {
   color: var(--ion-color-primary) !important;
+  text-transform: none;
 }
 
 ion-header ion-toolbar ion-buttons ion-button:hover {
@@ -83,4 +82,13 @@ ion-note.error-message ion-icon {
 
 ion-note.error-message {
   display: block;
+}
+
+ion-button.createContact {
+  --background: var(--ion-color-primary);
+  text-transform: none;
+  font-family: manrope-bold;
+  color: #fff !important;
+  border-radius: 0;
+  float: right;
 }

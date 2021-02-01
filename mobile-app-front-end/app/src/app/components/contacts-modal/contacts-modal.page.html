@@ -1,6 +1,10 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
-    <ion-title>New Contact</ion-title>
+    <ion-title>
+      <ion-item class="ion-no-padding">
+        New Contact
+      </ion-item>
+    </ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="dismiss()" class="header">
         Dismiss
@@ -21,22 +25,20 @@
       <form [formGroup]="contactForm" id="contactForm" (ngSubmit)="addContact()">
       <ion-list>
         <ion-item lines="none">
-          <ion-label position="fixed">Name</ion-label>
+          <ion-label position="stacked">Name</ion-label>
           <ion-input name="name" placeholder="anonymous" formControlName="NAME"></ion-input>
         </ion-item>
         <ion-item class="error" lines="none" *ngIf="name.invalid && name.touched">
-          <ion-label position="fixed"></ion-label>
           <ion-note class="error-message">
             <ion-icon name="alert-circle"></ion-icon> <span> Invalid name format!</span>
             <span>&mdash; A name must be alphanumeric and can only contain a dot or underscore.</span> 
           </ion-note>
         </ion-item>
         <ion-item lines="none">
-          <ion-label position="fixed">Address *</ion-label>
-          <ion-input (ionChange)="changeIcon($event)" name="address" placeholder="wallet address..." formControlName="ADDRESS"></ion-input>
+          <ion-label position="stacked">Address *</ion-label>
+          <ion-input (ionChange)="changeIcon($event)" name="address" placeholder="Enter a valid wallet address" formControlName="ADDRESS"></ion-input>
         </ion-item>
         <ion-item class="error" lines="none" *ngIf="address.invalid && address.touched">
-          <ion-label position="fixed"></ion-label>
           <ion-note class="error-message">
             <ion-icon name="alert-circle"></ion-icon> <span> A wallet address is required.</span>
             <span style="display: block;">&mdash; An address must begin with 0x or Mx.</span> 
@@ -44,31 +46,31 @@
         </ion-item>
         
         <ion-item lines="none">
-          <ion-label position="fixed">Description</ion-label>
-          <ion-input name="description" placeholder="description..." formControlName="DESCRIPTION"></ion-input>
+          <ion-label position="stacked">Description</ion-label>
+          <ion-input name="description" placeholder="Enter a description" formControlName="DESCRIPTION"></ion-input>
         </ion-item>
         <ion-item lines="none">
-          <ion-label position="fixed">Avatar</ion-label>
-          <ion-input name="avatar" placeholder="avatar url..." formControlName="AVATAR"></ion-input>
+          <ion-label position="stacked">Avatar</ion-label>
+          <ion-input name="avatar" placeholder="Enter a custom avatar URL" formControlName="AVATAR"></ion-input>
         </ion-item>
         <ion-item class="error" lines="none" *ngIf="avatar.invalid && avatar.touched">
-          <ion-label position="fixed"></ion-label>
           <ion-note class="error-message">
             <ion-icon name="alert-circle"></ion-icon> <span> Invalid URL format.</span> 
           </ion-note>
         </ion-item>
       </ion-list>
     </form>
+
+    <ion-row>
+      <ion-col size="12">
+        <ion-button [disabled]="contactForm.invalid" class="createContact" fill="clear" style="float: right; margin-right: 10px">
+          <button type="submit" id="submitBtn" form="contactForm" class="footer">
+           Create Contact
+          </button> 
+        </ion-button>
+      </ion-col>
+    </ion-row>
     </ion-card-content>
   </ion-card>
 
 </ion-content>
-<ion-footer class="border-t">
-  <ion-toolbar>
-    <ion-buttons>
-      <ion-button [disabled]="contactForm.invalid" expand="block">
-        <button type="submit" class="footer" id="submitBtn" form="contactForm">Create Contact</button>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-footer>

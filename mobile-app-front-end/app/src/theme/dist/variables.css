@@ -172,11 +172,11 @@ ion-item.breadcrumb {
 .minima-numeric {
   font-variant-numeric: tabular-nums;
   float: right;
-  font-family: manrope-bold;
+  font-family: manrope-medium;
 }
 
 .minima-token {
-  font-family: manrope-bold;
+  font-family: manrope-medium;
 }
 
 ion-content {
