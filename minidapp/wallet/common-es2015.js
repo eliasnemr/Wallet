@@ -483,7 +483,7 @@ let MinimaApiService = class MinimaApiService {
     validateTokenID(tokenid) {
         return this.req("tokenvalidate " + tokenid);
     }
-    createTXN(data) {
+    sendMessageTransaction(data) {
         const txnidentifier = Math.floor(Math.random() * 1000000000);
         const port254 = 254;
         const port255 = 255;
@@ -531,8 +531,8 @@ let MinimaApiService = class MinimaApiService {
     }
     // Use minima.js instead..
     req(fnc) {
-        let promise = new Promise((resolve, reject) => {
-            minima__WEBPACK_IMPORTED_MODULE_3__["Minima"].cmd(fnc, function (resp) {
+        const promise = new Promise((resolve) => {
+            minima__WEBPACK_IMPORTED_MODULE_3__["Minima"].cmd(fnc, (resp) => {
                 //console.log(resp);
                 resolve(resp);
             });
