@@ -46,16 +46,21 @@
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col size="3">
-        <ion-button (click)="copyToClipboard()" class="copy-btn" fill="clear">
+      <ion-col size="4">
+        <ion-button size="medium" (click)="copyToClipboard()" class="copy-btn" fill="clear">
           Copy Address
         </ion-button>
       </ion-col>
       <ion-col size="4">
-        <ion-button (click)="generateAddress(qrCode)" #generateAddressBtn class="gen-btn" fill="none">
+        <ion-button size="medium" (click)="generateAddress(qrCode)" #generateAddressBtn class="gen-btn" fill="none">
           Generate Address
         </ion-button>
       </ion-col>
+    </ion-row>
+    <ion-row>
+      <p class="notes">You can use this address as many times as you wish.</p>
+      <p class="notes">This address can be used for any Minima token or Minima custom token transaction.</p>
+      <p class="notes">Click 'Generate Address' to create a new address when needed.</p>
     </ion-row>
 
   </ion-grid>

@@ -36,6 +36,7 @@ ion-button.copy-btn {
   font-family: manrope-bold;
   color: #fff;
   background-color: var(--ion-color-primary);
+  width: 100%;
 }
 
 ion-button.gen-btn {
@@ -44,6 +45,7 @@ ion-button.gen-btn {
   color: #000;
   border: 1px solid #001C32;
   box-shadow: none;
+  width: 100%;
 }
 
 ion-badge:hover {
@@ -72,6 +74,8 @@ p.qrcode-box {
   background-color: #fff;
   color: #000;
   margin-right: 23px;
+  margin-bottom: 0;
+  padding-bottom: 0;
   margin-top: 7px;
   padding: 1%;
   font-size: 15px;
@@ -79,6 +83,11 @@ p.qrcode-box {
 
 .toast {
   --width: 50%;
+}
+
+.notes {
+  color: var(--ion-color-secondary);
+  margin: 7px;
 }
 
 ion-badge#tip {
