@@ -121,10 +121,12 @@ var SendFundsPage = /** @class */ (function () {
         var _this = this;
         this.sendForm.value.amnt = this.sendForm.value.amount.toString();
         var data = this.sendForm.value;
+        console.log(data);
         if (data.message !== null && (data.message || data.message.length > 0)) {
             this.submitBtn.disabled = true;
             this.api.sendMessageTransaction(data).then(function (res) {
                 if (minima_1.Minima.util.checkAllResponses(res)) {
+                    console.log(res);
                     setTimeout(function () {
                         _this.submitBtn.disabled = false;
                     }, 500);
@@ -140,9 +142,11 @@ var SendFundsPage = /** @class */ (function () {
             });
         }
         else {
+            this.data.message = '';
             this.submitBtn.disabled = true;
             this.api.sendFunds(data).then(function (res) {
                 if (res.status) {
+                    console.log(res);
                     setTimeout(function () {
                         _this.submitBtn.disabled = false;
                     }, 500);
@@ -165,6 +169,17 @@ var SendFundsPage = /** @class */ (function () {
             _this.itemSelected = res.params.id;
             if (!res.params.id) {
                 _this.itemSelected = '0x00';
+            }
+        });
+    };
+    SendFundsPage.prototype.giveMe50 = function () {
+        var _this = this;
+        this.api.giveMe50().then(function (res) {
+            if (res.status === true) {
+                _this.presentAlert('Gimme50', 'Status', 'Successful');
+            }
+            else {
+                _this.presentAlert('Gimme50', 'Status', res.message);
             }
         });
     };

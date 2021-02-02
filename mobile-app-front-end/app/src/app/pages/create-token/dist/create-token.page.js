@@ -52,8 +52,7 @@ var CreateTokenPage = /** @class */ (function () {
         this.alertController = alertController;
         this.toastController = toastController;
         this.advancedFormInputsChecked = { description: false, icon: false, proof: false, nft: false };
-        this.basic = false;
-        this.advanced = false;
+        this.isNft = false;
         this.loading = false;
         this.success = false;
         this.myNFT = 'ASSERT FLOOR ( @AMOUNT ) EQ @AMOUNT LET checkout = 0 WHILE ( checkout LT @TOTOUT ) DO IF GETOUTTOK ( checkout ) EQ @TOKENID THEN LET outamt = GETOUTAMT ( checkout ) ASSERT FLOOR ( outamt ) EQ outamt ENDIF LET checkout = INC ( checkout ) ENDWHILE RETURN TRUE';
@@ -86,48 +85,9 @@ var CreateTokenPage = /** @class */ (function () {
             description: '',
             script: '',
             icon: '',
-            proof: ''
+            proof: '',
+            nft: false
         });
-    };
-    CreateTokenPage.prototype.toggleBasicAnimation = function () {
-        this.advancedFormInputsChecked.description = false;
-        this.advancedFormInputsChecked.icon = false;
-        this.advancedFormInputsChecked.nft = false;
-        this.advancedFormInputsChecked.proof = false;
-        this.basic = true;
-        document.getElementById('listCardOptions').style.display = 'none';
-        document.getElementById('footer').style.display = 'block';
-        document.getElementById('createTknBtn2').style.display = 'block';
-        document.getElementById('cardText').innerHTML = 'Enter Your Token Details';
-        document.getElementById('backBtn').style.display = 'block';
-    };
-    CreateTokenPage.prototype.toggleAdvAnimation = function () {
-        this.advanced = false;
-        if (this.advancedFormInputsChecked.description === false && this.advancedFormInputsChecked.icon === false
-            && this.advancedFormInputsChecked.nft === false && this.advancedFormInputsChecked.proof === false) {
-            this.advanced = false;
-            this.presentAlert('Advanced Token Creator', 'You have to pick an advanced token feature before proceeding.', 'Error');
-        }
-        else {
-            this.advanced = true;
-            document.getElementById('listCardOptions').style.display = 'none';
-            document.getElementById('footer').style.display = 'block';
-            document.getElementById('createTknBtn2').style.display = 'block';
-            document.getElementById('cardText').innerHTML = 'Enter Your Token Details';
-            document.getElementById('backBtn').style.display = 'block';
-        }
-    };
-    CreateTokenPage.prototype.toggleBackAnimation = function () {
-        this.submitBtn.disabled = false;
-        document.getElementById('backBtn').style.display = 'none';
-        this.advanced = false;
-        this.basic = false;
-        this.resetForm();
-        document.getElementById('cardText').innerHTML = 'Choose A Token Type';
-        document.getElementById('listCardOptions').style.display = 'block';
-        document.getElementById('tokenCreationForm').style.display = 'none';
-        document.getElementById('footer').style.display = 'none';
-        document.getElementById('createTknBtn2').style.display = 'none';
     };
     CreateTokenPage.prototype.presentToast = function (msg, type) {
         return __awaiter(this, void 0, void 0, function () {
@@ -179,14 +139,15 @@ var CreateTokenPage = /** @class */ (function () {
     CreateTokenPage.prototype.createTokenAdvanced = function () {
         var _this = this;
         this.loading = true;
+        console.log(this.tokenCreationForm.value);
         var newToken = this.tokenCreationForm.value;
-        if (this.advancedFormInputsChecked.nft) {
+        if (newToken.nft) {
             this.submitBtn.disabled = true;
             newToken.script = this.myNFT; // script for non-fungible
             this.api.createToken(newToken).then(function (res) {
                 if (res.status) {
                     _this.presentAlert('Success', 'Token ' + _this.customToken.name + ' has been created.', 'Token Creation Status');
-                    _this.toggleBackAnimation();
+                    _this.resetForm();
                 }
                 else {
                     setTimeout(function () {
@@ -202,7 +163,7 @@ var CreateTokenPage = /** @class */ (function () {
             this.api.createToken(newToken).then(function (res) {
                 if (res.status) {
                     _this.presentAlert('Success', 'Token ' + _this.customToken.name + ' has been created.', 'Token Creation Status');
-                    _this.toggleBackAnimation();
+                    _this.resetForm();
                 }
                 else {
                     setTimeout(function () {
@@ -247,6 +208,13 @@ var CreateTokenPage = /** @class */ (function () {
     Object.defineProperty(CreateTokenPage.prototype, "amount", {
         get: function () {
             return this.tokenCreationForm.get('amount');
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(CreateTokenPage.prototype, "myNft", {
+        get: function () {
+            return this.tokenCreationForm.get('nft');
         },
         enumerable: false,
         configurable: true

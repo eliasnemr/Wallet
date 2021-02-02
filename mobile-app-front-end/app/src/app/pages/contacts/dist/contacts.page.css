@@ -13,7 +13,7 @@ ion-item.contactItem {
 }
 
 ion-item.contactItem:hover {
-  transform: scale(1.001);
+  --background: #F0F0F4;
   --border-color: var(--ion-color-primary);
 }
 

@@ -4,149 +4,89 @@
     <ion-buttons slot="start">
       <ion-menu-button class="menu-icon"></ion-menu-button>
     </ion-buttons>
-    <ion-title class="large-text">Token</ion-title>
+    <ion-title>
+      <ion-item class="ion-no-padding">
+        Token
+      </ion-item>
+    </ion-title>
   </ion-toolbar>
 </ion-header>
+
+<ion-item class="breadcrumb ion-no-padding" lines="none">
+  Create a custom token
+</ion-item>
+
 <ion-content>
-  <ion-title class="cardHeader">
-    <span id="cardText">Choose A Token Type</span>
-  </ion-title>
-    <ion-list id="listCardOptions">
-      <ion-row>
-        <ion-col size-xs="12">
-          <ion-card id="basicCard" class="tokenType borders">
-            <ion-card-header>
-              Basic Token
-            </ion-card-header>
-            <ion-card-content>
-              <ion-list lines="none">
-                <ion-item>
-                <ion-label>Name</ion-label>
-                <ion-checkbox disabled="true" checked="true"></ion-checkbox>
-                </ion-item>
-                <ion-item>
-                <ion-label>Amount</ion-label>
-                <ion-checkbox disabled="true" checked="true"></ion-checkbox>
-                </ion-item>
-              </ion-list>
-            </ion-card-content>
-            <ion-card-subtitle>
-              <ion-buttons>
-                <ion-button (click)="toggleBasicAnimation()" class="createBtn">
-                  Create Basic Token
-                </ion-button>
-              </ion-buttons>
-            </ion-card-subtitle>
-          </ion-card>
-        </ion-col>
-        <ion-col size-xs="12">
-          <ion-card #advancedCard id="advancedCard" class="tokenType borders">
-            <ion-card-header>
-              Advanced Token &mdash; <ion-note style="font-style:oblique; font-family:manrope-light">A Basic Token With Optional Values</ion-note>
-            </ion-card-header>
-            <ion-card-content>
-              <ion-list>
-                <ion-item lines="none">
-                  <ion-label>Description</ion-label>
-                  <ion-checkbox id="description" disabled="false" checked="false" [(ngModel)]="advancedFormInputsChecked.description"></ion-checkbox>
-                </ion-item>
-                <ion-item lines="none">
-                  <ion-label>Custom Icon URL</ion-label>
-                  <ion-checkbox id="icon" disabled="false" checked="false" [(ngModel)]="advancedFormInputsChecked.icon"></ion-checkbox>
-                </ion-item>
-                <ion-item lines="none">
-                  <ion-label>Proof URL</ion-label>
-                  <ion-checkbox id="proof" disabled="false" checked="false" [(ngModel)]="advancedFormInputsChecked.proof"></ion-checkbox>
-                </ion-item>
-                <ion-item lines="none">
-                  <ion-label>Non-Fungible Token</ion-label>
-                  <ion-checkbox id="nft" disabled="false" checked="false" [(ngModel)]="advancedFormInputsChecked.nft"></ion-checkbox>
-                </ion-item>
-              </ion-list>
-            </ion-card-content>
+  <form (ngSubmit)="createTokenAdvanced()" [formGroup]="tokenCreationForm" id='tokenCreationForm'>
+  <ion-list lines="none">
 
-            <ion-card-subtitle>
-              <ion-buttons>
-                <ion-button (click)="toggleAdvAnimation()" class="createBtn">
-                  Create Advanced Token
-                </ion-button>
-              </ion-buttons>
-            </ion-card-subtitle>
-          </ion-card>
-        </ion-col>
-      </ion-row>
-    </ion-list>
+    <ion-item lines="none">
+      <ion-label position="stacked" class="medium-text">Name</ion-label>
+      <ion-input placeholder="Enter a token name" class="medium-text input" #nameTextArea name="name" formControlName="name"></ion-input>
+    </ion-item>
+    <ion-item class="error" lines="none" *ngIf="name.invalid && name.touched">
+      <ion-note class="error-message">
+        <ion-icon name="alert-circle"></ion-icon> <span> A name is required!</span> <br>
+        <span>&mdash; A name must be a maximum length of 255 characters.</span> 
+      </ion-note>
+    </ion-item>
 
-  <ion-card class="borders" *ngIf="basic || advanced">
-    <ion-card-content>
-    <form (ngSubmit)="createTokenAdvanced()" [formGroup]="tokenCreationForm" id='tokenCreationForm'>
-    <ion-list lines="none">
-      <ion-item lines="none">
-        <ion-label position="fixed" class="medium-text">Amount</ion-label>
-        <ion-input placeholder="amount" type="number" class="medium-text input" #amountRef name="amount" formControlName="amount"></ion-input>
-      </ion-item>
-      <ion-item class="error" lines="none" *ngIf="amount.invalid && amount.touched">
-        <ion-label position="fixed"></ion-label>
-        <ion-note class="error-message">
-          <ion-icon name="alert-circle"></ion-icon> <span> An amount is required!</span> <br>
-          <span>&mdash; An amount must be numeric and greater than 0.</span> 
-        </ion-note>
-      </ion-item>
+    <ion-item lines="none">
+      <ion-label position="stacked" class="medium-text">Amount</ion-label>
+      <ion-input placeholder="Enter token amount" type="number" class="medium-text input" #amountRef name="amount" formControlName="amount"></ion-input>
+    </ion-item>
+    <ion-item class="error" lines="none" *ngIf="amount.invalid && amount.touched">
+      <ion-note class="error-message">
+        <ion-icon name="alert-circle"></ion-icon> <span> An amount is required!</span> <br>
+        <span>&mdash; An amount must be numeric and greater than 0.</span> 
+      </ion-note>
+    </ion-item>
 
-      <ion-item lines="none">
-        <ion-label position="fixed" class="medium-text">Token Name</ion-label>
-        <ion-input placeholder="token name" class="medium-text input" #nameTextArea name="name" formControlName="name"></ion-input>
-      </ion-item>
-      <ion-item class="error" lines="none" *ngIf="name.invalid && name.touched">
-        <ion-label position="fixed"></ion-label>
-        <ion-note class="error-message">
-          <ion-icon name="alert-circle"></ion-icon> <span> A name is required!</span> <br>
-          <span>&mdash; A name must be a maximum length of 255 characters.</span> 
-        </ion-note>
-      </ion-item>
+    <ion-item lines="none" lines="none">
+      <ion-label position="stacked" class="medium-text">Icon <span style="font-family: manrope-light; color:var(--ion-color-primary)">(Optional)</span></ion-label>
+      <ion-input class="medium-text input" name="icon" #iconURL formControlName="icon" placeholder="Enter a valid icon URL"></ion-input>
+    </ion-item>
 
-      <ion-item lines="none" [hidden]="!advancedFormInputsChecked.icon" lines="none">
-        <ion-label position="fixed" class="medium-text">Icon <span style="font-family: manrope-light; color:var(--ion-color-primary)">(Optional)</span></ion-label>
-        <ion-input class="medium-text input" name="icon" #iconURL formControlName="icon" placeholder="add the URL of your icon here..."></ion-input>
-      </ion-item>
+    <ion-item lines="none" lines="none">
+      <ion-label position="stacked" class="medium-text">Proof <span style="font-family: manrope-light; color:var(--ion-color-primary)">(Optional)</span></ion-label>
+      <ion-input  name="proof" class="medium-text input" #proofURL formControlName="proof" placeholder="Enter URL of website hosting token ID text"></ion-input>
+    </ion-item>
 
-      <ion-item lines="none" [hidden]="!advancedFormInputsChecked.proof" lines="none">
-        <ion-label position="fixed" class="medium-text">Proof <span style="font-family: manrope-light; color:var(--ion-color-primary)">(Optional)</span></ion-label>
-        <ion-input  name="proof" class="medium-text input" #proofURL formControlName="proof" placeholder="add to host website a text file with a token ID."></ion-input>
-      </ion-item>
+    <ion-item lines="none" lines="none">
+      <ion-label position="stacked"  class="medium-text">Description <span style="font-family: manrope-light; color:var(--ion-color-primary)">(Optional)</span></ion-label>
+      <ion-textarea
+      #description 
+      class="medium-text input"
+      name="description"
+      maxlength="255"
+      [(ngModel)] = "customToken.description"
+      formControlName="description"
+      placeholder="Enter a description">
+      </ion-textarea>
+    </ion-item>
+    <ion-label class="length" *ngIf="customToken.description && customToken.description.length > 0">{{ customToken.description.length+'/255'}}</ion-label>
+    <ion-item>
+      <ion-label class="nft">
+        <ion-icon class="nftIcon" src="assets/nft2.svg"></ion-icon> <span style="font-family: manrope-light; color:var(--ion-color-primary)">(Optional)</span>
+        Spend this token in whole only.
+      </ion-label>
+      <ion-checkbox formControlName="nft" slot="end"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+  
+  <ion-row>
+    <ion-col size="12">
+      <ion-button #submitBtn type="submit" class="create-token" [disabled]="tokenCreationForm.invalid" fill="clear">
+        Create Token
+      </ion-button>
+    </ion-col>
+  </ion-row>
 
-      <ion-item lines="none" [hidden]="!advancedFormInputsChecked.description" lines="none">
-        <ion-label position="stacked"  class="medium-text">Description <span style="font-family: manrope-light; color:var(--ion-color-primary)">(Optional)</span></ion-label>
-        <ion-textarea
-        #description 
-        class="medium-text input"
-        name="description"
-        maxlength="255"
-        [(ngModel)] = "customToken.description"
-        formControlName="description"
-        placeholder="type your description here...">
-        </ion-textarea>
-      </ion-item>
-      <ion-item class="length" *ngIf="customToken.description && customToken.description.length > 0">
-        <ion-note>{{ customToken.description.length+'/255'}}</ion-note>
-      </ion-item>
-
-      <ion-item [hidden]="!advancedFormInputsChecked.nft">
-        <ion-label>
-          <ion-icon class="nftIcon" src="assets/nft2.svg"></ion-icon>
-          <ion-note>In the case you would like to spend this token, it must be spent whole.</ion-note>
-        </ion-label>
-      </ion-item>
-    </ion-list>      
-    </form>
-</ion-card-content>
-  </ion-card>
-  <ion-button id="backBtn" style="display:none;" fill="clear" (click)="toggleBackAnimation()" name="arrow-back">
-    <ion-icon name="arrow-back"></ion-icon>
-  </ion-button>
+  </form>
 </ion-content>
-<ion-footer id="footer" style="display: none;" class="border-t">
-  <ion-toolbar>
+
+<ion-footer>
+  <!-- <ion-toolbar>
     <ion-buttons>
       <ion-button #submitBtn [disabled]="tokenCreationForm.invalid" expand="block">
       <button type="submit" class="footer" id="createTknBtn2" form="tokenCreationForm">
@@ -154,7 +94,7 @@
       </button>
       </ion-button>
     </ion-buttons>
-  </ion-toolbar>
+  </ion-toolbar> -->
 </ion-footer>
 
 </ion-app>

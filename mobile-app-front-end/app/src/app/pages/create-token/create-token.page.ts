@@ -1,7 +1,7 @@
 import { CustomToken } from './../../models/customToken.model';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MinimaApiService } from '../../service/minima-api.service';
-import { IonTextarea, IonInput, AlertController, ToastController, IonButton } from '@ionic/angular';
+import { AlertController, ToastController, IonButton } from '@ionic/angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 interface AdvancedFormInputsCheck {
@@ -21,8 +21,8 @@ export class CreateTokenPage implements OnInit {
 
   tokenCreationForm: FormGroup;
   advancedFormInputsChecked: AdvancedFormInputsCheck = {description: false, icon: false, proof: false, nft: false};
-  basic = false;
-  advanced = false;
+
+  isNft = false;
   loading = false;
   success = false;
   myNFT = 'ASSERT FLOOR ( @AMOUNT ) EQ @AMOUNT LET checkout = 0 WHILE ( checkout LT @TOTOUT ) DO IF GETOUTTOK ( checkout ) EQ @TOKENID THEN LET outamt = GETOUTAMT ( checkout ) ASSERT FLOOR ( outamt ) EQ outamt ENDIF LET checkout = INC ( checkout ) ENDWHILE RETURN TRUE';
@@ -66,51 +66,10 @@ export class CreateTokenPage implements OnInit {
       description: '',
       script: '',
       icon: '',
-      proof: ''
+      proof: '',
+      nft: false
     });
   }
-
-  toggleBasicAnimation() {
-    this.advancedFormInputsChecked.description = false;
-    this.advancedFormInputsChecked.icon = false;
-    this.advancedFormInputsChecked.nft = false;
-    this.advancedFormInputsChecked.proof = false;
-
-    this.basic = true;
-    document.getElementById('listCardOptions').style.display = 'none';
-    document.getElementById('footer').style.display = 'block';
-    document.getElementById('createTknBtn2').style.display = 'block';
-    document.getElementById('cardText').innerHTML = 'Enter Your Token Details';
-    document.getElementById('backBtn').style.display = 'block';
-  }
-  toggleAdvAnimation() {
-    this.advanced = false;
-    if(this.advancedFormInputsChecked.description === false && this.advancedFormInputsChecked.icon === false 
-      && this.advancedFormInputsChecked.nft === false && this.advancedFormInputsChecked.proof === false) {
-        this.advanced = false;
-        this.presentAlert('Advanced Token Creator', 'You have to pick an advanced token feature before proceeding.', 'Error');
-    } else {
-      this.advanced = true;
-      document.getElementById('listCardOptions').style.display = 'none';
-      document.getElementById('footer').style.display = 'block';
-      document.getElementById('createTknBtn2').style.display = 'block';
-      document.getElementById('cardText').innerHTML = 'Enter Your Token Details';
-      document.getElementById('backBtn').style.display = 'block';
-    }
-  }
-  toggleBackAnimation() {
-    this.submitBtn.disabled = false;
-    document.getElementById('backBtn').style.display = 'none';
-    this.advanced = false;
-    this.basic = false;
-    this.resetForm();
-    document.getElementById('cardText').innerHTML = 'Choose A Token Type';
-    document.getElementById('listCardOptions').style.display = 'block';
-    document.getElementById('tokenCreationForm').style.display = 'none';
-    document.getElementById('footer').style.display = 'none';
-    document.getElementById('createTknBtn2').style.display = 'none';
-  }
-
 
   async presentToast(msg: string, type: string) {
     const toast = await this.toastController.create({
@@ -142,16 +101,16 @@ export class CreateTokenPage implements OnInit {
   
   createTokenAdvanced() {
     this.loading = true;
-
+    console.log(this.tokenCreationForm.value);
     const newToken: CustomToken = this.tokenCreationForm.value;
 
-    if (this.advancedFormInputsChecked.nft) {
+    if (newToken.nft) {
       this.submitBtn.disabled = true;
       newToken.script = this.myNFT; // script for non-fungible
       this.api.createToken(newToken).then((res: any) => {
         if (res.status) {
           this.presentAlert('Success', 'Token '+this.customToken.name+' has been created.', 'Token Creation Status');
-          this.toggleBackAnimation();
+          this.resetForm();
         } else {
           setTimeout(() => {
             this.submitBtn.disabled = false;
@@ -165,7 +124,7 @@ export class CreateTokenPage implements OnInit {
       this.api.createToken(newToken).then((res: any) => {
         if (res.status) {
           this.presentAlert('Success', 'Token ' + this.customToken.name + ' has been created.', 'Token Creation Status');
-          this.toggleBackAnimation();
+          this.resetForm();
         } else {
           setTimeout(() => {
             this.submitBtn.disabled = false;
@@ -178,7 +137,6 @@ export class CreateTokenPage implements OnInit {
 
   resetForm() { 
     this.tokenCreationForm.reset();
-
   }
 
   get name() {
@@ -195,6 +153,9 @@ export class CreateTokenPage implements OnInit {
   }
   get amount() {
     return this.tokenCreationForm.get('amount');
+  }
+  get myNft() {
+    return this.tokenCreationForm.get('nft');
   }
 
 }

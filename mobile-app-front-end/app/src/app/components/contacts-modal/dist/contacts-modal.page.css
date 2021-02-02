@@ -85,6 +85,10 @@ ion-note.error-message {
 }
 
 ion-button.createContact {
+  height: 35px;
+  width: 164px;
+  margin-right: 9px;
+  --border-radius: 0;
   --background: var(--ion-color-primary);
   text-transform: none;
   font-family: manrope-bold;

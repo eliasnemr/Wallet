@@ -10,43 +10,55 @@ ion-back-button:hover {
     --background-hover: none;
     --color: var(--ion-color-secondary);
 }
-ion-title {
-    font-family: manrope-bold;
-    font-size: 1.2rem;
-    padding-top: 5%;
+ion-list#transaction-details {
+    margin: 0;
+    padding: 0;
 }
-h5 {
-    letter-spacing: -0.02em;
-    font-weight: 600;
-    font-size: 1.5rem;
+ion-list#transaction-details ion-item:first-child ion-label {
+    margin-top: 3px !important;
+}
+ion-list#transaction-details ion-item ion-label {
+    margin-top: 0px;
+    margin-bottom: 6px;
+}
+ion-list#transaction-details ion-item {
+    border-bottom: 1px solid #f0f0fa;
+    margin-left: 15px;
+    margin-right: 15px;
 }
 .copy {
     text-decoration: underline;
     cursor: pointer;
     font-size: 0.8rem;
 }
-ion-list-header {
-    font-weight: 600;
-    font-size: 1.5rem;
-    letter-spacing: -0.02em;
+ion-list-header ion-label h6 {
+    font-size: 16px;
+    font-family: manrope-bold;
+}
+ion-list-header ion-label p {
+    font-size: 16px;
+    font-family: manrope-medium;
 }
 .title {
     font-family: manrope-bold;
     font-size: 1.0rem;
-    float: left;
     text-overflow: ellipsis;
     max-width: inherit;
     white-space: normal;
     word-wrap: normal;
 }
 .value {
-    font-family: manrope-light;
+    font-family: manrope-regular;
     text-align: left;
-    float:left;
     white-space: nowrap;
     text-overflow: ellipsis;
     max-width: inherit;
     overflow: hidden;
+}
+.wrap {
+    white-space: normal !important;
+    text-overflow: clip !important;
+    overflow: auto !important;
 }
 .relay {
     display: inline-block;
@@ -55,12 +67,8 @@ ion-list-header {
 .chevron {
     width: 15px;
 }
-.inputs, .outputs {
-    font-size: 1.2rem;
-    opacity: 0.5;
-}
-.completed {
-    font-size: 1.2rem;
-    font-weight: 400;
+.completed p {
+    font-size: 1.0rem;
     color: rgba(75,222,131, 0.7);
 }
+

@@ -91,15 +91,13 @@
             maxlength="255">
             </ion-textarea>
       </ion-item>
-      <ion-note *ngIf="data.message" class="length">{{ data.message.length +"/255" }}</ion-note>
+      <ion-label *ngIf="data.message" class="length">{{ data.message.length +"/255" }}</ion-label>
     </ion-list>
 
     <ion-row>
       <ion-col size="12">
-        <ion-button #submitBtn [disabled]="sendForm.invalid" class="sendFunds" fill="clear" style="float: right; margin-right: 29px">
-          <button type="submit" form="sendForm" class="footer">
+        <ion-button #submitBtn type="submit" [disabled]="sendForm.invalid" class="send-funds" fill="clear">  
            Send Funds
-          </button> 
         </ion-button>
       </ion-col>
     </ion-row>

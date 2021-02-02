@@ -21,10 +21,16 @@
       color: var(--ion-color-primary);
     }
     ion-icon {
-      fill: var(--ion-color-primary);
+      fill: var(--ion-color-primary) !important;
     }
     ion-avatar ion-icon {
       color: var(--ion-color-primary);
+    }
+  }
+  ion-menu ion-item.selected {
+    ion-icon {
+      fill: var(--ion-color-primary);
+      color: blue;
     }
   }
   ion-menu ion-header {
@@ -44,7 +50,7 @@
     font-size: 1.0rem;
   }
   ion-icon {
-      color: var(--ion-color-tertiary);
+    color: var(--ion-color-tertiary);
   }
   .myMenu {
     --width: 250px;

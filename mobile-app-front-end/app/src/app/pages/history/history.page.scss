@@ -18,7 +18,6 @@ ion-list ion-item {
     --border-color: #f0f0fa;
 }
 ion-list ion-item:hover {
-    transform: scale(1.001);
     --border-color: var(--ion-color-primary);
 }
 ion-label {

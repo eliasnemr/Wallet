@@ -98,11 +98,12 @@ export class SendFundsPage implements OnInit {
   sendFunds() {
     this.sendForm.value.amnt = this.sendForm.value.amount.toString();
     const data: SendFormObj = this.sendForm.value;
-
+    console.log(data);
     if (data.message !== null && ( data.message || data.message.length > 0) ) {
       this.submitBtn.disabled = true;
       this.api.sendMessageTransaction(data).then((res: any) => {
         if (Minima.util.checkAllResponses(res)) {
+          console.log(res);
           setTimeout(() => {
             this.submitBtn.disabled = false;
           }, 500);
@@ -116,9 +117,12 @@ export class SendFundsPage implements OnInit {
         }
       });
     } else {
+      this.data.message = '';
       this.submitBtn.disabled = true;
       this.api.sendFunds(data).then((res: any) => {
         if (res.status) {
+          console.log(res);
+
           setTimeout(() => {
             this.submitBtn.disabled = false;
           }, 500);
@@ -139,6 +143,16 @@ export class SendFundsPage implements OnInit {
       this.itemSelected = res.params.id;
       if (!res.params.id) {
         this.itemSelected = '0x00';
+      }
+    });
+  }
+
+  giveMe50() {
+    this.api.giveMe50().then((res: any) => {
+      if(res.status === true) {
+        this.presentAlert('Gimme50', 'Status', 'Successful');
+      } else {
+        this.presentAlert('Gimme50', 'Status', res.message);
       }
     });
   }

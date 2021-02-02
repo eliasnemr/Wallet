@@ -24,10 +24,15 @@ ion-menu.md ion-item.selected ion-label {
   color: var(--ion-color-primary);
 }
 ion-menu.md ion-item.selected ion-icon {
-  fill: var(--ion-color-primary);
+  fill: var(--ion-color-primary) !important;
 }
 ion-menu.md ion-item.selected ion-avatar ion-icon {
   color: var(--ion-color-primary);
+}
+
+ion-menu ion-item.selected ion-icon {
+  fill: var(--ion-color-primary);
+  color: blue;
 }
 
 ion-menu ion-header {

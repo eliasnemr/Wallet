@@ -6,6 +6,8 @@
     --ion-font-family: manrope-regular;
     --ion-font-family-bold: manrope-bold;
     --ion-font-family-light: manrope-light;
+    --ion-font-family-medium: manrope-medium;
+
     /** Light Skin **/
     --ion-m-background: #FAFAFF;
     --ion-m-background-rgb: rgb(240, 240, 250);
@@ -228,5 +230,8 @@ ion-content {
   font-family: 'manrope-semibold';
   src: url('../fonts/manrope-semibold.otf');
 }
-
+@font-face {
+  font-family: 'manrope-medium';
+  src: url('../fonts/manrope-medium.otf');
+}
 

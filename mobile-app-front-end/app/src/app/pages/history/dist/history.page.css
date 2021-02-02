@@ -22,7 +22,6 @@ ion-list ion-item {
 }
 
 ion-list ion-item:hover {
-  transform: scale(1.001);
   --border-color: var(--ion-color-primary);
 }
 

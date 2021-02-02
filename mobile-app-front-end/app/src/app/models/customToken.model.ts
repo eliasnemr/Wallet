@@ -5,4 +5,5 @@ export interface CustomToken {
   script?: string
   icon?: string
   proof?: string 
+  nft?: boolean
 }

@@ -1,7 +1,7 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
     <ion-title>
-      <ion-item class="ion-no-padding">
+      <ion-item lines="none" class="ion-no-padding">
         New Contact
       </ion-item>
     </ion-title>
@@ -59,17 +59,17 @@
           </ion-note>
         </ion-item>
       </ion-list>
+
+      <ion-row>
+        <ion-col size="12">
+          <ion-button type="submit" [disabled]="contactForm.invalid" class="createContact" fill="clear" style="float: right; margin-right: 10px">
+            Create Contact
+          </ion-button>
+        </ion-col>
+      </ion-row>
     </form>
 
-    <ion-row>
-      <ion-col size="12">
-        <ion-button [disabled]="contactForm.invalid" class="createContact" fill="clear" style="float: right; margin-right: 10px">
-          <button type="submit" id="submitBtn" form="contactForm" class="footer">
-           Create Contact
-          </button> 
-        </ion-button>
-      </ion-col>
-    </ion-row>
+    
     </ion-card-content>
   </ion-card>
 
