@@ -48,7 +48,9 @@ var pop_filter_component_1 = require("./../../components/pop-filter/pop-filter.c
 var moment = require("moment");
 var operators_1 = require("rxjs/operators");
 var HistoryPage = /** @class */ (function () {
-    function HistoryPage(historyService, userHistorySavedData, modalController, alertCtrl, toastCtrl, popoverController, config, router) {
+    function HistoryPage(api, alertController, historyService, userHistorySavedData, modalController, alertCtrl, toastCtrl, popoverController, config, router) {
+        this.api = api;
+        this.alertController = alertController;
         this.historyService = historyService;
         this.userHistorySavedData = userHistorySavedData;
         this.modalController = modalController;
@@ -206,6 +208,39 @@ var HistoryPage = /** @class */ (function () {
         if (this.transactions.length === 0) {
             this.prompt = 'No recent transactions found...';
         }
+    };
+    HistoryPage.prototype.presentAlert = function (hdr, message, subtitle) {
+        return __awaiter(this, void 0, void 0, function () {
+            var alert;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.alertController.create({
+                            cssClass: 'alertContainer',
+                            header: hdr,
+                            subHeader: subtitle,
+                            message: message,
+                            buttons: ['OK']
+                        })];
+                    case 1:
+                        alert = _a.sent();
+                        return [4 /*yield*/, alert.present()];
+                    case 2:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    HistoryPage.prototype.giveMe50 = function () {
+        var _this = this;
+        this.api.giveMe50().then(function (res) {
+            if (res.status === true) {
+                _this.presentAlert('Gimme50', 'Successful', 'Status');
+            }
+            else {
+                _this.presentAlert('Gimme50', res.message, 'Status');
+            }
+        });
     };
     __decorate([
         core_1.ViewChild('historyList', { static: true })

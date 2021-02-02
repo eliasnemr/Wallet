@@ -150,9 +150,9 @@ export class SendFundsPage implements OnInit {
   giveMe50() {
     this.api.giveMe50().then((res: any) => {
       if(res.status === true) {
-        this.presentAlert('Gimme50', 'Status', 'Successful');
+        this.presentAlert('Gimme50', 'Successful', 'Status');
       } else {
-        this.presentAlert('Gimme50', 'Status', res.message);
+        this.presentAlert('Gimme50', res.message, 'Status');
       }
     });
   }

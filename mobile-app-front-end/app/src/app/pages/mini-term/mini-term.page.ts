@@ -1,7 +1,8 @@
+import { MinimaApiService } from './../../service/minima-api.service';
 import { Subscription } from 'rxjs';
 import { PopTermComponent } from '../../components/pop-term/pop-term.component';
 import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
-import { LoadingController, NavController, IonContent, PopoverController, IonTextarea } from '@ionic/angular';
+import { LoadingController, NavController, IonContent, PopoverController, IonTextarea, AlertController } from '@ionic/angular';
 import { environment } from '../../../environments/environment';
 import { UserTerminal } from '../../service/userterminal.service';
 import { Minima } from 'minima';
@@ -25,6 +26,8 @@ export class MiniTermPage implements OnInit {
   public fontSubscription: Subscription;
 
   constructor(
+    private api: MinimaApiService,
+    private alertController: AlertController,
     public loadingController: LoadingController,
     public navCtrl: NavController, private renderer: Renderer2,
     public popoverController: PopoverController,
@@ -177,6 +180,27 @@ request(route: any) {
   return await popover.present();
 
   }
+
+  giveMe50() {
+    this.api.giveMe50().then((res: any) => {
+      if(res.status === true) {
+        this.presentAlert('Gimme50', 'Successful', 'Status');
+      } else {
+        this.presentAlert('Gimme50', res.message, 'Status');
+      }
+    });
+  }
+  async presentAlert(hdr: string, msg: string, sub: string) {
+    const alert = await this.alertController.create({
+      cssClass: 'alert',
+      header: hdr,
+      subHeader: sub,
+      message: msg,
+      buttons: ['OK']
+    });
+    await alert.present();
+   }
+
 
 }
 

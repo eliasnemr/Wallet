@@ -4,8 +4,8 @@
       <ion-back-button defaultHref="/history"></ion-back-button>
     </ion-buttons> -->
     <ion-title>
-      <ion-item class="ion-no-padding">
-        History
+      <ion-item routerLink="/history" lines="none" class="no-ripple ion-no-padding">
+      History
       </ion-item>
     </ion-title>
   </ion-toolbar>
@@ -45,6 +45,13 @@
 
       <ion-item lines="none" class="ion-no-padding">
         <ion-label>
+          <h6 class="title">Date & Time</h6>
+          <p class="value"> {{ relaytime }}</p>
+        </ion-label>
+      </ion-item>
+
+      <ion-item lines="none" class="ion-no-padding">
+        <ion-label>
           <h6 *ngIf="isinblock === true" class="title">Missed Block</h6>
           <h6 *ngIf="isinblock === false" class="title">In Block</h6>
           <p>{{blocknumber}}</p>
@@ -55,13 +62,6 @@
         <ion-label>
           <h6 class="title">Nonce</h6>
           <p class="value">{{nonce}}</p>
-        </ion-label>
-      </ion-item>
-
-      <ion-item lines="none" class="ion-no-padding">
-        <ion-label>
-          <h6 class="title">Transaction Type</h6>
-          <p class="value">{{type}}</p>
         </ion-label>
       </ion-item>
 
@@ -77,161 +77,97 @@
           <h6 class="title">Token Total</h6>
           <p class="value">{{ tokentotal }}</p>
         </ion-label>
+      </ion-item>
+
+      <ion-item id="last-child" lines="none" class="ion-no-padding">
+        <ion-label>
+          <h6 class="title">Transaction Type</h6>
+          <p class="value">{{type}}</p>
+        </ion-label>
       </ion-item>    
-
-      <!-- <ion-item lines="none">
-        <ion-col size-md="3"  size-sm="6" class="title">
-          Is A Block
-        </ion-col>
-        <ion-col class="value">
-          {{ isblock }}
-        </ion-col>
-      </ion-item>
-
-      <ion-item lines="none">
-        <ion-col size-md="3"  size-sm="6" class="title">
-          Is In A block
-        </ion-col>
-        <ion-col class="value">
-          {{ isinblock }}
-        </ion-col>
-      </ion-item> -->
     </ion-list>
 
-    <ion-list>
+    <ion-list id="input-details">
       <ion-list-header>
-        <ion-label>
-          <h6>Overview</h6>
-          <p>Inputs</p>
-        </ion-label>
+        <ion-item lines="none" class="ion-no-padding">
+          Inputs
+        </ion-item>
       </ion-list-header>
 
-      <ion-item>
-        
-
-      </ion-item>
-
-      <ion-col class="ion-no-padding" size="12" *ngFor="let input of inputs; let i=index;">
-
-        <ion-row>
-          <ion-col>
-            <ion-card class="borders">
-              <ion-list>
-                <ion-item lines="none">
-                  <ion-col size-md="3"  size-sm="6">
-                    Index <a>{{ "#"+ i }}</a>
-                  </ion-col>
-                </ion-item>
-
-                <ion-item lines="none">
-                  <ion-col size-md="3"  size-sm="6" class="title">
-                    Coinid
-                  </ion-col>
-                  <ion-col class="value">
-                    {{ input.coinid }}
-                  </ion-col>
-                </ion-item>
-
-                <ion-item lines="none">
-                  <ion-col size-md="3"  size-sm="6" class="title">
-                    Address
-                    <a class="copy" (click)="copyToClipPWA(input.address)">
-                      Copy
-                    </a>
-                  </ion-col>  
-                  <ion-col class="value">
-                    {{ input.address }}
-                  </ion-col>               
-                </ion-item>
-
-                <ion-item lines="none">
-                  <ion-col size-md="3"  size-sm="6" class="title">
-                    Amount
-                  </ion-col>
-                  <ion-col class="value">
-                    {{ input.amount }}
-                  </ion-col>              
-                </ion-item>
-
-                <ion-item lines="none">
-                  <ion-col size-md="3"  size-sm="6" class="title">
-                    TokenID
-                  </ion-col>  
-                  <ion-col class="value">
-                    {{ input.tokenid }}
-                  </ion-col>               
-                </ion-item>
-
-                
-
-              </ion-list>
-            </ion-card>
-          </ion-col>
-        </ion-row>
-
-      </ion-col>
-
-      <ion-list-header>
-        <ion-label>
-          <p>Outputs</p>
-        </ion-label>
-      </ion-list-header>
-      <ion-col class="ion-no-padding" size="12" *ngFor="let output of outputs; let i=index;">
-
-        <ion-row>
-          <ion-col>
-            <ion-card>
-              <ion-list>
-                <ion-item lines="none">
-                  <ion-col size-md="3"  size-sm="6">
-                    Index <a>{{ "#"+ i }}</a>
-                  </ion-col>
-                </ion-item>
-
-                <ion-item lines="none">
-                  <ion-col size-md="3"  size-sm="6" class="title">
-                    Coinid
-                  </ion-col>
-                  <ion-col class="value">
-                    {{ output.coinid }}
-                  </ion-col>
-                </ion-item>
-
-                <ion-item lines="none">
-                  <ion-col size-md="3"  size-sm="6" class="title">
-                    Address
-                      <a class="copy" (click)="copyToClipPWA(output.address)">
-                        Copy
-                      </a>
-                  </ion-col>
-                  <ion-col class="value">
-                    {{ output.address }}
-                  </ion-col>              
-                </ion-item>
-
-                <ion-item lines="none">
-                  <ion-col size-md="3"  size-sm="6" class="title">
-                    Amount
-                  </ion-col>
-                  <ion-col class="value">
-                    {{ output.amount }}
-                  </ion-col>              
-                </ion-item>
-
-                <ion-item lines="none">
-                  <ion-col size-md="3"  size-sm="6" class="title">
-                    TokenID
-                  </ion-col>  
-                  <ion-col class="value">
-                    {{ output.tokenid }}
-                  </ion-col>               
-                </ion-item>
-
-              </ion-list>
-            </ion-card>
-          </ion-col>
-        </ion-row>
-      </ion-col>
+      <ng-container *ngFor="let input of inputs; let i = index">
+        <div id="inputs">
+        <ion-item lines="none" class="ion-no-padding">
+          <ion-label>
+            <h6>Index</h6>
+            <p>{{ '#'+ i}}</p>
+          </ion-label>
+        </ion-item>
+        <ion-item lines="none" class="ion-no-padding">
+          <ion-label>
+            <h6>Coin ID</h6>
+            <p>{{ input.coinid }}</p>
+          </ion-label>
+        </ion-item>
+        <ion-item lines="none" class="ion-no-padding">
+          <ion-label>
+            <h6>Address
+              <a class="copy" (click)="copyToClipPWA(input.address)">
+                Copy
+              </a>
+            </h6>
+            <p>{{ input.address }}</p>
+          </ion-label>
+        </ion-item>
+        <ion-item lines="full" class="ion-no-padding">
+          <ion-label>
+            <h6>Amount</h6>
+            <p>{{ input.amount }}</p>
+          </ion-label>
+        </ion-item>
+      </div>
+      </ng-container>
     </ion-list>
+
+    <ion-list id="output-details">
+      <ion-list-header>
+        <ion-item lines="none" class="ion-no-padding">
+          Outputs
+        </ion-item>
+      </ion-list-header>
+
+      <ng-container *ngFor="let output of outputs; let i = index">
+        <div id="outputs">
+        <ion-item lines="none" class="ion-no-padding">
+          <ion-label>
+            <h6>Index</h6>
+            <p>{{ '#'+ i}}</p>
+          </ion-label>
+        </ion-item>
+        <ion-item lines="none" class="ion-no-padding">
+          <ion-label>
+            <h6>Coin ID</h6>
+            <p>{{ output.coinid }}</p>
+          </ion-label>
+        </ion-item>
+        <ion-item lines="none" class="ion-no-padding">
+          <ion-label>
+            <h6>Address
+              <a class="copy" (click)="copyToClipPWA(output.address)">
+                Copy
+              </a>
+            </h6>
+            <p>{{ output.address }}</p>
+          </ion-label>
+        </ion-item>
+        <ion-item lines="full" class="ion-no-padding">
+          <ion-label>
+            <h6>Amount</h6>
+            <p>{{ output.amount }}</p>
+          </ion-label>
+        </ion-item>
+      </div>
+      </ng-container>
+    </ion-list>
+
   </ion-grid>
 </ion-content>

@@ -46,8 +46,9 @@ exports.ContactsPage = void 0;
 var contacts_modal_page_1 = require("./../../components/contacts-modal/contacts-modal.page");
 var core_1 = require("@angular/core");
 var ContactsPage = /** @class */ (function () {
-    function ContactsPage(toastController, userConfigService, alertController, contactService, modalController) {
+    function ContactsPage(toastController, api, userConfigService, alertController, contactService, modalController) {
         this.toastController = toastController;
+        this.api = api;
         this.userConfigService = userConfigService;
         this.alertController = alertController;
         this.contactService = contactService;
@@ -134,6 +135,39 @@ var ContactsPage = /** @class */ (function () {
                         return [2 /*return*/];
                 }
             });
+        });
+    };
+    ContactsPage.prototype.presentAlertDefault = function (hdr, msg, sub) {
+        return __awaiter(this, void 0, void 0, function () {
+            var alert;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.alertController.create({
+                            cssClass: 'alert',
+                            header: hdr,
+                            subHeader: sub,
+                            message: msg,
+                            buttons: ['OK']
+                        })];
+                    case 1:
+                        alert = _a.sent();
+                        return [4 /*yield*/, alert.present()];
+                    case 2:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    ContactsPage.prototype.giveMe50 = function () {
+        var _this = this;
+        this.api.giveMe50().then(function (res) {
+            if (res.status === true) {
+                _this.presentAlertDefault('Gimme50', 'Successful', 'Status');
+            }
+            else {
+                _this.presentAlertDefault('Gimme50', res.message, 'Status');
+            }
         });
     };
     ContactsPage.prototype.presentToast = function (msg, clr, posn) {

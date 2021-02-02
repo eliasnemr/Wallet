@@ -49,7 +49,9 @@ var angular_1 = require("@ionic/angular");
 var environment_1 = require("../../../environments/environment");
 var minima_1 = require("minima");
 var MiniTermPage = /** @class */ (function () {
-    function MiniTermPage(loadingController, navCtrl, renderer, popoverController, userTerminal) {
+    function MiniTermPage(api, alertController, loadingController, navCtrl, renderer, popoverController, userTerminal) {
+        this.api = api;
+        this.alertController = alertController;
         this.loadingController = loadingController;
         this.navCtrl = navCtrl;
         this.renderer = renderer;
@@ -218,6 +220,39 @@ var MiniTermPage = /** @class */ (function () {
                         popover = _a.sent();
                         return [4 /*yield*/, popover.present()];
                     case 2: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    MiniTermPage.prototype.giveMe50 = function () {
+        var _this = this;
+        this.api.giveMe50().then(function (res) {
+            if (res.status === true) {
+                _this.presentAlert('Gimme50', 'Successful', 'Status');
+            }
+            else {
+                _this.presentAlert('Gimme50', res.message, 'Status');
+            }
+        });
+    };
+    MiniTermPage.prototype.presentAlert = function (hdr, msg, sub) {
+        return __awaiter(this, void 0, void 0, function () {
+            var alert;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.alertController.create({
+                            cssClass: 'alert',
+                            header: hdr,
+                            subHeader: sub,
+                            message: msg,
+                            buttons: ['OK']
+                        })];
+                    case 1:
+                        alert = _a.sent();
+                        return [4 /*yield*/, alert.present()];
+                    case 2:
+                        _a.sent();
+                        return [2 /*return*/];
                 }
             });
         });

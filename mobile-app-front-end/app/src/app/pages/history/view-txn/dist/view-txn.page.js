@@ -45,6 +45,7 @@ exports.__esModule = true;
 exports.ViewTXNPage = void 0;
 var core_1 = require("@angular/core");
 var minima_1 = require("minima");
+var moment = require('moment');
 var ViewTXNPage = /** @class */ (function () {
     function ViewTXNPage(route, toastController) {
         this.route = route;
@@ -58,6 +59,7 @@ var ViewTXNPage = /** @class */ (function () {
             if (res.status) {
                 _this.id = res.response.txpow.txpowid;
                 _this.relaytime = new Date(res.response.txpow.header.timesecs * 1000).toISOString();
+                _this.relaytime = moment(_this.relaytime).format('DD/MM/YYYY - hh:mm:ss', true);
                 _this.size = res.response.txpow.size;
                 _this.isblock = res.response.txpow.isblock;
                 _this.isinblock = res.response.isinblock;

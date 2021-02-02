@@ -176,10 +176,10 @@ var SendFundsPage = /** @class */ (function () {
         var _this = this;
         this.api.giveMe50().then(function (res) {
             if (res.status === true) {
-                _this.presentAlert('Gimme50', 'Status', 'Successful');
+                _this.presentAlert('Gimme50', 'Successful', 'Status');
             }
             else {
-                _this.presentAlert('Gimme50', 'Status', res.message);
+                _this.presentAlert('Gimme50', res.message, 'Status');
             }
         });
     };

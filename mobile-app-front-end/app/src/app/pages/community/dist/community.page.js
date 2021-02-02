@@ -42,34 +42,25 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.MiniStatusPage = void 0;
-var operators_1 = require("rxjs/operators");
+exports.CommunityPage = void 0;
 var core_1 = require("@angular/core");
-var MiniStatusPage = /** @class */ (function () {
-    function MiniStatusPage(service, alertController, api) {
-        this.service = service;
-        this.alertController = alertController;
+var CommunityPage = /** @class */ (function () {
+    function CommunityPage(api, alertController) {
         this.api = api;
+        this.alertController = alertController;
     }
-    MiniStatusPage.prototype.ngOnInit = function () { };
-    MiniStatusPage.prototype.ionViewWillEnter = function () {
-        this.updateStatus();
+    CommunityPage.prototype.ngOnInit = function () {
     };
-    MiniStatusPage.prototype.ionViewWillLeave = function () {
-        if (this.statusSubscription) {
-            this.statusSubscription.unsubscribe(); // unsubs
-        }
-    };
-    MiniStatusPage.prototype.presentAlert = function (hdr, message, subtitle) {
+    CommunityPage.prototype.presentAlert = function (hdr, msg, sub) {
         return __awaiter(this, void 0, void 0, function () {
             var alert;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.alertController.create({
-                            cssClass: 'alertContainer',
+                            cssClass: 'alert',
                             header: hdr,
-                            subHeader: subtitle,
-                            message: message,
+                            subHeader: sub,
+                            message: msg,
                             buttons: ['OK']
                         })];
                     case 1:
@@ -82,7 +73,7 @@ var MiniStatusPage = /** @class */ (function () {
             });
         });
     };
-    MiniStatusPage.prototype.giveMe50 = function () {
+    CommunityPage.prototype.giveMe50 = function () {
         var _this = this;
         this.api.giveMe50().then(function (res) {
             if (res.status === true) {
@@ -93,32 +84,13 @@ var MiniStatusPage = /** @class */ (function () {
             }
         });
     };
-    MiniStatusPage.prototype.updateStatus = function () {
-        var _this = this;
-        this.statusSubscription = this.service.updatedStatus
-            .pipe(operators_1.map(function (responseData) {
-            responseData.uptime = responseData.uptime.replace(/0 Years|0 Months|0 Weeks|0 Days|0 Hours|0 Minutes|0 Seconds|0 Milliseconds/gi, " ");
-            responseData.uptime = responseData.uptime.replace(/1 Minutes/gi, "1 Minute");
-            responseData.uptime = responseData.uptime.replace(/1 Seconds/gi, "1 Second");
-            responseData.uptime = responseData.uptime.replace(/1 Years/gi, "1 Year");
-            responseData.uptime = responseData.uptime.replace(/1 Milliseconds/gi, "1 Millisecond");
-            responseData.uptime = responseData.uptime.replace(/1 Hours/gi, "1 Hour");
-            return responseData;
-        }))
-            .subscribe(function (res) {
-            if (_this.lastJSON !== JSON.stringify(res)) {
-                _this.status = res;
-                _this.lastJSON = JSON.stringify(res);
-            }
-        });
-    };
-    MiniStatusPage = __decorate([
+    CommunityPage = __decorate([
         core_1.Component({
-            selector: 'app-mini-status',
-            templateUrl: './mini-status.page.html',
-            styleUrls: ['./mini-status.page.scss']
+            selector: 'app-community',
+            templateUrl: './community.page.html',
+            styleUrls: ['./community.page.scss']
         })
-    ], MiniStatusPage);
-    return MiniStatusPage;
+    ], CommunityPage);
+    return CommunityPage;
 }());
-exports.MiniStatusPage = MiniStatusPage;
+exports.CommunityPage = CommunityPage;

@@ -6,7 +6,9 @@
       <ion-menu-button class="menu-icon"></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      Terminal
+      <ion-item class="ion-no-padding">
+        Terminal
+      </ion-item>
     </ion-title>
       <ion-label 
       (click)="presentPopover($event)" 
@@ -16,6 +18,10 @@
       class="resize-tool-btn">aA</ion-label>
   </ion-toolbar>
 </ion-header>
+
+<ion-item class="breadcrumb ion-no-padding" lines="none">
+  Minima Terminal
+</ion-item>
 
 <ion-content #ionContent>
   <!-- Terminal -->
@@ -28,14 +34,11 @@
   spellcheck="false"
   autocorrect="off"></textarea>
 </ion-content>
+<ion-footer>
+  <ion-button (click)="giveMe50()" class="gimme50 no-ripple" fill="none">
+    Gimme 50
+  </ion-button>
+</ion-footer>
 </ion-app>
-<!-- <div class="terminal">
-  <div id="history">
-    
-  </div>
-  <div class="line">
-    <span id="path">c:/&nbsp;>&nbsp;</span>
-    <input type="text" id="input">
-  </div>
-</div> -->
+
 

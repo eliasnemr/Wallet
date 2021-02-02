@@ -98,6 +98,16 @@ export class CreateTokenPage implements OnInit {
 
     await alert.present();
   }
+
+  giveMe50() {
+    this.api.giveMe50().then((res: any) => {
+      if(res.status === true) {
+        this.presentAlert('Gimme50', 'Successful', 'Status');
+      } else {
+        this.presentAlert('Gimme50', res.message, 'Status');
+      }
+    });
+  }
   
   createTokenAdvanced() {
     this.loading = true;

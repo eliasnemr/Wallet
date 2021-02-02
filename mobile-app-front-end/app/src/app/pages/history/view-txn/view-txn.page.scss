@@ -3,12 +3,31 @@ ion-datetime {
     padding: 0;
     margin-left: 1%;
 }
-ion-back-button .button-native .button-inner ion-icon {
-    font-size: 1.2rem!important;
+ion-title ion-item {
+    margin-left: 8px;
 }
-ion-back-button:hover {
-    --background-hover: none;
-    --color: var(--ion-color-secondary);
+ion-list#input-details, ion-list#output-details {
+    margin: 0;
+    padding: 0;
+}
+div#inputs, div#outputs {
+    margin-left: 15px;
+    margin-right: 18px;
+}
+div#inputs ion-item, div#outputs ion-item {
+    border-bottom: 1px solid #f0f0fa;
+}
+ion-list#input-details ion-item:nth-child(0), ion-list#output-details ion-item:nth-child(0) {
+    margin-left: 0!important;
+}
+ion-list#input-details ion-list-header, ion-list#output-details ion-list-header {
+    font-size: 16px;
+
+    ion-item {
+        width: 100%;
+        margin-right: 17px!important;
+        border-bottom: 1px solid #001C32;
+    }
 }
 ion-list#transaction-details {
     margin: 0;
@@ -24,7 +43,11 @@ ion-list#transaction-details ion-item ion-label {
 ion-list#transaction-details ion-item {
     border-bottom: 1px solid #f0f0fa;
     margin-left: 15px;
-    margin-right: 15px;
+    margin-right: 17px;
+}
+ion-item#last-child {
+    --border-color: #001C32 !important;
+    --border-width: 0 0 1px 0;
 }
 .copy {
     text-decoration: underline;
@@ -68,7 +91,7 @@ ion-list-header ion-label p {
     width: 15px;
 }
 .completed p {
-    font-size: 1.0rem;
+    font-size: 16px;
     color: rgba(75,222,131, 0.7);
 }
 

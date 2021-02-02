@@ -3,6 +3,8 @@ import { ToastController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { Minima } from 'minima';
 
+var moment = require('moment');
+
 @Component({
   selector: 'app-view-txn',
   templateUrl: './view-txn.page.html',
@@ -34,6 +36,7 @@ export class ViewTXNPage implements OnInit {
       if (res.status) {
         this.id = res.response.txpow.txpowid;
         this.relaytime = new Date(res.response.txpow.header.timesecs * 1000).toISOString();
+        this.relaytime = moment(this.relaytime).format('DD/MM/YYYY - hh:mm:ss', true);
         this.size = res.response.txpow.size;
         this.isblock = res.response.txpow.isblock;
         this.isinblock = res.response.isinblock;

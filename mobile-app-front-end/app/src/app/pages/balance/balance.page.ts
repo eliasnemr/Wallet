@@ -76,9 +76,9 @@ export class BalancePage implements OnInit {
   giveMe50() {
     this.api.giveMe50().then((res: any) => {
       if(res.status === true) {
-        this.presentAlert(res.message, 'Success.');
+        this.presentAlert('Gimme50', 'Successful', 'Status');
       } else {
-        this.presentAlert(res.message, 'Transaction failed.');
+        this.presentAlert('Gimme50', res.message, 'Status');
       }
     });
   }
@@ -120,15 +120,16 @@ export class BalancePage implements OnInit {
     toast.present();
   }
 
-  async presentAlert(msg: string, hdr: string) {
+  async presentAlert(hdr: string, msg: string, sub: string) {
     const alert = await this.alertController.create({
+      cssClass: 'alert',
       header: hdr,
+      subHeader: sub,
       message: msg,
-      buttons: ['Cancel', 'Ok']
+      buttons: ['OK']
     });
-
     await alert.present();
-  }
+   }
 
   closeSliding(slidingItem: HTMLIonItemSlidingElement) {
     slidingItem.close();

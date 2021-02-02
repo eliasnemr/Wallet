@@ -90,14 +90,16 @@ export class MyAddressPage implements OnInit {
     this.userConfigService.saveUserConfig(this.user);
   }
 
-  async presentAlert(msg: string, hdr: string) {
+  async presentAlert(hdr: string, msg: string, sub: string) {
     const alert = await this.alertController.create({
+      cssClass: 'alert',
       header: hdr,
+      subHeader: sub,
       message: msg,
-      buttons: ['Cancel', 'Ok']
+      buttons: ['OK']
     });
     await alert.present();
-  }
+   }
 
   async presentToast(msg: string, type: string, posn: "top" | "bottom" | "middle") {
     const toast = await this.toastController.create({
@@ -116,6 +118,16 @@ export class MyAddressPage implements OnInit {
       }]
     });
     toast.present();
+  }
+
+  giveMe50() {
+    this.api.giveMe50().then((res: any) => {
+      if(res.status === true) {
+        this.presentAlert('Gimme50', 'Successful', 'Status');
+      } else {
+        this.presentAlert('Gimme50', res.message, 'Status');
+      }
+    });
   }
 
   copyToClipboard() {

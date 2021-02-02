@@ -5,164 +5,78 @@
       <ion-menu-button class="menu-icon"></ion-menu-button>
     </ion-buttons>
     <ion-title class="large-text">
-      Status
-    </ion-title>
+      <ion-item class="ion-no-padding">
+        Status
+      </ion-item>
+      </ion-title>
   </ion-toolbar>
 </ion-header>
 
+<ion-item class="breadcrumb ion-no-padding" lines="none">
+  Current status 
+  <ion-icon *ngIf="!status?.version" src="assets/statusCross.svg"></ion-icon>
+  <ion-icon *ngIf="status?.version" src="assets/statusTick.svg"></ion-icon>
+  <span *ngIf="status?.version">v{{ status?.version}}</span>
+
+</ion-item>
+
 <ion-content>
 
-  <ion-grid *ngIf="!status?.version">
-    <ion-row>
-      
-      <ion-col style="display: flex; align-items:center; justify-content:center" size="12">
-        <ion-chip>
-          <ion-label>Status</ion-label>
-          <ion-icon name="close" color="danger"></ion-icon>
-        </ion-chip>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <ion-list>
+    <ion-item class="ion-no-padding">
+      <ion-label>
+        <h6 class="title">Uptime</h6>
+        <p class="value">{{ status?.uptime }}</p>
+      </ion-label>
+    </ion-item>
 
-  <ion-grid *ngIf="status?.version">
-    <ion-row>
-      <ion-col size="12">
-        <ion-chip>
-          <ion-label>Status</ion-label>
-          <ion-icon *ngIf="status?.version" name="checkmark" color="success"></ion-icon>
-          <ion-icon *ngIf="!status?.version" name="close" color="danger"></ion-icon>
-        </ion-chip>
-        <ion-chip>
-          <ion-label><span style="color:var(--ion-color-secondary)">v</span>{{ status?.version}} </ion-label>
-        </ion-chip>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col>
-        <ion-card class="borders">
-          <ion-card-header>
-            Current Status
-          </ion-card-header>
-          <ion-card-content>
-            <ion-list lines="none">
-              <ion-item>
-                <ion-col size-md="3" size-sm="6" class="title">
-                  Uptime
-                </ion-col>
-                <ion-col style="white-space: normal!important;" class="value">
-                  {{ status?.uptime }}
-                </ion-col>
-              </ion-item>
-              <ion-item>
-                <ion-col size-md="3" size-sm="6" class="title">
-                  Last Block No.
-                </ion-col>
-                <ion-col class="value">
-                  {{ status?.lastblock }}
-                </ion-col>
-              </ion-item>
-              <ion-item>
-                <ion-col size-md="3" size-sm="6" class="title">
-                  Configuration Path
-                </ion-col>
-                <ion-col style="white-space: normal!important;" class="value">
-                  {{ status?.conf }}
-                </ion-col>
-              </ion-item>
-              <ion-item>
-                <ion-col size-md="3" size-sm="6" class="title">
-                  Host IP
-                </ion-col>
-                <ion-col style="white-space: normal!important;" class="value">
-                  {{ status?.host +':' }}{{ status?.minimaport }}
-                </ion-col>
-              </ion-item>
-              <ion-item>
-                <ion-col size-md="3" size-sm="6" class="title">
-                  RPC Port
-                </ion-col>
-                <ion-col style="white-space: normal!important;" class="value">
-                  {{ status?.rpcport }}
-                </ion-col>
-              </ion-item>
-              <ion-item>
-                <ion-col size-md="3" size-sm="6" class="title">
-                  MiniDAPP Server Port
-                </ion-col>
-                <ion-col style="white-space: normal!important;" class="value">
-                  {{ status?.minidappserver }}
-                </ion-col>
-              </ion-item>
-              <ion-item>
-                <ion-col size-md="3" size-sm="6" class="title">
-                  Chainweight
-                </ion-col>
-                <ion-col style="white-space: normal!important;" class="value">
-                  {{ status?.chainweight }}
-                </ion-col>
-              </ion-item>
-              <ion-item>
-                <ion-col size-md="3" size-sm="6" class="title">
-                  Chainlength
-                </ion-col>
-                <ion-col style="white-space: normal!important;" class="value">
-                  {{ status?.chainlength }}
-                </ion-col>
-              </ion-item>
-              <ion-item>
-                <ion-col size-md="3" size-sm="6" class="title">
-                  Chainspeed
-                </ion-col>
-                <ion-col style="white-space: normal!important;" class="value">
-                  {{ status?.chainspeed }}
-                </ion-col>
-              </ion-item>
-              <ion-item>
-                <ion-col size-md="3" size-sm="6" class="title">
-                  RAM Used
-                </ion-col>
-                <ion-col style="white-space: normal!important;" class="value">
-                  {{ status?.ram }}
-                </ion-col>
-              </ion-item>
-              <ion-item>
-                <ion-col size-md="3" size-sm="6" class="title">
-                  IBD
-                </ion-col>
-                <ion-col style="white-space: normal!important;" class="value">
-                  {{ status?.IBD }}
-                </ion-col>
-              </ion-item>
-              <ion-item>
-                <ion-col size-md="3" size-sm="6" class="title">
-                  TxPoW Database Length
-                </ion-col>
-                <ion-col style="white-space: normal!important;" class="value">
-                  {{ status?.txpowdb }}
-                </ion-col>
-              </ion-item>
-              <ion-item>
-                <ion-col size-md="3" size-sm="6" class="title">
-                  Number of Connections
-                </ion-col>
-                <ion-col style="white-space: normal!important;" class="value">
-                  {{ status?.connections }}
-                </ion-col>
-              </ion-item>
-              <ion-item>
-                <ion-col size-md="3" size-sm="6" class="title">
-                  Tip
-                </ion-col>
-                <ion-col class="value">
-                  {{ status?.tip }}
-                </ion-col>
-              </ion-item>
-            </ion-list>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+    <ion-item class="ion-no-padding">
+      <ion-label>
+        <h6 class="title">Last Block</h6>
+        <p class="value">{{ status?.lastblock }}</p>
+      </ion-label>
+    </ion-item>
+
+    <ion-item class="ion-no-padding">
+      <ion-label>
+        <h6 class="title">Host IP</h6>
+        <p class="value">{{ status?.host }}</p>
+      </ion-label>
+    </ion-item>
+
+    <ion-item class="ion-no-padding">
+      <ion-label>
+        <h6 class="title">MiniDAPP Server Port</h6>
+        <p class="value">{{ status?.minidappserver }}</p>
+      </ion-label>
+    </ion-item>
+
+    <ion-item class="ion-no-padding">
+      <ion-label>
+        <h6 class="title">RAM Usage</h6>
+        <p class="value">{{ status?.ram }}</p>
+      </ion-label>
+    </ion-item>
+
+    <ion-item class="ion-no-padding">
+      <ion-label>
+        <h6 class="title">IBD</h6>
+        <p class="value">{{ status?.IBd }}</p>
+      </ion-label>
+    </ion-item>
+
+    <ion-item class="ion-no-padding">
+      <ion-label>
+        <h6 class="title">Tip</h6>
+        <p class="value">{{ status?.tip }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
 
 </ion-content>
+<ion-footer>
+  <ion-button (click)="giveMe50()" class="gimme50 no-ripple" fill="none">
+    Gimme 50
+  </ion-button>
+</ion-footer>
 </ion-app>

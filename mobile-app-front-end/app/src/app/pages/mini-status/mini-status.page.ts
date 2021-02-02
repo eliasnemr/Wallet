@@ -1,3 +1,5 @@
+import { MinimaApiService } from './../../service/minima-api.service';
+import { AlertController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { StatusService } from './../../service/status.service';
@@ -16,7 +18,7 @@ export class MiniStatusPage implements OnInit {
 
   public lastJSON: string;
 
-  constructor(private service: StatusService) {}
+  constructor(private service: StatusService, private alertController: AlertController, private api: MinimaApiService) {}
 
   ngOnInit() { }
 
@@ -28,6 +30,28 @@ export class MiniStatusPage implements OnInit {
     if (this.statusSubscription) {
       this.statusSubscription.unsubscribe(); // unsubs
     }
+  }
+
+  async presentAlert(hdr: string, message: string, subtitle: string) {
+    const alert = await this.alertController.create({
+      cssClass: 'alertContainer',
+      header: hdr,
+      subHeader: subtitle,
+      message: message,
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+
+  giveMe50() {
+    this.api.giveMe50().then((res: any) => {
+      if(res.status === true) {
+        this.presentAlert('Gimme50', 'Successful', 'Status');
+      } else {
+        this.presentAlert('Gimme50', res.message, 'Status');
+      }
+    });
   }
 
   updateStatus() {

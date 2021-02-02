@@ -1,3 +1,4 @@
+import { MinimaApiService } from './../../service/minima-api.service';
 import { RouterModule } from '@angular/router';
 import { ModalController, IonList, AlertController, ToastController, Config, PopoverController } from '@ionic/angular';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -39,6 +40,8 @@ export class HistoryPage implements OnInit {
   lastJSON = '';
 
   constructor(
+    private api: MinimaApiService,
+    private alertController: AlertController,
     private historyService: HistoryService,
     private userHistorySavedData: UserHistorySavedData,
     public modalController: ModalController,
@@ -160,6 +163,28 @@ export class HistoryPage implements OnInit {
     if (this.transactions.length === 0) {
       this.prompt = 'No recent transactions found...';
     }
+  }
+
+  async presentAlert(hdr: string, message: string, subtitle: string) {
+    const alert = await this.alertController.create({
+      cssClass: 'alertContainer',
+      header: hdr,
+      subHeader: subtitle,
+      message: message,
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+
+  giveMe50() {
+    this.api.giveMe50().then((res: any) => {
+      if(res.status === true) {
+        this.presentAlert('Gimme50', 'Successful', 'Status');
+      } else {
+        this.presentAlert('Gimme50', res.message, 'Status');
+      }
+    });
   }
 
  }

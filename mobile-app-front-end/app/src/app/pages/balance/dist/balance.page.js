@@ -107,10 +107,10 @@ var BalancePage = /** @class */ (function () {
         var _this = this;
         this.api.giveMe50().then(function (res) {
             if (res.status === true) {
-                _this.presentAlert(res.message, 'Success.');
+                _this.presentAlert('Gimme50', 'Successful', 'Status');
             }
             else {
-                _this.presentAlert(res.message, 'Transaction failed.');
+                _this.presentAlert('Gimme50', res.message, 'Status');
             }
         });
     };
@@ -157,15 +157,17 @@ var BalancePage = /** @class */ (function () {
             });
         });
     };
-    BalancePage.prototype.presentAlert = function (msg, hdr) {
+    BalancePage.prototype.presentAlert = function (hdr, msg, sub) {
         return __awaiter(this, void 0, void 0, function () {
             var alert;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.alertController.create({
+                            cssClass: 'alert',
                             header: hdr,
+                            subHeader: sub,
                             message: msg,
-                            buttons: ['Cancel', 'Ok']
+                            buttons: ['OK']
                         })];
                     case 1:
                         alert = _a.sent();

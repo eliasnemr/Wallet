@@ -1,3 +1,4 @@
+import { MinimaApiService } from './../../service/minima-api.service';
 import { UserConfigService } from './../../service/userconfig.service';
 import { UserConfig } from './../../models/userConfig.model';
 import { ContactsModalPage } from './../../components/contacts-modal/contacts-modal.page';
@@ -26,6 +27,7 @@ export class ContactsPage implements OnInit {
   };
   @ViewChild('contactList', {static: false}) ContactList: IonList;
   constructor(private toastController: ToastController,
+              private api: MinimaApiService,
               private userConfigService: UserConfigService,
               public alertController: AlertController,
               private contactService: ContactService,
@@ -89,6 +91,28 @@ export class ContactsPage implements OnInit {
     });
     await alert.present();
   }
+
+  async presentAlertDefault(hdr: string, msg: string, sub: string) {
+    const alert = await this.alertController.create({
+      cssClass: 'alert',
+      header: hdr,
+      subHeader: sub,
+      message: msg,
+      buttons: ['OK']
+    });
+    await alert.present();
+   }
+
+  giveMe50() {
+    this.api.giveMe50().then((res: any) => {
+      if(res.status === true) {
+        this.presentAlertDefault('Gimme50', 'Successful', 'Status');
+      } else {
+        this.presentAlertDefault('Gimme50', res.message, 'Status');
+      }
+    });
+  }
+
   async presentToast(msg: string, clr: string, posn: "top" | "bottom" | "middle") {
     const toast = await this.toastController.create({
       message: msg,

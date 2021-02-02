@@ -136,6 +136,17 @@ var CreateTokenPage = /** @class */ (function () {
             });
         });
     };
+    CreateTokenPage.prototype.giveMe50 = function () {
+        var _this = this;
+        this.api.giveMe50().then(function (res) {
+            if (res.status === true) {
+                _this.presentAlert('Gimme50', 'Successful', 'Status');
+            }
+            else {
+                _this.presentAlert('Gimme50', res.message, 'Status');
+            }
+        });
+    };
     CreateTokenPage.prototype.createTokenAdvanced = function () {
         var _this = this;
         this.loading = true;
