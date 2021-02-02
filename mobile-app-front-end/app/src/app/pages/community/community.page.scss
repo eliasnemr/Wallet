@@ -1,55 +1,20 @@
-* {
-  font-family: manrope-bold;
-  text-transform: none;
-  font-size: 1.0rem;
-}
-ion-title {
-  padding-top: 5%;
-  font-size: 1.2rem;
-}
-.small-text {
-    opacity: 1.5;
-  }
 
-  ion-toolbar {
-    --background: var(--ion-m-background);
-  }
-  
-  .social-card {
-    cursor: pointer;
-    background: transparent;
-    color: var(--ion-color-tertiary);
-  }
-  
-  .social-card ion-card-header {
-    color: var(--ion-color-tertiary);
-    text-transform: none;
-    text-align: center;
-    background-color: transparent;
-  }
-  .social-card ion-card-header ion-icon {
-    font-size: 77px;
-  }
-  .social-card ion-card-content h3 {
-    color: var(--ion-color-tertiary);
-    text-align: center;
-    justify-content: center !important;
-    width: 100%;
-    align-content: center;
-    display: flex;
-    font-size: 0.8rem;
-  }
-  .social-card ion-card-content p {
-    color: var(--ion-color-tertiary);
-    opacity: 0.7;
-    text-align: center;
-    justify-content: center !important;
-    width: 100%;
-    align-content: center;
-    display: flex;
-    font-size: 0.7rem;
-  }
-  .social-card:hover {
-    opacity: 0.8;
-    transform: scale(1.02);
-  }
+ion-icon {
+  width: 40px;
+  height: 40px;
+}
+ion-avatar {
+  margin-right: 27px;
+}
+.title {
+  font-family: manrope-regular;
+  font-size: 14px;
+}
+.value {
+  font-family: manrope-regular;
+  opacity: 0.7;
+}
+ion-list ion-item {
+  margin-left: 27px;
+  margin-right: 27px;
+}
