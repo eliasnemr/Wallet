@@ -24,7 +24,7 @@
     <ion-card-content>
       <form [formGroup]="contactForm" id="contactForm" (ngSubmit)="addContact()">
       <ion-list>
-        <ion-item lines="none">
+        <ion-item class="no-ripple" lines="none">
           <ion-label position="stacked">Name</ion-label>
           <ion-input name="name" placeholder="anonymous" formControlName="NAME"></ion-input>
         </ion-item>
@@ -34,7 +34,7 @@
             <span>&mdash; A name must be alphanumeric and can only contain a dot or underscore.</span> 
           </ion-note>
         </ion-item>
-        <ion-item lines="none">
+        <ion-item class="no-ripple" lines="none">
           <ion-label position="stacked">Address *</ion-label>
           <ion-input (ionChange)="changeIcon($event)" name="address" placeholder="Enter a valid wallet address" formControlName="ADDRESS"></ion-input>
         </ion-item>
@@ -45,11 +45,11 @@
           </ion-note>
         </ion-item>
         
-        <ion-item lines="none">
+        <ion-item class="no-ripple" lines="none">
           <ion-label position="stacked">Description</ion-label>
           <ion-input name="description" placeholder="Enter a description" formControlName="DESCRIPTION"></ion-input>
         </ion-item>
-        <ion-item lines="none">
+        <ion-item class="no-ripple" lines="none">
           <ion-label position="stacked">Avatar</ion-label>
           <ion-input name="avatar" placeholder="Enter a custom avatar URL" formControlName="AVATAR"></ion-input>
         </ion-item>

@@ -121,6 +121,13 @@
 
 .no-ripple {
   --ripple-color: transparent;
+  --ripple-color: transparent;
+  --background-activated: transparent;
+  --background-activated-opacity:transparent;
+  --background-focused: transparent;
+  --background-focused-opacity:transparent;
+  --background-hover: transparent;
+  --background-hover-opacity:transparent;
 }
 
 ion-toolbar ion-title {
