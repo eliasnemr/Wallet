@@ -2,17 +2,17 @@
   <ion-toolbar>
     <!-- <ion-menu-button class="menu-icon" slot="start"></ion-menu-button> -->
     <ion-title>
-      <ion-item class="ion-no-padding">
+      <ion-item lines="none" class="ion-no-padding">
         <ion-menu-button></ion-menu-button>
         Join Community
+      </ion-item>
+      <ion-item class="breadcrumb ion-no-padding" lines="none">
+        Join our community and get involved 
       </ion-item>
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-item class="breadcrumb ion-no-padding" lines="none">
-  Join our community and get involved 
-</ion-item>
 
 <ion-content>
   <ion-list>
@@ -88,91 +88,9 @@
 
     
   </ion-list>
-
-
-<!-- <ion-grid>
-  <ion-row>
-      <ion-col size="12" size-md="6">
-        <ion-card href="https://minima.global/" target="_" class="social-card borders">
-            <ion-card-header>
-              <ion-icon color="primary" src="./assets/community/Website.svg" alt="" class="socials"></ion-icon>
-            </ion-card-header>
-            <ion-card-content>
-              <h3>Website</h3>
-              <p>Stay connected</p>
-            </ion-card-content>
-        </ion-card>
-      </ion-col>
-      <ion-col size="12" size-md="6">
-        <ion-card href="https://github.com/Minima-Protocol" target="_" class="social-card borders">
-          <ion-card-header>
-            <ion-icon color="primary" src="./assets/community/github.svg" alt="" class="socials"></ion-icon>
-          </ion-card-header>
-          <ion-card-content>
-            <h3>Github</h3>
-            <p>Contribute to the codebase</p>
-          </ion-card-content>
-      </ion-card>
-    </ion-col>
-  </ion-row>
-
-  <ion-row>
-    <ion-col size="12" size-md="6">
-        <ion-card href="https://twitter.com/minima_global" target="_" class="social-card borders">
-            <ion-card-header>
-              <ion-icon color="primary" src="./assets/community/twitter.svg" alt="" class="socials"></ion-icon>
-            </ion-card-header>
-            <ion-card-content>
-              <h3>Twitter</h3>
-              <p>Follow @Minima_Global</p>
-            </ion-card-content>
-        </ion-card>
-    </ion-col>
-    <ion-col size="12" size-md="6">
-      <ion-card href="https://t.me/Minima_Global" target="_" class="social-card borders">
-        <ion-card-header>
-          <ion-icon color="primary" src="./assets/community/telegram.svg" alt="" class="socials"></ion-icon>
-        </ion-card-header>
-        <ion-card-content>
-          <h3>Telegram</h3>
-          <p>Stay up to date</p>
-        </ion-card-content>
-    </ion-card>
-  </ion-col>
-</ion-row>
-
-<ion-row>
-  <ion-col size="12" size-md="6">
-      <ion-card href="https://medium.com/minima-global" target="_" class="social-card borders">
-          <ion-card-header>
-            <ion-icon color="primary" src="./assets/community/medium.svg" alt="" class="socials"></ion-icon>
-          </ion-card-header>
-          <ion-card-content>
-            <h3>Medium</h3>
-            <p>Read our latest blog posts</p>
-          </ion-card-content>
-      </ion-card>
-  </ion-col>
-  <ion-col size="12" size-md="6">
-    <ion-card href="https://discord.com/invite/SgvQ6mc" target="_" class="social-card borders">
-        <ion-card-header>
-          <ion-icon color="primary" src="./assets/community/Discord.svg" alt="" class="socials"></ion-icon>
-        </ion-card-header>
-        <ion-card-content>
-          <h3>Discord</h3>
-          <p>Join the community</p>
-        </ion-card-content>
-    </ion-card>
-</ion-col>
-</ion-row>
-
-
-
-</ion-grid> -->
-
 </ion-content>
 
-<ion-footer>
+<ion-footer class="border-t">
   <ion-button (click)="giveMe50()" class="gimme50 no-ripple" fill="none">
     Gimme 50
   </ion-button>

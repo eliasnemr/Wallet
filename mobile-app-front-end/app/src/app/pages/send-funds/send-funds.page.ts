@@ -98,12 +98,12 @@ export class SendFundsPage implements OnInit {
   sendFunds() {
     this.sendForm.value.amnt = this.sendForm.value.amount.toString();
     const data: SendFormObj = this.sendForm.value;
-    console.log(data);
+    //console.log(data);
     if (data.message !== null && ( data.message || data.message.length > 0) ) {
       this.submitBtn.disabled = true;
       this.api.sendMessageTransaction(data).then((res: any) => {
         if (Minima.util.checkAllResponses(res)) {
-          console.log(res);
+          //console.log(res);
           setTimeout(() => {
             this.submitBtn.disabled = false;
           }, 500);
@@ -121,8 +121,7 @@ export class SendFundsPage implements OnInit {
       this.submitBtn.disabled = true;
       this.api.sendFunds(data).then((res: any) => {
         if (res.status) {
-          console.log(res);
-
+          //console.log(res);
           setTimeout(() => {
             this.submitBtn.disabled = false;
           }, 500);

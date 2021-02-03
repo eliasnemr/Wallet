@@ -7,13 +7,14 @@
       <ion-item routerLink="/history" lines="none" class="no-ripple ion-no-padding">
       History
       </ion-item>
+      <ion-item class="breadcrumb ion-no-padding" lines="none">
+        Transaction Details
+      </ion-item>
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-item class="breadcrumb ion-no-padding" lines="none">
-  Transaction Details
-</ion-item>
+
 
 <ion-content>
   <ion-grid style="margin-left: 8px; margin-right:6px">    
@@ -54,7 +55,7 @@
         <ion-label>
           <h6 *ngIf="isinblock === true" class="title">Missed Block</h6>
           <h6 *ngIf="isinblock === false" class="title">In Block</h6>
-          <p>{{blocknumber}}</p>
+          <p class="value">{{blocknumber}}</p>
         </ion-label>
       </ion-item>
 
@@ -98,30 +99,30 @@
         <div id="inputs">
         <ion-item lines="none" class="ion-no-padding">
           <ion-label>
-            <h6>Index</h6>
-            <p>{{ '#'+ i}}</p>
+            <h6 class="title">Index</h6>
+            <p class="value">{{ '#'+ i}}</p>
           </ion-label>
         </ion-item>
         <ion-item lines="none" class="ion-no-padding">
           <ion-label>
-            <h6>Coin ID</h6>
-            <p>{{ input.coinid }}</p>
+            <h6 class="title">Coin ID</h6>
+            <p class="value">{{ input.coinid }}</p>
           </ion-label>
         </ion-item>
         <ion-item lines="none" class="ion-no-padding">
           <ion-label>
-            <h6>Address
+            <h6 class="title">Address
               <a class="copy" (click)="copyToClipPWA(input.address)">
                 Copy
               </a>
             </h6>
-            <p>{{ input.address }}</p>
+            <p class="value">{{ input.address }}</p>
           </ion-label>
         </ion-item>
         <ion-item lines="full" class="ion-no-padding">
           <ion-label>
-            <h6>Amount</h6>
-            <p>{{ input.amount }}</p>
+            <h6 class="title">Amount</h6>
+            <p class="value">{{ input.amount }}</p>
           </ion-label>
         </ion-item>
       </div>
@@ -129,7 +130,7 @@
     </ion-list>
 
     <ion-list id="output-details">
-      <ion-list-header>
+      <ion-list-header class="ion-no-padding">
         <ion-item lines="none" class="ion-no-padding">
           Outputs
         </ion-item>
@@ -139,30 +140,30 @@
         <div id="outputs">
         <ion-item lines="none" class="ion-no-padding">
           <ion-label>
-            <h6>Index</h6>
-            <p>{{ '#'+ i}}</p>
+            <h6 class="title">Index</h6>
+            <p class="value">{{ '#'+ i}}</p>
           </ion-label>
         </ion-item>
         <ion-item lines="none" class="ion-no-padding">
           <ion-label>
-            <h6>Coin ID</h6>
-            <p>{{ output.coinid }}</p>
+            <h6 class="title">Coin ID</h6>
+            <p class="value">{{ output.coinid }}</p>
           </ion-label>
         </ion-item>
         <ion-item lines="none" class="ion-no-padding">
           <ion-label>
-            <h6>Address
+            <h6 class="title">Address
               <a class="copy" (click)="copyToClipPWA(output.address)">
                 Copy
               </a>
             </h6>
-            <p>{{ output.address }}</p>
+            <p class="value">{{ output.address }}</p>
           </ion-label>
         </ion-item>
         <ion-item lines="full" class="ion-no-padding">
           <ion-label>
-            <h6>Amount</h6>
-            <p>{{ output.amount }}</p>
+            <h6 class="title">Amount</h6>
+            <p class="value">{{ output.amount }}</p>
           </ion-label>
         </ion-item>
       </div>
@@ -171,3 +172,9 @@
 
   </ion-grid>
 </ion-content>
+
+<ion-footer class="border-t">
+  <ion-button (click)="giveMe50()" class="gimme50 no-ripple" fill="none">
+    Gimme 50
+  </ion-button>
+</ion-footer>

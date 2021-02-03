@@ -1,6 +1,5 @@
 ion-input {
   color: #000;
-  line-height: 16px;
   font-size: 12px;
   background-color: #ffffff;
   border: 1px solid #f0f0fa;
@@ -11,8 +10,9 @@ ion-list {
   margin-right: 13px;
 }
 ion-item ion-label {
+  font-size: 20px;
   white-space: normal;
-  margin-bottom: 7px;
+  margin-bottom: 10px;
 }
 ion-checkbox.checkbox {
   padding-left: 5px;
@@ -26,7 +26,7 @@ ion-icon.nftIcon {
   font-size: 1.5rem;
 }
 ion-label.nft {
-  font-size: 12px;
+  font-size: 16px !important;
   display: inline-block;
   align-items: center;
   vertical-align: middle;

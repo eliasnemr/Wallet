@@ -42,13 +42,6 @@ export class AppComponent {
   }
 
   initializeApp() {
-    this.route.params.subscribe(res => {
-      console.log(res);
-      if (!res) {
-        console.log('empty')
-      }
-    });
-
     this.platform.ready().then(() => {
       Minima.init((msg: any) => {
         if (msg.event === 'connected') {

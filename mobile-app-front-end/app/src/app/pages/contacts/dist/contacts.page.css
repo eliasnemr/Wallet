@@ -9,12 +9,11 @@
 }
 
 ion-item.contactItem {
-  --border-color: #f0f0fa;
+  --border-color: var(--ion-color-item-border);
 }
 
 ion-item.contactItem:hover {
-  --background: #F0F0F4;
-  --border-color: var(--ion-color-primary);
+  --background: var(--ion-color-item-hover);
 }
 
 ion-list.tools {
@@ -34,9 +33,10 @@ ion-list.contacts ion-item {
 
 ion-searchbar {
   --box-shadow: 0;
-  --icon-color: #000;
+  --icon-color: #001C32;
   --background: #fff;
   --border: 1px solid #f0f0fa;
+  color: #001C32;
 }
 
 ion-item-option div.block {
@@ -66,4 +66,9 @@ ion-icon.trashIcon:hover {
   justify-content: center !important;
   display: inline-flex !important;
   text-align: center !important;
+}
+
+ion-label p {
+  color: var(--ion-color-color);
+  opacity: 0.7;
 }

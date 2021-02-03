@@ -5,13 +5,14 @@
       <ion-menu-button></ion-menu-button>
       Contacts
     </ion-item>
+    <ion-item class="breadcrumb ion-no-padding" lines="none">
+      All your contacts
+    </ion-item>
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-item class="breadcrumb ion-no-padding" lines="none" *ngIf="contacts.length > 0">
-  All your contacts
-</ion-item>
+
 
 <ion-content>
   <ion-list class="tools">
@@ -56,7 +57,7 @@
 
 </ion-content>
 
-<ion-footer>
+<ion-footer class="border-t">
   <ion-button (click)="giveMe50()" class="gimme50 no-ripple" fill="none">
     Gimme 50
   </ion-button>

@@ -14,6 +14,8 @@ ion-list ion-item {
 ion-item ion-label {
   white-space: normal;
   margin-bottom: 2%;
+  font-size: 20px;
+  color: var(--ion-color-color);
 }
 
 ion-item.wordCountWrapper {
@@ -30,6 +32,7 @@ ion-select {
   font-size: 12px;
   padding-left: 2% !important;
   --placeholder-opacity: 0.7;
+  color: #808080;
 }
 
 ion-select:hover {
@@ -51,8 +54,6 @@ ion-select-option {
 ion-input {
   font-size: 12px;
   color: #000;
-  line-height: 15px;
-  height: 35px;
   background-color: #fff;
   border: 1px solid #f0f0fa;
   padding-left: 2% !important;
@@ -151,18 +152,4 @@ ion-button.send-funds {
   float: right;
   margin-right: 26px;
   --border-radius: 0;
-}
-
-ion-button.gimme50 {
-  text-transform: none;
-  color: #fff;
-  border: 1px solid #f0f0fa;
-  box-shadow: 0px 3px 6px #C8C8D41A;
-  border: 1px solid #F0F0FA;
-  border-radius: 28px;
-  opacity: 1;
-  width: 159px;
-  height: 45px;
-  font-size: 1rem;
-  font-family: manrope-bold;
 }

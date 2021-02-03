@@ -1,25 +1,15 @@
-ion-datetime {
-  font-family: manrope-bold;
-  padding: 0;
-  margin-left: 1%;
-}
-
-ion-title ion-item {
-  margin-left: 8px;
-}
-
 ion-list#input-details, ion-list#output-details {
   margin: 0;
   padding: 0;
 }
 
 div#inputs, div#outputs {
-  margin-left: 15px;
+  margin-left: 11px;
   margin-right: 18px;
 }
 
 div#inputs ion-item, div#outputs ion-item {
-  border-bottom: 1px solid #f0f0fa;
+  border-bottom: 1px solid var(--ion-color-item-border);
 }
 
 ion-list#input-details ion-item:nth-child(0), ion-list#output-details ion-item:nth-child(0) {
@@ -28,11 +18,13 @@ ion-list#input-details ion-item:nth-child(0), ion-list#output-details ion-item:n
 
 ion-list#input-details ion-list-header, ion-list#output-details ion-list-header {
   font-size: 16px;
+  padding-left: 0;
 }
 ion-list#input-details ion-list-header ion-item, ion-list#output-details ion-list-header ion-item {
+  margin-left: 11px;
   width: 100%;
   margin-right: 17px !important;
-  border-bottom: 1px solid #001C32;
+  border-bottom: 1px solid var(--ion-color-item-border);
 }
 
 ion-list#transaction-details {
@@ -50,8 +42,8 @@ ion-list#transaction-details ion-item ion-label {
 }
 
 ion-list#transaction-details ion-item {
-  border-bottom: 1px solid #f0f0fa;
-  margin-left: 15px;
+  border-bottom: 1px solid var(--ion-color-item-border);
+  margin-left: 10px;
   margin-right: 17px;
 }
 
@@ -83,6 +75,7 @@ ion-list-header ion-label p {
   max-width: inherit;
   white-space: normal;
   word-wrap: normal;
+  color: var(--ion-color-color);
 }
 
 .value {
@@ -92,6 +85,8 @@ ion-list-header ion-label p {
   text-overflow: ellipsis;
   max-width: inherit;
   overflow: hidden;
+  color: var(--ion-color-color);
+  opacity: 0.7;
 }
 
 .wrap {

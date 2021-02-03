@@ -4,7 +4,7 @@
     padding-right: 40px;
     width: 100%;
     background-color: var(--ion-background-color, #ffffff);
-    color: var(--ion-color-tertiary);
+    color: var(--ion-color-color);
     padding-left: 1%;
     font-family: monospace;
     height: 100%;
@@ -12,11 +12,13 @@
     border:none!important;
 }
 .resize-tool-btn {
+    position: absolute;
+    top: 22%;
+    right: 5%;
     font-family: manrope-bold;
     font-size: 1.0rem;
-    padding-right: 5%;
     cursor: pointer;
-    color: var(--ion-color-tertiary);
+    color: var(--ion-color-color);
     text-transform: none;
 }
 

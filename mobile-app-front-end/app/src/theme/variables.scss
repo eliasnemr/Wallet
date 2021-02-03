@@ -100,13 +100,48 @@
     /** ion-chip color */
     --ion-color-chip: #F7F7FE;
 
-    /** Token Card Colors */
-    --ion-color-token-cards: #F7F7FE;
-    --ion-color-token-cards-rgb: 247,247,254;
-    --ion-color-token-cards-contrast: #000000;
-    --ion-color-token-cards-contrast-rgb: 0,0,0;
-    --ion-color-token-cards-shade: #d9d9e0;
-    --ion-color-token-cards-tint: #f8f8fe;
+    /** Token Colors */
+    --ion-color-token: #FDFDFF;
+    --ion-color-token-rgb: 253,253,255;
+    --ion-color-token-contrast: #000000;
+    --ion-color-token-contrast-rgb: 0,0,0;
+    --ion-color-token-shade: #dfdfe0;
+    --ion-color-token-tint: #fdfdff;
+    /** Item Hover */
+    --ion-color-item-hover: #F0F0FA;
+    --ion-color-item-hover-rgb: 240,240,250;
+    --ion-color-item-hover-contrast: #000000;
+    --ion-color-item-hover-contrast-rgb: 0,0,0;
+    --ion-color-item-hover-shade: #d3d3dc;
+    --ion-color-item-hover-tint: #f2f2fb;
+    /** Text Color */
+    --ion-color-color: #001C32;
+    --ion-color-color-rgb: 0,28,50;
+    --ion-color-color-contrast: #ffffff;
+    --ion-color-color-contrast-rgb: 255,255,255;
+    --ion-color-color-shade: #00192c;
+    --ion-color-color-tint: #1a3347;
+    /** Subtitle Ruler Color */
+    --ion-color-ruler: #91919D;
+    --ion-color-ruler-rgb: 145,145,157;
+    --ion-color-ruler-contrast: #000000;
+    --ion-color-ruler-contrast-rgb: 0,0,0;
+    --ion-color-ruler-shade: #80808a;
+    --ion-color-ruler-tint: #9c9ca7;
+    /** Item Border Color */
+    --ion-color-item-border: #F0F0FA;
+    --ion-color-item-border-rgb: 240,240,250;
+    --ion-color-item-border-contrast: #000000;
+    --ion-color-item-border-contrast-rgb: 0,0,0;
+    --ion-color-item-border-shade: #d3d3dc;
+    --ion-color-item-border-tint: #f2f2fb;
+    /** Background Color in Desktop Mode */
+    --ion-color-background: #F0F0FA;
+    --ion-color-background-rgb: 240,240,250;
+    --ion-color-background-contrast: #000000;
+    --ion-color-background-contrast-rgb: 0,0,0;
+    --ion-color-background-shade: #d3d3dc;
+    --ion-color-background-tint: #f2f2fb; 
 
 
     /** custom Minima css vars **/
@@ -153,7 +188,7 @@ ion-toolbar {
   ion-title {
     font-size: 18px;
     ion-item:first-child {
-      --border-color: #001C32;
+      --border-color: var(--ion-color-color);
       --border-width: 0px 0px 1px 0px;
       margin-top: 12px;
       margin-left: 4px;
@@ -162,6 +197,14 @@ ion-toolbar {
       --min-height: 39px;
       font-family: manrope-bold;
       color: var(--ion-color-tertiary);
+    }
+    ion-item:last-child {
+      --border-color: var(--ion-color-ruler);
+      --border-width: 0px 0px 1px 0px;
+      --min-height: 39px;
+      font-family: manrope-medium;
+      margin-left: 5px;
+      margin-right: 10px;
     }
   }
 }
@@ -176,9 +219,7 @@ ion-footer {
 ion-button.gimme50 {
   text-transform: none;
   color: #fff;
-  border: 1px solid #f0f0fa;
-  box-shadow: 0px 3px 6px #C8C8D41A;
-  border: 1px solid #F0F0FA;
+  border: 1px solid #f0f0fA;
   border-radius: 28px;
   opacity: 1;
   width: 159px;
@@ -186,14 +227,7 @@ ion-button.gimme50 {
   font-size: 1.0rem;
   font-family: manrope-bold;
 }
-ion-item.breadcrumb {
-  --border-color: #91919D;
-  --border-width: 0px 0px 1px 0px;
-  margin-left: 27px;
-  margin-right: 30px;
-  --min-height: 39px;
-  font-family: manrope-medium;
-}
+
 .minima-numeric {
   font-variant-numeric: tabular-nums;
   float: right;

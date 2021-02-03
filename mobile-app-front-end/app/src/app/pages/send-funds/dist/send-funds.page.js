@@ -121,12 +121,12 @@ var SendFundsPage = /** @class */ (function () {
         var _this = this;
         this.sendForm.value.amnt = this.sendForm.value.amount.toString();
         var data = this.sendForm.value;
-        console.log(data);
+        //console.log(data);
         if (data.message !== null && (data.message || data.message.length > 0)) {
             this.submitBtn.disabled = true;
             this.api.sendMessageTransaction(data).then(function (res) {
                 if (minima_1.Minima.util.checkAllResponses(res)) {
-                    console.log(res);
+                    //console.log(res);
                     setTimeout(function () {
                         _this.submitBtn.disabled = false;
                     }, 500);
@@ -146,7 +146,7 @@ var SendFundsPage = /** @class */ (function () {
             this.submitBtn.disabled = true;
             this.api.sendFunds(data).then(function (res) {
                 if (res.status) {
-                    console.log(res);
+                    //console.log(res);
                     setTimeout(function () {
                         _this.submitBtn.disabled = false;
                     }, 500);

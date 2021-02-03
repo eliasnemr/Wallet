@@ -4,12 +4,13 @@
       <ion-item routerLink="/balance" class="no-ripple ion-no-padding" lines="none">
        Balance
       </ion-item>
+      <ion-item class="breadcrumb ion-no-padding" lines="none" *ngIf="tokenArr.length > 0">
+        Token details
+      </ion-item>
     </ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-item class="breadcrumb ion-no-padding" lines="none" *ngIf="tokenArr.length > 0">
-  Token details
-</ion-item>
+
 <ion-content>
   <div class="body">
   <ion-list lines="none">
@@ -128,3 +129,9 @@
   </ion-list>
   </div>
 </ion-content>
+
+<ion-footer class="border-t">
+  <ion-button (click)="giveMe50()" class="gimme50 no-ripple" fill="none">
+    Gimme 50
+  </ion-button>
+</ion-footer>

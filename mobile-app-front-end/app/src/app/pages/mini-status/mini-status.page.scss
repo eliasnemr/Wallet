@@ -15,6 +15,7 @@ ion-chip ion-label {
     font-family: manrope-bold;
 }
 ion-list ion-item {
+    --border-color: var(--ion-color-item-border);
     margin-left: 27px;
     margin-right: 30px;
 }
@@ -25,6 +26,7 @@ ion-list ion-item {
     max-width: inherit;
     white-space: normal;
     word-wrap: normal;
+    color: var(--ion-color-color);
 }
 .value {
     font-family: manrope-regular;
@@ -33,4 +35,6 @@ ion-list ion-item {
     text-overflow: ellipsis;
     max-width: inherit;
     overflow: hidden;
+    color: var(--ion-color-color);
+    opacity: 0.7;
 }

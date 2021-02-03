@@ -66,12 +66,6 @@ var AppComponent = /** @class */ (function () {
     };
     AppComponent.prototype.initializeApp = function () {
         var _this = this;
-        this.route.params.subscribe(function (res) {
-            console.log(res);
-            if (!res) {
-                console.log('empty');
-            }
-        });
         this.platform.ready().then(function () {
             minima_1.Minima.init(function (msg) {
                 if (msg.event === 'connected') {

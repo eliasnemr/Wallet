@@ -6,13 +6,14 @@
         <ion-menu-button></ion-menu-button>
         Receive
       </ion-item>
+      <ion-item class="breadcrumb ion-no-padding" lines="none" *ngIf="qrCode.length > 0">
+        Your wallet address
+      </ion-item>
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-item class="breadcrumb ion-no-padding" lines="none" *ngIf="qrCode.length > 0">
-  Your wallet address
-</ion-item>
+
 
 <ion-content>
   
@@ -44,16 +45,15 @@
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col size="4">
-        <ion-button size="medium" (click)="copyToClipboard()" class="copy-btn" fill="clear">
+      <ion-col size="12">
+        <ion-button (click)="copyToClipboard()" class="copy-btn" fill="clear">
           Copy Address
         </ion-button>
-      </ion-col>
-      <ion-col size="4">
-        <ion-button size="medium" (click)="generateAddress(qrCode)" #generateAddressBtn class="gen-btn" fill="none">
+        <ion-button (click)="generateAddress(qrCode)" #generateAddressBtn class="gen-btn" fill="none">
           Generate Address
         </ion-button>
       </ion-col>
+      
     </ion-row>
     <ion-row>
       <p class="notes">You can use this address as many times as you wish.</p>
@@ -66,23 +66,7 @@
 
 
 
-<ion-footer>
-  <!-- <ion-toolbar class="border-t">
-    <ion-buttons>
-      <ion-button   
-          #generateAddressBtn  
-          class="action-btn medium-text"
-          expand="full"
-          (click)="generateAddress(qrCode)"
-          [disabled]="!isEmpty">
-      <ion-icon
-            name="refresh" 
-            slot="start">
-      </ion-icon> Generate Address
-    </ion-button>
-    </ion-buttons>
-  </ion-toolbar> -->
-
+<ion-footer class="border-t">
   <ion-button (click)="giveMe50()" class="gimme50 no-ripple" fill="none">
     Gimme 50
   </ion-button>

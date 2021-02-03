@@ -2,17 +2,18 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
     <ion-title>
-      <ion-item class="ion-no-padding">
+      <ion-item lines="none" class="ion-no-padding">
         <ion-menu-button></ion-menu-button>
         Token
       </ion-item>
+      <ion-item class="breadcrumb ion-no-padding" lines="none">
+        Create a custom token
+      </ion-item>
+      
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-item class="breadcrumb ion-no-padding" lines="none">
-  Create a custom token
-</ion-item>
 
 <ion-content>
   <form (ngSubmit)="createTokenAdvanced()" [formGroup]="tokenCreationForm" id='tokenCreationForm'>
@@ -83,7 +84,7 @@
   </form>
 </ion-content>
 
-<ion-footer>
+<ion-footer class="border-t">
   <ion-button (click)="giveMe50()" class="gimme50 no-ripple" fill="none">
     Gimme 50
   </ion-button>

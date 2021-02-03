@@ -4,7 +4,7 @@ ion-menu {
 
 ion-title ion-item {
   margin-left: 12px;
-  --border-color: #001C32;
+  --border-color: var(--ion-color-color);
   --border-width: 0px 0px 1px 0px;
   margin-top: 8px;
   margin-left: 12px;
@@ -66,7 +66,7 @@ ion-icon {
 /** Desktop Version */
 @media only screen and (min-width: 992px) {
   .splitpane {
-    border: 1px solid #1D3147;
+    border: 1px solid var(--ion-color-item-border);
     width: 870px;
     height: 90vh;
     max-width: 870px;
@@ -74,6 +74,10 @@ ion-icon {
     margin-top: 2%;
     margin-left: auto;
     margin-right: auto;
+  }
+
+  ion-app {
+    background-color: var(--ion-color-background);
   }
 }
 ion-menu ion-list ion-item {
@@ -93,6 +97,10 @@ ion-menu ion-list ion-item ion-icon {
   vertical-align: middle;
   margin: 0 auto;
   padding: 0;
+  --background-activated: var(--ion-color-token)!important;
+  --background-activated-opacity: 0.2 !important;
+  --background-hover: var(--ion-color-item-hover);
+  --background-hover-opacity: 1;
 }
 
 ion-footer {
@@ -138,11 +146,4 @@ ion-toggle {
   --handle-spacing: 2px;
   height: 18.62px;
   width: 48.75px;
-}
-
-.line {
-  border-bottom: 1px solid #001C32;
-  margin-left: 0px;
-  margin-top: 8px;
-  margin-right: 10px;
 }

@@ -93,29 +93,72 @@ body.dark {
   /** ion-chip color */
   --ion-color-chip: #1D3147;
 
-  /** Token Card Colors */
-  --ion-color-token-cards: #F7F7FE;
-  --ion-color-token-cards-rgb: 247,247,254;
-  --ion-color-token-cards-contrast: #000000;
-  --ion-color-token-cards-contrast-rgb: 0,0,0;
-  --ion-color-token-cards-shade: #d9d9e0;
-  --ion-color-token-cards-tint: #f8f8fe;
+  /** Token Color */
+  --ion-color-token: #052741;
+  --ion-color-token-rgb: 5,39,65;
+  --ion-color-token-contrast: #ffffff;
+  --ion-color-token-contrast-rgb: 255,255,255;
+  --ion-color-token-shade: #042239;
+  --ion-color-token-tint: #1e3d54;
+  /** Item Hover */
+  --ion-color-item-hover: #455571;
+  --ion-color-item-hover-rgb: 69,85,113;
+  --ion-color-item-hover-contrast: #ffffff;
+  --ion-color-item-hover-contrast-rgb: 255,255,255;
+  --ion-color-item-hover-shade: #3d4b63;
+  --ion-color-item-hover-tint: #58667f;
+  /** Text Color */
+  --ion-color-color: #F0F0FA;
+  --ion-color-color-rgb: 240,240,250;
+  --ion-color-color-contrast: #000000;
+  --ion-color-color-contrast-rgb: 0,0,0;
+  --ion-color-color-shade: #d3d3dc;
+  --ion-color-color-tint: #f2f2fb;
+  /** Subtitle Ruler Color */ 
+  --ion-color-ruler: #455571;
+  --ion-color-ruler-rgb: 69,85,113;
+  --ion-color-ruler-contrast: #ffffff;
+  --ion-color-ruler-contrast-rgb: 255,255,255;
+  --ion-color-ruler-shade: #3d4b63;
+  --ion-color-ruler-tint: #58667f;
+  /** Item Border Color */
+  --ion-color-item-border: #253F59;
+  --ion-color-item-border-rgb: 37,63,89;
+  --ion-color-item-border-contrast: #ffffff;
+  --ion-color-item-border-contrast-rgb: 255,255,255;
+  --ion-color-item-border-shade: #21374e;
+  --ion-color-item-border-tint: #3b526a;
+  /** Background Color in Desktop Mode */
+  --ion-color-background: #052741;
+  --ion-color-background-rgb: 5,39,65;
+  --ion-color-background-contrast: #ffffff;
+  --ion-color-background-contrast-rgb: 255,255,255;
+  --ion-color-background-shade: #042239;
+  --ion-color-background-tint: #1e3d54;
 
-  --ion-color-line: rgba(250,250,255, 0.1);
+
+  --ion-color-line: var(--ion-color-ruler);
 
   .borders {
-    border: 1px solid rgba(250,250,255, 0.1);
+    border: 1px solid var(--ion-color-ruler);
   }
   .border-b {
-    border-bottom: 1px solid rgba(250,250,255, 0.1);
+    border-bottom: 1px solid var(--ion-color-ruler);
   }
   .border-t {
-    border-top: 1px solid rgba(250,250,255, 0.1);
+    border-top: 1px solid var(--ion-color-ruler);
   }
   .split-pane-md {
-    --border: 1px solid rgba(250,250,255, 0.1);
+    --border: 1px solid var(--ion-color-ruler);
   }
 
+}
+
+
+body.dark {
+  ion-item {
+    box-shadow: none;
+  }
 }
 
 /*

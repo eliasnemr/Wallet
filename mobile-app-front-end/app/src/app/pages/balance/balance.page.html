@@ -6,13 +6,15 @@
         <ion-menu-button></ion-menu-button>
         Balance
       </ion-item>
+      <ion-item class="breadcrumb ion-no-padding" lines="none" *ngIf="tokenArr.length > 0">
+        All Tokens
+      </ion-item>
     </ion-title>
   </ion-toolbar>
+
 </ion-header>
 
-  <ion-item class="breadcrumb ion-no-padding" lines="none" *ngIf="tokenArr.length > 0">
-    All Tokens
-  </ion-item>
+
 
   <ion-content>
     <ion-grid *ngIf="tokenArr.length == 0">
@@ -32,7 +34,7 @@
 
   </ion-content>
 
-  <ion-footer>
+  <ion-footer class="border-t">
     <ion-button (click)="giveMe50()" class="gimme50 no-ripple" fill="none">
       Gimme 50
     </ion-button>

@@ -1,5 +1,5 @@
 import { BalanceService } from './../../../service/balance.service';
-import { ToastController } from '@ionic/angular';
+import { ToastController, AlertController } from '@ionic/angular';
 import { MinimaApiService } from './../../../service/minima-api.service';
 import { Token } from 'minima';
 import * as SparkMD5 from 'spark-md5';
@@ -19,6 +19,7 @@ export class ViewTokensPage implements OnInit {
   public avatar: string;
 
   constructor(
+    public alertController: AlertController,
     public route: ActivatedRoute, 
     public api: MinimaApiService,
     public toastController: ToastController,
@@ -97,5 +98,27 @@ export class ViewTokensPage implements OnInit {
     });
     document.execCommand('copy');
   }
+
+
+  giveMe50() {
+    this.api.giveMe50().then((res: any) => {
+      if(res.status === true) {
+        this.presentAlert('Gimme50', 'Successful', 'Status');
+      } else {
+        this.presentAlert('Gimme50', res.message, 'Status');
+      }
+    });
+  }
+
+  async presentAlert(hdr: string, msg: string, sub: string) {
+    const alert = await this.alertController.create({
+      cssClass: 'alert',
+      header: hdr,
+      subHeader: sub,
+      message: msg,
+      buttons: ['OK']
+    });
+    await alert.present();
+   }
 
 }

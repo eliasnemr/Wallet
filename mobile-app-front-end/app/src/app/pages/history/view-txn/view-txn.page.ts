@@ -1,8 +1,10 @@
+import { MinimaApiService } from './../../../service/minima-api.service';
 import { ActivatedRoute } from '@angular/router';
-import { ToastController } from '@ionic/angular';
+import { ToastController, AlertController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { Minima } from 'minima';
 
+declare var require: any; // quick fix just cause I'm using require for 1 pkg
 var moment = require('moment');
 
 @Component({
@@ -27,7 +29,7 @@ export class ViewTXNPage implements OnInit {
   public tokenname: string;
   public tokentotal: string;
 
-  constructor(public route: ActivatedRoute, public toastController: ToastController) {
+  constructor(public route: ActivatedRoute, public toastController: ToastController, private api: MinimaApiService, public alertController: AlertController) {
     this.txn = this.route.snapshot.paramMap.get('id');
   }
 
@@ -63,6 +65,27 @@ export class ViewTXNPage implements OnInit {
     } else {
       this.hide = true;
     }
+  }
+
+  async presentAlertDefault(hdr: string, msg: string, sub: string) {
+    const alert = await this.alertController.create({
+      cssClass: 'alert',
+      header: hdr,
+      subHeader: sub,
+      message: msg,
+      buttons: ['OK']
+    });
+    await alert.present();
+   }
+
+  giveMe50() {
+    this.api.giveMe50().then((res: any) => {
+      if(res.status === true) {
+        this.presentAlertDefault('Gimme50', 'Successful', 'Status');
+      } else {
+        this.presentAlertDefault('Gimme50', res.message, 'Status');
+      }
+    });
   }
 
   copyToClipPWA(text: string) {

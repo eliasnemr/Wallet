@@ -46,7 +46,8 @@ exports.ViewTokensPage = void 0;
 var SparkMD5 = require("spark-md5");
 var core_1 = require("@angular/core");
 var ViewTokensPage = /** @class */ (function () {
-    function ViewTokensPage(route, api, toastController, balanceService) {
+    function ViewTokensPage(alertController, route, api, toastController, balanceService) {
+        this.alertController = alertController;
         this.route = route;
         this.api = api;
         this.toastController = toastController;
@@ -136,6 +137,39 @@ var ViewTokensPage = /** @class */ (function () {
             document.removeEventListener('copy', null);
         });
         document.execCommand('copy');
+    };
+    ViewTokensPage.prototype.giveMe50 = function () {
+        var _this = this;
+        this.api.giveMe50().then(function (res) {
+            if (res.status === true) {
+                _this.presentAlert('Gimme50', 'Successful', 'Status');
+            }
+            else {
+                _this.presentAlert('Gimme50', res.message, 'Status');
+            }
+        });
+    };
+    ViewTokensPage.prototype.presentAlert = function (hdr, msg, sub) {
+        return __awaiter(this, void 0, void 0, function () {
+            var alert;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.alertController.create({
+                            cssClass: 'alert',
+                            header: hdr,
+                            subHeader: sub,
+                            message: msg,
+                            buttons: ['OK']
+                        })];
+                    case 1:
+                        alert = _a.sent();
+                        return [4 /*yield*/, alert.present()];
+                    case 2:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
     };
     ViewTokensPage = __decorate([
         core_1.Component({

@@ -17,6 +17,7 @@
 
 span.confirmed-amount {
   font-family: manrope-medium;
+  color: var(--ion-color-color);
 }
 
 ion-avatar {
@@ -34,6 +35,7 @@ ion-avatar {
   text-overflow: ellipsis;
   overflow: hidden;
   font-family: manrope-medium;
+  color: var(--ion-color-color);
 }
 
 ion-item:first-child {
@@ -41,17 +43,16 @@ ion-item:first-child {
 }
 
 ion-item {
-  --background: #FDFDFF;
-  background: #FDFDFF;
+  opacity: 1;
+  --background: var(--ion-color-token);
+  --background-activated: var(--ion-color-token)!important;
+  --background-activated-opacity: 0.2 !important;
+  --background-hover: var(--ion-color-item-hover);
+  --background-hover-opacity: 1;
+  background: var(--ion-color-token);
   box-shadow: 0px 3px 6px #C8C8D41A;
   border-radius: 10px;
-  --border-color: var(--ion-color-line);
   margin-bottom: 2%;
-}
-
-ion-item:hover {
-  --background: #FDFDFF;
-  opacity: 0.9888;
 }
 
 ion-list {
