@@ -36,5 +36,6 @@
 ehthumbs.db
 Thumbs.db
 
+.vscode
 # Remove node_modules #
 mobile-app-front-end/app/node_modules
