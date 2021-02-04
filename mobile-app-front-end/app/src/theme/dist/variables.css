@@ -171,7 +171,7 @@ ion-toolbar ion-title {
 ion-toolbar ion-title ion-item:first-child {
   --border-color: var(--ion-color-color);
   --border-width: 0px 0px 1px 0px;
-  margin-top: 12px;
+  margin-top: 14px;
   margin-left: 4px;
   margin-right: 10px;
   font-size: 18px;
@@ -207,6 +207,13 @@ ion-button.gimme50 {
   height: 45px;
   font-size: 1rem;
   font-family: manrope-bold;
+}
+
+ion-button.gimme50:hover {
+  --background: #f0f0fa;
+  border: 1px solid #001C32;
+  color: #001C32;
+  --border-radius: 28px!important;
 }
 
 .minima-numeric {

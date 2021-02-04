@@ -11,6 +11,7 @@ ion-list {
 }
 ion-item ion-label {
   font-size: 20px;
+  font-family: manrope-bold;
   white-space: normal;
   margin-bottom: 10px;
 }
@@ -22,15 +23,17 @@ ion-note {
   color: var(--ion-color-secondary);
   font-family: manrope-bold;
 }
+ion-item#nft {
+  display: inline;
+  vertical-align: middle;
+}
 ion-icon.nftIcon {
-  font-size: 1.5rem;
+  margin-right: 7px;
 }
 ion-label.nft {
   font-size: 16px !important;
-  display: inline-block;
-  align-items: center;
-  vertical-align: middle;
 }
+
 ion-textarea {
   padding-left: 2%;
   font-size: 12px;
@@ -98,4 +101,7 @@ ion-button.create-token {
   color: #fff;
   text-transform: none;
   font-family: manrope-bold;
+}
+ion-button.create-token:hover {
+  --background: #346EE5;
 }

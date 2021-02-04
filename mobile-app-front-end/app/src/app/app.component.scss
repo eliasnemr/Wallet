@@ -84,7 +84,7 @@ ion-menu ion-list ion-item ion-icon {
 }
 
 .my-menu-item {
-  display:inline;
+  display: inline;
   vertical-align: middle;
   margin: 0 auto;
   padding:0;
@@ -94,15 +94,12 @@ ion-menu ion-list ion-item ion-icon {
   --background-hover-opacity: 1;
 }
 ion-footer {
-  vertical-align: middle;
-  line-height: 70px;
+  padding:0!important;
+  margin:0 !important;
 }
-ion-footer ion-item, ion-footer ion-col, ion-footer {
+ion-footer ion-item {
   --background: #001C32;
   background: #001C32;
-  height: 90px;
-  max-height: 90px;
-  --padding-start: 30px;
 }
 ion-footer ion-item ion-label {
   color: #FAFAFF!important;
@@ -119,16 +116,20 @@ ion-footer ion-item ion-avatar ion-icon {
   width: 21.26px;
   height: 21.25px;
 }
+ion-item#night-mode {
+  padding-left: 15px;
+  padding-right: 13px;
+}
 ion-toggle {
   --background: #FAFAFF;
   --handle-background: #001C32;
   --handle-background-checked: #001C32 0% 0% no-repeat padding-box;
   --background-checked:  #FAFAFF 0% 0% no-repeat padding-box;
-  --handle-height: 14.11px;
-  --handle-width: 14.11px;
+  --handle-height: 15.72px;
+  --handle-width: 15.72px;
   --handle-border-radius: 40px;
   --border-radius: 9px;
   --handle-spacing: 2px;
-  height: 18.62px; 
-  width: 48.75px;
+  height: 18.65px; 
+  width: 34.65px;
 }

@@ -18,9 +18,10 @@ span.confirmed-amount {
     color: var(--ion-color-color);
 }
 ion-avatar {
+    margin-top: 2%;
     height: 38px;
     width: 38px;
-    border: 1px solid #D6D6DF;
+
 }
 #token-name {
     margin: 0;
@@ -30,7 +31,7 @@ ion-avatar {
     max-width: inherit;
     text-overflow: ellipsis;
     overflow: hidden;
-    font-family: manrope-medium;
+    font-family: manrope-bold;
     color: var(--ion-color-color);
 }
 ion-item:first-child {

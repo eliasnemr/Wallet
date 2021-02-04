@@ -56,6 +56,9 @@ ion-icon.trashIcon:hover {
   display: inline-flex !important;
   text-align: center !important;
 }
+ion-label h3 {
+  font-family: manrope-bold;
+}
 ion-label p {
   color: var(--ion-color-color);
   opacity: 0.7;

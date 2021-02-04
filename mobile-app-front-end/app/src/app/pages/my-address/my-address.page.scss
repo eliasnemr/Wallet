@@ -37,6 +37,9 @@ ion-button.copy-btn {
   width: 164px;
   margin-right: 7px;
 }
+ion-button.copy-btn:hover {
+  --background: #346EE5;
+}
 ion-button.gen-btn {
   height: 35px;
   width: 164px;
@@ -46,7 +49,12 @@ ion-button.gen-btn {
   border: 1px solid var(--ion-color-color);
   box-shadow: none;
 }
-
+ion-button.gen-btn:hover {
+  --background: var(--ion-color-color);
+  color: var(--ion-color-item-hover);
+  --border-radius: 0;
+  border-color: var(--ion-color-color);
+}
 ion-badge:hover {
     transform: scale(1.01);
 }
@@ -60,7 +68,7 @@ ion-grid ion-row {
     display: flex;
     align-items: left;
     justify-content: left;
-    margin-left: 19px;
+    margin-left: 16px;
 }
 ion-grid ion-row:first-child {
   margin-top: 5px;

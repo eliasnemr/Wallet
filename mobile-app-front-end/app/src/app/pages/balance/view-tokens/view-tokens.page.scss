@@ -9,6 +9,10 @@ ion-list ion-item {
 .item .item-content {
     background-color: transparent !important;
   }
+ion-label#name h3 {
+    font-family: manrope-bold;
+    font-size: 16px;
+}
 ion-list { 
     margin-top: 7px;
     background-color: transparent;
@@ -18,11 +22,12 @@ ion-list ion-item {
     color: var(--ion-color-color);
     border: 1px solid var(--ion-color-item-border);
     --border-color: var(--ion-color-item-border);
+    padding-right: 0;
 }
 ion-list ion-item ion-col {    
     margin-left: 13px;
-    margin-right: 20px;
 }
+
 .title {
     font-family: manrope-semibold;
     font-size: 16px;
@@ -49,5 +54,5 @@ ion-list ion-item ion-col {
 }
 .body {
     margin-right: 30px;
-    margin-left: 23px;
+    margin-left: 26px;
 }

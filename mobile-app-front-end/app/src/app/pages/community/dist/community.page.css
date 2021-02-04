@@ -8,7 +8,7 @@ ion-avatar {
 }
 
 .title {
-  font-family: manrope-regular;
+  font-family: manrope-bold;
   font-size: 14px;
   color: var(--ion-color-color);
 }

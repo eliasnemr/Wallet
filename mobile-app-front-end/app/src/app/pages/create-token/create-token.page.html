@@ -42,17 +42,17 @@
     </ion-item>
 
     <ion-item class="no-ripple" lines="none" lines="none">
-      <ion-label position="stacked" class="medium-text">Icon <span style="font-family: manrope-light; color:var(--ion-color-primary)">(Optional)</span></ion-label>
+      <ion-label position="stacked" class="medium-text">Icon <span style="font-family: manrope-light; color:var(--ion-color-primary)">(optional)</span></ion-label>
       <ion-input class="medium-text input" name="icon" #iconURL formControlName="icon" placeholder="Enter a valid icon URL"></ion-input>
     </ion-item>
 
     <ion-item class="no-ripple" lines="none" lines="none">
-      <ion-label position="stacked" class="medium-text">Proof <span style="font-family: manrope-light; color:var(--ion-color-primary)">(Optional)</span></ion-label>
+      <ion-label position="stacked" class="medium-text">Proof <span style="font-family: manrope-light; color:var(--ion-color-primary)">(optional)</span></ion-label>
       <ion-input  name="proof" class="medium-text input" #proofURL formControlName="proof" placeholder="Enter URL of website hosting token ID text"></ion-input>
     </ion-item>
 
     <ion-item class="no-ripple" lines="none" lines="none">
-      <ion-label position="stacked"  class="medium-text">Description <span style="font-family: manrope-light; color:var(--ion-color-primary)">(Optional)</span></ion-label>
+      <ion-label position="stacked"  class="medium-text">Description <span style="font-family: manrope-light; color:var(--ion-color-primary)">(optional)</span></ion-label>
       <ion-textarea
       #description 
       class="medium-text input"
@@ -64,9 +64,12 @@
       </ion-textarea>
     </ion-item>
     <ion-label class="length" *ngIf="customToken.description && customToken.description.length > 0">{{ customToken.description.length+'/255'}}</ion-label>
-    <ion-item class="no-ripple">
+    <ion-item id="nft" class="no-ripple">
+     
+      <ion-icon class="nftIcon" src="assets/nft2.svg"></ion-icon> 
+
+      <span style="font-family: manrope-light; color:var(--ion-color-primary); margin-right: 7px">(optional) </span>
       <ion-label class="nft">
-        <ion-icon class="nftIcon" src="assets/nft2.svg"></ion-icon> <span style="font-family: manrope-light; color:var(--ion-color-primary)">(Optional)</span>
         Spend this token in whole only.
       </ion-label>
       <ion-checkbox formControlName="nft" slot="end"></ion-checkbox>

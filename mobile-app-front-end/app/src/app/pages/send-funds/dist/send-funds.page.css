@@ -15,6 +15,7 @@ ion-item ion-label {
   white-space: normal;
   margin-bottom: 2%;
   font-size: 20px;
+  font-family: manrope-bold;
   color: var(--ion-color-color);
 }
 
@@ -152,4 +153,8 @@ ion-button.send-funds {
   float: right;
   margin-right: 26px;
   --border-radius: 0;
+}
+
+ion-button.send-funds:hover {
+  --background: #346EE5;
 }

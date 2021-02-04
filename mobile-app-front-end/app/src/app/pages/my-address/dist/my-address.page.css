@@ -41,6 +41,10 @@ ion-button.copy-btn {
   margin-right: 7px;
 }
 
+ion-button.copy-btn:hover {
+  --background: #346EE5;
+}
+
 ion-button.gen-btn {
   height: 35px;
   width: 164px;
@@ -49,6 +53,13 @@ ion-button.gen-btn {
   color: var(--ion-color-color);
   border: 1px solid var(--ion-color-color);
   box-shadow: none;
+}
+
+ion-button.gen-btn:hover {
+  --background: var(--ion-color-color);
+  color: var(--ion-color-item-hover);
+  --border-radius: 0;
+  border-color: var(--ion-color-color);
 }
 
 ion-badge:hover {
@@ -66,7 +77,7 @@ ion-grid ion-row {
   display: flex;
   align-items: left;
   justify-content: left;
-  margin-left: 19px;
+  margin-left: 16px;
 }
 
 ion-grid ion-row:first-child {

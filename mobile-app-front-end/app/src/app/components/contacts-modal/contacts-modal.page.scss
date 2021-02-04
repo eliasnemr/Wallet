@@ -25,6 +25,7 @@ ion-item ion-label {
   white-space: normal;
   word-break: normal;
   font-size: 20px;
+  font-family: manrope-bold;
   margin-bottom: 7px;
 }
 button.footer {
@@ -80,4 +81,7 @@ ion-button.createContact {
   color: #fff !important;
   border-radius: 0;
   float: right; 
+}
+ion-button.createContact:hover {
+  --background: #346EE5;
 }

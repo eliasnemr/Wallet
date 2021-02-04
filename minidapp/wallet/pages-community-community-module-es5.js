@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header class=\"ion-no-border\">\n  <ion-toolbar>\n    <ion-menu-button class=\"menu-icon\" slot=\"start\"></ion-menu-button>\n    <ion-title class=\"large-text\">Join Community</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n<ion-grid>\n  <ion-row>\n      <ion-col size=\"12\" size-md=\"6\">\n        <ion-card href=\"https://minima.global/\" target=\"_\" class=\"social-card borders\">\n            <ion-card-header>\n              <ion-icon color=\"primary\" src=\"./assets/community/Website.svg\" alt=\"\" class=\"socials\"></ion-icon>\n            </ion-card-header>\n            <ion-card-content>\n              <h3>Website</h3>\n              <p>Stay connected</p>\n            </ion-card-content>\n        </ion-card>\n      </ion-col>\n      <ion-col size=\"12\" size-md=\"6\">\n        <ion-card href=\"https://github.com/Minima-Protocol\" target=\"_\" class=\"social-card borders\">\n          <ion-card-header>\n            <ion-icon color=\"primary\" src=\"./assets/community/github.svg\" alt=\"\" class=\"socials\"></ion-icon>\n          </ion-card-header>\n          <ion-card-content>\n            <h3>Github</h3>\n            <p>Contribute to the codebase</p>\n          </ion-card-content>\n      </ion-card>\n    </ion-col>\n  </ion-row>\n\n  <ion-row>\n    <ion-col size=\"12\" size-md=\"6\">\n        <ion-card href=\"https://twitter.com/minima_global\" target=\"_\" class=\"social-card borders\">\n            <ion-card-header>\n              <ion-icon color=\"primary\" src=\"./assets/community/twitter.svg\" alt=\"\" class=\"socials\"></ion-icon>\n            </ion-card-header>\n            <ion-card-content>\n              <h3>Twitter</h3>\n              <p>Follow @Minima_Global</p>\n            </ion-card-content>\n        </ion-card>\n    </ion-col>\n    <ion-col size=\"12\" size-md=\"6\">\n      <ion-card href=\"https://t.me/Minima_Global\" target=\"_\" class=\"social-card borders\">\n        <ion-card-header>\n          <ion-icon color=\"primary\" src=\"./assets/community/telegram.svg\" alt=\"\" class=\"socials\"></ion-icon>\n        </ion-card-header>\n        <ion-card-content>\n          <h3>Telegram</h3>\n          <p>Stay up to date</p>\n        </ion-card-content>\n    </ion-card>\n  </ion-col>\n</ion-row>\n\n<ion-row>\n  <ion-col size=\"12\" size-md=\"6\">\n      <ion-card href=\"https://medium.com/minima-global\" target=\"_\" class=\"social-card borders\">\n          <ion-card-header>\n            <ion-icon color=\"primary\" src=\"./assets/community/medium.svg\" alt=\"\" class=\"socials\"></ion-icon>\n          </ion-card-header>\n          <ion-card-content>\n            <h3>Medium</h3>\n            <p>Read our latest blog posts</p>\n          </ion-card-content>\n      </ion-card>\n  </ion-col>\n  <ion-col size=\"12\" size-md=\"6\">\n    <ion-card href=\"https://discord.com/invite/SgvQ6mc\" target=\"_\" class=\"social-card borders\">\n        <ion-card-header>\n          <ion-icon color=\"primary\" src=\"./assets/community/Discord.svg\" alt=\"\" class=\"socials\"></ion-icon>\n        </ion-card-header>\n        <ion-card-content>\n          <h3>Discord</h3>\n          <p>Join the community</p>\n        </ion-card-content>\n    </ion-card>\n</ion-col>\n</ion-row>\n\n\n\n</ion-grid>\n\n</ion-content>\n"
+module.exports = "<ion-header class=\"ion-no-border\">\n  <ion-toolbar>\n    <!-- <ion-menu-button class=\"menu-icon\" slot=\"start\"></ion-menu-button> -->\n    <ion-title>\n      <ion-item lines=\"none\" class=\"ion-no-padding\">\n        <ion-menu-button></ion-menu-button>\n        Community\n      </ion-item>\n      <ion-item class=\"breadcrumb ion-no-padding\" lines=\"none\">\n        Join our community and get involved \n      </ion-item>\n    </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n\n<ion-content>\n  <ion-list>\n    <ion-item href=\"https://minima.global/\" target=\"_\" class=\"ion-no-padding\" lines=\"none\">\n      <ion-avatar>\n        <ion-icon src=\"assets/community/websiteIcon.svg\"></ion-icon>\n      </ion-avatar>\n      <ion-label>\n        <h6 class=\"title\">Website</h6>\n        <p class=\"value\">Stay Connected</p>\n      </ion-label>\n    </ion-item>\n\n    <ion-item href=\"https://github.com/Minima-Protocol\" target=\"_\" class=\"ion-no-padding\" lines=\"none\">\n      <ion-avatar>\n        <ion-icon src=\"assets/community/githubLogo.svg\"></ion-icon>\n      </ion-avatar>\n      <ion-label>\n        <h6 class=\"title\">Github </h6>\n        <p class=\"value\">Contribute to the codebase</p>\n      </ion-label>\n    </ion-item>\n\n    <ion-item href=\"https://twitter.com/minima_global\" target=\"_\" class=\"ion-no-padding\" lines=\"none\">\n      <ion-avatar>\n        <ion-icon src=\"assets/community/twitterLogo.svg\"></ion-icon>\n      </ion-avatar>\n      <ion-label>\n        <h6 class=\"title\">Twitter</h6>\n        <p class=\"value\">Follow @Minima_Global</p>\n      </ion-label>\n    </ion-item>\n\n    <ion-item href=\"https://t.me/Minima_Global\" target=\"_\" class=\"ion-no-padding\" lines=\"none\">\n      <ion-avatar>\n        <ion-icon src=\"assets/community/telegramLogo.svg\"></ion-icon>\n      </ion-avatar>\n      <ion-label>\n        <h6 class=\"title\">Telegram</h6>\n        <p class=\"value\">Stay up to date</p>\n      </ion-label>\n    </ion-item>\n    \n    <ion-item href=\"https://www.youtube.com/channel/UCDe2j57uQrUVtVizFbDpsoQ\" target=\"_\" class=\"ion-no-padding\" lines=\"none\">\n      <ion-avatar>\n        <ion-icon src=\"assets/community/youTubeLogo.svg\"></ion-icon>\n      </ion-avatar>\n      <ion-label>\n        <h6 class=\"title\">Youtube</h6>\n        <p class=\"value\">Watch us in action</p>\n      </ion-label>\n    </ion-item>\n\n    <ion-item href=\"https://medium.com/minima-global\" target=\"_\" class=\"ion-no-padding\" lines=\"none\">\n      <ion-avatar>\n        <ion-icon src=\"assets/community/mediumLogo.svg\"></ion-icon>\n      </ion-avatar>\n      <ion-label>\n        <h6 class=\"title\">Medium</h6>\n        <p class=\"value\">Read our latest posts</p>\n      </ion-label>\n    </ion-item>\n\n    <ion-item href=\"https://discord.com/invite/SgvQ6mc\" target=\"_\" class=\"ion-no-padding\" lines=\"none\">\n      <ion-avatar>\n        <ion-icon src=\"assets/community/discordLogo.svg\"></ion-icon>\n      </ion-avatar>\n      <ion-label>\n        <h6 class=\"title\">Discord</h6>\n        <p class=\"value\">Join the community</p>\n      </ion-label>\n    </ion-item>\n\n    \n  </ion-list>\n</ion-content>\n\n<ion-footer class=\"border-t\">\n  <ion-button (click)=\"giveMe50()\" class=\"gimme50 no-ripple\" fill=\"none\">\n    Gimme 50\n  </ion-button>\n</ion-footer>\n"
 
 /***/ }),
 
@@ -69,7 +69,7 @@ var CommunityPageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "* {\n  font-family: manrope-bold;\n  text-transform: none;\n  font-size: 1rem;\n}\n\nion-title {\n  padding-top: 5%;\n  font-size: 1.2rem;\n}\n\n.small-text {\n  opacity: 1.5;\n}\n\nion-toolbar {\n  --background: var(--ion-m-background);\n}\n\n.social-card {\n  cursor: pointer;\n  background: transparent;\n  color: var(--ion-color-tertiary);\n}\n\n.social-card ion-card-header {\n  color: var(--ion-color-tertiary);\n  text-transform: none;\n  text-align: center;\n  background-color: transparent;\n}\n\n.social-card ion-card-header ion-icon {\n  font-size: 77px;\n}\n\n.social-card ion-card-content h3 {\n  color: var(--ion-color-tertiary);\n  text-align: center;\n  -webkit-box-pack: center !important;\n          justify-content: center !important;\n  width: 100%;\n  align-content: center;\n  display: -webkit-box;\n  display: flex;\n  font-size: 0.8rem;\n}\n\n.social-card ion-card-content p {\n  color: var(--ion-color-tertiary);\n  opacity: 0.7;\n  text-align: center;\n  -webkit-box-pack: center !important;\n          justify-content: center !important;\n  width: 100%;\n  align-content: center;\n  display: -webkit-box;\n  display: flex;\n  font-size: 0.7rem;\n}\n\n.social-card:hover {\n  opacity: 0.8;\n  -webkit-transform: scale(1.02);\n          transform: scale(1.02);\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9lbGlhc25lbXIvcHJvamVjdHMvV2FsbGV0L21vYmlsZS1hcHAtZnJvbnQtZW5kL2FwcC9zcmMvYXBwL3BhZ2VzL2NvbW11bml0eS9jb21tdW5pdHkucGFnZS5zY3NzIiwic3JjL2FwcC9wYWdlcy9jb21tdW5pdHkvY29tbXVuaXR5LnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLHlCQUFBO0VBQ0Esb0JBQUE7RUFDQSxlQUFBO0FDQ0Y7O0FEQ0E7RUFDRSxlQUFBO0VBQ0EsaUJBQUE7QUNFRjs7QURBQTtFQUNJLFlBQUE7QUNHSjs7QURBRTtFQUNFLHFDQUFBO0FDR0o7O0FEQUU7RUFDRSxlQUFBO0VBQ0EsdUJBQUE7RUFDQSxnQ0FBQTtBQ0dKOztBREFFO0VBQ0UsZ0NBQUE7RUFDQSxvQkFBQTtFQUNBLGtCQUFBO0VBQ0EsNkJBQUE7QUNHSjs7QURERTtFQUNFLGVBQUE7QUNJSjs7QURGRTtFQUNFLGdDQUFBO0VBQ0Esa0JBQUE7RUFDQSxtQ0FBQTtVQUFBLGtDQUFBO0VBQ0EsV0FBQTtFQUNBLHFCQUFBO0VBQ0Esb0JBQUE7RUFBQSxhQUFBO0VBQ0EsaUJBQUE7QUNLSjs7QURIRTtFQUNFLGdDQUFBO0VBQ0EsWUFBQTtFQUNBLGtCQUFBO0VBQ0EsbUNBQUE7VUFBQSxrQ0FBQTtFQUNBLFdBQUE7RUFDQSxxQkFBQTtFQUNBLG9CQUFBO0VBQUEsYUFBQTtFQUNBLGlCQUFBO0FDTUo7O0FESkU7RUFDRSxZQUFBO0VBQ0EsOEJBQUE7VUFBQSxzQkFBQTtBQ09KIiwiZmlsZSI6InNyYy9hcHAvcGFnZXMvY29tbXVuaXR5L2NvbW11bml0eS5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIqIHtcbiAgZm9udC1mYW1pbHk6IG1hbnJvcGUtYm9sZDtcbiAgdGV4dC10cmFuc2Zvcm06IG5vbmU7XG4gIGZvbnQtc2l6ZTogMS4wcmVtO1xufVxuaW9uLXRpdGxlIHtcbiAgcGFkZGluZy10b3A6IDUlO1xuICBmb250LXNpemU6IDEuMnJlbTtcbn1cbi5zbWFsbC10ZXh0IHtcbiAgICBvcGFjaXR5OiAxLjU7XG4gIH1cblxuICBpb24tdG9vbGJhciB7XG4gICAgLS1iYWNrZ3JvdW5kOiB2YXIoLS1pb24tbS1iYWNrZ3JvdW5kKTtcbiAgfVxuICBcbiAgLnNvY2lhbC1jYXJkIHtcbiAgICBjdXJzb3I6IHBvaW50ZXI7XG4gICAgYmFja2dyb3VuZDogdHJhbnNwYXJlbnQ7XG4gICAgY29sb3I6IHZhcigtLWlvbi1jb2xvci10ZXJ0aWFyeSk7XG4gIH1cbiAgXG4gIC5zb2NpYWwtY2FyZCBpb24tY2FyZC1oZWFkZXIge1xuICAgIGNvbG9yOiB2YXIoLS1pb24tY29sb3ItdGVydGlhcnkpO1xuICAgIHRleHQtdHJhbnNmb3JtOiBub25lO1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiB0cmFuc3BhcmVudDtcbiAgfVxuICAuc29jaWFsLWNhcmQgaW9uLWNhcmQtaGVhZGVyIGlvbi1pY29uIHtcbiAgICBmb250LXNpemU6IDc3cHg7XG4gIH1cbiAgLnNvY2lhbC1jYXJkIGlvbi1jYXJkLWNvbnRlbnQgaDMge1xuICAgIGNvbG9yOiB2YXIoLS1pb24tY29sb3ItdGVydGlhcnkpO1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlciAhaW1wb3J0YW50O1xuICAgIHdpZHRoOiAxMDAlO1xuICAgIGFsaWduLWNvbnRlbnQ6IGNlbnRlcjtcbiAgICBkaXNwbGF5OiBmbGV4O1xuICAgIGZvbnQtc2l6ZTogMC44cmVtO1xuICB9XG4gIC5zb2NpYWwtY2FyZCBpb24tY2FyZC1jb250ZW50IHAge1xuICAgIGNvbG9yOiB2YXIoLS1pb24tY29sb3ItdGVydGlhcnkpO1xuICAgIG9wYWNpdHk6IDAuNztcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gICAganVzdGlmeS1jb250ZW50OiBjZW50ZXIgIWltcG9ydGFudDtcbiAgICB3aWR0aDogMTAwJTtcbiAgICBhbGlnbi1jb250ZW50OiBjZW50ZXI7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBmb250LXNpemU6IDAuN3JlbTtcbiAgfVxuICAuc29jaWFsLWNhcmQ6aG92ZXIge1xuICAgIG9wYWNpdHk6IDAuODtcbiAgICB0cmFuc2Zvcm06IHNjYWxlKDEuMDIpO1xuICB9IiwiKiB7XG4gIGZvbnQtZmFtaWx5OiBtYW5yb3BlLWJvbGQ7XG4gIHRleHQtdHJhbnNmb3JtOiBub25lO1xuICBmb250LXNpemU6IDFyZW07XG59XG5cbmlvbi10aXRsZSB7XG4gIHBhZGRpbmctdG9wOiA1JTtcbiAgZm9udC1zaXplOiAxLjJyZW07XG59XG5cbi5zbWFsbC10ZXh0IHtcbiAgb3BhY2l0eTogMS41O1xufVxuXG5pb24tdG9vbGJhciB7XG4gIC0tYmFja2dyb3VuZDogdmFyKC0taW9uLW0tYmFja2dyb3VuZCk7XG59XG5cbi5zb2NpYWwtY2FyZCB7XG4gIGN1cnNvcjogcG9pbnRlcjtcbiAgYmFja2dyb3VuZDogdHJhbnNwYXJlbnQ7XG4gIGNvbG9yOiB2YXIoLS1pb24tY29sb3ItdGVydGlhcnkpO1xufVxuXG4uc29jaWFsLWNhcmQgaW9uLWNhcmQtaGVhZGVyIHtcbiAgY29sb3I6IHZhcigtLWlvbi1jb2xvci10ZXJ0aWFyeSk7XG4gIHRleHQtdHJhbnNmb3JtOiBub25lO1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIGJhY2tncm91bmQtY29sb3I6IHRyYW5zcGFyZW50O1xufVxuXG4uc29jaWFsLWNhcmQgaW9uLWNhcmQtaGVhZGVyIGlvbi1pY29uIHtcbiAgZm9udC1zaXplOiA3N3B4O1xufVxuXG4uc29jaWFsLWNhcmQgaW9uLWNhcmQtY29udGVudCBoMyB7XG4gIGNvbG9yOiB2YXIoLS1pb24tY29sb3ItdGVydGlhcnkpO1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIGp1c3RpZnktY29udGVudDogY2VudGVyICFpbXBvcnRhbnQ7XG4gIHdpZHRoOiAxMDAlO1xuICBhbGlnbi1jb250ZW50OiBjZW50ZXI7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZvbnQtc2l6ZTogMC44cmVtO1xufVxuXG4uc29jaWFsLWNhcmQgaW9uLWNhcmQtY29udGVudCBwIHtcbiAgY29sb3I6IHZhcigtLWlvbi1jb2xvci10ZXJ0aWFyeSk7XG4gIG9wYWNpdHk6IDAuNztcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlciAhaW1wb3J0YW50O1xuICB3aWR0aDogMTAwJTtcbiAgYWxpZ24tY29udGVudDogY2VudGVyO1xuICBkaXNwbGF5OiBmbGV4O1xuICBmb250LXNpemU6IDAuN3JlbTtcbn1cblxuLnNvY2lhbC1jYXJkOmhvdmVyIHtcbiAgb3BhY2l0eTogMC44O1xuICB0cmFuc2Zvcm06IHNjYWxlKDEuMDIpO1xufSJdfQ== */"
+module.exports = "ion-icon {\n  width: 40px;\n  height: 40px;\n}\n\nion-avatar {\n  margin-right: 27px;\n}\n\n.title {\n  font-family: manrope-bold;\n  font-size: 14px;\n  color: var(--ion-color-color);\n}\n\n.value {\n  font-family: manrope-regular;\n  opacity: 0.7;\n  color: var(--ion-color-color);\n}\n\nion-list ion-item {\n  margin-left: 27px;\n  margin-right: 27px;\n  opacity: 1;\n  --background-activated: var(--ion-color-token)!important;\n  --background-activated-opacity: 0.2 !important;\n  --background-hover: var(--ion-color-item-hover);\n  --background-hover-opacity: 1;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9lbGlhc25lbXIvcHJvamVjdHMvV2FsbGV0L21vYmlsZS1hcHAtZnJvbnQtZW5kL2FwcC9zcmMvYXBwL3BhZ2VzL2NvbW11bml0eS9jb21tdW5pdHkucGFnZS5zY3NzIiwic3JjL2FwcC9wYWdlcy9jb21tdW5pdHkvY29tbXVuaXR5LnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFDQTtFQUNFLFdBQUE7RUFDQSxZQUFBO0FDQUY7O0FERUE7RUFDRSxrQkFBQTtBQ0NGOztBRENBO0VBQ0UseUJBQUE7RUFDQSxlQUFBO0VBQ0EsNkJBQUE7QUNFRjs7QURBQTtFQUNFLDRCQUFBO0VBQ0EsWUFBQTtFQUNBLDZCQUFBO0FDR0Y7O0FEREE7RUFDRSxpQkFBQTtFQUNBLGtCQUFBO0VBQ0EsVUFBQTtFQUNBLHdEQUFBO0VBQ0EsOENBQUE7RUFDQSwrQ0FBQTtFQUNBLDZCQUFBO0FDSUYiLCJmaWxlIjoic3JjL2FwcC9wYWdlcy9jb21tdW5pdHkvY29tbXVuaXR5LnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIlxuaW9uLWljb24ge1xuICB3aWR0aDogNDBweDtcbiAgaGVpZ2h0OiA0MHB4O1xufVxuaW9uLWF2YXRhciB7XG4gIG1hcmdpbi1yaWdodDogMjdweDtcbn1cbi50aXRsZSB7XG4gIGZvbnQtZmFtaWx5OiBtYW5yb3BlLWJvbGQ7XG4gIGZvbnQtc2l6ZTogMTRweDtcbiAgY29sb3I6IHZhcigtLWlvbi1jb2xvci1jb2xvcik7XG59XG4udmFsdWUge1xuICBmb250LWZhbWlseTogbWFucm9wZS1yZWd1bGFyO1xuICBvcGFjaXR5OiAwLjc7XG4gIGNvbG9yOiB2YXIoLS1pb24tY29sb3ItY29sb3IpO1xufVxuaW9uLWxpc3QgaW9uLWl0ZW0ge1xuICBtYXJnaW4tbGVmdDogMjdweDtcbiAgbWFyZ2luLXJpZ2h0OiAyN3B4O1xuICBvcGFjaXR5OiAxO1xuICAtLWJhY2tncm91bmQtYWN0aXZhdGVkOiB2YXIoLS1pb24tY29sb3ItdG9rZW4pIWltcG9ydGFudDtcbiAgLS1iYWNrZ3JvdW5kLWFjdGl2YXRlZC1vcGFjaXR5OiAwLjIgIWltcG9ydGFudDtcbiAgLS1iYWNrZ3JvdW5kLWhvdmVyOiB2YXIoLS1pb24tY29sb3ItaXRlbS1ob3Zlcik7XG4gIC0tYmFja2dyb3VuZC1ob3Zlci1vcGFjaXR5OiAxO1xufSIsImlvbi1pY29uIHtcbiAgd2lkdGg6IDQwcHg7XG4gIGhlaWdodDogNDBweDtcbn1cblxuaW9uLWF2YXRhciB7XG4gIG1hcmdpbi1yaWdodDogMjdweDtcbn1cblxuLnRpdGxlIHtcbiAgZm9udC1mYW1pbHk6IG1hbnJvcGUtYm9sZDtcbiAgZm9udC1zaXplOiAxNHB4O1xuICBjb2xvcjogdmFyKC0taW9uLWNvbG9yLWNvbG9yKTtcbn1cblxuLnZhbHVlIHtcbiAgZm9udC1mYW1pbHk6IG1hbnJvcGUtcmVndWxhcjtcbiAgb3BhY2l0eTogMC43O1xuICBjb2xvcjogdmFyKC0taW9uLWNvbG9yLWNvbG9yKTtcbn1cblxuaW9uLWxpc3QgaW9uLWl0ZW0ge1xuICBtYXJnaW4tbGVmdDogMjdweDtcbiAgbWFyZ2luLXJpZ2h0OiAyN3B4O1xuICBvcGFjaXR5OiAxO1xuICAtLWJhY2tncm91bmQtYWN0aXZhdGVkOiB2YXIoLS1pb24tY29sb3ItdG9rZW4pIWltcG9ydGFudDtcbiAgLS1iYWNrZ3JvdW5kLWFjdGl2YXRlZC1vcGFjaXR5OiAwLjIgIWltcG9ydGFudDtcbiAgLS1iYWNrZ3JvdW5kLWhvdmVyOiB2YXIoLS1pb24tY29sb3ItaXRlbS1ob3Zlcik7XG4gIC0tYmFja2dyb3VuZC1ob3Zlci1vcGFjaXR5OiAxO1xufSJdfQ== */"
 
 /***/ }),
 
@@ -84,23 +84,204 @@ module.exports = "* {\n  font-family: manrope-bold;\n  text-transform: none;\n  
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CommunityPage", function() { return CommunityPage; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/fesm5/ionic-angular.js");
+/* harmony import */ var _service_minima_api_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../service/minima-api.service */ "./src/app/service/minima-api.service.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+
+
 
 
 var CommunityPage = /** @class */ (function () {
-    function CommunityPage() {
+    function CommunityPage(api, alertController) {
+        this.api = api;
+        this.alertController = alertController;
     }
     CommunityPage.prototype.ngOnInit = function () {
     };
+    CommunityPage.prototype.presentAlert = function (hdr, msg, sub) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var alert;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.alertController.create({
+                            cssClass: 'alert',
+                            header: hdr,
+                            subHeader: sub,
+                            message: msg,
+                            buttons: ['OK']
+                        })];
+                    case 1:
+                        alert = _a.sent();
+                        return [4 /*yield*/, alert.present()];
+                    case 2:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    CommunityPage.prototype.giveMe50 = function () {
+        var _this = this;
+        this.api.giveMe50().then(function (res) {
+            if (res.status === true) {
+                _this.presentAlert('Gimme50', 'Successful', 'Status');
+            }
+            else {
+                _this.presentAlert('Gimme50', res.message, 'Status');
+            }
+        });
+    };
+    CommunityPage.ctorParameters = function () { return [
+        { type: _service_minima_api_service__WEBPACK_IMPORTED_MODULE_2__["MinimaApiService"] },
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["AlertController"] }
+    ]; };
     CommunityPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
             selector: 'app-community',
             template: __webpack_require__(/*! raw-loader!./community.page.html */ "./node_modules/raw-loader/index.js!./src/app/pages/community/community.page.html"),
             styles: [__webpack_require__(/*! ./community.page.scss */ "./src/app/pages/community/community.page.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_service_minima_api_service__WEBPACK_IMPORTED_MODULE_2__["MinimaApiService"], _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["AlertController"]])
     ], CommunityPage);
     return CommunityPage;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/service/minima-api.service.ts":
+/*!***********************************************!*\
+  !*** ./src/app/service/minima-api.service.ts ***!
+  \***********************************************/
+/*! exports provided: MinimaApiService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MinimaApiService", function() { return MinimaApiService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/fesm5/ionic-angular.js");
+/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! minima */ "./node_modules/minima/dist/minima.js");
+/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(minima__WEBPACK_IMPORTED_MODULE_3__);
+
+
+
+
+var MinimaApiService = /** @class */ (function () {
+    function MinimaApiService(loadingController) {
+        this.loadingController = loadingController;
+        this.loader = null;
+    }
+    MinimaApiService.prototype.showLoader = function () {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var _a;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        if (!(this.loader == null)) return [3 /*break*/, 2];
+                        _a = this;
+                        return [4 /*yield*/, this.loadingController.create({
+                                message: 'Loading'
+                            })];
+                    case 1:
+                        _a.loader = _b.sent();
+                        this.loader.present();
+                        _b.label = 2;
+                    case 2: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    MinimaApiService.prototype.hideLoader = function () {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        if (!(this.loader !== null)) return [3 /*break*/, 2];
+                        return [4 /*yield*/, this.loader.dismiss()];
+                    case 1:
+                        _a.sent();
+                        this.loader = null;
+                        return [3 /*break*/, 2];
+                    case 2: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    MinimaApiService.prototype.createToken = function (data) {
+        return this.req("tokencreate name:\"" + data.name + "\" amount:" + data.amount + " description:\"" + data.description + "\" script:\"" + data.script + "\" icon:" + data.icon + " proof:" + data.proof);
+    };
+    MinimaApiService.prototype.validateTokenID = function (tokenid) {
+        return this.req("tokenvalidate " + tokenid);
+    };
+    MinimaApiService.prototype.sendMessageTransaction = function (data) {
+        var txnidentifier = Math.floor(Math.random() * 1000000000);
+        var port254 = 254;
+        var port255 = 255;
+        var customTXN = 
+        // Custom TXN with an ID
+        "txncreate " + txnidentifier + ";" +
+            // Add state variable 1
+            "txnstate " + txnidentifier + " 254 01000100" + ";" +
+            // Add User state variable 2
+            "txnstate " + txnidentifier + " 255 \"" + data.message + "\"" + ";" +
+            // Auto fill the transaction
+            "txnauto " + txnidentifier + " " + data.amount + " " + data.address + " " + data.tokenid + ";" +
+            // Post it!
+            "txnpost " + txnidentifier + ";" +
+            // Clear the txn
+            "txndelete " + txnidentifier + ";";
+        return this.req(customTXN);
+    };
+    MinimaApiService.prototype.webLink = function (data) {
+        return this.req('weblink+' + data.url);
+    };
+    MinimaApiService.prototype.setHost = function (newHost) {
+        localStorage.setItem('minima_host', newHost);
+    };
+    MinimaApiService.prototype.newAddress = function () {
+        return this.req('newaddress');
+    };
+    MinimaApiService.prototype.sendFunds = function (data) {
+        return this.req('send ' + data.amount + ' ' + data.address + ' ' + data.tokenid);
+    };
+    MinimaApiService.prototype.giveMe50 = function () {
+        return this.req('gimme50');
+    };
+    MinimaApiService.prototype.getBalance = function () {
+        return this.req('balance');
+    };
+    MinimaApiService.prototype.getHistory = function () {
+        return this.req('history');
+    };
+    MinimaApiService.prototype.clearMyHistory = function () {
+        return this.req('history clear');
+    };
+    MinimaApiService.prototype.getStatus = function () {
+        return this.req('status');
+    };
+    // Use minima.js instead..
+    MinimaApiService.prototype.req = function (fnc) {
+        var promise = new Promise(function (resolve) {
+            minima__WEBPACK_IMPORTED_MODULE_3__["Minima"].cmd(fnc, function (resp) {
+                //console.log(resp);
+                resolve(resp);
+            });
+        });
+        return promise;
+    };
+    MinimaApiService.ctorParameters = function () { return [
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["LoadingController"] }
+    ]; };
+    MinimaApiService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["LoadingController"]])
+    ], MinimaApiService);
+    return MinimaApiService;
 }());
 
 
