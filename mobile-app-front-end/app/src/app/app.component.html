@@ -15,14 +15,14 @@
       <ion-list main>
         <ion-menu-toggle auto-hide="false" *ngFor="let p of basic; let i = index">
             <ion-item 
-            class="ripple-parent ion-activatable my-menu-item {{p.class}}"
+            class="ion-activatable my-menu-item"
             detail="false"
             routerLinkActive="selected"
             routerDirection="root"
             [hidden] = "p.hidden" 
             [routerLink]="p.routerLink"
             lines="{{ p.line }}">
-            <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+
             
             <ion-icon src="{{p.icon}}"></ion-icon>
             

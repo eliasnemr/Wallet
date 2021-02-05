@@ -30,7 +30,7 @@ export class ContactsModalPage implements OnInit {
     this.contactForm = this.formBuilder.group({
       NAME: ['', [
           Validators.maxLength(255),
-          Validators.pattern('[a-zA-Z0-9.\-\_]*$'),
+          Validators.pattern('[a-zA-Z0-9 .\-\_\']*$'),
         ]
         ],
       ADDRESS: ['', [

@@ -31,7 +31,7 @@
         <ion-item class="error" lines="none" *ngIf="name.invalid && name.touched">
           <ion-note class="error-message">
             <ion-icon name="alert-circle"></ion-icon> <span> Invalid name format!</span>
-            <span>&mdash; A name must be alphanumeric and can only contain a dot or underscore.</span> 
+            <span style="margin-left: 2px"> A name must be alphanumeric and can only contain a dot or underscore.</span> 
           </ion-note>
         </ion-item>
         <ion-item class="no-ripple" lines="none">
@@ -40,8 +40,8 @@
         </ion-item>
         <ion-item class="error" lines="none" *ngIf="address.invalid && address.touched">
           <ion-note class="error-message">
-            <ion-icon name="alert-circle"></ion-icon> <span> A wallet address is required.</span>
-            <span style="display: block;">&mdash; An address must begin with 0x or Mx.</span> 
+            <ion-icon name="alert-circle"></ion-icon> <span style="margin-left: 2px"> A wallet address is required.</span>
+            <span style="margin-left: 2px"> An address must begin with 0x or Mx.</span> 
           </ion-note>
         </ion-item>
         

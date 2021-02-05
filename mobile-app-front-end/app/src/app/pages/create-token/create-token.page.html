@@ -20,39 +20,39 @@
   <ion-list lines="none">
 
     <ion-item class="no-ripple" lines="none">
-      <ion-label position="stacked" class="medium-text">Name</ion-label>
+      <ion-label position="stacked">Name</ion-label>
       <ion-input placeholder="Enter a token name" class="medium-text input" #nameTextArea name="name" formControlName="name"></ion-input>
     </ion-item>
     <ion-item class="error" lines="none" *ngIf="name.invalid && name.touched">
       <ion-note class="error-message">
-        <ion-icon name="alert-circle"></ion-icon> <span> A name is required!</span> <br>
-        <span>&mdash; A name must be a maximum length of 255 characters.</span> 
+        <ion-icon name="alert-circle"></ion-icon> <span> A name is required!</span>
+        <span style="margin-left: 2px"> A name must be a maximum length of 255 characters.</span> 
       </ion-note>
     </ion-item>
 
     <ion-item class="no-ripple" lines="none">
-      <ion-label position="stacked" class="medium-text">Amount</ion-label>
+      <ion-label position="stacked">Amount</ion-label>
       <ion-input placeholder="Enter token amount" type="number" class="medium-text input" #amountRef name="amount" formControlName="amount"></ion-input>
     </ion-item>
     <ion-item class="error" lines="none" *ngIf="amount.invalid && amount.touched">
       <ion-note class="error-message">
-        <ion-icon name="alert-circle"></ion-icon> <span> An amount is required!</span> <br>
-        <span>&mdash; An amount must be numeric and greater than 0.</span> 
+        <ion-icon name="alert-circle"></ion-icon> <span> An amount is required!</span>
+        <span style="margin-left: 2px"> An amount must be numeric and greater than 0.</span> 
       </ion-note>
     </ion-item>
 
     <ion-item class="no-ripple" lines="none" lines="none">
-      <ion-label position="stacked" class="medium-text">Icon <span style="font-family: manrope-light; color:var(--ion-color-primary)">(optional)</span></ion-label>
+      <ion-label position="stacked">Icon <span style="font-family: manrope-light; color:var(--ion-color-optional)">(optional)</span></ion-label>
       <ion-input class="medium-text input" name="icon" #iconURL formControlName="icon" placeholder="Enter a valid icon URL"></ion-input>
     </ion-item>
 
     <ion-item class="no-ripple" lines="none" lines="none">
-      <ion-label position="stacked" class="medium-text">Proof <span style="font-family: manrope-light; color:var(--ion-color-primary)">(optional)</span></ion-label>
+      <ion-label position="stacked">Proof <span style="font-family: manrope-light; color:var(--ion-color-optional)">(optional)</span></ion-label>
       <ion-input  name="proof" class="medium-text input" #proofURL formControlName="proof" placeholder="Enter URL of website hosting token ID text"></ion-input>
     </ion-item>
 
     <ion-item class="no-ripple" lines="none" lines="none">
-      <ion-label position="stacked"  class="medium-text">Description <span style="font-family: manrope-light; color:var(--ion-color-primary)">(optional)</span></ion-label>
+      <ion-label position="stacked">Description <span style="font-family: manrope-light; color:var(--ion-color-optional)">(optional)</span></ion-label>
       <ion-textarea
       #description 
       class="medium-text input"
@@ -64,16 +64,20 @@
       </ion-textarea>
     </ion-item>
     <ion-label class="length" *ngIf="customToken.description && customToken.description.length > 0">{{ customToken.description.length+'/255'}}</ion-label>
+    
     <ion-item id="nft" class="no-ripple">
-     
-      <ion-icon class="nftIcon" src="assets/nft2.svg"></ion-icon> 
-
-      <span style="font-family: manrope-light; color:var(--ion-color-primary); margin-right: 7px">(optional) </span>
-      <ion-label class="nft">
-        Spend this token in whole only.
+      <ion-label>
+        <ion-icon class="nftIcon" src="assets/nft2.svg"></ion-icon> 
+        <span style="font-size:16px;font-family: manrope-light; color:var(--ion-color-optional); margin-right: 7px">(optional) </span>        
       </ion-label>
       <ion-checkbox formControlName="nft" slot="end"></ion-checkbox>
     </ion-item>
+    <ion-item>
+      <ion-label class="nft ion-no-padding ion-no-margin">
+        Spend this token in whole only.
+      </ion-label>
+    </ion-item>
+    
   </ion-list>
   
   <ion-row>

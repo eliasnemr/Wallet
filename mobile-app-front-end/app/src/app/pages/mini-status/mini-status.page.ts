@@ -1,7 +1,7 @@
 import { MinimaApiService } from './../../service/minima-api.service';
 import { AlertController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, retry, catchError, tap } from 'rxjs/operators';
 import { StatusService } from './../../service/status.service';
 import { Component, OnInit } from '@angular/core';
 import { NetworkStatus } from 'minima';
@@ -55,21 +55,20 @@ export class MiniStatusPage implements OnInit {
   }
 
   updateStatus() {
-    this.statusSubscription = this.service.updatedStatus
+    this.service.updatedStatus
     .pipe(map((responseData: NetworkStatus) => {
+      //console.log(responseData);
+      responseData.uptime = responseData.uptime.replace(/\b0 Years\b|\b0 Months\b|\b0 Weeks\b|\b0 Days\b|\b0 Hours\b|\b0 Minutes\b|\b0 Seconds\b|\b0 Milliseconds\b/gi, " ");
 
-      responseData.uptime = responseData.uptime.replace(/0 Years|0 Months|0 Weeks|0 Days|0 Hours|0 Minutes|0 Seconds|0 Milliseconds/gi, " ");
-
-      responseData.uptime = responseData.uptime.replace(/1 Minutes/gi, "1 Minute");
-      responseData.uptime = responseData.uptime.replace(/1 Seconds/gi, "1 Second");
-      responseData.uptime = responseData.uptime.replace(/1 Years/gi, "1 Year");
-      responseData.uptime = responseData.uptime.replace(/1 Milliseconds/gi, "1 Millisecond");
-      responseData.uptime = responseData.uptime.replace(/1 Hours/gi, "1 Hour");
+      // responseData.uptime = responseData.uptime.replace(/1 Minutes/gi, "1 Minute");
+      // responseData.uptime = responseData.uptime.replace(/1 Seconds/gi, "1 Second");
+      // responseData.uptime = responseData.uptime.replace(/1 Years/gi, "1 Year");
+      // responseData.uptime = responseData.uptime.replace(/1 Milliseconds/gi, "1 Millisecond");
+      // responseData.uptime = responseData.uptime.replace(/1 Hours/gi, "1 Hour");
 
       return responseData;
-    })
-    )
-    .subscribe( ( res: any) => {
+    })).subscribe(( res: any) => {
+      //console.log(res);
       if ( this.lastJSON !== JSON.stringify(res) ) {
         this.status = res;
         this.lastJSON = JSON.stringify(res);

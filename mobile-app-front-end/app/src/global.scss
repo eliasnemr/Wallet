@@ -135,7 +135,10 @@ body.dark {
   --ion-color-background-contrast-rgb: 255,255,255;
   --ion-color-background-shade: #042239;
   --ion-color-background-tint: #1e3d54;
-
+  /** Form Inputs */
+  --ion-color-inputs: #F0F0FA;
+  /** Form Optional Text */
+  --ion-color-optional:#91919D;
 
   --ion-color-line: var(--ion-color-ruler);
 

@@ -142,6 +142,8 @@
     --ion-color-background-contrast-rgb: 0,0,0;
     --ion-color-background-shade: #d3d3dc;
     --ion-color-background-tint: #f2f2fb; 
+      /** Form Inputs */
+    --ion-color-inputs: #FFFFFF;
 
 
     /** custom Minima css vars **/
@@ -188,7 +190,7 @@ ion-toolbar {
   ion-title {
     font-size: 18px;
     ion-item:first-child {
-      --border-color: var(--ion-color-color);
+      --border-color: var(--ion-color-ruler);
       --border-width: 0px 0px 1px 0px;
       margin-top: 14px;
       margin-left: 4px;
@@ -263,7 +265,7 @@ ion-content {
 // app fonts 
 @font-face {
   font-family: 'manrope-bold';
-  src: url('..//fonts/manrope-bold.otf');
+  src: url('../fonts/manrope-bold.otf');
 }
 @font-face {
   font-family: 'manrope-light';

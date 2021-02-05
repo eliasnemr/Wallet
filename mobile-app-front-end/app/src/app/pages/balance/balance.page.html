@@ -3,7 +3,7 @@
   <ion-toolbar>
     <ion-title>
       <ion-item lines="none" class="ion-no-padding">
-        <ion-menu-button></ion-menu-button>
+        <ion-menu-button class="ion-no-padding"></ion-menu-button>
         Balance
       </ion-item>
       <ion-item class="breadcrumb ion-no-padding" lines="none" *ngIf="tokenArr.length > 0">
@@ -13,8 +13,6 @@
   </ion-toolbar>
 
 </ion-header>
-
-
 
   <ion-content>
     <ion-grid *ngIf="tokenArr.length == 0">

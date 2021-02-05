@@ -29,7 +29,7 @@
   </ion-grid>
 
 
-  <ion-grid *ngIf="qrCode.length > 0">
+  <ion-grid class="ion-no-padding" *ngIf="qrCode.length > 0">
     <!-- <ion-row>
       <ion-col size="6">
         <div class="qr-box">
@@ -44,7 +44,7 @@
         </p>
       </ion-col>
     </ion-row>
-    <ion-row>
+    <ion-row style="margin-top: 7px">
       <ion-col size="12">
         <ion-button (click)="copyToClipboard()" class="copy-btn" fill="clear">
           Copy Address

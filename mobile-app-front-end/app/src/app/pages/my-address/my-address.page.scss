@@ -36,6 +36,7 @@ ion-button.copy-btn {
   height: 35px;
   width: 164px;
   margin-right: 7px;
+  margin-left: 0;
 }
 ion-button.copy-btn:hover {
   --background: #346EE5;
@@ -48,6 +49,8 @@ ion-button.gen-btn {
   color: var(--ion-color-color);
   border: 1px solid var(--ion-color-color);
   box-shadow: none;
+  margin-right: 10px;
+  margin-left: 0;
 }
 ion-button.gen-btn:hover {
   --background: var(--ion-color-color);
@@ -68,7 +71,8 @@ ion-grid ion-row {
     display: flex;
     align-items: left;
     justify-content: left;
-    margin-left: 16px;
+    margin-left: 25px;
+    margin-right: 7px;
 }
 ion-grid ion-row:first-child {
   margin-top: 5px;
@@ -89,6 +93,8 @@ p.qrcode-box {
 .notes {
   color: var(--ion-color-secondary);
   margin: 7px;
+  margin-left: 0;
+  font-size:14px;
 }
 ion-badge#tip {
   white-space: normal;

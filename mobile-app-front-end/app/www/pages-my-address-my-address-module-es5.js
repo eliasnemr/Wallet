@@ -997,7 +997,7 @@ var MyAddressPage = /** @class */ (function () {
                 }
             }
             else {
-                console.log('Already have this file');
+                //console.log('Already have this file')
                 _this.newAddress();
             }
         });

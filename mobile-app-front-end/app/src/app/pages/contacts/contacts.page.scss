@@ -16,13 +16,8 @@ ion-list.tools {
   margin-left: 2px;
   margin-right: 9px;
 }
-ion-list.contacts {
-  margin-left: 10px;
-  margin-right: 28px;
-}
-ion-list.contacts ion-item {
-  margin-left: 15px;
-  margin-right: 5px;
+ion-list ion-item.contactItem ion-avatar {
+  margin-left:  9px;
 }
 
 ion-searchbar {

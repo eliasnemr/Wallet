@@ -10,16 +10,22 @@ ion-card-content ion-text {
     margin-top: 10px;
 }
 ion-list ion-item:first-child {
-    margin-top: 7px;
+    margin-top: 12px;
+}
+ion-list ion-item ion-avatar {
+    padding-left: 25px;
+    margin-right: 35px;
+}
+ion-list ion-item .transactionAmount {
+    padding-right: 15px;
 }
 ion-list ion-item {
+    --border-width: 0px 0px 0px 0px;
     opacity: 1;
     --background-activated: var(--ion-color-token)!important;
     --background-activated-opacity: 0.2 !important;
     --background-hover: var(--ion-color-item-hover);
     --background-hover-opacity: 1;
-    margin-left: 25px;
-    margin-right: 30px;
     --border-color: var(--ion-color-item-border);
 }
 ion-label {

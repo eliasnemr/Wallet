@@ -141,7 +141,7 @@ export class HistoryPage implements OnInit {
   }
 
   pullInHistorySummary() {
-    this.historyService.data.pipe(map((res: History) => {
+    this.historyService.data.pipe(map((res: any) => {
       res.history.forEach((txpow: CompleteTransactionTime) => {
         const name = txpow.values[0].name;
         txpow.values[0].time = moment( txpow.txpow.header.timesecs * 1000).format('hh:mm A');

@@ -41,7 +41,7 @@
 
 
   <form *ngIf="!isWebCameraOpen && tokenArr.length > 0" [formGroup]="sendForm" id="sendForm" (ngSubmit)="sendFunds()">
-    <ion-list>
+    <ion-list class="ion-no-padding">
       <ion-item class="no-hover no-ripple" lines="none" style="margin-left: 25px; margin-right: 14px; --padding-start: 0; --padding-end: 0">
         <ion-label position="floating">Token</ion-label>
         <ion-select
@@ -63,8 +63,8 @@
       </ion-item>
       <ion-item class="no-hover no-ripple"  class="error" lines="none" *ngIf="addressFormItem.invalid && addressFormItem.touched">
         <ion-note class="error-message">
-          <ion-icon name="alert-circle"></ion-icon> <span> Invalid address format!</span> <br>
-          <span>&mdash; An address must begin with 0x or Mx.</span> 
+          <ion-icon name="alert-circle"></ion-icon> <span> Invalid address format!</span> 
+          <span style="margin-left: 2px"> An address must begin with 0x or Mx.</span> 
         </ion-note>
       </ion-item>
       <ion-item class="no-hover no-ripple"  lines="none">
@@ -73,13 +73,13 @@
       </ion-item>
       <ion-item class="error" lines="none" *ngIf="amountFormItem.invalid && amountFormItem.touched">
         <ion-note class="error-message">
-          <ion-icon name="alert-circle"></ion-icon> <span> Amount required!</span> <br>
-          <span>&mdash; Amount has to be numeric and greater than 0.</span> 
+          <ion-icon name="alert-circle"></ion-icon> <span> Amount required!</span>
+          <span style="margin-left: 2px"> Amount has to be numeric and greater than 0.</span> 
         </ion-note>
       </ion-item>
 
       <ion-item class="no-hover no-ripple"  lines="none">
-        <ion-label position="stacked" style="margin-bottom: 1%;">Message <span style="font-family: manrope-light; color:var(--ion-color-primary); margin-right: 7px">(optional) </span></ion-label>
+        <ion-label position="stacked" style="margin-bottom: 1%;">Message <span style="font-family: manrope-light; color:var(--ion-color-optional); margin-right: 7px">(optional) </span></ion-label>
         <ion-textarea 
             [(ngModel)]="data.message"
             formControlName="message"

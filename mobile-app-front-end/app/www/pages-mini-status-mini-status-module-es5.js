@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-app>\n<ion-header class=\"ion-no-border\">\n  <ion-toolbar>\n    <ion-title class=\"large-text\">\n      <ion-item lines=\"none\" class=\"ion-no-padding\">\n        <ion-menu-button></ion-menu-button>\n        Status\n      </ion-item>\n      <ion-item class=\"breadcrumb ion-no-padding\" lines=\"none\">\n        Current status \n        <ion-icon *ngIf=\"!status?.version\" src=\"assets/statusCross.svg\"></ion-icon>\n        <ion-icon *ngIf=\"status?.version\" src=\"assets/statusTick.svg\"></ion-icon>\n        <span *ngIf=\"status?.version\">v{{ status?.version}}</span>\n      \n      </ion-item>\n      </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n\n\n<ion-content>\n\n  <ion-list>\n    <ion-item class=\"ion-no-padding\">\n      <ion-label>\n        <h6 class=\"title\">Uptime</h6>\n        <p class=\"value\">{{ status?.uptime }}</p>\n      </ion-label>\n    </ion-item>\n\n    <ion-item class=\"ion-no-padding\">\n      <ion-label>\n        <h6 class=\"title\">Last block</h6>\n        <p class=\"value\">{{ status?.lastblock }}</p>\n      </ion-label>\n    </ion-item>\n\n    <ion-item class=\"ion-no-padding\">\n      <ion-label>\n        <h6 class=\"title\">Host IP</h6>\n        <p class=\"value\">{{ status?.host }}</p>\n      </ion-label>\n    </ion-item>\n\n    <ion-item class=\"ion-no-padding\">\n      <ion-label>\n        <h6 class=\"title\">MiniDAPP server port</h6>\n        <p class=\"value\">{{ status?.minidappserver }}</p>\n      </ion-label>\n    </ion-item>\n\n    <ion-item class=\"ion-no-padding\">\n      <ion-label>\n        <h6 class=\"title\">RAM usage</h6>\n        <p class=\"value\">{{ status?.ram }}</p>\n      </ion-label>\n    </ion-item>\n\n    <ion-item class=\"ion-no-padding\">\n      <ion-label>\n        <h6 class=\"title\">IBD</h6>\n        <p class=\"value\">{{ status?.IBD }}</p>\n      </ion-label>\n    </ion-item>\n\n    <ion-item class=\"ion-no-padding\">\n      <ion-label>\n        <h6 class=\"title\">Tip</h6>\n        <p class=\"value\">{{ status?.tip }}</p>\n      </ion-label>\n    </ion-item>\n  </ion-list>\n\n</ion-content>\n<ion-footer class=\"border-t\">\n  <ion-button (click)=\"giveMe50()\" class=\"gimme50 no-ripple\" fill=\"none\">\n    Gimme 50\n  </ion-button>\n</ion-footer>\n</ion-app>"
+module.exports = "<ion-app>\n<ion-header class=\"ion-no-border\">\n  <ion-toolbar>\n    <ion-title class=\"large-text\">\n      <ion-item lines=\"none\" class=\"ion-no-padding\">\n        <ion-menu-button></ion-menu-button>\n        Status\n      </ion-item>\n      <ion-item class=\"breadcrumb ion-no-padding\" lines=\"none\">\n        Current status \n        <ion-icon *ngIf=\"!status?.version\" src=\"assets/statusCross.svg\"></ion-icon>\n        <ion-icon *ngIf=\"status?.version\" src=\"assets/statusTick.svg\"></ion-icon>\n        <span *ngIf=\"status?.version\">v{{ status?.version}}</span>\n      \n      </ion-item>\n      </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <ion-list>\n    <ion-item class=\"ion-no-padding\">\n      <ion-label>\n        <h6 class=\"title\">Uptime</h6>\n        <p class=\"value\">{{ status?.uptime }}</p>\n      </ion-label>\n    </ion-item>\n\n    <ion-item class=\"ion-no-padding\">\n      <ion-label>\n        <h6 class=\"title\">Last block</h6>\n        <p class=\"value\">{{ status?.lastblock }}</p>\n      </ion-label>\n    </ion-item>\n\n    <ion-item class=\"ion-no-padding\">\n      <ion-label>\n        <h6 class=\"title\">Host IP</h6>\n        <p class=\"value\">{{ status?.host }}</p>\n      </ion-label>\n    </ion-item>\n\n    <ion-item class=\"ion-no-padding\">\n      <ion-label>\n        <h6 class=\"title\">MiniDAPP server port</h6>\n        <p class=\"value\">{{ status?.minidappserver }}</p>\n      </ion-label>\n    </ion-item>\n\n    <ion-item class=\"ion-no-padding\">\n      <ion-label>\n        <h6 class=\"title\">RAM usage</h6>\n        <p class=\"value\">{{ status?.ram }}</p>\n      </ion-label>\n    </ion-item>\n\n    <ion-item class=\"ion-no-padding\">\n      <ion-label>\n        <h6 class=\"title\">IBD</h6>\n        <p class=\"value\">{{ status?.IBD }}</p>\n      </ion-label>\n    </ion-item>\n\n    <ion-item class=\"ion-no-padding\">\n      <ion-label>\n        <h6 class=\"title\">Tip</h6>\n        <p class=\"value\">{{ status?.tip }}</p>\n      </ion-label>\n    </ion-item>\n  </ion-list>\n\n</ion-content>\n<ion-footer class=\"border-t\">\n  <ion-button (click)=\"giveMe50()\" class=\"gimme50 no-ripple\" fill=\"none\">\n    Gimme 50\n  </ion-button>\n</ion-footer>\n</ion-app>"
 
 /***/ }),
 
@@ -145,17 +145,18 @@ var MiniStatusPage = /** @class */ (function () {
     };
     MiniStatusPage.prototype.updateStatus = function () {
         var _this = this;
-        this.statusSubscription = this.service.updatedStatus
+        this.service.updatedStatus
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (responseData) {
-            responseData.uptime = responseData.uptime.replace(/0 Years|0 Months|0 Weeks|0 Days|0 Hours|0 Minutes|0 Seconds|0 Milliseconds/gi, " ");
-            responseData.uptime = responseData.uptime.replace(/1 Minutes/gi, "1 Minute");
-            responseData.uptime = responseData.uptime.replace(/1 Seconds/gi, "1 Second");
-            responseData.uptime = responseData.uptime.replace(/1 Years/gi, "1 Year");
-            responseData.uptime = responseData.uptime.replace(/1 Milliseconds/gi, "1 Millisecond");
-            responseData.uptime = responseData.uptime.replace(/1 Hours/gi, "1 Hour");
+            //console.log(responseData);
+            responseData.uptime = responseData.uptime.replace(/\b0 Years\b|\b0 Months\b|\b0 Weeks\b|\b0 Days\b|\b0 Hours\b|\b0 Minutes\b|\b0 Seconds\b|\b0 Milliseconds\b/gi, " ");
+            // responseData.uptime = responseData.uptime.replace(/1 Minutes/gi, "1 Minute");
+            // responseData.uptime = responseData.uptime.replace(/1 Seconds/gi, "1 Second");
+            // responseData.uptime = responseData.uptime.replace(/1 Years/gi, "1 Year");
+            // responseData.uptime = responseData.uptime.replace(/1 Milliseconds/gi, "1 Millisecond");
+            // responseData.uptime = responseData.uptime.replace(/1 Hours/gi, "1 Hour");
             return responseData;
-        }))
-            .subscribe(function (res) {
+        })).subscribe(function (res) {
+            //console.log(res);
             if (_this.lastJSON !== JSON.stringify(res)) {
                 _this.status = res;
                 _this.lastJSON = JSON.stringify(res);

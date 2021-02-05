@@ -61,7 +61,7 @@ export class ContactService {
     } else {
       this.qContacts = "INSERT INTO contacts VALUES(" +
       "'" + newContact.ADDRESS + "'," +
-      "'" + newContact.NAME + "'," +
+      "'" + newContact.NAME.replace("'", "''") + "'," +
       "'" + newContact.DESCRIPTION + "'," +
       "'" + newContact.AVATAR + "')";
     }

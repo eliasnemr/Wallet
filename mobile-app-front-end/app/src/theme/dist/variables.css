@@ -245,7 +245,7 @@ ion-content::-webkit-scrollbar {
 }
 @font-face {
   font-family: "manrope-bold";
-  src: url("..//fonts/manrope-bold.otf");
+  src: url("../fonts/manrope-bold.otf");
 }
 @font-face {
   font-family: "manrope-light";

@@ -1150,10 +1150,13 @@ __webpack_require__.r(__webpack_exports__);
 
 let StatusService = class StatusService {
     constructor() {
+        this.updatedStatus = new rxjs__WEBPACK_IMPORTED_MODULE_3__["ReplaySubject"](1);
+        //console.log('StatusService started.');
         minima__WEBPACK_IMPORTED_MODULE_1__["Minima"].cmd('status full', (res) => {
             if (res.status) {
+                //console.log(res);
                 const first = res.response;
-                this.updatedStatus = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"](first);
+                this.updatedStatus.next(first);
             }
         });
     }

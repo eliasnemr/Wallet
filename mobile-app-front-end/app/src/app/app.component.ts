@@ -56,7 +56,7 @@ export class AppComponent {
             });
           });
           // update history observable+historyPage
-          Minima.cmd('history', (res: {status: boolean; minifunc: string; message: string; response: History}) => {
+          Minima.cmd('history', (res: {status: boolean; minifunc: string; message: string; response: any}) => {
             const temp = JSON.stringify(res);
             if (res.response.history.length > 0 && temp !== this.lastHistory) {
               this.lastHistory = JSON.stringify(res.response);

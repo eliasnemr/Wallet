@@ -25,7 +25,7 @@ ion-select {
   outline: none !important;
   border: 1px solid #f0f0fa;
   font-family: manrope-regular;
-  background-color: #ffffff;
+  background-color: var(--ion-color-inputs);
   outline: 1px solid #91919D;
   font-size: 12px;
   padding-left: 2%!important;
@@ -33,8 +33,8 @@ ion-select {
   color: #808080;
 }
 ion-select:hover {
-  background: #fff !important;
-  background-color: #fff !important;
+  background: var(--ion-color-inputs) !important;
+  background-color: var(--ion-color-inputs) !important;
   --background-hover: none !important;
 }
 ion-select::part(icon) {
@@ -48,7 +48,7 @@ ion-select-option {
 ion-input {
   font-size: 12px;
   color: #000;
-  background-color: #fff;
+  background-color: var(--ion-color-inputs);
   border: 1px solid #f0f0fa;
   padding-left: 2% !important;
 }
@@ -84,7 +84,7 @@ ion-toolbar {
 }
 ion-textarea {
   color: black!important;
-  background: #ffffff;
+  background: var(--ion-color-inputs);
   border: 1px solid #f0f0fa;
   padding-left: 2%!important;
   font-size: 12px;

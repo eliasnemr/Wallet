@@ -1206,10 +1206,13 @@ __webpack_require__.r(__webpack_exports__);
 var StatusService = /** @class */ (function () {
     function StatusService() {
         var _this = this;
+        this.updatedStatus = new rxjs__WEBPACK_IMPORTED_MODULE_3__["ReplaySubject"](1);
+        //console.log('StatusService started.');
         minima__WEBPACK_IMPORTED_MODULE_1__["Minima"].cmd('status full', function (res) {
             if (res.status) {
+                //console.log(res);
                 var first = res.response;
-                _this.updatedStatus = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"](first);
+                _this.updatedStatus.next(first);
             }
         });
     }

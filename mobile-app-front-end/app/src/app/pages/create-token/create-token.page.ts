@@ -111,7 +111,7 @@ export class CreateTokenPage implements OnInit {
   
   createTokenAdvanced() {
     this.loading = true;
-    console.log(this.tokenCreationForm.value);
+    //console.log(this.tokenCreationForm.value);
     const newToken: CustomToken = this.tokenCreationForm.value;
 
     if (newToken.nft) {

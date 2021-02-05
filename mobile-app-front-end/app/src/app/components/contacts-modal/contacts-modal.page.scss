@@ -18,7 +18,7 @@ ion-input {
   font-size: 12px;
   padding-left: 2% !important;
   color: #000;
-  background-color: #ffffff;
+  background-color: var(--ion-color-inputs);
   border: 1px solid #f0f0fa;
 }
 ion-item ion-label {
@@ -26,6 +26,7 @@ ion-item ion-label {
   word-break: normal;
   font-size: 20px;
   font-family: manrope-bold;
+  color: var(--ion-color-color);
   margin-bottom: 7px;
 }
 button.footer {

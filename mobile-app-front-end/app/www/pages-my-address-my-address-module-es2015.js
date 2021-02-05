@@ -993,7 +993,7 @@ let MyAddressPage = class MyAddressPage {
                 }
             }
             else {
-                console.log('Already have this file');
+                //console.log('Already have this file')
                 this.newAddress();
             }
         });
