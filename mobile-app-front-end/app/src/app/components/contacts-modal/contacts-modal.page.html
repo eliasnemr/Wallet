@@ -25,7 +25,7 @@
       <form [formGroup]="contactForm" id="contactForm" (ngSubmit)="addContact()">
       <ion-list>
         <ion-item class="no-ripple" lines="none">
-          <ion-label position="stacked">Name</ion-label>
+          <ion-label position="stacked">Name <span style="font-family: manrope-light; color:var(--ion-color-optional)">(optional)</span></ion-label>
           <ion-input name="name" placeholder="anonymous" formControlName="NAME"></ion-input>
         </ion-item>
         <ion-item class="error" lines="none" *ngIf="name.invalid && name.touched">
@@ -35,7 +35,7 @@
           </ion-note>
         </ion-item>
         <ion-item class="no-ripple" lines="none">
-          <ion-label position="stacked">Address *</ion-label>
+          <ion-label position="stacked">Address</ion-label>
           <ion-input (ionChange)="changeIcon($event)" name="address" placeholder="Enter a valid wallet address" formControlName="ADDRESS"></ion-input>
         </ion-item>
         <ion-item class="error" lines="none" *ngIf="address.invalid && address.touched">
@@ -46,11 +46,11 @@
         </ion-item>
         
         <ion-item class="no-ripple" lines="none">
-          <ion-label position="stacked">Description</ion-label>
+          <ion-label position="stacked">Description <span style="font-family: manrope-light; color:var(--ion-color-optional)">(optional)</span></ion-label>
           <ion-input name="description" placeholder="Enter a description" formControlName="DESCRIPTION"></ion-input>
         </ion-item>
         <ion-item class="no-ripple" lines="none">
-          <ion-label position="stacked">Avatar</ion-label>
+          <ion-label position="stacked">Avatar <span style="font-family: manrope-light; color:var(--ion-color-optional)">(optional)</span></ion-label>
           <ion-input name="avatar" placeholder="Enter a custom avatar URL" formControlName="AVATAR"></ion-input>
         </ion-item>
         <ion-item class="error" lines="none" *ngIf="avatar.invalid && avatar.touched">
