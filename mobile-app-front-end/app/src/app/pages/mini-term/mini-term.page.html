@@ -2,11 +2,11 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
     <ion-title>
-      <ion-item lines="none" class="ion-no-padding">
-        <ion-menu-button></ion-menu-button>
+      <ion-item id="title" lines="none" class="ion-no-padding">
+        <ion-icon class="menu-btn" (click)="openMenu()" name="menu"></ion-icon>
         Terminal
       </ion-item>
-      <ion-item class="breadcrumb ion-no-padding" lines="none">
+      <ion-item id="subtitle" class="breadcrumb ion-no-padding" lines="none">
         Minima terminal
       </ion-item>
     </ion-title>
@@ -22,15 +22,18 @@
 
 
 <ion-content #ionContent>
-  <!-- Terminal -->
-  <textarea
-  #terminal
-  background="transparent"
-  class="terminal"
-  [ngStyle] = "{'font-size': getFontSize()}" 
-  autocapitalize="false"
-  spellcheck="false"
-  autocorrect="off"></textarea>
+  <div class="box">
+    <!-- Terminal -->
+    <textarea
+    #terminal
+    background="transparent"
+    class="terminal"
+    [ngStyle] = "{'font-size': getFontSize()}" 
+    autocapitalize="false"
+    spellcheck="false"
+    autocorrect="off"></textarea>
+  </div>
+  
 </ion-content>
 <ion-footer class="border-t">
   <ion-button (click)="giveMe50()" class="gimme50 no-ripple" fill="none">

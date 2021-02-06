@@ -1,7 +1,7 @@
 import { CustomToken } from './../../models/customToken.model';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MinimaApiService } from '../../service/minima-api.service';
-import { AlertController, ToastController, IonButton } from '@ionic/angular';
+import { AlertController, ToastController, IonButton, MenuController } from '@ionic/angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 interface AdvancedFormInputsCheck {
@@ -52,6 +52,7 @@ export class CreateTokenPage implements OnInit {
   };
 
   constructor(
+    public menu: MenuController,
     private api: MinimaApiService,
     private formBuilder: FormBuilder,
     public alertController: AlertController,
@@ -65,16 +66,20 @@ export class CreateTokenPage implements OnInit {
       amount: ['', [Validators.required, Validators.maxLength(255)]],
       description: '',
       script: '',
-      icon: '',
-      proof: '',
+      icon: ['', [Validators.pattern('^https?://(?:[a-z0-9\-]+\.)+[a-z]{2,6}(?:/[^/#?]+)+\.(?:jpg|gif|png)$'), Validators.maxLength(255)]],
+      proof: ['', [Validators.pattern('^https?://(?:[a-z0-9\-]+\.)+[a-z]{2,6}(?:/[^/#?]+)+\.(?:txt)$'), Validators.maxLength(255)]],
       nft: false
     });
+  }
+
+  openMenu() {
+    this.menu.open();
   }
 
   async presentToast(msg: string, type: string) {
     const toast = await this.toastController.create({
       message: msg,
-      duration: 4000,
+      duration: 1000,
       color: type,
       buttons: [{
         text: 'Close',

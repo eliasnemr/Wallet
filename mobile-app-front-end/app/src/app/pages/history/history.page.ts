@@ -1,8 +1,7 @@
 import { MinimaApiService } from './../../service/minima-api.service';
 import { RouterModule } from '@angular/router';
-import { ModalController, IonList, AlertController, ToastController, Config, PopoverController } from '@ionic/angular';
+import { ModalController, IonList, AlertController, ToastController, Config, PopoverController, MenuController } from '@ionic/angular';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { PopFilterComponent } from './../../components/pop-filter/pop-filter.component';
 import { HistoryService } from '../../service/history.service';
 import { UserHistorySavedData } from './../../providers/user-data';
 import { History, CompleteTransaction, Value } from 'minima';
@@ -40,6 +39,7 @@ export class HistoryPage implements OnInit {
   lastJSON = '';
 
   constructor(
+    public menu: MenuController,
     private api: MinimaApiService,
     private alertController: AlertController,
     private historyService: HistoryService,
@@ -54,6 +54,10 @@ export class HistoryPage implements OnInit {
   ngOnInit() {
     this.pullInHistorySummary();
     this.ios = this.config.get('mode') === 'ios';
+  }
+
+  openMenu() {
+    this.menu.open();
   }
 
   async saveItem(slidingItem: HTMLIonItemSlidingElement, txn: any) {
@@ -111,16 +115,6 @@ export class HistoryPage implements OnInit {
     });
     // now present the alert on top of all other content
     await alert.present();
-  }
-
-  async presentFilterSettings(ev: Event) {
-    const popover = await this.popoverController.create({
-      component: PopFilterComponent,
-      event: ev,
-      translucent: true,
-      animated: true
-    });
-    return await popover.present();
   }
 
   updateHistory() {

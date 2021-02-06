@@ -1,5 +1,5 @@
 import { MinimaApiService } from './../../service/minima-api.service';
-import { AlertController } from '@ionic/angular';
+import { AlertController, MenuController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { map, retry, catchError, tap } from 'rxjs/operators';
 import { StatusService } from './../../service/status.service';
@@ -18,7 +18,7 @@ export class MiniStatusPage implements OnInit {
 
   public lastJSON: string;
 
-  constructor(private service: StatusService, private alertController: AlertController, private api: MinimaApiService) {}
+  constructor(public menu: MenuController, private service: StatusService, private alertController: AlertController, private api: MinimaApiService) {}
 
   ngOnInit() { }
 
@@ -42,6 +42,10 @@ export class MiniStatusPage implements OnInit {
     });
 
     await alert.present();
+  }
+
+  openMenu() {
+    this.menu.open();
   }
 
   giveMe50() {

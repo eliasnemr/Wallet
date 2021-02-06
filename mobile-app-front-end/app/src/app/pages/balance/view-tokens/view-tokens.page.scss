@@ -1,26 +1,3 @@
-ion-toolbar {
-    ion-title {
-      font-size: 18px;
-      ion-item:first-child {
-        --border-color: var(--ion-color-color);
-        --border-width: 0px 0px 1px 0px;
-        margin-top: 12px;
-        margin-left: 4px;
-        margin-right: 10px;
-        font-size: 18px;
-        --min-height: 39px;
-        font-family: manrope-bold;
-        color: var(--ion-color-tertiary);
-      }
-      ion-item.breadcrumb:last-child {
-        --border-color: #91919D;
-        --border-width: 0px 0px 1px 0px;
-        --min-height: 39px;
-        font-family: manrope-medium;
-      }
-    }
-  }
-
 ion-title ion-item:hover {
     background: none;
     --background-hover: none;
@@ -77,5 +54,5 @@ ion-list ion-item ion-col {
 }
 .body {
     margin-right: 30px;
-    margin-left: 26px;
+    margin-left: 25px;
 }

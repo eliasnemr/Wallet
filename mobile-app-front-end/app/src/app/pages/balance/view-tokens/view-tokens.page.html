@@ -1,11 +1,11 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
     <ion-title>
-      <ion-item class="no-ripple ion-no-padding" lines="none">
-      <ion-back-button></ion-back-button>
+      <ion-item id="title" class="no-ripple ion-no-padding" lines="none">
+      <ion-icon routerLink="/balance" class="back-btn" name="arrow-back"></ion-icon>
       Balance
       </ion-item>
-      <ion-item class="breadcrumb ion-no-padding" lines="none" *ngIf="tokenArr.length > 0">
+      <ion-item id="subtitle" class="breadcrumb ion-no-padding" lines="none" *ngIf="tokenArr.length > 0">
         Token details
       </ion-item>
     </ion-title>

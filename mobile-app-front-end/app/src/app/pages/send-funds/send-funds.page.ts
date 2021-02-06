@@ -2,7 +2,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { BalanceService } from '../../service/balance.service';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Clipboard } from '@ionic-native/clipboard/ngx';
-import { AlertController, IonInput, IonButton } from '@ionic/angular';
+import { AlertController, IonInput, IonButton, MenuController } from '@ionic/angular';
 import { MinimaApiService } from '../../service/minima-api.service';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -45,6 +45,7 @@ export class SendFundsPage implements OnInit {
 
   private scanSub: any = null;
   constructor(
+    public menu: MenuController,
     private formBuilder: FormBuilder,
     private clipboard: Clipboard,
     public alertController: AlertController,
@@ -87,6 +88,10 @@ export class SendFundsPage implements OnInit {
   }
   get messageFormItem() {
     return this.sendForm.get('message');
+  }
+
+  openMenu() {
+    this.menu.open();
   }
 
   pullInTokens() {

@@ -1,11 +1,11 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
     <ion-title>
-    <ion-item lines="none" class="ion-no-padding">
-      <ion-menu-button></ion-menu-button>
+    <ion-item id="title" lines="none" class="ion-no-padding">
+      <ion-icon class="menu-btn" (click)="openMenu()" name="menu"></ion-icon>
       Contacts
     </ion-item>
-    <ion-item class="breadcrumb ion-no-padding" lines="none">
+    <ion-item id="subtitle" class="breadcrumb ion-no-padding" lines="none">
       All your contacts
     </ion-item>
     </ion-title>
@@ -17,7 +17,7 @@
 <ion-content>
   <ion-list class="tools">
     <ion-item lines="none">
-    <ion-searchbar (ionChange)="queryContacts($event.target.value)" placeholder="Search for your contact..."></ion-searchbar>
+    <ion-searchbar class="searchbarinput" (ionChange)="queryContacts($event.target.value)" placeholder="Search..."></ion-searchbar>
     <ion-icon (click)="presentAddContactForm()" id="addButton" slot="end" name="add"></ion-icon>
     <ion-icon [ngStyle]="{'color': !editMode ? 'var(--ion-color-tertiary)' : '#EE5C5C'}" (click)="toggleDeleteMode()" id="deleteButton" slot="end" name="trash-outline"></ion-icon>
     </ion-item>

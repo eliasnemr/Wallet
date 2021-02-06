@@ -96,28 +96,6 @@ p.qrcode-box {
   margin-left: 0;
   font-size:14px;
 }
-ion-badge#tip {
-  white-space: normal;
-  align-self: center;
-  justify-content: center;
-  width: 100%;
-  font-size: 0.8rem;
-  --background: var(--ion-color-primary);
-  width: 90%;
-  margin-left: 5%;
-  margin-right: 2%;
-}
-ion-badge#tip:hover {
-    transform: scale(1);
-}
-ion-badge#tip ion-icon#info {
-  font-size: 1.5rem;
-}
-ion-badge#tip ion-col span#dismiss {
-  font-size: 1.5rem;
-  cursor: pointer;
-  color: #a63f44;
-}
 .center {
   right: 2%;
   align-items: center !important;
@@ -141,4 +119,37 @@ div.qr-box:hover {
   outline-color: var(--ion-color-primary);
 }
 
+@media only screen and (max-width: 600px) {
+    ion-button.copy-btn {
+      width: 175px;
+    }
+    ion-button.gen-btn {
+      width: 175px;
+    }
+    .notes {
+      color: var(--ion-color-secondary);
+      margin: 7px;
+      margin-left: 0;
+      font-size:12px;
+      margin-right: 16px;
+    }
+  
+}
+@media only screen and (max-width: 411px) {
+  ion-button.copy-btn {
+    width: 175px;
+  }
+  ion-button.gen-btn {
+    width: 175px;
+  }
+  
+}
+@media only screen and (max-width: 401px) {
+  ion-button.copy-btn {
+    width: 165px;
+  }
+  ion-button.gen-btn {
+    width: 165px;
+  }
+}
 

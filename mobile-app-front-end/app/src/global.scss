@@ -121,6 +121,13 @@ body.dark {
   --ion-color-ruler-contrast-rgb: 255,255,255;
   --ion-color-ruler-shade: #3d4b63;
   --ion-color-ruler-tint: #58667f;
+  /** Title Ruler Color */
+  --ion-color-title-ruler: #455571;
+  --ion-color-title-ruler-rgb: 69,85,113;
+  --ion-color-title-ruler-contrast: #ffffff;
+  --ion-color-title-ruler-contrast-rgb: 255,255,255;
+  --ion-color-title-ruler-shade: #3d4b63;
+  --ion-color-title-ruler-tint: #58667f;
   /** Item Border Color */
   --ion-color-item-border: #253F59;
   --ion-color-item-border-rgb: 37,63,89;
@@ -211,3 +218,9 @@ body.dark {
       max-height: 65px !important;
       max-width: 148px !important;
   }
+
+  @media only screen and (max-width:992px) {
+    ion-icon.menu-btn {
+     display:block;
+  }
+}

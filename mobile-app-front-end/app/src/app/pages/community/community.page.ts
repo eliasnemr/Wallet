@@ -1,4 +1,4 @@
-import { AlertController } from '@ionic/angular';
+import { AlertController, MenuController } from '@ionic/angular';
 import { MinimaApiService } from './../../service/minima-api.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -9,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CommunityPage implements OnInit {
 
-  constructor(private api: MinimaApiService, private alertController: AlertController) { }
+  constructor(public menu: MenuController, private api: MinimaApiService, private alertController: AlertController) { }
 
   ngOnInit() {
+  }
+
+  openMenu() {
+    this.menu.open();
   }
 
   async presentAlert(hdr: string, msg: string, sub: string) {

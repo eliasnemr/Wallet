@@ -2,11 +2,11 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
     <ion-title>
-      <ion-item lines="none" class="ion-no-padding">
-        <ion-menu-button class="ion-no-padding"></ion-menu-button>
+      <ion-item id="title" lines="none" class="ion-no-padding">
+        <ion-icon class="menu-btn" (click)="openMenu()" name="menu"></ion-icon>
         Balance
       </ion-item>
-      <ion-item class="breadcrumb ion-no-padding" lines="none" *ngIf="tokenArr.length > 0">
+      <ion-item id="subtitle" class="breadcrumb ion-no-padding" lines="none" *ngIf="tokenArr.length > 0">
         All tokens
       </ion-item>
     </ion-title>

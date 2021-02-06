@@ -2,7 +2,7 @@ import { MinimaApiService } from './../../service/minima-api.service';
 import { Subscription } from 'rxjs';
 import { PopTermComponent } from '../../components/pop-term/pop-term.component';
 import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
-import { LoadingController, NavController, IonContent, PopoverController, IonTextarea, AlertController } from '@ionic/angular';
+import { LoadingController, NavController, IonContent, PopoverController, IonTextarea, AlertController, MenuController } from '@ionic/angular';
 import { environment } from '../../../environments/environment';
 import { UserTerminal } from '../../service/userterminal.service';
 import { Minima } from 'minima';
@@ -26,6 +26,7 @@ export class MiniTermPage implements OnInit {
   public fontSubscription: Subscription;
 
   constructor(
+    public menu: MenuController,
     private api: MinimaApiService,
     private alertController: AlertController,
     public loadingController: LoadingController,
@@ -57,6 +58,10 @@ export class MiniTermPage implements OnInit {
           }
       }
     });
+  }
+
+  openMenu() {
+    this.menu.open();
   }
 
   ionViewWillEnter() {}

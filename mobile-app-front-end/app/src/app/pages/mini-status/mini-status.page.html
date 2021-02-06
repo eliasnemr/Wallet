@@ -2,14 +2,14 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
     <ion-title class="large-text">
-      <ion-item lines="none" class="ion-no-padding">
-        <ion-menu-button></ion-menu-button>
+      <ion-item id="title" lines="none" class="ion-no-padding">
+        <ion-icon class="menu-btn" (click)="openMenu()" name="menu"></ion-icon>
         Status
       </ion-item>
-      <ion-item class="breadcrumb ion-no-padding" lines="none">
+      <ion-item id="subtitle" class="breadcrumb ion-no-padding" lines="none">
         Current status 
-        <ion-icon *ngIf="!status?.version" src="assets/statusCross.svg"></ion-icon>
-        <ion-icon *ngIf="status?.version" src="assets/statusTick.svg"></ion-icon>
+        <ion-icon class="status-icon" *ngIf="!status?.version" src="assets/statusCross.svg"></ion-icon>
+        <ion-icon class="status-icon" *ngIf="status?.version" src="assets/statusTick.svg"></ion-icon>
         <span *ngIf="status?.version">v{{ status?.version}}</span>
       
       </ion-item>

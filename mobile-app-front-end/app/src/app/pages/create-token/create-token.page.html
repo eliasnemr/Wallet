@@ -2,11 +2,11 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
     <ion-title>
-      <ion-item lines="none" class="ion-no-padding">
-        <ion-menu-button></ion-menu-button>
+      <ion-item id="title" lines="none" class="ion-no-padding">
+        <ion-icon class="menu-btn" (click)="openMenu()" name="menu"></ion-icon>
         Token
       </ion-item>
-      <ion-item class="breadcrumb ion-no-padding" lines="none">
+      <ion-item id="subtitle" class="breadcrumb ion-no-padding" lines="none">
         Create a custom token
       </ion-item>
       
@@ -46,9 +46,23 @@
       <ion-input class="medium-text input" name="icon" #iconURL formControlName="icon" placeholder="Enter a valid icon URL"></ion-input>
     </ion-item>
 
+    <ion-item class="error" lines="none" *ngIf="icon.invalid && icon.touched">
+      <ion-note class="error-message">
+        <ion-icon name="alert-circle"></ion-icon> <span> Invalid icon URL!</span>
+        <span style="margin-left: 2px"> An icon URL should end with .jpg or .png to be valid.</span> 
+      </ion-note>
+    </ion-item>
+
     <ion-item class="no-ripple" lines="none" lines="none">
       <ion-label position="stacked">Proof <span style="font-family: manrope-light; color:var(--ion-color-optional)">(optional)</span></ion-label>
       <ion-input  name="proof" class="medium-text input" #proofURL formControlName="proof" placeholder="Enter URL of website hosting token ID text"></ion-input>
+    </ion-item>
+
+    <ion-item class="error" lines="none" *ngIf="proof.invalid && proof.touched">
+      <ion-note class="error-message">
+        <ion-icon name="alert-circle"></ion-icon> <span> Invalid proof URL!</span>
+        <span style="margin-left: 2px"> A proof URL should be a max length of 255 characters with a .txt file in the URL.</span> 
+      </ion-note>
     </ion-item>
 
     <ion-item class="no-ripple" lines="none" lines="none">

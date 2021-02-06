@@ -2,11 +2,11 @@
   <ion-toolbar>
     <!-- <ion-menu-button class="menu-icon" slot="start"></ion-menu-button> -->
     <ion-title>
-      <ion-item lines="none" class="ion-no-padding">
-        <ion-menu-button></ion-menu-button>
+      <ion-item id="title" lines="none" class="ion-no-padding">
+        <ion-icon class="menu-btn" (click)="openMenu()" name="menu"></ion-icon>
         Community
       </ion-item>
-      <ion-item class="breadcrumb ion-no-padding" lines="none">
+      <ion-item id="subtitle" class="breadcrumb ion-no-padding" lines="none">
         Join our community and get involved 
       </ion-item>
     </ion-title>
@@ -18,7 +18,7 @@
   <ion-list>
     <ion-item href="https://minima.global/" target="_" class="ion-no-padding" lines="none">
       <ion-avatar>
-        <ion-icon src="assets/community/websiteIcon.svg"></ion-icon>
+        <ion-icon class="social-icon" src="assets/community/websiteIcon.svg"></ion-icon>
       </ion-avatar>
       <ion-label>
         <h6 class="title">Website</h6>
@@ -28,7 +28,7 @@
 
     <ion-item href="https://github.com/Minima-Protocol" target="_" class="ion-no-padding" lines="none">
       <ion-avatar>
-        <ion-icon src="assets/community/githubLogo.svg"></ion-icon>
+        <ion-icon class="social-icon" src="assets/community/githubLogo.svg"></ion-icon>
       </ion-avatar>
       <ion-label>
         <h6 class="title">Github </h6>
@@ -38,7 +38,7 @@
 
     <ion-item href="https://twitter.com/minima_global" target="_" class="ion-no-padding" lines="none">
       <ion-avatar>
-        <ion-icon src="assets/community/twitterLogo.svg"></ion-icon>
+        <ion-icon class="social-icon" src="assets/community/twitterLogo.svg"></ion-icon>
       </ion-avatar>
       <ion-label>
         <h6 class="title">Twitter</h6>
@@ -48,7 +48,7 @@
 
     <ion-item href="https://t.me/Minima_Global" target="_" class="ion-no-padding" lines="none">
       <ion-avatar>
-        <ion-icon src="assets/community/telegramLogo.svg"></ion-icon>
+        <ion-icon class="social-icon" src="assets/community/telegramLogo.svg"></ion-icon>
       </ion-avatar>
       <ion-label>
         <h6 class="title">Telegram</h6>
@@ -58,7 +58,7 @@
     
     <ion-item href="https://www.youtube.com/channel/UCDe2j57uQrUVtVizFbDpsoQ" target="_" class="ion-no-padding" lines="none">
       <ion-avatar>
-        <ion-icon src="assets/community/youTubeLogo.svg"></ion-icon>
+        <ion-icon class="social-icon" src="assets/community/youTubeLogo.svg"></ion-icon>
       </ion-avatar>
       <ion-label>
         <h6 class="title">Youtube</h6>
@@ -68,7 +68,7 @@
 
     <ion-item href="https://medium.com/minima-global" target="_" class="ion-no-padding" lines="none">
       <ion-avatar>
-        <ion-icon src="assets/community/mediumLogo.svg"></ion-icon>
+        <ion-icon class="social-icon" src="assets/community/mediumLogo.svg"></ion-icon>
       </ion-avatar>
       <ion-label>
         <h6 class="title">Medium</h6>
@@ -78,7 +78,7 @@
 
     <ion-item href="https://discord.com/invite/SgvQ6mc" target="_" class="ion-no-padding" lines="none">
       <ion-avatar>
-        <ion-icon src="assets/community/discordLogo.svg"></ion-icon>
+        <ion-icon class="social-icon" src="assets/community/discordLogo.svg"></ion-icon>
       </ion-avatar>
       <ion-label>
         <h6 class="title">Discord</h6>

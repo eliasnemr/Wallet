@@ -432,6 +432,77 @@ const openURL = async (url, ev, direction, animation) => {
 
 
 
+/***/ }),
+
+/***/ "./src/app/service/userconfig.service.ts":
+/*!***********************************************!*\
+  !*** ./src/app/service/userconfig.service.ts ***!
+  \***********************************************/
+/*! exports provided: UserConfigService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserConfigService", function() { return UserConfigService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
+/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! minima */ "./node_modules/minima/dist/minima.js");
+/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(minima__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+
+
+
+
+let UserConfigService = class UserConfigService {
+    constructor() {
+        this.defaultConfig = {
+            systemMode: 'light',
+            terminalFontSize: '12',
+            tokenDisplayMode: 1,
+            historyOrderByMode: 1,
+            historySaved: '',
+            tips: { balance: false, contacts: false, address: false }
+        };
+        this.userConfig = new rxjs__WEBPACK_IMPORTED_MODULE_1__["BehaviorSubject"](this.defaultConfig);
+        this.createUserConfig(this.defaultConfig);
+    }
+    createUserConfig(defaultConfig) {
+        minima__WEBPACK_IMPORTED_MODULE_2__["Minima"].file.load('UserConfig.txt', (res) => {
+            if (!res.success && !res.exists) {
+                minima__WEBPACK_IMPORTED_MODULE_2__["Minima"].file.save(JSON.stringify(defaultConfig), 'UserConfig.txt', (resp) => {
+                    if (resp.success) {
+                        console.log('User Configuration File has been created with default values.');
+                    }
+                });
+            }
+            else { // if userConfig exists, update with latest values
+                this.userConfig.next(JSON.parse(res.data));
+            }
+        });
+    }
+    saveUserConfig(currentValue) {
+        minima__WEBPACK_IMPORTED_MODULE_2__["Minima"].file.load('UserConfig.txt', (res) => {
+            if (res.success) {
+                if (res.data !== JSON.stringify(currentValue)) {
+                    minima__WEBPACK_IMPORTED_MODULE_2__["Minima"].file.save(JSON.stringify(currentValue), 'UserConfig.txt', (res) => {
+                        if (res.success) {
+                            //  console.log('Updated UserConfig!');
+                        }
+                    });
+                }
+            }
+        });
+    }
+};
+UserConfigService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Injectable"])({
+        providedIn: 'root'
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+], UserConfigService);
+
+
+
 /***/ })
 
 }]);

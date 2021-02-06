@@ -1,8 +1,7 @@
 import { UserConfigService } from './../../service/userconfig.service';
 import { UserConfig } from './../../models/userConfig.model';
-import { Platform, AlertController, ToastController, IonButton } from '@ionic/angular';
+import { Platform, AlertController, ToastController, IonButton, MenuController } from '@ionic/angular';
 import { Component, OnInit, ViewChild, NgZone } from '@angular/core';
-import { Clipboard } from '@ionic-native/clipboard/ngx';
 import { MinimaApiService } from '../../service/minima-api.service';
 import { Address, Minima } from 'minima';
 
@@ -26,7 +25,7 @@ export class MyAddressPage implements OnInit {
   @ViewChild('generateAddressBtn', {static: false}) generateAddressBtn: IonButton;
 
   constructor(
-    private clipboard: Clipboard,
+    public menu: MenuController,
     private api: MinimaApiService,
     private platform: Platform,
     private ngZone: NgZone,
@@ -57,6 +56,10 @@ export class MyAddressPage implements OnInit {
         this.user = res;
       });
     });
+  }
+
+  openMenu() {
+    this.menu.open();
   }
 
   public generateAddress(code: string) {
@@ -104,7 +107,7 @@ export class MyAddressPage implements OnInit {
   async presentToast(msg: string, type: string, posn: "top" | "bottom" | "middle") {
     const toast = await this.toastController.create({
       message: msg,
-      duration: 4000,
+      duration: 1000,
       color: type,
       keyboardClose: true,
       translucent: true,
@@ -134,11 +137,11 @@ export class MyAddressPage implements OnInit {
     if (this.platform.is('desktop') || this.platform.is('pwa')) {
       this.copyToClipPWA();
     } else {
-      this.clipboard.copy(this.qrCode);
+      //this.clipboard.copy(this.qrCode);
       this.presentToast('Copied to Clipboard', 'primary', 'bottom');
     }
   }
-ß
+
   copyToClipPWA() {
     document.addEventListener('copy', (e: ClipboardEvent) => {
       e.clipboardData.setData('text/plain', this.qrCode);

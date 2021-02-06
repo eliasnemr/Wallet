@@ -1,9 +1,8 @@
 import { UserConfig } from './../../models/userConfig.model';
 import { UserConfigService } from './../../service/userconfig.service';
-import { PopSettingsComponent } from './../../components/pop-settings/pop-settings.component';
 import { MinimaApiService } from '../../service/minima-api.service';
 import { Component, OnInit, ViewChild, NgZone } from '@angular/core';
-import { AlertController, IonInfiniteScroll, ToastController, PopoverController, IonButton } from '@ionic/angular';
+import { AlertController, IonInfiniteScroll, PopoverController, IonButton, MenuController } from '@ionic/angular';
 import { BalanceService } from '../../service/balance.service';
 import { Router } from '@angular/router';
 import * as SparkMD5 from 'spark-md5';
@@ -37,11 +36,11 @@ export class BalancePage implements OnInit {
   tokenSpoof: Token[] = [];
 
   constructor(
+    private menu: MenuController,
     private balanceService: BalanceService,
     private api: MinimaApiService,
     public alertController: AlertController,
     private route: Router,
-    public toastController: ToastController,
     public popoverController: PopoverController,
     public userConfigService: UserConfigService,
     private ngZone: NgZone) {}
@@ -62,15 +61,8 @@ export class BalancePage implements OnInit {
 
   ngOnInit() {}
 
-  async presentSettings(ev: any) {
-    const popover = await this.popoverController.create({
-      component: PopSettingsComponent,
-      cssClass: 'my-custom-class',
-      event: ev,
-      animated: true,
-      translucent: true
-    });
-    return await popover.present();
+  openMenu() {
+    this.menu.open();
   }
 
   giveMe50() {
@@ -110,14 +102,6 @@ export class BalancePage implements OnInit {
 
   toggleInfiniteScroll() {
     this.infiniteScroll.disabled = !this.infiniteScroll.disabled;
-  }
-
-  async presentToast(msg: string) {
-    const toast = await this.toastController.create({
-      message: msg,
-      duration: 2000
-    });
-    toast.present();
   }
 
   async presentAlert(hdr: string, msg: string, sub: string) {

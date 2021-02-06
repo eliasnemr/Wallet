@@ -1,6 +1,12 @@
-.terminal {
+::-webkit-scrollbar,
+*::-webkit-scrollbar {
+  display: none;
+}
+div.box {
     margin-top: 7px;
     margin-left: 20px;
+}
+.terminal {
     padding-right: 40px;
     width: 100%;
     background-color: var(--ion-background-color, #ffffff);

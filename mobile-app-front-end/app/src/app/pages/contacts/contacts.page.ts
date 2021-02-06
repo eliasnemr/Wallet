@@ -2,7 +2,7 @@ import { MinimaApiService } from './../../service/minima-api.service';
 import { UserConfigService } from './../../service/userconfig.service';
 import { UserConfig } from './../../models/userConfig.model';
 import { ContactsModalPage } from './../../components/contacts-modal/contacts-modal.page';
-import { ToastController, ModalController, AlertController, IonList } from '@ionic/angular';
+import { ToastController, ModalController, AlertController, IonList, MenuController } from '@ionic/angular';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Contact, ContactService } from 'src/app/service/contacts.service';
 
@@ -27,6 +27,7 @@ export class ContactsPage implements OnInit {
   };
   @ViewChild('contactList', {static: false}) ContactList: IonList;
   constructor(private toastController: ToastController,
+              public menu: MenuController,
               private api: MinimaApiService,
               private userConfigService: UserConfigService,
               public alertController: AlertController,
@@ -41,6 +42,10 @@ export class ContactsPage implements OnInit {
     this.userConfigService.userConfig.subscribe((res: UserConfig) => {
       this.user = res;
     });
+  }
+
+  openMenu() {
+    this.menu.open();
   }
 
   queryContacts(qy: string) {
@@ -116,6 +121,7 @@ export class ContactsPage implements OnInit {
   async presentToast(msg: string, clr: string, posn: "top" | "bottom" | "middle") {
     const toast = await this.toastController.create({
       message: msg,
+      duration: 1000,
       color: clr,
       position: posn,
       buttons: ['cancel']
