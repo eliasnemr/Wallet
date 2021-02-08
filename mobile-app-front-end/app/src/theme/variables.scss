@@ -178,6 +178,8 @@ ion-icon.back-btn {
   color: var(--ion-color-color);
 }
 ion-icon.menu-btn {
+  width: 15px;
+  height: 15px;
   float: left;
   padding: 0;
   margin: 0;
@@ -207,9 +209,9 @@ ion-toolbar {
     ion-item#title {
       --border-color: var(--ion-color-title-ruler);
       --border-width: 0px 0px 1px 0px;
-      margin-top: 14px;
-      margin-left: 4px;
-      margin-right: 10px;
+      // margin-top: 14px;
+      // margin-left: 4px;
+      // margin-right: 10px;
       font-size: 18px;
       --min-height: 39px;
       font-family: manrope-bold;
@@ -220,8 +222,8 @@ ion-toolbar {
       --border-width: 0px 0px 1px 0px;
       --min-height: 39px;
       font-family: manrope-medium;
-      margin-left: 5px;
-      margin-right: 10px;
+      // margin-left: 4px;
+      // margin-right: 10px;
     }
   }
 }
@@ -299,4 +301,16 @@ ion-content {
   src: url('../fonts/manrope-medium.otf');
 }
 
-
+// Grid paddings of all pages
+ion-header.page-header ion-toolbar {
+  --padding-top: 27px;
+  --padding-start: 27px;
+  --padding-end: 27px;
+}
+ion-header.page-header ion-toolbar ion-title {
+  padding: 0;
+}
+ion-content.page-content {
+  --padding-start: 27px;
+  --padding-end: 27px;
+}

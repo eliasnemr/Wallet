@@ -1,4 +1,4 @@
-<ion-header class="ion-no-border">
+<ion-header class="page-header ion-no-border">
   <ion-toolbar>
     <!-- <ion-buttons slot="start">
       <ion-back-button defaultHref="/history"></ion-back-button>
@@ -17,9 +17,20 @@
 
 
 
-<ion-content>
-  <ion-grid style="margin-left: 8px; margin-right:6px">    
-    <ion-list id="transaction-details">
+<ion-content class="page-content">
+  <ion-grid class="ion-no-padding" *ngIf="loading">
+    <ion-row>
+      <ion-col style="display: flex; align-items:center; justify-content:center" size="12">
+        <ion-label>Fetching transaction details...</ion-label>
+      </ion-col>
+      <ion-col style="display: flex; align-items:center; justify-content:center" size="12">
+        <ion-spinner name="crescent"></ion-spinner>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid class="ion-no-padding" *ngIf="!loading">    
+    <ion-list class="ion-no-padding" id="transaction-details">
       <ion-item lines="none" class="ion-no-padding">
         <ion-label class="value completed">
           <h6 class="title">Status</h6>

@@ -1,4 +1,4 @@
-<ion-header class="ion-no-border">
+<ion-header class="page-header ion-no-border">
   <ion-toolbar>
     <ion-title>
       <ion-item id="title" lines="none" class="ion-no-padding">
@@ -13,64 +13,58 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-card class="borders">
-    <ion-card-header>
-      <ion-avatar>
-        <img *ngIf="av.length === 0" src="assets/user.svg">
-        <img *ngIf="av.length !== 0" [src]="av">
-      </ion-avatar>
-    </ion-card-header>
-    <ion-card-content>
-      <form [formGroup]="contactForm" id="contactForm" (ngSubmit)="addContact()">
-      <ion-list>
-        <ion-item class="no-ripple" lines="none">
-          <ion-label position="stacked">Name <span style="font-family: manrope-light; color:var(--ion-color-optional)">(optional)</span></ion-label>
-          <ion-input name="name" placeholder="anonymous" formControlName="NAME"></ion-input>
-        </ion-item>
-        <ion-item class="error" lines="none" *ngIf="name.invalid && name.touched">
-          <ion-note class="error-message">
-            <ion-icon name="alert-circle"></ion-icon> <span> Invalid name format!</span>
-            <span style="margin-left: 2px"> A name must be alphanumeric and can only contain a dot or underscore.</span> 
-          </ion-note>
-        </ion-item>
-        <ion-item class="no-ripple" lines="none">
-          <ion-label position="stacked">Address</ion-label>
-          <ion-input (ionChange)="changeIcon($event)" name="address" placeholder="Enter a valid wallet address" formControlName="ADDRESS"></ion-input>
-        </ion-item>
-        <ion-item class="error" lines="none" *ngIf="address.invalid && address.touched">
-          <ion-note class="error-message">
-            <ion-icon name="alert-circle"></ion-icon> <span style="margin-left: 2px"> A wallet address is required.</span>
-            <span style="margin-left: 2px"> An address must begin with 0x or Mx.</span> 
-          </ion-note>
-        </ion-item>
-        
-        <ion-item class="no-ripple" lines="none">
-          <ion-label position="stacked">Description <span style="font-family: manrope-light; color:var(--ion-color-optional)">(optional)</span></ion-label>
-          <ion-input name="description" placeholder="Enter a description" formControlName="DESCRIPTION"></ion-input>
-        </ion-item>
-        <ion-item class="no-ripple" lines="none">
-          <ion-label position="stacked">Avatar <span style="font-family: manrope-light; color:var(--ion-color-optional)">(optional)</span></ion-label>
-          <ion-input name="avatar" placeholder="Enter a custom avatar URL" formControlName="AVATAR"></ion-input>
-        </ion-item>
-        <ion-item class="error" lines="none" *ngIf="avatar.invalid && avatar.touched">
-          <ion-note class="error-message">
-            <ion-icon name="alert-circle"></ion-icon> <span> Invalid URL format.</span> 
-          </ion-note>
-        </ion-item>
-      </ion-list>
+<ion-content class="page-content">
 
-      <ion-row>
-        <ion-col size="12">
-          <ion-button type="submit" [disabled]="contactForm.invalid" class="createContact" fill="clear" style="float: right; margin-right: 10px">
-            Create Contact
-          </ion-button>
-        </ion-col>
-      </ion-row>
-    </form>
+  <div class="avatar">
+    <ion-avatar>
+      <img *ngIf="av.length === 0" src="assets/user.svg">
+      <img *ngIf="av.length !== 0" [src]="av">
+    </ion-avatar>
+  </div>
 
-    
-    </ion-card-content>
-  </ion-card>
+    <form [formGroup]="contactForm" id="contactForm" (ngSubmit)="addContact()">
+    <ion-list>
+      <ion-item class="no-ripple ion-no-padding" lines="none">
+        <ion-label position="stacked">Name <span style="font-family: manrope-light; color:var(--ion-color-optional)">(optional)</span></ion-label>
+        <ion-input name="name" placeholder="anonymous" formControlName="NAME"></ion-input>
+      </ion-item>
+      <ion-item class="error ion-no-padding" lines="none" *ngIf="name.invalid && name.touched">
+        <ion-note class="error-message">
+          <ion-icon name="alert-circle"></ion-icon> <span> Invalid name format!</span>
+          <span style="margin-left: 2px"> A name must be alphanumeric and can only contain a dot or underscore.</span> 
+        </ion-note>
+      </ion-item>
+      <ion-item class="no-ripple ion-no-padding" lines="none">
+        <ion-label position="stacked">Address</ion-label>
+        <ion-input (ionChange)="changeIcon($event)" name="address" placeholder="Enter a valid wallet address" formControlName="ADDRESS"></ion-input>
+      </ion-item>
+      <ion-item class="error ion-no-padding" lines="none" *ngIf="address.invalid && address.touched">
+        <ion-note class="error-message">
+          <ion-icon name="alert-circle"></ion-icon> <span style="margin-left: 2px"> A wallet address is required.</span>
+          <span style="margin-left: 2px"> An address must begin with 0x or Mx.</span> 
+        </ion-note>
+      </ion-item>
+      
+      <ion-item class="no-ripple ion-no-padding" lines="none">
+        <ion-label position="stacked">Description <span style="font-family: manrope-light; color:var(--ion-color-optional)">(optional)</span></ion-label>
+        <ion-input name="description" placeholder="Enter a description" formControlName="DESCRIPTION"></ion-input>
+      </ion-item>
+      <ion-item class="no-ripple ion-no-padding" lines="none">
+        <ion-label position="stacked">Avatar <span style="font-family: manrope-light; color:var(--ion-color-optional)">(optional)</span></ion-label>
+        <ion-input name="avatar" placeholder="Enter a custom avatar URL" formControlName="AVATAR"></ion-input>
+      </ion-item>
+      <ion-item class="error ion-no-padding" lines="none" *ngIf="avatar.invalid && avatar.touched">
+        <ion-note class="error-message">
+          <ion-icon name="alert-circle"></ion-icon> <span> Invalid URL format.</span> 
+        </ion-note>
+      </ion-item>
+
+      <ion-item class="ion-no-padding" lines="none">
+        <ion-button slot="end" type="submit" [disabled]="contactForm.invalid" class="createContact" fill="clear">
+          Create Contact
+        </ion-button>
+      </ion-item>
+    </ion-list>
+  </form>
 
 </ion-content>

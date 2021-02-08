@@ -1,9 +1,9 @@
 <ion-app>
-<ion-header class="ion-no-border">
+<ion-header class="page-header ion-no-border">
   <ion-toolbar>
     <ion-title>
       <ion-item id="title" lines="none" class="ion-no-padding">
-        <ion-icon class="menu-btn" (click)="openMenu()" name="menu"></ion-icon>
+        <ion-icon class="menu-btn" (click)="openMenu()" src="assets/menuIcon.svg"></ion-icon>
         Balance
       </ion-item>
       <ion-item id="subtitle" class="breadcrumb ion-no-padding" lines="none" *ngIf="tokenArr.length > 0">
@@ -11,10 +11,9 @@
       </ion-item>
     </ion-title>
   </ion-toolbar>
-
 </ion-header>
 
-  <ion-content>
+  <ion-content class="page-content">
     <ion-grid *ngIf="tokenArr.length == 0">
       <ion-row>
         <ion-col style="display: flex; align-items:center; justify-content:center" size="12">
@@ -29,7 +28,6 @@
     <div class="body">
       <app-list-view *ngIf="tokenArr && tokenArr.length > 0" [tokenArr] = "tokenArr"></app-list-view>
     </div>
-
   </ion-content>
 
   <ion-footer class="border-t">

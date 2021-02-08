@@ -1,9 +1,9 @@
 <ion-app>
-<ion-header class="ion-no-border">
+<ion-header class="page-header ion-no-border">
   <ion-toolbar>
     <ion-title>
       <ion-item id="title" lines="none" class="ion-no-padding">
-        <ion-icon class="menu-btn" (click)="openMenu()" name="menu"></ion-icon>
+        <ion-icon class="menu-btn" (click)="openMenu()" src="assets/menuIcon.svg"></ion-icon>
         Token
       </ion-item>
       <ion-item id="subtitle" class="breadcrumb ion-no-padding" lines="none">
@@ -15,11 +15,11 @@
 </ion-header>
 
 
-<ion-content>
+<ion-content class="page-content">
   <form (ngSubmit)="createTokenAdvanced()" [formGroup]="tokenCreationForm" id='tokenCreationForm'>
   <ion-list lines="none">
 
-    <ion-item class="no-ripple" lines="none">
+    <ion-item class="no-ripple ion-no-padding" lines="none">
       <ion-label position="stacked">Name</ion-label>
       <ion-input placeholder="Enter a token name" class="medium-text input" #nameTextArea name="name" formControlName="name"></ion-input>
     </ion-item>
@@ -30,42 +30,42 @@
       </ion-note>
     </ion-item>
 
-    <ion-item class="no-ripple" lines="none">
+    <ion-item class="no-ripple ion-no-padding" lines="none">
       <ion-label position="stacked">Amount</ion-label>
       <ion-input placeholder="Enter token amount" type="number" class="medium-text input" #amountRef name="amount" formControlName="amount"></ion-input>
     </ion-item>
-    <ion-item class="error" lines="none" *ngIf="amount.invalid && amount.touched">
+    <ion-item class="error ion-no-padding" lines="none" *ngIf="amount.invalid && amount.touched">
       <ion-note class="error-message">
         <ion-icon name="alert-circle"></ion-icon> <span> An amount is required!</span>
         <span style="margin-left: 2px"> An amount must be numeric and greater than 0.</span> 
       </ion-note>
     </ion-item>
 
-    <ion-item class="no-ripple" lines="none" lines="none">
+    <ion-item class="no-ripple ion-no-padding" lines="none" lines="none">
       <ion-label position="stacked">Icon <span style="font-family: manrope-light; color:var(--ion-color-optional)">(optional)</span></ion-label>
       <ion-input class="medium-text input" name="icon" #iconURL formControlName="icon" placeholder="Enter a valid icon URL"></ion-input>
     </ion-item>
 
-    <ion-item class="error" lines="none" *ngIf="icon.invalid && icon.touched">
+    <ion-item class="error ion-no-padding" lines="none" *ngIf="icon.invalid && icon.touched">
       <ion-note class="error-message">
         <ion-icon name="alert-circle"></ion-icon> <span> Invalid icon URL!</span>
         <span style="margin-left: 2px"> An icon URL should end with .jpg or .png to be valid.</span> 
       </ion-note>
     </ion-item>
 
-    <ion-item class="no-ripple" lines="none" lines="none">
+    <ion-item class="no-ripple ion-no-padding" lines="none" lines="none">
       <ion-label position="stacked">Proof <span style="font-family: manrope-light; color:var(--ion-color-optional)">(optional)</span></ion-label>
       <ion-input  name="proof" class="medium-text input" #proofURL formControlName="proof" placeholder="Enter URL of website hosting token ID text"></ion-input>
     </ion-item>
 
-    <ion-item class="error" lines="none" *ngIf="proof.invalid && proof.touched">
+    <ion-item class="error ion-no-padding" lines="none" *ngIf="proof.invalid && proof.touched">
       <ion-note class="error-message">
         <ion-icon name="alert-circle"></ion-icon> <span> Invalid proof URL!</span>
         <span style="margin-left: 2px"> A proof URL should be a max length of 255 characters with a .txt file in the URL.</span> 
       </ion-note>
     </ion-item>
 
-    <ion-item class="no-ripple" lines="none" lines="none">
+    <ion-item class="no-ripple ion-no-padding" lines="none" lines="none">
       <ion-label position="stacked">Description <span style="font-family: manrope-light; color:var(--ion-color-optional)">(optional)</span></ion-label>
       <ion-textarea
       #description 
@@ -79,28 +79,26 @@
     </ion-item>
     <ion-label class="length" *ngIf="customToken.description && customToken.description.length > 0">{{ customToken.description.length+'/255'}}</ion-label>
     
-    <ion-item id="nft" class="no-ripple">
+    <ion-item id="nft" class="no-ripple ion-no-padding">
       <ion-label>
         <ion-icon class="nftIcon" src="assets/nft2.svg"></ion-icon> 
         <span style="font-size:16px;font-family: manrope-light; color:var(--ion-color-optional); margin-right: 7px">(optional) </span>        
       </ion-label>
       <ion-checkbox formControlName="nft" slot="end"></ion-checkbox>
     </ion-item>
-    <ion-item>
+    <ion-item class="ion-no-padding">
       <ion-label class="nft ion-no-padding ion-no-margin">
         Spend this token in whole only.
       </ion-label>
     </ion-item>
     
-  </ion-list>
-  
-  <ion-row>
-    <ion-col size="12">
-      <ion-button #submitBtn type="submit" class="create-token" [disabled]="tokenCreationForm.invalid" fill="clear">
+    <ion-item lines="none" class="ion-no-padding">
+      <ion-button slot="end" #submitBtn type="submit" class="create-token" [disabled]="tokenCreationForm.invalid" fill="clear">
         Create Token
       </ion-button>
-    </ion-col>
-  </ion-row>
+    </ion-item>
+
+  </ion-list>
 
   </form>
 </ion-content>

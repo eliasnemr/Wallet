@@ -2,12 +2,11 @@ ion-list#input-details, ion-list#output-details {
     margin: 0;
     padding: 0;
 }
-div#inputs, div#outputs {
-    margin-left: 11px;
-    margin-right: 18px;
-}
 div#inputs ion-item, div#outputs ion-item {
     border-bottom: 1px solid var(--ion-color-item-border);
+}
+ion-list ion-item {
+    --inner-padding-end: 0;
 }
 ion-list#input-details ion-item:nth-child(0), ion-list#output-details ion-item:nth-child(0) {
     margin-left: 0!important;
@@ -16,7 +15,6 @@ ion-list#input-details ion-list-header, ion-list#output-details ion-list-header 
     font-size: 16px;
     padding-left: 0;
     ion-item {
-        margin-left: 11px;
         width: 100%;
         margin-right: 17px!important;
         border-bottom: 1px solid var(--ion-color-item-border);
@@ -35,8 +33,6 @@ ion-list#transaction-details ion-item ion-label {
 }
 ion-list#transaction-details ion-item {
     border-bottom: 1px solid var(--ion-color-item-border);
-    margin-left: 10px;
-    margin-right: 17px;
 }
 ion-item#last-child {
     --border-color: #001C32 !important;

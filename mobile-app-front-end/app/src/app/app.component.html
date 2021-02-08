@@ -2,20 +2,22 @@
   <ion-split-pane when="lg" contentId="mainMenu" class="splitpane" >
   <ion-menu side="start" contentId="mainMenu" class="myMenu">
 
-    <ion-header class="ion-no-border" >      
-    <ion-title>
-      <ion-item lines="none" class="ion-no-padding">
-        <img *ngIf="toggleValue" src="assets/minima-logo-landscape-dark.svg">
-        <img *ngIf="!toggleValue" src="assets/minima-logo-color.svg">
-      </ion-item>
-    </ion-title>     
+    <ion-header class="page-header ion-no-border" >      
+      <ion-toolbar>
+        <ion-title>
+          <ion-item lines="none" class="ion-no-padding">
+            <img *ngIf="toggleValue" src="assets/minima-logo-landscape-dark.svg">
+            <img *ngIf="!toggleValue" src="assets/minima-logo-color.svg">
+          </ion-item>
+        </ion-title>     
+      </ion-toolbar>
     </ion-header>
     
-    <ion-content>
-      <ion-list main>
+    <ion-content class="page-content">
+      <ion-list class="ion-no-padding" main>
         <ion-menu-toggle auto-hide="false" *ngFor="let p of basic; let i = index">
             <ion-item 
-            class="ion-activatable my-menu-item"
+            class="ion-activatable my-menu-item ion-no-padding"
             detail="false"
             routerLinkActive="selected"
             routerDirection="root"

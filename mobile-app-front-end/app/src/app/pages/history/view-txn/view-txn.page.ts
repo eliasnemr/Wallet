@@ -15,6 +15,7 @@ var moment = require('moment');
 export class ViewTXNPage implements OnInit {
 
   hide = false;
+  public loading = true;
   public txn: string;
   public id: string;
   public relaytime: string;
@@ -46,6 +47,8 @@ export class ViewTXNPage implements OnInit {
         this.nonce = res.response.txpow.header.nonce;
         this.inputs = res.response.txpow.body.txn.inputs;
         this.outputs = res.response.txpow.body.txn.outputs;
+        
+        this.loading = false;
         if (res.response.txpow.body.txn.tokengen) {
           this.type = 'Token Creation.';
           this.tokenname = res.response.txpow.body.txn.tokengen.token;

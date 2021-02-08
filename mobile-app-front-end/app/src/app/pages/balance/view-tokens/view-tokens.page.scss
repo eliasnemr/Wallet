@@ -24,10 +24,6 @@ ion-list ion-item {
     --border-color: var(--ion-color-item-border);
     padding-right: 0;
 }
-ion-list ion-item ion-col {    
-    margin-left: 13px;
-}
-
 .title {
     font-family: manrope-semibold;
     font-size: 16px;
@@ -51,8 +47,4 @@ ion-list ion-item ion-col {
     text-decoration: underline;
     cursor: pointer;
     font-size: 0.8rem;
-}
-.body {
-    margin-right: 30px;
-    margin-left: 25px;
 }

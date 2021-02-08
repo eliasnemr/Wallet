@@ -1,9 +1,9 @@
 <ion-app>
-<ion-header class="ion-no-border">
+<ion-header class="page-header ion-no-border">
   <ion-toolbar>
     <ion-title>
       <ion-item id="title" lines="none" class="ion-no-padding">
-        <ion-icon class="menu-btn" (click)="openMenu()" name="menu"></ion-icon>
+        <ion-icon class="menu-btn" (click)="openMenu()" src="assets/menuIcon.svg"></ion-icon>
         Receive
       </ion-item>
       <ion-item id="subtitle" class="breadcrumb ion-no-padding" lines="none" *ngIf="qrCode.length > 0">
@@ -15,7 +15,7 @@
 
 
 
-<ion-content>
+<ion-content class="page-content">
   
   <ion-grid *ngIf="this.qrCode.length == 0">
     <ion-row>
@@ -38,14 +38,14 @@
       </ion-col>
     </ion-row> -->
     <ion-row>
-      <ion-col size="12">
+      <ion-col class="ion-no-padding" size="12">
         <p class="qrcode-box">
           {{ qrCode }}
         </p>
       </ion-col>
     </ion-row>
     <ion-row style="margin-top: 7px">
-      <ion-col size="12">
+      <ion-col size="12" class="ion-no-padding">
         <ion-button (click)="copyToClipPWA()" class="copy-btn" fill="clear">
           Copy Address
         </ion-button>

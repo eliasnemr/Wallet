@@ -1,9 +1,9 @@
 <ion-app>
-  <ion-header class="ion-no-border">
+  <ion-header class="page-header ion-no-border">
     <ion-toolbar>
          <ion-title *ngIf="!ios" class="large-text">
           <ion-item id="title" lines="none" class="ion-no-padding">
-            <ion-icon class="menu-btn" (click)="openMenu()" name="menu"></ion-icon>
+            <ion-icon class="menu-btn" (click)="openMenu()" src="assets/menuIcon.svg"></ion-icon>
             History
           </ion-item>
           <ion-item id="subtitle" class="breadcrumb ion-no-padding" lines="none" *ngIf="transactions.length > 0">
@@ -15,7 +15,7 @@
 
 
 
-  <ion-content>
+  <ion-content class="page-content">
     <ion-list class="ion-no-padding" #historyList *ngFor="let txn of transactions" lines="none">
         <ion-item class="ion-no-padding" routerLink="/view-txn/{{ txn.txpow.txpowid }}" routerDirection="forward" lines="none">
             <ion-avatar slot="start">

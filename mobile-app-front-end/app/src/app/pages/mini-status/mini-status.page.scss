@@ -16,8 +16,7 @@ ion-chip ion-label {
 }
 ion-list ion-item {
     --border-color: var(--ion-color-item-border);
-    margin-left: 27px;
-    margin-right: 30px;
+    --inner-padding-end: 0;
 }
 .title {
     font-family: manrope-bold;

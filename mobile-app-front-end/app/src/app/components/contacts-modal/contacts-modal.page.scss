@@ -1,10 +1,14 @@
-ion-card-header {
+div.avatar {
+  margin-top: 10px;
   display:flex;
   align-items: center;
   justify-content: center;
 }
-ion-card {
-  box-shadow: none;
+ion-list {
+  padding: 0;
+}
+ion-list ion-item {
+  --inner-padding-end: 0;
 }
 ion-avatar {
   border: 1px solid #f0f0fa;
@@ -74,7 +78,6 @@ ion-note.error-message {
 ion-button.createContact {
   height: 35px;
   width: 164px;
-  margin-right: 9px;
   --border-radius: 0;
   --background: var(--ion-color-primary);
   text-transform: none;

@@ -1,9 +1,9 @@
 <ion-app>
-<ion-header class="ion-no-border">
+<ion-header class="page-header ion-no-border">
   <ion-toolbar>
     <ion-title>
       <ion-item id="title" lines="none" class="ion-no-padding">
-        <ion-icon class="menu-btn" (click)="openMenu()" name="menu"></ion-icon>
+        <ion-icon class="menu-btn" (click)="openMenu()" src="assets/menuIcon.svg"></ion-icon>
         Send
       </ion-item>
       <ion-item id="subtitle" class="breadcrumb ion-no-padding" lines="none" *ngIf="tokenArr.length > 0">
@@ -15,7 +15,7 @@
 
 
 
-<ion-content *ngIf="!isWebCameraOpen">
+<ion-content class="page-content" *ngIf="!isWebCameraOpen">
 
   <ion-grid *ngIf="tokenArr.length == 0">
     <ion-row>
@@ -42,7 +42,7 @@
 
   <form *ngIf="!isWebCameraOpen && tokenArr.length > 0" [formGroup]="sendForm" id="sendForm" (ngSubmit)="sendFunds()">
     <ion-list class="ion-no-padding">
-      <ion-item class="no-hover no-ripple" lines="none" style="margin-left: 25px; margin-right: 14px; --padding-start: 0; --padding-end: 0">
+      <ion-item class="no-hover no-ripple ion-no-padding" lines="none">
         <ion-label position="floating">Token</ion-label>
         <ion-select
           placeholder="Select A Token"
@@ -56,29 +56,29 @@
         </ion-select-option>
       </ion-select>
       </ion-item>
-      <ion-item class="no-hover no-ripple"  lines="none">
+      <ion-item class="no-hover no-ripple ion-no-padding"  lines="none">
         <ion-label class="medium-text" position="stacked">Address</ion-label>
         <!-- <span (click)="scanQR()" id="qrIcon"> <ion-icon alt="qrCode" src="assets/scan-outline.svg"></ion-icon></span> -->
         <ion-input #address class="medium-text input" formControlName="address" clearInput="true" placeholder="Enter a valid address"></ion-input>
       </ion-item>
-      <ion-item class="no-hover no-ripple"  class="error" lines="none" *ngIf="addressFormItem.invalid && addressFormItem.touched">
+      <ion-item class="no-hover no-ripple ion-no-padding"  class="error" lines="none" *ngIf="addressFormItem.invalid && addressFormItem.touched">
         <ion-note class="error-message">
           <ion-icon name="alert-circle"></ion-icon> <span> Invalid address format!</span> 
           <span style="margin-left: 2px"> An address must begin with 0x or Mx.</span> 
         </ion-note>
       </ion-item>
-      <ion-item class="no-hover no-ripple"  lines="none">
+      <ion-item class="no-hover no-ripple ion-no-padding"  lines="none">
         <ion-label class="medium-text" position="stacked">Amount</ion-label>
-        <ion-input #amount type="number" formControlName="amount" class="input medium-text" placeholder="Enter token amount"></ion-input>
+        <ion-input #amount type="number" formControlName="amount" class="input" placeholder="Enter token amount"></ion-input>
       </ion-item>
-      <ion-item class="error" lines="none" *ngIf="amountFormItem.invalid && amountFormItem.touched">
+      <ion-item class="error ion-no-padding" lines="none" *ngIf="amountFormItem.invalid && amountFormItem.touched">
         <ion-note class="error-message">
           <ion-icon name="alert-circle"></ion-icon> <span> Amount required!</span>
           <span style="margin-left: 2px"> Amount has to be numeric and greater than 0.</span> 
         </ion-note>
       </ion-item>
 
-      <ion-item class="no-hover no-ripple"  lines="none">
+      <ion-item class="no-hover no-ripple ion-no-padding" lines="none">
         <ion-label position="stacked" style="margin-bottom: 1%;">Message <span style="font-family: manrope-light; color:var(--ion-color-optional); margin-right: 7px">(optional) </span></ion-label>
         <ion-textarea 
             [(ngModel)]="data.message"
@@ -93,15 +93,11 @@
       <ion-label *ngIf="data.message" class="length">{{ data.message.length +"/255" }}</ion-label>
     </ion-list>
 
-    <ion-row>
-      <ion-col size="12">
-        <ion-button #submitBtn type="submit" [disabled]="sendForm.invalid" class="send-funds" fill="clear">  
-           Send Funds
-        </ion-button>
-      </ion-col>
-    </ion-row>
-    
-
+    <ion-item lines="none" class="ion-no-padding"> 
+      <ion-button #submitBtn type="submit" slot="end" [disabled]="sendForm.invalid" class="send-funds" fill="clear">  
+        Send Funds
+     </ion-button>
+    </ion-item>
   </form>
 
 </ion-content>

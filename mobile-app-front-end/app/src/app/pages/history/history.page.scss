@@ -9,15 +9,11 @@ ion-icon.icon {
 ion-card-content ion-text {
     margin-top: 10px;
 }
+ion-list ion-item {
+    --inner-padding-end: 0;
+}
 ion-list ion-item:first-child {
     margin-top: 12px;
-}
-ion-list ion-item ion-avatar {
-    padding-left: 25px;
-    margin-right: 35px;
-}
-ion-list ion-item .transactionAmount {
-    padding-right: 15px;
 }
 ion-list ion-item {
     --border-width: 0px 0px 0px 0px;

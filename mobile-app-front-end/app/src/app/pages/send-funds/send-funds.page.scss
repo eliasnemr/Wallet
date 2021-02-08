@@ -4,12 +4,9 @@ ion-card-content {
 ion-card-header {
   --color: var(--ion-text-color,#000);
 }
-
-ion-list ion-item {
-  margin-left: 10px;
-  margin-right: 15px;
+ion-item {
+  --inner-padding-end: 0;
 }
-
 ion-item ion-label {
   white-space: normal;
   margin-bottom: 2%;
@@ -132,7 +129,6 @@ ion-button.send-funds {
   font-family: manrope-bold;
   color: #fff;
   float: right; 
-  margin-right: 26px;
   --border-radius: 0;
 }
 ion-button.send-funds:hover {
