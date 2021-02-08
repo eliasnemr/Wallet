@@ -61,7 +61,7 @@
         <!-- <span (click)="scanQR()" id="qrIcon"> <ion-icon alt="qrCode" src="assets/scan-outline.svg"></ion-icon></span> -->
         <ion-input #address class="medium-text input" formControlName="address" clearInput="true" placeholder="Enter a valid address"></ion-input>
       </ion-item>
-      <ion-item class="no-hover no-ripple ion-no-padding"  class="error" lines="none" *ngIf="addressFormItem.invalid && addressFormItem.touched">
+      <ion-item class="error ion-no-padding"  lines="none" *ngIf="addressFormItem.invalid && addressFormItem.touched">
         <ion-note class="error-message">
           <ion-icon name="alert-circle"></ion-icon> <span> Invalid address format!</span> 
           <span style="margin-left: 2px"> An address must begin with 0x or Mx.</span> 
