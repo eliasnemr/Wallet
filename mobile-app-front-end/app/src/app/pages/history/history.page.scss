@@ -10,7 +10,8 @@ ion-card-content ion-text {
     margin-top: 10px;
 }
 ion-list ion-item {
-    --inner-padding-end: 0;
+    --padding-start: 27px;
+    --inner-padding-end: 27px;
 }
 ion-list ion-item:first-child {
     margin-top: 12px;

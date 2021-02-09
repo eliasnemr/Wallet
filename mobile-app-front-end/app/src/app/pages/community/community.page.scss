@@ -20,6 +20,7 @@ ion-list ion-item ion-avatar {
   margin-right: 27px;
 }
 ion-list ion-item {
+  --padding-start: 27px;
   opacity: 1;
   --background-activated: var(--ion-color-token)!important;
   --background-activated-opacity: 0.2 !important;

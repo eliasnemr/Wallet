@@ -14,7 +14,7 @@
 
 <ion-content class="page-content">
   <ion-list lines="none">
-    <ion-item color="none">
+    <ion-item class="ion-no-padding" color="none">
       <ion-avatar slot="start">
         <img class="custom-icon" *ngIf="token.tokenid !== '0x00' && token.icon.length == 0" [src]="createIcon( token.tokenid )"/>
         <img class="custom-icon" *ngIf="token.tokenid !== '0x00' && token.icon.length > 0" [src]="token.icon"/>
@@ -24,7 +24,7 @@
         <h3>{{token.token}}</h3> 
       </ion-label>
     </ion-item>
-    <ion-item *ngIf="token.description && token.description.length > 0" color="none">
+    <ion-item class="ion-no-padding" *ngIf="token.description && token.description.length > 0" color="none">
       <ion-label position="stacked" style="font-size: 1.3rem; font-family: manrope-medium; opacity: 1">Token Description</ion-label>
       <ion-input style="font-family: manrope-regular;" disabled>
         {{ token.description }}

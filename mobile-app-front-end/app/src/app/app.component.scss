@@ -12,8 +12,7 @@
   .my-menu-item {
     display: inline;
     vertical-align: middle;
-    margin: 0 auto;
-    padding:0;
+    --padding-start: 27px;
     --background-activated: var(--ion-color-token)!important;
     --background-activated-opacity: 0.2 !important;
     --background-hover: var(--ion-color-item-hover);

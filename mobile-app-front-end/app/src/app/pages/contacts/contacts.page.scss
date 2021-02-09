@@ -11,12 +11,13 @@ ion-list.tools {
   padding-top: 7px;
 }
 ion-list.tools ion-item {
-  --inner-padding-end: 0;
+  --padding-start: 27px;
+  --inner-padding-end: 27px;
 }
 ion-item.contactItem {
   padding: 0;
-  --inner-padding-start: 0;
-  --inner-padding-end: 0;
+  --padding-start: 27px;
+  --inner-padding-end: 27px;
   --border-color: var(--ion-color-item-border);
 }
 ion-item.contactItem:hover {

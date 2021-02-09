@@ -19,10 +19,12 @@ ion-list {
     background: transparent;
 }
 ion-list ion-item {
+    --inner-padding-end: 0;
     color: var(--ion-color-color);
     border: 1px solid var(--ion-color-item-border);
     --border-color: var(--ion-color-item-border);
-    padding-right: 0;
+    padding-right: 10px;
+    padding-left: 10px;
 }
 .title {
     font-family: manrope-semibold;

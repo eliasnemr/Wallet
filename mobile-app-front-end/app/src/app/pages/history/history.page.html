@@ -15,7 +15,7 @@
 
 
 
-  <ion-content class="page-content">
+  <ion-content>
     <ion-list class="ion-no-padding" #historyList *ngFor="let txn of transactions" lines="none">
         <ion-item class="ion-no-padding" routerLink="/view-txn/{{ txn.txpow.txpowid }}" routerDirection="forward" lines="none">
             <ion-avatar slot="start">
