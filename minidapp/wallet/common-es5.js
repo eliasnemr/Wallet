@@ -81,6 +81,79 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 var hostContext=function(r,t){return t.closest(r)!==null};var createColorClasses=function(r,t){var e;return typeof r==="string"&&r.length>0?Object.assign((e={"ion-color":true},e["ion-color-"+r]=true,e),t):t};var getClassList=function(r){if(r!==undefined){var t=Array.isArray(r)?r:r.split(" ");return t.filter((function(r){return r!=null})).map((function(r){return r.trim()})).filter((function(r){return r!==""}))}return[]};var getClassMap=function(r){var t={};getClassList(r).forEach((function(r){return t[r]=true}));return t};var SCHEME=/^[a-z][a-z0-9+\-.]*:/;var openURL=function(r,t,e,n){return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(void 0,void 0,void 0,(function(){var o;return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"])(this,(function(a){if(r!=null&&r[0]!=="#"&&!SCHEME.test(r)){o=document.querySelector("ion-router");if(o){if(t!=null){t.preventDefault()}return[2,o.push(r,e,n)]}}return[2,false]}))}))};
 
+/***/ }),
+
+/***/ "./src/app/service/userconfig.service.ts":
+/*!***********************************************!*\
+  !*** ./src/app/service/userconfig.service.ts ***!
+  \***********************************************/
+/*! exports provided: UserConfigService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserConfigService", function() { return UserConfigService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! minima */ "./node_modules/minima/dist/minima.js");
+/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(minima__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+
+
+
+
+var UserConfigService = /** @class */ (function () {
+    function UserConfigService() {
+        this.defaultConfig = {
+            systemMode: 'light',
+            terminalFontSize: '12',
+            tokenDisplayMode: 1,
+            historyOrderByMode: 1,
+            historySaved: '',
+            tips: { balance: false, contacts: false, address: false }
+        };
+        this.userConfig = new rxjs__WEBPACK_IMPORTED_MODULE_1__["BehaviorSubject"](this.defaultConfig);
+        this.createUserConfig(this.defaultConfig);
+    }
+    UserConfigService.prototype.createUserConfig = function (defaultConfig) {
+        var _this = this;
+        minima__WEBPACK_IMPORTED_MODULE_2__["Minima"].file.load('UserConfig.txt', function (res) {
+            if (!res.success && !res.exists) {
+                minima__WEBPACK_IMPORTED_MODULE_2__["Minima"].file.save(JSON.stringify(defaultConfig), 'UserConfig.txt', function (resp) {
+                    if (resp.success) {
+                        console.log('User Configuration File has been created with default values.');
+                    }
+                });
+            }
+            else { // if userConfig exists, update with latest values
+                _this.userConfig.next(JSON.parse(res.data));
+            }
+        });
+    };
+    UserConfigService.prototype.saveUserConfig = function (currentValue) {
+        minima__WEBPACK_IMPORTED_MODULE_2__["Minima"].file.load('UserConfig.txt', function (res) {
+            if (res.success) {
+                if (res.data !== JSON.stringify(currentValue)) {
+                    minima__WEBPACK_IMPORTED_MODULE_2__["Minima"].file.save(JSON.stringify(currentValue), 'UserConfig.txt', function (res) {
+                        if (res.success) {
+                            //  console.log('Updated UserConfig!');
+                        }
+                    });
+                }
+            }
+        });
+    };
+    UserConfigService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], UserConfigService);
+    return UserConfigService;
+}());
+
+
+
 /***/ })
 
 }]);
