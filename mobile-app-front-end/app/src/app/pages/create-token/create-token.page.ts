@@ -66,8 +66,8 @@ export class CreateTokenPage implements OnInit {
       amount: ['', [Validators.required, Validators.maxLength(255)]],
       description: '',
       script: '',
-      icon: ['', [Validators.pattern('^https?://(?:[a-z0-9\-]+\.)+[a-z]{2,6}(?:/[^/#?]+)+\.(?:jpg|gif|png)$'), Validators.maxLength(255)]],
-      proof: ['', [Validators.pattern('^https?://(?:[a-z0-9\-]+\.)+[a-z]{2,6}(?:/[^/#?]+)+\.(?:txt)$'), Validators.maxLength(255)]],
+      icon: ['', [Validators.pattern('(http(s?):)([\\/|\\.|\\w|\\s|\\-])*\.(?:jpg|png)$'), Validators.maxLength(255)]],
+      proof: ['', [Validators.pattern('(http(s?):)([\\/|\\.|\\w|\\s|\\-])*\.(?:txt)$'), Validators.maxLength(255)]],
       nft: false
     });
   }
