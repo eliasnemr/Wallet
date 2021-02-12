@@ -420,9 +420,7 @@ var AppComponent = /** @class */ (function () {
                     _this.api.data.next(msg.info.balance);
                     // update history observable+historyPage
                     minima__WEBPACK_IMPORTED_MODULE_7__["Minima"].cmd('history', function (res) {
-                        var temp = JSON.stringify(res);
-                        if (res.response.history.length > 0 && temp !== _this.lastHistory) {
-                            _this.lastHistory = JSON.stringify(res.response);
+                        if (res.status && res.response.history.length > 0) {
                             _this.historyService.data.next(res.response);
                         }
                     });
