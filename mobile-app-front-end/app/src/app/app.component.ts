@@ -47,14 +47,11 @@ export class AppComponent {
         if (msg.event === 'connected') {
           this.api.data.next(Minima.balance);
         } else if (msg.event === 'newbalance') {
+
+          this.presentToast('Balance updated!', 'primary');
+
           this.api.data.next(msg.info.balance);
-        } else if (msg.event === 'newblock') {
-          // update status observable
-          Minima.cmd('status full', (res: any) => {
-            this.ngZone.run(() => {
-            this.status.updatedStatus.next(res.response);
-            });
-          });
+
           // update history observable+historyPage
           Minima.cmd('history', (res: {status: boolean; minifunc: string; message: string; response: any}) => {
             const temp = JSON.stringify(res);
@@ -63,10 +60,13 @@ export class AppComponent {
               this.historyService.data.next(res.response);
             }
           });
+        } else if (msg.event === 'newblock') {
+          
         } else if (msg.event === 'miningstart') {
-          this.presentToast('Mining transaction in progress...', 'primary');
+          this.presentMining('Node Status', 'Mining transaction in progress...', 'warning');
         } else if (msg.event === 'miningstop') {
-          this.presentToast('Mining transaction completed.', 'secondary');
+          // change color
+          this.presentMining('Node Status', 'Mining ended.', 'warning');
         } 
       });
     });
@@ -118,13 +118,26 @@ export class AppComponent {
     }
   }
   async presentToast(txt: string, color: string) {
-    // Create a Toast
     const toast = await this.toastCtrl.create({
       header: txt,
-      duration: 3000,
+      duration: 1000,
       color: color,
       buttons: [{
-        text: 'Close',
+        text: 'Dismiss',
+        role: 'cancel'
+      }]
+    });
+    await toast.present();
+  }
+
+  async presentMining(txt: string, msg: string, color: string) {
+    const toast = await this.toastCtrl.create({
+      header: txt,
+      message: msg,
+      duration: 2500,
+      color: color,
+      buttons: [{
+        text: 'Dismiss',
         role: 'cancel'
       }]
     });

@@ -1,10 +1,10 @@
 import { MinimaApiService } from './../../service/minima-api.service';
 import { AlertController, MenuController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
-import { map, retry, catchError, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { StatusService } from './../../service/status.service';
 import { Component, OnInit } from '@angular/core';
-import { NetworkStatus } from 'minima';
+import { NetworkStatus, Minima } from 'minima';
 
 @Component({
   selector: 'app-mini-status',
@@ -23,6 +23,11 @@ export class MiniStatusPage implements OnInit {
   ngOnInit() { }
 
   ionViewWillEnter() {
+    
+    Minima.cmd('status full', (res: any) => {
+      this.service.updatedStatus.next(res.response);
+    });
+
     this.updateStatus();
   }
 

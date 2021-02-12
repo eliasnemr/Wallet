@@ -48,7 +48,8 @@ ion-item {
     --background-hover: var(--ion-color-item-hover);
     --background-hover-opacity: 1;
     background: var(--ion-color-token);
-    box-shadow: 0px 3px 6px #C8C8D41A;
+    border: 1px solid var(--ion-color-item-border);
+    //box-shadow: 0px 3px 6px #C8C8D41A;
     border-radius: 10px;
     margin-bottom: 2%;
 }

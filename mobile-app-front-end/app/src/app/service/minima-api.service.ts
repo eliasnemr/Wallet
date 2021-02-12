@@ -53,7 +53,7 @@ export class MinimaApiService {
     "txnpost "+txnidentifier+";"+
     // Clear the txn
     "txndelete "+txnidentifier+";";
-
+    // send 1 0xFF 0x00 '254:0x1000#255:[This is a message]'
     return this.req(customTXN);
   }
 

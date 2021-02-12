@@ -10,7 +10,6 @@ export class StatusService {
   updatedStatus: Subject<NetworkStatus> = new ReplaySubject<NetworkStatus>(1) ;
 
   constructor() {
-    //console.log('StatusService started.');
     Minima.cmd('status full', (res: any) => {
       if (res.status) {
         //console.log(res);
