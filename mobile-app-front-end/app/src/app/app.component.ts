@@ -121,6 +121,7 @@ export class AppComponent {
     const toast = await this.toastCtrl.create({
       header: txt,
       duration: 1000,
+      position: 'top',
       color: color,
       buttons: [{
         text: 'Dismiss',

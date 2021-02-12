@@ -484,6 +484,7 @@ let AppComponent = class AppComponent {
             const toast = yield this.toastCtrl.create({
                 header: txt,
                 duration: 1000,
+                position: 'top',
                 color: color,
                 buttons: [{
                         text: 'Dismiss',

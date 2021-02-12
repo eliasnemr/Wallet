@@ -491,6 +491,7 @@ var AppComponent = /** @class */ (function () {
                     case 0: return [4 /*yield*/, this.toastCtrl.create({
                             header: txt,
                             duration: 1000,
+                            position: 'top',
                             color: color,
                             buttons: [{
                                     text: 'Dismiss',

@@ -245,11 +245,12 @@ var HistoryPage = /** @class */ (function () {
             });
             return res.history;
         })).subscribe(function (res) {
-            var currentJSON = JSON.stringify(res);
-            if (_this.lastJSON !== currentJSON) {
-                _this.transactions = res.reverse();
-            }
-            _this.lastJSON = currentJSON;
+            _this.transactions = res.reverse();
+            // const currentJSON = JSON.stringify(res.reverse());
+            // if (this.lastJSON !== currentJSON) {
+            //   this.transactions = res.reverse();
+            // }
+            // this.lastJSON = currentJSON;
         });
         if (this.transactions.length === 0) {
             this.prompt = 'No recent transactions found...';

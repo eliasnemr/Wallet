@@ -219,11 +219,12 @@ let HistoryPage = class HistoryPage {
             });
             return res.history;
         })).subscribe((res) => {
-            const currentJSON = JSON.stringify(res);
-            if (this.lastJSON !== currentJSON) {
-                this.transactions = res.reverse();
-            }
-            this.lastJSON = currentJSON;
+            this.transactions = res.reverse();
+            // const currentJSON = JSON.stringify(res.reverse());
+            // if (this.lastJSON !== currentJSON) {
+            //   this.transactions = res.reverse();
+            // }
+            // this.lastJSON = currentJSON;
         });
         if (this.transactions.length === 0) {
             this.prompt = 'No recent transactions found...';

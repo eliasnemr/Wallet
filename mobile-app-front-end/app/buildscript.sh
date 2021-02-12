@@ -1,0 +1,16 @@
+#!/bin/sh
+
+rm -rf ./minidapp
+
+mkdir minidapp
+
+mkdir minidapp/wallet
+
+cp -rf www/* minidapp/wallet
+
+cp src/assets/bg.svg minidapp/wallet
+cp src/assets/minidapp.conf minidapp/wallet
+
+zip -r ./minidapp/wallet.minidapp minidapp/wallet
+
+
