@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-app>\n<ion-header class=\"page-header ion-no-border\">\n  <ion-toolbar>\n    <ion-title>\n      <ion-item id=\"title\" lines=\"none\" class=\"ion-no-padding\">\n        <ion-icon class=\"menu-btn\" (click)=\"openMenu()\" src=\"assets/menuIcon.svg\"></ion-icon>\n        Send\n      </ion-item>\n      <ion-item id=\"subtitle\" class=\"breadcrumb ion-no-padding\" lines=\"none\" *ngIf=\"tokenArr.length > 0\">\n        Enter transaction details\n      </ion-item>\n    </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n\n\n<ion-content class=\"page-content\" *ngIf=\"!isWebCameraOpen\">\n\n  <ion-grid *ngIf=\"tokenArr.length == 0\">\n    <ion-row>\n      <ion-col style=\"display: flex; align-items:center; justify-content:center\" size=\"12\">\n        <ion-label>Fetching tokens...</ion-label>\n      </ion-col>\n      <ion-col style=\"display: flex; align-items:center; justify-content:center\" size=\"12\">\n        <ion-spinner name=\"crescent\"></ion-spinner>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n\n  <ion-card class=\"webscan-canvas\" *ngIf=\"isWebCameraOpen\">\n    <ion-card-header class=\"medium-text\">\n    Scan Your Minima QR address now...\n    <ion-progress-bar type=\"indeterminate\" reversed=\"true\"></ion-progress-bar>\n    </ion-card-header>\n    <video height=\"240\" #videoElem></video>\n    <hr>\n    <ion-button block=\"full\" (click)=\"scanQR()\">Stop Scanning</ion-button>\n    <hr>\n  </ion-card>\n\n\n  <form *ngIf=\"!isWebCameraOpen && tokenArr.length > 0\" [formGroup]=\"sendForm\" id=\"sendForm\" (ngSubmit)=\"sendFunds()\">\n    <ion-list class=\"ion-no-padding\">\n      <ion-item class=\"no-hover no-ripple ion-no-padding\" lines=\"none\">\n        <ion-label position=\"floating\">Token</ion-label>\n        <ion-select\n          placeholder=\"Select A Token\"\n          formControlName=\"tokenid\"    \n          interface = 'ion-action-sheet'\n          [(ngModel)]='itemSelected'\n          class=\"no-hover no-ripple input\"\n          (ionChange)=\"onItemSelection($event)\"> \n        <ion-select-option *ngFor=\"let token of tokenArr;\" [value]=\"token.tokenid\" class=\"token-option\">\n          {{ token.token + \"&mdash;\"+ token.tokenid }}\n        </ion-select-option>\n      </ion-select>\n      </ion-item>\n      <ion-item class=\"no-hover no-ripple ion-no-padding\"  lines=\"none\">\n        <ion-label class=\"medium-text\" position=\"stacked\">Address</ion-label>\n        <!-- <span (click)=\"scanQR()\" id=\"qrIcon\"> <ion-icon alt=\"qrCode\" src=\"assets/scan-outline.svg\"></ion-icon></span> -->\n        <ion-input #address class=\"medium-text input\" formControlName=\"address\" clearInput=\"true\" placeholder=\"Enter a valid address\"></ion-input>\n      </ion-item>\n      <ion-item class=\"error ion-no-padding\"  lines=\"none\" *ngIf=\"addressFormItem.invalid && addressFormItem.touched\">\n        <ion-note class=\"error-message\">\n          <ion-icon name=\"alert-circle\"></ion-icon> <span> Invalid address format!</span> \n          <span style=\"margin-left: 2px\"> An address must begin with 0x or Mx.</span> \n        </ion-note>\n      </ion-item>\n      <ion-item class=\"no-hover no-ripple ion-no-padding\"  lines=\"none\">\n        <ion-label class=\"medium-text\" position=\"stacked\">Amount</ion-label>\n        <ion-input #amount type=\"number\" formControlName=\"amount\" class=\"input\" placeholder=\"Enter token amount\"></ion-input>\n      </ion-item>\n      <ion-item class=\"error ion-no-padding\" lines=\"none\" *ngIf=\"amountFormItem.invalid && amountFormItem.touched\">\n        <ion-note class=\"error-message\">\n          <ion-icon name=\"alert-circle\"></ion-icon> <span> Amount required!</span>\n          <span style=\"margin-left: 2px\"> Amount has to be numeric and greater than 0.</span> \n        </ion-note>\n      </ion-item>\n\n      <ion-item class=\"no-hover no-ripple ion-no-padding\" lines=\"none\">\n        <ion-label position=\"stacked\" style=\"margin-bottom: 1%;\">Message <span style=\"font-family: manrope-light; color:var(--ion-color-optional); margin-right: 7px\">(optional) </span></ion-label>\n        <ion-textarea \n            [(ngModel)]=\"data.message\"\n            formControlName=\"message\"\n            class=\"medium-text input\"\n            auto-grow=\"false\"\n            #message \n            placeholder=\"This message will be public\"\n            maxlength=\"255\">\n            </ion-textarea>\n      </ion-item>\n      <ion-label *ngIf=\"data.message\" class=\"length\">{{ data.message.length +\"/255\" }}</ion-label>\n    </ion-list>\n\n    <ion-item lines=\"none\" class=\"ion-no-padding\"> \n      <ion-button #submitBtn type=\"submit\" slot=\"end\" [disabled]=\"sendForm.invalid\" class=\"send-funds\" fill=\"clear\">  \n        Send Funds\n     </ion-button>\n    </ion-item>\n  </form>\n\n</ion-content>\n<ion-footer class=\"border-t\">\n  <ion-button (click)=\"giveMe50()\" class=\"gimme50 no-ripple\" fill=\"none\">\n    Gimme 50\n  </ion-button>\n</ion-footer>\n</ion-app>\n\n"
+module.exports = "<ion-app>\n<ion-header class=\"page-header ion-no-border\">\n  <ion-toolbar>\n    <ion-title>\n      <ion-item id=\"title\" lines=\"none\" class=\"ion-no-padding\">\n        <ion-icon class=\"menu-btn\" (click)=\"openMenu()\" src=\"assets/menuIcon.svg\"></ion-icon>\n        Send\n      </ion-item>\n      <ion-item id=\"subtitle\" class=\"breadcrumb ion-no-padding\" lines=\"none\" *ngIf=\"tokenArr.length > 0\">\n        Enter transaction details\n      </ion-item>\n    </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n\n\n<ion-content class=\"page-content\" *ngIf=\"!isWebCameraOpen\">\n\n  <ion-grid *ngIf=\"tokenArr.length == 0\">\n    <ion-row>\n      <ion-col style=\"display: flex; align-items:center; justify-content:center\" size=\"12\">\n        <ion-label>Fetching tokens...</ion-label>\n      </ion-col>\n      <ion-col style=\"display: flex; align-items:center; justify-content:center\" size=\"12\">\n        <ion-spinner name=\"crescent\"></ion-spinner>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n\n  <ion-card class=\"webscan-canvas\" *ngIf=\"isWebCameraOpen\">\n    <ion-card-header class=\"medium-text\">\n    Scan Your Minima QR address now...\n    <ion-progress-bar type=\"indeterminate\" reversed=\"true\"></ion-progress-bar>\n    </ion-card-header>\n    <video height=\"240\" #videoElem></video>\n    <hr>\n    <ion-button block=\"full\" (click)=\"scanQR()\">Stop Scanning</ion-button>\n    <hr>\n  </ion-card>\n\n\n  <form *ngIf=\"!isWebCameraOpen && tokenArr.length > 0\" [formGroup]=\"sendForm\" id=\"sendForm\" (ngSubmit)=\"sendFunds()\">\n    <ion-list class=\"ion-no-padding\">\n      <ion-item class=\"no-hover no-ripple ion-no-padding\" lines=\"none\">\n        <ion-label position=\"floating\">Token</ion-label>\n        <ion-select\n          placeholder=\"Select A Token\"\n          formControlName=\"tokenid\"    \n          interface = 'ion-action-sheet'\n          [(ngModel)]='itemSelected'\n          class=\"no-hover no-ripple input\"\n          (ionChange)=\"onItemSelection($event)\"> \n        <ion-select-option *ngFor=\"let token of tokenArr;\" [value]=\"token.tokenid\" class=\"token-option\">\n          {{ token.token + \"&mdash;\"+ token.tokenid }}\n        </ion-select-option>\n      </ion-select>\n      </ion-item>\n      <ion-item class=\"no-hover no-ripple ion-no-padding\"  lines=\"none\">\n        <ion-label class=\"medium-text\" position=\"stacked\">Address</ion-label>\n        <!-- <span (click)=\"scanQR()\" id=\"qrIcon\"> <ion-icon alt=\"qrCode\" src=\"assets/scan-outline.svg\"></ion-icon></span> -->\n        <ion-input #address class=\"medium-text input\" formControlName=\"address\" clearInput=\"true\" placeholder=\"Enter a valid address\"></ion-input>\n      </ion-item>\n      <ion-item class=\"error ion-no-padding\"  lines=\"none\" *ngIf=\"addressFormItem.invalid && addressFormItem.touched\">\n        <ion-note class=\"error-message\">\n          <ion-icon name=\"alert-circle\"></ion-icon> <span> Invalid address format!</span> \n          <span style=\"margin-left: 2px\"> An address must begin with 0x or Mx.</span> \n        </ion-note>\n      </ion-item>\n      <ion-item class=\"no-hover no-ripple ion-no-padding\"  lines=\"none\">\n        <ion-label class=\"medium-text\" position=\"stacked\">Amount</ion-label>\n        <ion-input #amount type=\"number\" formControlName=\"amount\" class=\"input\" placeholder=\"Enter token amount\"></ion-input>\n      </ion-item>\n      <ion-item class=\"error ion-no-padding\" lines=\"none\" *ngIf=\"amountFormItem.invalid && amountFormItem.touched\">\n        <ion-note class=\"error-message\">\n          <ion-icon name=\"alert-circle\"></ion-icon> <span> Amount required!</span>\n          <span style=\"margin-left: 2px\"> Amount has to be numeric and greater than 0.</span> \n        </ion-note>\n      </ion-item>\n\n      <ion-item class=\"no-hover no-ripple ion-no-padding\" lines=\"none\">\n        <ion-label position=\"stacked\" style=\"margin-bottom: 1%;\">Message <span style=\"font-family: manrope-light; color:var(--ion-color-optional); margin-right: 7px\">(optional) </span></ion-label>\n        <ion-textarea \n            [(ngModel)]=\"data.message\"\n            formControlName=\"message\"\n            class=\"medium-text input\"\n            auto-grow=\"false\"\n            #message \n            placeholder=\"This message will be public\"\n            maxlength=\"255\">\n            </ion-textarea>\n      </ion-item>\n      <ion-label style=\"margin-left: 0;\" *ngIf=\"data.message\" class=\"length\">{{ data.message.length +\"/255\" }}</ion-label>\n    </ion-list>\n\n    <ion-item lines=\"none\" class=\"ion-no-padding\"> \n      <ion-button #submitBtn type=\"submit\" slot=\"end\" [disabled]=\"sendForm.invalid\" class=\"send-funds\" fill=\"clear\">  \n        Send Funds\n     </ion-button>\n    </ion-item>\n  </form>\n\n</ion-content>\n<ion-footer class=\"border-t\">\n  <ion-button (click)=\"giveMe50()\" class=\"gimme50 no-ripple\" fill=\"none\">\n    Gimme 50\n  </ion-button>\n</ion-footer>\n</ion-app>\n\n"
 
 /***/ }),
 
@@ -88,14 +88,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _service_balance_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../service/balance.service */ "./src/app/service/balance.service.ts");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic-native/clipboard/ngx */ "./node_modules/@ionic-native/clipboard/ngx/index.js");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/fesm5/ionic-angular.js");
-/* harmony import */ var _service_minima_api_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../service/minima-api.service */ "./src/app/service/minima-api.service.ts");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! minima */ "./node_modules/minima/dist/minima.js");
-/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(minima__WEBPACK_IMPORTED_MODULE_8__);
-
-
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/fesm5/ionic-angular.js");
+/* harmony import */ var _service_minima_api_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../service/minima-api.service */ "./src/app/service/minima-api.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 
 
 
@@ -104,15 +99,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var SendFundsPage = /** @class */ (function () {
-    function SendFundsPage(menu, formBuilder, clipboard, alertController, api, balanceService, route, router) {
+    function SendFundsPage(menu, formBuilder, alertController, api, balanceService, route) {
         this.menu = menu;
         this.formBuilder = formBuilder;
-        this.clipboard = clipboard;
         this.alertController = alertController;
         this.api = api;
         this.balanceService = balanceService;
         this.route = route;
-        this.router = router;
         this.nftScript = 'ASSERT FLOOR ( @AMOUNT ) EQ @AMOUNT LET checkout = 0 WHILE ( checkout LT @TOTOUT )' +
             'DO IF GETOUTTOK ( checkout ) EQ @TOKENID THEN LET outamt = GETOUTAMT ( checkout ) ASSERT FLOOR ( outamt )' +
             'EQ outamt ENDIF LET checkout = INC ( checkout ) ENDWHILE RETURN TRUE';
@@ -120,7 +113,6 @@ var SendFundsPage = /** @class */ (function () {
         this.data = { tokenid: '', amount: '', address: '', message: '' };
         this.messageToggle = false;
         this.tokenArr = [];
-        this.scanSub = null;
         this.pullInTokens();
     }
     SendFundsPage.prototype.ionViewWillEnter = function () {
@@ -186,7 +178,7 @@ var SendFundsPage = /** @class */ (function () {
         if (data.message !== null && (data.message || data.message.length > 0)) {
             this.submitBtn.disabled = true;
             this.api.sendMessageTransaction(data).then(function (res) {
-                if (minima__WEBPACK_IMPORTED_MODULE_8__["Minima"].util.checkAllResponses(res)) {
+                if (res.status) {
                     //console.log(res);
                     setTimeout(function () {
                         _this.submitBtn.disabled = false;
@@ -323,22 +315,20 @@ var SendFundsPage = /** @class */ (function () {
         }
     };
     SendFundsPage.ctorParameters = function () { return [
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["MenuController"] },
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["MenuController"] },
         { type: _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"] },
-        { type: _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_4__["Clipboard"] },
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["AlertController"] },
-        { type: _service_minima_api_service__WEBPACK_IMPORTED_MODULE_6__["MinimaApiService"] },
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["AlertController"] },
+        { type: _service_minima_api_service__WEBPACK_IMPORTED_MODULE_5__["MinimaApiService"] },
         { type: _service_balance_service__WEBPACK_IMPORTED_MODULE_2__["BalanceService"] },
-        { type: _angular_router__WEBPACK_IMPORTED_MODULE_7__["ActivatedRoute"] },
-        { type: _angular_router__WEBPACK_IMPORTED_MODULE_7__["Router"] }
+        { type: _angular_router__WEBPACK_IMPORTED_MODULE_6__["ActivatedRoute"] }
     ]; };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ViewChild"])('submitBtn', { static: false }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonButton"])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonButton"])
     ], SendFundsPage.prototype, "submitBtn", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ViewChild"])('amount', { static: false }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonInput"])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonInput"])
     ], SendFundsPage.prototype, "amountInp", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ViewChild"])('videoElem', { static: false }),
@@ -350,14 +340,12 @@ var SendFundsPage = /** @class */ (function () {
             template: __webpack_require__(/*! raw-loader!./send-funds.page.html */ "./node_modules/raw-loader/index.js!./src/app/pages/send-funds/send-funds.page.html"),
             styles: [__webpack_require__(/*! ./send-funds.page.scss */ "./src/app/pages/send-funds/send-funds.page.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_5__["MenuController"],
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_4__["MenuController"],
             _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"],
-            _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_4__["Clipboard"],
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["AlertController"],
-            _service_minima_api_service__WEBPACK_IMPORTED_MODULE_6__["MinimaApiService"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["AlertController"],
+            _service_minima_api_service__WEBPACK_IMPORTED_MODULE_5__["MinimaApiService"],
             _service_balance_service__WEBPACK_IMPORTED_MODULE_2__["BalanceService"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_7__["ActivatedRoute"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_7__["Router"]])
+            _angular_router__WEBPACK_IMPORTED_MODULE_6__["ActivatedRoute"]])
     ], SendFundsPage);
     return SendFundsPage;
 }());
@@ -433,24 +421,23 @@ var MinimaApiService = /** @class */ (function () {
         return this.req("tokenvalidate " + tokenid);
     };
     MinimaApiService.prototype.sendMessageTransaction = function (data) {
-        var txnidentifier = Math.floor(Math.random() * 1000000000);
-        var port254 = 254;
-        var port255 = 255;
-        var customTXN = 
-        // Custom TXN with an ID
-        "txncreate " + txnidentifier + ";" +
-            // Add state variable 1
-            "txnstate " + txnidentifier + " 254 01000100" + ";" +
-            // Add User state variable 2
-            "txnstate " + txnidentifier + " 255 \"" + data.message + "\"" + ";" +
-            // Auto fill the transaction
-            "txnauto " + txnidentifier + " " + data.amount + " " + data.address + " " + data.tokenid + ";" +
-            // Post it!
-            "txnpost " + txnidentifier + ";" +
-            // Clear the txn
-            "txndelete " + txnidentifier + ";";
-        // send 1 0xFF 0x00 '254:0x1000#255:[This is a message]'
-        return this.req(customTXN);
+        //const txnidentifier = Math.floor(Math.random()*1000000000);
+        var postTransaction = "send " + data.amount + " " + data.address + " " + data.tokenid + " " + " 254:[01000100]#255:[" + data.message + "]";
+        // const customTXN = 
+        // // Custom TXN with an ID
+        // "txncreate "+txnidentifier+";"+
+        // // Add state variable 1
+        // "txnstate "+txnidentifier+" 254 01000100"+";"+
+        // // Add User state variable 2
+        // "txnstate "+txnidentifier+" 255 \""+data.message+"\""+";"+
+        // // Auto fill the transaction
+        // "txnauto "+txnidentifier+" "+data.amount+" "+data.address+" "+data.tokenid+";"+
+        // // Post it!
+        // "txnpost "+txnidentifier+";"+
+        // // Clear the txn
+        // "txndelete "+txnidentifier+";";
+        // // send 1 0xFF 0x00 '254:0x1000#255:[This is a message]'
+        return this.req(postTransaction);
     };
     MinimaApiService.prototype.webLink = function (data) {
         return this.req('weblink+' + data.url);

@@ -1,12 +1,10 @@
-import { Router, ActivatedRoute } from '@angular/router';
-import { ContactService } from './service/contacts.service';
+import { ActivatedRoute } from '@angular/router';
 import { HistoryService } from './service/history.service';
 import { BalanceService } from './service/balance.service';
 import { StatusService } from './service/status.service';
-import { UserConfigService } from './service/userconfig.service';
 import { Component, NgZone } from '@angular/core';
 import { Platform, ToastController } from '@ionic/angular';
-import { Minima, History } from 'minima';
+import { Minima } from 'minima';
 
 @Component({
   selector: 'app-root',
@@ -46,6 +44,8 @@ export class AppComponent {
       Minima.init((msg: any) => {
         if (msg.event === 'connected') {
           this.api.data.next(Minima.balance);
+
+
         } else if (msg.event === 'newbalance') {
 
           this.presentToast('Balance updated!', 'primary');

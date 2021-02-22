@@ -228,24 +228,23 @@ let MinimaApiService = class MinimaApiService {
         return this.req("tokenvalidate " + tokenid);
     }
     sendMessageTransaction(data) {
-        const txnidentifier = Math.floor(Math.random() * 1000000000);
-        const port254 = 254;
-        const port255 = 255;
-        const customTXN = 
-        // Custom TXN with an ID
-        "txncreate " + txnidentifier + ";" +
-            // Add state variable 1
-            "txnstate " + txnidentifier + " 254 01000100" + ";" +
-            // Add User state variable 2
-            "txnstate " + txnidentifier + " 255 \"" + data.message + "\"" + ";" +
-            // Auto fill the transaction
-            "txnauto " + txnidentifier + " " + data.amount + " " + data.address + " " + data.tokenid + ";" +
-            // Post it!
-            "txnpost " + txnidentifier + ";" +
-            // Clear the txn
-            "txndelete " + txnidentifier + ";";
-        // send 1 0xFF 0x00 '254:0x1000#255:[This is a message]'
-        return this.req(customTXN);
+        //const txnidentifier = Math.floor(Math.random()*1000000000);
+        const postTransaction = "send " + data.amount + " " + data.address + " " + data.tokenid + " " + " 254:[01000100]#255:[" + data.message + "]";
+        // const customTXN = 
+        // // Custom TXN with an ID
+        // "txncreate "+txnidentifier+";"+
+        // // Add state variable 1
+        // "txnstate "+txnidentifier+" 254 01000100"+";"+
+        // // Add User state variable 2
+        // "txnstate "+txnidentifier+" 255 \""+data.message+"\""+";"+
+        // // Auto fill the transaction
+        // "txnauto "+txnidentifier+" "+data.amount+" "+data.address+" "+data.tokenid+";"+
+        // // Post it!
+        // "txnpost "+txnidentifier+";"+
+        // // Clear the txn
+        // "txndelete "+txnidentifier+";";
+        // // send 1 0xFF 0x00 '254:0x1000#255:[This is a message]'
+        return this.req(postTransaction);
     }
     webLink(data) {
         return this.req('weblink+' + data.url);

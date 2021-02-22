@@ -135,7 +135,7 @@ export class HistoryPage implements OnInit {
   }
 
   pullInHistorySummary() {
-    this.historyService.data.pipe(map((res: any) => {
+    this.historyService.data.pipe(map((res: History) => {
       res.history.forEach((txpow: CompleteTransactionTime) => {
         const name = txpow.values[0].name;
         txpow.values[0].time = moment( txpow.txpow.header.timesecs * 1000).format('hh:mm A');
@@ -148,12 +148,10 @@ export class HistoryPage implements OnInit {
       });
       return res.history;
     })).subscribe((res: any) => {
- 
-      this.transactions = res.reverse();
-
+      this.transactions = res;
       // const currentJSON = JSON.stringify(res.reverse());
       // if (this.lastJSON !== currentJSON) {
-      //   this.transactions = res.reverse();
+      //   this.transactions = res;
       // }
       // this.lastJSON = currentJSON;
     });

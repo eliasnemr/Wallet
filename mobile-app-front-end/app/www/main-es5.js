@@ -703,7 +703,7 @@ var ContactsModalPage = /** @class */ (function () {
             DESCRIPTION: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].maxLength(255)]],
             AVATAR: ['', [
                     _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].maxLength(255),
-                    _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].pattern('^https?://(?:[a-z0-9\-]+\.)+[a-z]{2,6}(?:/[^/#?]+)+\.(?:jpg|gif|png)$'),
+                    _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].pattern('(http(s?):)([\\/|\\.|\\w|\\s|\\-])*\.(?:jpg|png)$'),
                 ]
             ]
         });
@@ -1019,8 +1019,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! minima */ "./node_modules/minima/dist/minima.js");
-/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(minima__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! minima */ "./node_modules/minima/dist/minima.js");
+/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(minima__WEBPACK_IMPORTED_MODULE_4__);
+
 
 
 
@@ -1030,11 +1032,15 @@ var HistoryService = /** @class */ (function () {
         this.data = new rxjs__WEBPACK_IMPORTED_MODULE_2__["ReplaySubject"](1);
         this.loadHistory();
     }
+    HistoryService.prototype.loadHistoryOnce = function () {
+        return this.data.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["take"])(1))
+            .toPromise();
+    };
     HistoryService.prototype.loadHistory = function () {
         var _this = this;
-        minima__WEBPACK_IMPORTED_MODULE_3__["Minima"].cmd('history', function (res) {
-            if (res.status) {
-                _this.data.next(res.response);
+        minima__WEBPACK_IMPORTED_MODULE_4__["Minima"].cmd('history', function (response) {
+            if (response.status) {
+                _this.data.next(response.response);
             }
         });
     };

@@ -675,7 +675,7 @@ let ContactsModalPage = class ContactsModalPage {
             DESCRIPTION: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].maxLength(255)]],
             AVATAR: ['', [
                     _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].maxLength(255),
-                    _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].pattern('^https?://(?:[a-z0-9\-]+\.)+[a-z]{2,6}(?:/[^/#?]+)+\.(?:jpg|gif|png)$'),
+                    _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].pattern('(http(s?):)([\\/|\\.|\\w|\\s|\\-])*\.(?:jpg|png)$'),
                 ]
             ]
         });
@@ -958,8 +958,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
-/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! minima */ "./node_modules/minima/dist/minima.js");
-/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(minima__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
+/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! minima */ "./node_modules/minima/dist/minima.js");
+/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(minima__WEBPACK_IMPORTED_MODULE_4__);
+
 
 
 
@@ -969,10 +971,14 @@ let HistoryService = class HistoryService {
         this.data = new rxjs__WEBPACK_IMPORTED_MODULE_2__["ReplaySubject"](1);
         this.loadHistory();
     }
+    loadHistoryOnce() {
+        return this.data.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["take"])(1))
+            .toPromise();
+    }
     loadHistory() {
-        minima__WEBPACK_IMPORTED_MODULE_3__["Minima"].cmd('history', (res) => {
-            if (res.status) {
-                this.data.next(res.response);
+        minima__WEBPACK_IMPORTED_MODULE_4__["Minima"].cmd('history', (response) => {
+            if (response.status) {
+                this.data.next(response.response);
             }
         });
     }

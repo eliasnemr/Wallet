@@ -53,7 +53,12 @@ ion-item {
     border-radius: 10px;
     margin-bottom: 2%;
 }
-
+ion-item ion-label {
+    margin: 0;
+}
+ion-item ion-label#token-name {
+    max-width: auto;
+}
 ion-list {
     overflow: scroll;
 }

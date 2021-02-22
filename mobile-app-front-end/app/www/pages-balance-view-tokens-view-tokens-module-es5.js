@@ -67,24 +67,23 @@ var MinimaApiService = /** @class */ (function () {
         return this.req("tokenvalidate " + tokenid);
     };
     MinimaApiService.prototype.sendMessageTransaction = function (data) {
-        var txnidentifier = Math.floor(Math.random() * 1000000000);
-        var port254 = 254;
-        var port255 = 255;
-        var customTXN = 
-        // Custom TXN with an ID
-        "txncreate " + txnidentifier + ";" +
-            // Add state variable 1
-            "txnstate " + txnidentifier + " 254 01000100" + ";" +
-            // Add User state variable 2
-            "txnstate " + txnidentifier + " 255 \"" + data.message + "\"" + ";" +
-            // Auto fill the transaction
-            "txnauto " + txnidentifier + " " + data.amount + " " + data.address + " " + data.tokenid + ";" +
-            // Post it!
-            "txnpost " + txnidentifier + ";" +
-            // Clear the txn
-            "txndelete " + txnidentifier + ";";
-        // send 1 0xFF 0x00 '254:0x1000#255:[This is a message]'
-        return this.req(customTXN);
+        //const txnidentifier = Math.floor(Math.random()*1000000000);
+        var postTransaction = "send " + data.amount + " " + data.address + " " + data.tokenid + " " + " 254:[01000100]#255:[" + data.message + "]";
+        // const customTXN = 
+        // // Custom TXN with an ID
+        // "txncreate "+txnidentifier+";"+
+        // // Add state variable 1
+        // "txnstate "+txnidentifier+" 254 01000100"+";"+
+        // // Add User state variable 2
+        // "txnstate "+txnidentifier+" 255 \""+data.message+"\""+";"+
+        // // Auto fill the transaction
+        // "txnauto "+txnidentifier+" "+data.amount+" "+data.address+" "+data.tokenid+";"+
+        // // Post it!
+        // "txnpost "+txnidentifier+";"+
+        // // Clear the txn
+        // "txndelete "+txnidentifier+";";
+        // // send 1 0xFF 0x00 '254:0x1000#255:[This is a message]'
+        return this.req(postTransaction);
     };
     MinimaApiService.prototype.webLink = function (data) {
         return this.req('weblink+' + data.url);

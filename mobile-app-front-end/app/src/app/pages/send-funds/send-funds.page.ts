@@ -43,18 +43,16 @@ export class SendFundsPage implements OnInit {
   balanceSubscription: Subscription;
   tokenArr: Token[] = [];
 
-  private scanSub: any = null;
   constructor(
     public menu: MenuController,
     private formBuilder: FormBuilder,
-    private clipboard: Clipboard,
     public alertController: AlertController,
     private api: MinimaApiService,
     private balanceService: BalanceService,
     private route: ActivatedRoute,
-    private router: Router) {
+  ) {
       this.pullInTokens();
-    }
+  }
 
   ionViewWillEnter() {
     this.getTokenSelected();
@@ -107,7 +105,8 @@ export class SendFundsPage implements OnInit {
     if (data.message !== null && ( data.message || data.message.length > 0) ) {
       this.submitBtn.disabled = true;
       this.api.sendMessageTransaction(data).then((res: any) => {
-        if (Minima.util.checkAllResponses(res)) {
+        
+        if (res.status) {
           //console.log(res);
           setTimeout(() => {
             this.submitBtn.disabled = false;

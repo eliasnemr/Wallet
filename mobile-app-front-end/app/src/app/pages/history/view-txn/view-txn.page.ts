@@ -1,8 +1,9 @@
+import { HistoryService } from './../../../service/history.service';
 import { MinimaApiService } from './../../../service/minima-api.service';
 import { ActivatedRoute } from '@angular/router';
 import { ToastController, AlertController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
-import { Minima } from 'minima';
+import { Minima, History, CompleteTransaction } from 'minima';
 
 declare var require: any; // quick fix just cause I'm using require for 1 pkg
 var moment = require('moment');
@@ -14,52 +15,54 @@ var moment = require('moment');
 })
 export class ViewTXNPage implements OnInit {
 
+  myTxn: CompleteTransaction;
+  transactionID: string = '';
+
   hide = false;
   public loading = true;
-  public txn: string;
+
   public id: string;
   public relaytime: string;
-  public size: string;
-  public isinblock: boolean;
-  public blocknumber: number;
-  public isblock: boolean;
-  public nonce: string;
-  public inputs: [];
-  public outputs: [];
   public type: string;
-  public tokenname: string;
-  public tokentotal: string;
+  public message: string = '';
 
-  constructor(public route: ActivatedRoute, public toastController: ToastController, private api: MinimaApiService, public alertController: AlertController) {
-    this.txn = this.route.snapshot.paramMap.get('id');
+  constructor(
+    public route: ActivatedRoute,
+    public toastController: ToastController,
+    private api: MinimaApiService,
+    private _historyService: HistoryService,
+    public alertController: AlertController) {
+      this.transactionID = this.route.snapshot.paramMap.get('id');
   }
 
   ngOnInit() {
-    Minima.cmd('txpowinfo ' + this.txn, (res: any) => {
-      if (res.status) {
-        this.id = res.response.txpow.txpowid;
-        this.relaytime = new Date(res.response.txpow.header.timesecs * 1000).toISOString();
-        this.relaytime = moment(this.relaytime).format('DD/MM/YYYY - hh:mm:ss', true);
-        this.size = res.response.txpow.size;
-        this.isblock = res.response.txpow.isblock;
-        this.isinblock = res.response.isinblock;
-        this.blocknumber = res.response.inblock;
-        this.nonce = res.response.txpow.header.nonce;
-        this.inputs = res.response.txpow.body.txn.inputs;
-        this.outputs = res.response.txpow.body.txn.outputs;
-        
+    this._historyService
+    .loadHistoryOnce()
+      .then((res: any) => {
         this.loading = false;
-        if (res.response.txpow.body.txn.tokengen) {
+
+        this.myTxn = res.history.filter((txpow: CompleteTransaction) => txpow.txpow.txpowid === this.transactionID );
+        this.myTxn = this.myTxn[0];
+
+        this.relaytime = new Date(this.myTxn.txpow.header.timesecs * 1000).toISOString();
+        this.relaytime = moment(this.relaytime).format('DD/MM/YYYY - hh:mm:ss', true);
+
+        if (this.myTxn.txpow.body.txn.state && this.myTxn.txpow.body.txn.state[0] && this.myTxn.txpow.body.txn.state[0].data === '[01000100]') {
+
+          this.message = this.myTxn.txpow.body.txn.state[1].data;
+          this.message = this.message.substring(1, this.message.length-1);
+        }
+        
+        if (this.myTxn.txpow.body.txn.tokengen) {
           this.type = 'Token Creation.';
-          this.tokenname = res.response.txpow.body.txn.tokengen.token;
-          this.tokentotal = res.response.txpow.body.txn.tokengen.total;
         } else {
           this.type = 'Value Transfer.';
         }
-      } else {
-        console.log(res.message);
-      }
-    });
+
+      }).catch(error => {
+        console.log(error);
+      })
+
   }
 
   shout() {

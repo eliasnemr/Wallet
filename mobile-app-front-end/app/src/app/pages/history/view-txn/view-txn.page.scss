@@ -16,7 +16,6 @@ ion-list#input-details ion-list-header, ion-list#output-details ion-list-header 
     padding-left: 0;
     ion-item {
         width: 100%;
-        margin-right: 17px!important;
         border-bottom: 1px solid var(--ion-color-item-border);
     }
 }
@@ -43,13 +42,12 @@ ion-item#last-child {
     cursor: pointer;
     font-size: 0.8rem;
 }
-ion-list-header ion-label h6 {
+ion-list-header ion-item {
+    --border-color: var(--ion-color-ruler);
+    --border-width: 0px 0px 1px 0px;
+    --inner-padding-end: 0;
     font-size: 16px;
     font-family: manrope-bold;
-}
-ion-list-header ion-label p {
-    font-size: 16px;
-    font-family: manrope-medium;
 }
 .title {
     font-family: manrope-bold;
@@ -82,8 +80,9 @@ ion-list-header ion-label p {
 .chevron {
     width: 15px;
 }
-.completed p {
+
+.completed {
     font-size: 16px;
-    color: rgba(75,222,131, 0.7);
+    color: var(--ion-color-primary)
 }
 

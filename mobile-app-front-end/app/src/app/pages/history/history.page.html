@@ -16,7 +16,7 @@
 
 
   <ion-content>
-    <ion-list class="ion-no-padding" #historyList *ngFor="let txn of transactions" lines="none">
+    <ion-list class="ion-no-padding" #historyList *ngFor="let txn of transactions.slice().reverse()" lines="none">
         <ion-item class="ion-no-padding" routerLink="/view-txn/{{ txn.txpow.txpowid }}" routerDirection="forward" lines="none">
             <ion-avatar slot="start">
               <ion-icon style="fill: var(--ion-color-secondary) !important" *ngIf="txn.values[0].amount.substring(0,1) == '-'" class="icon" src="assets/sendIcon.svg" alt="send-receive"></ion-icon>
