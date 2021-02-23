@@ -114,12 +114,18 @@ var MiniTermPage = /** @class */ (function () {
         this.lastLine = '';
         this.loader = null;
         // Disable up and down keys.
-        window.addEventListener('keydown', function (e) {
-            if ([37, 38, 39, 40].indexOf(e.keyCode) > -1) {
-                e.preventDefault();
-            }
-        }, false);
+        // window.addEventListener('keydown', function(e) {
+        //   if ( [37, 38, 39, 40].indexOf(e.keyCode) > -1 ) {
+        //     e.preventDefault();
+        //   }
+        // }, false);
     }
+    MiniTermPage.prototype.keyEvent = function (event) {
+        if (event.key == 'ArrowDown' || event.key == 'ArrowLeft' || event.key == 'ArrowRight' || event.key == 'ArrowUp') {
+            // Your row selection code
+            event.preventDefault();
+        }
+    };
     MiniTermPage.prototype.ngOnInit = function () {
         var _this = this;
         var mStr = parseInt(localStorage.getItem('termFontSize'), 10);
@@ -146,6 +152,11 @@ var MiniTermPage = /** @class */ (function () {
     MiniTermPage.prototype.ionViewWillLeave = function () {
         localStorage.setItem('termFontSize', '' + this.size);
         this.fontSubscription.unsubscribe();
+        window.removeEventListener("keydown", function (e) {
+            if ([37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+                e.preventDefault();
+            }
+        }, true);
     };
     MiniTermPage.prototype.ngAfterViewInit = function () {
         var _this = this;
@@ -324,6 +335,12 @@ var MiniTermPage = /** @class */ (function () {
         { type: _service_userterminal_service__WEBPACK_IMPORTED_MODULE_6__["UserTerminal"] }
     ]; };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["HostListener"])('window:keydown', ['$event']),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [KeyboardEvent]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
+    ], MiniTermPage.prototype, "keyEvent", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ViewChild"])(_ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonContent"], { static: false }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonContent"])
     ], MiniTermPage.prototype, "ionContent", void 0);
@@ -420,7 +437,7 @@ var MinimaApiService = /** @class */ (function () {
     };
     MinimaApiService.prototype.sendMessageTransaction = function (data) {
         //const txnidentifier = Math.floor(Math.random()*1000000000);
-        var postTransaction = "send " + data.amount + " " + data.address + " " + data.tokenid + " " + " 254:[01000100]#255:[" + data.message + "]";
+        var postTransaction = "send " + data.amount + " " + data.address + " " + data.tokenid + " " + " 254:[01000100]#255:[\"" + data.message + "\"]";
         // const customTXN = 
         // // Custom TXN with an ID
         // "txncreate "+txnidentifier+";"+

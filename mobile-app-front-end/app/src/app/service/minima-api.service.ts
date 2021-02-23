@@ -39,7 +39,7 @@ export class MinimaApiService {
   sendMessageTransaction(data: any){
     //const txnidentifier = Math.floor(Math.random()*1000000000);
     
-    const postTransaction = "send "+data.amount+" "+data.address+" "+data.tokenid+" "+" 254:[01000100]#255:["+data.message+"]";
+    const postTransaction = "send "+data.amount+" "+data.address+" "+data.tokenid+" "+" 254:[01000100]#255:[\""+data.message+"\"]";
     
     // const customTXN = 
     // // Custom TXN with an ID

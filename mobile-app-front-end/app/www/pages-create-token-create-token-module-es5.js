@@ -381,7 +381,7 @@ var MinimaApiService = /** @class */ (function () {
     };
     MinimaApiService.prototype.sendMessageTransaction = function (data) {
         //const txnidentifier = Math.floor(Math.random()*1000000000);
-        var postTransaction = "send " + data.amount + " " + data.address + " " + data.tokenid + " " + " 254:[01000100]#255:[" + data.message + "]";
+        var postTransaction = "send " + data.amount + " " + data.address + " " + data.tokenid + " " + " 254:[01000100]#255:[\"" + data.message + "\"]";
         // const customTXN = 
         // // Custom TXN with an ID
         // "txncreate "+txnidentifier+";"+

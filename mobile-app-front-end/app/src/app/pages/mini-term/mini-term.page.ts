@@ -1,7 +1,7 @@
 import { MinimaApiService } from './../../service/minima-api.service';
 import { Subscription } from 'rxjs';
 import { PopTermComponent } from '../../components/pop-term/pop-term.component';
-import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Renderer2, HostListener } from '@angular/core';
 import { LoadingController, NavController, IonContent, PopoverController, IonTextarea, AlertController, MenuController } from '@ionic/angular';
 import { environment } from '../../../environments/environment';
 import { UserTerminal } from '../../service/userterminal.service';
@@ -14,6 +14,15 @@ import { Minima } from 'minima';
 })
 
 export class MiniTermPage implements OnInit {
+
+  @HostListener('window:keydown', ['$event'])
+  keyEvent(event: KeyboardEvent) {
+    if(event.key == 'ArrowDown' || event.key == 'ArrowLeft' || event.key == 'ArrowRight' || event.key == 'ArrowUp'){
+      // Your row selection code
+      event.preventDefault();
+
+    }
+  }
 
   @ViewChild(IonContent, {static : false} ) ionContent: IonContent;
   @ViewChild('terminal', {static: false}) terminal: ElementRef;
@@ -35,11 +44,11 @@ export class MiniTermPage implements OnInit {
     public userTerminal: UserTerminal) {
 
     // Disable up and down keys.
-      window.addEventListener('keydown', function(e) {
-        if ( [37, 38, 39, 40].indexOf(e.keyCode) > -1 ) {
-          e.preventDefault();
-        }
-      }, false);
+    // window.addEventListener('keydown', function(e) {
+    //   if ( [37, 38, 39, 40].indexOf(e.keyCode) > -1 ) {
+    //     e.preventDefault();
+    //   }
+    // }, false);
   }
 
   ngOnInit() {
@@ -58,6 +67,7 @@ export class MiniTermPage implements OnInit {
           }
       }
     });
+
   }
 
   openMenu() {
@@ -68,6 +78,12 @@ export class MiniTermPage implements OnInit {
   ionViewWillLeave() {
    localStorage.setItem('termFontSize', '' + this.size);
    this.fontSubscription.unsubscribe();
+  
+   window.removeEventListener("keydown", function(e) {
+    if ( [37, 38, 39, 40].indexOf(e.keyCode) > -1 ) {
+      e.preventDefault();
+    }
+   }, true)
   }
 
   ngAfterViewInit() {
