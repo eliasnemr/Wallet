@@ -1,8 +1,10 @@
+import { ContactService, SelectedAddress } from 'src/app/service/contacts.service';
+import { ContactsViewModalComponent } from './../../components/contacts-view-modal/contacts-view-modal.component';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { BalanceService } from '../../service/balance.service';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Clipboard } from '@ionic-native/clipboard/ngx';
-import { AlertController, IonInput, IonButton, MenuController } from '@ionic/angular';
+import { AlertController, IonInput, IonButton, MenuController, ModalController } from '@ionic/angular';
 import { MinimaApiService } from '../../service/minima-api.service';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -47,14 +49,24 @@ export class SendFundsPage implements OnInit {
     public menu: MenuController,
     private formBuilder: FormBuilder,
     public alertController: AlertController,
+    public modalController: ModalController,
     private api: MinimaApiService,
     private balanceService: BalanceService,
-    private route: ActivatedRoute,
+    private _contactService: ContactService,
+    private route: ActivatedRoute
   ) {
       this.pullInTokens();
   }
 
   ionViewWillEnter() {
+    this._contactService.$selected_address.subscribe((res: SelectedAddress) => {
+      if (res.address.length === 0) {
+
+      } else {
+        this.addressFormItem.setValue(res.address);
+        this._contactService.$selected_address.next({address: ''});
+      }
+    });
     this.getTokenSelected();
   }
 
@@ -96,6 +108,14 @@ export class SendFundsPage implements OnInit {
     this.balanceService.data.subscribe((balance: Token[]) => {
       this.tokenArr = balance;
     });
+  }
+
+  async presentContactModal() {
+    let contactModal = await this.modalController.create({
+      component: ContactsViewModalComponent,
+      cssClass: 'contacts-view'
+    });
+    contactModal.present();
   }
   
   sendFunds() {

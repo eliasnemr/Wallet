@@ -1,4 +1,5 @@
 import { Subject, ReplaySubject } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { Minima } from 'minima';
 import { Injectable } from '@angular/core';
 import * as SparkMD5 from 'spark-md5';
@@ -9,12 +10,16 @@ export interface Contact {
   DESCRIPTION?: string;
   AVATAR?: string;
 }
+export interface SelectedAddress {
+  address: string
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class ContactService {
 
+  $selected_address: Subject<SelectedAddress> = new ReplaySubject<SelectedAddress>(1);
   data: Subject<Contact[]> = new ReplaySubject<Contact[]>(1);
   qContacts: string;
   constructor() {
@@ -38,11 +43,9 @@ export class ContactService {
     return 'https://www.gravatar.com/avatar/' + SparkMD5.hash(address) + '?d=identicon';
   }
 
-  loadContacts(): Contact[] {
-    this.data.subscribe((val: any) => {
-      return val;
-    });
-    return null;
+  loadContacts() {
+    return this.data.pipe(take(1))
+      .toPromise();
   }
 
    addContact(newContact: Contact) {
@@ -67,7 +70,7 @@ export class ContactService {
     }
 
     Minima.sql(this.qContacts + ';SELECT * FROM CONTACTS ORDER BY NAME', (res: any) => {
-      console.log(res);
+      //console.log(res);
       if (res.status && res.response[0].status) {
         this.data.next(res.response[1].rows);
       }

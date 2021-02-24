@@ -1,0 +1,44 @@
+ion-searchbar {
+  padding: 0;
+  --box-shadow: 0;
+  --icon-color: #001C32;
+  --background: var(--ion-color-inputs);
+  --border: 1px solid #f0f0fa;
+  color: #001C32;
+  font-size: 12px;
+}
+ion-grid.has {
+  padding-left: 22px;
+  padding-right: 22px;
+}
+ion-buttons { 
+  ion-button {
+    text-transform: none;
+    color: var(--ion-color-primary);
+  }
+  ion-button:hover {
+    --background-hover: none;
+    --color: var(--ion-color-secondary);
+  }
+}
+
+ion-item-option div.block {
+  width: 100%;
+  text-transform: none;
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 0.85rem;
+}
+ion-item-option div.block ion-icon {
+  font-size: 1.2rem;
+}
+ion-item.contactItem {
+  padding: 0;
+  --padding-start: 27px;
+  --inner-padding-end: 27px;
+  --border-color: var(--ion-color-item-border);
+}
+ion-item.contactItem:hover {
+  --background: var(--ion-color-item-hover);
+}

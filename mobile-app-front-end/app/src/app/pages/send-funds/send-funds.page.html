@@ -59,7 +59,10 @@
       <ion-item class="no-hover no-ripple ion-no-padding"  lines="none">
         <ion-label class="medium-text" position="stacked">Address</ion-label>
         <!-- <span (click)="scanQR()" id="qrIcon"> <ion-icon alt="qrCode" src="assets/scan-outline.svg"></ion-icon></span> -->
-        <ion-input #address class="medium-text input" formControlName="address" clearInput="true" placeholder="Enter a valid address"></ion-input>
+        <div class="has">
+          <ion-input #address class="medium-text input" formControlName="address" clearInput="true" placeholder="Enter a valid address"></ion-input>
+          <button type="button" (click)="presentContactModal()" class="clear"><ion-icon style="font-size: 16px; color: var(--ion-color-primary)" name="person-add-outline"></ion-icon></button>
+        </div>
       </ion-item>
       <ion-item class="error ion-no-padding"  lines="none" *ngIf="addressFormItem.invalid && addressFormItem.touched">
         <ion-note class="error-message">

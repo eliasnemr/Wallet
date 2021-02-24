@@ -134,3 +134,11 @@ ion-button.send-funds {
 ion-button.send-funds:hover {
   --background: #346EE5;
 }
+div.has {
+  display: flex; 
+  width: 100%;
+  button {
+    background-color: transparent;
+    border: 1px solid #F0F0FA;
+  }
+}

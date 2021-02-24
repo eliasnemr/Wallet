@@ -1,3 +1,4 @@
+import { ContactsViewModalComponent } from './components/contacts-view-modal/contacts-view-modal.component';
 /**
  * Created By Elias Nemr
  * 01/11/19
@@ -24,8 +25,9 @@ import { ContactsModalPage } from './components/contacts-modal/contacts-modal.pa
   declarations: [
     AppComponent,
     PopTermComponent,
-    ContactsModalPage],
-  entryComponents: [PopTermComponent, ContactsModalPage],
+    ContactsModalPage,
+    ContactsViewModalComponent],
+  entryComponents: [PopTermComponent, ContactsViewModalComponent, ContactsModalPage],
   imports: [
     AppRoutingModule,
     FormsModule,
