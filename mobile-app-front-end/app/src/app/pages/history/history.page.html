@@ -3,10 +3,17 @@
     <ion-toolbar>
          <ion-title *ngIf="!ios" class="large-text">
           <ion-item id="title" lines="none" class="ion-no-padding">
-            <ion-icon class="menu-btn" (click)="openMenu()" src="assets/menuIcon.svg"></ion-icon>
+            <ion-icon 
+            class="menu-btn" 
+            (click)="openMenu()" 
+            src="assets/menuIcon.svg"></ion-icon>
             History
           </ion-item>
-          <ion-item id="subtitle" class="breadcrumb ion-no-padding" lines="none" *ngIf="transactions.length > 0">
+          <ion-item 
+          id="subtitle" 
+          class="breadcrumb ion-no-padding" 
+          lines="none" 
+          *ngIf="transactions.length > 0">
             Transaction history
           </ion-item>
         </ion-title>
@@ -16,14 +23,91 @@
 
 
   <ion-content>
-    <ion-list class="ion-no-padding" #historyList *ngFor="let txn of transactions.slice().reverse()" lines="none">
-        <ion-item class="ion-no-padding" routerLink="/view-txn/{{ txn.txpow.txpowid }}" routerDirection="forward" lines="none">
+    <ion-list 
+    class="ion-no-padding" 
+    #historyList 
+    *ngFor="let txn of transactions.slice().reverse()" 
+    lines="none">
+        <ion-item 
+        class="ion-no-padding" 
+        routerLink="/view-txn/{{ txn.txpow.txpowid }}" 
+        routerDirection="forward" l
+        ines="none">
             <ion-avatar slot="start">
-              <ion-icon style="fill: var(--ion-color-secondary) !important" *ngIf="txn.values[0].amount.substring(0,1) == '-'" class="icon" src="assets/sendIcon.svg" alt="send-receive"></ion-icon>
-              <ion-icon style="fill:var(--ion-color-primary) !important" *ngIf="txn.values[0].amount.substring(0,1) !== '-' && txn.values[0].name !== 'Create Token'" class="icon" src="assets/receiveIcon.svg" alt="send-receive"></ion-icon>
-              <ion-icon *ngIf="!txn.values[0].name.name && txn.values[0].name === 'Create Token'" class="icon" src="assets/createIcon.svg" alt="send-receive"></ion-icon>
+              <ion-icon 
+              style="fill: var(--ion-color-secondary) !important"
+              *ngIf="txn.values[0].amount.substring(0,1) == '-'" 
+              class="icon" 
+              src="assets/sendIcon.svg" 
+              alt="send-receive"></ion-icon>
+              <ion-icon 
+              style="fill:var(--ion-color-primary) !important" 
+              *ngIf="txn.values[0].amount.substring(0,1) !== '-' && txn.values[0].name !== 'Create Token'" 
+              class="icon" src="assets/receiveIcon.svg" 
+              alt="send-receive"></ion-icon>
+              <ion-icon 
+              *ngIf="!txn.values[0].name.name && txn.values[0].name === 'Create Token'" 
+              class="icon"
+              src="assets/createIcon.svg" 
+              alt="send-receive"></ion-icon>
             </ion-avatar>
-          <ion-label class="transactionLabel">
+
+            <ion-list style="background-color: transparent; margin:0; padding:2px">
+              <ion-label class="token-name">
+                <h3 
+                [ngStyle]="txn.values[0].amount.substring(0,1) === '-' 
+                            ? {'color' : 'var(--ion-color-secondary'} 
+                            : {'color' : 'var(--ion-color-primary)'}"
+                *ngIf="txn.values[0].name !== 'Create Token' 
+                        && !txn.values[0].name.name">
+                        {{ txn.values[0].name }}</h3>
+                <h3 *ngIf="txn.values[0].name === 'Create Token'">{{ txn.txpow.body.txn.tokengen.token }}</h3>
+                <h3 
+                [ngStyle]="txn.values[0].amount.substring(0,1) === '-' 
+                            ? {'color' : 'var(--ion-color-secondary'} 
+                            : {'color' : 'var(--ion-color-primary)'}" 
+                *ngIf="txn.values[0].name !== 'Create Token' 
+                        && txn.values[0].name.name">
+                        {{ txn.values[0].name.name }}</h3>
+              </ion-label>
+              
+
+              <ion-label 
+              class="ion-no-padding ion-no-margin transaction-amount" 
+              slot="end" 
+              *ngIf="txn.values[0].name !== 'Create Token'">
+                <span *ngIf="txn.values[0].amount.substring(0,1) === '-'"> 
+                  <h3 class="minima-numeric left">{{ txn.values[0].amount}}</h3>
+                </span>
+                <span *ngIf="txn.values[0].amount.substring(0,1) !== '-'">
+                  <h3 class="minima-numeric left">{{ "+"+ txn.values[0].amount}}</h3>
+                </span>
+              </ion-label>
+              <ion-label 
+              class="ion-no-padding ion-no-margin transaction-amount"
+              slot="end" 
+              *ngIf="txn.values[0].name === 'Create Token'">
+                <span class="minima-numeric left">
+                  <h3>{{"+" + txn.txpow.body.txn.tokengen.total}}</h3>
+                  <p>{{"-"+txn.values[0].amount+" Mini"}}</p>
+                </span>
+              </ion-label>
+            </ion-list>
+
+          <ion-list 
+          slot="end"
+          style="background-color: transparent;" 
+          class="date-time ion-no-padding ion-no-margin">
+            <ion-label>
+            <h6 class="ion-no-padding ion-no-margin">
+              {{ txn.values[0].day }} {{ txn.values[0].month }} {{ txn.values[0].year }}
+            </h6>
+            <p class="ion-no-padding ion-no-margin ion-text-right">{{ txn.values[0].time }}</p>
+            </ion-label>
+          </ion-list>
+
+
+          <!-- <ion-label class="transactionLabel">
             <div *ngIf="!txn.values[0].name.name && txn.values[0].name !== 'Create Token'">
               <span *ngIf="txn.values[0].amount.substring(0,1) === '-'">
                 <h3 style="color: var(--ion-color-secondary) !important">Minima</h3>
@@ -48,25 +132,11 @@
 
             <div class="tokenName" *ngIf="!txn.values[0].name.name && txn.values[0].name === 'Create Token'">
               <h3>{{ txn.txpow.body.txn.tokengen.token }}</h3>
-              <!-- <p>&mdash; {{ txn.txpow.body.txn.tokengen.token }}</p> -->
               <p class="time">{{txn.values[0].day}} {{txn.values[0].month}}, {{ txn.values[0].year }} &mdash; {{txn.values[0].time}} </p>
             </div>
-          </ion-label>
+          </ion-label> -->
 
-          <ion-label class="transactionAmount" slot="end" *ngIf="txn.values[0].name !== 'Create Token'">
-            <span *ngIf="txn.values[0].amount.substring(0,1) === '-'"> 
-              <h3 style="color: var(--ion-color-secondary) !important" class="minima-numeric">{{ txn.values[0].amount}}</h3>
-            </span>
-            <span *ngIf="txn.values[0].amount.substring(0,1) !== '-'">
-              <h3 style="color:var(--ion-color-primary) !important" class="minima-numeric">{{ "+"+ txn.values[0].amount}}</h3>
-            </span>
-          </ion-label>
-          <ion-label class="transactionAmount" slot="end" *ngIf="txn.values[0].name === 'Create Token'">
-            <span class="minima-numeric">
-              <h3 style="text-align: right;">{{"+" + txn.txpow.body.txn.tokengen.total}}</h3>
-              <p>{{"-"+txn.values[0].amount+" Mini"}}</p>
-            </span>
-          </ion-label>
+          
         </ion-item>
     </ion-list>
 

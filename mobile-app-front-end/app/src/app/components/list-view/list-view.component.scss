@@ -17,13 +17,20 @@
     max-height: 75px !important; //any size 
 }
 span.confirmed-amount {
-    font-family: manrope-medium;
-    color: var(--ion-color-color);
+    font-family: manrope-regular;
+    color: #9898A3;
+    
+    text-align: left;
+    float: left;
+    white-space: nowrap;
+    max-width: 65vw;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 ion-avatar {
     margin-top: 2%;
-    height: 38px;
-    width: 38px;
+    height: 36px;
+    width: 36px;
 
 }
 #token-name {
@@ -57,8 +64,14 @@ ion-item ion-label {
     margin: 0;
 }
 ion-item ion-label#token-name {
-    max-width: auto;
+    max-width: 220px;
+    text-overflow: ellipsis;
+    font-family: manrope-medium;
 }
 ion-list {
     overflow: scroll;
+}
+ion-list.token-wrapper {
+    background-color: transparent;
+    line-height: 17px;
 }
