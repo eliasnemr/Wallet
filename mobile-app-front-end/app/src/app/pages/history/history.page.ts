@@ -52,8 +52,11 @@ export class HistoryPage implements OnInit {
     public router: RouterModule) { }
 
   ngOnInit() {
-    this.pullInHistorySummary();
     this.ios = this.config.get('mode') === 'ios';
+  }
+
+  ionViewWillEnter() {
+    this.pullInHistorySummary();
   }
 
   openMenu() {

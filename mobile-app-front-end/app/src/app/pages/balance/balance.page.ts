@@ -46,9 +46,7 @@ export class BalancePage implements OnInit {
     private ngZone: NgZone) {}
 
   ionViewWillEnter() {
-    setTimeout(() => {
-      this.pullInTokens();
-    }, 1000);
+    this.pullInTokens();
 
     this.userConfigService.userConfig.subscribe((res: UserConfig) => {
       // ngZone re-renders onChange
@@ -73,18 +71,6 @@ export class BalancePage implements OnInit {
         this.presentAlert('Gimme50', res.message, 'Status');
       }
     });
-  }
-
-  hideTip() {
-    this.user.tips.balance2 = true;
-    this.userConfigService.userConfig.next(this.user);
-    this.userConfigService.saveUserConfig(this.user);
-  }
-  // hide welcomeCard
-  hide() {
-    this.user.tips.balance = true;
-    this.userConfigService.userConfig.next(this.user);
-    this.userConfigService.saveUserConfig(this.user);
   }
 
   loadData(event) {
