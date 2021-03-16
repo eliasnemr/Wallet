@@ -276,9 +276,7 @@ let BalancePage = class BalancePage {
         this.tokenSpoof = [];
     }
     ionViewWillEnter() {
-        setTimeout(() => {
-            this.pullInTokens();
-        }, 1000);
+        this.pullInTokens();
         this.userConfigService.userConfig.subscribe((res) => {
             // ngZone re-renders onChange
             this.ngZone.run(() => {

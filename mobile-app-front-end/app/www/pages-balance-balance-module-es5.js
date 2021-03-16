@@ -290,9 +290,7 @@ var BalancePage = /** @class */ (function () {
     }
     BalancePage.prototype.ionViewWillEnter = function () {
         var _this = this;
-        setTimeout(function () {
-            _this.pullInTokens();
-        }, 1000);
+        this.pullInTokens();
         this.userConfigService.userConfig.subscribe(function (res) {
             // ngZone re-renders onChange
             _this.ngZone.run(function () {
