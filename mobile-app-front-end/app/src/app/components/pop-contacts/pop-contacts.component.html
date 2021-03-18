@@ -1,0 +1,23 @@
+
+<ion-list>
+  <ion-list-header class="ion-no-padding ion-no-margin">Export/Import settings</ion-list-header>
+  <ion-item class="ion-no-padding ion-no-margin" lines="none" (click)="exportContacts()">
+    <ion-avatar>
+      <ion-icon name="download-outline"></ion-icon>
+    </ion-avatar>
+    <ion-label>
+      Export contacts
+    </ion-label>
+  </ion-item>
+  <ion-item (click)="upload($event.target.files)" class="ion-no-padding ion-no-margin" lines="none" (click)="importContacts()">
+    
+    <input class="upload-files" type="file" file-upload multiple>
+    <ion-avatar>
+      <ion-icon name="enter-outline"></ion-icon>
+    </ion-avatar>
+    <ion-label>
+      Import contacts
+    </ion-label>
+  </ion-item>
+</ion-list>
+

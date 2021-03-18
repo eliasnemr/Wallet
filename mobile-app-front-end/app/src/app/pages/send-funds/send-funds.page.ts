@@ -3,11 +3,10 @@ import { ContactsViewModalComponent } from './../../components/contacts-view-mod
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { BalanceService } from '../../service/balance.service';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { Clipboard } from '@ionic-native/clipboard/ngx';
 import { AlertController, IonInput, IonButton, MenuController, ModalController } from '@ionic/angular';
 import { MinimaApiService } from '../../service/minima-api.service';
 import { Subscription } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 import { Token, Minima } from 'minima';
 

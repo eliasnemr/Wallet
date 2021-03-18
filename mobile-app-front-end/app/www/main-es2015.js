@@ -294,6 +294,17 @@ module.exports = "\n<ion-header class=\"page-header ion-no-border\">\n  <ion-too
 
 /***/ }),
 
+/***/ "./node_modules/raw-loader/index.js!./src/app/components/pop-contacts/pop-contacts.component.html":
+/*!***********************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/components/pop-contacts/pop-contacts.component.html ***!
+  \***********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n<ion-list>\n  <ion-list-header class=\"ion-no-padding ion-no-margin\">Export/Import settings</ion-list-header>\n  <ion-item class=\"ion-no-padding ion-no-margin\" lines=\"none\" (click)=\"exportContacts()\">\n    <ion-avatar>\n      <ion-icon name=\"download-outline\"></ion-icon>\n    </ion-avatar>\n    <ion-label>\n      Export contacts\n    </ion-label>\n  </ion-item>\n  <ion-item (click)=\"upload($event.target.files)\" class=\"ion-no-padding ion-no-margin\" lines=\"none\" (click)=\"importContacts()\">\n    \n    <input class=\"upload-files\" type=\"file\" file-upload multiple>\n    <ion-avatar>\n      <ion-icon name=\"enter-outline\"></ion-icon>\n    </ion-avatar>\n    <ion-label>\n      Import contacts\n    </ion-label>\n  </ion-item>\n</ion-list>\n\n"
+
+/***/ }),
+
 /***/ "./node_modules/raw-loader/index.js!./src/app/components/pop-term/pop-term.component.html":
 /*!***************************************************************************************!*\
   !*** ./node_modules/raw-loader!./src/app/components/pop-term/pop-term.component.html ***!
@@ -558,22 +569,22 @@ AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppModule", function() { return AppModule; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _components_contacts_view_modal_contacts_view_modal_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/contacts-view-modal/contacts-view-modal.component */ "./src/app/components/contacts-view-modal/contacts-view-modal.component.ts");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm2015/platform-browser.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/fesm2015/ionic-angular.js");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
-/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
-/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
-/* harmony import */ var _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @ionic-native/clipboard/ngx */ "./node_modules/@ionic-native/clipboard/ngx/index.js");
-/* harmony import */ var _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @ionic-native/qr-scanner/ngx */ "./node_modules/@ionic-native/qr-scanner/ngx/index.js");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm2015/common.js");
-/* harmony import */ var _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/pop-term/pop-term.component */ "./src/app/components/pop-term/pop-term.component.ts");
-/* harmony import */ var _components_contacts_modal_contacts_modal_page__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/contacts-modal/contacts-modal.page */ "./src/app/components/contacts-modal/contacts-modal.page.ts");
-
-
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm2015/platform-browser.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/fesm2015/ionic-angular.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
+/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
+/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
+/* harmony import */ var _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ionic-native/clipboard/ngx */ "./node_modules/@ionic-native/clipboard/ngx/index.js");
+/* harmony import */ var _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @ionic-native/qr-scanner/ngx */ "./node_modules/@ionic-native/qr-scanner/ngx/index.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm2015/common.js");
+/* harmony import */ var _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/pop-term/pop-term.component */ "./src/app/components/pop-term/pop-term.component.ts");
+/* harmony import */ var _components_contacts_modal_contacts_modal_page__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/contacts-modal/contacts-modal.page */ "./src/app/components/contacts-modal/contacts-modal.page.ts");
+/* harmony import */ var _components_pop_contacts_pop_contacts_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/pop-contacts/pop-contacts.component */ "./src/app/components/pop-contacts/pop-contacts.component.ts");
+/* harmony import */ var _components_contacts_view_modal_contacts_view_modal_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/contacts-view-modal/contacts-view-modal.component */ "./src/app/components/contacts-view-modal/contacts-view-modal.component.ts");
+/* harmony import */ var angular_file_uploader__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! angular-file-uploader */ "./node_modules/angular-file-uploader/fesm2015/angular-file-uploader.js");
 /**
  * Created By Elias Nemr
  * 01/11/19
@@ -593,33 +604,39 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
 let AppModule = class AppModule {
 };
 AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["NgModule"])({
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
         declarations: [
-            _app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"],
-            _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_13__["PopTermComponent"],
-            _components_contacts_modal_contacts_modal_page__WEBPACK_IMPORTED_MODULE_14__["ContactsModalPage"],
-            _components_contacts_view_modal_contacts_view_modal_component__WEBPACK_IMPORTED_MODULE_1__["ContactsViewModalComponent"]
+            _app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"],
+            _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_12__["PopTermComponent"],
+            _components_pop_contacts_pop_contacts_component__WEBPACK_IMPORTED_MODULE_14__["PopContactsComponent"],
+            _components_contacts_modal_contacts_modal_page__WEBPACK_IMPORTED_MODULE_13__["ContactsModalPage"],
+            _components_contacts_view_modal_contacts_view_modal_component__WEBPACK_IMPORTED_MODULE_15__["ContactsViewModalComponent"]
         ],
-        entryComponents: [_components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_13__["PopTermComponent"], _components_contacts_view_modal_contacts_view_modal_component__WEBPACK_IMPORTED_MODULE_1__["ContactsViewModalComponent"], _components_contacts_modal_contacts_modal_page__WEBPACK_IMPORTED_MODULE_14__["ContactsModalPage"]],
+        entryComponents: [_components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_12__["PopTermComponent"], _components_pop_contacts_pop_contacts_component__WEBPACK_IMPORTED_MODULE_14__["PopContactsComponent"], _components_contacts_view_modal_contacts_view_modal_component__WEBPACK_IMPORTED_MODULE_15__["ContactsViewModalComponent"], _components_contacts_modal_contacts_modal_page__WEBPACK_IMPORTED_MODULE_13__["ContactsModalPage"]],
         imports: [
-            _app_routing_module__WEBPACK_IMPORTED_MODULE_9__["AppRoutingModule"],
-            _angular_forms__WEBPACK_IMPORTED_MODULE_7__["FormsModule"],
-            _angular_forms__WEBPACK_IMPORTED_MODULE_7__["ReactiveFormsModule"],
-            _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HttpClientModule"],
-            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_3__["BrowserModule"],
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["IonicModule"].forRoot()
+            _app_routing_module__WEBPACK_IMPORTED_MODULE_8__["AppRoutingModule"],
+            _angular_forms__WEBPACK_IMPORTED_MODULE_6__["FormsModule"],
+            _angular_forms__WEBPACK_IMPORTED_MODULE_6__["ReactiveFormsModule"],
+            angular_file_uploader__WEBPACK_IMPORTED_MODULE_16__["AngularFileUploaderModule"],
+            _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClientModule"],
+            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonicModule"].forRoot()
         ],
         providers: [
             Storage,
-            _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_10__["Clipboard"],
-            _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_11__["QRScanner"],
-            { provide: _angular_router__WEBPACK_IMPORTED_MODULE_4__["RouteReuseStrategy"], useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["IonicRouteStrategy"] },
-            { provide: _angular_common__WEBPACK_IMPORTED_MODULE_12__["LocationStrategy"], useClass: _angular_common__WEBPACK_IMPORTED_MODULE_12__["HashLocationStrategy"] },
+            _ionic_native_clipboard_ngx__WEBPACK_IMPORTED_MODULE_9__["Clipboard"],
+            _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_10__["QRScanner"],
+            { provide: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouteReuseStrategy"], useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonicRouteStrategy"] },
+            { provide: _angular_common__WEBPACK_IMPORTED_MODULE_11__["LocationStrategy"], useClass: _angular_common__WEBPACK_IMPORTED_MODULE_11__["HashLocationStrategy"] },
         ],
-        bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"]]
+        bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"]]
     })
 ], AppModule);
 
@@ -880,6 +897,70 @@ ContactsViewModalComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["ToastController"],
         _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["ModalController"]])
 ], ContactsViewModalComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/components/pop-contacts/pop-contacts.component.scss":
+/*!*********************************************************************!*\
+  !*** ./src/app/components/pop-contacts/pop-contacts.component.scss ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "ion-avatar {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n          justify-content: center;\n}\nion-avatar ion-icon {\n  font-size: 1.5rem;\n}\nion-list ion-list-header {\n  font-family: manrope-bold;\n  padding-left: 14px;\n}\nion-list ion-item {\n  font-size: 12px;\n  cursor: pointer;\n}\nion-list ion-item input {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  opacity: 0;\n}\nion-list ion-item:hover {\n  --background: var(--ion-color-item-hover);\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9lbGlhc25lbXIvcHJvamVjdHMvV2FsbGV0L21vYmlsZS1hcHAtZnJvbnQtZW5kL2FwcC9zcmMvYXBwL2NvbXBvbmVudHMvcG9wLWNvbnRhY3RzL3BvcC1jb250YWN0cy5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvY29tcG9uZW50cy9wb3AtY29udGFjdHMvcG9wLWNvbnRhY3RzLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0Usb0JBQUE7RUFBQSxhQUFBO0VBQ0EseUJBQUE7VUFBQSxtQkFBQTtFQUNBLHdCQUFBO1VBQUEsdUJBQUE7QUNDRjtBREFFO0VBQ0UsaUJBQUE7QUNFSjtBREVFO0VBQ0UseUJBQUE7RUFDQSxrQkFBQTtBQ0NKO0FEQ0U7RUFDRSxlQUFBO0VBQ0EsZUFBQTtBQ0NKO0FEQUk7RUFDRSxrQkFBQTtFQUNBLFdBQUE7RUFDQSxZQUFBO0VBQ0EsVUFBQTtBQ0VOO0FEQ0U7RUFDRSx5Q0FBQTtBQ0NKIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9wb3AtY29udGFjdHMvcG9wLWNvbnRhY3RzLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiaW9uLWF2YXRhciB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG4gIGp1c3RpZnktY29udGVudDogY2VudGVyO1xuICBpb24taWNvbiB7XG4gICAgZm9udC1zaXplOiAxLjVyZW07XG4gIH1cbn1cbmlvbi1saXN0IHtcbiAgaW9uLWxpc3QtaGVhZGVyIHtcbiAgICBmb250LWZhbWlseTogbWFucm9wZS1ib2xkO1xuICAgIHBhZGRpbmctbGVmdDogMTRweDtcbiAgfVxuICBpb24taXRlbSB7XG4gICAgZm9udC1zaXplOiAxMnB4O1xuICAgIGN1cnNvcjogcG9pbnRlcjtcbiAgICBpbnB1dCB7XG4gICAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgICB3aWR0aDogMTAwJTtcbiAgICAgIGhlaWdodDogMTAwJTtcbiAgICAgIG9wYWNpdHk6IDA7XG4gICAgfVxuICB9XG4gIGlvbi1pdGVtOmhvdmVyIHtcbiAgICAtLWJhY2tncm91bmQ6IHZhcigtLWlvbi1jb2xvci1pdGVtLWhvdmVyKTtcbiAgfVxufSIsImlvbi1hdmF0YXIge1xuICBkaXNwbGF5OiBmbGV4O1xuICBhbGlnbi1pdGVtczogY2VudGVyO1xuICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbn1cbmlvbi1hdmF0YXIgaW9uLWljb24ge1xuICBmb250LXNpemU6IDEuNXJlbTtcbn1cblxuaW9uLWxpc3QgaW9uLWxpc3QtaGVhZGVyIHtcbiAgZm9udC1mYW1pbHk6IG1hbnJvcGUtYm9sZDtcbiAgcGFkZGluZy1sZWZ0OiAxNHB4O1xufVxuaW9uLWxpc3QgaW9uLWl0ZW0ge1xuICBmb250LXNpemU6IDEycHg7XG4gIGN1cnNvcjogcG9pbnRlcjtcbn1cbmlvbi1saXN0IGlvbi1pdGVtIGlucHV0IHtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICB3aWR0aDogMTAwJTtcbiAgaGVpZ2h0OiAxMDAlO1xuICBvcGFjaXR5OiAwO1xufVxuaW9uLWxpc3QgaW9uLWl0ZW06aG92ZXIge1xuICAtLWJhY2tncm91bmQ6IHZhcigtLWlvbi1jb2xvci1pdGVtLWhvdmVyKTtcbn0iXX0= */"
+
+/***/ }),
+
+/***/ "./src/app/components/pop-contacts/pop-contacts.component.ts":
+/*!*******************************************************************!*\
+  !*** ./src/app/components/pop-contacts/pop-contacts.component.ts ***!
+  \*******************************************************************/
+/*! exports provided: PopContactsComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PopContactsComponent", function() { return PopContactsComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var src_app_service_contacts_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/service/contacts.service */ "./src/app/service/contacts.service.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var file_saver__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! file-saver */ "./node_modules/file-saver/dist/FileSaver.min.js");
+/* harmony import */ var file_saver__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(file_saver__WEBPACK_IMPORTED_MODULE_3__);
+
+
+
+
+let PopContactsComponent = class PopContactsComponent {
+    constructor(_contactService) {
+        this._contactService = _contactService;
+        this.contacts = [];
+    }
+    ngOnInit() {
+        this._contactService.loadContacts().then((contacts) => {
+            this.contacts = contacts;
+        });
+    }
+    exportContacts() {
+        const data = JSON.stringify(this.contacts);
+        const blob = new Blob([
+            data
+        ], { type: "text/plain;charset=utf-8" });
+        Object(file_saver__WEBPACK_IMPORTED_MODULE_3__["saveAs"])(blob, "mycontacts.txt");
+    }
+};
+PopContactsComponent.ctorParameters = () => [
+    { type: src_app_service_contacts_service__WEBPACK_IMPORTED_MODULE_1__["ContactService"] }
+];
+PopContactsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Component"])({
+        selector: 'app-pop-contacts',
+        template: __webpack_require__(/*! raw-loader!./pop-contacts.component.html */ "./node_modules/raw-loader/index.js!./src/app/components/pop-contacts/pop-contacts.component.html"),
+        styles: [__webpack_require__(/*! ./pop-contacts.component.scss */ "./src/app/components/pop-contacts/pop-contacts.component.scss")]
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [src_app_service_contacts_service__WEBPACK_IMPORTED_MODULE_1__["ContactService"]])
+], PopContactsComponent);
 
 
 

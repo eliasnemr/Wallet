@@ -5,17 +5,18 @@
       <ion-item id="title" lines="none" class="ion-no-padding">
         <ion-icon class="menu-btn" (click)="openMenu()" src="assets/menuIcon.svg"></ion-icon>
         Terminal
+        <ion-label 
+        (click)="presentPopover($event)" 
+        fill="clear"
+        lines="none" 
+        slot="end"
+        class="resize-tool-btn">aA</ion-label>
       </ion-item>
       <ion-item id="subtitle" class="breadcrumb ion-no-padding" lines="none">
         Minima terminal
       </ion-item>
     </ion-title>
-      <ion-label 
-      (click)="presentPopover($event)" 
-      fill="clear"
-      lines="none" 
-      slot="end"
-      class="resize-tool-btn">aA</ion-label>
+      
   </ion-toolbar>
 </ion-header>
 
