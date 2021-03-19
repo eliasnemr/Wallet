@@ -1,3 +1,4 @@
+import { UploadFileModalComponent } from './components/upload-file-modal/upload-file-modal.component';
 /**
  * Created By Elias Nemr
  * 01/11/19
@@ -29,8 +30,9 @@ import { AngularFileUploaderModule } from 'angular-file-uploader';
     PopTermComponent,
     PopContactsComponent,
     ContactsModalPage,
-    ContactsViewModalComponent],
-  entryComponents: [PopTermComponent, PopContactsComponent, ContactsViewModalComponent, ContactsModalPage],
+    ContactsViewModalComponent,
+    UploadFileModalComponent],
+  entryComponents: [PopTermComponent, PopContactsComponent, ContactsViewModalComponent, ContactsModalPage, UploadFileModalComponent],
   imports: [
     AppRoutingModule,
     FormsModule,

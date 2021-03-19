@@ -1,0 +1,64 @@
+<ion-header class="page-header ion-no-border">
+  <ion-toolbar>
+    <ion-title>
+      <ion-item id="title" lines="none" class="ion-no-padding">
+        Upload your contacts
+        <ion-buttons slot="end">
+          <ion-button (click)="dismiss()" class="header">
+            Dismiss
+          </ion-button>
+        </ion-buttons>
+      </ion-item>
+      <ion-item id="subtitle" class="breadcrumb ion-no-padding" lines="none">
+        Paste your contacts data below
+      </ion-item>
+    </ion-title>
+    
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="ion-no-margin ion-no-padding">
+    <ion-row class="ion-no-margin ion-no-padding">
+      <ion-col class="ion-no-margin ion-no-padding">
+        <ion-input #importContactsInput type="string"></ion-input>
+      </ion-col>
+    </ion-row>
+    <ion-row class="status-fail" *ngIf="status.length > 0">
+      <ion-col class="ion-no-padding ion-no-margin">
+        {{ status }}
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-no-margin ion-no-padding">
+      <ion-col class="ion-no-margin ion-no-padding">
+        <ion-button [disabled]="contacts.length > 0" class="importBtn" (click)="importContacts()" type="button" fill="clear">Import Contacts</ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row class="status" *ngIf="contacts.length > 0">
+      <ion-col>
+        You have imported {{ contacts.length }} contact<span *ngIf="contacts.length > 1">s</span>...
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-list *ngIf="contacts.length > 0" class="contactsList">
+    <ion-item *ngFor="let contact of contacts" class="contactItem ion-no-padding" lines="none">
+      <ion-avatar slot="start">
+        <img src="{{contact.AVATAR}}">
+      </ion-avatar>
+      <ion-label> 
+        <h3>{{ contact.NAME }}</h3>
+        <p>{{ contact.ADDRESS }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <ion-grid>
+    <ion-row>
+      <ion-col class="ion-no-padding ion-no-margin">
+        <ion-button [disabled]="contacts.length === 0" (click)="presentAlertConfirm()" class="saveBtn" fill="clear" type="button">Save Contacts</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+
+</ion-content>

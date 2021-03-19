@@ -48,7 +48,7 @@ export class ContactService {
       .toPromise();
   }
 
-   addContact(newContact: Contact) {
+  addContact(newContact: Contact) {
 
     if (newContact.AVATAR.length === 0) {
       newContact.AVATAR = this.createIcon(newContact.ADDRESS);
@@ -75,6 +75,14 @@ export class ContactService {
         this.data.next(res.response[1].rows);
       }
     });
+  }
+
+  deleteContacts() {
+    Minima.sql("DELETE FROM CONTACTS", (res: any) => {
+      if (res.status) {
+        this.data.next(res.response.rows);
+      }
+    })
   }
 
   removeContact(address: string) {

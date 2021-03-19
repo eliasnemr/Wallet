@@ -44,7 +44,7 @@ export class ViewTXNPage implements OnInit {
         this.myTxn = res.history.filter((txpow: CompleteTransaction) => txpow.txpow.txpowid === this.transactionID );
         this.myTxn = this.myTxn[0];
 
-        this.relaytime = new Date(this.myTxn.txpow.header.timesecs * 1000).toISOString();
+        this.relaytime = new Date(parseInt(this.myTxn.txpow.header.timemilli) * 1000).toISOString();
         this.relaytime = moment(this.relaytime).format('DD/MM/YYYY - hh:mm:ss a', true);
 
         if (this.myTxn.txpow.body.txn.state && this.myTxn.txpow.body.txn.state[0] && this.myTxn.txpow.body.txn.state[0].data === '[01000100]') {
