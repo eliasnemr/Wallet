@@ -7,29 +7,12 @@ import { Minima } from 'minima';
 })
 export class MinimaApiService {
 
-  private loader: any = null;
-
   constructor(  
     public loadingController: LoadingController
   ) { }
 
-  async showLoader() {
-    if (this.loader == null) {
-      this.loader = await this.loadingController.create({
-        message: 'Loading'
-      });
-      this.loader.present();
-    }
-  }
-  async hideLoader() {
-    if (this.loader !== null) {
-      await this.loader.dismiss();
-      this.loader = null;
-    } else {}
-  }
-
   createToken(data: any) {
-    return this.req("tokencreate name:\""+data.name+"\" amount:"+data.amount+" description:\""+data.description+"\" script:\""+data.script+"\" icon:"+data.icon+" proof:"+data.proof);
+    return this.req("tokencreate name:\""+data.name+"\" amount:\""+data.amount+"\" description:\""+data.description+"\" script:\""+data.script+"\" icon:\""+data.icon+"\" proof:\""+data.proof+"\"");
   }
 
   validateTokenID(tokenid: string){
@@ -94,7 +77,6 @@ export class MinimaApiService {
     return this.req('status');
   }
 
-  // Use minima.js instead..
   req(fnc: any) {
     const promise = new Promise((resolve) => {
       Minima.cmd(fnc, (resp: any) => {

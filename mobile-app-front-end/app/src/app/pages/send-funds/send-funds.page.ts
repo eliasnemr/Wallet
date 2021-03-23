@@ -33,7 +33,7 @@ export class SendFundsPage implements OnInit {
   nftScript: string = 'ASSERT FLOOR ( @AMOUNT ) EQ @AMOUNT LET checkout = 0 WHILE ( checkout LT @TOTOUT )' +
   'DO IF GETOUTTOK ( checkout ) EQ @TOKENID THEN LET outamt = GETOUTAMT ( checkout ) ASSERT FLOOR ( outamt )' +
   'EQ outamt ENDIF LET checkout = INC ( checkout ) ENDWHILE RETURN TRUE';
-  max: string; // max sendable amount for quickAmount
+  status = '';
   webQrScanner: any;
   compareWith: any;
   itemSelected: any;
@@ -118,24 +118,40 @@ export class SendFundsPage implements OnInit {
   }
   
   sendFunds() {
+    this.status = 'Creating your transaction...';
     this.sendForm.value.amnt = this.sendForm.value.amount.toString();
     const data: SendFormObj = this.sendForm.value;
     //console.log(data);
+    try {
+      this.post(data);
+    } catch(err) {
+      console.log(err);
+    } finally {
+      setTimeout( () => {
+        this.status = '';
+      }, 10000);
+    }
+    
+  }
+  post(data: any) {
     if (data.message !== null && ( data.message || data.message.length > 0) ) {
       this.submitBtn.disabled = true;
       this.api.sendMessageTransaction(data).then((res: any) => {
-        
+        this.status = 'Posting your transaction...';
         if (res.status) {
           //console.log(res);
           setTimeout(() => {
             this.submitBtn.disabled = false;
           }, 500);
+          this.status = 'Transaction posted!';
           this.presentAlert('Transaction Status', 'Transaction has been posted to the network!', 'Successful');
           this.sendForm.reset();
         } else {
           setTimeout(() => {
             this.submitBtn.disabled = false;
           }, 500);
+          this.status = 'Transaction failed!';
+
           this.presentAlert('Transaction Status', res.message, 'Failed');
         }
       });
@@ -143,17 +159,20 @@ export class SendFundsPage implements OnInit {
       this.data.message = '';
       this.submitBtn.disabled = true;
       this.api.sendFunds(data).then((res: any) => {
+        this.status = 'Posting your transaction...';
         if (res.status) {
           //console.log(res);
           setTimeout(() => {
             this.submitBtn.disabled = false;
           }, 500);
+          this.status = 'Transaction posted!';
           this.presentAlert('Transaction Status', 'Transaction has been posted to the network!', 'Successful');
           this.sendForm.reset();
         } else {
           setTimeout(() => {
             this.submitBtn.disabled = false;
           }, 500);
+          this.status = 'Transaction failed!';
           this.presentAlert('Transaction Status', res.message, 'Failed');
         }
       });

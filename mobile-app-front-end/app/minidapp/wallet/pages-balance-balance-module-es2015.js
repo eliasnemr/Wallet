@@ -18,7 +18,7 @@ module.exports = "<ion-grid>\n  <ion-row>\n    <ion-col *ngFor=\"let token of to
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "  <ion-list>\n    <ion-item lines=\"none\" *ngFor=\"let token of tokenArr\" routerLink=\"/view-tokens/{{ token.tokenid }}\">\n      \n      <ion-avatar slot=\"start\">\n        <img *ngIf=\"token.tokenid !== '0x00' && token.icon.length == 0\" [src]=\"createIcon( token.tokenid )\" class=\"custom-icon\" />\n        <img *ngIf=\"token.tokenid !== '0x00' && token.icon.length > 0\" class=\"custom-icon\" [src]=\"token.icon\"/>\n        <img *ngIf=\"token.tokenid === '0x00'\" class=\"minima-icon\" alt=\"minima\" src=\"assets/minimaIcon.svg\">\n      </ion-avatar>\n\n      <ion-list class=\"token-wrapper\">\n        <ion-label id=\"token-name\">{{ token.token }}</ion-label>\n        <ion-label slot=\"end\">\n          \n          <span *ngIf=\"token.unconfirmed != '0';\" class=\"confirmed-amount medium-text minima-numeric\">{{ token.sendable + \"/\" + token.unconfirmed  }}</span>\n          <span *ngIf=\"token.unconfirmed == '0';\" class=\"confirmed-amount medium-text minima-numeric\">{{ token.sendable }} </span>\n        </ion-label>\n      </ion-list>\n      \n      \n      \n    </ion-item>\n  </ion-list>\n"
+module.exports = "  <ion-list>\n    <ion-item lines=\"none\" *ngFor=\"let token of tokenArr\" routerLink=\"/view-tokens/{{ token.tokenid }}\">\n      <ng-container *ngIf=\"token.token !== 'ERROR_UNKNOWN_TOKEN'\">\n        <ion-avatar slot=\"start\">\n          <img *ngIf=\"token.tokenid !== '0x00' && token.icon.length == 0\" [src]=\"createIcon( token.tokenid )\" class=\"custom-icon\" />\n          <img *ngIf=\"token.tokenid !== '0x00' && token.icon.length > 0\" class=\"custom-icon\" [src]=\"token.icon\"/>\n          <img *ngIf=\"token.tokenid === '0x00'\" class=\"minima-icon\" alt=\"minima\" src=\"assets/minimaIcon.svg\">\n        </ion-avatar>\n\n        <ion-list class=\"token-wrapper\">\n          <ion-label id=\"token-name\">{{ token.token }}</ion-label>\n          <ion-label slot=\"end\">\n            \n            <span *ngIf=\"token.unconfirmed != '0';\" class=\"confirmed-amount medium-text minima-numeric\">{{ token.sendable + \"/\" + token.unconfirmed  }}</span>\n            <span *ngIf=\"token.unconfirmed == '0';\" class=\"confirmed-amount medium-text minima-numeric\">{{ token.sendable }} </span>\n          </ion-label>\n        </ion-list>\n    </ng-container>\n      \n      \n    </ion-item>\n  </ion-list>\n"
 
 /***/ }),
 
@@ -404,26 +404,6 @@ __webpack_require__.r(__webpack_exports__);
 let MinimaApiService = class MinimaApiService {
     constructor(loadingController) {
         this.loadingController = loadingController;
-        this.loader = null;
-    }
-    showLoader() {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
-            if (this.loader == null) {
-                this.loader = yield this.loadingController.create({
-                    message: 'Loading'
-                });
-                this.loader.present();
-            }
-        });
-    }
-    hideLoader() {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
-            if (this.loader !== null) {
-                yield this.loader.dismiss();
-                this.loader = null;
-            }
-            else { }
-        });
     }
     createToken(data) {
         return this.req("tokencreate name:\"" + data.name + "\" amount:" + data.amount + " description:\"" + data.description + "\" script:\"" + data.script + "\" icon:" + data.icon + " proof:" + data.proof);
@@ -477,7 +457,6 @@ let MinimaApiService = class MinimaApiService {
     getStatus() {
         return this.req('status');
     }
-    // Use minima.js instead..
     req(fnc) {
         const promise = new Promise((resolve) => {
             minima__WEBPACK_IMPORTED_MODULE_3__["Minima"].cmd(fnc, (resp) => {

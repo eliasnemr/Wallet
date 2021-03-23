@@ -87,10 +87,13 @@
       <ion-checkbox formControlName="nft" slot="end"></ion-checkbox>
     </ion-item>
     
-    <ion-item lines="none" class="ion-no-padding">
-      <ion-button slot="end" #submitBtn type="submit" class="create-token" [disabled]="tokenCreationForm.invalid" fill="clear">
-        Create Token
-      </ion-button>
+    <ion-item lines="none" class="createtoken-wrapper ion-no-padding">
+      <div style="display: flex; flex-direction:column; justify-content:right; align-items:flex-end">
+        <ion-button slot="end" #submitBtn type="submit" class="create-token" [disabled]="tokenCreationForm.invalid" fill="clear">
+          Create Token
+        </ion-button>
+        <ion-note *ngIf="status.length > 0">{{ status }}</ion-note>
+      </div>
     </ion-item>
 
   </ion-list>

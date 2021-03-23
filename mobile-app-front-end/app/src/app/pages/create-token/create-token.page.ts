@@ -22,6 +22,7 @@ export class CreateTokenPage implements OnInit {
   tokenCreationForm: FormGroup;
   advancedFormInputsChecked: AdvancedFormInputsCheck = {description: false, icon: false, proof: false, nft: false};
 
+  status = '';
   isNft = false;
   loading = false;
   success = false;
@@ -118,18 +119,35 @@ export class CreateTokenPage implements OnInit {
     this.loading = true;
     //console.log(this.tokenCreationForm.value);
     const newToken: CustomToken = this.tokenCreationForm.value;
+    console.log(newToken);
+    try {
+      this.create(newToken);
+    } catch(err) {
+      console.log(err);
+    } finally {
+      setTimeout(() => {
+        this.status = '';
+      }, 10000)
+    }
+    
+  }
 
+  create(newToken: CustomToken) {
+    console.log(newToken);
     if (newToken.nft) {
       this.submitBtn.disabled = true;
       newToken.script = this.myNFT; // script for non-fungible
       this.api.createToken(newToken).then((res: any) => {
+        this.status = 'Creating '+newToken.name;
         if (res.status) {
+          this.status = 'Token created!';
           this.presentAlert('Success', 'Token '+this.customToken.name+' has been created.', 'Token Creation Status');
           this.resetForm();
         } else {
           setTimeout(() => {
             this.submitBtn.disabled = false;
           }, 500)
+          this.status = 'Token creation failed!';
           this.presentAlert('Something\'s wrong!', res.message, 'Token Creation Status');
         }
       });

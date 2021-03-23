@@ -104,16 +104,17 @@ let ViewTXNPage = class ViewTXNPage {
         this.hide = false;
         this.loading = true;
         this.message = '';
-        this.transactionID = this.route.snapshot.paramMap.get('id');
     }
-    ngOnInit() {
+    ionViewWillEnter() {
+        this.transactionID = this.route.snapshot.paramMap.get('id');
         this._historyService
             .loadHistoryOnce()
             .then((res) => {
             this.loading = false;
             this.myTxn = res.history.filter((txpow) => txpow.txpow.txpowid === this.transactionID);
             this.myTxn = this.myTxn[0];
-            this.relaytime = new Date(this.myTxn.txpow.header.timesecs * 1000).toISOString();
+            //console.log(this.myTxn);
+            this.relaytime = new Date(parseInt(this.myTxn.txpow.header.timemilli)).toISOString();
             this.relaytime = moment(this.relaytime).format('DD/MM/YYYY - hh:mm:ss a', true);
             if (this.myTxn.txpow.body.txn.state && this.myTxn.txpow.body.txn.state[0] && this.myTxn.txpow.body.txn.state[0].data === '[01000100]') {
                 this.message = this.myTxn.txpow.body.txn.state[1].data;
@@ -129,14 +130,7 @@ let ViewTXNPage = class ViewTXNPage {
             console.log(error);
         });
     }
-    shout() {
-        if (this.hide === true) {
-            this.hide = false;
-        }
-        else {
-            this.hide = true;
-        }
-    }
+    ngOnInit() { }
     presentAlertDefault(hdr, msg, sub) {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
             const alert = yield this.alertController.create({

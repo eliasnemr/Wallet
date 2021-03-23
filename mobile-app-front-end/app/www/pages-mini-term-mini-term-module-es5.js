@@ -391,44 +391,7 @@ __webpack_require__.r(__webpack_exports__);
 var MinimaApiService = /** @class */ (function () {
     function MinimaApiService(loadingController) {
         this.loadingController = loadingController;
-        this.loader = null;
     }
-    MinimaApiService.prototype.showLoader = function () {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
-            var _a;
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_b) {
-                switch (_b.label) {
-                    case 0:
-                        if (!(this.loader == null)) return [3 /*break*/, 2];
-                        _a = this;
-                        return [4 /*yield*/, this.loadingController.create({
-                                message: 'Loading'
-                            })];
-                    case 1:
-                        _a.loader = _b.sent();
-                        this.loader.present();
-                        _b.label = 2;
-                    case 2: return [2 /*return*/];
-                }
-            });
-        });
-    };
-    MinimaApiService.prototype.hideLoader = function () {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        if (!(this.loader !== null)) return [3 /*break*/, 2];
-                        return [4 /*yield*/, this.loader.dismiss()];
-                    case 1:
-                        _a.sent();
-                        this.loader = null;
-                        return [3 /*break*/, 2];
-                    case 2: return [2 /*return*/];
-                }
-            });
-        });
-    };
     MinimaApiService.prototype.createToken = function (data) {
         return this.req("tokencreate name:\"" + data.name + "\" amount:" + data.amount + " description:\"" + data.description + "\" script:\"" + data.script + "\" icon:" + data.icon + " proof:" + data.proof);
     };
@@ -481,7 +444,6 @@ var MinimaApiService = /** @class */ (function () {
     MinimaApiService.prototype.getStatus = function () {
         return this.req('status');
     };
-    // Use minima.js instead..
     MinimaApiService.prototype.req = function (fnc) {
         var promise = new Promise(function (resolve) {
             minima__WEBPACK_IMPORTED_MODULE_3__["Minima"].cmd(fnc, function (resp) {
@@ -521,8 +483,8 @@ __webpack_require__.r(__webpack_exports__);
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 var environment = {
+    wallet_version: "v1.0.6",
     production: false,
-    //defaultNode: "127.0.0.1:9002/",
     newLine: '/(\r\n|\n|\r)/gm'
 };
 /*

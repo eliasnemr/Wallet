@@ -6,7 +6,7 @@
         <ion-icon class="menu-btn" (click)="openMenu()" src="assets/menuIcon.svg"></ion-icon>
         Status
       </ion-item>
-      <ion-item id="subtitle" class="breadcrumb ion-no-padding" lines="none">
+      <ion-item *ngIf="status?.version" id="subtitle" class="breadcrumb ion-no-padding" lines="none">
         Current status 
         <ion-icon class="status-icon" *ngIf="!status?.version" src="assets/statusCross.svg"></ion-icon>
         <ion-icon class="status-icon" *ngIf="status?.version" src="assets/statusTick.svg"></ion-icon>
@@ -18,8 +18,15 @@
 </ion-header>
 
 <ion-content class="page-content">
+  <ion-grid *ngIf="!status?.version">
+    <ion-row class="ion-no-padding ion-no-margin">
+      <ion-col class="ion-no-padding ion-no-margin ion-text-center">
+        Node is currently offline.
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
-  <ion-list class="ion-no-padding">
+  <ion-list *ngIf="status?.version" class="ion-no-padding">
     <ion-item class="ion-no-padding">
       <ion-label>
         <h6 class="title">Uptime</h6>

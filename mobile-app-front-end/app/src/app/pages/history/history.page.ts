@@ -138,8 +138,10 @@ export class HistoryPage implements OnInit {
   }
 
   pullInHistorySummary() {
+    console.log('Pulling in history');
     this.historyService.data.pipe(map((res: History) => {
       res.history.forEach((txpow: CompleteTransactionTime) => {
+        console.log(res);
         const name = txpow.values[0].name;
         txpow.values[0].time = moment( parseInt(txpow.txpow.header.timemilli)).format('hh:mm a');
         txpow.values[0].day = moment( parseInt(txpow.txpow.header.timemilli)).format("DD");
@@ -152,11 +154,6 @@ export class HistoryPage implements OnInit {
       return res.history;
     })).subscribe((res: any) => {
       this.transactions = res;
-      // const currentJSON = JSON.stringify(res.reverse());
-      // if (this.lastJSON !== currentJSON) {
-      //   this.transactions = res;
-      // }
-      // this.lastJSON = currentJSON;
     });
     if (this.transactions.length === 0) {
       this.prompt = 'No recent transactions found...';

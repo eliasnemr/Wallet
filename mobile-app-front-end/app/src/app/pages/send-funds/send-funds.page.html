@@ -96,10 +96,14 @@
       <ion-label style="margin-left: 0;" *ngIf="data.message" class="length">{{ data.message.length +"/255" }}</ion-label>
     </ion-list>
 
-    <ion-item lines="none" class="ion-no-padding"> 
-      <ion-button #submitBtn type="submit" slot="end" [disabled]="sendForm.invalid" class="send-funds" fill="clear">  
-        Send Funds
-     </ion-button>
+    <ion-item lines="none" class="send-wrapper ion-no-padding">
+      <div style="display: flex; flex-direction:column; justify-content:right; align-items:flex-end">
+        <ion-button #submitBtn type="submit" slot="end" [disabled]="sendForm.invalid" class="send-funds" fill="clear">  
+          Send Funds
+       </ion-button>
+       <ion-note *ngIf="status.length > 0">{{ status }}</ion-note>
+      </div>
+      
     </ion-item>
   </form>
 

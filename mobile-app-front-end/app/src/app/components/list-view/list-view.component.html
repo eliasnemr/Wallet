@@ -1,21 +1,21 @@
   <ion-list>
     <ion-item lines="none" *ngFor="let token of tokenArr" routerLink="/view-tokens/{{ token.tokenid }}">
-      
-      <ion-avatar slot="start">
-        <img *ngIf="token.tokenid !== '0x00' && token.icon.length == 0" [src]="createIcon( token.tokenid )" class="custom-icon" />
-        <img *ngIf="token.tokenid !== '0x00' && token.icon.length > 0" class="custom-icon" [src]="token.icon"/>
-        <img *ngIf="token.tokenid === '0x00'" class="minima-icon" alt="minima" src="assets/minimaIcon.svg">
-      </ion-avatar>
+      <ng-container *ngIf="token.token !== 'ERROR_UNKNOWN_TOKEN'">
+        <ion-avatar slot="start">
+          <img *ngIf="token.tokenid !== '0x00' && token.icon.length == 0" [src]="createIcon( token.tokenid )" class="custom-icon" />
+          <img *ngIf="token.tokenid !== '0x00' && token.icon.length > 0" class="custom-icon" [src]="token.icon"/>
+          <img *ngIf="token.tokenid === '0x00'" class="minima-icon" alt="minima" src="assets/minimaIcon.svg">
+        </ion-avatar>
 
-      <ion-list class="token-wrapper">
-        <ion-label id="token-name">{{ token.token }}</ion-label>
-        <ion-label slot="end">
-          
-          <span *ngIf="token.unconfirmed != '0';" class="confirmed-amount medium-text minima-numeric">{{ token.sendable + "/" + token.unconfirmed  }}</span>
-          <span *ngIf="token.unconfirmed == '0';" class="confirmed-amount medium-text minima-numeric">{{ token.sendable }} </span>
-        </ion-label>
-      </ion-list>
-      
+        <ion-list class="token-wrapper">
+          <ion-label id="token-name">{{ token.token }}</ion-label>
+          <ion-label slot="end">
+            
+            <span *ngIf="token.unconfirmed != '0';" class="confirmed-amount medium-text minima-numeric">{{ token.sendable + "/" + token.unconfirmed  }}</span>
+            <span *ngIf="token.unconfirmed == '0';" class="confirmed-amount medium-text minima-numeric">{{ token.sendable }} </span>
+          </ion-label>
+        </ion-list>
+    </ng-container>
       
       
     </ion-item>

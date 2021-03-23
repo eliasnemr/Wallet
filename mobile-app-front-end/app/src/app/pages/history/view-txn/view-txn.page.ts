@@ -31,11 +31,11 @@ export class ViewTXNPage implements OnInit {
     public toastController: ToastController,
     private api: MinimaApiService,
     private _historyService: HistoryService,
-    public alertController: AlertController) {
-      this.transactionID = this.route.snapshot.paramMap.get('id');
-  }
+    public alertController: AlertController) {}
 
-  ngOnInit() {
+  ionViewWillEnter() {
+    this.transactionID = this.route.snapshot.paramMap.get('id');
+
     this._historyService
     .loadHistoryOnce()
       .then((res: any) => {
@@ -43,6 +43,7 @@ export class ViewTXNPage implements OnInit {
 
         this.myTxn = res.history.filter((txpow: CompleteTransaction) => txpow.txpow.txpowid === this.transactionID );
         this.myTxn = this.myTxn[0];
+        //console.log(this.myTxn);
 
         this.relaytime = new Date(parseInt(this.myTxn.txpow.header.timemilli)).toISOString();
         this.relaytime = moment(this.relaytime).format('DD/MM/YYYY - hh:mm:ss a', true);
@@ -62,16 +63,9 @@ export class ViewTXNPage implements OnInit {
       }).catch(error => {
         console.log(error);
       })
-
   }
 
-  shout() {
-    if (this.hide === true) {
-      this.hide = false;
-    } else {
-      this.hide = true;
-    }
-  }
+  ngOnInit() {}
 
   async presentAlertDefault(hdr: string, msg: string, sub: string) {
     const alert = await this.alertController.create({

@@ -1,11 +1,23 @@
-ion-buttons { 
-  ion-button {
-    text-transform: none;
-    color: var(--ion-color-primary);
-  }
-  ion-button:hover {
-    --background-hover: none;
-    --color: var(--ion-color-secondary);
+
+ion-title {
+  ion-item {
+    --inner-padding-end: 0;
+    ion-buttons { 
+      margin: 0;
+      ion-button {
+        margin: 0;
+        padding: 0;
+        text-align: right;
+        text-transform: none;
+        width: 71.75px;
+        height: 32px;
+        color: var(--ion-color-primary);
+      }
+      ion-button:hover {
+        --background-hover: none;
+        --color: var(--ion-color-secondary);
+      }
+    }
   }
 }
 ion-input {

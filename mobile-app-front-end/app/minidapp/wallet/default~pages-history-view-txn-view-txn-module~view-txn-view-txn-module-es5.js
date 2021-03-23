@@ -107,17 +107,18 @@ var ViewTXNPage = /** @class */ (function () {
         this.hide = false;
         this.loading = true;
         this.message = '';
-        this.transactionID = this.route.snapshot.paramMap.get('id');
     }
-    ViewTXNPage.prototype.ngOnInit = function () {
+    ViewTXNPage.prototype.ionViewWillEnter = function () {
         var _this = this;
+        this.transactionID = this.route.snapshot.paramMap.get('id');
         this._historyService
             .loadHistoryOnce()
             .then(function (res) {
             _this.loading = false;
             _this.myTxn = res.history.filter(function (txpow) { return txpow.txpow.txpowid === _this.transactionID; });
             _this.myTxn = _this.myTxn[0];
-            _this.relaytime = new Date(_this.myTxn.txpow.header.timesecs * 1000).toISOString();
+            //console.log(this.myTxn);
+            _this.relaytime = new Date(parseInt(_this.myTxn.txpow.header.timemilli)).toISOString();
             _this.relaytime = moment(_this.relaytime).format('DD/MM/YYYY - hh:mm:ss a', true);
             if (_this.myTxn.txpow.body.txn.state && _this.myTxn.txpow.body.txn.state[0] && _this.myTxn.txpow.body.txn.state[0].data === '[01000100]') {
                 _this.message = _this.myTxn.txpow.body.txn.state[1].data;
@@ -133,14 +134,7 @@ var ViewTXNPage = /** @class */ (function () {
             console.log(error);
         });
     };
-    ViewTXNPage.prototype.shout = function () {
-        if (this.hide === true) {
-            this.hide = false;
-        }
-        else {
-            this.hide = true;
-        }
-    };
+    ViewTXNPage.prototype.ngOnInit = function () { };
     ViewTXNPage.prototype.presentAlertDefault = function (hdr, msg, sub) {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
             var alert;

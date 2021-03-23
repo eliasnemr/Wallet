@@ -87,7 +87,12 @@ ion-textarea {
   font-size: 12px;
   margin-bottom: 1%;
 }
-
+ion-item.send-wrapper {
+  display: flex;
+  float: right;
+  justify-content: right;
+  align-items: flex-end;
+}
 ion-item.error {
   display: flex;
   align-items: center;

@@ -83,6 +83,12 @@ ion-card-header {
   font-family: manrope-light!important;
   color: var(--ion-color-tertiary)!important;
 }
+ion-item.createtoken-wrapper {
+  display: flex;
+  float: right;
+  justify-content: right;
+  align-items: flex-end;
+}
 ion-item.error {
   display: flex;
   align-items: left;

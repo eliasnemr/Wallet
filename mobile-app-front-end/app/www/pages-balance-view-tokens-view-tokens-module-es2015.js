@@ -22,26 +22,6 @@ __webpack_require__.r(__webpack_exports__);
 let MinimaApiService = class MinimaApiService {
     constructor(loadingController) {
         this.loadingController = loadingController;
-        this.loader = null;
-    }
-    showLoader() {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
-            if (this.loader == null) {
-                this.loader = yield this.loadingController.create({
-                    message: 'Loading'
-                });
-                this.loader.present();
-            }
-        });
-    }
-    hideLoader() {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
-            if (this.loader !== null) {
-                yield this.loader.dismiss();
-                this.loader = null;
-            }
-            else { }
-        });
     }
     createToken(data) {
         return this.req("tokencreate name:\"" + data.name + "\" amount:" + data.amount + " description:\"" + data.description + "\" script:\"" + data.script + "\" icon:" + data.icon + " proof:" + data.proof);
@@ -95,7 +75,6 @@ let MinimaApiService = class MinimaApiService {
     getStatus() {
         return this.req('status');
     }
-    // Use minima.js instead..
     req(fnc) {
         const promise = new Promise((resolve) => {
             minima__WEBPACK_IMPORTED_MODULE_3__["Minima"].cmd(fnc, (resp) => {
