@@ -1,4 +1,5 @@
 export const environment = {
+  wallet_version: "v1.0.6",
   production: true,
-  //defaultNode: 'http://127.0.0.1:9002/'
-};
+  newLine: '/(\r\n|\n|\r)/gm'
+}

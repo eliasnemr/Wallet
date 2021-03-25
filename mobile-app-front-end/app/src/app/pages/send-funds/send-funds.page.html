@@ -64,22 +64,18 @@
           <button type="button" (click)="presentContactModal()" class="clear"><ion-icon style="font-size: 16px; color: var(--ion-color-primary)" name="person-add-outline"></ion-icon></button>
         </div>
       </ion-item>
-      <ion-item class="error ion-no-padding"  lines="none" *ngIf="addressFormItem.invalid && addressFormItem.touched">
-        <ion-note class="error-message">
-          <ion-icon name="alert-circle"></ion-icon> <span> Invalid address format!</span> 
-          <span style="margin-left: 2px"> An address must begin with 0x or Mx.</span> 
-        </ion-note>
-      </ion-item>
+      <ion-note *ngIf="addressFormItem.invalid && addressFormItem.touched" class="error-message">
+        <ion-icon name="alert-circle"></ion-icon> <span> Invalid address format!</span> 
+        <span style="margin-left: 2px"> An address must begin with 0x or Mx.</span> 
+      </ion-note>
       <ion-item class="no-hover no-ripple ion-no-padding"  lines="none">
         <ion-label class="medium-text" position="stacked">Amount</ion-label>
         <ion-input #amount type="number" formControlName="amount" class="input" placeholder="Enter token amount"></ion-input>
       </ion-item>
-      <ion-item class="error ion-no-padding" lines="none" *ngIf="amountFormItem.invalid && amountFormItem.touched">
-        <ion-note class="error-message">
-          <ion-icon name="alert-circle"></ion-icon> <span> Amount required!</span>
-          <span style="margin-left: 2px"> Amount has to be numeric and greater than 0.</span> 
-        </ion-note>
-      </ion-item>
+      <ion-note *ngIf="amountFormItem.invalid && amountFormItem.touched" class="error-message">
+        <ion-icon name="alert-circle"></ion-icon> <span> Amount required!</span>
+        <span style="margin-left: 2px"> Amount has to be numeric and greater than 0.</span> 
+      </ion-note>
 
       <ion-item class="no-hover no-ripple ion-no-padding" lines="none">
         <ion-label position="stacked" style="margin-bottom: 1%;">Message <span style="font-family: manrope-light; color:var(--ion-color-optional); margin-right: 7px">(optional) </span></ion-label>
@@ -96,10 +92,14 @@
       <ion-label style="margin-left: 0;" *ngIf="data.message" class="length">{{ data.message.length +"/255" }}</ion-label>
     </ion-list>
 
-    <ion-item lines="none" class="ion-no-padding"> 
-      <ion-button #submitBtn type="submit" slot="end" [disabled]="sendForm.invalid" class="send-funds" fill="clear">  
-        Send Funds
-     </ion-button>
+    <ion-item lines="none" class="send-wrapper ion-no-padding">
+      <div style="display: flex; flex-direction:column; justify-content:right; align-items:flex-end">
+        <ion-button #submitBtn type="submit" slot="end" [disabled]="sendForm.invalid" class="send-funds" fill="clear">  
+          Send Funds
+       </ion-button>
+       <ion-note *ngIf="status.length > 0">{{ status }}</ion-note>
+      </div>
+      
     </ion-item>
   </form>
 

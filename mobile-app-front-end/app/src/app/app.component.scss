@@ -47,8 +47,15 @@
   ion-menu ion-header ion-toolbar {
     --background: var(--ion-m-background);
   }
-  ion-menu ion-content {
+  ion-menu {
+    ion-content {
       --background: var(--ion-m-background);
+    }
+    span.wallet-version {
+      color: var(--ion-color-tertiary);
+      font-family: manrope-light;
+      padding-left: 27px;
+    }
   }
   ion-item ion-label {
     font-family: manrope-bold;
@@ -94,26 +101,27 @@ ion-menu ion-list ion-item ion-icon {
 ion-footer {
   padding:0!important;
   margin:0 !important;
+  ion-item {
+    --background: #001C32;
+    background: #001C32;
+    ion-avatar {
+      border: 1px solid #FAFAFF;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    ion-label {
+      color: #FAFAFF!important;
+      padding-left: 10%;
+      font-size: 16px;
+    }
+    ion-icon {
+      width: 21.26px;
+      height: 21.25px;
+    }
+  }
 }
-ion-footer ion-item {
-  --background: #001C32;
-  background: #001C32;
-}
-ion-footer ion-item ion-label {
-  color: #FAFAFF!important;
-  padding-left: 10%;
-  font-size: 16px;
-}
-ion-footer ion-item ion-avatar {
-  border: 1px solid #FAFAFF;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-ion-footer ion-item ion-avatar ion-icon {
-  width: 21.26px;
-  height: 21.25px;
-}
+
 ion-item#night-mode {
   padding-left: 15px;
   padding-right: 13px;

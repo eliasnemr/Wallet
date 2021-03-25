@@ -1,3 +1,4 @@
+import { environment } from './../environments/environment.prod';
 import { ActivatedRoute } from '@angular/router';
 import { HistoryService } from './service/history.service';
 import { BalanceService } from './service/balance.service';
@@ -5,6 +6,15 @@ import { StatusService } from './service/status.service';
 import { Component, NgZone } from '@angular/core';
 import { Platform, ToastController } from '@ionic/angular';
 import { Minima } from 'minima';
+
+interface Menu {
+  title: string;
+  routerLink: string;
+  icon: string;
+  line: string;
+  hidden: boolean;
+  class: string;
+}
 
 @Component({
   selector: 'app-root',
@@ -16,20 +26,14 @@ export class AppComponent {
 
   toggleValue = false;
   currentMode = false;
-  currentVersion = 0;
-  activePage: any;
-  basic: {title: string, routerLink: string, icon: string, line: string, hidden: boolean, class: string}[];
-  advanced: {title: string, routerLink: string, icon: string, line: string, hidden: boolean}[];
-  lastHistory: string;
+  menu: Menu[];
+  environment = environment;
 
   constructor(
-    private status: StatusService,
-    private route: ActivatedRoute,
     private api: BalanceService,
     private platform: Platform,
     public toastCtrl: ToastController,
-    private historyService: HistoryService,
-    private ngZone: NgZone) {
+    private historyService: HistoryService) {
     this.getPages();
     this.initializeApp();
     this.setLocalStorage();
@@ -41,37 +45,41 @@ export class AppComponent {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      Minima.init((msg: any) => {
-        if (msg.event === 'connected') {
-          this.api.data.next(Minima.balance);
+      this.initMinima();
+    });
+  }
+
+  initMinima() {
+    Minima.init((msg: any) => {
+      if (msg.event === 'connected') {
+        this.api.data.next(Minima.balance);
 
 
-        } else if (msg.event === 'newbalance') {
+      } else if (msg.event === 'newbalance') {
 
-          this.presentToast('Balance updated!', 'primary');
+        this.presentToast('Balance updated!', 'primary');
 
-          this.api.data.next(msg.info.balance);
+        this.api.data.next(msg.info.balance);
 
-          // update history observable+historyPage
-          Minima.cmd('history', (res: {status: boolean; minifunc: string; message: string; response: any}) => {
-            if (res.status && res.response.history.length > 0) {
-              this.historyService.data.next(res.response);
-            }
-          });
-        } else if (msg.event === 'newblock') {
-          
-        } else if (msg.event === 'miningstart') {
-          this.presentMining('Node Status', 'Mining transaction in progress...', 'warning');
-        } else if (msg.event === 'miningstop') {
-          // change color
-          this.presentMining('Node Status', 'Mining ended.', 'warning');
-        } 
-      });
+        // update history observable+historyPage
+        Minima.cmd('history', (res: {status: boolean; minifunc: string; message: string; response: any}) => {
+          if (res.status && res.response.history.length > 0) {
+            this.historyService.data.next(res.response);
+          }
+        });
+      } else if (msg.event === 'newblock') {
+        
+      } else if (msg.event === 'miningstart') {
+        this.presentMining('Node Status', 'Mining transaction in progress...', 'warning');
+      } else if (msg.event === 'miningstop') {
+        // change color
+        this.presentMining('Node Status', 'Mining ended.', 'warning');
+      } 
     });
   }
 
   getPages() {
-    this.basic =
+    this.menu =
     [
       { title: 'Balance', routerLink: '/balance', icon: 'assets/balanceIcon.svg', line: 'none', hidden: false, class: ''},
       { title: 'Send', routerLink: '/send-funds', icon: 'assets/sendIcon.svg', line: 'none', hidden: false, class:''},
@@ -85,9 +93,7 @@ export class AppComponent {
     ]
   }
 
-  // localStorage
   setLocalStorage() {
-    // check cookies for theme
     if (localStorage.getItem('toggleVal') === 'true') {
       document.body.classList.toggle('dark', true);
     } else {
@@ -100,7 +106,6 @@ export class AppComponent {
       this.toggleValue = false;
     }
 
-    // localStorage - termFontSize
     if (!localStorage.getItem('termFontSize')) {
       localStorage.setItem('termFontSize', '' + 14);
     }

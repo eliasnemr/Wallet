@@ -84,8 +84,8 @@ module.exports = "ion-title ion-item:hover {\n  background: none;\n  --backgroun
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ViewTokensPage", function() { return ViewTokensPage; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _service_balance_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../../service/balance.service */ "./src/app/service/balance.service.ts");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/fesm5/ionic-angular.js");
+/* harmony import */ var _service_tools_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../../service/tools.service */ "./src/app/service/tools.service.ts");
+/* harmony import */ var _service_balance_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../../service/balance.service */ "./src/app/service/balance.service.ts");
 /* harmony import */ var _service_minima_api_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../../../service/minima-api.service */ "./src/app/service/minima-api.service.ts");
 /* harmony import */ var spark_md5__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! spark-md5 */ "./node_modules/spark-md5/spark-md5.js");
 /* harmony import */ var spark_md5__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(spark_md5__WEBPACK_IMPORTED_MODULE_4__);
@@ -99,12 +99,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var ViewTokensPage = /** @class */ (function () {
-    function ViewTokensPage(alertController, route, api, toastController, balanceService) {
-        this.alertController = alertController;
+    function ViewTokensPage(route, api, balanceService, myTools) {
         this.route = route;
         this.api = api;
-        this.toastController = toastController;
         this.balanceService = balanceService;
+        this.myTools = myTools;
         this.urlID = '';
         this.type = '';
     }
@@ -145,91 +144,35 @@ var ViewTokensPage = /** @class */ (function () {
         var _this = this;
         this.api.validateTokenID(tokenid).then(function (res) {
             if (res.response.valid === true) {
-                _this.presentToast('This proof is valid.', 'success');
+                _this.myTools.presentToast('This proof is valid.', 'success', 'bottom');
             }
             else {
-                _this.presentToast('Proof mismatch - not a valid proof', 'danger');
+                _this.myTools.presentToast('Proof mismatch - not a valid proof', 'danger', 'bottom');
             }
         });
     };
     ViewTokensPage.prototype.createIcon = function (tokenid) {
         return this.avatar = 'https://www.gravatar.com/avatar/' + spark_md5__WEBPACK_IMPORTED_MODULE_4__["hash"](tokenid) + '?d=identicon';
     };
-    // Alerts
-    ViewTokensPage.prototype.presentToast = function (msg, type) {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
-            var toast;
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.toastController.create({
-                            message: msg,
-                            duration: 4000,
-                            buttons: [{
-                                    text: 'Close',
-                                    role: 'cancel'
-                                }],
-                            color: type,
-                            keyboardClose: true,
-                            translucent: true,
-                            position: 'top'
-                        })];
-                    case 1:
-                        toast = _a.sent();
-                        toast.present();
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
     ViewTokensPage.prototype.copyToClipPWA = function (text) {
-        var _this = this;
-        document.addEventListener('copy', function (e) {
-            e.clipboardData.setData('text/plain', text);
-            _this.presentToast("Copied to Clipboard", "success");
-            e.preventDefault();
-            document.removeEventListener('copy', null);
-        });
-        document.execCommand('copy');
+        this.myTools.copy(text);
     };
     ViewTokensPage.prototype.giveMe50 = function () {
         var _this = this;
         this.api.giveMe50().then(function (res) {
             if (res.status === true) {
-                _this.presentAlert('Gimme50', 'Successful', 'Status');
+                _this.myTools.presentAlert('Gimme50', 'Successful', 'Status');
             }
             else {
-                _this.presentAlert('Gimme50', res.message, 'Status');
+                _this.myTools.presentAlert('Gimme50', res.message, 'Status');
             }
-        });
-    };
-    ViewTokensPage.prototype.presentAlert = function (hdr, msg, sub) {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
-            var alert;
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.alertController.create({
-                            cssClass: 'alert',
-                            header: hdr,
-                            subHeader: sub,
-                            message: msg,
-                            buttons: ['OK']
-                        })];
-                    case 1:
-                        alert = _a.sent();
-                        return [4 /*yield*/, alert.present()];
-                    case 2:
-                        _a.sent();
-                        return [2 /*return*/];
-                }
-            });
         });
     };
     ViewTokensPage.ctorParameters = function () { return [
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"] },
         { type: _angular_router__WEBPACK_IMPORTED_MODULE_5__["ActivatedRoute"] },
         { type: _service_minima_api_service__WEBPACK_IMPORTED_MODULE_3__["MinimaApiService"] },
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"] },
-        { type: _service_balance_service__WEBPACK_IMPORTED_MODULE_1__["BalanceService"] }
+        { type: _service_balance_service__WEBPACK_IMPORTED_MODULE_2__["BalanceService"] },
+        { type: _service_tools_service__WEBPACK_IMPORTED_MODULE_1__["ToolsService"] }
     ]; };
     ViewTokensPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_6__["Component"])({
@@ -237,11 +180,10 @@ var ViewTokensPage = /** @class */ (function () {
             template: __webpack_require__(/*! raw-loader!./view-tokens.page.html */ "./node_modules/raw-loader/index.js!./src/app/pages/balance/view-tokens/view-tokens.page.html"),
             styles: [__webpack_require__(/*! ./view-tokens.page.scss */ "./src/app/pages/balance/view-tokens/view-tokens.page.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_5__["ActivatedRoute"],
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_5__["ActivatedRoute"],
             _service_minima_api_service__WEBPACK_IMPORTED_MODULE_3__["MinimaApiService"],
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"],
-            _service_balance_service__WEBPACK_IMPORTED_MODULE_1__["BalanceService"]])
+            _service_balance_service__WEBPACK_IMPORTED_MODULE_2__["BalanceService"],
+            _service_tools_service__WEBPACK_IMPORTED_MODULE_1__["ToolsService"]])
     ], ViewTokensPage);
     return ViewTokensPage;
 }());

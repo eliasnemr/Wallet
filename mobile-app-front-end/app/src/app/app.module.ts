@@ -1,4 +1,3 @@
-import { ContactsViewModalComponent } from './components/contacts-view-modal/contacts-view-modal.component';
 /**
  * Created By Elias Nemr
  * 01/11/19
@@ -19,19 +18,18 @@ import { QRScanner } from '@ionic-native/qr-scanner/ngx';
 import { LocationStrategy, HashLocationStrategy} from '@angular/common';
 import { PopTermComponent } from './components/pop-term/pop-term.component';
 import { ContactsModalPage } from './components/contacts-modal/contacts-modal.page';
+import { PopContactsComponent } from './components/pop-contacts/pop-contacts.component';
+import { ContactsViewModalComponent } from './components/contacts-view-modal/contacts-view-modal.component';
+import { AngularFileUploaderModule } from 'angular-file-uploader';
+import { UploadFileModalComponent } from './components/upload-file-modal/upload-file-modal.component';
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    PopTermComponent,
-    ContactsModalPage,
-    ContactsViewModalComponent],
-  entryComponents: [PopTermComponent, ContactsViewModalComponent, ContactsModalPage],
   imports: [
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    AngularFileUploaderModule,
     HttpClientModule,
     BrowserModule,
     IonicModule.forRoot()],
@@ -42,6 +40,14 @@ import { ContactsModalPage } from './components/contacts-modal/contacts-modal.pa
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: LocationStrategy, useClass: HashLocationStrategy },
   ],
+  declarations: [
+    AppComponent,
+    PopTermComponent,
+    PopContactsComponent,
+    ContactsModalPage,
+    ContactsViewModalComponent,
+    UploadFileModalComponent],
+  entryComponents: [PopTermComponent, PopContactsComponent, ContactsViewModalComponent, ContactsModalPage, UploadFileModalComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

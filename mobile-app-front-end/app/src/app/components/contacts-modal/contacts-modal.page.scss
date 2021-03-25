@@ -90,3 +90,8 @@ ion-button.createContact {
 ion-button.createContact:hover {
   --background: #346EE5;
 }
+ion-title {
+  ion-item {
+    --inner-padding-end: 0;
+  }
+}

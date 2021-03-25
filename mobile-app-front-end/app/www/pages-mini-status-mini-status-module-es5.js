@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-app>\n<ion-header class=\"page-header ion-no-border\">\n  <ion-toolbar>\n    <ion-title class=\"large-text\">\n      <ion-item id=\"title\" lines=\"none\" class=\"ion-no-padding\">\n        <ion-icon class=\"menu-btn\" (click)=\"openMenu()\" src=\"assets/menuIcon.svg\"></ion-icon>\n        Status\n      </ion-item>\n      <ion-item id=\"subtitle\" class=\"breadcrumb ion-no-padding\" lines=\"none\">\n        Current status \n        <ion-icon class=\"status-icon\" *ngIf=\"!status?.version\" src=\"assets/statusCross.svg\"></ion-icon>\n        <ion-icon class=\"status-icon\" *ngIf=\"status?.version\" src=\"assets/statusTick.svg\"></ion-icon>\n        <span *ngIf=\"status?.version\">v{{ status?.version}}</span>\n      \n      </ion-item>\n      </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content class=\"page-content\">\n\n  <ion-list class=\"ion-no-padding\">\n    <ion-item class=\"ion-no-padding\">\n      <ion-label>\n        <h6 class=\"title\">Uptime</h6>\n        <p class=\"value\">{{ status?.uptime }}</p>\n      </ion-label>\n    </ion-item>\n\n    <ion-item class=\"ion-no-padding\">\n      <ion-label>\n        <h6 class=\"title\">Last block</h6>\n        <p class=\"value\">{{ status?.lastblock }}</p>\n      </ion-label>\n    </ion-item>\n\n    <ion-item class=\"ion-no-padding\">\n      <ion-label>\n        <h6 class=\"title\">Host IP</h6>\n        <p class=\"value\">{{ status?.host }}</p>\n      </ion-label>\n    </ion-item>\n\n    <ion-item class=\"ion-no-padding\">\n      <ion-label>\n        <h6 class=\"title\">MiniDAPP server port</h6>\n        <p class=\"value\">{{ status?.minidappserver }}</p>\n      </ion-label>\n    </ion-item>\n\n    <ion-item class=\"ion-no-padding\">\n      <ion-label>\n        <h6 class=\"title\">RAM usage</h6>\n        <p class=\"value\">{{ status?.ram }}</p>\n      </ion-label>\n    </ion-item>\n\n    <ion-item class=\"ion-no-padding\">\n      <ion-label>\n        <h6 class=\"title\">IBD</h6>\n        <p class=\"value\">{{ status?.IBD }}</p>\n      </ion-label>\n    </ion-item>\n\n    <ion-item class=\"ion-no-padding\">\n      <ion-label>\n        <h6 class=\"title\">Tip</h6>\n        <p class=\"value\">{{ status?.tip }}</p>\n      </ion-label>\n    </ion-item>\n  </ion-list>\n\n</ion-content>\n<ion-footer class=\"border-t\">\n  <ion-button (click)=\"giveMe50()\" class=\"gimme50 no-ripple\" fill=\"none\">\n    Gimme 50\n  </ion-button>\n</ion-footer>\n</ion-app>"
+module.exports = "<ion-app>\n<ion-header class=\"page-header ion-no-border\">\n  <ion-toolbar>\n    <ion-title class=\"large-text\">\n      <ion-item id=\"title\" lines=\"none\" class=\"ion-no-padding\">\n        <ion-icon class=\"menu-btn\" (click)=\"openMenu()\" src=\"assets/menuIcon.svg\"></ion-icon>\n        Status\n      </ion-item>\n      <ion-item *ngIf=\"status?.version\" id=\"subtitle\" class=\"breadcrumb ion-no-padding\" lines=\"none\">\n        Current status \n        <ion-icon class=\"status-icon\" *ngIf=\"!status?.version\" src=\"assets/statusCross.svg\"></ion-icon>\n        <ion-icon class=\"status-icon\" *ngIf=\"status?.version\" src=\"assets/statusTick.svg\"></ion-icon>\n        <span *ngIf=\"status?.version\">v{{ status?.version}}</span>\n      \n      </ion-item>\n      </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content class=\"page-content\">\n  <ion-grid *ngIf=\"!status?.version\">\n    <ion-row class=\"ion-no-padding ion-no-margin\">\n      <ion-col class=\"ion-no-padding ion-no-margin ion-text-center\">\n        Node is currently offline.\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n\n  <ion-list *ngIf=\"status?.version\" class=\"ion-no-padding\">\n    <ion-item class=\"ion-no-padding\">\n      <ion-label>\n        <h6 class=\"title\">Uptime</h6>\n        <p class=\"value\">{{ status?.uptime }}</p>\n      </ion-label>\n    </ion-item>\n\n    <ion-item class=\"ion-no-padding\">\n      <ion-label>\n        <h6 class=\"title\">Last block</h6>\n        <p class=\"value\">{{ status?.lastblock }}</p>\n      </ion-label>\n    </ion-item>\n\n    <ion-item class=\"ion-no-padding\">\n      <ion-label>\n        <h6 class=\"title\">Host IP</h6>\n        <p class=\"value\">{{ status?.host }}</p>\n      </ion-label>\n    </ion-item>\n\n    <ion-item class=\"ion-no-padding\">\n      <ion-label>\n        <h6 class=\"title\">MiniDAPP server port</h6>\n        <p class=\"value\">{{ status?.minidappserver }}</p>\n      </ion-label>\n    </ion-item>\n\n    <ion-item class=\"ion-no-padding\">\n      <ion-label>\n        <h6 class=\"title\">RAM usage</h6>\n        <p class=\"value\">{{ status?.ram }}</p>\n      </ion-label>\n    </ion-item>\n\n    <ion-item class=\"ion-no-padding\">\n      <ion-label>\n        <h6 class=\"title\">IBD</h6>\n        <p class=\"value\">{{ status?.IBD }}</p>\n      </ion-label>\n    </ion-item>\n\n    <ion-item class=\"ion-no-padding\">\n      <ion-label>\n        <h6 class=\"title\">Tip</h6>\n        <p class=\"value\">{{ status?.tip }}</p>\n      </ion-label>\n    </ion-item>\n  </ion-list>\n\n</ion-content>\n<ion-footer class=\"border-t\">\n  <ion-button (click)=\"giveMe50()\" class=\"gimme50 no-ripple\" fill=\"none\">\n    Gimme 50\n  </ion-button>\n</ion-footer>\n</ion-app>"
 
 /***/ }),
 
@@ -84,13 +84,15 @@ module.exports = "* {\n  color: var(--ion-color-tertiary);\n}\n\nion-icon.status
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MiniStatusPage", function() { return MiniStatusPage; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _service_minima_api_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../service/minima-api.service */ "./src/app/service/minima-api.service.ts");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/fesm5/ionic-angular.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
-/* harmony import */ var _service_status_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../../service/status.service */ "./src/app/service/status.service.ts");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! minima */ "./node_modules/minima/dist/minima.js");
-/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(minima__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _service_tools_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../service/tools.service */ "./src/app/service/tools.service.ts");
+/* harmony import */ var _service_minima_api_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../service/minima-api.service */ "./src/app/service/minima-api.service.ts");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/fesm5/ionic-angular.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _service_status_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../../service/status.service */ "./src/app/service/status.service.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! minima */ "./node_modules/minima/dist/minima.js");
+/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(minima__WEBPACK_IMPORTED_MODULE_7__);
+
 
 
 
@@ -99,8 +101,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var MiniStatusPage = /** @class */ (function () {
-    function MiniStatusPage(menu, service, alertController, api) {
+    function MiniStatusPage(menu, myTools, service, alertController, api) {
         this.menu = menu;
+        this.myTools = myTools;
         this.service = service;
         this.alertController = alertController;
         this.api = api;
@@ -108,7 +111,7 @@ var MiniStatusPage = /** @class */ (function () {
     MiniStatusPage.prototype.ngOnInit = function () { };
     MiniStatusPage.prototype.ionViewWillEnter = function () {
         var _this = this;
-        minima__WEBPACK_IMPORTED_MODULE_6__["Minima"].cmd('status full', function (res) {
+        minima__WEBPACK_IMPORTED_MODULE_7__["Minima"].cmd('status full', function (res) {
             _this.service.updatedStatus.next(res.response);
         });
         this.updateStatus();
@@ -147,24 +150,18 @@ var MiniStatusPage = /** @class */ (function () {
         var _this = this;
         this.api.giveMe50().then(function (res) {
             if (res.status === true) {
-                _this.presentAlert('Gimme50', 'Successful', 'Status');
+                _this.myTools.presentAlert('Gimme50', 'Successful', 'Status');
             }
             else {
-                _this.presentAlert('Gimme50', res.message, 'Status');
+                _this.myTools.presentAlert('Gimme50', res.message, 'Status');
             }
         });
     };
     MiniStatusPage.prototype.updateStatus = function () {
         var _this = this;
         this.service.updatedStatus
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (responseData) {
-            //console.log(responseData);
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (responseData) {
             responseData.uptime = responseData.uptime.replace(/\b0 Years\b|\b0 Months\b|\b0 Weeks\b|\b0 Days\b|\b0 Hours\b|\b0 Minutes\b|\b0 Seconds\b|\b0 Milliseconds\b/gi, " ");
-            // responseData.uptime = responseData.uptime.replace(/1 Minutes/gi, "1 Minute");
-            // responseData.uptime = responseData.uptime.replace(/1 Seconds/gi, "1 Second");
-            // responseData.uptime = responseData.uptime.replace(/1 Years/gi, "1 Year");
-            // responseData.uptime = responseData.uptime.replace(/1 Milliseconds/gi, "1 Millisecond");
-            // responseData.uptime = responseData.uptime.replace(/1 Hours/gi, "1 Hour");
             return responseData;
         })).subscribe(function (res) {
             //console.log(res);
@@ -175,18 +172,23 @@ var MiniStatusPage = /** @class */ (function () {
         });
     };
     MiniStatusPage.ctorParameters = function () { return [
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["MenuController"] },
-        { type: _service_status_service__WEBPACK_IMPORTED_MODULE_4__["StatusService"] },
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"] },
-        { type: _service_minima_api_service__WEBPACK_IMPORTED_MODULE_1__["MinimaApiService"] }
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["MenuController"] },
+        { type: _service_tools_service__WEBPACK_IMPORTED_MODULE_1__["ToolsService"] },
+        { type: _service_status_service__WEBPACK_IMPORTED_MODULE_5__["StatusService"] },
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["AlertController"] },
+        { type: _service_minima_api_service__WEBPACK_IMPORTED_MODULE_2__["MinimaApiService"] }
     ]; };
     MiniStatusPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_5__["Component"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_6__["Component"])({
             selector: 'app-mini-status',
             template: __webpack_require__(/*! raw-loader!./mini-status.page.html */ "./node_modules/raw-loader/index.js!./src/app/pages/mini-status/mini-status.page.html"),
             styles: [__webpack_require__(/*! ./mini-status.page.scss */ "./src/app/pages/mini-status/mini-status.page.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["MenuController"], _service_status_service__WEBPACK_IMPORTED_MODULE_4__["StatusService"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"], _service_minima_api_service__WEBPACK_IMPORTED_MODULE_1__["MinimaApiService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_3__["MenuController"],
+            _service_tools_service__WEBPACK_IMPORTED_MODULE_1__["ToolsService"],
+            _service_status_service__WEBPACK_IMPORTED_MODULE_5__["StatusService"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["AlertController"],
+            _service_minima_api_service__WEBPACK_IMPORTED_MODULE_2__["MinimaApiService"]])
     ], MiniStatusPage);
     return MiniStatusPage;
 }());
@@ -195,138 +197,44 @@ var MiniStatusPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/service/minima-api.service.ts":
-/*!***********************************************!*\
-  !*** ./src/app/service/minima-api.service.ts ***!
-  \***********************************************/
-/*! exports provided: MinimaApiService */
+/***/ "./src/app/service/status.service.ts":
+/*!*******************************************!*\
+  !*** ./src/app/service/status.service.ts ***!
+  \*******************************************/
+/*! exports provided: StatusService */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MinimaApiService", function() { return MinimaApiService; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StatusService", function() { return StatusService; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/fesm5/ionic-angular.js");
-/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! minima */ "./node_modules/minima/dist/minima.js");
-/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(minima__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! minima */ "./node_modules/minima/dist/minima.js");
+/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(minima__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
 
 
 
 
-var MinimaApiService = /** @class */ (function () {
-    function MinimaApiService(loadingController) {
-        this.loadingController = loadingController;
-        this.loader = null;
+var StatusService = /** @class */ (function () {
+    function StatusService() {
+        var _this = this;
+        this.updatedStatus = new rxjs__WEBPACK_IMPORTED_MODULE_3__["ReplaySubject"](1);
+        minima__WEBPACK_IMPORTED_MODULE_1__["Minima"].cmd('status full', function (res) {
+            if (res.status) {
+                //console.log(res);
+                var first = res.response;
+                _this.updatedStatus.next(first);
+            }
+        });
     }
-    MinimaApiService.prototype.showLoader = function () {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
-            var _a;
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_b) {
-                switch (_b.label) {
-                    case 0:
-                        if (!(this.loader == null)) return [3 /*break*/, 2];
-                        _a = this;
-                        return [4 /*yield*/, this.loadingController.create({
-                                message: 'Loading'
-                            })];
-                    case 1:
-                        _a.loader = _b.sent();
-                        this.loader.present();
-                        _b.label = 2;
-                    case 2: return [2 /*return*/];
-                }
-            });
-        });
-    };
-    MinimaApiService.prototype.hideLoader = function () {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        if (!(this.loader !== null)) return [3 /*break*/, 2];
-                        return [4 /*yield*/, this.loader.dismiss()];
-                    case 1:
-                        _a.sent();
-                        this.loader = null;
-                        return [3 /*break*/, 2];
-                    case 2: return [2 /*return*/];
-                }
-            });
-        });
-    };
-    MinimaApiService.prototype.createToken = function (data) {
-        return this.req("tokencreate name:\"" + data.name + "\" amount:" + data.amount + " description:\"" + data.description + "\" script:\"" + data.script + "\" icon:" + data.icon + " proof:" + data.proof);
-    };
-    MinimaApiService.prototype.validateTokenID = function (tokenid) {
-        return this.req("tokenvalidate " + tokenid);
-    };
-    MinimaApiService.prototype.sendMessageTransaction = function (data) {
-        //const txnidentifier = Math.floor(Math.random()*1000000000);
-        var postTransaction = "send " + data.amount + " " + data.address + " " + data.tokenid + " " + " 254:[01000100]#255:[\"" + data.message + "\"]";
-        // const customTXN = 
-        // // Custom TXN with an ID
-        // "txncreate "+txnidentifier+";"+
-        // // Add state variable 1
-        // "txnstate "+txnidentifier+" 254 01000100"+";"+
-        // // Add User state variable 2
-        // "txnstate "+txnidentifier+" 255 \""+data.message+"\""+";"+
-        // // Auto fill the transaction
-        // "txnauto "+txnidentifier+" "+data.amount+" "+data.address+" "+data.tokenid+";"+
-        // // Post it!
-        // "txnpost "+txnidentifier+";"+
-        // // Clear the txn
-        // "txndelete "+txnidentifier+";";
-        // // send 1 0xFF 0x00 '254:0x1000#255:[This is a message]'
-        return this.req(postTransaction);
-    };
-    MinimaApiService.prototype.webLink = function (data) {
-        return this.req('weblink+' + data.url);
-    };
-    MinimaApiService.prototype.setHost = function (newHost) {
-        localStorage.setItem('minima_host', newHost);
-    };
-    MinimaApiService.prototype.newAddress = function () {
-        return this.req('newaddress');
-    };
-    MinimaApiService.prototype.sendFunds = function (data) {
-        return this.req('send ' + data.amount + ' ' + data.address + ' ' + data.tokenid);
-    };
-    MinimaApiService.prototype.giveMe50 = function () {
-        return this.req('gimme50');
-    };
-    MinimaApiService.prototype.getBalance = function () {
-        return this.req('balance');
-    };
-    MinimaApiService.prototype.getHistory = function () {
-        return this.req('history');
-    };
-    MinimaApiService.prototype.clearMyHistory = function () {
-        return this.req('history clear');
-    };
-    MinimaApiService.prototype.getStatus = function () {
-        return this.req('status');
-    };
-    // Use minima.js instead..
-    MinimaApiService.prototype.req = function (fnc) {
-        var promise = new Promise(function (resolve) {
-            minima__WEBPACK_IMPORTED_MODULE_3__["Minima"].cmd(fnc, function (resp) {
-                //console.log(resp);
-                resolve(resp);
-            });
-        });
-        return promise;
-    };
-    MinimaApiService.ctorParameters = function () { return [
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["LoadingController"] }
-    ]; };
-    MinimaApiService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+    StatusService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Injectable"])({
             providedIn: 'root'
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["LoadingController"]])
-    ], MinimaApiService);
-    return MinimaApiService;
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], StatusService);
+    return StatusService;
 }());
 
 

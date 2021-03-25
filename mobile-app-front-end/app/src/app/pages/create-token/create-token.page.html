@@ -23,47 +23,42 @@
       <ion-label position="stacked">Name</ion-label>
       <ion-input placeholder="Enter a token name" class="medium-text input" #nameTextArea name="name" formControlName="name"></ion-input>
     </ion-item>
-    <ion-item class="error" lines="none" *ngIf="name.invalid && name.touched">
-      <ion-note class="error-message">
-        <ion-icon name="alert-circle"></ion-icon> <span> A name is required!</span>
-        <span style="margin-left: 2px"> A name must be a maximum length of 255 characters.</span> 
-      </ion-note>
-    </ion-item>
+
+    <ion-note *ngIf="name.invalid && name.touched" class="error-message">
+      <ion-icon name="alert-circle"></ion-icon> <span> Token name required!</span>
+      <span style="margin-left: 2px"> Token name must be a maximum length of 255 characters.</span> 
+    </ion-note>
+
 
     <ion-item class="no-ripple ion-no-padding" lines="none">
       <ion-label position="stacked">Amount</ion-label>
       <ion-input placeholder="Enter token amount" type="number" class="medium-text input" #amountRef name="amount" formControlName="amount"></ion-input>
     </ion-item>
-    <ion-item class="error ion-no-padding" lines="none" *ngIf="amount.invalid && amount.touched">
-      <ion-note class="error-message">
-        <ion-icon name="alert-circle"></ion-icon> <span> An amount is required!</span>
-        <span style="margin-left: 2px"> An amount must be numeric and greater than 0.</span> 
-      </ion-note>
-    </ion-item>
+
+    <ion-note *ngIf="amount.invalid && amount.touched" class="error-message">
+      <ion-icon name="alert-circle"></ion-icon> <span> Token amount required!</span>
+      <span style="margin-left: 2px"> Token amount must be numeric and greater than 0.</span> 
+    </ion-note>
 
     <ion-item class="no-ripple ion-no-padding" lines="none" lines="none">
       <ion-label position="stacked">Icon <span style="font-family: manrope-light; color:var(--ion-color-optional)">(optional)</span></ion-label>
       <ion-input class="medium-text input" name="icon" #iconURL formControlName="icon" placeholder="Enter a valid icon URL"></ion-input>
     </ion-item>
 
-    <ion-item class="error ion-no-padding" lines="none" *ngIf="icon.invalid && icon.touched">
-      <ion-note class="error-message">
-        <ion-icon name="alert-circle"></ion-icon> <span> Invalid icon URL!</span>
-        <span style="margin-left: 2px"> An icon URL should be of maximum 255 characters and end with .jpg or .png to be valid.</span> 
-      </ion-note>
-    </ion-item>
+    <ion-note *ngIf="icon.invalid && icon.touched" class="error-message">
+      <ion-icon name="alert-circle"></ion-icon> <span> Invalid icon URL!</span>
+      <span style="margin-left: 2px"> An icon URL should be of maximum 255 characters and end with .jpg, .png or .gif to be valid.</span> 
+    </ion-note>
 
     <ion-item class="no-ripple ion-no-padding" lines="none" lines="none">
       <ion-label position="stacked">Proof <span style="font-family: manrope-light; color:var(--ion-color-optional)">(optional)</span></ion-label>
       <ion-input  name="proof" class="medium-text input" #proofURL formControlName="proof" placeholder="Enter URL of website hosting token ID text"></ion-input>
     </ion-item>
 
-    <ion-item class="error ion-no-padding" lines="none" *ngIf="proof.invalid && proof.touched">
-      <ion-note class="error-message">
-        <ion-icon name="alert-circle"></ion-icon> <span> Invalid proof URL!</span>
-        <span style="margin-left: 2px"> A proof URL should be a max length of 255 characters with a .txt file in the URL.</span> 
-      </ion-note>
-    </ion-item>
+    <ion-note *ngIf="proof.invalid && proof.touched" class="error-message">
+      <ion-icon name="alert-circle"></ion-icon> <span> Invalid proof URL!</span>
+      <span style="margin-left: 2px"> A proof URL should be a max length of 255 characters with a .txt file in the URL.</span> 
+    </ion-note>
 
     <ion-item class="no-ripple ion-no-padding" lines="none" lines="none">
       <ion-label position="stacked">Description <span style="font-family: manrope-light; color:var(--ion-color-optional)">(optional)</span></ion-label>
@@ -87,10 +82,13 @@
       <ion-checkbox formControlName="nft" slot="end"></ion-checkbox>
     </ion-item>
     
-    <ion-item lines="none" class="ion-no-padding">
-      <ion-button slot="end" #submitBtn type="submit" class="create-token" [disabled]="tokenCreationForm.invalid" fill="clear">
-        Create Token
-      </ion-button>
+    <ion-item lines="none" class="createtoken-wrapper ion-no-padding">
+      <div style="display: flex; flex-direction:column; justify-content:right; align-items:flex-end">
+        <ion-button slot="end" #submitBtn type="submit" class="create-token" [disabled]="tokenCreationForm.invalid" fill="clear">
+          Create Token
+        </ion-button>
+        <ion-note *ngIf="status.length > 0">{{ status }}</ion-note>
+      </div>
     </ion-item>
 
   </ion-list>

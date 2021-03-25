@@ -4,6 +4,7 @@
 }
 #addButton { 
   font-size: 2.0rem;
+  color: var(--ion-color-color);
   cursor: pointer;
 }
 ion-list.tools {
@@ -47,6 +48,12 @@ ion-item-option div.block ion-icon {
 }
 ion-icon.trashIcon {
   cursor: pointer;
+}
+ion-icon.export {
+  cursor: pointer;
+  color: var(--ion-color-color);
+  position: absolute;
+  right: 0;
 }
 ion-icon.trashIcon:hover {
   color: var(--ion-color-secondary);

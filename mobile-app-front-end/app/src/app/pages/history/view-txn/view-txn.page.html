@@ -43,7 +43,7 @@
       <ion-item lines="none" class="ion-no-padding">
         <ion-label>
           <h6 class="title">Hash
-            <a class="copy" (click)="copyToClipPWA(myTxn.txpow.txpowid)">
+            <a class="copy" (click)="copy(myTxn.txpow.txpowid)">
               Copy 
             </a>
           </h6>
@@ -128,7 +128,7 @@
         <ion-item lines="none" class="ion-no-padding">
           <ion-label>
             <h6 class="title"> Recipient address
-              <a class="copy" (click)="copyToClipPWA(input.address)">
+              <a class="copy" (click)="copy(input.mxaddress)">
                 Copy
               </a>
             </h6>
@@ -169,7 +169,7 @@
         <ion-item lines="none" class="ion-no-padding">
           <ion-label>
             <h6 class="title">Outgoing address
-              <a class="copy" (click)="copyToClipPWA(output.address)">
+              <a class="copy" (click)="copy(output.mxaddress)">
                 Copy
               </a>
             </h6>

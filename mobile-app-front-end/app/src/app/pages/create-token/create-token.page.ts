@@ -1,7 +1,8 @@
+import { ToolsService } from './../../service/tools.service';
 import { CustomToken } from './../../models/customToken.model';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MinimaApiService } from '../../service/minima-api.service';
-import { AlertController, ToastController, IonButton, MenuController } from '@ionic/angular';
+import { IonButton, MenuController } from '@ionic/angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 interface AdvancedFormInputsCheck {
@@ -22,6 +23,7 @@ export class CreateTokenPage implements OnInit {
   tokenCreationForm: FormGroup;
   advancedFormInputsChecked: AdvancedFormInputsCheck = {description: false, icon: false, proof: false, nft: false};
 
+  status = '';
   isNft = false;
   loading = false;
   success = false;
@@ -55,61 +57,24 @@ export class CreateTokenPage implements OnInit {
     public menu: MenuController,
     private api: MinimaApiService,
     private formBuilder: FormBuilder,
-    public alertController: AlertController,
-    public toastController: ToastController) {}
+    private myTools: ToolsService) {}
 
   ionViewDidEnter() {}
 
   ngOnInit() {
-    this.tokenCreationForm = this.formBuilder.group({
-      name: ['', [Validators.required, Validators.maxLength(255)]],
-      amount: ['', [Validators.required, Validators.maxLength(255)]],
-      description: '',
-      script: '',
-      icon: ['', [Validators.pattern('(http(s?):)([\\/|\\.|\\w|\\s|\\-])*\.(?:jpg|png)$'), Validators.maxLength(255)]],
-      proof: ['', [Validators.pattern('(http(s?):)([\\/|\\.|\\w|\\s|\\-])*\.(?:txt)$'), Validators.maxLength(255)]],
-      nft: false
-    });
+    this.formInit();
   }
 
   openMenu() {
     this.menu.open();
   }
 
-  async presentToast(msg: string, type: string) {
-    const toast = await this.toastController.create({
-      message: msg,
-      duration: 1000,
-      color: type,
-      buttons: [{
-        text: 'Close',
-        role: 'cancel'
-      }],
-      keyboardClose: true,
-      translucent: true,
-      position:  'top'
-    });
-    toast.present();
-  }
-  
-  async presentAlert(hdr: string, message: string, subtitle: string) {
-    const alert = await this.alertController.create({
-      cssClass: 'alertContainer',
-      header: hdr,
-      subHeader: subtitle,
-      message: message,
-      buttons: ['OK']
-    });
-
-    await alert.present();
-  }
-
   giveMe50() {
     this.api.giveMe50().then((res: any) => {
       if(res.status === true) {
-        this.presentAlert('Gimme50', 'Successful', 'Status');
+        this.myTools.presentAlert('Gimme50', 'Successful', 'Status');
       } else {
-        this.presentAlert('Gimme50', res.message, 'Status');
+        this.myTools.presentAlert('Gimme50', res.message, 'Status');
       }
     });
   }
@@ -118,40 +83,71 @@ export class CreateTokenPage implements OnInit {
     this.loading = true;
     //console.log(this.tokenCreationForm.value);
     const newToken: CustomToken = this.tokenCreationForm.value;
+    //console.log(newToken);
+    try {
+      this.status = 'Creating token...';
+      this.create(newToken);
+    } catch(err) {
+      console.log(err);
+    } finally {
+      setTimeout(() => {
+        this.status = '';
+        this.submitBtn.disabled = false;
+      }, 6000)
+    }
+    
+  }
 
+  async create(newToken: CustomToken) {
+    console.log(newToken);
     if (newToken.nft) {
       this.submitBtn.disabled = true;
       newToken.script = this.myNFT; // script for non-fungible
-      this.api.createToken(newToken).then((res: any) => {
-        if (res.status) {
-          this.presentAlert('Success', 'Token '+this.customToken.name+' has been created.', 'Token Creation Status');
-          this.resetForm();
-        } else {
-          setTimeout(() => {
-            this.submitBtn.disabled = false;
-          }, 500)
-          this.presentAlert('Something\'s wrong!', res.message, 'Token Creation Status');
-        }
-      });
+      const res: any = await this.api.createToken(newToken);
+      if (res.status) {
+        this.status = 'Token created!';
+        this.myTools.presentAlert('Success', 'Token '+this.customToken.name+' has been created.', 'Token Creation Status');
+        this.resetForm();
+      } else {
+        setTimeout(() => {
+          this.submitBtn.disabled = false;
+        }, 500)
+        this.status = 'Token creation failed!';
+        this.myTools.presentAlert('Error', res.message, 'Token Creation Status');
+      }
     } else {
       this.submitBtn.disabled = true;
-      newToken.script = 'RETURN TRUE'; // default script to spend token
-      this.api.createToken(newToken).then((res: any) => {
-        if (res.status) {
-          this.presentAlert('Success', 'Token ' + this.customToken.name + ' has been created.', 'Token Creation Status');
-          this.resetForm();
-        } else {
-          setTimeout(() => {
-            this.submitBtn.disabled = false;
-          }, 500)
-          this.presentAlert('Something\'s wrong!', res.message, 'Token Creation Status');
-        }
-      })
+      //newToken.script = 'RETURN TRUE'; // default script to spend token
+      const res: any = await this.api.createToken(newToken);
+      if (res.status) {
+        this.status = newToken.name + ' has been created!';
+        this.myTools.presentAlert('Success', 'Token ' + this.customToken.name + ' has been created.', 'Token Creation Status');
+        this.resetForm();
+      } else {
+        setTimeout(() => {
+          this.submitBtn.disabled = false;
+        }, 500)
+        this.status = newToken.name + ' failed to create!';
+        this.myTools.presentAlert('Error', res.message, 'Token Creation Status');
+      }
     }
+  }
+
+  formInit() {
+    this.tokenCreationForm = this.formBuilder.group({
+      name: ['', [Validators.required, Validators.maxLength(255)]],
+      amount: ['', [Validators.required, Validators.maxLength(255)]],
+      description: '',
+      script: '',
+      icon: ['', [Validators.pattern('(http(s?):)([\\/|\\.|\\w|\\s|\\-])*\.(?:jpg|png|gif)$'), Validators.maxLength(255)]],
+      proof: ['', [Validators.pattern('(http(s?):)([\\/|\\.|\\w|\\s|\\-])*\.(?:txt)$'), Validators.maxLength(255)]],
+      nft: false
+    });
   }
 
   resetForm() { 
     this.tokenCreationForm.reset();
+    this.formInit();
   }
 
   get name() {

@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-app>\n<ion-header class=\"page-header ion-no-border\">\n  <ion-toolbar>\n    <ion-title>\n      <ion-item id=\"title\" lines=\"none\" class=\"ion-no-padding\">\n        <ion-icon class=\"menu-btn\" (click)=\"openMenu()\" src=\"assets/menuIcon.svg\"></ion-icon>\n        Terminal\n      </ion-item>\n      <ion-item id=\"subtitle\" class=\"breadcrumb ion-no-padding\" lines=\"none\">\n        Minima terminal\n      </ion-item>\n    </ion-title>\n      <ion-label \n      (click)=\"presentPopover($event)\" \n      fill=\"clear\"\n      lines=\"none\" \n      slot=\"end\"\n      class=\"resize-tool-btn\">aA</ion-label>\n  </ion-toolbar>\n</ion-header>\n\n\n\n<ion-content class=\"page-content\" #ionContent>\n    <!-- Terminal -->\n    <textarea\n    #terminal\n    background=\"transparent\"\n    class=\"terminal\"\n    [ngStyle] = \"{'font-size': getFontSize()}\" \n    autocapitalize=\"false\"\n    spellcheck=\"false\"\n    autocorrect=\"off\"></textarea>\n  \n</ion-content>\n<ion-footer class=\"border-t\">\n  <ion-button (click)=\"giveMe50()\" class=\"gimme50 no-ripple\" fill=\"none\">\n    Gimme 50\n  </ion-button>\n</ion-footer>\n</ion-app>\n\n\n"
+module.exports = "<ion-app>\n<ion-header class=\"page-header ion-no-border\">\n  <ion-toolbar>\n    <ion-title>\n      <ion-item id=\"title\" lines=\"none\" class=\"ion-no-padding\">\n        <ion-icon class=\"menu-btn\" (click)=\"openMenu()\" src=\"assets/menuIcon.svg\"></ion-icon>\n        Terminal\n        <ion-label \n        (click)=\"presentPopover($event)\" \n        fill=\"clear\"\n        lines=\"none\" \n        slot=\"end\"\n        class=\"resize-tool-btn\">aA</ion-label>\n      </ion-item>\n      <ion-item id=\"subtitle\" class=\"breadcrumb ion-no-padding\" lines=\"none\">\n        Minima terminal\n      </ion-item>\n    </ion-title>\n      \n  </ion-toolbar>\n</ion-header>\n\n\n\n<ion-content class=\"page-content\" #ionContent>\n    <!-- Terminal -->\n    <textarea\n    #terminal\n    background=\"transparent\"\n    class=\"terminal\"\n    [ngStyle] = \"{'font-size': getFontSize()}\" \n    autocapitalize=\"false\"\n    spellcheck=\"false\"\n    autocorrect=\"off\"></textarea>\n  \n</ion-content>\n<ion-footer class=\"border-t\">\n  <ion-button (click)=\"giveMe50()\" class=\"gimme50 no-ripple\" fill=\"none\">\n    Gimme 50\n  </ion-button>\n</ion-footer>\n</ion-app>\n\n\n"
 
 /***/ }),
 
@@ -69,7 +69,7 @@ var MiniTermPageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "::-webkit-scrollbar,\n*::-webkit-scrollbar {\n  display: none;\n}\n\n.terminal {\n  padding: 0;\n  margin-top: 7px;\n  width: 100%;\n  background-color: var(--ion-background-color, #ffffff);\n  color: var(--ion-color-color);\n  font-family: monospace;\n  height: 100%;\n  height: 100vh;\n  border: none !important;\n}\n\n.resize-tool-btn {\n  position: absolute;\n  top: 22%;\n  right: 5%;\n  font-family: manrope-bold;\n  font-size: 1rem;\n  cursor: pointer;\n  color: var(--ion-color-color);\n  text-transform: none;\n}\n\n.no-scroll {\n  --overflow: hidden;\n}\n\nion-content {\n  --overflow: hidden;\n  height: 100% !important;\n  max-height: 100% !important;\n}\n\ntextarea:hover,\ninput:hover,\ntextarea:active,\ninput:active,\ntextarea:focus,\ninput:focus,\nbutton:focus,\nbutton:active,\nbutton:hover,\nlabel:focus,\n.btn:active,\n.btn.active {\n  outline: 0px !important;\n  -webkit-appearance: none;\n  box-shadow: none !important;\n}\n\n@media only screen and (min-width: 990px) {\n  .terminal {\n    font-size: 16px;\n    border: 0px;\n  }\n}\n\nion-toolbar {\n  --background: var(--ion-m-background);\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9lbGlhc25lbXIvcHJvamVjdHMvV2FsbGV0L21vYmlsZS1hcHAtZnJvbnQtZW5kL2FwcC9zcmMvYXBwL3BhZ2VzL21pbmktdGVybS9taW5pLXRlcm0ucGFnZS5zY3NzIiwic3JjL2FwcC9wYWdlcy9taW5pLXRlcm0vbWluaS10ZXJtLnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTs7RUFFRSxhQUFBO0FDQ0Y7O0FEQ0E7RUFDSSxVQUFBO0VBQ0EsZUFBQTtFQUNBLFdBQUE7RUFDQSxzREFBQTtFQUNBLDZCQUFBO0VBQ0Esc0JBQUE7RUFDQSxZQUFBO0VBQ0EsYUFBQTtFQUNBLHVCQUFBO0FDRUo7O0FEQUE7RUFDSSxrQkFBQTtFQUNBLFFBQUE7RUFDQSxTQUFBO0VBQ0EseUJBQUE7RUFDQSxlQUFBO0VBQ0EsZUFBQTtFQUNBLDZCQUFBO0VBQ0Esb0JBQUE7QUNHSjs7QURBQTtFQUNJLGtCQUFBO0FDR0o7O0FEREE7RUFDSSxrQkFBQTtFQUNBLHVCQUFBO0VBQ0EsMkJBQUE7QUNJSjs7QUREQTs7Ozs7Ozs7Ozs7O0VBYUksdUJBQUE7RUFDQSx3QkFBQTtFQUNBLDJCQUFBO0FDR0o7O0FEQUE7RUFDSTtJQUNJLGVBQUE7SUFDQSxXQUFBO0VDR047QUFDRjs7QURBQTtFQUNJLHFDQUFBO0FDRUoiLCJmaWxlIjoic3JjL2FwcC9wYWdlcy9taW5pLXRlcm0vbWluaS10ZXJtLnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIjo6LXdlYmtpdC1zY3JvbGxiYXIsXG4qOjotd2Via2l0LXNjcm9sbGJhciB7XG4gIGRpc3BsYXk6IG5vbmU7XG59XG4udGVybWluYWwge1xuICAgIHBhZGRpbmc6IDA7XG4gICAgbWFyZ2luLXRvcDogN3B4O1xuICAgIHdpZHRoOiAxMDAlO1xuICAgIGJhY2tncm91bmQtY29sb3I6IHZhcigtLWlvbi1iYWNrZ3JvdW5kLWNvbG9yLCAjZmZmZmZmKTtcbiAgICBjb2xvcjogdmFyKC0taW9uLWNvbG9yLWNvbG9yKTtcbiAgICBmb250LWZhbWlseTogbW9ub3NwYWNlO1xuICAgIGhlaWdodDogMTAwJTtcbiAgICBoZWlnaHQ6IDEwMHZoO1xuICAgIGJvcmRlcjpub25lIWltcG9ydGFudDtcbn1cbi5yZXNpemUtdG9vbC1idG4ge1xuICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgICB0b3A6IDIyJTtcbiAgICByaWdodDogNSU7XG4gICAgZm9udC1mYW1pbHk6IG1hbnJvcGUtYm9sZDtcbiAgICBmb250LXNpemU6IDEuMHJlbTtcbiAgICBjdXJzb3I6IHBvaW50ZXI7XG4gICAgY29sb3I6IHZhcigtLWlvbi1jb2xvci1jb2xvcik7XG4gICAgdGV4dC10cmFuc2Zvcm06IG5vbmU7XG59XG5cbi5uby1zY3JvbGwge1xuICAgIC0tb3ZlcmZsb3c6IGhpZGRlbjtcbn1cbmlvbi1jb250ZW50IHtcbiAgICAtLW92ZXJmbG93OiBoaWRkZW47XG4gICAgaGVpZ2h0OiAxMDAlIWltcG9ydGFudDtcbiAgICBtYXgtaGVpZ2h0OiAxMDAlIWltcG9ydGFudDtcbn1cblxudGV4dGFyZWE6aG92ZXIsIFxuaW5wdXQ6aG92ZXIsIFxudGV4dGFyZWE6YWN0aXZlLCBcbmlucHV0OmFjdGl2ZSwgXG50ZXh0YXJlYTpmb2N1cywgXG5pbnB1dDpmb2N1cyxcbmJ1dHRvbjpmb2N1cyxcbmJ1dHRvbjphY3RpdmUsXG5idXR0b246aG92ZXIsXG5sYWJlbDpmb2N1cyxcbi5idG46YWN0aXZlLFxuLmJ0bi5hY3RpdmVcbntcbiAgICBvdXRsaW5lOjBweCAhaW1wb3J0YW50O1xuICAgIC13ZWJraXQtYXBwZWFyYW5jZTpub25lO1xuICAgIGJveC1zaGFkb3c6IG5vbmUgIWltcG9ydGFudDtcbn1cblxuQG1lZGlhIG9ubHkgc2NyZWVuIGFuZCAobWluLXdpZHRoOiA5OTBweCkge1xuICAgIC50ZXJtaW5hbCB7XG4gICAgICAgIGZvbnQtc2l6ZTogMTZweDtcbiAgICAgICAgYm9yZGVyOiAwcHg7XG4gICAgfVxuICAgICBcbn1cbmlvbi10b29sYmFyIHtcbiAgICAtLWJhY2tncm91bmQ6IHZhcigtLWlvbi1tLWJhY2tncm91bmQpO1xufSIsIjo6LXdlYmtpdC1zY3JvbGxiYXIsXG4qOjotd2Via2l0LXNjcm9sbGJhciB7XG4gIGRpc3BsYXk6IG5vbmU7XG59XG5cbi50ZXJtaW5hbCB7XG4gIHBhZGRpbmc6IDA7XG4gIG1hcmdpbi10b3A6IDdweDtcbiAgd2lkdGg6IDEwMCU7XG4gIGJhY2tncm91bmQtY29sb3I6IHZhcigtLWlvbi1iYWNrZ3JvdW5kLWNvbG9yLCAjZmZmZmZmKTtcbiAgY29sb3I6IHZhcigtLWlvbi1jb2xvci1jb2xvcik7XG4gIGZvbnQtZmFtaWx5OiBtb25vc3BhY2U7XG4gIGhlaWdodDogMTAwJTtcbiAgaGVpZ2h0OiAxMDB2aDtcbiAgYm9yZGVyOiBub25lICFpbXBvcnRhbnQ7XG59XG5cbi5yZXNpemUtdG9vbC1idG4ge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIHRvcDogMjIlO1xuICByaWdodDogNSU7XG4gIGZvbnQtZmFtaWx5OiBtYW5yb3BlLWJvbGQ7XG4gIGZvbnQtc2l6ZTogMXJlbTtcbiAgY3Vyc29yOiBwb2ludGVyO1xuICBjb2xvcjogdmFyKC0taW9uLWNvbG9yLWNvbG9yKTtcbiAgdGV4dC10cmFuc2Zvcm06IG5vbmU7XG59XG5cbi5uby1zY3JvbGwge1xuICAtLW92ZXJmbG93OiBoaWRkZW47XG59XG5cbmlvbi1jb250ZW50IHtcbiAgLS1vdmVyZmxvdzogaGlkZGVuO1xuICBoZWlnaHQ6IDEwMCUgIWltcG9ydGFudDtcbiAgbWF4LWhlaWdodDogMTAwJSAhaW1wb3J0YW50O1xufVxuXG50ZXh0YXJlYTpob3ZlcixcbmlucHV0OmhvdmVyLFxudGV4dGFyZWE6YWN0aXZlLFxuaW5wdXQ6YWN0aXZlLFxudGV4dGFyZWE6Zm9jdXMsXG5pbnB1dDpmb2N1cyxcbmJ1dHRvbjpmb2N1cyxcbmJ1dHRvbjphY3RpdmUsXG5idXR0b246aG92ZXIsXG5sYWJlbDpmb2N1cyxcbi5idG46YWN0aXZlLFxuLmJ0bi5hY3RpdmUge1xuICBvdXRsaW5lOiAwcHggIWltcG9ydGFudDtcbiAgLXdlYmtpdC1hcHBlYXJhbmNlOiBub25lO1xuICBib3gtc2hhZG93OiBub25lICFpbXBvcnRhbnQ7XG59XG5cbkBtZWRpYSBvbmx5IHNjcmVlbiBhbmQgKG1pbi13aWR0aDogOTkwcHgpIHtcbiAgLnRlcm1pbmFsIHtcbiAgICBmb250LXNpemU6IDE2cHg7XG4gICAgYm9yZGVyOiAwcHg7XG4gIH1cbn1cbmlvbi10b29sYmFyIHtcbiAgLS1iYWNrZ3JvdW5kOiB2YXIoLS1pb24tbS1iYWNrZ3JvdW5kKTtcbn0iXX0= */"
+module.exports = "::-webkit-scrollbar,\n*::-webkit-scrollbar {\n  display: none;\n}\n\n.terminal {\n  padding: 0;\n  margin-top: 7px;\n  width: 100%;\n  background-color: var(--ion-background-color, #ffffff);\n  color: var(--ion-color-color);\n  font-family: monospace;\n  height: 100%;\n  height: 100vh;\n  border: none !important;\n}\n\n.resize-tool-btn {\n  position: absolute;\n  right: 0;\n  font-family: manrope-bold;\n  font-size: 1rem;\n  cursor: pointer;\n  color: var(--ion-color-color);\n  text-transform: none;\n}\n\n.no-scroll {\n  --overflow: hidden;\n}\n\nion-content {\n  --overflow: hidden;\n  height: 100% !important;\n  max-height: 100% !important;\n}\n\ntextarea:hover,\ninput:hover,\ntextarea:active,\ninput:active,\ntextarea:focus,\ninput:focus,\nbutton:focus,\nbutton:active,\nbutton:hover,\nlabel:focus,\n.btn:active,\n.btn.active {\n  outline: 0px !important;\n  -webkit-appearance: none;\n  box-shadow: none !important;\n}\n\n@media only screen and (min-width: 990px) {\n  .terminal {\n    font-size: 16px;\n    border: 0px;\n  }\n}\n\nion-toolbar {\n  --background: var(--ion-m-background);\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9lbGlhc25lbXIvcHJvamVjdHMvV2FsbGV0L21vYmlsZS1hcHAtZnJvbnQtZW5kL2FwcC9zcmMvYXBwL3BhZ2VzL21pbmktdGVybS9taW5pLXRlcm0ucGFnZS5zY3NzIiwic3JjL2FwcC9wYWdlcy9taW5pLXRlcm0vbWluaS10ZXJtLnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTs7RUFFRSxhQUFBO0FDQ0Y7O0FEQ0E7RUFDSSxVQUFBO0VBQ0EsZUFBQTtFQUNBLFdBQUE7RUFDQSxzREFBQTtFQUNBLDZCQUFBO0VBQ0Esc0JBQUE7RUFDQSxZQUFBO0VBQ0EsYUFBQTtFQUNBLHVCQUFBO0FDRUo7O0FEQUE7RUFDSSxrQkFBQTtFQUNBLFFBQUE7RUFDQSx5QkFBQTtFQUNBLGVBQUE7RUFDQSxlQUFBO0VBQ0EsNkJBQUE7RUFDQSxvQkFBQTtBQ0dKOztBREFBO0VBQ0ksa0JBQUE7QUNHSjs7QUREQTtFQUNJLGtCQUFBO0VBQ0EsdUJBQUE7RUFDQSwyQkFBQTtBQ0lKOztBRERBOzs7Ozs7Ozs7Ozs7RUFhSSx1QkFBQTtFQUNBLHdCQUFBO0VBQ0EsMkJBQUE7QUNHSjs7QURBQTtFQUNJO0lBQ0ksZUFBQTtJQUNBLFdBQUE7RUNHTjtBQUNGOztBREFBO0VBQ0kscUNBQUE7QUNFSiIsImZpbGUiOiJzcmMvYXBwL3BhZ2VzL21pbmktdGVybS9taW5pLXRlcm0ucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiOjotd2Via2l0LXNjcm9sbGJhcixcbio6Oi13ZWJraXQtc2Nyb2xsYmFyIHtcbiAgZGlzcGxheTogbm9uZTtcbn1cbi50ZXJtaW5hbCB7XG4gICAgcGFkZGluZzogMDtcbiAgICBtYXJnaW4tdG9wOiA3cHg7XG4gICAgd2lkdGg6IDEwMCU7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogdmFyKC0taW9uLWJhY2tncm91bmQtY29sb3IsICNmZmZmZmYpO1xuICAgIGNvbG9yOiB2YXIoLS1pb24tY29sb3ItY29sb3IpO1xuICAgIGZvbnQtZmFtaWx5OiBtb25vc3BhY2U7XG4gICAgaGVpZ2h0OiAxMDAlO1xuICAgIGhlaWdodDogMTAwdmg7XG4gICAgYm9yZGVyOm5vbmUhaW1wb3J0YW50O1xufVxuLnJlc2l6ZS10b29sLWJ0biB7XG4gICAgcG9zaXRpb246IGFic29sdXRlO1xuICAgIHJpZ2h0OiAwO1xuICAgIGZvbnQtZmFtaWx5OiBtYW5yb3BlLWJvbGQ7XG4gICAgZm9udC1zaXplOiAxLjByZW07XG4gICAgY3Vyc29yOiBwb2ludGVyO1xuICAgIGNvbG9yOiB2YXIoLS1pb24tY29sb3ItY29sb3IpO1xuICAgIHRleHQtdHJhbnNmb3JtOiBub25lO1xufVxuXG4ubm8tc2Nyb2xsIHtcbiAgICAtLW92ZXJmbG93OiBoaWRkZW47XG59XG5pb24tY29udGVudCB7XG4gICAgLS1vdmVyZmxvdzogaGlkZGVuO1xuICAgIGhlaWdodDogMTAwJSFpbXBvcnRhbnQ7XG4gICAgbWF4LWhlaWdodDogMTAwJSFpbXBvcnRhbnQ7XG59XG5cbnRleHRhcmVhOmhvdmVyLCBcbmlucHV0OmhvdmVyLCBcbnRleHRhcmVhOmFjdGl2ZSwgXG5pbnB1dDphY3RpdmUsIFxudGV4dGFyZWE6Zm9jdXMsIFxuaW5wdXQ6Zm9jdXMsXG5idXR0b246Zm9jdXMsXG5idXR0b246YWN0aXZlLFxuYnV0dG9uOmhvdmVyLFxubGFiZWw6Zm9jdXMsXG4uYnRuOmFjdGl2ZSxcbi5idG4uYWN0aXZlXG57XG4gICAgb3V0bGluZTowcHggIWltcG9ydGFudDtcbiAgICAtd2Via2l0LWFwcGVhcmFuY2U6bm9uZTtcbiAgICBib3gtc2hhZG93OiBub25lICFpbXBvcnRhbnQ7XG59XG5cbkBtZWRpYSBvbmx5IHNjcmVlbiBhbmQgKG1pbi13aWR0aDogOTkwcHgpIHtcbiAgICAudGVybWluYWwge1xuICAgICAgICBmb250LXNpemU6IDE2cHg7XG4gICAgICAgIGJvcmRlcjogMHB4O1xuICAgIH1cbiAgICAgXG59XG5pb24tdG9vbGJhciB7XG4gICAgLS1iYWNrZ3JvdW5kOiB2YXIoLS1pb24tbS1iYWNrZ3JvdW5kKTtcbn0iLCI6Oi13ZWJraXQtc2Nyb2xsYmFyLFxuKjo6LXdlYmtpdC1zY3JvbGxiYXIge1xuICBkaXNwbGF5OiBub25lO1xufVxuXG4udGVybWluYWwge1xuICBwYWRkaW5nOiAwO1xuICBtYXJnaW4tdG9wOiA3cHg7XG4gIHdpZHRoOiAxMDAlO1xuICBiYWNrZ3JvdW5kLWNvbG9yOiB2YXIoLS1pb24tYmFja2dyb3VuZC1jb2xvciwgI2ZmZmZmZik7XG4gIGNvbG9yOiB2YXIoLS1pb24tY29sb3ItY29sb3IpO1xuICBmb250LWZhbWlseTogbW9ub3NwYWNlO1xuICBoZWlnaHQ6IDEwMCU7XG4gIGhlaWdodDogMTAwdmg7XG4gIGJvcmRlcjogbm9uZSAhaW1wb3J0YW50O1xufVxuXG4ucmVzaXplLXRvb2wtYnRuIHtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICByaWdodDogMDtcbiAgZm9udC1mYW1pbHk6IG1hbnJvcGUtYm9sZDtcbiAgZm9udC1zaXplOiAxcmVtO1xuICBjdXJzb3I6IHBvaW50ZXI7XG4gIGNvbG9yOiB2YXIoLS1pb24tY29sb3ItY29sb3IpO1xuICB0ZXh0LXRyYW5zZm9ybTogbm9uZTtcbn1cblxuLm5vLXNjcm9sbCB7XG4gIC0tb3ZlcmZsb3c6IGhpZGRlbjtcbn1cblxuaW9uLWNvbnRlbnQge1xuICAtLW92ZXJmbG93OiBoaWRkZW47XG4gIGhlaWdodDogMTAwJSAhaW1wb3J0YW50O1xuICBtYXgtaGVpZ2h0OiAxMDAlICFpbXBvcnRhbnQ7XG59XG5cbnRleHRhcmVhOmhvdmVyLFxuaW5wdXQ6aG92ZXIsXG50ZXh0YXJlYTphY3RpdmUsXG5pbnB1dDphY3RpdmUsXG50ZXh0YXJlYTpmb2N1cyxcbmlucHV0OmZvY3VzLFxuYnV0dG9uOmZvY3VzLFxuYnV0dG9uOmFjdGl2ZSxcbmJ1dHRvbjpob3ZlcixcbmxhYmVsOmZvY3VzLFxuLmJ0bjphY3RpdmUsXG4uYnRuLmFjdGl2ZSB7XG4gIG91dGxpbmU6IDBweCAhaW1wb3J0YW50O1xuICAtd2Via2l0LWFwcGVhcmFuY2U6IG5vbmU7XG4gIGJveC1zaGFkb3c6IG5vbmUgIWltcG9ydGFudDtcbn1cblxuQG1lZGlhIG9ubHkgc2NyZWVuIGFuZCAobWluLXdpZHRoOiA5OTBweCkge1xuICAudGVybWluYWwge1xuICAgIGZvbnQtc2l6ZTogMTZweDtcbiAgICBib3JkZXI6IDBweDtcbiAgfVxufVxuaW9uLXRvb2xiYXIge1xuICAtLWJhY2tncm91bmQ6IHZhcigtLWlvbi1tLWJhY2tncm91bmQpO1xufSJdfQ== */"
 
 /***/ }),
 
@@ -84,14 +84,16 @@ module.exports = "::-webkit-scrollbar,\n*::-webkit-scrollbar {\n  display: none;
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MiniTermPage", function() { return MiniTermPage; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _service_minima_api_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../service/minima-api.service */ "./src/app/service/minima-api.service.ts");
-/* harmony import */ var _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/pop-term/pop-term.component */ "./src/app/components/pop-term/pop-term.component.ts");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/fesm5/ionic-angular.js");
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../environments/environment */ "./src/environments/environment.ts");
-/* harmony import */ var _service_userterminal_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../service/userterminal.service */ "./src/app/service/userterminal.service.ts");
-/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! minima */ "./node_modules/minima/dist/minima.js");
-/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(minima__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _service_tools_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../service/tools.service */ "./src/app/service/tools.service.ts");
+/* harmony import */ var _service_minima_api_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../service/minima-api.service */ "./src/app/service/minima-api.service.ts");
+/* harmony import */ var _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../components/pop-term/pop-term.component */ "./src/app/components/pop-term/pop-term.component.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/fesm5/ionic-angular.js");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../environments/environment */ "./src/environments/environment.ts");
+/* harmony import */ var _service_userterminal_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../service/userterminal.service */ "./src/app/service/userterminal.service.ts");
+/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! minima */ "./node_modules/minima/dist/minima.js");
+/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(minima__WEBPACK_IMPORTED_MODULE_8__);
+
 
 
 
@@ -101,24 +103,18 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var MiniTermPage = /** @class */ (function () {
-    function MiniTermPage(menu, api, alertController, loadingController, navCtrl, renderer, popoverController, userTerminal) {
+    function MiniTermPage(menu, loadingController, navCtrl, popoverController, userTerminal, myTools, api, renderer) {
         this.menu = menu;
-        this.api = api;
-        this.alertController = alertController;
         this.loadingController = loadingController;
         this.navCtrl = navCtrl;
-        this.renderer = renderer;
         this.popoverController = popoverController;
         this.userTerminal = userTerminal;
+        this.myTools = myTools;
+        this.api = api;
+        this.renderer = renderer;
         this.host = '';
         this.lastLine = '';
         this.loader = null;
-        // Disable up and down keys.
-        // window.addEventListener('keydown', function(e) {
-        //   if ( [37, 38, 39, 40].indexOf(e.keyCode) > -1 ) {
-        //     e.preventDefault();
-        //   }
-        // }, false);
     }
     MiniTermPage.prototype.keyEvent = function (event) {
         if (event.key == 'ArrowDown' || event.key == 'ArrowLeft' || event.key == 'ArrowRight' || event.key == 'ArrowUp') {
@@ -208,8 +204,8 @@ var MiniTermPage = /** @class */ (function () {
         var _this = this;
         if (route === 'printchain') {
             return new Promise(function (resolve) {
-                minima__WEBPACK_IMPORTED_MODULE_7__["Minima"].cmd('printchain', function (res) {
-                    var regex = res.replace(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].newLine, '\\n'); // replace \n with <br/> has all 3 \n|\r|\r\n
+                minima__WEBPACK_IMPORTED_MODULE_8__["Minima"].cmd('printchain', function (res) {
+                    var regex = res.replace(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"].newLine, '\\n'); // replace \n with <br/> has all 3 \n|\r|\r\n
                     _this.terminal.nativeElement.value += regex;
                     _this.terminal.nativeElement.scrollTop = _this.terminal.nativeElement.scrollHeight;
                     resolve(res);
@@ -218,7 +214,7 @@ var MiniTermPage = /** @class */ (function () {
         }
         else if (route === 'tutorial' || route === 'Tutorial') {
             return new Promise(function (resolve, reject) {
-                minima__WEBPACK_IMPORTED_MODULE_7__["Minima"].cmd('tutorial', function (res) {
+                minima__WEBPACK_IMPORTED_MODULE_8__["Minima"].cmd('tutorial', function (res) {
                     var regex = JSON.stringify(res, undefined, 2).replace('\\\\n', '\n');
                     _this.terminal.nativeElement.value += regex;
                     _this.terminal.nativeElement.scrollTop = _this.terminal.nativeElement.scrollHeight;
@@ -228,7 +224,7 @@ var MiniTermPage = /** @class */ (function () {
         }
         else {
             return new Promise(function (resolve, reject) {
-                minima__WEBPACK_IMPORTED_MODULE_7__["Minima"].cmd(route, function (res) {
+                minima__WEBPACK_IMPORTED_MODULE_8__["Minima"].cmd(route, function (res) {
                     _this.terminal.nativeElement.value += JSON.stringify(res, undefined, 2) + '\n';
                     _this.terminal.nativeElement.scrollTop = _this.terminal.nativeElement.scrollHeight;
                     resolve(res);
@@ -236,49 +232,13 @@ var MiniTermPage = /** @class */ (function () {
             });
         }
     };
-    MiniTermPage.prototype.showLoader = function () {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
-            var _a;
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_b) {
-                switch (_b.label) {
-                    case 0:
-                        if (!(this.loader == null)) return [3 /*break*/, 2];
-                        _a = this;
-                        return [4 /*yield*/, this.loadingController.create({
-                                message: 'Loading'
-                            })];
-                    case 1:
-                        _a.loader = _b.sent();
-                        this.loader.present();
-                        _b.label = 2;
-                    case 2: return [2 /*return*/];
-                }
-            });
-        });
-    };
-    MiniTermPage.prototype.hideLoader = function () {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        if (!(this.loader !== null)) return [3 /*break*/, 2];
-                        return [4 /*yield*/, this.loader.dismiss()];
-                    case 1:
-                        _a.sent();
-                        this.loader = null;
-                        return [3 /*break*/, 2];
-                    case 2: return [2 /*return*/];
-                }
-            });
-        });
-    };
     MiniTermPage.prototype.presentPopover = function (ev) {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
             var popover;
             return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.popoverController.create({
-                            component: _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_2__["PopTermComponent"],
+                            component: _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_3__["PopTermComponent"],
                             cssClass: 'terminal-pop',
                             event: ev,
                             translucent: false
@@ -295,212 +255,53 @@ var MiniTermPage = /** @class */ (function () {
         var _this = this;
         this.api.giveMe50().then(function (res) {
             if (res.status === true) {
-                _this.presentAlert('Gimme50', 'Successful', 'Status');
+                _this.myTools.presentAlert('Gimme50', 'Successful', 'Status');
             }
             else {
-                _this.presentAlert('Gimme50', res.message, 'Status');
+                _this.myTools.presentAlert('Gimme50', res.message, 'Status');
             }
-        });
-    };
-    MiniTermPage.prototype.presentAlert = function (hdr, msg, sub) {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
-            var alert;
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.alertController.create({
-                            cssClass: 'alert',
-                            header: hdr,
-                            subHeader: sub,
-                            message: msg,
-                            buttons: ['OK']
-                        })];
-                    case 1:
-                        alert = _a.sent();
-                        return [4 /*yield*/, alert.present()];
-                    case 2:
-                        _a.sent();
-                        return [2 /*return*/];
-                }
-            });
         });
     };
     MiniTermPage.ctorParameters = function () { return [
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["MenuController"] },
-        { type: _service_minima_api_service__WEBPACK_IMPORTED_MODULE_1__["MinimaApiService"] },
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["AlertController"] },
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"] },
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["NavController"] },
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_3__["Renderer2"] },
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["PopoverController"] },
-        { type: _service_userterminal_service__WEBPACK_IMPORTED_MODULE_6__["UserTerminal"] }
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["MenuController"] },
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["LoadingController"] },
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["NavController"] },
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["PopoverController"] },
+        { type: _service_userterminal_service__WEBPACK_IMPORTED_MODULE_7__["UserTerminal"] },
+        { type: _service_tools_service__WEBPACK_IMPORTED_MODULE_1__["ToolsService"] },
+        { type: _service_minima_api_service__WEBPACK_IMPORTED_MODULE_2__["MinimaApiService"] },
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_4__["Renderer2"] }
     ]; };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["HostListener"])('window:keydown', ['$event']),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["HostListener"])('window:keydown', ['$event']),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [KeyboardEvent]),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
     ], MiniTermPage.prototype, "keyEvent", null);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ViewChild"])(_ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonContent"], { static: false }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonContent"])
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["ViewChild"])(_ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonContent"], { static: false }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonContent"])
     ], MiniTermPage.prototype, "ionContent", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ViewChild"])('terminal', { static: false }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_3__["ElementRef"])
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["ViewChild"])('terminal', { static: false }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_4__["ElementRef"])
     ], MiniTermPage.prototype, "terminal", void 0);
     MiniTermPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Component"])({
             selector: 'app-mini-term',
             template: __webpack_require__(/*! raw-loader!./mini-term.page.html */ "./node_modules/raw-loader/index.js!./src/app/pages/mini-term/mini-term.page.html"),
             styles: [__webpack_require__(/*! ./mini-term.page.scss */ "./src/app/pages/mini-term/mini-term.page.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_4__["MenuController"],
-            _service_minima_api_service__WEBPACK_IMPORTED_MODULE_1__["MinimaApiService"],
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["AlertController"],
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"],
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["NavController"], _angular_core__WEBPACK_IMPORTED_MODULE_3__["Renderer2"],
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["PopoverController"],
-            _service_userterminal_service__WEBPACK_IMPORTED_MODULE_6__["UserTerminal"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_5__["MenuController"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["LoadingController"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["NavController"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["PopoverController"],
+            _service_userterminal_service__WEBPACK_IMPORTED_MODULE_7__["UserTerminal"],
+            _service_tools_service__WEBPACK_IMPORTED_MODULE_1__["ToolsService"],
+            _service_minima_api_service__WEBPACK_IMPORTED_MODULE_2__["MinimaApiService"],
+            _angular_core__WEBPACK_IMPORTED_MODULE_4__["Renderer2"]])
     ], MiniTermPage);
     return MiniTermPage;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/service/minima-api.service.ts":
-/*!***********************************************!*\
-  !*** ./src/app/service/minima-api.service.ts ***!
-  \***********************************************/
-/*! exports provided: MinimaApiService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MinimaApiService", function() { return MinimaApiService; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/fesm5/ionic-angular.js");
-/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! minima */ "./node_modules/minima/dist/minima.js");
-/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(minima__WEBPACK_IMPORTED_MODULE_3__);
-
-
-
-
-var MinimaApiService = /** @class */ (function () {
-    function MinimaApiService(loadingController) {
-        this.loadingController = loadingController;
-        this.loader = null;
-    }
-    MinimaApiService.prototype.showLoader = function () {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
-            var _a;
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_b) {
-                switch (_b.label) {
-                    case 0:
-                        if (!(this.loader == null)) return [3 /*break*/, 2];
-                        _a = this;
-                        return [4 /*yield*/, this.loadingController.create({
-                                message: 'Loading'
-                            })];
-                    case 1:
-                        _a.loader = _b.sent();
-                        this.loader.present();
-                        _b.label = 2;
-                    case 2: return [2 /*return*/];
-                }
-            });
-        });
-    };
-    MinimaApiService.prototype.hideLoader = function () {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        if (!(this.loader !== null)) return [3 /*break*/, 2];
-                        return [4 /*yield*/, this.loader.dismiss()];
-                    case 1:
-                        _a.sent();
-                        this.loader = null;
-                        return [3 /*break*/, 2];
-                    case 2: return [2 /*return*/];
-                }
-            });
-        });
-    };
-    MinimaApiService.prototype.createToken = function (data) {
-        return this.req("tokencreate name:\"" + data.name + "\" amount:" + data.amount + " description:\"" + data.description + "\" script:\"" + data.script + "\" icon:" + data.icon + " proof:" + data.proof);
-    };
-    MinimaApiService.prototype.validateTokenID = function (tokenid) {
-        return this.req("tokenvalidate " + tokenid);
-    };
-    MinimaApiService.prototype.sendMessageTransaction = function (data) {
-        //const txnidentifier = Math.floor(Math.random()*1000000000);
-        var postTransaction = "send " + data.amount + " " + data.address + " " + data.tokenid + " " + " 254:[01000100]#255:[\"" + data.message + "\"]";
-        // const customTXN = 
-        // // Custom TXN with an ID
-        // "txncreate "+txnidentifier+";"+
-        // // Add state variable 1
-        // "txnstate "+txnidentifier+" 254 01000100"+";"+
-        // // Add User state variable 2
-        // "txnstate "+txnidentifier+" 255 \""+data.message+"\""+";"+
-        // // Auto fill the transaction
-        // "txnauto "+txnidentifier+" "+data.amount+" "+data.address+" "+data.tokenid+";"+
-        // // Post it!
-        // "txnpost "+txnidentifier+";"+
-        // // Clear the txn
-        // "txndelete "+txnidentifier+";";
-        // // send 1 0xFF 0x00 '254:0x1000#255:[This is a message]'
-        return this.req(postTransaction);
-    };
-    MinimaApiService.prototype.webLink = function (data) {
-        return this.req('weblink+' + data.url);
-    };
-    MinimaApiService.prototype.setHost = function (newHost) {
-        localStorage.setItem('minima_host', newHost);
-    };
-    MinimaApiService.prototype.newAddress = function () {
-        return this.req('newaddress');
-    };
-    MinimaApiService.prototype.sendFunds = function (data) {
-        return this.req('send ' + data.amount + ' ' + data.address + ' ' + data.tokenid);
-    };
-    MinimaApiService.prototype.giveMe50 = function () {
-        return this.req('gimme50');
-    };
-    MinimaApiService.prototype.getBalance = function () {
-        return this.req('balance');
-    };
-    MinimaApiService.prototype.getHistory = function () {
-        return this.req('history');
-    };
-    MinimaApiService.prototype.clearMyHistory = function () {
-        return this.req('history clear');
-    };
-    MinimaApiService.prototype.getStatus = function () {
-        return this.req('status');
-    };
-    // Use minima.js instead..
-    MinimaApiService.prototype.req = function (fnc) {
-        var promise = new Promise(function (resolve) {
-            minima__WEBPACK_IMPORTED_MODULE_3__["Minima"].cmd(fnc, function (resp) {
-                //console.log(resp);
-                resolve(resp);
-            });
-        });
-        return promise;
-    };
-    MinimaApiService.ctorParameters = function () { return [
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["LoadingController"] }
-    ]; };
-    MinimaApiService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-            providedIn: 'root'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["LoadingController"]])
-    ], MinimaApiService);
-    return MinimaApiService;
 }());
 
 
@@ -521,8 +322,8 @@ __webpack_require__.r(__webpack_exports__);
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 var environment = {
+    wallet_version: "v1.0.6",
     production: false,
-    //defaultNode: "127.0.0.1:9002/",
     newLine: '/(\r\n|\n|\r)/gm'
 };
 /*

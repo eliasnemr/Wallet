@@ -1,8 +1,9 @@
+import { ToolsService } from './../../service/tools.service';
 import { MinimaApiService } from './../../service/minima-api.service';
 import { Subscription } from 'rxjs';
 import { PopTermComponent } from '../../components/pop-term/pop-term.component';
 import { Component, OnInit, ViewChild, ElementRef, Renderer2, HostListener } from '@angular/core';
-import { LoadingController, NavController, IonContent, PopoverController, IonTextarea, AlertController, MenuController } from '@ionic/angular';
+import { LoadingController, NavController, IonContent, PopoverController, MenuController } from '@ionic/angular';
 import { environment } from '../../../environments/environment';
 import { UserTerminal } from '../../service/userterminal.service';
 import { Minima } from 'minima';
@@ -36,20 +37,14 @@ export class MiniTermPage implements OnInit {
 
   constructor(
     public menu: MenuController,
-    private api: MinimaApiService,
-    private alertController: AlertController,
     public loadingController: LoadingController,
-    public navCtrl: NavController, private renderer: Renderer2,
+    public navCtrl: NavController,
     public popoverController: PopoverController,
-    public userTerminal: UserTerminal) {
-
-    // Disable up and down keys.
-    // window.addEventListener('keydown', function(e) {
-    //   if ( [37, 38, 39, 40].indexOf(e.keyCode) > -1 ) {
-    //     e.preventDefault();
-    //   }
-    // }, false);
-  }
+    public userTerminal: UserTerminal,
+    private myTools: ToolsService,
+    private api: MinimaApiService,
+    private renderer: Renderer2,
+    ) { }
 
   ngOnInit() {
     const mStr = parseInt(localStorage.getItem('termFontSize'), 10);
@@ -67,7 +62,6 @@ export class MiniTermPage implements OnInit {
           }
       }
     });
-
   }
 
   openMenu() {
@@ -175,21 +169,6 @@ request(route: any) {
     }
   }
 
-  async showLoader() {
-    if (this.loader == null) {
-      this.loader = await this.loadingController.create({
-        message: 'Loading'
-      });
-      this.loader.present();
-    }
-  }
-  async hideLoader() {
-    if (this.loader !== null) {
-      await this.loader.dismiss();
-      this.loader = null;
-    } else {}
-  }
-
   async presentPopover(ev: any) {
   const popover = await this.popoverController.create({
     component: PopTermComponent,
@@ -199,30 +178,17 @@ request(route: any) {
   });
 
   return await popover.present();
-
   }
 
   giveMe50() {
     this.api.giveMe50().then((res: any) => {
       if(res.status === true) {
-        this.presentAlert('Gimme50', 'Successful', 'Status');
+        this.myTools.presentAlert('Gimme50', 'Successful', 'Status');
       } else {
-        this.presentAlert('Gimme50', res.message, 'Status');
+        this.myTools.presentAlert('Gimme50', res.message, 'Status');
       }
     });
   }
-  async presentAlert(hdr: string, msg: string, sub: string) {
-    const alert = await this.alertController.create({
-      cssClass: 'alert',
-      header: hdr,
-      subHeader: sub,
-      message: msg,
-      buttons: ['OK']
-    });
-    await alert.present();
-   }
-
-
 }
 
 

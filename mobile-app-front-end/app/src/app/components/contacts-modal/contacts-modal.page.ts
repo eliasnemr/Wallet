@@ -1,3 +1,4 @@
+import { ToolsService } from './../../service/tools.service';
 import { ContactService, Contact } from 'src/app/service/contacts.service';
 import { ModalController, ToastController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
@@ -23,8 +24,9 @@ export class ContactsModalPage implements OnInit {
   constructor(
       public modalCtrl: ModalController,
       public contactService: ContactService,
+      private myTools: ToolsService,
       private formBuilder: FormBuilder,
-      public toastCtrl: ToastController) {}
+  ) {}
 
   ngOnInit() {
     this.contactForm = this.formBuilder.group({
@@ -43,7 +45,7 @@ export class ContactsModalPage implements OnInit {
       DESCRIPTION: ['', [Validators.maxLength(255)]],
       AVATAR: ['', [
             Validators.maxLength(255),
-            Validators.pattern('(http(s?):)([\\/|\\.|\\w|\\s|\\-])*\.(?:jpg|png)$'),
+            Validators.pattern('(http(s?):)([\\/|\\.|\\w|\\s|\\-])*\.(?:jpg|png|gif)$'),
            ]
       ]
     });
@@ -86,17 +88,7 @@ export class ContactsModalPage implements OnInit {
 
   async showToast() {
     if (this.contactForm.controls['NAME'].value === '') { this.contactForm.controls['NAME'].setValue('Anonymous'); }
-    const toast = await this.toastCtrl.create({
-      header: `Added A New Contact!`,
-      message: `${ this.name.value } was saved to your contacts!`,
-      position: `middle`,
-      duration: 1000,
-      buttons: [{
-        text: `Dismiss`,
-        role: `Cancel`
-      }]
-    });
-    toast.present();
+    await this.myTools.presentToast(`${ this.name.value } was saved to your contacts!`, 'primary', 'bottom');
   }
 
   get name() {

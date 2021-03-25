@@ -1,3 +1,4 @@
+import { ToolsService } from './../../../service/tools.service';
 import { HistoryService } from './../../../service/history.service';
 import { MinimaApiService } from './../../../service/minima-api.service';
 import { ActivatedRoute } from '@angular/router';
@@ -28,14 +29,14 @@ export class ViewTXNPage implements OnInit {
 
   constructor(
     public route: ActivatedRoute,
-    public toastController: ToastController,
     private api: MinimaApiService,
     private _historyService: HistoryService,
-    public alertController: AlertController) {
-      this.transactionID = this.route.snapshot.paramMap.get('id');
-  }
+    private myTools: ToolsService
+  ) {}
 
-  ngOnInit() {
+  ionViewWillEnter() {
+    this.transactionID = this.route.snapshot.paramMap.get('id');
+
     this._historyService
     .loadHistoryOnce()
       .then((res: any) => {
@@ -43,8 +44,9 @@ export class ViewTXNPage implements OnInit {
 
         this.myTxn = res.history.filter((txpow: CompleteTransaction) => txpow.txpow.txpowid === this.transactionID );
         this.myTxn = this.myTxn[0];
+        //console.log(this.myTxn);
 
-        this.relaytime = new Date(this.myTxn.txpow.header.timesecs * 1000).toISOString();
+        this.relaytime = new Date(parseInt(this.myTxn.txpow.header.timemilli)).toISOString();
         this.relaytime = moment(this.relaytime).format('DD/MM/YYYY - hh:mm:ss a', true);
 
         if (this.myTxn.txpow.body.txn.state && this.myTxn.txpow.body.txn.state[0] && this.myTxn.txpow.body.txn.state[0].data === '[01000100]') {
@@ -62,62 +64,23 @@ export class ViewTXNPage implements OnInit {
       }).catch(error => {
         console.log(error);
       })
-
   }
 
-  shout() {
-    if (this.hide === true) {
-      this.hide = false;
-    } else {
-      this.hide = true;
-    }
-  }
-
-  async presentAlertDefault(hdr: string, msg: string, sub: string) {
-    const alert = await this.alertController.create({
-      cssClass: 'alert',
-      header: hdr,
-      subHeader: sub,
-      message: msg,
-      buttons: ['OK']
-    });
-    await alert.present();
-   }
+  ngOnInit() {}
 
   giveMe50() {
     this.api.giveMe50().then((res: any) => {
       if(res.status === true) {
-        this.presentAlertDefault('Gimme50', 'Successful', 'Status');
+        this.myTools.presentAlert('Gimme50', 'Successful', 'Status');
       } else {
-        this.presentAlertDefault('Gimme50', res.message, 'Status');
+        this.myTools.presentAlert('Gimme50', res.message, 'Status');
       }
     });
   }
 
-  copyToClipPWA(text: string) {
-    document.addEventListener('copy', (e: ClipboardEvent) => {
-      e.clipboardData.setData('text/plain', text);
-      this.presentToast('Copied to Clipboard', 'success');
-      e.preventDefault();
-      document.removeEventListener('copy', null);
-    });
-    document.execCommand('copy');
+  copy(text: string) {
+    this.myTools.copy(text);
   }
 
-  async presentToast(msg: string, type: string) {
-    const toast = await this.toastController.create({
-      message: msg,
-      duration: 4000,
-      buttons: [{
-        text: 'Close',
-        role: 'cancel'
-      }],
-      color: type,
-      keyboardClose: true,
-      translucent: true,
-      position:  'bottom'
-    });
-    toast.present();
-  }
 
 }
