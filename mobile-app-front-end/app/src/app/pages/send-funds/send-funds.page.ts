@@ -1,14 +1,15 @@
+import { ToolsService } from './../../service/tools.service';
 import { ContactService, SelectedAddress } from 'src/app/service/contacts.service';
 import { ContactsViewModalComponent } from './../../components/contacts-view-modal/contacts-view-modal.component';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { BalanceService } from '../../service/balance.service';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { AlertController, IonInput, IonButton, MenuController, ModalController } from '@ionic/angular';
+import { IonInput, IonButton, MenuController, ModalController } from '@ionic/angular';
 import { MinimaApiService } from '../../service/minima-api.service';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 
-import { Token, Minima } from 'minima';
+import { Token } from 'minima';
 
 export interface SendFormObj {
   tokenid?: string;
@@ -46,9 +47,9 @@ export class SendFundsPage implements OnInit {
 
   constructor(
     public menu: MenuController,
-    private formBuilder: FormBuilder,
-    public alertController: AlertController,
     public modalController: ModalController,
+    private myTools: ToolsService,
+    private formBuilder: FormBuilder,
     private api: MinimaApiService,
     private balanceService: BalanceService,
     private _contactService: ContactService,
@@ -74,16 +75,7 @@ export class SendFundsPage implements OnInit {
   }
 
   ngOnInit() {
-    this.sendForm = this.formBuilder.group({
-      tokenid: '',
-      address: ['', [
-        Validators.required,
-        Validators.minLength(2),
-        Validators.maxLength(60),
-        Validators.pattern('[Mx|0x][a-zA-Z0-9]+')]],
-      amount: ['', [Validators.required] ],
-      message: ''
-    });
+    this.formInit();
   }
 
   get tokenFormItem() {
@@ -129,55 +121,71 @@ export class SendFundsPage implements OnInit {
     } finally {
       setTimeout( () => {
         this.status = '';
-      }, 10000);
+        this.submitBtn.disabled = false;
+      }, 6000);
     }
     
   }
-  post(data: any) {
+  async post(data: any) {
+    this.submitBtn.disabled = true;
+    this.status = 'Posting your transaction...';
     if (data.message !== null && ( data.message || data.message.length > 0) ) {
-      this.submitBtn.disabled = true;
-      this.api.sendMessageTransaction(data).then((res: any) => {
-        this.status = 'Posting your transaction...';
-        if (res.status) {
-          //console.log(res);
-          setTimeout(() => {
-            this.submitBtn.disabled = false;
-          }, 500);
-          this.status = 'Transaction posted!';
-          this.presentAlert('Transaction Status', 'Transaction has been posted to the network!', 'Successful');
-          this.sendForm.reset();
-        } else {
-          setTimeout(() => {
-            this.submitBtn.disabled = false;
-          }, 500);
-          this.status = 'Transaction failed!';
-
-          this.presentAlert('Transaction Status', res.message, 'Failed');
-        }
-      });
+      const res: any = await this.api.sendMessageTransaction(data);
+      console.log(res);
+      if (res.status) {
+        setTimeout(() => {
+          this.submitBtn.disabled = false;
+        }, 500);
+        this.status = 'Transaction posted!';
+        this.myTools.presentAlert('Transaction Status', 'Transaction has been posted to the network!', 'Successful');
+        this.resetForm();
+      } else {
+        setTimeout(() => {
+          this.submitBtn.disabled = false;
+        }, 500);
+        this.status = 'Transaction failed!';
+        this.myTools.presentAlert('Transaction Status', res.message, 'Failed');
+      }
     } else {
-      this.data.message = '';
-      this.submitBtn.disabled = true;
-      this.api.sendFunds(data).then((res: any) => {
-        this.status = 'Posting your transaction...';
-        if (res.status) {
-          //console.log(res);
-          setTimeout(() => {
-            this.submitBtn.disabled = false;
-          }, 500);
-          this.status = 'Transaction posted!';
-          this.presentAlert('Transaction Status', 'Transaction has been posted to the network!', 'Successful');
-          this.sendForm.reset();
-        } else {
-          setTimeout(() => {
-            this.submitBtn.disabled = false;
-          }, 500);
-          this.status = 'Transaction failed!';
-          this.presentAlert('Transaction Status', res.message, 'Failed');
-        }
-      });
+      const res: any = await this.api.sendFunds(data);
+      console.log(res);
+
+      if (res.status) {
+        //console.log(res);
+        setTimeout(() => {
+          this.submitBtn.disabled = false;
+        }, 500);
+        this.status = 'Transaction posted!';
+        this.myTools.presentAlert('Transaction Status', 'Transaction has been posted to the network!', 'Successful');
+        this.resetForm();
+      } else {
+        setTimeout(() => {
+          this.submitBtn.disabled = false;
+        }, 500);
+        this.status = 'Transaction failed!';
+        this.myTools.presentAlert('Transaction Status', res.message, 'Failed');
+      }
     }
   }
+
+  resetForm() {
+    this.sendForm.reset();
+    this.formInit();
+  }
+
+  formInit() {
+    this.sendForm = this.formBuilder.group({
+      tokenid: '',
+      address: ['', [
+        Validators.required,
+        Validators.minLength(2),
+        Validators.maxLength(60),
+        Validators.pattern('[Mx|0x][a-zA-Z0-9]+')]],
+      amount: ['', [Validators.required] ],
+      message: ''
+    });
+  }
+
   // get token selected or set Minima as default
   getTokenSelected() {
     this.route.queryParamMap.subscribe((res: any) => {
@@ -191,9 +199,9 @@ export class SendFundsPage implements OnInit {
   giveMe50() {
     this.api.giveMe50().then((res: any) => {
       if(res.status === true) {
-        this.presentAlert('Gimme50', 'Successful', 'Status');
+        this.myTools.presentAlert('Gimme50', 'Successful', 'Status');
       } else {
-        this.presentAlert('Gimme50', res.message, 'Status');
+        this.myTools.presentAlert('Gimme50', res.message, 'Status');
       }
     });
   }
@@ -243,17 +251,6 @@ export class SendFundsPage implements OnInit {
 
   stopScanning() {
     this.isWebCameraOpen = false;
-  }
-
-  async presentAlert(hdr: string, msg: string, sub: string) {
-   const alert = await this.alertController.create({
-     cssClass: 'alert',
-     header: hdr,
-     subHeader: sub,
-     message: msg,
-     buttons: ['OK']
-   });
-   await alert.present();
   }
 
   useMessage() {

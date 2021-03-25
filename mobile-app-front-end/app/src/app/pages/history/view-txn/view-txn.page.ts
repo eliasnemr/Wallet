@@ -1,3 +1,4 @@
+import { ToolsService } from './../../../service/tools.service';
 import { HistoryService } from './../../../service/history.service';
 import { MinimaApiService } from './../../../service/minima-api.service';
 import { ActivatedRoute } from '@angular/router';
@@ -28,10 +29,10 @@ export class ViewTXNPage implements OnInit {
 
   constructor(
     public route: ActivatedRoute,
-    public toastController: ToastController,
     private api: MinimaApiService,
     private _historyService: HistoryService,
-    public alertController: AlertController) {}
+    private myTools: ToolsService
+  ) {}
 
   ionViewWillEnter() {
     this.transactionID = this.route.snapshot.paramMap.get('id');
@@ -67,51 +68,19 @@ export class ViewTXNPage implements OnInit {
 
   ngOnInit() {}
 
-  async presentAlertDefault(hdr: string, msg: string, sub: string) {
-    const alert = await this.alertController.create({
-      cssClass: 'alert',
-      header: hdr,
-      subHeader: sub,
-      message: msg,
-      buttons: ['OK']
-    });
-    await alert.present();
-   }
-
   giveMe50() {
     this.api.giveMe50().then((res: any) => {
       if(res.status === true) {
-        this.presentAlertDefault('Gimme50', 'Successful', 'Status');
+        this.myTools.presentAlert('Gimme50', 'Successful', 'Status');
       } else {
-        this.presentAlertDefault('Gimme50', res.message, 'Status');
+        this.myTools.presentAlert('Gimme50', res.message, 'Status');
       }
     });
   }
 
-  copyToClipPWA(text: string) {
-    document.addEventListener('copy', (e: ClipboardEvent) => {
-      e.clipboardData.setData('text/plain', text);
-      this.presentToast('Copied to Clipboard', 'success');
-      e.preventDefault();
-      document.removeEventListener('copy', null);
-    });
-    document.execCommand('copy');
+  copy(text: string) {
+    this.myTools.copy(text);
   }
 
-  async presentToast(msg: string, type: string) {
-    const toast = await this.toastController.create({
-      message: msg,
-      duration: 4000,
-      buttons: [{
-        text: 'Close',
-        role: 'cancel'
-      }],
-      color: type,
-      keyboardClose: true,
-      translucent: true,
-      position:  'bottom'
-    });
-    toast.present();
-  }
 
 }

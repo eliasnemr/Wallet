@@ -38,12 +38,10 @@
         <ion-label position="stacked">Address</ion-label>
         <ion-input (ionChange)="changeIcon($event)" name="address" placeholder="Enter a valid wallet address" formControlName="ADDRESS"></ion-input>
       </ion-item>
-      <ion-item class="error ion-no-padding" lines="none" *ngIf="address.invalid && address.touched">
-        <ion-note class="error-message">
-          <ion-icon name="alert-circle"></ion-icon> <span style="margin-left: 2px"> A wallet address is required.</span>
-          <span style="margin-left: 2px"> An address must begin with 0x or Mx.</span> 
-        </ion-note>
-      </ion-item>
+      <ion-note *ngIf="address.invalid && address.touched" class="error-message">
+        <ion-icon name="alert-circle"></ion-icon> <span style="margin-left: 2px"> A wallet address is required.</span>
+        <span style="margin-left: 2px"> An address must begin with 0x or Mx.</span> 
+      </ion-note>
       
       <ion-item class="no-ripple ion-no-padding" lines="none">
         <ion-label position="stacked">Description <span style="font-family: manrope-light; color:var(--ion-color-optional)">(optional)</span></ion-label>
@@ -53,12 +51,10 @@
         <ion-label position="stacked">Avatar <span style="font-family: manrope-light; color:var(--ion-color-optional)">(optional)</span></ion-label>
         <ion-input name="avatar" placeholder="Enter a custom avatar URL" formControlName="AVATAR"></ion-input>
       </ion-item>
-      <ion-item class="error ion-no-padding" lines="none" *ngIf="avatar.invalid && avatar.touched">
-        <ion-note class="error-message">
-          <ion-icon name="alert-circle"></ion-icon> <span> Invalid icon URL!</span>
-          <span style="margin-left: 2px"> An icon URL should end with .jpg or .png to be valid.</span> 
-        </ion-note>
-      </ion-item>
+      <ion-note *ngIf="avatar.invalid && avatar.touched" class="error-message">
+        <ion-icon name="alert-circle"></ion-icon> <span> Invalid icon URL!</span>
+        <span style="margin-left: 2px"> An icon URL should end with .jpg, .png or .gif to be valid.</span> 
+      </ion-note>
 
       <ion-item class="ion-no-padding" lines="none">
         <ion-button slot="end" type="submit" [disabled]="contactForm.invalid" class="createContact" fill="clear">

@@ -25,6 +25,24 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
+// Form error messages
+ion-note.error-message {
+  display: block;
+  font-family: manrope-regular;
+  margin-top: 10px;
+  ion-icon {
+    color: var(--ion-color-danger);
+    font-size: 1.2rem;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  span {
+    margin-left: 10px;
+    color: var(--ion-color-tertiary);
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
 
 //CSS Fallback 
 body.dark {

@@ -1,9 +1,10 @@
+import { ToolsService } from './../../service/tools.service';
 import { PopContactsComponent } from './../../components/pop-contacts/pop-contacts.component';
 import { MinimaApiService } from './../../service/minima-api.service';
 import { UserConfigService } from './../../service/userconfig.service';
 import { UserConfig } from './../../models/userConfig.model';
 import { ContactsModalPage } from './../../components/contacts-modal/contacts-modal.page';
-import { ToastController, ModalController, AlertController, IonList, MenuController, PopoverController } from '@ionic/angular';
+import { ModalController, AlertController, IonList, MenuController, PopoverController } from '@ionic/angular';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Contact, ContactService } from 'src/app/service/contacts.service';
 
@@ -27,14 +28,15 @@ export class ContactsPage implements OnInit {
     }
   };
   @ViewChild('contactList', {static: false}) ContactList: IonList;
-  constructor(private toastController: ToastController,
-              public menu: MenuController,
-              private api: MinimaApiService,
-              private userConfigService: UserConfigService,
-              public alertController: AlertController,
-              private contactService: ContactService,
-              public modalController: ModalController,
-              public popoverController: PopoverController) { }
+  constructor(public menu: MenuController,
+    public modalController: ModalController,
+    public popoverController: PopoverController,
+    public alertController: AlertController,
+    private userConfigService: UserConfigService,
+    private contactService: ContactService,
+    private api: MinimaApiService,
+    private myTools: ToolsService
+    ) { }
 
   ngOnInit() {
     this.contactService.data.subscribe((res: Contact[]) => {
@@ -94,22 +96,15 @@ export class ContactsPage implements OnInit {
   giveMe50() {
     this.api.giveMe50().then((res: any) => {
       if(res.status === true) {
-        this.presentAlertDefault('Gimme50', 'Successful', 'Status');
+        this.myTools.presentAlert('Gimme50', 'Successful', 'Status');
       } else {
-        this.presentAlertDefault('Gimme50', res.message, 'Status');
+        this.myTools.presentAlert('Gimme50', res.message, 'Status');
       }
     });
   }
 
   copyAddress(addr: string) {
-    document.addEventListener('copy', (e: ClipboardEvent) => {
-      e.clipboardData.setData('text/plain', addr);
-      this.presentToast('Copied To Clipboard', 'primary', 'bottom');
-      this.ContactList.closeSlidingItems();
-      e.preventDefault();
-      document.removeEventListener('copy', null);
-    });
-    document.execCommand('copy');
+    this.myTools.copy(addr);
   }
 
   async presentAlert(addr: string) {
@@ -132,30 +127,7 @@ export class ContactsPage implements OnInit {
     await alert.present();
   }
 
-  async presentAlertDefault(hdr: string, msg: string, sub: string) {
-    const alert = await this.alertController.create({
-      cssClass: 'alert',
-      header: hdr,
-      subHeader: sub,
-      message: msg,
-      buttons: ['OK']
-    });
-    await alert.present();
-   }
-
-  async presentToast(msg: string, clr: string, posn: "top" | "bottom" | "middle") {
-    const toast = await this.toastController.create({
-      message: msg,
-      duration: 1000,
-      color: clr,
-      position: posn,
-      buttons: ['cancel']
-    });
-    await toast.present();
-  }
-
-
-
+  
   async presentAddContactForm() {
     const modal = await this.modalController.create({
       component: ContactsModalPage,

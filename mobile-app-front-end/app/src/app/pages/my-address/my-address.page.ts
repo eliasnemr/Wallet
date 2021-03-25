@@ -1,7 +1,6 @@
-import { UserConfigService } from './../../service/userconfig.service';
-import { UserConfig } from './../../models/userConfig.model';
-import { Platform, AlertController, ToastController, IonButton, MenuController } from '@ionic/angular';
-import { Component, OnInit, ViewChild, NgZone } from '@angular/core';
+import { ToolsService } from './../../service/tools.service';
+import { IonButton, MenuController } from '@ionic/angular';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MinimaApiService } from '../../service/minima-api.service';
 import { Address, Minima } from 'minima';
 
@@ -12,26 +11,16 @@ import { Address, Minima } from 'minima';
 })
 export class MyAddressPage implements OnInit {
 
-  public qrCode = '';
+  qrCode = '';
   lastCode = '';
   isEmpty: boolean;
-  user: UserConfig = {
-    tokenDisplayMode: 1,
-    tips: {
-      address: false
-    }
-  };
 
   @ViewChild('generateAddressBtn', {static: false}) generateAddressBtn: IonButton;
 
   constructor(
     public menu: MenuController,
-    private api: MinimaApiService,
-    private platform: Platform,
-    private ngZone: NgZone,
-    private userConfigService: UserConfigService,
-    private alertController: AlertController,
-    public toastController: ToastController) {}
+    private myTools: ToolsService,
+    private api: MinimaApiService) {}
 
   ngOnInit() {}
 
@@ -49,22 +38,16 @@ export class MyAddressPage implements OnInit {
         this.newAddress();
       }
     });
-    this.userConfigService.userConfig.subscribe((res: UserConfig) => {
-      // ngZone re-renders onChange
-      this.ngZone.run(() => {
-        this.user = res;
-      });
-    });
   }
 
   openMenu() {
     this.menu.open();
   }
 
-  public generateAddress(code: string) {
+  public generateAddress() {
     this.newAddress();
     this.generateAddressBtn.disabled = true;
-    this.presentToast('Generated a new address', 'primary', "bottom");
+    this.myTools.presentToast('Generated a new address', 'primary', "bottom");
     setTimeout(() => {
     this.generateAddressBtn.disabled = false;
     }, 2000);
@@ -86,76 +69,18 @@ export class MyAddressPage implements OnInit {
     }, 0);
   }
 
-  hideTip() {
-    this.user.tips.address = true;
-    this.userConfigService.userConfig.next(this.user);
-    this.userConfigService.saveUserConfig(this.user);
-  }
-
-  async presentAlert(hdr: string, msg: string, sub: string) {
-    const alert = await this.alertController.create({
-      cssClass: 'alert',
-      header: hdr,
-      subHeader: sub,
-      message: msg,
-      buttons: ['OK']
-    });
-    await alert.present();
-   }
-
-  async presentToast(msg: string, type: string, posn: "top" | "bottom" | "middle") {
-    const toast = await this.toastController.create({
-      message: msg,
-      duration: 1000,
-      color: type,
-      keyboardClose: true,
-      translucent: true,
-      position: posn,
-      cssClass: 'toast',
-      buttons: [{
-        text: 'Dismiss', 
-        role: 'cancel',
-        handler: () => {
-        }
-      }]
-    });
-    toast.present();
-  }
-
   giveMe50() {
     this.api.giveMe50().then((res: any) => {
       if(res.status === true) {
-        this.presentAlert('Gimme50', 'Successful', 'Status');
+        this.myTools.presentAlert('Gimme50', 'Successful', 'Status');
       } else {
-        this.presentAlert('Gimme50', res.message, 'Status');
+        this.myTools.presentAlert('Gimme50', res.message, 'Status');
       }
     });
   }
 
-  copyToClipboard() {
-    if (this.platform.is('desktop') || this.platform.is('pwa')) {
-      this.copyToClipPWA();
-    } else {
-      //this.clipboard.copy(this.qrCode);
-      this.presentToast('Copied to Clipboard', 'primary', 'bottom');
-    }
+  copy(data: any) {
+    this.myTools.copy(data);
   }
 
-  copyToClipPWA() {
-    document.addEventListener('copy', (e: ClipboardEvent) => {
-      e.clipboardData.setData('text/plain', this.qrCode);
-      this.presentToast('Copied To Clipboard', 'primary', 'bottom');
-      e.preventDefault();
-      document.removeEventListener('copy', null);
-    });
-    document.execCommand('copy');
-  }
-
-  checkPlatform() {
-    if (this.platform.is('desktop')) {
-      return true;
-    } else {
-      return false;
-    }
-  }
 }

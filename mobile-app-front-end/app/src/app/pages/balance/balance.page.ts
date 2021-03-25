@@ -1,8 +1,9 @@
+import { ToolsService } from './../../service/tools.service';
 import { UserConfig } from './../../models/userConfig.model';
 import { UserConfigService } from './../../service/userconfig.service';
 import { MinimaApiService } from '../../service/minima-api.service';
 import { Component, OnInit, ViewChild, NgZone } from '@angular/core';
-import { AlertController, IonInfiniteScroll, PopoverController, IonButton, MenuController } from '@ionic/angular';
+import { PopoverController, IonButton, MenuController } from '@ionic/angular';
 import { BalanceService } from '../../service/balance.service';
 import { Router } from '@angular/router';
 import * as SparkMD5 from 'spark-md5';
@@ -18,7 +19,6 @@ import { Token } from 'minima';
 
 export class BalancePage implements OnInit {
 
-  @ViewChild(IonInfiniteScroll, {static: false}) infiniteScroll: IonInfiniteScroll;
   @ViewChild('gimme50Btn', {static: false}) gimme50Btn: IonButton;
 
   avatar: any;
@@ -39,7 +39,7 @@ export class BalancePage implements OnInit {
     private menu: MenuController,
     private balanceService: BalanceService,
     private api: MinimaApiService,
-    public alertController: AlertController,
+    private myTools: ToolsService,
     private route: Router,
     public popoverController: PopoverController,
     public userConfigService: UserConfigService,
@@ -66,9 +66,9 @@ export class BalancePage implements OnInit {
   giveMe50() {
     this.api.giveMe50().then((res: any) => {
       if(res.status === true) {
-        this.presentAlert('Gimme50', 'Successful', 'Status');
+        this.myTools.presentAlert('Gimme50', 'Successful', 'Status');
       } else {
-        this.presentAlert('Gimme50', res.message, 'Status');
+        this.myTools.presentAlert('Gimme50', res.message, 'Status');
       }
     });
   }
@@ -85,21 +85,6 @@ export class BalancePage implements OnInit {
       }
     }, 500);
   }
-
-  toggleInfiniteScroll() {
-    this.infiniteScroll.disabled = !this.infiniteScroll.disabled;
-  }
-
-  async presentAlert(hdr: string, msg: string, sub: string) {
-    const alert = await this.alertController.create({
-      cssClass: 'alert',
-      header: hdr,
-      subHeader: sub,
-      message: msg,
-      buttons: ['OK']
-    });
-    await alert.present();
-   }
 
   closeSliding(slidingItem: HTMLIonItemSlidingElement) {
     slidingItem.close();

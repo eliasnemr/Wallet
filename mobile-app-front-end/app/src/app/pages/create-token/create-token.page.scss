@@ -22,10 +22,6 @@ ion-checkbox.checkbox {
   padding-left: 5px;
   padding-top: 5px;
 }
-ion-note {
-  color: var(--ion-color-secondary);
-  font-family: manrope-bold;
-}
 ion-item#nft {
   display: inline;
   vertical-align: middle;
@@ -88,26 +84,6 @@ ion-item.createtoken-wrapper {
   float: right;
   justify-content: right;
   align-items: flex-end;
-}
-ion-item.error {
-  display: flex;
-  align-items: left;
-  justify-content: left;
-}
-ion-item.error span {
-  color: var(--ion-color-tertiary);
-  display: inline-block;
-  vertical-align: middle;
-}
-ion-note.error-message ion-icon {
-  color: var(--ion-color-secondary);
-  font-size: 1.0rem;
-  display: inline-block;
-  vertical-align: middle;
-}
-ion-note.error-message { 
-  display: block;
-  font-family: manrope-regular;
 }
 ion-button.create-token {
   height: 35px;
