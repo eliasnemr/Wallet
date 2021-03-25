@@ -84,14 +84,16 @@ module.exports = "::-webkit-scrollbar,\n*::-webkit-scrollbar {\n  display: none;
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MiniTermPage", function() { return MiniTermPage; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _service_minima_api_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../service/minima-api.service */ "./src/app/service/minima-api.service.ts");
-/* harmony import */ var _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/pop-term/pop-term.component */ "./src/app/components/pop-term/pop-term.component.ts");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/fesm5/ionic-angular.js");
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../environments/environment */ "./src/environments/environment.ts");
-/* harmony import */ var _service_userterminal_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../service/userterminal.service */ "./src/app/service/userterminal.service.ts");
-/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! minima */ "./node_modules/minima/dist/minima.js");
-/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(minima__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _service_tools_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../service/tools.service */ "./src/app/service/tools.service.ts");
+/* harmony import */ var _service_minima_api_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../service/minima-api.service */ "./src/app/service/minima-api.service.ts");
+/* harmony import */ var _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../components/pop-term/pop-term.component */ "./src/app/components/pop-term/pop-term.component.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/fesm5/ionic-angular.js");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../environments/environment */ "./src/environments/environment.ts");
+/* harmony import */ var _service_userterminal_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../service/userterminal.service */ "./src/app/service/userterminal.service.ts");
+/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! minima */ "./node_modules/minima/dist/minima.js");
+/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(minima__WEBPACK_IMPORTED_MODULE_8__);
+
 
 
 
@@ -101,24 +103,18 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var MiniTermPage = /** @class */ (function () {
-    function MiniTermPage(menu, api, alertController, loadingController, navCtrl, renderer, popoverController, userTerminal) {
+    function MiniTermPage(menu, loadingController, navCtrl, popoverController, userTerminal, myTools, api, renderer) {
         this.menu = menu;
-        this.api = api;
-        this.alertController = alertController;
         this.loadingController = loadingController;
         this.navCtrl = navCtrl;
-        this.renderer = renderer;
         this.popoverController = popoverController;
         this.userTerminal = userTerminal;
+        this.myTools = myTools;
+        this.api = api;
+        this.renderer = renderer;
         this.host = '';
         this.lastLine = '';
         this.loader = null;
-        // Disable up and down keys.
-        // window.addEventListener('keydown', function(e) {
-        //   if ( [37, 38, 39, 40].indexOf(e.keyCode) > -1 ) {
-        //     e.preventDefault();
-        //   }
-        // }, false);
     }
     MiniTermPage.prototype.keyEvent = function (event) {
         if (event.key == 'ArrowDown' || event.key == 'ArrowLeft' || event.key == 'ArrowRight' || event.key == 'ArrowUp') {
@@ -208,8 +204,8 @@ var MiniTermPage = /** @class */ (function () {
         var _this = this;
         if (route === 'printchain') {
             return new Promise(function (resolve) {
-                minima__WEBPACK_IMPORTED_MODULE_7__["Minima"].cmd('printchain', function (res) {
-                    var regex = res.replace(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].newLine, '\\n'); // replace \n with <br/> has all 3 \n|\r|\r\n
+                minima__WEBPACK_IMPORTED_MODULE_8__["Minima"].cmd('printchain', function (res) {
+                    var regex = res.replace(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"].newLine, '\\n'); // replace \n with <br/> has all 3 \n|\r|\r\n
                     _this.terminal.nativeElement.value += regex;
                     _this.terminal.nativeElement.scrollTop = _this.terminal.nativeElement.scrollHeight;
                     resolve(res);
@@ -218,7 +214,7 @@ var MiniTermPage = /** @class */ (function () {
         }
         else if (route === 'tutorial' || route === 'Tutorial') {
             return new Promise(function (resolve, reject) {
-                minima__WEBPACK_IMPORTED_MODULE_7__["Minima"].cmd('tutorial', function (res) {
+                minima__WEBPACK_IMPORTED_MODULE_8__["Minima"].cmd('tutorial', function (res) {
                     var regex = JSON.stringify(res, undefined, 2).replace('\\\\n', '\n');
                     _this.terminal.nativeElement.value += regex;
                     _this.terminal.nativeElement.scrollTop = _this.terminal.nativeElement.scrollHeight;
@@ -228,7 +224,7 @@ var MiniTermPage = /** @class */ (function () {
         }
         else {
             return new Promise(function (resolve, reject) {
-                minima__WEBPACK_IMPORTED_MODULE_7__["Minima"].cmd(route, function (res) {
+                minima__WEBPACK_IMPORTED_MODULE_8__["Minima"].cmd(route, function (res) {
                     _this.terminal.nativeElement.value += JSON.stringify(res, undefined, 2) + '\n';
                     _this.terminal.nativeElement.scrollTop = _this.terminal.nativeElement.scrollHeight;
                     resolve(res);
@@ -236,49 +232,13 @@ var MiniTermPage = /** @class */ (function () {
             });
         }
     };
-    MiniTermPage.prototype.showLoader = function () {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
-            var _a;
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_b) {
-                switch (_b.label) {
-                    case 0:
-                        if (!(this.loader == null)) return [3 /*break*/, 2];
-                        _a = this;
-                        return [4 /*yield*/, this.loadingController.create({
-                                message: 'Loading'
-                            })];
-                    case 1:
-                        _a.loader = _b.sent();
-                        this.loader.present();
-                        _b.label = 2;
-                    case 2: return [2 /*return*/];
-                }
-            });
-        });
-    };
-    MiniTermPage.prototype.hideLoader = function () {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        if (!(this.loader !== null)) return [3 /*break*/, 2];
-                        return [4 /*yield*/, this.loader.dismiss()];
-                    case 1:
-                        _a.sent();
-                        this.loader = null;
-                        return [3 /*break*/, 2];
-                    case 2: return [2 /*return*/];
-                }
-            });
-        });
-    };
     MiniTermPage.prototype.presentPopover = function (ev) {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
             var popover;
             return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.popoverController.create({
-                            component: _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_2__["PopTermComponent"],
+                            component: _components_pop_term_pop_term_component__WEBPACK_IMPORTED_MODULE_3__["PopTermComponent"],
                             cssClass: 'terminal-pop',
                             event: ev,
                             translucent: false
@@ -295,174 +255,53 @@ var MiniTermPage = /** @class */ (function () {
         var _this = this;
         this.api.giveMe50().then(function (res) {
             if (res.status === true) {
-                _this.presentAlert('Gimme50', 'Successful', 'Status');
+                _this.myTools.presentAlert('Gimme50', 'Successful', 'Status');
             }
             else {
-                _this.presentAlert('Gimme50', res.message, 'Status');
+                _this.myTools.presentAlert('Gimme50', res.message, 'Status');
             }
-        });
-    };
-    MiniTermPage.prototype.presentAlert = function (hdr, msg, sub) {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
-            var alert;
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.alertController.create({
-                            cssClass: 'alert',
-                            header: hdr,
-                            subHeader: sub,
-                            message: msg,
-                            buttons: ['OK']
-                        })];
-                    case 1:
-                        alert = _a.sent();
-                        return [4 /*yield*/, alert.present()];
-                    case 2:
-                        _a.sent();
-                        return [2 /*return*/];
-                }
-            });
         });
     };
     MiniTermPage.ctorParameters = function () { return [
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["MenuController"] },
-        { type: _service_minima_api_service__WEBPACK_IMPORTED_MODULE_1__["MinimaApiService"] },
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["AlertController"] },
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"] },
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["NavController"] },
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_3__["Renderer2"] },
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["PopoverController"] },
-        { type: _service_userterminal_service__WEBPACK_IMPORTED_MODULE_6__["UserTerminal"] }
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["MenuController"] },
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["LoadingController"] },
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["NavController"] },
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["PopoverController"] },
+        { type: _service_userterminal_service__WEBPACK_IMPORTED_MODULE_7__["UserTerminal"] },
+        { type: _service_tools_service__WEBPACK_IMPORTED_MODULE_1__["ToolsService"] },
+        { type: _service_minima_api_service__WEBPACK_IMPORTED_MODULE_2__["MinimaApiService"] },
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_4__["Renderer2"] }
     ]; };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["HostListener"])('window:keydown', ['$event']),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["HostListener"])('window:keydown', ['$event']),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [KeyboardEvent]),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
     ], MiniTermPage.prototype, "keyEvent", null);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ViewChild"])(_ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonContent"], { static: false }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonContent"])
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["ViewChild"])(_ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonContent"], { static: false }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonContent"])
     ], MiniTermPage.prototype, "ionContent", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ViewChild"])('terminal', { static: false }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_3__["ElementRef"])
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["ViewChild"])('terminal', { static: false }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_4__["ElementRef"])
     ], MiniTermPage.prototype, "terminal", void 0);
     MiniTermPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Component"])({
             selector: 'app-mini-term',
             template: __webpack_require__(/*! raw-loader!./mini-term.page.html */ "./node_modules/raw-loader/index.js!./src/app/pages/mini-term/mini-term.page.html"),
             styles: [__webpack_require__(/*! ./mini-term.page.scss */ "./src/app/pages/mini-term/mini-term.page.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_4__["MenuController"],
-            _service_minima_api_service__WEBPACK_IMPORTED_MODULE_1__["MinimaApiService"],
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["AlertController"],
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"],
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["NavController"], _angular_core__WEBPACK_IMPORTED_MODULE_3__["Renderer2"],
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["PopoverController"],
-            _service_userterminal_service__WEBPACK_IMPORTED_MODULE_6__["UserTerminal"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_5__["MenuController"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["LoadingController"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["NavController"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["PopoverController"],
+            _service_userterminal_service__WEBPACK_IMPORTED_MODULE_7__["UserTerminal"],
+            _service_tools_service__WEBPACK_IMPORTED_MODULE_1__["ToolsService"],
+            _service_minima_api_service__WEBPACK_IMPORTED_MODULE_2__["MinimaApiService"],
+            _angular_core__WEBPACK_IMPORTED_MODULE_4__["Renderer2"]])
     ], MiniTermPage);
     return MiniTermPage;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/service/minima-api.service.ts":
-/*!***********************************************!*\
-  !*** ./src/app/service/minima-api.service.ts ***!
-  \***********************************************/
-/*! exports provided: MinimaApiService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MinimaApiService", function() { return MinimaApiService; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/fesm5/ionic-angular.js");
-/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! minima */ "./node_modules/minima/dist/minima.js");
-/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(minima__WEBPACK_IMPORTED_MODULE_3__);
-
-
-
-
-var MinimaApiService = /** @class */ (function () {
-    function MinimaApiService(loadingController) {
-        this.loadingController = loadingController;
-    }
-    MinimaApiService.prototype.createToken = function (data) {
-        return this.req("tokencreate name:\"" + data.name + "\" amount:" + data.amount + " description:\"" + data.description + "\" script:\"" + data.script + "\" icon:" + data.icon + " proof:" + data.proof);
-    };
-    MinimaApiService.prototype.validateTokenID = function (tokenid) {
-        return this.req("tokenvalidate " + tokenid);
-    };
-    MinimaApiService.prototype.sendMessageTransaction = function (data) {
-        //const txnidentifier = Math.floor(Math.random()*1000000000);
-        var postTransaction = "send " + data.amount + " " + data.address + " " + data.tokenid + " " + " 254:[01000100]#255:[\"" + data.message + "\"]";
-        // const customTXN = 
-        // // Custom TXN with an ID
-        // "txncreate "+txnidentifier+";"+
-        // // Add state variable 1
-        // "txnstate "+txnidentifier+" 254 01000100"+";"+
-        // // Add User state variable 2
-        // "txnstate "+txnidentifier+" 255 \""+data.message+"\""+";"+
-        // // Auto fill the transaction
-        // "txnauto "+txnidentifier+" "+data.amount+" "+data.address+" "+data.tokenid+";"+
-        // // Post it!
-        // "txnpost "+txnidentifier+";"+
-        // // Clear the txn
-        // "txndelete "+txnidentifier+";";
-        // // send 1 0xFF 0x00 '254:0x1000#255:[This is a message]'
-        return this.req(postTransaction);
-    };
-    MinimaApiService.prototype.webLink = function (data) {
-        return this.req('weblink+' + data.url);
-    };
-    MinimaApiService.prototype.setHost = function (newHost) {
-        localStorage.setItem('minima_host', newHost);
-    };
-    MinimaApiService.prototype.newAddress = function () {
-        return this.req('newaddress');
-    };
-    MinimaApiService.prototype.sendFunds = function (data) {
-        return this.req('send ' + data.amount + ' ' + data.address + ' ' + data.tokenid);
-    };
-    MinimaApiService.prototype.giveMe50 = function () {
-        return this.req('gimme50');
-    };
-    MinimaApiService.prototype.getBalance = function () {
-        return this.req('balance');
-    };
-    MinimaApiService.prototype.getHistory = function () {
-        return this.req('history');
-    };
-    MinimaApiService.prototype.clearMyHistory = function () {
-        return this.req('history clear');
-    };
-    MinimaApiService.prototype.getStatus = function () {
-        return this.req('status');
-    };
-    MinimaApiService.prototype.req = function (fnc) {
-        var promise = new Promise(function (resolve) {
-            minima__WEBPACK_IMPORTED_MODULE_3__["Minima"].cmd(fnc, function (resp) {
-                //console.log(resp);
-                resolve(resp);
-            });
-        });
-        return promise;
-    };
-    MinimaApiService.ctorParameters = function () { return [
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["LoadingController"] }
-    ]; };
-    MinimaApiService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-            providedIn: 'root'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["LoadingController"]])
-    ], MinimaApiService);
-    return MinimaApiService;
 }());
 
 

@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-app>\n  <ion-header class=\"page-header ion-no-border\">\n    <ion-toolbar>\n         <ion-title *ngIf=\"!ios\" class=\"large-text\">\n          <ion-item id=\"title\" lines=\"none\" class=\"ion-no-padding\">\n            <ion-icon \n            class=\"menu-btn\" \n            (click)=\"openMenu()\" \n            src=\"assets/menuIcon.svg\"></ion-icon>\n            History\n          </ion-item>\n          <ion-item \n          id=\"subtitle\" \n          class=\"breadcrumb ion-no-padding\" \n          lines=\"none\" \n          *ngIf=\"transactions.length > 0\">\n            Transaction history\n          </ion-item>\n        </ion-title>\n    </ion-toolbar>\n  </ion-header>\n\n\n\n  <ion-content>\n    <ion-list \n    class=\"ion-no-padding\" \n    #historyList \n    *ngFor=\"let txn of transactions.slice().reverse()\" \n    lines=\"none\">\n        <ion-item \n        class=\"ion-no-padding\" \n        routerLink=\"/view-txn/{{ txn.txpow.txpowid }}\" \n        routerDirection=\"forward\" l\n        ines=\"none\">\n            <ion-avatar slot=\"start\">\n              <ion-icon \n              style=\"fill: var(--ion-color-secondary) !important\"\n              *ngIf=\"txn.values[0].amount.substring(0,1) == '-'\" \n              class=\"icon\" \n              src=\"assets/sendIcon.svg\" \n              alt=\"send-receive\"></ion-icon>\n              <ion-icon \n              style=\"fill:var(--ion-color-primary) !important\" \n              *ngIf=\"txn.values[0].amount.substring(0,1) !== '-' && txn.values[0].name !== 'Create Token'\" \n              class=\"icon\" src=\"assets/receiveIcon.svg\" \n              alt=\"send-receive\"></ion-icon>\n              <ion-icon \n              *ngIf=\"!txn.values[0].name.name && txn.values[0].name === 'Create Token'\" \n              class=\"icon\"\n              src=\"assets/createIcon.svg\" \n              alt=\"send-receive\"></ion-icon>\n            </ion-avatar>\n\n            <ion-list style=\"background-color: transparent; margin:0; padding:2px\">\n              <ion-label class=\"token-name\">\n                <h3 \n                [ngStyle]=\"txn.values[0].amount.substring(0,1) === '-' \n                            ? {'color' : 'var(--ion-color-secondary'} \n                            : {'color' : 'var(--ion-color-primary)'}\"\n                *ngIf=\"txn.values[0].name !== 'Create Token' \n                        && !txn.values[0].name.name\">\n                        {{ txn.values[0].name }}</h3>\n                <h3 *ngIf=\"txn.values[0].name === 'Create Token'\">{{ txn.txpow.body.txn.tokengen.token }}</h3>\n                <h3 \n                [ngStyle]=\"txn.values[0].amount.substring(0,1) === '-' \n                            ? {'color' : 'var(--ion-color-secondary'} \n                            : {'color' : 'var(--ion-color-primary)'}\" \n                *ngIf=\"txn.values[0].name !== 'Create Token' \n                        && txn.values[0].name.name\">\n                        {{ txn.values[0].name.name }}</h3>\n              </ion-label>\n              \n\n              <ion-label \n              class=\"ion-no-padding ion-no-margin transaction-amount\" \n              slot=\"end\" \n              *ngIf=\"txn.values[0].name !== 'Create Token'\">\n                <span *ngIf=\"txn.values[0].amount.substring(0,1) === '-'\"> \n                  <h3 class=\"minima-numeric left\">{{ txn.values[0].amount}}</h3>\n                </span>\n                <span *ngIf=\"txn.values[0].amount.substring(0,1) !== '-'\">\n                  <h3 class=\"minima-numeric left\">{{ \"+\"+ txn.values[0].amount}}</h3>\n                </span>\n              </ion-label>\n              <ion-label \n              class=\"ion-no-padding ion-no-margin transaction-amount\"\n              slot=\"end\" \n              *ngIf=\"txn.values[0].name === 'Create Token'\">\n                <span class=\"minima-numeric left\">\n                  <h3>{{\"+\" + txn.txpow.body.txn.tokengen.total}}</h3>\n                  <p>{{\"-\"+txn.values[0].amount+\" Mini\"}}</p>\n                </span>\n              </ion-label>\n            </ion-list>\n\n          <ion-list \n          slot=\"end\"\n          style=\"background-color: transparent;\" \n          class=\"date-time ion-no-padding ion-no-margin\">\n            <ion-label>\n            <h6 class=\"ion-no-padding ion-no-margin\">\n              {{ txn.values[0].day }} {{ txn.values[0].month }} {{ txn.values[0].year }}\n            </h6>\n            <p class=\"ion-no-padding ion-no-margin ion-text-right\">{{ txn.values[0].time }}</p>\n            </ion-label>\n          </ion-list>\n\n\n          <!-- <ion-label class=\"transactionLabel\">\n            <div *ngIf=\"!txn.values[0].name.name && txn.values[0].name !== 'Create Token'\">\n              <span *ngIf=\"txn.values[0].amount.substring(0,1) === '-'\">\n                <h3 style=\"color: var(--ion-color-secondary) !important\">Minima</h3>\n                <p class=\"time\">{{txn.values[0].day}} {{txn.values[0].month}} &mdash; {{txn.values[0].time}} </p>\n              </span>\n              <span *ngIf=\"txn.values[0].amount.substring(0,1) !== '-'\">\n                <h3 style=\"color:var(--ion-color-primary) !important\">Minima</h3>\n                <p class=\"time\">{{txn.values[0].day}} {{txn.values[0].month}}, {{ txn.values[0].year }} &mdash; {{txn.values[0].time}} </p>\n              </span>\n            </div>\n\n            <div id=\"txnType\" *ngIf=\"txn.values[0].name.name\">\n              <span *ngIf=\"txn.values[0].amount.substring(0,1) == '-'\"> \n                <h3 style=\"color: var(--ion-color-secondary) !important\">{{ txn.values[0].name.name }}</h3>\n                <p class=\"time\">{{txn.values[0].day}} {{txn.values[0].month}} &mdash; {{txn.values[0].time}} </p>\n              </span>\n              <span *ngIf=\"txn.values[0].amount.substring(0,1) !== '-'\">\n                <h3 style=\"color:var(--ion-color-primary) !important\">{{ txn.values[0].name.name }}</h3>\n                <p class=\"time\">{{txn.values[0].day}} {{txn.values[0].month}}, {{ txn.values[0].year }} &mdash; {{txn.values[0].time}} </p>\n              </span>\n            </div>\n\n            <div class=\"tokenName\" *ngIf=\"!txn.values[0].name.name && txn.values[0].name === 'Create Token'\">\n              <h3>{{ txn.txpow.body.txn.tokengen.token }}</h3>\n              <p class=\"time\">{{txn.values[0].day}} {{txn.values[0].month}}, {{ txn.values[0].year }} &mdash; {{txn.values[0].time}} </p>\n            </div>\n          </ion-label> -->\n\n          \n        </ion-item>\n    </ion-list>\n\n    <ion-grid *ngIf=\"transactions.length == 0\">\n      <ion-row>\n        <ion-col style=\"display: flex; align-items:center; justify-content:center\" size=\"12\">\n          <ion-label>{{ prompt }}</ion-label>\n        </ion-col>\n      </ion-row>\n    </ion-grid>\n\n  </ion-content>\n\n  <ion-footer class=\"border-t\">\n    <ion-button (click)=\"giveMe50()\" class=\"gimme50 no-ripple\" fill=\"none\">\n      Gimme 50\n    </ion-button>\n  </ion-footer>\n</ion-app>"
+module.exports = "<ion-app>\n  <ion-header class=\"page-header ion-no-border\">\n    <ion-toolbar>\n         <ion-title *ngIf=\"!ios\" class=\"large-text\">\n          <ion-item id=\"title\" lines=\"none\" class=\"ion-no-padding\">\n            <ion-icon \n            class=\"menu-btn\" \n            (click)=\"openMenu()\" \n            src=\"assets/menuIcon.svg\"></ion-icon>\n            History\n          </ion-item>\n          <ion-item \n          id=\"subtitle\" \n          class=\"breadcrumb ion-no-padding\" \n          lines=\"none\" \n          *ngIf=\"transactions.length > 0\">\n            Transaction history\n          </ion-item>\n        </ion-title>\n    </ion-toolbar>\n  </ion-header>\n\n  <ion-content>\n    <ion-list \n    class=\"ion-no-padding\" \n    #historyList  \n    lines=\"none\">\n        <ion-item \n        *ngFor=\"let txn of transactions.slice().reverse()\"\n        class=\"ion-no-padding\" \n        routerLink=\"/view-txn/{{ txn.txpow.txpowid }}\" \n        routerDirection=\"forward\"\n        lines=\"none\">\n            <!-- <ion-avatar slot=\"start\">\n              <ion-icon \n              style=\"fill: var(--ion-color-secondary) !important\"\n              *ngIf=\"txn.values[0].amount.substring(0,1) == '-'\" \n              class=\"icon\" \n              src=\"assets/sendIcon.svg\" \n              alt=\"send-receive\"></ion-icon>\n              <ion-icon \n              style=\"fill:var(--ion-color-primary) !important\" \n              *ngIf=\"txn.values[0].amount.substring(0,1) !== '-' && txn.values[0].name !== 'Create Token'\" \n              class=\"icon\" src=\"assets/receiveIcon.svg\" \n              alt=\"send-receive\"></ion-icon>\n              <ion-icon \n              *ngIf=\"!txn.values[0].name.name && txn.values[0].name === 'Create Token'\" \n              class=\"icon\"\n              src=\"assets/createIcon.svg\" \n              alt=\"send-receive\"></ion-icon>\n            </ion-avatar> -->\n\n            <!-- <ion-list style=\"background-color: transparent; margin:0; padding:2px\">\n              <ion-label class=\"token-name\">\n                <h3 \n                [ngStyle]=\"txn.values[0].amount.substring(0,1) === '-' \n                            ? {'color' : 'var(--ion-color-secondary'} \n                            : {'color' : 'var(--ion-color-primary)'}\"\n                *ngIf=\"txn.values[0].name !== 'Create Token' \n                        && !txn.values[0].name.name\">\n                        {{ txn.values[0].name }}</h3>\n                <h3 *ngIf=\"txn.values[0].name === 'Create Token'\">{{ txn.txpow.body.txn.tokengen.token }}</h3>\n                <h3 \n                [ngStyle]=\"txn.values[0].amount.substring(0,1) === '-' \n                            ? {'color' : 'var(--ion-color-secondary'} \n                            : {'color' : 'var(--ion-color-primary)'}\" \n                *ngIf=\"txn.values[0].name !== 'Create Token' \n                        && txn.values[0].name.name\">\n                        {{ txn.values[0].name.name }}</h3>\n              </ion-label>\n              \n\n              <ion-label \n              class=\"ion-no-padding ion-no-margin transaction-amount\" \n              slot=\"end\" \n              *ngIf=\"txn.values[0].name !== 'Create Token'\">\n                <span *ngIf=\"txn.values[0].amount.substring(0,1) === '-'\"> \n                  <h3 class=\"minima-numeric left\">{{ txn.values[0].amount}}</h3>\n                </span>\n                <span *ngIf=\"txn.values[0].amount.substring(0,1) !== '-'\">\n                  <h3 class=\"minima-numeric left\">{{ \"+\"+ txn.values[0].amount}}</h3>\n                </span>\n              </ion-label>\n              <ion-label \n              class=\"ion-no-padding ion-no-margin transaction-amount\"\n              slot=\"end\" \n              *ngIf=\"txn.values[0].name === 'Create Token'\">\n                <span class=\"minima-numeric left\">\n                  <h3>{{\"+\" + txn.txpow.body.txn.tokengen.total}}</h3>\n                  <p>{{\"-\"+txn.values[0].amount+\" Mini\"}}</p>\n                </span>\n              </ion-label>\n            </ion-list> -->\n\n          <ion-list \n          slot=\"end\"\n          style=\"background-color: transparent;\" \n          class=\"date-time ion-no-padding ion-no-margin\">\n            <ion-label>\n            <!-- <h6 class=\"ion-no-padding ion-no-margin\">\n              {{ txn.values[0].day }} {{ txn.values[0].month }} {{ txn.values[0].year }}\n            </h6>\n            <p class=\"ion-no-padding ion-no-margin ion-text-right\">{{ txn.values[0].time }}</p> -->\n            </ion-label>\n          </ion-list>\n        </ion-item>\n    </ion-list>\n\n    <ion-grid *ngIf=\"transactions.length == 0\">\n      <ion-row>\n        <ion-col style=\"display: flex; align-items:center; justify-content:center\" size=\"12\">\n          <ion-label>{{ prompt }}</ion-label>\n        </ion-col>\n      </ion-row>\n    </ion-grid>\n\n  </ion-content>\n\n  <ion-footer class=\"border-t\">\n    <ion-button (click)=\"giveMe50()\" class=\"gimme50 no-ripple\" fill=\"none\">\n      Gimme 50\n    </ion-button>\n  </ion-footer>\n</ion-app>"
 
 /***/ }),
 
@@ -87,16 +87,13 @@ module.exports = "ion-icon.icon {\n  width: 36.83px;\n  height: 36.83px;\n  disp
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HistoryPage", function() { return HistoryPage; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _service_minima_api_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../service/minima-api.service */ "./src/app/service/minima-api.service.ts");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/fesm2015/ionic-angular.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var _service_history_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../service/history.service */ "./src/app/service/history.service.ts");
-/* harmony import */ var _providers_user_data__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../../providers/user-data */ "./src/app/providers/user-data.ts");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
-
+/* harmony import */ var _service_tools_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../service/tools.service */ "./src/app/service/tools.service.ts");
+/* harmony import */ var _service_minima_api_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../service/minima-api.service */ "./src/app/service/minima-api.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/fesm2015/ionic-angular.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _service_history_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../service/history.service */ "./src/app/service/history.service.ts");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
 
 
 
@@ -106,18 +103,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let HistoryPage = class HistoryPage {
-    constructor(menu, api, alertController, historyService, userHistorySavedData, modalController, alertCtrl, toastCtrl, popoverController, config, router) {
+    constructor(menu, router, modalController, popoverController, config, myTools, api, historyService) {
         this.menu = menu;
-        this.api = api;
-        this.alertController = alertController;
-        this.historyService = historyService;
-        this.userHistorySavedData = userHistorySavedData;
+        this.router = router;
         this.modalController = modalController;
-        this.alertCtrl = alertCtrl;
-        this.toastCtrl = toastCtrl;
         this.popoverController = popoverController;
         this.config = config;
-        this.router = router;
+        this.myTools = myTools;
+        this.api = api;
+        this.historyService = historyService;
         this.categories = 0;
         this.segment = 'all';
         this.prompt = 'Fetching your history...';
@@ -134,92 +128,42 @@ let HistoryPage = class HistoryPage {
     openMenu() {
         this.menu.open();
     }
-    saveItem(slidingItem, txn) {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
-            if (this.userHistorySavedData.hasSaved(txn.txpow.txpowid)) {
-                // Prompt to remove as saved
-                this.removeItem(slidingItem, txn.txpow.txpowid, 'This has already been saved');
-                // saved = 'false' now
-                txn.saved = 'false';
-            }
-            else {
-                // Add to Saved
-                this.userHistorySavedData.addToSaved(txn.txpow.txpowid);
-                // Add true attribute to this txn
-                txn.saved = 'true';
-                // close the open item
-                slidingItem.close();
-                // Create a Toast
-                const toast = yield this.toastCtrl.create({
-                    header: `Transaction with ID:${txn.txpow.txpowid.substring(0, 15) + '...'} was successfully saved.`,
-                    duration: 3000,
-                    buttons: [{
-                            text: 'Close',
-                            role: 'cancel'
-                        }]
-                });
-                yield toast.present();
-            }
-        });
-    }
-    removeItem(slidingItem, txn, title) {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
-            const alert = yield this.alertCtrl.create({
-                header: title,
-                message: 'Would you like to remove this transaction from your saved transactions?',
-                buttons: [
-                    {
-                        text: 'Cancel',
-                        handler: () => {
-                            // Cancel button clicked, do not remove the transaction
-                            // Close the sliding item and hide the option buttons
-                            slidingItem.close();
-                        }
-                    },
-                    {
-                        text: 'Remove',
-                        handler: () => {
-                            // they want to remove this transaction from their saved transactions
-                            this.userHistorySavedData.removeFromSaved(txn.txpow.txpowid);
-                            // close the sliding item and hide the option buttons
-                            slidingItem.close();
-                        }
-                    }
-                ]
-            });
-            // now present the alert on top of all other content
-            yield alert.present();
-        });
-    }
-    updateHistory() {
-        if (this.historyList) {
-            this.historyList.closeSlidingItems();
-        }
-        if (this.segment === 'saved') {
-            this.filterHistory();
-        }
-        else if (this.segment === 'all') {
-            this.pullInHistorySummary();
-        }
-    }
-    filterHistory() {
-        this.transactions = this.transactions.filter((txn) => {
-            return txn.saved === 'true';
-        });
-    }
     pullInHistorySummary() {
-        console.log('Pulling in history');
-        this.historyService.data.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_8__["map"])((res) => {
+        // console.log('Pulling in history');
+        this.historyService.data.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["map"])((res) => {
             res.history.forEach((txpow) => {
-                console.log(res);
-                const name = txpow.values[0].name;
-                txpow.values[0].time = moment__WEBPACK_IMPORTED_MODULE_7__(parseInt(txpow.txpow.header.timemilli)).format('hh:mm a');
-                txpow.values[0].day = moment__WEBPACK_IMPORTED_MODULE_7__(parseInt(txpow.txpow.header.timemilli)).format("DD");
-                txpow.values[0].month = moment__WEBPACK_IMPORTED_MODULE_7__(parseInt(txpow.txpow.header.timemilli)).format("MMM");
-                txpow.values[0].year = moment__WEBPACK_IMPORTED_MODULE_7__(parseInt(txpow.txpow.header.timemilli)).format("YYYY");
-                if (name && !name.name && name.substring(0, 1) === '{') {
-                    txpow.values[0].name = JSON.parse(name);
+                console.log(txpow);
+                if (txpow.txpow.body.txn.tokengen) {
+                    //console.log('Token Creation, look at tokengen');
+                    //console.log(txpow.txpow.body.txn.tokengen);
                 }
+                else if (!txpow.txpow.body.txn.tokengen &&
+                    //  txpow.values.length > 0 &&
+                    txpow.values[0].name &&
+                    txpow.values[0].name.substring(0, 1) !== "{\"") {
+                    console.log('This is a normal Minima value transaction');
+                }
+                else if (!txpow.txpow.body.txn.tokengen &&
+                    txpow.values.length > 0 &&
+                    txpow.values[0].name &&
+                    txpow.values[0].name.substring(0, 1) === "{\"") {
+                    console.log('This is a token value transaction');
+                    console.log(txpow);
+                    const token_descr = JSON.parse(txpow.values[0].name);
+                    console.log(token_descr);
+                    const name = token_descr.name;
+                    console.log('Name of token txn' + name);
+                }
+                // if( txpow.values.length > 0) {
+                //   const name = txpow.values[0].name;
+                //   if (name && !name.name && name.substring(0, 1) === '{') {
+                //     txpow.values[0].name = JSON.parse(name);
+                //     txpow.values[0].time = moment( parseInt(txpow.txpow.header.timemilli)).format('hh:mm a');
+                //     txpow.values[0].day = moment( parseInt(txpow.txpow.header.timemilli)).format("DD");
+                //     txpow.values[0].month = moment( parseInt(txpow.txpow.header.timemilli)).format("MMM");
+                //     txpow.values[0].year = moment( parseInt(txpow.txpow.header.timemilli)).format("YYYY");
+                //   }
+                // }
             });
             return res.history;
         })).subscribe((res) => {
@@ -229,109 +173,46 @@ let HistoryPage = class HistoryPage {
             this.prompt = 'No recent transactions found...';
         }
     }
-    presentAlert(hdr, message, subtitle) {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
-            const alert = yield this.alertController.create({
-                cssClass: 'alertContainer',
-                header: hdr,
-                subHeader: subtitle,
-                message: message,
-                buttons: ['OK']
-            });
-            yield alert.present();
-        });
-    }
     giveMe50() {
         this.api.giveMe50().then((res) => {
             if (res.status === true) {
-                this.presentAlert('Gimme50', 'Successful', 'Status');
+                this.myTools.presentAlert('Gimme50', 'Successful', 'Status');
             }
             else {
-                this.presentAlert('Gimme50', res.message, 'Status');
+                this.myTools.presentAlert('Gimme50', res.message, 'Status');
             }
         });
     }
 };
 HistoryPage.ctorParameters = () => [
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["MenuController"] },
-    { type: _service_minima_api_service__WEBPACK_IMPORTED_MODULE_1__["MinimaApiService"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["AlertController"] },
-    { type: _service_history_service__WEBPACK_IMPORTED_MODULE_5__["HistoryService"] },
-    { type: _providers_user_data__WEBPACK_IMPORTED_MODULE_6__["UserHistorySavedData"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["ModalController"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["AlertController"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["ToastController"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["PopoverController"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["Config"] },
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"] }
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["MenuController"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouterModule"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ModalController"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["PopoverController"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["Config"] },
+    { type: _service_tools_service__WEBPACK_IMPORTED_MODULE_1__["ToolsService"] },
+    { type: _service_minima_api_service__WEBPACK_IMPORTED_MODULE_2__["MinimaApiService"] },
+    { type: _service_history_service__WEBPACK_IMPORTED_MODULE_6__["HistoryService"] }
 ];
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["ViewChild"])('historyList', { static: true }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["IonList"])
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_5__["ViewChild"])('historyList', { static: true }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonList"])
 ], HistoryPage.prototype, "historyList", void 0);
 HistoryPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Component"])({
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_5__["Component"])({
         selector: 'app-history',
         template: __webpack_require__(/*! raw-loader!./history.page.html */ "./node_modules/raw-loader/index.js!./src/app/pages/history/history.page.html"),
         styles: [__webpack_require__(/*! ./history.page.scss */ "./src/app/pages/history/history.page.scss")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_3__["MenuController"],
-        _service_minima_api_service__WEBPACK_IMPORTED_MODULE_1__["MinimaApiService"],
-        _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["AlertController"],
-        _service_history_service__WEBPACK_IMPORTED_MODULE_5__["HistoryService"],
-        _providers_user_data__WEBPACK_IMPORTED_MODULE_6__["UserHistorySavedData"],
-        _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["ModalController"],
-        _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["AlertController"],
-        _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["ToastController"],
-        _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["PopoverController"],
-        _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["Config"],
-        _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"]])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_4__["MenuController"],
+        _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouterModule"],
+        _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ModalController"],
+        _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["PopoverController"],
+        _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["Config"],
+        _service_tools_service__WEBPACK_IMPORTED_MODULE_1__["ToolsService"],
+        _service_minima_api_service__WEBPACK_IMPORTED_MODULE_2__["MinimaApiService"],
+        _service_history_service__WEBPACK_IMPORTED_MODULE_6__["HistoryService"]])
 ], HistoryPage);
-
-
-
-/***/ }),
-
-/***/ "./src/app/providers/user-data.ts":
-/*!****************************************!*\
-  !*** ./src/app/providers/user-data.ts ***!
-  \****************************************/
-/*! exports provided: UserHistorySavedData */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserHistorySavedData", function() { return UserHistorySavedData; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-
-
-let UserHistorySavedData = class UserHistorySavedData {
-    constructor() {
-        this.saved = [];
-    }
-    // has the user saved this?
-    hasSaved(txn_txpow_txpowid) {
-        return (this.saved.indexOf(txn_txpow_txpowid) > -1);
-    }
-    // add txn as saved
-    addToSaved(txn_txpow_txpowid) {
-        this.saved.push(txn_txpow_txpowid);
-    }
-    // remove txn from saved
-    removeFromSaved(txn_txpow_txpowid) {
-        const index = this.saved.indexOf(txn_txpow_txpowid);
-        if (index > -1) {
-            this.saved.splice(index, 1);
-        }
-    }
-};
-UserHistorySavedData = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-        providedIn: 'root'
-    }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-], UserHistorySavedData);
 
 
 

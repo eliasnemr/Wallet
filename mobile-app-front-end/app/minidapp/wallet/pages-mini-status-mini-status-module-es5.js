@@ -84,13 +84,15 @@ module.exports = "* {\n  color: var(--ion-color-tertiary);\n}\n\nion-icon.status
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MiniStatusPage", function() { return MiniStatusPage; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _service_minima_api_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../service/minima-api.service */ "./src/app/service/minima-api.service.ts");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/fesm5/ionic-angular.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
-/* harmony import */ var _service_status_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../../service/status.service */ "./src/app/service/status.service.ts");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! minima */ "./node_modules/minima/dist/minima.js");
-/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(minima__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _service_tools_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../service/tools.service */ "./src/app/service/tools.service.ts");
+/* harmony import */ var _service_minima_api_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../service/minima-api.service */ "./src/app/service/minima-api.service.ts");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/fesm5/ionic-angular.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _service_status_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../../service/status.service */ "./src/app/service/status.service.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! minima */ "./node_modules/minima/dist/minima.js");
+/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(minima__WEBPACK_IMPORTED_MODULE_7__);
+
 
 
 
@@ -99,8 +101,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var MiniStatusPage = /** @class */ (function () {
-    function MiniStatusPage(menu, service, alertController, api) {
+    function MiniStatusPage(menu, myTools, service, alertController, api) {
         this.menu = menu;
+        this.myTools = myTools;
         this.service = service;
         this.alertController = alertController;
         this.api = api;
@@ -108,7 +111,7 @@ var MiniStatusPage = /** @class */ (function () {
     MiniStatusPage.prototype.ngOnInit = function () { };
     MiniStatusPage.prototype.ionViewWillEnter = function () {
         var _this = this;
-        minima__WEBPACK_IMPORTED_MODULE_6__["Minima"].cmd('status full', function (res) {
+        minima__WEBPACK_IMPORTED_MODULE_7__["Minima"].cmd('status full', function (res) {
             _this.service.updatedStatus.next(res.response);
         });
         this.updateStatus();
@@ -147,24 +150,18 @@ var MiniStatusPage = /** @class */ (function () {
         var _this = this;
         this.api.giveMe50().then(function (res) {
             if (res.status === true) {
-                _this.presentAlert('Gimme50', 'Successful', 'Status');
+                _this.myTools.presentAlert('Gimme50', 'Successful', 'Status');
             }
             else {
-                _this.presentAlert('Gimme50', res.message, 'Status');
+                _this.myTools.presentAlert('Gimme50', res.message, 'Status');
             }
         });
     };
     MiniStatusPage.prototype.updateStatus = function () {
         var _this = this;
         this.service.updatedStatus
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (responseData) {
-            //console.log(responseData);
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (responseData) {
             responseData.uptime = responseData.uptime.replace(/\b0 Years\b|\b0 Months\b|\b0 Weeks\b|\b0 Days\b|\b0 Hours\b|\b0 Minutes\b|\b0 Seconds\b|\b0 Milliseconds\b/gi, " ");
-            // responseData.uptime = responseData.uptime.replace(/1 Minutes/gi, "1 Minute");
-            // responseData.uptime = responseData.uptime.replace(/1 Seconds/gi, "1 Second");
-            // responseData.uptime = responseData.uptime.replace(/1 Years/gi, "1 Year");
-            // responseData.uptime = responseData.uptime.replace(/1 Milliseconds/gi, "1 Millisecond");
-            // responseData.uptime = responseData.uptime.replace(/1 Hours/gi, "1 Hour");
             return responseData;
         })).subscribe(function (res) {
             //console.log(res);
@@ -175,120 +172,25 @@ var MiniStatusPage = /** @class */ (function () {
         });
     };
     MiniStatusPage.ctorParameters = function () { return [
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["MenuController"] },
-        { type: _service_status_service__WEBPACK_IMPORTED_MODULE_4__["StatusService"] },
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"] },
-        { type: _service_minima_api_service__WEBPACK_IMPORTED_MODULE_1__["MinimaApiService"] }
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["MenuController"] },
+        { type: _service_tools_service__WEBPACK_IMPORTED_MODULE_1__["ToolsService"] },
+        { type: _service_status_service__WEBPACK_IMPORTED_MODULE_5__["StatusService"] },
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["AlertController"] },
+        { type: _service_minima_api_service__WEBPACK_IMPORTED_MODULE_2__["MinimaApiService"] }
     ]; };
     MiniStatusPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_5__["Component"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_6__["Component"])({
             selector: 'app-mini-status',
             template: __webpack_require__(/*! raw-loader!./mini-status.page.html */ "./node_modules/raw-loader/index.js!./src/app/pages/mini-status/mini-status.page.html"),
             styles: [__webpack_require__(/*! ./mini-status.page.scss */ "./src/app/pages/mini-status/mini-status.page.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["MenuController"], _service_status_service__WEBPACK_IMPORTED_MODULE_4__["StatusService"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"], _service_minima_api_service__WEBPACK_IMPORTED_MODULE_1__["MinimaApiService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_3__["MenuController"],
+            _service_tools_service__WEBPACK_IMPORTED_MODULE_1__["ToolsService"],
+            _service_status_service__WEBPACK_IMPORTED_MODULE_5__["StatusService"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["AlertController"],
+            _service_minima_api_service__WEBPACK_IMPORTED_MODULE_2__["MinimaApiService"]])
     ], MiniStatusPage);
     return MiniStatusPage;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/service/minima-api.service.ts":
-/*!***********************************************!*\
-  !*** ./src/app/service/minima-api.service.ts ***!
-  \***********************************************/
-/*! exports provided: MinimaApiService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MinimaApiService", function() { return MinimaApiService; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/fesm5/ionic-angular.js");
-/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! minima */ "./node_modules/minima/dist/minima.js");
-/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(minima__WEBPACK_IMPORTED_MODULE_3__);
-
-
-
-
-var MinimaApiService = /** @class */ (function () {
-    function MinimaApiService(loadingController) {
-        this.loadingController = loadingController;
-    }
-    MinimaApiService.prototype.createToken = function (data) {
-        return this.req("tokencreate name:\"" + data.name + "\" amount:" + data.amount + " description:\"" + data.description + "\" script:\"" + data.script + "\" icon:" + data.icon + " proof:" + data.proof);
-    };
-    MinimaApiService.prototype.validateTokenID = function (tokenid) {
-        return this.req("tokenvalidate " + tokenid);
-    };
-    MinimaApiService.prototype.sendMessageTransaction = function (data) {
-        //const txnidentifier = Math.floor(Math.random()*1000000000);
-        var postTransaction = "send " + data.amount + " " + data.address + " " + data.tokenid + " " + " 254:[01000100]#255:[\"" + data.message + "\"]";
-        // const customTXN = 
-        // // Custom TXN with an ID
-        // "txncreate "+txnidentifier+";"+
-        // // Add state variable 1
-        // "txnstate "+txnidentifier+" 254 01000100"+";"+
-        // // Add User state variable 2
-        // "txnstate "+txnidentifier+" 255 \""+data.message+"\""+";"+
-        // // Auto fill the transaction
-        // "txnauto "+txnidentifier+" "+data.amount+" "+data.address+" "+data.tokenid+";"+
-        // // Post it!
-        // "txnpost "+txnidentifier+";"+
-        // // Clear the txn
-        // "txndelete "+txnidentifier+";";
-        // // send 1 0xFF 0x00 '254:0x1000#255:[This is a message]'
-        return this.req(postTransaction);
-    };
-    MinimaApiService.prototype.webLink = function (data) {
-        return this.req('weblink+' + data.url);
-    };
-    MinimaApiService.prototype.setHost = function (newHost) {
-        localStorage.setItem('minima_host', newHost);
-    };
-    MinimaApiService.prototype.newAddress = function () {
-        return this.req('newaddress');
-    };
-    MinimaApiService.prototype.sendFunds = function (data) {
-        return this.req('send ' + data.amount + ' ' + data.address + ' ' + data.tokenid);
-    };
-    MinimaApiService.prototype.giveMe50 = function () {
-        return this.req('gimme50');
-    };
-    MinimaApiService.prototype.getBalance = function () {
-        return this.req('balance');
-    };
-    MinimaApiService.prototype.getHistory = function () {
-        return this.req('history');
-    };
-    MinimaApiService.prototype.clearMyHistory = function () {
-        return this.req('history clear');
-    };
-    MinimaApiService.prototype.getStatus = function () {
-        return this.req('status');
-    };
-    MinimaApiService.prototype.req = function (fnc) {
-        var promise = new Promise(function (resolve) {
-            minima__WEBPACK_IMPORTED_MODULE_3__["Minima"].cmd(fnc, function (resp) {
-                //console.log(resp);
-                resolve(resp);
-            });
-        });
-        return promise;
-    };
-    MinimaApiService.ctorParameters = function () { return [
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["LoadingController"] }
-    ]; };
-    MinimaApiService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-            providedIn: 'root'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["LoadingController"]])
-    ], MinimaApiService);
-    return MinimaApiService;
 }());
 
 

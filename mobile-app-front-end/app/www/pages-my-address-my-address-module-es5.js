@@ -869,7 +869,7 @@ var QRCode;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-app>\n<ion-header class=\"page-header ion-no-border\">\n  <ion-toolbar>\n    <ion-title>\n      <ion-item id=\"title\" lines=\"none\" class=\"ion-no-padding\">\n        <ion-icon class=\"menu-btn\" (click)=\"openMenu()\" src=\"assets/menuIcon.svg\"></ion-icon>\n        Receive\n      </ion-item>\n      <ion-item id=\"subtitle\" class=\"breadcrumb ion-no-padding\" lines=\"none\" *ngIf=\"qrCode.length > 0\">\n        Your wallet address\n      </ion-item>\n    </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n\n\n<ion-content class=\"page-content\">\n  \n  <ion-grid *ngIf=\"this.qrCode.length == 0\">\n    <ion-row>\n      <ion-col style=\"display: flex; align-items:center; justify-content:center\" size=\"12\">\n        <ion-label>Fetching an address...</ion-label>\n      </ion-col>\n      <ion-col style=\"display: flex; align-items:center; justify-content:center\" size=\"12\">\n        <ion-spinner name=\"crescent\"></ion-spinner>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n\n\n  <ion-grid class=\"ion-no-padding\" *ngIf=\"qrCode.length > 0\">\n    <!-- <ion-row>\n      <ion-col size=\"6\">\n        <div class=\"qr-box\">\n          <qrcode [qrdata]=\"qrCode\" [level]=\"'Q'\"></qrcode>\n        </div>\n      </ion-col>\n    </ion-row> -->\n    <ion-row>\n      <ion-col class=\"ion-no-padding\" size=\"12\">\n        <input value=\"{{ qrCode }}\" class=\"qrcode-box\">\n          \n      </ion-col>\n    </ion-row>\n    <ion-row style=\"margin-top: 7px\">\n      <ion-col size=\"12\" class=\"ion-no-padding\">\n        <ion-button (click)=\"copyToClipPWA()\" class=\"copy-btn\" fill=\"clear\">\n          Copy Address\n        </ion-button>\n        <ion-button (click)=\"generateAddress(qrCode)\" #generateAddressBtn class=\"gen-btn\" fill=\"none\">\n          Generate Address\n        </ion-button>\n      </ion-col>\n      \n    </ion-row>\n    <ion-row>\n      <p class=\"notes\">You can use this address as many times as you wish.</p>\n      <p class=\"notes\">This address can be used for any Minima token or Minima custom token transaction.</p>\n      <p class=\"notes\">Click 'Generate Address' to create a new address when needed.</p>\n    </ion-row>\n\n  </ion-grid>\n</ion-content>\n\n\n\n<ion-footer class=\"border-t\">\n  <ion-button (click)=\"giveMe50()\" class=\"gimme50 no-ripple\" fill=\"none\">\n    Gimme 50\n  </ion-button>\n</ion-footer>\n</ion-app>"
+module.exports = "<ion-app>\n<ion-header class=\"page-header ion-no-border\">\n  <ion-toolbar>\n    <ion-title>\n      <ion-item id=\"title\" lines=\"none\" class=\"ion-no-padding\">\n        <ion-icon class=\"menu-btn\" (click)=\"openMenu()\" src=\"assets/menuIcon.svg\"></ion-icon>\n        Receive\n      </ion-item>\n      <ion-item id=\"subtitle\" class=\"breadcrumb ion-no-padding\" lines=\"none\" *ngIf=\"qrCode.length > 0\">\n        Your wallet address\n      </ion-item>\n    </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n\n\n<ion-content class=\"page-content\">\n  \n  <ion-grid *ngIf=\"this.qrCode.length == 0\">\n    <ion-row>\n      <ion-col style=\"display: flex; align-items:center; justify-content:center\" size=\"12\">\n        <ion-label>Fetching an address...</ion-label>\n      </ion-col>\n      <ion-col style=\"display: flex; align-items:center; justify-content:center\" size=\"12\">\n        <ion-spinner name=\"crescent\"></ion-spinner>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n\n\n  <ion-grid class=\"ion-no-padding\" *ngIf=\"qrCode.length > 0\">\n    <!-- <ion-row>\n      <ion-col size=\"6\">\n        <div class=\"qr-box\">\n          <qrcode [qrdata]=\"qrCode\" [level]=\"'Q'\"></qrcode>\n        </div>\n      </ion-col>\n    </ion-row> -->\n    <ion-row>\n      <ion-col class=\"ion-no-padding\" size=\"12\">\n        <input value=\"{{ qrCode }}\" class=\"qrcode-box\">\n          \n      </ion-col>\n    </ion-row>\n    <ion-row style=\"margin-top: 7px\">\n      <ion-col size=\"12\" class=\"ion-no-padding\">\n        <ion-button (click)=\"copy(qrCode)\" class=\"copy-btn\" fill=\"clear\">\n          Copy Address\n        </ion-button>\n        <ion-button (click)=\"generateAddress(qrCode)\" #generateAddressBtn class=\"gen-btn\" fill=\"none\">\n          Generate Address\n        </ion-button>\n      </ion-col>\n      \n    </ion-row>\n    <ion-row>\n      <p class=\"notes\">You can use this address as many times as you wish.</p>\n      <p class=\"notes\">This address can be used for any Minima token or Minima custom token transaction.</p>\n      <p class=\"notes\">Click 'Generate Address' to create a new address when needed.</p>\n    </ion-row>\n\n  </ion-grid>\n</ion-content>\n\n\n\n<ion-footer class=\"border-t\">\n  <ion-button (click)=\"giveMe50()\" class=\"gimme50 no-ripple\" fill=\"none\">\n    Gimme 50\n  </ion-button>\n</ion-footer>\n</ion-app>"
 
 /***/ }),
 
@@ -950,7 +950,7 @@ module.exports = "@media screen and (min-width: 900px) {\n  .skeleton-address {\
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MyAddressPage", function() { return MyAddressPage; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _service_userconfig_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../service/userconfig.service */ "./src/app/service/userconfig.service.ts");
+/* harmony import */ var _service_tools_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../service/tools.service */ "./src/app/service/tools.service.ts");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/fesm5/ionic-angular.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _service_minima_api_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../service/minima-api.service */ "./src/app/service/minima-api.service.ts");
@@ -963,22 +963,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var MyAddressPage = /** @class */ (function () {
-    function MyAddressPage(menu, api, platform, ngZone, userConfigService, alertController, toastController) {
+    function MyAddressPage(menu, myTools, api) {
         this.menu = menu;
+        this.myTools = myTools;
         this.api = api;
-        this.platform = platform;
-        this.ngZone = ngZone;
-        this.userConfigService = userConfigService;
-        this.alertController = alertController;
-        this.toastController = toastController;
         this.qrCode = '';
         this.lastCode = '';
-        this.user = {
-            tokenDisplayMode: 1,
-            tips: {
-                address: false
-            }
-        };
     }
     MyAddressPage.prototype.ngOnInit = function () { };
     MyAddressPage.prototype.ionViewWillEnter = function () {
@@ -998,21 +988,15 @@ var MyAddressPage = /** @class */ (function () {
                 _this.newAddress();
             }
         });
-        this.userConfigService.userConfig.subscribe(function (res) {
-            // ngZone re-renders onChange
-            _this.ngZone.run(function () {
-                _this.user = res;
-            });
-        });
     };
     MyAddressPage.prototype.openMenu = function () {
         this.menu.open();
     };
-    MyAddressPage.prototype.generateAddress = function (code) {
+    MyAddressPage.prototype.generateAddress = function () {
         var _this = this;
         this.newAddress();
         this.generateAddressBtn.disabled = true;
-        this.presentToast('Generated a new address', 'primary', "bottom");
+        this.myTools.presentToast('Generated a new address', 'primary', "bottom");
         setTimeout(function () {
             _this.generateAddressBtn.disabled = false;
         }, 2000);
@@ -1033,107 +1017,24 @@ var MyAddressPage = /** @class */ (function () {
             });
         }, 0);
     };
-    MyAddressPage.prototype.hideTip = function () {
-        this.user.tips.address = true;
-        this.userConfigService.userConfig.next(this.user);
-        this.userConfigService.saveUserConfig(this.user);
-    };
-    MyAddressPage.prototype.presentAlert = function (hdr, msg, sub) {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
-            var alert;
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.alertController.create({
-                            cssClass: 'alert',
-                            header: hdr,
-                            subHeader: sub,
-                            message: msg,
-                            buttons: ['OK']
-                        })];
-                    case 1:
-                        alert = _a.sent();
-                        return [4 /*yield*/, alert.present()];
-                    case 2:
-                        _a.sent();
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
-    MyAddressPage.prototype.presentToast = function (msg, type, posn) {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
-            var toast;
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.toastController.create({
-                            message: msg,
-                            duration: 1000,
-                            color: type,
-                            keyboardClose: true,
-                            translucent: true,
-                            position: posn,
-                            cssClass: 'toast',
-                            buttons: [{
-                                    text: 'Dismiss',
-                                    role: 'cancel',
-                                    handler: function () {
-                                    }
-                                }]
-                        })];
-                    case 1:
-                        toast = _a.sent();
-                        toast.present();
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
     MyAddressPage.prototype.giveMe50 = function () {
         var _this = this;
         this.api.giveMe50().then(function (res) {
             if (res.status === true) {
-                _this.presentAlert('Gimme50', 'Successful', 'Status');
+                _this.myTools.presentAlert('Gimme50', 'Successful', 'Status');
             }
             else {
-                _this.presentAlert('Gimme50', res.message, 'Status');
+                _this.myTools.presentAlert('Gimme50', res.message, 'Status');
             }
         });
     };
-    MyAddressPage.prototype.copyToClipboard = function () {
-        if (this.platform.is('desktop') || this.platform.is('pwa')) {
-            this.copyToClipPWA();
-        }
-        else {
-            //this.clipboard.copy(this.qrCode);
-            this.presentToast('Copied to Clipboard', 'primary', 'bottom');
-        }
-    };
-    MyAddressPage.prototype.copyToClipPWA = function () {
-        var _this = this;
-        document.addEventListener('copy', function (e) {
-            e.clipboardData.setData('text/plain', _this.qrCode);
-            _this.presentToast('Copied To Clipboard', 'primary', 'bottom');
-            e.preventDefault();
-            document.removeEventListener('copy', null);
-        });
-        document.execCommand('copy');
-    };
-    MyAddressPage.prototype.checkPlatform = function () {
-        if (this.platform.is('desktop')) {
-            return true;
-        }
-        else {
-            return false;
-        }
+    MyAddressPage.prototype.copy = function (data) {
+        this.myTools.copy(data);
     };
     MyAddressPage.ctorParameters = function () { return [
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["MenuController"] },
-        { type: _service_minima_api_service__WEBPACK_IMPORTED_MODULE_4__["MinimaApiService"] },
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Platform"] },
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_3__["NgZone"] },
-        { type: _service_userconfig_service__WEBPACK_IMPORTED_MODULE_1__["UserConfigService"] },
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"] },
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"] }
+        { type: _service_tools_service__WEBPACK_IMPORTED_MODULE_1__["ToolsService"] },
+        { type: _service_minima_api_service__WEBPACK_IMPORTED_MODULE_4__["MinimaApiService"] }
     ]; };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ViewChild"])('generateAddressBtn', { static: false }),
@@ -1146,114 +1047,10 @@ var MyAddressPage = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./my-address.page.scss */ "./src/app/pages/my-address/my-address.page.scss")]
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["MenuController"],
-            _service_minima_api_service__WEBPACK_IMPORTED_MODULE_4__["MinimaApiService"],
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Platform"],
-            _angular_core__WEBPACK_IMPORTED_MODULE_3__["NgZone"],
-            _service_userconfig_service__WEBPACK_IMPORTED_MODULE_1__["UserConfigService"],
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"],
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"]])
+            _service_tools_service__WEBPACK_IMPORTED_MODULE_1__["ToolsService"],
+            _service_minima_api_service__WEBPACK_IMPORTED_MODULE_4__["MinimaApiService"]])
     ], MyAddressPage);
     return MyAddressPage;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/service/minima-api.service.ts":
-/*!***********************************************!*\
-  !*** ./src/app/service/minima-api.service.ts ***!
-  \***********************************************/
-/*! exports provided: MinimaApiService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MinimaApiService", function() { return MinimaApiService; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/fesm5/ionic-angular.js");
-/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! minima */ "./node_modules/minima/dist/minima.js");
-/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(minima__WEBPACK_IMPORTED_MODULE_3__);
-
-
-
-
-var MinimaApiService = /** @class */ (function () {
-    function MinimaApiService(loadingController) {
-        this.loadingController = loadingController;
-    }
-    MinimaApiService.prototype.createToken = function (data) {
-        return this.req("tokencreate name:\"" + data.name + "\" amount:" + data.amount + " description:\"" + data.description + "\" script:\"" + data.script + "\" icon:" + data.icon + " proof:" + data.proof);
-    };
-    MinimaApiService.prototype.validateTokenID = function (tokenid) {
-        return this.req("tokenvalidate " + tokenid);
-    };
-    MinimaApiService.prototype.sendMessageTransaction = function (data) {
-        //const txnidentifier = Math.floor(Math.random()*1000000000);
-        var postTransaction = "send " + data.amount + " " + data.address + " " + data.tokenid + " " + " 254:[01000100]#255:[\"" + data.message + "\"]";
-        // const customTXN = 
-        // // Custom TXN with an ID
-        // "txncreate "+txnidentifier+";"+
-        // // Add state variable 1
-        // "txnstate "+txnidentifier+" 254 01000100"+";"+
-        // // Add User state variable 2
-        // "txnstate "+txnidentifier+" 255 \""+data.message+"\""+";"+
-        // // Auto fill the transaction
-        // "txnauto "+txnidentifier+" "+data.amount+" "+data.address+" "+data.tokenid+";"+
-        // // Post it!
-        // "txnpost "+txnidentifier+";"+
-        // // Clear the txn
-        // "txndelete "+txnidentifier+";";
-        // // send 1 0xFF 0x00 '254:0x1000#255:[This is a message]'
-        return this.req(postTransaction);
-    };
-    MinimaApiService.prototype.webLink = function (data) {
-        return this.req('weblink+' + data.url);
-    };
-    MinimaApiService.prototype.setHost = function (newHost) {
-        localStorage.setItem('minima_host', newHost);
-    };
-    MinimaApiService.prototype.newAddress = function () {
-        return this.req('newaddress');
-    };
-    MinimaApiService.prototype.sendFunds = function (data) {
-        return this.req('send ' + data.amount + ' ' + data.address + ' ' + data.tokenid);
-    };
-    MinimaApiService.prototype.giveMe50 = function () {
-        return this.req('gimme50');
-    };
-    MinimaApiService.prototype.getBalance = function () {
-        return this.req('balance');
-    };
-    MinimaApiService.prototype.getHistory = function () {
-        return this.req('history');
-    };
-    MinimaApiService.prototype.clearMyHistory = function () {
-        return this.req('history clear');
-    };
-    MinimaApiService.prototype.getStatus = function () {
-        return this.req('status');
-    };
-    MinimaApiService.prototype.req = function (fnc) {
-        var promise = new Promise(function (resolve) {
-            minima__WEBPACK_IMPORTED_MODULE_3__["Minima"].cmd(fnc, function (resp) {
-                //console.log(resp);
-                resolve(resp);
-            });
-        });
-        return promise;
-    };
-    MinimaApiService.ctorParameters = function () { return [
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["LoadingController"] }
-    ]; };
-    MinimaApiService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-            providedIn: 'root'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["LoadingController"]])
-    ], MinimaApiService);
-    return MinimaApiService;
 }());
 
 

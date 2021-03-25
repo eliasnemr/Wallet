@@ -81,13 +81,15 @@ module.exports = "#deleteButton {\n  font-size: 1.8rem;\n  cursor: pointer;\n}\n
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ContactsPage", function() { return ContactsPage; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _components_pop_contacts_pop_contacts_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../components/pop-contacts/pop-contacts.component */ "./src/app/components/pop-contacts/pop-contacts.component.ts");
-/* harmony import */ var _service_minima_api_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../service/minima-api.service */ "./src/app/service/minima-api.service.ts");
-/* harmony import */ var _service_userconfig_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../../service/userconfig.service */ "./src/app/service/userconfig.service.ts");
-/* harmony import */ var _components_contacts_modal_contacts_modal_page__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../../components/contacts-modal/contacts-modal.page */ "./src/app/components/contacts-modal/contacts-modal.page.ts");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/fesm2015/ionic-angular.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var src_app_service_contacts_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/service/contacts.service */ "./src/app/service/contacts.service.ts");
+/* harmony import */ var _service_tools_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../service/tools.service */ "./src/app/service/tools.service.ts");
+/* harmony import */ var _components_pop_contacts_pop_contacts_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../components/pop-contacts/pop-contacts.component */ "./src/app/components/pop-contacts/pop-contacts.component.ts");
+/* harmony import */ var _service_minima_api_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../../service/minima-api.service */ "./src/app/service/minima-api.service.ts");
+/* harmony import */ var _service_userconfig_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../../service/userconfig.service */ "./src/app/service/userconfig.service.ts");
+/* harmony import */ var _components_contacts_modal_contacts_modal_page__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../../components/contacts-modal/contacts-modal.page */ "./src/app/components/contacts-modal/contacts-modal.page.ts");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/fesm2015/ionic-angular.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var src_app_service_contacts_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/service/contacts.service */ "./src/app/service/contacts.service.ts");
+
 
 
 
@@ -97,15 +99,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let ContactsPage = class ContactsPage {
-    constructor(toastController, menu, api, userConfigService, alertController, contactService, modalController, popoverController) {
-        this.toastController = toastController;
+    constructor(menu, modalController, popoverController, alertController, userConfigService, contactService, api, myTools) {
         this.menu = menu;
-        this.api = api;
-        this.userConfigService = userConfigService;
-        this.alertController = alertController;
-        this.contactService = contactService;
         this.modalController = modalController;
         this.popoverController = popoverController;
+        this.alertController = alertController;
+        this.userConfigService = userConfigService;
+        this.contactService = contactService;
+        this.api = api;
+        this.myTools = myTools;
         this.editMode = false;
         this.contacts = [];
         this.user = {
@@ -129,7 +131,7 @@ let ContactsPage = class ContactsPage {
     presentContactSettings(ev) {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
             const popover = yield this.popoverController.create({
-                component: _components_pop_contacts_pop_contacts_component__WEBPACK_IMPORTED_MODULE_1__["PopContactsComponent"],
+                component: _components_pop_contacts_pop_contacts_component__WEBPACK_IMPORTED_MODULE_2__["PopContactsComponent"],
                 translucent: true,
                 event: ev
             });
@@ -171,22 +173,15 @@ let ContactsPage = class ContactsPage {
     giveMe50() {
         this.api.giveMe50().then((res) => {
             if (res.status === true) {
-                this.presentAlertDefault('Gimme50', 'Successful', 'Status');
+                this.myTools.presentAlert('Gimme50', 'Successful', 'Status');
             }
             else {
-                this.presentAlertDefault('Gimme50', res.message, 'Status');
+                this.myTools.presentAlert('Gimme50', res.message, 'Status');
             }
         });
     }
     copyAddress(addr) {
-        document.addEventListener('copy', (e) => {
-            e.clipboardData.setData('text/plain', addr);
-            this.presentToast('Copied To Clipboard', 'primary', 'bottom');
-            this.ContactList.closeSlidingItems();
-            e.preventDefault();
-            document.removeEventListener('copy', null);
-        });
-        document.execCommand('copy');
+        this.myTools.copy(addr);
     }
     presentAlert(addr) {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
@@ -210,34 +205,10 @@ let ContactsPage = class ContactsPage {
             yield alert.present();
         });
     }
-    presentAlertDefault(hdr, msg, sub) {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
-            const alert = yield this.alertController.create({
-                cssClass: 'alert',
-                header: hdr,
-                subHeader: sub,
-                message: msg,
-                buttons: ['OK']
-            });
-            yield alert.present();
-        });
-    }
-    presentToast(msg, clr, posn) {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
-            const toast = yield this.toastController.create({
-                message: msg,
-                duration: 1000,
-                color: clr,
-                position: posn,
-                buttons: ['cancel']
-            });
-            yield toast.present();
-        });
-    }
     presentAddContactForm() {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
             const modal = yield this.modalController.create({
-                component: _components_contacts_modal_contacts_modal_page__WEBPACK_IMPORTED_MODULE_4__["ContactsModalPage"],
+                component: _components_contacts_modal_contacts_modal_page__WEBPACK_IMPORTED_MODULE_5__["ContactsModalPage"],
                 cssClass: 'contactsModal'
             });
             return yield modal.present();
@@ -245,133 +216,34 @@ let ContactsPage = class ContactsPage {
     }
 };
 ContactsPage.ctorParameters = () => [
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["ToastController"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["MenuController"] },
-    { type: _service_minima_api_service__WEBPACK_IMPORTED_MODULE_2__["MinimaApiService"] },
-    { type: _service_userconfig_service__WEBPACK_IMPORTED_MODULE_3__["UserConfigService"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["AlertController"] },
-    { type: src_app_service_contacts_service__WEBPACK_IMPORTED_MODULE_7__["ContactService"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["ModalController"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["PopoverController"] }
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["MenuController"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["ModalController"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["PopoverController"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["AlertController"] },
+    { type: _service_userconfig_service__WEBPACK_IMPORTED_MODULE_4__["UserConfigService"] },
+    { type: src_app_service_contacts_service__WEBPACK_IMPORTED_MODULE_8__["ContactService"] },
+    { type: _service_minima_api_service__WEBPACK_IMPORTED_MODULE_3__["MinimaApiService"] },
+    { type: _service_tools_service__WEBPACK_IMPORTED_MODULE_1__["ToolsService"] }
 ];
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_6__["ViewChild"])('contactList', { static: false }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonList"])
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_7__["ViewChild"])('contactList', { static: false }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["IonList"])
 ], ContactsPage.prototype, "ContactList", void 0);
 ContactsPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_6__["Component"])({
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_7__["Component"])({
         selector: 'app-contacts',
         template: __webpack_require__(/*! raw-loader!./contacts.page.html */ "./node_modules/raw-loader/index.js!./src/app/pages/contacts/contacts.page.html"),
         styles: [__webpack_require__(/*! ./contacts.page.scss */ "./src/app/pages/contacts/contacts.page.scss")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_5__["ToastController"],
-        _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["MenuController"],
-        _service_minima_api_service__WEBPACK_IMPORTED_MODULE_2__["MinimaApiService"],
-        _service_userconfig_service__WEBPACK_IMPORTED_MODULE_3__["UserConfigService"],
-        _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["AlertController"],
-        src_app_service_contacts_service__WEBPACK_IMPORTED_MODULE_7__["ContactService"],
-        _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["ModalController"],
-        _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["PopoverController"]])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_6__["MenuController"],
+        _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["ModalController"],
+        _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["PopoverController"],
+        _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["AlertController"],
+        _service_userconfig_service__WEBPACK_IMPORTED_MODULE_4__["UserConfigService"],
+        src_app_service_contacts_service__WEBPACK_IMPORTED_MODULE_8__["ContactService"],
+        _service_minima_api_service__WEBPACK_IMPORTED_MODULE_3__["MinimaApiService"],
+        _service_tools_service__WEBPACK_IMPORTED_MODULE_1__["ToolsService"]])
 ], ContactsPage);
-
-
-
-/***/ }),
-
-/***/ "./src/app/service/minima-api.service.ts":
-/*!***********************************************!*\
-  !*** ./src/app/service/minima-api.service.ts ***!
-  \***********************************************/
-/*! exports provided: MinimaApiService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MinimaApiService", function() { return MinimaApiService; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/fesm2015/ionic-angular.js");
-/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! minima */ "./node_modules/minima/dist/minima.js");
-/* harmony import */ var minima__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(minima__WEBPACK_IMPORTED_MODULE_3__);
-
-
-
-
-let MinimaApiService = class MinimaApiService {
-    constructor(loadingController) {
-        this.loadingController = loadingController;
-    }
-    createToken(data) {
-        return this.req("tokencreate name:\"" + data.name + "\" amount:" + data.amount + " description:\"" + data.description + "\" script:\"" + data.script + "\" icon:" + data.icon + " proof:" + data.proof);
-    }
-    validateTokenID(tokenid) {
-        return this.req("tokenvalidate " + tokenid);
-    }
-    sendMessageTransaction(data) {
-        //const txnidentifier = Math.floor(Math.random()*1000000000);
-        const postTransaction = "send " + data.amount + " " + data.address + " " + data.tokenid + " " + " 254:[01000100]#255:[\"" + data.message + "\"]";
-        // const customTXN = 
-        // // Custom TXN with an ID
-        // "txncreate "+txnidentifier+";"+
-        // // Add state variable 1
-        // "txnstate "+txnidentifier+" 254 01000100"+";"+
-        // // Add User state variable 2
-        // "txnstate "+txnidentifier+" 255 \""+data.message+"\""+";"+
-        // // Auto fill the transaction
-        // "txnauto "+txnidentifier+" "+data.amount+" "+data.address+" "+data.tokenid+";"+
-        // // Post it!
-        // "txnpost "+txnidentifier+";"+
-        // // Clear the txn
-        // "txndelete "+txnidentifier+";";
-        // // send 1 0xFF 0x00 '254:0x1000#255:[This is a message]'
-        return this.req(postTransaction);
-    }
-    webLink(data) {
-        return this.req('weblink+' + data.url);
-    }
-    setHost(newHost) {
-        localStorage.setItem('minima_host', newHost);
-    }
-    newAddress() {
-        return this.req('newaddress');
-    }
-    sendFunds(data) {
-        return this.req('send ' + data.amount + ' ' + data.address + ' ' + data.tokenid);
-    }
-    giveMe50() {
-        return this.req('gimme50');
-    }
-    getBalance() {
-        return this.req('balance');
-    }
-    getHistory() {
-        return this.req('history');
-    }
-    clearMyHistory() {
-        return this.req('history clear');
-    }
-    getStatus() {
-        return this.req('status');
-    }
-    req(fnc) {
-        const promise = new Promise((resolve) => {
-            minima__WEBPACK_IMPORTED_MODULE_3__["Minima"].cmd(fnc, (resp) => {
-                //console.log(resp);
-                resolve(resp);
-            });
-        });
-        return promise;
-    }
-};
-MinimaApiService.ctorParameters = () => [
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["LoadingController"] }
-];
-MinimaApiService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-        providedIn: 'root'
-    }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["LoadingController"]])
-], MinimaApiService);
 
 
 
