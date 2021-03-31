@@ -34,7 +34,7 @@ export class HistoryPage implements OnInit {
   day: string;
   time: string;
   prompt = 'Fetching your history...';
-  transactions: CompleteTransactionTime[] = [];
+  transactions: CompleteTransaction[] = [];
   saved: History[] = [];
   lastJSON = '';
 
@@ -61,53 +61,87 @@ export class HistoryPage implements OnInit {
     this.menu.open();
   }
 
-  pullInHistorySummary() {
-    // console.log('Pulling in history');
-    this.historyService.data.pipe(map((res: History) => {
-      res.history.forEach((txpow: CompleteTransactionTime) => {
-        console.log(txpow)
-        if (txpow.txpow.body.txn.tokengen) {
-          //console.log('Token Creation, look at tokengen');
-          //console.log(txpow.txpow.body.txn.tokengen);
+  async pullInHistorySummary() {
+    const res = await this.historyService.loadHistoryOnce();
+    
+    this.transactions = res.history;
+    console.log(this.transactions);
+    if (res.history) {
+      this.transactions = res.history;
+      this.transactions.forEach((txn: CompleteTransactionTime, i) => {
+        if(txn.values.length > 0) {
+          if (txn.values[0].name.substring(0,1) === '{') {
+            console.log(txn.values[0].name);
+            const token_descr = JSON.parse(txn.values[0].name);
+            txn.values[0].name = token_descr.name;
+          }
+  
+          txn.values[0].time = moment( parseInt(txn.txpow.header.timemilli)).format('hh:mm a');
+          txn.values[0].day = moment( parseInt(txn.txpow.header.timemilli)).format("DD");
+          txn.values[0].month = moment( parseInt(txn.txpow.header.timemilli)).format("MMM");
+          txn.values[0].year = moment( parseInt(txn.txpow.header.timemilli)).format("YYYY");
+        }       
 
-
-        } else if (!txpow.txpow.body.txn.tokengen &&
-          //  txpow.values.length > 0 &&
-           txpow.values[0].name && 
-           txpow.values[0].name.substring(0, 1) !== "{\"") {
-          console.log('This is a normal Minima value transaction');
-
-
-        } else if (!txpow.txpow.body.txn.tokengen &&
-           txpow.values.length > 0 &&
-           txpow.values[0].name && 
-           txpow.values[0].name.substring(0, 1) === "{\"") {
-          console.log('This is a token value transaction');
-          console.log(txpow);
-          const token_descr = JSON.parse(txpow.values[0].name);
-          console.log(token_descr);
-          const name = token_descr.name;
-          console.log('Name of token txn' + name);
-        }
-
-        // if( txpow.values.length > 0) {
-        //   const name = txpow.values[0].name;
-        //   if (name && !name.name && name.substring(0, 1) === '{') {
-        //     txpow.values[0].name = JSON.parse(name);
-        //     txpow.values[0].time = moment( parseInt(txpow.txpow.header.timemilli)).format('hh:mm a');
-        //     txpow.values[0].day = moment( parseInt(txpow.txpow.header.timemilli)).format("DD");
-        //     txpow.values[0].month = moment( parseInt(txpow.txpow.header.timemilli)).format("MMM");
-        //     txpow.values[0].year = moment( parseInt(txpow.txpow.header.timemilli)).format("YYYY");
-        //   }
-        // }
-      });
-      return res.history;
-    })).subscribe((res: any) => {
-      this.transactions = res;
-    });
-    if (this.transactions.length === 0) {
-      this.prompt = 'No recent transactions found...';
+      })
     }
+
+    
+
+
+
+    // this.historyService.data.pipe(map((res: History) => {
+    //   let temp = [];
+    //   temp = res.history;
+
+    //   temp.forEach((txpow: CompleteTransactionTime, i) => {
+        
+    //     if (txpow.values.length == 0) {
+    //       res.history.splice(i, 1);
+    //     }
+
+    //     if (txpow.txpow.body.txn.tokengen) {
+    //       //console.log('Token Creation, look at tokengen');
+    //       //console.log(txpow.txpow.body.txn.tokengen);
+
+
+    //     } else if (!txpow.txpow.body.txn.tokengen &&
+    //        txpow.values.length > 0 &&
+    //        txpow.values[0].name && 
+    //        txpow.values[0].name.substring(0, 1) !== "{\"") {
+    //         console.log('This is a normal Minima value transaction');
+    //         // console.log(JSON.stringify(txpow));
+
+    //     } else if (!txpow.txpow.body.txn.tokengen &&
+    //        txpow.values.length > 0 &&
+    //        txpow.values[0].name && 
+    //        txpow.values[0].name.substring(0, 1) === "{\"") {
+    //       console.log('This is a token value transaction');
+    //       console.log(txpow);
+    //       const token_descr = JSON.parse(txpow.values[0].name);
+    //       console.log(token_descr);
+    //       const name = token_descr.name;
+    //       console.log('Name of token txn' + name);
+    //     }
+
+    //     if( txpow.values.length > 0) {
+    //       const name = txpow.values[0].name;
+    //       if (name && !name.name && name.substring(0, 1) === '{') {
+    //         txpow.values[0].name = JSON.parse(name);
+    //         txpow.values[0].time = moment( parseInt(txpow.txpow.header.timemilli)).format('hh:mm a');
+    //         txpow.values[0].day = moment( parseInt(txpow.txpow.header.timemilli)).format("DD");
+    //         txpow.values[0].month = moment( parseInt(txpow.txpow.header.timemilli)).format("MMM");
+    //         txpow.values[0].year = moment( parseInt(txpow.txpow.header.timemilli)).format("YYYY");
+    //       }
+    //     }
+    //   });
+    //   return res.history;
+    // })).subscribe((res: any) => {
+      
+    //   this.transactions = res;
+    // });
+    // if (this.transactions.length === 0) {
+    //   this.prompt = 'No recent transactions found...';
+    // }
   }
 
   giveMe50() {

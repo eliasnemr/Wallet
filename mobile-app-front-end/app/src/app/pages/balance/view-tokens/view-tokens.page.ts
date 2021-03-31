@@ -1,10 +1,11 @@
 import { ToolsService } from './../../../service/tools.service';
 import { BalanceService } from './../../../service/balance.service';
 import { MinimaApiService } from './../../../service/minima-api.service';
-import { Token } from 'minima';
+import { Token, Minima } from 'minima';
 import * as SparkMD5 from 'spark-md5';
 import { ActivatedRoute } from '@angular/router';
 import { Component,  OnInit } from '@angular/core';
+
 @Component({
   selector: 'app-view-tokens',
   templateUrl: './view-tokens.page.html',
@@ -24,7 +25,7 @@ export class ViewTokensPage implements OnInit {
     public balanceService: BalanceService,
     private myTools: ToolsService
   ) {
-
+    
   }
 
   ngOnInit() {

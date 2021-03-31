@@ -9,6 +9,11 @@ ion-icon.icon {
 ion-card-content ion-text {
     margin-top: 10px;
 }
+ion-list {
+    background-color: transparent;
+    margin: 0; 
+    padding: 2px;
+}
 ion-list ion-item {
     --padding-start: 27px;
     --inner-padding-end: 27px;

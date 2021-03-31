@@ -22,6 +22,7 @@ import { PopContactsComponent } from './components/pop-contacts/pop-contacts.com
 import { ContactsViewModalComponent } from './components/contacts-view-modal/contacts-view-modal.component';
 import { AngularFileUploaderModule } from 'angular-file-uploader';
 import { UploadFileModalComponent } from './components/upload-file-modal/upload-file-modal.component';
+import { FilterPipe } from './pipes/filter.pipe';
 
 
 @NgModule({
