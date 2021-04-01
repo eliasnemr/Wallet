@@ -1,4 +1,4 @@
-import { ToastController, AlertController } from '@ionic/angular';
+import { ToastController, AlertController, IonContent } from '@ionic/angular';
 import { Injectable } from '@angular/core';
 
 /** 
@@ -33,11 +33,9 @@ export class ToolsService {
       buttons: [{
         text: 'Dismiss', 
         role: 'cancel',
-        handler: () => {
-        }
       }]
     });
-    await toast.present();
+    return await toast.present();
   }
 
   async presentAlert(hdr: string, msg: string, sub: string) {
@@ -49,6 +47,14 @@ export class ToolsService {
       buttons: ['OK']
     });
     await alert.present();
+  }
+
+  scrollToBottom(pageContent: IonContent) {
+    try {
+     pageContent.scrollToBottom(300);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
 

@@ -21628,28 +21628,28 @@ let MinimaApiService = class MinimaApiService {
         this.loadingController = loadingController;
     }
     createToken(data) {
-        return this.req("tokencreate name:\"" + data.name + "\" amount:\"" + data.amount + "\" description:\"" + data.description + "\" script:\"" + data.script + "\" icon:\"" + data.icon + "\" proof:\"" + data.proof + "\"");
+        if (data.script !== "") {
+            if (data.nft === true) {
+                return this.req("tokencreate name:\"" + data.name + "\" amount:\"" + data.amount + '.' + 0 + "\" description:\"" + data.description + "\" script:\"" + data.script + "\" icon:\"" + data.icon + "\" proof:\"" + data.proof + "\"");
+            }
+            else {
+                return this.req("tokencreate name:\"" + data.name + "\" amount:\"" + data.amount + "\" description:\"" + data.description + "\" script:\"" + data.script + "\" icon:\"" + data.icon + "\" proof:\"" + data.proof + "\"");
+            }
+        }
+        else {
+            if (data.nft === true) {
+                return this.req("tokencreate name:\"" + data.name + "\" amount:\"" + data.amount + '.' + 0 + "\" description:\"" + data.description + "\" icon:\"" + data.icon + "\" proof:\"" + data.proof + "\"");
+            }
+            else {
+                return this.req("tokencreate name:\"" + data.name + "\" amount:\"" + data.amount + "\" description:\"" + data.description + "\" icon:\"" + data.icon + "\" proof:\"" + data.proof + "\"");
+            }
+        }
     }
     validateTokenID(tokenid) {
         return this.req("tokenvalidate " + tokenid);
     }
     sendMessageTransaction(data) {
-        //const txnidentifier = Math.floor(Math.random()*1000000000);
         const postTransaction = "send " + data.amount + " " + data.address + " " + data.tokenid + " " + " 254:[01000100]#255:[\"" + data.message + "\"]";
-        // const customTXN = 
-        // // Custom TXN with an ID
-        // "txncreate "+txnidentifier+";"+
-        // // Add state variable 1
-        // "txnstate "+txnidentifier+" 254 01000100"+";"+
-        // // Add User state variable 2
-        // "txnstate "+txnidentifier+" 255 \""+data.message+"\""+";"+
-        // // Auto fill the transaction
-        // "txnauto "+txnidentifier+" "+data.amount+" "+data.address+" "+data.tokenid+";"+
-        // // Post it!
-        // "txnpost "+txnidentifier+";"+
-        // // Clear the txn
-        // "txndelete "+txnidentifier+";";
-        // // send 1 0xFF 0x00 '254:0x1000#255:[This is a message]'
         return this.req(postTransaction);
     }
     webLink(data) {

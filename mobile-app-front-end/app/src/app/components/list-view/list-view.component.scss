@@ -19,13 +19,17 @@
 span.confirmed-amount {
     font-family: manrope-regular;
     color: #9898A3;
-    
     text-align: left;
     float: left;
     white-space: nowrap;
-    max-width: 65vw;
+    max-width: 60vw;
     text-overflow: ellipsis;
     overflow: hidden;
+}
+@media only screen and (max-width:335px) {
+    span.confirmed-amount {
+        max-width: 45vw;
+    }
 }
 ion-avatar {
     margin-top: 2%;

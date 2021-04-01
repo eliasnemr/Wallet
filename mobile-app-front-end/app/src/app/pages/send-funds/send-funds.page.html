@@ -15,7 +15,7 @@
 
 
 
-<ion-content class="page-content" *ngIf="!isWebCameraOpen">
+<ion-content #pageContent class="page-content" *ngIf="!isWebCameraOpen">
 
   <ion-grid *ngIf="tokenArr.length == 0">
     <ion-row>

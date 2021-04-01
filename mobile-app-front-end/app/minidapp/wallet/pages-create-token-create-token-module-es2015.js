@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-app>\n<ion-header class=\"page-header ion-no-border\">\n  <ion-toolbar>\n    <ion-title>\n      <ion-item id=\"title\" lines=\"none\" class=\"ion-no-padding\">\n        <ion-icon class=\"menu-btn\" (click)=\"openMenu()\" src=\"assets/menuIcon.svg\"></ion-icon>\n        Token\n      </ion-item>\n      <ion-item id=\"subtitle\" class=\"breadcrumb ion-no-padding\" lines=\"none\">\n        Create a custom token\n      </ion-item>\n      \n    </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n\n<ion-content class=\"page-content\">\n  <form (ngSubmit)=\"createTokenAdvanced()\" [formGroup]=\"tokenCreationForm\" id='tokenCreationForm'>\n  <ion-list lines=\"none\">\n\n    <ion-item class=\"no-ripple ion-no-padding\" lines=\"none\">\n      <ion-label position=\"stacked\">Name</ion-label>\n      <ion-input placeholder=\"Enter a token name\" class=\"medium-text input\" #nameTextArea name=\"name\" formControlName=\"name\"></ion-input>\n    </ion-item>\n\n    <ion-note *ngIf=\"name.invalid && name.touched\" class=\"error-message\">\n      <ion-icon name=\"alert-circle\"></ion-icon> <span> Token name required!</span>\n      <span style=\"margin-left: 2px\"> Token name must be a maximum length of 255 characters.</span> \n    </ion-note>\n\n\n    <ion-item class=\"no-ripple ion-no-padding\" lines=\"none\">\n      <ion-label position=\"stacked\">Amount</ion-label>\n      <ion-input placeholder=\"Enter token amount\" type=\"number\" class=\"medium-text input\" #amountRef name=\"amount\" formControlName=\"amount\"></ion-input>\n    </ion-item>\n\n    <ion-note *ngIf=\"amount.invalid && amount.touched\" class=\"error-message\">\n      <ion-icon name=\"alert-circle\"></ion-icon> <span> Token amount required!</span>\n      <span style=\"margin-left: 2px\"> Token amount must be numeric and greater than 0.</span> \n    </ion-note>\n\n    <ion-item class=\"no-ripple ion-no-padding\" lines=\"none\" lines=\"none\">\n      <ion-label position=\"stacked\">Icon <span style=\"font-family: manrope-light; color:var(--ion-color-optional)\">(optional)</span></ion-label>\n      <ion-input class=\"medium-text input\" name=\"icon\" #iconURL formControlName=\"icon\" placeholder=\"Enter a valid icon URL\"></ion-input>\n    </ion-item>\n\n    <ion-note *ngIf=\"icon.invalid && icon.touched\" class=\"error-message\">\n      <ion-icon name=\"alert-circle\"></ion-icon> <span> Invalid icon URL!</span>\n      <span style=\"margin-left: 2px\"> An icon URL should be of maximum 255 characters and end with .jpg, .png or .gif to be valid.</span> \n    </ion-note>\n\n    <ion-item class=\"no-ripple ion-no-padding\" lines=\"none\" lines=\"none\">\n      <ion-label position=\"stacked\">Proof <span style=\"font-family: manrope-light; color:var(--ion-color-optional)\">(optional)</span></ion-label>\n      <ion-input  name=\"proof\" class=\"medium-text input\" #proofURL formControlName=\"proof\" placeholder=\"Enter URL of website hosting token ID text\"></ion-input>\n    </ion-item>\n\n    <ion-note *ngIf=\"proof.invalid && proof.touched\" class=\"error-message\">\n      <ion-icon name=\"alert-circle\"></ion-icon> <span> Invalid proof URL!</span>\n      <span style=\"margin-left: 2px\"> A proof URL should be a max length of 255 characters with a .txt file in the URL.</span> \n    </ion-note>\n\n    <ion-item class=\"no-ripple ion-no-padding\" lines=\"none\" lines=\"none\">\n      <ion-label position=\"stacked\">Description <span style=\"font-family: manrope-light; color:var(--ion-color-optional)\">(optional)</span></ion-label>\n      <ion-textarea\n      #description \n      class=\"medium-text input\"\n      name=\"description\"\n      maxlength=\"255\"\n      [(ngModel)] = \"customToken.description\"\n      formControlName=\"description\"\n      placeholder=\"Enter a description\">\n      </ion-textarea>\n    </ion-item>\n    <ion-label style=\"margin-left:0\" class=\"length\" *ngIf=\"customToken.description && customToken.description.length > 0\">{{ customToken.description.length+'/255'}}</ion-label>\n    \n    <ion-item id=\"nft\" class=\"no-ripple ion-no-padding\">\n      <ion-label>\n        <ion-icon class=\"nftIcon\" src=\"assets/nft2.svg\"></ion-icon> \n        <span style=\"font-size:16px;font-family: manrope-light; color:var(--ion-color-optional); margin-right: 7px\">(optional)  </span>        \n      </ion-label>\n      <ion-checkbox formControlName=\"nft\" slot=\"end\"></ion-checkbox>\n    </ion-item>\n    \n    <ion-item lines=\"none\" class=\"createtoken-wrapper ion-no-padding\">\n      <div style=\"display: flex; flex-direction:column; justify-content:right; align-items:flex-end\">\n        <ion-button slot=\"end\" #submitBtn type=\"submit\" class=\"create-token\" [disabled]=\"tokenCreationForm.invalid\" fill=\"clear\">\n          Create Token\n        </ion-button>\n        <ion-note *ngIf=\"status.length > 0\">{{ status }}</ion-note>\n      </div>\n    </ion-item>\n\n  </ion-list>\n\n  </form>\n</ion-content>\n\n<ion-footer class=\"border-t\">\n  <ion-button (click)=\"giveMe50()\" class=\"gimme50 no-ripple\" fill=\"none\">\n    Gimme 50\n  </ion-button>\n</ion-footer>\n\n</ion-app>"
+module.exports = "<ion-app>\n<ion-header class=\"page-header ion-no-border\">\n  <ion-toolbar>\n    <ion-title>\n      <ion-item id=\"title\" lines=\"none\" class=\"ion-no-padding\">\n        <ion-icon class=\"menu-btn\" (click)=\"openMenu()\" src=\"assets/menuIcon.svg\"></ion-icon>\n        Token\n      </ion-item>\n      <ion-item id=\"subtitle\" class=\"breadcrumb ion-no-padding\" lines=\"none\">\n        Create a custom token\n      </ion-item>\n      \n    </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n\n<ion-content #pageContent class=\"page-content\">\n  <form (ngSubmit)=\"createTokenAdvanced()\" [formGroup]=\"tokenCreationForm\" id='tokenCreationForm'>\n  <ion-list lines=\"none\">\n\n    <ion-item class=\"no-ripple ion-no-padding\" lines=\"none\">\n      <ion-label position=\"stacked\">Name</ion-label>\n      <ion-input placeholder=\"Enter a token name\" class=\"medium-text input\" #nameTextArea name=\"name\" formControlName=\"name\"></ion-input>\n    </ion-item>\n\n    <ion-note *ngIf=\"name.invalid && name.touched\" class=\"error-message\">\n      <ion-icon name=\"alert-circle\"></ion-icon> <span> Token name required!</span>\n      <span style=\"margin-left: 2px\"> Token name must be a maximum length of 255 characters.</span> \n    </ion-note>\n\n\n    <ion-item class=\"no-ripple ion-no-padding\" lines=\"none\">\n      <ion-label position=\"stacked\">Amount</ion-label>\n      <ion-input placeholder=\"Enter token amount\" type=\"number\" class=\"medium-text input\" #amountRef name=\"amount\" formControlName=\"amount\"></ion-input>\n    </ion-item>\n\n    <ion-note *ngIf=\"amount.invalid && amount.touched\" class=\"error-message\">\n      <ion-icon name=\"alert-circle\"></ion-icon> <span> Token amount required!</span>\n      <span style=\"margin-left: 2px\"> Token amount must be numeric and greater than 0.</span> \n    </ion-note>\n\n    <ion-item class=\"no-ripple ion-no-padding\" lines=\"none\" lines=\"none\">\n      <ion-label position=\"stacked\">Icon <span style=\"font-family: manrope-light; color:var(--ion-color-optional)\">(optional)</span></ion-label>\n      <ion-input class=\"medium-text input\" name=\"icon\" #iconURL formControlName=\"icon\" placeholder=\"Enter a valid icon URL\"></ion-input>\n    </ion-item>\n\n    <ion-note *ngIf=\"icon.invalid && icon.touched\" class=\"error-message\">\n      <ion-icon name=\"alert-circle\"></ion-icon> <span> Invalid icon URL!</span>\n      <span style=\"margin-left: 2px\"> An icon URL should be of maximum 255 characters and end with .jpg, .png or .gif to be valid.</span> \n    </ion-note>\n\n    <ion-item class=\"no-ripple ion-no-padding\" lines=\"none\" lines=\"none\">\n      <ion-label position=\"stacked\">Proof <span style=\"font-family: manrope-light; color:var(--ion-color-optional)\">(optional)</span></ion-label>\n      <ion-input  name=\"proof\" class=\"medium-text input\" #proofURL formControlName=\"proof\" placeholder=\"Enter URL of website hosting token ID text\"></ion-input>\n    </ion-item>\n\n    <ion-note *ngIf=\"proof.invalid && proof.touched\" class=\"error-message\">\n      <ion-icon name=\"alert-circle\"></ion-icon> <span> Invalid proof URL!</span>\n      <span style=\"margin-left: 2px\"> A proof URL should be a max length of 255 characters with a .txt file in the URL.</span> \n    </ion-note>\n\n    <ion-item class=\"no-ripple ion-no-padding\" lines=\"none\" lines=\"none\">\n      <ion-label position=\"stacked\">Description <span style=\"font-family: manrope-light; color:var(--ion-color-optional)\">(optional)</span></ion-label>\n      <ion-textarea\n      #description \n      class=\"medium-text input\"\n      name=\"description\"\n      maxlength=\"255\"\n      [(ngModel)] = \"customToken.description\"\n      formControlName=\"description\"\n      placeholder=\"Enter a description\">\n      </ion-textarea>\n    </ion-item>\n    <ion-label style=\"margin-left:0\" class=\"length\" *ngIf=\"customToken.description && customToken.description.length > 0\">{{ customToken.description.length+'/255'}}</ion-label>\n    \n    <ion-item id=\"nft\" class=\"no-ripple ion-no-padding\">\n      <ion-label>\n        <ion-icon class=\"nftIcon\" src=\"assets/nft2.svg\"></ion-icon> \n        <span style=\"font-size:16px;font-family: manrope-light; color:var(--ion-color-optional); margin-right: 7px\">(optional)  </span>        \n      </ion-label>\n      <ion-checkbox formControlName=\"nft\" slot=\"end\"></ion-checkbox>\n    </ion-item>\n    \n    <ion-item lines=\"none\" class=\"createtoken-wrapper ion-no-padding\">\n      <div style=\"display: flex; flex-direction:column; justify-content:right; align-items:flex-end\">\n        <ion-button slot=\"end\" #submitBtn type=\"submit\" class=\"create-token\" [disabled]=\"tokenCreationForm.invalid\" fill=\"clear\">\n          Create Token\n        </ion-button>\n        <ion-note *ngIf=\"status.length > 0\">{{ status }}</ion-note>\n      </div>\n    </ion-item>\n\n  </ion-list>\n\n  </form>\n</ion-content>\n\n<ion-footer class=\"border-t\">\n  <ion-button (click)=\"giveMe50()\" class=\"gimme50 no-ripple\" fill=\"none\">\n    Gimme 50\n  </ion-button>\n</ion-footer>\n\n</ion-app>"
 
 /***/ }),
 
@@ -165,9 +165,9 @@ let CreateTokenPage = class CreateTokenPage {
     create(newToken) {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
             console.log(newToken);
+            this.myTools.scrollToBottom(this.pageContent);
             if (newToken.nft) {
                 this.submitBtn.disabled = true;
-                newToken.script = this.myNFT; // script for non-fungible
                 const res = yield this.api.createToken(newToken);
                 if (res.status) {
                     this.status = 'Token created!';
@@ -245,6 +245,10 @@ tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ViewChild"])('submitBtn', { static: false }),
     tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonButton"])
 ], CreateTokenPage.prototype, "submitBtn", void 0);
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ViewChild"])('pageContent', { static: false }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonContent"])
+], CreateTokenPage.prototype, "pageContent", void 0);
 CreateTokenPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Component"])({
         selector: 'app-create-token',
@@ -285,28 +289,28 @@ let MinimaApiService = class MinimaApiService {
         this.loadingController = loadingController;
     }
     createToken(data) {
-        return this.req("tokencreate name:\"" + data.name + "\" amount:\"" + data.amount + "\" description:\"" + data.description + "\" script:\"" + data.script + "\" icon:\"" + data.icon + "\" proof:\"" + data.proof + "\"");
+        if (data.script !== "") {
+            if (data.nft === true) {
+                return this.req("tokencreate name:\"" + data.name + "\" amount:\"" + data.amount + '.' + 0 + "\" description:\"" + data.description + "\" script:\"" + data.script + "\" icon:\"" + data.icon + "\" proof:\"" + data.proof + "\"");
+            }
+            else {
+                return this.req("tokencreate name:\"" + data.name + "\" amount:\"" + data.amount + "\" description:\"" + data.description + "\" script:\"" + data.script + "\" icon:\"" + data.icon + "\" proof:\"" + data.proof + "\"");
+            }
+        }
+        else {
+            if (data.nft === true) {
+                return this.req("tokencreate name:\"" + data.name + "\" amount:\"" + data.amount + '.' + 0 + "\" description:\"" + data.description + "\" icon:\"" + data.icon + "\" proof:\"" + data.proof + "\"");
+            }
+            else {
+                return this.req("tokencreate name:\"" + data.name + "\" amount:\"" + data.amount + "\" description:\"" + data.description + "\" icon:\"" + data.icon + "\" proof:\"" + data.proof + "\"");
+            }
+        }
     }
     validateTokenID(tokenid) {
         return this.req("tokenvalidate " + tokenid);
     }
     sendMessageTransaction(data) {
-        //const txnidentifier = Math.floor(Math.random()*1000000000);
         const postTransaction = "send " + data.amount + " " + data.address + " " + data.tokenid + " " + " 254:[01000100]#255:[\"" + data.message + "\"]";
-        // const customTXN = 
-        // // Custom TXN with an ID
-        // "txncreate "+txnidentifier+";"+
-        // // Add state variable 1
-        // "txnstate "+txnidentifier+" 254 01000100"+";"+
-        // // Add User state variable 2
-        // "txnstate "+txnidentifier+" 255 \""+data.message+"\""+";"+
-        // // Auto fill the transaction
-        // "txnauto "+txnidentifier+" "+data.amount+" "+data.address+" "+data.tokenid+";"+
-        // // Post it!
-        // "txnpost "+txnidentifier+";"+
-        // // Clear the txn
-        // "txndelete "+txnidentifier+";";
-        // // send 1 0xFF 0x00 '254:0x1000#255:[This is a message]'
         return this.req(postTransaction);
     }
     webLink(data) {

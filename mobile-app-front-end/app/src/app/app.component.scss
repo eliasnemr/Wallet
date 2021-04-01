@@ -51,10 +51,17 @@
     ion-content {
       --background: var(--ion-m-background);
     }
-    span.wallet-version {
-      color: var(--ion-color-tertiary);
-      font-family: manrope-light;
-      padding-left: 27px;
+    ion-list {
+      a.wallet-version {
+        color: var(--ion-color-tertiary);
+        font-family: manrope-light;
+        ion-chip {
+          border: 1px solid var(--ion-color-tertiary);
+        }
+      }
+      a.wallet-version:first-child {
+        padding-left: 27px;
+      }
     }
   }
   ion-item ion-label {

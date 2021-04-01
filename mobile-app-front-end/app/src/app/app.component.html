@@ -35,9 +35,25 @@
         </ion-menu-toggle>
       </ion-list>
   </ion-content>
-  <span class="wallet-version">
-    {{ environment.wallet_version }}
-  </span>
+  <ion-list>
+    <a href="https://github.com/eliasnemr/Wallet" target="_"  class="wallet-version">
+      <ion-chip outline="true">
+          <ion-icon name="wallet-outline"></ion-icon>
+          <ion-label style="color: var(--ion-color-tertiary)">
+          {{ environment.wallet_version }}
+          </ion-label>
+      </ion-chip>    
+    </a>
+    <a class="wallet-version" href="mailto:minima-global@fire.fundersclub.com?subject=Insert Wallet Bug Name&body=Brief description and reproduction of bug:">
+      <ion-chip outline="true">
+        <ion-icon name="bug-outline"></ion-icon>
+        <ion-label style="color: var(--ion-color-tertiary)">
+        Report
+        </ion-label>
+    </ion-chip>    
+    </a>
+  </ion-list>
+  
 
   <ion-footer class="border-t">
     <ion-toolbar>

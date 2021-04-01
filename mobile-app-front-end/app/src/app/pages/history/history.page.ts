@@ -61,15 +61,19 @@ export class HistoryPage implements OnInit {
     this.menu.open();
   }
 
+  byDescDate(a: CompleteTransaction, b: CompleteTransaction) {
+    let a_date = a.txpow.header.timemilli;
+    let b_date = b.txpow.header.timemilli;
+    return b_date.localeCompare(a_date);
+  }
+
   async pullInHistorySummary() {
     const res = await this.historyService.loadHistoryOnce();
-    
-    this.transactions = res.history;
-    console.log(this.transactions);
-    if (res.history) {
-      this.transactions = res.history;
+    // console.log(res.history);
+    if (res) {
+      this.transactions = res.history ? res.history.slice().sort(this.byDescDate) : [];
       this.transactions.forEach((txn: CompleteTransactionTime, i) => {
-        if(txn.values.length > 0) {
+        if(txn.values.length > 0) { 
           if (txn.values[0].name.substring(0,1) === '{') {
             console.log(txn.values[0].name);
             const token_descr = JSON.parse(txn.values[0].name);
@@ -83,6 +87,9 @@ export class HistoryPage implements OnInit {
         }       
 
       })
+      if (this.transactions.length === 0) {
+        this.prompt = 'No recent transactions found.';
+      }
     }
 
     

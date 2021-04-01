@@ -2,7 +2,7 @@ import { ToolsService } from './../../service/tools.service';
 import { CustomToken } from './../../models/customToken.model';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MinimaApiService } from '../../service/minima-api.service';
-import { IonButton, MenuController } from '@ionic/angular';
+import { IonButton, MenuController, IonContent } from '@ionic/angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 interface AdvancedFormInputsCheck {
@@ -19,6 +19,8 @@ interface AdvancedFormInputsCheck {
 })
 export class CreateTokenPage implements OnInit {
   @ViewChild('submitBtn', {static : false}) submitBtn: IonButton;
+  @ViewChild('pageContent', {static : false}) pageContent: IonContent;
+
 
   tokenCreationForm: FormGroup;
   advancedFormInputsChecked: AdvancedFormInputsCheck = {description: false, icon: false, proof: false, nft: false};
@@ -100,9 +102,9 @@ export class CreateTokenPage implements OnInit {
 
   async create(newToken: CustomToken) {
     console.log(newToken);
+    this.myTools.scrollToBottom(this.pageContent);
     if (newToken.nft) {
       this.submitBtn.disabled = true;
-      newToken.script = this.myNFT; // script for non-fungible
       const res: any = await this.api.createToken(newToken);
       if (res.status) {
         this.status = 'Token created!';

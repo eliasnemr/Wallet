@@ -86,9 +86,11 @@ export class ContactsModalPage implements OnInit {
     this.loading = false;
   }
 
-  async showToast() {
-    if (this.contactForm.controls['NAME'].value === '') { this.contactForm.controls['NAME'].setValue('Anonymous'); }
-    await this.myTools.presentToast(`${ this.name.value } was saved to your contacts!`, 'primary', 'bottom');
+  showToast() {
+    if (this.contactForm.controls['NAME'].value === '') { 
+      this.contactForm.controls['NAME'].setValue('Anonymous');
+    }
+    this.myTools.presentToast(`${ this.name.value } was saved to your contacts!`, 'primary', 'bottom');
   }
 
   get name() {

@@ -4,7 +4,7 @@ import { ContactsViewModalComponent } from './../../components/contacts-view-mod
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { BalanceService } from '../../service/balance.service';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { IonInput, IonButton, MenuController, ModalController } from '@ionic/angular';
+import { IonInput, IonButton, MenuController, ModalController, IonContent } from '@ionic/angular';
 import { MinimaApiService } from '../../service/minima-api.service';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
@@ -28,6 +28,7 @@ export class SendFundsPage implements OnInit {
   @ViewChild('submitBtn', {static: false}) submitBtn: IonButton;
   @ViewChild('amount', {static: false}) amountInp: IonInput;
   @ViewChild('videoElem', {static: false}) videoElem: ElementRef;
+  @ViewChild('pageContent', {static: false}) pageContent: IonContent;
 
   sendForm: FormGroup;
 
@@ -111,6 +112,7 @@ export class SendFundsPage implements OnInit {
   
   sendFunds() {
     this.status = 'Creating your transaction...';
+    this.myTools.scrollToBottom(this.pageContent);
     this.sendForm.value.amnt = this.sendForm.value.amount.toString();
     const data: SendFormObj = this.sendForm.value;
     //console.log(data);

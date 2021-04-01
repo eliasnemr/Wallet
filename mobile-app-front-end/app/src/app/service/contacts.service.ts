@@ -72,7 +72,7 @@ export class ContactService {
     Minima.sql(this.qContacts + ';SELECT * FROM CONTACTS ORDER BY NAME', (res: any) => {
       //console.log(res);
       if (res.status && res.response[0].status) {
-        this.data.next(res.response[1].rows);
+        this.data.next(res.response[1].rows ? res.response[1].rows : []);
       }
     });
   }
@@ -88,7 +88,7 @@ export class ContactService {
   removeContact(address: string) {
     Minima.sql("DELETE FROM CONTACTS WHERE ADDRESS='"+address+"';SELECT * FROM CONTACTS", (res: any) => {
       if (Minima.util.checkAllResponses(res)) {
-        this.data.next(res.response[1].rows); // update data observable
+        this.data.next(res.response[1].rows ? res.response[1].rows : []); // update data observable
       }
     });
   }
