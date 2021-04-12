@@ -35,7 +35,6 @@ import { FilterPipe } from './pipes/filter.pipe';
     BrowserModule,
     IonicModule.forRoot()],
     providers: [
-    Storage,
     Clipboard,
     QRScanner,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

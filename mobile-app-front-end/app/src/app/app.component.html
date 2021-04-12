@@ -62,7 +62,7 @@
           <ion-icon size="small" style="color: #FAFAFF;" name="moon"></ion-icon>
         </ion-avatar>
         <ion-label>Night Mode</ion-label>
-        <ion-toggle slot="end" #darkToggle [(ngModel)]="toggleValue" (ionChange)="checkToggle()"></ion-toggle>
+        <ion-toggle slot="end" #darkToggle [(ngModel)]="toggleValue" (ionChange)="checkToggle($event)"></ion-toggle>
       </ion-item>
     </ion-toolbar>
   </ion-footer>

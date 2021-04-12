@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class FilterPipe implements PipeTransform {
 
-  transform(txns: any[], filter: []): any {
+  transform(txns?: any[], filter?: []): any {
     let temp: any[] = [];
     txns.forEach(txn => {
       if (txn.values.length > 0) {

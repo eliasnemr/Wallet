@@ -1,3 +1,4 @@
+import { BehaviorSubject } from 'rxjs';
 import { ToastController, AlertController, IonContent } from '@ionic/angular';
 import { Injectable } from '@angular/core';
 
@@ -8,6 +9,11 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class ToolsService {
+
+  private state = new BehaviorSubject({
+    milliseconds: 60000 
+  });
+  public $obj = this.state.asObservable();
 
   constructor(public toastController: ToastController,
      public alertController: AlertController) { }
