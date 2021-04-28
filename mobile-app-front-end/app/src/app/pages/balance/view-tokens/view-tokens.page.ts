@@ -1,7 +1,7 @@
+import { Subject } from 'rxjs';
 import { ToolsService } from './../../../service/tools.service';
-import { BalanceService } from './../../../service/balance.service';
 import { MinimaApiService } from './../../../service/minima-api.service';
-import { Token, Minima } from 'minima';
+import { Token } from 'minima';
 import * as SparkMD5 from 'spark-md5';
 import { ActivatedRoute } from '@angular/router';
 import { Component,  OnInit } from '@angular/core';
@@ -15,51 +15,56 @@ export class ViewTokensPage implements OnInit {
 
   public urlID = '';
   public token: Token;
-  public tokenArr: Token[];
   public type = '';
   public avatar: string;
+  public $balance: Subject<Token[]>;
 
   constructor(
     public route: ActivatedRoute, 
-    public api: MinimaApiService,
-    public balanceService: BalanceService,
+    public _minimaApiService: MinimaApiService,
     private myTools: ToolsService
   ) {
-    
+    this.$balance = _minimaApiService.$balance;
   }
 
   ngOnInit() {
-    this.balanceService.data.subscribe((res) => {
-      this.tokenArr = res;
-      this.urlID = this.route.snapshot.paramMap.get('id');
 
-      this.tokenArr.forEach((tkn: any) => {
-        if (tkn.tokenid === this.urlID) {
-          this.token = tkn;
-          if (this.token.tokenid === '0x00') {
-            this.token.description = 'Minima\'s Official Token.';
-          } else {
-            this.token.description = tkn.description;
-          }
-          if(tkn.token.tokenid !== '0x00' && tkn.token.icon) {
-            this.token.icon = 'assets/minimaBox.svg';
-          } else if(tkn.token.tokenid === '0x00') {
-            this.token.icon = 'assets/minimaBox.svg';
-          } else {
-            this.token.icon = tkn.icon;
-          }
-          if(this.token.script === 'RETURN TRUE') {
-            this.type = 'Value Transfer';
-          } else {
-            this.type = 'Non Fungible Token';
-          }
-        }
-      });
+    this.$balance.forEach((token: Token[]) => {
+      console.log(token);
     });
+    
+
+    // this._minimaApiService.data.subscribe((res) => {
+    //   this.tokenArr = res;
+    //   this.urlID = this.route.snapshot.paramMap.get('id');
+
+    //   this.tokenArr.forEach((tkn: any) => {
+    //     if (tkn.tokenid === this.urlID) {
+    //       this.token = tkn;
+    //       if (this.token.tokenid === '0x00') {
+    //         this.token.description = 'Minima\'s Official Token.';
+    //       } else {
+    //         this.token.description = tkn.description;
+    //       }
+    //       if(tkn.token.tokenid !== '0x00' && tkn.token.icon) {
+    //         this.token.icon = 'assets/minimaBox.svg';
+    //       } else if(tkn.token.tokenid === '0x00') {
+    //         this.token.icon = 'assets/minimaBox.svg';
+    //       } else {
+    //         this.token.icon = tkn.icon;
+    //       }
+    //       if(this.token.script === 'RETURN TRUE') {
+    //         this.type = 'Value Transfer';
+    //       } else {
+    //         this.type = 'Non Fungible Token';
+    //       }
+    //     }
+    //   });
+    // });
    }
 
   validateProof(tokenid: string) {
-    this.api.validateTokenID(tokenid).then((res: any)=>{
+    this._minimaApiService.validateTokenID(tokenid).then((res: any)=>{
        if(res.response.valid === true){
          this.myTools.presentToast('This proof is valid.', 'success', 'bottom');
        } else {
@@ -80,7 +85,7 @@ export class ViewTokensPage implements OnInit {
 
 
   giveMe50() {
-    this.api.giveMe50().then((res: any) => {
+    this._minimaApiService.giveMe50().then((res: any) => {
       if(res.status === true) {
         this.myTools.presentAlert('Gimme50', 'Successful', 'Status');
       } else {

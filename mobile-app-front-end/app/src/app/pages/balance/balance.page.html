@@ -14,7 +14,7 @@
 </ion-header>
 
   <ion-content class="page-content">
-    <ion-grid *ngIf="tokenArr.length == 0">
+    <!-- <ion-grid *ngIf="$balance.length === 0">
       <ion-row>
         <ion-col style="display: flex; align-items:center; justify-content:center" size="12">
           <ion-label>Fetching tokens...</ion-label>
@@ -23,10 +23,10 @@
           <ion-spinner name="crescent"></ion-spinner>
         </ion-col>
       </ion-row>
-    </ion-grid>
+    </ion-grid> -->
 
     <div class="body">
-      <app-list-view *ngIf="tokenArr && tokenArr.length > 0" [tokenArr] = "tokenArr"></app-list-view>
+      <app-list-view [tokenArr] = "$balance"></app-list-view>
     </div>
   </ion-content>
 

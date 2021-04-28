@@ -11,6 +11,7 @@ export class HistoryService {
   data: Subject<History> = new ReplaySubject<History>(1);
 
   constructor() {
+    console.log('HistoryService started!');
     this.loadHistory();
   }
 

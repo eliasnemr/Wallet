@@ -1,15 +1,38 @@
+import { Subject, BehaviorSubject, ReplaySubject } from 'rxjs';
+import { ToolsService } from './tools.service';
 import { Injectable } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
-import { Minima } from 'minima';
+import { Minima, Token } from 'minima';
+
+export interface HistoryInterface {
+  status: boolean;
+  minifunc: string;
+  message: string;
+  response: any;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class MinimaApiService {
+ 
+  public $balance: Subject<Token[]> = new ReplaySubject<Token[]>(1);
+  public $history: Subject<History>;
+
 
   constructor(  
-    public loadingController: LoadingController
-  ) { }
+    public loadingController: LoadingController,
+    private _tools: ToolsService 
+  ) {
+
+    // this.$balance = new Subject<Token[]>();
+    this.$history = new Subject<History>();
+
+  }
+
+  init(balance: Token[]) {
+    this.$balance.next(balance);
+  }
 
   createToken(data: any) {
     if (data.script !== "") {
@@ -82,4 +105,33 @@ export class MinimaApiService {
     });
     return promise;
   }
+  // File System
+  saveFile(data: string, filename: string) {
+    return new Promise((resolve, reject) => {
+      Minima.file.save(data, filename, (res: any) => {
+        resolve(res);
+      });
+    });
+  }
+
+  loadFile(filename: string) {
+    return new Promise((resolve, reject) => {
+      Minima.file.load(filename, (res: any) => {
+        resolve(res);
+      })
+    });
+  }
+
+  removeFile(filename: string) {
+    return new Promise((resolve, reject) => {
+      Minima.file.delete(filename, (res: any) => {
+        if (res.success) {
+          resolve(res);
+        } else {
+          reject();
+        }
+      });
+    })
+  }
+
 }

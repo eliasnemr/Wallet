@@ -1,3 +1,4 @@
+import { Subject } from 'rxjs';
 import { Token } from 'minima';
 import * as SparkMD5 from 'spark-md5';
 import { Component, OnInit, Input } from '@angular/core';
@@ -9,12 +10,14 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ListViewComponent implements OnInit {
 
-  @Input() tokenArr: Token[] = [];
+  @Input() tokenArr: Subject<Token[]>;
   public avatar: string;
 
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.tokenArr);
+  }
 
   createIcon(tokenid: string) {
     

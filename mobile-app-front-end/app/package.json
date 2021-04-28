@@ -1,6 +1,6 @@
 {
   "name": "wallet",
-  "version": "0.98.8",
+  "version": "1.0.8",
   "author": "Elias Nemr, Minima.",
   "description": "Minima's Official Wallet",
   "homepage": "https://minima.global/",
@@ -61,7 +61,7 @@
     "file-saver": "^2.0.5",
     "ionic-angular": "^3.9.9",
     "jsqr": "^1.3.1",
-    "minima": "file:../../../npm/minima.js/minima-0.96.17.tgz",
+    "minima": "file:../../../github/minima.js/minima-0.96.19.tgz",
     "moment": "^2.29.1",
     "qr-scanner": "^1.1.1",
     "rxjs": "^6.5.4",

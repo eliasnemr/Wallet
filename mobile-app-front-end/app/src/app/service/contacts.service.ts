@@ -23,6 +23,12 @@ export class ContactService {
   data: Subject<Contact[]> = new ReplaySubject<Contact[]>(1);
   qContacts: string;
   constructor() {
+    console.log('ContactService started!');
+    this.initSQL();
+
+  }
+
+  initSQL() {
     this.qContacts = 'CREATE TABLE IF NOT EXISTS contacts (' +
                 'address varchar(255) PRIMARY KEY,' +
                 'name varchar(255),' +
@@ -30,12 +36,11 @@ export class ContactService {
                 'avatar varchar(255))';
 
     Minima.sql(this.qContacts + ';SELECT * FROM contacts ORDER BY NAME', (res: any) => {
-      console.log(res);
+      //console.log(res);
       if (Minima.util.checkAllResponses(res)) {
         this.data.next(res.response[1].rows);
       }
     });
-
   }
 
 
