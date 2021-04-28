@@ -1,3 +1,4 @@
+import { Subscription } from 'rxjs';
 import { ToolsService } from './../../service/tools.service';
 import { MinimaApiService } from './../../service/minima-api.service';
 import { RouterModule } from '@angular/router';
@@ -6,7 +7,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { HistoryService } from '../../service/history.service';
 import { History, CompleteTransaction, Value } from 'minima';
 import * as moment from 'moment';
-import { map } from 'rxjs/operators';
 
 interface TimeValue extends Value {
   time: string;
@@ -24,6 +24,11 @@ interface CompleteTransactionTime extends CompleteTransaction {
   styleUrls: ['./history.page.scss']
 })
 export class HistoryPage implements OnInit {
+
+  $historySubscription: Subscription;
+  $history: CompleteTransactionTime;
+
+
 
   @ViewChild('historyList', { static: true }) historyList: IonList;
   ios: boolean;
@@ -45,7 +50,7 @@ export class HistoryPage implements OnInit {
     public popoverController: PopoverController,
     public config: Config,
     private myTools: ToolsService,
-    private api: MinimaApiService,
+    private _minimaApiService: MinimaApiService,
     private historyService: HistoryService
     ) { }
 
@@ -54,7 +59,23 @@ export class HistoryPage implements OnInit {
   }
 
   ionViewWillEnter() {
+
+    this._minimaApiService.initHistory();
+
+    this.$historySubscription = this._minimaApiService.$history.subscribe((history: any) => {
+      console.log(history.history);
+    })
+
+
     this.pullInHistorySummary();
+  }
+
+  ionViewWillLeave() {
+
+    if(this.$historySubscription) {
+      this.$historySubscription.unsubscribe();
+    }
+
   }
 
   openMenu() {
@@ -91,68 +112,10 @@ export class HistoryPage implements OnInit {
         this.prompt = 'No recent transactions found.';
       }
     }
-
-    
-
-
-
-    // this.historyService.data.pipe(map((res: History) => {
-    //   let temp = [];
-    //   temp = res.history;
-
-    //   temp.forEach((txpow: CompleteTransactionTime, i) => {
-        
-    //     if (txpow.values.length == 0) {
-    //       res.history.splice(i, 1);
-    //     }
-
-    //     if (txpow.txpow.body.txn.tokengen) {
-    //       //console.log('Token Creation, look at tokengen');
-    //       //console.log(txpow.txpow.body.txn.tokengen);
-
-
-    //     } else if (!txpow.txpow.body.txn.tokengen &&
-    //        txpow.values.length > 0 &&
-    //        txpow.values[0].name && 
-    //        txpow.values[0].name.substring(0, 1) !== "{\"") {
-    //         console.log('This is a normal Minima value transaction');
-    //         // console.log(JSON.stringify(txpow));
-
-    //     } else if (!txpow.txpow.body.txn.tokengen &&
-    //        txpow.values.length > 0 &&
-    //        txpow.values[0].name && 
-    //        txpow.values[0].name.substring(0, 1) === "{\"") {
-    //       console.log('This is a token value transaction');
-    //       console.log(txpow);
-    //       const token_descr = JSON.parse(txpow.values[0].name);
-    //       console.log(token_descr);
-    //       const name = token_descr.name;
-    //       console.log('Name of token txn' + name);
-    //     }
-
-    //     if( txpow.values.length > 0) {
-    //       const name = txpow.values[0].name;
-    //       if (name && !name.name && name.substring(0, 1) === '{') {
-    //         txpow.values[0].name = JSON.parse(name);
-    //         txpow.values[0].time = moment( parseInt(txpow.txpow.header.timemilli)).format('hh:mm a');
-    //         txpow.values[0].day = moment( parseInt(txpow.txpow.header.timemilli)).format("DD");
-    //         txpow.values[0].month = moment( parseInt(txpow.txpow.header.timemilli)).format("MMM");
-    //         txpow.values[0].year = moment( parseInt(txpow.txpow.header.timemilli)).format("YYYY");
-    //       }
-    //     }
-    //   });
-    //   return res.history;
-    // })).subscribe((res: any) => {
-      
-    //   this.transactions = res;
-    // });
-    // if (this.transactions.length === 0) {
-    //   this.prompt = 'No recent transactions found...';
-    // }
   }
 
   giveMe50() {
-    this.api.giveMe50().then((res: any) => {
+    this._minimaApiService.giveMe50().then((res: any) => {
       if(res.status === true) {
         this.myTools.presentAlert('Gimme50', 'Successful', 'Status');
       } else {

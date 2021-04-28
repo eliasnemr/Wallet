@@ -1,8 +1,7 @@
 import { Subject, BehaviorSubject, ReplaySubject } from 'rxjs';
-import { ToolsService } from './tools.service';
 import { Injectable } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
-import { Minima, Token } from 'minima';
+import { Minima, NetworkStatus, Token } from 'minima';
 
 export interface HistoryInterface {
   status: boolean;
@@ -16,22 +15,34 @@ export interface HistoryInterface {
 })
 export class MinimaApiService {
  
-  public $balance: Subject<Token[]> = new ReplaySubject<Token[]>(1);
+  public $balance: Subject<Token[]>;
   public $history: Subject<History>;
-
+  public $status: Subject<NetworkStatus>;
 
   constructor(  
-    public loadingController: LoadingController,
-    private _tools: ToolsService 
+    public loadingController: LoadingController
   ) {
 
-    // this.$balance = new Subject<Token[]>();
-    this.$history = new Subject<History>();
+    this.$balance = new ReplaySubject<Token[]>(1);
+    this.$history = new ReplaySubject<History>(1);
+    this.$status = new ReplaySubject<NetworkStatus>(1);
 
   }
 
   init(balance: Token[]) {
     this.$balance.next(balance);
+  }
+
+  initStatus() {
+    this.getStatus().then((res: any) => {
+      this.$status.next(res.response);
+    });
+  }
+
+  initHistory() {
+    this.getHistory().then((res: any) => {
+      this.$history.next(res.response);
+    })
   }
 
   createToken(data: any) {
@@ -86,6 +97,10 @@ export class MinimaApiService {
 
   getHistory() {
     return this.req('history');
+  }
+
+  getStatusFull() {
+    return this.req('status full');
   }
 
   clearMyHistory() {

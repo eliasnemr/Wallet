@@ -1,8 +1,6 @@
 import { ToolsService } from './../../service/tools.service';
-import { UserConfig } from './../../models/userConfig.model';
-import { UserConfigService } from './../../service/userconfig.service';
 import { MinimaApiService } from '../../service/minima-api.service';
-import { Component, OnInit, ViewChild, NgZone } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { PopoverController, IonButton, MenuController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import * as SparkMD5 from 'spark-md5';
@@ -24,15 +22,6 @@ export class BalancePage implements OnInit {
   @ViewChild('gimme50Btn', {static: false}) gimme50Btn: IonButton;
 
   avatar: any;
-  user: UserConfig = {
-    tokenDisplayMode: 2,
-    tips: {
-      balance: false,
-      balance2: false,
-      contacts: false,
-      address: false
-    }
-  };
   
   tokenArr: Token[] = [];
   tokenSpoof: Token[] = [];
@@ -42,9 +31,7 @@ export class BalancePage implements OnInit {
     private _minimaApiService: MinimaApiService,
     private myTools: ToolsService,
     private route: Router,
-    public popoverController: PopoverController,
-    public userConfigService: UserConfigService,
-    private ngZone: NgZone) { 
+    public popoverController: PopoverController) { 
 
       this.$balance = this._minimaApiService.$balance;
     

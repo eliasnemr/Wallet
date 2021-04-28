@@ -15,9 +15,7 @@ export class ListViewComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-    console.log(this.tokenArr);
-  }
+  ngOnInit() { }
 
   createIcon(tokenid: string) {
     

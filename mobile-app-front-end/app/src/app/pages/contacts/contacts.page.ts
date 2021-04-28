@@ -1,7 +1,6 @@
 import { ToolsService } from './../../service/tools.service';
 import { PopContactsComponent } from './../../components/pop-contacts/pop-contacts.component';
 import { MinimaApiService } from './../../service/minima-api.service';
-import { UserConfigService } from './../../service/userconfig.service';
 import { UserConfig } from './../../models/userConfig.model';
 import { ContactsModalPage } from './../../components/contacts-modal/contacts-modal.page';
 import { ModalController, AlertController, IonList, MenuController, PopoverController } from '@ionic/angular';
@@ -32,7 +31,6 @@ export class ContactsPage implements OnInit {
     public modalController: ModalController,
     public popoverController: PopoverController,
     public alertController: AlertController,
-    private userConfigService: UserConfigService,
     private contactService: ContactService,
     private api: MinimaApiService,
     private myTools: ToolsService
@@ -42,9 +40,6 @@ export class ContactsPage implements OnInit {
     this.contactService.data.subscribe((res: Contact[]) => {
       // set the list
       this.contacts = res;
-    });
-    this.userConfigService.userConfig.subscribe((res: UserConfig) => {
-      this.user = res;
     });
   }
 
@@ -87,11 +82,6 @@ export class ContactsPage implements OnInit {
     this.presentAlert(addr);
   }
 
-  hideTip() {
-    this.user.tips.contacts = true;
-    this.userConfigService.userConfig.next(this.user);
-    this.userConfigService.saveUserConfig(this.user);
-  }
 
   giveMe50() {
     this.api.giveMe50().then((res: any) => {
