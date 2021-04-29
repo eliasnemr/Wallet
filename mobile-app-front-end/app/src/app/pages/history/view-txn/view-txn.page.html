@@ -1,11 +1,20 @@
 <ion-header class="page-header ion-no-border">
   <ion-toolbar>
     <ion-title>
-      <ion-item id="title" lines="none" class="no-ripple ion-no-padding">
-        <ion-icon routerLink="/history" class="back-btn" name="arrow-back"></ion-icon>
+      <ion-item 
+      id="title" 
+      lines="none" 
+      class="no-ripple ion-no-padding">
+        <ion-icon 
+        routerLink="/history" 
+        class="back-btn" 
+        name="arrow-back"></ion-icon>
         History
       </ion-item>
-      <ion-item id="subtitle" class="breadcrumb ion-no-padding" lines="none">
+      <ion-item 
+      id="subtitle" 
+      class="breadcrumb ion-no-padding" 
+      lines="none">
         Transaction details
       </ion-item>
     </ion-title>
@@ -13,83 +22,94 @@
 </ion-header>
 
 <ion-content class="page-content">
-  <ion-grid  *ngIf="!loading && !myTxn">
+  <ion-grid *ngIf="prompt.length > 0">
     <ion-row>
-      <ion-col style="display: flex; align-items:center; justify-content:center" size="12">
-        <ion-label>Invalid transaction ID!</ion-label>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-  <ion-grid  *ngIf="loading && transactionID.length !== 0">
-    <ion-row>
-      <ion-col style="display: flex; align-items:center; justify-content:center" size="12">
-        <ion-label>Fetching transaction details...</ion-label>
-      </ion-col>
-      <ion-col style="display: flex; align-items:center; justify-content:center" size="12">
-        <ion-spinner name="crescent"></ion-spinner>
+      <ion-col 
+      style="display: flex; align-items:center; justify-content:center" 
+      size="12">
+        <ion-label>{{ prompt }}</ion-label>
       </ion-col>
     </ion-row>
   </ion-grid>
 
-  <ion-grid class="ion-no-padding" *ngIf="!loading && transactionID.length !== 0 && myTxn">    
-    <ion-list class="ion-no-padding" id="transaction-details">
-      <ion-item lines="none" class="ion-no-padding">
+  <ion-grid 
+  class="ion-no-padding" 
+  *ngIf="prompt.length === 0 && myTxn && myTxn[0]?.txpow">    
+    <ion-list 
+    class="ion-no-padding" 
+    id="transaction-details">
+      <ion-item 
+      lines="none" 
+      class="ion-no-padding">
         <ion-label>
-          <h6 class="title">Status</h6>
-          <p class="value completed">Completed</p>
+          <h6 
+          class="title">Status</h6>
+          <p 
+          class="value completed">Completed</p>
         </ion-label>
       </ion-item>
 
-      <ion-item lines="none" class="ion-no-padding">
+      <ion-item 
+      lines="none" 
+      class="ion-no-padding">
         <ion-label>
           <h6 class="title">Hash
-            <a class="copy" (click)="copy(myTxn.txpow.txpowid)">
+            <a 
+            class="copy" 
+            (click)="copy(myTxn[0]?.txpow?.txpowid)">
               Copy 
             </a>
           </h6>
-          <p class="value"> {{ myTxn.txpow.txpowid }}</p>
+          <p class="value"> {{ myTxn[0]?.txpow?.txpowid }}</p>
         </ion-label>
       </ion-item>
 
-      <ion-item lines="none" class="ion-no-padding">
+      <ion-item 
+      lines="none" 
+      class="ion-no-padding">
         <ion-label>
           <h6 class="title">Date & time</h6>
           <p class="value"> {{ relaytime }}</p>
         </ion-label>
       </ion-item>
 
-      <ion-item *ngIf="message && message.length > 0" lines="none" class="ion-no-padding">
+      <ion-item 
+      *ngIf="message && message.length > 0" 
+      lines="none" 
+      class="ion-no-padding">
         <ion-label>
           <h6 class="title">Public message</h6>
-          <p style="white-space: normal;" class="value"> {{ message }}</p>
+          <p 
+          style="white-space: normal;" 
+          class="value"> {{ message }}</p>
         </ion-label>
       </ion-item>
 
       <ion-item lines="none" class="ion-no-padding">
         <ion-label>
           <h6 class="title">Size</h6>
-          <p class="value"> {{ myTxn.txpow.size }}</p>
+          <p class="value"> {{ myTxn[0]?.txpow?.size }}</p>
         </ion-label>
       </ion-item>
 
       <ion-item lines="none" class="ion-no-padding">
         <ion-label>
           <h6 class="title">In block</h6>
-          <p class="value">{{ myTxn.txpow.header.block }}</p>
+          <p class="value">{{ myTxn[0]?.txpow?.header.block }}</p>
         </ion-label>
       </ion-item>
 
       <ion-item lines="none" *ngIf="type === 'Token Creation.'" class="ion-no-padding">
         <ion-label>
           <h6 class="title">Token name</h6>
-          <p class="value">{{ myTxn.txpow.body.txn.tokengen.token }}</p>
+          <p class="value">{{ myTxn[0]?.txpow?.body.txn.tokengen.token }}</p>
         </ion-label>
       </ion-item>
 
       <ion-item lines="none" *ngIf="type === 'Token Creation.'" class="ion-no-padding">
         <ion-label>
           <h6 class="title">Token total</h6>
-          <p class="value">{{ myTxn.txpow.body.txn.tokengen.total }}</p>
+          <p class="value">{{ myTxn[0]?.txpow?.body.txn.tokengen.total }}</p>
         </ion-label>
       </ion-item>
 
@@ -111,7 +131,7 @@
         </ion-item>
       </ion-list-header>
 
-      <ng-container *ngFor="let input of myTxn.txpow.body.txn.inputs; let i = index">
+      <ng-container *ngFor="let input of myTxn[0]?.txpow?.body.txn.inputs; let i = index">
         <div id="inputs">
         <ion-item lines="none" class="ion-no-padding">
           <ion-label>
@@ -152,7 +172,7 @@
         </ion-item>
       </ion-list-header>
 
-      <ng-container *ngFor="let output of myTxn.txpow.body.txn.outputs; let i = index">
+      <ng-container *ngFor="let output of myTxn[0]?.txpow?.body.txn.outputs; let i = index">
         <div id="outputs">
         <ion-item lines="none" class="ion-no-padding">
           <ion-label>

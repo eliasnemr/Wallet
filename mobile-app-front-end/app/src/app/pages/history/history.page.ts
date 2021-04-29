@@ -8,7 +8,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { CompleteTransaction } from 'minima';
 import * as moment from 'moment';
 
-interface TimeCompleteTransaction extends CompleteTransaction {
+export interface TimeCompleteTransaction extends CompleteTransaction {
   time: string;
   day: string;
   month: string;
