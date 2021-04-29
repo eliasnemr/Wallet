@@ -1,7 +1,7 @@
-import { Subject, BehaviorSubject, ReplaySubject } from 'rxjs';
+import { Subject, ReplaySubject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
-import { Minima, NetworkStatus, Token } from 'minima';
+import { Minima, NetworkStatus, Token, CompleteTransaction } from 'minima';
 
 export interface HistoryInterface {
   status: boolean;
@@ -16,7 +16,7 @@ export interface HistoryInterface {
 export class MinimaApiService {
  
   public $balance: Subject<Token[]>;
-  public $history: Subject<History>;
+  public $history: Subject<CompleteTransaction[]>;
   public $status: Subject<NetworkStatus>;
 
   constructor(  
@@ -24,7 +24,7 @@ export class MinimaApiService {
   ) {
 
     this.$balance = new ReplaySubject<Token[]>(1);
-    this.$history = new ReplaySubject<History>(1);
+    this.$history = new ReplaySubject<CompleteTransaction[]>(1);
     this.$status = new ReplaySubject<NetworkStatus>(1);
 
   }

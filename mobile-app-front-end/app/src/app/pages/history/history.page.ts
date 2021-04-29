@@ -1,21 +1,18 @@
+import { take } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { ToolsService } from './../../service/tools.service';
 import { MinimaApiService } from './../../service/minima-api.service';
 import { RouterModule } from '@angular/router';
 import { ModalController, IonList, Config, PopoverController, MenuController } from '@ionic/angular';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { HistoryService } from '../../service/history.service';
-import { History, CompleteTransaction, Value } from 'minima';
+import { CompleteTransaction } from 'minima';
 import * as moment from 'moment';
 
-interface TimeValue extends Value {
+interface TimeCompleteTransaction extends CompleteTransaction {
   time: string;
   day: string;
   month: string;
   year: string;
-}
-interface CompleteTransactionTime extends CompleteTransaction {
-  values: TimeValue[];
 }
 
 @Component({
@@ -26,22 +23,13 @@ interface CompleteTransactionTime extends CompleteTransaction {
 export class HistoryPage implements OnInit {
 
   $historySubscription: Subscription;
-  $history: CompleteTransactionTime;
-
-
+  $history: CompleteTransaction[] = [];
 
   @ViewChild('historyList', { static: true }) historyList: IonList;
-  ios: boolean;
-  selectedSlide: any;
-  categories = 0;
-  segment = 'all';
   month: string;
   day: string;
   time: string;
-  prompt = 'Fetching your history...';
-  transactions: CompleteTransaction[] = [];
-  saved: History[] = [];
-  lastJSON = '';
+  prompt: string;
 
   constructor(
     public menu: MenuController,
@@ -50,31 +38,51 @@ export class HistoryPage implements OnInit {
     public popoverController: PopoverController,
     public config: Config,
     private myTools: ToolsService,
-    private _minimaApiService: MinimaApiService,
-    private historyService: HistoryService
+    private _minimaApiService: MinimaApiService
     ) { }
 
-  ngOnInit() {
-    this.ios = this.config.get('mode') === 'ios';
-  }
+  ngOnInit() { }
 
   ionViewWillEnter() {
 
     this._minimaApiService.initHistory();
+    
+    this.$subscribe();
 
-    this.$historySubscription = this._minimaApiService.$history.subscribe((history: any) => {
-      console.log(history.history);
-    })
-
-
-    this.pullInHistorySummary();
   }
-
+  
   ionViewWillLeave() {
-
+    
     if(this.$historySubscription) {
       this.$historySubscription.unsubscribe();
     }
+    
+  } 
+  
+  $subscribe() {
+    this.prompt = 'Fetching your history...';
+    this.$historySubscription = this._minimaApiService.$history.pipe(take(1)).subscribe((history: any) => {
+      // console.log('Subscribing to $history');
+      history.history.sort(this.byDescDate);
+      (history.history.length === 0 ? this.prompt = 'No recent transactions found.' : this.prompt = '');
+      (history.history ? this.$history = history.history : this.$history = []);
+      // console.log(history.history);
+        this.$history.forEach((txn: TimeCompleteTransaction) => {
+          if(txn.values[0] && txn.values.length > 0) { 
+            if (txn.values[0].name.substring(0,1) === '{') {
+              const token_descr = JSON.parse(txn.values[0].name);
+              txn.values[0].name = token_descr.name;
+            }
+    
+          }
+
+          txn.time = moment( parseInt(txn.txpow.header.timemilli)).format('hh:mm a');
+          txn.day = moment( parseInt(txn.txpow.header.timemilli)).format("DD");
+          txn.month = moment( parseInt(txn.txpow.header.timemilli)).format("MMM");
+          txn.year = moment( parseInt(txn.txpow.header.timemilli)).format("YYYY");
+  
+        });
+    });
 
   }
 
@@ -86,32 +94,6 @@ export class HistoryPage implements OnInit {
     let a_date = a.txpow.header.timemilli;
     let b_date = b.txpow.header.timemilli;
     return b_date.localeCompare(a_date);
-  }
-
-  async pullInHistorySummary() {
-    const res = await this.historyService.loadHistoryOnce();
-    // console.log(res.history);
-    if (res) {
-      this.transactions = res.history ? res.history.slice().sort(this.byDescDate) : [];
-      this.transactions.forEach((txn: CompleteTransactionTime, i) => {
-        if(txn.values.length > 0) { 
-          if (txn.values[0].name.substring(0,1) === '{') {
-            console.log(txn.values[0].name);
-            const token_descr = JSON.parse(txn.values[0].name);
-            txn.values[0].name = token_descr.name;
-          }
-  
-          txn.values[0].time = moment( parseInt(txn.txpow.header.timemilli)).format('hh:mm a');
-          txn.values[0].day = moment( parseInt(txn.txpow.header.timemilli)).format("DD");
-          txn.values[0].month = moment( parseInt(txn.txpow.header.timemilli)).format("MMM");
-          txn.values[0].year = moment( parseInt(txn.txpow.header.timemilli)).format("YYYY");
-        }       
-
-      })
-      if (this.transactions.length === 0) {
-        this.prompt = 'No recent transactions found.';
-      }
-    }
   }
 
   giveMe50() {
