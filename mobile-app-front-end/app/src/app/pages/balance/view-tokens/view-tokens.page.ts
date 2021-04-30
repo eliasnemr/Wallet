@@ -1,4 +1,5 @@
-import { Subject } from 'rxjs';
+import { take } from 'rxjs/operators';
+import { Subscription, Subject } from 'rxjs';
 import { ToolsService } from './../../../service/tools.service';
 import { MinimaApiService } from './../../../service/minima-api.service';
 import { Token } from 'minima';
@@ -13,55 +14,85 @@ import { Component,  OnInit } from '@angular/core';
 })
 export class ViewTokensPage implements OnInit {
 
-  public urlID = '';
-  public token: Token;
-  public type = '';
-  public avatar: string;
-  public $balance: Subject<Token[]>;
+  urlTokenid: string;
+  avatar: string;
+  $balanceDetails: Token[];
+  $subscription: Subscription;
+  $token: Token[];
 
   constructor(
     public route: ActivatedRoute, 
     public _minimaApiService: MinimaApiService,
     private myTools: ToolsService
   ) {
-    this.$balance = _minimaApiService.$balance;
+
+    (this.route.snapshot.paramMap.get('id') ? this.urlTokenid = this.route.snapshot.paramMap.get('id') : this.urlTokenid = '');
+
   }
 
-  ngOnInit() {
+  ngOnInit() { }
+                      
+  ionViewWillEnter() {
+    if (this.urlTokenid && this.urlTokenid.length > 0) {
+      this.$subscription = this._minimaApiService.$balance
+        .subscribe((tokens: Token[]) => {
+        (
+          tokens ?
 
-    this.$balance.forEach((token: Token[]) => {
-      console.log(token);
-    });
+          this.$token = tokens.filter((token: Token) => token.tokenid === this.urlTokenid )
+
+          :
+
+          console.log('Token balance not found..')
+
+
+        )
+
+
+        if (this.$token.length > 0 && this.$token[0].tokenid) {
+
+          // Some formatting...
+          (this.$token[0].tokenid === '0x00' ?
+            this.$token[0].description = 'Minima\'s Official Token.'
+            :
+            null
+          );
+
+          (this.$token[0].tokenid !== '0x00' && this.$token[0].icon.length === 0 || this.$token[0].tokenid === '0x00' ?
+            this.$token[0].icon = 'assets/minimaIcon.svg'
+            :
+            null
+          );
+
+        }
+      
+      });
+
+    } else {
+      
+    }
+
+    if (this.$subscription.closed) {
+
+      // subscribed and works..
+
+    } else {
+
+      // didnt subscribe to anything..
+
+    }
     
+  }
 
-    // this._minimaApiService.data.subscribe((res) => {
-    //   this.tokenArr = res;
-    //   this.urlID = this.route.snapshot.paramMap.get('id');
+  ionViewWillLeave() {
 
-    //   this.tokenArr.forEach((tkn: any) => {
-    //     if (tkn.tokenid === this.urlID) {
-    //       this.token = tkn;
-    //       if (this.token.tokenid === '0x00') {
-    //         this.token.description = 'Minima\'s Official Token.';
-    //       } else {
-    //         this.token.description = tkn.description;
-    //       }
-    //       if(tkn.token.tokenid !== '0x00' && tkn.token.icon) {
-    //         this.token.icon = 'assets/minimaBox.svg';
-    //       } else if(tkn.token.tokenid === '0x00') {
-    //         this.token.icon = 'assets/minimaBox.svg';
-    //       } else {
-    //         this.token.icon = tkn.icon;
-    //       }
-    //       if(this.token.script === 'RETURN TRUE') {
-    //         this.type = 'Value Transfer';
-    //       } else {
-    //         this.type = 'Non Fungible Token';
-    //       }
-    //     }
-    //   });
-    // });
-   }
+    if (this.$subscription) {
+
+      this.$subscription.unsubscribe();
+
+    }
+
+  }
 
   validateProof(tokenid: string) {
     this._minimaApiService.validateTokenID(tokenid).then((res: any)=>{

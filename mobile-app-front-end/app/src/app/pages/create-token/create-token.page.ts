@@ -1,5 +1,4 @@
 import { ToolsService } from './../../service/tools.service';
-import { CustomToken } from './../../models/customToken.model';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MinimaApiService } from '../../service/minima-api.service';
 import { IonButton, MenuController, IonContent } from '@ionic/angular';
@@ -30,7 +29,7 @@ export class CreateTokenPage implements OnInit {
   loading = false;
   success = false;
   myNFT = 'ASSERT FLOOR ( @AMOUNT ) EQ @AMOUNT LET checkout = 0 WHILE ( checkout LT @TOTOUT ) DO IF GETOUTTOK ( checkout ) EQ @TOKENID THEN LET outamt = GETOUTAMT ( checkout ) ASSERT FLOOR ( outamt ) EQ outamt ENDIF LET checkout = INC ( checkout ) ENDWHILE RETURN TRUE';
-  customToken: CustomToken =
+  customToken: any =
   {
     name: '',
     amount: 0,
@@ -84,7 +83,7 @@ export class CreateTokenPage implements OnInit {
   createTokenAdvanced() {
     this.loading = true;
     //console.log(this.tokenCreationForm.value);
-    const newToken: CustomToken = this.tokenCreationForm.value;
+    const newToken: any = this.tokenCreationForm.value;
     //console.log(newToken);
     try {
       this.status = 'Creating token...';
@@ -100,7 +99,7 @@ export class CreateTokenPage implements OnInit {
     
   }
 
-  async create(newToken: CustomToken) {
+  async create(newToken: any) {
     console.log(newToken);
     this.myTools.scrollToBottom(this.pageContent);
     if (newToken.nft) {

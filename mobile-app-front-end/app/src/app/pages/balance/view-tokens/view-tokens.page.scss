@@ -50,3 +50,6 @@ ion-list ion-item {
     cursor: pointer;
     font-size: 0.8rem;
 }
+.active {
+    color: var(--ion-color-primary)
+}

@@ -40,8 +40,11 @@ export class MinimaApiService {
   }
 
   initHistory() {
-    this.getHistory().then((res: any) => {
-      this.$history.next(res.response);
+    return new Promise((resolve) => {
+      this.getHistory().then((res: any) => {
+        this.$history.next(res.response);
+        resolve(true);
+      })
     })
   }
 

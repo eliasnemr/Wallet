@@ -37,69 +37,91 @@ export class ViewTXNPage implements OnInit {
     this.hide = false;
     this.message = '';
     this.prompt = 'Fetching your transaction details...';
-    this._minimaApiService.initHistory(); // if they page reload, make sure to retrieve history again.
+    
+  }
+  
+  ionViewWillEnter() {
+
+    this.fetchHistory().then((res: any) => {
+      if (res) {
+        this.transactionID = this.route.snapshot.paramMap.get('id');
+    
+        if (this.transactionID && this.transactionID.length > 0) {
+            this.$subscription = this._minimaApiService.$history.pipe(take(1)).subscribe((history: any) => {
+              (
+                history.history ? 
+                
+                this.myTxn = history.history.filter((txn: TimeCompleteTransaction) => txn.txpow.txpowid === this.transactionID)
+                        
+                : 
+        
+                console.log('Transaction not found.')
+              
+              )
+    
+              if (this.myTxn.length > 0) {
+                
+                this.relaytime = new Date(parseInt(this.myTxn[0].txpow.header.timemilli)).toISOString();
+                this.relaytime = moment(this.relaytime).format('DD/MM/YYYY - hh:mm:ss a', true);
+      
+                (
+                  this.myTxn[0].txpow.body.txn.state &&
+                   this.myTxn[0].txpow.body.txn.state[0] &&
+                    this.myTxn[0].txpow.body.txn.state[0].data === '[01000100]' ?
+      
+                    this.message = this.myTxn[0].txpow.body.txn.state[1].data.substring(1, this.message.length-1)
+      
+                    :
+      
+                    null
+      
+                );
+                (
+                  this.myTxn[0].txpow.body.txn.tokengen ?
+      
+                  this.type = 'Token Creation.'
+      
+                  :
+      
+                  this.type = 'Value Transfer.'
+      
+      
+                )
+              } 
+            });
+            
+            // check & see if subscription worked
+            if (this.$subscription.closed) {
+    
+              this.prompt = '';
+    
+            } else {
+    
+              this.prompt = 'No transaction details found.';
+    
+            }
+    
+          } 
+      }
+    })
 
   }
 
-  ionViewWillEnter() {
-    
-    this.transactionID = this.route.snapshot.paramMap.get('id');
+  ionViewWillLeave() {
 
-    if (this.transactionID && this.transactionID.length > 0) {
-        this.$subscription = this._minimaApiService.$history.pipe(take(1)).subscribe((history: any) => {
-          (
-            history.history ? 
-            
-            this.myTxn = history.history.filter((txn: TimeCompleteTransaction) => txn.txpow.txpowid === this.transactionID)
-                    
-            : 
-    
-            console.log('Transaction not found.')
-          
-          )
+    if (this.$subscription) {
 
-          if (this.myTxn.length > 0) {
-            
-            this.relaytime = new Date(parseInt(this.myTxn[0].txpow.header.timemilli)).toISOString();
-            this.relaytime = moment(this.relaytime).format('DD/MM/YYYY - hh:mm:ss a', true);
-  
-            (
-              this.myTxn[0].txpow.body.txn.state &&
-               this.myTxn[0].txpow.body.txn.state[0] &&
-                this.myTxn[0].txpow.body.txn.state[0].data === '[01000100]' ?
-  
-                this.message = this.myTxn[0].txpow.body.txn.state[1].data.substring(1, this.message.length-1)
-  
-                :
-  
-                null
-  
-            );
-            (
-              this.myTxn[0].txpow.body.txn.tokengen ?
-  
-              this.type = 'Token Creation.'
-  
-              :
-  
-              this.type = 'Value Transfer.'
-  
-  
-            )
-          } 
-        });
-        // check & see if subscription worked
-        if (this.$subscription.closed) {
+      this.$subscription.unsubscribe();
 
-          this.prompt = '';
+    }
 
-        } else {
+  }
+  
+  fetchHistory() {
 
-          this.prompt = 'No transaction details found.';
+    return this._minimaApiService.initHistory()
 
-        }
 
-      } 
   }
 
   ngOnInit() {}

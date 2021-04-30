@@ -1,7 +1,6 @@
 import { ToolsService } from './../../service/tools.service';
 import { PopContactsComponent } from './../../components/pop-contacts/pop-contacts.component';
 import { MinimaApiService } from './../../service/minima-api.service';
-import { UserConfig } from './../../models/userConfig.model';
 import { ContactsModalPage } from './../../components/contacts-modal/contacts-modal.page';
 import { ModalController, AlertController, IonList, MenuController, PopoverController } from '@ionic/angular';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -18,14 +17,7 @@ export class ContactsPage implements OnInit {
   avatar: string;
   contacts: Contact[] = [];
   filteredContacts: Contact[];
-  user: UserConfig = {
-    tokenDisplayMode: 1,
-    tips: {
-      balance: false,
-      contacts: false,
-      address: false
-    }
-  };
+
   @ViewChild('contactList', {static: false}) ContactList: IonList;
   constructor(public menu: MenuController,
     public modalController: ModalController,
