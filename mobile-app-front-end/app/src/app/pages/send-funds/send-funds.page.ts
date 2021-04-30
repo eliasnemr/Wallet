@@ -31,6 +31,7 @@ export class SendFundsPage implements OnInit {
 
   sendForm: FormGroup;
   $balance: Subject<Token[]>;
+  $contactSubscription: Subscription;
 
   nftScript: string = 'ASSERT FLOOR ( @AMOUNT ) EQ @AMOUNT LET checkout = 0 WHILE ( checkout LT @TOTOUT )' +
   'DO IF GETOUTTOK ( checkout ) EQ @TOKENID THEN LET outamt = GETOUTAMT ( checkout ) ASSERT FLOOR ( outamt )' +
@@ -59,18 +60,25 @@ export class SendFundsPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    this._contactService.$selected_address.subscribe((res: SelectedAddress) => {
+  
+    this.$contactSubscription = this._contactService.$selected_address.subscribe((res: SelectedAddress) => {
       if (res.address.length === 0) {
 
       } else {
         this.addressFormItem.setValue(res.address);
         this._contactService.$selected_address.next({address: ''});
-      }
+      }``
     });
     this.getTokenSelected();
   }
 
   ionViewWillLeave() {
+
+    if (this.$contactSubscription) {
+
+      this.$contactSubscription.unsubscribe();
+
+    }
 
   }
 

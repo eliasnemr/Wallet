@@ -1,3 +1,4 @@
+import { Subscription } from 'rxjs';
 import { ToolsService } from './../../service/tools.service';
 import { PopContactsComponent } from './../../components/pop-contacts/pop-contacts.component';
 import { MinimaApiService } from './../../service/minima-api.service';
@@ -17,6 +18,7 @@ export class ContactsPage implements OnInit {
   avatar: string;
   contacts: Contact[] = [];
   filteredContacts: Contact[];
+  $contactSubscription: Subscription;
 
   @ViewChild('contactList', {static: false}) ContactList: IonList;
   constructor(public menu: MenuController,
@@ -28,11 +30,26 @@ export class ContactsPage implements OnInit {
     private myTools: ToolsService
     ) { }
 
-  ngOnInit() {
-    this.contactService.data.subscribe((res: Contact[]) => {
+  ngOnInit() { }
+  
+  ionViewWillEnter() {
+    
+    this.$contactSubscription = this.contactService.data.subscribe((res: Contact[]) => {
       // set the list
       this.contacts = res;
     });
+    
+
+  }
+
+  ionViewWillLeave() {
+
+    if (this.$contactSubscription) {
+
+      this.$contactSubscription.unsubscribe();
+
+    }
+
   }
 
   async presentContactSettings(ev: any) {

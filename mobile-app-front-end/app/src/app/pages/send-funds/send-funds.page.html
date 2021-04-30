@@ -6,7 +6,7 @@
         <ion-icon class="menu-btn" (click)="openMenu()" src="assets/menuIcon.svg"></ion-icon>
         Send
       </ion-item>
-      <ion-item id="subtitle" class="breadcrumb ion-no-padding" lines="none" *ngIf="tokenArr.length > 0">
+      <ion-item id="subtitle" class="breadcrumb ion-no-padding" lines="none">
         Enter transaction details
       </ion-item>
     </ion-title>
@@ -17,7 +17,7 @@
 
 <ion-content #pageContent class="page-content" *ngIf="!isWebCameraOpen">
 
-  <ion-grid *ngIf="tokenArr.length == 0">
+  <ion-grid *ngIf="!$balance">
     <ion-row>
       <ion-col style="display: flex; align-items:center; justify-content:center" size="12">
         <ion-label>Fetching tokens...</ion-label>
@@ -40,7 +40,7 @@
   </ion-card>
 
 
-  <form *ngIf="!isWebCameraOpen && tokenArr.length > 0" [formGroup]="sendForm" id="sendForm" (ngSubmit)="sendFunds()">
+  <form *ngIf="!isWebCameraOpen && $balance" [formGroup]="sendForm" id="sendForm" (ngSubmit)="sendFunds()">
     <ion-list class="ion-no-padding">
       <ion-item class="no-hover no-ripple ion-no-padding" lines="none">
         <ion-label position="floating">Token</ion-label>
@@ -51,7 +51,7 @@
           [(ngModel)]='itemSelected'
           class="no-hover no-ripple input"
           (ionChange)="onItemSelection($event)"> 
-        <ion-select-option *ngFor="let token of tokenArr;" [value]="token.tokenid" class="token-option">
+        <ion-select-option *ngFor="let token of $balance | async;" [value]="token.tokenid" class="token-option">
           {{ token.token + "&mdash;"+ token.tokenid }}
         </ion-select-option>
       </ion-select>
