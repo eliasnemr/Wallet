@@ -1,7 +1,7 @@
 <ion-app>
   <ion-header class="page-header ion-no-border">
     <ion-toolbar>
-         <ion-title *ngIf="!ios" class="large-text">
+         <ion-title class="large-text">
           <ion-item id="title" lines="none" class="ion-no-padding">
             <ion-icon 
             class="menu-btn" 
@@ -13,7 +13,7 @@
           id="subtitle" 
           class="breadcrumb ion-no-padding" 
           lines="none" 
-          *ngIf="transactions.length > 0">
+          *ngIf="$history.length > 0">
             Transaction history
           </ion-item>
         </ion-title>
@@ -26,7 +26,7 @@
     #historyList  
     lines="none">
         <ion-item
-        *ngFor="let txn of transactions | historyfilter"
+        *ngFor="let txn of $history"
         class="ion-no-padding" 
         routerLink="/view-txn/{{ txn.txpow.txpowid }}" 
         routerDirection="forward"
@@ -53,12 +53,17 @@
             <ion-list style="background-color: transparent; margin:0; padding:2px">
               <ion-label class="token-name">
                 <h3 
-                *ngIf="!txn.txpow.body.txn.tokengen && !txn.values[0]?.name.name">
-                        {{ txn.values[0].name }}</h3>
+                *ngIf="!txn.txpow.body.txn.tokengen && !txn.values[0]?.name?.name">
+                        {{ txn.values[0]?.name }}</h3>
                         <h3 
-                *ngIf="!txn.txpow.body.txn.tokengen && txn.values[0]?.name.name">
-                        {{ txn.values[0].name.name }}</h3>
+                *ngIf="!txn.txpow.body.txn.tokengen && txn.values[0]?.name?.name">
+                        {{ txn.values[0]?.name?.name }}</h3>
                 <h3 *ngIf="txn.txpow.body.txn.tokengen">{{ txn.txpow.body.txn.tokengen.token }}</h3>
+
+                <h3 *ngIf="!txn.txpow.body.txn.tokengen && !txn.values[0]">Transaction: {{ txn.txpow.txpowid }}</h3>
+
+
+
               </ion-label>
               
 
@@ -66,11 +71,11 @@
               class="ion-no-padding ion-no-margin transaction-amount" 
               slot="end" 
               *ngIf="!txn.txpow.body.txn.tokengen">
-                <span *ngIf="txn.values[0]?.amount.substring(0,1) === '-'"> 
-                  <h3 class="minima-numeric left">{{ txn.values[0].amount}}</h3>
+                <span *ngIf="txn.values[0] && txn.values[0]?.amount?.substring(0,1) === '-'"> 
+                  <h3 class="minima-numeric left">{{ txn.values[0]?.amount}}</h3>
                 </span>
-                <span *ngIf="txn.values[0]?.amount.substring(0,1) !== '-'">
-                  <h3 class="minima-numeric left">{{ "+"+ txn.values[0].amount}}</h3>
+                <span *ngIf="txn.values[0] && txn.values[0]?.amount?.substring(0,1) !== '-'">
+                  <h3 class="minima-numeric left">{{ "+"+ txn.values[0]?.amount}}</h3>
                 </span>
               </ion-label>
               <ion-label 
@@ -79,7 +84,7 @@
               *ngIf="txn.txpow.body.txn.tokengen">
                 <span class="minima-numeric left">
                   <h6>{{"+" + txn.txpow.body.txn.tokengen.total}}</h6>
-                  <p>{{"-"+txn.values[0].amount+" Mini"}}</p>
+                  <p>{{"-"+txn.values[0]?.amount+" Mini"}}</p>
                 </span>
               </ion-label>
             </ion-list>
@@ -90,15 +95,15 @@
           class="date-time ion-no-padding ion-no-margin">
             <ion-label>
             <h6 class="ion-no-padding ion-no-margin">
-              {{ txn.values[0].day }} {{ txn.values[0].month }} {{ txn.values[0].year }}
+              {{ txn.day }} {{ txn.month }} {{ txn.year }}
             </h6>
-            <p class="ion-no-padding ion-no-margin ion-text-right">{{ txn.values[0].time }}</p>
+            <p class="ion-no-padding ion-no-margin ion-text-right">{{ txn.time }}</p>
             </ion-label>
           </ion-list>
         </ion-item>
     </ion-list>
 
-    <ion-grid *ngIf="transactions.length == 0">
+    <ion-grid *ngIf="$history.length == 0">
       <ion-row>
         <ion-col style="display: flex; align-items:center; justify-content:center" size="12">
           <ion-label>{{ prompt }}</ion-label>

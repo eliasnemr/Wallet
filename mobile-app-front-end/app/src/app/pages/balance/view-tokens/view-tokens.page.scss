@@ -1,11 +1,22 @@
-ion-title ion-item:hover {
-    background: none;
-    --background-hover: none;
+ion-title {
+    ion-item:hover {
+        background: none;
+        --background-hover: none;
+    }
 }
-ion-list ion-item {
-    background-color: var(--ion-color-token);
-    opacity: 1;
+ion-list {
+    ion-item {
+        background-color: var(--ion-color-token);
+        opacity: 1;
+        ion-label.description {
+            h6 {
+                font-size: 1.0em;
+                font-family: manrope-semibold;
+            }
+        }
+    }
 }
+
 .item .item-content {
     background-color: transparent !important;
   }
@@ -49,4 +60,7 @@ ion-list ion-item {
     text-decoration: underline;
     cursor: pointer;
     font-size: 0.8rem;
+}
+.active {
+    color: var(--ion-color-primary)
 }

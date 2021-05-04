@@ -1,10 +1,10 @@
+import { TimeCompleteTransaction } from './../history.page';
+import { take } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 import { ToolsService } from './../../../service/tools.service';
-import { HistoryService } from './../../../service/history.service';
 import { MinimaApiService } from './../../../service/minima-api.service';
 import { ActivatedRoute } from '@angular/router';
-import { ToastController, AlertController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
-import { Minima, History, CompleteTransaction } from 'minima';
 
 declare var require: any; // quick fix just cause I'm using require for 1 pkg
 var moment = require('moment');
@@ -16,60 +16,118 @@ var moment = require('moment');
 })
 export class ViewTXNPage implements OnInit {
 
-  myTxn: CompleteTransaction;
+  $subscription: Subscription;
+  myTxn: TimeCompleteTransaction[];
   transactionID: string = '';
 
-  hide = false;
-  public loading = true;
+  hide: boolean;
+  prompt: string;
 
-  public id: string;
-  public relaytime: string;
-  public type: string;
-  public message: string = '';
+  id: string;
+  relaytime: string;
+  type: string;
+  message: string;
 
   constructor(
     public route: ActivatedRoute,
-    private api: MinimaApiService,
-    private _historyService: HistoryService,
+    private _minimaApiService: MinimaApiService,
     private myTools: ToolsService
-  ) {}
+  ) {
 
+    this.hide = false;
+    this.message = '';
+    this.prompt = 'Fetching your transaction details...';
+    
+  }
+  
   ionViewWillEnter() {
-    this.transactionID = this.route.snapshot.paramMap.get('id');
 
-    this._historyService
-    .loadHistoryOnce()
-      .then((res: any) => {
-        this.loading = false;
-
-        this.myTxn = res.history.filter((txpow: CompleteTransaction) => txpow.txpow.txpowid === this.transactionID );
-        this.myTxn = this.myTxn[0];
-        //console.log(this.myTxn);
-
-        this.relaytime = new Date(parseInt(this.myTxn.txpow.header.timemilli)).toISOString();
-        this.relaytime = moment(this.relaytime).format('DD/MM/YYYY - hh:mm:ss a', true);
-
-        if (this.myTxn.txpow.body.txn.state && this.myTxn.txpow.body.txn.state[0] && this.myTxn.txpow.body.txn.state[0].data === '[01000100]') {
-
-          this.message = this.myTxn.txpow.body.txn.state[1].data;
-          this.message = this.message.substring(1, this.message.length-1);
-        }
+    this.fetchHistory().then((res: any) => {
+      if (res) {
+        this.transactionID = this.route.snapshot.paramMap.get('id');
+    
+        if (this.transactionID && this.transactionID.length > 0) {
+            this.$subscription = this._minimaApiService.$history.pipe(take(1)).subscribe((history: any) => {
+              (
+                history.history ? 
+                
+                this.myTxn = history.history.filter((txn: TimeCompleteTransaction) => txn.txpow.txpowid === this.transactionID)
+                        
+                : 
         
-        if (this.myTxn.txpow.body.txn.tokengen) {
-          this.type = 'Token Creation.';
-        } else {
-          this.type = 'Value Transfer.';
-        }
+                console.log('Transaction not found.')
+              
+              )
+    
+              if (this.myTxn.length > 0) {
+                
+                this.relaytime = new Date(parseInt(this.myTxn[0].txpow.header.timemilli)).toISOString();
+                this.relaytime = moment(this.relaytime).format('DD/MM/YYYY - hh:mm:ss a', true);
+      
+                (
+                  this.myTxn[0].txpow.body.txn.state &&
+                   this.myTxn[0].txpow.body.txn.state[0] &&
+                    this.myTxn[0].txpow.body.txn.state[0].data === '[01000100]' ?
+      
+                    this.message = this.myTxn[0].txpow.body.txn.state[1].data.substring(1, this.message.length-1)
+      
+                    :
+      
+                    null
+      
+                );
+                (
+                  this.myTxn[0].txpow.body.txn.tokengen ?
+      
+                  this.type = 'Token Creation.'
+      
+                  :
+      
+                  this.type = 'Value Transfer.'
+      
+      
+                )
+              } 
+            });
+            
+            // check & see if subscription worked
+            if (this.$subscription.closed) {
+    
+              this.prompt = '';
+    
+            } else {
+    
+              this.prompt = 'No transaction details found.';
+    
+            }
+    
+          } 
+      }
+    })
 
-      }).catch(error => {
-        console.log(error);
-      })
+  }
+
+  ionViewWillLeave() {
+
+    if (this.$subscription) {
+
+      this.$subscription.unsubscribe();
+
+    }
+
+  }
+  
+  fetchHistory() {
+
+    return this._minimaApiService.initHistory()
+
+
   }
 
   ngOnInit() {}
 
   giveMe50() {
-    this.api.giveMe50().then((res: any) => {
+    this._minimaApiService.giveMe50().then((res: any) => {
       if(res.status === true) {
         this.myTools.presentAlert('Gimme50', 'Successful', 'Status');
       } else {

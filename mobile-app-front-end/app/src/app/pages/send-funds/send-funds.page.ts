@@ -2,11 +2,10 @@ import { ToolsService } from './../../service/tools.service';
 import { ContactService, SelectedAddress } from 'src/app/service/contacts.service';
 import { ContactsViewModalComponent } from './../../components/contacts-view-modal/contacts-view-modal.component';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { BalanceService } from '../../service/balance.service';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { IonInput, IonButton, MenuController, ModalController, IonContent } from '@ionic/angular';
 import { MinimaApiService } from '../../service/minima-api.service';
-import { Subscription } from 'rxjs';
+import { Subscription, Subject } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 
 import { Token } from 'minima';
@@ -31,6 +30,8 @@ export class SendFundsPage implements OnInit {
   @ViewChild('pageContent', {static: false}) pageContent: IonContent;
 
   sendForm: FormGroup;
+  $balance: Subject<Token[]>;
+  $contactSubscription: Subscription;
 
   nftScript: string = 'ASSERT FLOOR ( @AMOUNT ) EQ @AMOUNT LET checkout = 0 WHILE ( checkout LT @TOTOUT )' +
   'DO IF GETOUTTOK ( checkout ) EQ @TOKENID THEN LET outamt = GETOUTAMT ( checkout ) ASSERT FLOOR ( outamt )' +
@@ -51,27 +52,33 @@ export class SendFundsPage implements OnInit {
     public modalController: ModalController,
     private myTools: ToolsService,
     private formBuilder: FormBuilder,
-    private api: MinimaApiService,
-    private balanceService: BalanceService,
+    private _minimaApiService: MinimaApiService,
     private _contactService: ContactService,
     private route: ActivatedRoute
   ) {
-      this.pullInTokens();
+      this.$balance = this._minimaApiService.$balance;
   }
 
   ionViewWillEnter() {
-    this._contactService.$selected_address.subscribe((res: SelectedAddress) => {
+  
+    this.$contactSubscription = this._contactService.$selected_address.subscribe((res: SelectedAddress) => {
       if (res.address.length === 0) {
 
       } else {
         this.addressFormItem.setValue(res.address);
         this._contactService.$selected_address.next({address: ''});
-      }
+      }``
     });
     this.getTokenSelected();
   }
 
   ionViewWillLeave() {
+
+    if (this.$contactSubscription) {
+
+      this.$contactSubscription.unsubscribe();
+
+    }
 
   }
 
@@ -96,11 +103,6 @@ export class SendFundsPage implements OnInit {
     this.menu.open();
   }
 
-  pullInTokens() {
-    this.balanceService.data.subscribe((balance: Token[]) => {
-      this.tokenArr = balance;
-    });
-  }
 
   async presentContactModal() {
     let contactModal = await this.modalController.create({
@@ -132,7 +134,7 @@ export class SendFundsPage implements OnInit {
     this.submitBtn.disabled = true;
     this.status = 'Posting your transaction...';
     if (data.message !== null && ( data.message || data.message.length > 0) ) {
-      const res: any = await this.api.sendMessageTransaction(data);
+      const res: any = await this._minimaApiService.sendMessageTransaction(data);
       console.log(res);
       if (res.status) {
         setTimeout(() => {
@@ -149,7 +151,7 @@ export class SendFundsPage implements OnInit {
         this.myTools.presentAlert('Transaction Status', res.message, 'Failed');
       }
     } else {
-      const res: any = await this.api.sendFunds(data);
+      const res: any = await this._minimaApiService.sendFunds(data);
       console.log(res);
 
       if (res.status) {
@@ -199,7 +201,7 @@ export class SendFundsPage implements OnInit {
   }
 
   giveMe50() {
-    this.api.giveMe50().then((res: any) => {
+    this._minimaApiService.giveMe50().then((res: any) => {
       if(res.status === true) {
         this.myTools.presentAlert('Gimme50', 'Successful', 'Status');
       } else {

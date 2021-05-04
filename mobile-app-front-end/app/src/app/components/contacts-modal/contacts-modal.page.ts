@@ -1,3 +1,4 @@
+import { Subscription } from 'rxjs';
 import { ToolsService } from './../../service/tools.service';
 import { ContactService, Contact } from 'src/app/service/contacts.service';
 import { ModalController, ToastController } from '@ionic/angular';
@@ -16,6 +17,7 @@ export class ContactsModalPage implements OnInit {
   contactForm: FormGroup;
   myContact: Contact;
   av = '';
+  $contactSubscription: Subscription;
 
   // State Items
   loading = false;
@@ -51,6 +53,17 @@ export class ContactsModalPage implements OnInit {
     });
   }
 
+  ionViewWillLeave() {
+
+    if (this.$contactSubscription) {
+
+      this.$contactSubscription.unsubscribe();
+
+    }
+
+  }
+
+
   dismiss() {
     this.modalCtrl.dismiss({
       dismissed: true
@@ -75,7 +88,7 @@ export class ContactsModalPage implements OnInit {
 
     this.contactService.addContact(newContact);
 
-    this.contactService.data.subscribe((val: Contact[]) => {
+    this.$contactSubscription = this.contactService.data.subscribe((val: Contact[]) => {
       if (val.length > 0) {
         this.success = true;
         this.showToast();

@@ -1,7 +1,8 @@
+import { take } from 'rxjs/operators';
+import { Subscription, Subject } from 'rxjs';
 import { ToolsService } from './../../../service/tools.service';
-import { BalanceService } from './../../../service/balance.service';
 import { MinimaApiService } from './../../../service/minima-api.service';
-import { Token, Minima } from 'minima';
+import { Token } from 'minima';
 import * as SparkMD5 from 'spark-md5';
 import { ActivatedRoute } from '@angular/router';
 import { Component,  OnInit } from '@angular/core';
@@ -13,53 +14,88 @@ import { Component,  OnInit } from '@angular/core';
 })
 export class ViewTokensPage implements OnInit {
 
-  public urlID = '';
-  public token: Token;
-  public tokenArr: Token[];
-  public type = '';
-  public avatar: string;
+  urlTokenid: string;
+  avatar: string;
+  $balanceDetails: Token[];
+  $subscription: Subscription;
+  $token: Token[];
 
   constructor(
     public route: ActivatedRoute, 
-    public api: MinimaApiService,
-    public balanceService: BalanceService,
+    public _minimaApiService: MinimaApiService,
     private myTools: ToolsService
   ) {
+
+    (this.route.snapshot.paramMap.get('id') ? this.urlTokenid = this.route.snapshot.paramMap.get('id') : this.urlTokenid = '');
+
+  }
+
+  ngOnInit() { }
+                      
+  ionViewWillEnter() {
+    if (this.urlTokenid && this.urlTokenid.length > 0) {
+      this.$subscription = this._minimaApiService.$balance
+        .subscribe((tokens: Token[]) => {
+        (
+          tokens ?
+
+          this.$token = tokens.filter((token: Token) => token.tokenid === this.urlTokenid )
+
+          :
+
+          console.log('Token balance not found..')
+
+
+        )
+
+
+        if (this.$token.length > 0 && this.$token[0].tokenid) {
+
+          // Some formatting...
+          (this.$token[0].tokenid === '0x00' ?
+            this.$token[0].description = 'Minima\'s Official Token.'
+            :
+            null
+          );
+
+          (this.$token[0].tokenid !== '0x00' && this.$token[0].icon.length === 0 || this.$token[0].tokenid === '0x00' ?
+            this.$token[0].icon = 'assets/minimaIcon.svg'
+            :
+            null
+          );
+
+        }
+      
+      });
+
+    } else {
+      
+    }
+
+    if (this.$subscription.closed) {
+
+      // subscribed and works..
+
+    } else {
+
+      // didnt subscribe to anything..
+
+    }
     
   }
 
-  ngOnInit() {
-    this.balanceService.data.subscribe((res) => {
-      this.tokenArr = res;
-      this.urlID = this.route.snapshot.paramMap.get('id');
+  ionViewWillLeave() {
 
-      this.tokenArr.forEach((tkn: any) => {
-        if (tkn.tokenid === this.urlID) {
-          this.token = tkn;
-          if (this.token.tokenid === '0x00') {
-            this.token.description = 'Minima\'s Official Token.';
-          } else {
-            this.token.description = tkn.description;
-          }
-          if(tkn.token.tokenid !== '0x00' && tkn.token.icon) {
-            this.token.icon = 'assets/minimaBox.svg';
-          } else if(tkn.token.tokenid === '0x00') {
-            this.token.icon = 'assets/minimaBox.svg';
-          } else {
-            this.token.icon = tkn.icon;
-          }
-          if(this.token.script === 'RETURN TRUE') {
-            this.type = 'Value Transfer';
-          } else {
-            this.type = 'Non Fungible Token';
-          }
-        }
-      });
-    });
-   }
+    if (this.$subscription) {
+
+      this.$subscription.unsubscribe();
+
+    }
+
+  }
 
   validateProof(tokenid: string) {
-    this.api.validateTokenID(tokenid).then((res: any)=>{
+    this._minimaApiService.validateTokenID(tokenid).then((res: any)=>{
        if(res.response.valid === true){
          this.myTools.presentToast('This proof is valid.', 'success', 'bottom');
        } else {
@@ -80,7 +116,7 @@ export class ViewTokensPage implements OnInit {
 
 
   giveMe50() {
-    this.api.giveMe50().then((res: any) => {
+    this._minimaApiService.giveMe50().then((res: any) => {
       if(res.status === true) {
         this.myTools.presentAlert('Gimme50', 'Successful', 'Status');
       } else {

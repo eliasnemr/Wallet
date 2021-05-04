@@ -1,11 +1,20 @@
 <ion-header class="page-header ion-no-border">
   <ion-toolbar>
     <ion-title>
-      <ion-item id="title" class="no-ripple ion-no-padding" lines="none">
-      <ion-icon routerLink="/balance" class="back-btn" name="arrow-back"></ion-icon>
+      <ion-item 
+      id="title"
+      class="no-ripple ion-no-padding" 
+      lines="none">
+      <ion-icon 
+      routerLink="/balance" 
+      class="back-btn" 
+      name="arrow-back"></ion-icon>
       Balance
       </ion-item>
-      <ion-item id="subtitle" class="breadcrumb ion-no-padding" lines="none" *ngIf="tokenArr.length > 0">
+      <ion-item 
+      id="subtitle" 
+      class="breadcrumb ion-no-padding active" 
+      lines="none">
         Token details
       </ion-item>
     </ion-title>
@@ -13,51 +22,68 @@
 </ion-header>
 
 <ion-content class="page-content">
-  <ion-list lines="none">
-    <ion-item class="ion-no-padding" color="none">
+  <ion-list *ngFor="let token of $token" lines="none">
+    <ion-item 
+    class="ion-no-padding" 
+    color="none">
       <ion-avatar slot="start">
-        <img class="custom-icon" *ngIf="token.tokenid !== '0x00' && token.icon.length == 0" [src]="createIcon( token.tokenid )"/>
-        <img class="custom-icon" *ngIf="token.tokenid !== '0x00' && token.icon.length > 0" [src]="token.icon"/>
-        <img *ngIf="token.tokenid === '0x00'" class="custom-icon" alt="minima" src="assets/minimaIcon.svg"> 
+        <img 
+        class="custom-icon" 
+        *ngIf="token?.tokenid !== '0x00' && token?.icon.length == 0" 
+        [src]="createIcon( token?.tokenid )"/>
+        <img 
+        class="custom-icon" 
+        *ngIf="token?.tokenid !== '0x00' && token?.icon.length > 0" 
+        [src]="token?.icon"/>
+        <img 
+        *ngIf="token?.tokenid === '0x00'" 
+        class="custom-icon" 
+        alt="minima" 
+        src="assets/minimaIcon.svg"> 
       </ion-avatar>
       <ion-label id="name">
-        <h3>{{token.token}}</h3> 
+        <h3>{{token?.token}}</h3> 
       </ion-label>
     </ion-item>
-    <ion-item class="ion-no-padding" *ngIf="token.description && token.description.length > 0" color="none">
-      <ion-label position="stacked" style="font-size: 1.3rem; font-family: manrope-medium; opacity: 1">Token Description</ion-label>
-      <ion-input style="font-family: manrope-regular;" disabled>
-        {{ token.description }}
-      </ion-input>
+    <ion-item
+    class="ion-no-padding" 
+    *ngIf="token?.description && token?.description.length > 0" 
+    color="none">
+      <ion-label class="description">
+        <h6>Token Description</h6>
+        <p>{{ token?.description }}</p>      
+      </ion-label>
     </ion-item>
     <ion-item color="none" class="ion-no-padding">
       <ion-col class="title">
         Name
       </ion-col>
       <ion-col class="value">
-        {{token.token}}
+        {{token?.token}}
       </ion-col>
     </ion-item>
     <ion-item color="none" class="ion-no-padding">
       <ion-col class="title">
         Token ID
-      <a class="copy" (click)="copyToClipPWA(token.tokenid)">
+      <a class="copy" (click)="copyToClipPWA(token?.tokenid)">
         Copy 
       </a>
       </ion-col>
       <ion-col class="value">
-        {{token.tokenid}}
+        {{token?.tokenid}}
       </ion-col>
     </ion-item>
-    <ion-item  color="none" class="ion-no-padding" [hidden]="token.tokenid == '0x00'">
+    <ion-item 
+    color="none" class="ion-no-padding" 
+    [hidden]="token?.tokenid == '0x00'">
       <ion-col class="title">
         Coin ID
-      <a class="copy" (click)="copyToClipPWA(token.coinid)">
+      <a class="copy" (click)="copyToClipPWA($balanceDetails[0]?.coinid)">
         Copy 
       </a>
       </ion-col>
       <ion-col class="minima-numeric value">
-        {{token.coinid}}
+        {{token?.coinid}}
       </ion-col>
     </ion-item>
     <ion-item color="none" class="ion-no-padding">
@@ -65,7 +91,7 @@
         Total Supply
       </ion-col>
       <ion-col class="minima-numeric value">
-        {{token.total}}
+        {{token?.total}}
       </ion-col>
     </ion-item>
     <ion-item color="none" class="ion-no-padding">
@@ -73,7 +99,7 @@
         Confirmed Amount
       </ion-col>
       <ion-col class="minima-numeric value">
-        {{token.confirmed}}
+        {{token?.confirmed}}
       </ion-col>
     </ion-item>
     <ion-item color="none" class="ion-no-padding">
@@ -81,7 +107,7 @@
         Unconfirmed Amount
       </ion-col>
       <ion-col class="minima-numeric value">
-        {{token.unconfirmed}}
+        {{token?.unconfirmed}}
       </ion-col>
     </ion-item>
     <ion-item color="none" class="ion-no-padding">
@@ -89,7 +115,7 @@
         Sendable Amount
       </ion-col>
       <ion-col class="value minima-numeric">
-        {{token.sendable}}
+        {{token?.sendable}}
       </ion-col>
     </ion-item>
     <ion-item color="none" class="ion-no-padding">
@@ -97,31 +123,38 @@
         Mempool Amount
       </ion-col>
       <ion-col class="minima-numeric value">
-        {{token.mempool}}
+        {{token?.mempool}}
       </ion-col>
     </ion-item>
-    <ion-item color="none" class="ion-no-padding" [hidden]="token.tokenid == '0x00'">
+    <!-- <ion-item color="none" class="ion-no-padding" [hidden]="token?.tokenid == '0x00'">
       <ion-col class="title">
         Token Type
       </ion-col>
       <ion-col class="value">
         {{type}}
       </ion-col>
-    </ion-item>
-    <ion-item color="none" class="ion-no-padding"  [hidden]="token.tokenid == '0x00' || !token.proof">
+    </ion-item> -->
+    <ion-item color="none" class="ion-no-padding"  [hidden]="token?.tokenid == '0x00' || !token?.proof">
       <ion-col class="title">
         Proof
       </ion-col>
       <ion-col class="value" style="white-space: normal;">
-        {{token.proof}}
+        {{token?.proof}}
       </ion-col>
     </ion-item>
-    <ion-item color="none" class="ion-no-padding" [hidden]="token.tokenid == '0x00' || !token.proof ">
+    <ion-item 
+    color="none" 
+    class="ion-no-padding" 
+    [hidden]="token?.tokenid == '0x00' || !token?.proof ">
       <ion-col class="title">
         Validate Proof
       </ion-col>
       <ion-col class="value">
-        <ion-button *ngIf="token.proof" class="small-text" size="small" (click)="validateProof(token.tokenid)">
+        <ion-button 
+        *ngIf="token?.proof" 
+        class="small-text" 
+        size="small" 
+        (click)="validateProof(token?.tokenid)">
           Validate
         </ion-button> 
       </ion-col>
@@ -130,7 +163,10 @@
 </ion-content>
 
 <ion-footer class="border-t">
-  <ion-button (click)="giveMe50()" class="gimme50 no-ripple" fill="none">
+  <ion-button 
+  (click)="giveMe50()" 
+  class="gimme50 no-ripple" 
+  fill="none">
     Gimme 50
   </ion-button>
 </ion-footer>

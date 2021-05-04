@@ -1,8 +1,7 @@
+import { Subscription } from 'rxjs';
 import { ToolsService } from './../../service/tools.service';
 import { PopContactsComponent } from './../../components/pop-contacts/pop-contacts.component';
 import { MinimaApiService } from './../../service/minima-api.service';
-import { UserConfigService } from './../../service/userconfig.service';
-import { UserConfig } from './../../models/userConfig.model';
 import { ContactsModalPage } from './../../components/contacts-modal/contacts-modal.page';
 import { ModalController, AlertController, IonList, MenuController, PopoverController } from '@ionic/angular';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -19,33 +18,38 @@ export class ContactsPage implements OnInit {
   avatar: string;
   contacts: Contact[] = [];
   filteredContacts: Contact[];
-  user: UserConfig = {
-    tokenDisplayMode: 1,
-    tips: {
-      balance: false,
-      contacts: false,
-      address: false
-    }
-  };
+  $contactSubscription: Subscription;
+
   @ViewChild('contactList', {static: false}) ContactList: IonList;
   constructor(public menu: MenuController,
     public modalController: ModalController,
     public popoverController: PopoverController,
     public alertController: AlertController,
-    private userConfigService: UserConfigService,
     private contactService: ContactService,
     private api: MinimaApiService,
     private myTools: ToolsService
     ) { }
 
-  ngOnInit() {
-    this.contactService.data.subscribe((res: Contact[]) => {
+  ngOnInit() { }
+  
+  ionViewWillEnter() {
+    
+    this.$contactSubscription = this.contactService.data.subscribe((res: Contact[]) => {
       // set the list
       this.contacts = res;
     });
-    this.userConfigService.userConfig.subscribe((res: UserConfig) => {
-      this.user = res;
-    });
+    
+
+  }
+
+  ionViewWillLeave() {
+
+    if (this.$contactSubscription) {
+
+      this.$contactSubscription.unsubscribe();
+
+    }
+
   }
 
   async presentContactSettings(ev: any) {
@@ -87,11 +91,6 @@ export class ContactsPage implements OnInit {
     this.presentAlert(addr);
   }
 
-  hideTip() {
-    this.user.tips.contacts = true;
-    this.userConfigService.userConfig.next(this.user);
-    this.userConfigService.saveUserConfig(this.user);
-  }
 
   giveMe50() {
     this.api.giveMe50().then((res: any) => {

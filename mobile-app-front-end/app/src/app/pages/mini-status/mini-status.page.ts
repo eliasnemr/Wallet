@@ -2,10 +2,8 @@ import { ToolsService } from './../../service/tools.service';
 import { MinimaApiService } from './../../service/minima-api.service';
 import { AlertController, MenuController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { StatusService } from './../../service/status.service';
 import { Component, OnInit } from '@angular/core';
-import { NetworkStatus, Minima } from 'minima';
+import { NetworkStatus } from 'minima';
 
 @Component({
   selector: 'app-mini-status',
@@ -14,26 +12,23 @@ import { NetworkStatus, Minima } from 'minima';
 })
 export class MiniStatusPage implements OnInit {
 
-  status: NetworkStatus;
+  $status: NetworkStatus;
   statusSubscription: Subscription;
 
   public lastJSON: string;
 
   constructor(public menu: MenuController, 
     private myTools: ToolsService,
-    private service: StatusService, 
     private alertController: AlertController, 
-    private api: MinimaApiService) {}
+    private _minimaApiService: MinimaApiService) { }
 
   ngOnInit() { }
 
   ionViewWillEnter() {
     
-    Minima.cmd('status full', (res: any) => {
-      this.service.updatedStatus.next(res.response);
-    });
-
+    this._minimaApiService.initStatus();
     this.updateStatus();
+    
   }
 
   ionViewWillLeave() {
@@ -59,7 +54,7 @@ export class MiniStatusPage implements OnInit {
   }
 
   giveMe50() {
-    this.api.giveMe50().then((res: any) => {
+    this._minimaApiService.giveMe50().then((res: any) => {
       if(res.status === true) {
         this.myTools.presentAlert('Gimme50', 'Successful', 'Status');
       } else {
@@ -69,17 +64,9 @@ export class MiniStatusPage implements OnInit {
   }
 
   updateStatus() {
-    this.service.updatedStatus
-    .pipe(map((responseData: NetworkStatus) => {
-      responseData.uptime = responseData.uptime.replace(/\b0 Years\b|\b0 Months\b|\b0 Weeks\b|\b0 Days\b|\b0 Hours\b|\b0 Minutes\b|\b0 Seconds\b|\b0 Milliseconds\b/gi, " ");
-
-      return responseData;
-    })).subscribe(( res: any) => {
-      //console.log(res);
-      if ( this.lastJSON !== JSON.stringify(res) ) {
-        this.status = res;
-        this.lastJSON = JSON.stringify(res);
-      }
+    this.statusSubscription = this._minimaApiService.$status.subscribe((status: NetworkStatus) => {
+      this.$status = status;
+      this.$status.uptime = status.uptime.replace(/\b0 Years\b|\b0 Months\b|\b0 Weeks\b|\b0 Days\b|\b0 Hours\b|\b0 Minutes\b|\b0 Seconds\b|\b0 Milliseconds\b/gi, " ");
     });
   }
 }

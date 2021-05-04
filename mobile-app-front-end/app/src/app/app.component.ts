@@ -1,10 +1,7 @@
+import { MinimaApiService } from './service/minima-api.service';
+import { ToolsService } from './service/tools.service';
 import { environment } from './../environments/environment.prod';
-import { ActivatedRoute } from '@angular/router';
-import { HistoryService } from './service/history.service';
-import { BalanceService } from './service/balance.service';
-import { StatusService } from './service/status.service';
-import { Component, NgZone } from '@angular/core';
-import { Platform, ToastController } from '@ionic/angular';
+import { Component } from '@angular/core';
 import { Minima } from 'minima';
 
 interface Menu {
@@ -29,51 +26,37 @@ export class AppComponent {
   menu: Menu[];
   environment = environment;
 
-  constructor(
-    private api: BalanceService,
-    private platform: Platform,
-    public toastCtrl: ToastController,
-    private historyService: HistoryService) {
+  constructor(public _tools: ToolsService, private _minimaApiService: MinimaApiService) {
     this.getPages();
     this.initializeApp();
     this.setLocalStorage();
   }
 
-  ionViewWillEnter() {
-   this.initializeApp();
-  }
-
   initializeApp() {
-    this.platform.ready().then(() => {
-      this.initMinima();
-    });
+    this.initMinima();
   }
 
   initMinima() {
     Minima.init((msg: any) => {
       if (msg.event === 'connected') {
-        this.api.data.next(Minima.balance);
 
+        this._minimaApiService.init(Minima.balance);
 
       } else if (msg.event === 'newbalance') {
 
-        this.presentToast('Balance updated!', 'primary');
+        this._tools.presentToast('Balance updated!', 'primary', 'top');
+        this._minimaApiService.$balance.next(msg.info.balance);
 
-        this.api.data.next(msg.info.balance);
-
-        // update history observable+historyPage
-        Minima.cmd('history', (res: {status: boolean; minifunc: string; message: string; response: any}) => {
-          if (res.status && res.response.history.length > 0) {
-            this.historyService.data.next(res.response);
-          }
-        });
       } else if (msg.event === 'newblock') {
         
       } else if (msg.event === 'miningstart') {
-        this.presentMining('Node Status', 'Mining transaction in progress...', 'warning');
+
+        this._tools.presentToast('Node Status', 'Mining transaction in progress...', 'top');
+      
       } else if (msg.event === 'miningstop') {
-        // change color
-        this.presentMining('Node Status', 'Mining ended.', 'warning');
+
+        this._tools.presentToast('Node Status', 'Mining ended.', 'top');
+      
       } 
     });
   }
@@ -120,32 +103,4 @@ export class AppComponent {
       document.body.classList.toggle('dark', true);
     }
   }
-  async presentToast(txt: string, color: string) {
-    const toast = await this.toastCtrl.create({
-      header: txt,
-      duration: 1000,
-      position: 'top',
-      color: color,
-      buttons: [{
-        text: 'Dismiss',
-        role: 'cancel'
-      }]
-    });
-    await toast.present();
-  }
-
-  async presentMining(txt: string, msg: string, color: string) {
-    const toast = await this.toastCtrl.create({
-      header: txt,
-      message: msg,
-      duration: 2500,
-      color: color,
-      buttons: [{
-        text: 'Dismiss',
-        role: 'cancel'
-      }]
-    });
-    await toast.present();
-  }
-
 }

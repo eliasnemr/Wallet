@@ -1,12 +1,10 @@
 import { ToolsService } from './../../service/tools.service';
-import { UserConfig } from './../../models/userConfig.model';
-import { UserConfigService } from './../../service/userconfig.service';
 import { MinimaApiService } from '../../service/minima-api.service';
-import { Component, OnInit, ViewChild, NgZone } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { PopoverController, IonButton, MenuController } from '@ionic/angular';
-import { BalanceService } from '../../service/balance.service';
 import { Router } from '@angular/router';
 import * as SparkMD5 from 'spark-md5';
+import { Subject, Subscription } from 'rxjs';
 
 import { Token } from 'minima';
 
@@ -19,42 +17,34 @@ import { Token } from 'minima';
 
 export class BalancePage implements OnInit {
 
+  $balance: Subject<Token[]>;
+  $balanceSubscription: Subscription;
   @ViewChild('gimme50Btn', {static: false}) gimme50Btn: IonButton;
 
   avatar: any;
-  user: UserConfig = {
-    tokenDisplayMode: 2,
-    tips: {
-      balance: false,
-      balance2: false,
-      contacts: false,
-      address: false
-    }
-  };
   
   tokenArr: Token[] = [];
   tokenSpoof: Token[] = [];
 
   constructor(
     private menu: MenuController,
-    private balanceService: BalanceService,
-    private api: MinimaApiService,
+    private _minimaApiService: MinimaApiService,
     private myTools: ToolsService,
     private route: Router,
-    public popoverController: PopoverController,
-    public userConfigService: UserConfigService,
-    private ngZone: NgZone) {}
+    public popoverController: PopoverController) { 
+
+      this.$balance = this._minimaApiService.$balance;
+    
+    }
 
   ionViewWillEnter() {
-    this.pullInTokens();
 
-    this.userConfigService.userConfig.subscribe((res: UserConfig) => {
-      // ngZone re-renders onChange
-      this.ngZone.run(() => {
-        this.user = res;
-      });
-    });
+    this.$balanceSubscription = this.$balance.subscribe((res: Token[]) => {})
 
+  }
+
+  ionViewWillLeave() {
+    this.$balanceSubscription.unsubscribe();
   }
 
   ngOnInit() {}
@@ -64,7 +54,7 @@ export class BalancePage implements OnInit {
   }
 
   giveMe50() {
-    this.api.giveMe50().then((res: any) => {
+    this._minimaApiService.giveMe50().then((res: any) => {
       if(res.status === true) {
         this.myTools.presentAlert('Gimme50', 'Successful', 'Status');
       } else {
@@ -104,12 +94,6 @@ export class BalancePage implements OnInit {
   // check if it's a token, or a Mini
   instanceOfToken(data: any) {
     return 'script' in data;
-  }
- 
-  pullInTokens() {
-    this.balanceService.data.subscribe((balance: Token[]) => {
-      this.tokenArr = balance;
-    });
   }
 
 }

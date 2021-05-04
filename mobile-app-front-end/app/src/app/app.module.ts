@@ -5,7 +5,8 @@
  * WALLET
  */
 
-import { NgModule } from '@angular/core';
+import { MinimaApiService } from './service/minima-api.service';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { HttpClientModule} from '@angular/common/http';
@@ -20,9 +21,8 @@ import { PopTermComponent } from './components/pop-term/pop-term.component';
 import { ContactsModalPage } from './components/contacts-modal/contacts-modal.page';
 import { PopContactsComponent } from './components/pop-contacts/pop-contacts.component';
 import { ContactsViewModalComponent } from './components/contacts-view-modal/contacts-view-modal.component';
-import { AngularFileUploaderModule } from 'angular-file-uploader';
 import { UploadFileModalComponent } from './components/upload-file-modal/upload-file-modal.component';
-import { FilterPipe } from './pipes/filter.pipe';
+
 
 
 @NgModule({
@@ -30,7 +30,6 @@ import { FilterPipe } from './pipes/filter.pipe';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    AngularFileUploaderModule,
     HttpClientModule,
     BrowserModule,
     IonicModule.forRoot()],
@@ -38,7 +37,7 @@ import { FilterPipe } from './pipes/filter.pipe';
     Clipboard,
     QRScanner,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    { provide: LocationStrategy, useClass: HashLocationStrategy },
+    { provide: LocationStrategy, useClass: HashLocationStrategy }
   ],
   declarations: [
     AppComponent,

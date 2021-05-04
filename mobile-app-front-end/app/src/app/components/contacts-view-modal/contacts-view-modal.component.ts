@@ -1,3 +1,4 @@
+import { Subscription } from 'rxjs';
 import { ToolsService } from './../../service/tools.service';
 import { IonList, ModalController } from '@ionic/angular';
 import { ContactService } from 'src/app/service/contacts.service';
@@ -13,6 +14,8 @@ export class ContactsViewModalComponent implements OnInit {
 
   @ViewChild('contactList', {static: false}) ContactList: IonList;
   contacts: Contact[];
+  $contactSubscription: Subscription;
+
 
   constructor(
     private _contactService: ContactService,
@@ -20,11 +23,24 @@ export class ContactsViewModalComponent implements OnInit {
     private myTools: ToolsService,
     ) { }
 
-  ngOnInit() {
+  ngOnInit() { }
+  
+  ionViewWillEnter() {
+    
     this._contactService.data.subscribe((res: Contact[]) => {
       // set the list
       this.contacts = res;
     });
+  }
+
+  ionViewWillLeave() {
+
+    if (this.$contactSubscription) {
+
+      this.$contactSubscription.unsubscribe();
+
+    }
+
   }
 
   queryContacts(qy: string) {

@@ -1,15 +1,52 @@
+import { Subject, ReplaySubject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
-import { Minima } from 'minima';
+import { Minima, NetworkStatus, Token, CompleteTransaction } from 'minima';
+
+export interface HistoryInterface {
+  status: boolean;
+  minifunc: string;
+  message: string;
+  response: any;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class MinimaApiService {
+ 
+  public $balance: Subject<Token[]>;
+  public $history: Subject<CompleteTransaction[]>;
+  public $status: Subject<NetworkStatus>;
 
   constructor(  
     public loadingController: LoadingController
-  ) { }
+  ) {
+
+    this.$balance = new ReplaySubject<Token[]>(1);
+    this.$history = new ReplaySubject<CompleteTransaction[]>(1);
+    this.$status = new ReplaySubject<NetworkStatus>(1);
+
+  }
+
+  init(balance: Token[]) {
+    this.$balance.next(balance);
+  }
+
+  initStatus() {
+    this.getStatus().then((res: any) => {
+      this.$status.next(res.response);
+    });
+  }
+
+  initHistory() {
+    return new Promise((resolve) => {
+      this.getHistory().then((res: any) => {
+        this.$history.next(res.response);
+        resolve(true);
+      })
+    })
+  }
 
   createToken(data: any) {
     if (data.script !== "") {
@@ -65,6 +102,10 @@ export class MinimaApiService {
     return this.req('history');
   }
 
+  getStatusFull() {
+    return this.req('status full');
+  }
+
   clearMyHistory() {
     return this.req('history clear')
   }
@@ -82,4 +123,33 @@ export class MinimaApiService {
     });
     return promise;
   }
+  // File System
+  saveFile(data: string, filename: string) {
+    return new Promise((resolve, reject) => {
+      Minima.file.save(data, filename, (res: any) => {
+        resolve(res);
+      });
+    });
+  }
+
+  loadFile(filename: string) {
+    return new Promise((resolve, reject) => {
+      Minima.file.load(filename, (res: any) => {
+        resolve(res);
+      })
+    });
+  }
+
+  removeFile(filename: string) {
+    return new Promise((resolve, reject) => {
+      Minima.file.delete(filename, (res: any) => {
+        if (res.success) {
+          resolve(res);
+        } else {
+          reject();
+        }
+      });
+    })
+  }
+
 }
