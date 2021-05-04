@@ -79,22 +79,36 @@ ion-label.token-name {
         margin: 0;
         line-height: 17px;
         text-overflow: ellipsis;
-        max-width: 205px;
+        max-width: 30vw;
         overflow: hidden;
         white-space: nowrap;
     }
 }
 ion-label.transaction-amount {
-    h3 {
-        padding: 0;
-        margin: 0;
-    }
-    p {
-        line-height: 8px;
-        padding: 0;
-        margin: 0;
-        font-size: 10px;
-        font-family: manrope-light;
+    span {
+        max-width: 22vw;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        h3 {
+            padding: 0;
+            margin: 0;
+            max-width: 22vw;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+        p {
+            line-height: 8px;
+            padding: 0;
+            margin: 0;
+            font-size: 10px;
+            font-family: manrope-light;
+            max-width: 22vw;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
     }
 }
 ion-content {

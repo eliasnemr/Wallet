@@ -19,18 +19,12 @@
 span.confirmed-amount {
     font-family: manrope-regular;
     color: #9898A3;
-    text-align: left;
-    float: left;
     white-space: nowrap;
-    max-width: 60vw;
+    max-width: 30vw;
     text-overflow: ellipsis;
     overflow: hidden;
 }
-@media only screen and (max-width:335px) {
-    span.confirmed-amount {
-        max-width: 45vw;
-    }
-}
+
 ion-avatar {
     margin-top: 2%;
     height: 36px;
@@ -78,4 +72,14 @@ ion-list {
 ion-list.token-wrapper {
     background-color: transparent;
     line-height: 17px;
+}
+
+.blink_me {
+    animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+    50% {
+        opacity: 0;
+    }
 }
