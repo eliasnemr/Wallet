@@ -1,5 +1,5 @@
 export const environment = {
-  wallet_version: "v1.0.72",
+  wallet_version: "v1.0.73",
   production: true,
   newLine: '/(\r\n|\n|\r)/gm'
 }

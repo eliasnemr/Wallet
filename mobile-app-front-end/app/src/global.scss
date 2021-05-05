@@ -232,19 +232,18 @@ body.dark {
   --ion-text-color-rgb: 255,255,255;
   --ion-border-color: #222222;
   --ion-item-background: #001C32;
-
   --ion-color-step-850: #fff;
 }
 
 /* mini-term.page.ts popover */
-  .terminal-pop ion-backdrop {
-    opacity: 0.4 !important;
-  }
-  .terminal-pop .popover-content  {
-      overflow-y: hidden;
-      max-height: 65px !important;
-      max-width: 148px !important;
-  }
+  // .terminal-pop ion-backdrop {
+  //   opacity: 0.4 !important;
+  // }
+  // .terminal-pop .popover-content  {
+  //     overflow-y: hidden;
+  //     max-height: 65px !important;
+  //     max-width: 148px !important;
+  // }
 
   @media only screen and (max-width:992px) {
     ion-icon.menu-btn {

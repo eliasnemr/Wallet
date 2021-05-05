@@ -1,3 +1,4 @@
+import { Font } from './../../service/userterminal.service';
 import { ToolsService } from './../../service/tools.service';
 import { MinimaApiService } from './../../service/minima-api.service';
 import { Subscription } from 'rxjs';
@@ -27,13 +28,12 @@ export class MiniTermPage implements OnInit {
 
   @ViewChild(IonContent, {static : false} ) ionContent: IonContent;
   @ViewChild('terminal', {static: false}) terminal: ElementRef;
-  public size: number;
-  private host = '';
-  public lastLine = '';
-  public isEnabled: boolean;
-  private loader: any = null;
-  public globalInstance: any;
-  public fontSubscription: Subscription;
+  fontSize: number;
+  host = '';
+  lastLine = '';
+  isEnabled: boolean;
+  globalInstance: any;
+  $fontSubscription: Subscription;
 
   constructor(
     public menu: MenuController,
@@ -46,39 +46,58 @@ export class MiniTermPage implements OnInit {
     private renderer: Renderer2,
     ) { }
 
-  ngOnInit() {
-    const mStr = parseInt(localStorage.getItem('termFontSize'), 10);
-    this.size = mStr;
-    // Stored subscription that watches if we activated button on PopTerm
-    this.fontSubscription = 
-    this.userTerminal.fontSizeEmitter.subscribe( didActivate => {
-      if ( this.size !== didActivate ){
-          if ( this.size > 0 && this.size <= 50 ) {
-            this.size += didActivate;
-            localStorage.setItem('termFontSize', '' + this.size);
-          } else {
-            this.size = 14;
-            localStorage.setItem('termFontSize', '' + this.size);
-          }
-      }
-    });
+  ngOnInit() {}
+    
+  ionViewWillEnter() { 
+
+    this.initTerminal();
+  
+  }
+  
+  ionViewWillLeave() {
+        
+    this.$fontSubscription.unsubscribe();
+  
+    window.removeEventListener("keydown", function(e) {
+    if ( [37, 38, 39, 40].indexOf(e.keyCode) > -1 ) {
+      e.preventDefault();
+    }
+    }, true)
+
   }
 
   openMenu() {
     this.menu.open();
   }
 
-  ionViewWillEnter() {}
-  ionViewWillLeave() {
-   localStorage.setItem('termFontSize', '' + this.size);
-   this.fontSubscription.unsubscribe();
-  
-   window.removeEventListener("keydown", function(e) {
-    if ( [37, 38, 39, 40].indexOf(e.keyCode) > -1 ) {
-      e.preventDefault();
-    }
-   }, true)
+  initTerminal() {
+    const USER_FONT_SIZE = parseInt(localStorage.getItem('userdefaultfontsize'), 10);
+    const DEFAULT_FONT_SIZE = 16;
+    (localStorage.getItem('userdefaultfontsize') ?
+
+      this.fontSize = USER_FONT_SIZE
+
+      :
+
+      this.fontSize = DEFAULT_FONT_SIZE
+
+    );
+    // UPDATE OBSERVABLE&LOCALSTORAGE
+    this.updateFontSizeSubject(this.fontSize);
+
+    this.$fontSubscription = this.userTerminal.fontSizeEmitter.subscribe((res: Font) => {
+      
+      this.fontSize = res.size;
+
+    })
+
   }
+
+  updateFontSizeSubject(size: number) {
+    this.userTerminal.fontSizeEmitter.next({size: size});
+    localStorage.setItem('userdefaultfontsize', JSON.stringify(size));
+  }
+  
 
   ngAfterViewInit() {
   this.terminal.nativeElement.value += '**********************************************\n';
@@ -107,48 +126,35 @@ export class MiniTermPage implements OnInit {
 
  }
 
-// PopTerm Editing methods
-getFontSize() {
-  return this.size + 'px';
-}
-
-// end of PopTerm Editing methods
 scrollToBottomOnInit() {
-  // scroll
-  setTimeout(() => {
+  try {
 
     this.ionContent.scrollToBottom(300);
 
-  }, 200);
-}
+  } catch (err) {
 
-// Minima Api Service
-getHost() {
-  if (localStorage.getItem('minima_host') == null) {
-    localStorage.setItem('minima_host', this.host);
-    return this.host;
-  } else {
-    return localStorage.getItem('minima_host');
-    }
+    throw new Error('ionContent not found.')
+
   }
+}
 
 // api calls
 request(route: any) {
     if (route === 'printchain') {
-      return new Promise((resolve) => {
+      // return new Promise((resolve) => {
 
-        Minima.cmd('printchain', (res: any) => {
+      //   Minima.cmd('printchain', (res: any) => {
 
-          const regex = res.replace(environment.newLine, '\\n'); // replace \n with <br/> has all 3 \n|\r|\r\n
+      //     const regex = res.replace(environment.newLine, '\\n'); // replace \n with <br/> has all 3 \n|\r|\r\n
 
-          this.terminal.nativeElement.value += regex;
+      //     this.terminal.nativeElement.value += regex;
 
-          this.terminal.nativeElement.scrollTop = this.terminal.nativeElement.scrollHeight;
+      //     this.terminal.nativeElement.scrollTop = this.terminal.nativeElement.scrollHeight;
 
-          resolve(res);
+      //     resolve(res);
 
-        });
-      });
+      //   });
+      // });
     } else if (route === 'tutorial' || route === 'Tutorial') {
         return new Promise((resolve, reject) => {
           Minima.cmd('tutorial', (res: any) => {
@@ -174,7 +180,8 @@ request(route: any) {
     component: PopTermComponent,
     cssClass: 'terminal-pop',
     event: ev,
-    translucent: false
+    translucent: false,
+    showBackdrop: false
   });
 
   return await popover.present();

@@ -1,0 +1,39 @@
+div {
+  width: 100%;
+  height: 100%;
+  display: block;
+  background-color: #001C32;
+  z-index: 20;
+  top: 0;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  span.ruler {
+    margin-top: 10px;
+    color: var(--ion-color-primary);
+    background-color: var(--ion-color-primary);
+    width: 160px;
+    height: 2px;
+  }
+
+  img {
+    width: 65.43px;
+    height: 59.01px;
+  }
+
+  h1 {
+    color: #FAFAFF;
+    font-size: 23px;
+    font-family: manrope-semibold;
+  }
+
+  p {
+    color: #FAFAFF;
+    opacity: 0.3;
+    font-family: monospace;
+    text-shadow: 2px 2px #ff0000;
+  }
+}
