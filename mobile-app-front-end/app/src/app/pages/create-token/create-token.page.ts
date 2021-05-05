@@ -90,13 +90,7 @@ export class CreateTokenPage implements OnInit {
       this.create(newToken);
     } catch(err) {
       console.log(err);
-    } finally {
-      setTimeout(() => {
-        this.status = '';
-        this.submitBtn.disabled = false;
-      }, 6000)
-    }
-    
+    } 
   }
 
   async create(newToken: any) {
@@ -147,6 +141,10 @@ export class CreateTokenPage implements OnInit {
   }
 
   resetForm() { 
+    setTimeout(() => {
+      this.status = '';
+    }, 6000);
+    this.submitBtn.disabled = false;
     this.tokenCreationForm.reset();
     this.formInit();
   }

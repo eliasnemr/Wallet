@@ -1,11 +1,6 @@
-.activate-btn-minus {
-    color: var(--ion-color-tertiary);
+.activate-btn-minus, .activate-btn-add {
+    color: #001C32;
     text-align: centre;
-    font-size: 1.0rem;
-}
-.activate-btn-add {
-    color: var(--ion-color-tertiary);
-    text-align: center;
     font-size: 1.0rem;
 }
 
@@ -14,22 +9,17 @@ ion-button {
     font-family: manrope-bold;
 }
 
-// iOS edit.
-.ios ion-button {
-    margin: auto;
-}
-.ios .pop-term-col {
-    width: 100%;
-    height: auto;  
-}
-.ios .activate-btn-minus {
-    color: #929396;
-    padding-top: 18px;
-    font-size: 14px;
-    text-align: center;
-}
-.ios .activate-btn-add {
-    color: #929396;
-    font-size: 20px;
-    text-align: center;
+ion-grid {
+    background-color: #FAFAFF;
+    ion-row {
+        ion-col {
+            border-radius: 5px;
+        }
+        ion-col:first-child {
+         border-right: 1px solid #001C32;
+        }
+        ion-col:hover {
+            background-color: #F0F0FA;
+        }
+    }
 }

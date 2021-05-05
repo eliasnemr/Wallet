@@ -126,10 +126,6 @@ export class MiniTermPage implements OnInit {
 
  }
 
-numToPixels(num: number) {
-  return num + 'px';
-}
-
 scrollToBottomOnInit() {
   try {
 
@@ -145,20 +141,20 @@ scrollToBottomOnInit() {
 // api calls
 request(route: any) {
     if (route === 'printchain') {
-      return new Promise((resolve) => {
+      // return new Promise((resolve) => {
 
-        Minima.cmd('printchain', (res: any) => {
+      //   Minima.cmd('printchain', (res: any) => {
 
-          const regex = res.replace(environment.newLine, '\\n'); // replace \n with <br/> has all 3 \n|\r|\r\n
+      //     const regex = res.replace(environment.newLine, '\\n'); // replace \n with <br/> has all 3 \n|\r|\r\n
 
-          this.terminal.nativeElement.value += regex;
+      //     this.terminal.nativeElement.value += regex;
 
-          this.terminal.nativeElement.scrollTop = this.terminal.nativeElement.scrollHeight;
+      //     this.terminal.nativeElement.scrollTop = this.terminal.nativeElement.scrollHeight;
 
-          resolve(res);
+      //     resolve(res);
 
-        });
-      });
+      //   });
+      // });
     } else if (route === 'tutorial' || route === 'Tutorial') {
         return new Promise((resolve, reject) => {
           Minima.cmd('tutorial', (res: any) => {
@@ -184,7 +180,8 @@ request(route: any) {
     component: PopTermComponent,
     cssClass: 'terminal-pop',
     event: ev,
-    translucent: false
+    translucent: false,
+    showBackdrop: false
   });
 
   return await popover.present();

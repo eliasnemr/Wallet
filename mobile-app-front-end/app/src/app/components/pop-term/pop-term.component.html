@@ -1,10 +1,18 @@
 <ion-grid>
-  <ion-row style="padding:0px;">
-    <ion-col size="6" class="pop-term-col borders">
-      <ion-button position="floating" class="activate-btn-minus" expand="full" fill="clear" (click)="onActivateLess()">a</ion-button>
+  <ion-row class="ion-no-padding ion-no-margin">
+    <ion-col size="6" class="pop-term-col">
+      <ion-button 
+      class="activate-btn-minus ion-no-padding ion-no-margin no-ripple" 
+      expand="full" 
+      fill="clear" 
+      (click)="onActivateLess()">a</ion-button>
     </ion-col>
-    <ion-col size="6" class="pop-term-col borders">
-      <ion-button position="floating" class="activate-btn-add" expand="full" fill="clear" (click)="onActivate()">A</ion-button>
+    <ion-col size="6" class="pop-term-col">
+      <ion-button 
+      class="activate-btn-add ion-no-padding ion-no-margin no-ripple" 
+      expand="full" 
+      fill="clear" 
+      (click)="onActivate()">A</ion-button>
     </ion-col> 
   </ion-row>
 </ion-grid>
