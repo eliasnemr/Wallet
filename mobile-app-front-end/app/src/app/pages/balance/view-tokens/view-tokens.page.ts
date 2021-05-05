@@ -1,5 +1,4 @@
-import { take } from 'rxjs/operators';
-import { Subscription, Subject } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { ToolsService } from './../../../service/tools.service';
 import { MinimaApiService } from './../../../service/minima-api.service';
 import { Token } from 'minima';
@@ -58,11 +57,12 @@ export class ViewTokensPage implements OnInit {
             null
           );
 
-          (this.$token[0].tokenid !== '0x00' && this.$token[0].icon.length === 0 || this.$token[0].tokenid === '0x00' ?
-            this.$token[0].icon = 'assets/minimaIcon.svg'
-            :
-            null
-          );
+          // (this.$token[0].tokenid !== '0x00' && this.$token[0].icon.length === 0 || this.$token[0].tokenid === '0x00' ?
+          //   // this.$token[0].icon = 'assets/minimaIcon.svg' 
+          //   console.log(this.$token[0].icon)
+          //   :
+          //   null
+          // );
 
         }
       

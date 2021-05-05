@@ -1,3 +1,4 @@
+import { OverlayComponent } from './components/overlay/overlay.component';
 /**
  * Created By Elias Nemr
  * 01/11/19
@@ -5,8 +6,7 @@
  * WALLET
  */
 
-import { MinimaApiService } from './service/minima-api.service';
-import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { HttpClientModule} from '@angular/common/http';
@@ -32,7 +32,7 @@ import { UploadFileModalComponent } from './components/upload-file-modal/upload-
     ReactiveFormsModule,
     HttpClientModule,
     BrowserModule,
-    IonicModule.forRoot()],
+    IonicModule.forRoot({animated: false})],
     providers: [
     Clipboard,
     QRScanner,
@@ -45,7 +45,8 @@ import { UploadFileModalComponent } from './components/upload-file-modal/upload-
     PopContactsComponent,
     ContactsModalPage,
     ContactsViewModalComponent,
-    UploadFileModalComponent],
+    UploadFileModalComponent,
+    OverlayComponent],
   entryComponents: [PopTermComponent, PopContactsComponent, ContactsViewModalComponent, ContactsModalPage, UploadFileModalComponent],
   bootstrap: [AppComponent]
 })

@@ -44,6 +44,23 @@ export class ToolsService {
     return await toast.present();
   }
 
+  async presentMiningToast(msg: string, color: string, position: 'top' | 'bottom' | 'middle') {
+    const toast = await this.toastController.create({
+      message: msg,
+      position: position,
+      color: color,
+      cssClass: 'toast2',
+      keyboardClose: true,
+      translucent: true,
+      duration: 4000,
+      buttons: [{
+        text: 'Dismiss', 
+        role: 'cancel',
+      }]
+    });
+    return await toast.present();
+  }
+
   async presentAlert(hdr: string, msg: string, sub: string) {
     const alert = await this.alertController.create({
       cssClass: 'alert',

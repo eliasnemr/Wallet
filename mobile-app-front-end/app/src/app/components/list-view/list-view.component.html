@@ -25,7 +25,7 @@
           <ion-label slot="end">
             
             <span
-            *ngIf="token.unconfirmed == '0' && token.mempool > 0"
+            *ngIf="token.unconfirmed == '0' && token.mempool !== '0'"
             class="blink_me confirmed-amount medium-text minima-numeric">
               {{ token.sendable }}
             </span>

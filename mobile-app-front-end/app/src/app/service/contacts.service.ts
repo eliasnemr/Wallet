@@ -23,7 +23,7 @@ export class ContactService {
   data: Subject<Contact[]> = new ReplaySubject<Contact[]>(1);
   qContacts: string;
   constructor() {
-    console.log('ContactService started!');
+    //console.log('ContactService started!');
     this.initSQL();
 
   }

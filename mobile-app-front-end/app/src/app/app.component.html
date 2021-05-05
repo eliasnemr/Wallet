@@ -1,4 +1,6 @@
 <ion-app>
+  <app-overlay *ngIf="!nodeStatus" class="overlay"></app-overlay>
+
   <ion-split-pane when="lg" contentId="mainMenu" class="splitpane" >
   <ion-menu side="start" contentId="mainMenu" class="myMenu">
 
@@ -17,11 +19,11 @@
       <ion-list class="ion-no-padding" main>
         <ion-menu-toggle auto-hide="false" *ngFor="let p of menu; let i = index">
             <ion-item 
-            class="ion-activatable my-menu-item ion-no-padding"
+            class="my-menu-item ion-no-padding ion-no-margin no-ripple"
             detail="false"
-            routerLinkActive="selected"
+            routerLinkActive="active"
             routerDirection="root"
-            [hidden] = "p.hidden" 
+            [hidden] = "p.hidden"
             [routerLink]="p.routerLink"
             lines="{{ p.line }}">
 
@@ -55,7 +57,7 @@
   </ion-list>
   
 
-  <ion-footer class="border-t">
+  <ion-footer class="border-t ion-no-margin ion-no-padding">
     <ion-toolbar>
       <ion-item id="night-mode" lines="none">
         <ion-avatar>

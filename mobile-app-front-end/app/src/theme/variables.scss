@@ -8,6 +8,14 @@
     --ion-font-family-light: manrope-light;
     --ion-font-family-medium: manrope-medium;
 
+    /** Toasts color **/
+    --ion-color-toast1-text: #FAFAFF;
+    --ion-color-toast1-text-rgb: 250,250,255;
+    --ion-color-toast1-text-contrast: #000000;
+    --ion-color-toast1-text-contrast-rgb: 0,0,0;
+    --ion-color-toast1-text-shade: #dcdce0;
+    --ion-color-toast1-text-tint: #fbfbff;
+
     /** Light Skin **/
     --ion-m-background: #FAFAFF;
     --ion-m-background-rgb: rgb(240, 240, 250);
@@ -320,4 +328,13 @@ ion-header.page-header ion-toolbar ion-title {
 ion-content.page-content {
   --padding-start: 27px;
   --padding-end: 27px;
+}
+
+
+/* My Custom Toasts */
+.toast1 {
+
+}
+.toast2 {
+  color: var(--ion-color-toast1-text);
 }
