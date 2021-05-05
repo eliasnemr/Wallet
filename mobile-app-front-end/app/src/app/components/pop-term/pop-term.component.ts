@@ -1,3 +1,4 @@
+import { Subscription } from 'rxjs';
 import { UserTerminal } from '../../service/userterminal.service';
 import { Component, OnInit  } from '@angular/core';
 
@@ -9,17 +10,39 @@ import { Component, OnInit  } from '@angular/core';
 })
 export class PopTermComponent implements OnInit {
 
-  constructor(public userTerminal: UserTerminal) {}
+  $fontSizeSubscription: Subscription;
+  fontSize: number;
 
-  ngOnInit() {
-    
+  constructor(public userTerminal: UserTerminal) { }
+
+  ngOnInit() {}
+
+  ionViewWillEnter() {
+
+    this.$fontSizeSubscription = this.userTerminal.fontSizeEmitter.subscribe((res: any) => {
+
+      let FONT_SIZE = res.size;
+      this.fontSize = FONT_SIZE;
+
+    });
+
+  }
+
+  ionViewWillLeave() {
+
+    this.$fontSizeSubscription.unsubscribe();
+
   }
 
   onActivate() {
-    this.userTerminal.fontSizeEmitter.next(1);
+
+    this.userTerminal.fontSizeEmitter.next({size: this.fontSize+1});
   }
+
   onActivateLess() {
-    this.userTerminal.fontSizeEmitter.next(-1);
+
+    this.userTerminal.fontSizeEmitter.next({size: this.fontSize-1});
+  
   }
   
 

@@ -1,7 +1,23 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, BehaviorSubject } from 'rxjs';
 
-@Injectable({providedIn: 'root'})
+export interface Font {
+    size: number
+}
+
+@Injectable({
+    providedIn: 'root'
+  })
 export class UserTerminal { 
-    fontSizeEmitter = new Subject<number>();
+
+    fontSizeEmitter: Subject<Font>;
+
+    constructor() {
+        this.initFontSizeEmitter();
+    }
+
+    initFontSizeEmitter() {
+        this.fontSizeEmitter = new BehaviorSubject<Font>({size: 16});
+    }
+
 }

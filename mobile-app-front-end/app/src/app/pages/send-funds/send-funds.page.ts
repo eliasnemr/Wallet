@@ -122,12 +122,7 @@ export class SendFundsPage implements OnInit {
       this.post(data);
     } catch(err) {
       console.log(err);
-    } finally {
-      setTimeout( () => {
-        this.status = '';
-        this.submitBtn.disabled = false;
-      }, 6000);
-    }
+    } 
     
   }
   async post(data: any) {
@@ -135,11 +130,8 @@ export class SendFundsPage implements OnInit {
     this.status = 'Posting your transaction...';
     if (data.message !== null && ( data.message || data.message.length > 0) ) {
       const res: any = await this._minimaApiService.sendMessageTransaction(data);
-      console.log(res);
+      //console.log(res);
       if (res.status) {
-        setTimeout(() => {
-          this.submitBtn.disabled = false;
-        }, 500);
         this.status = 'Transaction posted!';
         this.myTools.presentAlert('Transaction Status', 'Transaction has been posted to the network!', 'Successful');
         this.resetForm();
@@ -152,13 +144,9 @@ export class SendFundsPage implements OnInit {
       }
     } else {
       const res: any = await this._minimaApiService.sendFunds(data);
-      console.log(res);
+      //console.log(res);
 
       if (res.status) {
-        //console.log(res);
-        setTimeout(() => {
-          this.submitBtn.disabled = false;
-        }, 500);
         this.status = 'Transaction posted!';
         this.myTools.presentAlert('Transaction Status', 'Transaction has been posted to the network!', 'Successful');
         this.resetForm();
@@ -173,6 +161,10 @@ export class SendFundsPage implements OnInit {
   }
 
   resetForm() {
+    setTimeout(() => {
+      this.status = '';
+    }, 6000);
+    this.submitBtn.disabled = false;
     this.sendForm.reset();
     this.formInit();
   }
