@@ -71,7 +71,7 @@
       </ion-item>
       <ion-note *ngIf="addressFormItem.invalid && addressFormItem.touched" class="error-message">
         <span> Invalid address format!</span> 
-        <span style="margin-left: 2px"> An address must begin with 0x or Mx.</span> 
+        <span> An address must begin with 0x or Mx.</span> 
       </ion-note>
       <ion-item class="no-hover no-ripple ion-no-padding"  lines="none">
         <ion-label class="medium-text" position="stacked">
@@ -84,7 +84,7 @@
       </ion-item>
       <ion-note *ngIf="amountFormItem.invalid && amountFormItem.touched" class="error-message">
         <span> Amount required!</span>
-        <span style="margin-left: 2px"> Amount must be numeric and greater than zero.</span> 
+        <span> Amount must be numeric and greater than zero.</span> 
       </ion-note>
 
       <ion-item class="no-hover no-ripple ion-no-padding" lines="none">
@@ -99,7 +99,7 @@
             maxlength="255">
             </ion-textarea>
       </ion-item>
-      <ion-label style="margin-left: 0;" *ngIf="data.message" class="length">{{ data.message.length +"/255" }}</ion-label>
+      <ion-label *ngIf="data.message" class="length ion-no-margin">{{ data.message.length +"/255" }}</ion-label>
     </ion-list>
 
     <ion-item lines="none" class="send-wrapper ion-no-padding">
