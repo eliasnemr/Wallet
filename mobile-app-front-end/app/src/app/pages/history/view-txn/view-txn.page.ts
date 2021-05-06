@@ -58,7 +58,7 @@ export class ViewTXNPage implements OnInit {
                 console.log('Transaction not found.')
               
               )
-    
+              const MESSAGE = this.myTxn[0].txpow.body.txn.state[1].data;
               if (this.myTxn.length > 0) {
                 
                 this.relaytime = new Date(parseInt(this.myTxn[0].txpow.header.timemilli)).toISOString();
@@ -68,12 +68,12 @@ export class ViewTXNPage implements OnInit {
                   this.myTxn[0].txpow.body.txn.state &&
                    this.myTxn[0].txpow.body.txn.state[0] &&
                     this.myTxn[0].txpow.body.txn.state[0].data === '[01000100]' ?
-      
-                    this.message = this.myTxn[0].txpow.body.txn.state[1].data.substring(1, this.message.length-1)
+                  
+                    this.message = MESSAGE.substring(1, MESSAGE.length-1)
       
                     :
       
-                    null
+                    console.log('not found')
       
                 );
                 (
@@ -89,6 +89,8 @@ export class ViewTXNPage implements OnInit {
                 )
               } 
             });
+
+            console.log(this.message)
             
             // check & see if subscription worked
             if (this.$subscription.closed) {
