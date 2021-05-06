@@ -20,44 +20,64 @@
   <ion-list lines="none">
 
     <ion-item class="no-ripple ion-no-padding" lines="none">
-      <ion-label position="stacked">Name</ion-label>
+      <ion-label position="stacked">
+        <ion-icon 
+          class="input-error-icon" 
+          *ngIf="name.invalid && name.touched" 
+          name="alert-circle"></ion-icon>
+        Name</ion-label>
       <ion-input placeholder="Enter a token name" class="medium-text input" #nameTextArea name="name" formControlName="name"></ion-input>
     </ion-item>
 
     <ion-note *ngIf="name.invalid && name.touched" class="error-message">
-      <ion-icon name="alert-circle"></ion-icon> <span> Token name required!</span>
-      <span style="margin-left: 2px"> Token name must be a maximum length of 255 characters.</span> 
+      <div> Token name required!</div>
+      <div> Token name must be a maximum length of 255 characters.</div> 
     </ion-note>
 
 
     <ion-item class="no-ripple ion-no-padding" lines="none">
-      <ion-label position="stacked">Amount</ion-label>
+      <ion-label position="stacked">
+        <ion-icon 
+          class="input-error-icon" 
+          *ngIf="amount.invalid && amount.touched" 
+          name="alert-circle"></ion-icon>
+        Amount</ion-label>
       <ion-input placeholder="Enter token amount" type="number" class="medium-text input" #amountRef name="amount" formControlName="amount"></ion-input>
     </ion-item>
 
     <ion-note *ngIf="amount.invalid && amount.touched" class="error-message">
-      <ion-icon name="alert-circle"></ion-icon> <span> Token amount required!</span>
-      <span style="margin-left: 2px"> Token amount must be numeric and greater than 0.</span> 
+      <div> Token amount required!</div>
+      <div> Token amount must be numeric and greater than 0.</div> 
     </ion-note>
 
     <ion-item class="no-ripple ion-no-padding" lines="none" lines="none">
-      <ion-label position="stacked">Icon <span style="font-family: manrope-light; color:var(--ion-color-optional)">(optional)</span></ion-label>
+      <ion-label position="stacked">
+        <ion-icon 
+          class="input-error-icon" 
+          *ngIf="icon.invalid && icon.touched" 
+          name="alert-circle"></ion-icon>
+        Icon <span style="font-family: manrope-light; color:var(--ion-color-optional)">(optional)</span></ion-label>
       <ion-input class="medium-text input" name="icon" #iconURL formControlName="icon" placeholder="Enter a valid icon URL"></ion-input>
     </ion-item>
 
     <ion-note *ngIf="icon.invalid && icon.touched" class="error-message">
-      <ion-icon name="alert-circle"></ion-icon> <span> Invalid icon URL!</span>
-      <span style="margin-left: 2px"> An icon URL should be of maximum 255 characters and end with .jpg, .png or .gif to be valid.</span> 
+      <div> Invalid icon URL!</div>
+      <div> An icon URL must consist of maximum 255 characters with either ".jpg", ".png" or ".gif" to be valid.</div> 
     </ion-note>
 
     <ion-item class="no-ripple ion-no-padding" lines="none" lines="none">
-      <ion-label position="stacked">Proof <span style="font-family: manrope-light; color:var(--ion-color-optional)">(optional)</span></ion-label>
+      <ion-label position="stacked">
+        <ion-icon 
+          class="input-error-icon" 
+          *ngIf="proof.invalid && proof.touched" 
+          name="alert-circle"></ion-icon>
+        Proof <span style="font-family: manrope-light; color:var(--ion-color-optional)">(optional)</span></ion-label>
       <ion-input  name="proof" class="medium-text input" #proofURL formControlName="proof" placeholder="Enter URL of website hosting token ID text"></ion-input>
     </ion-item>
 
     <ion-note *ngIf="proof.invalid && proof.touched" class="error-message">
-      <ion-icon name="alert-circle"></ion-icon> <span> Invalid proof URL!</span>
-      <span style="margin-left: 2px"> A proof URL should be a max length of 255 characters with a .txt file in the URL.</span> 
+      <div> Invalid proof URL!</div>
+      <div> A proof URL must consist of maximum 255 characters with a ".txt" file in the URL.</div> 
     </ion-note>
 
     <ion-item class="no-ripple ion-no-padding" lines="none" lines="none">

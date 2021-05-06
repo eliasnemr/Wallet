@@ -189,8 +189,25 @@
   --ion-color-background-contrast-rgb: 0,0,0;
   --ion-color-background-shade: #d3d3dc;
   --ion-color-background-tint: #f2f2fb; 
-    /** Form Inputs */
+  
+  
+  /** Forms **/
   --ion-color-inputs: #FFFFFF;
+
+  // Input Error Messages
+  --ion-color-error: #CD3670;
+  --ion-color-error-rgb: 205,54,112;
+  --ion-color-error-contrast: #ffffff;
+  --ion-color-error-contrast-rgb: 255,255,255;
+  --ion-color-error-shade: #b43063;
+  --ion-color-error-tint: #d24a7e;
+  // Input Icon Error
+  --ion-color-error-icon: #C2074B;
+  --ion-color-error-icon-rgb: 194,7,75;
+  --ion-color-error-icon-contrast: #ffffff;
+  --ion-color-error-icon-contrast-rgb: 255,255,255;
+  --ion-color-error-icon-shade: #ab0642;
+  --ion-color-error-icon-tint: #c8205d;
 
   /** custom Minima css vars **/
   --minima-terminal-size: 12px;

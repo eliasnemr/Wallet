@@ -25,22 +25,32 @@
     <form [formGroup]="contactForm" id="contactForm" (ngSubmit)="addContact()">
     <ion-list>
       <ion-item class="no-ripple ion-no-padding" lines="none">
-        <ion-label position="stacked">Name <span style="font-family: manrope-light; color:var(--ion-color-optional)">(optional)</span></ion-label>
+        <ion-label position="stacked">
+          <ion-icon 
+          class="input-error-icon" 
+          *ngIf="name.invalid && name.touched" 
+          name="alert-circle"></ion-icon>
+          Name <span style="font-family: manrope-light; color:var(--ion-color-optional)">(optional)</span></ion-label>
         <ion-input name="name" placeholder="anonymous" formControlName="NAME"></ion-input>
       </ion-item>
       <ion-item class="error ion-no-padding" lines="none" *ngIf="name.invalid && name.touched">
         <ion-note class="error-message">
-          <ion-icon name="alert-circle"></ion-icon> <span> Invalid name format!</span>
-          <span style="margin-left: 2px"> A name must be alphanumeric and can only contain a dot or underscore.</span> 
+          <div> Invalid name format!</div>
+          <div> A name must be alphanumeric and can only contain a dot or underscore.</div> 
         </ion-note>
       </ion-item>
       <ion-item class="no-ripple ion-no-padding" lines="none">
-        <ion-label position="stacked">Address</ion-label>
+        <ion-label position="stacked">
+          <ion-icon 
+          class="input-error-icon" 
+          *ngIf="address.invalid && address.touched" 
+          name="alert-circle"></ion-icon>
+          Address</ion-label>
         <ion-input (ionChange)="changeIcon($event)" name="address" placeholder="Enter a valid wallet address" formControlName="ADDRESS"></ion-input>
       </ion-item>
       <ion-note *ngIf="address.invalid && address.touched" class="error-message">
-        <ion-icon name="alert-circle"></ion-icon> <span style="margin-left: 2px"> A wallet address is required.</span>
-        <span style="margin-left: 2px"> An address must begin with 0x or Mx.</span> 
+        <div> A wallet address is required.</div>
+        <div> An address must begin with 0x or Mx.</div> 
       </ion-note>
       
       <ion-item class="no-ripple ion-no-padding" lines="none">
@@ -48,12 +58,17 @@
         <ion-input name="description" placeholder="Enter a description" formControlName="DESCRIPTION"></ion-input>
       </ion-item>
       <ion-item class="no-ripple ion-no-padding" lines="none">
-        <ion-label position="stacked">Avatar <span style="font-family: manrope-light; color:var(--ion-color-optional)">(optional)</span></ion-label>
+        <ion-label position="stacked">
+          <ion-icon 
+          class="input-error-icon" 
+          *ngIf="avatar.invalid && avatar.touched" 
+          name="alert-circle"></ion-icon>  
+          Avatar <span style="font-family: manrope-light; color:var(--ion-color-optional)">(optional)</span></ion-label>
         <ion-input name="avatar" placeholder="Enter a custom avatar URL" formControlName="AVATAR"></ion-input>
       </ion-item>
       <ion-note *ngIf="avatar.invalid && avatar.touched" class="error-message">
-        <ion-icon name="alert-circle"></ion-icon> <span> Invalid icon URL!</span>
-        <span style="margin-left: 2px"> An icon URL should end with .jpg, .png or .gif to be valid.</span> 
+        <div> Invalid avatar icon URL!</div>
+        <div> An icon URL must consist of maximum 255 characters with either ".jpg", ".png" or ".gif" to be valid.</div> 
       </ion-note>
 
       <ion-item class="ion-no-padding" lines="none">
