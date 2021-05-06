@@ -216,3 +216,132 @@
   --ion-color-line: #fff;
 
 }
+
+
+.border-b {
+  border: none;
+}
+.border-t {
+  border: none;
+}
+.split-pane-md {
+  --border: 1px solid #001C32;
+}
+ion-icon.back-btn {
+  float: left;
+  padding: 0;
+  margin: 0;
+  margin-right: 7px;
+  cursor: pointer;
+  color: var(--ion-color-color);
+}
+ion-icon.menu-btn {
+  width: 15px;
+  height: 15px;
+  float: left;
+  padding: 0;
+  margin: 0;
+  margin-right: 7px;
+  cursor: pointer;
+  color: var(--ion-color-color);
+  display: none;
+}
+
+// Global
+.no-hover {
+  --background-hover: none !important;
+}
+.no-ripple {
+  --ripple-color: transparent;
+  --ripple-color: transparent;
+  --background-activated: transparent;
+  --background-activated-opacity:transparent;
+  --background-focused: transparent;
+  --background-focused-opacity:transparent;
+  --background-hover  : transparent;
+  --background-hover-opacity  :transparent;
+}
+ion-toolbar {
+  ion-title {
+    font-size: 18px;
+    ion-item#title {
+      --border-color: var(--ion-color-title-ruler);
+      --border-width: 0px 0px 1px 0px;
+      font-size: 18px;
+      --min-height: 39px;
+      font-family: manrope-bold;
+      color: var(--ion-color-tertiary);
+    }
+    ion-item#subtitle {
+      --border-color: var(--ion-color-ruler);
+      --border-width: 0px 0px 1px 0px;
+      --min-height: 39px;
+      font-family: manrope-medium;
+    }
+  }
+}
+ion-footer {
+  width: 100%;
+  height: 90px;
+  background-color: #001C32;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+ion-button.gimme50 {
+  text-transform: none;
+  color: #fff;
+  border: 1px solid #f0f0fA;
+  border-radius: 28px;
+  opacity: 1;
+  width: 159px;
+  height: 45px;
+  font-size: 1.0rem;
+  font-family: manrope-bold;
+}
+ion-button.gimme50:hover {
+  --background: #f0f0fa;
+  border: 1px solid #001C32;
+  color: #001C32;
+  --border-radius: 28px!important;
+}
+
+.minima-numeric {
+  font-variant-numeric: tabular-nums;
+  float: left;
+  font-family: manrope-regular;
+}
+.minima-token {
+  font-family: manrope-regular;
+}
+// Remove scroll-bar
+ion-content {
+  // overwrite inline styles
+  --offset-bottom: auto!important;
+  --overflow: hidden;
+  overflow: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  background: var(--ion-m-background);
+}
+
+// Grid paddings of all pages
+ion-header.page-header ion-toolbar {
+  --padding-top: 27px;
+  --padding-start: 27px;
+  --padding-end: 27px;
+}
+ion-header.page-header ion-toolbar ion-title {
+  padding: 0;
+}
+ion-content.page-content {
+  --padding-start: 27px;
+  --padding-end: 27px;
+}
+
+
+/* My Custom Toasts */
+.toast2 {
+  color: var(--ion-color-toast1-text);
+}

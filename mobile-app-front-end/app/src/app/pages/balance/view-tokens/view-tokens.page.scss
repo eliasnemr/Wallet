@@ -36,6 +36,26 @@ ion-list ion-item {
     --border-color: var(--ion-color-item-border);
     padding-right: 10px;
     padding-left: 10px;
+    ion-avatar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        ion-icon {
+            width: 27px;
+            height: 27px;
+            display: none;
+            color: var(--ion-color-primary);
+            position: absolute;
+        }
+    }
+    ion-avatar:hover {
+        img.custom-icon {
+            opacity: 0.5;
+        }
+        ion-icon {
+            display: block;
+        }
+    }
 }
 .title {
     font-family: manrope-semibold;
@@ -63,4 +83,30 @@ ion-list ion-item {
 }
 .active {
     color: var(--ion-color-primary)
+}
+ion-item.nft-large {
+    padding: 15px;
+    div {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        img {
+            width: 100%;
+        }
+        ion-icon {
+            display: none;
+            position: absolute;
+            font-size: 32px;
+            color: var(--ion-color-primary);
+        }
+    }
+    div:hover {
+        ion-icon {
+            display: block;
+        }
+        img {
+            opacity: 0.5;
+        }
+    }
 }

@@ -94,7 +94,7 @@ export class CreateTokenPage implements OnInit {
   }
 
   async create(newToken: any) {
-    console.log(newToken);
+    //console.log(newToken);
     this.myTools.scrollToBottom(this.pageContent);
     if (newToken.nft) {
       this.submitBtn.disabled = true;

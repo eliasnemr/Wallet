@@ -13,6 +13,7 @@ import { Component,  OnInit } from '@angular/core';
 })
 export class ViewTokensPage implements OnInit {
 
+  expand: boolean;
   urlTokenid: string;
   avatar: string;
   $balanceDetails: Token[];
@@ -25,8 +26,8 @@ export class ViewTokensPage implements OnInit {
     private myTools: ToolsService
   ) {
 
+    this.expand = false;
     (this.route.snapshot.paramMap.get('id') ? this.urlTokenid = this.route.snapshot.paramMap.get('id') : this.urlTokenid = '');
-
   }
 
   ngOnInit() { }
@@ -123,6 +124,14 @@ export class ViewTokensPage implements OnInit {
         this.myTools.presentAlert('Gimme50', res.message, 'Status');
       }
     });
+  }
+
+  expandImage() {
+    (this.expand ?
+      this.expand = false
+      :
+      this.expand = true
+    );
   }
 
 }

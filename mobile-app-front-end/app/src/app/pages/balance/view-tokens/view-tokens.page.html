@@ -23,10 +23,29 @@
 
 <ion-content class="page-content">
   <ion-list *ngFor="let token of $token" lines="none">
+    <ion-item *ngIf="expand" class="ion-no-padding ion-no-margin nft-large">
+      <div (click)="expandImage()">
+        <ion-icon name="resize-outline"></ion-icon>
+        <img 
+          class="custom-icon-big"
+          *ngIf="token?.tokenid !== '0x00' && token?.icon.length == 0" 
+          [src]="createIcon( token?.tokenid )"/>
+          <img 
+          class="custom-icon-big"
+          *ngIf="token?.tokenid !== '0x00' && token?.icon.length > 0" 
+          [src]="token?.icon"/>
+          <img 
+          class="custom-icon-big"
+          *ngIf="token?.tokenid === '0x00'" 
+          alt="minima" 
+          src="assets/minimaIcon.svg">
+      </div>
+    </ion-item>
     <ion-item 
     class="ion-no-padding" 
     color="none">
-      <ion-avatar slot="start">
+      <ion-avatar slot="start" (click)="expandImage()">
+        <ion-icon  name="expand-outline"></ion-icon>
         <img 
         class="custom-icon" 
         *ngIf="token?.tokenid !== '0x00' && token?.icon.length == 0" 
