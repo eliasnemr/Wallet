@@ -47,7 +47,7 @@ export class ContactsModalPage implements OnInit {
       DESCRIPTION: ['', [Validators.maxLength(255)]],
       AVATAR: ['', [
             Validators.maxLength(255),
-            Validators.pattern('(http(s?):)([\\/|\\.|\\w|\\s|\\-])*\.(?:jpg|png|gif)$'),
+            Validators.pattern('(http(s?):)([\\/|\\.|\\w|\\s|\\-])*\.(?:jpg|png|gif|svg)$'),
            ]
       ]
     });

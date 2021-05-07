@@ -25,6 +25,7 @@ interface Menu {
 export class AppComponent {
 
   nodeStatus: boolean = false;
+  disclaimer: boolean = false;
   toggleValue = false;
   currentMode = false;
   menu: Menu[];
@@ -42,22 +43,24 @@ export class AppComponent {
   }
    
   initMinima() {
+
+    const msZero = 0;
+    const msTimer = 3000;
+    const source = timer(msZero, msTimer);
+    const subscribe = source.subscribe((val) => {
+
+      if (Minima.block == 0) {
+        this.nodeStatus = false;
+        this.disclaimer = true;
+      } else if (!this.nodeStatus && Minima.block > 0) {
+        setTimeout(() => {              
+          this.nodeStatus = true;
+        }, 2000);  
+      }
+    });
+
     Minima.init((msg: any) => {
       if (msg.event === 'connected') {
-
-        const msZero = 0;
-        const msTimer = 3000;
-        const source = timer(msZero, msTimer);
-        const subscribe = source.subscribe((val) => {
-
-          if (Minima.block == 0) {
-            this.nodeStatus = false;
-          } else if (!this.nodeStatus && Minima.block > 0) {
-            setTimeout(() => {              
-              this.nodeStatus = true;
-            }, 2000);  
-          }
-        });
 
         this._minimaApiService.init(Minima.balance);
 

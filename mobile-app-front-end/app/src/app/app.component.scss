@@ -143,16 +143,19 @@ ion-toggle {
 }
 
 ion-list.tools {
-  padding: 5px;
-  background-color: var(--ion-color-gray-one);
+  padding-top: 15px;
+  padding-bottom: 15px;
+  background-color: var(--ion-color-primary);
   a.wallet-version {
-    color: #FAFAFF;
     font-family: manrope-light;
     ion-chip {
-      border: 1px solid #FAFAFF;
+      border: 0.5px solid #FAFAFF;
+      ion-label {
+        color: #FAFAFF;
+      }
     }
   }
   a.wallet-version:first-child {
-    padding-left: 27px;
+    padding-left: 25px;
   }
 }

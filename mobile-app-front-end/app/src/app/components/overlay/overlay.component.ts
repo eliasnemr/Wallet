@@ -1,5 +1,5 @@
 import { environment } from './../../../environments/environment.prod';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-overlay',
@@ -10,10 +10,16 @@ export class OverlayComponent implements OnInit {
 
   environment: any;
 
+  @Input() $disclaimer: boolean;
+
   constructor() {
     this.environment = environment;
   }
 
   ngOnInit() {}
+
+  pageReload() {
+    location.reload();
+  }
 
 }

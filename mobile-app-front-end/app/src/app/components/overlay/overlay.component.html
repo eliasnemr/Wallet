@@ -5,6 +5,11 @@
     Minima's Official Wallet
   </h1>
   <span class="ruler"></span>
+
+  <span class="disclaimer" *ngIf="$disclaimer">
+    Your Minima node may be <span class="offline">offline.</span> <br>
+    Click <a (click)="pageReload()">here</a> to try again.
+  </span>
  
   <p>{{environment.wallet_version}}</p>
 

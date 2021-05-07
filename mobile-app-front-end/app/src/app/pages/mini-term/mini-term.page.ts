@@ -57,6 +57,7 @@ export class MiniTermPage implements OnInit {
   ionViewWillLeave() {
         
     this.$fontSubscription.unsubscribe();
+    this.updateFontSizeSubject(this.fontSize);
   
     window.removeEventListener("keydown", function(e) {
     if ( [37, 38, 39, 40].indexOf(e.keyCode) > -1 ) {
@@ -72,7 +73,7 @@ export class MiniTermPage implements OnInit {
 
   initTerminal() {
     const USER_FONT_SIZE = parseInt(localStorage.getItem('userdefaultfontsize'), 10);
-    const DEFAULT_FONT_SIZE = 16;
+    const DEFAULT_FONT_SIZE = 14;
     (localStorage.getItem('userdefaultfontsize') ?
 
       this.fontSize = USER_FONT_SIZE

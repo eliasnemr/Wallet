@@ -145,14 +145,6 @@
         {{token?.mempool}}
       </ion-col>
     </ion-item>
-    <!-- <ion-item color="none" class="ion-no-padding" [hidden]="token?.tokenid == '0x00'">
-      <ion-col class="title">
-        Token Type
-      </ion-col>
-      <ion-col class="value">
-        {{type}}
-      </ion-col>
-    </ion-item> -->
     <ion-item color="none" class="ion-no-padding"  [hidden]="token?.tokenid == '0x00' || !token?.proof">
       <ion-col class="title">
         Proof
@@ -171,7 +163,8 @@
       <ion-col class="value">
         <ion-button 
         *ngIf="token?.proof" 
-        class="small-text" 
+        class="small-text validate-btn"
+        fill="outline" 
         size="small" 
         (click)="validateProof(token?.tokenid)">
           Validate

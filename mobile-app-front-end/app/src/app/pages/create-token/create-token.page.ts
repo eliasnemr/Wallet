@@ -134,7 +134,7 @@ export class CreateTokenPage implements OnInit {
       amount: ['', [Validators.required, Validators.maxLength(255)]],
       description: '',
       script: '',
-      icon: ['', [Validators.pattern('(http(s?):)([\\/|\\.|\\w|\\s|\\-])*\.(?:jpg|png|gif)$'), Validators.maxLength(255)]],
+      icon: ['', [Validators.pattern('(http(s?):)([\\/|\\.|\\w|\\s|\\-])*\.(?:jpg|png|gif|svg)$'), Validators.maxLength(255)]],
       proof: ['', [Validators.pattern('(http(s?):)([\\/|\\.|\\w|\\s|\\-])*\.(?:txt)$'), Validators.maxLength(255)]],
       nft: false
     });

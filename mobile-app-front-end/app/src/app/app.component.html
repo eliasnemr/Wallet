@@ -1,5 +1,5 @@
 <ion-app>
-  <app-overlay *ngIf="!nodeStatus" class="overlay"></app-overlay>
+  <app-overlay [$disclaimer]="disclaimer" *ngIf="!nodeStatus" class="overlay"></app-overlay>
 
   <ion-split-pane when="lg" contentId="mainMenu" class="splitpane" >
   <ion-menu side="start" contentId="mainMenu" class="myMenu">
@@ -47,7 +47,7 @@
           </ion-label>
       </ion-chip>    
     </a>
-    <a class="wallet-version hover" href="mailto:minima-global@fire.fundersclub.com?subject=Insert Wallet Bug Name&body=Brief description and reproduction of bug:">
+    <a class="wallet-version hover" href="mailto:minima-global@fire.fundersclub.com?subject=Insert Wallet Bug Name&body=Brief description, reproduction of bug & your phone specifications:">
       <ion-chip outline="true">
         <ion-icon name="bug-outline"></ion-icon>
         <ion-label>

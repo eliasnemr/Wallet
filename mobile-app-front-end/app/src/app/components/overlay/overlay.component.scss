@@ -19,6 +19,16 @@ div {
     height: 2px;
   }
 
+  span.disclaimer {
+    margin-top: 10px;
+    color: #FAFAFF;
+    opacity: 0.8;
+    text-align: center;
+    span.offline {
+      color: var(--ion-color-error);
+    }
+  }
+
   img {
     width: 65.43px;
     height: 59.01px;

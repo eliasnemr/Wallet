@@ -75,6 +75,8 @@ ion-list ion-item {
     text-overflow: ellipsis;
     max-width: inherit;
     overflow: hidden;
+    margin: 0;
+    padding: 0;
 }
 .copy {
     text-decoration: underline;
@@ -109,4 +111,9 @@ ion-item.nft-large {
             opacity: 0.5;
         }
     }
+}
+
+ion-button.validate-btn {
+    text-transform: none;
+    color: var(--ion-color-tertiary);
 }
