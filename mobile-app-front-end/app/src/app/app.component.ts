@@ -31,7 +31,7 @@ export class AppComponent {
   environment = environment;
 
   constructor(public _tools: ToolsService, private _minimaApiService: MinimaApiService) {
-    
+
     this.getPages();
     this.initializeApp();
     this.setLocalStorage();
