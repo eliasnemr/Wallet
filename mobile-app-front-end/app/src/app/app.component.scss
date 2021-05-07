@@ -11,6 +11,12 @@
       }
     }
     ion-list {
+      ion-item.report-bug-btn {
+        cursor: pointer;
+      }
+      ion-item.report-bug-btn:hover {
+        cursor: pointer;
+      }
       ion-item.active {
         ion-label {
           color: var(--ion-color-primary) !important;
@@ -34,7 +40,7 @@
         height: 100%;
         margin-top: 7px;
         ion-menu-toggle {
-          ion-item.my-menu-item {
+          ion-item {
             --padding-start: 27px;
             line-height: 36px;
             ion-label {
@@ -44,11 +50,12 @@
             }
           }
         }
-        ion-toolbar.tools {
-          position: absolute; 
-          bottom: 0;
-        }
       }
+    }
+    div.version {
+      padding-left: 27px;
+      padding-bottom: 10px;
+      color: var(--ion-color-tertiary);
     }
   }
   ion-title {
@@ -95,6 +102,7 @@
     background-color: var(--ion-color-background);
   }
 }
+
 ion-footer {
   ion-item {
     --background: #001C32;
@@ -121,6 +129,7 @@ ion-item#night-mode {
   padding-left: 15px;
   padding-right: 13px;
 }
+
 ion-toggle {
   --background: #FAFAFF;
   --handle-background: #001C32;
@@ -140,22 +149,4 @@ ion-toggle {
   --background-activated-opacity: 0.2 !important;
   --background-hover: var(--ion-color-item-hover);
   --background-hover-opacity: 1;
-}
-
-ion-list.tools {
-  padding-top: 15px;
-  padding-bottom: 15px;
-  background-color: var(--ion-color-primary);
-  a.wallet-version {
-    font-family: manrope-light;
-    ion-chip {
-      border: 0.5px solid #FAFAFF;
-      ion-label {
-        color: #FAFAFF;
-      }
-    }
-  }
-  a.wallet-version:first-child {
-    padding-left: 25px;
-  }
 }
