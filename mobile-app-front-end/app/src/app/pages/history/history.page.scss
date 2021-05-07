@@ -13,23 +13,86 @@ ion-list {
     background-color: transparent;
     margin: 0; 
     padding: 2px;
+    ion-item {
+        border-bottom: 1px solid var(--ion-color-background);
+        --min-height: 75px;
+        --padding-start: 27px;
+        --inner-padding-end: 27px;
+        --border-width: 0px 0px 0px 0px;
+        opacity: 1;
+        --background-activated: var(--ion-color-token)!important;
+        --background-activated-opacity: 0.2 !important;
+        --background-hover: var(--ion-color-item-hover);
+        --background-hover-opacity: 1;
+        --border-color: var(--ion-color-item-border);
+        // Body of ion-item
+        ion-avatar {
+            height: 36.83px;
+            width: 36.83px;
+        }
+        // middle section
+        div.transaction-type {
+            display: flex;
+            flex-direction: column;
+            div.name {
+                h6 {
+                    padding: 0;
+                    margin: 0;
+                    padding-bottom: 5px;
+                    line-height: 17px;
+                    max-width: 20vw;
+                    text-overflow: ellipsis;
+                    white-space: nowrap; 
+                    overflow: hidden;
+                    font-family: manrope-medium;
+                }
+            }
+            div.amount {
+                h6 {
+                    padding: 0;
+                    margin: 0;
+                    max-width: 20vw;
+                    text-overflow: ellipsis;
+                    white-space: nowrap; 
+                    overflow: hidden;
+                    font-family: manrope-semibold;
+                }
+                p {
+                    padding: 0;
+                    margin: 0;
+                    max-width: 20vw;
+                    text-overflow: ellipsis;
+                    white-space: nowrap; 
+                    overflow: hidden;
+                    font-size: 12px;
+                    opacity: 0.3;
+                }
+            }
+        }
+        // date section
+        div.date {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            h6 {
+                font-size: 12px;
+                color: #aaaabe;
+                padding:0;
+                margin:0;
+            }
+            p {
+                font-size: 10px;
+                color: #aaaabe;
+                padding:0;
+                margin:0;
+            }
+        }
+    }
+    ion-item:first-child {
+        margin-top: 7px;
+    }
 }
-ion-list ion-item {
-    --padding-start: 27px;
-    --inner-padding-end: 27px;
-}
-ion-list ion-item:first-child {
-    margin-top: 12px;
-}
-ion-list ion-item {
-    --border-width: 0px 0px 0px 0px;
-    opacity: 1;
-    --background-activated: var(--ion-color-token)!important;
-    --background-activated-opacity: 0.2 !important;
-    --background-hover: var(--ion-color-item-hover);
-    --background-hover-opacity: 1;
-    --border-color: var(--ion-color-item-border);
-}
+
 ion-list.date-time ion-label {
     padding-top: 20px;
     h6 {
@@ -97,6 +160,7 @@ ion-label.transaction-amount {
             text-overflow: ellipsis;
             white-space: nowrap;
             overflow: hidden;
+            font-family: manrope-semibold;
         }
         p {
             line-height: 8px;

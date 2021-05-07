@@ -50,57 +50,47 @@
               alt="send-receive"></ion-icon>
             </ion-avatar>
 
-            <ion-list style="background-color: transparent; margin:0; padding:2px">
-              <ion-label class="token-name">
-                <h3 
-                *ngIf="!txn.txpow.body.txn.tokengen && !txn.values[0]?.name?.name">
-                        {{ txn.values[0]?.name }}</h3>
-                        <h3 
-                *ngIf="!txn.txpow.body.txn.tokengen && txn.values[0]?.name?.name">
-                        {{ txn.values[0]?.name?.name }}</h3>
-                <h3 *ngIf="txn.txpow.body.txn.tokengen">{{ txn.txpow.body.txn.tokengen.token }}</h3>
+            <div class="transaction-type">
+              <div class="name">
+                <h6 
+                  *ngIf="!txn.txpow.body.txn.tokengen && !txn.values[0]?.name?.name">
+                          {{ txn.values[0]?.name }}</h6>
+                          <h3 
+                  *ngIf="!txn.txpow.body.txn.tokengen && txn.values[0]?.name?.name">
+                          {{ txn.values[0]?.name?.name }}</h3>
+                  <h6 *ngIf="txn.txpow.body.txn.tokengen">{{ txn.txpow.body.txn.tokengen.token }}</h6>
+  
+                  <h6 *ngIf="!txn.txpow.body.txn.tokengen && !txn.values[0]">Transaction: {{ txn.txpow.txpowid }}</h6>
+              </div>
 
-                <h3 *ngIf="!txn.txpow.body.txn.tokengen && !txn.values[0]">Transaction: {{ txn.txpow.txpowid }}</h3>
-
-
-
-              </ion-label>
-              
-
-              <ion-label 
-              class="ion-no-padding ion-no-margin transaction-amount" 
-              slot="end" 
-              *ngIf="!txn.txpow.body.txn.tokengen">
+              <div 
+              *ngIf="!txn.txpow.body.txn.tokengen" 
+              class="amount">
                 <span *ngIf="txn.values[0] && txn.values[0]?.amount?.substring(0,1) === '-'"> 
-                  <h3 class="minima-numeric left">{{ txn.values[0]?.amount}}</h3>
+                  <h6 class="minima-numeric left">{{ txn.values[0]?.amount}}</h6>
                 </span>
                 <span *ngIf="txn.values[0] && txn.values[0]?.amount?.substring(0,1) !== '-'">
-                  <h3 class="minima-numeric left">{{ "+"+ txn.values[0]?.amount}}</h3>
+                  <h6 class="minima-numeric left">{{ "+"+ txn.values[0]?.amount}}</h6>
                 </span>
-              </ion-label>
-              <ion-label 
-              class="ion-no-padding ion-no-margin transaction-amount"
-              slot="end" 
-              *ngIf="txn.txpow.body.txn.tokengen">
-                <span class="minima-numeric left">
-                  <h6>{{"+" + txn.txpow.body.txn.tokengen.total}}</h6>
-                  <p>{{"-"+txn.values[0]?.amount+" Mini"}}</p>
-                </span>
-              </ion-label>
-            </ion-list>
+              </div>
+              <div 
+              *ngIf="txn.txpow.body.txn.tokengen"
+              class="amount">
+              <span class="minima-numeric left">
+                <h6>{{"+" + txn.txpow.body.txn.tokengen.total}}</h6>
+                <p>{{"-"+txn.values[0]?.amount+" Mini"}}</p>
+              </span>
+              </div>
+            </div>
 
-          
-          <ion-list 
-          slot="end"
-          style="background-color: transparent;" 
-          class="date-time ion-no-padding ion-no-margin">
-            <ion-label>
+
+          <div slot="end" class="date">
             <h6 class="ion-no-padding ion-no-margin">
               {{ txn.day }} {{ txn.month }} {{ txn.year }}
             </h6>
             <p class="ion-no-padding ion-no-margin ion-text-right">{{ txn.time }}</p>
-            </ion-label>
-          </ion-list>
+          </div>
+
         </ion-item>
     </ion-list>
 
