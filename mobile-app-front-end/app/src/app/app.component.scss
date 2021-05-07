@@ -1,5 +1,6 @@
 
   ion-menu {
+    height: 100%;
     --width: 250px;
     --background: var(--ion-m-background);
     ion-header.page-header {
@@ -27,38 +28,25 @@
           margin-right: 20px;
         }
       }
-      a.wallet-version {
-        color: var(--ion-color-tertiary);
-        font-family: manrope-light;
-        ion-chip {
-          border: 1px solid var(--ion-color-tertiary);
-        }
-      }
-      a.wallet-version:first-child {
-        padding-left: 27px;
-      }
     }
     ion-content {
-      --background: var(--ion-m-background);
       ion-list {
-        padding-top: 7px;
+        height: 100%;
+        margin-top: 7px;
         ion-menu-toggle {
           ion-item.my-menu-item {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            line-height: 36px;
             --padding-start: 27px;
-            --background-activated: var(--ion-color-token)!important;
-            --background-activated-opacity: 0.2 !important;
-            --background-hover: var(--ion-color-item-hover);
-            --background-hover-opacity: 1;
+            line-height: 36px;
             ion-label {
               color: var(--ion-color-tertiary);
               font-family: manrope-bold;
               font-size: 1.0rem;
             }
           }
+        }
+        ion-toolbar.tools {
+          position: absolute; 
+          bottom: 0;
         }
       }
     }
@@ -145,4 +133,26 @@ ion-toggle {
   --handle-spacing: 2px;
   height: 18.65px; 
   width: 34.65px;
+}
+
+.hover {
+  --background-activated: var(--ion-color-token)!important;
+  --background-activated-opacity: 0.2 !important;
+  --background-hover: var(--ion-color-item-hover);
+  --background-hover-opacity: 1;
+}
+
+ion-list.tools {
+  padding: 5px;
+  background-color: var(--ion-color-gray-one);
+  a.wallet-version {
+    color: #FAFAFF;
+    font-family: manrope-light;
+    ion-chip {
+      border: 1px solid #FAFAFF;
+    }
+  }
+  a.wallet-version:first-child {
+    padding-left: 27px;
+  }
 }

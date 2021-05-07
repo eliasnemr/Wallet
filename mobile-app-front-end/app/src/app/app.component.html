@@ -15,11 +15,11 @@
       </ion-toolbar>
     </ion-header>
     
-    <ion-content>
-      <ion-list class="ion-no-padding" main>
+    <ion-content main>
+      <ion-list class="ion-no-padding" >
         <ion-menu-toggle auto-hide="false" *ngFor="let p of menu; let i = index">
             <ion-item 
-            class="my-menu-item ion-no-padding ion-no-margin no-ripple"
+            class="my-menu-item ion-no-padding ion-no-margin no-ripple hover"
             detail="false"
             routerLinkActive="active"
             routerDirection="root"
@@ -34,27 +34,28 @@
               {{ p.title }}
             </ion-label>
             </ion-item>
-        </ion-menu-toggle>
+        </ion-menu-toggle>  
       </ion-list>
+
   </ion-content>
-  <ion-list>
-    <a href="https://github.com/eliasnemr/Wallet" target="_"  class="wallet-version">
+  <!-- <ion-list class="ion-no-padding ion-no-margin tools">
+    <a href="https://github.com/eliasnemr/Wallet" target="_"  class="wallet-version hover">
       <ion-chip outline="true">
           <ion-icon name="wallet-outline"></ion-icon>
-          <ion-label style="color: var(--ion-color-tertiary)">
+          <ion-label>
           {{ environment.wallet_version }}
           </ion-label>
       </ion-chip>    
     </a>
-    <a class="wallet-version" href="mailto:minima-global@fire.fundersclub.com?subject=Insert Wallet Bug Name&body=Brief description and reproduction of bug:">
+    <a class="wallet-version hover" href="mailto:minima-global@fire.fundersclub.com?subject=Insert Wallet Bug Name&body=Brief description and reproduction of bug:">
       <ion-chip outline="true">
         <ion-icon name="bug-outline"></ion-icon>
-        <ion-label style="color: var(--ion-color-tertiary)">
+        <ion-label>
         Report
         </ion-label>
     </ion-chip>    
     </a>
-  </ion-list>
+  </ion-list> -->
   
 
   <ion-footer class="border-t ion-no-margin ion-no-padding">
