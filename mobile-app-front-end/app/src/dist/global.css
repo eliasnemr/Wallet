@@ -21,6 +21,21 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+ion-icon.input-error-icon {
+  color: var(--ion-color-error-icon);
+  width: 22.43px;
+  height: 22.43px;
+}
+
+ion-note.error-message {
+  display: block;
+  font-family: manrope-regular;
+  margin-top: 10px;
+}
+ion-note.error-message div {
+  color: var(--ion-color-error);
+}
+
 body.dark {
   --ion-item-selected: #223649;
   --ion-m-background: #001C32;
@@ -28,6 +43,13 @@ body.dark {
   --ion-card-color: #001C32;
   --minima-text: #FAFAFF;
   --minima-icons: #FAFAFF;
+  /** toast1 text **/
+  --ion-color-toast1-text: #001B32;
+  --ion-color-toast1-text-rgb: 0,27,50;
+  --ion-color-toast1-text-contrast: #ffffff;
+  --ion-color-toast1-text-contrast-rgb: 255,255,255;
+  --ion-color-toast1-text-shade: #00182c;
+  --ion-color-toast1-text-tint: #1a3247;
   /** primary **/
   --ion-color-primary: #317aff;
   --ion-color-primary-rgb: 49,122,255;
@@ -102,6 +124,13 @@ body.dark {
   --ion-color-ruler-contrast-rgb: 255,255,255;
   --ion-color-ruler-shade: #3d4b63;
   --ion-color-ruler-tint: #58667f;
+  /** Title Ruler Color */
+  --ion-color-title-ruler: #455571;
+  --ion-color-title-ruler-rgb: 69,85,113;
+  --ion-color-title-ruler-contrast: #ffffff;
+  --ion-color-title-ruler-contrast-rgb: 255,255,255;
+  --ion-color-title-ruler-shade: #3d4b63;
+  --ion-color-title-ruler-tint: #58667f;
   /** Item Border Color */
   --ion-color-item-border: #253F59;
   --ion-color-item-border-rgb: 37,63,89;
@@ -116,6 +145,10 @@ body.dark {
   --ion-color-background-contrast-rgb: 255,255,255;
   --ion-color-background-shade: #042239;
   --ion-color-background-tint: #1e3d54;
+  /** Form Inputs */
+  --ion-color-inputs: #F0F0FA;
+  /** Form Optional Text */
+  --ion-color-optional:#91919D;
   --ion-color-line: var(--ion-color-ruler);
 }
 body.dark .borders {
@@ -166,12 +199,8 @@ body.dark ion-item {
 }
 
 /* mini-term.page.ts popover */
-.terminal-pop ion-backdrop {
-  opacity: 0.4 !important;
-}
-
-.terminal-pop .popover-content {
-  overflow-y: hidden;
-  max-height: 65px !important;
-  max-width: 148px !important;
+@media only screen and (max-width: 992px) {
+  ion-icon.menu-btn {
+    display: block;
+  }
 }

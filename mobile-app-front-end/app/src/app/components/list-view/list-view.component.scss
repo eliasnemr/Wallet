@@ -72,6 +72,7 @@ ion-list {
 div.token-wrapper {
     display: flex;
     flex-direction: column;
+    max-width: 150px;
 }
 
 .blink_me {

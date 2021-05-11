@@ -103,6 +103,14 @@
   }
 }
 
+@media only screen and (min-width: 1200px) {
+  .splitpane {
+    max-height: 1200px;
+    max-width: 1200px;
+    width: 950px;
+  }
+}
+
 ion-footer {
   ion-item {
     --background: #001C32;

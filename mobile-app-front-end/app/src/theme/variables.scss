@@ -36,14 +36,6 @@
   --ion-font-family-bold: manrope-bold;
   --ion-font-family-light: manrope-light;
   --ion-font-family-medium: manrope-medium;
-
-  /** Mining Mesasges **/
-  --ion-color-mining: #358860;
-  --ion-color-mining-rgb: 53,136,96;
-  --ion-color-mining-contrast: #ffffff;
-  --ion-color-mining-contrast-rgb: 255,255,255;
-  --ion-color-mining-shade: #2f7854;
-  --ion-color-mining-tint: #499470;
   
   /** Toasts color **/
   --ion-color-toast1-text: #FAFAFF;
@@ -351,5 +343,10 @@ ion-content.page-content {
 
 /* My Custom Toasts */
 .toast2 {
-  color: var(--ion-color-toast1-text);
+  --color: #001C32;
+  --button-color: #001C32!important;
+  --background: var(--ion-color-gray-four);
+  --height: 60px;
+  --box-shadow: 1px rgba(#66ff66, 0.5);
+  --border-radius: 15px;
 }

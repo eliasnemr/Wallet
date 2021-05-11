@@ -100,7 +100,6 @@ var ToolsService = /** @class */ (function () {
                     case 0: return [4 /*yield*/, this.toastController.create({
                             message: msg,
                             position: position,
-                            color: 'mining',
                             cssClass: 'toast2',
                             keyboardClose: true,
                             translucent: true,

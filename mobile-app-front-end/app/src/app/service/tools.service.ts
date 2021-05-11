@@ -48,7 +48,6 @@ export class ToolsService {
     const toast = await this.toastController.create({
       message: msg,
       position: position,
-      color: 'mining',
       cssClass: 'toast2',
       keyboardClose: true,
       translucent: true,

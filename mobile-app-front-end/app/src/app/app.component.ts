@@ -46,7 +46,7 @@ export class AppComponent {
     
     Minima.init((msg: any) => {
       if (msg.event === 'connected') {
-        console.log('appComponent: Minima connected');
+        //console.log('appComponent: Minima connected');
 
         const msZero = 0;
         const msTimer = 3000;
