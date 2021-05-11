@@ -7,6 +7,10 @@ ion-list ion-item {
   background-color: var(--ion-color-token);
   opacity: 1;
 }
+ion-list ion-item ion-label.description h6 {
+  font-size: 1em;
+  font-family: manrope-semibold;
+}
 
 .item .item-content {
   background-color: transparent !important;
@@ -24,14 +28,30 @@ ion-list {
 }
 
 ion-list ion-item {
+  --inner-padding-end: 0;
   color: var(--ion-color-color);
   border: 1px solid var(--ion-color-item-border);
   --border-color: var(--ion-color-item-border);
-  padding-right: 0;
+  padding-right: 10px;
+  padding-left: 10px;
 }
-
-ion-list ion-item ion-col {
-  margin-left: 13px;
+ion-list ion-item ion-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+ion-list ion-item ion-avatar ion-icon {
+  width: 27px;
+  height: 27px;
+  display: none;
+  color: var(--ion-color-primary);
+  position: absolute;
+}
+ion-list ion-item ion-avatar:hover img.custom-icon {
+  opacity: 0.5;
+}
+ion-list ion-item ion-avatar:hover ion-icon {
+  display: block;
 }
 
 .title {
@@ -44,6 +64,11 @@ ion-list ion-item ion-col {
   word-wrap: normal;
 }
 
+.nft {
+  color: var(--ion-color-secondary);
+  font-family: manrope-semibold;
+}
+
 .value {
   font-size: 16px;
   font-family: manrope-regular;
@@ -53,6 +78,15 @@ ion-list ion-item ion-col {
   text-overflow: ellipsis;
   max-width: inherit;
   overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+.value p {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 12px;
+  opacity: 0.8;
 }
 
 .copy {
@@ -61,7 +95,36 @@ ion-list ion-item ion-col {
   font-size: 0.8rem;
 }
 
-.body {
-  margin-right: 30px;
-  margin-left: 26px;
+.active {
+  color: var(--ion-color-primary);
+}
+
+ion-item.nft-large {
+  padding: 15px;
+}
+ion-item.nft-large div {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+ion-item.nft-large div img {
+  width: 100%;
+}
+ion-item.nft-large div ion-icon {
+  display: none;
+  position: absolute;
+  font-size: 32px;
+  color: var(--ion-color-primary);
+}
+ion-item.nft-large div:hover ion-icon {
+  display: block;
+}
+ion-item.nft-large div:hover img {
+  opacity: 0.5;
+}
+
+ion-button.validate-btn {
+  text-transform: none;
+  color: var(--ion-color-tertiary);
 }

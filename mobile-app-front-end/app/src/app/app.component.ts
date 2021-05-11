@@ -25,7 +25,6 @@ interface Menu {
 export class AppComponent {
 
   nodeStatus: boolean = false;
-  disclaimer: boolean = false;
   toggleValue = false;
   currentMode = false;
   menu: Menu[];
@@ -44,38 +43,40 @@ export class AppComponent {
    
   initMinima() {
 
-    const msZero = 0;
-    const msTimer = 3000;
-    const source = timer(msZero, msTimer);
-    const subscribe = source.subscribe((val) => {
-
-      if (Minima.block == 0) {
-        this.nodeStatus = false;
-        this.disclaimer = true;
-      } else if (!this.nodeStatus && Minima.block > 0) {
-        setTimeout(() => {              
-          this.nodeStatus = true;
-        }, 2000);  
-      }
-    });
-
+    
     Minima.init((msg: any) => {
       if (msg.event === 'connected') {
+        console.log('appComponent: Minima connected');
+
+        const msZero = 0;
+        const msTimer = 3000;
+        const source = timer(msZero, msTimer);
+        const subscribe = source.subscribe((val) => {
+    
+          if (Minima.block == 0) {
+            this.nodeStatus = false;
+          } else if (!this.nodeStatus && Minima.block > 0) {
+            setTimeout(() => {              
+              this.nodeStatus = true;
+            }, 2000);  
+          }
+        });
 
         this._minimaApiService.init(Minima.balance);
 
       } else if (msg.event === 'newbalance') {
 
         this._tools.presentToast('Balance updated!', 'primary', 'top');
+
         this._minimaApiService.$balance.next(msg.info.balance);
 
       } else if (msg.event === 'newblock') {
         
       } else if (msg.event === 'miningstart') {
-        this._tools.presentMiningToast('Started to mine your transaction.', 'tertiary', 'bottom');
+        this._tools.presentMiningToast('Started to mine your transaction.', 'bottom');
       
       } else if (msg.event === 'miningstop') {
-        this._tools.presentMiningToast('Finished mining your transaction.', 'tertiary', 'bottom');
+        this._tools.presentMiningToast('Finished mining your transaction.', 'bottom');
       
       } 
     });

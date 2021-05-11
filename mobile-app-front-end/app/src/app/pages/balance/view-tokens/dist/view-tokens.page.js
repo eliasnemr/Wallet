@@ -5,171 +5,90 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
-            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [op[0] & 2, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-    }
-};
 exports.__esModule = true;
 exports.ViewTokensPage = void 0;
 var SparkMD5 = require("spark-md5");
 var core_1 = require("@angular/core");
 var ViewTokensPage = /** @class */ (function () {
-    function ViewTokensPage(alertController, route, api, toastController, balanceService) {
-        this.alertController = alertController;
+    function ViewTokensPage(route, _minimaApiService, myTools) {
         this.route = route;
-        this.api = api;
-        this.toastController = toastController;
-        this.balanceService = balanceService;
-        this.urlID = '';
-        this.type = '';
+        this._minimaApiService = _minimaApiService;
+        this.myTools = myTools;
+        this.expand = false;
+        (this.route.snapshot.paramMap.get('id') ? this.urlTokenid = this.route.snapshot.paramMap.get('id') : this.urlTokenid = '');
     }
-    ViewTokensPage.prototype.ngOnInit = function () {
+    ViewTokensPage.prototype.ngOnInit = function () { };
+    ViewTokensPage.prototype.ionViewWillEnter = function () {
         var _this = this;
-        this.balanceService.data.subscribe(function (res) {
-            _this.tokenArr = res;
-            _this.urlID = _this.route.snapshot.paramMap.get('id');
-            _this.tokenArr.forEach(function (tkn) {
-                if (tkn.tokenid === _this.urlID) {
-                    _this.token = tkn;
-                    if (_this.token.tokenid === '0x00') {
-                        _this.token.description = 'Minima\'s Official Token.';
-                    }
-                    else {
-                        _this.token.description = tkn.description;
-                    }
-                    if (tkn.token.tokenid !== '0x00' && tkn.token.icon) {
-                        _this.token.icon = 'assets/minimaBox.svg';
-                    }
-                    else if (tkn.token.tokenid === '0x00') {
-                        _this.token.icon = 'assets/minimaBox.svg';
-                    }
-                    else {
-                        _this.token.icon = tkn.icon;
-                    }
-                    if (_this.token.script === 'RETURN TRUE') {
-                        _this.type = 'Value Transfer';
-                    }
-                    else {
-                        _this.type = 'Non Fungible Token';
-                    }
+        if (this.urlTokenid && this.urlTokenid.length > 0) {
+            this.$subscription = this._minimaApiService.$balance
+                .subscribe(function (tokens) {
+                (tokens ?
+                    _this.$token = tokens.filter(function (token) { return token.tokenid === _this.urlTokenid; })
+                    :
+                        console.log('Token balance not found..'));
+                if (_this.$token.length > 0 && _this.$token[0].tokenid) {
+                    // Some formatting...
+                    (_this.$token[0].tokenid === '0x00' ?
+                        _this.$token[0].description = 'Minima\'s Official Token.'
+                        :
+                            null);
+                    // (this.$token[0].tokenid !== '0x00' && this.$token[0].icon.length === 0 || this.$token[0].tokenid === '0x00' ?
+                    //   // this.$token[0].icon = 'assets/minimaIcon.svg' 
+                    //   console.log(this.$token[0].icon)
+                    //   :
+                    //   null
+                    // );
                 }
             });
-        });
+        }
+        else {
+        }
+        if (this.$subscription.closed) {
+            // subscribed and works..
+        }
+        else {
+            // didnt subscribe to anything..
+        }
+    };
+    ViewTokensPage.prototype.ionViewWillLeave = function () {
+        if (this.$subscription) {
+            this.$subscription.unsubscribe();
+        }
     };
     ViewTokensPage.prototype.validateProof = function (tokenid) {
         var _this = this;
-        this.api.validateTokenID(tokenid).then(function (res) {
+        this._minimaApiService.validateTokenID(tokenid).then(function (res) {
             if (res.response.valid === true) {
-                _this.presentToast('This proof is valid.', 'success');
+                _this.myTools.presentToast('This proof is valid.', 'success', 'bottom');
             }
             else {
-                _this.presentToast('Proof mismatch - not a valid proof', 'danger');
+                _this.myTools.presentToast('Proof mismatch - not a valid proof', 'danger', 'bottom');
             }
         });
     };
     ViewTokensPage.prototype.createIcon = function (tokenid) {
         return this.avatar = 'https://www.gravatar.com/avatar/' + SparkMD5.hash(tokenid) + '?d=identicon';
     };
-    // Alerts
-    ViewTokensPage.prototype.presentToast = function (msg, type) {
-        return __awaiter(this, void 0, void 0, function () {
-            var toast;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.toastController.create({
-                            message: msg,
-                            duration: 4000,
-                            buttons: [{
-                                    text: 'Close',
-                                    role: 'cancel'
-                                }],
-                            color: type,
-                            keyboardClose: true,
-                            translucent: true,
-                            position: 'top'
-                        })];
-                    case 1:
-                        toast = _a.sent();
-                        toast.present();
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
     ViewTokensPage.prototype.copyToClipPWA = function (text) {
-        var _this = this;
-        document.addEventListener('copy', function (e) {
-            e.clipboardData.setData('text/plain', text);
-            _this.presentToast("Copied to Clipboard", "success");
-            e.preventDefault();
-            document.removeEventListener('copy', null);
-        });
-        document.execCommand('copy');
+        this.myTools.copy(text);
     };
     ViewTokensPage.prototype.giveMe50 = function () {
         var _this = this;
-        this.api.giveMe50().then(function (res) {
+        this._minimaApiService.giveMe50().then(function (res) {
             if (res.status === true) {
-                _this.presentAlert('Gimme50', 'Successful', 'Status');
+                _this.myTools.presentAlert('Gimme50', 'Successful', 'Status');
             }
             else {
-                _this.presentAlert('Gimme50', res.message, 'Status');
+                _this.myTools.presentAlert('Gimme50', res.message, 'Status');
             }
         });
     };
-    ViewTokensPage.prototype.presentAlert = function (hdr, msg, sub) {
-        return __awaiter(this, void 0, void 0, function () {
-            var alert;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.alertController.create({
-                            cssClass: 'alert',
-                            header: hdr,
-                            subHeader: sub,
-                            message: msg,
-                            buttons: ['OK']
-                        })];
-                    case 1:
-                        alert = _a.sent();
-                        return [4 /*yield*/, alert.present()];
-                    case 2:
-                        _a.sent();
-                        return [2 /*return*/];
-                }
-            });
-        });
+    ViewTokensPage.prototype.expandImage = function () {
+        (this.expand ?
+            this.expand = false
+            :
+                this.expand = true);
     };
     ViewTokensPage = __decorate([
         core_1.Component({

@@ -136,6 +136,7 @@ export class SendFundsPage implements OnInit {
         this.myTools.presentAlert('Transaction Status', 'Transaction has been posted to the network!', 'Successful');
         this.resetForm();
       } else {
+        console.log(res.status);
         setTimeout(() => {
           this.submitBtn.disabled = false;
         }, 500);
@@ -151,6 +152,7 @@ export class SendFundsPage implements OnInit {
         this.myTools.presentAlert('Transaction Status', 'Transaction has been posted to the network!', 'Successful');
         this.resetForm();
       } else {
+        console.log(res.status);
         setTimeout(() => {
           this.submitBtn.disabled = false;
         }, 500);

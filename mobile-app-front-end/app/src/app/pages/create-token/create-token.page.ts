@@ -11,6 +11,19 @@ interface AdvancedFormInputsCheck {
   nft: boolean;
 }
 
+interface CustomToken {
+  name: string;
+  amount: number;
+  icon: string;
+  proof: string;
+  script: string;
+  description: string;
+}
+
+interface InputChecked {
+  isChecked: boolean
+}
+
 @Component({
   selector: 'app-create-token',
   templateUrl: './create-token.page.html',
@@ -22,43 +35,40 @@ export class CreateTokenPage implements OnInit {
 
 
   tokenCreationForm: FormGroup;
-  advancedFormInputsChecked: AdvancedFormInputsCheck = {description: false, icon: false, proof: false, nft: false};
+  advancedFormInputsChecked: AdvancedFormInputsCheck;
 
   status = '';
   isNft = false;
   loading = false;
   success = false;
-  myNFT = 'ASSERT FLOOR ( @AMOUNT ) EQ @AMOUNT LET checkout = 0 WHILE ( checkout LT @TOTOUT ) DO IF GETOUTTOK ( checkout ) EQ @TOKENID THEN LET outamt = GETOUTAMT ( checkout ) ASSERT FLOOR ( outamt ) EQ outamt ENDIF LET checkout = INC ( checkout ) ENDWHILE RETURN TRUE';
-  customToken: any =
-  {
-    name: '',
-    amount: 0,
-    icon: '',
-    proof: '',
-    script: '',
-    description: ''
-  };
-  descrEntry = {
-    isChecked: false
-  };
-
-  iconEntry = {
-    isChecked: false
-  };
-
-  proofEntry = {
-    isChecked: false
-  };
-
-  nft = {
-    isNonFungible: false
-  };
+  customToken: CustomToken;
+  descrEntry = { isChecked: false };
+  iconEntry = { isChecked: false };
+  proofEntry = { isChecked: false };
+  nft = { isNonFungible: false };
 
   constructor(
     public menu: MenuController,
     private api: MinimaApiService,
     private formBuilder: FormBuilder,
-    private myTools: ToolsService) {}
+    private myTools: ToolsService) {
+
+    this.customToken = {
+      name: '',
+      amount: 0,
+      icon: '',
+      proof: '',
+      script: '',
+      description: ''
+    }
+
+    this.advancedFormInputsChecked = {
+      description: false,
+      icon: false,
+      proof: false,
+      nft: false
+    }
+  }
 
   ionViewDidEnter() {}
 

@@ -50,13 +50,13 @@ export class MinimaApiService {
 
   createToken(data: any) {
     if (data.script !== "") {
-      if (data.nft === true) {
+      if (data.nft) {
         return this.req("tokencreate name:\""+data.name+"\" amount:\""+data.amount+'.'+0+"\" description:\""+data.description+"\" script:\""+data.script+"\" icon:\""+data.icon+"\" proof:\""+data.proof+"\"");
       } else {
         return this.req("tokencreate name:\""+data.name+"\" amount:\""+data.amount+"\" description:\""+data.description+"\" script:\""+data.script+"\" icon:\""+data.icon+"\" proof:\""+data.proof+"\"");
       }
     } else {
-      if (data.nft === true) {
+      if (data.nft) {
         return this.req("tokencreate name:\""+data.name+"\" amount:\""+data.amount+'.'+0+"\" description:\""+data.description+"\" icon:\""+data.icon+"\" proof:\""+data.proof+"\"");
       } else {
         return this.req("tokencreate name:\""+data.name+"\" amount:\""+data.amount+"\" description:\""+data.description+"\" icon:\""+data.icon+"\" proof:\""+data.proof+"\"");

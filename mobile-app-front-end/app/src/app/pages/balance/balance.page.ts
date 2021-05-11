@@ -31,20 +31,18 @@ export class BalancePage implements OnInit {
     private _minimaApiService: MinimaApiService,
     private myTools: ToolsService,
     private route: Router,
-    public popoverController: PopoverController) { 
-
-      this.$balance = this._minimaApiService.$balance;
-    
-    }
+    public popoverController: PopoverController) {}
 
   ionViewWillEnter() {
-
-    this.$balanceSubscription = this.$balance.subscribe((res: Token[]) => {})
-
+    this.$balanceSubscription = this._minimaApiService.$balance.subscribe((res: Token[]) => {
+      this.$balance = this._minimaApiService.$balance;
+    });
   }
 
   ionViewWillLeave() {
+
     this.$balanceSubscription.unsubscribe();
+  
   }
 
   ngOnInit() {}

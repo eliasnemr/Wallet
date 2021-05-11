@@ -7,13 +7,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 exports.__esModule = true;
 exports.BalancePageModule = void 0;
+var to_number_pipe_1 = require("./../../pipes/to-number.pipe");
 var core_1 = require("@angular/core");
 var common_1 = require("@angular/common");
 var forms_1 = require("@angular/forms");
 var router_1 = require("@angular/router");
 var angular_1 = require("@ionic/angular");
 var balance_page_1 = require("./balance.page");
-var grid_view_component_1 = require("../../components/grid-view/grid-view.component");
 var list_view_component_1 = require("./../../components/list-view/list-view.component");
 var routes = [
     {
@@ -38,7 +38,7 @@ var BalancePageModule = /** @class */ (function () {
                 angular_1.IonicModule,
                 router_1.RouterModule.forChild(routes)
             ],
-            declarations: [balance_page_1.BalancePage, list_view_component_1.ListViewComponent, grid_view_component_1.GridViewComponent]
+            declarations: [balance_page_1.BalancePage, list_view_component_1.ListViewComponent, to_number_pipe_1.ToNumberPipe]
         })
     ], BalancePageModule);
     return BalancePageModule;

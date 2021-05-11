@@ -46,16 +46,19 @@ exports.CreateTokenPage = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var CreateTokenPage = /** @class */ (function () {
-    function CreateTokenPage(api, formBuilder, alertController, toastController) {
+    function CreateTokenPage(menu, api, formBuilder, myTools) {
+        this.menu = menu;
         this.api = api;
         this.formBuilder = formBuilder;
-        this.alertController = alertController;
-        this.toastController = toastController;
-        this.advancedFormInputsChecked = { description: false, icon: false, proof: false, nft: false };
+        this.myTools = myTools;
+        this.status = '';
         this.isNft = false;
         this.loading = false;
         this.success = false;
-        this.myNFT = 'ASSERT FLOOR ( @AMOUNT ) EQ @AMOUNT LET checkout = 0 WHILE ( checkout LT @TOTOUT ) DO IF GETOUTTOK ( checkout ) EQ @TOKENID THEN LET outamt = GETOUTAMT ( checkout ) ASSERT FLOOR ( outamt ) EQ outamt ENDIF LET checkout = INC ( checkout ) ENDWHILE RETURN TRUE';
+        this.descrEntry = { isChecked: false };
+        this.iconEntry = { isChecked: false };
+        this.proofEntry = { isChecked: false };
+        this.nft = { isNonFungible: false };
         this.customToken = {
             name: '',
             amount: 0,
@@ -64,129 +67,113 @@ var CreateTokenPage = /** @class */ (function () {
             script: '',
             description: ''
         };
-        this.descrEntry = {
-            isChecked: false
-        };
-        this.iconEntry = {
-            isChecked: false
-        };
-        this.proofEntry = {
-            isChecked: false
-        };
-        this.nft = {
-            isNonFungible: false
+        this.advancedFormInputsChecked = {
+            description: false,
+            icon: false,
+            proof: false,
+            nft: false
         };
     }
     CreateTokenPage.prototype.ionViewDidEnter = function () { };
     CreateTokenPage.prototype.ngOnInit = function () {
-        this.tokenCreationForm = this.formBuilder.group({
-            name: ['', [forms_1.Validators.required, forms_1.Validators.maxLength(255)]],
-            amount: ['', [forms_1.Validators.required, forms_1.Validators.maxLength(255)]],
-            description: '',
-            script: '',
-            icon: '',
-            proof: '',
-            nft: false
-        });
+        this.formInit();
     };
-    CreateTokenPage.prototype.presentToast = function (msg, type) {
-        return __awaiter(this, void 0, void 0, function () {
-            var toast;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.toastController.create({
-                            message: msg,
-                            duration: 4000,
-                            color: type,
-                            buttons: [{
-                                    text: 'Close',
-                                    role: 'cancel'
-                                }],
-                            keyboardClose: true,
-                            translucent: true,
-                            position: 'top'
-                        })];
-                    case 1:
-                        toast = _a.sent();
-                        toast.present();
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
-    CreateTokenPage.prototype.presentAlert = function (hdr, message, subtitle) {
-        return __awaiter(this, void 0, void 0, function () {
-            var alert;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.alertController.create({
-                            cssClass: 'alertContainer',
-                            header: hdr,
-                            subHeader: subtitle,
-                            message: message,
-                            buttons: ['OK']
-                        })];
-                    case 1:
-                        alert = _a.sent();
-                        return [4 /*yield*/, alert.present()];
-                    case 2:
-                        _a.sent();
-                        return [2 /*return*/];
-                }
-            });
-        });
+    CreateTokenPage.prototype.openMenu = function () {
+        this.menu.open();
     };
     CreateTokenPage.prototype.giveMe50 = function () {
         var _this = this;
         this.api.giveMe50().then(function (res) {
             if (res.status === true) {
-                _this.presentAlert('Gimme50', 'Successful', 'Status');
+                _this.myTools.presentAlert('Gimme50', 'Successful', 'Status');
             }
             else {
-                _this.presentAlert('Gimme50', res.message, 'Status');
+                _this.myTools.presentAlert('Gimme50', res.message, 'Status');
             }
         });
     };
     CreateTokenPage.prototype.createTokenAdvanced = function () {
-        var _this = this;
         this.loading = true;
-        console.log(this.tokenCreationForm.value);
+        //console.log(this.tokenCreationForm.value);
         var newToken = this.tokenCreationForm.value;
-        if (newToken.nft) {
-            this.submitBtn.disabled = true;
-            newToken.script = this.myNFT; // script for non-fungible
-            this.api.createToken(newToken).then(function (res) {
-                if (res.status) {
-                    _this.presentAlert('Success', 'Token ' + _this.customToken.name + ' has been created.', 'Token Creation Status');
-                    _this.resetForm();
-                }
-                else {
-                    setTimeout(function () {
-                        _this.submitBtn.disabled = false;
-                    }, 500);
-                    _this.presentAlert('Something\'s wrong!', res.message, 'Token Creation Status');
-                }
-            });
+        //console.log(newToken);
+        try {
+            this.status = 'Creating token...';
+            this.create(newToken);
         }
-        else {
-            this.submitBtn.disabled = true;
-            newToken.script = 'RETURN TRUE'; // default script to spend token
-            this.api.createToken(newToken).then(function (res) {
-                if (res.status) {
-                    _this.presentAlert('Success', 'Token ' + _this.customToken.name + ' has been created.', 'Token Creation Status');
-                    _this.resetForm();
-                }
-                else {
-                    setTimeout(function () {
-                        _this.submitBtn.disabled = false;
-                    }, 500);
-                    _this.presentAlert('Something\'s wrong!', res.message, 'Token Creation Status');
-                }
-            });
+        catch (err) {
+            console.log(err);
         }
     };
+    CreateTokenPage.prototype.create = function (newToken) {
+        return __awaiter(this, void 0, void 0, function () {
+            var res, res;
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        //console.log(newToken);
+                        this.myTools.scrollToBottom(this.pageContent);
+                        if (!newToken.nft) return [3 /*break*/, 2];
+                        this.submitBtn.disabled = true;
+                        return [4 /*yield*/, this.api.createToken(newToken)];
+                    case 1:
+                        res = _a.sent();
+                        if (res.status) {
+                            this.status = 'Token created!';
+                            this.myTools.presentAlert('Success', 'Token ' + this.customToken.name + ' has been created.', 'Token Creation Status');
+                            this.resetForm();
+                        }
+                        else {
+                            setTimeout(function () {
+                                _this.submitBtn.disabled = false;
+                            }, 500);
+                            this.status = 'Token creation failed!';
+                            this.myTools.presentAlert('Error', res.message, 'Token Creation Status');
+                        }
+                        return [3 /*break*/, 4];
+                    case 2:
+                        this.submitBtn.disabled = true;
+                        return [4 /*yield*/, this.api.createToken(newToken)];
+                    case 3:
+                        res = _a.sent();
+                        if (res.status) {
+                            this.status = newToken.name + ' has been created!';
+                            this.myTools.presentAlert('Success', 'Token ' + this.customToken.name + ' has been created.', 'Token Creation Status');
+                            this.resetForm();
+                        }
+                        else {
+                            setTimeout(function () {
+                                _this.submitBtn.disabled = false;
+                            }, 500);
+                            this.status = newToken.name + ' failed to create!';
+                            this.myTools.presentAlert('Error', res.message, 'Token Creation Status');
+                        }
+                        _a.label = 4;
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    CreateTokenPage.prototype.formInit = function () {
+        this.tokenCreationForm = this.formBuilder.group({
+            name: ['', [forms_1.Validators.required, forms_1.Validators.maxLength(255)]],
+            amount: ['', [forms_1.Validators.required, forms_1.Validators.maxLength(255)]],
+            description: '',
+            script: '',
+            icon: ['', [forms_1.Validators.pattern('(http(s?):)([\\/|\\.|\\w|\\s|\\-])*\.(?:jpg|png|gif|svg)$'), forms_1.Validators.maxLength(255)]],
+            proof: ['', [forms_1.Validators.pattern('(http(s?):)([\\/|\\.|\\w|\\s|\\-])*\.(?:txt)$'), forms_1.Validators.maxLength(255)]],
+            nft: false
+        });
+    };
     CreateTokenPage.prototype.resetForm = function () {
+        var _this = this;
+        setTimeout(function () {
+            _this.status = '';
+        }, 6000);
+        this.submitBtn.disabled = false;
         this.tokenCreationForm.reset();
+        this.formInit();
     };
     Object.defineProperty(CreateTokenPage.prototype, "name", {
         get: function () {
@@ -233,6 +220,9 @@ var CreateTokenPage = /** @class */ (function () {
     __decorate([
         core_1.ViewChild('submitBtn', { static: false })
     ], CreateTokenPage.prototype, "submitBtn");
+    __decorate([
+        core_1.ViewChild('pageContent', { static: false })
+    ], CreateTokenPage.prototype, "pageContent");
     CreateTokenPage = __decorate([
         core_1.Component({
             selector: 'app-create-token',
