@@ -1,3 +1,8 @@
+::-webkit-scrollbar,
+*::-webkit-scrollbar {
+  display: none;
+}
+
 .custom-icon {
   width: 38px;
   height: 35px;
@@ -16,14 +21,18 @@
 }
 
 span.confirmed-amount {
-  font-family: manrope-medium;
-  color: var(--ion-color-color);
+  font-family: manrope-regular;
+  color: #9898A3;
+  white-space: nowrap;
+  max-width: 30vw;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 ion-avatar {
   margin-top: 2%;
-  height: 38px;
-  width: 38px;
+  height: 36px;
+  width: 36px;
 }
 
 #token-name {
@@ -50,14 +59,36 @@ ion-item {
   --background-hover: var(--ion-color-item-hover);
   --background-hover-opacity: 1;
   background: var(--ion-color-token);
-  box-shadow: 0px 3px 6px #C8C8D41A;
+  border: 1px solid var(--ion-color-item-border);
   border-radius: 10px;
   margin-bottom: 2%;
 }
 
+ion-item ion-label {
+  margin: 0;
+}
+
+ion-item ion-label#token-name {
+  max-width: 220px;
+  text-overflow: ellipsis;
+  font-family: manrope-medium;
+}
+
 ion-list {
-  margin-left: 4%;
-  margin-right: 3%;
-  max-height: 55vh;
-  overflow-y: scroll;
+  overflow: scroll;
+}
+
+div.token-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.blink_me {
+  animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
 }

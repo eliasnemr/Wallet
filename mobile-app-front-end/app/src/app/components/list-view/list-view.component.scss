@@ -69,9 +69,9 @@ ion-item ion-label#token-name {
 ion-list {
     overflow: scroll;
 }
-ion-list.token-wrapper {
-    background-color: transparent;
-    line-height: 17px;
+div.token-wrapper {
+    display: flex;
+    flex-direction: column;
 }
 
 .blink_me {
