@@ -10,8 +10,6 @@ export class OverlayComponent implements OnInit {
 
   environment: any;
 
-  @Input() $disclaimer: boolean;
-
   constructor() {
     this.environment = environment;
   }

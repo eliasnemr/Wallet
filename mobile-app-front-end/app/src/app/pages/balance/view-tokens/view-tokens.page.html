@@ -106,15 +106,24 @@
       </ion-col>
     </ion-item>
     <ion-item color="none" class="ion-no-padding">
-      <ion-col class="title">
+      <ion-col size="3" class="title">
         Total Supply
       </ion-col>
       <ion-col class="minima-numeric value">
-        {{token?.total}}
+        <h6 class="ion-no-padding ion-no-margin"> {{ token?.total }}</h6>
+        <p class="ion-no-padding ion-no-margin"> {{ token?.totalamount }}</p>  
       </ion-col>
     </ion-item>
-    <ion-item color="none" class="ion-no-padding">
+    <ion-item *ngIf="token?.scale" color="none" class="ion-no-padding">
       <ion-col class="title">
+        Scale
+      </ion-col>
+      <ion-col class="minima-numeric value">
+        {{ token?.scale }}  
+      </ion-col>
+    </ion-item>
+    <ion-item *ngIf="token?.confirmed" color="none" class="ion-no-padding">
+      <ion-col size="3" class="title">
         Confirmed Amount
       </ion-col>
       <ion-col class="minima-numeric value">
@@ -122,7 +131,7 @@
       </ion-col>
     </ion-item>
     <ion-item color="none" class="ion-no-padding">
-      <ion-col class="title">
+      <ion-col size="3" class="title">
         Unconfirmed Amount
       </ion-col>
       <ion-col class="minima-numeric value">
@@ -130,7 +139,7 @@
       </ion-col>
     </ion-item>
     <ion-item color="none" class="ion-no-padding">
-      <ion-col class="title">
+      <ion-col size="3" class="title">
         Sendable Amount
       </ion-col>
       <ion-col class="value minima-numeric">
@@ -138,11 +147,22 @@
       </ion-col>
     </ion-item>
     <ion-item color="none" class="ion-no-padding">
-      <ion-col class="title">
+      <ion-col size="3" class="title">
         Mempool Amount
       </ion-col>
       <ion-col class="minima-numeric value">
         {{token?.mempool}}
+      </ion-col>
+    </ion-item>
+    <ion-item color="none" class="ion-no-padding">
+      <ion-col class="title">
+        Token Type
+      </ion-col>
+      <ion-col *ngIf="token?.scale !== '44'" class="value">
+        Value transfer
+      </ion-col>
+      <ion-col *ngIf="token?.scale === '44'" class="value nft">
+        NFT
       </ion-col>
     </ion-item>
     <ion-item color="none" class="ion-no-padding"  [hidden]="token?.tokenid == '0x00' || !token?.proof">
@@ -170,7 +190,7 @@
           Validate
         </ion-button> 
       </ion-col>
-    </ion-item>   
+    </ion-item>
   </ion-list>
 </ion-content>
 

@@ -66,6 +66,10 @@ ion-list ion-item {
     white-space: normal;
     word-wrap: normal;
 }
+.nft {
+    color: var(--ion-color-secondary);
+    font-family: manrope-semibold;
+}
 .value {
     font-size: 16px;
     font-family: manrope-regular;
@@ -77,6 +81,17 @@ ion-list ion-item {
     overflow: hidden;
     margin: 0;
     padding: 0;
+    h6 {
+
+    }
+    p {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        font-size: 12px;
+        opacity: 0.8;
+
+    }
 }
 .copy {
     text-decoration: underline;

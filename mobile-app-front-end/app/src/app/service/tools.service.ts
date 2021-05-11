@@ -44,11 +44,11 @@ export class ToolsService {
     return await toast.present();
   }
 
-  async presentMiningToast(msg: string, color: string, position: 'top' | 'bottom' | 'middle') {
+  async presentMiningToast(msg: string, position: 'top' | 'bottom' | 'middle') {
     const toast = await this.toastController.create({
       message: msg,
       position: position,
-      color: color,
+      color: 'mining',
       cssClass: 'toast2',
       keyboardClose: true,
       translucent: true,

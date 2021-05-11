@@ -8,7 +8,6 @@ import { IonicModule } from '@ionic/angular';
 
 import { BalancePage } from './balance.page';
 
-import { GridViewComponent } from '../../components/grid-view/grid-view.component';
 import { ListViewComponent } from './../../components/list-view/list-view.component';
 
 const routes: Routes = [
@@ -31,6 +30,6 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [BalancePage, ListViewComponent, GridViewComponent, ToNumberPipe]
+  declarations: [BalancePage, ListViewComponent, ToNumberPipe]
 })
 export class BalancePageModule {}

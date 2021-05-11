@@ -2,7 +2,7 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 export const environment = {
-  wallet_version: "v1.0.76",
+  wallet_version: "v1.0.77",
   production: false,
   newLine: '/(\r\n|\n|\r)/gm'
 };

@@ -43,45 +43,48 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 exports.SendFundsPage = void 0;
+var contacts_view_modal_component_1 = require("./../../components/contacts-view-modal/contacts-view-modal.component");
 var forms_1 = require("@angular/forms");
 var core_1 = require("@angular/core");
-var minima_1 = require("minima");
 var SendFundsPage = /** @class */ (function () {
-    function SendFundsPage(formBuilder, clipboard, alertController, api, balanceService, route, router) {
+    function SendFundsPage(menu, modalController, myTools, formBuilder, _minimaApiService, _contactService, route) {
+        this.menu = menu;
+        this.modalController = modalController;
+        this.myTools = myTools;
         this.formBuilder = formBuilder;
-        this.clipboard = clipboard;
-        this.alertController = alertController;
-        this.api = api;
-        this.balanceService = balanceService;
+        this._minimaApiService = _minimaApiService;
+        this._contactService = _contactService;
         this.route = route;
-        this.router = router;
         this.nftScript = 'ASSERT FLOOR ( @AMOUNT ) EQ @AMOUNT LET checkout = 0 WHILE ( checkout LT @TOTOUT )' +
             'DO IF GETOUTTOK ( checkout ) EQ @TOKENID THEN LET outamt = GETOUTAMT ( checkout ) ASSERT FLOOR ( outamt )' +
             'EQ outamt ENDIF LET checkout = INC ( checkout ) ENDWHILE RETURN TRUE';
+        this.status = '';
         this.isWebCameraOpen = false;
         this.data = { tokenid: '', amount: '', address: '', message: '' };
         this.messageToggle = false;
         this.tokenArr = [];
-        this.scanSub = null;
-        this.pullInTokens();
+        this.$balance = this._minimaApiService.$balance;
     }
     SendFundsPage.prototype.ionViewWillEnter = function () {
+        var _this = this;
+        this.$contactSubscription = this._contactService.$selected_address.subscribe(function (res) {
+            if (res.address.length === 0) {
+            }
+            else {
+                _this.addressFormItem.setValue(res.address);
+                _this._contactService.$selected_address.next({ address: '' });
+            }
+            "";
+        });
         this.getTokenSelected();
     };
     SendFundsPage.prototype.ionViewWillLeave = function () {
+        if (this.$contactSubscription) {
+            this.$contactSubscription.unsubscribe();
+        }
     };
     SendFundsPage.prototype.ngOnInit = function () {
-        this.sendForm = this.formBuilder.group({
-            tokenid: '',
-            address: ['', [
-                    forms_1.Validators.required,
-                    forms_1.Validators.minLength(2),
-                    forms_1.Validators.maxLength(60),
-                    forms_1.Validators.pattern('[Mx|0x][a-zA-Z0-9]+')
-                ]],
-            amount: ['', [forms_1.Validators.required]],
-            message: ''
-        });
+        this.formInit();
     };
     Object.defineProperty(SendFundsPage.prototype, "tokenFormItem", {
         get: function () {
@@ -111,56 +114,111 @@ var SendFundsPage = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
-    SendFundsPage.prototype.pullInTokens = function () {
-        var _this = this;
-        this.balanceService.data.subscribe(function (balance) {
-            _this.tokenArr = balance;
+    SendFundsPage.prototype.openMenu = function () {
+        this.menu.open();
+    };
+    SendFundsPage.prototype.presentContactModal = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var contactModal;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.modalController.create({
+                            component: contacts_view_modal_component_1.ContactsViewModalComponent,
+                            cssClass: 'contacts-view'
+                        })];
+                    case 1:
+                        contactModal = _a.sent();
+                        contactModal.present();
+                        return [2 /*return*/];
+                }
+            });
         });
     };
     SendFundsPage.prototype.sendFunds = function () {
-        var _this = this;
+        this.status = 'Creating your transaction...';
+        this.myTools.scrollToBottom(this.pageContent);
         this.sendForm.value.amnt = this.sendForm.value.amount.toString();
         var data = this.sendForm.value;
         //console.log(data);
-        if (data.message !== null && (data.message || data.message.length > 0)) {
-            this.submitBtn.disabled = true;
-            this.api.sendMessageTransaction(data).then(function (res) {
-                if (minima_1.Minima.util.checkAllResponses(res)) {
-                    //console.log(res);
-                    setTimeout(function () {
-                        _this.submitBtn.disabled = false;
-                    }, 500);
-                    _this.presentAlert('Transaction Status', 'Transaction has been posted to the network!', 'Successful');
-                    _this.sendForm.reset();
-                }
-                else {
-                    setTimeout(function () {
-                        _this.submitBtn.disabled = false;
-                    }, 500);
-                    _this.presentAlert('Transaction Status', res.message, 'Failed');
+        try {
+            this.post(data);
+        }
+        catch (err) {
+            console.log(err);
+        }
+    };
+    SendFundsPage.prototype.post = function (data) {
+        return __awaiter(this, void 0, void 0, function () {
+            var res, res;
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        this.submitBtn.disabled = true;
+                        this.status = 'Posting your transaction...';
+                        if (!(data.message !== null && (data.message || data.message.length > 0))) return [3 /*break*/, 2];
+                        return [4 /*yield*/, this._minimaApiService.sendMessageTransaction(data)];
+                    case 1:
+                        res = _a.sent();
+                        //console.log(res);
+                        if (res.status) {
+                            this.status = 'Transaction posted!';
+                            this.myTools.presentAlert('Transaction Status', 'Transaction has been posted to the network!', 'Successful');
+                            this.resetForm();
+                        }
+                        else {
+                            console.log(res.status);
+                            setTimeout(function () {
+                                _this.submitBtn.disabled = false;
+                            }, 500);
+                            this.status = 'Transaction failed!';
+                            this.myTools.presentAlert('Transaction Status', res.message, 'Failed');
+                        }
+                        return [3 /*break*/, 4];
+                    case 2: return [4 /*yield*/, this._minimaApiService.sendFunds(data)];
+                    case 3:
+                        res = _a.sent();
+                        //console.log(res);
+                        if (res.status) {
+                            this.status = 'Transaction posted!';
+                            this.myTools.presentAlert('Transaction Status', 'Transaction has been posted to the network!', 'Successful');
+                            this.resetForm();
+                        }
+                        else {
+                            console.log(res.status);
+                            setTimeout(function () {
+                                _this.submitBtn.disabled = false;
+                            }, 500);
+                            this.status = 'Transaction failed!';
+                            this.myTools.presentAlert('Transaction Status', res.message, 'Failed');
+                        }
+                        _a.label = 4;
+                    case 4: return [2 /*return*/];
                 }
             });
-        }
-        else {
-            this.data.message = '';
-            this.submitBtn.disabled = true;
-            this.api.sendFunds(data).then(function (res) {
-                if (res.status) {
-                    //console.log(res);
-                    setTimeout(function () {
-                        _this.submitBtn.disabled = false;
-                    }, 500);
-                    _this.presentAlert('Transaction Status', 'Transaction has been posted to the network!', 'Successful');
-                    _this.sendForm.reset();
-                }
-                else {
-                    setTimeout(function () {
-                        _this.submitBtn.disabled = false;
-                    }, 500);
-                    _this.presentAlert('Transaction Status', res.message, 'Failed');
-                }
-            });
-        }
+        });
+    };
+    SendFundsPage.prototype.resetForm = function () {
+        var _this = this;
+        setTimeout(function () {
+            _this.status = '';
+        }, 6000);
+        this.submitBtn.disabled = false;
+        this.sendForm.reset();
+        this.formInit();
+    };
+    SendFundsPage.prototype.formInit = function () {
+        this.sendForm = this.formBuilder.group({
+            tokenid: '',
+            address: ['', [
+                    forms_1.Validators.required,
+                    forms_1.Validators.minLength(2),
+                    forms_1.Validators.maxLength(60),
+                    forms_1.Validators.pattern('[Mx|0x][a-zA-Z0-9]+')
+                ]],
+            amount: ['', [forms_1.Validators.required]],
+            message: ''
+        });
     };
     // get token selected or set Minima as default
     SendFundsPage.prototype.getTokenSelected = function () {
@@ -174,12 +232,12 @@ var SendFundsPage = /** @class */ (function () {
     };
     SendFundsPage.prototype.giveMe50 = function () {
         var _this = this;
-        this.api.giveMe50().then(function (res) {
+        this._minimaApiService.giveMe50().then(function (res) {
             if (res.status === true) {
-                _this.presentAlert('Gimme50', 'Successful', 'Status');
+                _this.myTools.presentAlert('Gimme50', 'Successful', 'Status');
             }
             else {
-                _this.presentAlert('Gimme50', res.message, 'Status');
+                _this.myTools.presentAlert('Gimme50', res.message, 'Status');
             }
         });
     };
@@ -231,28 +289,6 @@ var SendFundsPage = /** @class */ (function () {
     SendFundsPage.prototype.stopScanning = function () {
         this.isWebCameraOpen = false;
     };
-    SendFundsPage.prototype.presentAlert = function (hdr, msg, sub) {
-        return __awaiter(this, void 0, void 0, function () {
-            var alert;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.alertController.create({
-                            cssClass: 'alert',
-                            header: hdr,
-                            subHeader: sub,
-                            message: msg,
-                            buttons: ['OK']
-                        })];
-                    case 1:
-                        alert = _a.sent();
-                        return [4 /*yield*/, alert.present()];
-                    case 2:
-                        _a.sent();
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
     SendFundsPage.prototype.useMessage = function () {
         if (this.messageToggle) {
             this.messageToggle = false;
@@ -270,6 +306,9 @@ var SendFundsPage = /** @class */ (function () {
     __decorate([
         core_1.ViewChild('videoElem', { static: false })
     ], SendFundsPage.prototype, "videoElem");
+    __decorate([
+        core_1.ViewChild('pageContent', { static: false })
+    ], SendFundsPage.prototype, "pageContent");
     SendFundsPage = __decorate([
         core_1.Component({
             selector: 'app-send-funds',
