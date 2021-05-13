@@ -1,29 +1,27 @@
-import { OverlayComponent } from './components/overlay/overlay.component';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {RouteReuseStrategy} from '@angular/router';
+import {HttpClientModule} from '@angular/common/http';
+import {IonicModule, IonicRouteStrategy} from '@ionic/angular';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {AppComponent} from './app.component';
+import {AppRoutingModule} from './app-routing.module';
+import {Clipboard} from '@ionic-native/clipboard/ngx';
+import {QRScanner} from '@ionic-native/qr-scanner/ngx';
+import {LocationStrategy, HashLocationStrategy} from '@angular/common';
+import {PopTermComponent} from './components/pop-term/pop-term.component';
+import {ContactsModalPage} from './components/contacts-modal/contacts-modal.page';
+import {PopContactsComponent} from './components/pop-contacts/pop-contacts.component';
+import {ContactsViewModalComponent} from './components/contacts-view-modal/contacts-view-modal.component';
+import {UploadFileModalComponent} from './components/upload-file-modal/upload-file-modal.component';
+import {OverlayComponent} from './components/overlay/overlay.component';
+
 /**
  * Created By Elias Nemr
  * 01/11/19
  * Minima Global
  * WALLET
  */
-
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { RouteReuseStrategy } from '@angular/router';
-import { HttpClientModule} from '@angular/common/http';
-import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app-routing.module';
-import { Clipboard } from '@ionic-native/clipboard/ngx';
-import { QRScanner } from '@ionic-native/qr-scanner/ngx';
-import { LocationStrategy, HashLocationStrategy} from '@angular/common';
-import { PopTermComponent } from './components/pop-term/pop-term.component';
-import { ContactsModalPage } from './components/contacts-modal/contacts-modal.page';
-import { PopContactsComponent } from './components/pop-contacts/pop-contacts.component';
-import { ContactsViewModalComponent } from './components/contacts-view-modal/contacts-view-modal.component';
-import { UploadFileModalComponent } from './components/upload-file-modal/upload-file-modal.component';
-
-
 
 @NgModule({
   imports: [
@@ -33,11 +31,11 @@ import { UploadFileModalComponent } from './components/upload-file-modal/upload-
     HttpClientModule,
     BrowserModule,
     IonicModule.forRoot({animated: false})],
-    providers: [
+  providers: [
     Clipboard,
     QRScanner,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    { provide: LocationStrategy, useClass: HashLocationStrategy }
+    {provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
+    {provide: LocationStrategy, useClass: HashLocationStrategy},
   ],
   declarations: [
     AppComponent,
@@ -47,7 +45,15 @@ import { UploadFileModalComponent } from './components/upload-file-modal/upload-
     ContactsViewModalComponent,
     UploadFileModalComponent,
     OverlayComponent],
-  entryComponents: [PopTermComponent, PopContactsComponent, ContactsViewModalComponent, ContactsModalPage, UploadFileModalComponent],
-  bootstrap: [AppComponent]
+  entryComponents:
+  [
+    PopTermComponent,
+    PopContactsComponent,
+    ContactsViewModalComponent,
+    ContactsModalPage,
+    UploadFileModalComponent],
+  bootstrap: [AppComponent],
 })
+/** MainModule */
 export class AppModule {}
+

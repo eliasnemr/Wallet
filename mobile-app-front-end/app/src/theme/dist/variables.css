@@ -272,18 +272,16 @@ ion-button.gimme50 {
   color: #fff;
   border: 1px solid #f0f0fA;
   border-radius: 28px;
-  opacity: 1;
   width: 159px;
   height: 45px;
   font-size: 1rem;
   font-family: manrope-bold;
+  background-color: #001C32;
 }
 
 ion-button.gimme50:hover {
-  --background: #f0f0fa;
-  border: 1px solid #001C32;
+  background: #f0f0fa;
   color: #001C32;
-  --border-radius: 28px!important;
 }
 
 .minima-numeric {

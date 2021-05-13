@@ -1,17 +1,18 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Routes, RouterModule } from '@angular/router';
+import {SharedComponentsModule} from './../../components/shared-components.module';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {Routes, RouterModule} from '@angular/router';
 
-import { IonicModule } from '@ionic/angular';
+import {IonicModule} from '@ionic/angular';
 
-import { SendFundsPage } from './send-funds.page';
+import {SendFundsPage} from './send-funds.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: SendFundsPage
-  }
+    component: SendFundsPage,
+  },
 ];
 
 @NgModule({
@@ -20,8 +21,10 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    SharedComponentsModule,
   ],
-  declarations: [SendFundsPage]
+  declarations: [SendFundsPage],
 })
+/** */
 export class SendFundsPageModule {}

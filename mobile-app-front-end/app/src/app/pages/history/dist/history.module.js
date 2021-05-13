@@ -6,44 +6,46 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 exports.__esModule = true;
-exports.BalancePageModule = void 0;
+exports.HistoryPageModule = void 0;
 var shared_components_module_1 = require("./../../components/shared-components.module");
+var filter_pipe_1 = require("./../../pipes/filter.pipe");
 var core_1 = require("@angular/core");
 var common_1 = require("@angular/common");
 var forms_1 = require("@angular/forms");
 var router_1 = require("@angular/router");
 var angular_1 = require("@ionic/angular");
-var balance_page_1 = require("./balance.page");
-var list_view_component_1 = require("./../../components/list-view/list-view.component");
+var history_page_1 = require("./history.page");
 var routes = [
     {
         path: '',
-        component: balance_page_1.BalancePage,
+        component: history_page_1.HistoryPage,
         children: [
             {
                 path: 'view-txn',
-                loadChildren: function () { return Promise.resolve().then(function () { return require('./view-tokens/view-tokens.module'); }).then(function (m) { return m.ViewTokensPageModule; }); }
+                loadChildren: function () {
+                    return Promise.resolve().then(function () { return require('./view-txn/view-txn.module'); }).then(function (m) { return m.ViewTXNPageModule; });
+                }
             },
         ]
     },
 ];
-var BalancePageModule = /** @class */ (function () {
+var HistoryPageModule = /** @class */ (function () {
     /** */
-    function BalancePageModule() {
+    function HistoryPageModule() {
     }
-    BalancePageModule = __decorate([
+    HistoryPageModule = __decorate([
         core_1.NgModule({
             imports: [
-                shared_components_module_1.SharedComponentsModule,
                 common_1.CommonModule,
                 forms_1.FormsModule,
                 angular_1.IonicModule,
                 router_1.RouterModule.forChild(routes),
+                shared_components_module_1.SharedComponentsModule,
             ],
-            declarations: [balance_page_1.BalancePage, list_view_component_1.ListViewComponent]
+            declarations: [history_page_1.HistoryPage, filter_pipe_1.FilterPipe]
         })
         /** */
-    ], BalancePageModule);
-    return BalancePageModule;
+    ], HistoryPageModule);
+    return HistoryPageModule;
 }());
-exports.BalancePageModule = BalancePageModule;
+exports.HistoryPageModule = HistoryPageModule;

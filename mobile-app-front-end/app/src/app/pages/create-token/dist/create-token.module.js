@@ -7,6 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 exports.__esModule = true;
 exports.CreateTokenPageModule = void 0;
+var shared_components_module_1 = require("./../../components/shared-components.module");
 var core_1 = require("@angular/core");
 var common_1 = require("@angular/common");
 var forms_1 = require("@angular/forms");
@@ -17,9 +18,10 @@ var routes = [
     {
         path: '',
         component: create_token_page_1.CreateTokenPage
-    }
+    },
 ];
 var CreateTokenPageModule = /** @class */ (function () {
+    /** */
     function CreateTokenPageModule() {
     }
     CreateTokenPageModule = __decorate([
@@ -29,10 +31,12 @@ var CreateTokenPageModule = /** @class */ (function () {
                 common_1.CommonModule,
                 forms_1.FormsModule,
                 angular_1.IonicModule,
-                router_1.RouterModule.forChild(routes)
+                router_1.RouterModule.forChild(routes),
+                shared_components_module_1.SharedComponentsModule,
             ],
             declarations: [create_token_page_1.CreateTokenPage]
         })
+        /** */
     ], CreateTokenPageModule);
     return CreateTokenPageModule;
 }());
