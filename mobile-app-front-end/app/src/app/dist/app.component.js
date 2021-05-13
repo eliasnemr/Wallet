@@ -38,7 +38,7 @@ var AppComponent = /** @class */ (function () {
         minima_1.Minima.init(function (msg) {
             if (msg.event === 'connected') {
                 // console.log('appComponent: Minima connected');
-                console.log(msg);
+                // console.log(msg);
                 var msZero = 0;
                 var msTimer = 3000;
                 var source = rxjs_1.timer(msZero, msTimer);
