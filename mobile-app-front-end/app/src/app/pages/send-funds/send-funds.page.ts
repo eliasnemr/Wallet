@@ -1,14 +1,25 @@
-import { ToolsService } from './../../service/tools.service';
-import { ContactService, SelectedAddress } from 'src/app/service/contacts.service';
-import { ContactsViewModalComponent } from './../../components/contacts-view-modal/contacts-view-modal.component';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { IonInput, IonButton, MenuController, ModalController, IonContent } from '@ionic/angular';
-import { MinimaApiService } from '../../service/minima-api.service';
-import { Subscription, Subject } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import {ToolsService} from './../../service/tools.service';
+import {ContactService,
+  SelectedAddress} from 'src/app/service/contacts.service';
+import {
+  ContactsViewModalComponent,
+} from './../../components/contacts-view-modal/contacts-view-modal.component';
+import {
+  FormGroup,
+  FormBuilder,
+  Validators} from '@angular/forms';
+import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
+import {
+  IonInput,
+  IonButton,
+  MenuController,
+  ModalController,
+  IonContent} from '@ionic/angular';
+import {MinimaApiService} from '../../service/minima-api.service';
+import {Subscription, Subject} from 'rxjs';
+import {ActivatedRoute} from '@angular/router';
 
-import { Token } from 'minima';
+import {Token} from 'minima';
 
 export interface SendFormObj {
   tokenid?: string;
@@ -22,8 +33,8 @@ export interface SendFormObj {
   templateUrl: './send-funds.page.html',
   styleUrls: ['./send-funds.page.scss'],
 })
+/**  */
 export class SendFundsPage implements OnInit {
-
   @ViewChild('submitBtn', {static: false}) submitBtn: IonButton;
   @ViewChild('amount', {static: false}) amountInp: IonInput;
   @ViewChild('videoElem', {static: false}) videoElem: ElementRef;
@@ -81,59 +92,67 @@ export class SendFundsPage implements OnInit {
     }
 
   }
-
+  /** */
   ngOnInit() {
     this.formInit();
   }
-
+  /** */
   get tokenFormItem() {
     return this.sendForm.get('tokenid');
   }
+  /** */
   get addressFormItem() {
     return this.sendForm.get('address');
   }
+  /** */
   get amountFormItem() {
     return this.sendForm.get('amount');
   }
+  /** */
   get messageFormItem() {
     return this.sendForm.get('message');
   }
-
+  /** */
   openMenu() {
     this.menu.open();
   }
 
-
+  /** */
   async presentContactModal() {
-    let contactModal = await this.modalController.create({
+    const contactModal = await this.modalController.create({
       component: ContactsViewModalComponent,
       cssClass: 'contacts-view'
     });
     contactModal.present();
   }
-  
+  /** */
   sendFunds() {
     this.status = 'Creating your transaction...';
     this.myTools.scrollToBottom(this.pageContent);
     this.sendForm.value.amnt = this.sendForm.value.amount.toString();
     const data: SendFormObj = this.sendForm.value;
-    //console.log(data);
+    // console.log(data);
     try {
       this.post(data);
-    } catch(err) {
+    } catch (err) {
       console.log(err);
     } 
     
   }
+  /**  */
   async post(data: any) {
     this.submitBtn.disabled = true;
     this.status = 'Posting your transaction...';
     if (data.message !== null && ( data.message || data.message.length > 0) ) {
-      const res: any = await this._minimaApiService.sendMessageTransaction(data);
-      //console.log(res);
+      const res: any =
+      await this._minimaApiService.sendMessageTransaction(data);
+      // console.log(res);
       if (res.status) {
         this.status = 'Transaction posted!';
-        this.myTools.presentAlert('Transaction Status', 'Transaction has been posted to the network!', 'Successful');
+        this.myTools.presentAlert(
+            'Transaction Status',
+            'Transaction has been posted to the network!',
+            'Successful');
         this.resetForm();
       } else {
         console.log(res.status);
@@ -145,11 +164,14 @@ export class SendFundsPage implements OnInit {
       }
     } else {
       const res: any = await this._minimaApiService.sendFunds(data);
-      //console.log(res);
+      // console.log(res);
 
       if (res.status) {
         this.status = 'Transaction posted!';
-        this.myTools.presentAlert('Transaction Status', 'Transaction has been posted to the network!', 'Successful');
+        this.myTools.presentAlert(
+            'Transaction Status',
+            'Transaction has been posted to the network!',
+            'Successful');
         this.resetForm();
       } else {
         console.log(res.status);
@@ -161,7 +183,7 @@ export class SendFundsPage implements OnInit {
       }
     }
   }
-
+  /** */
   resetForm() {
     setTimeout(() => {
       this.status = '';
@@ -170,7 +192,7 @@ export class SendFundsPage implements OnInit {
     this.sendForm.reset();
     this.formInit();
   }
-
+  /** */
   formInit() {
     this.sendForm = this.formBuilder.group({
       tokenid: '',
@@ -184,7 +206,7 @@ export class SendFundsPage implements OnInit {
     });
   }
 
-  // get token selected or set Minima as default
+  /** get token selected, or set Minima as default */
   getTokenSelected() {
     this.route.queryParamMap.subscribe((res: any) => {
       this.itemSelected = res.params.id;
@@ -194,71 +216,27 @@ export class SendFundsPage implements OnInit {
     });
   }
 
-  giveMe50() {
-    this._minimaApiService.giveMe50().then((res: any) => {
-      if(res.status === true) {
-        this.myTools.presentAlert('Gimme50', 'Successful', 'Status');
-      } else {
-        this.myTools.presentAlert('Gimme50', res.message, 'Status');
-      }
-    });
-  }
-
-  // listen to selection change
+  /** listen to selection change */
   onItemSelection(ev: any) {
     this.itemSelected = this.sendForm.get('tokenid').value;
   }
-
-  fillAmount(type: string) {
-    const param = this.sendForm.get('tokenid').value;
-    this.amountInp.value = '';
-    this.tokenArr.forEach(element => {
-    if (param === element.tokenid || (param === element.tokenid && element.script !== this.nftScript)) {
-        const maxAmmo = element.sendable;
-        if (type === 'max') {
-        this.amountInp.value = maxAmmo;
-        } else if (type === 'half') {
-          this.amountInp.value = (parseFloat(maxAmmo) / 2.0).toString();
-        } else if (type === 'quarter') {
-          this.amountInp.value = (parseFloat(maxAmmo) / 4.0).toString();
-        }
-      } else if (element.script === this.nftScript) {
-        const maxAmmo = element.sendable;
-        if (type === 'max') {
-          this.amountInp.value = maxAmmo;
-        } else if (type === 'half') {
-          this.amountInp.value = Math.floor((parseFloat(maxAmmo) / 2.0)).toString();
-        } else if (type === 'quarter') {
-          this.amountInp.value = Math.floor((parseFloat(maxAmmo) / 4.0)).toString();
-        }
-      }
-    });
-  }
-
+  /** Scan QR */
   scanQR() {
     this.isWebCameraOpen = true;
-    console.log("Camera is now on: " + this.isWebCameraOpen);
+    // console.log('Camera turned on, ' + this.isWebCameraOpen);
     const stream = navigator.mediaDevices.getUserMedia({
       video: { facingMode: 'environment' }
     });
 
     this.videoElem.nativeElement.src = stream;
-    this.videoElem.nativeElement.setAttribute('playsinline', true); // iOS - do not open fullscreen
+    this.videoElem.nativeElement
+        .setAttribute('playsinline', true); // iOS - do not open fullscreen
     this.videoElem.nativeElement.play();
   }
-
+  /** */
   stopScanning() {
     this.isWebCameraOpen = false;
   }
-
-  useMessage() {
-    if (this.messageToggle) {
-      this.messageToggle = false;
-    } else {
-      this.messageToggle = true;
-    }
-  }
-
 }
 
 

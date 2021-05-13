@@ -59,10 +59,10 @@ var AppComponent = /** @class */ (function () {
                 _this.minimaApiService.$balance.next(msg.info.balance);
             }
             else if (msg.event === 'miningstart') {
-                _this.tools.presentMiningToast('Started to mine your transaction.', 'bottom');
+                _this.tools.presentMiningToast('Started to mine your transaction.', 'primary', 'bottom');
             }
             else if (msg.event === 'miningstop') {
-                _this.tools.presentMiningToast('Finished mining your transaction.', 'bottom');
+                _this.tools.presentMiningToast('Finished mining your transaction.', 'secondary', 'bottom');
             }
         });
     };

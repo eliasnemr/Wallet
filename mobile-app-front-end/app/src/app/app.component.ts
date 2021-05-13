@@ -70,10 +70,12 @@ export class AppComponent {
       } else if (msg.event === 'miningstart') {
         this.tools.presentMiningToast(
             'Started to mine your transaction.',
+            'primary',
             'bottom');
       } else if (msg.event === 'miningstop') {
         this.tools.presentMiningToast(
             'Finished mining your transaction.',
+            'secondary',
             'bottom');
       }
     });
