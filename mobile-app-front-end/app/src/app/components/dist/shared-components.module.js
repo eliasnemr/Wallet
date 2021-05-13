@@ -7,6 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 exports.__esModule = true;
 exports.SharedComponentsModule = void 0;
+var common_1 = require("@angular/common");
 var angular_1 = require("@ionic/angular");
 var core_1 = require("@angular/core");
 var footer_component_1 = require("./footer/footer.component");
@@ -16,7 +17,7 @@ var SharedComponentsModule = /** @class */ (function () {
     }
     SharedComponentsModule = __decorate([
         core_1.NgModule({
-            imports: [angular_1.IonicModule],
+            imports: [angular_1.IonicModule, common_1.CommonModule],
             declarations: [footer_component_1.FooterComponent],
             exports: [footer_component_1.FooterComponent]
         })

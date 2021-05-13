@@ -20,16 +20,27 @@ var FooterComponent = /** @class */ (function () {
     /** Give user testnet money */
     FooterComponent.prototype.gimme50 = function () {
         var _this = this;
-        this.status = 'Collecting your cash';
+        this.status = '';
+        this.gimme50Btn.disabled = true;
         this.minimaApiService.giveMe50().then(function (res) {
-            if (res.status === true) {
+            if (res.status) {
                 _this.tools.presentAlert('Gimme50', 'Successful', 'Status');
+                _this.status = 'Gimme 50';
+                _this.gimme50Btn.disabled = false;
             }
             else {
                 _this.tools.presentAlert('Gimme50', res.message, 'Status');
+                _this.status = 'Unavailable';
+                setTimeout(function () {
+                    _this.gimme50Btn.disabled = false;
+                    _this.status = 'Gimme 50';
+                }, 4000);
             }
         });
     };
+    __decorate([
+        core_1.ViewChild('gimme50Btn', { static: false })
+    ], FooterComponent.prototype, "gimme50Btn");
     FooterComponent = __decorate([
         core_1.Component({
             selector: 'app-footer',
