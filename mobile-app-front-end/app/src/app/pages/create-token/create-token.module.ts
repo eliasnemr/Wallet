@@ -1,17 +1,16 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Routes, RouterModule } from '@angular/router';
-
-import { IonicModule } from '@ionic/angular';
-
-import { CreateTokenPage } from './create-token.page';
+import { SharedComponentsModule } from './../../components/shared-components.module';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {Routes, RouterModule} from '@angular/router';
+import {IonicModule} from '@ionic/angular';
+import {CreateTokenPage} from './create-token.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: CreateTokenPage
-  }
+    component: CreateTokenPage,
+  },
 ];
 
 @NgModule({
@@ -20,8 +19,10 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    SharedComponentsModule,
   ],
-  declarations: [CreateTokenPage]
+  declarations: [CreateTokenPage],
 })
+/** */
 export class CreateTokenPageModule {}
