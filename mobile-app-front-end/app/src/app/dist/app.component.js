@@ -12,31 +12,38 @@ var core_1 = require("@angular/core");
 var minima_1 = require("minima");
 var rxjs_1 = require("rxjs");
 var AppComponent = /** @class */ (function () {
-    function AppComponent(_tools, _minimaApiService) {
-        this._tools = _tools;
-        this._minimaApiService = _minimaApiService;
-        this.nodeStatus = false;
+    /** */
+    function AppComponent(tools, minimaApiService) {
+        this.tools = tools;
+        this.minimaApiService = minimaApiService;
         this.toggleValue = false;
         this.currentMode = false;
         this.environment = environment_prod_1.environment;
+        this.nodeStatus = false;
         this.getPages();
         this.initializeApp();
         this.setLocalStorage();
     }
+    /** exit lifecycle */
+    AppComponent.prototype.ionViewWillLeave = function () {
+        this.$overlaySubscription.unsubscribe();
+    };
+    /** initializeApplication */
     AppComponent.prototype.initializeApp = function () {
         this.initMinima();
     };
+    /** initMinima Function */
     AppComponent.prototype.initMinima = function () {
         var _this = this;
         minima_1.Minima.init(function (msg) {
             if (msg.event === 'connected') {
-                //console.log('appComponent: Minima connected');
+                // console.log('appComponent: Minima connected');
                 console.log(msg);
                 var msZero = 0;
                 var msTimer = 3000;
                 var source = rxjs_1.timer(msZero, msTimer);
-                var subscribe = source.subscribe(function (val) {
-                    if (minima_1.Minima.block == 0) {
+                _this.$overlaySubscription = source.subscribe(function (val) {
+                    if (minima_1.Minima.block === 0) {
                         _this.nodeStatus = false;
                     }
                     else if (!_this.nodeStatus && minima_1.Minima.block > 0) {
@@ -45,36 +52,90 @@ var AppComponent = /** @class */ (function () {
                         }, 2000);
                     }
                 });
-                _this._minimaApiService.init(minima_1.Minima.balance);
+                _this.minimaApiService.init(minima_1.Minima.balance);
             }
             else if (msg.event === 'newbalance') {
-                _this._tools.presentToast('Balance updated!', 'primary', 'top');
-                _this._minimaApiService.$balance.next(msg.info.balance);
-            }
-            else if (msg.event === 'newblock') {
+                _this.tools.presentToast('Balance updated!', 'primary', 'top');
+                _this.minimaApiService.$balance.next(msg.info.balance);
             }
             else if (msg.event === 'miningstart') {
-                _this._tools.presentMiningToast('Started to mine your transaction.', 'bottom');
+                _this.tools.presentMiningToast('Started to mine your transaction.', 'bottom');
             }
             else if (msg.event === 'miningstop') {
-                _this._tools.presentMiningToast('Finished mining your transaction.', 'bottom');
+                _this.tools.presentMiningToast('Finished mining your transaction.', 'bottom');
             }
         });
     };
+    /** Fetch pages */
     AppComponent.prototype.getPages = function () {
         this.menu =
             [
-                { title: 'Balance', routerLink: '/balance', icon: 'assets/balanceIcon.svg', line: 'none', hidden: false },
-                { title: 'Send', routerLink: '/send-funds', icon: 'assets/sendIcon.svg', line: 'none', hidden: false },
-                { title: 'Receive', routerLink: '/my-address', icon: 'assets/receiveIcon.svg', line: 'none', hidden: false },
-                { title: 'Contacts', routerLink: '/contacts', icon: 'assets/contactsIcon.svg', line: 'none', hidden: false },
-                { title: 'History', routerLink: '/history', icon: 'assets/historyIcon.svg', line: 'none', hidden: false },
-                { title: 'Token', routerLink: '/create-token', icon: 'assets/createIcon.svg', line: 'none', hidden: false },
-                { title: 'Status', routerLink: '/status', icon: 'assets/statusIcon.svg', line: 'none', hidden: false },
-                { title: 'Terminal', routerLink: '/mini-term', icon: 'assets/terminalIcon.svg', line: 'none', hidden: false },
-                { title: 'Community', routerLink: '/community', icon: 'assets/communityIcon.svg', line: 'none', hidden: false }
+                {
+                    title: 'Balance',
+                    routerLink: '/balance',
+                    icon: 'assets/balanceIcon.svg',
+                    line: 'none',
+                    hidden: false
+                },
+                {
+                    title: 'Send',
+                    routerLink: '/send-funds',
+                    icon: 'assets/sendIcon.svg',
+                    line: 'none',
+                    hidden: false
+                },
+                {
+                    title: 'Receive',
+                    routerLink: '/my-address',
+                    icon: 'assets/receiveIcon.svg',
+                    line: 'none',
+                    hidden: false
+                },
+                {
+                    title: 'Contacts',
+                    routerLink: '/contacts',
+                    icon: 'assets/contactsIcon.svg',
+                    line: 'none',
+                    hidden: false
+                },
+                {
+                    title: 'History',
+                    routerLink: '/history',
+                    icon: 'assets/historyIcon.svg',
+                    line: 'none',
+                    hidden: false
+                },
+                {
+                    title: 'Token',
+                    routerLink: '/create-token',
+                    icon: 'assets/createIcon.svg',
+                    line: 'none',
+                    hidden: false
+                },
+                {
+                    title: 'Status',
+                    routerLink: '/status',
+                    icon: 'assets/statusIcon.svg',
+                    line: 'none',
+                    hidden: false
+                },
+                {
+                    title: 'Terminal',
+                    routerLink: '/mini-term',
+                    icon: 'assets/terminalIcon.svg',
+                    line: 'none',
+                    hidden: false
+                },
+                {
+                    title: 'Community',
+                    routerLink: '/community',
+                    icon: 'assets/communityIcon.svg',
+                    line: 'none',
+                    hidden: false
+                }
             ];
     };
+    /** Setting localstorage for darkMode, darkMode toggle, terminalFontSize */
     AppComponent.prototype.setLocalStorage = function () {
         if (localStorage.getItem('toggleVal') === 'true') {
             document.body.classList.toggle('dark', true);
@@ -92,7 +153,8 @@ var AppComponent = /** @class */ (function () {
             localStorage.setItem('termFontSize', '' + 14);
         }
     };
-    AppComponent.prototype.checkToggle = function (e) {
+    /** Check darkMode Toggle */
+    AppComponent.prototype.checkToggle = function () {
         if (this.toggleValue === false) {
             localStorage.setItem('toggleVal', 'false');
             document.body.classList.toggle('dark', false);
@@ -108,6 +170,7 @@ var AppComponent = /** @class */ (function () {
             templateUrl: 'app.component.html',
             styleUrls: ['app.component.scss']
         })
+        /** Bootstrap appComponent */
     ], AppComponent);
     return AppComponent;
 }());
