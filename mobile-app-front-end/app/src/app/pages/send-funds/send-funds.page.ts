@@ -19,6 +19,7 @@ import {MinimaApiService} from '../../service/minima-api.service';
 import {Subscription} from 'rxjs';
 import {ActivatedRoute} from '@angular/router';
 import {Token} from 'minima';
+import {Decimal} from 'decimal.js';
 
 export interface SendFormObj {
   tokenid?: string;
@@ -27,6 +28,7 @@ export interface SendFormObj {
   message?: string;
 }
 
+Decimal.set({precision: 64}); /** set precision for Decimal calculations */
 @Component({
   selector: 'app-send-funds',
   templateUrl: './send-funds.page.html',
@@ -54,6 +56,7 @@ export class SendFundsPage implements OnInit {
   messageToggle = false;
   balanceSubscription: Subscription;
   tokenArr: Token[] = [];
+
   /** */
   constructor(
     public menu: MenuController,
@@ -70,7 +73,8 @@ export class SendFundsPage implements OnInit {
   ionViewWillEnter() {
     this.$balanceSubscription =
     this.minimaApiService.$balance.subscribe((res: Token[]) => {
-      this.myTokens = res.filter((token) => parseInt(token.sendable, 10) > 0);
+      this.myTokens = res.filter((token) =>
+        new Decimal(token.sendable).greaterThan(new Decimal(0)));
     });
 
     this.$contactSubscription =
@@ -108,10 +112,6 @@ export class SendFundsPage implements OnInit {
   /** */
   get messageFormItem() {
     return this.sendForm.get('message');
-  }
-  /** */
-  openMenu() {
-    this.menu.open();
   }
 
   /** */

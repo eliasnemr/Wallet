@@ -46,6 +46,8 @@ exports.SendFundsPage = void 0;
 var contacts_view_modal_component_1 = require("./../../components/contacts-view-modal/contacts-view-modal.component");
 var forms_1 = require("@angular/forms");
 var core_1 = require("@angular/core");
+var decimal_js_1 = require("decimal.js");
+decimal_js_1.Decimal.set({ precision: 64 }); /** set precision for Decimal calculations */
 var SendFundsPage = /** @class */ (function () {
     /** */
     function SendFundsPage(menu, modalController, myTools, formBuilder, minimaApiService, contactService, route) {
@@ -68,7 +70,9 @@ var SendFundsPage = /** @class */ (function () {
         var _this = this;
         this.$balanceSubscription =
             this.minimaApiService.$balance.subscribe(function (res) {
-                _this.myTokens = res.filter(function (token) { return parseInt(token.sendable, 10) > 0; });
+                _this.myTokens = res.filter(function (token) {
+                    return new decimal_js_1.Decimal(token.sendable).greaterThan(new decimal_js_1.Decimal(0));
+                });
             });
         this.$contactSubscription =
             this.contactService.$selected_address.subscribe(function (res) {
@@ -123,10 +127,6 @@ var SendFundsPage = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
-    /** */
-    SendFundsPage.prototype.openMenu = function () {
-        this.menu.open();
-    };
     /** */
     SendFundsPage.prototype.presentContactModal = function () {
         return __awaiter(this, void 0, void 0, function () {

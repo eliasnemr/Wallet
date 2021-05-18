@@ -128,3 +128,7 @@ ion-button.validate-btn {
   text-transform: none;
   color: var(--ion-color-tertiary);
 }
+
+ion-label.description p {
+  white-space: normal;
+}
