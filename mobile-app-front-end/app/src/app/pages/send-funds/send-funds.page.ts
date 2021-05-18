@@ -16,9 +16,8 @@ import {
   ModalController,
   IonContent} from '@ionic/angular';
 import {MinimaApiService} from '../../service/minima-api.service';
-import {Subscription, Subject} from 'rxjs';
+import {Subscription} from 'rxjs';
 import {ActivatedRoute} from '@angular/router';
-
 import {Token} from 'minima';
 
 export interface SendFormObj {
@@ -41,56 +40,54 @@ export class SendFundsPage implements OnInit {
   @ViewChild('pageContent', {static: false}) pageContent: IonContent;
 
   sendForm: FormGroup;
-  $balance: Subject<Token[]>;
+  myTokens: Token[];
   $contactSubscription: Subscription;
+  $balanceSubscription: Subscription;
 
-  nftScript: string = 'ASSERT FLOOR ( @AMOUNT ) EQ @AMOUNT LET checkout = 0 WHILE ( checkout LT @TOTOUT )' +
-  'DO IF GETOUTTOK ( checkout ) EQ @TOKENID THEN LET outamt = GETOUTAMT ( checkout ) ASSERT FLOOR ( outamt )' +
-  'EQ outamt ENDIF LET checkout = INC ( checkout ) ENDWHILE RETURN TRUE';
   status = '';
   webQrScanner: any;
   compareWith: any;
   itemSelected: any;
   isWebCameraOpen = false;
   minimaToken: any;
-  data: SendFormObj = {tokenid: '', amount: '', address:  '', message: ''};
+  data: SendFormObj = {tokenid: '', amount: '', address: '', message: ''};
   messageToggle = false;
   balanceSubscription: Subscription;
   tokenArr: Token[] = [];
-
+  /** */
   constructor(
     public menu: MenuController,
     public modalController: ModalController,
     private myTools: ToolsService,
     private formBuilder: FormBuilder,
-    private _minimaApiService: MinimaApiService,
-    private _contactService: ContactService,
-    private route: ActivatedRoute
+    private minimaApiService: MinimaApiService,
+    private contactService: ContactService,
+    private route: ActivatedRoute,
   ) {
-      this.$balance = this._minimaApiService.$balance;
+    this.myTokens = [];
   }
-
+  /** */
   ionViewWillEnter() {
-  
-    this.$contactSubscription = this._contactService.$selected_address.subscribe((res: SelectedAddress) => {
-      if (res.address.length === 0) {
+    this.$balanceSubscription =
+    this.minimaApiService.$balance.subscribe((res: Token[]) => {
+      this.myTokens = res.filter((token) => parseInt(token.sendable, 10) > 0);
+    });
 
+    this.$contactSubscription =
+    this.contactService.$selected_address.subscribe((res: SelectedAddress) => {
+      if (res.address.length === 0) {
+        // Do nothing
       } else {
         this.addressFormItem.setValue(res.address);
-        this._contactService.$selected_address.next({address: ''});
-      }``
+        this.contactService.$selected_address.next({address: ''});
+      }
     });
     this.getTokenSelected();
   }
-
+  /** */
   ionViewWillLeave() {
-
-    if (this.$contactSubscription) {
-
-      this.$contactSubscription.unsubscribe();
-
-    }
-
+    this.$contactSubscription.unsubscribe();
+    this.$balanceSubscription.unsubscribe();
   }
   /** */
   ngOnInit() {
@@ -121,7 +118,7 @@ export class SendFundsPage implements OnInit {
   async presentContactModal() {
     const contactModal = await this.modalController.create({
       component: ContactsViewModalComponent,
-      cssClass: 'contacts-view'
+      cssClass: 'contacts-view',
     });
     contactModal.present();
   }
@@ -136,8 +133,7 @@ export class SendFundsPage implements OnInit {
       this.post(data);
     } catch (err) {
       console.log(err);
-    } 
-    
+    }
   }
   /**  */
   async post(data: any) {
@@ -145,7 +141,7 @@ export class SendFundsPage implements OnInit {
     this.status = 'Posting your transaction...';
     if (data.message !== null && ( data.message || data.message.length > 0) ) {
       const res: any =
-      await this._minimaApiService.sendMessageTransaction(data);
+      await this.minimaApiService.sendMessageTransaction(data);
       // console.log(res);
       if (res.status) {
         this.status = 'Transaction posted!';
@@ -163,7 +159,7 @@ export class SendFundsPage implements OnInit {
         this.myTools.presentAlert('Transaction Status', res.message, 'Failed');
       }
     } else {
-      const res: any = await this._minimaApiService.sendFunds(data);
+      const res: any = await this.minimaApiService.sendFunds(data);
       // console.log(res);
 
       if (res.status) {
@@ -201,8 +197,8 @@ export class SendFundsPage implements OnInit {
         Validators.minLength(2),
         Validators.maxLength(60),
         Validators.pattern('[Mx|0x][a-zA-Z0-9]+')]],
-      amount: ['', [Validators.required] ],
-      message: ''
+      amount: ['', [Validators.required]],
+      message: '',
     });
   }
 
@@ -225,7 +221,7 @@ export class SendFundsPage implements OnInit {
     this.isWebCameraOpen = true;
     // console.log('Camera turned on, ' + this.isWebCameraOpen);
     const stream = navigator.mediaDevices.getUserMedia({
-      video: { facingMode: 'environment' }
+      video: {facingMode: 'environment'},
     });
 
     this.videoElem.nativeElement.src = stream;

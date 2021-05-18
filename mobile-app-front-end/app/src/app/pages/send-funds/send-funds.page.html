@@ -17,7 +17,7 @@
 
 <ion-content #pageContent class="page-content" *ngIf="!isWebCameraOpen">
 
-  <ion-grid *ngIf="!$balance">
+  <ion-grid *ngIf="!myTokens || myTokens.length === 0">
     <ion-row>
       <ion-col class="center-items" size="12">
         <ion-label>Fetching tokens...</ion-label>
@@ -40,7 +40,7 @@
   </ion-card>
 
 
-  <form *ngIf="!isWebCameraOpen && $balance" [formGroup]="sendForm" id="sendForm" (ngSubmit)="sendFunds()">
+  <form *ngIf="!isWebCameraOpen && myTokens.length > 0" [formGroup]="sendForm" id="sendForm" (ngSubmit)="sendFunds()">
     <ion-list class="ion-no-padding">
       <ion-item class="no-hover no-ripple ion-no-padding" lines="none">
         <ion-label position="floating">Token</ion-label>
@@ -51,7 +51,7 @@
           [(ngModel)]='itemSelected'
           class="no-hover no-ripple input"
           (ionChange)="onItemSelection($event)"> 
-        <ion-select-option *ngFor="let token of $balance | async;" [value]="token.tokenid" class="token-option">
+        <ion-select-option *ngFor="let token of myTokens" [value]="token.tokenid" class="token-option">
           {{ token.token + "&mdash;"+ token.tokenid }}
         </ion-select-option>
       </ion-select>

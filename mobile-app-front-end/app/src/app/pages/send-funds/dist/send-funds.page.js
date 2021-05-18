@@ -47,41 +47,45 @@ var contacts_view_modal_component_1 = require("./../../components/contacts-view-
 var forms_1 = require("@angular/forms");
 var core_1 = require("@angular/core");
 var SendFundsPage = /** @class */ (function () {
-    function SendFundsPage(menu, modalController, myTools, formBuilder, _minimaApiService, _contactService, route) {
+    /** */
+    function SendFundsPage(menu, modalController, myTools, formBuilder, minimaApiService, contactService, route) {
         this.menu = menu;
         this.modalController = modalController;
         this.myTools = myTools;
         this.formBuilder = formBuilder;
-        this._minimaApiService = _minimaApiService;
-        this._contactService = _contactService;
+        this.minimaApiService = minimaApiService;
+        this.contactService = contactService;
         this.route = route;
-        this.nftScript = 'ASSERT FLOOR ( @AMOUNT ) EQ @AMOUNT LET checkout = 0 WHILE ( checkout LT @TOTOUT )' +
-            'DO IF GETOUTTOK ( checkout ) EQ @TOKENID THEN LET outamt = GETOUTAMT ( checkout ) ASSERT FLOOR ( outamt )' +
-            'EQ outamt ENDIF LET checkout = INC ( checkout ) ENDWHILE RETURN TRUE';
         this.status = '';
         this.isWebCameraOpen = false;
         this.data = { tokenid: '', amount: '', address: '', message: '' };
         this.messageToggle = false;
         this.tokenArr = [];
-        this.$balance = this._minimaApiService.$balance;
+        this.myTokens = [];
     }
+    /** */
     SendFundsPage.prototype.ionViewWillEnter = function () {
         var _this = this;
-        this.$contactSubscription = this._contactService.$selected_address.subscribe(function (res) {
-            if (res.address.length === 0) {
-            }
-            else {
-                _this.addressFormItem.setValue(res.address);
-                _this._contactService.$selected_address.next({ address: '' });
-            }
-            "";
-        });
+        this.$balanceSubscription =
+            this.minimaApiService.$balance.subscribe(function (res) {
+                _this.myTokens = res.filter(function (token) { return parseInt(token.sendable, 10) > 0; });
+            });
+        this.$contactSubscription =
+            this.contactService.$selected_address.subscribe(function (res) {
+                if (res.address.length === 0) {
+                    // Do nothing
+                }
+                else {
+                    _this.addressFormItem.setValue(res.address);
+                    _this.contactService.$selected_address.next({ address: '' });
+                }
+            });
         this.getTokenSelected();
     };
+    /** */
     SendFundsPage.prototype.ionViewWillLeave = function () {
-        if (this.$contactSubscription) {
-            this.$contactSubscription.unsubscribe();
-        }
+        this.$contactSubscription.unsubscribe();
+        this.$balanceSubscription.unsubscribe();
     };
     /** */
     SendFundsPage.prototype.ngOnInit = function () {
@@ -166,7 +170,7 @@ var SendFundsPage = /** @class */ (function () {
                         this.submitBtn.disabled = true;
                         this.status = 'Posting your transaction...';
                         if (!(data.message !== null && (data.message || data.message.length > 0))) return [3 /*break*/, 2];
-                        return [4 /*yield*/, this._minimaApiService.sendMessageTransaction(data)];
+                        return [4 /*yield*/, this.minimaApiService.sendMessageTransaction(data)];
                     case 1:
                         res = _a.sent();
                         // console.log(res);
@@ -184,7 +188,7 @@ var SendFundsPage = /** @class */ (function () {
                             this.myTools.presentAlert('Transaction Status', res.message, 'Failed');
                         }
                         return [3 /*break*/, 4];
-                    case 2: return [4 /*yield*/, this._minimaApiService.sendFunds(data)];
+                    case 2: return [4 /*yield*/, this.minimaApiService.sendFunds(data)];
                     case 3:
                         res = _a.sent();
                         // console.log(res);
