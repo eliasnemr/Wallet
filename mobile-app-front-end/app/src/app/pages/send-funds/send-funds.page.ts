@@ -7,7 +7,8 @@ import {
 import {
   FormGroup,
   FormBuilder,
-  Validators} from '@angular/forms';
+  Validators,
+} from '@angular/forms';
 import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
 import {
   IonInput,
@@ -98,6 +99,28 @@ export class SendFundsPage implements OnInit {
     this.formInit();
   }
   /** */
+  resetForm() {
+    setTimeout(() => {
+      this.status = '';
+    }, 6000);
+    this.submitBtn.disabled = false;
+    this.sendForm.reset();
+    this.formInit();
+  }
+  /** */
+  formInit() {
+    this.sendForm = this.formBuilder.group({
+      tokenid: '',
+      address: ['', [
+        Validators.required,
+        Validators.minLength(2),
+        Validators.maxLength(60),
+        Validators.pattern('[Mx|0x][a-zA-Z0-9]+')]],
+      amount: ['', [Validators.required]],
+      message: '',
+    });
+  }
+  /** */
   get tokenFormItem() {
     return this.sendForm.get('tokenid');
   }
@@ -178,28 +201,6 @@ export class SendFundsPage implements OnInit {
         this.myTools.presentAlert('Transaction Status', res.message, 'Failed');
       }
     }
-  }
-  /** */
-  resetForm() {
-    setTimeout(() => {
-      this.status = '';
-    }, 6000);
-    this.submitBtn.disabled = false;
-    this.sendForm.reset();
-    this.formInit();
-  }
-  /** */
-  formInit() {
-    this.sendForm = this.formBuilder.group({
-      tokenid: '',
-      address: ['', [
-        Validators.required,
-        Validators.minLength(2),
-        Validators.maxLength(60),
-        Validators.pattern('[Mx|0x][a-zA-Z0-9]+')]],
-      amount: ['', [Validators.required]],
-      message: '',
-    });
   }
 
   /** get token selected, or set Minima as default */

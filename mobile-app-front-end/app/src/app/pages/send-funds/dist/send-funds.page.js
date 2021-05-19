@@ -95,6 +95,30 @@ var SendFundsPage = /** @class */ (function () {
     SendFundsPage.prototype.ngOnInit = function () {
         this.formInit();
     };
+    /** */
+    SendFundsPage.prototype.resetForm = function () {
+        var _this = this;
+        setTimeout(function () {
+            _this.status = '';
+        }, 6000);
+        this.submitBtn.disabled = false;
+        this.sendForm.reset();
+        this.formInit();
+    };
+    /** */
+    SendFundsPage.prototype.formInit = function () {
+        this.sendForm = this.formBuilder.group({
+            tokenid: '',
+            address: ['', [
+                    forms_1.Validators.required,
+                    forms_1.Validators.minLength(2),
+                    forms_1.Validators.maxLength(60),
+                    forms_1.Validators.pattern('[Mx|0x][a-zA-Z0-9]+')
+                ]],
+            amount: ['', [forms_1.Validators.required]],
+            message: ''
+        });
+    };
     Object.defineProperty(SendFundsPage.prototype, "tokenFormItem", {
         /** */
         get: function () {
@@ -209,30 +233,6 @@ var SendFundsPage = /** @class */ (function () {
                     case 4: return [2 /*return*/];
                 }
             });
-        });
-    };
-    /** */
-    SendFundsPage.prototype.resetForm = function () {
-        var _this = this;
-        setTimeout(function () {
-            _this.status = '';
-        }, 6000);
-        this.submitBtn.disabled = false;
-        this.sendForm.reset();
-        this.formInit();
-    };
-    /** */
-    SendFundsPage.prototype.formInit = function () {
-        this.sendForm = this.formBuilder.group({
-            tokenid: '',
-            address: ['', [
-                    forms_1.Validators.required,
-                    forms_1.Validators.minLength(2),
-                    forms_1.Validators.maxLength(60),
-                    forms_1.Validators.pattern('[Mx|0x][a-zA-Z0-9]+')
-                ]],
-            amount: ['', [forms_1.Validators.required]],
-            message: ''
         });
     };
     /** get token selected, or set Minima as default */
