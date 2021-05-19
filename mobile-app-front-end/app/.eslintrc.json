@@ -16,6 +16,7 @@
     ],
     "rules": {
         "new-cap":"off",
-        "valid-jsdoc":"off"
+        "valid-jsdoc":"off",
+        "require-jsdoc":"off"
     }
 }
