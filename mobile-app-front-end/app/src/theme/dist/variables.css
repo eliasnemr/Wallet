@@ -171,6 +171,20 @@
   --ion-color-background-contrast-rgb: 0,0,0;
   --ion-color-background-shade: #d3d3dc;
   --ion-color-background-tint: #f2f2fb;
+  /** Mining Started */
+  --ion-color-miningstart: #506690;
+  --ion-color-miningstart-rgb: 80,102,144;
+  --ion-color-miningstart-contrast: #ffffff;
+  --ion-color-miningstart-contrast-rgb: 255,255,255;
+  --ion-color-miningstart-shade: #465a7f;
+  --ion-color-miningstart-tint: #62759b;
+  /** Mining Stopped */
+  --ion-color-miningend: #abbcd5;
+  --ion-color-miningend-rgb: 171,188,213;
+  --ion-color-miningend-contrast: #000000;
+  --ion-color-miningend-contrast-rgb: 0,0,0;
+  --ion-color-miningend-shade: #96a5bb;
+  --ion-color-miningend-tint: #b3c3d9;
   /** Forms **/
   --ion-color-inputs: #FFFFFF;
   --ion-color-error: #CD3670;
@@ -272,18 +286,16 @@ ion-button.gimme50 {
   color: #fff;
   border: 1px solid #f0f0fA;
   border-radius: 28px;
-  opacity: 1;
   width: 159px;
   height: 45px;
   font-size: 1rem;
   font-family: manrope-bold;
+  background-color: #001C32;
 }
 
 ion-button.gimme50:hover {
-  --background: #f0f0fa;
-  border: 1px solid #001C32;
+  background: #f0f0fa;
   color: #001C32;
-  --border-radius: 28px!important;
 }
 
 .minima-numeric {
@@ -323,9 +335,8 @@ ion-content.page-content {
 
 /* My Custom Toasts */
 .toast2 {
-  --color: #001C32;
+  --color: #FAFAF0 !important;
   --button-color: #001C32!important;
-  --background: var(--ion-color-gray-four);
   --height: 60px;
   --box-shadow: 1px rgba(#66ff66, 0.5);
   --border-radius: 15px;

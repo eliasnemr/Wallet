@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 exports.__esModule = true;
 exports.BalancePageModule = void 0;
-var to_number_pipe_1 = require("./../../pipes/to-number.pipe");
+var shared_components_module_1 = require("./../../components/shared-components.module");
 var core_1 = require("@angular/core");
 var common_1 = require("@angular/common");
 var forms_1 = require("@angular/forms");
@@ -23,23 +23,26 @@ var routes = [
             {
                 path: 'view-txn',
                 loadChildren: function () { return Promise.resolve().then(function () { return require('./view-tokens/view-tokens.module'); }).then(function (m) { return m.ViewTokensPageModule; }); }
-            }
+            },
         ]
-    }
+    },
 ];
 var BalancePageModule = /** @class */ (function () {
+    /** */
     function BalancePageModule() {
     }
     BalancePageModule = __decorate([
         core_1.NgModule({
             imports: [
+                shared_components_module_1.SharedComponentsModule,
                 common_1.CommonModule,
                 forms_1.FormsModule,
                 angular_1.IonicModule,
-                router_1.RouterModule.forChild(routes)
+                router_1.RouterModule.forChild(routes),
             ],
-            declarations: [balance_page_1.BalancePage, list_view_component_1.ListViewComponent, to_number_pipe_1.ToNumberPipe]
+            declarations: [balance_page_1.BalancePage, list_view_component_1.ListViewComponent]
         })
+        /** */
     ], BalancePageModule);
     return BalancePageModule;
 }());

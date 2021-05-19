@@ -1,0 +1,6 @@
+<ion-footer class="border-t">
+  <ion-button #gimme50Btn (click)="gimme50()" class="gimme50 no-ripple" fill="none">
+    {{ status }}
+    <ion-spinner *ngIf="status === ''" name="dots" color="gray-one"></ion-spinner>
+  </ion-button>
+</ion-footer>

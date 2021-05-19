@@ -1,12 +1,11 @@
-import { FilterPipe } from './../../pipes/filter.pipe';
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { Routes, RouterModule } from '@angular/router';
-
-import { IonicModule } from '@ionic/angular';
-
-import { HistoryPage } from './history.page';
+import {SharedComponentsModule} from './../../components/shared-components.module';
+import {FilterPipe} from './../../pipes/filter.pipe';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
+import {Routes, RouterModule} from '@angular/router';
+import {IonicModule} from '@ionic/angular';
+import {HistoryPage} from './history.page';
 
 
 const routes: Routes = [
@@ -16,10 +15,11 @@ const routes: Routes = [
     children: [
       {
         path: 'view-txn',
-        loadChildren: () => import('./view-txn/view-txn.module').then(m => m.ViewTXNPageModule)
-      }
-    ]
-  }
+        loadChildren: () =>
+          import('./view-txn/view-txn.module').then(m => m.ViewTXNPageModule),
+      },
+    ],
+  },
 ];
 
 @NgModule({
@@ -27,8 +27,10 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    SharedComponentsModule,
   ],
-  declarations: [HistoryPage, FilterPipe]
+  declarations: [HistoryPage, FilterPipe],
 })
+/** */
 export class HistoryPageModule {}

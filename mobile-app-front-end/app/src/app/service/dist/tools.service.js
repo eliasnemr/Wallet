@@ -43,20 +43,17 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 exports.ToolsService = void 0;
-var rxjs_1 = require("rxjs");
 var core_1 = require("@angular/core");
 /**
  * Tools available to all Wallet
  */
 var ToolsService = /** @class */ (function () {
+    /** */
     function ToolsService(toastController, alertController) {
         this.toastController = toastController;
         this.alertController = alertController;
-        this.state = new rxjs_1.BehaviorSubject({
-            milliseconds: 60000
-        });
-        this.$obj = this.state.asObservable();
     }
+    /** */
     ToolsService.prototype.copy = function (data) {
         var _this = this;
         document.addEventListener('copy', function (e) {
@@ -67,15 +64,16 @@ var ToolsService = /** @class */ (function () {
         });
         document.execCommand('copy');
     };
-    ToolsService.prototype.presentToast = function (msg, color, position) {
+    /** */
+    ToolsService.prototype.presentToast = function (msg, clr, posn) {
         return __awaiter(this, void 0, void 0, function () {
             var toast;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.toastController.create({
                             message: msg,
-                            position: position,
-                            color: color,
+                            position: posn,
+                            color: clr,
                             keyboardClose: true,
                             translucent: true,
                             duration: 2000,
@@ -92,18 +90,20 @@ var ToolsService = /** @class */ (function () {
             });
         });
     };
-    ToolsService.prototype.presentMiningToast = function (msg, position) {
+    /** */
+    ToolsService.prototype.presentMiningToast = function (msg, clr, posn) {
         return __awaiter(this, void 0, void 0, function () {
             var toast;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.toastController.create({
                             message: msg,
-                            position: position,
+                            position: posn,
+                            color: clr,
                             cssClass: 'toast2',
                             keyboardClose: true,
                             translucent: true,
-                            duration: 4000,
+                            duration: 3500,
                             buttons: [{
                                     text: 'Dismiss',
                                     role: 'cancel'
@@ -117,6 +117,7 @@ var ToolsService = /** @class */ (function () {
             });
         });
     };
+    /** */
     ToolsService.prototype.presentAlert = function (hdr, msg, sub) {
         return __awaiter(this, void 0, void 0, function () {
             var alert;
@@ -139,6 +140,7 @@ var ToolsService = /** @class */ (function () {
             });
         });
     };
+    /** Scroll to bottom of ionContent */
     ToolsService.prototype.scrollToBottom = function (pageContent) {
         try {
             pageContent.scrollToBottom(300);
@@ -151,6 +153,7 @@ var ToolsService = /** @class */ (function () {
         core_1.Injectable({
             providedIn: 'root'
         })
+        /** */
     ], ToolsService);
     return ToolsService;
 }());

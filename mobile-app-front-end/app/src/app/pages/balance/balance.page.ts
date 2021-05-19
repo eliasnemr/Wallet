@@ -1,24 +1,26 @@
-import { ToolsService } from './../../service/tools.service';
-import { MinimaApiService } from '../../service/minima-api.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { PopoverController, IonButton, MenuController } from '@ionic/angular';
-import { Router } from '@angular/router';
+import {ToolsService } from './../../service/tools.service';
+import {MinimaApiService } from '../../service/minima-api.service';
+import {Component, OnInit, ViewChild } from '@angular/core';
+import {PopoverController, IonButton, MenuController } from '@ionic/angular';
+import {Router} from '@angular/router';
 import * as SparkMD5 from 'spark-md5';
-import { Subject, Subscription } from 'rxjs';
+import {Subject, Subscription} from 'rxjs';
 
-import { Token } from 'minima';
+import {Token} from 'minima';
 
 // declare var Minima: any;
-@Component({
+@Component
+({
   selector: 'app-balance',
   templateUrl: './balance.page.html',
-  styleUrls: ['./balance.page.scss']
+  styleUrls: ['./balance.page.scss'],
 })
 
 export class BalancePage implements OnInit {
-
-  $balance: Subject<Token[]>;
+  $balance: Subject<Token[]>; 
+  // SUBSCRIPTION
   $balanceSubscription: Subscription;
+  // REFERENCE TO GIMME50BTN
   @ViewChild('gimme50Btn', {static: false}) gimme50Btn: IonButton;
 
   avatar: any;
