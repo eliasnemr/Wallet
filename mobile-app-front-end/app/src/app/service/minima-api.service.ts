@@ -107,7 +107,7 @@ export class MinimaApiService {
   }
 
   clearMyHistory() {
-    return this.req('history clear')
+    return this.req('history clear');
   }
 
   getStatus() {
