@@ -128,3 +128,12 @@ div.has {
     border: 1px solid #F0F0FA;
   }
 }
+ion-grid#status {
+  ion-row {
+    ion-col {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}

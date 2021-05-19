@@ -15,14 +15,13 @@
 
 
 
-<ion-content #pageContent class="page-content" *ngIf="!isWebCameraOpen">
-
-  <ion-grid *ngIf="!myTokens || myTokens.length === 0">
+<ion-content #pageContent class="page-content">
+  <ion-grid id="status" *ngIf="!myTokens || myTokens.length === 0">
     <ion-row>
-      <ion-col class="center-items" size="12">
+      <ion-col size="12">
         <ion-label>Fetching tokens...</ion-label>
       </ion-col>
-      <ion-col class="center-items" size="12">
+      <ion-col size="12">
         <ion-spinner name="crescent"></ion-spinner>
       </ion-col>
     </ion-row>

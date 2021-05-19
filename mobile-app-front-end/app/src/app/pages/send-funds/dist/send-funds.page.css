@@ -6,9 +6,8 @@ ion-card-header {
   --color: var(--ion-text-color,#000);
 }
 
-ion-list ion-item {
-  margin-left: 10px;
-  margin-right: 15px;
+ion-item {
+  --inner-padding-end: 0;
 }
 
 ion-item ion-label {
@@ -28,7 +27,7 @@ ion-select {
   outline: none !important;
   border: 1px solid #f0f0fa;
   font-family: manrope-regular;
-  background-color: #ffffff;
+  background-color: var(--ion-color-inputs);
   outline: 1px solid #91919D;
   font-size: 12px;
   padding-left: 2% !important;
@@ -37,8 +36,8 @@ ion-select {
 }
 
 ion-select:hover {
-  background: #fff !important;
-  background-color: #fff !important;
+  background: var(--ion-color-inputs) !important;
+  background-color: var(--ion-color-inputs) !important;
   --background-hover: none !important;
 }
 
@@ -55,7 +54,7 @@ ion-select-option {
 ion-input {
   font-size: 12px;
   color: #000;
-  background-color: #fff;
+  background-color: var(--ion-color-inputs);
   border: 1px solid #f0f0fa;
   padding-left: 2% !important;
 }
@@ -97,34 +96,18 @@ ion-toolbar {
 
 ion-textarea {
   color: black !important;
-  background: #ffffff;
+  background: var(--ion-color-inputs);
   border: 1px solid #f0f0fa;
   padding-left: 2% !important;
   font-size: 12px;
   margin-bottom: 1%;
 }
 
-ion-item.error {
+ion-item.send-wrapper {
   display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-ion-item.error span {
-  color: var(--ion-color-tertiary);
-  display: inline-block;
-  vertical-align: middle;
-}
-
-ion-note.error-message ion-icon {
-  color: var(--ion-color-secondary);
-  font-size: 1rem;
-  display: inline-block;
-  vertical-align: middle;
-}
-
-ion-note.error-message {
-  display: block;
+  float: right;
+  justify-content: right;
+  align-items: flex-end;
 }
 
 button.footer {
@@ -151,10 +134,24 @@ ion-button.send-funds {
   font-family: manrope-bold;
   color: #fff;
   float: right;
-  margin-right: 26px;
   --border-radius: 0;
 }
 
 ion-button.send-funds:hover {
   --background: #346EE5;
+}
+
+div.has {
+  display: flex;
+  width: 100%;
+}
+div.has button {
+  background-color: transparent;
+  border: 1px solid #F0F0FA;
+}
+
+ion-grid#status ion-row ion-col {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
