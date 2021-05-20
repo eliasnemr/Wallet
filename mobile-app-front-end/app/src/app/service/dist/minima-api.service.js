@@ -85,7 +85,12 @@ var MinimaApiService = /** @class */ (function () {
         return this.req('tokenvalidate ' + tokenid);
     };
     MinimaApiService.prototype.sendMessageTransaction = function (data) {
-        var postTransaction = "send " + data.amount + " " + data.address + " " + data.tokenid + " " + " 254:[01000100]#255:[\"" + data.message + "\"]";
+        var postTransaction = 'send ' +
+            data.amount +
+            ' ' +
+            data.address + ' ' +
+            data.tokenid + ' ' + ' 254:[01000100]#255:[' +
+            data.message + ']';
         return this.req(postTransaction);
     };
     MinimaApiService.prototype.webLink = function (data) {
