@@ -1,21 +1,29 @@
 ion-input {
   color: #000;
-  font-size: 12px;
-  background-color: #ffffff;
+  font-size: 14px;
+  background-color: var(--ion-color-inputs);
   border: 1px solid #f0f0fa;
   padding-left: 2% !important;
 }
 
-ion-list {
-  margin-left: 12px;
-  margin-right: 13px;
+ion-list ion-item {
+  --inner-padding-end: 0;
+}
+
+ion-list:first-child {
+  padding-top: 0;
 }
 
 ion-item ion-label {
+  color: var(--ion-color-color);
   font-size: 20px;
   font-family: manrope-bold;
   white-space: normal;
   margin-bottom: 10px;
+}
+ion-item ion-label span#optional {
+  font-family: manrope-light;
+  color: var(--ion-color-options);
 }
 
 ion-checkbox.checkbox {
@@ -23,33 +31,37 @@ ion-checkbox.checkbox {
   padding-top: 5px;
 }
 
-ion-note {
-  color: var(--ion-color-secondary);
-  font-family: manrope-bold;
-}
-
 ion-item#nft {
   display: inline;
   vertical-align: middle;
 }
 
+ion-item#nft ion-row {
+  margin-top: 12px;
+}
+
+ion-item#nft ion-row:last-child {
+  margin-top: 7px;
+}
+
 ion-icon.nftIcon {
   margin-right: 7px;
+  font-size: 30px;
 }
 
 ion-label.nft {
   font-size: 16px !important;
 }
 
-ion-textarea {
-  padding-left: 2%;
-  font-size: 12px;
-  color: black !important;
-  background: #ffffff;
+ion-checkbox {
+  --size: 30px;
 }
 
-ion-checkbox {
-  --size: 15px;
+ion-textarea {
+  padding-left: 5px;
+  font-size: 14px;
+  color: var(--ion-color-text);
+  background: var(--ion-color-inputs);
 }
 
 ion-title.cardHeader {
@@ -76,12 +88,10 @@ ion-card-header {
 }
 
 .length {
-  display: flex;
-  align-items: baseline;
-  justify-content: baseline;
-  margin-left: 20px;
   font-family: manrope-light;
   font-size: 12px;
+  align-self: flex-end;
+  justify-self: flex-end;
 }
 
 .length ion-note {
@@ -89,27 +99,11 @@ ion-card-header {
   color: var(--ion-color-tertiary) !important;
 }
 
-ion-item.error {
+ion-item.createtoken-wrapper {
   display: flex;
-  align-items: left;
-  justify-content: left;
-}
-
-ion-item.error span {
-  color: var(--ion-color-tertiary);
-  display: inline-block;
-  vertical-align: middle;
-}
-
-ion-note.error-message ion-icon {
-  color: var(--ion-color-secondary);
-  font-size: 1rem;
-  display: inline-block;
-  vertical-align: middle;
-}
-
-ion-note.error-message {
-  display: block;
+  float: right;
+  justify-content: right;
+  align-items: flex-end;
 }
 
 ion-button.create-token {
@@ -117,7 +111,6 @@ ion-button.create-token {
   width: 164px;
   float: right;
   background-color: var(--ion-color-primary);
-  margin-right: 23px;
   color: #fff;
   text-transform: none;
   font-family: manrope-bold;
