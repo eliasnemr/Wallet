@@ -70,18 +70,23 @@ var ToolsService = /** @class */ (function () {
             var toast;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.toastController.create({
-                            message: msg,
-                            position: posn,
-                            color: clr,
-                            keyboardClose: true,
-                            translucent: true,
-                            duration: 2000,
-                            buttons: [{
-                                    text: 'Dismiss',
-                                    role: 'cancel'
-                                }]
-                        })];
+                    case 0:
+                        try {
+                            this.toast.dismiss();
+                        }
+                        catch (e) { }
+                        return [4 /*yield*/, this.toastController.create({
+                                message: msg,
+                                position: posn,
+                                color: clr,
+                                keyboardClose: true,
+                                translucent: true,
+                                duration: 2000,
+                                buttons: [{
+                                        text: 'Dismiss',
+                                        role: 'cancel'
+                                    }]
+                            })];
                     case 1:
                         toast = _a.sent();
                         return [4 /*yield*/, toast.present()];
@@ -96,19 +101,24 @@ var ToolsService = /** @class */ (function () {
             var toast;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.toastController.create({
-                            message: msg,
-                            position: posn,
-                            color: clr,
-                            cssClass: 'toast2',
-                            keyboardClose: true,
-                            translucent: true,
-                            duration: 3500,
-                            buttons: [{
-                                    text: 'Dismiss',
-                                    role: 'cancel'
-                                }]
-                        })];
+                    case 0:
+                        try {
+                            this.toast.dismiss();
+                        }
+                        catch (e) { }
+                        return [4 /*yield*/, this.toastController.create({
+                                message: msg,
+                                position: posn,
+                                color: clr,
+                                cssClass: 'toast2',
+                                keyboardClose: true,
+                                translucent: true,
+                                duration: 3500,
+                                buttons: [{
+                                        text: 'Dismiss',
+                                        role: 'cancel'
+                                    }]
+                            })];
                     case 1:
                         toast = _a.sent();
                         return [4 /*yield*/, toast.present()];

@@ -1,6 +1,8 @@
 import { Subscription } from 'rxjs';
 import { ToolsService } from './../../service/tools.service';
-import { PopContactsComponent } from './../../components/pop-contacts/pop-contacts.component';
+import {
+  PopContactsComponent,
+} from './../../components/pop-contacts/pop-contacts.component';
 import { MinimaApiService } from './../../service/minima-api.service';
 import {
   ContactsModalPage,
@@ -69,7 +71,7 @@ export class ContactsPage implements OnInit {
     qy = qy.toUpperCase();
     if (qy.length > 0) {
       this.contacts = this.contacts.filter( ele => {
-        return ele.NAME.toUpperCase().includes(qy) || 
+        return ele.NAME.toUpperCase().includes(qy) ||
         ele.ADDRESS.toUpperCase().includes(qy);
       });
     } else {
@@ -79,19 +81,10 @@ export class ContactsPage implements OnInit {
     }
   }
 
-  giveMe50() {
-    this.api.giveMe50().then((res: any) => {
-      if (res.status === true) {
-        this.myTools.presentAlert('Gimme50', 'Successful', 'Status');
-      } else {
-        this.myTools.presentAlert('Gimme50', res.message, 'Status');
-      }
-    });
-  }
-
   async presentAlert(addr: string) {
     const alert = await this.alertController.create({
       header: 'Delete Contact',
+      cssClass: 'alert',
       subHeader: 'Once this contact is deleted, you can\'t revert!',
       message: 'Are you sure?',
       buttons: [
