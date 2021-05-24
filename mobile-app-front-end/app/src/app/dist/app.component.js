@@ -37,8 +37,6 @@ var AppComponent = /** @class */ (function () {
         var _this = this;
         minima_1.Minima.init(function (msg) {
             if (msg.event === 'connected') {
-                // console.log('appComponent: Minima connected');
-                // console.log(msg);
                 var msZero = 0;
                 var msTimer = 3000;
                 var source = rxjs_1.timer(msZero, msTimer);
@@ -135,33 +133,9 @@ var AppComponent = /** @class */ (function () {
                 }
             ];
     };
-    /** Setting localstorage for darkMode, darkMode toggle, terminalFontSize */
     AppComponent.prototype.setLocalStorage = function () {
-        if (localStorage.getItem('toggleVal') === 'true') {
-            document.body.classList.toggle('dark', true);
-        }
-        else {
-            document.body.classList.toggle('dark', false);
-        }
-        if (localStorage.getItem('toggleVal') === 'true') {
-            this.toggleValue = true;
-        }
-        else {
-            this.toggleValue = false;
-        }
         if (!localStorage.getItem('termFontSize')) {
             localStorage.setItem('termFontSize', '' + 14);
-        }
-    };
-    /** Check darkMode Toggle */
-    AppComponent.prototype.checkToggle = function () {
-        if (this.toggleValue === false) {
-            localStorage.setItem('toggleVal', 'false');
-            document.body.classList.toggle('dark', false);
-        }
-        else {
-            localStorage.setItem('toggleVal', 'true');
-            document.body.classList.toggle('dark', true);
         }
     };
     AppComponent = __decorate([

@@ -70,9 +70,14 @@ var SendFundsPage = /** @class */ (function () {
         var _this = this;
         this.$balanceSubscription =
             this.minimaApiService.$balance.subscribe(function (res) {
-                _this.myTokens = res.filter(function (token) {
-                    return new decimal_js_1.Decimal(token.sendable).greaterThan(new decimal_js_1.Decimal(0));
-                });
+                if (res.length === 1) {
+                    _this.myTokens = res;
+                }
+                else {
+                    _this.myTokens = res.filter(function (token) {
+                        return new decimal_js_1.Decimal(token.sendable).greaterThan(new decimal_js_1.Decimal(0));
+                    });
+                }
             });
         this.$contactSubscription =
             this.contactService.$selected_address.subscribe(function (res) {

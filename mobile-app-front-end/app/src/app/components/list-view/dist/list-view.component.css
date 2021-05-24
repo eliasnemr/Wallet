@@ -44,7 +44,7 @@ ion-avatar {
   text-overflow: ellipsis;
   overflow: hidden;
   font-family: manrope-bold;
-  color: var(--ion-color-color);
+  color: var(--ion-color-tertiary);
 }
 
 ion-item:first-child {
@@ -54,8 +54,8 @@ ion-item:first-child {
 ion-item {
   opacity: 1;
   --background: var(--ion-color-token);
-  --background-activated: var(--ion-color-token)!important;
-  --background-activated-opacity: 0.2 !important;
+  --background-activated: var(--ion-color-token);
+  --background-activated-opacity: 0.2;
   --background-hover: var(--ion-color-item-hover);
   --background-hover-opacity: 1;
   background: var(--ion-color-token);
