@@ -30,10 +30,6 @@ ion-menu ion-list ion-item ion-icon {
   height: 34px;
   margin-right: 20px;
 }
-ion-menu ion-footer {
-  color: var(--ion-color-tertiary);
-  opacity: 0.6;
-}
 ion-menu ion-content ion-list {
   height: 100%;
   margin-top: 7px;
