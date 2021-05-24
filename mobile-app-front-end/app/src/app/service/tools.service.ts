@@ -9,6 +9,7 @@ import {Injectable} from '@angular/core';
 })
 /** */
 export class ToolsService {
+  toast: HTMLIonToastElement;
   /** */
   constructor(
     public toastController: ToastController,
@@ -29,6 +30,9 @@ export class ToolsService {
       msg: string,
       clr: string,
       posn: 'top' | 'bottom' | 'middle') {
+    try {
+      this.toast.dismiss();
+    } catch (e) {}
     const toast = await this.toastController.create({
       message: msg,
       position: posn,
@@ -48,6 +52,9 @@ export class ToolsService {
       msg: string,
       clr: string,
       posn: 'top' | 'bottom' | 'middle') {
+    try {
+      this.toast.dismiss();
+    } catch (e) {}
     const toast = await this.toastController.create({
       message: msg,
       position: posn,
