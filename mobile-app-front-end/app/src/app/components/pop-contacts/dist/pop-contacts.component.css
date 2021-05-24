@@ -1,0 +1,29 @@
+ion-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+ion-avatar ion-icon {
+  font-size: 1.5rem;
+}
+
+ion-list ion-list-header {
+  color: var(--ion-color-primary);
+  font-family: manrope-bold;
+  padding-left: 14px;
+}
+ion-list ion-item {
+  border-bottom: 1px solid var(--ion-color-item-border);
+  color: var(--ion-color-tertiary);
+  font-size: 12px;
+  cursor: pointer;
+}
+ion-list ion-item input {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+ion-list ion-item:hover {
+  --background: var(--ion-color-item-hover);
+}
