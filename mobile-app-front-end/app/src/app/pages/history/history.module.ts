@@ -12,13 +12,16 @@ const routes: Routes = [
   {
     path: '',
     component: HistoryPage,
-    children: [
-      {
-        path: 'view-txn',
-        loadChildren: () =>
-          import('./view-txn/view-txn.module').then(m => m.ViewTXNPageModule),
-      },
-    ],
+    pathMatch: 'full',
+  },
+  {
+    path: 'view-txn/:id',
+    loadChildren: () =>
+      import('./view-txn/view-txn.module').then((m) => m.ViewTXNPageModule),
+  },
+  {
+    path: 'view-txn',
+    component: HistoryPage,
   },
 ];
 

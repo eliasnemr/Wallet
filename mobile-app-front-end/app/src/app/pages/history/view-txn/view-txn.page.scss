@@ -88,3 +88,11 @@ ion-list-header ion-item {
 .active {
     color: var(--ion-color-primary)
 }
+.prompt {
+    color: var(--ion-color-tertiary);
+}
+.center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

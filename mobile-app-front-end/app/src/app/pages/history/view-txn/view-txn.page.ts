@@ -4,7 +4,7 @@ import {Subscription} from 'rxjs';
 import {ToolsService} from './../../../service/tools.service';
 import {MinimaApiService} from './../../../service/minima-api.service';
 import {ActivatedRoute} from '@angular/router';
-import {Component, OnInit} from '@angular/core';
+import {Component, NgZone, OnInit} from '@angular/core';
 
 declare const require: any; // quick fix just cause I'm using require for 1 pkg
 const moment = require('moment');
@@ -30,6 +30,7 @@ export class ViewTXNPage implements OnInit {
     public route: ActivatedRoute,
     private minimaApiService: MinimaApiService,
     private myTools: ToolsService,
+    private ngZone: NgZone,
   ) {
     this.transactionID = '';
     this.hide = false;
@@ -51,44 +52,55 @@ export class ViewTXNPage implements OnInit {
                     this.myTxn =
                     history.history.filter((txn: TimeCompleteTransaction) =>
                       txn.txpow.txpowid === this.transactionID) :
-                      console.log('Transaction not found.')
-                  );
-                  let MSG = '';
-                  ( this.myTxn[0].txpow.body.txn.state[1] &&
-                    this.myTxn[0].txpow.body.txn.state[1].data ?
-                    MSG = this.myTxn[0].txpow.body.txn.state[1].data :
-                    null
+                      console.log('Transaction with id:' +
+                      this.transactionID + 'not found..')
                   );
                   if (this.myTxn.length > 0) {
-                    this.relaytime =
-                    new Date(parseInt(this.myTxn[0].txpow.header.timemilli, 10))
-                        .toISOString();
-                    this.relaytime =
-                    moment(this.relaytime)
-                        .format('DD/MM/YYYY - hh:mm:ss a', true);
-                    (
-                      this.myTxn[0].txpow.body.txn.state &&
-                      this.myTxn[0].txpow.body.txn.state[0] &&
-                        this.myTxn[0].txpow.body.txn
-                            .state[0].data === '[01000100]' ?
-                          this.message = MSG.substring(1, MSG.length - 1 ) :
-                          null
+                    let MSG = '';
+                    ( this.myTxn[0].txpow.body.txn.state[1] &&
+                      this.myTxn[0].txpow.body.txn.state[1].data ?
+                      MSG = this.myTxn[0].txpow.body.txn.state[1].data :
+                      null
                     );
-                    (
-                      this.myTxn[0].txpow.body.txn.tokengen ?
-                      this.type = 'Token Creation.' :
-                      this.type = 'Value Transfer.'
-                    );
+                    if (this.myTxn.length > 0) {
+                      this.relaytime =
+                      new Date(
+                          parseInt(this.myTxn[0].txpow.header.timemilli, 10))
+                          .toISOString();
+                      this.relaytime =
+                      moment(this.relaytime)
+                          .format('DD/MM/YYYY - hh:mm:ss a', true);
+                      (
+                        this.myTxn[0].txpow.body.txn.state &&
+                        this.myTxn[0].txpow.body.txn.state[0] &&
+                          this.myTxn[0].txpow.body.txn
+                              .state[0].data === '[01000100]' ?
+                            this.message = MSG.substring(1, MSG.length - 1 ) :
+                            null
+                      );
+                      (
+                        this.myTxn[0].txpow.body.txn.tokengen ?
+                        this.type = 'Token Creation.' :
+                        this.type = 'Value Transfer.'
+                      );
+                    } else {
+                      console.log('Your transaction has not been found.');
+                      this.prompt = 'Your transaction does not exist.';
+                    }
+                  } else {
+                    console.log('No transaction found.');
                   }
                 });
           // console.log(this.message);
           // check & see if subscription worked
-          if (this.$subscription.closed) {
+          if (this.$subscription.closed && this.myTxn.length > 0) {
             this.prompt = '';
           } else {
             this.prompt = 'No transaction details found.';
           }
         }
+      } else {
+        this.prompt = 'History failed to load.  Please try again.';
       }
     });
   }

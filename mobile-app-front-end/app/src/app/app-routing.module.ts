@@ -14,8 +14,6 @@ const routes: Routes = [
   { path: 'create-token', loadChildren: () => import('./pages/create-token/create-token.module').then(m => m.CreateTokenPageModule) },
   { path: 'community', loadChildren: () => import('./pages/community/community.module').then(m => m.CommunityPageModule) },
   { path: 'history', loadChildren: () => import('./pages/history/history.module').then(m => m.HistoryPageModule) },
-  { path: 'view-txn', loadChildren: () => import('./pages/history/view-txn/view-txn.module').then(m => m.ViewTXNPageModule) },
-  { path: 'view-txn/:id', loadChildren: () => import('./pages/history/view-txn/view-txn.module').then(m => m.ViewTXNPageModule) },
   { path: 'view-tokens', loadChildren: () => import('./pages/balance/view-tokens/view-tokens.module').then(m => m.ViewTokensPageModule) },
   { path: 'view-tokens/:id', loadChildren: () => import('./pages/balance/view-tokens/view-tokens.module')
     .then(m => m.ViewTokensPageModule) },
