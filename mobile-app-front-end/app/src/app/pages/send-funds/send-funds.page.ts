@@ -206,7 +206,6 @@ export class SendFundsPage implements OnInit {
       }
     }
   }
-
   /** get token selected, or set Minima as default */
   getTokenSelected() {
     this.route.queryParamMap.subscribe((res: any) => {
@@ -216,27 +215,9 @@ export class SendFundsPage implements OnInit {
       }
     });
   }
-
   /** listen to selection change */
   onItemSelection(ev: any) {
     this.itemSelected = this.sendForm.get('tokenid').value;
-  }
-  /** Scan QR */
-  scanQR() {
-    this.isWebCameraOpen = true;
-    // console.log('Camera turned on, ' + this.isWebCameraOpen);
-    const stream = navigator.mediaDevices.getUserMedia({
-      video: {facingMode: 'environment'},
-    });
-
-    this.videoElem.nativeElement.src = stream;
-    this.videoElem.nativeElement
-        .setAttribute('playsinline', true); // iOS - do not open fullscreen
-    this.videoElem.nativeElement.play();
-  }
-  /** */
-  stopScanning() {
-    this.isWebCameraOpen = false;
   }
 }
 

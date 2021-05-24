@@ -254,22 +254,6 @@ var SendFundsPage = /** @class */ (function () {
     SendFundsPage.prototype.onItemSelection = function (ev) {
         this.itemSelected = this.sendForm.get('tokenid').value;
     };
-    /** Scan QR */
-    SendFundsPage.prototype.scanQR = function () {
-        this.isWebCameraOpen = true;
-        // console.log('Camera turned on, ' + this.isWebCameraOpen);
-        var stream = navigator.mediaDevices.getUserMedia({
-            video: { facingMode: 'environment' }
-        });
-        this.videoElem.nativeElement.src = stream;
-        this.videoElem.nativeElement
-            .setAttribute('playsinline', true); // iOS - do not open fullscreen
-        this.videoElem.nativeElement.play();
-    };
-    /** */
-    SendFundsPage.prototype.stopScanning = function () {
-        this.isWebCameraOpen = false;
-    };
     __decorate([
         core_1.ViewChild('submitBtn', { static: false })
     ], SendFundsPage.prototype, "submitBtn");

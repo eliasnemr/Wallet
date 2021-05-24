@@ -46,3 +46,7 @@ input[type=number]::-webkit-outer-spin-button {
   appearance: none;
   margin: 0;
 }
+
+.bla .select-interface-option {
+  --color: red;
+}

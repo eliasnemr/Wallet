@@ -44,46 +44,54 @@
       <ion-item class="no-hover no-ripple ion-no-padding" lines="none">
         <ion-label position="floating">Token</ion-label>
         <ion-select
-          placeholder="Select A Token"
+          interface="action-sheet"
           formControlName="tokenid"    
-          interface = 'ion-action-sheet'
           [(ngModel)]='itemSelected'
+          (ionChange)="onItemSelection($event)"
+          (click)="presentInterface()"
           class="no-hover no-ripple input"
-          (ionChange)="onItemSelection($event)"> 
+          placeholder="Select A Token"
+          > 
         <ion-select-option *ngFor="let token of myTokens" [value]="token.tokenid" class="token-option">
-          {{ token.token + "&mdash;"+ token.tokenid }}
+          <span *ngIf="token.tokenid !== '0x00'">
+            {{ token.token + " &mdash; "+ token.tokenid.substring(0, 5)+'...'+token.tokenid.substring(token.tokenid.length-3, token.tokenid.length) }}
+          </span>
+          <span *ngIf="token.tokenid === '0x00'">
+            {{ token.token + " &mdash; "+ token.tokenid.substring(0, 5) }}
+          </span>
         </ion-select-option>
       </ion-select>
       </ion-item>
       <ion-item class="no-hover no-ripple ion-no-padding"  lines="none">
         <ion-label class="medium-text" position="stacked">
-          <ion-icon 
+           Address</ion-label>
+        <div class="has">
+          <ion-input #address class="medium-text input" formControlName="address" clearInput="true" placeholder="Enter a valid address">
+            <ion-icon 
           class="input-error-icon" 
           *ngIf="addressFormItem.invalid && addressFormItem.touched" 
-          name="alert-circle"></ion-icon> 
-          Address</ion-label>
-        <!-- <span (click)="scanQR()" id="qrIcon"> <ion-icon alt="qrCode" src="assets/scan-outline.svg"></ion-icon></span> -->
-        <div class="has">
-          <ion-input #address class="medium-text input" formControlName="address" clearInput="true" placeholder="Enter a valid address"></ion-input>
+          name="alert-circle"></ion-icon>
+          </ion-input>
           <button type="button" (click)="presentContactModal()" class="clear"><ion-icon style="font-size: 16px; color: var(--ion-color-primary)" name="person-add-outline"></ion-icon></button>
         </div>
       </ion-item>
       <ion-note *ngIf="addressFormItem.invalid && addressFormItem.touched" class="error-message">
         <div> Invalid address format!</div> 
-        <div> An address must begin with 0x or Mx.</div> 
+        <div> Must begin with 0x or Mx.</div> 
       </ion-note>
       <ion-item class="no-hover no-ripple ion-no-padding"  lines="none">
         <ion-label class="medium-text" position="stacked">
+          Amount</ion-label>
+        <ion-input #amount type="number" formControlName="amount" class="input" placeholder="Enter token amount">
           <ion-icon 
           class="input-error-icon" 
           *ngIf="amountFormItem.invalid && amountFormItem.touched" 
           name="alert-circle"></ion-icon>
-          Amount</ion-label>
-        <ion-input #amount type="number" formControlName="amount" class="input" placeholder="Enter token amount"></ion-input>
+        </ion-input>
       </ion-item>
       <ion-note *ngIf="amountFormItem.invalid && amountFormItem.touched" class="error-message">
         <div> Amount required!</div>
-        <div> Amount must be numeric and greater than zero.</div> 
+        <div> Must be numeric and greater than zero.</div> 
       </ion-note>
 
       <ion-item class="no-hover no-ripple ion-no-padding" lines="none">
