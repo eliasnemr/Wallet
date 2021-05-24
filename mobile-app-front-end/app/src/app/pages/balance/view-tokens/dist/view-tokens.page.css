@@ -132,3 +132,14 @@ ion-button.validate-btn {
 ion-label.description p {
   white-space: normal;
 }
+
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.prompt {
+  color: var(--ion-color-tertiary);
+  padding: 5px;
+}

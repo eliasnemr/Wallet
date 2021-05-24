@@ -19,12 +19,11 @@ var routes = [
     {
         path: '',
         component: balance_page_1.BalancePage,
-        children: [
-            {
-                path: 'view-txn',
-                loadChildren: function () { return Promise.resolve().then(function () { return require('./view-tokens/view-tokens.module'); }).then(function (m) { return m.ViewTokensPageModule; }); }
-            },
-        ]
+        pathMatch: 'full'
+    },
+    {
+        path: 'view-tokens/:id',
+        loadChildren: function () { return Promise.resolve().then(function () { return require('./view-tokens/view-tokens.module'); }).then(function (m) { return m.ViewTokensPageModule; }); }
     },
 ];
 var BalancePageModule = /** @class */ (function () {
