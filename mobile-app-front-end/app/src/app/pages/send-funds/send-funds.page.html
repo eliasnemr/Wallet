@@ -27,19 +27,8 @@
     </ion-row>
   </ion-grid>
 
-  <ion-card class="webscan-canvas" *ngIf="isWebCameraOpen">
-    <ion-card-header class="medium-text">
-    Scan Your Minima QR address now...
-    <ion-progress-bar type="indeterminate" reversed="true"></ion-progress-bar>
-    </ion-card-header>
-    <video height="240" #videoElem></video>
-    <hr>
-    <ion-button block="full" (click)="scanQR()">Stop Scanning</ion-button>
-    <hr>
-  </ion-card>
 
-
-  <form *ngIf="!isWebCameraOpen && myTokens.length > 0" [formGroup]="sendForm" id="sendForm" (ngSubmit)="sendFunds()">
+  <form *ngIf="myTokens.length > 0" [formGroup]="sendForm" id="sendForm" (ngSubmit)="sendFunds()">
     <ion-list class="ion-no-padding">
       <ion-item class="no-hover no-ripple ion-no-padding" lines="none">
         <ion-label position="floating">Token</ion-label>
@@ -48,7 +37,6 @@
           formControlName="tokenid"    
           [(ngModel)]='itemSelected'
           (ionChange)="onItemSelection($event)"
-          (click)="presentInterface()"
           class="no-hover no-ripple input"
           placeholder="Select A Token"
           > 

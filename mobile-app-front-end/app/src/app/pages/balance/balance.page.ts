@@ -28,7 +28,7 @@ export class BalancePage implements OnInit {
   tokenSpoof: Token[] = [];
 
   constructor(
-    private menu: MenuController,
+    public menu: MenuController,
     private minimaApiService: MinimaApiService,
     private myTools: ToolsService,
     private route: Router,

@@ -2,7 +2,9 @@ import { Subscription } from 'rxjs';
 import { ToolsService } from './../../service/tools.service';
 import { PopContactsComponent } from './../../components/pop-contacts/pop-contacts.component';
 import { MinimaApiService } from './../../service/minima-api.service';
-import { ContactsModalPage } from './../../components/contacts-modal/contacts-modal.page';
+import {
+  ContactsModalPage,
+} from './../../components/contacts-modal/contacts-modal.page';
 import {
   AlertController,
   ModalController,
@@ -32,7 +34,7 @@ export class ContactsPage implements OnInit {
     public alertController: AlertController,
     private contactService: ContactService,
     private api: MinimaApiService,
-    private myTools: ToolsService) { }
+    public myTools: ToolsService) { }
 
   ngOnInit() { }
 

@@ -10,10 +10,18 @@ import {Clipboard} from '@ionic-native/clipboard/ngx';
 import {QRScanner} from '@ionic-native/qr-scanner/ngx';
 import {LocationStrategy, HashLocationStrategy} from '@angular/common';
 import {PopTermComponent} from './components/pop-term/pop-term.component';
-import {ContactsModalPage} from './components/contacts-modal/contacts-modal.page';
-import {PopContactsComponent} from './components/pop-contacts/pop-contacts.component';
-import {ContactsViewModalComponent} from './components/contacts-view-modal/contacts-view-modal.component';
-import {UploadFileModalComponent} from './components/upload-file-modal/upload-file-modal.component';
+import {
+  ContactsModalPage,
+} from './components/contacts-modal/contacts-modal.page';
+import {
+  PopContactsComponent,
+} from './components/pop-contacts/pop-contacts.component';
+import {
+  ContactsViewModalComponent,
+} from './components/contacts-view-modal/contacts-view-modal.component';
+import {
+  UploadFileModalComponent,
+} from './components/upload-file-modal/upload-file-modal.component';
 import {OverlayComponent} from './components/overlay/overlay.component';
 
 /**
