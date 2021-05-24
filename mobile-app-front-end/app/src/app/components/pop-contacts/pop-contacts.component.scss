@@ -8,10 +8,13 @@ ion-avatar {
 }
 ion-list {
   ion-list-header {
+    color: var(--ion-color-primary);
     font-family: manrope-bold;
     padding-left: 14px;
   }
   ion-item {
+    border-bottom: 1px solid var(--ion-color-item-border);
+    color: var(--ion-color-tertiary);
     font-size: 12px;
     cursor: pointer;
     input {

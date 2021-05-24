@@ -64,7 +64,7 @@ ion-content {
   }
 }
 ion-list.contactsList {
-  overflow-y: scroll;
+  // overflow-y: scroll;
   max-height: 270px;
 }
 ion-item.contactItem {
@@ -72,10 +72,11 @@ ion-item.contactItem {
     margin-left: 27px;
   }
   ion-label h3 {
+    color: var(--ion-color-tertiary);
     font-family: manrope-bold;
   }
   ion-label p {
-    color: var(--ion-color-color);
+    color: var(--ion-color-tertiary);
     opacity: 0.7;
   }
   --border-color: var(--ion-color-item-border);
