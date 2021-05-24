@@ -8,13 +8,15 @@ ion-avatar ion-icon {
 }
 
 ion-list ion-list-header {
+  background-color: #F9F9FE;
   color: var(--ion-color-primary);
   font-family: manrope-bold;
   padding-left: 14px;
 }
 ion-list ion-item {
+  --background: #F9F9FE;
   border-bottom: 1px solid var(--ion-color-item-border);
-  color: var(--ion-color-tertiary);
+  color: #001C32;
   font-size: 12px;
   cursor: pointer;
 }
@@ -25,5 +27,5 @@ ion-list ion-item input {
   opacity: 0;
 }
 ion-list ion-item:hover {
-  --background: var(--ion-color-item-hover);
+  --background: #F0F0FA;
 }
