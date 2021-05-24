@@ -8,8 +8,10 @@
       <ion-toolbar>
         <ion-title>
           <ion-item lines="none" class="ion-no-padding">
-            <img *ngIf="toggleValue" src="assets/minima-logo-landscape-dark.svg">
-            <img *ngIf="!toggleValue" src="assets/minima-logo-color.svg">
+            <picture>
+              <source srcset="assets/minima-logo-landscape-dark.svg" media="(prefers-color-scheme: dark)">
+              <img src="assets/minima-logo-color.svg">
+            </picture>
           </ion-item>
         </ion-title>     
       </ion-toolbar>
