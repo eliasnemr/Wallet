@@ -138,3 +138,14 @@ ion-label.description {
         white-space: normal;
     }
 }
+
+.center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.prompt {
+    color: var(--ion-color-tertiary);
+    padding: 5px;
+}

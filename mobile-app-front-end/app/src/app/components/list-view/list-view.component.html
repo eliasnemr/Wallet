@@ -2,7 +2,7 @@
     <ion-item 
     lines="none" 
     *ngFor="let token of tokenArr | async" 
-    routerLink="/view-tokens/{{ token.tokenid }}">
+    [routerLink]="['view-tokens/' +token.tokenid]">
       <ng-container *ngIf="token.token !== 'ERROR_UNKNOWN_TOKEN'">
         <ion-avatar slot="start">
           <img 

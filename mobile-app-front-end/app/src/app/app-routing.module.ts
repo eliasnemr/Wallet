@@ -36,12 +36,6 @@ const routes: Routes = [
   { path: 'history', loadChildren: () => 
     import('./pages/history/history.module')
         .then((m) => m.HistoryPageModule) },
-  { path: 'view-tokens', loadChildren: () =>
-    import('./pages/balance/view-tokens/view-tokens.module')
-        .then((m) => m.ViewTokensPageModule) },
-  { path: 'view-tokens/:id', loadChildren: () => 
-    import('./pages/balance/view-tokens/view-tokens.module')
-        .then((m) => m.ViewTokensPageModule) },
   { path: 'contacts-modal', loadChildren: () =>
     import('./components/contacts-modal/contacts-modal.module')
         .then((m) => m.ContactsModalPageModule) },
