@@ -63,7 +63,6 @@ var ViewTXNPage = /** @class */ (function () {
                                         _this.type = 'Value Transfer.');
                                 }
                                 else {
-                                    console.log('Your transaction has not been found.');
                                     _this.prompt = 'Your transaction does not exist.';
                                 }
                             }
