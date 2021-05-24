@@ -5,38 +5,38 @@
 
 #addButton {
   font-size: 2rem;
+  color: var(--ion-color-tertiary);
   cursor: pointer;
 }
 
+ion-list.tools {
+  padding: 0;
+  padding-top: 7px;
+}
+
+ion-list.tools ion-item {
+  --padding-start: 27px;
+  --inner-padding-end: 27px;
+}
+
 ion-item.contactItem {
-  --border-color: var(--ion-color-item-border);
+  padding: 0;
+  --padding-start: 27px;
+  --inner-padding-end: 27px;
 }
 
 ion-item.contactItem:hover {
   --background: var(--ion-color-item-hover);
 }
 
-ion-list.tools {
-  margin-left: 2px;
-  margin-right: 9px;
-}
-
-ion-list.contacts {
-  margin-left: 10px;
-  margin-right: 28px;
-}
-
-ion-list.contacts ion-item {
-  margin-left: 15px;
-  margin-right: 5px;
-}
-
 ion-searchbar {
+  padding: 0;
   --box-shadow: 0;
   --icon-color: #001C32;
-  --background: #fff;
+  --background: var(--ion-color-inputs);
   --border: 1px solid #f0f0fa;
   color: #001C32;
+  font-size: 12px;
 }
 
 ion-item-option div.block {
@@ -56,6 +56,13 @@ ion-icon.trashIcon {
   cursor: pointer;
 }
 
+ion-icon.export {
+  cursor: pointer;
+  color: var(--ion-color-tertiary);
+  position: absolute;
+  right: 0;
+}
+
 ion-icon.trashIcon:hover {
   color: var(--ion-color-secondary);
 }
@@ -70,9 +77,10 @@ ion-icon.trashIcon:hover {
 
 ion-label h3 {
   font-family: manrope-bold;
+  color: var(--ion-color-tertiary);
 }
 
 ion-label p {
-  color: var(--ion-color-color);
+  color: var(--ion-color-tertiary);
   opacity: 0.7;
 }

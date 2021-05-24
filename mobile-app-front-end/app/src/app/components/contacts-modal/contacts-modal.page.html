@@ -22,53 +22,74 @@
     </ion-avatar>
   </div>
 
-    <form [formGroup]="contactForm" id="contactForm" (ngSubmit)="addContact()">
+    <form 
+    [formGroup]="contactForm" 
+    id="contactForm" 
+    (ngSubmit)="addContact()">
     <ion-list>
       <ion-item class="no-ripple ion-no-padding" lines="none">
         <ion-label position="stacked">
+          Name <span class="optional">(optional)</span></ion-label>
+        <ion-input 
+        name="name" 
+        placeholder="anonymous" 
+        formControlName="NAME">
           <ion-icon 
           class="input-error-icon" 
           *ngIf="name.invalid && name.touched" 
           name="alert-circle"></ion-icon>
-          Name <span style="font-family: manrope-light; color:var(--ion-color-optional)">(optional)</span></ion-label>
-        <ion-input name="name" placeholder="anonymous" formControlName="NAME"></ion-input>
+        </ion-input>
       </ion-item>
       <ion-item class="error ion-no-padding" lines="none" *ngIf="name.invalid && name.touched">
         <ion-note class="error-message">
           <div> Invalid name format!</div>
-          <div> A name must be alphanumeric and can only contain a dot or underscore.</div> 
+          <div> Must be alphanumeric and may contain an underscore or a fullstop.</div> 
         </ion-note>
       </ion-item>
       <ion-item class="no-ripple ion-no-padding" lines="none">
         <ion-label position="stacked">
+          Address</ion-label>
+        <ion-input 
+        name="address" 
+        formControlName="ADDRESS"
+        placeholder="Enter a valid wallet address" 
+        (ionChange)="changeIcon($event)" 
+        >
           <ion-icon 
           class="input-error-icon" 
           *ngIf="address.invalid && address.touched" 
           name="alert-circle"></ion-icon>
-          Address</ion-label>
-        <ion-input (ionChange)="changeIcon($event)" name="address" placeholder="Enter a valid wallet address" formControlName="ADDRESS"></ion-input>
+        </ion-input>
       </ion-item>
       <ion-note *ngIf="address.invalid && address.touched" class="error-message">
         <div> A wallet address is required.</div>
-        <div> An address must begin with 0x or Mx.</div> 
+        <div> Must begin with 0x or Mx.</div> 
       </ion-note>
       
       <ion-item class="no-ripple ion-no-padding" lines="none">
-        <ion-label position="stacked">Description <span style="font-family: manrope-light; color:var(--ion-color-optional)">(optional)</span></ion-label>
-        <ion-input name="description" placeholder="Enter a description" formControlName="DESCRIPTION"></ion-input>
+        <ion-label position="stacked">
+          Description 
+          <span class="optional">(optional)</span></ion-label>
+        <ion-input 
+        name="description" 
+        placeholder="Enter a description" 
+        formControlName="DESCRIPTION"></ion-input>
       </ion-item>
       <ion-item class="no-ripple ion-no-padding" lines="none">
-        <ion-label position="stacked">
-          <ion-icon 
-          class="input-error-icon" 
-          *ngIf="avatar.invalid && avatar.touched" 
-          name="alert-circle"></ion-icon>  
-          Avatar <span style="font-family: manrope-light; color:var(--ion-color-optional)">(optional)</span></ion-label>
-        <ion-input name="avatar" placeholder="Enter a custom avatar URL" formControlName="AVATAR"></ion-input>
+        <ion-label position="stacked">  
+          Avatar <span class="optional">(optional)</span></ion-label>
+        <ion-input 
+        name="avatar" 
+        placeholder="Enter a custom avatar URL" 
+        formControlName="AVATAR">
+        <ion-icon 
+        class="input-error-icon" 
+        *ngIf="avatar.invalid && avatar.touched" 
+        name="alert-circle"></ion-icon></ion-input>
       </ion-item>
       <ion-note *ngIf="avatar.invalid && avatar.touched" class="error-message">
         <div> Invalid avatar icon URL!</div>
-        <div> An icon URL must consist of maximum 255 characters with either ".jpg", ".png" , ".gif" or ".svg" to be valid.</div> 
+        <div>Maximum length of 255 characters. URL must end in .jpg, .png, .gif or .svg to be valid.</div> 
       </ion-note>
 
       <ion-item class="ion-no-padding" lines="none">

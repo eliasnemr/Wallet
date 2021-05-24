@@ -30,8 +30,8 @@ ion-item ion-label {
   word-break: normal;
   font-size: 20px;
   font-family: manrope-bold;
-  color: var(--ion-color-color);
-  margin-bottom: 7px;
+  color: var(--ion-color-tertiary);
+  margin-bottom: 10px;
 }
 button.footer {
   width: 100%;
@@ -94,4 +94,9 @@ ion-title {
   ion-item {
     --inner-padding-end: 0;
   }
+}
+
+.optional {
+  font-family: manrope-light; 
+  color: var(--ion-color-tertiary);
 }
