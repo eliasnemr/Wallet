@@ -109,17 +109,6 @@ var ContactsPage = /** @class */ (function () {
             });
         }
     };
-    ContactsPage.prototype.giveMe50 = function () {
-        var _this = this;
-        this.api.giveMe50().then(function (res) {
-            if (res.status === true) {
-                _this.myTools.presentAlert('Gimme50', 'Successful', 'Status');
-            }
-            else {
-                _this.myTools.presentAlert('Gimme50', res.message, 'Status');
-            }
-        });
-    };
     ContactsPage.prototype.presentAlert = function (addr) {
         return __awaiter(this, void 0, void 0, function () {
             var alert;
@@ -128,6 +117,7 @@ var ContactsPage = /** @class */ (function () {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.alertController.create({
                             header: 'Delete Contact',
+                            cssClass: 'alert',
                             subHeader: 'Once this contact is deleted, you can\'t revert!',
                             message: 'Are you sure?',
                             buttons: [
