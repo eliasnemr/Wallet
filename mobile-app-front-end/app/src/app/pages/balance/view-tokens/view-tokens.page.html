@@ -22,6 +22,11 @@
 </ion-header>
 
 <ion-content class="page-content">
+  <div *ngIf="prompt && prompt.length > 0" class="center prompt">
+    {{ prompt }}
+  </div>
+
+
   <ion-list *ngFor="let token of $token" lines="none">
     <ion-item *ngIf="expand" class="ion-no-padding ion-no-margin nft-large">
       <div (click)="expandImage()">

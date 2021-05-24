@@ -15,7 +15,10 @@ var ViewTokensPage = /** @class */ (function () {
         this._minimaApiService = _minimaApiService;
         this.myTools = myTools;
         this.expand = false;
-        (this.route.snapshot.paramMap.get('id') ? this.urlTokenid = this.route.snapshot.paramMap.get('id') : this.urlTokenid = '');
+        (this.route.snapshot.paramMap.get('id') ?
+            this.urlTokenid = this.route.snapshot.paramMap.get('id') :
+            this.urlTokenid = '');
+        this.prompt = '';
     }
     ViewTokensPage.prototype.ngOnInit = function () { };
     ViewTokensPage.prototype.ionViewWillEnter = function () {
@@ -24,31 +27,32 @@ var ViewTokensPage = /** @class */ (function () {
             this.$subscription = this._minimaApiService.$balance
                 .subscribe(function (tokens) {
                 (tokens ?
-                    _this.$token = tokens.filter(function (token) { return token.tokenid === _this.urlTokenid; })
-                    :
-                        console.log('Token balance not found..'));
+                    _this.$token =
+                        tokens.filter(function (token) {
+                            return token.tokenid === _this.urlTokenid;
+                        }) :
+                    console.log('Your tokens have not been found.'));
                 if (_this.$token.length > 0 && _this.$token[0].tokenid) {
                     // Some formatting...
                     (_this.$token[0].tokenid === '0x00' ?
-                        _this.$token[0].description = 'Minima\'s Official Token.'
-                        :
-                            null);
-                    // (this.$token[0].tokenid !== '0x00' && this.$token[0].icon.length === 0 || this.$token[0].tokenid === '0x00' ?
-                    //   // this.$token[0].icon = 'assets/minimaIcon.svg' 
-                    //   console.log(this.$token[0].icon)
-                    //   :
-                    //   null
-                    // );
+                        _this.$token[0].description = 'Minima\'s Official Token.' :
+                        null);
                 }
             });
         }
         else {
+            this.prompt = 'Token ID not found, please try again later';
         }
         if (this.$subscription.closed) {
             // subscribed and works..
+            this.prompt = 'Token subscription failed.';
         }
         else {
-            // didnt subscribe to anything..
+            // didnt subscribe to anything or didnt find anything..
+            this.prompt = '';
+            if (this.$token.length === 0) {
+                this.prompt = 'Token not found.';
+            }
         }
     };
     ViewTokensPage.prototype.ionViewWillLeave = function () {
@@ -63,7 +67,8 @@ var ViewTokensPage = /** @class */ (function () {
                 _this.myTools.presentToast('This proof is valid.', 'success', 'bottom');
             }
             else {
-                _this.myTools.presentToast('Proof mismatch - not a valid proof', 'danger', 'bottom');
+                _this.myTools
+                    .presentToast('Proof mismatch - not a valid proof', 'danger', 'bottom');
             }
         });
     };
@@ -73,22 +78,10 @@ var ViewTokensPage = /** @class */ (function () {
     ViewTokensPage.prototype.copyToClipPWA = function (text) {
         this.myTools.copy(text);
     };
-    ViewTokensPage.prototype.giveMe50 = function () {
-        var _this = this;
-        this._minimaApiService.giveMe50().then(function (res) {
-            if (res.status === true) {
-                _this.myTools.presentAlert('Gimme50', 'Successful', 'Status');
-            }
-            else {
-                _this.myTools.presentAlert('Gimme50', res.message, 'Status');
-            }
-        });
-    };
     ViewTokensPage.prototype.expandImage = function () {
         (this.expand ?
-            this.expand = false
-            :
-                this.expand = true);
+            this.expand = false :
+            this.expand = true);
     };
     ViewTokensPage = __decorate([
         core_1.Component({

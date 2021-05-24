@@ -44,12 +44,6 @@ var routes = [
     { path: 'history', loadChildren: function () {
             return Promise.resolve().then(function () { return require('./pages/history/history.module'); }).then(function (m) { return m.HistoryPageModule; });
         } },
-    { path: 'view-tokens', loadChildren: function () {
-            return Promise.resolve().then(function () { return require('./pages/balance/view-tokens/view-tokens.module'); }).then(function (m) { return m.ViewTokensPageModule; });
-        } },
-    { path: 'view-tokens/:id', loadChildren: function () {
-            return Promise.resolve().then(function () { return require('./pages/balance/view-tokens/view-tokens.module'); }).then(function (m) { return m.ViewTokensPageModule; });
-        } },
     { path: 'contacts-modal', loadChildren: function () {
             return Promise.resolve().then(function () { return require('./components/contacts-modal/contacts-modal.module'); }).then(function (m) { return m.ContactsModalPageModule; });
         } },
