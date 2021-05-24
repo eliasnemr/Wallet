@@ -121,3 +121,7 @@ div.qr-box:hover {
 .mt-18 {
   margin-top: 15px;
 }
+
+.prompt {
+  color: var(--ion-color-tertiary);
+}
