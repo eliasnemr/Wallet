@@ -69,6 +69,7 @@ ion-list ion-item div.transaction-type div.amount p {
   overflow: hidden;
   font-size: 12px;
   opacity: 0.3;
+  color: var(--ion-color-tertiary);
 }
 ion-list ion-item div.date {
   display: flex;
