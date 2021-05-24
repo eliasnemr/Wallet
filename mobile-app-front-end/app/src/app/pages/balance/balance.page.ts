@@ -15,47 +15,41 @@ import {Token} from 'minima';
   templateUrl: './balance.page.html',
   styleUrls: ['./balance.page.scss'],
 })
-
 export class BalancePage implements OnInit {
-  $balance: Subject<Token[]>; 
+  $balance: Subject<Token[]>;
   // SUBSCRIPTION
   $balanceSubscription: Subscription;
   // REFERENCE TO GIMME50BTN
   @ViewChild('gimme50Btn', {static: false}) gimme50Btn: IonButton;
 
   avatar: any;
-  
+
   tokenArr: Token[] = [];
   tokenSpoof: Token[] = [];
 
   constructor(
     private menu: MenuController,
-    private _minimaApiService: MinimaApiService,
+    private minimaApiService: MinimaApiService,
     private myTools: ToolsService,
     private route: Router,
     public popoverController: PopoverController) {}
 
   ionViewWillEnter() {
-    this.$balanceSubscription = this._minimaApiService.$balance.subscribe((res: Token[]) => {
-      this.$balance = this._minimaApiService.$balance;
+    this.$balanceSubscription =
+    this.minimaApiService.$balance.subscribe((res: Token[]) => {
+      this.$balance = this.minimaApiService.$balance;
     });
   }
 
   ionViewWillLeave() {
-
     this.$balanceSubscription.unsubscribe();
-  
   }
 
   ngOnInit() {}
 
-  openMenu() {
-    this.menu.open();
-  }
-
   giveMe50() {
-    this._minimaApiService.giveMe50().then((res: any) => {
-      if(res.status === true) {
+    this.minimaApiService.giveMe50().then((res: any) => {
+      if (res.status === true) {
         this.myTools.presentAlert('Gimme50', 'Successful', 'Status');
       } else {
         this.myTools.presentAlert('Gimme50', res.message, 'Status');
@@ -70,7 +64,7 @@ export class BalancePage implements OnInit {
 
       // App logic to determine if all data is loaded
       // and disable the infinite scroll
-      if (this.tokenArr.length == 5) {
+      if (this.tokenArr.length === 5) {
         event.target.disabled = true;
       }
     }, 500);
@@ -85,15 +79,12 @@ export class BalancePage implements OnInit {
   }
 
   public sendTokenOver(slidingItem: HTMLIonItemSlidingElement, id: string) {
-
     slidingItem.close();
 
     this.route.navigate(['/send-funds/' + id]);
-
   }
   // check if it's a token, or a Mini
   instanceOfToken(data: any) {
     return 'script' in data;
   }
-
 }

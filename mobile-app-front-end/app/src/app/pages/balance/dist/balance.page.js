@@ -11,9 +11,9 @@ var core_1 = require("@angular/core");
 var SparkMD5 = require("spark-md5");
 // declare var Minima: any;
 var BalancePage = /** @class */ (function () {
-    function BalancePage(menu, _minimaApiService, myTools, route, popoverController) {
+    function BalancePage(menu, minimaApiService, myTools, route, popoverController) {
         this.menu = menu;
-        this._minimaApiService = _minimaApiService;
+        this.minimaApiService = minimaApiService;
         this.myTools = myTools;
         this.route = route;
         this.popoverController = popoverController;
@@ -22,20 +22,18 @@ var BalancePage = /** @class */ (function () {
     }
     BalancePage.prototype.ionViewWillEnter = function () {
         var _this = this;
-        this.$balanceSubscription = this._minimaApiService.$balance.subscribe(function (res) {
-            _this.$balance = _this._minimaApiService.$balance;
-        });
+        this.$balanceSubscription =
+            this.minimaApiService.$balance.subscribe(function (res) {
+                _this.$balance = _this.minimaApiService.$balance;
+            });
     };
     BalancePage.prototype.ionViewWillLeave = function () {
         this.$balanceSubscription.unsubscribe();
     };
     BalancePage.prototype.ngOnInit = function () { };
-    BalancePage.prototype.openMenu = function () {
-        this.menu.open();
-    };
     BalancePage.prototype.giveMe50 = function () {
         var _this = this;
-        this._minimaApiService.giveMe50().then(function (res) {
+        this.minimaApiService.giveMe50().then(function (res) {
             if (res.status === true) {
                 _this.myTools.presentAlert('Gimme50', 'Successful', 'Status');
             }
@@ -51,7 +49,7 @@ var BalancePage = /** @class */ (function () {
             event.target.complete();
             // App logic to determine if all data is loaded
             // and disable the infinite scroll
-            if (_this.tokenArr.length == 5) {
+            if (_this.tokenArr.length === 5) {
                 event.target.disabled = true;
             }
         }, 500);

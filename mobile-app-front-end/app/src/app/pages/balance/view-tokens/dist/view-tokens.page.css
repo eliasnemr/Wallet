@@ -29,7 +29,7 @@ ion-list {
 
 ion-list ion-item {
   --inner-padding-end: 0;
-  color: var(--ion-color-color);
+  color: var(--ion-color-tertiary);
   border: 1px solid var(--ion-color-item-border);
   --border-color: var(--ion-color-item-border);
   padding-right: 10px;

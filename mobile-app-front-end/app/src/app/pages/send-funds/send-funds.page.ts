@@ -74,8 +74,12 @@ export class SendFundsPage implements OnInit {
   ionViewWillEnter() {
     this.$balanceSubscription =
     this.minimaApiService.$balance.subscribe((res: Token[]) => {
-      this.myTokens = res.filter((token) =>
-        new Decimal(token.sendable).greaterThan(new Decimal(0)));
+      if (res.length === 1) {
+        this.myTokens = res;
+      } else {
+        this.myTokens = res.filter((token) =>
+          new Decimal(token.sendable).greaterThan(new Decimal(0)));
+      }
     });
 
     this.$contactSubscription =
