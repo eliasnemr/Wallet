@@ -47,6 +47,7 @@ ion-item-option div.block ion-icon {
 }
 ion-icon.trashIcon {
   cursor: pointer;
+  color: var(--ion-color-tertiary);
 }
 ion-icon.export {
   cursor: pointer;
@@ -64,11 +65,10 @@ ion-icon.trashIcon:hover {
   display: inline-flex !important;
   text-align: center !important;
 }
-ion-label h3 {
-  font-family: manrope-bold;
+ion-label {
   color: var(--ion-color-tertiary);
-}
-ion-label p {
-  color: var(--ion-color-tertiary);
-  opacity: 0.7;
+  h3 {
+    font-family: manrope-bold;
+    color: var(--ion-color-tertiary);
+  }
 }

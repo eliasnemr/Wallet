@@ -50,3 +50,7 @@ input[type=number]::-webkit-outer-spin-button {
 .bla .select-interface-option {
   --color: red;
 }
+
+.my-alert {
+  color: red;
+}

@@ -3,13 +3,12 @@ ion-list#input-details, ion-list#output-details {
   padding: 0;
 }
 
-div#inputs, div#outputs {
-  margin-left: 11px;
-  margin-right: 18px;
-}
-
 div#inputs ion-item, div#outputs ion-item {
   border-bottom: 1px solid var(--ion-color-item-border);
+}
+
+ion-list ion-item {
+  --inner-padding-end: 0;
 }
 
 ion-list#input-details ion-item:nth-child(0), ion-list#output-details ion-item:nth-child(0) {
@@ -21,9 +20,7 @@ ion-list#input-details ion-list-header, ion-list#output-details ion-list-header 
   padding-left: 0;
 }
 ion-list#input-details ion-list-header ion-item, ion-list#output-details ion-list-header ion-item {
-  margin-left: 11px;
   width: 100%;
-  margin-right: 17px !important;
   border-bottom: 1px solid var(--ion-color-item-border);
 }
 
@@ -43,8 +40,6 @@ ion-list#transaction-details ion-item ion-label {
 
 ion-list#transaction-details ion-item {
   border-bottom: 1px solid var(--ion-color-item-border);
-  margin-left: 10px;
-  margin-right: 17px;
 }
 
 ion-item#last-child {
@@ -58,14 +53,12 @@ ion-item#last-child {
   font-size: 0.8rem;
 }
 
-ion-list-header ion-label h6 {
+ion-list-header ion-item {
+  --border-color: var(--ion-color-ruler);
+  --border-width: 0px 0px 1px 0px;
+  --inner-padding-end: 0;
   font-size: 16px;
   font-family: manrope-bold;
-}
-
-ion-list-header ion-label p {
-  font-size: 16px;
-  font-family: manrope-medium;
 }
 
 .title {
@@ -104,7 +97,21 @@ ion-list-header ion-label p {
   width: 15px;
 }
 
-.completed p {
+.completed {
   font-size: 16px;
-  color: rgba(75, 222, 131, 0.7);
+  color: var(--ion-color-primary);
+}
+
+.active {
+  color: var(--ion-color-primary);
+}
+
+.prompt {
+  color: var(--ion-color-tertiary);
+}
+
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

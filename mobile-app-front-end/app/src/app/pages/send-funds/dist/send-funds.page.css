@@ -66,10 +66,11 @@ ion-input {
 
 .length {
   display: flex;
-  align-items: baseline;
+  align-items: flex-end;
+  justify-content: flex-end;
   font-family: manrope-light;
-  margin-left: 27px;
-  font-size: 12px;
+  font-size: 14px;
+  color: var(--ion-color-tertiary);
 }
 
 ion-textarea {
