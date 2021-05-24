@@ -1,11 +1,16 @@
-ion-card-header {
+div.avatar {
+  margin-top: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-ion-card {
-  box-shadow: none;
+ion-list {
+  padding: 0;
+}
+
+ion-list ion-item {
+  --inner-padding-end: 0;
 }
 
 ion-avatar {
@@ -19,10 +24,10 @@ ion-title {
 }
 
 ion-input {
-  font-size: 12px;
-  padding-left: 2% !important;
+  font-size: 14px;
+  padding-left: 10px !important;
   color: #000;
-  background-color: #ffffff;
+  background-color: var(--ion-color-inputs);
   border: 1px solid #f0f0fa;
 }
 
@@ -31,7 +36,8 @@ ion-item ion-label {
   word-break: normal;
   font-size: 20px;
   font-family: manrope-bold;
-  margin-bottom: 7px;
+  color: var(--ion-color-tertiary);
+  margin-bottom: 10px;
 }
 
 button.footer {
@@ -88,7 +94,6 @@ ion-note.error-message {
 ion-button.createContact {
   height: 35px;
   width: 164px;
-  margin-right: 9px;
   --border-radius: 0;
   --background: var(--ion-color-primary);
   text-transform: none;
@@ -96,8 +101,18 @@ ion-button.createContact {
   color: #fff !important;
   border-radius: 0;
   float: right;
+  margin-top: 7px;
 }
 
 ion-button.createContact:hover {
   --background: #346EE5;
+}
+
+ion-title ion-item {
+  --inner-padding-end: 0;
+}
+
+.optional {
+  font-family: manrope-light;
+  color: var(--ion-color-tertiary);
 }

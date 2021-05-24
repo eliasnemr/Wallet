@@ -45,6 +45,7 @@ ion-list {
                     white-space: nowrap; 
                     overflow: hidden;
                     font-family: manrope-medium;
+                    color: var(--ion-color-tertiary);
                 }
             }
             div.amount {
@@ -56,6 +57,8 @@ ion-list {
                     white-space: nowrap; 
                     overflow: hidden;
                     font-family: manrope-semibold;
+                    color: var(--ion-color-tertiary);
+                    opacity: 0.7;
                 }
                 p {
                     padding: 0;
@@ -66,6 +69,7 @@ ion-list {
                     overflow: hidden;
                     font-size: 12px;
                     opacity: 0.3;
+                    color: var(--ion-color-tertiary);
                 }
             }
         }
@@ -75,13 +79,13 @@ ion-list {
             flex-direction: column;
             justify-content: flex-end;
             h6 {
-                font-size: 12px;
+                font-size: 14px;
                 color: #aaaabe;
                 padding:0;
                 margin:0;
             }
             p {
-                font-size: 10px;
+                font-size: 12px;
                 color: #aaaabe;
                 padding:0;
                 margin:0;
@@ -93,23 +97,6 @@ ion-list {
     }
 }
 
-ion-list.date-time ion-label {
-    padding-top: 20px;
-    h6 {
-        line-height: 10px;
-        color: #aaaabe;
-        font-size: 14px;
-        padding: 0;
-        margin: 0;
-    }
-    p {
-        line-height: 13px;
-        color: #aaaabe;
-        margin: 0;
-        padding: 0;
-        font-size: 12px;
-    }
-}
 ion-label {
     max-width: auto;
     display: inline-block;
@@ -130,7 +117,7 @@ ion-label.transactionLabel p {
     margin:0; 
 }
 ion-label.transactionLabel p.time {
-    color: var(--ion-color-gray-three);
+    color: var(--ion-color-tertiary);
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
@@ -184,4 +171,19 @@ ion-content {
     right: 5%;
     top: 15%;
     cursor: pointer;
+}
+.center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+ion-grid {
+    ion-row {
+        ion-col.prompt {
+            ion-label {
+                color: var(--ion-color-tertiary);
+            }
+        }
+    }
 }

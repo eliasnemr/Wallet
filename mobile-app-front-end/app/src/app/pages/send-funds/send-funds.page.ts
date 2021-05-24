@@ -74,8 +74,12 @@ export class SendFundsPage implements OnInit {
   ionViewWillEnter() {
     this.$balanceSubscription =
     this.minimaApiService.$balance.subscribe((res: Token[]) => {
-      this.myTokens = res.filter((token) =>
-        new Decimal(token.sendable).greaterThan(new Decimal(0)));
+      if (res.length === 1) {
+        this.myTokens = res;
+      } else {
+        this.myTokens = res.filter((token) =>
+          new Decimal(token.sendable).greaterThan(new Decimal(0)));
+      }
     });
 
     this.$contactSubscription =
@@ -202,7 +206,6 @@ export class SendFundsPage implements OnInit {
       }
     }
   }
-
   /** get token selected, or set Minima as default */
   getTokenSelected() {
     this.route.queryParamMap.subscribe((res: any) => {
@@ -212,27 +215,9 @@ export class SendFundsPage implements OnInit {
       }
     });
   }
-
   /** listen to selection change */
   onItemSelection(ev: any) {
     this.itemSelected = this.sendForm.get('tokenid').value;
-  }
-  /** Scan QR */
-  scanQR() {
-    this.isWebCameraOpen = true;
-    // console.log('Camera turned on, ' + this.isWebCameraOpen);
-    const stream = navigator.mediaDevices.getUserMedia({
-      video: {facingMode: 'environment'},
-    });
-
-    this.videoElem.nativeElement.src = stream;
-    this.videoElem.nativeElement
-        .setAttribute('playsinline', true); // iOS - do not open fullscreen
-    this.videoElem.nativeElement.play();
-  }
-  /** */
-  stopScanning() {
-    this.isWebCameraOpen = false;
   }
 }
 

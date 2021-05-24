@@ -3,7 +3,12 @@ import { ToolsService } from './../../service/tools.service';
 import { PopContactsComponent } from './../../components/pop-contacts/pop-contacts.component';
 import { MinimaApiService } from './../../service/minima-api.service';
 import { ContactsModalPage } from './../../components/contacts-modal/contacts-modal.page';
-import { ModalController, AlertController, IonList, MenuController, PopoverController } from '@ionic/angular';
+import {
+  AlertController,
+  ModalController,
+  IonList,
+  MenuController,
+  PopoverController } from '@ionic/angular';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Contact, ContactService } from 'src/app/service/contacts.service';
 
@@ -13,7 +18,6 @@ import { Contact, ContactService } from 'src/app/service/contacts.service';
   styleUrls: ['./contacts.page.scss'],
 })
 export class ContactsPage implements OnInit {
-
   editMode = false;
   avatar: string;
   contacts: Contact[] = [];
@@ -21,42 +25,35 @@ export class ContactsPage implements OnInit {
   $contactSubscription: Subscription;
 
   @ViewChild('contactList', {static: false}) ContactList: IonList;
-  constructor(public menu: MenuController,
+  constructor(
+    public menu: MenuController,
     public modalController: ModalController,
     public popoverController: PopoverController,
     public alertController: AlertController,
     private contactService: ContactService,
     private api: MinimaApiService,
-    private myTools: ToolsService
-    ) { }
+    private myTools: ToolsService) { }
 
   ngOnInit() { }
-  
-  ionViewWillEnter() {
-    
-    this.$contactSubscription = this.contactService.data.subscribe((res: Contact[]) => {
-      // set the list
-      this.contacts = res;
-    });
-    
 
+  ionViewWillEnter() {
+    this.$contactSubscription =
+      this.contactService.data.subscribe((res: Contact[]) => {
+        this.contacts = res;
+      });
   }
 
   ionViewWillLeave() {
-
     if (this.$contactSubscription) {
-
       this.$contactSubscription.unsubscribe();
-
     }
-
   }
 
   async presentContactSettings(ev: any) {
     const popover = await this.popoverController.create({
       component: PopContactsComponent,
       translucent: true,
-      event: ev
+      event: ev,
     });
 
     await popover.present();
@@ -70,7 +67,8 @@ export class ContactsPage implements OnInit {
     qy = qy.toUpperCase();
     if (qy.length > 0) {
       this.contacts = this.contacts.filter( ele => {
-        return ele.NAME.toUpperCase().includes(qy) || ele.ADDRESS.toUpperCase().includes(qy);
+        return ele.NAME.toUpperCase().includes(qy) || 
+        ele.ADDRESS.toUpperCase().includes(qy);
       });
     } else {
       this.contactService.data.subscribe((res: any) => {
@@ -79,31 +77,14 @@ export class ContactsPage implements OnInit {
     }
   }
 
-  toggleDeleteMode() {
-    if (this.editMode){
-      this.editMode = false;
-    } else {
-      this.editMode = true;
-    }
-  }
-
-  removeContact(addr: string) {
-    this.presentAlert(addr);
-  }
-
-
   giveMe50() {
     this.api.giveMe50().then((res: any) => {
-      if(res.status === true) {
+      if (res.status === true) {
         this.myTools.presentAlert('Gimme50', 'Successful', 'Status');
       } else {
         this.myTools.presentAlert('Gimme50', res.message, 'Status');
       }
     });
-  }
-
-  copyAddress(addr: string) {
-    this.myTools.copy(addr);
   }
 
   async presentAlert(addr: string) {
@@ -114,23 +95,22 @@ export class ContactsPage implements OnInit {
       buttons: [
         {
           text: 'Cancel',
-          role: 'cancel'
+          role: 'cancel',
         },
         {
           text: 'Ok',
           handler: () => {
             this.contactService.removeContact(addr);
-          }
-        }]
+          },
+        }],
     });
     await alert.present();
   }
 
-  
   async presentAddContactForm() {
     const modal = await this.modalController.create({
       component: ContactsModalPage,
-      cssClass: 'contactsModal'
+      cssClass: 'contactsModal',
     });
     return await modal.present();
   }

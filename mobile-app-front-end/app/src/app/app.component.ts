@@ -47,9 +47,6 @@ export class AppComponent {
   initMinima() {
     Minima.init((msg: any) => {
       if (msg.event === 'connected') {
-        // console.log('appComponent: Minima connected');
-        // console.log(msg);
-
         const msZero = 0;
         const msTimer = 3000;
         const source = timer(msZero, msTimer);
@@ -147,32 +144,9 @@ export class AppComponent {
         hidden: false,
       }];
   }
-  /** Setting localstorage for darkMode, darkMode toggle, terminalFontSize */
   setLocalStorage() {
-    if (localStorage.getItem('toggleVal') === 'true') {
-      document.body.classList.toggle('dark', true);
-    } else {
-      document.body.classList.toggle('dark', false);
-    }
-
-    if (localStorage.getItem('toggleVal') === 'true') {
-      this.toggleValue = true;
-    } else {
-      this.toggleValue = false;
-    }
-
     if (!localStorage.getItem('termFontSize')) {
       localStorage.setItem('termFontSize', '' + 14);
-    }
-  }
-  /** Check darkMode Toggle */
-  checkToggle() {
-    if (this.toggleValue === false) {
-      localStorage.setItem('toggleVal', 'false');
-      document.body.classList.toggle('dark', false);
-    } else {
-      localStorage.setItem('toggleVal', 'true');
-      document.body.classList.toggle('dark', true);
     }
   }
 }

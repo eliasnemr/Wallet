@@ -70,9 +70,14 @@ var SendFundsPage = /** @class */ (function () {
         var _this = this;
         this.$balanceSubscription =
             this.minimaApiService.$balance.subscribe(function (res) {
-                _this.myTokens = res.filter(function (token) {
-                    return new decimal_js_1.Decimal(token.sendable).greaterThan(new decimal_js_1.Decimal(0));
-                });
+                if (res.length === 1) {
+                    _this.myTokens = res;
+                }
+                else {
+                    _this.myTokens = res.filter(function (token) {
+                        return new decimal_js_1.Decimal(token.sendable).greaterThan(new decimal_js_1.Decimal(0));
+                    });
+                }
             });
         this.$contactSubscription =
             this.contactService.$selected_address.subscribe(function (res) {
@@ -248,22 +253,6 @@ var SendFundsPage = /** @class */ (function () {
     /** listen to selection change */
     SendFundsPage.prototype.onItemSelection = function (ev) {
         this.itemSelected = this.sendForm.get('tokenid').value;
-    };
-    /** Scan QR */
-    SendFundsPage.prototype.scanQR = function () {
-        this.isWebCameraOpen = true;
-        // console.log('Camera turned on, ' + this.isWebCameraOpen);
-        var stream = navigator.mediaDevices.getUserMedia({
-            video: { facingMode: 'environment' }
-        });
-        this.videoElem.nativeElement.src = stream;
-        this.videoElem.nativeElement
-            .setAttribute('playsinline', true); // iOS - do not open fullscreen
-        this.videoElem.nativeElement.play();
-    };
-    /** */
-    SendFundsPage.prototype.stopScanning = function () {
-        this.isWebCameraOpen = false;
     };
     __decorate([
         core_1.ViewChild('submitBtn', { static: false })

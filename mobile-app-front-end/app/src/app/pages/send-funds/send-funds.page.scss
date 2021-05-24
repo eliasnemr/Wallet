@@ -1,38 +1,32 @@
-ion-card-content {
-  background: var(--ion-card-color);
-}
-ion-card-header {
-  --color: var(--ion-text-color,#000);
-}
 ion-item {
   --inner-padding-end: 0;
-}
-ion-item ion-label {
-  white-space: normal;
-  margin-bottom: 2%;
-  font-size: 20px;
-  font-family: manrope-bold;
-  color: var(--ion-color-color);
+  ion-label {
+    white-space: normal;
+    margin-bottom: 12px;
+    font-size: 20px;
+    font-family: manrope-bold;
+    color: var(--ion-color-tertiary);
+  }
 }
 ion-item.wordCountWrapper {
   padding:0;
   margin:0;
 }
 ion-select {
-  outline: none !important;
-  border: 1px solid #f0f0fa;
-  font-family: manrope-regular;
+  --placeholder-opacity: 1.0;
+  border: 1px solid var(--ion-color-item-border);
   background-color: var(--ion-color-inputs);
+  font-family: manrope-regular;
+  outline: none !important;
   outline: 1px solid #91919D;
-  font-size: 12px;
-  padding-left: 2%!important;
-  --placeholder-opacity: 0.7;
+  padding-left: 10px;
   color: #808080;
+  font-size: 14px;
 }
 ion-select:hover {
+  --background-hover: none !important;
   background: var(--ion-color-inputs) !important;
   background-color: var(--ion-color-inputs) !important;
-  --background-hover: none !important;
 }
 ion-select::part(icon) {
   top: 50%;
@@ -43,11 +37,11 @@ ion-select-option {
   font-family: manrope-bold;
 }
 ion-input {
-  font-size: 12px;
   color: #000;
   background-color: var(--ion-color-inputs);
   border: 1px solid #f0f0fa;
-  padding-left: 2% !important;
+  padding-left: 10px !important;
+  font-size: 14px;
 }
 .transparentBody {
 	background: none transparent !important;
@@ -57,35 +51,24 @@ ion-input {
  text-align: center;
  	--background: none transparent !important;
 }
-ion-footer {
-  width: 100%;
-  height: 90px;
-  background-color: #001C32;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-ion-toolbar {
-  --background: var(--ion-m-background);
-}
 .input {
   font-family: manrope-light;
 }
 .length {
   display: flex;
-  align-items: baseline;
+  align-items: flex-end;
+  justify-content: flex-end;
   font-family: manrope-light;
-  margin-left: 27px;
-  font-size: 12px;
+  font-size: 14px;
+  color: var(--ion-color-tertiary);
 }
 ion-textarea {
-  color: black!important;
+  color: #000;
   background: var(--ion-color-inputs);
-  border: 1px solid #f0f0fa;
-  padding-left: 2%!important;
-  font-size: 12px;
-  margin-bottom: 1%;
+  border: 1px solid var(--ion-color-item-border);
+  padding-left: 10px!important;
+  font-size: 14px;
+  margin-bottom: 10px;
 }
 ion-item.send-wrapper {
   display: flex;

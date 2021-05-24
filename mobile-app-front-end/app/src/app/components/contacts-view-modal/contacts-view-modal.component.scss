@@ -38,7 +38,16 @@ ion-item.contactItem {
   --padding-start: 27px;
   --inner-padding-end: 27px;
   --border-color: var(--ion-color-item-border);
+  ion-label {
+    color: var(--ion-color-tertiary);
+    h3 {
+      font-family: manrope-bold;
+    }
+  }
 }
 ion-item.contactItem:hover {
   --background: var(--ion-color-item-hover);
+}
+ion-label.prompt {
+  color: var(--ion-color-tertiary);
 }

@@ -93,12 +93,18 @@ export class MinimaApiService {
     return this.req('tokenvalidate ' + tokenid);
   }
 
-  sendMessageTransaction(data: any){
-    const postTransaction = "send "+data.amount+" "+data.address+" "+data.tokenid+" "+" 254:[01000100]#255:[\""+data.message+"\"]";
+  sendMessageTransaction(data: any) {
+    const postTransaction =
+    'send ' +
+    data.amount +
+    ' ' +
+    data.address + ' ' +
+    data.tokenid + ' ' + ' 254:[01000100]#255:[' +
+    data.message + ']';
     return this.req(postTransaction);
   }
 
-  webLink(data: any) { 
+  webLink(data: any) {
     return this.req('weblink+' + data.url);
   }
 
