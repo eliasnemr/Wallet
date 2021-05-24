@@ -9,16 +9,17 @@
       <ion-item id="subtitle" class="breadcrumb ion-no-padding" lines="none">
         Create a custom token
       </ion-item>
-      
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 
 <ion-content #pageContent class="page-content">
-  <form (ngSubmit)="createTokenAdvanced()" [formGroup]="tokenCreationForm" id='tokenCreationForm'>
+  <form 
+  (ngSubmit)="createTokenAdvanced()" 
+  [formGroup]="tokenCreationForm" 
+  id='tokenCreationForm'>
   <ion-list lines="none">
-
     <ion-item class="no-ripple ion-no-padding" lines="none">
       <ion-label position="stacked">Name</ion-label>
       <ion-input 
@@ -113,19 +114,19 @@
       formControlName="description"
       placeholder="Enter a description">
       </ion-textarea>
-      <span
+    </ion-item>
+    <ion-label
       class="length ion-no-margin" 
       *ngIf="customToken.description 
       && customToken.description.length > 0">
-      {{ customToken.description.length+'/255'}}</span>
-    </ion-item>
+      {{ customToken.description.length+'/255'}}</ion-label>
     
     <ion-item id="nft" class="no-ripple ion-no-padding">
       <ion-label>
         <ion-icon class="nftIcon" src="assets/nft2.svg"></ion-icon> 
         <span id="optional">(optional)</span>        
       </ion-label>
-      <ion-checkbox formControlName="nft" slot="end"></ion-checkbox>
+      <ion-checkbox color="primary" formControlName="nft" slot="end"></ion-checkbox>
     </ion-item>
     
     <ion-item lines="none" class="createtoken-wrapper ion-no-padding">
