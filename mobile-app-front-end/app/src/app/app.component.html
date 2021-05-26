@@ -9,7 +9,7 @@
         <ion-title>
           <ion-item lines="none" class="ion-no-padding">
             <picture>
-              <source srcset="assets/minima-logo-landscape-dark.svg" media="(prefers-color-scheme: dark)">
+              <source srcset="assets/minima-logo-landscape-dark.svg" media="(prefers-color-scheme: dark)" />
               <img src="assets/minima-logo-color.svg">
             </picture>
           </ion-item>
@@ -57,7 +57,7 @@
     <ion-grid>
       <ion-row>
         <ion-col>
-          <picture (click)="toggleTheme()">
+          <picture (click)="toggleTheme($event)">
             <source srcset="assets/darkModeWhite.svg" media="(prefers-color-scheme: dark)">
             <img src="assets/dayModeWhite.svg" alt="dark-light-btn">
           </picture>

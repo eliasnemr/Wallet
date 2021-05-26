@@ -140,19 +140,34 @@ var AppComponent = /** @class */ (function () {
         }
     };
     AppComponent.prototype.toggleTheme = function () {
-        console.log(prefersDarkScheme.matches);
-        // If the OS is set to dark mode...
         if (prefersDarkScheme.matches) {
-            console.log('DarkMode on, set to light..');
-            // ...then apply the .light-theme class to override those styles
+            this.setPicturesThemed('light');
             document.body.classList.toggle('light');
-            // Otherwise...
         }
         else {
-            console.log('lightMode on, set to dark..');
-            // ...apply the .dark-theme class to override the default light styles
+            this.setPicturesThemed('dark');
             document.body.classList.toggle('dark');
         }
+    };
+    AppComponent.prototype.setPicturesThemed = function (colorScheme) {
+        // Clean up all existing picture sources that were cloned
+        if (colorScheme === void 0) { colorScheme = undefined; }
+        document.querySelectorAll("picture > source[media*=\"(prefers-color-scheme: " + colorScheme + ")\"]").forEach(function (el) {
+            console.log(el);
+        });
+        // if (colorScheme) {
+        //   // Find all picture sources with the desired colour scheme
+        //   document.querySelectorAll(`picture > source[media*="(prefers-color-scheme: ${colorScheme})"]`).forEach(el => {
+        //     // 1. Clone the given <source>
+        //     // 2. Remove the media attribute so the new <source> is unconditional
+        //     // 3. Add a "data-cloned-theme" attribute to it for future reference / removal
+        //     // 4. Prepend the new <source> to the parent <picture> so it takes precedence
+        //     const cloned = el.cloneNode();
+        //     cloned.removeAttribute('media');
+        //     cloned.setAttribute('data-cloned-theme', colorScheme);
+        //     el.parentNode.prepend(cloned);
+        //   });
+        // }
     };
     AppComponent = __decorate([
         core_1.Component({

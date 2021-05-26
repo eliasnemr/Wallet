@@ -3,10 +3,6 @@ ion-title ion-item:hover {
   --background-hover: none;
 }
 
-ion-list ion-item {
-  background-color: var(--ion-color-token);
-  opacity: 1;
-}
 ion-list ion-item ion-label.description h6 {
   font-size: 1em;
   font-family: manrope-semibold;
