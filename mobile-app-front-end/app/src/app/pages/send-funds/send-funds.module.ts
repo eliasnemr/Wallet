@@ -1,4 +1,6 @@
-import {SharedComponentsModule} from './../../components/shared-components.module';
+import {
+  SharedComponentsModule,
+} from './../../components/shared-components.module';
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -12,6 +14,12 @@ const routes: Routes = [
   {
     path: '',
     component: SendFundsPage,
+    pathMatch: 'full',
+  },
+  {
+    path: 'confirmation',
+    loadChildren: () => import('./confirmation/confirmation.module')
+        .then((m) => m.ConfirmationPageModule),
   },
 ];
 

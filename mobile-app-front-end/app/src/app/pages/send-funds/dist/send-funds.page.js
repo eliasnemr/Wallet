@@ -50,14 +50,15 @@ var decimal_js_1 = require("decimal.js");
 decimal_js_1.Decimal.set({ precision: 64 }); /** set precision for Decimal calculations */
 var SendFundsPage = /** @class */ (function () {
     /** */
-    function SendFundsPage(menu, modalController, myTools, formBuilder, minimaApiService, contactService, route) {
+    function SendFundsPage(menu, modalController, myTools, formBuilder, minimaApiService, contactService, activedRouter, router) {
         this.menu = menu;
         this.modalController = modalController;
         this.myTools = myTools;
         this.formBuilder = formBuilder;
         this.minimaApiService = minimaApiService;
         this.contactService = contactService;
-        this.route = route;
+        this.activedRouter = activedRouter;
+        this.router = router;
         this.status = '';
         this.isWebCameraOpen = false;
         this.data = { tokenid: '', amount: '', address: '', message: '' };
@@ -71,9 +72,12 @@ var SendFundsPage = /** @class */ (function () {
         this.$balanceSubscription =
             this.minimaApiService.$balance.subscribe(function (res) {
                 if (res.length === 1) {
-                    _this.myTokens = res;
+                    _this.myTokens = res.filter(function (token) {
+                        return new decimal_js_1.Decimal(token.sendable).greaterThan(new decimal_js_1.Decimal(0));
+                    });
                 }
                 else {
+                    _this.insufficientFunds = false;
                     _this.myTokens = res.filter(function (token) {
                         return new decimal_js_1.Decimal(token.sendable).greaterThan(new decimal_js_1.Decimal(0));
                     });
@@ -243,7 +247,7 @@ var SendFundsPage = /** @class */ (function () {
     /** get token selected, or set Minima as default */
     SendFundsPage.prototype.getTokenSelected = function () {
         var _this = this;
-        this.route.queryParamMap.subscribe(function (res) {
+        this.activedRouter.queryParamMap.subscribe(function (res) {
             _this.itemSelected = res.params.id;
             if (!res.params.id) {
                 _this.itemSelected = '0x00';
@@ -253,6 +257,10 @@ var SendFundsPage = /** @class */ (function () {
     /** listen to selection change */
     SendFundsPage.prototype.onItemSelection = function (ev) {
         this.itemSelected = this.sendForm.get('tokenid').value;
+    };
+    SendFundsPage.prototype.onSend = function (data) {
+        this.minimaApiService.$urlData.next(data);
+        this.router.navigate(['confirmation'], { relativeTo: this.activedRouter });
     };
     __decorate([
         core_1.ViewChild('submitBtn', { static: false })

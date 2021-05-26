@@ -132,6 +132,44 @@
   --ion-color-line: #fff;
 }
 
+body.dark {
+  --ion-color-item-hover: #445771;
+  --ion-color-item-hover-rgb: 68,87,113;
+  --ion-color-item-hover-contrast: #ffffff;
+  --ion-color-item-hover-contrast-rgb: 255,255,255;
+  --ion-color-item-hover-shade: #3c4d63;
+  --ion-color-item-hover-tint: #57687f;
+  --ion-color-tertiary: #F0F0FA;
+  --ion-color-tertiary-rgb: 240,240,250;
+  --ion-color-tertiary-contrast: #000000;
+  --ion-color-tertiary-contrast-rgb: 0,0,0;
+  --ion-color-tertiary-shade: #d3d3dc;
+  --ion-color-tertiary-tint: #f2f2fb;
+  --ion-color-item-border: #4A5976;
+  --ion-color-item-border-rgb: 74,89,118;
+  --ion-color-item-border-contrast: #ffffff;
+  --ion-color-item-border-contrast-rgb: 255,255,255;
+  --ion-color-item-border-shade: #414e68;
+  --ion-color-item-border-tint: #5c6a84;
+  --ion-color-token: #062841;
+  --ion-color-token-rgb: 6,40,65;
+  --ion-color-token-contrast: #ffffff;
+  --ion-color-token-contrast-rgb: 255,255,255;
+  --ion-color-token-shade: #052339;
+  --ion-color-token-tint: #1f3e54;
+  --ion-color-inputs: #F0F0FA;
+  --ion-color-ruler: #4A5976;
+  --ion-color-title-ruler: #FFF;
+  --ion-color-background: #001C32;
+  --ion-background-color: #001C32;
+}
+body.dark ion-footer {
+  border-top: 1px solid var(--ion-color-item-border);
+}
+body.dark ion-menu {
+  border-right: 1px solid var(--ion-color-item-border);
+}
+
 @media (prefers-color-scheme: dark) {
   body {
     --ion-color-item-hover: #445771;
@@ -163,6 +201,12 @@
     --ion-color-title-ruler: #FFF;
     --ion-color-background: #001C32;
     --ion-background-color: #001C32;
+  }
+  body ion-footer {
+    border-top: 1px solid var(--ion-color-item-border);
+  }
+  body ion-menu {
+    border-right: 1px solid var(--ion-color-item-border);
   }
 
   body.light {
@@ -271,14 +315,6 @@
     --overflow: hidden;
     --ion-color-selected: #001C32;
     --ion-color-line: #fff;
-  }
-
-  ion-footer {
-    border-top: 1px solid var(--ion-color-item-border);
-  }
-
-  ion-menu {
-    border-right: 1px solid var(--ion-color-item-border);
   }
 }
 .split-pane-md {

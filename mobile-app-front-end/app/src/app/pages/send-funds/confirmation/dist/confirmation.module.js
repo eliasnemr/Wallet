@@ -6,43 +6,35 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 exports.__esModule = true;
-exports.SendFundsPageModule = void 0;
-var shared_components_module_1 = require("./../../components/shared-components.module");
+exports.ConfirmationPageModule = void 0;
+var shared_components_module_1 = require("./../../../components/shared-components.module");
 var core_1 = require("@angular/core");
 var common_1 = require("@angular/common");
 var forms_1 = require("@angular/forms");
 var router_1 = require("@angular/router");
 var angular_1 = require("@ionic/angular");
-var send_funds_page_1 = require("./send-funds.page");
+var confirmation_page_1 = require("./confirmation.page");
 var routes = [
     {
         path: '',
-        component: send_funds_page_1.SendFundsPage,
-        pathMatch: 'full'
-    },
-    {
-        path: 'confirmation',
-        loadChildren: function () { return Promise.resolve().then(function () { return require('./confirmation/confirmation.module'); }).then(function (m) { return m.ConfirmationPageModule; }); }
+        component: confirmation_page_1.ConfirmationPage
     },
 ];
-var SendFundsPageModule = /** @class */ (function () {
-    /** */
-    function SendFundsPageModule() {
+var ConfirmationPageModule = /** @class */ (function () {
+    function ConfirmationPageModule() {
     }
-    SendFundsPageModule = __decorate([
+    ConfirmationPageModule = __decorate([
         core_1.NgModule({
             imports: [
-                forms_1.ReactiveFormsModule,
                 common_1.CommonModule,
                 forms_1.FormsModule,
                 angular_1.IonicModule,
                 router_1.RouterModule.forChild(routes),
                 shared_components_module_1.SharedComponentsModule,
             ],
-            declarations: [send_funds_page_1.SendFundsPage]
+            declarations: [confirmation_page_1.ConfirmationPage]
         })
-        /** */
-    ], SendFundsPageModule);
-    return SendFundsPageModule;
+    ], ConfirmationPageModule);
+    return ConfirmationPageModule;
 }());
-exports.SendFundsPageModule = SendFundsPageModule;
+exports.ConfirmationPageModule = ConfirmationPageModule;
