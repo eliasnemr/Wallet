@@ -11,6 +11,7 @@ var environment_prod_1 = require("./../environments/environment.prod");
 var core_1 = require("@angular/core");
 var minima_1 = require("minima");
 var rxjs_1 = require("rxjs");
+var prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
 var AppComponent = /** @class */ (function () {
     /** */
     function AppComponent(tools, minimaApiService) {
@@ -136,6 +137,21 @@ var AppComponent = /** @class */ (function () {
     AppComponent.prototype.setLocalStorage = function () {
         if (!localStorage.getItem('termFontSize')) {
             localStorage.setItem('termFontSize', '' + 14);
+        }
+    };
+    AppComponent.prototype.toggleTheme = function () {
+        console.log(prefersDarkScheme.matches);
+        // If the OS is set to dark mode...
+        if (prefersDarkScheme.matches) {
+            console.log('DarkMode on, set to light..');
+            // ...then apply the .light-theme class to override those styles
+            document.body.classList.toggle('light');
+            // Otherwise...
+        }
+        else {
+            console.log('lightMode on, set to dark..');
+            // ...apply the .dark-theme class to override the default light styles
+            document.body.classList.toggle('dark');
         }
     };
     AppComponent = __decorate([

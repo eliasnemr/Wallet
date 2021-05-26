@@ -5,6 +5,8 @@ import {Component} from '@angular/core';
 import {Minima} from 'minima';
 import {timer, Subscription} from 'rxjs';
 
+const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+
 interface Menu {
   title: string;
   routerLink: string;
@@ -147,6 +149,20 @@ export class AppComponent {
   setLocalStorage() {
     if (!localStorage.getItem('termFontSize')) {
       localStorage.setItem('termFontSize', '' + 14);
+    }
+  }
+  toggleTheme() {
+    console.log(prefersDarkScheme.matches);
+    // If the OS is set to dark mode...
+    if (prefersDarkScheme.matches) {
+      console.log('DarkMode on, set to light..');
+      // ...then apply the .light-theme class to override those styles
+      document.body.classList.toggle('light');
+      // Otherwise...
+    } else {
+      console.log('lightMode on, set to dark..');
+      // ...apply the .dark-theme class to override the default light styles
+      document.body.classList.toggle('dark');
     }
   }
 }

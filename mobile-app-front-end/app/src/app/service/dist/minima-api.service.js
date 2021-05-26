@@ -89,8 +89,8 @@ var MinimaApiService = /** @class */ (function () {
             data.amount +
             ' ' +
             data.address + ' ' +
-            data.tokenid + ' ' + ' 254:[01000100]#255:[' +
-            data.message + ']';
+            data.tokenid + ' ' + ' \"254:[01000100]#255:[' +
+            data.message + ']\"';
         return this.req(postTransaction);
     };
     MinimaApiService.prototype.webLink = function (data) {
