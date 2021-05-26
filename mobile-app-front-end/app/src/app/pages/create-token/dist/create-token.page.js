@@ -81,22 +81,11 @@ var CreateTokenPage = /** @class */ (function () {
     CreateTokenPage.prototype.openMenu = function () {
         this.menu.open();
     };
-    CreateTokenPage.prototype.giveMe50 = function () {
-        var _this = this;
-        this.api.giveMe50().then(function (res) {
-            if (res.status === true) {
-                _this.myTools.presentAlert('Gimme50', 'Successful', 'Status');
-            }
-            else {
-                _this.myTools.presentAlert('Gimme50', res.message, 'Status');
-            }
-        });
-    };
     CreateTokenPage.prototype.createTokenAdvanced = function () {
         this.loading = true;
-        //console.log(this.tokenCreationForm.value);
+        // console.log(this.tokenCreationForm.value);
         var newToken = this.tokenCreationForm.value;
-        //console.log(newToken);
+        // console.log(newToken);
         try {
             this.status = 'Creating token...';
             this.create(newToken);
@@ -112,7 +101,7 @@ var CreateTokenPage = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        //console.log(newToken);
+                        // console.log(newToken);
                         this.myTools.scrollToBottom(this.pageContent);
                         if (!newToken.nft) return [3 /*break*/, 2];
                         this.submitBtn.disabled = true;
@@ -121,7 +110,8 @@ var CreateTokenPage = /** @class */ (function () {
                         res = _a.sent();
                         if (res.status) {
                             this.status = 'Token created!';
-                            this.myTools.presentAlert('Success', 'Token ' + this.customToken.name + ' has been created.', 'Token Creation Status');
+                            this.myTools.presentAlert('Success', 'Token ' +
+                                this.customToken.name + ' has been created.', 'Token Creation Status');
                             this.resetForm();
                         }
                         else {
@@ -139,7 +129,8 @@ var CreateTokenPage = /** @class */ (function () {
                         res = _a.sent();
                         if (res.status) {
                             this.status = newToken.name + ' has been created!';
-                            this.myTools.presentAlert('Success', 'Token ' + this.customToken.name + ' has been created.', 'Token Creation Status');
+                            this.myTools.presentAlert('Success', 'Token ' +
+                                this.customToken.name + ' has been created.', 'Token Creation Status');
                             this.resetForm();
                         }
                         else {
@@ -157,12 +148,24 @@ var CreateTokenPage = /** @class */ (function () {
     };
     CreateTokenPage.prototype.formInit = function () {
         this.tokenCreationForm = this.formBuilder.group({
-            name: ['', [forms_1.Validators.required, forms_1.Validators.maxLength(255)]],
-            amount: ['', [forms_1.Validators.required, forms_1.Validators.maxLength(255)]],
+            name: ['', [
+                    forms_1.Validators.required,
+                    forms_1.Validators.maxLength(255),
+                ]],
+            amount: ['', [
+                    forms_1.Validators.required,
+                    forms_1.Validators.maxLength(255),
+                ]],
             description: '',
             script: '',
-            icon: ['', [forms_1.Validators.pattern('(http(s?):)([\\/|\\.|\\w|\\s|\\-])*\.(?:jpg|png|gif|svg)$'), forms_1.Validators.maxLength(255)]],
-            proof: ['', [forms_1.Validators.pattern('(http(s?):)([\\/|\\.|\\w|\\s|\\-])*\.(?:txt)$'), forms_1.Validators.maxLength(255)]],
+            icon: ['', [
+                    forms_1.Validators.pattern('(http(s?):)([\\/|\\.|\\w|\\s|\\-])*\.(?:jpg|png|gif|svg)$'),
+                    forms_1.Validators.maxLength(255),
+                ]],
+            proof: ['', [
+                    forms_1.Validators.pattern('(http(s?):)([\\/|\\.|\\w|\\s|\\-])*\.(?:txt)$'),
+                    forms_1.Validators.maxLength(255),
+                ]],
             nft: false
         });
     };

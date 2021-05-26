@@ -30,7 +30,7 @@ export class MyAddressPage implements OnInit {
         const data = JSON.parse(res.data);
         if (data.address.length === 0) {
           this.newAddress();
-        }  else {
+        } else {
           this.qrCode = data.address;
           this.isEmpty = true;
         }
@@ -69,18 +69,8 @@ export class MyAddressPage implements OnInit {
     }, 0);
   }
 
-  giveMe50() {
-    this.api.giveMe50().then((res: any) => {
-      if(res.status === true) {
-        this.myTools.presentAlert('Gimme50', 'Successful', 'Status');
-      } else {
-        this.myTools.presentAlert('Gimme50', res.message, 'Status');
-      }
-    });
-  }
-
   copy(data: any) {
     this.myTools.copy(data);
   }
-
+ 
 }

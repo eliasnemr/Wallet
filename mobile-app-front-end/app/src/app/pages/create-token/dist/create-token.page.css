@@ -56,7 +56,7 @@ ion-checkbox {
 }
 
 ion-textarea {
-  padding-left: 5px;
+  padding-left: 15px;
   font-size: 14px;
   color: var(--ion-color-text);
   background: var(--ion-color-inputs);

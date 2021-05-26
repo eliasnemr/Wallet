@@ -27,7 +27,7 @@ export class FooterComponent implements OnInit {
     this.gimme50Btn.disabled = true;
     this.minimaApiService.giveMe50().then((res: any) => {
       if (res.status) {
-        this.tools.presentAlert('Gimme50', 'Successful', 'Status');
+        // this.tools.presentAlert('Gimme50', 'Successful', 'Status');
         this.status = 'Gimme 50';
         this.gimme50Btn.disabled = false;
       } else {

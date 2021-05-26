@@ -66,7 +66,7 @@ export class ToolsService {
       buttons: [{
         text: 'Dismiss',
         role: 'cancel',
-      }]
+      }],
     });
     return await toast.present();
   }

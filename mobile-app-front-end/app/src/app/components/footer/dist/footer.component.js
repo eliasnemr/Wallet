@@ -24,7 +24,7 @@ var FooterComponent = /** @class */ (function () {
         this.gimme50Btn.disabled = true;
         this.minimaApiService.giveMe50().then(function (res) {
             if (res.status) {
-                _this.tools.presentAlert('Gimme50', 'Successful', 'Status');
+                // this.tools.presentAlert('Gimme50', 'Successful', 'Status');
                 _this.status = 'Gimme 50';
                 _this.gimme50Btn.disabled = false;
             }
