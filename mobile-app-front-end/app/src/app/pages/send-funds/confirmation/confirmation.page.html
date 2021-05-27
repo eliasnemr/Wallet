@@ -28,15 +28,15 @@
       <ion-avatar>
           <img 
           class="custom-icon-big"
-          *ngIf="data?.tokenid !== '0x00' && tokenIcon.length == 0" 
-          [src]="createIcon( token?.tokenid )"/>
+          *ngIf="data?.tokenid !== '0x00' && tokenIcon.length === 0" 
+          [src]="createIcon( data?.tokenid )"/>
           <img 
           class="custom-icon-big"
           *ngIf="data?.tokenid !== '0x00' && tokenIcon.length > 0" 
           [src]="tokenIcon"/>
           <img 
           class="custom-icon-big"
-          *ngIf="token?.tokenid === '0x00'" 
+          *ngIf="data?.tokenid === '0x00'" 
           alt="minima"
           src="assets/minimaIcon.svg">
       </ion-avatar>
@@ -80,7 +80,14 @@
         id="cancel" 
         fill="clear"
         [routerLink]="['/send-funds']">Cancel</ion-button>
-        <ion-button id="confirm" fill="clear">Confirm</ion-button>
+        <ion-button
+        #confirmBtn
+        id="confirm" 
+        fill="clear"
+        (click)="sendFunds(data)">
+        {{ status }}
+        <ion-spinner *ngIf="status === ''" name="dots" color="gray-one"></ion-spinner>
+      </ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>
