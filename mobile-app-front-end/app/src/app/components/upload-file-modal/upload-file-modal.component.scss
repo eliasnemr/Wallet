@@ -84,3 +84,13 @@ ion-item.contactItem {
 ion-item.contactItem:hover {
   --background: var(--ion-color-item-hover);
 }
+
+
+span.dismiss { 
+  cursor: pointer;
+  font-size: 16px;
+  color: var(--ion-color-primary);
+}
+span.dismiss:hover {
+  color: var(--ion-color-secondary);
+}
