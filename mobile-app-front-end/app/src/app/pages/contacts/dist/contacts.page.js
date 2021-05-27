@@ -57,6 +57,7 @@ var ContactsPage = /** @class */ (function () {
         this.myTools = myTools;
         this.editMode = false;
         this.contacts = [];
+        this.copyStatus = 'Copy Address';
     }
     ContactsPage.prototype.ngOnInit = function () { };
     ContactsPage.prototype.ionViewWillEnter = function () {
@@ -159,6 +160,14 @@ var ContactsPage = /** @class */ (function () {
                 }
             });
         });
+    };
+    ContactsPage.prototype.copy = function (data) {
+        var _this = this;
+        this.copyStatus = 'Copied!';
+        this.myTools.copy(data);
+        setTimeout(function () {
+            _this.copyStatus = 'Copy Address';
+        }, 2000);
     };
     __decorate([
         core_1.ViewChild('contactList', { static: false })
