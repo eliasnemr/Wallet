@@ -71,7 +71,7 @@
       <ion-item class="no-hover no-ripple ion-no-padding"  lines="none">
         <ion-label class="medium-text" position="stacked">
           Amount</ion-label>
-        <ion-input [disabled]="myTokens.length === 0" #amount type="number" formControlName="amount" class="input" placeholder="Enter token amount">
+        <ion-input [disabled]="myTokens.length === 0" #amount type="text" formControlName="amount" class="input" placeholder="Enter token amount">
           <ion-icon 
           class="input-error-icon" 
           *ngIf="amountFormItem.invalid && amountFormItem.touched" 
@@ -80,7 +80,11 @@
       </ion-item>
       <ion-note *ngIf="amountFormItem.invalid && amountFormItem.touched" class="error-message">
         <div> Amount required!</div>
-        <div> Must be numeric and greater than zero.</div> 
+        <div> Must be numeric and greater than zero.</div>
+        <div *ngIf="currentToken?.sendable" id="sendableAmount"> 
+          {{ currentToken?.sendable}}
+          <span> is spendable.</span>
+        </div>
       </ion-note>
 
       <ion-item class="no-hover no-ripple ion-no-padding" lines="none">
