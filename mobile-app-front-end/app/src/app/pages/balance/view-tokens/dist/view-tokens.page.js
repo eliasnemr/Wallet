@@ -75,8 +75,16 @@ var ViewTokensPage = /** @class */ (function () {
     ViewTokensPage.prototype.createIcon = function (tokenid) {
         return this.avatar = 'https://www.gravatar.com/avatar/' + SparkMD5.hash(tokenid) + '?d=identicon';
     };
-    ViewTokensPage.prototype.copyToClipPWA = function (text) {
+    ViewTokensPage.prototype.copy = function (text, type) {
+        document.getElementById(type).innerHTML = 'Copied';
+        document.getElementById(type).style.color = 'var(--ion-color-success';
         this.myTools.copy(text);
+        setTimeout(function () {
+            if (document.getElementById(type)) {
+                document.getElementById(type).innerHTML = 'Copy';
+                document.getElementById(type).style.color = 'var(--ion-color-primary';
+            }
+        }, 2000);
     };
     ViewTokensPage.prototype.expandImage = function () {
         (this.expand ?
