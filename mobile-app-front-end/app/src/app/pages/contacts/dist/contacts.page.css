@@ -83,3 +83,7 @@ ion-label h3 {
   font-family: manrope-bold;
   color: var(--ion-color-tertiary);
 }
+ion-label p {
+  color: var(--ion-color-tertiary);
+  opacity: 0.7;
+}

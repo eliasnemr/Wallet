@@ -98,8 +98,14 @@ var ViewTXNPage = /** @class */ (function () {
     /** */
     ViewTXNPage.prototype.ngOnInit = function () { };
     /** */
-    ViewTXNPage.prototype.copy = function (text) {
+    ViewTXNPage.prototype.copy = function (text, type) {
+        document.getElementById(type).innerHTML = 'Copied';
+        document.getElementById(type).style.color = 'var(--ion-color-success';
         this.myTools.copy(text);
+        setTimeout(function () {
+            document.getElementById(type).innerHTML = 'Copy';
+            document.getElementById(type).style.color = 'var(--ion-color-primary';
+        }, 2000);
     };
     ViewTXNPage = __decorate([
         core_1.Component({

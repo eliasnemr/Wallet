@@ -69,6 +69,8 @@ ion-list ion-item {
     font-family: manrope-semibold;
 }
 .value {
+    color: var(--ion-color-tertiary);
+    opacity: 0.7;
     font-size: 16px;
     font-family: manrope-regular;
     text-align: right;
@@ -79,9 +81,6 @@ ion-list ion-item {
     overflow: hidden;
     margin: 0;
     padding: 0;
-    h6 {
-
-    }
     p {
         text-overflow: ellipsis;
         white-space: nowrap;
