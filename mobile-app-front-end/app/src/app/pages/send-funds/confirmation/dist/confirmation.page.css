@@ -50,10 +50,18 @@ ion-grid ion-row ion-col ion-button#confirm {
   color: #FAFAFF;
   background-color: var(--ion-color-primary);
 }
+ion-grid ion-row ion-col ion-button#confirm:hover {
+  --background: #346EE5;
+}
 ion-grid ion-row ion-col ion-button#cancel {
   margin-right: 10px;
   color: var(--ion-color-tertiary);
   border: 1px solid var(--ion-color-tertiary);
+}
+ion-grid ion-row ion-col ion-button#cancel:hover {
+  --background: var(--ion-color-item-hover);
+  color: var(--ion-color-tertiary);
+  border-color: var(--ion-color-tertiary);
 }
 ion-grid ion-row ion-col ion-label {
   padding-bottom: 10px;

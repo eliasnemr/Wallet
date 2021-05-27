@@ -145,7 +145,8 @@ export class SendFundsPage implements OnInit {
         Validators.pattern('[Mx|0x][a-zA-Z0-9]+')]],
       amount: ['0', [
         Validators.required,
-        checkAmount(this.currentToken.sendable)]],
+        checkAmount(this.currentToken.sendable ?
+          this.currentToken.sendable : '0')]],
       message: '',
     });
   }
