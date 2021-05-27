@@ -50,14 +50,15 @@ var decimal_js_1 = require("decimal.js");
 decimal_js_1.Decimal.set({ precision: 64 }); /** set precision for Decimal calculations */
 var SendFundsPage = /** @class */ (function () {
     /** */
-    function SendFundsPage(menu, modalController, myTools, formBuilder, minimaApiService, contactService, route) {
+    function SendFundsPage(menu, modalController, myTools, formBuilder, minimaApiService, contactService, activedRouter, router) {
         this.menu = menu;
         this.modalController = modalController;
         this.myTools = myTools;
         this.formBuilder = formBuilder;
         this.minimaApiService = minimaApiService;
         this.contactService = contactService;
-        this.route = route;
+        this.activedRouter = activedRouter;
+        this.router = router;
         this.status = '';
         this.isWebCameraOpen = false;
         this.data = { tokenid: '', amount: '', address: '', message: '' };
@@ -68,12 +69,16 @@ var SendFundsPage = /** @class */ (function () {
     /** */
     SendFundsPage.prototype.ionViewWillEnter = function () {
         var _this = this;
+        this.resetForm();
         this.$balanceSubscription =
             this.minimaApiService.$balance.subscribe(function (res) {
                 if (res.length === 1) {
-                    _this.myTokens = res;
+                    _this.myTokens = res.filter(function (token) {
+                        return new decimal_js_1.Decimal(token.sendable).greaterThan(new decimal_js_1.Decimal(0));
+                    });
                 }
                 else {
+                    _this.insufficientFunds = false;
                     _this.myTokens = res.filter(function (token) {
                         return new decimal_js_1.Decimal(token.sendable).greaterThan(new decimal_js_1.Decimal(0));
                     });
@@ -175,75 +180,65 @@ var SendFundsPage = /** @class */ (function () {
         });
     };
     /** */
-    SendFundsPage.prototype.sendFunds = function () {
-        this.status = 'Creating your transaction...';
-        this.myTools.scrollToBottom(this.pageContent);
-        this.sendForm.value.amnt = this.sendForm.value.amount.toString();
-        var data = this.sendForm.value;
-        // console.log(data);
-        try {
-            this.post(data);
-        }
-        catch (err) {
-            console.log(err);
-        }
-    };
+    // sendFunds() {
+    //   this.status = 'Creating your transaction...';
+    //   this.myTools.scrollToBottom(this.pageContent);
+    //   this.sendForm.value.amnt = this.sendForm.value.amount.toString();
+    //   const data: SendFormObj = this.sendForm.value;
+    //   // console.log(data);
+    //   try {
+    //     this.post(data);
+    //   } catch (err) {
+    //     console.log(err);
+    //   }
+    // }
     /**  */
-    SendFundsPage.prototype.post = function (data) {
-        return __awaiter(this, void 0, void 0, function () {
-            var res, res;
-            var _this = this;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        this.submitBtn.disabled = true;
-                        this.status = 'Posting your transaction...';
-                        if (!(data.message !== null && (data.message || data.message.length > 0))) return [3 /*break*/, 2];
-                        return [4 /*yield*/, this.minimaApiService.sendMessageTransaction(data)];
-                    case 1:
-                        res = _a.sent();
-                        // console.log(res);
-                        if (res.status) {
-                            this.status = 'Transaction posted!';
-                            this.myTools.presentAlert('Transaction Status', 'Transaction has been posted to the network!', 'Successful');
-                            this.resetForm();
-                        }
-                        else {
-                            console.log(res.status);
-                            setTimeout(function () {
-                                _this.submitBtn.disabled = false;
-                            }, 500);
-                            this.status = 'Transaction failed!';
-                            this.myTools.presentAlert('Transaction Status', res.message, 'Failed');
-                        }
-                        return [3 /*break*/, 4];
-                    case 2: return [4 /*yield*/, this.minimaApiService.sendFunds(data)];
-                    case 3:
-                        res = _a.sent();
-                        // console.log(res);
-                        if (res.status) {
-                            this.status = 'Transaction posted!';
-                            this.myTools.presentAlert('Transaction Status', 'Transaction has been posted to the network!', 'Successful');
-                            this.resetForm();
-                        }
-                        else {
-                            console.log(res.status);
-                            setTimeout(function () {
-                                _this.submitBtn.disabled = false;
-                            }, 500);
-                            this.status = 'Transaction failed!';
-                            this.myTools.presentAlert('Transaction Status', res.message, 'Failed');
-                        }
-                        _a.label = 4;
-                    case 4: return [2 /*return*/];
-                }
-            });
-        });
-    };
+    // async post(data: any) {
+    //   this.submitBtn.disabled = true;
+    //   this.status = 'Posting your transaction...';
+    //   if (data.message !== null && ( data.message || data.message.length > 0) ) {
+    //     const res: any =
+    //     await this.minimaApiService.sendMessageTransaction(data);
+    //     // console.log(res);
+    //     if (res.status) {
+    //       this.status = 'Transaction posted!';
+    //       this.myTools.presentAlert(
+    //           'Transaction Status',
+    //           'Transaction has been posted to the network!',
+    //           'Successful');
+    //       this.resetForm();
+    //     } else {
+    //       console.log(res.status);
+    //       setTimeout(() => {
+    //         this.submitBtn.disabled = false;
+    //       }, 500);
+    //       this.status = 'Transaction failed!';
+    //       this.myTools.presentAlert('Transaction Status', res.message, 'Failed');
+    //     }
+    //   } else {
+    //     const res: any = await this.minimaApiService.sendFunds(data);
+    //     // console.log(res);
+    //     if (res.status) {
+    //       this.status = 'Transaction posted!';
+    //       this.myTools.presentAlert(
+    //           'Transaction Status',
+    //           'Transaction has been posted to the network!',
+    //           'Successful');
+    //       this.resetForm();
+    //     } else {
+    //       console.log(res.status);
+    //       setTimeout(() => {
+    //         this.submitBtn.disabled = false;
+    //       }, 500);
+    //       this.status = 'Transaction failed!';
+    //       this.myTools.presentAlert('Transaction Status', res.message, 'Failed');
+    //     }
+    //   }
+    // }
     /** get token selected, or set Minima as default */
     SendFundsPage.prototype.getTokenSelected = function () {
         var _this = this;
-        this.route.queryParamMap.subscribe(function (res) {
+        this.activedRouter.queryParamMap.subscribe(function (res) {
             _this.itemSelected = res.params.id;
             if (!res.params.id) {
                 _this.itemSelected = '0x00';
@@ -253,6 +248,10 @@ var SendFundsPage = /** @class */ (function () {
     /** listen to selection change */
     SendFundsPage.prototype.onItemSelection = function (ev) {
         this.itemSelected = this.sendForm.get('tokenid').value;
+    };
+    SendFundsPage.prototype.onSend = function (data) {
+        this.minimaApiService.$urlData.next(data);
+        this.router.navigate(['confirmation'], { relativeTo: this.activedRouter });
     };
     __decorate([
         core_1.ViewChild('submitBtn', { static: false })

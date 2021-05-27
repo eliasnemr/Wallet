@@ -17,8 +17,8 @@ import {
   ModalController,
   IonContent} from '@ionic/angular';
 import {MinimaApiService} from '../../service/minima-api.service';
-import {Subscription} from 'rxjs';
-import {ActivatedRoute} from '@angular/router';
+import { Subscription } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
 import {Token} from 'minima';
 import {Decimal} from 'decimal.js';
 
@@ -57,6 +57,7 @@ export class SendFundsPage implements OnInit {
   messageToggle = false;
   balanceSubscription: Subscription;
   tokenArr: Token[] = [];
+  insufficientFunds: boolean;
 
   /** */
   constructor(
@@ -66,17 +67,21 @@ export class SendFundsPage implements OnInit {
     private formBuilder: FormBuilder,
     private minimaApiService: MinimaApiService,
     private contactService: ContactService,
-    private route: ActivatedRoute,
+    private activedRouter: ActivatedRoute,
+    private router: Router,
   ) {
     this.myTokens = [];
   }
   /** */
   ionViewWillEnter() {
+    this.resetForm();
     this.$balanceSubscription =
     this.minimaApiService.$balance.subscribe((res: Token[]) => {
       if (res.length === 1) {
-        this.myTokens = res;
+        this.myTokens = res.filter((token) =>
+          new Decimal(token.sendable).greaterThan(new Decimal(0)));
       } else {
+        this.insufficientFunds = false;
         this.myTokens = res.filter((token) =>
           new Decimal(token.sendable).greaterThan(new Decimal(0)));
       }
@@ -150,65 +155,65 @@ export class SendFundsPage implements OnInit {
     contactModal.present();
   }
   /** */
-  sendFunds() {
-    this.status = 'Creating your transaction...';
-    this.myTools.scrollToBottom(this.pageContent);
-    this.sendForm.value.amnt = this.sendForm.value.amount.toString();
-    const data: SendFormObj = this.sendForm.value;
-    // console.log(data);
-    try {
-      this.post(data);
-    } catch (err) {
-      console.log(err);
-    }
-  }
+  // sendFunds() {
+  //   this.status = 'Creating your transaction...';
+  //   this.myTools.scrollToBottom(this.pageContent);
+  //   this.sendForm.value.amnt = this.sendForm.value.amount.toString();
+  //   const data: SendFormObj = this.sendForm.value;
+  //   // console.log(data);
+  //   try {
+  //     this.post(data);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }
   /**  */
-  async post(data: any) {
-    this.submitBtn.disabled = true;
-    this.status = 'Posting your transaction...';
-    if (data.message !== null && ( data.message || data.message.length > 0) ) {
-      const res: any =
-      await this.minimaApiService.sendMessageTransaction(data);
-      // console.log(res);
-      if (res.status) {
-        this.status = 'Transaction posted!';
-        this.myTools.presentAlert(
-            'Transaction Status',
-            'Transaction has been posted to the network!',
-            'Successful');
-        this.resetForm();
-      } else {
-        console.log(res.status);
-        setTimeout(() => {
-          this.submitBtn.disabled = false;
-        }, 500);
-        this.status = 'Transaction failed!';
-        this.myTools.presentAlert('Transaction Status', res.message, 'Failed');
-      }
-    } else {
-      const res: any = await this.minimaApiService.sendFunds(data);
-      // console.log(res);
+  // async post(data: any) {
+  //   this.submitBtn.disabled = true;
+  //   this.status = 'Posting your transaction...';
+  //   if (data.message !== null && ( data.message || data.message.length > 0) ) {
+  //     const res: any =
+  //     await this.minimaApiService.sendMessageTransaction(data);
+  //     // console.log(res);
+  //     if (res.status) {
+  //       this.status = 'Transaction posted!';
+  //       this.myTools.presentAlert(
+  //           'Transaction Status',
+  //           'Transaction has been posted to the network!',
+  //           'Successful');
+  //       this.resetForm();
+  //     } else {
+  //       console.log(res.status);
+  //       setTimeout(() => {
+  //         this.submitBtn.disabled = false;
+  //       }, 500);
+  //       this.status = 'Transaction failed!';
+  //       this.myTools.presentAlert('Transaction Status', res.message, 'Failed');
+  //     }
+  //   } else {
+  //     const res: any = await this.minimaApiService.sendFunds(data);
+  //     // console.log(res);
 
-      if (res.status) {
-        this.status = 'Transaction posted!';
-        this.myTools.presentAlert(
-            'Transaction Status',
-            'Transaction has been posted to the network!',
-            'Successful');
-        this.resetForm();
-      } else {
-        console.log(res.status);
-        setTimeout(() => {
-          this.submitBtn.disabled = false;
-        }, 500);
-        this.status = 'Transaction failed!';
-        this.myTools.presentAlert('Transaction Status', res.message, 'Failed');
-      }
-    }
-  }
+  //     if (res.status) {
+  //       this.status = 'Transaction posted!';
+  //       this.myTools.presentAlert(
+  //           'Transaction Status',
+  //           'Transaction has been posted to the network!',
+  //           'Successful');
+  //       this.resetForm();
+  //     } else {
+  //       console.log(res.status);
+  //       setTimeout(() => {
+  //         this.submitBtn.disabled = false;
+  //       }, 500);
+  //       this.status = 'Transaction failed!';
+  //       this.myTools.presentAlert('Transaction Status', res.message, 'Failed');
+  //     }
+  //   }
+  // }
   /** get token selected, or set Minima as default */
   getTokenSelected() {
-    this.route.queryParamMap.subscribe((res: any) => {
+    this.activedRouter.queryParamMap.subscribe((res: any) => {
       this.itemSelected = res.params.id;
       if (!res.params.id) {
         this.itemSelected = '0x00';
@@ -218,6 +223,11 @@ export class SendFundsPage implements OnInit {
   /** listen to selection change */
   onItemSelection(ev: any) {
     this.itemSelected = this.sendForm.get('tokenid').value;
+  }
+
+  onSend(data: any) {
+    this.minimaApiService.$urlData.next(data);
+    this.router.navigate(['confirmation'], {relativeTo: this.activedRouter});
   }
 }
 

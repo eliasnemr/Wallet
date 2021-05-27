@@ -18,6 +18,7 @@ var MinimaApiService = /** @class */ (function () {
         this.$balance = new rxjs_1.ReplaySubject(1);
         this.$history = new rxjs_1.ReplaySubject(1);
         this.$status = new rxjs_1.ReplaySubject(1);
+        this.$urlData = new rxjs_1.ReplaySubject(1);
     }
     MinimaApiService.prototype.init = function (balance) {
         this.$balance.next(balance);

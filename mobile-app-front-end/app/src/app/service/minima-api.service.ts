@@ -1,3 +1,4 @@
+import { SendFormObj } from './../pages/send-funds/send-funds.page';
 import { Subject, ReplaySubject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
@@ -19,6 +20,7 @@ export class MinimaApiService {
   public $balance: Subject<Token[]>;
   public $history: Subject<CompleteTransaction[]>;
   public $status: Subject<NetworkStatus>;
+  public $urlData: Subject<SendFormObj>;
 
   constructor(
     public loadingController: LoadingController,
@@ -26,6 +28,7 @@ export class MinimaApiService {
     this.$balance = new ReplaySubject<Token[]>(1);
     this.$history = new ReplaySubject<CompleteTransaction[]>(1);
     this.$status = new ReplaySubject<NetworkStatus>(1);
+    this.$urlData = new ReplaySubject<SendFormObj>(1);
   }
 
   init(balance: Token[]) {
