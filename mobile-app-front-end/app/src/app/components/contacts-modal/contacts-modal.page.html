@@ -17,8 +17,8 @@
       <img *ngIf="av.length !== 0" [src]="av">
     </ion-avatar>
   </div>
-
-    <form 
+  
+    <form *ngIf="contactForm"
     [formGroup]="contactForm" 
     id="contactForm" 
     (ngSubmit)="addContact()">
