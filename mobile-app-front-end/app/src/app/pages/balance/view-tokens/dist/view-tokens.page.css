@@ -66,6 +66,8 @@ ion-list ion-item ion-avatar:hover ion-icon {
 }
 
 .value {
+  color: var(--ion-color-tertiary);
+  opacity: 0.7;
   font-size: 16px;
   font-family: manrope-regular;
   text-align: right;
