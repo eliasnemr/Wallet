@@ -106,12 +106,12 @@ export class SendFundsPage implements OnInit {
     });
 
     this.$contactSubscription =
-    this.contactService.$selected_address.subscribe((res: SelectedAddress) => {
+    this.contactService.selectedAddress.subscribe((res: SelectedAddress) => {
       if (res.address.length === 0) {
         // Do nothing
       } else {
         this.addressFormItem.setValue(res.address);
-        this.contactService.$selected_address.next({address: ''});
+        this.contactService.selectedAddress.next({address: ''});
       }
     });
     this.getTokenSelected();
@@ -145,7 +145,7 @@ export class SendFundsPage implements OnInit {
         Validators.pattern('[Mx|0x][a-zA-Z0-9]+')]],
       amount: ['0', [
         Validators.required,
-        checkAmount(this.currentToken.sendable ?
+        checkAmount(this.currentToken && this.currentToken.sendable ?
           this.currentToken.sendable : '0')]],
       message: '',
     });

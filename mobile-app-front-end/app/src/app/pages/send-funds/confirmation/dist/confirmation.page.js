@@ -46,13 +46,15 @@ exports.ConfirmationPage = void 0;
 var core_1 = require("@angular/core");
 var SparkMD5 = require("spark-md5");
 var ConfirmationPage = /** @class */ (function () {
-    function ConfirmationPage(menu, minimaApiService, router, myTools) {
+    function ConfirmationPage(menu, minimaApiService, contactService, router, myTools) {
         this.menu = menu;
         this.minimaApiService = minimaApiService;
+        this.contactService = contactService;
         this.router = router;
         this.myTools = myTools;
         this.tokenIcon = '';
         this.tokenName = '';
+        this.recipientName = '';
         this.status = 'Confirm';
     }
     ConfirmationPage.prototype.ngOnInit = function () {
@@ -62,8 +64,17 @@ var ConfirmationPage = /** @class */ (function () {
         this.$subscription =
             this.minimaApiService.$urlData.subscribe(function (data) {
                 _this.data = data;
+                _this.$contacts =
+                    _this.contactService.data.subscribe(function (contacts) {
+                        console.log(contacts);
+                        contacts.forEach(function (contact) {
+                            if (contact.ADDRESS === _this.data.address) {
+                                _this.recipientName = contact.NAME;
+                            }
+                        });
+                    });
                 // console.log(this.data);
-                _this.$subscription =
+                _this.$balance =
                     _this.minimaApiService.$balance.subscribe(function (balance) {
                         balance.forEach(function (token) {
                             if (token.tokenid === _this.data.tokenid) {
@@ -78,7 +89,11 @@ var ConfirmationPage = /** @class */ (function () {
             });
     };
     ConfirmationPage.prototype.ionViewWillLeave = function () {
-        this.$subscription.unsubscribe();
+        if (this.$subscription && this.$contacts && this.$balance) {
+            this.$subscription.unsubscribe();
+            this.$contacts.unsubscribe();
+            this.$balance.unsubscribe();
+        }
     };
     ConfirmationPage.prototype.createIcon = function (tokenid) {
         return this.avatar = 'https://www.gravatar.com/avatar/' + SparkMD5.hash(tokenid) + '?d=identicon';

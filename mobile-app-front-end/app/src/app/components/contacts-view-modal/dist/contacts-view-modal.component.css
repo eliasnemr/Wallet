@@ -52,6 +52,10 @@ ion-item.contactItem ion-label {
 ion-item.contactItem ion-label h3 {
   font-family: manrope-bold;
 }
+ion-item.contactItem ion-label p {
+  color: var(--ion-color-tertiary);
+  opacity: 0.7;
+}
 
 ion-item.contactItem:hover {
   --background: var(--ion-color-item-hover);

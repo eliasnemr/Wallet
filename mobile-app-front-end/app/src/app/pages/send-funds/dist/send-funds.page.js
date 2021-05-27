@@ -102,13 +102,13 @@ var SendFundsPage = /** @class */ (function () {
                 }
             });
         this.$contactSubscription =
-            this.contactService.$selected_address.subscribe(function (res) {
+            this.contactService.selectedAddress.subscribe(function (res) {
                 if (res.address.length === 0) {
                     // Do nothing
                 }
                 else {
                     _this.addressFormItem.setValue(res.address);
-                    _this.contactService.$selected_address.next({ address: '' });
+                    _this.contactService.selectedAddress.next({ address: '' });
                 }
             });
         this.getTokenSelected();
@@ -144,7 +144,7 @@ var SendFundsPage = /** @class */ (function () {
                 ]],
             amount: ['0', [
                     forms_1.Validators.required,
-                    checkAmount(this.currentToken.sendable ?
+                    checkAmount(this.currentToken && this.currentToken.sendable ?
                         this.currentToken.sendable : '0')
                 ]],
             message: ''
