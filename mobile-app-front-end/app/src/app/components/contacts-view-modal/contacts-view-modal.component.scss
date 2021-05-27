@@ -11,17 +11,17 @@ ion-grid.has {
   padding-left: 22px;
   padding-right: 22px;
 }
-ion-buttons { 
-  ion-button {
-    text-transform: none;
-    color: var(--ion-color-primary);
-  }
-  ion-button:hover {
-    --background-hover: none;
-    --color: var(--ion-color-secondary);
-  }
+span.dismiss { 
+  cursor: pointer;
+  font-size: 16px;
+  color: var(--ion-color-primary);
 }
-
+span.dismiss:hover {
+  color: var(--ion-color-secondary);
+}
+ion-item {
+  --inner-padding-end: 0;
+}
 ion-item-option div.block {
   width: 100%;
   text-transform: none;

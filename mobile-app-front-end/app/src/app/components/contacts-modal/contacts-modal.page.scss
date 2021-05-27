@@ -48,14 +48,6 @@ button.footer:hover {
   background: transparent;
   font-size: 1.0rem;
 }
-ion-header ion-toolbar ion-buttons ion-button {
-  color: var(--ion-color-primary)!important;
-  text-transform: none;
-}
-ion-header ion-toolbar ion-buttons ion-button:hover {
-  --background-hover: none;
-  --color: var(--ion-color-secondary);
-}
 ion-item.error {
   display: flex;
   align-items: center;
@@ -85,7 +77,7 @@ ion-button.createContact {
   color: #fff !important;
   border-radius: 0;
   float: right;
-  margin-top: 7px;
+  margin-top: 22px;
 }
 ion-button.createContact:hover {
   --background: #346EE5;
@@ -99,4 +91,13 @@ ion-title {
 .optional {
   font-family: manrope-light; 
   color: var(--ion-color-tertiary);
+}
+
+span.dismiss { 
+  cursor: pointer;
+  font-size: 16px;
+  color: var(--ion-color-primary);
+}
+span.dismiss:hover {
+  color: var(--ion-color-secondary);
 }
