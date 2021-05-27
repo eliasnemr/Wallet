@@ -1,4 +1,3 @@
-import {ToolsService} from './../../service/tools.service';
 import {ContactService,
   SelectedAddress} from 'src/app/service/contacts.service';
 import {
@@ -8,6 +7,9 @@ import {
   FormGroup,
   FormBuilder,
   Validators,
+  AbstractControl,
+  ValidationErrors,
+  ValidatorFn,
 } from '@angular/forms';
 import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
 import {
@@ -30,6 +32,14 @@ export interface SendFormObj {
 }
 
 Decimal.set({precision: 64}); /** set precision for Decimal calculations */
+export function checkAmount(val: any): ValidatorFn {
+  return (control?: AbstractControl): ValidationErrors | null => {
+    const a = new Decimal(val);
+    if (control.value && new Decimal(control.value).greaterThan(a)) {
+      return {invalidAmount: true};
+    }
+  };
+}
 @Component({
   selector: 'app-send-funds',
   templateUrl: './send-funds.page.html',
@@ -58,12 +68,12 @@ export class SendFundsPage implements OnInit {
   balanceSubscription: Subscription;
   tokenArr: Token[] = [];
   insufficientFunds: boolean;
+  currentToken: Token;
 
   /** */
   constructor(
     public menu: MenuController,
     public modalController: ModalController,
-    private myTools: ToolsService,
     private formBuilder: FormBuilder,
     private minimaApiService: MinimaApiService,
     private contactService: ContactService,
@@ -71,10 +81,18 @@ export class SendFundsPage implements OnInit {
     private router: Router,
   ) {
     this.myTokens = [];
+    this.$balanceSubscription =
+    this.minimaApiService.$balance.subscribe((balance: Token[]) => {
+      balance.forEach((token: Token) => {
+        if (token.tokenid === '0x00') {
+          this.currentToken = token;
+        }
+      });
+    });
   }
   /** */
   ionViewWillEnter() {
-    this.resetForm();
+    this.formInit('0x00');
     this.$balanceSubscription =
     this.minimaApiService.$balance.subscribe((res: Token[]) => {
       if (res.length === 1) {
@@ -88,12 +106,12 @@ export class SendFundsPage implements OnInit {
     });
 
     this.$contactSubscription =
-    this.contactService.$selected_address.subscribe((res: SelectedAddress) => {
+    this.contactService.selectedAddress.subscribe((res: SelectedAddress) => {
       if (res.address.length === 0) {
         // Do nothing
       } else {
         this.addressFormItem.setValue(res.address);
-        this.contactService.$selected_address.next({address: ''});
+        this.contactService.selectedAddress.next({address: ''});
       }
     });
     this.getTokenSelected();
@@ -105,7 +123,7 @@ export class SendFundsPage implements OnInit {
   }
   /** */
   ngOnInit() {
-    this.formInit();
+    this.formInit('0x00');
   }
   /** */
   resetForm() {
@@ -114,18 +132,21 @@ export class SendFundsPage implements OnInit {
     }, 6000);
     this.submitBtn.disabled = false;
     this.sendForm.reset();
-    this.formInit();
+    this.formInit('0x00');
   }
   /** */
-  formInit() {
+  formInit(id) {
     this.sendForm = this.formBuilder.group({
-      tokenid: '',
+      tokenid: id,
       address: ['', [
         Validators.required,
         Validators.minLength(2),
         Validators.maxLength(60),
         Validators.pattern('[Mx|0x][a-zA-Z0-9]+')]],
-      amount: ['', [Validators.required]],
+      amount: ['0', [
+        Validators.required,
+        checkAmount(this.currentToken && this.currentToken.sendable ?
+          this.currentToken.sendable : '0')]],
       message: '',
     });
   }
@@ -166,6 +187,16 @@ export class SendFundsPage implements OnInit {
   /** listen to selection change */
   onItemSelection(ev: any) {
     this.itemSelected = this.sendForm.get('tokenid').value;
+
+    this.$balanceSubscription =
+    this.minimaApiService.$balance.subscribe((balance: Token[]) => {
+      balance.forEach((token: Token) => {
+        if (token.tokenid === this.itemSelected) {
+          this.currentToken = token;
+          this.formInit(this.currentToken.tokenid);
+        }
+      });
+    });
   }
 
   onSend(data: any) {

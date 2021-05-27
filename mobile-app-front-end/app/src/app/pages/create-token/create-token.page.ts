@@ -42,12 +42,14 @@ export class CreateTokenPage implements OnInit {
   iconEntry = { isChecked: false };
   proofEntry = { isChecked: false };
   nft = { isNonFungible: false };
+  public creationStatus: string;
 
   constructor(
     public menu: MenuController,
     private api: MinimaApiService,
     private formBuilder: FormBuilder,
     private myTools: ToolsService) {
+    this.creationStatus = 'Create Token';
     this.customToken = {
       name: '',
       amount: 0,
@@ -76,12 +78,12 @@ export class CreateTokenPage implements OnInit {
   }
 
   createTokenAdvanced() {
+    this.creationStatus = '';
     this.loading = true;
     // console.log(this.tokenCreationForm.value);
     const newToken: any = this.tokenCreationForm.value;
     // console.log(newToken);
     try {
-      this.status = 'Creating token...';
       this.create(newToken);
     } catch (err) {
       console.log(err);
@@ -95,15 +97,16 @@ export class CreateTokenPage implements OnInit {
       this.submitBtn.disabled = true;
       const res: any = await this.api.createToken(newToken);
       if (res.status) {
-        this.status = 'Token created!';
         this.myTools.presentAlert('Success', 'Token ' +
           this.customToken.name+' has been created.', 'Token Creation Status');
+        this.creationStatus = 'Token created!';
         this.resetForm();
       } else {
         setTimeout(() => {
+          this.creationStatus = 'Create Token';
           this.submitBtn.disabled = false;
         }, 500);
-        this.status = 'Token creation failed!';
+        this.creationStatus = 'Creation failed!';
         this.myTools.presentAlert('Error',
             res.message, 'Token Creation Status');
       }
@@ -112,15 +115,15 @@ export class CreateTokenPage implements OnInit {
       // newToken.script = 'RETURN TRUE'; // default script to spend token
       const res: any = await this.api.createToken(newToken);
       if (res.status) {
-        this.status = newToken.name + ' has been created!';
         this.myTools.presentAlert('Success', 'Token ' +
         this.customToken.name + ' has been created.', 'Token Creation Status');
+        this.creationStatus = 'Token created!';
         this.resetForm();
       } else {
         setTimeout(() => {
+          this.creationStatus = 'Create Token';
           this.submitBtn.disabled = false;
-        }, 500)
-        this.status = newToken.name + ' failed to create!';
+        }, 500);
         this.myTools.presentAlert('Error',
             res.message, 'Token Creation Status');
       }
@@ -137,7 +140,7 @@ export class CreateTokenPage implements OnInit {
       amount: ['', [
         Validators.required,
         Validators.maxLength(255),
-        // Validators.pattern('(0-9)$'),
+        Validators.pattern('^[0-9]*$'),
       ]],
       description: '',
       script: '',
@@ -147,17 +150,17 @@ export class CreateTokenPage implements OnInit {
         Validators.maxLength(255),
       ]],
       proof: ['', [
-        Validators.pattern('(http(s?):)([\\/|\\.|\\w|\\s|\\-])*\.(?:txt)$'), 
+        Validators.pattern('(http(s?):)([\\/|\\.|\\w|\\s|\\-])*\.(?:txt)$'),
         Validators.maxLength(255),
       ]],
       nft: false,
     });
   }
 
-  resetForm() { 
+  resetForm() {
     setTimeout(() => {
-      this.status = '';
-    }, 6000);
+      this.creationStatus = 'Create Token';
+    }, 2000);
     this.submitBtn.disabled = false;
     this.tokenCreationForm.reset();
     this.formInit();

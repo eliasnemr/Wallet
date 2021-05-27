@@ -8,33 +8,36 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 exports.__esModule = true;
 exports.ContactService = void 0;
 var rxjs_1 = require("rxjs");
+var operators_1 = require("rxjs/operators");
 var minima_1 = require("minima");
 var core_1 = require("@angular/core");
 var SparkMD5 = require("spark-md5");
 var ContactService = /** @class */ (function () {
     function ContactService() {
-        var _this = this;
         this.data = new rxjs_1.ReplaySubject(1);
+        this.selectedAddress = new rxjs_1.ReplaySubject(1);
+        this.initSQL();
+    }
+    ContactService.prototype.initSQL = function () {
+        var _this = this;
         this.qContacts = 'CREATE TABLE IF NOT EXISTS contacts (' +
             'address varchar(255) PRIMARY KEY,' +
             'name varchar(255),' +
             'description varchar(255),' +
             'avatar varchar(255))';
         minima_1.Minima.sql(this.qContacts + ';SELECT * FROM contacts ORDER BY NAME', function (res) {
-            //console.log(res);
+            // console.log(res);
             if (minima_1.Minima.util.checkAllResponses(res)) {
                 _this.data.next(res.response[1].rows);
             }
         });
-    }
+    };
     ContactService.prototype.createIcon = function (address) {
         return 'https://www.gravatar.com/avatar/' + SparkMD5.hash(address) + '?d=identicon';
     };
     ContactService.prototype.loadContacts = function () {
-        this.data.subscribe(function (val) {
-            return val;
-        });
-        return null;
+        return this.data.pipe(operators_1.take(1))
+            .toPromise();
     };
     ContactService.prototype.addContact = function (newContact) {
         var _this = this;
@@ -52,22 +55,31 @@ var ContactService = /** @class */ (function () {
         else {
             this.qContacts = "INSERT INTO contacts VALUES(" +
                 "'" + newContact.ADDRESS + "'," +
-                "'" + newContact.NAME + "'," +
+                "'" + newContact.NAME.replace("'", "''") + "'," +
                 "'" + newContact.DESCRIPTION + "'," +
                 "'" + newContact.AVATAR + "')";
         }
         minima_1.Minima.sql(this.qContacts + ';SELECT * FROM CONTACTS ORDER BY NAME', function (res) {
-            console.log(res);
+            // console.log(res);
             if (res.status && res.response[0].status) {
-                _this.data.next(res.response[1].rows);
+                _this.data.next(res.response[1].rows ? res.response[1].rows : []);
+            }
+        });
+    };
+    ContactService.prototype.deleteContacts = function () {
+        var _this = this;
+        minima_1.Minima.sql('DELETE FROM CONTACTS', function (res) {
+            if (res.status) {
+                _this.data.next(res.response.rows);
             }
         });
     };
     ContactService.prototype.removeContact = function (address) {
         var _this = this;
-        minima_1.Minima.sql("DELETE FROM CONTACTS WHERE ADDRESS='" + address + "';SELECT * FROM CONTACTS", function (res) {
+        minima_1.Minima.sql('DELETE FROM CONTACTS WHERE ADDRESS=\'' + address + '\';SELECT * FROM CONTACTS', function (res) {
             if (minima_1.Minima.util.checkAllResponses(res)) {
-                _this.data.next(res.response[1].rows); // update data observable
+                // update data observable
+                _this.data.next(res.response[1].rows ? res.response[1].rows : []);
             }
         });
     };

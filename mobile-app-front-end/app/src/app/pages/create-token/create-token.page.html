@@ -58,7 +58,8 @@
 
     <ion-note *ngIf="amount.invalid && amount.touched" class="error-message">
       <div> Token amount required!</div>
-      <div> Must be numeric and greater than 0.</div> 
+      <div> No decimals allowed.</div>
+      <div> Must be a digit and greater than 0.</div>
     </ion-note>
 
     <ion-item class="no-ripple ion-no-padding" lines="none" lines="none">
@@ -132,7 +133,8 @@
     <ion-item lines="none" class="createtoken-wrapper ion-no-padding">
       <div style="display: flex; flex-direction:column; justify-content:right; align-items:flex-end">
         <ion-button slot="end" #submitBtn type="submit" class="create-token" [disabled]="tokenCreationForm.invalid" fill="clear">
-          Create Token
+          {{ creationStatus }}
+          <ion-spinner *ngIf="creationStatus === ''" name="dots" color="gray-one"></ion-spinner>
         </ion-button>
         <ion-note *ngIf="status.length > 0">{{ status }}</ion-note>
       </div>

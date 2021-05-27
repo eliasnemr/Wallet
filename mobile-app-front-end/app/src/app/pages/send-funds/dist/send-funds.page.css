@@ -126,12 +126,29 @@ div.has {
   width: 100%;
 }
 div.has button {
+  width: 55px;
   background-color: transparent;
   border: 1px solid #F0F0FA;
+}
+div.has button ion-icon {
+  font-size: 16px;
+  color: var(--ion-color-tertiary);
+}
+div.has button.maxAmount {
+  width: 55px;
+  background-color: transparent;
+  border: 1px solid #F0F0FA;
+  color: var(--ion-color-tertiary);
 }
 
 ion-grid#status ion-row ion-col {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+span.optional {
+  font-family: manrope-light;
+  color: var(--ion-color-optional);
+  margin-right: 7px;
 }

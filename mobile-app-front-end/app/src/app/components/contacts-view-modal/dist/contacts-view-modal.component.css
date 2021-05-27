@@ -13,13 +13,18 @@ ion-grid.has {
   padding-right: 22px;
 }
 
-ion-buttons ion-button {
-  text-transform: none;
+span.dismiss {
+  cursor: pointer;
+  font-size: 16px;
   color: var(--ion-color-primary);
 }
-ion-buttons ion-button:hover {
-  --background-hover: none;
-  --color: var(--ion-color-secondary);
+
+span.dismiss:hover {
+  color: var(--ion-color-secondary);
+}
+
+ion-item {
+  --inner-padding-end: 0;
 }
 
 ion-item-option div.block {
@@ -46,6 +51,10 @@ ion-item.contactItem ion-label {
 }
 ion-item.contactItem ion-label h3 {
   font-family: manrope-bold;
+}
+ion-item.contactItem ion-label p {
+  color: var(--ion-color-tertiary);
+  opacity: 0.7;
 }
 
 ion-item.contactItem:hover {

@@ -1,3 +1,4 @@
+import { ContactService, Contact } from 'src/app/service/contacts.service';
 import { ToolsService } from './../../../service/tools.service';
 import { Router } from '@angular/router';
 import { SendFormObj } from './../send-funds.page';
@@ -15,20 +16,25 @@ import * as SparkMD5 from 'spark-md5';
 })
 export class ConfirmationPage implements OnInit {
   public $subscription: Subscription;
+  public $contacts: Subscription;
+  public $balance: Subscription;
   public data: SendFormObj;
   public tokenName: string;
   public tokenIcon: string;
   public availableBalance: string;
   public avatar: string;
   public status: string;
+  public recipientName: string;
   @ViewChild('confirmBtn', {static: false}) confirmBtn: IonButton;
   constructor(
     public menu: MenuController,
     private minimaApiService: MinimaApiService,
+    private contactService: ContactService,
     private router: Router,
     private myTools: ToolsService) {
     this.tokenIcon = '';
     this.tokenName = '';
+    this.recipientName = '';
     this.status = 'Confirm';
   }
 
@@ -40,8 +46,17 @@ export class ConfirmationPage implements OnInit {
     this.$subscription =
     this.minimaApiService.$urlData.subscribe((data: SendFormObj) => {
       this.data = data;
+      this.$contacts =
+      this.contactService.data.subscribe((contacts: Contact[]) => {
+        // console.log(contacts);
+        contacts.forEach((contact: Contact) => {
+          if (contact.ADDRESS === this.data.address) {
+            this.recipientName = contact.NAME;
+          }
+        });
+      });
       // console.log(this.data);
-      this.$subscription =
+      this.$balance =
       this.minimaApiService.$balance.subscribe((balance: Token[]) => {
         balance.forEach((token: Token) => {
           if (token.tokenid === this.data.tokenid) {
@@ -57,7 +72,11 @@ export class ConfirmationPage implements OnInit {
   }
 
   ionViewWillLeave() {
-    this.$subscription.unsubscribe();
+    if (this.$subscription && this.$contacts && this.$balance) {
+      this.$subscription.unsubscribe();
+      this.$contacts.unsubscribe();
+      this.$balance.unsubscribe();
+    }
   }
 
   createIcon(tokenid: string) {
