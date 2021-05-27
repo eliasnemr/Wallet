@@ -179,62 +179,6 @@ var SendFundsPage = /** @class */ (function () {
             });
         });
     };
-    /** */
-    // sendFunds() {
-    //   this.status = 'Creating your transaction...';
-    //   this.myTools.scrollToBottom(this.pageContent);
-    //   this.sendForm.value.amnt = this.sendForm.value.amount.toString();
-    //   const data: SendFormObj = this.sendForm.value;
-    //   // console.log(data);
-    //   try {
-    //     this.post(data);
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-    // }
-    /**  */
-    // async post(data: any) {
-    //   this.submitBtn.disabled = true;
-    //   this.status = 'Posting your transaction...';
-    //   if (data.message !== null && ( data.message || data.message.length > 0) ) {
-    //     const res: any =
-    //     await this.minimaApiService.sendMessageTransaction(data);
-    //     // console.log(res);
-    //     if (res.status) {
-    //       this.status = 'Transaction posted!';
-    //       this.myTools.presentAlert(
-    //           'Transaction Status',
-    //           'Transaction has been posted to the network!',
-    //           'Successful');
-    //       this.resetForm();
-    //     } else {
-    //       console.log(res.status);
-    //       setTimeout(() => {
-    //         this.submitBtn.disabled = false;
-    //       }, 500);
-    //       this.status = 'Transaction failed!';
-    //       this.myTools.presentAlert('Transaction Status', res.message, 'Failed');
-    //     }
-    //   } else {
-    //     const res: any = await this.minimaApiService.sendFunds(data);
-    //     // console.log(res);
-    //     if (res.status) {
-    //       this.status = 'Transaction posted!';
-    //       this.myTools.presentAlert(
-    //           'Transaction Status',
-    //           'Transaction has been posted to the network!',
-    //           'Successful');
-    //       this.resetForm();
-    //     } else {
-    //       console.log(res.status);
-    //       setTimeout(() => {
-    //         this.submitBtn.disabled = false;
-    //       }, 500);
-    //       this.status = 'Transaction failed!';
-    //       this.myTools.presentAlert('Transaction Status', res.message, 'Failed');
-    //     }
-    //   }
-    // }
     /** get token selected, or set Minima as default */
     SendFundsPage.prototype.getTokenSelected = function () {
         var _this = this;

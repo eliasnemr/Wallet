@@ -19,7 +19,7 @@ export class ToolsService {
   copy(data: any) {
     document.addEventListener('copy', (e: ClipboardEvent) => {
       e.clipboardData.setData('text/plain', data);
-      this.presentToast('Copied To Clipboard', 'primary', 'bottom');
+      // this.presentToast('Copied To Clipboard', 'primary', 'bottom');
       e.preventDefault();
       document.removeEventListener('copy', null);
     });
