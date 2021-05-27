@@ -77,14 +77,11 @@
           *ngIf="amountFormItem.invalid && amountFormItem.touched" 
           name="alert-circle"></ion-icon>
         </ion-input>
+        <ion-note *ngIf="currentToken?.sendable" color="tertiary">Balance: {{ currentToken?.sendable }}</ion-note>
       </ion-item>
       <ion-note *ngIf="amountFormItem.invalid && amountFormItem.touched" class="error-message">
         <div> Amount required!</div>
         <div> Must be numeric and greater than zero.</div>
-        <div *ngIf="currentToken?.sendable" id="sendableAmount"> 
-          {{ currentToken?.sendable}}
-          <span> is spendable.</span>
-        </div>
       </ion-note>
 
       <ion-item class="no-hover no-ripple ion-no-padding" lines="none">

@@ -135,10 +135,3 @@ ion-grid#status ion-row ion-col {
   align-items: center;
   justify-content: center;
 }
-
-div#sendableAmount {
-  color: var(--ion-color-tertiary);
-}
-div#sendableAmount span {
-  color: var(--ion-color-primary);
-}

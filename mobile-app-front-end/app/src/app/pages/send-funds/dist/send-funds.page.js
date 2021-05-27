@@ -144,7 +144,8 @@ var SendFundsPage = /** @class */ (function () {
                 ]],
             amount: ['0', [
                     forms_1.Validators.required,
-                    checkAmount(this.currentToken.sendable)
+                    checkAmount(this.currentToken.sendable ?
+                        this.currentToken.sendable : '0')
                 ]],
             message: ''
         });
