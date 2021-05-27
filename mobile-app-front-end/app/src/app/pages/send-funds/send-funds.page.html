@@ -16,18 +16,6 @@
 
 
 <ion-content #pageContent class="page-content">
-  <!-- <ion-grid id="status" *ngIf="!myTokens || myTokens.length === 0">
-    <ion-row>
-      <ion-col size="12">
-        <ion-label color="tertiary">Fetching tokens...</ion-label>
-      </ion-col>
-      <ion-col size="12">
-        <ion-spinner color="tertiary" name="crescent"></ion-spinner>
-      </ion-col>
-    </ion-row>
-  </ion-grid> -->
-
-
   <form [formGroup]="sendForm" id="sendForm" (ngSubmit)="sendFunds()">
     <ion-list class="ion-no-padding">
       <ion-item class="no-hover no-ripple ion-no-padding" lines="none">
@@ -65,32 +53,55 @@
           </ion-input>
         </div>
       </ion-item>
-      <ion-item class="no-hover no-ripple ion-no-padding"  lines="none">
+      <ion-item class="no-hover no-ripple ion-no-padding" lines="none">
         <ion-label class="medium-text" position="stacked">
            Address</ion-label>
         <div class="has">
-          <ion-input [disabled]="myTokens.length === 0" #address class="medium-text input" formControlName="address" clearInput="true" placeholder="Enter a valid address">
+          <ion-input 
+          [disabled]="myTokens.length === 0" 
+          #address 
+          class="medium-text input" 
+          formControlName="address" 
+          clearInput="true" 
+          placeholder="Enter a valid address">
             <ion-icon 
           class="input-error-icon" 
           *ngIf="addressFormItem.invalid && addressFormItem.touched" 
           name="alert-circle"></ion-icon>
           </ion-input>
-          <button type="button" (click)="presentContactModal()" class="clear"><ion-icon style="font-size: 16px; color: var(--ion-color-primary)" name="person-add-outline"></ion-icon></button>
+          <button 
+          type="button" 
+          (click)="presentContactModal()" 
+          class="clear">
+          <ion-icon name="person-add-outline"></ion-icon></button>
         </div>
       </ion-item>
       <ion-note *ngIf="addressFormItem.invalid && addressFormItem.touched" class="error-message">
         <div> Invalid address format!</div> 
         <div> Must begin with 0x or Mx.</div>
       </ion-note>
-      <ion-item class="no-hover no-ripple ion-no-padding"  lines="none">
+
+      <ion-item class="no-hover no-ripple ion-no-padding amount"  lines="none">
         <ion-label class="medium-text" position="stacked">
           Amount</ion-label>
-        <ion-input [disabled]="myTokens.length === 0" #amount type="text" formControlName="amount" class="input" placeholder="Enter token amount">
-          <ion-icon 
-          class="input-error-icon" 
-          *ngIf="amountFormItem.invalid && amountFormItem.touched" 
-          name="alert-circle"></ion-icon>
-        </ion-input>
+        <div class="has">
+          <ion-input 
+          [disabled]="myTokens.length === 0" 
+          #amount 
+          type="text" 
+          formControlName="amount" 
+          class="input" 
+          placeholder="Enter token amount">
+            <ion-icon 
+            class="input-error-icon" 
+            *ngIf="amountFormItem.invalid && amountFormItem.touched" 
+            name="alert-circle"></ion-icon>
+          </ion-input>
+          <button 
+          type="button"
+          (click)="currentToken?.sendable ? amountInp.value = currentToken?.sendable : '0'" 
+          class="maxAmount clear">Max</button>
+        </div>
       </ion-item>
       <ion-note *ngIf="amountFormItem.invalid && amountFormItem.touched" class="error-message">
         <div> Amount required!</div>
@@ -99,7 +110,7 @@
       </ion-note>
 
       <ion-item class="no-hover no-ripple ion-no-padding" lines="none">
-        <ion-label position="stacked" style="margin-bottom: 1%;">Message <span style="font-family: manrope-light; color:var(--ion-color-optional); margin-right: 7px">(optional) </span></ion-label>
+        <ion-label position="stacked" style="margin-bottom: 1%;">Message <span class="optional">(optional) </span></ion-label>
         <ion-textarea
             [disabled]="myTokens.length === 0"
             [(ngModel)]="data.message"
