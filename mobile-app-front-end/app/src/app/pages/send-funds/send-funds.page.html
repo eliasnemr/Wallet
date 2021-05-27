@@ -53,6 +53,20 @@
       </ion-item>
       <ion-item class="no-hover no-ripple ion-no-padding"  lines="none">
         <ion-label class="medium-text" position="stacked">
+           Your Balance</ion-label>
+        <div class="has">
+          <ion-input 
+          [disabled]="myTokens.length === 0" 
+          #address 
+          class="medium-text input"  
+          clearInput="false"
+          readonly = true
+          [value]="currentToken?.sendable">
+          </ion-input>
+        </div>
+      </ion-item>
+      <ion-item class="no-hover no-ripple ion-no-padding"  lines="none">
+        <ion-label class="medium-text" position="stacked">
            Address</ion-label>
         <div class="has">
           <ion-input [disabled]="myTokens.length === 0" #address class="medium-text input" formControlName="address" clearInput="true" placeholder="Enter a valid address">
@@ -66,7 +80,7 @@
       </ion-item>
       <ion-note *ngIf="addressFormItem.invalid && addressFormItem.touched" class="error-message">
         <div> Invalid address format!</div> 
-        <div> Must begin with 0x or Mx.</div> 
+        <div> Must begin with 0x or Mx.</div>
       </ion-note>
       <ion-item class="no-hover no-ripple ion-no-padding"  lines="none">
         <ion-label class="medium-text" position="stacked">
@@ -77,11 +91,11 @@
           *ngIf="amountFormItem.invalid && amountFormItem.touched" 
           name="alert-circle"></ion-icon>
         </ion-input>
-        <ion-note *ngIf="currentToken?.sendable" color="tertiary">Balance: {{ currentToken?.sendable }}</ion-note>
       </ion-item>
       <ion-note *ngIf="amountFormItem.invalid && amountFormItem.touched" class="error-message">
         <div> Amount required!</div>
         <div> Must be numeric and greater than zero.</div>
+        <div> Please check you have sufficient funds.</div>
       </ion-note>
 
       <ion-item class="no-hover no-ripple ion-no-padding" lines="none">
