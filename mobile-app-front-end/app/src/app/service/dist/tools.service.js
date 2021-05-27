@@ -55,10 +55,9 @@ var ToolsService = /** @class */ (function () {
     }
     /** */
     ToolsService.prototype.copy = function (data) {
-        var _this = this;
         document.addEventListener('copy', function (e) {
             e.clipboardData.setData('text/plain', data);
-            _this.presentToast('Copied To Clipboard', 'primary', 'bottom');
+            // this.presentToast('Copied To Clipboard', 'primary', 'bottom');
             e.preventDefault();
             document.removeEventListener('copy', null);
         });

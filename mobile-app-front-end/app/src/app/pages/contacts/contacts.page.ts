@@ -27,6 +27,7 @@ export class ContactsPage implements OnInit {
   contacts: Contact[] = [];
   filteredContacts: Contact[];
   $contactSubscription: Subscription;
+  private copyStatus: string;
 
   @ViewChild('contactList', {static: false}) ContactList: IonList;
   constructor(
@@ -36,7 +37,9 @@ export class ContactsPage implements OnInit {
     public alertController: AlertController,
     private contactService: ContactService,
     private api: MinimaApiService,
-    public myTools: ToolsService) { }
+    public myTools: ToolsService) {
+    this.copyStatus = 'Copy Address';
+  }
 
   ngOnInit() { }
 
@@ -108,5 +111,13 @@ export class ContactsPage implements OnInit {
       cssClass: 'contactsModal',
     });
     return await modal.present();
+  }
+
+  copy(data: any) {
+    this.copyStatus = 'Copied!';
+    this.myTools.copy(data);
+    setTimeout(() => {
+      this.copyStatus = 'Copy Address';
+    }, 2000);
   }
 }

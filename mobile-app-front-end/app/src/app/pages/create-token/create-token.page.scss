@@ -9,10 +9,10 @@ ion-list {
   ion-item {
     --inner-padding-end: 0;
     ion-label {
-      span#optional {
-        font-family: manrope-light;
-        color: var(--ion-color-tertiary);
-      }
+       span#optional {
+         font-family: manrope-light;
+         color: var(--ion-color-tertiary);
+       }
       color: var(--ion-color-tertiary);
       font-size: 20px;
       font-family: manrope-bold;
@@ -101,4 +101,9 @@ ion-button.create-token {
 }
 ion-button.create-token:hover {
   --background: #346EE5;
+}
+span#nftOptional {
+  font-size: 14px;
+  font-family: manrope-light;
+  color: var(--ion-color-tertiary);
 }

@@ -69,6 +69,7 @@ ion-list {
     overflow: scroll;
 }
 div.token-wrapper {
+    color: var(--ion-color-tertiary);
     display: flex;
     flex-direction: column;
     max-width: 150px;

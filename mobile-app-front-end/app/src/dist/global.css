@@ -22,7 +22,7 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 ion-icon.input-error-icon {
-  color: var(--ion-color-error-icon);
+  color: var(--ion-color-danger);
   width: 20.43px;
   height: 20.43px;
   position: absolute;
@@ -35,7 +35,7 @@ ion-note.error-message {
   margin-top: 10px;
 }
 ion-note.error-message div {
-  color: var(--ion-color-error);
+  color: var(--ion-color-danger);
 }
 
 /** remove arrow keys from ion-input */

@@ -89,7 +89,10 @@
     <ion-item color="none" class="ion-no-padding">
       <ion-col class="title">
         Token ID
-      <a class="copy" (click)="copyToClipPWA(token?.tokenid)">
+      <a 
+      [id]="'tokenid'+token?.tokenid"
+      class="copy" 
+      (click)="copy(token?.tokenid, 'tokenid'+token?.tokenid)">
         Copy 
       </a>
       </ion-col>
@@ -102,7 +105,10 @@
     [hidden]="token?.tokenid == '0x00'">
       <ion-col class="title">
         Coin ID
-      <a class="copy" (click)="copyToClipPWA(token?.coinid)">
+      <a 
+      [id]="'coinid'+token?.coinid"
+      class="copy" 
+      (click)="copy(token?.coinid, 'coinid'+token?.coinid)">
         Copy 
       </a>
       </ion-col>

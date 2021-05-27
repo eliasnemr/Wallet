@@ -15,7 +15,9 @@ var MyAddressPage = /** @class */ (function () {
         this.myTools = myTools;
         this.api = api;
         this.qrCode = '';
-        this.lastCode = '';
+        this.copyStatus = 'Copy Address';
+        this.genStatus = 'Generate Address';
+        this.isEmpty = false;
     }
     MyAddressPage.prototype.ngOnInit = function () { };
     MyAddressPage.prototype.ionViewWillEnter = function () {
@@ -41,17 +43,19 @@ var MyAddressPage = /** @class */ (function () {
     };
     MyAddressPage.prototype.generateAddress = function () {
         var _this = this;
+        this.genStatus = '';
         this.newAddress();
         this.generateAddressBtn.disabled = true;
-        this.myTools.presentToast('Generated a new address', 'primary', "bottom");
         setTimeout(function () {
             _this.generateAddressBtn.disabled = false;
+            _this.genStatus = 'Generate Address';
         }, 2000);
     };
     MyAddressPage.prototype.newAddress = function () {
         var _this = this;
         setTimeout(function () {
-            _this.api.newAddress().then(function (res) {
+            _this.api.newAddress()
+                .then(function (res) {
                 if (res.status) {
                     _this.qrCode = res.response.address.miniaddress;
                     _this.isEmpty = true;
@@ -65,11 +69,21 @@ var MyAddressPage = /** @class */ (function () {
         }, 0);
     };
     MyAddressPage.prototype.copy = function (data) {
+        var _this = this;
+        this.copyStatus = 'Copied!';
+        this.copyAddressBtn.disabled = true;
         this.myTools.copy(data);
+        setTimeout(function () {
+            _this.copyStatus = 'Copy Address';
+            _this.copyAddressBtn.disabled = false;
+        }, 2000);
     };
     __decorate([
         core_1.ViewChild('generateAddressBtn', { static: false })
     ], MyAddressPage.prototype, "generateAddressBtn");
+    __decorate([
+        core_1.ViewChild('copyAddressBtn', { static: false })
+    ], MyAddressPage.prototype, "copyAddressBtn");
     MyAddressPage = __decorate([
         core_1.Component({
             selector: 'app-my-address',

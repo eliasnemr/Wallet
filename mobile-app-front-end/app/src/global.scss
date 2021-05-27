@@ -27,7 +27,7 @@
 
 // Form error messages
 ion-icon.input-error-icon {
-  color: var(--ion-color-error-icon);
+  color: var(--ion-color-danger);
   width: 20.43px;
   height: 20.43px;
   position: absolute;
@@ -38,7 +38,7 @@ ion-note.error-message {
   font-family: manrope-regular;
   margin-top: 10px;
   div {
-    color: var(--ion-color-error);
+    color: var(--ion-color-danger);
   }
 }
 /** remove arrow keys from ion-input */
