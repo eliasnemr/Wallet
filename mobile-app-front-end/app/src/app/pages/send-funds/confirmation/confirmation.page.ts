@@ -48,7 +48,7 @@ export class ConfirmationPage implements OnInit {
       this.data = data;
       this.$contacts =
       this.contactService.data.subscribe((contacts: Contact[]) => {
-        console.log(contacts);
+        // console.log(contacts);
         contacts.forEach((contact: Contact) => {
           if (contact.ADDRESS === this.data.address) {
             this.recipientName = contact.NAME;

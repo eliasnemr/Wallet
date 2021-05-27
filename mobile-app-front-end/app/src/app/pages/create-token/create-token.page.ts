@@ -42,7 +42,7 @@ export class CreateTokenPage implements OnInit {
   iconEntry = { isChecked: false };
   proofEntry = { isChecked: false };
   nft = { isNonFungible: false };
-  private creationStatus: string;
+  public creationStatus: string;
 
   constructor(
     public menu: MenuController,
