@@ -52,6 +52,7 @@
     <ion-item class="ion-no-padding ion-no-margin">
       <ion-label>
         <h6>Receiving address</h6>
+        <p *ngIf="recipientName.length > 0" color="primary">{{ recipientName }}</p>
         <p>{{ data?.address }}</p>
       </ion-label>
     </ion-item>

@@ -43,6 +43,10 @@ ion-item.contactItem {
     h3 {
       font-family: manrope-bold;
     }
+    p {
+      color: var(--ion-color-tertiary);
+      opacity: 0.7;
+    }
   }
 }
 ion-item.contactItem:hover {

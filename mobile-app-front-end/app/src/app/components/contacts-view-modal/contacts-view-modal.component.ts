@@ -11,7 +11,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
   styleUrls: ['./contacts-view-modal.component.scss'],
 })
 export class ContactsViewModalComponent implements OnInit {
-
   @ViewChild('contactList', {static: false}) ContactList: IonList;
   contacts: Contact[];
   $contactSubscription: Subscription;
@@ -20,13 +19,11 @@ export class ContactsViewModalComponent implements OnInit {
   constructor(
     private _contactService: ContactService,
     public modalController: ModalController,
-    private myTools: ToolsService,
-    ) { }
+    private myTools: ToolsService) { }
 
   ngOnInit() { }
-  
+
   ionViewWillEnter() {
-    
     this._contactService.data.subscribe((res: Contact[]) => {
       // set the list
       this.contacts = res;
@@ -34,20 +31,17 @@ export class ContactsViewModalComponent implements OnInit {
   }
 
   ionViewWillLeave() {
-
     if (this.$contactSubscription) {
-
       this.$contactSubscription.unsubscribe();
-
     }
-
   }
 
   queryContacts(qy: string) {
     qy = qy.toUpperCase();
     if (qy.length > 0) {
       this.contacts = this.contacts.filter( ele => {
-        return ele.NAME.toUpperCase().includes(qy) || ele.ADDRESS.toUpperCase().includes(qy);
+        return ele.NAME.toUpperCase().includes(qy) ||
+        ele.ADDRESS.toUpperCase().includes(qy);
       });
     } else {
       this._contactService.data.subscribe((res: any) => {
@@ -61,7 +55,7 @@ export class ContactsViewModalComponent implements OnInit {
   }
 
   selectAddress(addr: string) {
-    this._contactService.$selected_address.next({address: addr});
+    this._contactService.selectedAddress.next({address: addr});
     this.modalController.dismiss();
   }
 
