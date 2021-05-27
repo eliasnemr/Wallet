@@ -119,3 +119,9 @@ ion-button.create-token {
 ion-button.create-token:hover {
   --background: #346EE5;
 }
+
+span#nftOptional {
+  font-size: 14px;
+  font-family: manrope-light;
+  color: var(--ion-color-tertiary);
+}

@@ -106,6 +106,7 @@ button.footer:focus {
 }
 
 ion-button.send-funds {
+  font-size: 14px;
   height: 35px;
   width: 164px;
   --background: var(--ion-color-primary);

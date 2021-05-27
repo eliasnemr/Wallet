@@ -5,6 +5,7 @@ ion-content {
   --overflow: hidden;
 }
 ion-button.copy-btn {
+  font-size: 14px;
   text-transform: none;
   font-family: manrope-bold;
   color: #fff;
@@ -18,6 +19,7 @@ ion-button.copy-btn:hover {
   --background: #346EE5;
 }
 ion-button.gen-btn {
+  font-size: 14px;
   height: 35px;
   width: 164px;
   text-transform: none;

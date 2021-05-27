@@ -124,8 +124,10 @@ export class ViewTXNPage implements OnInit {
     this.myTools.copy(text);
 
     setTimeout(() => {
-      document.getElementById(type).innerHTML = 'Copy';
-      document.getElementById(type).style.color = 'var(--ion-color-primary';
+      if (document.getElementById(type)) {
+        document.getElementById(type).innerHTML = 'Copy';
+        document.getElementById(type).style.color = 'var(--ion-color-primary';
+      }
     }, 2000);
   }
 }
