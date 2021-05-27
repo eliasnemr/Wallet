@@ -37,11 +37,20 @@
     </ion-row>
     <ion-row class="mt-18">
       <ion-col size="12" class="ion-no-padding">
-        <ion-button (click)="copy(qrCode)" class="copy-btn" fill="clear">
-          Copy Address
+        <ion-button 
+        #copyAddressBtn
+        (click)="copy(qrCode)" 
+        class="copy-btn" 
+        fill="clear">
+          {{ copyStatus }}
         </ion-button>
-        <ion-button (click)="generateAddress()" #generateAddressBtn class="gen-btn" fill="none">
-          Generate Address
+        <ion-button 
+        #generateAddressBtn 
+        (click)="generateAddress()" 
+        class="gen-btn" 
+        fill="none">
+          {{ genStatus }}
+          <ion-spinner *ngIf="genStatus === ''" name="dots" color="gray-one"></ion-spinner>
         </ion-button>
       </ion-col>
       
