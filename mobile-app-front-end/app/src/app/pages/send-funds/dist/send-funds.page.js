@@ -42,18 +42,27 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.SendFundsPage = void 0;
+exports.SendFundsPage = exports.checkAmount = void 0;
 var contacts_view_modal_component_1 = require("./../../components/contacts-view-modal/contacts-view-modal.component");
 var forms_1 = require("@angular/forms");
 var core_1 = require("@angular/core");
 var decimal_js_1 = require("decimal.js");
 decimal_js_1.Decimal.set({ precision: 64 }); /** set precision for Decimal calculations */
+function checkAmount(val) {
+    return function (control) {
+        var a = new decimal_js_1.Decimal(val);
+        if (control.value && new decimal_js_1.Decimal(control.value).greaterThan(a)) {
+            return { invalidAmount: true };
+        }
+    };
+}
+exports.checkAmount = checkAmount;
 var SendFundsPage = /** @class */ (function () {
     /** */
-    function SendFundsPage(menu, modalController, myTools, formBuilder, minimaApiService, contactService, activedRouter, router) {
+    function SendFundsPage(menu, modalController, formBuilder, minimaApiService, contactService, activedRouter, router) {
+        var _this = this;
         this.menu = menu;
         this.modalController = modalController;
-        this.myTools = myTools;
         this.formBuilder = formBuilder;
         this.minimaApiService = minimaApiService;
         this.contactService = contactService;
@@ -65,11 +74,19 @@ var SendFundsPage = /** @class */ (function () {
         this.messageToggle = false;
         this.tokenArr = [];
         this.myTokens = [];
+        this.$balanceSubscription =
+            this.minimaApiService.$balance.subscribe(function (balance) {
+                balance.forEach(function (token) {
+                    if (token.tokenid === '0x00') {
+                        _this.currentToken = token;
+                    }
+                });
+            });
     }
     /** */
     SendFundsPage.prototype.ionViewWillEnter = function () {
         var _this = this;
-        this.resetForm();
+        this.formInit('0x00');
         this.$balanceSubscription =
             this.minimaApiService.$balance.subscribe(function (res) {
                 if (res.length === 1) {
@@ -103,7 +120,7 @@ var SendFundsPage = /** @class */ (function () {
     };
     /** */
     SendFundsPage.prototype.ngOnInit = function () {
-        this.formInit();
+        this.formInit('0x00');
     };
     /** */
     SendFundsPage.prototype.resetForm = function () {
@@ -113,19 +130,22 @@ var SendFundsPage = /** @class */ (function () {
         }, 6000);
         this.submitBtn.disabled = false;
         this.sendForm.reset();
-        this.formInit();
+        this.formInit('0x00');
     };
     /** */
-    SendFundsPage.prototype.formInit = function () {
+    SendFundsPage.prototype.formInit = function (id) {
         this.sendForm = this.formBuilder.group({
-            tokenid: '',
+            tokenid: id,
             address: ['', [
                     forms_1.Validators.required,
                     forms_1.Validators.minLength(2),
                     forms_1.Validators.maxLength(60),
                     forms_1.Validators.pattern('[Mx|0x][a-zA-Z0-9]+')
                 ]],
-            amount: ['', [forms_1.Validators.required]],
+            amount: ['0', [
+                    forms_1.Validators.required,
+                    checkAmount(this.currentToken.sendable)
+                ]],
             message: ''
         });
     };
@@ -191,7 +211,17 @@ var SendFundsPage = /** @class */ (function () {
     };
     /** listen to selection change */
     SendFundsPage.prototype.onItemSelection = function (ev) {
+        var _this = this;
         this.itemSelected = this.sendForm.get('tokenid').value;
+        this.$balanceSubscription =
+            this.minimaApiService.$balance.subscribe(function (balance) {
+                balance.forEach(function (token) {
+                    if (token.tokenid === _this.itemSelected) {
+                        _this.currentToken = token;
+                        _this.formInit(_this.currentToken.tokenid);
+                    }
+                });
+            });
     };
     SendFundsPage.prototype.onSend = function (data) {
         this.minimaApiService.$urlData.next(data);
