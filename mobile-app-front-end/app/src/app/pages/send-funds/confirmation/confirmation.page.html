@@ -85,8 +85,7 @@
         id="confirm" 
         fill="clear"
         (click)="sendFunds(data)">
-        {{ status }}
-        <ion-spinner *ngIf="status === ''" name="dots" color="gray-one"></ion-spinner>
+        <ion-spinner *ngIf="creationStatus === ''" name="dots" color="gray-one"></ion-spinner>
       </ion-button>
       </ion-col>
     </ion-row>

@@ -59,6 +59,7 @@ var CreateTokenPage = /** @class */ (function () {
         this.iconEntry = { isChecked: false };
         this.proofEntry = { isChecked: false };
         this.nft = { isNonFungible: false };
+        this.creationStatus = 'Create Token';
         this.customToken = {
             name: '',
             amount: 0,
@@ -82,12 +83,12 @@ var CreateTokenPage = /** @class */ (function () {
         this.menu.open();
     };
     CreateTokenPage.prototype.createTokenAdvanced = function () {
+        this.creationStatus = '';
         this.loading = true;
         // console.log(this.tokenCreationForm.value);
         var newToken = this.tokenCreationForm.value;
         // console.log(newToken);
         try {
-            this.status = 'Creating token...';
             this.create(newToken);
         }
         catch (err) {
@@ -109,16 +110,17 @@ var CreateTokenPage = /** @class */ (function () {
                     case 1:
                         res = _a.sent();
                         if (res.status) {
-                            this.status = 'Token created!';
                             this.myTools.presentAlert('Success', 'Token ' +
                                 this.customToken.name + ' has been created.', 'Token Creation Status');
+                            this.creationStatus = 'Token created!';
                             this.resetForm();
                         }
                         else {
                             setTimeout(function () {
+                                _this.creationStatus = 'Create Token';
                                 _this.submitBtn.disabled = false;
                             }, 500);
-                            this.status = 'Token creation failed!';
+                            this.creationStatus = 'Creation failed!';
                             this.myTools.presentAlert('Error', res.message, 'Token Creation Status');
                         }
                         return [3 /*break*/, 4];
@@ -128,16 +130,16 @@ var CreateTokenPage = /** @class */ (function () {
                     case 3:
                         res = _a.sent();
                         if (res.status) {
-                            this.status = newToken.name + ' has been created!';
                             this.myTools.presentAlert('Success', 'Token ' +
                                 this.customToken.name + ' has been created.', 'Token Creation Status');
+                            this.creationStatus = 'Token created!';
                             this.resetForm();
                         }
                         else {
                             setTimeout(function () {
+                                _this.creationStatus = 'Create Token';
                                 _this.submitBtn.disabled = false;
                             }, 500);
-                            this.status = newToken.name + ' failed to create!';
                             this.myTools.presentAlert('Error', res.message, 'Token Creation Status');
                         }
                         _a.label = 4;
@@ -155,6 +157,7 @@ var CreateTokenPage = /** @class */ (function () {
             amount: ['', [
                     forms_1.Validators.required,
                     forms_1.Validators.maxLength(255),
+                    forms_1.Validators.pattern('^[0-9]*$'),
                 ]],
             description: '',
             script: '',
@@ -172,8 +175,8 @@ var CreateTokenPage = /** @class */ (function () {
     CreateTokenPage.prototype.resetForm = function () {
         var _this = this;
         setTimeout(function () {
-            _this.status = '';
-        }, 6000);
+            _this.creationStatus = 'Create Token';
+        }, 2000);
         this.submitBtn.disabled = false;
         this.tokenCreationForm.reset();
         this.formInit();
