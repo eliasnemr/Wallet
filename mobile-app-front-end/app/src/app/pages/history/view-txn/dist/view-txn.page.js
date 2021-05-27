@@ -103,8 +103,10 @@ var ViewTXNPage = /** @class */ (function () {
         document.getElementById(type).style.color = 'var(--ion-color-success';
         this.myTools.copy(text);
         setTimeout(function () {
-            document.getElementById(type).innerHTML = 'Copy';
-            document.getElementById(type).style.color = 'var(--ion-color-primary';
+            if (document.getElementById(type)) {
+                document.getElementById(type).innerHTML = 'Copy';
+                document.getElementById(type).style.color = 'var(--ion-color-primary';
+            }
         }, 2000);
     };
     ViewTXNPage = __decorate([
