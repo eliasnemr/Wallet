@@ -10,7 +10,7 @@ import { Address, Minima } from 'minima';
   styleUrls: ['./my-address.page.scss'],
 })
 export class MyAddressPage implements OnInit {
-  private qrCode = '';
+  public qrCode = '';
   public isEmpty: boolean;
   public copyStatus: string;
   public genStatus: string;

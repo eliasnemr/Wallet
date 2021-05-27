@@ -27,7 +27,7 @@ export class ContactsPage implements OnInit {
   contacts: Contact[] = [];
   filteredContacts: Contact[];
   $contactSubscription: Subscription;
-  private copyStatus: string;
+  public copyStatus: string;
 
   @ViewChild('contactList', {static: false}) ContactList: IonList;
   constructor(

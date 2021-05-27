@@ -66,7 +66,7 @@ var ConfirmationPage = /** @class */ (function () {
                 _this.data = data;
                 _this.$contacts =
                     _this.contactService.data.subscribe(function (contacts) {
-                        console.log(contacts);
+                        // console.log(contacts);
                         contacts.forEach(function (contact) {
                             if (contact.ADDRESS === _this.data.address) {
                                 _this.recipientName = contact.NAME;
