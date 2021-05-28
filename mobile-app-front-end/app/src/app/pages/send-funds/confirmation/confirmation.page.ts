@@ -26,6 +26,7 @@ export class ConfirmationPage implements OnInit {
   public status: string;
   public recipientName: string;
   @ViewChild('confirmBtn', {static: false}) confirmBtn: IonButton;
+  @ViewChild('cancelBtn', {static: false}) cancelBtn: IonButton;
   constructor(
     public menu: MenuController,
     private minimaApiService: MinimaApiService,
@@ -96,6 +97,7 @@ export class ConfirmationPage implements OnInit {
   /**  */
   async post(data: any) {
     this.confirmBtn.disabled = true;
+    this.cancelBtn.disabled = true;
     if (data.message !== null && ( data.message || data.message.length > 0) ) {
       const res: any =
       await this.minimaApiService.sendMessageTransaction(data);
@@ -110,6 +112,7 @@ export class ConfirmationPage implements OnInit {
       } else {
         setTimeout(() => {
           this.confirmBtn.disabled = false;
+          this.cancelBtn.disabled = false;
           this.status = 'Confirm';
         }, 500);
         this.myTools.presentAlert('Transaction Status', res.message, 'Failed');
@@ -126,6 +129,7 @@ export class ConfirmationPage implements OnInit {
       } else {
         setTimeout(() => {
           this.confirmBtn.disabled = false;
+          this.cancelBtn.disabled = false;
           this.status = 'Confirm';
         }, 500);
         this.myTools.presentAlert('Transaction Status', res.message, 'Failed');
