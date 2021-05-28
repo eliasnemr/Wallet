@@ -87,6 +87,11 @@ ion-list ion-item ion-avatar:hover ion-icon {
   opacity: 0.8;
 }
 
+.description {
+  color: var(--ion-color-tertiary);
+  opacity: 0.7;
+}
+
 .copy {
   text-decoration: underline;
   cursor: pointer;
