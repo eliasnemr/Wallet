@@ -92,6 +92,7 @@ ion-button.createContact {
   border-radius: 0;
   float: right;
   margin-top: 22px;
+  font-size: 14px;
 }
 
 ion-button.createContact:hover {
