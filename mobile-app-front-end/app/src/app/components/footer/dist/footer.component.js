@@ -83,6 +83,20 @@ var FooterComponent = /** @class */ (function () {
             }
         });
     };
+    FooterComponent.prototype.showMiningText = function () {
+        var _this = this;
+        (this.showMining ? this.showMining = false : this.showMining = true);
+        setTimeout(function () {
+            (_this.showMining ? _this.showMining = false : null);
+        }, 2000);
+    };
+    FooterComponent.prototype.showDoneText = function () {
+        var _this = this;
+        (this.showDone ? this.showDone = false : this.showDone = true);
+        setTimeout(function () {
+            (_this.showDone ? _this.showDone = false : null);
+        }, 2000);
+    };
     __decorate([
         core_1.ViewChild('gimme50Btn', { static: false })
     ], FooterComponent.prototype, "gimme50Btn");

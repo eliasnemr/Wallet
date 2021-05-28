@@ -88,4 +88,16 @@ export class FooterComponent implements OnInit {
       }
     });
   }
+  showMiningText() {
+    (this.showMining ? this.showMining = false : this.showMining = true);
+    setTimeout(() => {
+      (this.showMining ? this.showMining = false : null);
+    }, 2000);
+  }
+  showDoneText() {
+    (this.showDone ? this.showDone = false : this.showDone = true);
+    setTimeout(() => {
+      (this.showDone ? this.showDone = false : null);
+    }, 2000);
+  }
 }

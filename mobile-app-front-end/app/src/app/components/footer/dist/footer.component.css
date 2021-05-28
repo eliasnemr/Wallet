@@ -17,7 +17,7 @@ div.stack {
   align-items: center;
   display: flex;
   justify-content: center;
-  flex-direction: column;
+  flex-direction: row;
 }
 div.stack ion-icon.miningStarted {
   width: 24px;
@@ -28,5 +28,5 @@ div.stack ion-icon.miningFinished {
   height: 24px;
 }
 div.stack ion-label {
-  padding-top: 5px;
+  padding-right: 5px;
 }

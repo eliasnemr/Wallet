@@ -2,10 +2,11 @@ ion-list {
   margin-top: 14px;
   border: 1px solid var(--ion-color-item-border);
   border-radius: 10px;
-  background-color: var(--ion-color-item);
+  background-color: var(--ion-color-token);
   padding-left: 10px;
   padding-right: 10px;
   ion-item {
+    --background: var(--ion-color-token);
     --inner-padding-end: 0;
     color: var(--ion-color-tertiary);
     border-bottom: 1px solid var(--ion-color-item-border);

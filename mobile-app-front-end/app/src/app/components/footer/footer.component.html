@@ -5,19 +5,19 @@
   </ion-button>
 
   <div class="stack">
+    <ion-label *ngIf="miningStarted && showMining">Mining</ion-label>
     <ion-icon
-    (click)="showMining ? showMining = false : showMining = true"
+    (click)="showMiningText()"
     slot="end"
     *ngIf="miningStarted" 
     src="assets/cog.svg" 
     class="miningStarted miningSpinner"></ion-icon>
-    <ion-label *ngIf="miningStarted && showMining">Mining</ion-label>
+    <ion-label *ngIf="miningFinished && showDone" >Done</ion-label>
     <ion-icon
-    (click)="showDone ? showDone = false : showDone = true"
+    (click)="showDoneText()"
     slot="end"
     src="assets/tickGreenCircle.svg" 
     *ngIf="miningFinished" 
     class="miningFinished"></ion-icon>
-    <ion-label *ngIf="miningFinished && showDone" >Done</ion-label>
   </div>
 </ion-footer>
