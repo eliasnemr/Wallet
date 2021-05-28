@@ -118,6 +118,7 @@ var ConfirmationPage = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         this.confirmBtn.disabled = true;
+                        this.cancelBtn.disabled = true;
                         if (!(data.message !== null && (data.message || data.message.length > 0))) return [3 /*break*/, 2];
                         return [4 /*yield*/, this.minimaApiService.sendMessageTransaction(data)];
                     case 1:
@@ -131,6 +132,7 @@ var ConfirmationPage = /** @class */ (function () {
                         else {
                             setTimeout(function () {
                                 _this.confirmBtn.disabled = false;
+                                _this.cancelBtn.disabled = false;
                                 _this.status = 'Confirm';
                             }, 500);
                             this.myTools.presentAlert('Transaction Status', res.message, 'Failed');
@@ -147,6 +149,7 @@ var ConfirmationPage = /** @class */ (function () {
                         else {
                             setTimeout(function () {
                                 _this.confirmBtn.disabled = false;
+                                _this.cancelBtn.disabled = false;
                                 _this.status = 'Confirm';
                             }, 500);
                             this.myTools.presentAlert('Transaction Status', res.message, 'Failed');
@@ -160,6 +163,9 @@ var ConfirmationPage = /** @class */ (function () {
     __decorate([
         core_1.ViewChild('confirmBtn', { static: false })
     ], ConfirmationPage.prototype, "confirmBtn");
+    __decorate([
+        core_1.ViewChild('cancelBtn', { static: false })
+    ], ConfirmationPage.prototype, "cancelBtn");
     ConfirmationPage = __decorate([
         core_1.Component({
             selector: 'app-confirmation',
