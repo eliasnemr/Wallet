@@ -35,15 +35,17 @@ export class ToolsService {
     } catch (e) {}
     const toast = await this.toastController.create({
       message: msg,
-      position: posn,
+      position: 'bottom',
       color: clr,
       keyboardClose: true,
       translucent: true,
       duration: 2000,
-      buttons: [{
-        text: 'Dismiss',
-        role: 'cancel',
-      }],
+      cssClass: 'customToastClass',
+      buttons: [
+        {
+          icon: 'close-outline',
+          role: 'cancel',
+        }],
     });
     return await toast.present();
   }
@@ -59,10 +61,10 @@ export class ToolsService {
       message: msg,
       position: posn,
       color: clr,
-      cssClass: 'toast2',
       keyboardClose: true,
       translucent: true,
       duration: 3500,
+      cssClass: 'customToastClass',
       buttons: [{
         text: 'Dismiss',
         role: 'cancel',
