@@ -14,9 +14,54 @@ var FooterComponent = /** @class */ (function () {
         this.minimaApiService = minimaApiService;
         this.tools = tools;
         this.status = 'Gimme 50';
+        this.miningStarted = false;
+        this.miningFinished = false;
+        this.showDone = false;
+        this.showMining = false;
     }
     /** */
-    FooterComponent.prototype.ngOnInit = function () { };
+    FooterComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.$mining =
+            this.minimaApiService.$miningStatus.subscribe(function (status) {
+                if (status.started) {
+                    _this.miningStarted = true;
+                    _this.miningFinished = false;
+                }
+                else if (status.finished) {
+                    _this.miningStarted = false;
+                    _this.miningFinished = true;
+                }
+                else {
+                    _this.miningStarted = false;
+                    _this.miningFinished = false;
+                }
+            });
+    };
+    FooterComponent.prototype.ngOnDestroy = function () {
+        this.$mining.unsubscribe();
+    };
+    FooterComponent.prototype.ionViewWillEnter = function () {
+        var _this = this;
+        // console.log('Footer page');
+        this.$mining =
+            this.minimaApiService.$miningStatus.subscribe(function (status) {
+                console.log('Mining Status changed!');
+                if (status.started) {
+                    _this.miningStarted = true;
+                    _this.miningFinished = false;
+                }
+                else if (status.finished) {
+                    _this.miningFinished = true;
+                    _this.miningStarted = false;
+                }
+            });
+    };
+    FooterComponent.prototype.ionViewWillLeave = function () {
+        if (this.$mining) {
+            this.$mining.unsubscribe();
+        }
+    };
     /** Give user testnet money */
     FooterComponent.prototype.gimme50 = function () {
         var _this = this;

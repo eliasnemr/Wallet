@@ -58,10 +58,30 @@ var AppComponent = /** @class */ (function () {
                 _this.minimaApiService.$balance.next(msg.info.balance);
             }
             else if (msg.event === 'miningstart') {
-                _this.tools.presentMiningToast('Started to mine your transaction.', 'primary', 'bottom');
+                var miningStatus = {
+                    'started': true,
+                    'finished': false
+                };
+                _this.minimaApiService.$miningStatus.next(miningStatus);
+                // this.tools.presentMiningToast(
+                //     'Started to mine your transaction.',
+                //     'primary',
+                //     'bottom');
             }
             else if (msg.event === 'miningstop') {
-                _this.tools.presentMiningToast('Finished mining your transaction.', 'secondary', 'bottom');
+                var miningStatus_1 = {
+                    'started': false,
+                    'finished': true
+                };
+                _this.minimaApiService.$miningStatus.next(miningStatus_1);
+                miningStatus_1.finished = false;
+                setTimeout(function () {
+                    _this.minimaApiService.$miningStatus.next(miningStatus_1);
+                }, 4000);
+                // this.tools.presentMiningToast(
+                //     'Finished mining your transaction.',
+                //     'secondary',
+                //     'bottom');
             }
         });
     };

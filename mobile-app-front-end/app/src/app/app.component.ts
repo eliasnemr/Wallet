@@ -67,15 +67,29 @@ export class AppComponent {
 
         this.minimaApiService.$balance.next(msg.info.balance);
       } else if (msg.event === 'miningstart') {
-        this.tools.presentMiningToast(
-            'Started to mine your transaction.',
-            'primary',
-            'bottom');
+        const miningStatus = {
+          'started': true,
+          'finished': false,
+        };
+        this.minimaApiService.$miningStatus.next(miningStatus);
+        // this.tools.presentMiningToast(
+        //     'Started to mine your transaction.',
+        //     'primary',
+        //     'bottom');
       } else if (msg.event === 'miningstop') {
-        this.tools.presentMiningToast(
-            'Finished mining your transaction.',
-            'secondary',
-            'bottom');
+        const miningStatus = {
+          'started': false,
+          'finished': true,
+        };
+        this.minimaApiService.$miningStatus.next(miningStatus);
+        miningStatus.finished = false;
+        setTimeout(() => {
+          this.minimaApiService.$miningStatus.next(miningStatus);
+        }, 4000);
+        // this.tools.presentMiningToast(
+        //     'Finished mining your transaction.',
+        //     'secondary',
+        //     'bottom');
       }
     });
   }
