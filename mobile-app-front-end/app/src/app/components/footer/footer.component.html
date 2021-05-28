@@ -3,4 +3,21 @@
     {{ status }}
     <ion-spinner *ngIf="status === ''" name="dots" color="gray-one"></ion-spinner>
   </ion-button>
+
+  <div class="stack">
+    <ion-label *ngIf="miningStarted && showMining">Mining</ion-label>
+    <ion-icon
+    (click)="showMiningText()"
+    slot="end"
+    *ngIf="miningStarted" 
+    src="assets/cog.svg" 
+    class="miningStarted miningSpinner"></ion-icon>
+    <ion-label *ngIf="miningFinished && showDone" >Done</ion-label>
+    <ion-icon
+    (click)="showDoneText()"
+    slot="end"
+    src="assets/tickGreenCircle.svg" 
+    *ngIf="miningFinished" 
+    class="miningFinished"></ion-icon>
+  </div>
 </ion-footer>

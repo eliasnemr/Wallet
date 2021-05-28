@@ -12,6 +12,10 @@ export interface HistoryInterface {
   message: string;
   response: any;
 }
+export interface Mining {
+  started: boolean;
+  finished: boolean;
+}
 
 @Injectable({
   providedIn: 'root',
@@ -21,6 +25,7 @@ export class MinimaApiService {
   public $history: Subject<CompleteTransaction[]>;
   public $status: Subject<NetworkStatus>;
   public $urlData: Subject<SendFormObj>;
+  public $miningStatus: Subject<Mining>;
 
   constructor(
     public loadingController: LoadingController,
@@ -29,6 +34,7 @@ export class MinimaApiService {
     this.$history = new ReplaySubject<CompleteTransaction[]>(1);
     this.$status = new ReplaySubject<NetworkStatus>(1);
     this.$urlData = new ReplaySubject<SendFormObj>(1);
+    this.$miningStatus = new ReplaySubject<Mining>(1);
   }
 
   init(balance: Token[]) {

@@ -1,0 +1,33 @@
+.miningSpinner {
+  animation: spin-animation 0.5s infinite;
+  display: inline-block;
+}
+
+@keyframes spin-animation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(359deg);
+  }
+}
+
+div.stack {
+  position: absolute;
+  right: 27px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  ion-icon.miningStarted {
+    width: 24px;
+    height: 24px;
+  }
+  ion-icon.miningFinished {
+    width: 24px;
+    height: 24px;
+  }
+  ion-label {
+    padding-right: 5px;
+  }
+}

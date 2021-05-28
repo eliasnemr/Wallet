@@ -3,7 +3,7 @@ ion-input {
   font-size: 14px;
   background-color: var(--ion-color-inputs);
   border: 1px solid #f0f0fa;
-  padding-left: 2% !important;
+  padding-left: 10px!important;
 }
 ion-list {
   ion-item {
@@ -48,12 +48,11 @@ ion-checkbox {
   --size: 30px;
 }
 ion-textarea {
-  padding-left: 15px;
+  padding-left: 10px;
   font-size: 14px;
   color: var(--ion-color-text);
   background: var(--ion-color-inputs);
 }
-
 ion-title.cardHeader {
   padding-top: 2%;
   font-size: 0.9rem;

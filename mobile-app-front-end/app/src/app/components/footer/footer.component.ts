@@ -1,6 +1,7 @@
+import { Subscription } from 'rxjs';
 import { IonButton } from '@ionic/angular';
 import { ToolsService } from './../../service/tools.service';
-import { MinimaApiService } from './../../service/minima-api.service';
+import { MinimaApiService, Mining } from './../../service/minima-api.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 @Component({
@@ -11,16 +12,63 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 /** */
 export class FooterComponent implements OnInit {
   @ViewChild('gimme50Btn', {static: false}) gimme50Btn: IonButton;
+  public miningStarted: boolean;
+  public miningFinished: boolean;
+  public showDone: boolean;
+  public showMining: boolean;
+  public $mining: Subscription;
   status: string;
   /** */
   constructor(
     private minimaApiService: MinimaApiService,
     private tools: ToolsService) {
     this.status = 'Gimme 50';
+    this.miningStarted = false;
+    this.miningFinished = false;
+    this.showDone = false;
+    this.showMining = false;
   }
 
   /** */
-  ngOnInit() {}
+  ngOnInit() {
+    this.$mining =
+    this.minimaApiService.$miningStatus.subscribe((status: Mining) => {
+      if (status.started) {
+        this.miningStarted = true;
+        this.miningFinished = false;
+      } else if (status.finished) {
+        this.miningStarted = false;
+        this.miningFinished = true;
+      } else {
+        this.miningStarted = false;
+        this.miningFinished = false;
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    this.$mining.unsubscribe();
+  }
+
+  ionViewWillEnter() {
+    // console.log('Footer page');
+    this.$mining =
+    this.minimaApiService.$miningStatus.subscribe((status: Mining) => {
+      console.log('Mining Status changed!');
+      if (status.started) {
+        this.miningStarted = true;
+        this.miningFinished = false;
+      } else if (status.finished) {
+        this.miningFinished = true;
+        this.miningStarted = false;
+      }
+    });
+  }
+  ionViewWillLeave() {
+    if (this.$mining) {
+      this.$mining.unsubscribe();
+    }
+  }
   /** Give user testnet money */
   gimme50() {
     this.status = '';
@@ -39,5 +87,17 @@ export class FooterComponent implements OnInit {
         }, 4000);
       }
     });
+  }
+  showMiningText() {
+    (this.showMining ? this.showMining = false : this.showMining = true);
+    setTimeout(() => {
+      (this.showMining ? this.showMining = false : null);
+    }, 2000);
+  }
+  showDoneText() {
+    (this.showDone ? this.showDone = false : this.showDone = true);
+    setTimeout(() => {
+      (this.showDone ? this.showDone = false : null);
+    }, 2000);
   }
 }
