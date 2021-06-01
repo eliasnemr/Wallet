@@ -58,9 +58,9 @@ export class UploadFileModalComponent implements OnInit {
 
   async presentAlertConfirm() {
     const alert = await this.alertController.create({
-      cssClass: 'my-alert',
+      cssClass: 'alert',
       header: 'Save Contacts',
-      message: '<strong>Note:</strong> you are about to overwrite' +
+      message: '<strong>Note:</strong> you are about to overwrite ' +
                 'any previous contacts you have.',
       buttons: [
         {
