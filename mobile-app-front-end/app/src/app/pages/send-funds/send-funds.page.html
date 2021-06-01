@@ -62,7 +62,7 @@
           #address 
           class="medium-text input" 
           formControlName="address" 
-          clearInput="true" 
+          clearInput="false" 
           placeholder="Enter a valid address">
             <ion-icon 
           class="input-error-icon" 
@@ -122,7 +122,7 @@
             maxlength="255">
             </ion-textarea>
       </ion-item>
-      <ion-label *ngIf="data.message" class="length ion-no-margin ion-no-padding">{{ data.message.length +"/255" }}</ion-label>
+      <ion-label *ngIf="sendForm.value.message.length > 0" class="length ion-no-margin ion-no-padding">{{ sendForm.value.message.length +"/255" }}</ion-label>
     </ion-list>
 
     <ion-item lines="none" class="send-wrapper ion-no-padding">
