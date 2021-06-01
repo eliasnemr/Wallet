@@ -91,9 +91,9 @@ var UploadFileModalComponent = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.alertController.create({
-                            cssClass: 'my-alert',
+                            cssClass: 'alert',
                             header: 'Save Contacts',
-                            message: '<strong>Note:</strong> you are about to overwrite' +
+                            message: '<strong>Note:</strong> you are about to overwrite ' +
                                 'any previous contacts you have.',
                             buttons: [
                                 {
