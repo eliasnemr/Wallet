@@ -147,7 +147,7 @@ export class SendFundsPage implements OnInit {
         Validators.required,
         checkAmount(this.currentToken && this.currentToken.sendable ?
           this.currentToken.sendable : '0')]],
-      message: '',
+      message: ['', Validators.maxLength(255)],
     });
   }
   /** */

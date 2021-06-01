@@ -147,7 +147,7 @@ var SendFundsPage = /** @class */ (function () {
                     checkAmount(this.currentToken && this.currentToken.sendable ?
                         this.currentToken.sendable : '0')
                 ]],
-            message: ''
+            message: ['', forms_1.Validators.maxLength(255)]
         });
     };
     Object.defineProperty(SendFundsPage.prototype, "tokenFormItem", {
