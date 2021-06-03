@@ -46,6 +46,7 @@ ion-item-option div.block {
   vertical-align: middle;
   text-align: center;
   font-size: 0.85rem;
+  min-width: 56px;
 }
 
 ion-item-option div.block ion-icon {

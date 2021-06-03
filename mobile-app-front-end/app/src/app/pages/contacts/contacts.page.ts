@@ -38,7 +38,7 @@ export class ContactsPage implements OnInit {
     private contactService: ContactService,
     private api: MinimaApiService,
     public myTools: ToolsService) {
-    this.copyStatus = 'Copy Address';
+    this.copyStatus = 'Copy';
   }
 
   ngOnInit() { }
@@ -116,8 +116,9 @@ export class ContactsPage implements OnInit {
   copy(data: any) {
     this.copyStatus = 'Copied!';
     this.myTools.copy(data);
+    this.myTools.presentToast('Copied to clipboard.', 'primary', 'bottom');
     setTimeout(() => {
-      this.copyStatus = 'Copy Address';
+      this.copyStatus = 'Copy';
     }, 2000);
   }
 }
