@@ -2,6 +2,9 @@ ion-menu {
   height: 100%;
   --width: 250px;
 }
+ion-menu ion-footer {
+  justify-content: flex-start;
+}
 ion-menu ion-header.page-header {
   border-bottom: none;
   --background: var(--ion-color-background);
