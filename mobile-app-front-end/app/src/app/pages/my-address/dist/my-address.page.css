@@ -1,43 +1,20 @@
-@media screen and (min-width: 900px) {
-  .skeleton-address {
-    height: auto;
-    width: auto;
-    --background: var(--ion-background-color, #f2f2f2);
-  }
+ion-item {
+  --inner-padding-end: 0;
 }
+
 ion-content {
   --overflow: hidden;
 }
 
-ion-card-content {
-  background: var(--ion-card-color);
-}
-
-ion-card-header {
-  --color: var(--ion-text-color,#000);
-}
-
-.ios .skeleton-address {
-  height: 280px;
-  width: 100%;
-}
-
-.qrCanvas {
-  width: 50px;
-  height: auto;
-}
-
-.addr-title {
-  padding: 10px;
-}
-
 ion-button.copy-btn {
+  font-size: 14px;
   text-transform: none;
   font-family: manrope-bold;
   color: #fff;
   background-color: var(--ion-color-primary);
   height: 35px;
   width: 164px;
+  margin-left: 0;
   margin-right: 7px;
 }
 
@@ -46,103 +23,66 @@ ion-button.copy-btn:hover {
 }
 
 ion-button.gen-btn {
+  font-size: 14px;
   height: 35px;
   width: 164px;
   text-transform: none;
   font-family: manrope-bold;
-  color: var(--ion-color-color);
-  border: 1px solid var(--ion-color-color);
+  color: var(--ion-color-tertiary);
+  border: 1px solid var(--ion-color-tertiary);
   box-shadow: none;
+  margin-left: 0;
 }
 
 ion-button.gen-btn:hover {
-  --background: var(--ion-color-color);
-  color: var(--ion-color-item-hover);
+  --background: var(--ion-color-item-hover);
+  color: var(--ion-color-tertiary);
   --border-radius: 0;
-  border-color: var(--ion-color-color);
-}
-
-ion-badge:hover {
-  transform: scale(1.01);
-}
-
-ion-badge {
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  cursor: pointer;
-  --background: #FF512F;
+  border-color: var(--ion-color-tertiary);
 }
 
 ion-grid ion-row {
   display: flex;
   align-items: left;
   justify-content: left;
-  margin-left: 16px;
 }
 
 ion-grid ion-row:first-child {
   margin-top: 5px;
 }
 
-p.qrcode-box {
-  background-color: #fff;
+input.qrcode-box {
+  background-color: var(--ion-color-inputs);
   color: #000;
-  margin-right: 23px;
+  border: none;
+  width: 100%;
   margin-bottom: 0;
   padding-bottom: 0;
-  margin-top: 7px;
+  margin-top: 12px;
   padding: 1%;
   font-size: 15px;
+}
+
+input.qrcode-box:focus {
+  outline-color: var(--ion-color-primary);
 }
 
 .toast {
   --width: 50%;
 }
 
-.notes {
-  color: var(--ion-color-secondary);
-  margin: 7px;
-}
-
-ion-badge#tip {
-  white-space: normal;
-  align-self: center;
-  justify-content: center;
-  width: 100%;
-  font-size: 0.8rem;
-  --background: var(--ion-color-primary);
-  width: 90%;
-  margin-left: 5%;
-  margin-right: 2%;
-}
-
-ion-badge#tip:hover {
-  transform: scale(1);
-}
-
-ion-badge#tip ion-icon#info {
-  font-size: 1.5rem;
-}
-
-ion-badge#tip ion-col span#dismiss {
-  font-size: 1.5rem;
-  cursor: pointer;
-  color: #a63f44;
-}
-
-.center {
-  right: 2%;
-  align-items: center !important;
-  justify-content: center !important;
-  display: inline-flex !important;
-  text-align: center !important;
+p.notes {
+  color: var(--ion-color-tertiary);
+  opacity: 0.5;
+  margin: 10px 0px 0px 0px;
+  font-size: 14px;
 }
 
 div.qr-box {
   width: 226px;
   height: 226px;
   padding: 10%;
-  background-color: #fff;
+  background-color: var(--ion-color-inputs);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -151,4 +91,39 @@ div.qr-box {
 
 div.qr-box:hover {
   outline-color: var(--ion-color-primary);
+}
+
+@media only screen and (max-width: 600px) {
+  ion-button.copy-btn {
+    width: 175px;
+  }
+
+  ion-button.gen-btn {
+    width: 175px;
+  }
+}
+@media only screen and (max-width: 411px) {
+  ion-button.copy-btn {
+    width: 175px;
+  }
+
+  ion-button.gen-btn {
+    width: 175px;
+  }
+}
+@media only screen and (max-width: 401px) {
+  ion-button.copy-btn {
+    width: 165px;
+  }
+
+  ion-button.gen-btn {
+    width: 165px;
+  }
+}
+.mt-18 {
+  margin-top: 15px;
+}
+
+.prompt {
+  color: var(--ion-color-tertiary);
 }

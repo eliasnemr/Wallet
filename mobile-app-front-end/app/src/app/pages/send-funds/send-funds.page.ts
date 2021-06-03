@@ -1,4 +1,3 @@
-import {ToolsService} from './../../service/tools.service';
 import {ContactService,
   SelectedAddress} from 'src/app/service/contacts.service';
 import {
@@ -7,7 +6,11 @@ import {
 import {
   FormGroup,
   FormBuilder,
-  Validators} from '@angular/forms';
+  Validators,
+  AbstractControl,
+  ValidationErrors,
+  ValidatorFn,
+} from '@angular/forms';
 import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
 import {
   IonInput,
@@ -16,8 +19,8 @@ import {
   ModalController,
   IonContent} from '@ionic/angular';
 import {MinimaApiService} from '../../service/minima-api.service';
-import {Subscription} from 'rxjs';
-import {ActivatedRoute} from '@angular/router';
+import { Subscription } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
 import {Token} from 'minima';
 import {Decimal} from 'decimal.js';
 
@@ -29,6 +32,14 @@ export interface SendFormObj {
 }
 
 Decimal.set({precision: 64}); /** set precision for Decimal calculations */
+export function checkAmount(val: any): ValidatorFn {
+  return (control?: AbstractControl): ValidationErrors | null => {
+    const a = new Decimal(val);
+    if (control.value && new Decimal(control.value).greaterThan(a)) {
+      return {invalidAmount: true};
+    }
+  };
+}
 @Component({
   selector: 'app-send-funds',
   templateUrl: './send-funds.page.html',
@@ -56,34 +67,51 @@ export class SendFundsPage implements OnInit {
   messageToggle = false;
   balanceSubscription: Subscription;
   tokenArr: Token[] = [];
+  insufficientFunds: boolean;
+  currentToken: Token;
 
   /** */
   constructor(
     public menu: MenuController,
     public modalController: ModalController,
-    private myTools: ToolsService,
     private formBuilder: FormBuilder,
     private minimaApiService: MinimaApiService,
     private contactService: ContactService,
-    private route: ActivatedRoute,
+    private activedRouter: ActivatedRoute,
+    private router: Router,
   ) {
     this.myTokens = [];
+    this.$balanceSubscription =
+    this.minimaApiService.$balance.subscribe((balance: Token[]) => {
+      balance.forEach((token: Token) => {
+        if (token.tokenid === '0x00') {
+          this.currentToken = token;
+        }
+      });
+    });
   }
   /** */
   ionViewWillEnter() {
+    this.formInit('0x00');
     this.$balanceSubscription =
     this.minimaApiService.$balance.subscribe((res: Token[]) => {
-      this.myTokens = res.filter((token) =>
-        new Decimal(token.sendable).greaterThan(new Decimal(0)));
+      if (res.length === 1) {
+        this.myTokens = res.filter((token) =>
+          new Decimal(token.sendable).greaterThan(new Decimal(0)));
+      } else {
+        this.insufficientFunds = false;
+        this.myTokens = res.filter((token) =>
+          new Decimal(token.sendable).greaterThan(new Decimal(0)));
+      }
     });
 
     this.$contactSubscription =
-    this.contactService.$selected_address.subscribe((res: SelectedAddress) => {
+    this.contactService.selectedAddress.subscribe((res: SelectedAddress) => {
       if (res.address.length === 0) {
         // Do nothing
       } else {
         this.addressFormItem.setValue(res.address);
-        this.contactService.$selected_address.next({address: ''});
+        this.contactService.selectedAddress.next({address: ''});
       }
     });
     this.getTokenSelected();
@@ -95,7 +123,32 @@ export class SendFundsPage implements OnInit {
   }
   /** */
   ngOnInit() {
-    this.formInit();
+    this.formInit('0x00');
+  }
+  /** */
+  resetForm() {
+    setTimeout(() => {
+      this.status = '';
+    }, 6000);
+    this.submitBtn.disabled = false;
+    this.sendForm.reset();
+    this.formInit('0x00');
+  }
+  /** */
+  formInit(id) {
+    this.sendForm = this.formBuilder.group({
+      tokenid: id,
+      address: ['', [
+        Validators.required,
+        Validators.minLength(2),
+        Validators.maxLength(60),
+        Validators.pattern('[Mx|0x][a-zA-Z0-9]+')]],
+      amount: ['0', [
+        Validators.required,
+        checkAmount(this.currentToken && this.currentToken.sendable ?
+          this.currentToken.sendable : '0')]],
+      message: ['', Validators.maxLength(255)],
+    });
   }
   /** */
   get tokenFormItem() {
@@ -122,116 +175,33 @@ export class SendFundsPage implements OnInit {
     });
     contactModal.present();
   }
-  /** */
-  sendFunds() {
-    this.status = 'Creating your transaction...';
-    this.myTools.scrollToBottom(this.pageContent);
-    this.sendForm.value.amnt = this.sendForm.value.amount.toString();
-    const data: SendFormObj = this.sendForm.value;
-    // console.log(data);
-    try {
-      this.post(data);
-    } catch (err) {
-      console.log(err);
-    }
-  }
-  /**  */
-  async post(data: any) {
-    this.submitBtn.disabled = true;
-    this.status = 'Posting your transaction...';
-    if (data.message !== null && ( data.message || data.message.length > 0) ) {
-      const res: any =
-      await this.minimaApiService.sendMessageTransaction(data);
-      // console.log(res);
-      if (res.status) {
-        this.status = 'Transaction posted!';
-        this.myTools.presentAlert(
-            'Transaction Status',
-            'Transaction has been posted to the network!',
-            'Successful');
-        this.resetForm();
-      } else {
-        console.log(res.status);
-        setTimeout(() => {
-          this.submitBtn.disabled = false;
-        }, 500);
-        this.status = 'Transaction failed!';
-        this.myTools.presentAlert('Transaction Status', res.message, 'Failed');
-      }
-    } else {
-      const res: any = await this.minimaApiService.sendFunds(data);
-      // console.log(res);
-
-      if (res.status) {
-        this.status = 'Transaction posted!';
-        this.myTools.presentAlert(
-            'Transaction Status',
-            'Transaction has been posted to the network!',
-            'Successful');
-        this.resetForm();
-      } else {
-        console.log(res.status);
-        setTimeout(() => {
-          this.submitBtn.disabled = false;
-        }, 500);
-        this.status = 'Transaction failed!';
-        this.myTools.presentAlert('Transaction Status', res.message, 'Failed');
-      }
-    }
-  }
-  /** */
-  resetForm() {
-    setTimeout(() => {
-      this.status = '';
-    }, 6000);
-    this.submitBtn.disabled = false;
-    this.sendForm.reset();
-    this.formInit();
-  }
-  /** */
-  formInit() {
-    this.sendForm = this.formBuilder.group({
-      tokenid: '',
-      address: ['', [
-        Validators.required,
-        Validators.minLength(2),
-        Validators.maxLength(60),
-        Validators.pattern('[Mx|0x][a-zA-Z0-9]+')]],
-      amount: ['', [Validators.required]],
-      message: '',
-    });
-  }
-
   /** get token selected, or set Minima as default */
   getTokenSelected() {
-    this.route.queryParamMap.subscribe((res: any) => {
+    this.activedRouter.queryParamMap.subscribe((res: any) => {
       this.itemSelected = res.params.id;
       if (!res.params.id) {
         this.itemSelected = '0x00';
       }
     });
   }
-
   /** listen to selection change */
   onItemSelection(ev: any) {
     this.itemSelected = this.sendForm.get('tokenid').value;
-  }
-  /** Scan QR */
-  scanQR() {
-    this.isWebCameraOpen = true;
-    // console.log('Camera turned on, ' + this.isWebCameraOpen);
-    const stream = navigator.mediaDevices.getUserMedia({
-      video: {facingMode: 'environment'},
-    });
 
-    this.videoElem.nativeElement.src = stream;
-    this.videoElem.nativeElement
-        .setAttribute('playsinline', true); // iOS - do not open fullscreen
-    this.videoElem.nativeElement.play();
+    this.$balanceSubscription =
+    this.minimaApiService.$balance.subscribe((balance: Token[]) => {
+      balance.forEach((token: Token) => {
+        if (token.tokenid === this.itemSelected) {
+          this.currentToken = token;
+          this.formInit(this.currentToken.tokenid);
+        }
+      });
+    });
   }
-  /** */
-  stopScanning() {
-    this.isWebCameraOpen = false;
+
+  onSend(data: any) {
+    this.minimaApiService.$urlData.next(data);
+    this.router.navigate(['confirmation'], {relativeTo: this.activedRouter});
   }
 }
 

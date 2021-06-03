@@ -28,7 +28,7 @@
         <ion-item
         *ngFor="let txn of $history"
         class="ion-no-padding no-ripple" 
-        routerLink="/view-txn/{{ txn.txpow.txpowid }}" 
+        [routerLink]="['view-txn/'+txn.txpow.txpowid]" 
         routerDirection="forward"
         lines="none">
             <ion-avatar slot="start">
@@ -44,6 +44,7 @@
               class="icon" src="assets/receiveIcon.svg" 
               alt="send-receive"></ion-icon>
               <ion-icon 
+              style="fill: var(--ion-color-tertiary) !important"
               *ngIf="txn.txpow.body.txn.tokengen" 
               class="icon"
               src="assets/createIcon.svg" 
@@ -78,7 +79,7 @@
               class="amount">
               <span class="minima-numeric left">
                 <h6>{{"+" + txn.txpow.body.txn.tokengen.total}}</h6>
-                <p>{{"-"+txn.values[0]?.amount+" Mini"}}</p>
+                <!-- <p>{{"-"+txn.values[0]?.amount+" Mini"}}</p> -->
               </span>
               </div>
             </div>
@@ -96,7 +97,7 @@
 
     <ion-grid *ngIf="$history.length == 0">
       <ion-row>
-        <ion-col style="display: flex; align-items:center; justify-content:center" size="12">
+        <ion-col class="center prompt" size="12">
           <ion-label>{{ prompt }}</ion-label>
         </ion-col>
       </ion-row>

@@ -10,17 +10,24 @@ import { Address, Minima } from 'minima';
   styleUrls: ['./my-address.page.scss'],
 })
 export class MyAddressPage implements OnInit {
+  public qrCode = '';
+  public isEmpty: boolean;
+  public copyStatus: string;
+  public genStatus: string;
 
-  qrCode = '';
-  lastCode = '';
-  isEmpty: boolean;
-
-  @ViewChild('generateAddressBtn', {static: false}) generateAddressBtn: IonButton;
+  @ViewChild('generateAddressBtn', {static: false})
+  generateAddressBtn: IonButton;
+  @ViewChild('copyAddressBtn', {static: false})
+  copyAddressBtn: IonButton;
 
   constructor(
     public menu: MenuController,
     private myTools: ToolsService,
-    private api: MinimaApiService) {}
+    private api: MinimaApiService) {
+    this.copyStatus = 'Copy Address';
+    this.genStatus = 'Generate Address';
+    this.isEmpty = false;
+  }
 
   ngOnInit() {}
 
@@ -30,7 +37,7 @@ export class MyAddressPage implements OnInit {
         const data = JSON.parse(res.data);
         if (data.address.length === 0) {
           this.newAddress();
-        }  else {
+        } else {
           this.qrCode = data.address;
           this.isEmpty = true;
         }
@@ -45,42 +52,38 @@ export class MyAddressPage implements OnInit {
   }
 
   public generateAddress() {
+    this.genStatus = '';
     this.newAddress();
     this.generateAddressBtn.disabled = true;
-    this.myTools.presentToast('Generated a new address', 'primary', "bottom");
     setTimeout(() => {
-    this.generateAddressBtn.disabled = false;
+      this.generateAddressBtn.disabled = false;
+      this.genStatus = 'Generate Address';
     }, 2000);
   }
-
   public newAddress() {
     setTimeout(() => {
-      this.api.newAddress().then((res: {status: boolean, message: string; response: {address: Address}}) => {
-        if (res.status) {
-          this.qrCode = res.response.address.miniaddress;
-          this.isEmpty = true;
-          let data = {address: this.qrCode};
-          let send = JSON.stringify(data);
-          Minima.file.save(send, 'lastAddress.txt', (res: any) => {
-            if(res.success){}
+      this.api.newAddress()
+          .then((res: any) => {
+            if (res.status) {
+              this.qrCode = res.response.address.miniaddress;
+              this.isEmpty = true;
+              const data = {address: this.qrCode};
+              const send = JSON.stringify(data);
+              Minima.file.save(send, 'lastAddress.txt', (res: any) => {
+                if (res.success) { }
+              });
+            }
           });
-        }
-      });
     }, 0);
   }
 
-  giveMe50() {
-    this.api.giveMe50().then((res: any) => {
-      if(res.status === true) {
-        this.myTools.presentAlert('Gimme50', 'Successful', 'Status');
-      } else {
-        this.myTools.presentAlert('Gimme50', res.message, 'Status');
-      }
-    });
-  }
-
   copy(data: any) {
+    this.copyStatus = 'Copied!';
+    this.copyAddressBtn.disabled = true;
     this.myTools.copy(data);
+    setTimeout(() => {
+      this.copyStatus = 'Copy Address';
+      this.copyAddressBtn.disabled = false;
+    }, 2000);
   }
-
 }

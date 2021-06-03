@@ -1,37 +1,11 @@
-@media screen and (min-width: 900px) {
-    .skeleton-address {
-        height: auto;
-        width: auto;
-        --background: var(--ion-background-color, #f2f2f2);
-    }
-}
 ion-item {
   --inner-padding-end: 0;
 }
 ion-content {
   --overflow: hidden;
 }
-
-ion-card-content {
-    background: var(--ion-card-color);
-}
-ion-card-header {
-    --color: var(--ion-text-color,#000);
-}
-
-.ios .skeleton-address {
-    height: 280px;
-    width: 100%;
-}
-.qrCanvas{
-    width: 50px;
-    height: auto;
-}
-.addr-title {
-    padding: 10px;
-}
-
 ion-button.copy-btn {
+  font-size: 14px;
   text-transform: none;
   font-family: manrope-bold;
   color: #fff;
@@ -45,29 +19,21 @@ ion-button.copy-btn:hover {
   --background: #346EE5;
 }
 ion-button.gen-btn {
+  font-size: 14px;
   height: 35px;
   width: 164px;
   text-transform: none;
   font-family: manrope-bold;
-  color: var(--ion-color-color);
-  border: 1px solid var(--ion-color-color);
+  color: var(--ion-color-tertiary);
+  border: 1px solid var(--ion-color-tertiary);
   box-shadow: none;
   margin-left: 0;
 }
 ion-button.gen-btn:hover {
-  --background: var(--ion-color-color);
-  color: var(--ion-color-item-hover);
+  --background: var(--ion-color-item-hover);
+  color: var(--ion-color-tertiary);
   --border-radius: 0;
-  border-color: var(--ion-color-color);
-}
-ion-badge:hover {
-    transform: scale(1.01);
-}
-ion-badge {
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    cursor: pointer;
-    --background: #FF512F;
+  border-color: var(--ion-color-tertiary);
 }
 ion-grid ion-row {
     display: flex;
@@ -92,23 +58,14 @@ input.qrcode-box:focus {
   outline-color: var(--ion-color-primary);
 }
 .toast {
-    --width: 50%;
+  --width: 50%;
 }
-.notes {
-  color: rgba(var(--ion-color-tertiary), 0.65);
+p.notes {
+  color: var(--ion-color-tertiary);
   opacity: 0.5;
   margin: 10px 0px 0px 0px;
   font-size: 14px;
 }
-.center {
-  right: 2%;
-  align-items: center !important;
-  justify-content: center !important;
-  display: inline-flex !important;
-  text-align: center !important;
-}
-
-
 div.qr-box {
   width: 226px;
   height: 226px;
@@ -152,4 +109,8 @@ div.qr-box:hover {
 
 .mt-18 {
   margin-top: 15px;
+}
+
+.prompt {
+  color: var(--ion-color-tertiary);
 }

@@ -9,6 +9,7 @@ import {Injectable} from '@angular/core';
 })
 /** */
 export class ToolsService {
+  toast: HTMLIonToastElement;
   /** */
   constructor(
     public toastController: ToastController,
@@ -18,7 +19,7 @@ export class ToolsService {
   copy(data: any) {
     document.addEventListener('copy', (e: ClipboardEvent) => {
       e.clipboardData.setData('text/plain', data);
-      this.presentToast('Copied To Clipboard', 'primary', 'bottom');
+      // this.presentToast('Copied To Clipboard', 'primary', 'bottom');
       e.preventDefault();
       document.removeEventListener('copy', null);
     });
@@ -29,17 +30,22 @@ export class ToolsService {
       msg: string,
       clr: string,
       posn: 'top' | 'bottom' | 'middle') {
+    try {
+      this.toast.dismiss();
+    } catch (e) {}
     const toast = await this.toastController.create({
       message: msg,
-      position: posn,
+      position: 'bottom',
       color: clr,
       keyboardClose: true,
       translucent: true,
       duration: 2000,
-      buttons: [{
-        text: 'Dismiss',
-        role: 'cancel',
-      }],
+      cssClass: 'customToastClass',
+      buttons: [
+        {
+          icon: 'close-outline',
+          role: 'cancel',
+        }],
     });
     return await toast.present();
   }
@@ -48,18 +54,21 @@ export class ToolsService {
       msg: string,
       clr: string,
       posn: 'top' | 'bottom' | 'middle') {
+    try {
+      this.toast.dismiss();
+    } catch (e) {}
     const toast = await this.toastController.create({
       message: msg,
       position: posn,
       color: clr,
-      cssClass: 'toast2',
       keyboardClose: true,
       translucent: true,
       duration: 3500,
+      cssClass: 'customToastClass',
       buttons: [{
         text: 'Dismiss',
         role: 'cancel',
-      }]
+      }],
     });
     return await toast.present();
   }

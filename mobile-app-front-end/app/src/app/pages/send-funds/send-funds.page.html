@@ -16,79 +16,103 @@
 
 
 <ion-content #pageContent class="page-content">
-  <ion-grid id="status" *ngIf="!myTokens || myTokens.length === 0">
-    <ion-row>
-      <ion-col size="12">
-        <ion-label>Fetching tokens...</ion-label>
-      </ion-col>
-      <ion-col size="12">
-        <ion-spinner name="crescent"></ion-spinner>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-
-  <ion-card class="webscan-canvas" *ngIf="isWebCameraOpen">
-    <ion-card-header class="medium-text">
-    Scan Your Minima QR address now...
-    <ion-progress-bar type="indeterminate" reversed="true"></ion-progress-bar>
-    </ion-card-header>
-    <video height="240" #videoElem></video>
-    <hr>
-    <ion-button block="full" (click)="scanQR()">Stop Scanning</ion-button>
-    <hr>
-  </ion-card>
-
-
-  <form *ngIf="!isWebCameraOpen && myTokens.length > 0" [formGroup]="sendForm" id="sendForm" (ngSubmit)="sendFunds()">
+  <form *ngIf="sendForm" [formGroup]="sendForm" id="sendForm">
     <ion-list class="ion-no-padding">
       <ion-item class="no-hover no-ripple ion-no-padding" lines="none">
         <ion-label position="floating">Token</ion-label>
         <ion-select
-          placeholder="Select A Token"
+          [disabled]="myTokens.length === 0"
+          interface="action-sheet"
           formControlName="tokenid"    
-          interface = 'ion-action-sheet'
           [(ngModel)]='itemSelected'
+          (ionChange)="onItemSelection($event)"
           class="no-hover no-ripple input"
-          (ionChange)="onItemSelection($event)"> 
+          [placeholder]="myTokens.length > 0 ? 'Select A Token' : 'No sendable tokens available.'"
+          > 
         <ion-select-option *ngFor="let token of myTokens" [value]="token.tokenid" class="token-option">
-          {{ token.token + "&mdash;"+ token.tokenid }}
+          <span *ngIf="token.tokenid !== '0x00'">
+            {{ token.token + " &mdash; "+ token.tokenid.substring(0, 5)+'...'+token.tokenid.substring(token.tokenid.length-3, token.tokenid.length) }}
+          </span>
+          <span *ngIf="token.tokenid === '0x00'">
+            {{ token.token + " &mdash; "+ token.tokenid.substring(0, 5) }}
+          </span>
         </ion-select-option>
       </ion-select>
       </ion-item>
       <ion-item class="no-hover no-ripple ion-no-padding"  lines="none">
         <ion-label class="medium-text" position="stacked">
-          <ion-icon 
+           Your Balance</ion-label>
+        <div class="has">
+          <ion-input 
+          [disabled]="myTokens.length === 0" 
+          #address 
+          class="medium-text input"  
+          clearInput="false"
+          readonly = true
+          [value]="currentToken?.sendable">
+          </ion-input>
+        </div>
+      </ion-item>
+      <ion-item class="no-hover no-ripple ion-no-padding" lines="none">
+        <ion-label class="medium-text" position="stacked">
+           Address</ion-label>
+        <div class="has">
+          <ion-input 
+          [disabled]="myTokens.length === 0" 
+          #address 
+          class="medium-text input" 
+          formControlName="address" 
+          clearInput="false" 
+          placeholder="Enter a valid address">
+            <ion-icon 
           class="input-error-icon" 
           *ngIf="addressFormItem.invalid && addressFormItem.touched" 
-          name="alert-circle"></ion-icon> 
-          Address</ion-label>
-        <!-- <span (click)="scanQR()" id="qrIcon"> <ion-icon alt="qrCode" src="assets/scan-outline.svg"></ion-icon></span> -->
-        <div class="has">
-          <ion-input #address class="medium-text input" formControlName="address" clearInput="true" placeholder="Enter a valid address"></ion-input>
-          <button type="button" (click)="presentContactModal()" class="clear"><ion-icon style="font-size: 16px; color: var(--ion-color-primary)" name="person-add-outline"></ion-icon></button>
+          name="alert-circle"></ion-icon>
+          </ion-input>
+          <button 
+          type="button" 
+          (click)="presentContactModal()" 
+          class="clear">
+          <ion-icon name="person-add-outline"></ion-icon></button>
         </div>
       </ion-item>
       <ion-note *ngIf="addressFormItem.invalid && addressFormItem.touched" class="error-message">
         <div> Invalid address format!</div> 
-        <div> An address must begin with 0x or Mx.</div> 
+        <div> Must begin with 0x or Mx.</div>
       </ion-note>
-      <ion-item class="no-hover no-ripple ion-no-padding"  lines="none">
+
+      <ion-item class="no-hover no-ripple ion-no-padding amount"  lines="none">
         <ion-label class="medium-text" position="stacked">
-          <ion-icon 
-          class="input-error-icon" 
-          *ngIf="amountFormItem.invalid && amountFormItem.touched" 
-          name="alert-circle"></ion-icon>
           Amount</ion-label>
-        <ion-input #amount type="number" formControlName="amount" class="input" placeholder="Enter token amount"></ion-input>
+        <div class="has">
+          <ion-input 
+          [disabled]="myTokens.length === 0" 
+          #amount 
+          type="text" 
+          formControlName="amount" 
+          class="input" 
+          placeholder="Enter token amount">
+            <ion-icon 
+            class="input-error-icon" 
+            *ngIf="amountFormItem.invalid && amountFormItem.touched" 
+            name="alert-circle"></ion-icon>
+          </ion-input>
+          <button 
+          type="button"
+          (click)="currentToken?.sendable ? amountInp.value = currentToken?.sendable : '0'" 
+          class="maxAmount clear">Max</button>
+        </div>
       </ion-item>
       <ion-note *ngIf="amountFormItem.invalid && amountFormItem.touched" class="error-message">
         <div> Amount required!</div>
-        <div> Amount must be numeric and greater than zero.</div> 
+        <div> Must be numeric and greater than zero.</div>
+        <div> Please check you have sufficient funds.</div>
       </ion-note>
 
       <ion-item class="no-hover no-ripple ion-no-padding" lines="none">
-        <ion-label position="stacked" style="margin-bottom: 1%;">Message <span style="font-family: manrope-light; color:var(--ion-color-optional); margin-right: 7px">(optional) </span></ion-label>
-        <ion-textarea 
+        <ion-label position="stacked" style="margin-bottom: 1%;">Message <span class="optional">(optional) </span></ion-label>
+        <ion-textarea
+            [disabled]="myTokens.length === 0"
             [(ngModel)]="data.message"
             formControlName="message"
             class="medium-text input"
@@ -98,12 +122,18 @@
             maxlength="255">
             </ion-textarea>
       </ion-item>
-      <ion-label *ngIf="data.message" class="length ion-no-margin">{{ data.message.length +"/255" }}</ion-label>
+      <ion-label *ngIf="sendForm.value.message.length > 0" class="length ion-no-margin ion-no-padding">{{ sendForm.value.message.length +"/255" }}</ion-label>
     </ion-list>
 
     <ion-item lines="none" class="send-wrapper ion-no-padding">
       <div style="display: flex; flex-direction:column; justify-content:right; align-items:flex-end">
-        <ion-button #submitBtn type="submit" slot="end" [disabled]="sendForm.invalid" class="send-funds" fill="clear">  
+        <ion-button
+        (click)="onSend(sendForm.value)" 
+        #submitBtn 
+        slot="end" 
+        [disabled]="sendForm.invalid" 
+        class="send-funds" 
+        fill="clear">  
           Send Funds
        </ion-button>
        <ion-note *ngIf="status.length > 0">{{ status }}</ion-note>

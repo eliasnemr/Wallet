@@ -17,7 +17,12 @@ var send_funds_page_1 = require("./send-funds.page");
 var routes = [
     {
         path: '',
-        component: send_funds_page_1.SendFundsPage
+        component: send_funds_page_1.SendFundsPage,
+        pathMatch: 'full'
+    },
+    {
+        path: 'confirmation',
+        loadChildren: function () { return Promise.resolve().then(function () { return require('./confirmation/confirmation.module'); }).then(function (m) { return m.ConfirmationPageModule; }); }
     },
 ];
 var SendFundsPageModule = /** @class */ (function () {

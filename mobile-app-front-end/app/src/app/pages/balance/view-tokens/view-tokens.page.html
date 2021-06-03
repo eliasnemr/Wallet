@@ -22,6 +22,11 @@
 </ion-header>
 
 <ion-content class="page-content">
+  <div *ngIf="prompt && prompt.length > 0" class="center prompt">
+    {{ prompt }}
+  </div>
+
+
   <ion-list *ngFor="let token of $token" lines="none">
     <ion-item *ngIf="expand" class="ion-no-padding ion-no-margin nft-large">
       <div (click)="expandImage()">
@@ -70,7 +75,7 @@
     color="none">
       <ion-label class="description">
         <h6>Token Description</h6>
-        <p>{{ token?.description }}</p>      
+        <p class="description">{{ token?.description }}</p>      
       </ion-label>
     </ion-item>
     <ion-item color="none" class="ion-no-padding">
@@ -84,7 +89,10 @@
     <ion-item color="none" class="ion-no-padding">
       <ion-col class="title">
         Token ID
-      <a class="copy" (click)="copyToClipPWA(token?.tokenid)">
+      <a 
+      [id]="'tokenid'+token?.tokenid"
+      class="copy" 
+      (click)="copy(token?.tokenid, 'tokenid'+token?.tokenid)">
         Copy 
       </a>
       </ion-col>
@@ -97,7 +105,10 @@
     [hidden]="token?.tokenid == '0x00'">
       <ion-col class="title">
         Coin ID
-      <a class="copy" (click)="copyToClipPWA($balanceDetails[0]?.coinid)">
+      <a 
+      [id]="'coinid'+token?.coinid"
+      class="copy" 
+      (click)="copy(token?.coinid, 'coinid'+token?.coinid)">
         Copy 
       </a>
       </ion-col>

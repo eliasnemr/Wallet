@@ -25,9 +25,9 @@
   <ion-grid *ngIf="prompt.length > 0">
     <ion-row>
       <ion-col 
-      style="display: flex; align-items:center; justify-content:center" 
+      class="center" 
       size="12">
-        <ion-label>{{ prompt }}</ion-label>
+        <ion-label class="prompt">{{ prompt }}</ion-label>
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -55,9 +55,10 @@
         <ion-label>
           <h6 class="title">Hash
             <a 
+            [id]="'Hash'"
             class="copy" 
-            (click)="copy(myTxn[0]?.txpow?.txpowid)">
-              Copy 
+            (click)="copy(myTxn[0]?.txpow?.txpowid, 'Hash')">
+              Copy
             </a>
           </h6>
           <p class="value"> {{ myTxn[0]?.txpow?.txpowid }}</p>
@@ -148,7 +149,10 @@
         <ion-item lines="none" class="ion-no-padding">
           <ion-label>
             <h6 class="title"> Recipient address
-              <a class="copy" (click)="copy(input.mxaddress)">
+              <a 
+              [id]="'Input'+i"
+              class="copy" 
+              (click)="copy(input.mxaddress, 'Input'+i)">
                 Copy
               </a>
             </h6>
@@ -189,7 +193,10 @@
         <ion-item lines="none" class="ion-no-padding">
           <ion-label>
             <h6 class="title">Outgoing address
-              <a class="copy" (click)="copy(output.mxaddress)">
+              <a
+              [id]="'Output'+i"
+              class="copy" 
+              (click)="copy(output.mxaddress, 'Output'+i)">
                 Copy
               </a>
             </h6>

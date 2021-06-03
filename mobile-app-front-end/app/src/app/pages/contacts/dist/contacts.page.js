@@ -43,43 +43,65 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 exports.ContactsPage = void 0;
+var pop_contacts_component_1 = require("./../../components/pop-contacts/pop-contacts.component");
 var contacts_modal_page_1 = require("./../../components/contacts-modal/contacts-modal.page");
 var core_1 = require("@angular/core");
 var ContactsPage = /** @class */ (function () {
-    function ContactsPage(toastController, api, userConfigService, alertController, contactService, modalController) {
-        this.toastController = toastController;
-        this.api = api;
-        this.userConfigService = userConfigService;
+    function ContactsPage(menu, modalController, popoverController, alertController, contactService, api, myTools) {
+        this.menu = menu;
+        this.modalController = modalController;
+        this.popoverController = popoverController;
         this.alertController = alertController;
         this.contactService = contactService;
-        this.modalController = modalController;
+        this.api = api;
+        this.myTools = myTools;
         this.editMode = false;
         this.contacts = [];
-        this.user = {
-            tokenDisplayMode: 1,
-            tips: {
-                balance: false,
-                contacts: false,
-                address: false
-            }
-        };
+        this.copyStatus = 'Copy Address';
     }
-    ContactsPage.prototype.ngOnInit = function () {
+    ContactsPage.prototype.ngOnInit = function () { };
+    ContactsPage.prototype.ionViewWillEnter = function () {
         var _this = this;
-        this.contactService.data.subscribe(function (res) {
-            // set the list
-            _this.contacts = res;
+        this.$contactSubscription =
+            this.contactService.data.subscribe(function (res) {
+                _this.contacts = res;
+            });
+    };
+    ContactsPage.prototype.ionViewWillLeave = function () {
+        if (this.$contactSubscription) {
+            this.$contactSubscription.unsubscribe();
+        }
+    };
+    ContactsPage.prototype.presentContactSettings = function (ev) {
+        return __awaiter(this, void 0, void 0, function () {
+            var popover;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.popoverController.create({
+                            component: pop_contacts_component_1.PopContactsComponent,
+                            translucent: true,
+                            event: ev
+                        })];
+                    case 1:
+                        popover = _a.sent();
+                        return [4 /*yield*/, popover.present()];
+                    case 2:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
         });
-        this.userConfigService.userConfig.subscribe(function (res) {
-            _this.user = res;
-        });
+    };
+    ContactsPage.prototype.openMenu = function () {
+        this.menu.open();
     };
     ContactsPage.prototype.queryContacts = function (qy) {
         var _this = this;
         qy = qy.toUpperCase();
         if (qy.length > 0) {
             this.contacts = this.contacts.filter(function (ele) {
-                return ele.NAME.toUpperCase().includes(qy) || ele.ADDRESS.toUpperCase().includes(qy);
+                return ele.NAME.toUpperCase().includes(qy) ||
+                    ele.ADDRESS.toUpperCase().includes(qy);
             });
         }
         else {
@@ -87,22 +109,6 @@ var ContactsPage = /** @class */ (function () {
                 _this.contacts = res;
             });
         }
-    };
-    ContactsPage.prototype.toggleDeleteMode = function () {
-        if (this.editMode) {
-            this.editMode = false;
-        }
-        else {
-            this.editMode = true;
-        }
-    };
-    ContactsPage.prototype.removeContact = function (addr) {
-        this.presentAlert(addr);
-    };
-    ContactsPage.prototype.hideTip = function () {
-        this.user.tips.contacts = true;
-        this.userConfigService.userConfig.next(this.user);
-        this.userConfigService.saveUserConfig(this.user);
     };
     ContactsPage.prototype.presentAlert = function (addr) {
         return __awaiter(this, void 0, void 0, function () {
@@ -112,6 +118,7 @@ var ContactsPage = /** @class */ (function () {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.alertController.create({
                             header: 'Delete Contact',
+                            cssClass: 'alert',
                             subHeader: 'Once this contact is deleted, you can\'t revert!',
                             message: 'Are you sure?',
                             buttons: [
@@ -137,71 +144,6 @@ var ContactsPage = /** @class */ (function () {
             });
         });
     };
-    ContactsPage.prototype.presentAlertDefault = function (hdr, msg, sub) {
-        return __awaiter(this, void 0, void 0, function () {
-            var alert;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.alertController.create({
-                            cssClass: 'alert',
-                            header: hdr,
-                            subHeader: sub,
-                            message: msg,
-                            buttons: ['OK']
-                        })];
-                    case 1:
-                        alert = _a.sent();
-                        return [4 /*yield*/, alert.present()];
-                    case 2:
-                        _a.sent();
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
-    ContactsPage.prototype.giveMe50 = function () {
-        var _this = this;
-        this.api.giveMe50().then(function (res) {
-            if (res.status === true) {
-                _this.presentAlertDefault('Gimme50', 'Successful', 'Status');
-            }
-            else {
-                _this.presentAlertDefault('Gimme50', res.message, 'Status');
-            }
-        });
-    };
-    ContactsPage.prototype.presentToast = function (msg, clr, posn) {
-        return __awaiter(this, void 0, void 0, function () {
-            var toast;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.toastController.create({
-                            message: msg,
-                            color: clr,
-                            position: posn,
-                            buttons: ['cancel']
-                        })];
-                    case 1:
-                        toast = _a.sent();
-                        return [4 /*yield*/, toast.present()];
-                    case 2:
-                        _a.sent();
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
-    ContactsPage.prototype.copyAddress = function (addr) {
-        var _this = this;
-        document.addEventListener('copy', function (e) {
-            e.clipboardData.setData('text/plain', addr);
-            _this.presentToast('Copied To Clipboard', 'primary', 'bottom');
-            _this.ContactList.closeSlidingItems();
-            e.preventDefault();
-            document.removeEventListener('copy', null);
-        });
-        document.execCommand('copy');
-    };
     ContactsPage.prototype.presentAddContactForm = function () {
         return __awaiter(this, void 0, void 0, function () {
             var modal;
@@ -218,6 +160,14 @@ var ContactsPage = /** @class */ (function () {
                 }
             });
         });
+    };
+    ContactsPage.prototype.copy = function (data) {
+        var _this = this;
+        this.copyStatus = 'Copied!';
+        this.myTools.copy(data);
+        setTimeout(function () {
+            _this.copyStatus = 'Copy Address';
+        }, 2000);
     };
     __decorate([
         core_1.ViewChild('contactList', { static: false })

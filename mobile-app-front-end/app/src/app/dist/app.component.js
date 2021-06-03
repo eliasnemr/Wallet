@@ -11,6 +11,7 @@ var environment_prod_1 = require("./../environments/environment.prod");
 var core_1 = require("@angular/core");
 var minima_1 = require("minima");
 var rxjs_1 = require("rxjs");
+var prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
 var AppComponent = /** @class */ (function () {
     /** */
     function AppComponent(tools, minimaApiService) {
@@ -37,8 +38,6 @@ var AppComponent = /** @class */ (function () {
         var _this = this;
         minima_1.Minima.init(function (msg) {
             if (msg.event === 'connected') {
-                // console.log('appComponent: Minima connected');
-                // console.log(msg);
                 var msZero = 0;
                 var msTimer = 3000;
                 var source = rxjs_1.timer(msZero, msTimer);
@@ -59,10 +58,30 @@ var AppComponent = /** @class */ (function () {
                 _this.minimaApiService.$balance.next(msg.info.balance);
             }
             else if (msg.event === 'miningstart') {
-                _this.tools.presentMiningToast('Started to mine your transaction.', 'primary', 'bottom');
+                var miningStatus = {
+                    'started': true,
+                    'finished': false
+                };
+                _this.minimaApiService.$miningStatus.next(miningStatus);
+                // this.tools.presentMiningToast(
+                //     'Started to mine your transaction.',
+                //     'primary',
+                //     'bottom');
             }
             else if (msg.event === 'miningstop') {
-                _this.tools.presentMiningToast('Finished mining your transaction.', 'secondary', 'bottom');
+                var miningStatus_1 = {
+                    'started': false,
+                    'finished': true
+                };
+                _this.minimaApiService.$miningStatus.next(miningStatus_1);
+                miningStatus_1.finished = false;
+                setTimeout(function () {
+                    _this.minimaApiService.$miningStatus.next(miningStatus_1);
+                }, 4000);
+                // this.tools.presentMiningToast(
+                //     'Finished mining your transaction.',
+                //     'secondary',
+                //     'bottom');
             }
         });
     };
@@ -135,33 +154,9 @@ var AppComponent = /** @class */ (function () {
                 }
             ];
     };
-    /** Setting localstorage for darkMode, darkMode toggle, terminalFontSize */
     AppComponent.prototype.setLocalStorage = function () {
-        if (localStorage.getItem('toggleVal') === 'true') {
-            document.body.classList.toggle('dark', true);
-        }
-        else {
-            document.body.classList.toggle('dark', false);
-        }
-        if (localStorage.getItem('toggleVal') === 'true') {
-            this.toggleValue = true;
-        }
-        else {
-            this.toggleValue = false;
-        }
         if (!localStorage.getItem('termFontSize')) {
             localStorage.setItem('termFontSize', '' + 14);
-        }
-    };
-    /** Check darkMode Toggle */
-    AppComponent.prototype.checkToggle = function () {
-        if (this.toggleValue === false) {
-            localStorage.setItem('toggleVal', 'false');
-            document.body.classList.toggle('dark', false);
-        }
-        else {
-            localStorage.setItem('toggleVal', 'true');
-            document.body.classList.toggle('dark', true);
         }
     };
     AppComponent = __decorate([

@@ -8,15 +8,16 @@ import { Component, OnInit, ViewChild } from '@angular/core';
   styleUrls: ['./upload-file-modal.component.scss'],
 })
 export class UploadFileModalComponent implements OnInit {
-
   contacts: Contact[] = [];
-  status: string = '';
+  status = '';
 
-  @ViewChild('importContactsInput', {static: false}) importContactsInput: IonInput;
+  @ViewChild('importContactsInput', {static: false})
+   importContactsInput: IonInput;
 
-  constructor(private modalCtrl: ModalController, 
+  constructor(
+    private modalCtrl: ModalController,
     private alertController: AlertController,
-    private _contactService: ContactService) { }
+    private contactService: ContactService) { }
 
   ngOnInit() {}
 
@@ -25,59 +26,56 @@ export class UploadFileModalComponent implements OnInit {
   }
 
   importContacts() {
-    let ct:any = this.importContactsInput.value;
+    let ct: any = this.importContactsInput.value;
     try {
       ct = JSON.parse(ct);
       if (ct.length > 0) {
         this.contacts = ct;
         return;
-      }  
+      }
     } catch (err) {
       this.status = 'Invalid data';
       setTimeout(() => {
         this.status = '';
-      }, 7000)
+      }, 7000);
       console.log(err);
-    } 
+    }
   }
 
   saveContacts(contacts: Contact[]) {
     console.log(contacts);
-    
-    this._contactService.deleteContacts();
 
-    contacts.forEach(contact => {
-      this._contactService.addContact(contact);
+    this.contactService.deleteContacts();
+
+    contacts.forEach((contact) => {
+      this.contactService.addContact(contact);
     });
 
-    this._contactService.data.next(contacts);
+    this.contactService.data.next(contacts);
 
     this.modalCtrl.dismiss();
   }
 
   async presentAlertConfirm() {
     const alert = await this.alertController.create({
-      cssClass: 'my-custom-class',
+      cssClass: 'alert',
       header: 'Save Contacts',
-      message: '<strong>Note:</strong> you are about to overwrite any previous contacts you have.',
+      message: '<strong>Note:</strong> you are about to overwrite ' +
+                'any previous contacts you have.',
       buttons: [
         {
           text: 'Cancel',
           role: 'cancel',
           cssClass: 'secondary',
-          handler: (blah) => {
-            
-          }
         }, {
           text: 'Save',
           handler: () => {
             this.saveContacts(this.contacts);
-          }
-        }
-      ]
+          },
+        },
+      ],
     });
 
     await alert.present();
   }
-
 }

@@ -3,10 +3,6 @@ ion-title ion-item:hover {
   --background-hover: none;
 }
 
-ion-list ion-item {
-  background-color: var(--ion-color-token);
-  opacity: 1;
-}
 ion-list ion-item ion-label.description h6 {
   font-size: 1em;
   font-family: manrope-semibold;
@@ -29,7 +25,7 @@ ion-list {
 
 ion-list ion-item {
   --inner-padding-end: 0;
-  color: var(--ion-color-color);
+  color: var(--ion-color-tertiary);
   border: 1px solid var(--ion-color-item-border);
   --border-color: var(--ion-color-item-border);
   padding-right: 10px;
@@ -70,6 +66,8 @@ ion-list ion-item ion-avatar:hover ion-icon {
 }
 
 .value {
+  color: var(--ion-color-tertiary);
+  opacity: 0.7;
   font-size: 16px;
   font-family: manrope-regular;
   text-align: right;
@@ -87,6 +85,11 @@ ion-list ion-item ion-avatar:hover ion-icon {
   overflow: hidden;
   font-size: 12px;
   opacity: 0.8;
+}
+
+.description {
+  color: var(--ion-color-tertiary);
+  opacity: 0.7;
 }
 
 .copy {
@@ -131,4 +134,15 @@ ion-button.validate-btn {
 
 ion-label.description p {
   white-space: normal;
+}
+
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.prompt {
+  color: var(--ion-color-tertiary);
+  padding: 5px;
 }

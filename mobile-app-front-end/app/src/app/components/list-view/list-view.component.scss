@@ -40,7 +40,7 @@ ion-avatar {
     text-overflow: ellipsis;
     overflow: hidden;
     font-family: manrope-bold;
-    color: var(--ion-color-color);
+    color: var(--ion-color-tertiary);
 }
 ion-item:first-child {
     margin-top: 1%;
@@ -48,13 +48,12 @@ ion-item:first-child {
 ion-item {
     opacity: 1;
     --background: var(--ion-color-token);
-    --background-activated: var(--ion-color-token)!important;
-    --background-activated-opacity: 0.2 !important;
+    --background-activated: var(--ion-color-token);
+    --background-activated-opacity: 0.2;
     --background-hover: var(--ion-color-item-hover);
     --background-hover-opacity: 1;
     background: var(--ion-color-token);
     border: 1px solid var(--ion-color-item-border);
-    //box-shadow: 0px 3px 6px #C8C8D41A;
     border-radius: 10px;
     margin-bottom: 2%;
 }
@@ -70,6 +69,7 @@ ion-list {
     overflow: scroll;
 }
 div.token-wrapper {
+    color: var(--ion-color-tertiary);
     display: flex;
     flex-direction: column;
     max-width: 150px;

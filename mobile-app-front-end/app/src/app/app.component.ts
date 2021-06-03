@@ -5,6 +5,8 @@ import {Component} from '@angular/core';
 import {Minima} from 'minima';
 import {timer, Subscription} from 'rxjs';
 
+const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+
 interface Menu {
   title: string;
   routerLink: string;
@@ -47,9 +49,6 @@ export class AppComponent {
   initMinima() {
     Minima.init((msg: any) => {
       if (msg.event === 'connected') {
-        // console.log('appComponent: Minima connected');
-        // console.log(msg);
-
         const msZero = 0;
         const msTimer = 3000;
         const source = timer(msZero, msTimer);
@@ -68,15 +67,29 @@ export class AppComponent {
 
         this.minimaApiService.$balance.next(msg.info.balance);
       } else if (msg.event === 'miningstart') {
-        this.tools.presentMiningToast(
-            'Started to mine your transaction.',
-            'primary',
-            'bottom');
+        const miningStatus = {
+          'started': true,
+          'finished': false,
+        };
+        this.minimaApiService.$miningStatus.next(miningStatus);
+        // this.tools.presentMiningToast(
+        //     'Started to mine your transaction.',
+        //     'primary',
+        //     'bottom');
       } else if (msg.event === 'miningstop') {
-        this.tools.presentMiningToast(
-            'Finished mining your transaction.',
-            'secondary',
-            'bottom');
+        const miningStatus = {
+          'started': false,
+          'finished': true,
+        };
+        this.minimaApiService.$miningStatus.next(miningStatus);
+        miningStatus.finished = false;
+        setTimeout(() => {
+          this.minimaApiService.$miningStatus.next(miningStatus);
+        }, 4000);
+        // this.tools.presentMiningToast(
+        //     'Finished mining your transaction.',
+        //     'secondary',
+        //     'bottom');
       }
     });
   }
@@ -147,32 +160,9 @@ export class AppComponent {
         hidden: false,
       }];
   }
-  /** Setting localstorage for darkMode, darkMode toggle, terminalFontSize */
   setLocalStorage() {
-    if (localStorage.getItem('toggleVal') === 'true') {
-      document.body.classList.toggle('dark', true);
-    } else {
-      document.body.classList.toggle('dark', false);
-    }
-
-    if (localStorage.getItem('toggleVal') === 'true') {
-      this.toggleValue = true;
-    } else {
-      this.toggleValue = false;
-    }
-
     if (!localStorage.getItem('termFontSize')) {
       localStorage.setItem('termFontSize', '' + 14);
-    }
-  }
-  /** Check darkMode Toggle */
-  checkToggle() {
-    if (this.toggleValue === false) {
-      localStorage.setItem('toggleVal', 'false');
-      document.body.classList.toggle('dark', false);
-    } else {
-      localStorage.setItem('toggleVal', 'true');
-      document.body.classList.toggle('dark', true);
     }
   }
 }

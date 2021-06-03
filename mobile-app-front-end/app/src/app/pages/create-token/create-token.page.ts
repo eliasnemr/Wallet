@@ -20,10 +20,6 @@ interface CustomToken {
   description: string;
 }
 
-interface InputChecked {
-  isChecked: boolean
-}
-
 @Component({
   selector: 'app-create-token',
   templateUrl: './create-token.page.html',
@@ -46,28 +42,29 @@ export class CreateTokenPage implements OnInit {
   iconEntry = { isChecked: false };
   proofEntry = { isChecked: false };
   nft = { isNonFungible: false };
+  public creationStatus: string;
 
   constructor(
     public menu: MenuController,
     private api: MinimaApiService,
     private formBuilder: FormBuilder,
     private myTools: ToolsService) {
-
+    this.creationStatus = 'Create Token';
     this.customToken = {
       name: '',
       amount: 0,
       icon: '',
       proof: '',
       script: '',
-      description: ''
-    }
+      description: '',
+    };
 
     this.advancedFormInputsChecked = {
       description: false,
       icon: false,
       proof: false,
-      nft: false
-    }
+      nft: false,
+    };
   }
 
   ionViewDidEnter() {}
@@ -80,80 +77,90 @@ export class CreateTokenPage implements OnInit {
     this.menu.open();
   }
 
-  giveMe50() {
-    this.api.giveMe50().then((res: any) => {
-      if(res.status === true) {
-        this.myTools.presentAlert('Gimme50', 'Successful', 'Status');
-      } else {
-        this.myTools.presentAlert('Gimme50', res.message, 'Status');
-      }
-    });
-  }
-  
   createTokenAdvanced() {
+    this.creationStatus = '';
     this.loading = true;
-    //console.log(this.tokenCreationForm.value);
+    // console.log(this.tokenCreationForm.value);
     const newToken: any = this.tokenCreationForm.value;
-    //console.log(newToken);
+    // console.log(newToken);
     try {
-      this.status = 'Creating token...';
       this.create(newToken);
-    } catch(err) {
+    } catch (err) {
       console.log(err);
     } 
   }
 
   async create(newToken: any) {
-    //console.log(newToken);
+    // console.log(newToken);
     this.myTools.scrollToBottom(this.pageContent);
     if (newToken.nft) {
       this.submitBtn.disabled = true;
       const res: any = await this.api.createToken(newToken);
       if (res.status) {
-        this.status = 'Token created!';
-        this.myTools.presentAlert('Success', 'Token '+this.customToken.name+' has been created.', 'Token Creation Status');
+        this.myTools.presentAlert('Success', 'Token ' +
+          this.customToken.name+' has been created.', 'Token Creation Status');
+        this.creationStatus = 'Token created!';
         this.resetForm();
       } else {
         setTimeout(() => {
+          this.creationStatus = 'Create Token';
           this.submitBtn.disabled = false;
-        }, 500)
-        this.status = 'Token creation failed!';
-        this.myTools.presentAlert('Error', res.message, 'Token Creation Status');
+        }, 500);
+        this.creationStatus = 'Creation failed!';
+        this.myTools.presentAlert('Error',
+            res.message, 'Token Creation Status');
       }
     } else {
       this.submitBtn.disabled = true;
-      //newToken.script = 'RETURN TRUE'; // default script to spend token
+      // newToken.script = 'RETURN TRUE'; // default script to spend token
       const res: any = await this.api.createToken(newToken);
       if (res.status) {
-        this.status = newToken.name + ' has been created!';
-        this.myTools.presentAlert('Success', 'Token ' + this.customToken.name + ' has been created.', 'Token Creation Status');
+        this.myTools.presentAlert('Success', 'Token ' +
+        this.customToken.name + ' has been created.', 'Token Creation Status');
+        this.creationStatus = 'Token created!';
         this.resetForm();
       } else {
         setTimeout(() => {
+          this.creationStatus = 'Create Token';
           this.submitBtn.disabled = false;
-        }, 500)
-        this.status = newToken.name + ' failed to create!';
-        this.myTools.presentAlert('Error', res.message, 'Token Creation Status');
+        }, 500);
+        this.myTools.presentAlert('Error',
+            res.message, 'Token Creation Status');
       }
     }
   }
 
   formInit() {
     this.tokenCreationForm = this.formBuilder.group({
-      name: ['', [Validators.required, Validators.maxLength(255)]],
-      amount: ['', [Validators.required, Validators.maxLength(255)]],
+      name: ['', [
+        Validators.required,
+        Validators.maxLength(255),
+        // Validators.pattern('[a-zA-Z0-9 .\-\_\']*$'),
+      ]],
+      amount: ['', [
+        Validators.required,
+        Validators.maxLength(255),
+        Validators.pattern('^[0-9]*$'),
+      ]],
       description: '',
       script: '',
-      icon: ['', [Validators.pattern('(http(s?):)([\\/|\\.|\\w|\\s|\\-])*\.(?:jpg|png|gif|svg)$'), Validators.maxLength(255)]],
-      proof: ['', [Validators.pattern('(http(s?):)([\\/|\\.|\\w|\\s|\\-])*\.(?:txt)$'), Validators.maxLength(255)]],
-      nft: false
+      icon: ['', [
+        Validators.pattern(
+            '(http(s?):)([\\/|\\.|\\w|\\s|\\-])*\.(?:jpg|png|gif|svg)$'),
+        Validators.maxLength(255),
+      ]],
+      proof: ['', [
+        Validators.pattern('(http(s?):)([\\/|\\.|\\w|\\s|\\-])*\.(?:txt)$'),
+        Validators.maxLength(255),
+      ]],
+      nft: false,
     });
   }
 
-  resetForm() { 
+  resetForm() {
     setTimeout(() => {
-      this.status = '';
-    }, 6000);
+      this.creationStatus = 'Create Token';
+    }, 2000);
     this.submitBtn.disabled = false;
     this.tokenCreationForm.reset();
     this.formInit();

@@ -48,6 +48,7 @@ ion-list-header ion-item {
     --inner-padding-end: 0;
     font-size: 16px;
     font-family: manrope-bold;
+    color: var(--ion-color-tertiary);
 }
 .title {
     font-family: manrope-bold;
@@ -56,7 +57,7 @@ ion-list-header ion-item {
     max-width: inherit;
     white-space: normal;
     word-wrap: normal;
-    color: var(--ion-color-color);
+    color: var(--ion-color-tertiary);
 }
 .value {
     font-family: manrope-regular;
@@ -65,8 +66,8 @@ ion-list-header ion-item {
     text-overflow: ellipsis;
     max-width: inherit;
     overflow: hidden;
-    color: var(--ion-color-color);
-    opacity: 0.7
+    color: var(--ion-color-tertiary);
+    opacity: 0.7;
 }
 .wrap {
     white-space: normal !important;
@@ -87,4 +88,12 @@ ion-list-header ion-item {
 }
 .active {
     color: var(--ion-color-primary)
+}
+.prompt {
+    color: var(--ion-color-tertiary);
+}
+.center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

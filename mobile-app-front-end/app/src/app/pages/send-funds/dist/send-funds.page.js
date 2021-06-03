@@ -42,46 +42,73 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.SendFundsPage = void 0;
+exports.SendFundsPage = exports.checkAmount = void 0;
 var contacts_view_modal_component_1 = require("./../../components/contacts-view-modal/contacts-view-modal.component");
 var forms_1 = require("@angular/forms");
 var core_1 = require("@angular/core");
 var decimal_js_1 = require("decimal.js");
 decimal_js_1.Decimal.set({ precision: 64 }); /** set precision for Decimal calculations */
+function checkAmount(val) {
+    return function (control) {
+        var a = new decimal_js_1.Decimal(val);
+        if (control.value && new decimal_js_1.Decimal(control.value).greaterThan(a)) {
+            return { invalidAmount: true };
+        }
+    };
+}
+exports.checkAmount = checkAmount;
 var SendFundsPage = /** @class */ (function () {
     /** */
-    function SendFundsPage(menu, modalController, myTools, formBuilder, minimaApiService, contactService, route) {
+    function SendFundsPage(menu, modalController, formBuilder, minimaApiService, contactService, activedRouter, router) {
+        var _this = this;
         this.menu = menu;
         this.modalController = modalController;
-        this.myTools = myTools;
         this.formBuilder = formBuilder;
         this.minimaApiService = minimaApiService;
         this.contactService = contactService;
-        this.route = route;
+        this.activedRouter = activedRouter;
+        this.router = router;
         this.status = '';
         this.isWebCameraOpen = false;
         this.data = { tokenid: '', amount: '', address: '', message: '' };
         this.messageToggle = false;
         this.tokenArr = [];
         this.myTokens = [];
+        this.$balanceSubscription =
+            this.minimaApiService.$balance.subscribe(function (balance) {
+                balance.forEach(function (token) {
+                    if (token.tokenid === '0x00') {
+                        _this.currentToken = token;
+                    }
+                });
+            });
     }
     /** */
     SendFundsPage.prototype.ionViewWillEnter = function () {
         var _this = this;
+        this.formInit('0x00');
         this.$balanceSubscription =
             this.minimaApiService.$balance.subscribe(function (res) {
-                _this.myTokens = res.filter(function (token) {
-                    return new decimal_js_1.Decimal(token.sendable).greaterThan(new decimal_js_1.Decimal(0));
-                });
+                if (res.length === 1) {
+                    _this.myTokens = res.filter(function (token) {
+                        return new decimal_js_1.Decimal(token.sendable).greaterThan(new decimal_js_1.Decimal(0));
+                    });
+                }
+                else {
+                    _this.insufficientFunds = false;
+                    _this.myTokens = res.filter(function (token) {
+                        return new decimal_js_1.Decimal(token.sendable).greaterThan(new decimal_js_1.Decimal(0));
+                    });
+                }
             });
         this.$contactSubscription =
-            this.contactService.$selected_address.subscribe(function (res) {
+            this.contactService.selectedAddress.subscribe(function (res) {
                 if (res.address.length === 0) {
                     // Do nothing
                 }
                 else {
                     _this.addressFormItem.setValue(res.address);
-                    _this.contactService.$selected_address.next({ address: '' });
+                    _this.contactService.selectedAddress.next({ address: '' });
                 }
             });
         this.getTokenSelected();
@@ -93,7 +120,35 @@ var SendFundsPage = /** @class */ (function () {
     };
     /** */
     SendFundsPage.prototype.ngOnInit = function () {
-        this.formInit();
+        this.formInit('0x00');
+    };
+    /** */
+    SendFundsPage.prototype.resetForm = function () {
+        var _this = this;
+        setTimeout(function () {
+            _this.status = '';
+        }, 6000);
+        this.submitBtn.disabled = false;
+        this.sendForm.reset();
+        this.formInit('0x00');
+    };
+    /** */
+    SendFundsPage.prototype.formInit = function (id) {
+        this.sendForm = this.formBuilder.group({
+            tokenid: id,
+            address: ['', [
+                    forms_1.Validators.required,
+                    forms_1.Validators.minLength(2),
+                    forms_1.Validators.maxLength(60),
+                    forms_1.Validators.pattern('[Mx|0x][a-zA-Z0-9]+')
+                ]],
+            amount: ['0', [
+                    forms_1.Validators.required,
+                    checkAmount(this.currentToken && this.currentToken.sendable ?
+                        this.currentToken.sendable : '0')
+                ]],
+            message: ['', forms_1.Validators.maxLength(255)]
+        });
     };
     Object.defineProperty(SendFundsPage.prototype, "tokenFormItem", {
         /** */
@@ -145,100 +200,10 @@ var SendFundsPage = /** @class */ (function () {
             });
         });
     };
-    /** */
-    SendFundsPage.prototype.sendFunds = function () {
-        this.status = 'Creating your transaction...';
-        this.myTools.scrollToBottom(this.pageContent);
-        this.sendForm.value.amnt = this.sendForm.value.amount.toString();
-        var data = this.sendForm.value;
-        // console.log(data);
-        try {
-            this.post(data);
-        }
-        catch (err) {
-            console.log(err);
-        }
-    };
-    /**  */
-    SendFundsPage.prototype.post = function (data) {
-        return __awaiter(this, void 0, void 0, function () {
-            var res, res;
-            var _this = this;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        this.submitBtn.disabled = true;
-                        this.status = 'Posting your transaction...';
-                        if (!(data.message !== null && (data.message || data.message.length > 0))) return [3 /*break*/, 2];
-                        return [4 /*yield*/, this.minimaApiService.sendMessageTransaction(data)];
-                    case 1:
-                        res = _a.sent();
-                        // console.log(res);
-                        if (res.status) {
-                            this.status = 'Transaction posted!';
-                            this.myTools.presentAlert('Transaction Status', 'Transaction has been posted to the network!', 'Successful');
-                            this.resetForm();
-                        }
-                        else {
-                            console.log(res.status);
-                            setTimeout(function () {
-                                _this.submitBtn.disabled = false;
-                            }, 500);
-                            this.status = 'Transaction failed!';
-                            this.myTools.presentAlert('Transaction Status', res.message, 'Failed');
-                        }
-                        return [3 /*break*/, 4];
-                    case 2: return [4 /*yield*/, this.minimaApiService.sendFunds(data)];
-                    case 3:
-                        res = _a.sent();
-                        // console.log(res);
-                        if (res.status) {
-                            this.status = 'Transaction posted!';
-                            this.myTools.presentAlert('Transaction Status', 'Transaction has been posted to the network!', 'Successful');
-                            this.resetForm();
-                        }
-                        else {
-                            console.log(res.status);
-                            setTimeout(function () {
-                                _this.submitBtn.disabled = false;
-                            }, 500);
-                            this.status = 'Transaction failed!';
-                            this.myTools.presentAlert('Transaction Status', res.message, 'Failed');
-                        }
-                        _a.label = 4;
-                    case 4: return [2 /*return*/];
-                }
-            });
-        });
-    };
-    /** */
-    SendFundsPage.prototype.resetForm = function () {
-        var _this = this;
-        setTimeout(function () {
-            _this.status = '';
-        }, 6000);
-        this.submitBtn.disabled = false;
-        this.sendForm.reset();
-        this.formInit();
-    };
-    /** */
-    SendFundsPage.prototype.formInit = function () {
-        this.sendForm = this.formBuilder.group({
-            tokenid: '',
-            address: ['', [
-                    forms_1.Validators.required,
-                    forms_1.Validators.minLength(2),
-                    forms_1.Validators.maxLength(60),
-                    forms_1.Validators.pattern('[Mx|0x][a-zA-Z0-9]+')
-                ]],
-            amount: ['', [forms_1.Validators.required]],
-            message: ''
-        });
-    };
     /** get token selected, or set Minima as default */
     SendFundsPage.prototype.getTokenSelected = function () {
         var _this = this;
-        this.route.queryParamMap.subscribe(function (res) {
+        this.activedRouter.queryParamMap.subscribe(function (res) {
             _this.itemSelected = res.params.id;
             if (!res.params.id) {
                 _this.itemSelected = '0x00';
@@ -247,23 +212,21 @@ var SendFundsPage = /** @class */ (function () {
     };
     /** listen to selection change */
     SendFundsPage.prototype.onItemSelection = function (ev) {
+        var _this = this;
         this.itemSelected = this.sendForm.get('tokenid').value;
+        this.$balanceSubscription =
+            this.minimaApiService.$balance.subscribe(function (balance) {
+                balance.forEach(function (token) {
+                    if (token.tokenid === _this.itemSelected) {
+                        _this.currentToken = token;
+                        _this.formInit(_this.currentToken.tokenid);
+                    }
+                });
+            });
     };
-    /** Scan QR */
-    SendFundsPage.prototype.scanQR = function () {
-        this.isWebCameraOpen = true;
-        // console.log('Camera turned on, ' + this.isWebCameraOpen);
-        var stream = navigator.mediaDevices.getUserMedia({
-            video: { facingMode: 'environment' }
-        });
-        this.videoElem.nativeElement.src = stream;
-        this.videoElem.nativeElement
-            .setAttribute('playsinline', true); // iOS - do not open fullscreen
-        this.videoElem.nativeElement.play();
-    };
-    /** */
-    SendFundsPage.prototype.stopScanning = function () {
-        this.isWebCameraOpen = false;
+    SendFundsPage.prototype.onSend = function (data) {
+        this.minimaApiService.$urlData.next(data);
+        this.router.navigate(['confirmation'], { relativeTo: this.activedRouter });
     };
     __decorate([
         core_1.ViewChild('submitBtn', { static: false })

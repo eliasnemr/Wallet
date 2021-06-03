@@ -6,16 +6,20 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 exports.__esModule = true;
-exports.MinimaApiService = void 0;
+exports.MinimaApiService = exports.cryptocurrency = exports.app = void 0;
 var rxjs_1 = require("rxjs");
 var core_1 = require("@angular/core");
 var minima_1 = require("minima");
+exports.app = 'Wallet';
+exports.cryptocurrency = 'Minima';
 var MinimaApiService = /** @class */ (function () {
     function MinimaApiService(loadingController) {
         this.loadingController = loadingController;
         this.$balance = new rxjs_1.ReplaySubject(1);
         this.$history = new rxjs_1.ReplaySubject(1);
         this.$status = new rxjs_1.ReplaySubject(1);
+        this.$urlData = new rxjs_1.ReplaySubject(1);
+        this.$miningStatus = new rxjs_1.ReplaySubject(1);
     }
     MinimaApiService.prototype.init = function (balance) {
         this.$balance.next(balance);
@@ -36,28 +40,59 @@ var MinimaApiService = /** @class */ (function () {
         });
     };
     MinimaApiService.prototype.createToken = function (data) {
-        if (data.script !== "") {
+        if (data.script !== '') {
             if (data.nft) {
-                return this.req("tokencreate name:\"" + data.name + "\" amount:\"" + data.amount + '.' + 0 + "\" description:\"" + data.description + "\" script:\"" + data.script + "\" icon:\"" + data.icon + "\" proof:\"" + data.proof + "\"");
+                return this.req('tokencreate name:\"' +
+                    data.name +
+                    '\" amount:\"' + data.amount +
+                    '.' + 0 +
+                    '\" description:\"' + data.description +
+                    '\" script:\"' + data.script +
+                    '\" icon:\"' + data.icon +
+                    '\" proof:\"' + data.proof +
+                    '\"');
             }
             else {
-                return this.req("tokencreate name:\"" + data.name + "\" amount:\"" + data.amount + "\" description:\"" + data.description + "\" script:\"" + data.script + "\" icon:\"" + data.icon + "\" proof:\"" + data.proof + "\"");
+                return this.req('tokencreate name:\"' +
+                    data.name +
+                    '\" amount:\"' + data.amount +
+                    '\" description:\"' + data.description +
+                    '\" script:\"' + data.script +
+                    '\" icon:\"' + data.icon +
+                    '\" proof:\"' + data.proof +
+                    '\"');
             }
         }
         else {
             if (data.nft) {
-                return this.req("tokencreate name:\"" + data.name + "\" amount:\"" + data.amount + '.' + 0 + "\" description:\"" + data.description + "\" icon:\"" + data.icon + "\" proof:\"" + data.proof + "\"");
+                return this.req('tokencreate name:\"' +
+                    data.name +
+                    '\" amount:\"' +
+                    data.amount + '.' + 0 +
+                    '\" description:\"' + data.description +
+                    '\" icon:\"' + data.icon +
+                    '\" proof:\"' + data.proof +
+                    '\"');
             }
             else {
-                return this.req("tokencreate name:\"" + data.name + "\" amount:\"" + data.amount + "\" description:\"" + data.description + "\" icon:\"" + data.icon + "\" proof:\"" + data.proof + "\"");
+                return this.req('tokencreate name:\"' + data.name +
+                    '\" amount:\"' + data.amount +
+                    '\" description:\"' + data.description +
+                    '\" icon:\"' + data.icon + '\" proof:\"' + data.proof +
+                    '\"');
             }
         }
     };
     MinimaApiService.prototype.validateTokenID = function (tokenid) {
-        return this.req("tokenvalidate " + tokenid);
+        return this.req('tokenvalidate ' + tokenid);
     };
     MinimaApiService.prototype.sendMessageTransaction = function (data) {
-        var postTransaction = "send " + data.amount + " " + data.address + " " + data.tokenid + " " + " 254:[01000100]#255:[\"" + data.message + "\"]";
+        var postTransaction = 'send ' +
+            data.amount +
+            ' ' +
+            data.address + ' ' +
+            data.tokenid + ' ' + ' \"254:[01000100]#255:[' +
+            data.message + ']\"';
         return this.req(postTransaction);
     };
     MinimaApiService.prototype.webLink = function (data) {
@@ -70,7 +105,8 @@ var MinimaApiService = /** @class */ (function () {
         return this.req('newaddress');
     };
     MinimaApiService.prototype.sendFunds = function (data) {
-        return this.req('send ' + data.amount + ' ' + data.address + ' ' + data.tokenid);
+        return this.req('send ' +
+            data.amount + ' ' + data.address + ' ' + data.tokenid);
     };
     MinimaApiService.prototype.giveMe50 = function () {
         return this.req('gimme50');
@@ -93,7 +129,7 @@ var MinimaApiService = /** @class */ (function () {
     MinimaApiService.prototype.req = function (fnc) {
         var promise = new Promise(function (resolve) {
             minima_1.Minima.cmd(fnc, function (resp) {
-                //console.log(resp);
+                // console.log(resp);
                 resolve(resp);
             });
         });
@@ -121,9 +157,11 @@ var MinimaApiService = /** @class */ (function () {
                     resolve(res);
                 }
                 else {
-                    reject();
+                    resolve(false);
                 }
             });
+        })["catch"](function (err) {
+            throw new Error(exports.cryptocurrency + ': RPC command failed!');
         });
     };
     MinimaApiService = __decorate([

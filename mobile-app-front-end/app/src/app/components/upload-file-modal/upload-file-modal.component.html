@@ -4,11 +4,7 @@
       <ion-item id="title" lines="none" class="ion-no-padding ion-no-margin">
         Upload contacts
 
-        <ion-buttons slot="end">
-          <ion-button size="small" type="button" (click)="dismiss()">
-            Dismiss
-          </ion-button>
-        </ion-buttons>
+        <span (click)="dismiss()" class="dismiss" slot="end">Dismiss</span>
           
       </ion-item>
       <ion-item id="subtitle" class="breadcrumb ion-no-padding" lines="none">
@@ -23,7 +19,7 @@
   <ion-grid class="ion-no-margin ion-no-padding">
     <ion-row class="ion-no-margin ion-no-padding">
       <ion-col class="ion-no-margin ion-no-padding">
-        <ion-input #importContactsInput type="string"></ion-input>
+        <ion-input #importContactsInput type="string" placeholder="Import contacts data"></ion-input>
       </ion-col>
     </ion-row>
     <ion-row class="status-fail" *ngIf="status.length > 0">

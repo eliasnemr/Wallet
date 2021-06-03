@@ -8,8 +8,10 @@
       <ion-toolbar>
         <ion-title>
           <ion-item lines="none" class="ion-no-padding">
-            <img *ngIf="toggleValue" src="assets/minima-logo-landscape-dark.svg">
-            <img *ngIf="!toggleValue" src="assets/minima-logo-color.svg">
+            <picture>
+              <source srcset="assets/minima-logo-landscape-dark.svg" media="(prefers-color-scheme: dark)" />
+              <img src="assets/minima-logo-color.svg">
+            </picture>
           </ion-item>
         </ion-title>     
       </ion-toolbar>
@@ -51,39 +53,21 @@
     
   </ion-content>
 
-  <div class="version">
-    Wallet {{ environment.wallet_version }}
-  </div>
-  <!-- <ion-list class="ion-no-padding ion-no-margin tools">
-    <a href="https://github.com/eliasnemr/Wallet" target="_"  class="wallet-version hover">
-      <ion-chip outline="true">
-          <ion-icon name="wallet-outline"></ion-icon>
-          <ion-label>
+  <ion-footer class="ion-no-margin ion-no-padding">
+    {{ environment?.wallet_version }}
+    <!-- <ion-grid>
+      <ion-row>
+        <ion-col>
+          <picture>
+            <source srcset="assets/darkModeWhite.svg" media="(prefers-color-scheme: dark)">
+            <img src="assets/dayModeWhite.svg" alt="dark-light-btn">
+          </picture>
+        </ion-col>
+        <ion-col>
           {{ environment.wallet_version }}
-          </ion-label>
-      </ion-chip>    
-    </a>
-    <a class="wallet-version hover" href="mailto:minima-global@fire.fundersclub.com?subject=Insert Wallet Bug Name&body=Brief description, reproduction of bug & your phone specifications:">
-      <ion-chip outline="true">
-        <ion-icon name="bug-outline"></ion-icon>
-        <ion-label>
-        Report
-        </ion-label>
-    </ion-chip>    
-    </a>
-  </ion-list> -->
-  
-
-  <ion-footer class="border-t ion-no-margin ion-no-padding">
-    <ion-toolbar>
-      <ion-item id="night-mode" lines="none">
-        <ion-avatar>
-          <ion-icon size="small" style="color: #FAFAFF;" name="moon"></ion-icon>
-        </ion-avatar>
-        <ion-label>Night Mode</ion-label>
-        <ion-toggle slot="end" #darkToggle [(ngModel)]="toggleValue" (ionChange)="checkToggle()"></ion-toggle>
-      </ion-item>
-    </ion-toolbar>
+        </ion-col>
+      </ion-row>
+    </ion-grid> -->
   </ion-footer>
   </ion-menu>
   <ion-router-outlet main id="mainMenu"></ion-router-outlet>

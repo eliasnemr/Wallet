@@ -19,14 +19,17 @@ var routes = [
     {
         path: '',
         component: history_page_1.HistoryPage,
-        children: [
-            {
-                path: 'view-txn',
-                loadChildren: function () {
-                    return Promise.resolve().then(function () { return require('./view-txn/view-txn.module'); }).then(function (m) { return m.ViewTXNPageModule; });
-                }
-            },
-        ]
+        pathMatch: 'full'
+    },
+    {
+        path: 'view-txn/:id',
+        loadChildren: function () {
+            return Promise.resolve().then(function () { return require('./view-txn/view-txn.module'); }).then(function (m) { return m.ViewTXNPageModule; });
+        }
+    },
+    {
+        path: 'view-txn',
+        component: history_page_1.HistoryPage
     },
 ];
 var HistoryPageModule = /** @class */ (function () {
