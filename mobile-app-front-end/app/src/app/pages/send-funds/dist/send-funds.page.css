@@ -127,7 +127,7 @@ div.has {
 }
 div.has button {
   width: 55px;
-  background-color: transparent;
+  background-color: var(--ion-color-form-buttons);
   border: 1px solid #F0F0FA;
 }
 div.has button ion-icon {
@@ -136,7 +136,7 @@ div.has button ion-icon {
 }
 div.has button.maxAmount {
   width: 55px;
-  background-color: transparent;
+  background-color: var(--ion-color-form-buttons);
   border: 1px solid #F0F0FA;
   color: var(--ion-color-tertiary);
 }

@@ -113,6 +113,12 @@
   --ion-color-background-tint: #fbfbff;
   /** Forms **/
   --ion-color-inputs: #FFFFFF;
+  --ion-color-form-buttons: #FFFFFF;
+  --ion-color-form-buttons-rgb: 255,250,240;
+  --ion-color-form-buttons-contrast: #000000;
+  --ion-color-form-buttons-contrast-rgb: 0,0,0;
+  --ion-color-form-buttons-shade: #e0dcd3;
+  --ion-color-form-buttons-tint: #fffbf2;
   --ion-color-error: #CD3670;
   --ion-color-error-rgb: 205,54,112;
   --ion-color-error-contrast: #ffffff;
@@ -196,6 +202,12 @@ body.dark ion-menu {
     --ion-color-token-contrast-rgb: 255,255,255;
     --ion-color-token-shade: #052339;
     --ion-color-token-tint: #1f3e54;
+    --ion-color-form-buttons: #001C32;
+    --ion-color-form-buttons-rgb: 0,28,50;
+    --ion-color-form-buttons-contrast: #ffffff;
+    --ion-color-form-buttons-contrast-rgb: 255,255,255;
+    --ion-color-form-buttons-shade: #00192c;
+    --ion-color-form-buttons-tint: #1a3347;
     --ion-color-inputs: #F0F0FA;
     --ion-color-ruler: #4A5976;
     --ion-color-title-ruler: #FFF;

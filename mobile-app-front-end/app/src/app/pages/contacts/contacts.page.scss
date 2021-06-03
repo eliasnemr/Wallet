@@ -41,9 +41,10 @@ ion-item-option div.block {
   vertical-align: middle;
   text-align: center;
   font-size: 0.85rem;
+  min-width: 56px;
 }
 ion-item-option div.block ion-icon {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
 }
 ion-icon.trashIcon {
   cursor: pointer;
