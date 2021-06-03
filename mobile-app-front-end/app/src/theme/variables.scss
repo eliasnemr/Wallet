@@ -124,9 +124,18 @@
   --ion-color-background-contrast-rgb: 0,0,0;
   --ion-color-background-shade: #dcdce0;
   --ion-color-background-tint: #fbfbff;
+  
 
   /** Forms **/
   --ion-color-inputs: #FFFFFF;
+
+
+  --ion-color-form-buttons: #FFFFFF;
+  --ion-color-form-buttons-rgb: 255,250,240;
+  --ion-color-form-buttons-contrast: #000000;
+  --ion-color-form-buttons-contrast-rgb: 0,0,0;
+  --ion-color-form-buttons-shade: #e0dcd3;
+  --ion-color-form-buttons-tint: #fffbf2;
 
   // Input Error Messages
   --ion-color-error: #CD3670;
@@ -226,6 +235,13 @@ body.dark {
     --ion-color-token-contrast-rgb: 255,255,255;
     --ion-color-token-shade: #052339;
     --ion-color-token-tint: #1f3e54;
+
+    --ion-color-form-buttons: #001C32;
+    --ion-color-form-buttons-rgb: 0,28,50;
+    --ion-color-form-buttons-contrast: #ffffff;
+    --ion-color-form-buttons-contrast-rgb: 255,255,255;
+    --ion-color-form-buttons-shade: #00192c;
+    --ion-color-form-buttons-tint: #1a3347;
 
 
     ion-footer {

@@ -51,8 +51,8 @@
     <ion-item-options side="end">
       <ion-item-option [ngStyle]="{'background-color': copyStatus === 'Copy' ? 'var(--ion-color-primary' : 'var(--ion-color-success)'}" (click)="copy(contact.ADDRESS)" color="primary" expandable>
         <div class="block"> 
-        <ion-icon *ngIf="copyStatus === 'Copy'" name="copy-outline"></ion-icon>
-        <ion-icon *ngIf="copyStatus === 'Copied!'" name="checkmark-done-outline"></ion-icon>
+        <ion-icon *ngIf="copyStatus === 'Copy'" src="assets/copyIconWhite.svg"></ion-icon>
+        <ion-icon *ngIf="copyStatus === 'Copied!'" name="checkmark-outline"></ion-icon>
         <!-- <br>
         {{ copyStatus }}         -->
       </div>  
