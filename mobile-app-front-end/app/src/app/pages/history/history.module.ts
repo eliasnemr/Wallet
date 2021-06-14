@@ -1,5 +1,5 @@
-import {SharedComponentsModule} from './../../components/shared-components.module';
-import {FilterPipe} from './../../pipes/filter.pipe';
+import {SharedComponentsModule} from 
+  './../../components/shared-components.module';
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
@@ -33,7 +33,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     SharedComponentsModule,
   ],
-  declarations: [HistoryPage, FilterPipe],
+  declarations: [HistoryPage],
 })
 /** */
 export class HistoryPageModule {}

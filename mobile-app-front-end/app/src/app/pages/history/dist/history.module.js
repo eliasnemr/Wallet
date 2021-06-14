@@ -8,7 +8,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 exports.__esModule = true;
 exports.HistoryPageModule = void 0;
 var shared_components_module_1 = require("./../../components/shared-components.module");
-var filter_pipe_1 = require("./../../pipes/filter.pipe");
 var core_1 = require("@angular/core");
 var common_1 = require("@angular/common");
 var forms_1 = require("@angular/forms");
@@ -45,7 +44,7 @@ var HistoryPageModule = /** @class */ (function () {
                 router_1.RouterModule.forChild(routes),
                 shared_components_module_1.SharedComponentsModule,
             ],
-            declarations: [history_page_1.HistoryPage, filter_pipe_1.FilterPipe]
+            declarations: [history_page_1.HistoryPage]
         })
         /** */
     ], HistoryPageModule);
