@@ -73,6 +73,12 @@ ion-list-header ion-item {
 }
 
 .value {
+  -webkit-user-select: text;
+  /* Chrome all / Safari all */
+  -moz-user-select: text;
+  /* Firefox all */
+  -ms-user-select: text;
+  user-select: text;
   font-family: manrope-regular;
   text-align: left;
   white-space: nowrap;
