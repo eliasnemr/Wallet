@@ -9,19 +9,14 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./list-view.component.scss'],
 })
 export class ListViewComponent implements OnInit {
-
   @Input() tokenArr: Subject<Token[]>;
   public avatar: string;
 
   constructor() { }
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   createIcon(tokenid: string) {
-    
     return this.avatar = 'https://www.gravatar.com/avatar/' + SparkMD5.hash(tokenid) + '?d=identicon';
-  
   }
-
-  
 }

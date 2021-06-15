@@ -3,6 +3,10 @@
   display: none;
 }
 .terminal {
+    -webkit-user-select: text;  /* Chrome all / Safari all */
+    -moz-user-select: text;     /* Firefox all */
+    -ms-user-select: text;
+    user-select: text;
     padding: 0;
     margin-top: 7px;
     width: 100%;
@@ -52,7 +56,7 @@ label:focus,
 
 @media only screen and (min-width: 990px) {
     .terminal {
-        font-size: 16px;
+        font-size: 1.0rem;
         border: 0px;
     }
      

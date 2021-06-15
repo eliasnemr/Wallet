@@ -1,5 +1,5 @@
 <ion-app>
-<ion-header class="page-header ion-no-border">
+<ion-header mode="md" class="page-header ion-no-border">
   <ion-toolbar>
     <ion-title>
       <ion-item id="title" lines="none" class="ion-no-padding">
@@ -40,8 +40,9 @@
         <ion-button 
         #copyAddressBtn
         (click)="copy(qrCode)" 
-        class="copy-btn" 
-        fill="clear">
+        class="copy-btn"
+        fill="clear"
+        [ngStyle]="{'background-color': copyStatus === 'Copy Address' ? 'var(--ion-color-primary' : 'var(--ion-color-success)'}">
           {{ copyStatus }}
         </ion-button>
         <ion-button 

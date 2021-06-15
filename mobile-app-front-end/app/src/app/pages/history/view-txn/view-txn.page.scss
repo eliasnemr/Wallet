@@ -12,7 +12,7 @@ ion-list#input-details ion-item:nth-child(0), ion-list#output-details ion-item:n
     margin-left: 0!important;
 }
 ion-list#input-details ion-list-header, ion-list#output-details ion-list-header {
-    font-size: 16px;
+    font-size: 1.0rem;
     padding-left: 0;
     ion-item {
         width: 100%;
@@ -40,7 +40,7 @@ ion-item#last-child {
 .copy {
     text-decoration: underline;
     cursor: pointer;
-    font-size: 0.8rem;
+    font-size: 0.875rem;
 }
 ion-list-header ion-item {
     --border-color: var(--ion-color-ruler);
@@ -60,6 +60,10 @@ ion-list-header ion-item {
     color: var(--ion-color-tertiary);
 }
 .value {
+    -webkit-user-select: text;  /* Chrome all / Safari all */
+    -moz-user-select: text;     /* Firefox all */
+    -ms-user-select: text;
+    user-select: text;
     font-family: manrope-regular;
     text-align: left;
     white-space: nowrap;
@@ -83,7 +87,7 @@ ion-list-header ion-item {
 }
 
 .completed {
-    font-size: 16px;
+    font-size: 1.0rem;
     color: var(--ion-color-primary)
 }
 .active {

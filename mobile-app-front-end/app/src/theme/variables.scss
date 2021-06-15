@@ -124,9 +124,18 @@
   --ion-color-background-contrast-rgb: 0,0,0;
   --ion-color-background-shade: #dcdce0;
   --ion-color-background-tint: #fbfbff;
+  
 
   /** Forms **/
   --ion-color-inputs: #FFFFFF;
+
+
+  --ion-color-form-buttons: #FFFFFF;
+  --ion-color-form-buttons-rgb: 255,250,240;
+  --ion-color-form-buttons-contrast: #000000;
+  --ion-color-form-buttons-contrast-rgb: 0,0,0;
+  --ion-color-form-buttons-shade: #e0dcd3;
+  --ion-color-form-buttons-tint: #fffbf2;
 
   // Input Error Messages
   --ion-color-error: #CD3670;
@@ -226,6 +235,13 @@ body.dark {
     --ion-color-token-contrast-rgb: 255,255,255;
     --ion-color-token-shade: #052339;
     --ion-color-token-tint: #1f3e54;
+
+    --ion-color-form-buttons: #001C32;
+    --ion-color-form-buttons-rgb: 0,28,50;
+    --ion-color-form-buttons-contrast: #ffffff;
+    --ion-color-form-buttons-contrast-rgb: 255,255,255;
+    --ion-color-form-buttons-shade: #00192c;
+    --ion-color-form-buttons-tint: #1a3347;
 
 
     ion-footer {
@@ -415,7 +431,7 @@ ion-toolbar {
     ion-item#title {
       --border-color: var(--ion-color-title-ruler);
       --border-width: 0px 0px 1px 0px;
-      font-size: 18px;
+      font-size: 1.125rem;
       --min-height: 39px;
       font-family: manrope-bold;
       color: var(--ion-color-tertiary);
@@ -437,6 +453,7 @@ ion-footer {
   display: flex;
   align-items: center;
   justify-content: center;
+  padding-left: 27px;
 }
 ion-button.gimme50 {
   text-transform: none;
@@ -497,4 +514,8 @@ ion-content.page-content {
   --height: 60px;
   --box-shadow: 1px rgba(#66ff66, 0.5);
   --border-radius: 15px;
+}
+
+ion-app {
+  transform:translate()
 }

@@ -1,4 +1,4 @@
-<ion-header class="page-header ion-no-border">
+<ion-header mode="md" class="page-header ion-no-border">
   <ion-toolbar>
     <ion-title>
     <ion-item id="title" lines="none" class="ion-no-padding">
@@ -49,12 +49,12 @@
       <ion-icon *ngIf="editMode" class="trashIcon" (click)="presentAlert(contact.ADDRESS)" name="trash-outline" slot="end"></ion-icon>
     </ion-item>
     <ion-item-options side="end">
-      <ion-item-option [ngStyle]="{'background-color': copyStatus === 'Copy Address' ? 'var(--ion-color-primary' : 'var(--ion-color-success)'}" (click)="copy(contact.ADDRESS)" color="primary" expandable>
+      <ion-item-option [ngStyle]="{'background-color': copyStatus === 'Copy' ? 'var(--ion-color-primary' : 'var(--ion-color-success)'}" (click)="copy(contact.ADDRESS)" color="primary" expandable>
         <div class="block"> 
-        <ion-icon *ngIf="copyStatus === 'Copy Address'" name="copy"></ion-icon>
+        <ion-icon *ngIf="copyStatus === 'Copy'" src="assets/copyIconWhite.svg"></ion-icon>
         <ion-icon *ngIf="copyStatus === 'Copied!'" name="checkmark-outline"></ion-icon>
-        <br>
-        {{ copyStatus }}        
+        <!-- <br>
+        {{ copyStatus }}         -->
       </div>  
       </ion-item-option>
     </ion-item-options>
