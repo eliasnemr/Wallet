@@ -25,6 +25,10 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
+html {
+  font-size: 16px;
+}
+
 // Form error messages
 ion-icon.input-error-icon {
   color: var(--ion-color-danger);

@@ -431,7 +431,7 @@ ion-toolbar {
     ion-item#title {
       --border-color: var(--ion-color-title-ruler);
       --border-width: 0px 0px 1px 0px;
-      font-size: 18px;
+      font-size: 1.125rem;
       --min-height: 39px;
       font-family: manrope-bold;
       color: var(--ion-color-tertiary);
@@ -514,4 +514,8 @@ ion-content.page-content {
   --height: 60px;
   --box-shadow: 1px rgba(#66ff66, 0.5);
   --border-radius: 15px;
+}
+
+ion-app {
+  transform:translate()
 }

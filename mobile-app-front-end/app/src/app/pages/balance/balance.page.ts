@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import {ToolsService } from './../../service/tools.service';
 import {MinimaApiService } from '../../service/minima-api.service';
 import {Component, OnInit, ViewChild } from '@angular/core';
@@ -32,7 +33,8 @@ export class BalancePage implements OnInit {
     private minimaApiService: MinimaApiService,
     private myTools: ToolsService,
     private route: Router,
-    public popoverController: PopoverController) {}
+    public popoverController: PopoverController,
+    private http: HttpClient) {}
 
   ionViewWillEnter() {
     this.$balanceSubscription =

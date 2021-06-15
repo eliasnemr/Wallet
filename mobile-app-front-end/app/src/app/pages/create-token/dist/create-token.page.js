@@ -46,11 +46,12 @@ exports.CreateTokenPage = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var CreateTokenPage = /** @class */ (function () {
-    function CreateTokenPage(menu, api, formBuilder, myTools) {
+    function CreateTokenPage(menu, api, formBuilder, myTools, http) {
         this.menu = menu;
         this.api = api;
         this.formBuilder = formBuilder;
         this.myTools = myTools;
+        this.http = http;
         this.status = '';
         this.isNft = false;
         this.loading = false;
@@ -162,7 +163,7 @@ var CreateTokenPage = /** @class */ (function () {
             description: '',
             script: '',
             icon: ['', [
-                    forms_1.Validators.pattern('(http(s?):)([\\/|\\.|\\w|\\s|\\-])*\.(?:jpg|png|gif|svg)$'),
+                    forms_1.Validators.pattern('(http(s?):)([\\/|\\.|\\w|\\s|\\-])*\.(?:jpg|jpeg|png|gif|svg)$'),
                     forms_1.Validators.maxLength(255),
                 ]],
             proof: ['', [

@@ -4,7 +4,7 @@ ion-item {
 ion-item ion-label {
   white-space: normal;
   margin-bottom: 12px;
-  font-size: 20px;
+  font-size: 1.25rem;
   font-family: manrope-bold;
   color: var(--ion-color-tertiary);
 }
@@ -47,7 +47,7 @@ ion-input {
   background-color: var(--ion-color-inputs);
   border: 1px solid #f0f0fa;
   padding-left: 10px !important;
-  font-size: 14px;
+  font-size: 0.875rem;
 }
 
 .transparentBody {
@@ -69,7 +69,7 @@ ion-input {
   align-items: flex-end;
   justify-content: flex-end;
   font-family: manrope-light;
-  font-size: 14px;
+  font-size: 0.875rem;
   color: var(--ion-color-tertiary);
 }
 
@@ -78,7 +78,7 @@ ion-textarea {
   background: var(--ion-color-inputs);
   border: 1px solid var(--ion-color-item-border);
   padding-left: 10px !important;
-  font-size: 14px;
+  font-size: 0.875rem;
   margin-bottom: 10px;
 }
 
@@ -92,7 +92,7 @@ ion-item.send-wrapper {
 button.footer {
   width: 100%;
   height: 100%;
-  font-size: 16px;
+  font-size: 1rem;
   text-align: center;
   text-transform: none;
   font-family: manrope-bold;
@@ -106,7 +106,7 @@ button.footer:focus {
 }
 
 ion-button.send-funds {
-  font-size: 14px;
+  font-size: 0.875rem;
   height: 35px;
   width: 164px;
   --background: var(--ion-color-primary);
@@ -131,7 +131,7 @@ div.has button {
   border: 1px solid #F0F0FA;
 }
 div.has button ion-icon {
-  font-size: 16px;
+  font-size: 1rem;
   color: var(--ion-color-tertiary);
 }
 div.has button.maxAmount {
