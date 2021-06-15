@@ -16,7 +16,7 @@ ion-list#input-details ion-item:nth-child(0), ion-list#output-details ion-item:n
 }
 
 ion-list#input-details ion-list-header, ion-list#output-details ion-list-header {
-  font-size: 16px;
+  font-size: 1rem;
   padding-left: 0;
 }
 ion-list#input-details ion-list-header ion-item, ion-list#output-details ion-list-header ion-item {
@@ -50,7 +50,7 @@ ion-item#last-child {
 .copy {
   text-decoration: underline;
   cursor: pointer;
-  font-size: 0.8rem;
+  font-size: 0.875rem;
 }
 
 ion-list-header ion-item {
@@ -105,7 +105,7 @@ ion-list-header ion-item {
 }
 
 .completed {
-  font-size: 16px;
+  font-size: 1rem;
   color: var(--ion-color-primary);
 }
 

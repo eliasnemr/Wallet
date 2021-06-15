@@ -19,7 +19,7 @@ ion-title {
   color: var(--ion-color-tertiary);
 }
 ion-input {
-  font-size: 14px;
+  font-size: 0.875rem;
   padding-left: 10px !important;
   color: #000;
   background-color: var(--ion-color-inputs);
@@ -28,7 +28,7 @@ ion-input {
 ion-item ion-label {
   white-space: normal;
   word-break: normal;
-  font-size: 20px;
+  font-size: 1.25rem;
   font-family: manrope-bold;
   color: var(--ion-color-tertiary);
   margin-bottom: 10px;
@@ -78,7 +78,7 @@ ion-button.createContact {
   border-radius: 0;
   float: right;
   margin-top: 22px;
-  font-size: 14px;
+  font-size: 0.875rem;
 }
 ion-button.createContact:hover {
   --background: #346EE5;
@@ -96,7 +96,7 @@ ion-title {
 
 span.dismiss { 
   cursor: pointer;
-  font-size: 16px;
+  font-size: 1.0rem;
   color: var(--ion-color-primary);
 }
 span.dismiss:hover {

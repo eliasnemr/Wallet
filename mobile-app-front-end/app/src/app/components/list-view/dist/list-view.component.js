@@ -10,26 +10,11 @@ exports.ListViewComponent = void 0;
 var SparkMD5 = require("spark-md5");
 var core_1 = require("@angular/core");
 var ListViewComponent = /** @class */ (function () {
-    function ListViewComponent(http) {
-        this.http = http;
+    function ListViewComponent() {
     }
     ListViewComponent.prototype.ngOnInit = function () { };
     ListViewComponent.prototype.createIcon = function (tokenid) {
         return this.avatar = 'https://www.gravatar.com/avatar/' + SparkMD5.hash(tokenid) + '?d=identicon';
-    };
-    ListViewComponent.prototype.getFileSize = function (url) {
-        // this.xmlHttpRequest.open('HEAD', url, true);
-        // return new Promise((resolve, reject) => {
-        //   this.xmlHttpRequest.onprogress = (event) => {
-        //     if (event.lengthComputable) {
-        //       resolve(event.total);
-        //     } else {
-        //       reject(new Error('No content-length available'));
-        //     }
-        //     this.xmlHttpRequest.abort();
-        //   };
-        //   this.xmlHttpRequest.send();
-        // });
     };
     __decorate([
         core_1.Input()

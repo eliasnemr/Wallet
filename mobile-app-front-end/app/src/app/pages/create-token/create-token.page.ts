@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { ToolsService } from './../../service/tools.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MinimaApiService } from '../../service/minima-api.service';
@@ -19,15 +20,14 @@ interface CustomToken {
   script: string;
   description: string;
 }
-
 @Component({
   selector: 'app-create-token',
   templateUrl: './create-token.page.html',
   styleUrls: ['./create-token.page.scss'],
 })
 export class CreateTokenPage implements OnInit {
-  @ViewChild('submitBtn', {static : false}) submitBtn: IonButton;
-  @ViewChild('pageContent', {static : false}) pageContent: IonContent;
+  @ViewChild('submitBtn', {static: false}) submitBtn: IonButton;
+  @ViewChild('pageContent', {static: false}) pageContent: IonContent;
 
 
   tokenCreationForm: FormGroup;
@@ -48,7 +48,8 @@ export class CreateTokenPage implements OnInit {
     public menu: MenuController,
     private api: MinimaApiService,
     private formBuilder: FormBuilder,
-    private myTools: ToolsService) {
+    private myTools: ToolsService,
+    private http: HttpClient) {
     this.creationStatus = 'Create Token';
     this.customToken = {
       name: '',
@@ -87,7 +88,7 @@ export class CreateTokenPage implements OnInit {
       this.create(newToken);
     } catch (err) {
       console.log(err);
-    } 
+    }
   }
 
   async create(newToken: any) {
@@ -146,7 +147,7 @@ export class CreateTokenPage implements OnInit {
       script: '',
       icon: ['', [
         Validators.pattern(
-            '(http(s?):)([\\/|\\.|\\w|\\s|\\-])*\.(?:jpg|png|gif|svg)$'),
+            '(http(s?):)([\\/|\\.|\\w|\\s|\\-])*\.(?:jpg|jpeg|png|gif|svg)$'),
         Validators.maxLength(255),
       ]],
       proof: ['', [
