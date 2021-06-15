@@ -15,6 +15,10 @@ ion-list {
     }
 }
 
+.ios ion-list {
+    margin-top: 12px;
+  }
+
 .item .item-content {
     background-color: transparent !important;
   }
@@ -23,7 +27,7 @@ ion-label#name h3 {
     font-size: 16px;
 }
 ion-list { 
-    margin-top: 7px;
+    margin-top: 10px;
     background-color: transparent;
     background: transparent;
 }
