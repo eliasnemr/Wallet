@@ -51,6 +51,7 @@ ion-input {
   background-color: var(--ion-color-inputs);
   border: 1px solid #f0f0fa;
   padding-left: 10px !important;
+  padding-right: 25px !important;
   font-size: 0.875rem;
 }
 

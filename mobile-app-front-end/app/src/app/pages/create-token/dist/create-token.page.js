@@ -42,9 +42,37 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.CreateTokenPage = void 0;
+exports.CreateTokenPage = exports.checkImage = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
+function validUrl(data) {
+    var pattern = new RegExp('(http(s?):)([\\/|\\.|\\w|\\s|\\-])*\.(?:jpg|jpeg|png|gif|svg)$');
+    return !!pattern.test(data);
+}
+function checkImage() {
+    return function (control) {
+        var isValid = validUrl(control.value);
+        if (isValid) {
+            var http = new XMLHttpRequest();
+            http.open('HEAD', control.value, false);
+            var fileSize = '';
+            http.send(null);
+            if (http.status === 200) {
+                fileSize = http.getResponseHeader('content-length');
+                // console.log('fileSize = ' + fileSize);
+            }
+            if (parseInt(fileSize) > 100000) {
+                // console.log('Image too large');
+                return { invalidUrl: true };
+            }
+            else {
+                return { invalidUrl: false };
+            }
+        }
+        return null;
+    };
+}
+exports.checkImage = checkImage;
 var CreateTokenPage = /** @class */ (function () {
     function CreateTokenPage(menu, api, formBuilder, myTools, http) {
         this.menu = menu;
@@ -165,6 +193,7 @@ var CreateTokenPage = /** @class */ (function () {
             icon: ['', [
                     forms_1.Validators.pattern('(http(s?):)([\\/|\\.|\\w|\\s|\\-])*\.(?:jpg|jpeg|png|gif|svg)$'),
                     forms_1.Validators.maxLength(255),
+                    checkImage(),
                 ]],
             proof: ['', [
                     forms_1.Validators.pattern('(http(s?):)([\\/|\\.|\\w|\\s|\\-])*\.(?:txt)$'),

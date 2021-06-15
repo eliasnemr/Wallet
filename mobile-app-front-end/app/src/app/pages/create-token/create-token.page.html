@@ -24,7 +24,7 @@
       <ion-label position="stacked">Name</ion-label>
       <ion-input 
       placeholder="Enter a token name" 
-      class="medium-text input" 
+      class="input" 
       #nameTextArea 
       name="name" 
       formControlName="name">
@@ -45,7 +45,7 @@
       <ion-input 
       placeholder="Enter token amount" 
       type="number" 
-      class="medium-text input" 
+      class="input" 
       #amountRef 
       name="amount" 
       formControlName="amount">
@@ -68,7 +68,7 @@
         <span id="optional">(optional)</span>
       </ion-label>
       <ion-input 
-      class="medium-text input" 
+      class="input" 
       name="icon" 
       #iconURL 
       formControlName="icon" 
@@ -81,7 +81,8 @@
 
     <ion-note *ngIf="icon.invalid && icon.touched" class="error-message">
       <div> Invalid icon URL!</div>
-      <div>Maximum length of 255 characters. URL must end in .jpg, .png, .gif or .svg to be valid.</div> 
+      <div *ngIf="!icon.hasError('invalidUrl')">Maximum length of 255 characters. URL must end in .jpg, .png, .gif or .svg to be valid.</div>
+      <div *ngIf="icon.hasError('invalidUrl')">Maximum image size of 0.1MB</div> 
     </ion-note>
 
     <ion-item class="no-ripple ion-no-padding" lines="none" lines="none">
@@ -89,7 +90,7 @@
         Proof <span id="optional">(optional)</span></ion-label>
       <ion-input 
       name="proof" 
-      class="medium-text input" 
+      class="input" 
       #proofURL 
       formControlName="proof" 
       placeholder="Enter URL of website hosting token ID text">
@@ -108,7 +109,7 @@
       <ion-label position="stacked">Description <span id="optional">(optional)</span></ion-label>
       <ion-textarea
       #description 
-      class="medium-text input"
+      class="input"
       name="description"
       maxlength="255"
       [(ngModel)] = "customToken.description"

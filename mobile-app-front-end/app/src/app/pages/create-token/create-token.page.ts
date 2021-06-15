@@ -3,7 +3,8 @@ import { ToolsService } from './../../service/tools.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MinimaApiService } from '../../service/minima-api.service';
 import { IonButton, MenuController, IonContent } from '@ionic/angular';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, 
+  ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 
 interface AdvancedFormInputsCheck {
   description: boolean;
@@ -20,6 +21,35 @@ interface CustomToken {
   script: string;
   description: string;
 }
+function validUrl(data: string) {
+  const pattern =
+  new RegExp('(http(s?):)([\\/|\\.|\\w|\\s|\\-])*\.(?:jpg|jpeg|png|gif|svg)$');
+
+  return !!pattern.test(data);
+}
+export function checkImage(): ValidatorFn {
+  return (control?: AbstractControl): ValidationErrors | null => {
+    const isValid = validUrl(control.value);
+    if (isValid) {
+      const http = new XMLHttpRequest();
+      http.open('HEAD', control.value, false);
+      let fileSize = '';
+      http.send(null);
+      if (http.status === 200) {
+        fileSize = http.getResponseHeader('content-length');
+        // console.log('fileSize = ' + fileSize);
+      }
+      if (parseInt(fileSize) > 100000) {
+        // console.log('Image too large');
+        return {invalidUrl: true};
+      } else {
+        return {invalidUrl: false};
+      }
+    }
+    return null;
+  };
+}
+
 @Component({
   selector: 'app-create-token',
   templateUrl: './create-token.page.html',
@@ -149,6 +179,7 @@ export class CreateTokenPage implements OnInit {
         Validators.pattern(
             '(http(s?):)([\\/|\\.|\\w|\\s|\\-])*\.(?:jpg|jpeg|png|gif|svg)$'),
         Validators.maxLength(255),
+        checkImage(),
       ]],
       proof: ['', [
         Validators.pattern('(http(s?):)([\\/|\\.|\\w|\\s|\\-])*\.(?:txt)$'),
@@ -185,5 +216,4 @@ export class CreateTokenPage implements OnInit {
   get myNft() {
     return this.tokenCreationForm.get('nft');
   }
-
 }
