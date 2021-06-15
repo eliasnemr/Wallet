@@ -122,7 +122,14 @@
       </ion-col>
       <ion-col class="minima-numeric value">
         <h6 class="ion-no-padding ion-no-margin"> {{ token?.total }}</h6>
-        <p class="ion-no-padding ion-no-margin"> {{ token?.totalamount }}</p>  
+      </ion-col>
+    </ion-item>
+    <ion-item *ngIf="token?.totalamount" color="none" class="ion-no-padding">
+      <ion-col size="3" sizeXs="4" class="title">
+        Total Supply (Minima)
+      </ion-col>
+      <ion-col class="minima-numeric value">
+        <h6 class="ion-no-padding ion-no-margin"> {{ token?.totalamount }}</h6>
       </ion-col>
     </ion-item>
     <ion-item *ngIf="token?.scale" color="none" class="ion-no-padding">
@@ -180,7 +187,7 @@
       <ion-col class="title">
         Proof
       </ion-col>
-      <ion-col class="value" style="white-space: normal;">
+      <ion-col class="value">
         {{token?.proof}}
       </ion-col>
     </ion-item>
