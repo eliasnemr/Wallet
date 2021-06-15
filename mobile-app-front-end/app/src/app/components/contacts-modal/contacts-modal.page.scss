@@ -33,6 +33,11 @@ ion-item ion-label {
   color: var(--ion-color-tertiary);
   margin-bottom: 10px;
 }
+.ios ion-item {
+  ion-label {
+    font-size: 1.0rem;
+  }
+}
 button.footer {
   width: 100%;
   text-align: center;

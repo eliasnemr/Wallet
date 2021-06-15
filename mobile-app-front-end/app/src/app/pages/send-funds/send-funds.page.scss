@@ -8,6 +8,11 @@ ion-item {
     color: var(--ion-color-tertiary);
   }
 }
+.ios ion-item {
+  ion-label {
+    font-size: 1.0rem;
+  }
+}
 ion-item.wordCountWrapper {
   padding:0;
   margin:0;

@@ -19,7 +19,7 @@
   <form *ngIf="sendForm" [formGroup]="sendForm" id="sendForm">
     <ion-list class="ion-no-padding">
       <ion-item class="no-hover no-ripple ion-no-padding" lines="none">
-        <ion-label position="floating">Token</ion-label>
+        <ion-label position="stacked">Token</ion-label>
         <ion-select
           [disabled]="myTokens.length === 0"
           interface="action-sheet"
@@ -40,13 +40,13 @@
       </ion-select>
       </ion-item>
       <ion-item class="no-hover no-ripple ion-no-padding"  lines="none">
-        <ion-label class="medium-text" position="stacked">
+        <ion-label position="stacked">
            Your Balance</ion-label>
         <div class="has">
           <ion-input 
           [disabled]="myTokens.length === 0" 
           #address 
-          class="medium-text input"  
+          class="input"  
           clearInput="false"
           readonly = true
           [value]="currentToken?.sendable">
@@ -54,13 +54,13 @@
         </div>
       </ion-item>
       <ion-item class="no-hover no-ripple ion-no-padding" lines="none">
-        <ion-label class="medium-text" position="stacked">
+        <ion-label position="stacked">
            Address</ion-label>
         <div class="has">
           <ion-input 
           [disabled]="myTokens.length === 0" 
           #address 
-          class="medium-text input" 
+          class="input" 
           formControlName="address" 
           clearInput="false" 
           placeholder="Enter a valid address">
@@ -82,7 +82,7 @@
       </ion-note>
 
       <ion-item class="no-hover no-ripple ion-no-padding amount"  lines="none">
-        <ion-label class="medium-text" position="stacked">
+        <ion-label position="stacked">
           Amount</ion-label>
         <div class="has">
           <ion-input 
@@ -110,12 +110,12 @@
       </ion-note>
 
       <ion-item class="no-hover no-ripple ion-no-padding" lines="none">
-        <ion-label position="stacked" style="margin-bottom: 1%;">Message <span class="optional">(optional) </span></ion-label>
+        <ion-label position="stacked">Message <span class="optional">(optional) </span></ion-label>
         <ion-textarea
             [disabled]="myTokens.length === 0"
             [(ngModel)]="data.message"
             formControlName="message"
-            class="medium-text input"
+            class="input"
             auto-grow="false"
             #message 
             placeholder="This message will be public"

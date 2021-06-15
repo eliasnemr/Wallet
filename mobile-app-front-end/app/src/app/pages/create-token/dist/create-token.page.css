@@ -21,6 +21,10 @@ ion-list ion-item ion-label span#optional {
   color: var(--ion-color-tertiary);
 }
 
+.ios ion-list ion-item ion-label {
+  font-size: 1rem;
+}
+
 ion-list:first-child {
   padding-top: 0;
 }

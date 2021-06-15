@@ -21,6 +21,13 @@ ion-list {
     }
   }
 }
+.ios ion-list {
+  ion-item {
+    ion-label {
+      font-size: 1.0rem;
+    }
+  }
+}
 ion-list:first-child {
   padding-top:0;
 }
