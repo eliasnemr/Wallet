@@ -1,6 +1,6 @@
 ion-input {
   color: #000;
-  font-size: 14px;
+  font-size: 0.875rem;
   background-color: var(--ion-color-inputs);
   border: 1px solid #f0f0fa;
   padding-left: 10px!important;
@@ -14,7 +14,7 @@ ion-list {
          color: var(--ion-color-tertiary);
        }
       color: var(--ion-color-tertiary);
-      font-size: 20px;
+      font-size: 1.25rem;
       font-family: manrope-bold;
       white-space: normal;
       margin-bottom: 10px;
@@ -39,27 +39,19 @@ ion-item#nft ion-row:last-child {
 }
 ion-icon.nftIcon {
   margin-right: 7px;
-  font-size: 30px;
+  font-size: 1.875rem;
 }
 ion-label.nft {
-  font-size: 16px !important;
+  font-size: 1.0rem !important;
 }
 ion-checkbox {
-  --size: 30px;
+  --size: 1.875rem;
 }
 ion-textarea {
   padding-left: 10px;
-  font-size: 14px;
+  font-size: 0.875rem;
   color: var(--ion-color-text);
   background: var(--ion-color-inputs);
-}
-ion-title.cardHeader {
-  padding-top: 2%;
-  font-size: 0.9rem;
-  display: inline-block;
-}
-ion-title.cardHeader ion-icon {
-  cursor: pointer;
 }
 ion-card-content {
   background: var(--ion-card-color);
@@ -76,7 +68,7 @@ ion-card-header {
   align-items: flex-end;
   justify-content: flex-end;
   font-family: manrope-light;
-  font-size: 14px;
+  font-size: 0.875rem;
   color: var(--ion-color-tertiary);
 }
 .length ion-note {
@@ -102,7 +94,7 @@ ion-button.create-token:hover {
   --background: #346EE5;
 }
 span#nftOptional {
-  font-size: 14px;
+  font-size: 0.875rem;
   font-family: manrope-light;
   color: var(--ion-color-tertiary);
 }

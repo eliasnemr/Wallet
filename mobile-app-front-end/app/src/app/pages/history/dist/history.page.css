@@ -77,13 +77,13 @@ ion-list ion-item div.date {
   justify-content: flex-end;
 }
 ion-list ion-item div.date h6 {
-  font-size: 14px;
+  font-size: 0.875rem;
   color: #aaaabe;
   padding: 0;
   margin: 0;
 }
 ion-list ion-item div.date p {
-  font-size: 12px;
+  font-size: 0.75rem;
   color: #aaaabe;
   padding: 0;
   margin: 0;

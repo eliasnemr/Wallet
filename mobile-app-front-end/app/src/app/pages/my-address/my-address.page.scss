@@ -5,7 +5,7 @@ ion-content {
   --overflow: hidden;
 }
 ion-button.copy-btn {
-  font-size: 14px;
+  font-size: 0.875rem;
   text-transform: none;
   font-family: manrope-bold;
   color: #fff;
@@ -19,7 +19,7 @@ ion-button.copy-btn:hover {
   --background: #346EE5;
 }
 ion-button.gen-btn {
-  font-size: 14px;
+  font-size: 0.875rem;
   height: 35px;
   width: 164px;
   text-transform: none;
@@ -52,7 +52,7 @@ input.qrcode-box {
   padding-bottom:0;
   margin-top: 12px;
   padding: 1%;
-  font-size: 15px;
+  font-size: 0.9375rem;
 }
 input.qrcode-box:focus {
   outline-color: var(--ion-color-primary);

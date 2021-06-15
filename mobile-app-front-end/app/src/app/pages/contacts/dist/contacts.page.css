@@ -36,7 +36,7 @@ ion-searchbar {
   --background: var(--ion-color-inputs);
   --border: 1px solid #f0f0fa;
   color: #001C32;
-  font-size: 12px;
+  font-size: 0.75rem;
 }
 
 ion-item-option div.block {
@@ -45,11 +45,12 @@ ion-item-option div.block {
   display: inline-block;
   vertical-align: middle;
   text-align: center;
-  font-size: 0.85rem;
+  font-size: 0.875rem;
+  min-width: 56px;
 }
 
 ion-item-option div.block ion-icon {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
 }
 
 ion-icon.trashIcon {

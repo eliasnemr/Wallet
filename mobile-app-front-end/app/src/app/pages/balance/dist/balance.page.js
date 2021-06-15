@@ -11,12 +11,13 @@ var core_1 = require("@angular/core");
 var SparkMD5 = require("spark-md5");
 // declare var Minima: any;
 var BalancePage = /** @class */ (function () {
-    function BalancePage(menu, minimaApiService, myTools, route, popoverController) {
+    function BalancePage(menu, minimaApiService, myTools, route, popoverController, http) {
         this.menu = menu;
         this.minimaApiService = minimaApiService;
         this.myTools = myTools;
         this.route = route;
         this.popoverController = popoverController;
+        this.http = http;
         this.tokenArr = [];
         this.tokenSpoof = [];
     }

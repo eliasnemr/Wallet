@@ -21,6 +21,10 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+html {
+  font-size: 16px;
+}
+
 ion-icon.input-error-icon {
   color: var(--ion-color-danger);
   width: 20.43px;

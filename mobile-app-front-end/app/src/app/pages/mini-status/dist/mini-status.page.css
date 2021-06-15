@@ -20,7 +20,7 @@ ion-list ion-item {
 
 .title {
   font-family: manrope-bold;
-  font-size: 16px;
+  font-size: 1rem;
   text-overflow: ellipsis;
   max-width: inherit;
   white-space: normal;
@@ -29,6 +29,12 @@ ion-list ion-item {
 }
 
 .value {
+  -webkit-user-select: text;
+  /* Chrome all / Safari all */
+  -moz-user-select: text;
+  /* Firefox all */
+  -ms-user-select: text;
+  user-select: text;
   font-family: manrope-regular;
   text-align: left;
   white-space: nowrap;

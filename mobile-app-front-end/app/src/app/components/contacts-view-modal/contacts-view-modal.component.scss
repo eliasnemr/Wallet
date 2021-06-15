@@ -5,7 +5,7 @@ ion-searchbar {
   --background: var(--ion-color-inputs);
   --border: 1px solid #f0f0fa;
   color: #001C32;
-  font-size: 12px;
+  font-size: 0.75rem;
 }
 ion-grid.has {
   padding-left: 22px;
@@ -13,7 +13,7 @@ ion-grid.has {
 }
 span.dismiss { 
   cursor: pointer;
-  font-size: 16px;
+  font-size: 1.0rem;
   color: var(--ion-color-primary);
 }
 span.dismiss:hover {
