@@ -28,6 +28,9 @@ ion-input {
   border: 1px solid #f0f0fa;
   padding-left: 10px;
 }
+.ios ion-input {
+  padding-left: 10px !important;
+}
 ion-button {
   height: 35px;
   width: 164px;
@@ -37,6 +40,10 @@ ion-button {
   color: #fff;
   float: left; 
   --border-radius: 0;
+  font-size: 0.875rem;
+}
+.ios ion-button {
+  font-size: 0.875rem;
 }
 ion-row.status-fail {
   margin-top: 5px;
