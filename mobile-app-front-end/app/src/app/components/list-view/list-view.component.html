@@ -6,11 +6,15 @@
       <ng-container *ngIf="token.token !== 'ERROR_UNKNOWN_TOKEN'">
         <ion-avatar slot="start">
           <img 
-          *ngIf="token.tokenid !== '0x00' && token.icon.length == 0" 
+          *ngIf="token.tokenid !== '0x00' && token.icon.length === 0" 
           [src]="createIcon( token.tokenid )" 
           class="custom-icon"/>
           <img 
-          *ngIf="token.tokenid !== '0x00' && token.icon.length > 0" 
+          class="custom-icon-big"
+          *ngIf="token?.tokenid !== '0x00' && token?.icon.length > 0 && token?.icon === 'avatar'" 
+          [src]="createIcon( token?.tokenid )"/>
+          <img 
+          *ngIf="token.tokenid !== '0x00' && token.icon.length > 0 && token.icon !== 'avatar'" 
           class="custom-icon" 
           [src]="token.icon"/>
           <img 

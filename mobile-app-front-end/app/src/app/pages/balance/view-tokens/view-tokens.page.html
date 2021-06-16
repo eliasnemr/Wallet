@@ -31,13 +31,17 @@
     <ion-item *ngIf="expand" class="ion-no-padding ion-no-margin nft-large">
       <div (click)="expandImage()">
         <ion-icon name="resize-outline"></ion-icon>
-        <img 
+          <img
           class="custom-icon-big"
-          *ngIf="token?.tokenid !== '0x00' && token?.icon.length == 0" 
+          *ngIf="token?.tokenid !== '0x00' && token?.icon.length === 0" 
           [src]="createIcon( token?.tokenid )"/>
           <img 
           class="custom-icon-big"
-          *ngIf="token?.tokenid !== '0x00' && token?.icon.length > 0" 
+          *ngIf="token?.tokenid !== '0x00' && token?.icon.length > 0 && token?.icon === 'avatar'" 
+          [src]="createIcon( token?.tokenid )"/>
+          <img 
+          class="custom-icon-big"
+          *ngIf="token?.tokenid !== '0x00' && token?.icon.length > 0 && token?.icon !== 'avatar'" 
           [src]="token?.icon"/>
           <img 
           class="custom-icon-big"

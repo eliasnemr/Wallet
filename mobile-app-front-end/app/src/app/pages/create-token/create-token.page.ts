@@ -22,6 +22,7 @@ interface CustomToken {
   description: string;
 }
 
+
 @Component({
   selector: 'app-create-token',
   templateUrl: './create-token.page.html',

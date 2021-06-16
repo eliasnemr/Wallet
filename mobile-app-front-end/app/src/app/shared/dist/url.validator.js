@@ -15,14 +15,14 @@ function checkImage() {
             http.send(null);
             if (http.status === 200) {
                 fileSize = http.getResponseHeader('content-length');
-                // console.log('fileSize = ' + fileSize);
+                console.log('Filesize: ' + fileSize);
             }
-            if (parseInt(fileSize, 10) > 100000) {
-                // console.log('Image too large');
+            if (parseInt(fileSize, 10) > 1000000) {
                 return { invalidUrl: true };
             }
             else {
-                return { invalidUrl: false };
+                console.log('not big');
+                return null;
             }
         }
         return null;
