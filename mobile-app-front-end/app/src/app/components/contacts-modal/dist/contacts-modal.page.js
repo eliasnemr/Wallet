@@ -10,6 +10,7 @@ exports.ContactsModalPage = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var SparkMD5 = require("spark-md5");
+var url_validator_1 = require("../../shared/url.validator");
 var ContactsModalPage = /** @class */ (function () {
     function ContactsModalPage(modalCtrl, contactService, myTools, formBuilder) {
         this.modalCtrl = modalCtrl;
@@ -33,13 +34,11 @@ var ContactsModalPage = /** @class */ (function () {
                     forms_1.Validators.maxLength(60),
                     forms_1.Validators.pattern('[Mx|0x][a-zA-Z0-9]+')
                 ]],
-            DESCRIPTION: [
-                '',
-                [forms_1.Validators.maxLength(255)]
-            ],
+            DESCRIPTION: ['', [forms_1.Validators.maxLength(255)]],
             AVATAR: ['', [
                     forms_1.Validators.maxLength(255),
-                    forms_1.Validators.pattern('(http(s?):)([\\/|\\.|\\w|\\s|\\-])*\.(?:jpg|jpeg|png|gif|svg)$'),
+                    forms_1.Validators.pattern('(http(s?):)([\\/|\\.|\\w|\\s|\\-])*\.(?:jpg|png|gif|svg)$'),
+                    url_validator_1.checkImage(),
                 ]]
         });
     };
@@ -69,14 +68,15 @@ var ContactsModalPage = /** @class */ (function () {
         this.loading = true;
         var newContact = this.contactForm.value;
         this.contactService.addContact(newContact);
-        this.$contactSubscription = this.contactService.data.subscribe(function (val) {
-            if (val.length > 0) {
-                _this.success = true;
-                _this.showToast();
-                _this.modalCtrl.dismiss();
-                _this.loading = false;
-            }
-        });
+        this.$contactSubscription =
+            this.contactService.data.subscribe(function (val) {
+                if (val.length > 0) {
+                    _this.success = true;
+                    _this.showToast();
+                    _this.modalCtrl.dismiss();
+                    _this.loading = false;
+                }
+            });
         this.loading = false;
     };
     ContactsModalPage.prototype.showToast = function () {

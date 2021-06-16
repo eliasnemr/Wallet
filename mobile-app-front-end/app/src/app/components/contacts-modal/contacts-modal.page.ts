@@ -1,10 +1,11 @@
 import { Subscription } from 'rxjs';
 import { ToolsService } from './../../service/tools.service';
 import { ContactService, Contact } from 'src/app/service/contacts.service';
-import { ModalController, ToastController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import * as SparkMD5 from 'spark-md5';
+import { checkImage } from '../../shared/url.validator';
 
 
 @Component({
@@ -13,7 +14,6 @@ import * as SparkMD5 from 'spark-md5';
   styleUrls: ['./contacts-modal.page.scss'],
 })
 export class ContactsModalPage implements OnInit {
-
   contactForm: FormGroup;
   myContact: Contact;
   av = '';
@@ -33,40 +33,34 @@ export class ContactsModalPage implements OnInit {
   ngOnInit() {
     this.contactForm = this.formBuilder.group({
       NAME: ['', [
-          Validators.maxLength(255),
-          Validators.pattern('[a-zA-Z0-9 .\-\_\']*$'),
-        ]
-        ],
+        Validators.maxLength(255),
+        Validators.pattern('[a-zA-Z0-9 .\-\_\']*$'),
+      ]],
       ADDRESS: ['', [
-             Validators.required,
-             Validators.minLength(2),
-             Validators.maxLength(60),
-             Validators.pattern('[Mx|0x][a-zA-Z0-9]+')
-            ]
-        ],
+        Validators.required,
+        Validators.minLength(2),
+        Validators.maxLength(60),
+        Validators.pattern('[Mx|0x][a-zA-Z0-9]+')
+      ]],
       DESCRIPTION: ['', [Validators.maxLength(255)]],
       AVATAR: ['', [
-            Validators.maxLength(255),
-            Validators.pattern('(http(s?):)([\\/|\\.|\\w|\\s|\\-])*\.(?:jpg|png|gif|svg)$'),
-           ]
-      ]
+        Validators.maxLength(255),
+        Validators.pattern('(http(s?):)([\\/|\\.|\\w|\\s|\\-])*\.(?:jpg|png|gif|svg)$'),
+        checkImage(),
+      ]],
     });
   }
 
   ionViewWillLeave() {
-
     if (this.$contactSubscription) {
-
       this.$contactSubscription.unsubscribe();
-
     }
-
   }
 
 
   dismiss() {
     this.modalCtrl.dismiss({
-      dismissed: true
+      dismissed: true,
     });
   }
 
@@ -74,7 +68,7 @@ export class ContactsModalPage implements OnInit {
     return this.av = 'https://www.gravatar.com/avatar/' + SparkMD5.hash(address) + '?d=identicon';
   }
   changeIcon(ev: any) {
-    if(ev.target.value === 0) {
+    if (ev.target.value === 0) {
       this.av = '';
     } else {
       this.createIcon(ev.target.value);
@@ -88,7 +82,8 @@ export class ContactsModalPage implements OnInit {
 
     this.contactService.addContact(newContact);
 
-    this.$contactSubscription = this.contactService.data.subscribe((val: Contact[]) => {
+    this.$contactSubscription =
+    this.contactService.data.subscribe((val: Contact[]) => {
       if (val.length > 0) {
         this.success = true;
         this.showToast();
@@ -118,5 +113,4 @@ export class ContactsModalPage implements OnInit {
   get avatar() {
     return this.contactForm.get('AVATAR');
   }
-
 }
