@@ -37,7 +37,6 @@ ion-select:hover {
 }
 
 ion-select::part(icon) {
-  top: 50%;
   color: var(--ion-color-primary);
   opacity: 1;
 }

@@ -21,7 +21,6 @@
       <ion-item class="no-hover no-ripple ion-no-padding" lines="none">
         <ion-label position="stacked">Token</ion-label>
         <ion-select
-          [disabled]="myTokens.length === 0"
           interface="action-sheet"
           formControlName="tokenid"    
           [(ngModel)]='itemSelected'
@@ -44,7 +43,6 @@
            Your Balance</ion-label>
         <div class="has">
           <ion-input 
-          [disabled]="myTokens.length === 0" 
           #address 
           class="input"  
           clearInput="false"
@@ -58,7 +56,6 @@
            Address</ion-label>
         <div class="has">
           <ion-input 
-          [disabled]="myTokens.length === 0" 
           #address 
           class="input" 
           formControlName="address" 
@@ -86,7 +83,6 @@
           Amount</ion-label>
         <div class="has">
           <ion-input 
-          [disabled]="myTokens.length === 0" 
           #amount 
           type="text" 
           formControlName="amount" 
@@ -112,7 +108,6 @@
       <ion-item class="no-hover no-ripple ion-no-padding" lines="none">
         <ion-label position="stacked">Message <span class="optional">(optional) </span></ion-label>
         <ion-textarea
-            [disabled]="myTokens.length === 0"
             [(ngModel)]="data.message"
             formControlName="message"
             class="input"
