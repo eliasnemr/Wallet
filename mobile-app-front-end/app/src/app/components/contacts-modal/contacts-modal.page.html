@@ -86,12 +86,12 @@
       <ion-note *ngIf="avatar.invalid && avatar.touched" class="error-message">
         <div> Invalid avatar icon URL!</div>
         <div *ngIf="!avatar.hasError('invalidUrl')">Maximum length of 255 characters. URL must end in .jpg, .png, .gif or .svg to be valid.</div>
-        <div *ngIf="avatar.hasError('invalidUrl')">Maximum image size of 2.5MB</div> 
+        <div *ngIf="avatar.hasError('invalidUrl')">Maximum image size of 1MB</div> 
       </ion-note>
 
       <ion-item class="ion-no-padding" lines="none">
-        <ion-button slot="end" type="submit" [disabled]="contactForm.invalid" class="createContact" fill="clear">
-          Create Contact
+        <ion-button #createBtn slot="end" type="submit" [disabled]="contactForm.invalid" class="createContact" fill="clear">
+          {{ status }}
         </ion-button>
       </ion-item>
     </ion-list>

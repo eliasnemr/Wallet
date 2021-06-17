@@ -82,7 +82,7 @@
     <ion-note *ngIf="icon.invalid && icon.touched" class="error-message">
       <div> Invalid icon URL!</div>
       <div *ngIf="!icon.hasError('invalidUrl')">Maximum length of 255 characters. URL must end in .jpg, .png, .gif or .svg to be valid.</div>
-      <div *ngIf="icon.hasError('invalidUrl')">Maximum image size of 2.5MB</div> 
+      <div *ngIf="icon.hasError('invalidUrl')">Maximum image size of 1MB</div> 
     </ion-note>
 
     <ion-item class="no-ripple ion-no-padding" lines="none" lines="none">

@@ -14,6 +14,7 @@ var core_1 = require("@angular/core");
 var SparkMD5 = require("spark-md5");
 var ContactService = /** @class */ (function () {
     function ContactService() {
+        this.duplicateError = 'org.h2.jdbc.JdbcSQLIntegrityConstraintViolationException: Unique index or primary key violation';
         this.data = new rxjs_1.ReplaySubject(1);
         this.selectedAddress = new rxjs_1.ReplaySubject(1);
         this.initSQL();
@@ -59,10 +60,38 @@ var ContactService = /** @class */ (function () {
                 "'" + newContact.DESCRIPTION + "'," +
                 "'" + newContact.AVATAR + "')";
         }
-        minima_1.Minima.sql(this.qContacts + ';SELECT * FROM CONTACTS ORDER BY NAME', function (res) {
-            // console.log(res);
-            if (res.status && res.response[0].status) {
-                _this.data.next(res.response[1].rows ? res.response[1].rows : []);
+        return new Promise(function (resolve) {
+            try {
+                minima_1.Minima.sql(_this.qContacts +
+                    ';SELECT * FROM CONTACTS ORDER BY NAME', function (res) {
+                    // console.log(res);
+                    if (res.status && res.response.length === 1) {
+                        // It failed
+                        if (!res.response[0].status &&
+                            res.response[0].message.substring(0, 95) ===
+                                _this.duplicateError) {
+                            resolve('Duplicate');
+                        }
+                        else if (!res.response[0].status &&
+                            res.response[0].message.substring(0, 95) !==
+                                _this.duplicateError) {
+                            resolve(false);
+                        }
+                    }
+                    else if (res.status && res.response.length === 2) {
+                        // it worked
+                        if (minima_1.Minima.util.checkAllResponses(res)) {
+                            _this.data.next(res.response[1].rows ? res.response[1].rows : []);
+                            resolve(true);
+                        }
+                    }
+                    else if (!res.status) {
+                        resolve(false);
+                    }
+                });
+            }
+            catch (err) {
+                throw new Error('Contact not added.');
             }
         });
     };

@@ -119,9 +119,7 @@ var SendFundsPage = /** @class */ (function () {
         this.$balanceSubscription.unsubscribe();
     };
     /** */
-    SendFundsPage.prototype.ngOnInit = function () {
-        this.formInit('0x00');
-    };
+    SendFundsPage.prototype.ngOnInit = function () { };
     /** */
     SendFundsPage.prototype.resetForm = function () {
         var _this = this;

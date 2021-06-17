@@ -1,8 +1,8 @@
 import { Subscription } from 'rxjs';
 import { ToolsService } from './../../service/tools.service';
 import { ContactService, Contact } from 'src/app/service/contacts.service';
-import { ModalController } from '@ionic/angular';
-import { Component, OnInit } from '@angular/core';
+import { ModalController, IonButton } from '@ionic/angular';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import * as SparkMD5 from 'spark-md5';
 import { checkImage } from '../../shared/url.validator';
@@ -18,10 +18,10 @@ export class ContactsModalPage implements OnInit {
   myContact: Contact;
   av = '';
   $contactSubscription: Subscription;
+  @ViewChild('createBtn', {static: false}) createBtn: IonButton;
 
   // State Items
-  loading = false;
-  success = false;
+  status: string;
 
   constructor(
       public modalCtrl: ModalController,
@@ -31,6 +31,7 @@ export class ContactsModalPage implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.status = 'Create Contact';
     this.contactForm = this.formBuilder.group({
       NAME: ['', [
         Validators.maxLength(255),
@@ -45,7 +46,7 @@ export class ContactsModalPage implements OnInit {
       DESCRIPTION: ['', [Validators.maxLength(255)]],
       AVATAR: ['', [
         Validators.maxLength(255),
-        Validators.pattern('(http(s?):)([\\/|\\.|\\w|\\s|\\-])*\.(?:jpg|png|gif|svg)$'),
+        Validators.pattern('(http(s?):)([\\/|\\.|\\w|\\s|\\-])*\.(?:jpg|jpeg|png|gif|svg)$'),
         checkImage(),
       ]],
     });
@@ -75,30 +76,53 @@ export class ContactsModalPage implements OnInit {
     }
   }
 
-  addContact() {
-    this.loading = true;
-
+  async addContact() {
+    this.createBtn.disabled = true;
+    this.status = 'Creating...';
     const newContact = this.contactForm.value;
 
-    this.contactService.addContact(newContact);
+    const res: any = await this.contactService.addContact(newContact);
+    // console.log(res);
+    if (res === true) {
+      this.createBtn.disabled = false;
+      this.showToast();
+      this.modalCtrl.dismiss();
+    } else if (res === 'Duplicate') {
+      this.status = 'Creation Failed!';
+      this.showToastFail(`Duplicate entry in your contact list.`);
 
-    this.$contactSubscription =
-    this.contactService.data.subscribe((val: Contact[]) => {
-      if (val.length > 0) {
-        this.success = true;
-        this.showToast();
-        this.modalCtrl.dismiss();
-        this.loading = false;
-      }
-    });
-    this.loading = false;
+      setTimeout(() => {
+        this.createBtn.disabled = false;
+        this.status = 'Create Contact';
+      }, 2000);
+    } else if (res !== 'Duplicate' && !res) {
+      this.status = 'Creation Failed!';
+      this.showToastFail('Something went wrong' +
+      ' while adding your contact, please try again.');
+
+      setTimeout(() => {
+        this.createBtn.disabled = false;
+        this.status = 'Create Contact';
+      }, 2000);
+    }
   }
 
   showToast() {
-    if (this.contactForm.controls['NAME'].value === '') { 
+    if (this.contactForm.controls['NAME'].value === '') {
       this.contactForm.controls['NAME'].setValue('Anonymous');
     }
-    this.myTools.presentToast(`${ this.name.value } was saved to your contacts!`, 'primary', 'bottom');
+    this.myTools.presentToast(
+        `${ this.name.value } was saved to your contacts!`,
+        'success', 'bottom');
+  }
+
+  showToastFail(msg: string) {
+    if (this.contactForm.controls['NAME'].value === '') {
+      this.contactForm.controls['NAME'].setValue('Anonymous');
+    }
+    this.myTools.presentToast(
+        msg,
+        'danger', 'bottom');
   }
 
   get name() {

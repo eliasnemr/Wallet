@@ -122,9 +122,7 @@ export class SendFundsPage implements OnInit {
     this.$balanceSubscription.unsubscribe();
   }
   /** */
-  ngOnInit() {
-    this.formInit('0x00');
-  }
+  ngOnInit() { }
   /** */
   resetForm() {
     setTimeout(() => {

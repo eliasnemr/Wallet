@@ -62,5 +62,4 @@ export class ContactsViewModalComponent implements OnInit {
   dismiss() {
     this.modalController.dismiss();
   }
-
 }
