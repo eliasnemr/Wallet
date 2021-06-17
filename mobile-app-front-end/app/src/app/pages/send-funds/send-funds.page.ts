@@ -32,12 +32,17 @@ export interface SendFormObj {
 }
 
 Decimal.set({precision: 64}); /** set precision for Decimal calculations */
-export function checkAmount(val: any): ValidatorFn {
+export function checkAmount(amnt: any): ValidatorFn {
   return (control?: AbstractControl): ValidationErrors | null => {
-    const a = new Decimal(val);
-    if (control.value && new Decimal(control.value).greaterThan(a)) {
-      return {invalidAmount: true};
+    const amount = new Decimal(amnt);
+    try {
+      if (control.value && new Decimal(control.value).greaterThan(amount)) {
+        return {invalidAmount: true};
+      }
+    } catch (err) {
+      console.log(err);
     }
+    return null;
   };
 }
 @Component({
@@ -56,6 +61,7 @@ export class SendFundsPage implements OnInit {
   myTokens: Token[];
   $contactSubscription: Subscription;
   $balanceSubscription: Subscription;
+  $tokenSelectSubscription: Subscription;
 
   status = '';
   webQrScanner: any;
@@ -68,7 +74,6 @@ export class SendFundsPage implements OnInit {
   balanceSubscription: Subscription;
   tokenArr: Token[] = [];
   insufficientFunds: boolean;
-  currentToken: Token;
 
   /** */
   constructor(
@@ -81,14 +86,6 @@ export class SendFundsPage implements OnInit {
     private router: Router,
   ) {
     this.myTokens = [];
-    this.$balanceSubscription =
-    this.minimaApiService.$balance.subscribe((balance: Token[]) => {
-      balance.forEach((token: Token) => {
-        if (token.tokenid === '0x00') {
-          this.currentToken = token;
-        }
-      });
-    });
   }
   /** */
   ionViewWillEnter() {
@@ -98,10 +95,28 @@ export class SendFundsPage implements OnInit {
       if (res.length === 1) {
         this.myTokens = res.filter((token) =>
           new Decimal(token.sendable).greaterThan(new Decimal(0)));
+        this.totalBalance.setValue(this.myTokens[0] &&
+          this.myTokens[0].sendable ?
+           this.myTokens[0].sendable : 0);
+
+        (this.myTokens[0] &&
+           this.myTokens[0].sendable ?
+            this.amountFormItem.setValidators(
+                checkAmount(this.myTokens[0].sendable)) :
+            this.amountFormItem.setValidators(checkAmount('0')) );
       } else {
         this.insufficientFunds = false;
         this.myTokens = res.filter((token) =>
           new Decimal(token.sendable).greaterThan(new Decimal(0)));
+        this.totalBalance.setValue(this.myTokens[0] &&
+          this.myTokens[0].sendable ?
+           this.myTokens[0].sendable : 0);
+
+        (this.myTokens[0] &&
+        this.myTokens[0].sendable ?
+          this.amountFormItem.setValidators(
+              checkAmount(this.myTokens[0].sendable)) :
+          this.amountFormItem.setValidators(checkAmount('0')) );
       }
     });
 
@@ -114,6 +129,7 @@ export class SendFundsPage implements OnInit {
         this.contactService.selectedAddress.next({address: ''});
       }
     });
+    this.onSelectionChange();
     this.getTokenSelected();
   }
   /** */
@@ -136,6 +152,7 @@ export class SendFundsPage implements OnInit {
   formInit(id) {
     this.sendForm = this.formBuilder.group({
       tokenid: id,
+      totalBalance: '',
       address: ['', [
         Validators.required,
         Validators.minLength(2),
@@ -143,14 +160,17 @@ export class SendFundsPage implements OnInit {
         Validators.pattern('[Mx|0x][a-zA-Z0-9]+')]],
       amount: ['0', [
         Validators.required,
-        checkAmount(this.currentToken && this.currentToken.sendable ?
-          this.currentToken.sendable : '0')]],
+      ]],
       message: ['', Validators.maxLength(255)],
     });
   }
   /** */
   get tokenFormItem() {
     return this.sendForm.get('tokenid');
+  }
+  /** */
+  get totalBalance() {
+    return this.sendForm.get('totalBalance');
   }
   /** */
   get addressFormItem() {
@@ -182,17 +202,19 @@ export class SendFundsPage implements OnInit {
       }
     });
   }
-  /** listen to selection change */
-  onItemSelection(ev: any) {
-    this.itemSelected = this.sendForm.get('tokenid').value;
 
-    this.$balanceSubscription =
-    this.minimaApiService.$balance.subscribe((balance: Token[]) => {
-      balance.forEach((token: Token) => {
-        if (token.tokenid === this.itemSelected) {
-          this.currentToken = token;
-          this.formInit(this.currentToken.tokenid);
-        }
+  onSelectionChange() {
+    this.$tokenSelectSubscription =
+    this.tokenFormItem.valueChanges.subscribe((tokenid: any) => {
+      this.$balanceSubscription =
+      this.minimaApiService.$balance.subscribe((balance: Token[]) => {
+        // console.log(balance);
+        balance.forEach((token: Token) => {
+          if (token.tokenid === tokenid) {
+            this.totalBalance.setValue(token.sendable);
+            this.amountFormItem.setValidators(checkAmount(token.sendable));
+          }
+        });
       });
     });
   }

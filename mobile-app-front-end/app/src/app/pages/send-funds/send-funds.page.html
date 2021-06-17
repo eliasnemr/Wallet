@@ -14,7 +14,6 @@
 </ion-header>
 
 
-
 <ion-content #pageContent class="page-content">
   <form *ngIf="sendForm" [formGroup]="sendForm" id="sendForm">
     <ion-list class="ion-no-padding">
@@ -23,11 +22,8 @@
         <ion-select
           interface="action-sheet"
           formControlName="tokenid"    
-          [(ngModel)]='itemSelected'
-          (ionChange)="onItemSelection($event)"
           class="no-hover no-ripple input"
-          [placeholder]="myTokens.length > 0 ? 'Select A Token' : 'No sendable tokens available.'"
-          > 
+          [placeholder]="myTokens.length > 0 ? 'Select A Token' : 'No sendable tokens available.'"> 
         <ion-select-option *ngFor="let token of myTokens" [value]="token.tokenid" class="token-option">
           <span *ngIf="token.tokenid !== '0x00'">
             {{ token.token + " &mdash; "+ token.tokenid.substring(0, 5)+'...'+token.tokenid.substring(token.tokenid.length-3, token.tokenid.length) }}
@@ -47,7 +43,7 @@
           class="input"  
           clearInput="false"
           readonly = true
-          [value]="currentToken?.sendable">
+          formControlName="totalBalance">
           </ion-input>
         </div>
       </ion-item>
@@ -95,14 +91,14 @@
           </ion-input>
           <button 
           type="button"
-          (click)="currentToken?.sendable ? amountInp.value = currentToken?.sendable : '0'" 
+          (click)="totalBalance.value ? amountFormItem.setValue(totalBalance.value) : amountFormItem.setValue('0')" 
           class="maxAmount clear">Max</button>
         </div>
       </ion-item>
       <ion-note *ngIf="amountFormItem.invalid && amountFormItem.touched" class="error-message">
         <div> Amount required!</div>
-        <div> Must be numeric and greater than zero.</div>
-        <div> Please check you have sufficient funds.</div>
+        <div *ngIf="!amountFormItem.hasError('invalidAmount')"> Must be numeric and greater than zero.</div>
+        <div *ngIf="amountFormItem.hasError('invalidAmount')"> Please check you have sufficient funds.</div>
       </ion-note>
 
       <ion-item class="no-hover no-ripple ion-no-padding" lines="none">
