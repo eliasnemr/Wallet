@@ -18,6 +18,7 @@ export interface SelectedAddress {
   providedIn: 'root',
 })
 export class ContactService {
+  readonly duplicateError = 'org.h2.jdbc.JdbcSQLIntegrityConstraintViolationException: Unique index or primary key violation';
   public selectedAddress: Subject<SelectedAddress>;
   public data: Subject<Contact[]>;
   qContacts: string;
@@ -73,13 +74,36 @@ export class ContactService {
       "'" + newContact.AVATAR + "')";
     }
 
-    Minima.sql(this.qContacts + ';SELECT * FROM CONTACTS ORDER BY NAME',
-        (res: any) => {
-        // console.log(res);
-          if (res.status && res.response[0].status) {
-            this.data.next(res.response[1].rows ? res.response[1].rows : []);
+    return new Promise((resolve) => {
+      try {
+        Minima.sql(this.qContacts +
+          ';SELECT * FROM CONTACTS ORDER BY NAME', (res: any) => {
+          // console.log(res);
+          if (res.status && res.response.length === 1) {
+            // It failed
+            if (!res.response[0].status &&
+              res.response[0].message.substring(0, 95) ===
+              this.duplicateError) {
+              resolve('Duplicate');
+            } else if (!res.response[0].status &&
+                res.response[0].message.substring(0, 95) !==
+                this.duplicateError) {
+              resolve(false);
+            }
+          } else if (res.status && res.response.length === 2) {
+            // it worked
+            if (Minima.util.checkAllResponses(res)) {
+              this.data.next(res.response[1].rows ? res.response[1].rows : []);
+              resolve(true);
+            }
+          } else if (!res.status) {
+            resolve(false);
           }
         });
+      } catch (err) {
+        throw new Error('Contact not added.');
+      }
+    });
   }
 
   deleteContacts() {
