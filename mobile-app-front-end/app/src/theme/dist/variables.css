@@ -458,6 +458,7 @@ ion-header.page-header ion-toolbar ion-title {
 ion-content.page-content {
   --padding-start: 27px;
   --padding-end: 27px;
+  --padding-top: 10px;
 }
 
 /* My Custom Toasts */

@@ -1,3 +1,4 @@
+import { ContactDetailComponent } from './../../components/contact-detail/contact-detail.component';
 import { Subscription } from 'rxjs';
 import { ToolsService } from './../../service/tools.service';
 import {
@@ -14,6 +15,7 @@ import {
   MenuController,
   PopoverController } from '@ionic/angular';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import * as SparkMD5 from 'spark-md5';
 import { Contact, ContactService } from 'src/app/service/contacts.service';
 
 @Component({
@@ -113,6 +115,19 @@ export class ContactsPage implements OnInit {
     return await modal.present();
   }
 
+  async presentContactDetail(contact: Contact) {
+    const modal = await this.modalController.create({
+      component: ContactDetailComponent,
+      componentProps: {
+        name: contact.NAME,
+        address: contact.ADDRESS,
+        description: contact.DESCRIPTION,
+        avatar: contact.AVATAR,
+      },
+    });
+    return await modal.present();
+  }
+
   copy(data: any) {
     this.copyStatus = 'Copied!';
     this.myTools.copy(data);
@@ -120,5 +135,8 @@ export class ContactsPage implements OnInit {
     setTimeout(() => {
       this.copyStatus = 'Copy';
     }, 2000);
+  }
+  createIcon(tokenid: string) {
+    return 'https://www.gravatar.com/avatar/' + SparkMD5.hash(tokenid) + '?d=identicon';
   }
 }

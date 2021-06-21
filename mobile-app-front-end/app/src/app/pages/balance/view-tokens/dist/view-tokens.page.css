@@ -8,10 +8,6 @@ ion-list ion-item ion-label.description h6 {
   font-family: manrope-semibold;
 }
 
-.ios ion-list {
-  margin-top: 12px;
-}
-
 .item .item-content {
   background-color: transparent !important;
 }
@@ -22,7 +18,6 @@ ion-label#name h3 {
 }
 
 ion-list {
-  margin-top: 10px;
   background-color: transparent;
   background: transparent;
 }

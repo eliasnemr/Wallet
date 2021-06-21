@@ -22,7 +22,7 @@ export class ContactService {
   public selectedAddress: Subject<SelectedAddress>;
   public data: Subject<Contact[]>;
   qContacts: string;
-  constructor() { 
+  constructor() {
     this.data = new ReplaySubject<Contact[]>(1);
     this.selectedAddress = new ReplaySubject<SelectedAddress>(1);
     this.initSQL();
@@ -122,5 +122,58 @@ export class ContactService {
             this.data.next(res.response[1].rows ? res.response[1].rows : []);
           }
         });
+  }
+
+  updateDescription(description: string, address: string) {
+    return new Promise((resolve) => {
+      try {
+        Minima.sql('UPDATE CONTACTS SET DESCRIPTION=\'' +
+        description +
+        '\' WHERE ADDRESS=\'' + address + '\';' +
+        'SELECT * FROM contacts ORDER BY NAME', (res: any) => {
+          // console.log(res);
+          if (Minima.util.checkAllResponses(res)) {
+            if (res.response[0].status && res.response[0].update === 1) {
+              resolve(true);
+              if (res.response[1].status) {
+                this.data.next(res.response[1].rows);
+              }
+            } else {
+              resolve(false);
+            }
+          } else {
+            throw new Error('Something went wrong');
+          }
+        });
+      } catch (err) {
+        Minima.log(err);
+      }
+    });
+  }
+  updateAvatar(url: string, address: string) {
+    return new Promise((resolve) => {
+      try {
+        Minima.sql('UPDATE CONTACTS SET AVATAR=\'' +
+        url +
+        '\' WHERE ADDRESS=\'' + address + '\';' +
+        'SELECT * FROM contacts ORDER BY NAME', (res: any) => {
+          // console.log(res);
+          if (Minima.util.checkAllResponses(res)) {
+            if (res.response[0].status && res.response[0].update === 1) {
+              resolve(true);
+              if (res.response[1].status) {
+                this.data.next(res.response[1].rows);
+              }
+            } else {
+              resolve(false);
+            }
+          } else {
+            throw new Error('Something went wrong');
+          }
+        });
+      } catch (err) {
+        Minima.log(err);
+      }
+    });
   }
 }

@@ -79,7 +79,6 @@ var ToolsService = /** @class */ (function () {
                                 position: 'bottom',
                                 color: clr,
                                 keyboardClose: true,
-                                translucent: true,
                                 duration: 2000,
                                 cssClass: 'customToastClass',
                                 buttons: [

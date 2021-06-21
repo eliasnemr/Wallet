@@ -38,7 +38,6 @@ export class ToolsService {
       position: 'bottom',
       color: clr,
       keyboardClose: true,
-      translucent: true,
       duration: 2000,
       cssClass: 'customToastClass',
       buttons: [
