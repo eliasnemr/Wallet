@@ -112,6 +112,66 @@ var ContactService = /** @class */ (function () {
             }
         });
     };
+    ContactService.prototype.updateDescription = function (description, address) {
+        var _this = this;
+        return new Promise(function (resolve) {
+            try {
+                minima_1.Minima.sql('UPDATE CONTACTS SET DESCRIPTION=\'' +
+                    description +
+                    '\' WHERE ADDRESS=\'' + address + '\';' +
+                    'SELECT * FROM contacts ORDER BY NAME', function (res) {
+                    // console.log(res);
+                    if (minima_1.Minima.util.checkAllResponses(res)) {
+                        if (res.response[0].status && res.response[0].update === 1) {
+                            resolve(true);
+                            if (res.response[1].status) {
+                                _this.data.next(res.response[1].rows);
+                            }
+                        }
+                        else {
+                            resolve(false);
+                        }
+                    }
+                    else {
+                        throw new Error('Something went wrong');
+                    }
+                });
+            }
+            catch (err) {
+                minima_1.Minima.log(err);
+            }
+        });
+    };
+    ContactService.prototype.updateAvatar = function (url, address) {
+        var _this = this;
+        return new Promise(function (resolve) {
+            try {
+                minima_1.Minima.sql('UPDATE CONTACTS SET AVATAR=\'' +
+                    url +
+                    '\' WHERE ADDRESS=\'' + address + '\';' +
+                    'SELECT * FROM contacts ORDER BY NAME', function (res) {
+                    // console.log(res);
+                    if (minima_1.Minima.util.checkAllResponses(res)) {
+                        if (res.response[0].status && res.response[0].update === 1) {
+                            resolve(true);
+                            if (res.response[1].status) {
+                                _this.data.next(res.response[1].rows);
+                            }
+                        }
+                        else {
+                            resolve(false);
+                        }
+                    }
+                    else {
+                        throw new Error('Something went wrong');
+                    }
+                });
+            }
+            catch (err) {
+                minima_1.Minima.log(err);
+            }
+        });
+    };
     ContactService = __decorate([
         core_1.Injectable({
             providedIn: 'root'

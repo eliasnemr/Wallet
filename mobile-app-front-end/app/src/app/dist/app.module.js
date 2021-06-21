@@ -7,6 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 exports.__esModule = true;
 exports.AppModule = void 0;
+var contact_detail_component_1 = require("./components/contact-detail/contact-detail.component");
 var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var router_1 = require("@angular/router");
@@ -56,6 +57,7 @@ var AppModule = /** @class */ (function () {
                 pop_contacts_component_1.PopContactsComponent,
                 contacts_modal_page_1.ContactsModalPage,
                 contacts_view_modal_component_1.ContactsViewModalComponent,
+                contact_detail_component_1.ContactDetailComponent,
                 upload_file_modal_component_1.UploadFileModalComponent,
                 overlay_component_1.OverlayComponent
             ],
@@ -64,7 +66,8 @@ var AppModule = /** @class */ (function () {
                 pop_contacts_component_1.PopContactsComponent,
                 contacts_view_modal_component_1.ContactsViewModalComponent,
                 contacts_modal_page_1.ContactsModalPage,
-                upload_file_modal_component_1.UploadFileModalComponent
+                upload_file_modal_component_1.UploadFileModalComponent,
+                contact_detail_component_1.ContactDetailComponent
             ],
             bootstrap: [app_component_1.AppComponent]
         })

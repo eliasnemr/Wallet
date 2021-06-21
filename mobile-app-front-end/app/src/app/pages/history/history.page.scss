@@ -13,6 +13,7 @@ ion-list {
     background-color: transparent;
     margin: 0; 
     padding: 2px;
+    padding-top: 0px;
     ion-item {
         border-bottom: 1px solid var(--ion-color-background);
         --min-height: 75px;

@@ -1,3 +1,4 @@
+import { ContactDetailComponent } from './components/contact-detail/contact-detail.component';
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {RouteReuseStrategy} from '@angular/router';
@@ -51,6 +52,7 @@ import {OverlayComponent} from './components/overlay/overlay.component';
     PopContactsComponent,
     ContactsModalPage,
     ContactsViewModalComponent,
+    ContactDetailComponent,
     UploadFileModalComponent,
     OverlayComponent],
   entryComponents:
@@ -59,7 +61,8 @@ import {OverlayComponent} from './components/overlay/overlay.component';
     PopContactsComponent,
     ContactsViewModalComponent,
     ContactsModalPage,
-    UploadFileModalComponent],
+    UploadFileModalComponent,
+    ContactDetailComponent],
   bootstrap: [AppComponent],
 })
 /** MainModule */

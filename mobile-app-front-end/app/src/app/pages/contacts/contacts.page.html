@@ -38,9 +38,12 @@
 
   <ion-list #contactList class="ion-no-padding contacts" *ngFor="let contact of contacts">
     <ion-item-sliding>
-    <ion-item class="contactItem ion-no-padding" lines="none">
-      <ion-avatar slot="start">
+    <ion-item (click)="presentContactDetail(contact)" class="contactItem ion-no-padding" lines="none">
+      <ion-avatar *ngIf="contact.AVATAR.length > 0" slot="start">
         <img src="{{contact.AVATAR}}">
+      </ion-avatar>
+      <ion-avatar *ngIf="contact.AVATAR.length === 0" slot="start">
+        <img [src]="createIcon( contact.ADDRESS )">
       </ion-avatar>
       <ion-label> 
         <h3>{{ contact.NAME }}</h3>
