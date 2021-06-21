@@ -150,6 +150,29 @@ var MinimaApiService = /** @class */ (function () {
             });
         });
     };
+    MinimaApiService.prototype.checkAddressRelevance = function (addr) {
+        return new Promise(function (resolve) {
+            try {
+                minima_1.Minima.cmd('check ' + addr, function (res) {
+                    if (res.status) {
+                        if (res.response.relevant) {
+                            resolve(true);
+                        }
+                        else {
+                            resolve(false);
+                        }
+                    }
+                    else {
+                        resolve(false);
+                        throw new Error('Minima address check for relevance failed.');
+                    }
+                });
+            }
+            catch (err) {
+                minima_1.Minima.log(err);
+            }
+        });
+    };
     MinimaApiService.prototype.removeFile = function (filename) {
         return new Promise(function (resolve, reject) {
             minima_1.Minima.file["delete"](filename, function (res) {

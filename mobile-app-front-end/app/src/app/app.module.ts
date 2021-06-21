@@ -54,7 +54,8 @@ import {OverlayComponent} from './components/overlay/overlay.component';
     ContactsViewModalComponent,
     ContactDetailComponent,
     UploadFileModalComponent,
-    OverlayComponent],
+    OverlayComponent,
+  ],
   entryComponents:
   [
     PopTermComponent,

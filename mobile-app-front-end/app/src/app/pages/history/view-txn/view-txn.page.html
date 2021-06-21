@@ -148,7 +148,7 @@
         </ion-item>
         <ion-item lines="none" class="ion-no-padding">
           <ion-label>
-            <h6 class="title"> Recipient address
+            <h6 class="title"> Address
               <a 
               [id]="'Input'+i"
               class="copy" 
@@ -176,7 +176,7 @@
         </ion-item>
       </ion-list-header>
 
-      <ng-container *ngFor="let output of myTxn[0]?.txpow?.body.txn.outputs; let i = index">
+      <ng-container *ngFor="let output of myTxn[0]?.txpow?.body.txn.outputs | outgoing; let i = index">
         <div id="outputs">
         <ion-item lines="none" class="ion-no-padding">
           <ion-label>
@@ -192,7 +192,9 @@
         </ion-item>
         <ion-item lines="none" class="ion-no-padding">
           <ion-label>
-            <h6 class="title">Outgoing address
+            <h6 class="title">
+              <span *ngIf="output?.relevant">Change Address</span>
+              <span *ngIf="!output?.relevant">Outgoing Address</span>
               <a
               [id]="'Output'+i"
               class="copy" 

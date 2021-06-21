@@ -59,7 +59,7 @@ var AppModule = /** @class */ (function () {
                 contacts_view_modal_component_1.ContactsViewModalComponent,
                 contact_detail_component_1.ContactDetailComponent,
                 upload_file_modal_component_1.UploadFileModalComponent,
-                overlay_component_1.OverlayComponent
+                overlay_component_1.OverlayComponent,
             ],
             entryComponents: [
                 pop_term_component_1.PopTermComponent,

@@ -180,6 +180,27 @@ export class MinimaApiService {
     });
   }
 
+  checkAddressRelevance(addr: string) {
+    return new Promise((resolve) => {
+      try {
+        Minima.cmd('check ' + addr, (res: any) => {
+          if (res.status) {
+            if (res.response.relevant) {
+              resolve(true);
+            } else {
+              resolve(false);
+            }
+          } else {
+            resolve(false);
+            throw new Error('Minima address check for relevance failed.');
+          }
+        });
+      } catch (err) {
+        Minima.log(err);
+      }
+    });
+  }
+
   removeFile(filename: string) {
     return new Promise((resolve, reject) => {
       Minima.file.delete(filename, (res: any) => {
