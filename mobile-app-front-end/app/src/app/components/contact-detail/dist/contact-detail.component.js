@@ -117,7 +117,7 @@ var ContactDetailComponent = /** @class */ (function () {
             });
         });
     };
-    ContactDetailComponent.prototype.updateAvatar = function (address) {
+    ContactDetailComponent.prototype.updateAvatar = function (address, modal) {
         return __awaiter(this, void 0, void 0, function () {
             var url, res;
             return __generator(this, function (_a) {
@@ -127,7 +127,7 @@ var ContactDetailComponent = /** @class */ (function () {
                         this.cancelBtn.disabled = true;
                         this.statusAvatar = 'Updating...';
                         url = this.editAvatarForm.get('url').value;
-                        return [4 /*yield*/, this.contactService.updateAvatar(url, address)];
+                        return [4 /*yield*/, this.contactService.updateAvatar(url, address, modal)];
                     case 1:
                         res = _a.sent();
                         // console.log(res);

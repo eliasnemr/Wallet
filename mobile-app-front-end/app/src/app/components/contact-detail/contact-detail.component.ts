@@ -27,7 +27,7 @@ export class ContactDetailComponent implements OnInit {
   editAvatarForm: FormGroup;
   constructor(
     private formBuilder: FormBuilder,
-    private modalController: ModalController,
+    public modalController: ModalController,
     public navParams: NavParams,
     private contactService: ContactService,
     private myTools: ToolsService) {
@@ -86,14 +86,14 @@ export class ContactDetailComponent implements OnInit {
     }
   }
 
-  async updateAvatar(address: string) {
+  async updateAvatar(address: string, modal: ModalController) {
     this.updateBtn.disabled = true;
     this.cancelBtn.disabled = true;
     this.statusAvatar = 'Updating...';
     const url = this.editAvatarForm.get('url').value;
 
     const res: any =
-    await this.contactService.updateAvatar(url, address);
+    await this.contactService.updateAvatar(url, address, modal);
     // console.log(res);
     if (res) {
       this.updateBtn.disabled = false;

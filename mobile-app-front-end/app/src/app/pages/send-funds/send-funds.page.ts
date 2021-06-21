@@ -38,6 +38,10 @@ export function checkAmount(amnt: any): ValidatorFn {
     try {
       if (control.value && new Decimal(control.value).greaterThan(amount)) {
         return {invalidAmount: true};
+      } else if (control.value && new Decimal(control.value).equals(0)) {
+        return {invalidAmount: true};
+      } else if (control.value.length === 0) {
+        return {invalidAmount: true};
       }
     } catch (err) {
       console.log(err);
@@ -160,6 +164,7 @@ export class SendFundsPage implements OnInit {
         Validators.pattern('[Mx|0x][a-zA-Z0-9]+')]],
       amount: ['0', [
         Validators.required,
+        Validators.minLength(1),
       ]],
       message: ['', Validators.maxLength(255)],
     });

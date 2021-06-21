@@ -27,7 +27,7 @@
   <form *ngIf="editAvatarForm"
     [formGroup]="editAvatarForm" 
     id="editAvatarForm" 
-    (ngSubmit)="updateAvatar(contactAddress)">
+    (ngSubmit)="updateAvatar(contactAddress, modalController)">
 
     <ion-list class="ion-no-padding ion-no-margin">
       <ion-item class="ion-no-padding ion-no-margin" lines="none">
@@ -52,11 +52,20 @@
       fill="clear" 
       *ngIf="editAvatar" 
       id="updateBtn"
-      type="submit">{{statusAvatar}}</ion-button>
+      type="submit">
+      <span *ngIf="statusAvatar !== 'Updating...'">
+        {{statusAvatar}}
+      </span>
+      <ion-spinner *ngIf="statusAvatar === 'Updating...'" name="crescent"></ion-spinner>
+    </ion-button>
     </ion-list>
   </form>
 </ion-list>
 <ion-list class="ion-no-padding ion-no-margin">
+  <ion-item class="ion-no-padding ion-no-margin" lines="none">
+    <ion-label position="stacked">Address</ion-label>
+    <p>{{ contactAddress }}</p>
+  </ion-item>
   <ion-item class="ion-no-padding ion-no-margin" lines="none">
     <ion-label position="stacked">Description</ion-label>
     <p id="editText" (click)="!edit ? edit = true : null" *ngIf="contactDescription.length > 0 && !edit">{{ contactDescription }}</p>
@@ -77,12 +86,17 @@
       *ngIf="edit" 
       id="cancelBtn" 
       (click)="edit ? edit = false : null">Cancel</ion-button>
-      <ion-button 
+      <ion-button
       #updateBtn
       fill="clear" 
-      *ngIf="edit" 
-      id="updateBtn" 
-      (click)="updateDetails(contactAddress)">{{status}}</ion-button>
+      *ngIf="edit"
+      id="updateBtn"
+      (click)="updateDetails(contactAddress)">
+      <span *ngIf="status !== 'Updating...'">
+        {{status}}
+      </span>
+      <ion-spinner *ngIf="status === 'Updating...'" name="crescent"></ion-spinner>
+    </ion-button>
     </div>
 
     {{newDescription}}

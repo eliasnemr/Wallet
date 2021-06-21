@@ -55,6 +55,12 @@ function checkAmount(amnt) {
             if (control.value && new decimal_js_1.Decimal(control.value).greaterThan(amount)) {
                 return { invalidAmount: true };
             }
+            else if (control.value && new decimal_js_1.Decimal(control.value).equals(0)) {
+                return { invalidAmount: true };
+            }
+            else if (control.value.length === 0) {
+                return { invalidAmount: true };
+            }
         }
         catch (err) {
             console.log(err);
@@ -155,6 +161,7 @@ var SendFundsPage = /** @class */ (function () {
                 ]],
             amount: ['0', [
                     forms_1.Validators.required,
+                    forms_1.Validators.minLength(1),
                 ]],
             message: ['', forms_1.Validators.maxLength(255)]
         });

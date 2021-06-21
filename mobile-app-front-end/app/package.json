@@ -107,7 +107,6 @@
     "minima": "file:../../../github/minima.js/minima-0.96.21.tgz",
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
-    "tslint": "~5.15.0",
     "typescript": "^3.4.5"
   },
   "cordova": {

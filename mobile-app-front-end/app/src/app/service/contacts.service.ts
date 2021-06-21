@@ -1,3 +1,4 @@
+import { ModalController } from '@ionic/angular';
 import { Subject, ReplaySubject } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { Minima } from 'minima';
@@ -115,13 +116,14 @@ export class ContactService {
   }
 
   removeContact(address: string) {
-    Minima.sql('DELETE FROM CONTACTS WHERE ADDRESS=\''+address+'\';SELECT * FROM CONTACTS',
-        (res: any) => {
-          if (Minima.util.checkAllResponses(res)) {
-            // update data observable
-            this.data.next(res.response[1].rows ? res.response[1].rows : []);
-          }
-        });
+    Minima.sql('DELETE FROM CONTACTS WHERE ADDRESS=\'' + address +
+     '\';SELECT * FROM CONTACTS',
+    (res: any) => {
+      if (Minima.util.checkAllResponses(res)) {
+        // update data observable
+        this.data.next(res.response[1].rows ? res.response[1].rows : []);
+      }
+    });
   }
 
   updateDescription(description: string, address: string) {
@@ -150,7 +152,7 @@ export class ContactService {
       }
     });
   }
-  updateAvatar(url: string, address: string) {
+  updateAvatar(url: string, address: string, modal: ModalController) {
     return new Promise((resolve) => {
       try {
         Minima.sql('UPDATE CONTACTS SET AVATAR=\'' +
@@ -163,6 +165,7 @@ export class ContactService {
               resolve(true);
               if (res.response[1].status) {
                 this.data.next(res.response[1].rows);
+                modal.dismiss();
               }
             } else {
               resolve(false);

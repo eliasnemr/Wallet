@@ -23,8 +23,8 @@ div.avatar ion-avatar {
 }
 div.avatar ion-avatar ion-icon {
   position: absolute;
-  font-size: 32px;
-  color: var(--ion-color-tertiary);
+  font-size: 22px;
+  color: var(--ion-color-primary);
   display: none;
 }
 div.avatar ion-avatar:hover {
@@ -34,16 +34,21 @@ div.avatar ion-avatar:hover ion-icon {
   display: block;
 }
 
+ion-list ion-item ion-label ion-icon {
+  cursor: pointer;
+}
 ion-list ion-item #editText:hover {
   cursor: pointer;
 }
 ion-list ion-item ion-label {
   margin-bottom: 5px;
+  color: var(--ion-color-tertiary);
 }
 ion-list ion-item p {
   font-family: manrope-light;
   opacity: 0.7;
   font-size: 0.8rem;
+  color: var(--ion-color-tertiary);
 }
 ion-list ion-item ion-button {
   height: 32.36px;
@@ -66,6 +71,11 @@ ion-list ion-item ion-textarea {
   background-color: var(--ion-color-inputs);
   padding-left: 10px;
   font-size: 0.8rem;
+  color: #000;
+}
+ion-list ion-item ion-input {
+  font-size: 0.8rem;
+  color: #000;
 }
 
 form ion-list ion-button {
