@@ -51,7 +51,7 @@ ion-list ion-item ion-avatar:hover ion-icon {
 
 .title {
   font-family: manrope-semibold;
-  font-size: 16px;
+  font-size: 1rem;
   float: left;
   text-overflow: ellipsis;
   max-width: inherit;
@@ -73,16 +73,18 @@ ion-list ion-item ion-avatar:hover ion-icon {
   user-select: text;
   color: var(--ion-color-tertiary);
   opacity: 0.7;
-  font-size: 16px;
+  font-size: 1rem;
   font-family: manrope-regular;
   text-align: right;
-  float: right;
   white-space: nowrap;
   text-overflow: ellipsis;
   max-width: inherit;
   overflow: hidden;
   margin: 0;
   padding: 0;
+}
+.value p {
+  max-width: 100%;
 }
 .value p {
   text-overflow: ellipsis;
