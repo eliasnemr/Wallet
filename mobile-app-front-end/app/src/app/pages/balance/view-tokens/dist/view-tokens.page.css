@@ -10,6 +10,7 @@ ion-list ion-item ion-label.description h6 {
 ion-list ion-item ion-label.description p {
   white-space: normal;
   opacity: 0.5;
+  font-size: 1rem;
 }
 
 .item .item-content {
@@ -89,12 +90,10 @@ ion-list ion-item ion-avatar:hover ion-icon {
 }
 .value p {
   max-width: 100%;
-}
-.value p {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  font-size: 12px;
+  font-size: 1rem;
   opacity: 0.8;
 }
 

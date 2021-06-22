@@ -14,6 +14,7 @@ ion-list {
             p {
                 white-space: normal;
                 opacity: 0.5;
+                font-size: 1.0rem;
             }
         }
     }
@@ -72,9 +73,6 @@ ion-list ion-item {
     font-family: manrope-semibold;
 }
 .value {
-    p {
-        max-width: 100%;
-    }
     -webkit-user-select: text;  /* Chrome all / Safari all */
     -moz-user-select: text;     /* Firefox all */
     -ms-user-select: text;
@@ -91,10 +89,11 @@ ion-list ion-item {
     margin: 0;
     padding: 0;
     p {
+        max-width: 100%;
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
-        font-size: 12px;
+        font-size: 1.0rem;
         opacity: 0.8;
 
     }
