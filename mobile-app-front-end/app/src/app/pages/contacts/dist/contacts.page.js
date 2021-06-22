@@ -175,7 +175,8 @@ var ContactsPage = /** @class */ (function () {
                                 address: contact.ADDRESS,
                                 description: contact.DESCRIPTION,
                                 avatar: contact.AVATAR
-                            }
+                            },
+                            cssClass: 'contactDetailModal'
                         })];
                     case 1:
                         modal = _a.sent();

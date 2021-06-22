@@ -41,6 +41,8 @@ ion-list ion-item #editText:hover {
   cursor: pointer;
 }
 ion-list ion-item ion-label {
+  font-family: manrope-bold;
+  font-size: 1.1rem;
   margin-bottom: 5px;
   color: var(--ion-color-tertiary);
 }
@@ -103,4 +105,13 @@ form ion-list ion-item ion-input {
   padding-left: 10px !important;
   padding-right: 25px !important;
   font-size: 0.775rem;
+}
+
+ion-header ion-title ion-item {
+  --inner-padding-end: 0;
+}
+ion-header ion-title ion-item h6 {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }

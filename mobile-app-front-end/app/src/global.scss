@@ -79,6 +79,31 @@ margin: 0;
   }
 }
 
+.contactsModal .modal-wrapper {
+  height: 70%;
+  border-radius: 15px;
+}
+.contactDetailModal .modal-wrapper {
+  height: 43%;
+  border-radius: 15px;
+}
+@media only screen and (max-width: 992px) {  
+  .contactsModal .modal-wrapper {
+    height: 70%;
+    border-radius: 15px;
+  }
+}
+@media only screen and (max-width: 765px) {
+  .contactDetailModal .modal-wrapper {
+    margin-left: 25px;
+    margin-right: 25px;
+  }
+  .contactsModal .modal-wrapper {
+    border-radius: 0;
+    height: 100%;
+  }
+}
+
 
 .customToastClass {
   // transform: translateY(56px)!important;

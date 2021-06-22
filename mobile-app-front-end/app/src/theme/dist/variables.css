@@ -177,6 +177,10 @@ body.dark ion-menu {
 }
 
 @media (prefers-color-scheme: dark) {
+  ion-avatar img {
+    opacity: 0.8;
+  }
+
   body {
     --ion-color-item-hover: #445771;
     --ion-color-item-hover-rgb: 68,87,113;

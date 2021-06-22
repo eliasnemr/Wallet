@@ -124,6 +124,7 @@ export class ContactsPage implements OnInit {
         description: contact.DESCRIPTION,
         avatar: contact.AVATAR,
       },
+      cssClass: 'contactDetailModal',
     });
     return await modal.present();
   }
