@@ -54,6 +54,7 @@ var ConfirmationPage = /** @class */ (function () {
         this.myTools = myTools;
         this.tokenIcon = '';
         this.tokenName = '';
+        this.message = '';
         this.recipientName = '';
         this.status = 'Confirm';
     }

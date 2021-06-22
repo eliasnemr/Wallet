@@ -35,6 +35,7 @@ export class ConfirmationPage implements OnInit {
     private myTools: ToolsService) {
     this.tokenIcon = '';
     this.tokenName = '';
+    this.message = '';
     this.recipientName = '';
     this.status = 'Confirm';
   }

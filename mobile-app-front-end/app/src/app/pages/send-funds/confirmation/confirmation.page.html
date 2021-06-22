@@ -65,6 +65,15 @@
         {{ availableBalance + ' available to trade.'}}
       </ion-label> -->
     </ion-item>
+    <ion-item *ngIf="data?.message && data?.message.length > 0" class="ion-no-padding ion-no-margin">
+      <ion-label>
+        <h6>Public message</h6>
+        <p>{{ data?.message }}</p>
+      </ion-label>
+      <!-- <ion-label slot="end">
+        {{ availableBalance + ' available to trade.'}}
+      </ion-label> -->
+    </ion-item>
   </ion-list>
 
   <ion-grid class="ion-no-padding ion-no-margin">
