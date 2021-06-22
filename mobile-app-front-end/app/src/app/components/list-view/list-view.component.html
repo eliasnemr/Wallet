@@ -30,15 +30,15 @@
 
           <span
           *ngIf="token.unconfirmed == '0' && token.mempool !== '0'"
-          class="blink_me confirmed-amount medium-text minima-numeric">
+          class="blink_me confirmed-amount minima-numeric">
             {{ token.sendable }}
           </span>
           <span 
           *ngIf="token.unconfirmed != '0';" 
-          class="confirmed-amount medium-text minima-numeric">{{ token.sendable + "/" + token.unconfirmed  }}</span>
+          class="confirmed-amount minima-numeric">{{ token.sendable + "/" + token.unconfirmed  }}</span>
           <span 
           *ngIf="token.unconfirmed == '0' && token.mempool == '0'" 
-          class="confirmed-amount medium-text minima-numeric">{{ token.sendable }} </span>
+          class="confirmed-amount minima-numeric">{{ token.sendable }} </span>
 
         </div>
         

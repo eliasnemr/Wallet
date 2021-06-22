@@ -7,6 +7,10 @@ ion-list ion-item ion-label.description h6 {
   font-size: 1em;
   font-family: manrope-semibold;
 }
+ion-list ion-item ion-label.description p {
+  white-space: normal;
+  opacity: 0.5;
+}
 
 .item .item-content {
   background-color: transparent !important;
@@ -14,7 +18,7 @@ ion-list ion-item ion-label.description h6 {
 
 ion-label#name h3 {
   font-family: manrope-bold;
-  font-size: 16px;
+  font-size: 1rem;
 }
 
 ion-list {
@@ -94,11 +98,6 @@ ion-list ion-item ion-avatar:hover ion-icon {
   opacity: 0.8;
 }
 
-.description {
-  color: var(--ion-color-tertiary);
-  opacity: 0.7;
-}
-
 .copy {
   text-decoration: underline;
   cursor: pointer;
@@ -137,10 +136,6 @@ ion-item.nft-large div:hover img {
 ion-button.validate-btn {
   text-transform: none;
   color: var(--ion-color-tertiary);
-}
-
-ion-label.description p {
-  white-space: normal;
 }
 
 .center {

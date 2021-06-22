@@ -21,6 +21,7 @@
 }
 
 span.confirmed-amount {
+  width: 100%;
   font-family: manrope-regular;
   color: #9898A3;
   white-space: nowrap;
@@ -38,8 +39,8 @@ ion-avatar {
   margin: 0;
   display: inline-block;
   white-space: nowrap;
-  font-size: 1rem !important;
-  max-width: inherit;
+  font-size: 1rem;
+  max-width: 100%;
   text-overflow: ellipsis;
   overflow: hidden;
   font-family: manrope-bold;
