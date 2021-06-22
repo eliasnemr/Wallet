@@ -150,6 +150,34 @@ var MinimaApiService = /** @class */ (function () {
             });
         });
     };
+    MinimaApiService.prototype.checkScriptAddress = function (mAddress) {
+        return new Promise(function (resolve) {
+            try {
+                minima_1.Minima.cmd('scripts', function (res) {
+                    if (!res.status) {
+                        throw new Error('Failed to run scripts');
+                    }
+                    else {
+                        var match_1 = false;
+                        res.response.addresses.forEach(function (element) {
+                            if (element.miniaddress === mAddress) {
+                                // console.log('Found a matchinga address');
+                                match_1 = true;
+                                resolve(true);
+                            }
+                        });
+                        if (!match_1) {
+                            resolve(false);
+                        }
+                    }
+                });
+            }
+            catch (err) {
+                minima_1.Minima.log(err);
+                resolve(false);
+            }
+        });
+    };
     MinimaApiService.prototype.checkAddressRelevance = function (addr) {
         return new Promise(function (resolve) {
             try {

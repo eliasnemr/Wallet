@@ -39,6 +39,12 @@ export class MyAddressPage implements OnInit {
           this.newAddress();
         } else {
           this.qrCode = data.address;
+          // console.log(this.qrCode);
+          if (this.qrCode.length > 0) {
+            // console.log('Checking address');
+            // console.log(this.qrCode);
+            this.checkAddress(this.qrCode);
+          }
           this.isEmpty = true;
         }
       } else {
@@ -59,6 +65,15 @@ export class MyAddressPage implements OnInit {
       this.generateAddressBtn.disabled = false;
       this.genStatus = 'Generate Address';
     }, 2000);
+  }
+  public async checkAddress(mAddress: string) {
+    const res: any = await this.api.checkScriptAddress(mAddress);
+
+    if (res) {
+
+    } else {
+      this.newAddress();
+    }
   }
   public newAddress() {
     setTimeout(() => {

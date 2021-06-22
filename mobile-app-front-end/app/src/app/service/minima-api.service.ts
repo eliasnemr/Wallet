@@ -180,6 +180,34 @@ export class MinimaApiService {
     });
   }
 
+  checkScriptAddress(mAddress: string) {
+    return new Promise((resolve) => {
+      try {
+        Minima.cmd('scripts', (res: any) => {
+          if (!res.status) {
+            throw new Error('Failed to run scripts');
+          } else {
+            let match = false;
+            res.response.addresses.forEach((element: any) => {
+              if (element.miniaddress === mAddress) {
+                // console.log('Found a matchinga address');
+                match = true;
+                resolve(true);
+              }
+            });
+
+            if (!match) {
+              resolve(false);
+            }
+          }
+        });
+      } catch (err) {
+        Minima.log(err);
+        resolve(false);
+      }
+    });
+  }
+
   checkAddressRelevance(addr: string) {
     return new Promise((resolve) => {
       try {
