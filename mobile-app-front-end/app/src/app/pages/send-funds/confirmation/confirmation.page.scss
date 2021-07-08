@@ -22,6 +22,9 @@ ion-list {
           position: absolute;
       }
     }
+    ion-label#message {
+      white-space: normal;
+    }
     ion-label#tokenName {
       margin-left: 10px;
     }

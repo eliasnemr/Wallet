@@ -44,24 +44,35 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 exports.ToolsService = void 0;
 var core_1 = require("@angular/core");
+var copy = require('clipboard-copy');
 /**
  * Tools available to all Wallet
  */
 var ToolsService = /** @class */ (function () {
     /** */
-    function ToolsService(toastController, alertController) {
+    function ToolsService(toastController, alertController, clipboard, platform) {
         this.toastController = toastController;
         this.alertController = alertController;
+        this.clipboard = clipboard;
+        this.platform = platform;
     }
     /** */
     ToolsService.prototype.copy = function (data) {
-        document.addEventListener('copy', function (e) {
-            e.clipboardData.setData('text/plain', data);
-            // this.presentToast('Copied To Clipboard', 'primary', 'bottom');
-            e.preventDefault();
-            document.removeEventListener('copy', null);
-        });
-        document.execCommand('copy');
+        if (this.platform.is('desktop')) {
+            copy(data);
+        }
+        if (this.platform.is('ios')) {
+            this.clipboard.copy(data);
+        }
+        else {
+            document.addEventListener('copy', function (e) {
+                e.clipboardData.setData('text/plain', data);
+                // this.presentToast('Copied To Clipboard', 'primary', 'bottom');
+                e.preventDefault();
+                document.removeEventListener('copy', null);
+            });
+            document.execCommand('copy');
+        }
     };
     /** */
     ToolsService.prototype.presentToast = function (msg, clr, posn) {

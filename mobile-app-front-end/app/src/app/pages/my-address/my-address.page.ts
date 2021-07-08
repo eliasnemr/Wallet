@@ -1,8 +1,8 @@
 import { ToolsService } from './../../service/tools.service';
-import { IonButton, MenuController } from '@ionic/angular';
+import { IonButton, MenuController, Platform } from '@ionic/angular';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MinimaApiService } from '../../service/minima-api.service';
-import { Address, Minima } from 'minima';
+import { Minima } from 'minima';
 
 @Component({
   selector: 'app-my-address',
@@ -23,7 +23,8 @@ export class MyAddressPage implements OnInit {
   constructor(
     public menu: MenuController,
     private myTools: ToolsService,
-    private api: MinimaApiService) {
+    private api: MinimaApiService,
+    public platform: Platform) {
     this.copyStatus = 'Copy Address';
     this.genStatus = 'Generate Address';
     this.isEmpty = false;

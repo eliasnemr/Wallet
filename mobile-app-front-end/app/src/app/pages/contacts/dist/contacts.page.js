@@ -57,9 +57,9 @@ var ContactsPage = /** @class */ (function () {
         this.contactService = contactService;
         this.api = api;
         this.myTools = myTools;
-        this.editMode = false;
         this.contacts = [];
         this.copyStatus = 'Copy';
+        this.editMode = false;
     }
     ContactsPage.prototype.ngOnInit = function () { };
     ContactsPage.prototype.ionViewWillEnter = function () {
@@ -100,17 +100,13 @@ var ContactsPage = /** @class */ (function () {
     ContactsPage.prototype.queryContacts = function (qy) {
         var _this = this;
         qy = qy.toUpperCase();
-        if (qy.length > 0) {
-            this.contacts = this.contacts.filter(function (ele) {
+        this.contactService.loadContacts().then(function (cts) {
+            _this.contacts = cts;
+            _this.contacts = _this.contacts.filter(function (ele) {
                 return ele.NAME.toUpperCase().includes(qy) ||
                     ele.ADDRESS.toUpperCase().includes(qy);
             });
-        }
-        else {
-            this.contactService.data.subscribe(function (res) {
-                _this.contacts = res;
-            });
-        }
+        });
     };
     ContactsPage.prototype.presentAlert = function (addr) {
         return __awaiter(this, void 0, void 0, function () {

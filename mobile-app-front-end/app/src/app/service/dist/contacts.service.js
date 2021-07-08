@@ -106,7 +106,7 @@ var ContactService = /** @class */ (function () {
     ContactService.prototype.removeContact = function (address) {
         var _this = this;
         minima_1.Minima.sql('DELETE FROM CONTACTS WHERE ADDRESS=\'' + address +
-            '\';SELECT * FROM CONTACTS', function (res) {
+            '\';SELECT * FROM CONTACTS ORDER BY NAME', function (res) {
             if (minima_1.Minima.util.checkAllResponses(res)) {
                 // update data observable
                 _this.data.next(res.response[1].rows ? res.response[1].rows : []);

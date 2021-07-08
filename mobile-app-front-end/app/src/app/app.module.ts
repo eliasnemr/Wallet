@@ -1,3 +1,4 @@
+import { environment } from './../environments/environment.prod';
 import { ContactDetailComponent } from './components/contact-detail/contact-detail.component';
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
@@ -24,6 +25,7 @@ import {
   UploadFileModalComponent,
 } from './components/upload-file-modal/upload-file-modal.component';
 import {OverlayComponent} from './components/overlay/overlay.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 /**
  * Created By Elias Nemr
@@ -39,6 +41,8 @@ import {OverlayComponent} from './components/overlay/overlay.component';
     ReactiveFormsModule,
     HttpClientModule,
     BrowserModule,
+    ServiceWorkerModule
+        .register('ngsw-worker.js', { enabled: environment.production }),
     IonicModule.forRoot({animated: false})],
   providers: [
     Clipboard,

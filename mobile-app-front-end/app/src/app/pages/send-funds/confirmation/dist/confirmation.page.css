@@ -24,6 +24,9 @@ ion-list ion-item ion-avatar ion-icon {
   color: var(--ion-color-primary);
   position: absolute;
 }
+ion-list ion-item ion-label#message {
+  white-space: normal;
+}
 ion-list ion-item ion-label#tokenName {
   margin-left: 10px;
 }

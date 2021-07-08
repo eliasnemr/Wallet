@@ -17,14 +17,14 @@
 <ion-content>
   <ion-list class="ion-no-padding tools">
     <ion-item class="ion-no-padding" lines="none">
-      <ion-searchbar class="searchbarinput" (ionChange)="queryContacts($event.target.value)" placeholder="Search..."></ion-searchbar>
+      <ion-searchbar class="searchbarinput" (ionInput)="queryContacts($event.target.value)" placeholder="Search..."></ion-searchbar>
       <ion-icon (click)="presentAddContactForm()" id="addButton" slot="end" name="add"></ion-icon>
-      <ion-icon 
+      <!-- <ion-icon 
       [ngStyle]="{'color': !editMode ? 'var(--ion-color-tertiary)' : '#EE5C5C'}" 
       (click)="(editMode ? editMode = false : editMode = true)" 
       id="deleteButton" 
       slot="end" 
-      name="trash-outline"></ion-icon>
+      name="trash-outline"></ion-icon> -->
     </ion-item>
   </ion-list>
   
@@ -49,9 +49,14 @@
         <h3>{{ contact.NAME }}</h3>
         <p>{{ contact.ADDRESS }}</p>
       </ion-label>
-      <ion-icon *ngIf="editMode" class="trashIcon" (click)="presentAlert(contact.ADDRESS)" name="trash-outline" slot="end"></ion-icon>
+      <!-- <ion-icon *ngIf="editMode" class="trashIcon" (click)="presentAlert(contact.ADDRESS)" name="trash-outline" slot="end"></ion-icon> -->
     </ion-item>
     <ion-item-options side="end">
+      <ion-item-option class="trashIcon" side="end" (click)="presentAlert(contact.ADDRESS)">
+        <div class="block">
+          <ion-icon name="trash-outline" slot="end"></ion-icon>
+        </div>
+      </ion-item-option>
       <ion-item-option [ngStyle]="{'background-color': copyStatus === 'Copy' ? 'var(--ion-color-primary' : 'var(--ion-color-success)'}" (click)="copy(contact.ADDRESS)" color="primary" expandable>
         <div class="block"> 
         <ion-icon *ngIf="copyStatus === 'Copy'" src="assets/copyIconWhite.svg"></ion-icon>

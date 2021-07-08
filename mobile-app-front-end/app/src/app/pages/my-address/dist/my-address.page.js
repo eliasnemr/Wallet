@@ -46,10 +46,11 @@ exports.MyAddressPage = void 0;
 var core_1 = require("@angular/core");
 var minima_1 = require("minima");
 var MyAddressPage = /** @class */ (function () {
-    function MyAddressPage(menu, myTools, api) {
+    function MyAddressPage(menu, myTools, api, platform) {
         this.menu = menu;
         this.myTools = myTools;
         this.api = api;
+        this.platform = platform;
         this.qrCode = '';
         this.copyStatus = 'Copy Address';
         this.genStatus = 'Generate Address';

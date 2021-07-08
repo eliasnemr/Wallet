@@ -1,3 +1,4 @@
+import { AlertController } from '@ionic/angular';
 import {MinimaApiService} from './service/minima-api.service';
 import {ToolsService} from './service/tools.service';
 import {environment} from './../environments/environment.prod';
@@ -31,7 +32,8 @@ export class AppComponent {
   /** */
   constructor(
     public tools: ToolsService,
-    private minimaApiService: MinimaApiService) {
+    private minimaApiService: MinimaApiService,
+    public alertController: AlertController) {
     this.nodeStatus = false;
     this.getPages();
     this.initializeApp();
@@ -43,7 +45,48 @@ export class AppComponent {
   }
   /** initializeApplication */
   initializeApp() {
+    // this.addToHSListener();
     this.initMinima();
+  }
+  /** addToHomeScreenListener() */
+  addToHSListener() {
+    // Initialize deferredPrompt for use later to show browser install prompt.
+    let deferredPrompt;
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      // Prevent the mini-infobar from appearing on mobile
+      e.preventDefault();
+      // Stash the event so it can be triggered later.
+      deferredPrompt = e;
+      // Update UI notify the user they can install the PWA
+      this.promoteAddToHS();
+      // Optionally, send analytics event that PWA install promo was shown.
+      console.log(`'beforeinstallprompt' event was fired.`);
+    });
+  }
+  async promoteAddToHS() {
+    const alert = await this.alertController.create({
+      cssClass: 'add-to-hs-alert',
+      header: 'Add to homescreen?',
+      message: 'You can add Wallet to your homescreen.',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          },
+        }, {
+          text: 'Add',
+          handler: () => {
+            console.log('Confirm Okay');
+          },
+        },
+      ],
+    });
+
+    alert.present();
   }
   /** initMinima Function */
   initMinima() {

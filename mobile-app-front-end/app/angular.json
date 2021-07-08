@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
-  "defaultProject": "app",
+  "defaultProject": "Wallet",
   "newProjectRoot": "projects",
   "projects": {
     "app": {
@@ -20,6 +20,13 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "assets": [
+              "src/manifest.webmanifest",
+              {
+                "glob": "favicon.ico",
+                "input": "src/assets/",
+                "output": "/"
+              },
+              "src/assets/favicon.ico",
               {
                 "glob": "**/*",
                 "input": "src/assets",
@@ -176,7 +183,9 @@
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
                 }
-              ]
+              ],
+              "serviceWorker": true,
+              "ngswConfigPath": "ngsw-config.json"
             },
             "ci": {
               "progress": false
