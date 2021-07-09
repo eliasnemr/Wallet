@@ -5,7 +5,6 @@ import { Subscription } from 'rxjs';
 import { PopTermComponent } from '../../components/pop-term/pop-term.component';
 import { Component, OnInit, ViewChild, ElementRef, Renderer2, HostListener } from '@angular/core';
 import { LoadingController, NavController, IonContent, PopoverController, MenuController } from '@ionic/angular';
-import { environment } from '../../../environments/environment';
 import { UserTerminal } from '../../service/userterminal.service';
 import { Minima } from 'minima';
 
@@ -43,28 +42,23 @@ export class MiniTermPage implements OnInit {
     public userTerminal: UserTerminal,
     private myTools: ToolsService,
     private api: MinimaApiService,
-    private renderer: Renderer2,
-    ) { }
+    private renderer: Renderer2) { }
 
   ngOnInit() {}
-    
-  ionViewWillEnter() { 
 
+  ionViewWillEnter() {
     this.initTerminal();
-  
   }
-  
+
   ionViewWillLeave() {
-        
     this.$fontSubscription.unsubscribe();
     this.updateFontSizeSubject(this.fontSize);
-  
+
     window.removeEventListener("keydown", function(e) {
     if ( [37, 38, 39, 40].indexOf(e.keyCode) > -1 ) {
       e.preventDefault();
     }
     }, true)
-
   }
 
   openMenu() {
@@ -85,13 +79,10 @@ export class MiniTermPage implements OnInit {
     );
     // UPDATE OBSERVABLE&LOCALSTORAGE
     this.updateFontSizeSubject(this.fontSize);
-
-    this.$fontSubscription = this.userTerminal.fontSizeEmitter.subscribe((res: Font) => {
-      
-      this.fontSize = res.size;
-
-    })
-
+    this.$fontSubscription =
+      this.userTerminal.fontSizeEmitter.subscribe((res: Font) => {
+        this.fontSize = res.size;
+      });
   }
 
   updateFontSizeSubject(size: number) {
@@ -127,19 +118,14 @@ export class MiniTermPage implements OnInit {
 
  }
 
-scrollToBottomOnInit() {
-  try {
-
-    this.ionContent.scrollToBottom(300);
-
-  } catch (err) {
-
-    throw new Error('ionContent not found.')
-
+  scrollToBottomOnInit() {
+    try {
+      this.ionContent.scrollToBottom(300);
+    } catch (err) {
+      Minima.log(err);
+    }
   }
-}
 
-// api calls
 request(route: any) {
     if (route === 'printchain') {
       // return new Promise((resolve) => {
@@ -177,20 +163,20 @@ request(route: any) {
   }
 
   async presentPopover(ev: any) {
-  const popover = await this.popoverController.create({
-    component: PopTermComponent,
-    cssClass: 'terminal-pop',
-    event: ev,
-    translucent: false,
-    showBackdrop: false
-  });
+    const popover = await this.popoverController.create({
+      component: PopTermComponent,
+      cssClass: 'terminal-pop',
+      event: ev,
+      translucent: false,
+      showBackdrop: false,
+    });
 
-  return await popover.present();
+    return await popover.present();
   }
 
   giveMe50() {
     this.api.giveMe50().then((res: any) => {
-      if(res.status === true) {
+      if (res.status === true) {
         this.myTools.presentAlert('Gimme50', 'Successful', 'Status');
       } else {
         this.myTools.presentAlert('Gimme50', res.message, 'Status');

@@ -64,8 +64,6 @@ ion-item-option.trashIcon ion-icon {
 ion-icon.export {
   cursor: pointer;
   color: var(--ion-color-tertiary);
-  position: absolute;
-  right: 0;
 }
 
 ion-icon.trashIcon:hover {

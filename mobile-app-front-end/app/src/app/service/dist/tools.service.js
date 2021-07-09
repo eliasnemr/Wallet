@@ -43,6 +43,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 exports.ToolsService = void 0;
+var operators_1 = require("rxjs/operators");
+var rxjs_1 = require("rxjs");
 var core_1 = require("@angular/core");
 var copy = require('clipboard-copy');
 /**
@@ -55,9 +57,15 @@ var ToolsService = /** @class */ (function () {
         this.alertController = alertController;
         this.clipboard = clipboard;
         this.platform = platform;
+        this.showFooterSubject = new rxjs_1.ReplaySubject(1);
+        this.showFooterSubject.next({ status: true });
     }
+    ToolsService.prototype.getFooterSubjectOnce = function () {
+        return this.showFooterSubject.pipe(operators_1.take(1));
+    };
     /** */
     ToolsService.prototype.copy = function (data) {
+        var _this = this;
         if (this.platform.is('desktop')) {
             copy(data);
         }
@@ -66,6 +74,10 @@ var ToolsService = /** @class */ (function () {
         }
         else {
             document.addEventListener('copy', function (e) {
+                if (_this.platform.is('desktop')) {
+                    _this.clipboard.copy(data);
+                    _this.presentToast('Copied To Clipboard', 'primary', 'bottom');
+                }
                 e.clipboardData.setData('text/plain', data);
                 // this.presentToast('Copied To Clipboard', 'primary', 'bottom');
                 e.preventDefault();

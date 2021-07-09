@@ -46,50 +46,60 @@ exports.MiniTermPage = void 0;
 var pop_term_component_1 = require("../../components/pop-term/pop-term.component");
 var core_1 = require("@angular/core");
 var angular_1 = require("@ionic/angular");
-var environment_1 = require("../../../environments/environment");
 var minima_1 = require("minima");
 var MiniTermPage = /** @class */ (function () {
-    function MiniTermPage(api, alertController, loadingController, navCtrl, renderer, popoverController, userTerminal) {
-        this.api = api;
-        this.alertController = alertController;
+    function MiniTermPage(menu, loadingController, navCtrl, popoverController, userTerminal, myTools, api, renderer) {
+        this.menu = menu;
         this.loadingController = loadingController;
         this.navCtrl = navCtrl;
-        this.renderer = renderer;
         this.popoverController = popoverController;
         this.userTerminal = userTerminal;
+        this.myTools = myTools;
+        this.api = api;
+        this.renderer = renderer;
         this.host = '';
         this.lastLine = '';
-        this.loader = null;
-        // Disable up and down keys.
-        window.addEventListener('keydown', function (e) {
+    }
+    MiniTermPage.prototype.keyEvent = function (event) {
+        if (event.key == 'ArrowDown' || event.key == 'ArrowLeft' || event.key == 'ArrowRight' || event.key == 'ArrowUp') {
+            // Your row selection code
+            event.preventDefault();
+        }
+    };
+    MiniTermPage.prototype.ngOnInit = function () { };
+    MiniTermPage.prototype.ionViewWillEnter = function () {
+        this.initTerminal();
+    };
+    MiniTermPage.prototype.ionViewWillLeave = function () {
+        this.$fontSubscription.unsubscribe();
+        this.updateFontSizeSubject(this.fontSize);
+        window.removeEventListener("keydown", function (e) {
             if ([37, 38, 39, 40].indexOf(e.keyCode) > -1) {
                 e.preventDefault();
             }
-        }, false);
-    }
-    MiniTermPage.prototype.ngOnInit = function () {
+        }, true);
+    };
+    MiniTermPage.prototype.openMenu = function () {
+        this.menu.open();
+    };
+    MiniTermPage.prototype.initTerminal = function () {
         var _this = this;
-        var mStr = parseInt(localStorage.getItem('termFontSize'), 10);
-        this.size = mStr;
-        // Stored subscription that watches if we activated button on PopTerm
-        this.fontSubscription =
-            this.userTerminal.fontSizeEmitter.subscribe(function (didActivate) {
-                if (_this.size !== didActivate) {
-                    if (_this.size > 0 && _this.size <= 50) {
-                        _this.size += didActivate;
-                        localStorage.setItem('termFontSize', '' + _this.size);
-                    }
-                    else {
-                        _this.size = 14;
-                        localStorage.setItem('termFontSize', '' + _this.size);
-                    }
-                }
+        var USER_FONT_SIZE = parseInt(localStorage.getItem('userdefaultfontsize'), 10);
+        var DEFAULT_FONT_SIZE = 14;
+        (localStorage.getItem('userdefaultfontsize') ?
+            this.fontSize = USER_FONT_SIZE
+            :
+                this.fontSize = DEFAULT_FONT_SIZE);
+        // UPDATE OBSERVABLE&LOCALSTORAGE
+        this.updateFontSizeSubject(this.fontSize);
+        this.$fontSubscription =
+            this.userTerminal.fontSizeEmitter.subscribe(function (res) {
+                _this.fontSize = res.size;
             });
     };
-    MiniTermPage.prototype.ionViewWillEnter = function () { };
-    MiniTermPage.prototype.ionViewWillLeave = function () {
-        localStorage.setItem('termFontSize', '' + this.size);
-        this.fontSubscription.unsubscribe();
+    MiniTermPage.prototype.updateFontSizeSubject = function (size) {
+        this.userTerminal.fontSizeEmitter.next({ size: size });
+        localStorage.setItem('userdefaultfontsize', JSON.stringify(size));
     };
     MiniTermPage.prototype.ngAfterViewInit = function () {
         var _this = this;
@@ -114,40 +124,25 @@ var MiniTermPage = /** @class */ (function () {
             }
         });
     };
-    // PopTerm Editing methods
-    MiniTermPage.prototype.getFontSize = function () {
-        return this.size + 'px';
-    };
-    // end of PopTerm Editing methods
     MiniTermPage.prototype.scrollToBottomOnInit = function () {
-        var _this = this;
-        // scroll
-        setTimeout(function () {
-            _this.ionContent.scrollToBottom(300);
-        }, 200);
-    };
-    // Minima Api Service
-    MiniTermPage.prototype.getHost = function () {
-        if (localStorage.getItem('minima_host') == null) {
-            localStorage.setItem('minima_host', this.host);
-            return this.host;
+        try {
+            this.ionContent.scrollToBottom(300);
         }
-        else {
-            return localStorage.getItem('minima_host');
+        catch (err) {
+            minima_1.Minima.log(err);
         }
     };
-    // api calls
     MiniTermPage.prototype.request = function (route) {
         var _this = this;
         if (route === 'printchain') {
-            return new Promise(function (resolve) {
-                minima_1.Minima.cmd('printchain', function (res) {
-                    var regex = res.replace(environment_1.environment.newLine, '\\n'); // replace \n with <br/> has all 3 \n|\r|\r\n
-                    _this.terminal.nativeElement.value += regex;
-                    _this.terminal.nativeElement.scrollTop = _this.terminal.nativeElement.scrollHeight;
-                    resolve(res);
-                });
-            });
+            // return new Promise((resolve) => {
+            //   Minima.cmd('printchain', (res: any) => {
+            //     const regex = res.replace(environment.newLine, '\\n'); // replace \n with <br/> has all 3 \n|\r|\r\n
+            //     this.terminal.nativeElement.value += regex;
+            //     this.terminal.nativeElement.scrollTop = this.terminal.nativeElement.scrollHeight;
+            //     resolve(res);
+            //   });
+            // });
         }
         else if (route === 'tutorial' || route === 'Tutorial') {
             return new Promise(function (resolve, reject) {
@@ -169,42 +164,6 @@ var MiniTermPage = /** @class */ (function () {
             });
         }
     };
-    MiniTermPage.prototype.showLoader = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var _a;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
-                    case 0:
-                        if (!(this.loader == null)) return [3 /*break*/, 2];
-                        _a = this;
-                        return [4 /*yield*/, this.loadingController.create({
-                                message: 'Loading'
-                            })];
-                    case 1:
-                        _a.loader = _b.sent();
-                        this.loader.present();
-                        _b.label = 2;
-                    case 2: return [2 /*return*/];
-                }
-            });
-        });
-    };
-    MiniTermPage.prototype.hideLoader = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        if (!(this.loader !== null)) return [3 /*break*/, 2];
-                        return [4 /*yield*/, this.loader.dismiss()];
-                    case 1:
-                        _a.sent();
-                        this.loader = null;
-                        return [3 /*break*/, 2];
-                    case 2: return [2 /*return*/];
-                }
-            });
-        });
-    };
     MiniTermPage.prototype.presentPopover = function (ev) {
         return __awaiter(this, void 0, void 0, function () {
             var popover;
@@ -214,7 +173,8 @@ var MiniTermPage = /** @class */ (function () {
                             component: pop_term_component_1.PopTermComponent,
                             cssClass: 'terminal-pop',
                             event: ev,
-                            translucent: false
+                            translucent: false,
+                            showBackdrop: false
                         })];
                     case 1:
                         popover = _a.sent();
@@ -228,35 +188,16 @@ var MiniTermPage = /** @class */ (function () {
         var _this = this;
         this.api.giveMe50().then(function (res) {
             if (res.status === true) {
-                _this.presentAlert('Gimme50', 'Successful', 'Status');
+                _this.myTools.presentAlert('Gimme50', 'Successful', 'Status');
             }
             else {
-                _this.presentAlert('Gimme50', res.message, 'Status');
+                _this.myTools.presentAlert('Gimme50', res.message, 'Status');
             }
         });
     };
-    MiniTermPage.prototype.presentAlert = function (hdr, msg, sub) {
-        return __awaiter(this, void 0, void 0, function () {
-            var alert;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.alertController.create({
-                            cssClass: 'alert',
-                            header: hdr,
-                            subHeader: sub,
-                            message: msg,
-                            buttons: ['OK']
-                        })];
-                    case 1:
-                        alert = _a.sent();
-                        return [4 /*yield*/, alert.present()];
-                    case 2:
-                        _a.sent();
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
+    __decorate([
+        core_1.HostListener('window:keydown', ['$event'])
+    ], MiniTermPage.prototype, "keyEvent");
     __decorate([
         core_1.ViewChild(angular_1.IonContent, { static: false })
     ], MiniTermPage.prototype, "ionContent");
