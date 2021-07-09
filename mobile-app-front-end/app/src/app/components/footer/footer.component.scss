@@ -33,3 +33,27 @@ div.stack {
     opacity: 0.7;
   }
 }
+
+div.block {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  div.container {
+    z-index: 9999;
+    width: 100px;
+    height: 10px;
+    background: var(--ion-color-tertiary);
+    opacity: 0.7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    margin-bottom: 5px;
+    ion-icon {
+      color: var(--ion-color-hide-footer);
+      z-index: 0;
+      opacity: 1;
+    }
+  }
+}

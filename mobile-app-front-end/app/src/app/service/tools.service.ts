@@ -1,3 +1,5 @@
+import { take } from 'rxjs/operators';
+import { Subject, ReplaySubject } from 'rxjs';
 import {
   ToastController,
   AlertController,
@@ -7,6 +9,12 @@ import {Injectable} from '@angular/core';
 import { Clipboard } from '@ionic-native/clipboard/ngx';
 
 const copy = require('clipboard-copy');
+
+export interface FooterStatus {
+  status: boolean;
+  wasOpened?: boolean;
+}
+
 /**
  * Tools available to all Wallet
  */
@@ -16,13 +24,21 @@ const copy = require('clipboard-copy');
 /** */
 export class ToolsService {
   toast: HTMLIonToastElement;
+  public showFooterSubject: Subject<FooterStatus>;
   /** */
   constructor(
     public toastController: ToastController,
     public alertController: AlertController,
     private clipboard: Clipboard,
     private platform: Platform,
-  ) {}
+  ) {
+    this.showFooterSubject = new ReplaySubject<FooterStatus>(1);
+    this.showFooterSubject.next({status: true});
+  }
+
+  getFooterSubjectOnce() {
+    return this.showFooterSubject.pipe(take(1));
+  }
   /** */
   copy(data: any) {
     if (this.platform.is('desktop')) {
@@ -33,6 +49,10 @@ export class ToolsService {
       this.clipboard.copy(data);
     } else {
       document.addEventListener('copy', (e: ClipboardEvent) => {
+        if (this.platform.is('desktop')) {
+          this.clipboard.copy(data);
+          this.presentToast('Copied To Clipboard', 'primary', 'bottom');
+        }
         e.clipboardData.setData('text/plain', data);
         // this.presentToast('Copied To Clipboard', 'primary', 'bottom');
         e.preventDefault();
