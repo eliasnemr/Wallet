@@ -7,6 +7,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 exports.__esModule = true;
 exports.SendFundsPageModule = void 0;
+var all_tokens_selector_component_1 = require("./../../components/all-tokens-selector/all-tokens-selector.component");
+var token_modal_component_1 = require("./../../components/token-modal/token-modal.component");
 var shared_components_module_1 = require("./../../components/shared-components.module");
 var core_1 = require("@angular/core");
 var common_1 = require("@angular/common");
@@ -39,7 +41,9 @@ var SendFundsPageModule = /** @class */ (function () {
                 router_1.RouterModule.forChild(routes),
                 shared_components_module_1.SharedComponentsModule,
             ],
-            declarations: [send_funds_page_1.SendFundsPage]
+            declarations: [send_funds_page_1.SendFundsPage, token_modal_component_1.TokenModalComponent,
+                all_tokens_selector_component_1.AllTokensSelectorComponent],
+            entryComponents: [token_modal_component_1.TokenModalComponent]
         })
         /** */
     ], SendFundsPageModule);

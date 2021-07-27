@@ -17,23 +17,8 @@
 <ion-content #pageContent class="page-content">
   <form *ngIf="sendForm" [formGroup]="sendForm" id="sendForm">
     <ion-list class="ion-no-padding">
-      <ion-item class="no-hover no-ripple ion-no-padding" lines="none">
-        <ion-label position="stacked">Token</ion-label>
-        <ion-select
-          interface="action-sheet"
-          formControlName="tokenid"    
-          class="no-hover no-ripple input"
-          [placeholder]="myTokens.length > 0 ? 'Select A Token' : 'No sendable tokens available.'"> 
-        <ion-select-option *ngFor="let token of myTokens" [value]="token.tokenid" class="token-option">
-          <span *ngIf="token.tokenid !== '0x00'">
-            {{ token.token + " &mdash; "+ token.tokenid.substring(0, 5)+'...'+token.tokenid.substring(token.tokenid.length-3, token.tokenid.length) }}
-          </span>
-          <span *ngIf="token.tokenid === '0x00'">
-            {{ token.token + " &mdash; "+ token.tokenid.substring(0, 5) }}
-          </span>
-        </ion-select-option>
-      </ion-select>
-      </ion-item>
+      <all-tokens-selector (click)="myTokens && myTokens.length > 0 ? presentTokensModal(myTokens) : null" formControlName="token"></all-tokens-selector>   
+        
       <ion-item class="no-hover no-ripple ion-no-padding"  lines="none">
         <ion-label position="stacked">
            Your Balance</ion-label>

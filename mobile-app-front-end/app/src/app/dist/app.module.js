@@ -7,6 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 exports.__esModule = true;
 exports.AppModule = void 0;
+var environment_prod_1 = require("./../environments/environment.prod");
 var contact_detail_component_1 = require("./components/contact-detail/contact-detail.component");
 var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
@@ -25,6 +26,7 @@ var pop_contacts_component_1 = require("./components/pop-contacts/pop-contacts.c
 var contacts_view_modal_component_1 = require("./components/contacts-view-modal/contacts-view-modal.component");
 var upload_file_modal_component_1 = require("./components/upload-file-modal/upload-file-modal.component");
 var overlay_component_1 = require("./components/overlay/overlay.component");
+var service_worker_1 = require("@angular/service-worker");
 /**
  * Created By Elias Nemr
  * 01/11/19
@@ -43,6 +45,8 @@ var AppModule = /** @class */ (function () {
                 forms_1.ReactiveFormsModule,
                 http_1.HttpClientModule,
                 platform_browser_1.BrowserModule,
+                service_worker_1.ServiceWorkerModule
+                    .register('ngsw-worker.js', { enabled: environment_prod_1.environment.production }),
                 angular_1.IonicModule.forRoot({ animated: false })
             ],
             providers: [

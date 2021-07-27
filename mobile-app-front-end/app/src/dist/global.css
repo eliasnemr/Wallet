@@ -79,6 +79,11 @@ input[type=number]::-webkit-outer-spin-button {
   border-radius: 15px;
 }
 
+.allTokenModal .modal-wrapper {
+  height: 70%;
+  border-radius: 15px;
+}
+
 @media only screen and (max-width: 992px) {
   .contactsModal .modal-wrapper {
     height: 70%;
@@ -87,6 +92,11 @@ input[type=number]::-webkit-outer-spin-button {
 }
 @media only screen and (max-width: 765px) {
   .contactDetailModal .modal-wrapper {
+    margin-left: 25px;
+    margin-right: 25px;
+  }
+
+  .allTokenModal .modal-wrapper {
     margin-left: 25px;
     margin-right: 25px;
   }

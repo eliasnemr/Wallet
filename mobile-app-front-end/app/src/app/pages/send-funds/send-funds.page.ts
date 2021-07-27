@@ -1,3 +1,5 @@
+import { TokenModalComponent } from
+  './../../components/token-modal/token-modal.component';
 import {ContactService,
   SelectedAddress} from 'src/app/service/contacts.service';
 import {
@@ -77,7 +79,6 @@ export class SendFundsPage implements OnInit {
   messageToggle = false;
   balanceSubscription: Subscription;
   tokenArr: Token[] = [];
-  insufficientFunds: boolean;
 
   /** */
   constructor(
@@ -93,10 +94,12 @@ export class SendFundsPage implements OnInit {
   }
   /** */
   ionViewWillEnter() {
-    this.formInit('0x00');
+    this.formInit();
     this.$balanceSubscription =
     this.minimaApiService.$balance.subscribe((res: Token[]) => {
       if (res.length === 1) {
+        this.tokenFormItem.setValue(res[0]);
+
         this.myTokens = res.filter((token) =>
           new Decimal(token.sendable).greaterThan(new Decimal(0)));
         this.totalBalance.setValue(this.myTokens[0] &&
@@ -109,7 +112,8 @@ export class SendFundsPage implements OnInit {
                 checkAmount(this.myTokens[0].sendable)) :
             this.amountFormItem.setValidators(checkAmount('0')) );
       } else {
-        this.insufficientFunds = false;
+        this.tokenFormItem.setValue(res[0]);
+
         this.myTokens = res.filter((token) =>
           new Decimal(token.sendable).greaterThan(new Decimal(0)));
         this.totalBalance.setValue(this.myTokens[0] &&
@@ -133,8 +137,6 @@ export class SendFundsPage implements OnInit {
         this.contactService.selectedAddress.next({address: ''});
       }
     });
-    this.onSelectionChange();
-    this.getTokenSelected();
   }
   /** */
   ionViewWillLeave() {
@@ -150,12 +152,12 @@ export class SendFundsPage implements OnInit {
     }, 6000);
     this.submitBtn.disabled = false;
     this.sendForm.reset();
-    this.formInit('0x00');
+    this.formInit();
   }
   /** */
-  formInit(id) {
+  formInit(_token?: Token) {
     this.sendForm = this.formBuilder.group({
-      tokenid: id,
+      token: _token,
       totalBalance: '',
       address: ['', [
         Validators.required,
@@ -171,7 +173,7 @@ export class SendFundsPage implements OnInit {
   }
   /** */
   get tokenFormItem() {
-    return this.sendForm.get('tokenid');
+    return this.sendForm.get('token');
   }
   /** */
   get totalBalance() {
@@ -198,35 +200,30 @@ export class SendFundsPage implements OnInit {
     });
     contactModal.present();
   }
-  /** get token selected, or set Minima as default */
-  getTokenSelected() {
-    this.activedRouter.queryParamMap.subscribe((res: any) => {
-      this.itemSelected = res.params.id;
-      if (!res.params.id) {
-        this.itemSelected = '0x00';
-      }
-    });
-  }
-
-  onSelectionChange() {
-    this.$tokenSelectSubscription =
-    this.tokenFormItem.valueChanges.subscribe((tokenid: any) => {
-      this.$balanceSubscription =
-      this.minimaApiService.$balance.subscribe((balance: Token[]) => {
-        // console.log(balance);
-        balance.forEach((token: Token) => {
-          if (token.tokenid === tokenid) {
-            this.totalBalance.setValue(token.sendable);
-            this.amountFormItem.setValidators(checkAmount(token.sendable));
-          }
-        });
-      });
-    });
-  }
 
   onSend(data: any) {
     this.minimaApiService.$urlData.next(data);
     this.router.navigate(['confirmation'], {relativeTo: this.activedRouter});
+  }
+
+  async presentTokensModal(_tokens: Token[]) {
+    const modal = await this.modalController.create({
+      component: TokenModalComponent,
+      componentProps: {tokens: _tokens},
+      cssClass: 'allTokenModal',
+    });
+
+    modal.onDidDismiss().then((data: any) => {
+      if (data && data.data) {
+        const token = data.data;
+        console.log(token);
+        this.tokenFormItem.setValue(token);
+        this.totalBalance.setValue(token.sendable);
+        this.amountFormItem.setValidators(checkAmount(token.sendable));
+      }
+    });
+
+    return await modal.present();
   }
 }
 

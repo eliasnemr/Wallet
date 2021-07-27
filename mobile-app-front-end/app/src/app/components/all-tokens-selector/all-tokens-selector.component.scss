@@ -1,0 +1,61 @@
+div#select-token-btn {
+  div.token-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  height: 35px;
+  width: 100%;
+  background: var(--ion-color-inputs);
+  border: 1px solid var(--ion-color-item-border);
+  ion-avatar {
+    height: 25px;
+    width: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    ion-icon {
+      font-size: 1.2rem;
+    }
+  }
+  ion-label {
+    text-transform: none;
+    padding-left: 5px;
+    margin: 0;
+    color: var(--ion-color-tertiary);
+    font-family: manrope-bold;
+    font-size: 0.8rem;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  ion-icon {
+    color: var(--ion-color-ruler);
+  }
+  span.button-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+div#select-token-btn:hover {
+  background-color: rgba(#F0F0FA, 1.0);
+  ion-label {
+    color: #001C32;
+  }
+}
+
+ion-item.all-tokens-wrapper {
+  --inner-padding-end: 0;
+  ion-label {
+    text-align: right;
+    color: #F0F0FA;
+    opacity: 0.6;
+    font-size: 1.2rem;
+  }
+}

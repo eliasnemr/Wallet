@@ -1,4 +1,5 @@
-import { ContactDetailComponent } from './../../components/contact-detail/contact-detail.component';
+import { ContactDetailComponent }
+  from './../../components/contact-detail/contact-detail.component';
 import { Subscription } from 'rxjs';
 import { ToolsService } from './../../service/tools.service';
 import {

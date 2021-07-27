@@ -1,0 +1,35 @@
+<ion-header mode="md" class="page-header ion-no-border">
+  <ion-toolbar>
+    <ion-title>
+      <ion-item id="title" lines="none" class="ion-no-padding ion-no-margin">
+        Select a token
+        <span (click)="dismiss()" class="dismiss" slot="end">Dismiss</span>
+      </ion-item>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="has">
+    <ion-row>
+      <ion-col>
+        <ion-item class="ion-no-padding" lines="none">
+          <ion-searchbar class="searchbarinput" (ionChange)="queryTokens($event.target.value)" placeholder="Search token name or address"></ion-searchbar>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-list *ngIf="allTokens && allTokens.length === 0">
+    <ion-item>No tokens available.</ion-item>
+  </ion-list>
+  <ion-list *ngIf="allTokens && allTokens.length > 0">
+    <ion-item (click)="selectToken(t)" class="token" lines="none" *ngFor="let t of allTokens">
+      <ion-avatar>
+        <img *ngIf="t?.tokenid !== '0x00'" [src]="t.icon && t.icon.length > 0 ? t.icon : createIcon(t?.tokenid)"/>
+        <img *ngIf="t?.tokenid === '0x00'" [src]="'assets/minima-logo-box.svg'"/>
+      </ion-avatar>
+      <ion-label>{{ t.token }}</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

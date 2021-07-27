@@ -19,7 +19,7 @@
     "build:ios": "ionic cordova build ios",
     "build:android": "ionic cordova build android",
     "e2e": "ng e2e",
-    "ionic:build:after": "node ./scripts/cleanIcon.js && ./buildscript.sh"
+    "ionic:build:after": "./buildscript.sh"
   },
   "private": true,
   "dependencies": {
