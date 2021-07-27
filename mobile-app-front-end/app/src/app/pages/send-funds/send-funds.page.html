@@ -17,7 +17,7 @@
 <ion-content #pageContent class="page-content">
   <form *ngIf="sendForm" [formGroup]="sendForm" id="sendForm">
     <ion-list class="ion-no-padding">
-      <all-tokens-selector (click)="myTokens && myTokens.length > 0 ? presentTokensModal(myTokens) : null" formControlName="token"></all-tokens-selector>   
+      <all-tokens-selector (click)="myTokens && myTokens.length > 0 ? presentTokensModal(myTokens) : null" [formControl]="sendForm.controls['token']"></all-tokens-selector>   
         
       <ion-item class="no-hover no-ripple ion-no-padding"  lines="none">
         <ion-label position="stacked">

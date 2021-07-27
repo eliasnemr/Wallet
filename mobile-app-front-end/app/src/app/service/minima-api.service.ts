@@ -108,7 +108,7 @@ export class MinimaApiService {
     data.amount +
     ' ' +
     data.address + ' ' +
-    data.tokenid + ' ' + ' \"254:[01000100]#255:[' +
+    data.token.tokenid + ' ' + ' \"254:[01000100]#255:[' +
     data.message + ']\"';
     return this.req(postTransaction);
   }
@@ -127,7 +127,7 @@ export class MinimaApiService {
 
   sendFunds(data: any) {
     return this.req('send ' +
-    data.amount + ' ' + data.address + ' ' + data.tokenid);
+    data.amount + ' ' + data.address + ' ' + data.token.tokenid);
   }
 
   giveMe50() {

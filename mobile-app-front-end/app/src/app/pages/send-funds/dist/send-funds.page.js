@@ -82,10 +82,14 @@ var SendFundsPage = /** @class */ (function () {
         this.router = router;
         this.status = '';
         this.isWebCameraOpen = false;
-        this.data = { tokenid: '', amount: '', address: '', message: '' };
         this.messageToggle = false;
         this.tokenArr = [];
         this.myTokens = [];
+        this.data = {
+            message: '',
+            address: '',
+            amount: '0'
+        };
     }
     /** */
     SendFundsPage.prototype.ionViewWillEnter = function () {
@@ -151,7 +155,7 @@ var SendFundsPage = /** @class */ (function () {
     /** */
     SendFundsPage.prototype.formInit = function (_token) {
         this.sendForm = this.formBuilder.group({
-            token: _token,
+            token: (_token && _token.tokenid ? _token : []),
             totalBalance: '',
             address: ['', [
                     forms_1.Validators.required,
@@ -225,6 +229,7 @@ var SendFundsPage = /** @class */ (function () {
         });
     };
     SendFundsPage.prototype.onSend = function (data) {
+        console.log(data);
         this.minimaApiService.$urlData.next(data);
         this.router.navigate(['confirmation'], { relativeTo: this.activedRouter });
     };
@@ -244,7 +249,6 @@ var SendFundsPage = /** @class */ (function () {
                         modal.onDidDismiss().then(function (data) {
                             if (data && data.data) {
                                 var token = data.data;
-                                console.log(token);
                                 _this.tokenFormItem.setValue(token);
                                 _this.totalBalance.setValue(token.sendable);
                                 _this.amountFormItem.setValidators(checkAmount(token.sendable));

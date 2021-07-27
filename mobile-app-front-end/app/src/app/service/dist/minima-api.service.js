@@ -91,7 +91,7 @@ var MinimaApiService = /** @class */ (function () {
             data.amount +
             ' ' +
             data.address + ' ' +
-            data.tokenid + ' ' + ' \"254:[01000100]#255:[' +
+            data.token.tokenid + ' ' + ' \"254:[01000100]#255:[' +
             data.message + ']\"';
         return this.req(postTransaction);
     };
@@ -106,7 +106,7 @@ var MinimaApiService = /** @class */ (function () {
     };
     MinimaApiService.prototype.sendFunds = function (data) {
         return this.req('send ' +
-            data.amount + ' ' + data.address + ' ' + data.tokenid);
+            data.amount + ' ' + data.address + ' ' + data.token.tokenid);
     };
     MinimaApiService.prototype.giveMe50 = function () {
         return this.req('gimme50');

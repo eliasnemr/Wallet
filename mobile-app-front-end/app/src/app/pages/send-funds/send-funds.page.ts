@@ -27,7 +27,7 @@ import {Token} from 'minima';
 import {Decimal} from 'decimal.js';
 
 export interface SendFormObj {
-  tokenid?: string;
+  token?: Token;
   amount?: string;
   address?: string;
   message?: string;
@@ -75,7 +75,7 @@ export class SendFundsPage implements OnInit {
   itemSelected: any;
   isWebCameraOpen = false;
   minimaToken: any;
-  data: SendFormObj = {tokenid: '', amount: '', address: '', message: ''};
+  data: SendFormObj;
   messageToggle = false;
   balanceSubscription: Subscription;
   tokenArr: Token[] = [];
@@ -91,6 +91,11 @@ export class SendFundsPage implements OnInit {
     private router: Router,
   ) {
     this.myTokens = [];
+    this.data = {
+      message: '',
+      address: '',
+      amount: '0',
+    };
   }
   /** */
   ionViewWillEnter() {
@@ -157,7 +162,7 @@ export class SendFundsPage implements OnInit {
   /** */
   formInit(_token?: Token) {
     this.sendForm = this.formBuilder.group({
-      token: _token,
+      token: (_token && _token.tokenid ? _token : []),
       totalBalance: '',
       address: ['', [
         Validators.required,
@@ -202,6 +207,7 @@ export class SendFundsPage implements OnInit {
   }
 
   onSend(data: any) {
+    console.log(data);
     this.minimaApiService.$urlData.next(data);
     this.router.navigate(['confirmation'], {relativeTo: this.activedRouter});
   }
@@ -216,7 +222,6 @@ export class SendFundsPage implements OnInit {
     modal.onDidDismiss().then((data: any) => {
       if (data && data.data) {
         const token = data.data;
-        console.log(token);
         this.tokenFormItem.setValue(token);
         this.totalBalance.setValue(token.sendable);
         this.amountFormItem.setValidators(checkAmount(token.sendable));

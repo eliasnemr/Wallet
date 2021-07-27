@@ -60,8 +60,7 @@ export class ConfirmationPage implements OnInit {
       this.$balance =
       this.minimaApiService.$balance.subscribe((balance: Token[]) => {
         balance.forEach((token: Token) => {
-          if (token.tokenid === this.data.tokenid) {
-            // console.log(token);
+          if (token.tokenid === this.data.token.tokenid) {
             this.tokenName = token.token;
             if (token.tokenid !== '0x00' && token.icon.length > 0) {
               this.tokenIcon = token.icon;
