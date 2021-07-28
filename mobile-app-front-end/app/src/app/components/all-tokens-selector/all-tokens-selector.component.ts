@@ -1,3 +1,4 @@
+import { Subscription, Subject, ReplaySubject } from 'rxjs';
 import { ModalController } from '@ionic/angular';
 import { Token } from 'minima';
 import { Component, OnInit } from '@angular/core';
@@ -46,7 +47,7 @@ export class AllTokensSelectorComponent implements OnInit,
   setDisabledState(disabled: boolean): void {
     this.disabled = disabled;
   }
-  
+
   createIcon(_t: string) {
     return 'https://www.gravatar.com/avatar/' + SparkMD5.hash(_t) + '?d=identicon';
   }

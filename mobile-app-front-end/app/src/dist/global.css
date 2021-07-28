@@ -119,3 +119,6 @@ input[type=number]::-webkit-outer-spin-button {
     transform: translateY(-83px) !important;
   }
 }
+.searchbar-input.sc-ion-searchbar-md {
+  padding-right: 0;
+}

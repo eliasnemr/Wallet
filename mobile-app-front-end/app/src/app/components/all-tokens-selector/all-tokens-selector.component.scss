@@ -26,7 +26,7 @@ div#select-token-btn {
     text-transform: none;
     padding-left: 5px;
     margin: 0;
-    color: var(--ion-color-tertiary);
+    color: #001C32;
     font-family: manrope-bold;
     font-size: 0.8rem;
     text-align: center;
@@ -45,9 +45,6 @@ div#select-token-btn {
 }
 div#select-token-btn:hover {
   background-color: rgba(#F0F0FA, 1.0);
-  ion-label {
-    color: #001C32;
-  }
 }
 
 ion-item.all-tokens-wrapper {

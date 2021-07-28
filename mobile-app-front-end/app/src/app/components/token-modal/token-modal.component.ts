@@ -4,6 +4,7 @@ import { Token } from 'minima';
 import { ModalController } from '@ionic/angular';
 import { Component } from '@angular/core';
 import * as SparkMD5 from 'spark-md5';
+import { map, take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-token-modal',
@@ -13,6 +14,7 @@ import * as SparkMD5 from 'spark-md5';
 export class TokenModalComponent {
   allTokens: Token[];
   $t: Subscription;
+  $query: Subscription;
 
   constructor(
     public modalController: ModalController,
@@ -30,7 +32,27 @@ export class TokenModalComponent {
   }
 
   queryTokens(_qy: string) {
-    console.log(_qy);
+    _qy = _qy.toUpperCase();
+    if ( _qy.length > 0) {
+      this.$query =
+      this.minimaApiService.$balance.asObservable().pipe(
+          map((tokens: Token[]) =>
+            tokens.filter((token: Token) =>
+              token.token.toUpperCase().includes(_qy) ||
+            token.tokenid.toUpperCase().includes(_qy))),
+      ).subscribe((tokens: Token[]) => {
+        // console.log(tokens);
+        this.allTokens = tokens;
+      });
+    } else {
+      this.$query =
+      this.minimaApiService.$balance.asObservable().pipe(
+          take(1),
+      ).subscribe((tokens: Token[]) => {
+        // console.log(tokens);
+        this.allTokens = tokens;
+      });
+    }
   }
   dismiss() {
     this.modalController.dismiss();
@@ -39,11 +61,13 @@ export class TokenModalComponent {
     this.$t =
     this.minimaApiService.$balance.subscribe((tokens: Token[]) => {
       this.allTokens = tokens;
-      console.log(this.allTokens);
     });
   }
   unsubscribeTokens() {
     this.$t.unsubscribe();
+    if (this.$query) {
+      this.$query.unsubscribe();
+    }
   }
   createIcon(tokenid: string) {
     return 'https://www.gravatar.com/avatar/' + SparkMD5.hash(tokenid) + '?d=identicon';

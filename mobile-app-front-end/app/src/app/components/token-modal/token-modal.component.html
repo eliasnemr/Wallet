@@ -21,12 +21,16 @@
   </ion-grid>
 
   <ion-list *ngIf="allTokens && allTokens.length === 0">
-    <ion-item>No tokens available.</ion-item>
+    <ion-item lines="none">
+      <ion-label color="tertiary">
+        No tokens available
+      </ion-label>
+    </ion-item>
   </ion-list>
   <ion-list *ngIf="allTokens && allTokens.length > 0">
     <ion-item (click)="selectToken(t)" class="token" lines="none" *ngFor="let t of allTokens">
-      <ion-avatar>
-        <img *ngIf="t?.tokenid !== '0x00'" [src]="t.icon && t.icon.length > 0 ? t.icon : createIcon(t?.tokenid)"/>
+      <ion-avatar [ngStyle]="{'border': t?.tokenid === '0x00' ? '1px solid var(--ion-color-secondary)' : 'none' }">
+        <img *ngIf="t?.tokenid !== '0x00'" [src]="t?.icon && t?.icon.length > 0 ? t?.icon : createIcon(t?.tokenid)"/>
         <img *ngIf="t?.tokenid === '0x00'" [src]="'assets/minima-logo-box.svg'"/>
       </ion-avatar>
       <ion-label>{{ t.token }}</ion-label>

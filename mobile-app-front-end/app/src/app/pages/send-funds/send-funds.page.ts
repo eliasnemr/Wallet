@@ -1,3 +1,4 @@
+import { take } from 'rxjs/operators';
 import { TokenModalComponent } from
   './../../components/token-modal/token-modal.component';
 import {ContactService,
@@ -13,13 +14,14 @@ import {
   ValidationErrors,
   ValidatorFn,
 } from '@angular/forms';
-import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
+import {
+  Component,
+  ViewChild} from '@angular/core';
 import {
   IonInput,
   IonButton,
   MenuController,
-  ModalController,
-  IonContent} from '@ionic/angular';
+  ModalController} from '@ionic/angular';
 import {MinimaApiService} from '../../service/minima-api.service';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -36,17 +38,24 @@ export interface SendFormObj {
 Decimal.set({precision: 64}); /** set precision for Decimal calculations */
 export function checkAmount(amnt: any): ValidatorFn {
   return (control?: AbstractControl): ValidationErrors | null => {
-    const amount = new Decimal(amnt);
     try {
-      if (control.value && new Decimal(control.value).greaterThan(amount)) {
-        return {invalidAmount: true};
-      } else if (control.value && new Decimal(control.value).equals(0)) {
-        return {invalidAmount: true};
-      } else if (control.value.length === 0) {
+      if (isNaN(parseInt(control.value)) !== true) {
+        if (new Decimal(amnt)) {
+          const amount = new Decimal(amnt);
+          if (control.value && new Decimal(control.value).greaterThan(amount)) {
+            return {invalidAmount: true};
+          } else if (control.value && new Decimal(control.value).equals(0)) {
+            return {invalidAmount: true};
+          } else if (control.value.length === 0) {
+            return {invalidAmount: true};
+          }
+        }
+      } else {
         return {invalidAmount: true};
       }
     } catch (err) {
       console.log(err);
+      return {invalidAmount: true};
     }
     return null;
   };
@@ -57,30 +66,20 @@ export function checkAmount(amnt: any): ValidatorFn {
   styleUrls: ['./send-funds.page.scss'],
 })
 /**  */
-export class SendFundsPage implements OnInit {
+export class SendFundsPage {
   @ViewChild('submitBtn', {static: false}) submitBtn: IonButton;
   @ViewChild('amount', {static: false}) amountInp: IonInput;
-  @ViewChild('videoElem', {static: false}) videoElem: ElementRef;
-  @ViewChild('pageContent', {static: false}) pageContent: IonContent;
+
+  data: SendFormObj;
 
   sendForm: FormGroup;
   myTokens: Token[];
+
   $contactSubscription: Subscription;
   $balanceSubscription: Subscription;
-  $tokenSelectSubscription: Subscription;
 
   status = '';
-  webQrScanner: any;
-  compareWith: any;
-  itemSelected: any;
-  isWebCameraOpen = false;
-  minimaToken: any;
-  data: SendFormObj;
-  messageToggle = false;
-  balanceSubscription: Subscription;
-  tokenArr: Token[] = [];
 
-  /** */
   constructor(
     public menu: MenuController,
     public modalController: ModalController,
@@ -91,48 +90,36 @@ export class SendFundsPage implements OnInit {
     private router: Router,
   ) {
     this.myTokens = [];
-    this.data = {
-      message: '',
-      address: '',
-      amount: '0',
-    };
   }
-  /** */
+
   ionViewWillEnter() {
     this.formInit();
+    this.subscribeBalance();
+    this.subscribeContacts();
+  }
+
+  ionViewWillLeave() {
+    this.$contactSubscription.unsubscribe();
+    this.$balanceSubscription.unsubscribe();
+  }
+
+  subscribeBalance(): void {
     this.$balanceSubscription =
     this.minimaApiService.$balance.subscribe((res: Token[]) => {
-      if (res.length === 1) {
-        this.tokenFormItem.setValue(res[0]);
-
-        this.myTokens = res.filter((token) =>
-          new Decimal(token.sendable).greaterThan(new Decimal(0)));
-        this.totalBalance.setValue(this.myTokens[0] &&
-          this.myTokens[0].sendable ?
-           this.myTokens[0].sendable : 0);
-
-        (this.myTokens[0] &&
-           this.myTokens[0].sendable ?
-            this.amountFormItem.setValidators(
-                checkAmount(this.myTokens[0].sendable)) :
-            this.amountFormItem.setValidators(checkAmount('0')) );
-      } else {
-        this.tokenFormItem.setValue(res[0]);
-
-        this.myTokens = res.filter((token) =>
-          new Decimal(token.sendable).greaterThan(new Decimal(0)));
-        this.totalBalance.setValue(this.myTokens[0] &&
-          this.myTokens[0].sendable ?
-           this.myTokens[0].sendable : 0);
-
-        (this.myTokens[0] &&
-        this.myTokens[0].sendable ?
-          this.amountFormItem.setValidators(
-              checkAmount(this.myTokens[0].sendable)) :
-          this.amountFormItem.setValidators(checkAmount('0')) );
-      }
+      const tokenSelected =
+      this.minimaApiService.currentTokenSelected.getValue();
+      this.myTokens = res;
+      this.myTokens.forEach((t: Token) => {
+        if (t.tokenid === tokenSelected) {
+          this.tokenFormItem.setValue(t);
+          this.totalBalance.setValue(t.sendable);
+          this.amountFormItem.setValidators(checkAmount(t.sendable));
+        }
+      });
     });
+  }
 
+  subscribeContacts(): void {
     this.$contactSubscription =
     this.contactService.selectedAddress.subscribe((res: SelectedAddress) => {
       if (res.address.length === 0) {
@@ -143,15 +130,8 @@ export class SendFundsPage implements OnInit {
       }
     });
   }
-  /** */
-  ionViewWillLeave() {
-    this.$contactSubscription.unsubscribe();
-    this.$balanceSubscription.unsubscribe();
-  }
-  /** */
-  ngOnInit() { }
-  /** */
-  resetForm() {
+
+  resetForm(): void {
     setTimeout(() => {
       this.status = '';
     }, 6000);
@@ -159,10 +139,9 @@ export class SendFundsPage implements OnInit {
     this.sendForm.reset();
     this.formInit();
   }
-  /** */
-  formInit(_token?: Token) {
+  formInit(): void {
     this.sendForm = this.formBuilder.group({
-      token: (_token && _token.tokenid ? _token : []),
+      token: [],
       totalBalance: '',
       address: ['', [
         Validators.required,
@@ -176,29 +155,23 @@ export class SendFundsPage implements OnInit {
       message: ['', Validators.maxLength(255)],
     });
   }
-  /** */
   get tokenFormItem() {
     return this.sendForm.get('token');
   }
-  /** */
   get totalBalance() {
     return this.sendForm.get('totalBalance');
   }
-  /** */
   get addressFormItem() {
     return this.sendForm.get('address');
   }
-  /** */
   get amountFormItem() {
     return this.sendForm.get('amount');
   }
-  /** */
   get messageFormItem() {
     return this.sendForm.get('message');
   }
 
-  /** */
-  async presentContactModal() {
+  async presentContactModal(): Promise<void> {
     const contactModal = await this.modalController.create({
       component: ContactsViewModalComponent,
       cssClass: 'contacts-view',
@@ -206,13 +179,12 @@ export class SendFundsPage implements OnInit {
     contactModal.present();
   }
 
-  onSend(data: any) {
-    console.log(data);
+  onSend(data: any): void {
     this.minimaApiService.$urlData.next(data);
     this.router.navigate(['confirmation'], {relativeTo: this.activedRouter});
   }
 
-  async presentTokensModal(_tokens: Token[]) {
+  async presentTokensModal(_tokens: Token[]): Promise<void> {
     const modal = await this.modalController.create({
       component: TokenModalComponent,
       componentProps: {tokens: _tokens},
@@ -221,7 +193,8 @@ export class SendFundsPage implements OnInit {
 
     modal.onDidDismiss().then((data: any) => {
       if (data && data.data) {
-        const token = data.data;
+        const token: Token = data.data;
+        this.minimaApiService.currentTokenSelected.next(token.tokenid);
         this.tokenFormItem.setValue(token);
         this.totalBalance.setValue(token.sendable);
         this.amountFormItem.setValidators(checkAmount(token.sendable));

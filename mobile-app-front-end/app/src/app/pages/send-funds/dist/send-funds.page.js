@@ -51,27 +51,34 @@ var decimal_js_1 = require("decimal.js");
 decimal_js_1.Decimal.set({ precision: 64 }); /** set precision for Decimal calculations */
 function checkAmount(amnt) {
     return function (control) {
-        var amount = new decimal_js_1.Decimal(amnt);
         try {
-            if (control.value && new decimal_js_1.Decimal(control.value).greaterThan(amount)) {
-                return { invalidAmount: true };
+            if (isNaN(parseInt(control.value)) !== true) {
+                if (new decimal_js_1.Decimal(amnt)) {
+                    var amount = new decimal_js_1.Decimal(amnt);
+                    if (control.value && new decimal_js_1.Decimal(control.value).greaterThan(amount)) {
+                        return { invalidAmount: true };
+                    }
+                    else if (control.value && new decimal_js_1.Decimal(control.value).equals(0)) {
+                        return { invalidAmount: true };
+                    }
+                    else if (control.value.length === 0) {
+                        return { invalidAmount: true };
+                    }
+                }
             }
-            else if (control.value && new decimal_js_1.Decimal(control.value).equals(0)) {
-                return { invalidAmount: true };
-            }
-            else if (control.value.length === 0) {
+            else {
                 return { invalidAmount: true };
             }
         }
         catch (err) {
             console.log(err);
+            return { invalidAmount: true };
         }
         return null;
     };
 }
 exports.checkAmount = checkAmount;
 var SendFundsPage = /** @class */ (function () {
-    /** */
     function SendFundsPage(menu, modalController, formBuilder, minimaApiService, contactService, activedRouter, router) {
         this.menu = menu;
         this.modalController = modalController;
@@ -81,49 +88,34 @@ var SendFundsPage = /** @class */ (function () {
         this.activedRouter = activedRouter;
         this.router = router;
         this.status = '';
-        this.isWebCameraOpen = false;
-        this.messageToggle = false;
-        this.tokenArr = [];
         this.myTokens = [];
-        this.data = {
-            message: '',
-            address: '',
-            amount: '0'
-        };
     }
-    /** */
     SendFundsPage.prototype.ionViewWillEnter = function () {
-        var _this = this;
         this.formInit();
+        this.subscribeBalance();
+        this.subscribeContacts();
+    };
+    SendFundsPage.prototype.ionViewWillLeave = function () {
+        this.$contactSubscription.unsubscribe();
+        this.$balanceSubscription.unsubscribe();
+    };
+    SendFundsPage.prototype.subscribeBalance = function () {
+        var _this = this;
         this.$balanceSubscription =
             this.minimaApiService.$balance.subscribe(function (res) {
-                if (res.length === 1) {
-                    _this.tokenFormItem.setValue(res[0]);
-                    _this.myTokens = res.filter(function (token) {
-                        return new decimal_js_1.Decimal(token.sendable).greaterThan(new decimal_js_1.Decimal(0));
-                    });
-                    _this.totalBalance.setValue(_this.myTokens[0] &&
-                        _this.myTokens[0].sendable ?
-                        _this.myTokens[0].sendable : 0);
-                    (_this.myTokens[0] &&
-                        _this.myTokens[0].sendable ?
-                        _this.amountFormItem.setValidators(checkAmount(_this.myTokens[0].sendable)) :
-                        _this.amountFormItem.setValidators(checkAmount('0')));
-                }
-                else {
-                    _this.tokenFormItem.setValue(res[0]);
-                    _this.myTokens = res.filter(function (token) {
-                        return new decimal_js_1.Decimal(token.sendable).greaterThan(new decimal_js_1.Decimal(0));
-                    });
-                    _this.totalBalance.setValue(_this.myTokens[0] &&
-                        _this.myTokens[0].sendable ?
-                        _this.myTokens[0].sendable : 0);
-                    (_this.myTokens[0] &&
-                        _this.myTokens[0].sendable ?
-                        _this.amountFormItem.setValidators(checkAmount(_this.myTokens[0].sendable)) :
-                        _this.amountFormItem.setValidators(checkAmount('0')));
-                }
+                var tokenSelected = _this.minimaApiService.currentTokenSelected.getValue();
+                _this.myTokens = res;
+                _this.myTokens.forEach(function (t) {
+                    if (t.tokenid === tokenSelected) {
+                        _this.tokenFormItem.setValue(t);
+                        _this.totalBalance.setValue(t.sendable);
+                        _this.amountFormItem.setValidators(checkAmount(t.sendable));
+                    }
+                });
             });
+    };
+    SendFundsPage.prototype.subscribeContacts = function () {
+        var _this = this;
         this.$contactSubscription =
             this.contactService.selectedAddress.subscribe(function (res) {
                 if (res.address.length === 0) {
@@ -135,14 +127,6 @@ var SendFundsPage = /** @class */ (function () {
                 }
             });
     };
-    /** */
-    SendFundsPage.prototype.ionViewWillLeave = function () {
-        this.$contactSubscription.unsubscribe();
-        this.$balanceSubscription.unsubscribe();
-    };
-    /** */
-    SendFundsPage.prototype.ngOnInit = function () { };
-    /** */
     SendFundsPage.prototype.resetForm = function () {
         var _this = this;
         setTimeout(function () {
@@ -152,10 +136,9 @@ var SendFundsPage = /** @class */ (function () {
         this.sendForm.reset();
         this.formInit();
     };
-    /** */
-    SendFundsPage.prototype.formInit = function (_token) {
+    SendFundsPage.prototype.formInit = function () {
         this.sendForm = this.formBuilder.group({
-            token: (_token && _token.tokenid ? _token : []),
+            token: [],
             totalBalance: '',
             address: ['', [
                     forms_1.Validators.required,
@@ -171,7 +154,6 @@ var SendFundsPage = /** @class */ (function () {
         });
     };
     Object.defineProperty(SendFundsPage.prototype, "tokenFormItem", {
-        /** */
         get: function () {
             return this.sendForm.get('token');
         },
@@ -179,7 +161,6 @@ var SendFundsPage = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(SendFundsPage.prototype, "totalBalance", {
-        /** */
         get: function () {
             return this.sendForm.get('totalBalance');
         },
@@ -187,7 +168,6 @@ var SendFundsPage = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(SendFundsPage.prototype, "addressFormItem", {
-        /** */
         get: function () {
             return this.sendForm.get('address');
         },
@@ -195,7 +175,6 @@ var SendFundsPage = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(SendFundsPage.prototype, "amountFormItem", {
-        /** */
         get: function () {
             return this.sendForm.get('amount');
         },
@@ -203,16 +182,14 @@ var SendFundsPage = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(SendFundsPage.prototype, "messageFormItem", {
-        /** */
         get: function () {
             return this.sendForm.get('message');
         },
         enumerable: false,
         configurable: true
     });
-    /** */
     SendFundsPage.prototype.presentContactModal = function () {
-        return __awaiter(this, void 0, void 0, function () {
+        return __awaiter(this, void 0, Promise, function () {
             var contactModal;
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -229,12 +206,11 @@ var SendFundsPage = /** @class */ (function () {
         });
     };
     SendFundsPage.prototype.onSend = function (data) {
-        console.log(data);
         this.minimaApiService.$urlData.next(data);
         this.router.navigate(['confirmation'], { relativeTo: this.activedRouter });
     };
     SendFundsPage.prototype.presentTokensModal = function (_tokens) {
-        return __awaiter(this, void 0, void 0, function () {
+        return __awaiter(this, void 0, Promise, function () {
             var modal;
             var _this = this;
             return __generator(this, function (_a) {
@@ -249,6 +225,7 @@ var SendFundsPage = /** @class */ (function () {
                         modal.onDidDismiss().then(function (data) {
                             if (data && data.data) {
                                 var token = data.data;
+                                _this.minimaApiService.currentTokenSelected.next(token.tokenid);
                                 _this.tokenFormItem.setValue(token);
                                 _this.totalBalance.setValue(token.sendable);
                                 _this.amountFormItem.setValidators(checkAmount(token.sendable));
@@ -266,12 +243,6 @@ var SendFundsPage = /** @class */ (function () {
     __decorate([
         core_1.ViewChild('amount', { static: false })
     ], SendFundsPage.prototype, "amountInp");
-    __decorate([
-        core_1.ViewChild('videoElem', { static: false })
-    ], SendFundsPage.prototype, "videoElem");
-    __decorate([
-        core_1.ViewChild('pageContent', { static: false })
-    ], SendFundsPage.prototype, "pageContent");
     SendFundsPage = __decorate([
         core_1.Component({
             selector: 'app-send-funds',

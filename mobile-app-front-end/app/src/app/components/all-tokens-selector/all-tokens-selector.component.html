@@ -3,9 +3,9 @@ lines="none">
   <div id="select-token-btn">
     <div class="token-wrapper">
       <ion-avatar slot="start">
-        <img *ngIf="token?.tokenid !== '0x00'" [src]="token.icon && token.icon.length > 0 ? token.icon : createIcon(token?.tokenid)" alt="tokenIcon"/>
-        <img *ngIf="token?.tokenid === '0x00'" [src]="'assets/minima-logo-box.svg'" alt="tokenIcon"/>
         <ion-icon *ngIf="!token" name="sad-outline"></ion-icon>
+        <img *ngIf="token && token?.tokenid !== '0x00'" [src]="token?.icon && token?.icon.length > 0 ? token.icon : createIcon(token?.tokenid)" alt="tokenIcon"/>
+        <img *ngIf="token && token?.tokenid === '0x00'" [src]="'assets/minima-logo-box.svg'" alt="tokenIcon"/>
       </ion-avatar>
       <ion-label>{{ token && token?.token ? token?.token : 'No spendable tokens available' }}</ion-label>
     </div>

@@ -48,46 +48,6 @@ export class AppComponent {
     // this.addToHSListener();
     this.initMinima();
   }
-  /** addToHomeScreenListener() */
-  addToHSListener() {
-    // Initialize deferredPrompt for use later to show browser install prompt.
-    let deferredPrompt;
-
-    window.addEventListener('beforeinstallprompt', (e) => {
-      // Prevent the mini-infobar from appearing on mobile
-      e.preventDefault();
-      // Stash the event so it can be triggered later.
-      deferredPrompt = e;
-      // Update UI notify the user they can install the PWA
-      this.promoteAddToHS();
-      // Optionally, send analytics event that PWA install promo was shown.
-      console.log(`'beforeinstallprompt' event was fired.`);
-    });
-  }
-  async promoteAddToHS() {
-    const alert = await this.alertController.create({
-      cssClass: 'add-to-hs-alert',
-      header: 'Add to homescreen?',
-      message: 'You can add Wallet to your homescreen.',
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: (blah) => {
-            console.log('Confirm Cancel: blah');
-          },
-        }, {
-          text: 'Add',
-          handler: () => {
-            console.log('Confirm Okay');
-          },
-        },
-      ],
-    });
-
-    alert.present();
-  }
   /** initMinima Function */
   initMinima() {
     Minima.init((msg: any) => {
@@ -95,7 +55,7 @@ export class AppComponent {
         const msZero = 0;
         const msTimer = 3000;
         const source = timer(msZero, msTimer);
-        this.$overlaySubscription = source.subscribe((val) => {
+        this.$overlaySubscription = source.subscribe(() => {
           if (Minima.block === 0) {
             this.nodeStatus = false;
           } else if (!this.nodeStatus && Minima.block > 0) {
@@ -115,10 +75,6 @@ export class AppComponent {
           'finished': false,
         };
         this.minimaApiService.$miningStatus.next(miningStatus);
-        // this.tools.presentMiningToast(
-        //     'Started to mine your transaction.',
-        //     'primary',
-        //     'bottom');
       } else if (msg.event === 'miningstop') {
         const miningStatus = {
           'started': false,
