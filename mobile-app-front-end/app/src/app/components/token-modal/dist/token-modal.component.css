@@ -1,0 +1,51 @@
+span.dismiss {
+  cursor: pointer;
+  font-size: 1rem;
+  color: var(--ion-color-primary);
+}
+
+span.dismiss:hover {
+  color: var(--ion-color-secondary);
+}
+
+ion-list {
+  border-top: 1px solid var(--ion-color-ruler);
+}
+
+ion-item.token {
+  --padding-start: 27px;
+}
+
+ion-item {
+  --inner-padding-end: 0;
+}
+ion-item ion-avatar {
+  height: 28px;
+  width: 28px;
+}
+ion-item ion-label {
+  padding-left: 10px;
+  color: var(--ion-color-tertiary);
+  font-family: manrope-bold;
+  opacity: 0.7;
+}
+
+ion-item.token:hover {
+  --background: var(--ion-color-item-hover);
+}
+
+ion-grid.has {
+  padding-left: 22px;
+  padding-right: 22px;
+}
+
+ion-searchbar {
+  padding: 0;
+  --box-shadow: 0;
+  --icon-color: #001C32;
+  --background: var(--ion-color-inputs);
+  --border: 1px solid #f0f0fa;
+  color: #001C32;
+  font-size: 0.75rem;
+  --padding-inline-end: 0;
+}

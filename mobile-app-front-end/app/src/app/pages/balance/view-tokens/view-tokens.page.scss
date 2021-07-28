@@ -12,9 +12,13 @@ ion-list {
                 font-family: manrope-semibold;
             }
             p {
-                white-space: normal;
                 opacity: 0.5;
+                white-space: normal;
                 font-size: 1.0rem;
+                -webkit-user-select: text;  /* Chrome all / Safari all */
+                -moz-user-select: text;     /* Firefox all */
+                -ms-user-select: text;
+                user-select: text;
             }
         }
     }
@@ -95,7 +99,10 @@ ion-list ion-item {
         overflow: hidden;
         font-size: 1.0rem;
         opacity: 0.8;
-
+        -webkit-user-select: text;  /* Chrome all / Safari all */
+        -moz-user-select: text;     /* Firefox all */
+        -ms-user-select: text;
+        user-select: text;
     }
 }
 .copy {

@@ -8,9 +8,15 @@ ion-list ion-item ion-label.description h6 {
   font-family: manrope-semibold;
 }
 ion-list ion-item ion-label.description p {
-  white-space: normal;
   opacity: 0.5;
+  white-space: normal;
   font-size: 1rem;
+  -webkit-user-select: text;
+  /* Chrome all / Safari all */
+  -moz-user-select: text;
+  /* Firefox all */
+  -ms-user-select: text;
+  user-select: text;
 }
 
 .item .item-content {
@@ -95,6 +101,12 @@ ion-list ion-item ion-avatar:hover ion-icon {
   overflow: hidden;
   font-size: 1rem;
   opacity: 0.8;
+  -webkit-user-select: text;
+  /* Chrome all / Safari all */
+  -moz-user-select: text;
+  /* Firefox all */
+  -ms-user-select: text;
+  user-select: text;
 }
 
 .copy {

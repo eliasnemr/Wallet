@@ -14,39 +14,37 @@
 </ion-header>
 
 
-<ion-content #pageContent class="page-content">
+<ion-content *ngIf="!sendForm">
+  <div class="ion-text-center ion-padding d-flex align-content-center">
+    <ion-label color="tertiary">Loading form... </ion-label>
+  </div>
+  <div class="ion-text-center d-flex align-content-center">
+    <ion-spinner name="crescent" color="tertiary"></ion-spinner>
+  </div>
+</ion-content>
+
+<ion-content class="page-content">
   <form *ngIf="sendForm" [formGroup]="sendForm" id="sendForm">
     <ion-list class="ion-no-padding">
-      <ion-item class="no-hover no-ripple ion-no-padding" lines="none">
-        <ion-label position="stacked">Token</ion-label>
-        <ion-select
-          interface="action-sheet"
-          formControlName="tokenid"    
-          class="no-hover no-ripple input"
-          [placeholder]="myTokens.length > 0 ? 'Select A Token' : 'No sendable tokens available.'"> 
-        <ion-select-option *ngFor="let token of myTokens" [value]="token.tokenid" class="token-option">
-          <span *ngIf="token.tokenid !== '0x00'">
-            {{ token.token + " &mdash; "+ token.tokenid.substring(0, 5)+'...'+token.tokenid.substring(token.tokenid.length-3, token.tokenid.length) }}
-          </span>
-          <span *ngIf="token.tokenid === '0x00'">
-            {{ token.token + " &mdash; "+ token.tokenid.substring(0, 5) }}
-          </span>
-        </ion-select-option>
-      </ion-select>
-      </ion-item>
+
+      <all-tokens-selector
+      (click)="myTokens && myTokens.length >= 1 ? presentTokensModal(myTokens) : null" 
+      [formControl]="sendForm.controls['token']"></all-tokens-selector>   
+        
       <ion-item class="no-hover no-ripple ion-no-padding"  lines="none">
         <ion-label position="stacked">
-           Your Balance</ion-label>
+           Spendable</ion-label>
         <div class="has">
           <ion-input 
           #address 
           class="input"  
           clearInput="false"
-          readonly = true
+          readonly="true"
           formControlName="totalBalance">
           </ion-input>
         </div>
       </ion-item>
+
       <ion-item class="no-hover no-ripple ion-no-padding" lines="none">
         <ion-label position="stacked">
            Address</ion-label>
@@ -69,9 +67,10 @@
           <ion-icon name="person-add-outline"></ion-icon></button>
         </div>
       </ion-item>
+
       <ion-note *ngIf="addressFormItem.invalid && addressFormItem.touched" class="error-message">
-        <div> Invalid address format!</div> 
-        <div> Must begin with 0x or Mx.</div>
+        <div *ngIf="addressFormItem.value.length === 0">Field required.</div>
+        <div *ngIf="addressFormItem.value.length > 0 && addressFormItem.invalid"> Invalid address, must be of 0x or Mx format.</div> 
       </ion-note>
 
       <ion-item class="no-hover no-ripple ion-no-padding amount"  lines="none">
@@ -96,15 +95,14 @@
         </div>
       </ion-item>
       <ion-note *ngIf="amountFormItem.invalid && amountFormItem.touched" class="error-message">
-        <div> Amount required!</div>
-        <div *ngIf="!amountFormItem.hasError('invalidAmount')"> Must be numeric and greater than zero.</div>
-        <div *ngIf="amountFormItem.hasError('invalidAmount')"> Please check you have sufficient funds.</div>
+        <div *ngIf="amountFormItem.value.length === 0">Field required.</div>
+        <div *ngIf="amountFormItem.value.length > 0 && !amountFormItem.hasError('invalidAmount')"> Must be numeric and greater than zero.</div>
+        <div *ngIf="amountFormItem.value.length > 0 && amountFormItem.hasError('invalidAmount')"> Please check if you have sufficient funds.</div>
       </ion-note>
 
       <ion-item class="no-hover no-ripple ion-no-padding" lines="none">
         <ion-label position="stacked">Message <span class="optional">(optional) </span></ion-label>
         <ion-textarea
-            [(ngModel)]="data.message"
             formControlName="message"
             class="input"
             auto-grow="false"

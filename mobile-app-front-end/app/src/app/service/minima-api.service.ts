@@ -1,5 +1,5 @@
 import { SendFormObj } from './../pages/send-funds/send-funds.page';
-import { Subject, ReplaySubject } from 'rxjs';
+import { Subject, ReplaySubject, BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
 import { Minima, NetworkStatus, Token, CompleteTransaction } from 'minima';
@@ -26,6 +26,7 @@ export class MinimaApiService {
   public $status: Subject<NetworkStatus>;
   public $urlData: Subject<SendFormObj>;
   public $miningStatus: Subject<Mining>;
+  currentTokenSelected: BehaviorSubject<string>;
 
   constructor(
     public loadingController: LoadingController,
@@ -35,6 +36,7 @@ export class MinimaApiService {
     this.$status = new ReplaySubject<NetworkStatus>(1);
     this.$urlData = new ReplaySubject<SendFormObj>(1);
     this.$miningStatus = new ReplaySubject<Mining>(1);
+    this.currentTokenSelected = new BehaviorSubject<string>('0x00');
   }
 
   init(balance: Token[]) {
@@ -89,10 +91,10 @@ export class MinimaApiService {
         '\" proof:\"' + data.proof +
         '\"');
       } else {
-        return this.req('tokencreate name:\"' + data.name + 
-        '\" amount:\"' + data.amount + 
-        '\" description:\"' + data.description + 
-        '\" icon:\"' + data.icon + '\" proof:\"' + data.proof + 
+        return this.req('tokencreate name:\"' + data.name +
+        '\" amount:\"' + data.amount +
+        '\" description:\"' + data.description +
+        '\" icon:\"' + data.icon + '\" proof:\"' + data.proof +
         '\"');
       }
     }
@@ -108,7 +110,7 @@ export class MinimaApiService {
     data.amount +
     ' ' +
     data.address + ' ' +
-    data.tokenid + ' ' + ' \"254:[01000100]#255:[' +
+    data.token.tokenid + ' ' + ' \"254:[01000100]#255:[' +
     data.message + ']\"';
     return this.req(postTransaction);
   }
@@ -127,7 +129,7 @@ export class MinimaApiService {
 
   sendFunds(data: any) {
     return this.req('send ' +
-    data.amount + ' ' + data.address + ' ' + data.tokenid);
+    data.amount + ' ' + data.address + ' ' + data.token.tokenid);
   }
 
   giveMe50() {
@@ -229,8 +231,8 @@ export class MinimaApiService {
     });
   }
 
-  removeFile(filename: string) {
-    return new Promise((resolve, reject) => {
+  async removeFile(filename: string) {
+    return new Promise((resolve) => {
       Minima.file.delete(filename, (res: any) => {
         if (res.success) {
           resolve(res);
@@ -239,7 +241,7 @@ export class MinimaApiService {
         }
       });
     }).catch((err) => {
-      throw new Error(cryptocurrency + ': RPC command failed!');
+      Minima.log(err);
     });
   }
 }
