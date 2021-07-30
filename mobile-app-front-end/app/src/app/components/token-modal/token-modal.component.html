@@ -9,7 +9,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="main">
   <ion-grid class="has">
     <ion-row>
       <ion-col>
@@ -20,6 +20,8 @@
     </ion-row>
   </ion-grid>
 
+</ion-content>
+<ion-content class="list">
   <ion-list *ngIf="allTokens && allTokens.length === 0">
     <ion-item lines="none">
       <ion-label color="tertiary">

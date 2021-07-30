@@ -38,16 +38,14 @@ export class ContactsViewModalComponent implements OnInit {
 
   queryContacts(qy: string) {
     qy = qy.toUpperCase();
-    if (qy.length > 0) {
-      this.contacts = this.contacts.filter( ele => {
+    this._contactService.loadContacts().then((cts: Contact[]) => {
+      this.contacts = cts;
+
+      this.contacts = this.contacts.filter( (ele: Contact) => {
         return ele.NAME.toUpperCase().includes(qy) ||
         ele.ADDRESS.toUpperCase().includes(qy);
       });
-    } else {
-      this._contactService.data.subscribe((res: any) => {
-        this.contacts = res;
-      });
-    }
+    });
   }
 
   copyAddress(addr: string) {

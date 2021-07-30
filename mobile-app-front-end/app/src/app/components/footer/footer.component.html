@@ -6,10 +6,13 @@
 </div>
 <ion-footer *ngIf="showFooter">
 
-  <ion-button #gimme50Btn (click)="gimme50()" class="gimme50 no-ripple" fill="none">
-    {{ status }}
-    <ion-spinner *ngIf="status === ''" name="dots" color="gray-one"></ion-spinner>
-  </ion-button>
+  <div style="text-align: center;">
+    <ion-button #gimme50Btn (click)="gimme50()" class="gimme50 no-ripple" fill="none">
+      {{ status }}
+      <ion-spinner *ngIf="status === ''" name="dots" color="gray-one"></ion-spinner>
+    </ion-button>
+    <ion-note style="display: block; font-size: 0.7rem">Minima tokens received will be wiped on mainnet.</ion-note>
+  </div>
 
   <div class="stack">
     <ion-label *ngIf="miningStarted && showMining">Mining</ion-label>

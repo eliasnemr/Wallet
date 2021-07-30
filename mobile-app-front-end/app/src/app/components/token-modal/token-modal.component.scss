@@ -6,9 +6,6 @@ span.dismiss {
 span.dismiss:hover {
   color: var(--ion-color-secondary);
 }
-ion-list {
-  border-top: 1px solid var(--ion-color-ruler);
-}
 ion-item.token {
   --padding-start: 27px;
 }
@@ -41,4 +38,40 @@ ion-searchbar {
   color: #001C32;
   font-size: 0.75rem;
   --padding-inline-end: 0;
+}
+
+ion-content.main {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  max-height: 80px;
+}
+
+
+ion-content.list {
+  border-top: 1px solid var(--ion-color-ruler);
+  &::-webkit-scrollbar {
+    display: block;
+  }
+  ::-webkit-scrollbar-track
+  {
+  -webkit-box-shadow: inset 0 0 6px linear-gradient(to bottom, #697597 0%, var(--ion-color-primary) 100%) !important;
+  border-radius: 10px!important;
+  background-color: var(--ion-color-tertiary)!important;
+  opacity: 0.7;
+  }
+  
+  ::-webkit-scrollbar
+  {
+  width: 10px!important;
+  background-color: linear-gradient(to bottom, var(--ion-color-tertiary) 0%, #5260ff 100%)!important;
+  }
+  
+  ::-webkit-scrollbar-thumb
+  {
+  border-radius: 10px!important;
+  -webkit-box-shadow: inset 0 0 3px rgba(0,0,0,.3)!important;
+  background-color: #F0F0FA!important;
+  opacity: 0.3;
+  }
 }

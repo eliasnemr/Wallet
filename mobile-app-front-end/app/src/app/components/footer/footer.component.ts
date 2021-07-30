@@ -24,7 +24,7 @@ export class FooterComponent implements OnInit {
   constructor(
     private minimaApiService: MinimaApiService,
     private tools: ToolsService) {
-    this.status = 'Gimme 50';
+    this.status = 'TESTNET50';
     this.miningStarted = false;
     this.miningFinished = false;
     this.showDone = false;
@@ -80,14 +80,14 @@ export class FooterComponent implements OnInit {
     this.minimaApiService.giveMe50().then((res: any) => {
       if (res.status) {
         // this.tools.presentAlert('Gimme50', 'Successful', 'Status');
-        this.status = 'Gimme 50';
+        this.status = 'TESTNET50';
         this.gimme50Btn.disabled = false;
       } else {
         this.tools.presentAlert('Gimme50', res.message, 'Status');
         this.status = 'Unavailable';
         setTimeout(() => {
           this.gimme50Btn.disabled = false;
-          this.status = 'Gimme 50';
+          this.status = 'TESTNET50';
         }, 4000);
       }
     });

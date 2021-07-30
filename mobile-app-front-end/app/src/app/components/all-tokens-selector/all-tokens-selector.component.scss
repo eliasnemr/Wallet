@@ -56,3 +56,13 @@ ion-item.all-tokens-wrapper {
     font-size: 1.2rem;
   }
 }
+
+ion-list {
+  overflow: scroll;
+}
+
+ion-content {
+  &::-webkit-scrollbar {
+      display: none!important;
+  }
+}

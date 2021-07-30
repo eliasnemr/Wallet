@@ -57,3 +57,11 @@ ion-item.all-tokens-wrapper ion-label {
   opacity: 0.6;
   font-size: 1.2rem;
 }
+
+ion-list {
+  overflow: scroll;
+}
+
+ion-content::-webkit-scrollbar {
+  display: none !important;
+}

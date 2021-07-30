@@ -57,3 +57,20 @@ div.block {
     }
   }
 }
+
+ion-note {
+  display: block;
+  font-size: 0.7rem;
+  font-family: manrope-light;
+  color: var(--ion-color-warning);
+  opacity: 0.7;
+}
+
+@media screen and (max-width: 280px) {
+  ion-note {
+    padding: 5px;
+  }
+  ion-footer {
+    height: 120px;
+  }
+}

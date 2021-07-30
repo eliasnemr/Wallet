@@ -407,7 +407,7 @@ ion-toolbar ion-title ion-item#subtitle {
 
 ion-footer {
   width: 100%;
-  height: 65px;
+  height: 80px;
   background-color: #001C32;
   color: rgba(240, 240, 250, 0.6);
   display: flex;
@@ -447,9 +447,6 @@ ion-content {
   --offset-bottom: auto!important;
   --overflow: hidden;
   overflow: auto;
-}
-ion-content::-webkit-scrollbar {
-  display: none;
 }
 
 ion-header.page-header ion-toolbar {

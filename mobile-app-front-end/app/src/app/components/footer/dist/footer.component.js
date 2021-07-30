@@ -13,7 +13,7 @@ var FooterComponent = /** @class */ (function () {
     function FooterComponent(minimaApiService, tools) {
         this.minimaApiService = minimaApiService;
         this.tools = tools;
-        this.status = 'Gimme 50';
+        this.status = 'TESTNET50';
         this.miningStarted = false;
         this.miningFinished = false;
         this.showDone = false;
@@ -69,7 +69,7 @@ var FooterComponent = /** @class */ (function () {
         this.minimaApiService.giveMe50().then(function (res) {
             if (res.status) {
                 // this.tools.presentAlert('Gimme50', 'Successful', 'Status');
-                _this.status = 'Gimme 50';
+                _this.status = 'TESTNET50';
                 _this.gimme50Btn.disabled = false;
             }
             else {
@@ -77,7 +77,7 @@ var FooterComponent = /** @class */ (function () {
                 _this.status = 'Unavailable';
                 setTimeout(function () {
                     _this.gimme50Btn.disabled = false;
-                    _this.status = 'Gimme 50';
+                    _this.status = 'TESTNET50';
                 }, 4000);
             }
         });

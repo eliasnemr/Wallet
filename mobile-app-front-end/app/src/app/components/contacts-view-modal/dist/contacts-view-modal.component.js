@@ -30,17 +30,13 @@ var ContactsViewModalComponent = /** @class */ (function () {
     ContactsViewModalComponent.prototype.queryContacts = function (qy) {
         var _this = this;
         qy = qy.toUpperCase();
-        if (qy.length > 0) {
-            this.contacts = this.contacts.filter(function (ele) {
+        this._contactService.loadContacts().then(function (cts) {
+            _this.contacts = cts;
+            _this.contacts = _this.contacts.filter(function (ele) {
                 return ele.NAME.toUpperCase().includes(qy) ||
                     ele.ADDRESS.toUpperCase().includes(qy);
             });
-        }
-        else {
-            this._contactService.data.subscribe(function (res) {
-                _this.contacts = res;
-            });
-        }
+        });
     };
     ContactsViewModalComponent.prototype.copyAddress = function (addr) {
         this.myTools.copy(addr);
