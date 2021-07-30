@@ -1,0 +1,23 @@
+.activate-btn-minus, .activate-btn-add {
+  color: #001C32;
+  text-align: centre;
+  font-size: 1rem;
+}
+
+ion-button {
+  text-transform: none;
+  font-family: manrope-bold;
+}
+
+ion-grid {
+  background-color: #FAFAFF;
+}
+ion-grid ion-row ion-col {
+  border-radius: 5px;
+}
+ion-grid ion-row ion-col:first-child {
+  border-right: 1px solid #001C32;
+}
+ion-grid ion-row ion-col:hover {
+  background-color: #F0F0FA;
+}

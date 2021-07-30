@@ -11,23 +11,27 @@ ion-list {
                 font-size: 1.0em;
                 font-family: manrope-semibold;
             }
+            p {
+                opacity: 0.5;
+                white-space: normal;
+                font-size: 1.0rem;
+                -webkit-user-select: text;  /* Chrome all / Safari all */
+                -moz-user-select: text;     /* Firefox all */
+                -ms-user-select: text;
+                user-select: text;
+            }
         }
     }
 }
-
-.ios ion-list {
-    margin-top: 12px;
-  }
 
 .item .item-content {
     background-color: transparent !important;
   }
 ion-label#name h3 {
     font-family: manrope-bold;
-    font-size: 16px;
+    font-size: 1.0rem;
 }
 ion-list { 
-    margin-top: 10px;
     background-color: transparent;
     background: transparent;
 }
@@ -61,7 +65,7 @@ ion-list ion-item {
 }
 .title {
     font-family: manrope-semibold;
-    font-size: 16px;
+    font-size: 1.0rem;
     float: left;
     text-overflow: ellipsis;
     max-width: inherit;
@@ -79,10 +83,9 @@ ion-list ion-item {
     user-select: text;
     color: var(--ion-color-tertiary);
     opacity: 0.7;
-    font-size: 16px;
+    font-size: 1.0rem;
     font-family: manrope-regular;
     text-align: right;
-    float: right;
     white-space: nowrap;
     text-overflow: ellipsis;
     max-width: inherit;
@@ -90,17 +93,17 @@ ion-list ion-item {
     margin: 0;
     padding: 0;
     p {
+        max-width: 100%;
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
-        font-size: 12px;
+        font-size: 1.0rem;
         opacity: 0.8;
-
+        -webkit-user-select: text;  /* Chrome all / Safari all */
+        -moz-user-select: text;     /* Firefox all */
+        -ms-user-select: text;
+        user-select: text;
     }
-}
-.description {
-    color: var(--ion-color-tertiary);
-    opacity: 0.7;
 }
 .copy {
     text-decoration: underline;
@@ -140,12 +143,6 @@ ion-item.nft-large {
 ion-button.validate-btn {
     text-transform: none;
     color: var(--ion-color-tertiary);
-}
-
-ion-label.description {
-    p {
-        white-space: normal;
-    }
 }
 
 .center {

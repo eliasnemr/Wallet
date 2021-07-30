@@ -42,8 +42,13 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.ImageFilterPipe = void 0;
+exports.ImageFilterPipe = exports.validUrl = void 0;
 var core_1 = require("@angular/core");
+function validUrl(data) {
+    var pattern = new RegExp('(http(s?):)([\\/|\\.|\\w|\\s|\\-])*\.(?:jpg|jpeg|png|gif|svg)$');
+    return !!pattern.test(data);
+}
+exports.validUrl = validUrl;
 var ImageFilterPipe = /** @class */ (function () {
     function ImageFilterPipe(http) {
         this.http = http;
@@ -56,36 +61,46 @@ var ImageFilterPipe = /** @class */ (function () {
         }
         var filterToken = token;
         if (token && token.length > 0) {
-            console.log(token);
             filterToken.forEach(function (token) {
                 if (token.tokenid !== '0x00') {
-                    var size_1 = 0;
-                    var getSize = function () { return __awaiter(_this, void 0, void 0, function () {
-                        return __generator(this, function (_a) {
-                            switch (_a.label) {
-                                case 0: return [4 /*yield*/, this.getImageSize(token.icon)];
-                                case 1:
-                                    size_1 = _a.sent();
-                                    if (size_1 > 10000) {
-                                        console.log('Image too large');
-                                    }
-                                    return [2 /*return*/];
-                            }
-                        });
-                    }); };
-                    getSize();
+                    var isValid = validUrl(token.icon);
+                    if (isValid) {
+                        var size_1 = 0;
+                        var getSize = function () { return __awaiter(_this, void 0, void 0, function () {
+                            return __generator(this, function (_a) {
+                                switch (_a.label) {
+                                    case 0: return [4 /*yield*/, this.getImageSize(token.icon)];
+                                    case 1:
+                                        size_1 = _a.sent();
+                                        if (size_1 > 1000000) {
+                                            console.log(token.icon);
+                                            token.icon = 'avatar';
+                                            // console.log('Image too large');
+                                        }
+                                        return [2 /*return*/];
+                                }
+                            });
+                        }); };
+                        getSize();
+                    }
                 }
             });
         }
         return filterToken;
     };
     ImageFilterPipe.prototype.getImageSize = function (url) {
-        var _this = this;
         return new Promise(function (resolve) {
-            _this.http.get(url, { responseType: 'blob' }).subscribe(function (res) {
-                console.log(res);
-                resolve(res.size);
-            });
+            var fileSize = '';
+            var http = new XMLHttpRequest();
+            http.open('HEAD', url, false);
+            http.send(null);
+            if (http.status === 200) {
+                fileSize = http.getResponseHeader('content-length');
+                resolve(fileSize);
+            }
+            else {
+                resolve('');
+            }
         });
     };
     ImageFilterPipe = __decorate([

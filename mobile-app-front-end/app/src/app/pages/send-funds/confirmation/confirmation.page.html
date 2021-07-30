@@ -12,7 +12,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content *ngIf="!data?.tokenid" class="page-content">
+<ion-content *ngIf="!data?.token && !data?.token.tokenid" class="page-content">
   <ion-row>
     <ion-col class="ion-text-center">
       <ion-label class="invalid">
@@ -22,29 +22,29 @@
   </ion-row>
 </ion-content>
 
-<ion-content *ngIf="data?.tokenid" class="page-content">
+<ion-content *ngIf="data?.token && data?.token.tokenid" class="page-content">
   <ion-list lines="none">
     <ion-item class="ion-no-padding ion-no-margin">
       <ion-avatar>
           <img 
           class="custom-icon-big"
-          *ngIf="data?.tokenid !== '0x00' && tokenIcon.length === 0" 
-          [src]="createIcon( data?.tokenid )"/>
+          *ngIf="data?.token.tokenid !== '0x00' && tokenIcon.length === 0" 
+          [src]="createIcon( data?.token.tokenid )"/>
           <img 
           class="custom-icon-big"
-          *ngIf="data?.tokenid !== '0x00' && tokenIcon.length > 0" 
+          *ngIf="data?.token.tokenid !== '0x00' && tokenIcon.length > 0" 
           [src]="tokenIcon"/>
           <img 
           class="custom-icon-big"
-          *ngIf="data?.tokenid === '0x00'" 
+          *ngIf="data?.token.tokenid === '0x00'" 
           alt="minima"
           src="assets/minimaIcon.svg">
       </ion-avatar>
       <ion-label id="tokenName">
         <h6>{{ tokenName }}</h6>
-        <p *ngIf="data?.tokenid === '0x00'">{{ data?.tokenid }}</p>
-        <p *ngIf="data?.tokenid !== '0x00'">
-          {{ data?.tokenid.substring(0,6) + '...' + data?.tokenid.substring(data?.tokenid.length - 3, data?.tokenid.length) }}
+        <p *ngIf="data?.token.tokenid === '0x00'">{{ data?.token.tokenid }}</p>
+        <p *ngIf="data?.token.tokenid !== '0x00'">
+          {{ data?.token.tokenid.substring(0,6) + '...' + data?.token.tokenid.substring(data?.token.tokenid.length - 3, data?.token.tokenid.length) }}
         </p>
 
       </ion-label>
@@ -60,6 +60,15 @@
       <ion-label>
         <h6>Amount to send</h6>
         <p>{{ data?.amount }}</p>
+      </ion-label>
+      <!-- <ion-label slot="end">
+        {{ availableBalance + ' available to trade.'}}
+      </ion-label> -->
+    </ion-item>
+    <ion-item *ngIf="data?.message && data?.message.length > 0" class="ion-no-padding ion-no-margin">
+      <ion-label id="message">
+        <h6>Public message</h6>
+        <p>{{ data?.message }}</p>
       </ion-label>
       <!-- <ion-label slot="end">
         {{ availableBalance + ' available to trade.'}}

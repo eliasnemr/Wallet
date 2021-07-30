@@ -1,8 +1,8 @@
 import { ToolsService } from './../../service/tools.service';
-import { IonButton, MenuController } from '@ionic/angular';
+import { IonButton, MenuController, Platform } from '@ionic/angular';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MinimaApiService } from '../../service/minima-api.service';
-import { Address, Minima } from 'minima';
+import { Minima } from 'minima';
 
 @Component({
   selector: 'app-my-address',
@@ -23,7 +23,8 @@ export class MyAddressPage implements OnInit {
   constructor(
     public menu: MenuController,
     private myTools: ToolsService,
-    private api: MinimaApiService) {
+    private api: MinimaApiService,
+    public platform: Platform) {
     this.copyStatus = 'Copy Address';
     this.genStatus = 'Generate Address';
     this.isEmpty = false;
@@ -39,6 +40,12 @@ export class MyAddressPage implements OnInit {
           this.newAddress();
         } else {
           this.qrCode = data.address;
+          // console.log(this.qrCode);
+          if (this.qrCode.length > 0) {
+            // console.log('Checking address');
+            // console.log(this.qrCode);
+            this.checkAddress(this.qrCode);
+          }
           this.isEmpty = true;
         }
       } else {
@@ -59,6 +66,15 @@ export class MyAddressPage implements OnInit {
       this.generateAddressBtn.disabled = false;
       this.genStatus = 'Generate Address';
     }, 2000);
+  }
+  public async checkAddress(mAddress: string) {
+    const res: any = await this.api.checkScriptAddress(mAddress);
+
+    if (res) {
+
+    } else {
+      this.newAddress();
+    }
   }
   public newAddress() {
     setTimeout(() => {

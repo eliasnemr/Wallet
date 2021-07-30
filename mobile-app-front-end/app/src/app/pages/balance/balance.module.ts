@@ -1,4 +1,3 @@
-import { ImageFilterPipe } from './../../pipes/image-filter.pipe';
 import {
   SharedComponentsModule,
 } from './../../components/shared-components.module';
@@ -33,7 +32,7 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes),
   ],
-  declarations: [BalancePage, ListViewComponent, ImageFilterPipe],
+  declarations: [BalancePage, ListViewComponent],
 })
 /** */
 export class BalancePageModule {}

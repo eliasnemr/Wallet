@@ -130,4 +130,14 @@ export class ViewTXNPage implements OnInit {
       }
     }, 2000);
   }
+  async checkOutputRelevance(addr: string) {
+    console.log(addr);
+    const res: any = await this.minimaApiService.checkAddressRelevance(addr);
+
+    if (res) {
+      console.log('This is their address');
+    } else {
+      console.log('Not theirs');
+    }
+  }
 }

@@ -14,6 +14,7 @@ var forms_1 = require("@angular/forms");
 var router_1 = require("@angular/router");
 var angular_1 = require("@ionic/angular");
 var view_txn_page_1 = require("./view-txn.page");
+var outgoing_pipe_1 = require("src/app/pipes/outgoing.pipe");
 var routes = [
     {
         path: '',
@@ -33,7 +34,8 @@ var ViewTXNPageModule = /** @class */ (function () {
                 router_1.RouterModule.forChild(routes),
                 shared_components_module_1.SharedComponentsModule,
             ],
-            declarations: [view_txn_page_1.ViewTXNPage]
+            declarations: [view_txn_page_1.ViewTXNPage, outgoing_pipe_1.OutgoingPipe],
+            exports: [outgoing_pipe_1.OutgoingPipe]
         })
         /** */
     ], ViewTXNPageModule);

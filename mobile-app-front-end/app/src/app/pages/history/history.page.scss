@@ -13,6 +13,7 @@ ion-list {
     background-color: transparent;
     margin: 0; 
     padding: 2px;
+    padding-top: 0px;
     ion-item {
         border-bottom: 1px solid var(--ion-color-background);
         --min-height: 75px;
@@ -34,16 +35,17 @@ ion-list {
         div.transaction-type {
             display: flex;
             flex-direction: column;
+            max-width: 100%;
             div.name {
+                max-width: 100%;
                 h6 {
                     padding: 0;
                     margin: 0;
                     padding-bottom: 5px;
-                    line-height: 17px;
-                    max-width: 20vw;
                     text-overflow: ellipsis;
                     white-space: nowrap; 
                     overflow: hidden;
+                    line-height: 17px;
                     font-family: manrope-medium;
                     color: var(--ion-color-tertiary);
                 }
@@ -52,7 +54,6 @@ ion-list {
                 h6 {
                     padding: 0;
                     margin: 0;
-                    max-width: 20vw;
                     text-overflow: ellipsis;
                     white-space: nowrap; 
                     overflow: hidden;

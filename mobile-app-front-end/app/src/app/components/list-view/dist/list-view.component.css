@@ -21,10 +21,10 @@
 }
 
 span.confirmed-amount {
+  width: 100%;
   font-family: manrope-regular;
   color: #9898A3;
   white-space: nowrap;
-  max-width: 30vw;
   text-overflow: ellipsis;
   overflow: hidden;
 }
@@ -39,8 +39,8 @@ ion-avatar {
   margin: 0;
   display: inline-block;
   white-space: nowrap;
-  font-size: 1rem !important;
-  max-width: inherit;
+  font-size: 1rem;
+  max-width: 100%;
   text-overflow: ellipsis;
   overflow: hidden;
   font-family: manrope-bold;
@@ -69,7 +69,6 @@ ion-item ion-label {
 }
 
 ion-item ion-label#token-name {
-  max-width: 220px;
   text-overflow: ellipsis;
   font-family: manrope-medium;
 }
@@ -79,10 +78,10 @@ ion-list {
 }
 
 div.token-wrapper {
+  max-width: 98%;
   color: var(--ion-color-tertiary);
   display: flex;
   flex-direction: column;
-  max-width: 150px;
 }
 
 .blink_me {

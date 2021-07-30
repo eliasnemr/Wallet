@@ -43,9 +43,11 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 exports.ContactsPage = void 0;
+var contact_detail_component_1 = require("./../../components/contact-detail/contact-detail.component");
 var pop_contacts_component_1 = require("./../../components/pop-contacts/pop-contacts.component");
 var contacts_modal_page_1 = require("./../../components/contacts-modal/contacts-modal.page");
 var core_1 = require("@angular/core");
+var SparkMD5 = require("spark-md5");
 var ContactsPage = /** @class */ (function () {
     function ContactsPage(menu, modalController, popoverController, alertController, contactService, api, myTools) {
         this.menu = menu;
@@ -55,9 +57,9 @@ var ContactsPage = /** @class */ (function () {
         this.contactService = contactService;
         this.api = api;
         this.myTools = myTools;
-        this.editMode = false;
         this.contacts = [];
         this.copyStatus = 'Copy';
+        this.editMode = false;
     }
     ContactsPage.prototype.ngOnInit = function () { };
     ContactsPage.prototype.ionViewWillEnter = function () {
@@ -98,17 +100,13 @@ var ContactsPage = /** @class */ (function () {
     ContactsPage.prototype.queryContacts = function (qy) {
         var _this = this;
         qy = qy.toUpperCase();
-        if (qy.length > 0) {
-            this.contacts = this.contacts.filter(function (ele) {
+        this.contactService.loadContacts().then(function (cts) {
+            _this.contacts = cts;
+            _this.contacts = _this.contacts.filter(function (ele) {
                 return ele.NAME.toUpperCase().includes(qy) ||
                     ele.ADDRESS.toUpperCase().includes(qy);
             });
-        }
-        else {
-            this.contactService.data.subscribe(function (res) {
-                _this.contacts = res;
-            });
-        }
+        });
     };
     ContactsPage.prototype.presentAlert = function (addr) {
         return __awaiter(this, void 0, void 0, function () {
@@ -161,6 +159,29 @@ var ContactsPage = /** @class */ (function () {
             });
         });
     };
+    ContactsPage.prototype.presentContactDetail = function (contact) {
+        return __awaiter(this, void 0, void 0, function () {
+            var modal;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.modalController.create({
+                            component: contact_detail_component_1.ContactDetailComponent,
+                            componentProps: {
+                                name: contact.NAME,
+                                address: contact.ADDRESS,
+                                description: contact.DESCRIPTION,
+                                avatar: contact.AVATAR
+                            },
+                            cssClass: 'contactDetailModal'
+                        })];
+                    case 1:
+                        modal = _a.sent();
+                        return [4 /*yield*/, modal.present()];
+                    case 2: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
     ContactsPage.prototype.copy = function (data) {
         var _this = this;
         this.copyStatus = 'Copied!';
@@ -169,6 +190,9 @@ var ContactsPage = /** @class */ (function () {
         setTimeout(function () {
             _this.copyStatus = 'Copy';
         }, 2000);
+    };
+    ContactsPage.prototype.createIcon = function (tokenid) {
+        return 'https://www.gravatar.com/avatar/' + SparkMD5.hash(tokenid) + '?d=identicon';
     };
     __decorate([
         core_1.ViewChild('contactList', { static: false })

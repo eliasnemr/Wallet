@@ -31,13 +31,17 @@
     <ion-item *ngIf="expand" class="ion-no-padding ion-no-margin nft-large">
       <div (click)="expandImage()">
         <ion-icon name="resize-outline"></ion-icon>
-        <img 
+          <img
           class="custom-icon-big"
-          *ngIf="token?.tokenid !== '0x00' && token?.icon.length == 0" 
+          *ngIf="token?.tokenid !== '0x00' && token?.icon.length === 0" 
           [src]="createIcon( token?.tokenid )"/>
           <img 
           class="custom-icon-big"
-          *ngIf="token?.tokenid !== '0x00' && token?.icon.length > 0" 
+          *ngIf="token?.tokenid !== '0x00' && token?.icon.length > 0 && token?.icon === 'avatar'" 
+          [src]="createIcon( token?.tokenid )"/>
+          <img 
+          class="custom-icon-big"
+          *ngIf="token?.tokenid !== '0x00' && token?.icon.length > 0 && token?.icon !== 'avatar'" 
           [src]="token?.icon"/>
           <img 
           class="custom-icon-big"
@@ -46,9 +50,7 @@
           src="assets/minimaIcon.svg">
       </div>
     </ion-item>
-    <ion-item 
-    class="ion-no-padding" 
-    color="none">
+    <ion-item class="ion-no-padding" color="none">
       <ion-avatar slot="start" (click)="expandImage()">
         <ion-icon  name="expand-outline"></ion-icon>
         <img 
@@ -74,8 +76,10 @@
     *ngIf="token?.description && token?.description.length > 0" 
     color="none">
       <ion-label class="description">
-        <h6>Token Description</h6>
-        <p class="description">{{ token?.description }}</p>      
+        <h6>
+          Token Description
+        </h6>
+        <p>{{ token?.description }}</p>      
       </ion-label>
     </ion-item>
     <ion-item color="none" class="ion-no-padding">
@@ -83,7 +87,9 @@
         Name
       </ion-col>
       <ion-col class="value">
-        {{token?.token}}
+        <p>
+          {{token?.token}}
+        </p>
       </ion-col>
     </ion-item>
     <ion-item color="none" class="ion-no-padding">
@@ -97,7 +103,9 @@
       </a>
       </ion-col>
       <ion-col class="value">
-        {{token?.tokenid}}
+        <p>
+          {{token?.tokenid}}
+        </p>
       </ion-col>
     </ion-item>
     <ion-item 
@@ -113,7 +121,9 @@
       </a>
       </ion-col>
       <ion-col class="minima-numeric value">
-        {{token?.coinid}}
+        <p>
+          {{token?.coinid}}
+        </p>
       </ion-col>
     </ion-item>
     <ion-item color="none" class="ion-no-padding">
@@ -121,7 +131,9 @@
         Total Supply
       </ion-col>
       <ion-col class="minima-numeric value">
-        <h6 class="ion-no-padding ion-no-margin"> {{ token?.total }}</h6>
+        <p>
+          {{ token?.total }}
+        </p>
       </ion-col>
     </ion-item>
     <ion-item *ngIf="token?.totalamount" color="none" class="ion-no-padding">
@@ -129,7 +141,9 @@
         Total Supply (Minima)
       </ion-col>
       <ion-col class="minima-numeric value">
-        <h6 class="ion-no-padding ion-no-margin"> {{ token?.totalamount }}</h6>
+        <p>
+          {{ token?.totalamount }}
+        </p>
       </ion-col>
     </ion-item>
     <ion-item *ngIf="token?.scale" color="none" class="ion-no-padding">
@@ -137,7 +151,9 @@
         Scale
       </ion-col>
       <ion-col class="minima-numeric value">
-        {{ token?.scale }}  
+        <p>
+          {{ token?.scale }}  
+        </p>
       </ion-col>
     </ion-item>
     <ion-item *ngIf="token?.confirmed" color="none" class="ion-no-padding">
@@ -145,7 +161,9 @@
         Confirmed Amount
       </ion-col>
       <ion-col class="minima-numeric value">
-        {{token?.confirmed}}
+        <p>
+          {{token?.confirmed}}
+        </p>
       </ion-col>
     </ion-item>
     <ion-item *ngIf="token?.unconfirmed" color="none" class="ion-no-padding">
@@ -153,7 +171,9 @@
         Unconfirmed Amount
       </ion-col>
       <ion-col class="minima-numeric value">
-        {{token?.unconfirmed}}
+        <p>
+          {{token?.unconfirmed}}
+        </p>
       </ion-col>
     </ion-item>
     <ion-item *ngIf="token?.sendable" color="none" class="ion-no-padding">
@@ -161,7 +181,9 @@
         Sendable Amount
       </ion-col>
       <ion-col class="value minima-numeric">
-        {{token?.sendable}}
+        <p>
+          {{token?.sendable}}
+        </p>
       </ion-col>
     </ion-item>
     <ion-item color="none" class="ion-no-padding">
@@ -169,7 +191,9 @@
         Mempool Amount
       </ion-col>
       <ion-col *ngIf="token?.mempool" class="minima-numeric value">
-        {{token?.mempool}}
+        <p>
+          {{token?.mempool}}
+        </p>
       </ion-col>
     </ion-item>
     <ion-item *ngIf="token?.scale" color="none" class="ion-no-padding">
@@ -177,10 +201,14 @@
         Token Type
       </ion-col>
       <ion-col *ngIf="token?.scale !== '44'" class="value">
-        Value transfer
+        <p>
+          Value transfer
+        </p>
       </ion-col>
       <ion-col *ngIf="token?.scale === '44'" class="value nft">
-        NFT
+        <p>
+          NFT
+        </p>
       </ion-col>
     </ion-item>
     <ion-item *ngIf="token?.tokenid !== '0x00' && token?.proof" color="none" class="ion-no-padding">
@@ -188,7 +216,9 @@
         Proof
       </ion-col>
       <ion-col class="value">
-        {{token?.proof}}
+        <p>
+          {{token?.proof}}
+        </p>
       </ion-col>
     </ion-item>
     <ion-item 

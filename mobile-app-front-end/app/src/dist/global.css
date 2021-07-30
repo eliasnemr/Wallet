@@ -69,6 +69,43 @@ input[type=number]::-webkit-outer-spin-button {
   background-color: var(--ion-color-item-hover);
 }
 
+.contactsModal .modal-wrapper {
+  height: 70%;
+  border-radius: 15px;
+}
+
+.contactDetailModal .modal-wrapper {
+  height: 43%;
+  border-radius: 15px;
+}
+
+.allTokenModal .modal-wrapper {
+  height: 70%;
+  border-radius: 15px;
+}
+
+@media only screen and (max-width: 992px) {
+  .contactsModal .modal-wrapper {
+    height: 70%;
+    border-radius: 15px;
+  }
+}
+@media only screen and (max-width: 765px) {
+  .contactDetailModal .modal-wrapper {
+    margin-left: 25px;
+    margin-right: 25px;
+  }
+
+  .allTokenModal .modal-wrapper {
+    margin-left: 25px;
+    margin-right: 25px;
+  }
+
+  .contactsModal .modal-wrapper {
+    border-radius: 0;
+    height: 100%;
+  }
+}
 .customToastClass {
   --border-radius: 0;
 }
@@ -81,4 +118,26 @@ input[type=number]::-webkit-outer-spin-button {
     --start: 0;
     transform: translateY(-83px) !important;
   }
+}
+.searchbar-input.sc-ion-searchbar-md {
+  padding-right: 0;
+}
+
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px linear-gradient(to bottom, #697597 0%, var(--ion-color-primary) 100%) !important;
+  border-radius: 10px !important;
+  background-color: var(--ion-color-tertiary) !important;
+  opacity: 0.7;
+}
+
+::-webkit-scrollbar {
+  width: 10px !important;
+  background-color: linear-gradient(to bottom, var(--ion-color-tertiary) 0%, #5260ff 100%) !important;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px !important;
+  -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.3) !important;
+  background-color: #F0F0FA !important;
+  opacity: 0.3;
 }

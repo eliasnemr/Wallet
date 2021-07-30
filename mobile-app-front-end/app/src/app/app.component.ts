@@ -1,3 +1,4 @@
+import { AlertController } from '@ionic/angular';
 import {MinimaApiService} from './service/minima-api.service';
 import {ToolsService} from './service/tools.service';
 import {environment} from './../environments/environment.prod';
@@ -31,7 +32,8 @@ export class AppComponent {
   /** */
   constructor(
     public tools: ToolsService,
-    private minimaApiService: MinimaApiService) {
+    private minimaApiService: MinimaApiService,
+    public alertController: AlertController) {
     this.nodeStatus = false;
     this.getPages();
     this.initializeApp();
@@ -43,6 +45,7 @@ export class AppComponent {
   }
   /** initializeApplication */
   initializeApp() {
+    // this.addToHSListener();
     this.initMinima();
   }
   /** initMinima Function */
@@ -52,7 +55,7 @@ export class AppComponent {
         const msZero = 0;
         const msTimer = 3000;
         const source = timer(msZero, msTimer);
-        this.$overlaySubscription = source.subscribe((val) => {
+        this.$overlaySubscription = source.subscribe(() => {
           if (Minima.block === 0) {
             this.nodeStatus = false;
           } else if (!this.nodeStatus && Minima.block > 0) {
@@ -72,10 +75,6 @@ export class AppComponent {
           'finished': false,
         };
         this.minimaApiService.$miningStatus.next(miningStatus);
-        // this.tools.presentMiningToast(
-        //     'Started to mine your transaction.',
-        //     'primary',
-        //     'bottom');
       } else if (msg.event === 'miningstop') {
         const miningStatus = {
           'started': false,

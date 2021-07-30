@@ -1,5 +1,5 @@
 import {
-  SharedComponentsModule
+  SharedComponentsModule,
 } from './../../../components/shared-components.module';
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
@@ -8,6 +8,7 @@ import {Routes, RouterModule} from '@angular/router';
 
 import {IonicModule} from '@ionic/angular';
 import {ViewTXNPage} from './view-txn.page';
+import { OutgoingPipe } from 'src/app/pipes/outgoing.pipe';
 
 
 const routes: Routes = [
@@ -25,7 +26,8 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     SharedComponentsModule,
   ],
-  declarations: [ViewTXNPage],
+  declarations: [ViewTXNPage, OutgoingPipe],
+  exports: [OutgoingPipe],
 })
 /** */
 export class ViewTXNPageModule {}

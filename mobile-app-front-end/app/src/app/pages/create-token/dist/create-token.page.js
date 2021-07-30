@@ -45,6 +45,7 @@ exports.__esModule = true;
 exports.CreateTokenPage = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
+var url_validator_1 = require("../../shared/url.validator");
 var CreateTokenPage = /** @class */ (function () {
     function CreateTokenPage(menu, api, formBuilder, myTools, http) {
         this.menu = menu;
@@ -112,7 +113,8 @@ var CreateTokenPage = /** @class */ (function () {
                         res = _a.sent();
                         if (res.status) {
                             this.myTools.presentAlert('Success', 'Token ' +
-                                this.customToken.name + ' has been created.', 'Token Creation Status');
+                                this.customToken.name +
+                                ' has been created.', 'Token Creation Status');
                             this.creationStatus = 'Token created!';
                             this.resetForm();
                         }
@@ -165,6 +167,7 @@ var CreateTokenPage = /** @class */ (function () {
             icon: ['', [
                     forms_1.Validators.pattern('(http(s?):)([\\/|\\.|\\w|\\s|\\-])*\.(?:jpg|jpeg|png|gif|svg)$'),
                     forms_1.Validators.maxLength(255),
+                    url_validator_1.checkImage(),
                 ]],
             proof: ['', [
                     forms_1.Validators.pattern('(http(s?):)([\\/|\\.|\\w|\\s|\\-])*\.(?:txt)$'),

@@ -4,6 +4,7 @@ ion-input {
   background-color: var(--ion-color-inputs);
   border: 1px solid #f0f0fa;
   padding-left: 10px!important;
+  padding-right: 25px!important;
 }
 ion-list {
   ion-item {
@@ -18,6 +19,13 @@ ion-list {
       font-family: manrope-bold;
       white-space: normal;
       margin-bottom: 10px;
+    }
+  }
+}
+.ios ion-list {
+  ion-item {
+    ion-label {
+      font-size: 1.0rem;
     }
   }
 }

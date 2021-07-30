@@ -12,6 +12,7 @@ ion-list {
     color: var(--ion-color-primary);
     font-family: manrope-bold;
     padding-left: 14px;
+    font-size: 1.0rem;
   }
   ion-item {
     --background: #F9F9FE;
@@ -28,5 +29,11 @@ ion-list {
   }
   ion-item:hover {
     --background: #F0F0FA;
+  }
+}
+
+.ios ion-list {
+  ion-list-header {
+    font-size: 1.0rem;
   }
 }

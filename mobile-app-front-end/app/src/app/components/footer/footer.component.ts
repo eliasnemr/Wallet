@@ -1,6 +1,6 @@
 import { Subscription } from 'rxjs';
 import { IonButton } from '@ionic/angular';
-import { ToolsService } from './../../service/tools.service';
+import { ToolsService, FooterStatus } from './../../service/tools.service';
 import { MinimaApiService, Mining } from './../../service/minima-api.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 
@@ -16,13 +16,15 @@ export class FooterComponent implements OnInit {
   public miningFinished: boolean;
   public showDone: boolean;
   public showMining: boolean;
+  public showFooter: boolean;
   public $mining: Subscription;
+  public $footerStatus: Subscription;
   status: string;
   /** */
   constructor(
     private minimaApiService: MinimaApiService,
     private tools: ToolsService) {
-    this.status = 'Gimme 50';
+    this.status = 'TESTNET50';
     this.miningStarted = false;
     this.miningFinished = false;
     this.showDone = false;
@@ -31,14 +33,35 @@ export class FooterComponent implements OnInit {
 
   /** */
   ngOnInit() {
+    this.$footerStatus =
+    this.tools.showFooterSubject.subscribe((fStatus: FooterStatus) => {
+      this.showFooter = fStatus.status;
+    });
+
     this.$mining =
     this.minimaApiService.$miningStatus.subscribe((status: Mining) => {
       if (status.started) {
         this.miningStarted = true;
         this.miningFinished = false;
+        this.tools.getFooterSubjectOnce().subscribe((status: FooterStatus) => {
+          // If it's not open, open it, and wasOpened = false
+          if (!status.status) {
+            this.tools.showFooterSubject.next({status: true, wasOpened: false});
+          }
+        });
       } else if (status.finished) {
         this.miningStarted = false;
         this.miningFinished = true;
+        this.tools.getFooterSubjectOnce().subscribe((status: FooterStatus) => {
+          // If it's open, (should be) and it wasn't open.. close it
+          if (status.status &&
+              status.wasOpened !== undefined &&
+              !status.wasOpened) {
+            setTimeout(() => {
+              this.tools.showFooterSubject.next({status: false});
+            }, 2000);
+          }
+        });
       } else {
         this.miningStarted = false;
         this.miningFinished = false;
@@ -50,25 +73,6 @@ export class FooterComponent implements OnInit {
     this.$mining.unsubscribe();
   }
 
-  ionViewWillEnter() {
-    // console.log('Footer page');
-    this.$mining =
-    this.minimaApiService.$miningStatus.subscribe((status: Mining) => {
-      console.log('Mining Status changed!');
-      if (status.started) {
-        this.miningStarted = true;
-        this.miningFinished = false;
-      } else if (status.finished) {
-        this.miningFinished = true;
-        this.miningStarted = false;
-      }
-    });
-  }
-  ionViewWillLeave() {
-    if (this.$mining) {
-      this.$mining.unsubscribe();
-    }
-  }
   /** Give user testnet money */
   gimme50() {
     this.status = '';
@@ -76,17 +80,24 @@ export class FooterComponent implements OnInit {
     this.minimaApiService.giveMe50().then((res: any) => {
       if (res.status) {
         // this.tools.presentAlert('Gimme50', 'Successful', 'Status');
-        this.status = 'Gimme 50';
+        this.status = 'TESTNET50';
         this.gimme50Btn.disabled = false;
       } else {
         this.tools.presentAlert('Gimme50', res.message, 'Status');
         this.status = 'Unavailable';
         setTimeout(() => {
           this.gimme50Btn.disabled = false;
-          this.status = 'Gimme 50';
+          this.status = 'TESTNET50';
         }, 4000);
       }
     });
+  }
+  updateFooterStatus() {
+    if (!this.showFooter) {
+      this.tools.showFooterSubject.next({status: true});
+    } else {
+      this.tools.showFooterSubject.next({status: false});
+    }
   }
   showMiningText() {
     (this.showMining ? this.showMining = false : this.showMining = true);

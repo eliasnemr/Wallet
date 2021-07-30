@@ -14,9 +14,10 @@ var rxjs_1 = require("rxjs");
 var prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
 var AppComponent = /** @class */ (function () {
     /** */
-    function AppComponent(tools, minimaApiService) {
+    function AppComponent(tools, minimaApiService, alertController) {
         this.tools = tools;
         this.minimaApiService = minimaApiService;
+        this.alertController = alertController;
         this.toggleValue = false;
         this.currentMode = false;
         this.environment = environment_prod_1.environment;
@@ -31,6 +32,7 @@ var AppComponent = /** @class */ (function () {
     };
     /** initializeApplication */
     AppComponent.prototype.initializeApp = function () {
+        // this.addToHSListener();
         this.initMinima();
     };
     /** initMinima Function */
@@ -41,7 +43,7 @@ var AppComponent = /** @class */ (function () {
                 var msZero = 0;
                 var msTimer = 3000;
                 var source = rxjs_1.timer(msZero, msTimer);
-                _this.$overlaySubscription = source.subscribe(function (val) {
+                _this.$overlaySubscription = source.subscribe(function () {
                     if (minima_1.Minima.block === 0) {
                         _this.nodeStatus = false;
                     }
@@ -63,10 +65,6 @@ var AppComponent = /** @class */ (function () {
                     'finished': false
                 };
                 _this.minimaApiService.$miningStatus.next(miningStatus);
-                // this.tools.presentMiningToast(
-                //     'Started to mine your transaction.',
-                //     'primary',
-                //     'bottom');
             }
             else if (msg.event === 'miningstop') {
                 var miningStatus_1 = {

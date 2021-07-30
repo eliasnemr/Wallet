@@ -9,11 +9,11 @@
 }
 ion-list.tools {
   padding:0;
-  padding-top: 7px;
+  padding-top: 12px;
 }
 ion-list.tools ion-item {
   --padding-start: 27px;
-  --inner-padding-end: 27px;
+  --inner-padding-end: 25px;
 }
 ion-item.contactItem {
   padding: 0;
@@ -40,21 +40,22 @@ ion-item-option div.block {
   display: inline-block;
   vertical-align: middle;
   text-align: center;
-  font-size: 0.875rem;
   min-width: 56px;
 }
 ion-item-option div.block ion-icon {
   font-size: 1.5rem;
 }
-ion-icon.trashIcon {
+ion-item-option.trashIcon {
+  background-color: var(--ion-color-danger);
   cursor: pointer;
-  color: var(--ion-color-tertiary);
+  z-index: 10000;
+  ion-icon {
+    color: #f0f0fa;
+  }
 }
 ion-icon.export {
   cursor: pointer;
   color: var(--ion-color-tertiary);
-  position: absolute;
-  right: 0;
 }
 ion-icon.trashIcon:hover {
   color: var(--ion-color-secondary);

@@ -3,11 +3,12 @@
   "index": "/index.html",
   "assetGroups": [
     {
-      "name": "app",
+      "name": "Wallet",
       "installMode": "prefetch",
       "resources": {
         "files": [
-          
+          "/favicon.ico",
+          "/manifest.webmanifest",
           "/index.html",
           "/*.css",
           "/*.js"

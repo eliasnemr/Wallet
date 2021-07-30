@@ -4,6 +4,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MinimaApiService } from '../../service/minima-api.service';
 import { IonButton, MenuController, IonContent } from '@ionic/angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { checkImage } from '../../shared/url.validator';
 
 interface AdvancedFormInputsCheck {
   description: boolean;
@@ -20,6 +21,8 @@ interface CustomToken {
   script: string;
   description: string;
 }
+
+
 @Component({
   selector: 'app-create-token',
   templateUrl: './create-token.page.html',
@@ -99,7 +102,8 @@ export class CreateTokenPage implements OnInit {
       const res: any = await this.api.createToken(newToken);
       if (res.status) {
         this.myTools.presentAlert('Success', 'Token ' +
-          this.customToken.name+' has been created.', 'Token Creation Status');
+          this.customToken.name +
+          ' has been created.', 'Token Creation Status');
         this.creationStatus = 'Token created!';
         this.resetForm();
       } else {
@@ -149,6 +153,7 @@ export class CreateTokenPage implements OnInit {
         Validators.pattern(
             '(http(s?):)([\\/|\\.|\\w|\\s|\\-])*\.(?:jpg|jpeg|png|gif|svg)$'),
         Validators.maxLength(255),
+        checkImage(),
       ]],
       proof: ['', [
         Validators.pattern('(http(s?):)([\\/|\\.|\\w|\\s|\\-])*\.(?:txt)$'),
@@ -185,5 +190,4 @@ export class CreateTokenPage implements OnInit {
   get myNft() {
     return this.tokenCreationForm.get('nft');
   }
-
 }

@@ -13,7 +13,7 @@ var FooterComponent = /** @class */ (function () {
     function FooterComponent(minimaApiService, tools) {
         this.minimaApiService = minimaApiService;
         this.tools = tools;
-        this.status = 'Gimme 50';
+        this.status = 'TESTNET50';
         this.miningStarted = false;
         this.miningFinished = false;
         this.showDone = false;
@@ -22,15 +22,35 @@ var FooterComponent = /** @class */ (function () {
     /** */
     FooterComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.$footerStatus =
+            this.tools.showFooterSubject.subscribe(function (fStatus) {
+                _this.showFooter = fStatus.status;
+            });
         this.$mining =
             this.minimaApiService.$miningStatus.subscribe(function (status) {
                 if (status.started) {
                     _this.miningStarted = true;
                     _this.miningFinished = false;
+                    _this.tools.getFooterSubjectOnce().subscribe(function (status) {
+                        // If it's not open, open it, and wasOpened = false
+                        if (!status.status) {
+                            _this.tools.showFooterSubject.next({ status: true, wasOpened: false });
+                        }
+                    });
                 }
                 else if (status.finished) {
                     _this.miningStarted = false;
                     _this.miningFinished = true;
+                    _this.tools.getFooterSubjectOnce().subscribe(function (status) {
+                        // If it's open, (should be) and it wasn't open.. close it
+                        if (status.status &&
+                            status.wasOpened !== undefined &&
+                            !status.wasOpened) {
+                            setTimeout(function () {
+                                _this.tools.showFooterSubject.next({ status: false });
+                            }, 2000);
+                        }
+                    });
                 }
                 else {
                     _this.miningStarted = false;
@@ -41,27 +61,6 @@ var FooterComponent = /** @class */ (function () {
     FooterComponent.prototype.ngOnDestroy = function () {
         this.$mining.unsubscribe();
     };
-    FooterComponent.prototype.ionViewWillEnter = function () {
-        var _this = this;
-        // console.log('Footer page');
-        this.$mining =
-            this.minimaApiService.$miningStatus.subscribe(function (status) {
-                console.log('Mining Status changed!');
-                if (status.started) {
-                    _this.miningStarted = true;
-                    _this.miningFinished = false;
-                }
-                else if (status.finished) {
-                    _this.miningFinished = true;
-                    _this.miningStarted = false;
-                }
-            });
-    };
-    FooterComponent.prototype.ionViewWillLeave = function () {
-        if (this.$mining) {
-            this.$mining.unsubscribe();
-        }
-    };
     /** Give user testnet money */
     FooterComponent.prototype.gimme50 = function () {
         var _this = this;
@@ -70,7 +69,7 @@ var FooterComponent = /** @class */ (function () {
         this.minimaApiService.giveMe50().then(function (res) {
             if (res.status) {
                 // this.tools.presentAlert('Gimme50', 'Successful', 'Status');
-                _this.status = 'Gimme 50';
+                _this.status = 'TESTNET50';
                 _this.gimme50Btn.disabled = false;
             }
             else {
@@ -78,10 +77,18 @@ var FooterComponent = /** @class */ (function () {
                 _this.status = 'Unavailable';
                 setTimeout(function () {
                     _this.gimme50Btn.disabled = false;
-                    _this.status = 'Gimme 50';
+                    _this.status = 'TESTNET50';
                 }, 4000);
             }
         });
+    };
+    FooterComponent.prototype.updateFooterStatus = function () {
+        if (!this.showFooter) {
+            this.tools.showFooterSubject.next({ status: true });
+        }
+        else {
+            this.tools.showFooterSubject.next({ status: false });
+        }
     };
     FooterComponent.prototype.showMiningText = function () {
         var _this = this;

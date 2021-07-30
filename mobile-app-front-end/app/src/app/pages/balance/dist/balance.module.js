@@ -7,7 +7,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 exports.__esModule = true;
 exports.BalancePageModule = void 0;
-var image_filter_pipe_1 = require("./../../pipes/image-filter.pipe");
 var shared_components_module_1 = require("./../../components/shared-components.module");
 var core_1 = require("@angular/core");
 var common_1 = require("@angular/common");
@@ -40,7 +39,7 @@ var BalancePageModule = /** @class */ (function () {
                 angular_1.IonicModule,
                 router_1.RouterModule.forChild(routes),
             ],
-            declarations: [balance_page_1.BalancePage, list_view_component_1.ListViewComponent, image_filter_pipe_1.ImageFilterPipe]
+            declarations: [balance_page_1.BalancePage, list_view_component_1.ListViewComponent]
         })
         /** */
     ], BalancePageModule);

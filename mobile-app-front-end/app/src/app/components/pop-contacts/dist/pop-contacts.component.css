@@ -12,6 +12,7 @@ ion-list ion-list-header {
   color: var(--ion-color-primary);
   font-family: manrope-bold;
   padding-left: 14px;
+  font-size: 1rem;
 }
 ion-list ion-item {
   --background: #F9F9FE;
@@ -28,4 +29,8 @@ ion-list ion-item input {
 }
 ion-list ion-item:hover {
   --background: #F0F0FA;
+}
+
+.ios ion-list ion-list-header {
+  font-size: 1rem;
 }

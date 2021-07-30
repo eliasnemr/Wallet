@@ -40,9 +40,6 @@ ion-grid ion-row {
     align-items: left;
     justify-content: left;
 }
-ion-grid ion-row:first-child {
-  margin-top: 5px;
-}
 input.qrcode-box {
   background-color: var(--ion-color-inputs);
   color: #000;

@@ -1,3 +1,5 @@
+import { AllTokensSelectorComponent } from './../../components/all-tokens-selector/all-tokens-selector.component';
+import { TokenModalComponent } from './../../components/token-modal/token-modal.component';
 import {
   SharedComponentsModule,
 } from './../../components/shared-components.module';
@@ -32,7 +34,9 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     SharedComponentsModule,
   ],
-  declarations: [SendFundsPage],
+  declarations: [SendFundsPage, TokenModalComponent,
+    AllTokensSelectorComponent],
+  entryComponents: [TokenModalComponent],
 })
 /** */
 export class SendFundsPageModule {}

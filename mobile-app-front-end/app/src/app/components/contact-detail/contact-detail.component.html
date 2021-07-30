@@ -1,0 +1,107 @@
+<ion-header mode="md" class="page-header ion-no-border">
+  <ion-toolbar>
+    <ion-title>
+      <ion-item id="title" lines="none" class="ion-no-padding ion-no-margin">
+        <h6>
+          {{ contactName }}
+        </h6>
+        <span (click)="modalController.dismiss()" class="dismiss" slot="end">Dismiss</span>
+      </ion-item>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="page-content">
+  <div class="avatar">
+    <ion-avatar (click)="!editAvatar ? editAvatar = true : null" slot="start">
+      <ion-icon name="pencil-outline"></ion-icon>
+      <img
+      *ngIf="contactAvatar.length > 0"
+      [src]="contactAvatar.length > 0 ? contactAvatar : createIcon( contactAddress )" 
+      class="custom-icon"/>
+      <img
+      *ngIf="contactAvatar.length === 0"
+      [src]="createIcon( contactAddress )" 
+      class="custom-icon"/>
+    </ion-avatar>
+  </div>
+<ion-list *ngIf="editAvatar">
+  <form *ngIf="editAvatarForm"
+    [formGroup]="editAvatarForm" 
+    id="editAvatarForm" 
+    (ngSubmit)="updateAvatar(contactAddress, modalController)">
+
+    <ion-list class="ion-no-padding ion-no-margin">
+      <ion-item class="ion-no-padding ion-no-margin" lines="none">
+        <ion-label position="stacked">Avatar URL</ion-label>
+        <ion-input placeholder="Enter a custom avatar URL" formControlName="url"></ion-input>
+      </ion-item>
+      <ion-item class="error ion-no-padding" lines="none" *ngIf="url.invalid && url.touched">
+        <ion-note class="error-message">
+          <div> Invalid URL!</div>
+          <div *ngIf="!url.hasError('invalidUrl')">Maximum length of 255 characters. URL must end in .jpg, .png, .gif or .svg to be valid.</div>
+        <div *ngIf="url.hasError('invalidUrl')">Maximum image size of 1MB</div> 
+        </ion-note>
+      </ion-item>
+      <ion-button 
+      #cancelBtn
+      fill="clear"
+      *ngIf="editAvatar" 
+      id="cancelBtn" 
+      (click)="editAvatar ? editAvatar = false : null">Cancel</ion-button>
+      <ion-button 
+      #updateBtn
+      fill="clear" 
+      *ngIf="editAvatar" 
+      id="updateBtn"
+      type="submit">
+      <span *ngIf="statusAvatar !== 'Updating...'">
+        {{statusAvatar}}
+      </span>
+      <ion-spinner *ngIf="statusAvatar === 'Updating...'" name="crescent"></ion-spinner>
+    </ion-button>
+    </ion-list>
+  </form>
+</ion-list>
+<ion-list class="ion-no-padding ion-no-margin">
+  <ion-item class="ion-no-padding ion-no-margin" lines="none">
+    <ion-label position="stacked">Address</ion-label>
+    <p>{{ contactAddress }}</p>
+  </ion-item>
+  <ion-item class="ion-no-padding ion-no-margin" lines="none">
+    <ion-label position="stacked">Description</ion-label>
+    <p id="editText" (click)="!edit ? edit = true : null" *ngIf="contactDescription.length > 0 && !edit">{{ contactDescription }}</p>
+    <div class="edit">
+      <p
+      id="editText"
+      *ngIf="contactDescription.length === 0 && !edit" 
+      (click)="!edit ? edit = true : null">Click here to edit.</p>
+      <ion-textarea 
+      *ngIf="edit" 
+      placeholder="Enter contact's description here"
+      [(ngModel)]="contactDescription"
+      [value]="contactDescription && contactDescription.length > 0 ? contactDescription : ''"
+      name="contactDescription"></ion-textarea>
+      <ion-button 
+      #cancelBtn
+      fill="clear"
+      *ngIf="edit" 
+      id="cancelBtn" 
+      (click)="edit ? edit = false : null">Cancel</ion-button>
+      <ion-button
+      #updateBtn
+      fill="clear" 
+      *ngIf="edit"
+      id="updateBtn"
+      (click)="updateDetails(contactAddress)">
+      <span *ngIf="status !== 'Updating...'">
+        {{status}}
+      </span>
+      <ion-spinner *ngIf="status === 'Updating...'" name="crescent"></ion-spinner>
+    </ion-button>
+    </div>
+
+    {{newDescription}}
+  </ion-item>
+</ion-list>
+</ion-content>

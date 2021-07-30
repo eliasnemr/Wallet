@@ -1,3 +1,4 @@
+import { ModalController } from '@ionic/angular';
 import { Subject, ReplaySubject } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { Minima } from 'minima';
@@ -18,10 +19,11 @@ export interface SelectedAddress {
   providedIn: 'root',
 })
 export class ContactService {
+  readonly duplicateError = 'org.h2.jdbc.JdbcSQLIntegrityConstraintViolationException: Unique index or primary key violation';
   public selectedAddress: Subject<SelectedAddress>;
   public data: Subject<Contact[]>;
   qContacts: string;
-  constructor() { 
+  constructor() {
     this.data = new ReplaySubject<Contact[]>(1);
     this.selectedAddress = new ReplaySubject<SelectedAddress>(1);
     this.initSQL();
@@ -73,13 +75,36 @@ export class ContactService {
       "'" + newContact.AVATAR + "')";
     }
 
-    Minima.sql(this.qContacts + ';SELECT * FROM CONTACTS ORDER BY NAME',
-        (res: any) => {
-        // console.log(res);
-          if (res.status && res.response[0].status) {
-            this.data.next(res.response[1].rows ? res.response[1].rows : []);
+    return new Promise((resolve) => {
+      try {
+        Minima.sql(this.qContacts +
+          ';SELECT * FROM CONTACTS ORDER BY NAME', (res: any) => {
+          // console.log(res);
+          if (res.status && res.response.length === 1) {
+            // It failed
+            if (!res.response[0].status &&
+              res.response[0].message.substring(0, 95) ===
+              this.duplicateError) {
+              resolve('Duplicate');
+            } else if (!res.response[0].status &&
+                res.response[0].message.substring(0, 95) !==
+                this.duplicateError) {
+              resolve(false);
+            }
+          } else if (res.status && res.response.length === 2) {
+            // it worked
+            if (Minima.util.checkAllResponses(res)) {
+              this.data.next(res.response[1].rows ? res.response[1].rows : []);
+              resolve(true);
+            }
+          } else if (!res.status) {
+            resolve(false);
           }
         });
+      } catch (err) {
+        throw new Error('Contact not added.');
+      }
+    });
   }
 
   deleteContacts() {
@@ -91,12 +116,67 @@ export class ContactService {
   }
 
   removeContact(address: string) {
-    Minima.sql('DELETE FROM CONTACTS WHERE ADDRESS=\''+address+'\';SELECT * FROM CONTACTS',
-        (res: any) => {
+    Minima.sql('DELETE FROM CONTACTS WHERE ADDRESS=\'' + address +
+     '\';SELECT * FROM CONTACTS ORDER BY NAME',
+    (res: any) => {
+      if (Minima.util.checkAllResponses(res)) {
+        // update data observable
+        this.data.next(res.response[1].rows ? res.response[1].rows : []);
+      }
+    });
+  }
+
+  updateDescription(description: string, address: string) {
+    return new Promise((resolve) => {
+      try {
+        Minima.sql('UPDATE CONTACTS SET DESCRIPTION=\'' +
+        description +
+        '\' WHERE ADDRESS=\'' + address + '\';' +
+        'SELECT * FROM contacts ORDER BY NAME', (res: any) => {
+          // console.log(res);
           if (Minima.util.checkAllResponses(res)) {
-            // update data observable
-            this.data.next(res.response[1].rows ? res.response[1].rows : []);
+            if (res.response[0].status && res.response[0].update === 1) {
+              resolve(true);
+              if (res.response[1].status) {
+                this.data.next(res.response[1].rows);
+              }
+            } else {
+              resolve(false);
+            }
+          } else {
+            throw new Error('Something went wrong');
           }
         });
+      } catch (err) {
+        Minima.log(err);
+      }
+    });
+  }
+  updateAvatar(url: string, address: string, modal: ModalController) {
+    return new Promise((resolve) => {
+      try {
+        Minima.sql('UPDATE CONTACTS SET AVATAR=\'' +
+        url +
+        '\' WHERE ADDRESS=\'' + address + '\';' +
+        'SELECT * FROM contacts ORDER BY NAME', (res: any) => {
+          // console.log(res);
+          if (Minima.util.checkAllResponses(res)) {
+            if (res.response[0].status && res.response[0].update === 1) {
+              resolve(true);
+              if (res.response[1].status) {
+                this.data.next(res.response[1].rows);
+                modal.dismiss();
+              }
+            } else {
+              resolve(false);
+            }
+          } else {
+            throw new Error('Something went wrong');
+          }
+        });
+      } catch (err) {
+        Minima.log(err);
+      }
+    });
   }
 }

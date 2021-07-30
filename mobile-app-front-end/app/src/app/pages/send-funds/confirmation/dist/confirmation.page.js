@@ -77,8 +77,7 @@ var ConfirmationPage = /** @class */ (function () {
                 _this.$balance =
                     _this.minimaApiService.$balance.subscribe(function (balance) {
                         balance.forEach(function (token) {
-                            if (token.tokenid === _this.data.tokenid) {
-                                // console.log(token);
+                            if (token.tokenid === _this.data.token.tokenid) {
                                 _this.tokenName = token.token;
                                 if (token.tokenid !== '0x00' && token.icon.length > 0) {
                                     _this.tokenIcon = token.icon;
