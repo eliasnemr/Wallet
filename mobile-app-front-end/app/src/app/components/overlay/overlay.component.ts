@@ -2,6 +2,7 @@ import { MinimaApiService } from './../../service/minima-api.service';
 import { Subscription } from 'rxjs';
 import { environment } from './../../../environments/environment.prod';
 import { Component, OnInit } from '@angular/core';
+import 'animate.css';
 
 @Component({
   selector: 'app-overlay',
@@ -20,6 +21,15 @@ export class OverlayComponent implements OnInit {
     this.stillHere = false;
     setTimeout(() => {
       this.stillHere = true;
+      const el = document.querySelector('.ruler');
+      el.classList.remove('animate__heartBeat');
+      el.classList.add('animate__flipInX');
+      setTimeout(() => {
+        el.classList.remove('animate__flipInX');
+        el.classList.remove('animate__infinite');
+        el.classList.add('animate__fadeOut');
+        el.classList.add('animate__repeat-2');
+      }, 6500);
     }, 4000);
     this.environment = environment;
   }
