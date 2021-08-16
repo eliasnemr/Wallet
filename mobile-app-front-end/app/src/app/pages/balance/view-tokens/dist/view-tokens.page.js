@@ -10,9 +10,10 @@ exports.ViewTokensPage = void 0;
 var SparkMD5 = require("spark-md5");
 var core_1 = require("@angular/core");
 var ViewTokensPage = /** @class */ (function () {
-    function ViewTokensPage(route, _minimaApiService, myTools) {
+    function ViewTokensPage(route, _minimaApiService, animationCtrl, myTools) {
         this.route = route;
         this._minimaApiService = _minimaApiService;
+        this.animationCtrl = animationCtrl;
         this.myTools = myTools;
         this.expand = false;
         (this.route.snapshot.paramMap.get('id') ?

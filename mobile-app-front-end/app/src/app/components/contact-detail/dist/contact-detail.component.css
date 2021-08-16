@@ -115,3 +115,7 @@ ion-header ion-title ion-item h6 {
   white-space: nowrap;
   overflow: hidden;
 }
+
+ion-item {
+  --inner-padding-end: 0;
+}

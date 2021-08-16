@@ -43,19 +43,22 @@ ion-avatar {
     color: var(--ion-color-tertiary);
 }
 ion-item:first-child {
-    margin-top: 1%;
+    margin-top: 7px;
 }
 ion-item {
-    opacity: 1;
     --background: var(--ion-color-token);
-    --background-activated: var(--ion-color-token);
-    --background-activated-opacity: 0.2;
+    --color-hover: var(--ion-color-item-hover);
+    --background-activated-opacity: 1;
     --background-hover: var(--ion-color-item-hover);
-    --background-hover-opacity: 1;
+    --background-activated: var(--ion-color-token);
+    --background-hover-opacity: 0.2;
+    --ripple-color: var(--ion-color-token);
     background: var(--ion-color-token);
+    --color-activated: var(--ion-color-item-hover);
+    --color-focused: var(--ion-color-token);
     border: 1px solid var(--ion-color-item-border);
     border-radius: 10px;
-    margin-bottom: 2%;
+    margin-bottom: 5px;
 }
 ion-item ion-label {
     margin: 0;

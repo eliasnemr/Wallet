@@ -2,11 +2,10 @@ import { AlertController } from '@ionic/angular';
 import {MinimaApiService} from './service/minima-api.service';
 import {ToolsService} from './service/tools.service';
 import {environment} from './../environments/environment.prod';
-import {Component} from '@angular/core';
+import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import {Minima} from 'minima';
 import {timer, Subscription} from 'rxjs';
-
-const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+import { AnimationController } from '@ionic/angular';
 
 interface Menu {
   title: string;
@@ -23,29 +22,28 @@ interface Menu {
 })
 /** Bootstrap appComponent */
 export class AppComponent {
+  @ViewChild('box', { read: ElementRef, static: false }) box: ElementRef;
   nodeStatus: boolean;
   toggleValue = false;
   currentMode = false;
   menu: Menu[];
   environment = environment;
   $overlaySubscription: Subscription;
-  /** */
+
   constructor(
     public tools: ToolsService,
     private minimaApiService: MinimaApiService,
-    public alertController: AlertController) {
+    public alertController: AlertController,
+    public animationCtrl: AnimationController) {
     this.nodeStatus = false;
     this.getPages();
     this.initializeApp();
     this.setLocalStorage();
   }
-  /** exit lifecycle */
   ionViewWillLeave() {
     this.$overlaySubscription.unsubscribe();
   }
-  /** initializeApplication */
   initializeApp() {
-    // this.addToHSListener();
     this.initMinima();
   }
   /** initMinima Function */

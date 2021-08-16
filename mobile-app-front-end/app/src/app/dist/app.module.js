@@ -7,6 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 exports.__esModule = true;
 exports.AppModule = void 0;
+var index_1 = require("./shared/animations/index");
 var environment_prod_1 = require("./../environments/environment.prod");
 var contact_detail_component_1 = require("./components/contact-detail/contact-detail.component");
 var core_1 = require("@angular/core");
@@ -47,7 +48,10 @@ var AppModule = /** @class */ (function () {
                 platform_browser_1.BrowserModule,
                 service_worker_1.ServiceWorkerModule
                     .register('ngsw-worker.js', { enabled: environment_prod_1.environment.production }),
-                angular_1.IonicModule.forRoot({ animated: false })
+                angular_1.IonicModule.forRoot({
+                    animated: false,
+                    navAnimation: index_1.fancyAnimation
+                })
             ],
             providers: [
                 ngx_1.Clipboard,

@@ -4,8 +4,16 @@
   <h1>
     Minima's Official Wallet
   </h1>
-  <span class="ruler"></span>
+  <span class="animate__animated animate__heartBeat animate__infinite ruler" [ngStyle]="{ 'background-color': stillHere ? 'var(--ion-color-danger)' : 'var(--ion-color-primary)'  }"></span>
  
   <p>{{environment.wallet_version}}</p>
+
+  <p id="p-still-here" *ngIf="stillHere">Sorry</p>
+  <p id="p-still-here" *ngIf="stillHere">This is taking longer than usual,</p>
+  <p id="p-still-here" *ngIf="stillHere">Still here?  Click to</p>
+  <p id="p-still-here" *ngIf="stillHere"><a (click)="pageReload()">reload</a></p>
+  <p id="p-still-here" *ngIf="stillHere">the page.</p>
+
+  <ion-note *ngIf="stillHere">Need help?  Contact <a href="https://discord.gg/EG6xvhBm" target="_"> Minima Support.</a></ion-note>
 
 </div>
