@@ -1,5 +1,4 @@
 import { fancyAnimation } from './shared/animations/index';
-import { enterAnimation } from './shared/animations';
 import { environment } from './../environments/environment.prod';
 import { ContactDetailComponent } from './components/contact-detail/contact-detail.component';
 import {NgModule} from '@angular/core';
