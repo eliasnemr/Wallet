@@ -4,11 +4,9 @@
   <h1>
     Minima's Official Wallet
   </h1>
-  <span [ngStyle]="{ 'background-color': stillHere ? 'var(--ion-color-danger)' : 'var(--ion-color-primary)'  }" class="ruler"></span>
+  <span class="animate__animated animate__heartBeat animate__infinite ruler" [ngStyle]="{ 'background-color': stillHere ? 'var(--ion-color-danger)' : 'var(--ion-color-primary)'  }"></span>
  
   <p>{{environment.wallet_version}}</p>
-
-  <ion-spinner *ngIf="!stillHere" name="bubbles" color="secondary"></ion-spinner>
 
   <p id="p-still-here" *ngIf="stillHere">Sorry</p>
   <p id="p-still-here" *ngIf="stillHere">This is taking longer than usual,</p>
