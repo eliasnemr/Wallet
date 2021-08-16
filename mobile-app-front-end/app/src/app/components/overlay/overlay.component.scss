@@ -29,6 +29,11 @@ div {
     }
   }
 
+  a {
+    cursor: pointer;
+    font-family: manrope-bold;
+  }
+
   img {
     width: 65.43px;
     height: 59.01px;
@@ -37,7 +42,7 @@ div {
   h1 {
     color: #FAFAFF;
     font-size: 23px;
-    font-family: manrope-semibold;
+    font-family: manrope-light;
   }
 
   p {
@@ -45,5 +50,19 @@ div {
     opacity: 0.3;
     font-family: monospace;
     text-shadow: 2px 2px #ff0000;
+  }
+
+  ion-note {
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    padding: 1.0rem;
+    color: #FAFAf0;
+    font-family: monospace;
+  }
+  p#p-still-here {
+    text-shadow: none;
+    color: #FAFAF0;
+    opacity: 1;
   }
 }

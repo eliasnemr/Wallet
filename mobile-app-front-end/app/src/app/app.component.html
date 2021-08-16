@@ -27,7 +27,7 @@
             routerLinkActive="active"
             routerDirection="root"
             [hidden] = "p.hidden"
-            [routerLink]="p.routerLink"
+            [routerLink]="[p.routerLink]"
             lines="{{ p.line }}">
 
             
@@ -37,14 +37,14 @@
               {{ p.title }}
             </ion-label>
             </ion-item>
-            <ion-item 
+            <ion-item
             href="mailto:minima-global@fire.fundersclub.com?subject=Insert Wallet Bug Name&body=Brief description, reproduction of bug and your phone specifications:"
             class="my-menu-item ion-no-padding ion-no-margin no-ripple hover report-bug-btn"
             detail="false"
             lines="none">
             <ion-icon src="assets/reportABugIconBlack.svg"></ion-icon>
             <ion-label>
-              Report A Bug
+              Bug Report
             </ion-label>    
             </ion-item>
         </ion-menu-toggle>

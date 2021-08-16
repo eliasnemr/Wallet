@@ -33,6 +33,7 @@
     <ion-row>
       <ion-col class="ion-no-padding" size="12">
         <input value="{{ qrCode }}" class="qrcode-box">
+        <ion-skeleton-text animated width="100%" *ngIf="qrCode.length === 0"></ion-skeleton-text>
       </ion-col>
     </ion-row>
     <ion-row class="mt-18">

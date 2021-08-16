@@ -1,5 +1,7 @@
+import { MinimaApiService } from './../../service/minima-api.service';
+import { Subscription } from 'rxjs';
 import { environment } from './../../../environments/environment.prod';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-overlay',
@@ -7,10 +9,18 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./overlay.component.scss'],
 })
 export class OverlayComponent implements OnInit {
-
+  readonly TIMERZERO = 0;
+  readonly TIMER = 1000000;
+  statusSubscriber: Subscription;
+  balanceSubscriber: Subscription;
   environment: any;
+  stillHere: boolean;
 
-  constructor() {
+  constructor(private api: MinimaApiService) {
+    this.stillHere = false;
+    setTimeout(() => {
+      this.stillHere = true;
+    }, 4000);
     this.environment = environment;
   }
 
@@ -19,5 +29,4 @@ export class OverlayComponent implements OnInit {
   pageReload() {
     location.reload();
   }
-
 }

@@ -21,15 +21,14 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="page-content">
+<ion-content #content class="page-content">
   <div *ngIf="prompt && prompt.length > 0" class="center prompt">
     {{ prompt }}
   </div>
 
-
   <ion-list *ngFor="let token of $token" lines="none">
     <ion-item *ngIf="expand" class="ion-no-padding ion-no-margin nft-large">
-      <div (click)="expandImage()">
+      <div class="avatarWrapper" (click)="expandImage()">
         <ion-icon name="resize-outline"></ion-icon>
           <img
           class="custom-icon-big"
@@ -46,13 +45,13 @@
           <img 
           class="custom-icon-big"
           *ngIf="token?.tokenid === '0x00'" 
-          alt="minima" 
+          alt="minima"
           src="assets/minimaIcon.svg">
       </div>
     </ion-item>
-    <ion-item class="ion-no-padding" color="none">
-      <ion-avatar slot="start" (click)="expandImage()">
-        <ion-icon  name="expand-outline"></ion-icon>
+    <ion-item *ngIf="!expand" class="ion-no-padding" color="none">
+      <ion-avatar #avatarWrapper slot="start" (click)="expandImage()">
+        <ion-icon name="expand-outline"></ion-icon>
         <img 
         class="custom-icon" 
         *ngIf="token?.tokenid !== '0x00' && token?.icon.length == 0" 

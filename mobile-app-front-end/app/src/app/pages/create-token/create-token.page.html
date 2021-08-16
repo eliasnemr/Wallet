@@ -36,8 +36,8 @@
     </ion-item>
 
     <ion-note *ngIf="name.invalid && name.touched" class="error-message">
-      <div> Token name required!</div>
-      <div> Maximum length of 255 characters.</div> 
+      <div *ngIf="name.touched && name.value.length === 0"> Token name required!</div>
+      <div *ngIf="name.touched && name.value.length > 255"> Maximum length of 255 characters.</div> 
     </ion-note>
 
     <ion-item class="no-ripple ion-no-padding" lines="none">
@@ -57,9 +57,8 @@
     </ion-item>
 
     <ion-note *ngIf="amount.invalid && amount.touched" class="error-message">
-      <div> Token amount required!</div>
-      <div> No decimals allowed.</div>
-      <div> Must be a digit and greater than 0.</div>
+      <div *ngIf="amount.touched && amount.value.length === 0"> Token amount required!</div>
+      <div *ngIf="amount.invalid && amount.touched && amount.value > 0"> Value must be a digit, no decimals allowed.</div>
     </ion-note>
 
     <ion-item class="no-ripple ion-no-padding" lines="none" lines="none">

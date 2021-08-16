@@ -130,3 +130,7 @@ ion-header {
     }
   }
 }
+
+ion-item {
+  --inner-padding-end: 0;
+}

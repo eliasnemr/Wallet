@@ -56,8 +56,10 @@ var MinimaApiService = /** @class */ (function () {
         this.$status = new rxjs_1.ReplaySubject(1);
         this.$urlData = new rxjs_1.ReplaySubject(1);
         this.$miningStatus = new rxjs_1.ReplaySubject(1);
+        // Instantiate with Minima Token as a first
         this.currentTokenSelected = new rxjs_1.BehaviorSubject('0x00');
     }
+    // Fetch balance first time
     MinimaApiService.prototype.init = function (balance) {
         this.$balance.next(balance);
     };

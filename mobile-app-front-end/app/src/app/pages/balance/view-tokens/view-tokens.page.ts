@@ -1,3 +1,4 @@
+import { AnimationController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { ToolsService } from './../../../service/tools.service';
 import { MinimaApiService } from './../../../service/minima-api.service';
@@ -5,6 +6,7 @@ import { Token } from 'minima';
 import * as SparkMD5 from 'spark-md5';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+
 
 @Component({
   selector: 'app-view-tokens',
@@ -23,6 +25,7 @@ export class ViewTokensPage implements OnInit {
   constructor(
     public route: ActivatedRoute,
     public _minimaApiService: MinimaApiService,
+    public animationCtrl: AnimationController,
     private myTools: ToolsService,
   ) {
     this.expand = false;

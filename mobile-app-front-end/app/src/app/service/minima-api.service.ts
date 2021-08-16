@@ -36,9 +36,10 @@ export class MinimaApiService {
     this.$status = new ReplaySubject<NetworkStatus>(1);
     this.$urlData = new ReplaySubject<SendFormObj>(1);
     this.$miningStatus = new ReplaySubject<Mining>(1);
+    // Instantiate with Minima Token as a first
     this.currentTokenSelected = new BehaviorSubject<string>('0x00');
   }
-
+  // Fetch balance first time
   init(balance: Token[]) {
     this.$balance.next(balance);
   }

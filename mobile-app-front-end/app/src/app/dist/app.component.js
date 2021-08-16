@@ -11,13 +11,12 @@ var environment_prod_1 = require("./../environments/environment.prod");
 var core_1 = require("@angular/core");
 var minima_1 = require("minima");
 var rxjs_1 = require("rxjs");
-var prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
 var AppComponent = /** @class */ (function () {
-    /** */
-    function AppComponent(tools, minimaApiService, alertController) {
+    function AppComponent(tools, minimaApiService, alertController, animationCtrl) {
         this.tools = tools;
         this.minimaApiService = minimaApiService;
         this.alertController = alertController;
+        this.animationCtrl = animationCtrl;
         this.toggleValue = false;
         this.currentMode = false;
         this.environment = environment_prod_1.environment;
@@ -26,13 +25,10 @@ var AppComponent = /** @class */ (function () {
         this.initializeApp();
         this.setLocalStorage();
     }
-    /** exit lifecycle */
     AppComponent.prototype.ionViewWillLeave = function () {
         this.$overlaySubscription.unsubscribe();
     };
-    /** initializeApplication */
     AppComponent.prototype.initializeApp = function () {
-        // this.addToHSListener();
         this.initMinima();
     };
     /** initMinima Function */
@@ -157,6 +153,9 @@ var AppComponent = /** @class */ (function () {
             localStorage.setItem('termFontSize', '' + 14);
         }
     };
+    __decorate([
+        core_1.ViewChild('box', { read: core_1.ElementRef, static: false })
+    ], AppComponent.prototype, "box");
     AppComponent = __decorate([
         core_1.Component({
             selector: 'app-root',
