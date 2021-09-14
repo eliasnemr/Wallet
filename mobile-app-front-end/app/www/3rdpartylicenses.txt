@@ -156,7 +156,7 @@ decimal.js
 MIT
 The MIT Licence.
 
-Copyright (c) 2020 Michael Mclaughlin
+Copyright (c) 2021 Michael Mclaughlin
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
@@ -1117,7 +1117,7 @@ Apache-2.0
 
 
 spark-md5
-WTFPL
+(WTFPL OR MIT)
             DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
                     Version 2, December 2004
 
