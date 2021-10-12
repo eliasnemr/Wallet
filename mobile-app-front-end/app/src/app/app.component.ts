@@ -1,4 +1,3 @@
-import { DirectusService } from './service/directus.service';
 import { AlertController } from '@ionic/angular';
 import { MinimaApiService, IncentiveTokenId } from './service/minima-api.service';
 import { ToolsService } from './service/tools.service';
@@ -35,8 +34,7 @@ export class AppComponent {
     public tools: ToolsService,
     public alertController: AlertController,
     public animationCtrl: AnimationController,
-    private minimaApiService: MinimaApiService,
-    private directus: DirectusService) {
+    private minimaApiService: MinimaApiService) {
     this.nodeStatus = false;
     this.getPages();
     this.initializeApp();

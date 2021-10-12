@@ -65,7 +65,7 @@ var MinimaApiService = /** @class */ (function () {
         var _this = this;
         this.$incentiveTokenId.subscribe(function (incentiveToken) {
             var result = balance.filter(function (b) { return b.tokenid !== incentiveToken.tokenId; });
-            console.log("Filter incentiveCash out array", result);
+            // console.log(`Filter incentiveCash out array`, result);
             _this.$balance.next(result);
         });
     };

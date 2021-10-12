@@ -12,12 +12,11 @@ var core_1 = require("@angular/core");
 var minima_1 = require("minima");
 var rxjs_1 = require("rxjs");
 var AppComponent = /** @class */ (function () {
-    function AppComponent(tools, alertController, animationCtrl, minimaApiService, directus) {
+    function AppComponent(tools, alertController, animationCtrl, minimaApiService) {
         this.tools = tools;
         this.alertController = alertController;
         this.animationCtrl = animationCtrl;
         this.minimaApiService = minimaApiService;
-        this.directus = directus;
         this.toggleValue = false;
         this.currentMode = false;
         this.environment = environment_prod_1.environment;

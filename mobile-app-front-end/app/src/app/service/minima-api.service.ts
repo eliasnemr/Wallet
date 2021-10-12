@@ -51,7 +51,7 @@ export class MinimaApiService {
     this.$incentiveTokenId.subscribe((incentiveToken: IncentiveTokenId) => {
 
       const result = balance.filter((b: Token) => b.tokenid !== incentiveToken.tokenId);
-      console.log(`Filter incentiveCash out array`, result);
+      // console.log(`Filter incentiveCash out array`, result);
       this.$balance.next(result);
     });
 
