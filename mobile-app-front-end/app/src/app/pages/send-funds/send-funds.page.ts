@@ -1,4 +1,3 @@
-import { take } from 'rxjs/operators';
 import { TokenModalComponent } from
   './../../components/token-modal/token-modal.component';
 import {ContactService,

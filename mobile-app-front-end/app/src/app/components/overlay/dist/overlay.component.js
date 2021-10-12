@@ -9,7 +9,6 @@ exports.__esModule = true;
 exports.OverlayComponent = void 0;
 var environment_prod_1 = require("./../../../environments/environment.prod");
 var core_1 = require("@angular/core");
-require("animate.css");
 var OverlayComponent = /** @class */ (function () {
     function OverlayComponent(api) {
         var _this = this;
@@ -19,15 +18,6 @@ var OverlayComponent = /** @class */ (function () {
         this.stillHere = false;
         setTimeout(function () {
             _this.stillHere = true;
-            var el = document.querySelector('.ruler');
-            el.classList.remove('animate__heartBeat');
-            el.classList.add('animate__flipInX');
-            setTimeout(function () {
-                el.classList.remove('animate__flipInX');
-                el.classList.remove('animate__infinite');
-                el.classList.add('animate__fadeOut');
-                el.classList.add('animate__repeat-2');
-            }, 6500);
         }, 4000);
         this.environment = environment_prod_1.environment;
     }

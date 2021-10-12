@@ -56,12 +56,18 @@ var MinimaApiService = /** @class */ (function () {
         this.$status = new rxjs_1.ReplaySubject(1);
         this.$urlData = new rxjs_1.ReplaySubject(1);
         this.$miningStatus = new rxjs_1.ReplaySubject(1);
+        this.$incentiveTokenId = new rxjs_1.ReplaySubject(1);
         // Instantiate with Minima Token as a first
         this.currentTokenSelected = new rxjs_1.BehaviorSubject('0x00');
     }
     // Fetch balance first time
     MinimaApiService.prototype.init = function (balance) {
-        this.$balance.next(balance);
+        var _this = this;
+        this.$incentiveTokenId.subscribe(function (incentiveToken) {
+            var result = balance.filter(function (b) { return b.tokenid !== incentiveToken.tokenId; });
+            console.log("Filter incentiveCash out array", result);
+            _this.$balance.next(result);
+        });
     };
     MinimaApiService.prototype.initStatus = function () {
         var _this = this;

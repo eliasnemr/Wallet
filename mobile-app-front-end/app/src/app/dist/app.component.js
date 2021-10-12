@@ -12,11 +12,12 @@ var core_1 = require("@angular/core");
 var minima_1 = require("minima");
 var rxjs_1 = require("rxjs");
 var AppComponent = /** @class */ (function () {
-    function AppComponent(tools, minimaApiService, alertController, animationCtrl) {
+    function AppComponent(tools, alertController, animationCtrl, minimaApiService, directus) {
         this.tools = tools;
-        this.minimaApiService = minimaApiService;
         this.alertController = alertController;
         this.animationCtrl = animationCtrl;
+        this.minimaApiService = minimaApiService;
+        this.directus = directus;
         this.toggleValue = false;
         this.currentMode = false;
         this.environment = environment_prod_1.environment;
@@ -24,6 +25,7 @@ var AppComponent = /** @class */ (function () {
         this.getPages();
         this.initializeApp();
         this.setLocalStorage();
+        this.fetchIncentiveCashId();
     }
     AppComponent.prototype.ionViewWillLeave = function () {
         this.$overlaySubscription.unsubscribe();
@@ -39,6 +41,7 @@ var AppComponent = /** @class */ (function () {
                 var msZero = 0;
                 var msTimer = 3000;
                 var source = rxjs_1.timer(msZero, msTimer);
+                // add an overlay if Minima is offline
                 _this.$overlaySubscription = source.subscribe(function () {
                     if (minima_1.Minima.block === 0) {
                         _this.nodeStatus = false;
@@ -53,7 +56,13 @@ var AppComponent = /** @class */ (function () {
             }
             else if (msg.event === 'newbalance') {
                 _this.tools.presentToast('Balance updated!', 'primary', 'top');
-                _this.minimaApiService.$balance.next(msg.info.balance);
+                _this.minimaApiService.$incentiveTokenId.subscribe(function (b) {
+                    var balance = msg.info.balance;
+                    var result = balance.filter(function (tkn) { return tkn.tokenid !== b.tokenId; });
+                    // console.log(`Result after filtering out incentiveCash`, result);
+                    _this.minimaApiService.$balance.next(result);
+                });
+                // this.minimaApiService.$balance.next(msg.info.balance);
             }
             else if (msg.event === 'miningstart') {
                 var miningStatus = {
@@ -152,6 +161,33 @@ var AppComponent = /** @class */ (function () {
         if (!localStorage.getItem('termFontSize')) {
             localStorage.setItem('termFontSize', '' + 14);
         }
+    };
+    /**
+     * Fetch incentive's cash tokenId so that we can filter it out from the app
+     */
+    AppComponent.prototype.fetchIncentiveCashId = function () {
+        var _this = this;
+        var url = 'https://incentivedb.minima.global/custom/minima/token';
+        fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function (response) {
+            // console.log(response);
+            if (!response.ok) {
+                console.log('TokenId failed to fetch from server');
+            }
+            return response.json();
+        }).then(function (data) {
+            // console.log(data);
+            if (data.errors) {
+                console.log("" + data.errors[0].message);
+            }
+            _this.minimaApiService.$incentiveTokenId.next(data);
+        })["catch"](function (error) {
+            console.log(error);
+        });
     };
     __decorate([
         core_1.ViewChild('box', { read: core_1.ElementRef, static: false })

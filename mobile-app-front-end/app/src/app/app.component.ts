@@ -1,10 +1,11 @@
+import { DirectusService } from './service/directus.service';
 import { AlertController } from '@ionic/angular';
-import {MinimaApiService} from './service/minima-api.service';
-import {ToolsService} from './service/tools.service';
-import {environment} from './../environments/environment.prod';
-import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import {Minima} from 'minima';
-import {timer, Subscription} from 'rxjs';
+import { MinimaApiService, IncentiveTokenId } from './service/minima-api.service';
+import { ToolsService } from './service/tools.service';
+import { environment } from './../environments/environment.prod';
+import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Minima, Token } from 'minima';
+import { timer, Subscription } from 'rxjs';
 import { AnimationController } from '@ionic/angular';
 
 interface Menu {
@@ -32,13 +33,15 @@ export class AppComponent {
 
   constructor(
     public tools: ToolsService,
-    private minimaApiService: MinimaApiService,
     public alertController: AlertController,
-    public animationCtrl: AnimationController) {
+    public animationCtrl: AnimationController,
+    private minimaApiService: MinimaApiService,
+    private directus: DirectusService) {
     this.nodeStatus = false;
     this.getPages();
     this.initializeApp();
     this.setLocalStorage();
+    this.fetchIncentiveCashId();
   }
   ionViewWillLeave() {
     this.$overlaySubscription.unsubscribe();
@@ -53,6 +56,7 @@ export class AppComponent {
         const msZero = 0;
         const msTimer = 3000;
         const source = timer(msZero, msTimer);
+        // add an overlay if Minima is offline
         this.$overlaySubscription = source.subscribe(() => {
           if (Minima.block === 0) {
             this.nodeStatus = false;
@@ -62,11 +66,19 @@ export class AppComponent {
             }, 2000);
           }
         });
+
         this.minimaApiService.init(Minima.balance);
       } else if (msg.event === 'newbalance') {
         this.tools.presentToast('Balance updated!', 'primary', 'top');
 
-        this.minimaApiService.$balance.next(msg.info.balance);
+        this.minimaApiService.$incentiveTokenId.subscribe((b: IncentiveTokenId) => {
+          const balance = msg.info.balance;
+          const result = balance.filter((tkn: Token) => tkn.tokenid !== b.tokenId);
+          // console.log(`Result after filtering out incentiveCash`, result);
+          this.minimaApiService.$balance.next(result);
+        });
+
+        // this.minimaApiService.$balance.next(msg.info.balance);
       } else if (msg.event === 'miningstart') {
         const miningStatus = {
           'started': true,
@@ -161,5 +173,34 @@ export class AppComponent {
     if (!localStorage.getItem('termFontSize')) {
       localStorage.setItem('termFontSize', '' + 14);
     }
+  }
+  /**
+   * Fetch incentive's cash tokenId so that we can filter it out from the app
+   */
+  fetchIncentiveCashId() {
+    const url = 'https://incentivedb.minima.global/custom/minima/token';
+    fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }).then((response) => {
+      // console.log(response);
+
+      if (!response.ok) {
+        console.log('TokenId failed to fetch from server');
+      }
+
+      return response.json();
+    }).then((data) => {
+      // console.log(data);
+
+      if (data.errors) {
+        console.log(`${data.errors[0].message}`);
+      }
+      this.minimaApiService.$incentiveTokenId.next(data);
+    }).catch((error) => {
+      console.log(error);
+    });
   }
 }

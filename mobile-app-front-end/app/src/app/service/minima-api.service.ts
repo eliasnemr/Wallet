@@ -16,6 +16,10 @@ export interface Mining {
   started: boolean;
   finished: boolean;
 }
+export interface IncentiveTokenId {
+  tokenId: string;
+  scale: number;
+}
 
 @Injectable({
   providedIn: 'root',
@@ -26,6 +30,7 @@ export class MinimaApiService {
   public $status: Subject<NetworkStatus>;
   public $urlData: Subject<SendFormObj>;
   public $miningStatus: Subject<Mining>;
+  public $incentiveTokenId: Subject<IncentiveTokenId>;
   currentTokenSelected: BehaviorSubject<string>;
 
   constructor(
@@ -36,12 +41,20 @@ export class MinimaApiService {
     this.$status = new ReplaySubject<NetworkStatus>(1);
     this.$urlData = new ReplaySubject<SendFormObj>(1);
     this.$miningStatus = new ReplaySubject<Mining>(1);
+    this.$incentiveTokenId = new ReplaySubject<IncentiveTokenId>(1);
     // Instantiate with Minima Token as a first
     this.currentTokenSelected = new BehaviorSubject<string>('0x00');
   }
   // Fetch balance first time
   init(balance: Token[]) {
-    this.$balance.next(balance);
+
+    this.$incentiveTokenId.subscribe((incentiveToken: IncentiveTokenId) => {
+
+      const result = balance.filter((b: Token) => b.tokenid !== incentiveToken.tokenId);
+      console.log(`Filter incentiveCash out array`, result);
+      this.$balance.next(result);
+    });
+
   }
 
   initStatus() {
